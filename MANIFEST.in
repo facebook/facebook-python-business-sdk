@@ -1,0 +1,3 @@
+include . *.txt *.rst *.html *.py
+recursive-include examples *.jpg *.py *.dist
+recursive-include facebookads *.py *.crt *.jpg
