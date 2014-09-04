@@ -196,7 +196,7 @@ for your api instance::
 
 Calls can be added to the batch instead of being executed immediately::
 
-    campaign.delete(batch=my_api_batch)
+    campaign.remote_delete(batch=my_api_batch)
 
 Once you're finished adding calls to the batch, you can send off the request::
 
