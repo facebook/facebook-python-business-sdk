@@ -1124,6 +1124,7 @@ class HasObjective(object):
         post_engagement = 'POST_ENGAGEMENT'
         website_clicks = 'WEBSITE_CLICKS'
         website_conversions = 'WEBSITE_CONVERSIONS'
+        video_views = 'VIDEO_VIEWS'
 
 
 class HasStatus(object):
