@@ -1109,7 +1109,7 @@ class AdAccountGroupUser(AbstractCrudObject):
 class HasObjective(object):
 
     """
-    An instance or HasObjective will have an enum attribute Objective.
+    An instance of HasObjective will have an enum attribute Objective.
     """
 
     class Objective(object):
@@ -1130,7 +1130,7 @@ class HasObjective(object):
 class HasStatus(object):
 
     """
-    An instance or HasObjective will have an enum attribute Status.
+    An instance of HasStatus will have an enum attribute Status.
     """
 
     class Status(object):
@@ -1176,7 +1176,7 @@ class AdCampaign(HasStatus, HasObjective, AbstractCrudObject):
 class HasBidInfo(object):
 
     """
-    An instance or HasObjective will have an enum attribute BidInfo.
+    An instance of HasBidInfo will have an enum attribute BidInfo.
     """
 
     class BidInfo(object):
