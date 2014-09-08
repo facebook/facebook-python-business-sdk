@@ -29,12 +29,12 @@ readme_filename = os.path.join(this_dir, 'README.rst')
 requirements_filename = os.path.join(this_dir, 'requirements.txt')
 
 PACKAGE_NAME = 'facebookads'
-PACKAGE_VERSION = '0.1'
+PACKAGE_VERSION = '0.1.1'
 PACKAGE_AUTHOR = 'Facebook'
 PACKAGE_AUTHOR_EMAIL = ''
 PACKAGE_URL = 'https://github.com/facebook/facebook-python-ads-sdk'
 PACKAGE_DOWNLOAD_URL = \
-    'https://github.com/facebook/facebook-python-ads-sdk/tarball/0.1'
+    'https://github.com/facebook/facebook-python-ads-sdk/tarball/' + PACKAGE_VERSION
 PACKAGES = ['facebookads', 'facebookads.test']
 PACKAGE_DATA = {
     'facebookads': ['*.crt'],
