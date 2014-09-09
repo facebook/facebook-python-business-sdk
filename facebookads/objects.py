@@ -1202,12 +1202,14 @@ class AdSet(HasStatus, AbstractCrudObject):
         bid_type = 'bid_type'
         budget_remaining = 'budget_remaining'
         campaign_group_id = 'campaign_group_id'
+        campaign_schedule = 'campaign_schedule'
         created_time = 'created_time'
         daily_budget = 'daily_budget'
         end_time = 'end_time'
         id = 'id'
         lifetime_budget = 'lifetime_budget'
         name = 'name'
+        pacing_type = 'pacing_type'
         start_time = 'start_time'
         status = 'campaign_status'
         targeting = 'targeting'
@@ -1218,6 +1220,10 @@ class AdSet(HasStatus, AbstractCrudObject):
         cpc = 'CPC'
         cpm = 'CPM'
         multi_premium = 'multi_premium'
+
+    class PacingType(object):
+        day_parting = 'day_parting'
+        standard = 'standard'
 
     @classmethod
     def get_endpoint(cls):

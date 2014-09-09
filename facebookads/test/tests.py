@@ -62,6 +62,9 @@ class FacebookAdsTestCase(unittest.TestCase):
             objects.AdSet.Field.name: 'AdSetTestCase %s' % cls.TEST_ID,
             objects.AdSet.Field.campaign_group_id: campaign_group_id,
             objects.AdSet.Field.status: objects.AdSet.Status.paused,
+            objects.AdSet.Field.pacing_type: [
+                objects.AdSet.PacingType.standard,
+            ],
             objects.AdSet.Field.daily_budget: 100,
             objects.AdSet.Field.bid_type: objects.AdSet.BidType.cpc,
             objects.AdSet.Field.bid_info: {
