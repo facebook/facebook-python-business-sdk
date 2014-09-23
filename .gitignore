@@ -2,3 +2,5 @@
 MANIFEST
 dist
 build
+.DS_Store
+/.idea
