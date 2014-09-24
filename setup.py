@@ -31,6 +31,7 @@ requirements_filename = os.path.join(this_dir, 'requirements.txt')
 PACKAGE_NAME = 'facebookads'
 PACKAGE_VERSION = '0.1.1'
 PACKAGE_AUTHOR = 'Facebook'
+PACKAGE_AUTHOR_EMAIL = ''
 PACKAGE_URL = 'https://github.com/facebook/facebook-python-ads-sdk'
 PACKAGE_DOWNLOAD_URL = \
     'https://github.com/facebook/facebook-python-ads-sdk/tarball/' + PACKAGE_VERSION
@@ -46,12 +47,13 @@ with open(readme_filename) as f:
     PACKAGE_LONG_DESCRIPTION = f.read()
 
 with open(requirements_filename) as f:
-    PACKAGE_INSTALL_REQUIRES = [line for line in f]
+    PACKAGE_INSTALL_REQUIRES = [line[:-1] for line in f]
 
 setup(
-    name='facebookads',
-    version='0.1',
-    author='Facebook',
+    name=PACKAGE_NAME,
+    version=PACKAGE_VERSION,
+    author=PACKAGE_AUTHOR,
+    author_email=PACKAGE_AUTHOR_EMAIL,
     url=PACKAGE_URL,
     download_url=PACKAGE_DOWNLOAD_URL,
     packages=PACKAGES,
