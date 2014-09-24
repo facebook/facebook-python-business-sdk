@@ -27,8 +27,7 @@ from facebookads.exceptions import FacebookBadObjectError
 from facebookads.api import FacebookAdsApi
 
 import collections
-import pprint
-pp = pprint.PrettyPrinter(indent=4)
+import json
 
 
 class EdgeIterator(object):
@@ -169,7 +168,15 @@ class AbstractObject(collections.MutableMapping):
         return unicode(self._data)
 
     def __repr__(self):
-        return pp.pformat(self._data)
+        return "<%s> %s" % (
+            self.__class__.__name__,
+            json.dumps(
+                self._data,
+                sort_keys=True,
+                indent=4,
+                separators=(',', ': ')
+            ),
+        )
 
     @classmethod
     def get_endpoint(cls):
