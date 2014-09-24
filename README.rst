@@ -10,11 +10,13 @@ Ads API.
 1. Install
 ==========
 
+Use ``pip3`` and ``python3`` if you use Python 3. Use ``sudo`` if any of these complain about permissions. ``easy_install pip`` if you don't have ``pip``.
+
 Via pip::
 
     pip install facebookads
 
-Downloaded package::
+Or locally via downloaded package::
 
     python setup.py install
 
