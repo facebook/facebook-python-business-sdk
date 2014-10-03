@@ -137,15 +137,6 @@ defining the ``parent_id`` argument. Lastly, if you want to interact with the
 API using a specific api object instead of the default, you can specify the
 ``api`` argument.
 
-#### Parent Child relationship
-
-**WARNING**: There is a method called ``child`` on ``AbstractCrudObject``'s. All
-this method does is take in a class and instantiates it with the argument
-``parent_id=self.get_id_assured()``. Do not confuse the terms parent and child
-as anything other than the parts of the path to the API endpoint. For example,
-since an Ad Group's endpoint is ``act_{ad_account_id}/adgroups``, we must
-specify the parent as the account when instantiating a new ``AdGroup`` object.
-
 ### Edges
 
 Look at the methods of an object to see what associations over which we can
@@ -195,10 +186,10 @@ Or if you already know your account id:
 ## Create
 
 Let's create a campaign. It's in the context of the account, i.e. its parent
-should be the account, so we instantiate a child object of our account.
+should be the account.
 
 ```python
-campaign = my_account.child(objects.AdCampaign)
+campaign = objects.AdCampaign(parent_id = my_account.get_id_assured())
 ```
 
 Then we specify some details about the campaign. To figure out what properties

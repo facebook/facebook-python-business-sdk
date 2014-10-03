@@ -731,12 +731,6 @@ class AbstractCrudObject(AbstractObject):
         # if nothing found, return None
         return None
 
-    def child(self, target_object_class):
-        """
-        Returns an instance of target_object_class with self's id as parent_id.
-        """
-        return target_object_class(parent_id=self.get_id_assured())
-
 
 class CannotCreate(object):
 

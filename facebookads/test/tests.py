@@ -46,7 +46,9 @@ class FacebookAdsTestCase(unittest.TestCase):
 
     @classmethod
     def new_test_campaign(cls):
-        campaign = cls.TEST_ACCOUNT.child(objects.AdCampaign)
+        campaign = objects.AdCampaign(
+            parent_id=cls.TEST_ACCOUNT.get_id_assured()
+        )
         campaign.update({
             objects.AdCampaign.Field.name: 'AdSetTestCase %s' % cls.TEST_ID
         })
@@ -57,7 +59,7 @@ class FacebookAdsTestCase(unittest.TestCase):
     def new_test_ad_set(cls, campaign):
         campaign_group_id = campaign.get_id_assured()
 
-        ad_set = cls.TEST_ACCOUNT.child(objects.AdSet)
+        ad_set = objects.AdSet(parent_id=cls.TEST_ACCOUNT.get_id_assured())
         ad_set.update({
             objects.AdSet.Field.name: 'AdSetTestCase %s' % cls.TEST_ID,
             objects.AdSet.Field.campaign_group_id: campaign_group_id,
@@ -85,11 +87,13 @@ class FacebookAdsTestCase(unittest.TestCase):
     def new_test_ad_group(cls, ad_set):
         campaign_id = ad_set.get_id_assured()
 
-        img = cls.TEST_ACCOUNT.child(objects.AdImage)
+        img = objects.AdImage(parent_id=cls.TEST_ACCOUNT.get_id_assured())
         img.remote_create_from_filename(cls.TEST_IMAGE_PATH)
         image_hash = img.get_hash()
 
-        creative = cls.TEST_ACCOUNT.child(objects.AdCreative)
+        creative = objects.AdCreative(
+            parent_id=cls.TEST_ACCOUNT.get_id_assured()
+        )
         creative.update({
             objects.AdCreative.Field.title: "Test AdCreative %s" % cls.TEST_ID,
             objects.AdCreative.Field.body: "Test ad",
@@ -99,7 +103,7 @@ class FacebookAdsTestCase(unittest.TestCase):
         creative.remote_create()
         creative_id = creative.get_id_assured()
 
-        ad_group = cls.TEST_ACCOUNT.child(objects.AdGroup)
+        ad_group = objects.AdGroup(parent_id=cls.TEST_ACCOUNT.get_id_assured())
         ad_group.update({
             objects.AdGroup.Field.name: 'AdGroupTestCase %s' % cls.TEST_ID,
             objects.AdGroup.Field.campaign_id: campaign_id,

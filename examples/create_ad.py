@@ -67,7 +67,7 @@ if __name__ == '__main__':
     my_account = me.get_ad_account()
 
     ### Create a Campaign
-    campaign = my_account.child(AdCampaign)
+    campaign = AdCampaign(parent_id=my_account.get_id_assured())
     campaign.update({
         AdCampaign.Field.name: 'Seattle Ad Campaign',
         AdCampaign.Field.objective: AdCampaign.Objective.website_clicks,
@@ -78,7 +78,7 @@ if __name__ == '__main__':
     pp.pprint(campaign)
 
     ### Create an Ad Set
-    ad_set = my_account.child(AdSet)
+    ad_set = AdSet(parent_id=my_account.get_id_assured())
     ad_set.update({
         AdSet.Field.name: 'Puget Sound AdSet',
         AdSet.Field.status: AdSet.Status.paused,
@@ -102,13 +102,13 @@ if __name__ == '__main__':
     pp.pprint(ad_set)
 
     ### Upload an image to an account.
-    img = my_account.child(AdImage)
+    img = AdImage(parent_id=my_account.get_id_assured())
     img.remote_create_from_filename(os.path.join(this_dir, 'puget_sound.jpg'))
     print("**** DONE: Image uploaded:")
     pp.pprint(img)  # The image hash can be found using img[AdImage.Field.hash]
 
     ### Create a creative.
-    creative = my_account.child(AdCreative)
+    creative = AdCreative(parent_id=my_account.get_id_assured())
     creative.update({
         AdCreative.Field.title: 'Visit Seattle',
         AdCreative.Field.body: 'Beautiful Puget Sound!',
@@ -120,7 +120,7 @@ if __name__ == '__main__':
     pp.pprint(creative)
 
     ### Get excited, we are finally creating an ad!!!
-    ad = my_account.child(AdGroup)
+    ad = AdGroup(parent_id=my_account.get_id_assured())
     ad.update({
         AdGroup.Field.name: 'Puget Sound impression ad',
         AdGroup.Field.campaign_id: ad_set.get_id_assured(),

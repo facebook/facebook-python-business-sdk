@@ -68,7 +68,7 @@ def create_multiple_website_clicks_ads(
 
     # Create campaign
     if not campaign:
-        campaign = account.child(AdCampaign)
+        campaign = AdCampaign(parent_id=account.get_id_assured())
         campaign[AdCampaign.Field.name] = name + ' Campaign'
         campaign[AdCampaign.Field.objective] = \
             AdCampaign.Objective.website_clicks
@@ -78,7 +78,7 @@ def create_multiple_website_clicks_ads(
         campaign.remote_create()
 
     # Create ad set
-    ad_set = account.child(AdSet)
+    ad_set = AdSet(parent_id=account.get_id_assured())
     ad_set[AdSet.Field.campaign_group_id] = campaign.get_id_assured()
     ad_set[AdSet.Field.name] = name + ' AdSet'
     ad_set[AdSet.Field.bid_type] = bid_type
@@ -107,7 +107,7 @@ def create_multiple_website_clicks_ads(
     # Upload the images first one by one
     image_hashes = []
     for image_path in image_paths:
-        img = account.child(AdImage)
+        img = AdImage(parent_id=account.get_id_assured())
         img.remote_create_from_filename(image_path)
         image_hashes.append(img.get_hash())
 
@@ -126,7 +126,7 @@ def create_multiple_website_clicks_ads(
 
         for title, body, url, image_hash in creative_info_batch:
             # Create the ad
-            ad = account.child(AdGroup)
+            ad = AdGroup(parent_id=account.get_id_assured())
             ad[AdGroup.Field.name] = name + ' Ad'
             ad[AdGroup.Field.campaign_id] = ad_set.get_id_assured()
             ad[AdGroup.Field.creative] = {
