@@ -136,8 +136,9 @@ access them just like accessing a key of a dictionary::
     
     my_account.remote_read(fields=[objects.AdAccount.Field.amount_spent])
     print("Amount spent by account %s: %s" % (
-        my_account.get_id(),
-        my_account[objects.AdAccount.Field.amount_spent],
+            my_account.get_id(),
+            my_account[objects.AdAccount.Field.amount_spent],
+        )
     )
 
 
