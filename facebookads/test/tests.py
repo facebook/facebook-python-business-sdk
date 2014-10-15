@@ -88,7 +88,8 @@ class FacebookAdsTestCase(unittest.TestCase):
         campaign_id = ad_set.get_id_assured()
 
         img = objects.AdImage(parent_id=cls.TEST_ACCOUNT.get_id_assured())
-        img.remote_create_from_filename(cls.TEST_IMAGE_PATH)
+        img[objects.AdImage.Field.filename] = cls.TEST_IMAGE_PATH
+        img.remote_create()
         image_hash = img.get_hash()
 
         creative = objects.AdCreative(

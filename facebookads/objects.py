@@ -1390,11 +1390,11 @@ class AdImage(CannotUpdate, AbstractCrudObject):
 
         return self
 
-    def remote_create_from_filename(
+    def remote_create(
         self,
-        filename,
         batch=None,
         failure=None,
+        files=None,
         params=None,
         success=None,
     ):
@@ -1404,8 +1404,9 @@ class AdImage(CannotUpdate, AbstractCrudObject):
         not have a 'files' keyword argument. Instead, it has a required
         'filename' argument.
         """
+        filename = self[self.__class__.Field.filename]
         open_file = open(filename, 'rb')
-        return_val = self.remote_create(
+        return_val = super(AdImage, self).remote_create(
             files={filename: open_file},
             batch=batch,
             failure=failure,
