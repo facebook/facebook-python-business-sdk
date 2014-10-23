@@ -19,18 +19,20 @@
 # DEALINGS IN THE SOFTWARE.
 
 '''
-Unit tests for the Python Facebook Ads API SDK.
+Integration tests for the Python Facebook Ads API SDK.
 
 How to run:
-    python -m facebookads.test.tests app_id app_secret access_token account_id
+    python -m facebookads.test.integration access_token
 '''
 
 import unittest
 import time
 import sys
 import os
+import json
 
 from .. import objects
+from .. import specs
 from .. import api
 from .. import session
 from .. import exceptions as fbexceptions
@@ -42,10 +44,21 @@ class FacebookAdsTestCase(unittest.TestCase):
     TEST_API = None
     TEST_ACCOUNT = None
     TEST_ID = str(int(time.time()) % 1000)
-    TEST_IMAGE_PATH = os.path.join(os.path.dirname(__file__), 'puget_sound.jpg')
+    TEST_IMAGE_PATH = os.path.join(os.path.dirname(__file__), 'test.png')
 
     @classmethod
-    def new_test_campaign(cls):
+    def new_test_ad_creative(cls):
+        creative = objects.AdCreative(
+            parent_id=cls.TEST_ACCOUNT.get_id_assured()
+        )
+        creative.update({
+            objects.AdCreative.Field.name: 'AdCreativeTestCase %s' % cls.TEST_ID
+        })
+
+        return creative
+
+    @classmethod
+    def new_test_ad_campaign(cls):
         campaign = objects.AdCampaign(
             parent_id=cls.TEST_ACCOUNT.get_id_assured()
         )
@@ -117,7 +130,6 @@ class FacebookAdsTestCase(unittest.TestCase):
 
 
 class AbstractObjectTestCase(FacebookAdsTestCase):
-
     pass
 
 
@@ -231,7 +243,7 @@ class AdCampaignTestCase(AbstractCrudObjectTestCase):
         ])
 
     def runTest(self):
-        self.subject = self.new_test_campaign()
+        self.subject = self.new_test_ad_campaign()
 
         self.assert_can_create(self.subject)
 
@@ -259,7 +271,7 @@ class AdSetTestCase(AbstractCrudObjectTestCase):
         ])
 
     def runTest(self):
-        self.campaign = self.new_test_campaign()
+        self.campaign = self.new_test_ad_campaign()
         self.campaign.remote_create()
 
         self.subject = self.new_test_ad_set(self.campaign)
@@ -299,7 +311,7 @@ class AdGroupTestCase(AbstractCrudObjectTestCase):
         ])
 
     def runTest(self):
-        self.campaign = self.new_test_campaign()
+        self.campaign = self.new_test_ad_campaign()
         self.campaign.remote_create()
         self.ad_set = self.new_test_ad_set(self.campaign)
         self.ad_set.remote_create()
@@ -339,11 +351,67 @@ class AdGroupTestCase(AbstractCrudObjectTestCase):
             pass
 
 
+class MultiProductAdObjectStorySpecTestCase(AbstractCrudObjectTestCase):
+    def runTest(self):
+        creative = self.new_test_ad_creative()
+        creative[objects.AdCreative.Field.name] = 'MPA Creative'
+
+        story = specs.ObjectStorySpec()
+        story[story.Field.page_id] = self.PAGE_ID
+
+        link = specs.LinkData()
+        link[link.Field.link] = 'https://www.facebook.com'
+        link[link.Field.caption] = 'My Caption'
+
+        img = objects.AdImage(parent_id=self.TEST_ACCOUNT.get_id_assured())
+        img[objects.AdImage.Field.filename] = self.TEST_IMAGE_PATH
+        img.remote_create()
+
+        product1 = specs.AttachmentData()
+        product1.update({
+            specs.AttachmentData.Field.link: 'https://www.facebook.com',
+            specs.AttachmentData.Field.image_hash: img.get_hash(),
+            specs.AttachmentData.Field.name: 'Product 1',
+            specs.AttachmentData.Field.description: '$100',
+        })
+
+        product2 = specs.AttachmentData()
+        product2.update({
+            specs.AttachmentData.Field.link: 'https://www.facebook.com',
+            specs.AttachmentData.Field.image_hash: img.get_hash(),
+            specs.AttachmentData.Field.name: 'Product 2',
+            specs.AttachmentData.Field.description: '$200',
+        })
+
+        product3 = specs.AttachmentData()
+        product3.update({
+            specs.AttachmentData.Field.link: 'https://www.facebook.com',
+            specs.AttachmentData.Field.image_hash: img.get_hash(),
+            specs.AttachmentData.Field.name: 'Product 3',
+            specs.AttachmentData.Field.description: '$300',
+        })
+
+        link[link.Field.child_attachments] = [product1, product2, product3]
+        story[story.Field.link_data] = link
+        creative[creative.Field.object_story_spec] = story
+
+        self.assert_can_create(creative)
+        self.assert_can_delete(creative)
+
 if __name__ == '__main__':
-    test_account_id = sys.argv.pop()
+    config_file = open('./config.json')
+    config = json.load(config_file)
+    config_file.close()
+
+    test_account_id = config['act_id']
+    page_id = config['page_id']
+    app_id = config['app_id']
+    app_secret = config['app_secret']
+
+    if len(sys.argv) < 2:
+        raise TypeError("Please provide the access token as an argument")
+
     access_token = sys.argv.pop()
-    app_secret = sys.argv.pop()
-    app_id = sys.argv.pop()
 
     FacebookAdsTestCase.TEST_SESSION = session.FacebookSession(
         app_id,
@@ -358,5 +426,6 @@ if __name__ == '__main__':
     if 'act_' not in test_account_id:
         test_account_id = 'act_' + test_account_id
     FacebookAdsTestCase.TEST_ACCOUNT = objects.AdAccount(test_account_id)
+    FacebookAdsTestCase.PAGE_ID = page_id
 
     unittest.main()

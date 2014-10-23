@@ -103,7 +103,8 @@ if __name__ == '__main__':
 
     ### Upload an image to an account.
     img = AdImage(parent_id=my_account.get_id_assured())
-    img.remote_create_from_filename(os.path.join(this_dir, 'puget_sound.jpg'))
+    img[AdImage.Field.filename] = os.path.join(this_dir, 'test.png')
+    img.remote_create()
     print("**** DONE: Image uploaded:")
     pp.pprint(img)  # The image hash can be found using img[AdImage.Field.hash]
 

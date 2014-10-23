@@ -124,7 +124,7 @@ class EdgeIterator(object):
         num_added = 0
         for json_obj in response['data']:
             obj = self._target_objects_class()
-            obj._read_update(json_obj)
+            obj._set_data(json_obj)
             self._queue.append(obj)
             num_added += 1
 
@@ -206,24 +206,32 @@ class AbstractObject(collections.MutableMapping):
         """
         cls._default_read_fields = fields
 
-    def _read_update(self, data):
+    def _set_data(self, data):
         """
-        An AbstractObject does not keep history so _read_update is an alias for
-        a MutableMapping's update() method. _read_update elsewhere may have a
+        An AbstractObject does not keep history so _set_data is an alias for
+        a MutableMapping's update() method. _set_data elsewhere may have a
         different behavior depending on the type of the object and how the data
         should be processed.
         """
         self.update(data)
 
-    def export_data(self):
-        """Returns a dictionary of property names mapped to their values."""
-        data = {}
-
-        for key in self:
-            if self[key] is not None:
-                data[key] = self[key]
-
+    def export_value(self, data):
+        if isinstance(data, AbstractObject):
+            data = data.export_data()
+        elif isinstance(data, dict):
+            for key, value in data.items():
+                if value is None:
+                    del data[key]
+                else:
+                    data[key] = self.export_value(value)
+        elif isinstance(data, list):
+            for i, value in enumerate(data):
+                data[i] = self.export_value(value)
         return data
+
+    def export_data(self):
+        return self.export_value(self._data)
+
 
 
 class AbstractCrudObject(AbstractObject):
@@ -261,37 +269,11 @@ class AbstractCrudObject(AbstractObject):
 
     def __setitem__(self, key, value):
         """Sets an item in this CRUD object while maintaining a changelog."""
-        key = str(key)
 
-        key_already_set = key in self._data
-        if key_already_set:
-            old_data_value = self._data[key]
+        if key not in self._data or self._data[key] != value:
+            self._changes[key] = value
 
-        self._data[key] = value
-
-        if key_already_set:
-            if key in self._changes:
-                # key already set and has been a result of user change
-                if (
-                    'original' in self._changes[key] and
-                    value == self._changes['key']['original']
-                ):
-                    # value is being set back to original
-                    del self._changes['key']
-                else:
-                    # There's a new value
-                    self._changes[key]['new'] = value
-            elif value != old_data_value:
-                # key already set and not in changes (has original value)
-                self._changes[key] = {
-                    'original': old_data_value,
-                    'new': value,
-                }
-        else:
-            # There's a new value
-            self._changes[key] = {
-                'new': value,
-            }
+        super(AbstractCrudObject, self).__setitem__(key, value)
 
         return self
 
@@ -386,7 +368,7 @@ class AbstractCrudObject(AbstractObject):
         self._changes = {}
         return self
 
-    def _read_update(self, data):
+    def _set_data(self, data):
         """
         Sets object's data as if it were read from the server.
         Warning: Does not log changes.
@@ -410,8 +392,7 @@ class AbstractCrudObject(AbstractObject):
         """
         data = {}
 
-        for key in self._changes:
-            value = self._changes[key]['new']
+        for key, value in self._changes.items():
             if isinstance(value, AbstractObject):
                 data[key] = value.export_data()
             else:
@@ -465,7 +446,7 @@ class AbstractCrudObject(AbstractObject):
         """
         if self.__class__.Field.id in self:
             raise FacebookBadObjectError(
-                "This %s object was alread created." % self.__class__.__name__
+                "This %s object was already created." % self.__class__.__name__
             )
 
         params = {} if params is None else params.copy()
@@ -473,7 +454,7 @@ class AbstractCrudObject(AbstractObject):
 
         if batch is not None:
             def callback_success(response):
-                self._read_update(response.json())
+                self._set_data(response.json())
                 self._clear_history()
 
                 if success is not None:
@@ -499,7 +480,7 @@ class AbstractCrudObject(AbstractObject):
                 params=params,
                 files=files,
             )
-            self._read_update(response.json())
+            self._set_data(response.json())
 
             return self
 
@@ -546,7 +527,7 @@ class AbstractCrudObject(AbstractObject):
 
         if batch is not None:
             def callback_success(response):
-                self._read_update(response.json())
+                self._set_data(response.json())
 
                 if success is not None:
                     success(response)
@@ -569,7 +550,7 @@ class AbstractCrudObject(AbstractObject):
                 self.get_node_path(),
                 params=params,
             )
-            self._read_update(response.json())
+            self._set_data(response.json())
 
             return self
 
@@ -1338,6 +1319,7 @@ class AdCreative(AbstractCrudObject):
         object_id = 'object_id'
         object_store_url = 'object_store_url'
         object_story_id = 'object_story_id'
+        object_story_spec = 'object_story_spec'
         object_type = 'object_type'
         object_url = 'object_url'
         preview_url = 'preview_url'
@@ -1370,7 +1352,7 @@ class AdImage(CannotUpdate, AbstractCrudObject):
     def get_node_path(self):
         return (self.get_parent_id_assured(), self.get_endpoint())
 
-    def _read_update(self, data):
+    def _set_data(self, data):
         data = list(data['images'].values())[0]
 
         for key in data:
@@ -1401,9 +1383,13 @@ class AdImage(CannotUpdate, AbstractCrudObject):
         """Uploads filename and creates the AdImage object from it.
 
         It has same arguments as AbstractCrudObject.remote_create except it does
-        not have a 'files' keyword argument. Instead, it has a required
-        'filename' argument.
+        not have the files argument but requires the 'filename' property to be
+        defined.
         """
+        if self[self.__class__.Field.filename] is None:
+            raise FacebookBadObjectError(
+                "AdImage required a filename to be defined."
+            )
         filename = self[self.__class__.Field.filename]
         open_file = open(filename, 'rb')
         return_val = super(AdImage, self).remote_create(

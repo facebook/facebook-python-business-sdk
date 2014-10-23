@@ -108,7 +108,8 @@ def create_multiple_website_clicks_ads(
     image_hashes = []
     for image_path in image_paths:
         img = AdImage(parent_id=account.get_id_assured())
-        img.remote_create_from_filename(image_path)
+        img[AdImage.Field.filename] = image_path
+        img.remote_create()
         image_hashes.append(img.get_hash())
 
     ADGROUP_BATCH_CREATE_LIMIT = 10

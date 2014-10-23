@@ -81,7 +81,7 @@ if __name__ == '__main__':
             "The Next City",
         ],
         urls=["http://www.seattle.gov/visiting/"],
-        image_paths=[os.path.join(this_dir, "puget_sound.jpg")],
+        image_paths=[os.path.join(this_dir, "test.png")],
 
         bid_type=AdSet.BidType.cpm,
         bid_info={AdSet.Field.BidInfo.impressions: 53},  # $0.53 / thousand

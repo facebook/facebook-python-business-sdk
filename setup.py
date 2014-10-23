@@ -29,7 +29,7 @@ readme_filename = os.path.join(this_dir, 'README.rst')
 requirements_filename = os.path.join(this_dir, 'requirements.txt')
 
 PACKAGE_NAME = 'facebookads'
-PACKAGE_VERSION = '0.1.1'
+PACKAGE_VERSION = '0.2.0'
 PACKAGE_AUTHOR = 'Facebook'
 PACKAGE_AUTHOR_EMAIL = ''
 PACKAGE_URL = 'https://github.com/facebook/facebook-python-ads-sdk'

@@ -68,7 +68,7 @@ if __name__ == '__main__':
         title="Visit Seattle",                             # How it looks
         body="Beautiful Puget Sound.",
         url="http://www.seattle.gov/visiting/",
-        image_path=os.path.join(this_dir, 'puget_sound.jpg'),
+        image_path=os.path.join(this_dir, 'test.png'),
 
         bid_type=AdSet.BidType.cpm,
         bid_info={AdSet.Field.BidInfo.impressions: 53},  # $0.53 / thousand

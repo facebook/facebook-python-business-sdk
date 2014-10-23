@@ -82,7 +82,6 @@ The rest of the example code given will assume you have bootstrapped the api
 into your program like the following sample app:
 
 ```python
-name=my_ads_app.py
 from facebookads.session import FacebookSession
 from facebookads.api import FacebookAdsApi
 from facebookads import objects
@@ -317,8 +316,12 @@ the SDK.
 
 ## Tests
 
+Copy the `config.json.example` to `config.json` and fill in the appropriate
+details.
+
 ```
-python -m facebookads.test.tests app_id app_secret access_token account_id
+python -m facebookads.test.unit
+python -m facebookads.test.integration <ACCESS_TOKEN>
 ```
 
 ## Examples

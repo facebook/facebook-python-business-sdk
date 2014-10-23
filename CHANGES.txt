@@ -1,6 +1,16 @@
-== 0.1.1 ==
+0.2.0
+- Added ObjectStorySpec and specs module
+- Moved integration tests to their own file
+- Added ValidatesFields mixin
+- Added bootstrap.auth() function to make using REPL easier
+- Deprecated remote_create_with_filename
+- Deprecated AbstractObject child method
+- Renamed _read_update() to _set_data()
+
+
+0.1.1
 - Increase version requirement for required configparser package (Python 3 compatibility fix)
 - Misc issue fix requests
 
-== 0.1.0 ==
+0.1.0
 Initial release.
