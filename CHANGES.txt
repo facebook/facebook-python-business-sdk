@@ -1,3 +1,6 @@
+0.2.1
+- Fixed setup.py accounting for wrong README
+
 0.2.0
 - Added ObjectStorySpec and specs module
 - Moved integration tests to their own file
@@ -6,7 +9,6 @@
 - Deprecated remote_create_with_filename
 - Deprecated AbstractObject child method
 - Renamed _read_update() to _set_data()
-
 
 0.1.1
 - Increase version requirement for required configparser package (Python 3 compatibility fix)

@@ -25,11 +25,16 @@ except ImportError:
 import os
 
 this_dir = os.path.dirname(__file__)
-readme_filename = os.path.join(this_dir, 'README.rst')
+if os.path.isfile('README.rst'):
+    readme_filename = 'README.rst'
+elif os.path.isfile('README.md'):
+    readme_filename = 'README.md'
+
+readme_filename = os.path.join(this_dir, readme_filename)
 requirements_filename = os.path.join(this_dir, 'requirements.txt')
 
 PACKAGE_NAME = 'facebookads'
-PACKAGE_VERSION = '0.2.0'
+PACKAGE_VERSION = '0.2.1'
 PACKAGE_AUTHOR = 'Facebook'
 PACKAGE_AUTHOR_EMAIL = ''
 PACKAGE_URL = 'https://github.com/facebook/facebook-python-ads-sdk'
