@@ -1,3 +1,6 @@
+0.2.2
+- Fixed install regression caused by 0.2.1 README change
+
 0.2.1
 - Fixed setup.py accounting for wrong README
 
