@@ -1194,6 +1194,7 @@ class AdSet(HasStatus, AbstractCrudObject):
         lifetime_budget = 'lifetime_budget'
         name = 'name'
         pacing_type = 'pacing_type'
+        promoted_object = 'promoted_object'
         start_time = 'start_time'
         status = 'campaign_status'
         targeting = 'targeting'

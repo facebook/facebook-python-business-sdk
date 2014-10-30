@@ -1,3 +1,10 @@
+2.2.0
+- CustomAudience object handles hashing emails or phone when adding users
+- Added support for ReachFrequencyPredictions
+- Added promoted_object field to AdSet
+- Moved all mixins to mixins.py
+- Removed comment from config.json.example
+
 0.2.3
 - Updated MANIFEST.in
 
