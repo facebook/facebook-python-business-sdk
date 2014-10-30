@@ -30,6 +30,37 @@ import json
 
 from .. import objects
 from .. import specs
+from .. import exceptions
+
+
+class CustomAudienceTestCase(unittest.TestCase):
+    def assert_format_params(self):
+        payload = objects.CustomAudience.format_params(
+            objects.CustomAudience.Schema.email_hash,
+            ["  test  ", "test", "..test.."]
+        )
+        # This is the value of "test" when it's hashed with sha256
+        test_hash = \
+            "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08"
+        users = payload['payload']['data']
+        assert users[0] == test_hash
+        assert users[1] == users[0]
+        assert users[2] == users[1]
+
+    def assert_fail_when_no_app_ids(self):
+        def uid_payload():
+            objects.CustomAudience.format_params(
+                objects.CustomAudience.Schema.uid,
+                ["123123"],
+            )
+        self.assertRaises(
+            exceptions.FacebookBadObjectError,
+            uid_payload,
+        )
+
+    def runTest(self):
+        self.assert_format_params()
+        self.assert_fail_when_no_app_ids()
 
 
 class AbstractObjectTestCase(unittest.TestCase):

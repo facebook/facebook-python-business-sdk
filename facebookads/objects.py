@@ -34,6 +34,7 @@ from facebookads.mixins import (
     HasBidInfo,
 )
 
+import hashlib
 import collections
 import json
 
@@ -892,7 +893,7 @@ class AdAccount(CannotCreate, CannotDelete, AbstractCrudObject):
 
         return my_account
 
-    def opt_out_user_from_targeting(self, schema, users):
+    def opt_out_user_from_targeting(self, schema, users, app_ids=[]):
         """Opts out users from being targeted by this ad account.
 
         Args:
@@ -905,7 +906,7 @@ class AdAccount(CannotCreate, CannotDelete, AbstractCrudObject):
         return self.get_api_assured().call(
             FacebookAdsApi.HTTP_METHOD_DELETE,
             (self.get_id_assured(), 'usersofanyaudience'),
-            params={'payload': {'schema': schema, 'data': users}},
+            params=CustomAudience.format_params(schema, users, app_ids),
         )
 
     def get_activities(self, fields=None, params=None):
@@ -1559,7 +1560,33 @@ class CustomAudience(AbstractCrudObject):
     def get_endpoint(cls):
         return 'customaudiences'
 
-    def add_users(self, schema, users):
+    @classmethod
+    def format_params(cls, schema, users, app_ids=[]):
+        hashed_users = []
+        if schema == cls.Schema.phone_hash or schema == cls.Schema.email_hash:
+            for user in users:
+                if schema == cls.Schema.email_hash:
+                    user = user.strip(" \t\r\n\0\x0B.").lower()
+                hashed_users.append(hashlib.sha256(user).hexdigest())
+
+        payload = {
+            'schema': schema,
+            'data': hashed_users or users,
+        }
+
+        if schema == cls.Schema.uid:
+            if not app_ids:
+                raise FacebookBadObjectError(
+                    "Custom Audiences with type " + cls.Schema.uid +
+                    "require at least one app_id"
+                )
+            payload['app_ids'] = app_ids
+
+        return {
+            'payload': payload,
+        }
+
+    def add_users(self, schema, users, app_ids=[]):
         """Adds users to this CustomAudience.
 
         Args:
@@ -1573,10 +1600,10 @@ class CustomAudience(AbstractCrudObject):
         return self.get_api_assured().call(
             FacebookAdsApi.HTTP_METHOD_POST,
             (self.get_id_assured(), 'users'),
-            params={'payload': {'schema': schema, 'data': users}},
+            params=CustomAudience.format_params(schema, users, app_ids),
         )
 
-    def remove_users(self, schema, users):
+    def remove_users(self, schema, users, app_ids=[]):
         """Deletes users from this CustomAudience.
 
         Args:
@@ -1590,7 +1617,7 @@ class CustomAudience(AbstractCrudObject):
         return self.get_api_assured().call(
             FacebookAdsApi.HTTP_METHOD_DELETE,
             (self.get_id_assured(), 'users'),
-            params={'payload': {'schema': schema, 'data': users}},
+            params=CustomAudience.format_params(schema, users, app_ids),
         )
 
     def share_audience(self, account_ids):
@@ -1718,6 +1745,92 @@ class ReachEstimate(AbstractObject):
     @classmethod
     def get_endpoint(cls):
         return 'reachestimate'
+
+
+class ReachFrequencyPrediction(AbstractCrudObject):
+
+    class Field(object):
+        account_id = 'account_id'
+        action = 'action'
+        budget = 'budget'
+        buying_type = 'buying_type'
+        campaign_id = 'campaign_id'
+        campaign_time_start = 'campaign_time_start'
+        campaign_time_stop = 'campaign_time_stop'
+        curve_budget_reach = 'curve_budget_reach'
+        destination_id = 'destination_id'
+        end_time = 'end_time'
+        external_budget = 'external_budget'
+        external_impression = 'external_impression'
+        external_maximum_budget = 'external_maximum_budget'
+        external_maximum_impression = 'external_maximum_impression'
+        external_maximum_reach = 'external_maximum_reach'
+        external_minimum_budget = 'external_maximum_budget'
+        external_minimum_impression = 'external_maximum_impression'
+        external_minimum_reach = 'external_maximum_reach'
+        external_reach = 'external_reach'
+        frequency_cap = 'frequency_cap'
+        id = 'id'
+        impression = 'impression'
+        objective = 'objective'
+        prediction_id = 'rf_prediction_id'
+        prediction_id_to_release = 'rf_prediction_id_to_release'
+        prediction_id_to_share = 'prediction_id_to_share'
+        prediction_mode = 'prediction_mode'
+        prediction_progress = 'prediction_progress'
+        reach = 'reach'
+        start_time = 'start_time'
+        status = 'status'
+        story_event_type = 'story_event_type'
+        target_audience_size = 'target_audience_size'
+        target_spec = 'target_spec'
+        time_created = 'time_created'
+
+    class Action(object):
+        reserve = 'reserve'
+        cancel = 'cancel'
+
+    @classmethod
+    def get_endpoint(cls):
+        return 'reachfrequencypredictions'
+
+    def reserve(
+        self,
+        prediction_to_release=None,
+        reach=None,
+        budget=None,
+        impression=None,
+    ):
+        params = {
+            self.Field.prediction_id: self.get_id_assured(),
+            self.Field.prediction_id_to_release: prediction_to_release,
+            self.Field.budget: budget,
+            self.Field.reach: reach,
+            self.Field.impression: impression,
+            self.Field.action: self.__class__.Action.reserve,
+        }
+        # Filter out None values.
+        params = {k: v for (k, v) in params.items() if v is not None}
+
+        response = self.get_api_assured().call(
+            FacebookAdsApi.HTTP_METHOD_POST,
+            (self.get_parent_id_assured(), self.get_endpoint()),
+            params=params,
+        )
+
+        return self.__class__(response.body(), self.get_parent_id_assured())
+
+    def cancel(self):
+        params = {
+            self.__class__.Field.prediction_id: self.get_id_assured(),
+            self.__class__.Field.action: self.__class__.Action.cancel,
+        }
+        self.get_api_assured().call(
+            FacebookAdsApi.HTTP_METHOD_POST,
+            (self.get_parent_id_assured(), self.get_endpoint()),
+            params=params,
+        )
+        return self
 
 
 class TargetingDescription(AbstractObject):

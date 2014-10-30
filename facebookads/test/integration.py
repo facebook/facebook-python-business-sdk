@@ -351,6 +351,27 @@ class AdGroupTestCase(AbstractCrudObjectTestCase):
             pass
 
 
+class CustomAudienceTestCase(AbstractCrudObjectTestCase):
+    def runTest(self):
+        ca = objects.CustomAudience(
+            parent_id=self.TEST_ACCOUNT.get_id_assured())
+        ca[objects.CustomAudience.Field.name] = \
+            'Custom Audience Test ' + self.TEST_ID
+        ca.remote_create()
+
+        users = ['someone@example.com']
+
+        try:
+            ca.add_users(objects.CustomAudience.Schema.email_hash, users)
+        except:
+            self.fail("Could not add users")
+
+        try:
+            ca.remove_users(objects.CustomAudience.Schema.email_hash, users)
+        except:
+            self.fail("Could not remove users")
+
+
 class MultiProductAdObjectStorySpecTestCase(AbstractCrudObjectTestCase):
     def runTest(self):
         creative = self.new_test_ad_creative()
