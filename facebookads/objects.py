@@ -25,6 +25,14 @@ Ads API.
 
 from facebookads.exceptions import FacebookBadObjectError
 from facebookads.api import FacebookAdsApi
+from facebookads.mixins import (
+    CannotCreate,
+    CannotDelete,
+    CannotUpdate,
+    HasObjective,
+    HasStatus,
+    HasBidInfo,
+)
 
 import collections
 import json

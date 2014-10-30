@@ -18,7 +18,96 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
+"""
+mixins contains attributes that objects share
+"""
+
 from facebookads.exceptions import FacebookBadObjectError
+
+
+class CannotCreate(object):
+
+    """
+    An instance of CannotCreate will raise a TypeError when calling
+    remote_create().
+    """
+
+    @classmethod
+    def remote_create(cls, *args, **kwargs):
+        raise TypeError('Cannot create object of type %s.' % cls.__name__)
+
+
+class CannotDelete(object):
+
+    """
+    An instance of CannotDelete will raise a TypeError when calling
+    remote_delete().
+    """
+
+    @classmethod
+    def remote_delete(cls, *args, **kwargs):
+        raise TypeError('Cannot delete object of type %s.' % cls.__name__)
+
+
+class CannotUpdate(object):
+
+    """
+    An instance of CannotUpdate will raise a TypeError when calling
+    remote_update().
+    """
+
+    @classmethod
+    def remote_update(cls, *args, **kwargs):
+        raise TypeError('Cannot update object of type %s.' % cls.__name__)
+
+
+class HasObjective(object):
+
+    """
+    An instance of HasObjective will have an enum attribute Objective.
+    """
+
+    class Objective(object):
+        canvas_app_engagement = 'CANVAS_APP_ENGAGEMENT'
+        canvas_app_installs = 'CANVAS_APP_INSTALLS'
+        event_responses = 'EVENT_RESPONSES'
+        local_awareness = 'LOCAL_AWARENESS'
+        mobile_app_engagement = 'MOBILE_APP_ENGAGEMENT'
+        mobile_app_installs = 'MOBILE_APP_INSTALLS'
+        none = 'NONE'
+        offer_claims = 'OFFER_CLAIMS'
+        page_likes = 'PAGE_LIKES'
+        post_engagement = 'POST_ENGAGEMENT'
+        website_clicks = 'WEBSITE_CLICKS'
+        website_conversions = 'WEBSITE_CONVERSIONS'
+        video_views = 'VIDEO_VIEWS'
+
+
+class HasStatus(object):
+
+    """
+    An instance of HasStatus will have an enum attribute Status.
+    """
+
+    class Status(object):
+        active = 'ACTIVE'
+        archived = 'ARCHIVED'
+        deleted = 'DELETED'
+        paused = 'PAUSED'
+
+
+class HasBidInfo(object):
+
+    """
+    An instance of HasBidInfo will have an enum attribute BidInfo.
+    """
+
+    class BidInfo(object):
+        actions = 'ACTIONS'
+        clicks = 'CLICKS'
+        impressions = 'IMPRESSIONS'
+        reach = 'REACH'
+        social = 'SOCIAL'
 
 
 class ValidatesFields(object):
