@@ -23,6 +23,7 @@ api module contains classes that make http requests to Facebook's graph API.
 """
 
 from facebookads.exceptions import FacebookRequestError
+from facebookads.session import FacebookSession
 import json
 import six
 import collections
@@ -166,6 +167,12 @@ class FacebookAdsApi(object):
     def get_num_requests_succeeded(self):
         """Returns the number of calls that succeeded."""
         return self._num_requests_succeeded
+
+    @classmethod
+    def init(cls, app_id, app_secret, access_token):
+        session = FacebookSession(app_id, app_secret, access_token)
+        api = cls(session)
+        cls.set_default_api(api)
 
     @classmethod
     def set_default_api(cls, api_instance):

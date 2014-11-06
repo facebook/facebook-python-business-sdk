@@ -95,6 +95,23 @@ class EdgeIterator(object):
         )
         self._queue = []
         self._finished_iteration = False
+        self._total_count = None
+
+        self.load_next_page()
+
+    def __repr__(self):
+        return "<%s> %s" % (
+            self.__class__.__name__,
+            json.dumps(
+                self._queue,
+                sort_keys=True,
+                indent=4,
+                separators=(',', ': ')
+            ),
+        )
+
+    def __len__(self):
+        return len(self._queue)
 
     def __iter__(self):
         return self
@@ -109,6 +126,9 @@ class EdgeIterator(object):
 
     next = __next__
 
+    def total(self):
+        return self._total_count
+
     def load_next_page(self):
         """Queries server for more nodes and loads them into the internal queue.
 
@@ -117,6 +137,8 @@ class EdgeIterator(object):
         """
         if self._finished_iteration:
             return False
+
+        self._params['summary'] = True
 
         response = self._source_object.get_api_assured().call(
             FacebookAdsApi.HTTP_METHOD_GET,
@@ -130,7 +152,11 @@ class EdgeIterator(object):
             # Indicate if this was the last page
             self._finished_iteration = True
 
+        if 'summary' in response and 'total_count' in response['summary']:
+            self._total_count = response['summary']['total_count']
+
         num_added = 0
+        self._queue = []
         for json_obj in response['data']:
             obj = self._target_objects_class()
             obj._set_data(json_obj)
@@ -169,9 +195,6 @@ class AbstractObject(collections.MutableMapping):
 
     def __contains__(self, key):
         return key in self._data
-
-    def __str__(self):
-        return str(self._data)
 
     def __unicode__(self):
         return unicode(self._data)
