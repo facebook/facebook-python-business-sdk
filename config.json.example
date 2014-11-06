@@ -2,5 +2,6 @@
   "app_id": "<YOUR_APP_ID>",
   "app_secret": "<YOUR_APP_SECRET>",
   "act_id": "act_<YOUR_ACCOUNT_ID>",
-  "page_id": "<YOUR_PAGE_ID>"
+  "page_id": "<YOUR_PAGE_ID>",
+  "access_token": "<ACCESS_TOKEN>"
 }

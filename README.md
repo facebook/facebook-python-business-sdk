@@ -82,16 +82,13 @@ The rest of the example code given will assume you have bootstrapped the api
 into your program like the following sample app:
 
 ```python
-from facebookads.session import FacebookSession
 from facebookads.api import FacebookAdsApi
 from facebookads import objects
 
-my_app_id = '<Your app id>'
-my_app_secret = '<Your app secret>'
-my_access_token = '<This should be your access token>'
-my_session = FacebookSession(my_app_id, my_app_secret, my_access_token)
-my_api = FacebookAdsApi(my_session)
-FacebookAdsApi.set_default_api(my_api)
+my_app_id = '<APP_ID>'
+my_app_secret = '<APP_SECRET>'
+my_access_token = '<ACCESS_TOKEN>'
+FacebookAdsApi.init(my_app_id, my_app_secret, my_access_token)
 ```
 
 **NOTE**: We shall use the objects module throughout the rest of the tutorial.
@@ -322,6 +319,7 @@ details.
 ```
 python -m facebookads.test.unit
 python -m facebookads.test.integration <ACCESS_TOKEN>
+# Access token not required if it's defined in config.json
 ```
 
 ## Examples

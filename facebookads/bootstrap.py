@@ -9,12 +9,14 @@ from facebookads.objects import *
 from facebookads.exceptions import FacebookError
 
 
-def auth(access_token):
-    if not hasattr(main, '__file__'):
-        config_file = open('./config.json')
-        config = json.load(config_file)
-        config_file.close()
+config_file = open('./config.json')
+config = json.load(config_file)
+config_file.close()
 
+
+def auth(access_token=None):
+    if sys.__stdin__.isatty():
+        access_token = access_token or config['access_token']
         FacebookAdsApi.init(
             config['app_id'],
             config['app_secret'],
@@ -29,3 +31,6 @@ def auth(access_token):
             "## Or try using FacebookAdsApi.init()"
             "\n"
         )
+
+if config['app_id'] and config['app_secret'] and config['access_token']:
+    auth()

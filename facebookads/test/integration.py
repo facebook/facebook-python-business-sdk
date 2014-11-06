@@ -429,10 +429,13 @@ if __name__ == '__main__':
     app_id = config['app_id']
     app_secret = config['app_secret']
 
-    if len(sys.argv) < 2:
-        raise TypeError("Please provide the access token as an argument")
+    if 'access_token' in config:
+        access_token = config['access_token']
+    else:
+        if len(sys.argv) < 2:
+            raise TypeError("Please provide the access token as an argument")
 
-    access_token = sys.argv.pop()
+        access_token = sys.argv.pop()
 
     FacebookAdsTestCase.TEST_SESSION = session.FacebookSession(
         app_id,
