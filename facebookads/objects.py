@@ -97,18 +97,11 @@ class EdgeIterator(object):
         self._finished_iteration = False
         self._total_count = None
 
-        self.load_next_page()
+        if self._source_object.get_api():
+            self.load_next_page()
 
     def __repr__(self):
-        return "<%s> %s" % (
-            self.__class__.__name__,
-            json.dumps(
-                self._queue,
-                sort_keys=True,
-                indent=4,
-                separators=(',', ': ')
-            ),
-        )
+        return str(self._queue)
 
     def __len__(self):
         return len(self._queue)
@@ -155,15 +148,22 @@ class EdgeIterator(object):
         if 'summary' in response and 'total_count' in response['summary']:
             self._total_count = response['summary']['total_count']
 
-        num_added = 0
-        self._queue = []
-        for json_obj in response['data']:
-            obj = self._target_objects_class()
-            obj._set_data(json_obj)
-            self._queue.append(obj)
-            num_added += 1
+        self._queue = self.build_objects_from_response(response)
+        return len(self._queue) > 0
 
-        return num_added > 0
+    def build_objects_from_response(self, response):
+        if 'data' in response:
+            ret = []
+            for json_obj in response['data']:
+                obj = self._target_objects_class()
+                obj._set_data(json_obj)
+                ret.append(obj)
+        else:
+            obj = self._target_objects_class()
+            obj._set_data(response)
+            ret = [obj]
+
+        return ret
 
 
 class AbstractObject(collections.MutableMapping):

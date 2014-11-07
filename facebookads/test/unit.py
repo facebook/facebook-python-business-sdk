@@ -63,6 +63,58 @@ class CustomAudienceTestCase(unittest.TestCase):
         self.assert_fail_when_no_app_ids()
 
 
+class EdgeIteratorTestCase(unittest.TestCase):
+    def runTest(self):
+        self.assert_builds_from_array()
+        self.assert_builds_from_object()
+
+    def assert_builds_from_array(self):
+        """
+        Sometimes the response returns an array inside the data
+        key. This asserts that we successfully build objects using
+        the objects in that array.
+        """
+        response = {
+            "data": [{
+                "id": "6019579"
+            }, {
+                "id": "6018402"
+            }]
+        }
+        ei = objects.EdgeIterator(
+            objects.AdAccount(fbid='123'),
+            objects.AdGroup,
+        )
+        objs = ei.build_objects_from_response(response)
+        assert len(objs) == 2
+
+    def assert_builds_from_object(self):
+        """
+        Sometimes the response returns a single JSON object. This asserts
+        that we're not looking for the data key and that we correctly build
+        the object without relying on the data key.
+        """
+        response = {
+            "id": "601957/targetingsentencelines",
+            "targetingsentencelines": [{
+                "content": "Location - Living In:",
+                "children": [
+                    "United States"
+                ]
+            }, {
+                "content": "Age:",
+                "children": [
+                    "18 - 65+"
+                ]
+            }]
+        }
+        ei = objects.EdgeIterator(
+            objects.AdAccount(fbid='123'),
+            objects.AdGroup,
+        )
+        obj = ei.build_objects_from_response(response)
+        assert len(obj) == 1 and obj[0]['id'] == "601957/targetingsentencelines"
+
 class AbstractObjectTestCase(unittest.TestCase):
     def assert_export_nested_object(self):
         obj = specs.ObjectStorySpec()
