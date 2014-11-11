@@ -294,9 +294,10 @@ class AbstractCrudObject(AbstractObject):
         self._changes = {}
 
         if fbid is not None:
-            self[self.__class__.Field.id] = fbid
+            self[self.__class__.Field.id] = str(fbid)
 
-        self.parent_id = parent_id
+        if parent_id is not None:
+            self.parent_id = str(parent_id)
         self.api = api
 
     def __setitem__(self, key, value):
@@ -745,42 +746,6 @@ class AbstractCrudObject(AbstractObject):
         return None
 
 
-class CannotCreate(object):
-
-    """
-    An instance of CannotCreate will raise a TypeError when calling
-    remote_create().
-    """
-
-    @classmethod
-    def remote_create(cls, *args, **kwargs):
-        raise TypeError('Cannot create object of type %s.' % cls.__name__)
-
-
-class CannotDelete(object):
-
-    """
-    An instance of CannotDelete will raise a TypeError when calling
-    remote_delete().
-    """
-
-    @classmethod
-    def remote_delete(cls, *args, **kwargs):
-        raise TypeError('Cannot delete object of type %s.' % cls.__name__)
-
-
-class CannotUpdate(object):
-
-    """
-    An instance of CannotUpdate will raise a TypeError when calling
-    remote_update().
-    """
-
-    @classmethod
-    def remote_update(cls, *args, **kwargs):
-        raise TypeError('Cannot update object of type %s.' % cls.__name__)
-
-
 class AdUser(CannotCreate, CannotDelete, CannotUpdate, AbstractCrudObject):
 
     """
@@ -1120,41 +1085,6 @@ class AdAccountGroupUser(AbstractCrudObject):
         return AdUser(fbid=self[self.__class__.Field.uid])
 
 
-class HasObjective(object):
-
-    """
-    An instance of HasObjective will have an enum attribute Objective.
-    """
-
-    class Objective(object):
-        canvas_app_engagement = 'CANVAS_APP_ENGAGEMENT'
-        canvas_app_installs = 'CANVAS_APP_INSTALLS'
-        event_responses = 'EVENT_RESPONSES'
-        local_awareness = 'LOCAL_AWARENESS'
-        mobile_app_engagement = 'MOBILE_APP_ENGAGEMENT'
-        mobile_app_installs = 'MOBILE_APP_INSTALLS'
-        none = 'NONE'
-        offer_claims = 'OFFER_CLAIMS'
-        page_likes = 'PAGE_LIKES'
-        post_engagement = 'POST_ENGAGEMENT'
-        website_clicks = 'WEBSITE_CLICKS'
-        website_conversions = 'WEBSITE_CONVERSIONS'
-        video_views = 'VIDEO_VIEWS'
-
-
-class HasStatus(object):
-
-    """
-    An instance of HasStatus will have an enum attribute Status.
-    """
-
-    class Status(object):
-        active = 'ACTIVE'
-        archived = 'ARCHIVED'
-        deleted = 'DELETED'
-        paused = 'PAUSED'
-
-
 class AdCampaign(HasStatus, HasObjective, AbstractCrudObject):
 
     class Field(object):
@@ -1186,20 +1116,6 @@ class AdCampaign(HasStatus, HasObjective, AbstractCrudObject):
     def get_stats(self, fields=None, params=None):
         """Returns iterator over AdStat's associated with this campaign."""
         return self.iterate_edge(AdStats, fields, params)
-
-
-class HasBidInfo(object):
-
-    """
-    An instance of HasBidInfo will have an enum attribute BidInfo.
-    """
-
-    class BidInfo(object):
-        actions = 'ACTIONS'
-        clicks = 'CLICKS'
-        impressions = 'IMPRESSIONS'
-        reach = 'REACH'
-        social = 'SOCIAL'
 
 
 class AdSet(HasStatus, AbstractCrudObject):
@@ -1845,8 +1761,8 @@ class ReachFrequencyPrediction(AbstractCrudObject):
 
     def cancel(self):
         params = {
-            self.__class__.Field.prediction_id: self.get_id_assured(),
-            self.__class__.Field.action: self.__class__.Action.cancel,
+            self.Field.prediction_id: self.get_id_assured(),
+            self.Field.action: self.__class__.Action.cancel,
         }
         self.get_api_assured().call(
             FacebookAdsApi.HTTP_METHOD_POST,
