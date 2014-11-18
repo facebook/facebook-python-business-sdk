@@ -107,14 +107,11 @@ class FacebookResponse(object):
         """
         if self.is_failure():
             return FacebookRequestError(
-                "Call was not successful.\n" +
-                "Request:\n\t%s\n" % self._call +
-                "Response given:\n" +
-                "\tHTTP Status: %s\n\tHeaders: %s\n\tBody: %s\n" % (
-                    self.status(),
-                    self.headers(),
-                    self.body(),
-                )
+                "Call was not successful",
+                self._call,
+                self.status(),
+                self.headers(),
+                self.body()
             )
         else:
             return None
