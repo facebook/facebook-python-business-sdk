@@ -117,7 +117,11 @@ class EdgeIterator(object):
 
         return self._queue.pop(0)
 
+    # Python 2 compatibility.
     next = __next__
+
+    def __getitem__(self, index):
+        return self._queue[index]
 
     def total(self):
         return self._total_count
@@ -616,6 +620,7 @@ class AbstractCrudObject(AbstractObject):
         """
         params = {} if params is None else params.copy()
         params.update(self.export_data())
+        self._set_data(params)
 
         if batch is not None:
             def callback_success(response):
@@ -786,7 +791,13 @@ class AdUser(CannotCreate, CannotDelete, CannotUpdate, AbstractCrudObject):
 
 class Activity(AbstractObject):
 
-    pass
+    class Field(object):
+        event_time = 'event_time'
+        event_type = 'event_type'
+
+    @classmethod
+    def get_endpoint(cls):
+        return 'activities'
 
 
 class AdAccount(CannotCreate, CannotDelete, AbstractCrudObject):
