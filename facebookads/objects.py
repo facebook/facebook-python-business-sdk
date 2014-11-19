@@ -315,6 +315,10 @@ class AbstractCrudObject(AbstractObject):
 
         return self
 
+    def __delitem__(self, key):
+        del self._data[key]
+        del self._changes[key]
+
     def __eq__(self, other):
         """Two objects are the same if they have the same fbid."""
         return (

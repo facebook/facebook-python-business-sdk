@@ -115,6 +115,19 @@ class EdgeIteratorTestCase(unittest.TestCase):
         obj = ei.build_objects_from_response(response)
         assert len(obj) == 1 and obj[0]['id'] == "601957/targetingsentencelines"
 
+
+class AbstractCrudObjectTestCase(unittest.TestCase):
+    def assert_delitem_changes_history(self):
+        account = objects.AdAccount()
+        account['name'] = 'foo'
+        assert len(account._changes) > 0
+        del account['name']
+        assert len(account._changes) == 0
+
+    def runTest(self):
+        self.assert_delitem_changes_history()
+
+
 class AbstractObjectTestCase(unittest.TestCase):
     def assert_export_nested_object(self):
         obj = specs.ObjectStorySpec()
