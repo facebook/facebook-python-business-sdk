@@ -25,6 +25,27 @@ mixins contains attributes that objects share
 from facebookads.exceptions import FacebookBadObjectError
 
 
+class CanArchive(object):
+    """
+    An instance of CanArchive will allow the ad objects
+    to call remote_archive() to be archived
+    """
+    def remote_archive(
+        self,
+        batch=None,
+        failure=None,
+        success=None
+    ):
+        return self.remote_update(
+            params={
+                self.Field.status: self.Status.archived,
+            },
+            batch=batch,
+            failure=failure,
+            success=success,
+        )
+
+
 class CannotCreate(object):
 
     """

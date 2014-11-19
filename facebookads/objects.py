@@ -26,6 +26,7 @@ Ads API.
 from facebookads.exceptions import FacebookBadObjectError
 from facebookads.api import FacebookAdsApi
 from facebookads.mixins import (
+    CanArchive,
     CannotCreate,
     CannotDelete,
     CannotUpdate,
@@ -1096,7 +1097,7 @@ class AdAccountGroupUser(AbstractCrudObject):
         return AdUser(fbid=self[self.__class__.Field.uid])
 
 
-class AdCampaign(HasStatus, HasObjective, AbstractCrudObject):
+class AdCampaign(HasStatus, HasObjective, CanArchive, AbstractCrudObject):
 
     class Field(object):
         account_id = 'account_id'
@@ -1129,7 +1130,7 @@ class AdCampaign(HasStatus, HasObjective, AbstractCrudObject):
         return self.iterate_edge(AdStats, fields, params)
 
 
-class AdSet(HasStatus, AbstractCrudObject):
+class AdSet(HasStatus, CanArchive, AbstractCrudObject):
 
     class Field(HasBidInfo, object):
         account_id = 'account_id'
@@ -1178,7 +1179,7 @@ class AdSet(HasStatus, AbstractCrudObject):
         return self.iterate_edge(AdStats, fields, params)
 
 
-class AdGroup(HasStatus, HasObjective, AbstractCrudObject):
+class AdGroup(HasStatus, HasObjective, CanArchive, AbstractCrudObject):
 
     class Field(HasBidInfo, object):
         account_id = 'account_id'

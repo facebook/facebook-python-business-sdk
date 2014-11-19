@@ -193,6 +193,15 @@ class AbstractCrudObjectTestCase(AbstractObjectTestCase):
 
         assert subject.__class__.Field.id not in subject
 
+    @classmethod
+    def assert_can_archive(cls, subject):
+        assert subject.__class__.Field.id in subject
+
+        subject.remote_archive()
+
+        subject.remote_read(fields=[subject.__class__.Field.status])
+        assert subject[subject.__class__.Field.status] == 'ARCHIVED'
+
 
 class AdUserTestCase(AbstractCrudObjectTestCase):
 
@@ -255,6 +264,8 @@ class AdCampaignTestCase(AbstractCrudObjectTestCase):
         })
         self.assert_can_update(self.subject)
 
+        self.assert_can_archive(self.subject)
+
         self.assert_can_delete(self.subject)
 
 
@@ -284,6 +295,8 @@ class AdSetTestCase(AbstractCrudObjectTestCase):
             objects.AdSet.Field.name: 'AdSetTestCase Updated %s' % self.TEST_ID,
         })
         self.assert_can_update(self.subject)
+
+        self.assert_can_archive(self.subject)
 
         self.assert_can_delete(self.subject)
         self.campaign.remote_delete()
@@ -328,6 +341,8 @@ class AdGroupTestCase(AbstractCrudObjectTestCase):
             ),
         })
         self.assert_can_update(self.subject)
+
+        self.assert_can_archive(self.subject)
 
         self.assert_can_delete(self.subject)
 
