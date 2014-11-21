@@ -2,3 +2,5 @@
 app_id =
 app_secret =
 access_token =
+[Defaults]
+ad_account =
