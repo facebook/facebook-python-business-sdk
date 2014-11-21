@@ -270,7 +270,6 @@ class AbstractObject(collections.MutableMapping):
         return self.export_value(self._data)
 
 
-
 class AbstractCrudObject(AbstractObject):
     """
     Extends AbstractObject and implements methods to create, read, update,
@@ -1488,22 +1487,24 @@ class ClickTrackingTag(AbstractCrudObject):
 class CustomAudience(AbstractCrudObject):
 
     class Field(object):
-        description = 'description'
-        id = 'id'
-        name = 'name'
-        opt_out_link = 'opt_out_link'
-
         account_id = 'account_id'
         approximate_count = 'approximate_count'
         data_source = 'data_source'
         delivery_status = 'delivery_status'
+        description = 'description'
+        force_delete_lookalikes = 'force_delete_lookalikes'
+        id = 'id'
         lookalike_audience_ids = 'lookalike_audience_ids'
-        permission_for_actions = 'permission_for_actions'
+        lookalike_spec = 'lookalike_spec'
+        name = 'name'
         operation_status = 'operation_status'
+        opt_out_link = 'opt_out_link'
+        permission_for_actions = 'permission_for_actions'
+        prefill = 'prefill'
+        retention_days = 'retention_days'
+        rule = 'rule'
         subtype = 'subtype'
         time_updated = 'time_updated'
-
-        force_delete_lookalikes = 'force_delete_lookalikes'
 
     class Schema(object):
         uid = 'UID'
