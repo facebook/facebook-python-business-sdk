@@ -345,7 +345,7 @@ class AbstractCrudObject(AbstractObject):
 
     def get_parent_id(self):
         """Returns the object's parent's id."""
-        return self.parent_id
+        return self.parent_id or FacebookAdsApi.get_default_account_id()
 
     def get_api(self):
         """
@@ -380,7 +380,7 @@ class AbstractCrudObject(AbstractObject):
         Raises:
             FacebookBadObjectError if the object does not have a parent id.
         """
-        if self.parent_id is None:
+        if self.get_parent_id() is None:
             raise FacebookBadObjectError(
                 "%s object needs a parent_id for this operation."
                 % self.__class__.__name__

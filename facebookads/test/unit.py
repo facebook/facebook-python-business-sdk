@@ -28,6 +28,7 @@ How to run:
 import unittest
 import json
 
+from .. import api
 from .. import objects
 from .. import specs
 from .. import exceptions
@@ -199,6 +200,19 @@ class AbstractObjectTestCase(unittest.TestCase):
         self.assert_export_list()
         self.assert_export_none()
 
+
+class AbstractCrudObjectTestCase(unittest.TestCase):
+
+    def assert_inherits_account_id(self):
+        parent_id = 'act_19tg0j239g023jg9230j932'
+        api.FacebookAdsApi.set_default_account_id(parent_id)
+        ac = objects.AdAccount()
+        assert ac.parent_id is None
+        assert ac.get_parent_id() == parent_id
+        api.FacebookAdsApi.set_default_account_id(None)
+
+    def runTest(self):
+        self.assert_inherits_account_id()
 
 if __name__ == '__main__':
     unittest.main()

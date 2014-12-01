@@ -20,7 +20,8 @@ def auth(access_token=None):
         FacebookAdsApi.init(
             config['app_id'],
             config['app_secret'],
-            access_token
+            access_token,
+            config['act_id'],
         )
     else:
         raise FacebookError(

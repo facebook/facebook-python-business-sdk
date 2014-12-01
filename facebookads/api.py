@@ -145,6 +145,7 @@ class FacebookAdsApi(object):
     }
 
     _default_api = None
+    _default_account_id = None
 
     def __init__(self, session):
         """Initializes the api instance.
@@ -166,10 +167,13 @@ class FacebookAdsApi(object):
         return self._num_requests_succeeded
 
     @classmethod
-    def init(cls, app_id, app_secret, access_token):
+    def init(cls, app_id, app_secret, access_token, account_id=None):
         session = FacebookSession(app_id, app_secret, access_token)
         api = cls(session)
         cls.set_default_api(api)
+
+        if account_id is not None:
+            cls.set_default_account_id(account_id)
 
     @classmethod
     def set_default_api(cls, api_instance):
@@ -187,6 +191,20 @@ class FacebookAdsApi(object):
     def get_default_api(cls):
         """Returns the default api instance."""
         return cls._default_api
+
+    @classmethod
+    def set_default_account_id(cls, account_id):
+        account_id = str(account_id)
+        if account_id.find('act_') == -1:
+            raise ValueError(
+                "Account ID provided in FacebookAdsApi.set_default_account_id "
+                "expects a string that begins with 'act_'"
+            )
+        cls._default_account_id = account_id
+
+    @classmethod
+    def get_default_account_id(cls):
+        return cls._default_account_id
 
     def call(self, method, path, params=None, headers=None, files=None):
         """Makes an API call.
