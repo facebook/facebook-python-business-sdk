@@ -52,8 +52,7 @@ auth_info = (
 FacebookAdsApi.init(*auth_info)
 
 ### Get account from config file
-my_account = AdAccount(parent_id='act_' + config.get('Defaults', 'ad_account'))
-
+my_account = AdAccount('act_' + config.get('Defaults', 'ad_account'))
 
 def ListCustomAudiences(**kwargs):
     audiences = my_account.get_custom_audiences(fields=[
