@@ -57,6 +57,7 @@ class EdgeIterator(object):
         target_objects_class,
         fields=None,
         params=None,
+        http_method=FacebookAdsApi.HTTP_METHOD_GET,
     ):
         """
         Initializes an iterator over the objects to which there is an edge from
@@ -72,6 +73,8 @@ class EdgeIterator(object):
             params (optional): A mapping of request parameters where a key
                 is the parameter name and its value is a string or an object
                 which can be JSON-encoded.
+            http_method (optional): The http method that should be used while
+                doing the requests.
         """
         if fields is None:
             fields = []
@@ -97,6 +100,8 @@ class EdgeIterator(object):
         self._queue = []
         self._finished_iteration = False
         self._total_count = None
+
+        self._http_method = http_method
 
         if self._source_object.get_api():
             self.load_next_page()
@@ -139,7 +144,7 @@ class EdgeIterator(object):
         self._params['summary'] = True
 
         response = self._source_object.get_api_assured().call(
-            FacebookAdsApi.HTTP_METHOD_GET,
+            self._http_method,
             self._path,
             params=self._params,
         ).json()
@@ -722,7 +727,7 @@ class AbstractCrudObject(AbstractObject):
         else:
             return self.remote_create(*args, **kwargs)
 
-    def iterate_edge(self, target_objects_class, fields=None, params=None):
+    def iterate_edge(self, target_objects_class, fields=None, params=None, http_method=FacebookAdsApi.HTTP_METHOD_GET):
         """
         Returns EdgeIterator with argument self as source_object and
         the rest as given __init__ arguments.
@@ -734,7 +739,8 @@ class AbstractCrudObject(AbstractObject):
             source_object,
             target_objects_class,
             fields=fields,
-            params=params
+            params=params,
+            http_method=http_method
         )
 
     def edge_object(self, target_objects_class, fields=None, params=None):
@@ -988,6 +994,10 @@ class AdAccount(CannotCreate, CannotDelete, AbstractCrudObject):
     def get_report_stats(self, fields=None, params=None):
         """Returns iterator over ReportStats's associated with this account."""
         return self.iterate_edge(ReportStats, fields, params)
+
+    def get_async_report_stats(self, fields=None, params=None):
+        """Returns iterator over AsyncReportStats's associated with this account."""
+        return self.iterate_edge(AsyncReportStats, fields, params, FacebookAdsApi.HTTP_METHOD_POST)
 
     def get_stats(self, fields=None, params=None):
         """Returns iterator over AdStats's associated with this account."""
@@ -1435,6 +1445,16 @@ class ReportStats(AbstractObject):
     def get_endpoint(cls):
         return 'reportstats'
 
+class AsyncReportStats(CannotCreate, CannotDelete, CannotUpdate, AbstractCrudObject):
+
+    class Field(object):
+        id = 'id'
+        async_percent_completion = 'async_percent_completion'
+        async_status = 'async_status'
+
+    @classmethod
+    def get_endpoint(cls):
+        return 'reportstats'
 
 class ConversionStats(AbstractObject):
 
