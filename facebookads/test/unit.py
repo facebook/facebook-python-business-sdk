@@ -207,9 +207,8 @@ class AbstractCrudObjectTestCase(unittest.TestCase):
         parent_id = 'act_19tg0j239g023jg9230j932'
         api.FacebookAdsApi.set_default_account_id(parent_id)
         ac = objects.AdAccount()
-        assert ac.parent_id is None
         assert ac.get_parent_id() == parent_id
-        api.FacebookAdsApi.set_default_account_id(None)
+        api.FacebookAdsApi._default_account_id = None
 
     def runTest(self):
         self.assert_inherits_account_id()
