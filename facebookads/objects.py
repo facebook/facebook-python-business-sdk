@@ -544,6 +544,7 @@ class AbstractCrudObject(AbstractObject):
                 files=files,
             )
             self._set_data(response.json())
+            self._clear_history()
 
             return self
 

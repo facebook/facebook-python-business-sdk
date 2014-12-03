@@ -124,6 +124,7 @@ class FacebookAdsTestCase(unittest.TestCase):
             objects.AdGroup.Field.creative: {
                 objects.AdGroup.Field.Creative.creative_id: creative_id,
             },
+            objects.AdGroup.Field.status: objects.AdGroup.Status.paused,
         })
 
         return ad_group
