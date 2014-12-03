@@ -73,15 +73,8 @@ class EdgeIterator(object):
                 is the parameter name and its value is a string or an object
                 which can be JSON-encoded.
         """
-        if fields is None:
-            fields = []
-
-        fields = ','.join([
-            field for field in (
-                fields if fields
-                else target_objects_class.get_default_read_fields()
-            )
-        ])
+        fields = ','.join(fields or
+                          target_objects_class.get_default_read_fields())
 
         self._params = {} if params is None else params.copy()
 
