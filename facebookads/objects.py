@@ -298,7 +298,7 @@ class AbstractCrudObject(AbstractObject):
         self._changes = {}
 
         if fbid is not None:
-            self[self.__class__.Field.id] = str(fbid)
+            self[self.Field.id] = str(fbid)
 
         if parent_id is not None:
             self.parent_id = str(parent_id)
@@ -360,8 +360,8 @@ class AbstractCrudObject(AbstractObject):
 
     def get_id(self):
         """Returns the object's fbid if set. Else, it returns None."""
-        if self.__class__.Field.id in self:
-            return self[self.__class__.Field.id]
+        if self.Field.id in self:
+            return self[self.Field.id]
         else:
             return None
 
@@ -386,15 +386,15 @@ class AbstractCrudObject(AbstractObject):
             FacebookBadObjectError if the object does not have an id.
         """
         if (
-            self.__class__.Field.id not in self or
-            self[self.__class__.Field.id] is None
+            self.Field.id not in self or
+            self[self.Field.id] is None
         ):
             raise FacebookBadObjectError(
                 "%s object needs an id for this operation."
                 % self.__class__.__name__
             )
 
-        return self[self.__class__.Field.id]
+        return self[self.Field.id]
 
     def get_parent_id_assured(self):
         """Returns the object's parent's fbid.
@@ -467,7 +467,7 @@ class AbstractCrudObject(AbstractObject):
 
     def clear_id(self):
         """Clears the object's fbid."""
-        del self[self.__class__.Field.id]
+        del self[self.Field.id]
         return self
 
     def get_node_path(self):
@@ -507,7 +507,7 @@ class AbstractCrudObject(AbstractObject):
             self if not a batch call.
             the return value of batch.add if a batch call.
         """
-        if self.__class__.Field.id in self:
+        if self.Field.id in self:
             raise FacebookBadObjectError(
                 "This %s object was already created." % self.__class__.__name__
             )
@@ -732,7 +732,7 @@ class AbstractCrudObject(AbstractObject):
         Calls remote_create method if object has not been created. Else, calls
         the remote_update method.
         """
-        if self.__class__.Field.id in self:
+        if self.Field.id in self:
             return self.remote_update(*args, **kwargs)
         else:
             return self.remote_create(*args, **kwargs)
@@ -1084,7 +1084,7 @@ class AdAccountGroupAccount(AbstractCrudObject):
 
     def get_ad_account(self):
         """Returns an AdAccount object with the same account id."""
-        return AdAccount(fbid='act_' + self[self.__class__.Field.account_id])
+        return AdAccount(fbid='act_' + self[self.Field.account_id])
 
 
 class AdAccountGroupUser(AbstractCrudObject):
@@ -1112,7 +1112,7 @@ class AdAccountGroupUser(AbstractCrudObject):
 
     def get_ad_user(self):
         """Returns an AdUser object with the same account id."""
-        return AdUser(fbid=self[self.__class__.Field.uid])
+        return AdUser(fbid=self[self.Field.uid])
 
 
 class AdCampaign(HasStatus, HasObjective, CanArchive, AbstractCrudObject):
@@ -1344,9 +1344,9 @@ class AdImage(CannotUpdate, AbstractCrudObject):
             if key in self._changes:
                 del self._changes[key]
 
-        self._data[self.__class__.Field.id] = '%s:%s' % (
+        self._data[self.Field.id] = '%s:%s' % (
             self.get_parent_id_assured()[4:],
-            self[self.__class__.Field.hash],
+            self[self.Field.hash],
         )
 
         return self
@@ -1365,11 +1365,11 @@ class AdImage(CannotUpdate, AbstractCrudObject):
         not have the files argument but requires the 'filename' property to be
         defined.
         """
-        if self[self.__class__.Field.filename] is None:
+        if self[self.Field.filename] is None:
             raise FacebookBadObjectError(
                 "AdImage required a filename to be defined."
             )
-        filename = self[self.__class__.Field.filename]
+        filename = self[self.Field.filename]
         open_file = open(filename, 'rb')
         return_val = super(AdImage, self).remote_create(
             files={filename: open_file},
@@ -1383,7 +1383,7 @@ class AdImage(CannotUpdate, AbstractCrudObject):
 
     def get_hash(self):
         """Returns the image hash to which AdCreative's can refer."""
-        return self[self.__class__.Field.hash]
+        return self[self.Field.hash]
 
 
 class AdPreview(AbstractObject):
@@ -1407,7 +1407,7 @@ class AdPreview(AbstractObject):
 
     def get_html(self):
         """Returns the preview html."""
-        return self[self.__class__.Field.body]
+        return self[self.Field.body]
 
 
 class AdCreativePreview(AdPreview):
@@ -1778,7 +1778,7 @@ class ReachFrequencyPrediction(AbstractCrudObject):
             self.Field.budget: budget,
             self.Field.reach: reach,
             self.Field.impression: impression,
-            self.Field.action: self.__class__.Action.reserve,
+            self.Field.action: self.Action.reserve,
         }
         # Filter out None values.
         params = {k: v for (k, v) in params.items() if v is not None}
@@ -1794,7 +1794,7 @@ class ReachFrequencyPrediction(AbstractCrudObject):
     def cancel(self):
         params = {
             self.Field.prediction_id: self.get_id_assured(),
-            self.Field.action: self.__class__.Action.cancel,
+            self.Field.action: self.Action.cancel,
         }
         self.get_api_assured().call(
             FacebookAdsApi.HTTP_METHOD_POST,
