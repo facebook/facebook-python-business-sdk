@@ -334,6 +334,27 @@ class AbstractCrudObject(AbstractObject):
     def __ne__(self, other):
         return not self.__eq__(other)
 
+    @classmethod
+    def get_by_ids(cls, ids, params=None, fields=None):
+        params = {} if params is None else params.copy()
+        if not fields:
+            fields = cls.get_default_read_fields()
+        else:
+            params['fields'] = ','.join(fields)
+
+        params['ids'] = ','.join(map(str, ids))
+        response = FacebookAdsApi.get_default_api().call(
+            FacebookAdsApi.HTTP_METHOD_GET,
+            ['/'],
+            params=params,
+        )
+        result = []
+        for fbid, data in response.json().items():
+            obj = cls(fbid, api=FacebookAdsApi.get_default_api())
+            obj._set_data(data)
+            result.append(obj)
+        return result
+
     # Getters
 
     def get_id(self):
@@ -553,18 +574,11 @@ class AbstractCrudObject(AbstractObject):
             self if not a batch call.
             the return value of batch.add if a batch call.
         """
+        params = {} if params is None else params.copy()
         if not fields:
             fields = self.get_default_read_fields()
-
-        if fields:
-            params = {} if params is None else params.copy()
-
-            fields = ','.join(
-                fields if fields
-                else self.get_default_read_fields()
-            )
-
-            params['fields'] = fields
+        else:
+            params['fields'] = ','.join(fields)
 
         if batch is not None:
             def callback_success(response):

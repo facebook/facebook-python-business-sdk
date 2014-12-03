@@ -269,6 +269,27 @@ class AdCampaignTestCase(AbstractCrudObjectTestCase):
         self.assert_can_delete(self.subject)
 
 
+class GetByIDsTestCase(AbstractCrudObjectTestCase):
+    def runTest(self):
+        self.campaign1 = self.new_test_ad_campaign()
+        self.campaign1['name'] = "Campaign 1"
+        self.campaign1.remote_create()
+        self.campaign2 = self.new_test_ad_campaign()
+        self.campaign2['name'] = "Campaign 2"
+        self.campaign2.remote_create()
+
+        campaigns = objects.AdCampaign.get_by_ids(
+            ids=[self.campaign1.get_id(), self.campaign2.get_id()],
+            fields=['name']
+        )
+
+        assert len(campaigns) == 2
+        assert campaigns[0]['name'] == "Campaign 1"
+        assert campaigns[1]['name'] == "Campaign 2"
+
+        campaigns[0].remote_delete()
+        campaigns[1].remote_delete()
+
 class AdSetTestCase(AbstractCrudObjectTestCase):
 
     @classmethod
