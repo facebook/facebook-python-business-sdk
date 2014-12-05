@@ -1171,10 +1171,10 @@ class AdSet(HasStatus, CanArchive, AbstractCrudObject):
         updated_time = 'updated_time'
 
     class BidType(object):
-        absolute_ocpm = 'absolute_ocpm'
+        absolute_ocpm = 'ABSOLUTE_OCPM'
         cpc = 'CPC'
         cpm = 'CPM'
-        multi_premium = 'multi_premium'
+        multi_premium = 'MULTI_PREMIUM'
 
     class PacingType(object):
         day_parting = 'day_parting'
