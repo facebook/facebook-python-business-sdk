@@ -38,6 +38,7 @@ from facebookads.mixins import (
 import hashlib
 import collections
 import json
+import six
 
 
 class EdgeIterator(object):
@@ -1535,6 +1536,8 @@ class CustomAudience(AbstractCrudObject):
             for user in users:
                 if schema == cls.Schema.email_hash:
                     user = user.strip(" \t\r\n\0\x0B.").lower()
+                if isinstance(user, six.text_type):
+                    user = user.encode('utf8')  # required for hashlib
                 hashed_users.append(hashlib.sha256(user).hexdigest())
 
         payload = {
