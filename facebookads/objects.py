@@ -256,14 +256,11 @@ class AbstractObject(collections.MutableMapping):
         if isinstance(data, AbstractObject):
             data = data.export_data()
         elif isinstance(data, dict):
-            for key, value in data.items():
-                if value is None:
-                    del data[key]
-                else:
-                    data[key] = self.export_value(value)
+            data = dict((k, self.export_value(v))
+                        for k, v in data.items()
+                        if v is not None)
         elif isinstance(data, list):
-            for i, value in enumerate(data):
-                data[i] = self.export_value(value)
+            data = [self.export_value(v) for v in data]
         return data
 
     def export_data(self):
