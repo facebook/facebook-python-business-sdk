@@ -1771,7 +1771,7 @@ class ReachFrequencyPrediction(AbstractCrudObject):
             self.Field.action: self.Action.reserve,
         }
         # Filter out None values.
-        params = {k: v for (k, v) in params.items() if v is not None}
+        params = dict((k, v) for k, v in params.items() if v is not None)
 
         response = self.get_api_assured().call(
             FacebookAdsApi.HTTP_METHOD_POST,
