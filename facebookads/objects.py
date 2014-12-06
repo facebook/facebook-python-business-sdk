@@ -1907,3 +1907,29 @@ class Transaction(AbstractObject):
     @classmethod
     def get_endpoint(cls):
         return 'transactions'
+
+
+class AutoComplete(AbstractCrudObject):
+
+    class Type(object):
+        adcountry = 'adcountry'
+        adregion = 'adregion'
+        adcity = 'adcity'
+        adeducationschool = 'adeducationschool'
+        adeducationmajor = 'adeducationmajor'
+        adlocale = 'adlocale'
+        adworkemployer = 'adworkemployer'
+        adworkposition = 'adworkposition'
+        adkeyword = 'adkeyword'
+        adzipcode = 'adzipcode'
+        adgeolocation = 'adgeolocation'
+
+    @classmethod
+    def get_endpoint(cls):
+        return 'search'
+
+    def get_node_path(self):
+        return (
+            self.get_parent_id_assured(),
+            self.get_endpoint()
+        )
