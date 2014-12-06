@@ -339,7 +339,7 @@ class AbstractCrudObject(AbstractObject):
     def get_by_ids(cls, ids, params=None, fields=None):
         params = {} if params is None else params.copy()
         if not fields:
-            fields = cls.get_default_read_fields()
+            params['fields'] = cls.get_default_read_fields()
         else:
             params['fields'] = ','.join(fields)
 
@@ -577,7 +577,7 @@ class AbstractCrudObject(AbstractObject):
         """
         params = {} if params is None else params.copy()
         if not fields:
-            fields = self.get_default_read_fields()
+            params['fields'] = self.get_default_read_fields()
         else:
             params['fields'] = ','.join(fields)
 

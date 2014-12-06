@@ -290,6 +290,31 @@ class GetByIDsTestCase(AbstractCrudObjectTestCase):
         campaigns[0].remote_delete()
         campaigns[1].remote_delete()
 
+
+class DefaultReadFieldsTestCase(AbstractCrudObjectTestCase):
+    def runTest(self):
+        old_default_read_fields = objects.AdCampaign.get_default_read_fields()
+
+        campaign = self.new_test_ad_campaign()
+        campaign.remote_create()
+        same_campaign = objects.AdCampaign(campaign.get_id())
+        same_campaign.remote_read()
+        assert objects.AdCampaign.Field.status not in same_campaign
+
+        campaigns = objects.AdCampaign.get_by_ids(ids=[campaign.get_id()])
+        assert objects.AdCampaign.Field.status not in campaigns[0]
+
+        objects.AdCampaign.set_default_read_fields([
+            objects.AdCampaign.Field.status,
+        ])
+        same_campaign.remote_read()
+        assert objects.AdCampaign.Field.status in same_campaign
+
+        campaigns = objects.AdCampaign.get_by_ids(ids=[campaign.get_id()])
+        assert objects.AdCampaign.Field.status in campaigns[0]
+
+        objects.AdCampaign.set_default_read_fields(old_default_read_fields)
+
 class AdSetTestCase(AbstractCrudObjectTestCase):
 
     @classmethod
