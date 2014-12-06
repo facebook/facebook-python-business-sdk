@@ -1,6 +1,7 @@
 # Ads API SDK for Python
 
 [![Build Status](https://travis-ci.org/facebook/facebook-python-ads-sdk.svg)](https://travis-ci.org/facebook/facebook-python-ads-sdk)
+[![Coverage Status](https://img.shields.io/coveralls/facebook/facebook-python-ads-sdk.svg)](https://coveralls.io/r/facebook/facebook-python-ads-sdk)
 
 ## The Ads SDK for Python provides an easy interface and abstraction to the Ads API.
 

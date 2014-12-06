@@ -1,11 +1,20 @@
 language: python
 python: 2.7
 env:
-  - TOX_ENV=py34
-  - TOX_ENV=py33
-  - TOX_ENV=py27
-  - TOX_ENV=py26
+  global:
+    - COVERALLS_CMD=true
+  matrix:
+    - TOXENV=py34
+    - TOXENV=py33
+    - TOXENV=py27
+    - TOXENV=py26
+    - COVERALLS_DEP=coveralls
+      COVERALLS_CMD=coveralls
+      COVERAGE_DEP=coverage
+      COVERAGE_CMD="coverage run --append --source=facebookads"
 install:
-  - pip install tox
+  - pip install tox $COVERALLS_DEP
 script:
-  - tox -e $TOX_ENV
+  - tox
+after_script:
+  - $COVERALLS_CMD

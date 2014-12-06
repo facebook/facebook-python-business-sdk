@@ -3,6 +3,7 @@ MANIFEST
 dist
 build
 .DS_Store
+/.coverage
 /.idea
 /.tox
 *.egg-info/
