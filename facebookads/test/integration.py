@@ -147,11 +147,11 @@ class AbstractCrudObjectTestCase(AbstractObjectTestCase):
         '''Tests if object can be created.
         It asserts that id is empty before creation, and populated after.
         '''
-        assert subject.__class__.Field.id not in subject
+        assert subject.Field.id not in subject
 
         subject.remote_create()
 
-        assert subject.__class__.Field.id in subject
+        assert subject.Field.id in subject
 
     @classmethod
     def assert_can_read(cls, subject):
@@ -159,7 +159,7 @@ class AbstractCrudObjectTestCase(AbstractObjectTestCase):
         Reads default fields of subject and sees if subject matches with its
         mirror in all the subject's fields.
         '''
-        assert subject.__class__.Field.id in subject
+        assert subject.Field.id in subject
 
         fields_to_read = subject.get_default_read_fields()
 
@@ -175,7 +175,7 @@ class AbstractCrudObjectTestCase(AbstractObjectTestCase):
 
     @classmethod
     def assert_can_update(cls, subject):
-        assert subject.__class__.Field.id in subject
+        assert subject.Field.id in subject
 
         subject.remote_update()
 
@@ -187,20 +187,20 @@ class AbstractCrudObjectTestCase(AbstractObjectTestCase):
 
     @classmethod
     def assert_can_delete(cls, subject):
-        assert subject.__class__.Field.id in subject
+        assert subject.Field.id in subject
 
         subject.remote_delete()
 
-        assert subject.__class__.Field.id not in subject
+        assert subject.Field.id not in subject
 
     @classmethod
     def assert_can_archive(cls, subject):
-        assert subject.__class__.Field.id in subject
+        assert subject.Field.id in subject
 
         subject.remote_archive()
 
-        subject.remote_read(fields=[subject.__class__.Field.status])
-        assert subject[subject.__class__.Field.status] == 'ARCHIVED'
+        subject.remote_read(fields=[subject.Field.status])
+        assert subject[subject.Field.status] == 'ARCHIVED'
 
 
 class AdUserTestCase(AbstractCrudObjectTestCase):
