@@ -1923,6 +1923,5 @@ class AutoComplete(AbstractCrudObject):
 
     def get_node_path(self):
         return (
-            self.get_parent_id_assured(),
-            self.get_endpoint()
+            self.get_endpoint(),
         )
