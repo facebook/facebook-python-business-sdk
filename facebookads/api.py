@@ -245,7 +245,7 @@ class FacebookAdsApi(object):
             path = "%s/%s/%s" % (
                 self._session.GRAPH,
                 self.API_VERSION,
-                '/'.join(path),
+                '/'.join(map(str, path)),
             )
 
         # Include api headers in http request

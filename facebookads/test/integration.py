@@ -124,6 +124,7 @@ class FacebookAdsTestCase(unittest.TestCase):
             objects.AdGroup.Field.creative: {
                 objects.AdGroup.Field.Creative.creative_id: creative_id,
             },
+            objects.AdGroup.Field.status: objects.AdGroup.Status.paused,
         })
 
         return ad_group
@@ -147,11 +148,11 @@ class AbstractCrudObjectTestCase(AbstractObjectTestCase):
         '''Tests if object can be created.
         It asserts that id is empty before creation, and populated after.
         '''
-        assert subject.Field.id not in subject
+        assert subject[subject.Field.id] is None
 
         subject.remote_create()
 
-        assert subject.Field.id in subject
+        assert subject[subject.Field.id] is not None
 
     @classmethod
     def assert_can_read(cls, subject):
@@ -284,8 +285,13 @@ class GetByIDsTestCase(AbstractCrudObjectTestCase):
         )
 
         assert len(campaigns) == 2
-        assert campaigns[0]['name'] == "Campaign 1"
-        assert campaigns[1]['name'] == "Campaign 2"
+        assert (
+            campaigns[0]['name'] == "Campaign 1" and
+            campaigns[1]['name'] == "Campaign 2"
+        ) or (
+            campaigns[0]['name'] == "Campaign 2" and
+            campaigns[1]['name'] == "Campaign 1"
+        )
 
         campaigns[0].remote_delete()
         campaigns[1].remote_delete()
