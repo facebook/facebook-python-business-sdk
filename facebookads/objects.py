@@ -1290,6 +1290,7 @@ class AdCreative(AbstractCrudObject):
         object_type = 'object_type'
         object_url = 'object_url'
         preview_url = 'preview_url'
+        thumbnail_url = 'thumbnail_url'
         title = 'title'
         url_tags = 'url_tags'
         video_id = 'video_id'
