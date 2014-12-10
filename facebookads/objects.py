@@ -38,6 +38,7 @@ from facebookads.mixins import (
 import hashlib
 import collections
 import json
+import six
 
 
 class EdgeIterator(object):
@@ -249,14 +250,11 @@ class AbstractObject(collections.MutableMapping):
         if isinstance(data, AbstractObject):
             data = data.export_data()
         elif isinstance(data, dict):
-            for key, value in data.items():
-                if value is None:
-                    del data[key]
-                else:
-                    data[key] = self.export_value(value)
+            data = dict((k, self.export_value(v))
+                        for k, v in data.items()
+                        if v is not None)
         elif isinstance(data, list):
-            for i, value in enumerate(data):
-                data[i] = self.export_value(value)
+            data = [self.export_value(v) for v in data]
         return data
 
     def export_data(self):
@@ -1528,6 +1526,8 @@ class CustomAudience(AbstractCrudObject):
             for user in users:
                 if schema == cls.Schema.email_hash:
                     user = user.strip(" \t\r\n\0\x0B.").lower()
+                if isinstance(user, six.text_type):
+                    user = user.encode('utf8')  # required for hashlib
                 hashed_users.append(hashlib.sha256(user).hexdigest())
 
         payload = {
