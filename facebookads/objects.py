@@ -74,14 +74,8 @@ class EdgeIterator(object):
                 is the parameter name and its value is a string or an object
                 which can be JSON-encoded.
         """
-        fields = ','.join(fields or
-                          target_objects_class.get_default_read_fields())
-
-        self._params = {} if params is None else params.copy()
-
-        if fields:
-            self._params['fields'] = fields
-
+        self._params = dict(params or {})
+        target_objects_class._assign_fields_to_params(fields, self._params)
         self._source_object = source_object
         self._target_objects_class = target_objects_class
         self._path = (
@@ -324,12 +318,8 @@ class AbstractCrudObject(AbstractObject):
 
     @classmethod
     def get_by_ids(cls, ids, params=None, fields=None):
-        params = {} if params is None else params.copy()
-        if not fields:
-            params['fields'] = cls.get_default_read_fields()
-        else:
-            params['fields'] = ','.join(fields)
-
+        params = dict(params or {})
+        cls._assign_fields_to_params(fields, params)
         params['ids'] = ','.join(map(str, ids))
         response = FacebookAdsApi.get_default_api().call(
             FacebookAdsApi.HTTP_METHOD_GET,
@@ -465,6 +455,14 @@ class AbstractCrudObject(AbstractObject):
         """Returns the node's path as a tuple."""
         return '/'.join(self.get_node_path())
 
+    @classmethod
+    def _assign_fields_to_params(cls, fields, params):
+        """Applies fields to params in a consistent manner."""
+        if fields is None:
+            fields = cls.get_default_read_fields()
+        if fields:
+            params['fields'] = ','.join(fields)
+
     # CRUD
 
     def remote_create(
@@ -563,11 +561,8 @@ class AbstractCrudObject(AbstractObject):
             self if not a batch call.
             the return value of batch.add if a batch call.
         """
-        params = {} if params is None else params.copy()
-        if not fields:
-            params['fields'] = self.get_default_read_fields() or None
-        else:
-            params['fields'] = ','.join(fields)
+        params = dict(params or {})
+        self._assign_fields_to_params(fields, params)
 
         if batch is not None:
             def callback_success(response):
