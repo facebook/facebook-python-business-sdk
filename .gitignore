@@ -4,6 +4,7 @@ dist
 build
 .DS_Store
 /.idea
+/.tox
 *.egg-info/
 *.swp
 *.swo

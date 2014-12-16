@@ -1,5 +1,7 @@
 # Ads API SDK for Python
 
+[![Build Status](https://travis-ci.org/facebook/facebook-python-ads-sdk.svg)](https://travis-ci.org/facebook/facebook-python-ads-sdk)
+
 ## The Ads SDK for Python provides an easy interface and abstraction to the Ads API.
 
 Python is currently the most popular language for our third party ads
@@ -15,7 +17,7 @@ exercises for the reader.
 
 ### An App
 
-To get started with the SDK you must have a Facebook app 
+To get started with the SDK you must have a Facebook app
 <a href="https://developers.facebook.com/">registered on
 developers.facebook.com</a>.
 
@@ -313,11 +315,43 @@ the SDK.
 
 ## Tests
 
+### Unit tests
+
+The unit tests don't require an access token or network access. Run them
+with your default installed Python as follows:
+
+```
+python -m facebookads.test.unit
+```
+
+You can also use tox to run the unit tests with multiple Python versions:
+
+```
+sudo apt-get install python-tox  # Debian/Ubuntu
+sudo yum install python-tox      # Fedora
+tox --skip-missing-interpreters
+```
+
+You can increase interpreter coverage by installing additional versions of
+Python. On Ubuntu you can use the
+[deadsnakes PPA](https://launchpad.net/~fkrull/+archive/ubuntu/deadsnakes).
+On other distributions you can
+[build from source](https://www.python.org/downloads/) and then use
+`sudo make altinstall` to avoid conflicts with your system-installed
+version.
+
+### Integration tests
+
+The integration tests require an access token with ads_management scope.
+You can obtain a short-lived token from the
+[Graph API Explorer](https://developers.facebook.com/tools/explorer/).
+These tests access the live Facebook API but shouldn't actually
+launch an ad or spend any money.
+
 Copy the `config.json.example` to `config.json` and fill in the appropriate
 details.
 
 ```
-python -m facebookads.test.unit
 python -m facebookads.test.integration <ACCESS_TOKEN>
 # Access token not required if it's defined in config.json
 ```
