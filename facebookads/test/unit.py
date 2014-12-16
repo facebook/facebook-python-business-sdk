@@ -35,7 +35,7 @@ from .. import exceptions
 
 
 class CustomAudienceTestCase(unittest.TestCase):
-    def assert_format_params(self):
+    def test_assert_format_params(self):
         payload = objects.CustomAudience.format_params(
             objects.CustomAudience.Schema.email_hash,
             ["  test  ", "test", "..test.."]
@@ -48,7 +48,7 @@ class CustomAudienceTestCase(unittest.TestCase):
         assert users[1] == users[0]
         assert users[2] == users[1]
 
-    def assert_fail_when_no_app_ids(self):
+    def test_assert_fail_when_no_app_ids(self):
         def uid_payload():
             objects.CustomAudience.format_params(
                 objects.CustomAudience.Schema.uid,
@@ -59,17 +59,9 @@ class CustomAudienceTestCase(unittest.TestCase):
             uid_payload,
         )
 
-    def runTest(self):
-        self.assert_format_params()
-        self.assert_fail_when_no_app_ids()
-
 
 class EdgeIteratorTestCase(unittest.TestCase):
-    def runTest(self):
-        self.assert_builds_from_array()
-        self.assert_builds_from_object()
-
-    def assert_builds_from_array(self):
+    def test_assert_builds_from_array(self):
         """
         Sometimes the response returns an array inside the data
         key. This asserts that we successfully build objects using
@@ -89,7 +81,7 @@ class EdgeIteratorTestCase(unittest.TestCase):
         objs = ei.build_objects_from_response(response)
         assert len(objs) == 2
 
-    def assert_builds_from_object(self):
+    def test_assert_builds_from_object(self):
         """
         Sometimes the response returns a single JSON object. This asserts
         that we're not looking for the data key and that we correctly build
@@ -118,19 +110,16 @@ class EdgeIteratorTestCase(unittest.TestCase):
 
 
 class AbstractCrudObjectTestCase(unittest.TestCase):
-    def assert_delitem_changes_history(self):
+    def test_assert_delitem_changes_history(self):
         account = objects.AdAccount()
         account['name'] = 'foo'
         assert len(account._changes) > 0
         del account['name']
         assert len(account._changes) == 0
 
-    def runTest(self):
-        self.assert_delitem_changes_history()
-
 
 class AbstractObjectTestCase(unittest.TestCase):
-    def assert_export_nested_object(self):
+    def test_assert_export_nested_object(self):
         obj = specs.ObjectStorySpec()
         obj2 = specs.OfferData()
         obj2['barcode'] = 'foo'
@@ -142,7 +131,7 @@ class AbstractObjectTestCase(unittest.TestCase):
         }
         assert obj.export_data() == expected
 
-    def assert_export_dict(self):
+    def test_assert_export_dict(self):
         obj = specs.ObjectStorySpec()
         obj['link_data'] = {
             'link_data': 3
@@ -154,7 +143,7 @@ class AbstractObjectTestCase(unittest.TestCase):
         }
         assert obj.export_data() == expected
 
-    def assert_export_scalar(self):
+    def test_assert_export_scalar(self):
         obj = specs.ObjectStorySpec()
         obj['link_data'] = 3
         expected = {
@@ -162,13 +151,13 @@ class AbstractObjectTestCase(unittest.TestCase):
         }
         assert obj.export_data() == expected
 
-    def assert_export_none(self):
+    def test_assert_export_none(self):
         obj = specs.ObjectStorySpec()
         obj['link_data'] = None
         expected = {}
         assert obj.export_data() == expected
 
-    def assert_export_list(self):
+    def test_assert_export_list(self):
         obj = objects.AdCreative()
         obj2 = specs.LinkData()
         obj3 = specs.AttachmentData()
@@ -181,7 +170,7 @@ class AbstractObjectTestCase(unittest.TestCase):
         except:
             self.fail("Objects in crud object export")
 
-    def assert_export_no_objects(self):
+    def test_assert_export_no_objects(self):
         obj = specs.ObjectStorySpec()
         obj2 = specs.VideoData()
         obj2['description'] = "foo"
@@ -192,18 +181,9 @@ class AbstractObjectTestCase(unittest.TestCase):
         except:
             self.fail("Objects in object export")
 
-    def runTest(self):
-        self.assert_export_nested_object()
-        self.assert_export_dict()
-        self.assert_export_scalar()
-        self.assert_export_no_objects()
-        self.assert_export_list()
-        self.assert_export_none()
-
-
 class AbstractCrudObjectTestCase(unittest.TestCase):
 
-    def assert_inherits_account_id(self):
+    def test_assert_inherits_account_id(self):
         parent_id = 'act_19tg0j239g023jg9230j932'
         api.FacebookAdsApi.set_default_account_id(parent_id)
         ac = objects.AdAccount()
