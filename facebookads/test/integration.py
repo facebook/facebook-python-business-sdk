@@ -486,6 +486,19 @@ class MultiProductAdObjectStorySpecTestCase(AbstractCrudObjectTestCase):
         self.assert_can_create(creative)
         self.assert_can_delete(creative)
 
+
+class BlameFieldSpecsTestCase(AbstractCrudObjectTestCase):
+    def runTest(self):
+        set = objects.AdSet(parent_id=self.TEST_ACCOUNT.get_id_assured())
+        set['name'] = 'foo'
+        set['daily_budget'] = 100
+
+        try:
+            set.remote_create()
+        except fbexceptions.FacebookRequestError as e:
+            assert e.api_blame_field_specs() == [['campaign_group_id']]
+
+
 if __name__ == '__main__':
     config_file = open('./config.json')
     config = json.load(config_file)
