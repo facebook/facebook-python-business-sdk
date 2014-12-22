@@ -202,7 +202,7 @@ class AbstractObject(collections.MutableMapping):
         return "<%s> %s" % (
             self.__class__.__name__,
             json.dumps(
-                self._data,
+                self.export_value(self._data),
                 sort_keys=True,
                 indent=4,
                 separators=(',', ': ')

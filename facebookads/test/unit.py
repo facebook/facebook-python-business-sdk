@@ -192,6 +192,19 @@ class AbstractObjectTestCase(unittest.TestCase):
         except:
             self.fail("Objects in object export")
 
+    def assert_can_print(self):
+        '''Must be able to print nested objects without serialization issues'''
+        obj = specs.ObjectStorySpec()
+        obj2 = specs.OfferData()
+        obj2['barcode'] = 'foo'
+        obj['offer_data'] = obj2
+
+        try:
+            obj.__repr__()
+        except TypeError, e:
+            self.fail('Cannot call __repr__ on AbstractObject\n %s' % e)
+
+
     def runTest(self):
         self.assert_export_nested_object()
         self.assert_export_dict()
@@ -199,6 +212,7 @@ class AbstractObjectTestCase(unittest.TestCase):
         self.assert_export_no_objects()
         self.assert_export_list()
         self.assert_export_none()
+        self.assert_can_print()
 
 
 class AbstractCrudObjectTestCase(unittest.TestCase):
