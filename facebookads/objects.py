@@ -287,7 +287,7 @@ class AbstractCrudObject(AbstractObject):
         super(AbstractCrudObject, self).__init__()
 
         self._changes = {}
-        self[self.Field.id] = fbid
+        self._data[self.Field.id] = fbid
         self._parent_id = parent_id
         self._api = api
 

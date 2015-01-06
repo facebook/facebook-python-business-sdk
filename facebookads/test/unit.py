@@ -118,6 +118,13 @@ class EdgeIteratorTestCase(unittest.TestCase):
 
 
 class AbstractCrudObjectTestCase(unittest.TestCase):
+    def assert_inherits_account_id(self):
+        parent_id = 'act_19tg0j239g023jg9230j932'
+        api.FacebookAdsApi.set_default_account_id(parent_id)
+        ac = objects.AdAccount()
+        assert ac.get_parent_id() == parent_id
+        api.FacebookAdsApi._default_account_id = None
+
     def assert_delitem_changes_history(self):
         account = objects.AdAccount()
         account['name'] = 'foo'
@@ -126,6 +133,7 @@ class AbstractCrudObjectTestCase(unittest.TestCase):
         assert len(account._changes) == 0
 
     def runTest(self):
+        self.assert_inherits_account_id()
         self.assert_delitem_changes_history()
 
 
@@ -214,18 +222,6 @@ class AbstractObjectTestCase(unittest.TestCase):
         self.assert_export_none()
         self.assert_can_print()
 
-
-class AbstractCrudObjectTestCase(unittest.TestCase):
-
-    def assert_inherits_account_id(self):
-        parent_id = 'act_19tg0j239g023jg9230j932'
-        api.FacebookAdsApi.set_default_account_id(parent_id)
-        ac = objects.AdAccount()
-        assert ac.get_parent_id() == parent_id
-        api.FacebookAdsApi._default_account_id = None
-
-    def runTest(self):
-        self.assert_inherits_account_id()
 
 if __name__ == '__main__':
     unittest.main()
