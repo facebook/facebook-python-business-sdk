@@ -25,6 +25,21 @@ mixins contains attributes that objects share
 from facebookads.exceptions import FacebookBadObjectError
 
 
+class CanValidate(object):
+    """
+    An instance of CanValidate will allow the ad objects
+    to call remote_validate() to verify if its parameters are valid
+    """
+    def remote_validate(self, params={}):
+        data_cache = dict(self._data)
+        changes_cache = dict(self._changes)
+        params['execution_options'] = ['validate_only']
+        self.save(params=params)
+        self._data = data_cache
+        self._changes = changes_cache
+        return self
+
+
 class CanArchive(object):
     """
     An instance of CanArchive will allow the ad objects

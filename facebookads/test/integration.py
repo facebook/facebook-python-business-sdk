@@ -203,6 +203,14 @@ class AbstractCrudObjectTestCase(AbstractObjectTestCase):
         subject.remote_read(fields=[subject.Field.status])
         assert subject[subject.Field.status] == 'ARCHIVED'
 
+    @classmethod
+    def assert_can_validate(cls, subject):
+        assert 'execution_options' not in subject
+        cached_data = dict(subject)
+        subject.remote_validate()
+        assert 'execution_options' not in subject
+        assert cached_data == subject._data
+
 
 class AdUserTestCase(AbstractCrudObjectTestCase):
 
@@ -254,6 +262,8 @@ class AdCampaignTestCase(AbstractCrudObjectTestCase):
 
     def runTest(self):
         self.subject = self.new_test_ad_campaign()
+
+        self.assert_can_validate(self.subject)
 
         self.assert_can_create(self.subject)
 
@@ -339,6 +349,8 @@ class AdSetTestCase(AbstractCrudObjectTestCase):
 
         self.subject = self.new_test_ad_set(self.campaign)
 
+        self.assert_can_validate(self.subject)
+
         self.assert_can_create(self.subject)
 
         self.assert_can_read(self.subject)
@@ -351,6 +363,7 @@ class AdSetTestCase(AbstractCrudObjectTestCase):
         self.assert_can_archive(self.subject)
 
         self.assert_can_delete(self.subject)
+
         self.campaign.remote_delete()
 
     def tearDown(self):

@@ -27,6 +27,7 @@ from facebookads.exceptions import FacebookBadObjectError
 from facebookads.api import FacebookAdsApi
 from facebookads.mixins import (
     CanArchive,
+    CanValidate,
     CannotCreate,
     CannotDelete,
     CannotUpdate,
@@ -347,7 +348,7 @@ class AbstractCrudObject(AbstractObject):
 
     def get_id(self):
         """Returns the object's fbid if set. Else, it returns None."""
-        if self.Field.id in self:
+        if self[self.Field.id] is not None:
             return self[self.Field.id]
         else:
             return None
@@ -720,7 +721,7 @@ class AbstractCrudObject(AbstractObject):
         Calls remote_create method if object has not been created. Else, calls
         the remote_update method.
         """
-        if self.Field.id in self:
+        if self.get_id() is not None:
             return self.remote_update(*args, **kwargs)
         else:
             return self.remote_create(*args, **kwargs)
@@ -1103,7 +1104,8 @@ class AdAccountGroupUser(AbstractCrudObject):
         return AdUser(fbid=self[self.Field.uid])
 
 
-class AdCampaign(HasStatus, HasObjective, CanArchive, AbstractCrudObject):
+class AdCampaign(CanValidate, HasStatus, HasObjective, CanArchive,
+                 AbstractCrudObject):
 
     class Field(object):
         account_id = 'account_id'
@@ -1136,7 +1138,7 @@ class AdCampaign(HasStatus, HasObjective, CanArchive, AbstractCrudObject):
         return self.iterate_edge(AdStats, fields, params)
 
 
-class AdSet(HasStatus, CanArchive, AbstractCrudObject):
+class AdSet(CanValidate, HasStatus, CanArchive, AbstractCrudObject):
 
     class Field(HasBidInfo, object):
         account_id = 'account_id'
