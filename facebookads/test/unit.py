@@ -132,9 +132,38 @@ class AbstractCrudObjectTestCase(unittest.TestCase):
         del account['name']
         assert len(account._changes) == 0
 
+    def assert_fields_to_params(self):
+        """
+        Demonstrates that AbstractCrudObject._assign_fields_to_params()
+        handles various combinations of params and fields properly.
+        """
+        class Foo(objects.AbstractCrudObject):
+            _default_read_fields = ['id', 'name']
+
+        class Bar(objects.AbstractCrudObject):
+            _default_read_fields = []
+
+        for adclass, fields, params, expected in [
+            (Foo, None, {}, {'fields': ['id', 'name']}),
+            (Foo, None, {'a': 'b'}, {'a': 'b', 'fields': ['id', 'name']}),
+            (Foo, ['x'], {}, {'fields': ['x']}),
+            (Foo, ['x'], {'a': 'b'}, {'a': 'b', 'fields': ['x']}),
+            (Foo, [], {}, {}),
+            (Foo, [], {'a': 'b'}, {'a': 'b'}),
+            (Bar, None, {}, {}),
+            (Bar, None, {'a': 'b'}, {'a': 'b'}),
+            (Bar, ['x'], {}, {'fields': ['x']}),
+            (Bar, ['x'], {'a': 'b'}, {'a': 'b', 'fields': ['x']}),
+            (Bar, [], {}, {}),
+            (Bar, [], {'a': 'b'}, {'a': 'b'}),
+        ]:
+            adclass._assign_fields_to_params(params, fields)
+            assert params == expected
+
     def runTest(self):
         self.assert_inherits_account_id()
         self.assert_delitem_changes_history()
+        self.assert_fields_to_params()
 
 
 class AbstractObjectTestCase(unittest.TestCase):
