@@ -129,6 +129,13 @@ class FacebookAdsTestCase(unittest.TestCase):
 
         return ad_group
 
+    @classmethod
+    def new_test_ad_image(cls):
+        img = objects.AdImage(parent_id=cls.TEST_ACCOUNT.get_id_assured())
+        img[objects.AdImage.Field.filename] = cls.TEST_IMAGE_PATH
+        img.remote_create()
+        return img
+
 
 class AbstractObjectTestCase(FacebookAdsTestCase):
     pass
@@ -510,6 +517,13 @@ class BlameFieldSpecsTestCase(AbstractCrudObjectTestCase):
             set.remote_create()
         except fbexceptions.FacebookRequestError as e:
             assert e.api_blame_field_specs() == [['campaign_group_id']]
+
+
+class AdImageTestCase(AbstractCrudObjectTestCase):
+
+    def test_can_read(self):
+        self.new_test_ad_image()
+        self.TEST_ACCOUNT.get_ad_images()
 
 
 if __name__ == '__main__':

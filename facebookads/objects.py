@@ -1318,24 +1318,64 @@ class AdImage(CannotUpdate, AbstractCrudObject):
         return (self.get_parent_id_assured(), self.get_endpoint())
 
     def _set_data(self, data):
-        data = list(data['images'].values())[0]
+        """
+            `data` may have a different structure depending if you're creating
+            new AdImages or iterating over existing ones using something like
+            AdAccount.get_ad_images().
 
-        for key in data:
-            key = str(key)
-            value = data[key]
+            While reading existing images, _set_data from AbstractCrudObject
+            handles everything correctly, but we need to treat the remote_create
+            case.
 
-            self._data[key] = value
+            remote_create sample response:
+            {
+              "images": {
+                "8cf726a44ab7008c5cc6b4ebd2491234": {
+                  "hash":"8cf726a44ab7008c5cc6b4ebd2491234",
+                  "url":"https://fbcdn-photos-a.akamaihd.net/..."
+                }
+              }
+            }
 
-            # clear history due to the update
-            if key in self._changes:
-                del self._changes[key]
+            Sample response when calling act_<ACT_ID>/adimages, used internally
+            by AdAccount.get_ad_images():
+            {
+              "data": [
+                {
+                  "hash": "181b88e3cdf6464af7ed52fe488fe559",
+                  "id": "1739564149602806:181b88e3cdf6464af7ed52fe488fe559"
+                }
+              ],
+              "paging": {
+                "cursors": {
+                  "before": "MTczOTU2NDE0OTYwMjgwNjoxODFiODh==",
+                  "after": "MTczOTU2NDE0OTYwMjgwNjoxODFiODhl=="
+                }
+              }
+            }
+        """
 
-        self._data[self.Field.id] = '%s:%s' % (
-            self.get_parent_id_assured()[4:],
-            self[self.Field.hash],
-        )
+        if 'images' in data.keys():
+            data = list(data['images'].values())[0]
 
-        return self
+            for key in data:
+                key = str(key)
+                value = data[key]
+
+                self._data[key] = value
+
+                # clear history due to the update
+                if key in self._changes:
+                    del self._changes[key]
+
+            self._data[self.Field.id] = '%s:%s' % (
+                self.get_parent_id_assured()[4:],
+                self[self.Field.hash],
+            )
+
+            return self
+        else:
+            return super(AdImage, self)._set_data(data)
 
     def remote_create(
         self,
@@ -1370,6 +1410,27 @@ class AdImage(CannotUpdate, AbstractCrudObject):
     def get_hash(self):
         """Returns the image hash to which AdCreative's can refer."""
         return self[self.Field.hash]
+
+    def remote_read(
+        self,
+        batch=None,
+        failure=None,
+        fields=None,
+        params=None,
+        success=None,
+    ):
+        if self[AdImage.Field.id]:
+            _, image_hash = self[AdImage.Field.id].split(':')
+            account = AdAccount(fbid=self.get_parent_id_assured())
+            params = {
+                'hashes': [
+                    image_hash,
+                ],
+            }
+            images = account.get_ad_images(fields=fields, params=params)
+            if images:
+                self._set_data(images[0]._data)
+
 
 
 class AdPreview(AbstractObject):
