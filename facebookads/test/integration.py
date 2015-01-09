@@ -517,6 +517,8 @@ class BlameFieldSpecsTestCase(AbstractCrudObjectTestCase):
             set.remote_create()
         except fbexceptions.FacebookRequestError as e:
             assert e.api_blame_field_specs() == [['campaign_group_id']]
+        else:
+            self.fail("remote_create unexpectedly succeeded")
 
 
 class AdImageTestCase(AbstractCrudObjectTestCase):
