@@ -238,7 +238,7 @@ class AbstractObjectTestCase(unittest.TestCase):
 
         try:
             obj.__repr__()
-        except TypeError, e:
+        except TypeError as e:
             self.fail('Cannot call __repr__ on AbstractObject\n %s' % e)
 
 
