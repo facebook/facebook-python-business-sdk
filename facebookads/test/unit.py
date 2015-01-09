@@ -144,20 +144,20 @@ class AbstractCrudObjectTestCase(unittest.TestCase):
             _default_read_fields = []
 
         for adclass, fields, params, expected in [
-            (Foo, None, {}, {'fields': ['id', 'name']}),
-            (Foo, None, {'a': 'b'}, {'a': 'b', 'fields': ['id', 'name']}),
-            (Foo, ['x'], {}, {'fields': ['x']}),
-            (Foo, ['x'], {'a': 'b'}, {'a': 'b', 'fields': ['x']}),
+            (Foo, None, {}, {'fields': 'id,name'}),
+            (Foo, None, {'a': 'b'}, {'a': 'b', 'fields': 'id,name'}),
+            (Foo, ['x'], {}, {'fields': 'x'}),
+            (Foo, ['x'], {'a': 'b'}, {'a': 'b', 'fields': 'x'}),
             (Foo, [], {}, {}),
             (Foo, [], {'a': 'b'}, {'a': 'b'}),
             (Bar, None, {}, {}),
             (Bar, None, {'a': 'b'}, {'a': 'b'}),
-            (Bar, ['x'], {}, {'fields': ['x']}),
-            (Bar, ['x'], {'a': 'b'}, {'a': 'b', 'fields': ['x']}),
+            (Bar, ['x'], {}, {'fields': 'x'}),
+            (Bar, ['x'], {'a': 'b'}, {'a': 'b', 'fields': 'x'}),
             (Bar, [], {}, {}),
             (Bar, [], {'a': 'b'}, {'a': 'b'}),
         ]:
-            adclass._assign_fields_to_params(params, fields)
+            adclass._assign_fields_to_params(fields, params)
             assert params == expected
 
     def runTest(self):
