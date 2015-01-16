@@ -46,7 +46,7 @@ class FacebookResponse(object):
         """
         self._body = body
         self._http_status = http_status
-        self._headers = headers
+        self._headers = headers or {}
         self._call = call
 
     def body(self):
@@ -66,10 +66,7 @@ class FacebookResponse(object):
 
     def etag(self):
         """Returns the ETag header value if it exists."""
-        if self._headers and 'ETag' in self._headers:
-            return self._headers['Etag']
-        else:
-            return None
+        return self._headers.get('ETag')
 
     def status(self):
         """Returns the http status code of the response."""
@@ -172,7 +169,7 @@ class FacebookAdsApi(object):
         api = cls(session)
         cls.set_default_api(api)
 
-        if account_id is not None:
+        if account_id:
             cls.set_default_account_id(account_id)
 
     @classmethod
@@ -231,22 +228,22 @@ class FacebookAdsApi(object):
         Raises:
             FacebookResponse.error() if the request failed.
         """
-        if params is None:
+        if not params:
             params = {}
-        if headers is None:
+        if not headers:
             headers = {}
-        if files is None:
+        if not files:
             files = {}
 
         self._num_requests_attempted += 1
 
         if not isinstance(path, six.string_types):
             # Path is not a full path
-            path = "%s/%s/%s" % (
+            path = "/".join((
                 self._session.GRAPH,
                 self.API_VERSION,
                 '/'.join(map(str, path)),
-            )
+            ))
 
         # Include api headers in http request
         headers = headers.copy()
@@ -256,7 +253,7 @@ class FacebookAdsApi(object):
             params = _top_level_param_json_encode(params)
 
         # Get request response and encapsulate it in a FacebookResponse
-        if method == 'GET' or method == 'DELETE':
+        if method in ('GET', 'DELETE'):
             response = self._session.requests.request(
                 method,
                 path,
@@ -366,9 +363,8 @@ class FacebookAdsApiBatch(object):
 
         if params:
             params = _top_level_param_json_encode(params)
-            keyvals = []
-            for key in params:
-                keyvals.append("%s=%s" % (key, urllib.parse.quote(params[key])))
+            keyvals = ['%s=%s' % (key, urllib.parse.quote(value))
+                       for key, value in params.items()]
             call['body'] = '&'.join(keyvals)
 
         if files:
@@ -403,7 +399,7 @@ class FacebookAdsApiBatch(object):
             If some of the calls have failed, returns  a new FacebookAdsApiBatch
             object with those calls. Otherwise, returns None.
         """
-        method = FacebookAdsApi.HTTP_METHOD_POST
+        method = 'POST'
         path = tuple()
         params = {'batch': self._batch}
         files = {}
@@ -423,20 +419,9 @@ class FacebookAdsApiBatch(object):
 
         for index, response in enumerate(responses):
             if response:
-                if 'body' in response:
-                    body = response['body']
-                else:
-                    body = None
-
-                if 'code' in response:
-                    code = response['code']
-                else:
-                    code = None
-
-                if 'headers' in response:
-                    headers = response['headers']
-                else:
-                    headers = None
+                body = response.get('body')
+                code = response.get('code')
+                headers = response.get('headers')
 
                 inner_fb_response = FacebookResponse(
                     body=body,
@@ -446,9 +431,9 @@ class FacebookAdsApiBatch(object):
                 )
 
                 if inner_fb_response.is_success():
-                    if self._success_callbacks[index] is not None:
+                    if self._success_callbacks[index]:
                         self._success_callbacks[index](inner_fb_response)
-                elif self._failure_callbacks[index] is not None:
+                elif self._failure_callbacks[index]:
                     self._failure_callbacks[index](inner_fb_response)
             else:
                 retry_indices.append(index)

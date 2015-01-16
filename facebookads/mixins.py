@@ -30,7 +30,8 @@ class CanValidate(object):
     An instance of CanValidate will allow the ad objects
     to call remote_validate() to verify if its parameters are valid
     """
-    def remote_validate(self, params={}):
+    def remote_validate(self, params=None):
+        params = params or {}
         data_cache = dict(self._data)
         changes_cache = dict(self._changes)
         params['execution_options'] = ['validate_only']

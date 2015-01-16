@@ -128,7 +128,7 @@ class EdgeIterator(object):
         self._params['summary'] = True
 
         response = self._source_object.get_api_assured().call(
-            FacebookAdsApi.HTTP_METHOD_GET,
+            'GET',
             self._path,
             params=self._params,
         ).json()
@@ -298,8 +298,7 @@ class AbstractCrudObject(AbstractObject):
 
     def __delitem__(self, key):
         del self._data[key]
-        if key in self._changes:
-            del self._changes[key]
+        self._changes.pop(key, None)
 
     def __eq__(self, other):
         """Two objects are the same if they have the same fbid."""
@@ -308,7 +307,7 @@ class AbstractCrudObject(AbstractObject):
             isinstance(other, self.__class__) and
 
             # Both have id's
-            self.get_id() is not None and other.get_id() is not None and
+            self.get_id() and other.get_id() and
 
             # Both have same id
             self.get_id() == other.get_id()
@@ -323,7 +322,7 @@ class AbstractCrudObject(AbstractObject):
         cls._assign_fields_to_params(fields, params)
         params['ids'] = ','.join(map(str, ids))
         response = FacebookAdsApi.get_default_api().call(
-            FacebookAdsApi.HTTP_METHOD_GET,
+            'GET',
             ['/'],
             params=params,
         )
@@ -338,10 +337,7 @@ class AbstractCrudObject(AbstractObject):
 
     def get_id(self):
         """Returns the object's fbid if set. Else, it returns None."""
-        if self[self.Field.id] is not None:
-            return self[self.Field.id]
-        else:
-            return None
+        return self.get(self.Field.id)
 
     def get_parent_id(self):
         """Returns the object's parent's id."""
@@ -352,10 +348,7 @@ class AbstractCrudObject(AbstractObject):
         Returns the api associated with the object. If None, returns the default
         api.
         """
-        if self._api is not None:
-            return self._api
-        else:
-            return FacebookAdsApi.get_default_api()
+        return self._api or FacebookAdsApi.get_default_api()
 
     def get_id_assured(self):
         """Returns the fbid of the object.
@@ -363,10 +356,7 @@ class AbstractCrudObject(AbstractObject):
         Raises:
             FacebookBadObjectError if the object does not have an id.
         """
-        if (
-            self.Field.id not in self or
-            self[self.Field.id] is None
-        ):
+        if not self.get(self.Field.id):
             raise FacebookBadObjectError(
                 "%s object needs an id for this operation."
                 % self.__class__.__name__
@@ -380,7 +370,7 @@ class AbstractCrudObject(AbstractObject):
         Raises:
             FacebookBadObjectError if the object does not have a parent id.
         """
-        if self.get_parent_id() is None:
+        if not self.get_parent_id():
             raise FacebookBadObjectError(
                 "%s object needs a parent_id for this operation."
                 % self.__class__.__name__
@@ -395,7 +385,7 @@ class AbstractCrudObject(AbstractObject):
             FacebookBadObjectError if get_api returns None.
         """
         api = self.get_api()
-        if api is None:
+        if not api:
             raise FacebookBadObjectError(
                 "%s does not yet have an associated api object."
                 % self.__class__.__name__
@@ -414,15 +404,11 @@ class AbstractCrudObject(AbstractObject):
         Sets object's data as if it were read from the server.
         Warning: Does not log changes.
         """
-        for key in data:
-            key = str(key)
-            value = data[key]
-
-            self._data[key] = value
+        for key in map(str, data):
+            self._data[key] = data[key]
 
             # clear history due to the update
-            if key in self._changes:
-                del self._changes[key]
+            self._changes.pop(key, None)
 
         return self
 
@@ -493,28 +479,28 @@ class AbstractCrudObject(AbstractObject):
             self if not a batch call.
             the return value of batch.add if a batch call.
         """
-        if self.get_id() is not None:
+        if self.get_id():
             raise FacebookBadObjectError(
                 "This %s object was already created." % self.__class__.__name__
             )
 
-        params = {} if params is None else params.copy()
+        params = {} if not params else params.copy()
         params.update(self.export_data())
 
-        if batch is not None:
+        if batch:
             def callback_success(response):
                 self._set_data(response.json())
                 self._clear_history()
 
-                if success is not None:
+                if success:
                     success(response)
 
             def callback_failure(response):
-                if failure is not None:
+                if failure:
                     failure(response)
 
             batch_call = batch.add(
-                FacebookAdsApi.HTTP_METHOD_POST,
+                'POST',
                 (self.get_parent_id_assured(), self.get_endpoint()),
                 params=params,
                 files=files,
@@ -524,7 +510,7 @@ class AbstractCrudObject(AbstractObject):
             return batch_call
         else:
             response = self.get_api_assured().call(
-                FacebookAdsApi.HTTP_METHOD_POST,
+                'POST',
                 (self.get_parent_id_assured(), self.get_endpoint()),
                 params=params,
                 files=files,
@@ -565,19 +551,19 @@ class AbstractCrudObject(AbstractObject):
         params = dict(params or {})
         self._assign_fields_to_params(fields, params)
 
-        if batch is not None:
+        if batch:
             def callback_success(response):
                 self._set_data(response.json())
 
-                if success is not None:
+                if success:
                     success(response)
 
             def callback_failure(response):
-                if failure is not None:
+                if failure:
                     failure(response)
 
             batch_call = batch.add(
-                FacebookAdsApi.HTTP_METHOD_GET,
+                'GET',
                 self.get_node_path(),
                 params=params,
                 success=callback_success,
@@ -586,7 +572,7 @@ class AbstractCrudObject(AbstractObject):
             return batch_call
         else:
             response = self.get_api_assured().call(
-                FacebookAdsApi.HTTP_METHOD_GET,
+                'GET',
                 self.get_node_path(),
                 params=params,
             )
@@ -621,23 +607,23 @@ class AbstractCrudObject(AbstractObject):
             self if not a batch call.
             the return value of batch.add if a batch call.
         """
-        params = {} if params is None else params.copy()
+        params = {} if not params else params.copy()
         params.update(self.export_data())
         self._set_data(params)
 
-        if batch is not None:
+        if batch:
             def callback_success(response):
                 self._clear_history()
 
-                if success is not None:
+                if success:
                     success(response)
 
             def callback_failure(response):
-                if failure is not None:
+                if failure:
                     failure(response)
 
             batch_call = batch.add(
-                FacebookAdsApi.HTTP_METHOD_POST,
+                'POST',
                 self.get_node_path(),
                 failure=callback_failure,
                 files=files,
@@ -647,7 +633,7 @@ class AbstractCrudObject(AbstractObject):
             return batch_call
         else:
             self.get_api_assured().call(
-                FacebookAdsApi.HTTP_METHOD_POST,
+                'POST',
                 self.get_node_path(),
                 files=files,
                 params=params,
@@ -680,19 +666,19 @@ class AbstractCrudObject(AbstractObject):
             self if not a batch call.
             the return value of batch.add if a batch call.
         """
-        if batch is not None:
+        if batch:
             def callback_success(response):
                 self.clear_id()
 
-                if success is not None:
+                if success:
                     success(response)
 
             def callback_failure(response):
-                if failure is not None:
+                if failure:
                     failure(response)
 
             batch_call = batch.add(
-                FacebookAdsApi.HTTP_METHOD_DELETE,
+                'DELETE',
                 self.get_node_path(),
                 params=params,
                 success=callback_success,
@@ -701,7 +687,7 @@ class AbstractCrudObject(AbstractObject):
             return batch_call
         else:
             self.get_api_assured().call(
-                FacebookAdsApi.HTTP_METHOD_DELETE,
+                'DELETE',
                 self.get_node_path(),
                 params=params,
             )
@@ -716,7 +702,7 @@ class AbstractCrudObject(AbstractObject):
         Calls remote_create method if object has not been created. Else, calls
         the remote_update method.
         """
-        if self.get_id() is not None:
+        if self.get_id():
             return self.remote_update(*args, **kwargs)
         else:
             return self.remote_create(*args, **kwargs)
@@ -741,7 +727,7 @@ class AbstractCrudObject(AbstractObject):
         Returns first object when iterating over EdgeIterator with argument
         self as source_object and the rest as given __init__ arguments.
         """
-        params = {} if params is None else params.copy()
+        params = {} if not params else params.copy()
         params['limit'] = '1'
         for obj in self.iterate_edge(
             target_objects_class,
@@ -895,7 +881,7 @@ class AdAccount(CannotCreate, CannotDelete, AbstractCrudObject):
 
         return my_account
 
-    def opt_out_user_from_targeting(self, schema, users, app_ids=[]):
+    def opt_out_user_from_targeting(self, schema, users, app_ids=None):
         """Opts out users from being targeted by this ad account.
 
         Args:
@@ -906,7 +892,7 @@ class AdAccount(CannotCreate, CannotDelete, AbstractCrudObject):
             Return FacebookResponse object
         """
         return self.get_api_assured().call(
-            FacebookAdsApi.HTTP_METHOD_DELETE,
+            'DELETE',
             (self.get_id_assured(), 'usersofanyaudience'),
             params=CustomAudience.format_params(schema, users, app_ids),
         )
@@ -1355,18 +1341,14 @@ class AdImage(CannotUpdate, AbstractCrudObject):
             }
         """
 
-        if 'images' in data.keys():
-            data = list(data['images'].values())[0]
+        if 'images' in data:
+            _, data = data['images'].popitem()
 
-            for key in data:
-                key = str(key)
-                value = data[key]
-
-                self._data[key] = value
+            for key in map(str, data):
+                self._data[key] = data[key]
 
                 # clear history due to the update
-                if key in self._changes:
-                    del self._changes[key]
+                self._changes.pop(key, None)
 
             self._data[self.Field.id] = '%s:%s' % (
                 self.get_parent_id_assured()[4:],
@@ -1391,7 +1373,7 @@ class AdImage(CannotUpdate, AbstractCrudObject):
         not have the files argument but requires the 'filename' property to be
         defined.
         """
-        if self[self.Field.filename] is None:
+        if not self[self.Field.filename]:
             raise FacebookBadObjectError(
                 "AdImage required a filename to be defined."
             )
@@ -1579,9 +1561,9 @@ class CustomAudience(AbstractCrudObject):
         return 'customaudiences'
 
     @classmethod
-    def format_params(cls, schema, users, app_ids=[]):
+    def format_params(cls, schema, users, app_ids=None):
         hashed_users = []
-        if schema == cls.Schema.phone_hash or schema == cls.Schema.email_hash:
+        if schema in (cls.Schema.phone_hash, cls.Schema.email_hash):
             for user in users:
                 if schema == cls.Schema.email_hash:
                     user = user.strip(" \t\r\n\0\x0B.").lower()
@@ -1606,7 +1588,7 @@ class CustomAudience(AbstractCrudObject):
             'payload': payload,
         }
 
-    def add_users(self, schema, users, app_ids=[]):
+    def add_users(self, schema, users, app_ids=None):
         """Adds users to this CustomAudience.
 
         Args:
@@ -1618,12 +1600,12 @@ class CustomAudience(AbstractCrudObject):
             The FacebookResponse object.
         """
         return self.get_api_assured().call(
-            FacebookAdsApi.HTTP_METHOD_POST,
+            'POST',
             (self.get_id_assured(), 'users'),
             params=CustomAudience.format_params(schema, users, app_ids),
         )
 
-    def remove_users(self, schema, users, app_ids=[]):
+    def remove_users(self, schema, users, app_ids=None):
         """Deletes users from this CustomAudience.
 
         Args:
@@ -1635,7 +1617,7 @@ class CustomAudience(AbstractCrudObject):
             The FacebookResponse object.
         """
         return self.get_api_assured().call(
-            FacebookAdsApi.HTTP_METHOD_DELETE,
+            'DELETE',
             (self.get_id_assured(), 'users'),
             params=CustomAudience.format_params(schema, users, app_ids),
         )
@@ -1650,7 +1632,7 @@ class CustomAudience(AbstractCrudObject):
             The FacebookResponse object.
         """
         return self.get_api_assured().call(
-            FacebookAdsApi.HTTP_METHOD_POST,
+            'POST',
             (self.get_id_assured(), 'adaccounts'),
             params={'adaccounts': account_ids},
         )
@@ -1665,7 +1647,7 @@ class CustomAudience(AbstractCrudObject):
             The FacebookResponse object.
         """
         return self.get_api_assured().call(
-            FacebookAdsApi.HTTP_METHOD_DELETE,
+            'DELETE',
             (self.get_id_assured(), 'users'),
             params={'adaccounts': account_ids},
         )
@@ -1833,7 +1815,7 @@ class ReachFrequencyPrediction(AbstractCrudObject):
         params = dict((k, v) for k, v in params.items() if v is not None)
 
         response = self.get_api_assured().call(
-            FacebookAdsApi.HTTP_METHOD_POST,
+            'POST',
             (self.get_parent_id_assured(), self.get_endpoint()),
             params=params,
         )
@@ -1846,7 +1828,7 @@ class ReachFrequencyPrediction(AbstractCrudObject):
             self.Field.action: self.Action.cancel,
         }
         self.get_api_assured().call(
-            FacebookAdsApi.HTTP_METHOD_POST,
+            'POST',
             (self.get_parent_id_assured(), self.get_endpoint()),
             params=params,
         )

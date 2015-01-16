@@ -54,21 +54,7 @@ class FacebookSession(object):
         self.app_id = app_id
         self.app_secret = app_secret
         self.access_token = access_token
-
-        if version_info < (3, 0):
-            h = hmac.new(
-                bytes(self.app_secret),
-                msg=bytes(self.access_token),
-                digestmod=hashlib.sha256
-            )
-        else:
-            h = hmac.new(
-                bytes(self.app_secret, 'utf-8'),
-                msg=bytes(self.access_token, 'utf-8'),
-                digestmod=hashlib.sha256
-            )
-
-        self.appsecret_proof = h.hexdigest()
+        self._gen_appsecret_proof()
 
         self.requests = requests.Session()
         self.requests.verify = os.path.join(
@@ -79,3 +65,15 @@ class FacebookSession(object):
             'access_token': self.access_token,
             'appsecret_proof': self.appsecret_proof,
         })
+
+    def _gen_appsecret_proof(self):
+        h = hmac.new(
+            self.app_secret.encode('utf-8'),
+            msg=self.access_token.encode('utf-8'),
+            digestmod=hashlib.sha256
+        )
+
+        self.appsecret_proof = h.hexdigest()
+
+
+__all__ = ['FacebookSession']
