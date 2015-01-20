@@ -578,6 +578,53 @@ class AdImageTestCase(AbstractCrudObjectTestCase):
         self.TEST_ACCOUNT.get_ad_images()
 
 
+class BatchTestCase(FacebookAdsTestCase):
+
+    def setUp(self):
+        self.created_ids = []
+        self.num_campaigns = 5
+
+    def tearDown(self):
+        for id in self.created_ids:
+            try:
+                campaign = objects.AdCampaign(fbid=id)
+                campaign.remote_delete()
+            except fbexceptions.FacebookRequestError:
+                pass
+
+    def create_campaigns(self):
+        return [FacebookAdsTestCase.new_test_ad_campaign()
+                for i in xrange(self.num_campaigns)]
+
+    def check_ids(self, campaigns):
+        # Check if the campaigns were created by counting distinct ids
+        ids = set(filter(None, [campaign[objects.AdCampaign.Field.id]
+                                for campaign in campaigns]))
+        self.created_ids.append(ids)
+        self.assertEqual(len(ids), len(campaigns))
+
+    def check_batch_size(self, batch):
+        # Make sure the calls went into the batch, not executed directly
+        self.assertEqual(len(batch), self.num_campaigns)
+
+    def execute_batch(self, batch, max_tries):
+        # Avoid a flaky test by retrying the batch calls if needed
+        for i in xrange(max_tries):
+            if batch:
+                batch = batch.execute()
+            else:
+                break
+
+    def test_batch_call(self):
+        campaigns = self.create_campaigns()
+        batch = FacebookAdsTestCase.TEST_API.new_batch()
+        for campaign in campaigns:
+            campaign.remote_create(batch=batch)
+        self.check_batch_size(batch)
+        self.execute_batch(batch, self.num_campaigns)
+        self.check_ids(campaigns)
+
+
 if __name__ == '__main__':
     config_file = open('./config.json')
     config = json.load(config_file)

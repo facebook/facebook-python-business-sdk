@@ -487,7 +487,7 @@ class AbstractCrudObject(AbstractObject):
         params = {} if not params else params.copy()
         params.update(self.export_data())
 
-        if batch:
+        if batch is not None:
             def callback_success(response):
                 self._set_data(response.json())
                 self._clear_history()
@@ -551,7 +551,7 @@ class AbstractCrudObject(AbstractObject):
         params = dict(params or {})
         self._assign_fields_to_params(fields, params)
 
-        if batch:
+        if batch is not None:
             def callback_success(response):
                 self._set_data(response.json())
 
@@ -611,7 +611,7 @@ class AbstractCrudObject(AbstractObject):
         params.update(self.export_data())
         self._set_data(params)
 
-        if batch:
+        if batch is not None:
             def callback_success(response):
                 self._clear_history()
 
@@ -666,7 +666,7 @@ class AbstractCrudObject(AbstractObject):
             self if not a batch call.
             the return value of batch.add if a batch call.
         """
-        if batch:
+        if batch is not None:
             def callback_success(response):
                 self.clear_id()
 

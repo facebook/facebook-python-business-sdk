@@ -399,6 +399,8 @@ class FacebookAdsApiBatch(object):
             If some of the calls have failed, returns  a new FacebookAdsApiBatch
             object with those calls. Otherwise, returns None.
         """
+        if not self._batch:
+            return None
         method = 'POST'
         path = tuple()
         params = {'batch': self._batch}
