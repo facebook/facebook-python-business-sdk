@@ -792,7 +792,7 @@ class AdUser(CannotCreate, CannotDelete, CannotUpdate, AbstractCrudObject):
         return self.edge_object(AdAccount, fields, params)
 
 
-class Activity(AbstractObject):
+class Activity(AbstractCrudObject):
 
     class Field(object):
         event_time = 'event_time'
@@ -1433,7 +1433,7 @@ class AdImage(CannotUpdate, AbstractCrudObject):
 
 
 
-class AdPreview(AbstractObject):
+class AdPreview(AbstractCrudObject):
 
     class Field(object):
         ad_format = 'ad_format'
@@ -1470,7 +1470,7 @@ class AdGroupPreview(AdCreativePreview):
 
 
 # Stats for an object - e.g. {adgroup id}/stats
-class AdStats(AbstractObject):
+class AdStats(AbstractCrudObject):
 
     @classmethod
     def get_endpoint(cls):
@@ -1491,14 +1491,14 @@ class AdGroupStats(AdStats):
         return 'adgroupstats'
 
 
-class ReportStats(AbstractObject):
+class ReportStats(AbstractCrudObject):
 
     @classmethod
     def get_endpoint(cls):
         return 'reportstats'
 
 
-class ConversionStats(AbstractObject):
+class ConversionStats(AbstractCrudObject):
 
     @classmethod
     def get_endpoint(cls):
@@ -1526,7 +1526,7 @@ class KeywordStats(AdStats):
         return 'keywordstats'
 
 
-class BroadCategoryTargeting(AbstractObject):
+class BroadCategoryTargeting(AbstractCrudObject):
 
     @classmethod
     def get_endpoint(cls):
@@ -1671,7 +1671,7 @@ class CustomAudience(AbstractCrudObject):
         )
 
 
-class ConnectionObject(AbstractObject):
+class ConnectionObject(AbstractCrudObject):
 
     class Field(object):
         app_installs_tracked = 'app_installs_tracked'
@@ -1753,14 +1753,14 @@ class PartnerCategory(
         return 'partnercategories'
 
 
-class RateCard(AbstractObject):
+class RateCard(AbstractCrudObject):
 
     @classmethod
     def get_endpoint(cls):
         return 'ratecard'
 
 
-class ReachEstimate(AbstractObject):
+class ReachEstimate(AbstractCrudObject):
 
     @classmethod
     def get_endpoint(cls):
@@ -1853,14 +1853,14 @@ class ReachFrequencyPrediction(AbstractCrudObject):
         return self
 
 
-class TargetingDescription(AbstractObject):
+class TargetingDescription(AbstractCrudObject):
 
     @classmethod
     def get_endpoint(cls):
         return 'targetingsentencelines'
 
 
-class TargetingSearch(AbstractObject):
+class TargetingSearch(AbstractCrudObject):
 
     class DemographicSearchClasses(object):
         demographics = 'demographics'
@@ -1951,7 +1951,7 @@ class TargetingSpecsField(object):
     zips = 'zips'
 
 
-class Transaction(AbstractObject):
+class Transaction(AbstractCrudObject):
 
     @classmethod
     def get_endpoint(cls):
