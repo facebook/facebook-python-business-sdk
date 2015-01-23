@@ -255,6 +255,13 @@ class AbstractObject(collections.MutableMapping):
     def export_data(self):
         return self.export_value(self._data)
 
+    @classmethod
+    def _assign_fields_to_params(cls, fields, params):
+        """Applies fields to params in a consistent manner."""
+        if fields is None:
+            fields = cls.get_default_read_fields()
+        if fields:
+            params['fields'] = ','.join(fields)
 
 class AbstractCrudObject(AbstractObject):
     """
@@ -455,14 +462,6 @@ class AbstractCrudObject(AbstractObject):
     def get_node_path_string(self):
         """Returns the node's path as a tuple."""
         return '/'.join(self.get_node_path())
-
-    @classmethod
-    def _assign_fields_to_params(cls, fields, params):
-        """Applies fields to params in a consistent manner."""
-        if fields is None:
-            fields = cls.get_default_read_fields()
-        if fields:
-            params['fields'] = ','.join(fields)
 
     # CRUD
 
