@@ -25,6 +25,7 @@ How to run:
     python -m facebookads.test.docs
 '''
 
+import sys
 import json
 from .docs_utils import *
 
@@ -120,7 +121,11 @@ if __name__ == '__main__':
     handle.write('')
     handle.close()
 
-    config_file = open('./config.json')
+    try:
+        config_file = open('./config.json')
+    except IOError:
+        print("No config file found, skipping docs tests")
+        sys.exit()
     config = json.load(config_file)
     config_file.close()
 

@@ -623,7 +623,12 @@ class BatchTestCase(FacebookAdsTestCase):
 
 
 if __name__ == '__main__':
-    config_file = open('./config.json')
+    try:
+        config_file = open('./config.json')
+    except IOError:
+        print("No config file found, skipping integration tests")
+        sys.exit()
+
     config = json.load(config_file)
     config_file.close()
 
