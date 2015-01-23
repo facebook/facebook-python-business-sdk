@@ -583,18 +583,15 @@ class BatchTestCase(FacebookAdsTestCase):
     def setUp(self):
         self.created_ids = []
         self.num_campaigns = 5
-
-    def tearDown(self):
-        for id in self.created_ids:
-            try:
-                campaign = objects.AdCampaign(fbid=id)
-                campaign.remote_delete()
-            except fbexceptions.FacebookRequestError:
-                pass
+        super(BatchTestCase, self).setUp()
 
     def create_campaigns(self):
-        return [FacebookAdsTestCase.new_test_ad_campaign()
-                for i in xrange(self.num_campaigns)]
+        ret_val = []
+        for i in range(self.num_campaigns):
+            campaign = self.new_test_ad_campaign()
+            ret_val.append(campaign)
+            self.delete_in_teardown(campaign)
+        return ret_val
 
     def check_ids(self, campaigns):
         # Check if the campaigns were created by counting distinct ids
@@ -609,7 +606,7 @@ class BatchTestCase(FacebookAdsTestCase):
 
     def execute_batch(self, batch, max_tries):
         # Avoid a flaky test by retrying the batch calls if needed
-        for i in xrange(max_tries):
+        for i in range(max_tries):
             if batch:
                 batch = batch.execute()
             else:

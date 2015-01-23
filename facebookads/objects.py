@@ -232,6 +232,14 @@ class AbstractObject(collections.MutableMapping):
         """
         cls._default_read_fields = fields
 
+    @classmethod
+    def _assign_fields_to_params(cls, fields, params):
+        """Applies fields to params in a consistent manner."""
+        if fields is None:
+            fields = cls.get_default_read_fields()
+        if fields:
+            params['fields'] = ','.join(fields)
+
     def _set_data(self, data):
         """
         An AbstractObject does not keep history so _set_data is an alias for
@@ -441,14 +449,6 @@ class AbstractCrudObject(AbstractObject):
     def get_node_path_string(self):
         """Returns the node's path as a tuple."""
         return '/'.join(self.get_node_path())
-
-    @classmethod
-    def _assign_fields_to_params(cls, fields, params):
-        """Applies fields to params in a consistent manner."""
-        if fields is None:
-            fields = cls.get_default_read_fields()
-        if fields:
-            params['fields'] = ','.join(fields)
 
     # CRUD
 
@@ -1210,7 +1210,7 @@ class AdGroup(HasStatus, HasObjective, CanArchive, AbstractCrudObject):
 
     def get_keyword_stats(self, fields=None, params=None):
         """Returns iterator over KeywordStats's associated with this ad."""
-        return self.iterate_edge(KeywordStats, fields, params)
+        return self.edge_object(KeywordStats, fields, params)
 
     def get_ad_preview(self, fields=None, params=None):
         """Returns AdGroupPreview object associated with this ad."""
@@ -1448,7 +1448,9 @@ class AdCreativePreview(AdPreview):
 
 class AdGroupPreview(AdCreativePreview):
 
-    pass
+    @classmethod
+    def get_endpoint(cls):
+        return 'previews'
 
 
 # Stats for an object - e.g. {adgroup id}/stats

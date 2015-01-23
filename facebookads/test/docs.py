@@ -26,7 +26,7 @@ How to run:
 '''
 
 import json
-from docs_utils import *
+from .docs_utils import *
 
 
 class AdGroupDocsTestCase(DocsTestCase):
