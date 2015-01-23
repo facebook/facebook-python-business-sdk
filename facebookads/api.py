@@ -474,7 +474,11 @@ def _top_level_param_json_encode(params):
             isinstance(value, (collections.Mapping, collections.Sequence, bool))
             and not isinstance(value, six.string_types)
         ):
-            params[param] = json.dumps(value)
+            params[param] = json.dumps(
+                value,
+                sort_keys=True,
+                separators=(',', ':'),
+            )
         else:
             params[param] = value
 
