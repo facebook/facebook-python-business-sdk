@@ -42,6 +42,27 @@ class CanValidate(object):
 
 
 class CanArchive(object):
+
+    """
+    An instance of CanArchive will allow the ad objects
+    to call remote_delete() to be deleted using a POST request against
+    the object's status field.
+    """
+    def remote_delete(
+        self,
+        batch=None,
+        failure=None,
+        success=None
+    ):
+        return self.remote_update(
+            params={
+                self.Field.status: self.Status.deleted,
+            },
+            batch=batch,
+            failure=failure,
+            success=success,
+        )
+
     """
     An instance of CanArchive will allow the ad objects
     to call remote_archive() to be archived

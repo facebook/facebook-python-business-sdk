@@ -244,7 +244,11 @@ class AbstractCrudObjectTestCase(AbstractObjectTestCase):
 
         subject.remote_delete()
 
-        assert subject.Field.id not in subject
+        if hasattr(subject.Field, 'status'):
+            subject.remote_read(fields=[subject.Field.status])
+            assert subject[subject.Field.status] == 'DELETED'
+        else:
+            assert subject.Field.id not in subject
 
     @classmethod
     def assert_can_archive(cls, subject):
@@ -562,6 +566,7 @@ class BlameFieldSpecsTestCase(AbstractCrudObjectTestCase):
         self.delete_in_teardown(set)
         set['name'] = 'foo'
         set['daily_budget'] = 100
+        set['campaign_status'] = 100
 
         try:
             set.remote_create()
