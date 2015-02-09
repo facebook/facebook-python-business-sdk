@@ -1136,6 +1136,7 @@ class AdSet(CanValidate, HasStatus, CanArchive, AbstractCrudObject):
         name = 'name'
         pacing_type = 'pacing_type'
         promoted_object = 'promoted_object'
+        rf_prediction_id = 'rf_prediction_id'
         start_time = 'start_time'
         status = 'campaign_status'
         targeting = 'targeting'
