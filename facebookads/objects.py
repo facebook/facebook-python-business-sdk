@@ -1095,6 +1095,7 @@ class AdCampaign(CanValidate, HasStatus, HasObjective, CanArchive,
         is_completed = 'is_completed'
         name = 'name'
         objective = 'objective'
+        promoted_object = 'promoted_object'
         status = 'campaign_group_status'
 
     class BuyingType(object):
@@ -1274,6 +1275,7 @@ class AdCreative(AbstractCrudObject):
         object_type = 'object_type'
         object_url = 'object_url'
         preview_url = 'preview_url'
+        product_set_id = 'product_set_id'
         thumbnail_url = 'thumbnail_url'
         title = 'title'
         url_tags = 'url_tags'
@@ -1898,6 +1900,7 @@ class TargetingSpecsField(object):
     conjunctive_user_adclusters = 'conjunctive_user_adclusters'
     connections = 'connections'
     custom_audiences = 'custom_audiences'
+    dynamic_audience_ids = 'dynamic_audience_ids'
     education_majors = 'education_majors'
     education_schools = 'education_schools'
     education_statuses = 'education_statuses'
@@ -1966,3 +1969,275 @@ class AutoComplete(AbstractCrudObject):
         return (
             self.get_endpoint(),
         )
+
+
+class Business(AbstractCrudObject, CannotCreate, CannotDelete):
+
+    class Field(object):
+        created_by = 'created_by'
+        creation_time = 'creation_time'
+        id = 'id'
+        name = 'name'
+        primary_page = 'primary_page'
+        timezone_id = 'timezone_id'
+        update_time = 'update_time'
+        updated_by = 'updated_by'
+        vertical_id = 'vertical_id'
+
+    def get_product_catalogs(self, fields=None, params=None):
+        return self.iterate_edge(ProductCatalog, fields, params)
+
+
+class ProductCatalog(AbstractCrudObject):
+
+    class Field(object):
+        id = 'id'
+        name = 'name'
+
+    class Role(object):
+        admin = 'ADMIN'
+
+    class Availability(object):
+        available_for_order = 'available for order'
+        in_stock = 'in stock'
+        out_of_stock = 'out of stock'
+        preorder = 'preorder'
+
+    class AgeGroup(object):
+        adult = 'adult'
+        infant = 'infant'
+        kids = 'kids'
+        newborn = 'newborn'
+        toddler = 'toddler'
+
+    class Gender(object):
+        men = 'men'
+        women = 'women'
+        unisex = 'unisex'
+
+    class Condition(object):
+        new = 'new'
+        refurbished = 'refurbished'
+        used = 'used'
+
+    @classmethod
+    def get_endpoint(cls):
+        return 'product_catalogs'
+
+    def get_product_feeds(self, fields=None, params=None):
+        return self.iterate_edge(ProductFeed, fields, params)
+
+    def add_users(self, user, role):
+        params = {
+            user: user,
+            role: role,
+        }
+        return self.get_api_assured().call(
+            'POST',
+            (self.get_id_assured(), 'userpermissions'),
+            params=params
+        )
+
+    def remove_users(self, user):
+        params = {
+            user: user,
+        }
+        return self.get_api_assured().call(
+            'DELETE',
+            (self.get_id_assured(), 'userpermissions'),
+            params=params
+        )
+
+    def add_external_event_sources(self, pixel_ids):
+        params = {
+            'external_event_sources': pixel_ids,
+        }
+        return self.get_api_assured().call(
+            'POST',
+            (self.get_id_assured(), 'external_event_sources'),
+            params=params
+        )
+
+    def remove_external_event_sources(self, pixel_ids):
+        params = {
+            'external_event_sources': pixel_ids,
+        }
+        return self.get_api_assured().call(
+            'DELETE',
+            (self.get_id_assured(), 'external_event_sources'),
+            params=params
+        )
+
+    def get_external_event_sources(self, fields=None, params=None):
+        return self.iterate_edge(
+            ProductCatalogExternalEventSource,
+            fields,
+            params
+        )
+
+
+class ProductCatalogExternalEventSource(
+    CannotCreate,
+    CannotDelete,
+    CannotUpdate,
+    AbstractCrudObject
+):
+
+    @classmethod
+    def get_endpoint(cls):
+        return 'external_event_sources'
+
+
+class ProductFeed(AbstractCrudObject):
+
+    class Field(object):
+        country = 'country'
+        delimiter = 'delimiter'
+        encoding = 'encoding'
+        file_name = 'file_name'
+        format = 'format'
+        id = 'id'
+        name = 'name'
+        quotes = 'quotes'
+        schedule = 'schedule'
+
+    class Format(object):
+        tsv = 'TSV'
+        xml = 'XML'
+
+    class Encoding(object):
+        ascii = 'ASCII'
+        autodetect = 'AUTODETECT'
+        latin_1 = 'LATIN_1'
+        utf_16 = 'UTF_16'
+        utf_8 = 'UTF_8'
+
+    class Delimiter(object):
+        pipe = 'PIPE'
+        tab = 'TAB'
+        tilde = 'TILDE'
+
+    @classmethod
+    def get_endpoint(cls):
+        return 'product_feeds'
+
+    def get_products(self, fields=None, params=None):
+        return self.iterate_edge(Product, fields, params)
+
+
+class ProductFeedUpload(AbstractCrudObject):
+
+    class Field(object):
+        end_time = 'end_time'
+        id = 'id'
+        start_time = 'start_time'
+
+    @classmethod
+    def get_endpoint(cls):
+        return 'uploads'
+
+    def get_errors(self, fields=None, params=None):
+        return self.iterate_edge(ProductFeedUploadError, fields, params)
+
+
+class ProductFeedUploadError(AbstractCrudObject):
+
+    class Field(object):
+        column_number = 'column_number'
+        description = 'description'
+        id = 'id'
+        row_number = 'row_number'
+        severity = 'severity'
+        summary = 'summary'
+
+    @classmethod
+    def get_endpoint(cls):
+        return 'errors'
+
+
+class ProductSet(AbstractCrudObject):
+
+    class Field(object):
+        filter = 'filter'
+        id = 'id'
+        name = 'name'
+
+    @classmethod
+    def get_endpoint(cls):
+        return 'product_sets'
+
+    def get_product_groups(self, fields=None, params=None):
+        return self.iterate_edge(ProductGroup, fields, params)
+
+    def get_products(self, fields=None, params=None):
+        return self.iterate_edge(Product, fields, params)
+
+
+class ProductGroup(AbstractCrudObject):
+
+    class Field(object):
+        id = 'id'
+
+    @classmethod
+    def get_endpoint(cls):
+        return 'product_groups'
+
+
+class Product(AbstractCrudObject):
+
+    class Field(object):
+        additional_image_link = 'additional_image_link'
+        age_group = 'age_group'
+        availability = 'availability'
+        brand = 'brand'
+        color = 'color'
+        condition = 'condition'
+        description = 'description'
+        expiration_date = 'expiration_date'
+        gender = 'gender'
+        google_product_category = 'google_product_category'
+        gtin = 'gtin'
+        id = 'id'
+        image_link = 'image_link'
+        item_group_id = 'item_group_id'
+        link = 'link'
+        material = 'material'
+        mpn = 'mpn'
+        pattern = 'pattern'
+        price = 'price'
+        product_type = 'product_type'
+        sale_price = 'sale_price'
+        sale_price_effective_date = 'sale_price_effective_date'
+        shipping = 'shipping'
+        shipping_size = 'shipping_size'
+        shipping_weight = 'shipping_weight'
+        title = 'title'
+
+    class Availability(object):
+        in_stock = 'IN_STOCK'
+        out_of_stock = 'OUT_OF_STOCK'
+        preorder = 'PREORDER'
+
+    class Condition(object):
+        new = 'PC_NEW'
+        refurbished = 'PC_REFURBISHED'
+        used = 'PC_USED'
+
+    @classmethod
+    def get_endpoint(cls):
+        return 'products'
+
+
+class ProductAudience(CannotUpdate, CannotDelete, AbstractCrudObject):
+
+    class Field(object):
+        description = 'description'
+        exclusions = 'exclusions'
+        inclusions = 'inclusions'
+        name = 'name'
+        pixel_id = 'pixel_id'
+        product_set_id = 'product_set_id'
+
+    @classmethod
+    def get_endpoint(cls):
+        return 'product_audiences'

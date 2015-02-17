@@ -33,6 +33,7 @@ class ObjectStorySpec(ValidatesFields, AbstractObject):
         offer_data = 'offer_data'
         page_id = 'page_id'
         photo_data = 'photo_data'
+        template_data = 'template_data'
         text_data = 'text_data'
         video_data = 'video_data'
 
@@ -79,6 +80,16 @@ class PhotoData(ValidatesFields, AbstractObject):
     class Field(object):
         caption = 'caption'
         url = 'url'
+
+
+class TemplateData(ValidatesFields, AbstractObject):
+    class Field(object):
+        call_to_action = 'call_to_action'
+        description = 'description'
+        link = 'link'
+        max_product_count = 'max_product_count'
+        message = 'message'
+        name = 'name'
 
 
 class TextData(ValidatesFields, AbstractObject):
