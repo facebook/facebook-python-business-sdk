@@ -817,6 +817,7 @@ class AdAccount(CannotCreate, CannotDelete, AbstractCrudObject):
         media_agency = 'media_agency'
         name = 'name'
         offsite_pixels_tos_accepted = 'offsite_pixels_tos_accepted'
+        owner = 'owner'
         partner = 'partner'
         spend_cap = 'spend_cap'
         tax_id_status = 'tax_id_status'
