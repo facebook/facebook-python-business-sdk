@@ -2028,10 +2028,10 @@ class ProductCatalog(AbstractCrudObject):
     def get_product_feeds(self, fields=None, params=None):
         return self.iterate_edge(ProductFeed, fields, params)
 
-    def add_users(self, user, role):
+    def add_user(self, user, role):
         params = {
-            user: user,
-            role: role,
+            'user': user,
+            'role': role,
         }
         return self.get_api_assured().call(
             'POST',
@@ -2039,9 +2039,9 @@ class ProductCatalog(AbstractCrudObject):
             params=params
         )
 
-    def remove_users(self, user):
+    def remove_user(self, user):
         params = {
-            user: user,
+            'user': user,
         }
         return self.get_api_assured().call(
             'DELETE',
