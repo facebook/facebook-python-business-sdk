@@ -36,6 +36,7 @@ from facebookads.mixins import (
     HasStatus,
     HasBidInfo,
 )
+from facebookads.video_uploader import VideoUploader
 
 import hashlib
 import collections
@@ -1418,6 +1419,34 @@ class AdImage(CannotUpdate, AbstractCrudObject):
             if images:
                 self._set_data(images[0]._data)
 
+
+class AdVideo(AbstractCrudObject):
+
+    class Field(object):
+        filename = 'filename'
+        id = 'id'
+
+    def remote_create(
+        self,
+        batch=None,
+        failure=None,
+        params=None,
+        success=None,
+    ):
+        """
+        Uploads filename and creates the AdVideo object from it.
+        It has same arguments as AbstractCrudObject.remote_create except it does
+        not have the files argument but requires the 'filename' property to be
+        defined.
+        """
+        if not self[self.Field.filename]:
+            raise FacebookBadObjectError(
+                "AdVideo required a filename to be defined."
+            )
+        filename = self[self.Field.filename]
+        video_uploader = VideoUploader()
+        result_val = video_uploader.upload(filename)
+        return result_val
 
 
 class AdPreview(AbstractObject):
