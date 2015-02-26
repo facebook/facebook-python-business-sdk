@@ -2234,6 +2234,7 @@ class ProductAudience(CannotUpdate, CannotDelete, AbstractCrudObject):
     class Field(object):
         description = 'description'
         exclusions = 'exclusions'
+        id = 'id'
         inclusions = 'inclusions'
         name = 'name'
         pixel_id = 'pixel_id'
