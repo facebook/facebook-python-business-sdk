@@ -28,7 +28,7 @@ if __name__ == '__main__':
     video = AdVideo(parent_id=my_account.get_id_assured())
 
     # set video fields
-    video[AdVideo.Field.filename] = os.path.join(this_dir, 'test_video.mp4')
+    video[AdVideo.Field.filepath] = os.path.join(this_dir, 'test_video.m4v')
 
     # remove create
     video.remote_create()

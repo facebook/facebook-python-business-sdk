@@ -82,6 +82,8 @@ class FacebookResponse(object):
             return False
         elif bool(json_body):
             # Has body and no error
+            if 'success' in json_body:
+                return json_body['success']
             return True
         elif self._http_status == http_client.NOT_MODIFIED:
             # ETAG Hit
@@ -203,7 +205,15 @@ class FacebookAdsApi(object):
     def get_default_account_id(cls):
         return cls._default_account_id
 
-    def call(self, method, path, params=None, headers=None, files=None):
+    def call(
+        self,
+        method,
+        path,
+        params=None,
+        headers=None,
+        files=None,
+        url_override=None,
+    ):
         """Makes an API call.
 
         Args:
@@ -240,7 +250,7 @@ class FacebookAdsApi(object):
         if not isinstance(path, six.string_types):
             # Path is not a full path
             path = "/".join((
-                self._session.GRAPH,
+                url_override or self._session.GRAPH,
                 self.API_VERSION,
                 '/'.join(map(str, path)),
             ))

@@ -1451,7 +1451,7 @@ class AdImage(CannotUpdate, AbstractCrudObject):
 class AdVideo(AbstractCrudObject):
 
     class Field(object):
-        filename = 'filename'
+        filepath = 'filepath'
         id = 'id'
 
     def remote_create(
@@ -1462,19 +1462,19 @@ class AdVideo(AbstractCrudObject):
         success=None,
     ):
         """
-        Uploads filename and creates the AdVideo object from it.
+        Uploads filepath and creates the AdVideo object from it.
         It has same arguments as AbstractCrudObject.remote_create except it does
-        not have the files argument but requires the 'filename' property to be
+        not have the files argument but requires the 'filepath' property to be
         defined.
         """
-        if not self[self.Field.filename]:
+        if not self[self.Field.filepath]:
             raise FacebookBadObjectError(
-                "AdVideo required a filename to be defined."
+                "AdVideo required a filepath to be defined."
             )
-        filename = self[self.Field.filename]
         video_uploader = VideoUploader()
-        result_val = video_uploader.upload(filename)
-        return result_val
+        response = video_uploader.upload(self)
+        self._set_data(response)
+        return response
 
 
 class AdPreview(AbstractObject):

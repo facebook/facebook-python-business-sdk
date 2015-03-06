@@ -76,9 +76,15 @@ class FacebookRequestError(FacebookError):
         else:
             self._error = None
 
+        # We do not want to print the file bytes
+        request = self._request_context
+        if 'files' in self._request_context:
+            request = self._request_context.copy()
+            del request['files']
+
         super(FacebookRequestError, self).__init__(
             "%s \n" % self._message +
-            "Request:\n\t%s\n" % self._request_context +
+            "Request:\n\t%s\n" % request +
             "Response:\n" +
             "\tHTTP Status: %s\n\tHeaders:%s\n\tBody: %s\n" % (
                 self._http_status,
