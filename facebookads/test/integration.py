@@ -568,24 +568,6 @@ class MultiProductAdObjectStorySpecTestCase(AbstractCrudObjectTestCase):
         self.assert_can_delete(creative)
 
 
-class BlameFieldSpecsTestCase(AbstractCrudObjectTestCase):
-    def runTest(self):
-        set = objects.AdSet(
-            parent_id=self.TEST_ACCOUNT.get_id_assured(),
-        )
-        self.delete_in_teardown(set)
-        set['name'] = 'foo'
-        set['daily_budget'] = 100
-        set['campaign_status'] = 100
-
-        try:
-            set.remote_create()
-        except fbexceptions.FacebookRequestError as e:
-            assert e.api_blame_field_specs() == [['campaign_group_id']]
-        else:
-            self.fail("remote_create unexpectedly succeeded")
-
-
 class AdImageTestCase(AbstractCrudObjectTestCase):
 
     def test_can_read(self):
