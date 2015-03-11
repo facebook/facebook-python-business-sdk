@@ -27,8 +27,8 @@ How to run:
 
 import unittest
 import json
+import inspect
 from sys import version_info
-
 from .. import api
 from .. import objects
 from .. import specs
@@ -114,6 +114,20 @@ class EdgeIteratorTestCase(unittest.TestCase):
 
 
 class AbstractCrudObjectTestCase(unittest.TestCase):
+    def test_all_aco_has_id_field(self):
+        # Some objects do not have FBIDs or don't need checking (ACO)
+        for name, obj in inspect.getmembers(objects):
+            if (
+                inspect.isclass(obj) and
+                issubclass(obj, objects.AbstractCrudObject) and
+                obj != objects.AbstractCrudObject
+            ):
+                try:
+                    id_field = obj.Field.id
+                    assert id_field != ''
+                except Exception as e:
+                    self.fail("Could not instantiate " + name + "\n  " + str(e))
+
     def test_inherits_account_id(self):
         parent_id = 'act_19tg0j239g023jg9230j932'
         api.FacebookAdsApi.set_default_account_id(parent_id)

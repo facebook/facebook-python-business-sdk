@@ -482,6 +482,16 @@ class AdGroupTestCase(AbstractCrudObjectTestCase):
         self.assert_can_delete(self.subject)
 
 
+class TargetingSearchTestCase(AbstractObjectTestCase):
+    def test_call(self):
+        params = {
+            'q': 'un',
+            'type': 'adgeolocation',
+            'location_types': ['country']
+        }
+        resp = objects.TargetingSearch.search(params=params)
+        assert len(resp) > 0
+
 class CustomAudienceTestCase(AbstractCrudObjectTestCase):
 
     def runTest(self):

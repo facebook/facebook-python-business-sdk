@@ -25,6 +25,7 @@ Ads API.
 
 from facebookads.exceptions import FacebookBadObjectError
 from facebookads.api import FacebookAdsApi
+from facebookads.session import FacebookSession
 from facebookads.mixins import (
     CanArchive,
     CanValidate,
@@ -290,9 +291,9 @@ class AbstractCrudObject(AbstractObject):
         super(AbstractCrudObject, self).__init__()
 
         self._changes = {}
-        self._data[self.Field.id] = fbid
         self._parent_id = parent_id
         self._api = api
+        self._data[self.Field.id] = fbid
 
     def __setitem__(self, key, value):
         """Sets an item in this CRUD object while maintaining a changelog."""
@@ -1036,7 +1037,7 @@ class AdAccountGroup(AbstractCrudObject):
         return self.iterate_edge(AdAccountGroupAccount, fields, params)
 
 
-class AdAccountGroupAccount(AbstractCrudObject):
+class AdAccountGroupAccount(AbstractObject):
 
     class Field(object):
         account_id = 'account_id'
@@ -1695,7 +1696,7 @@ class LookalikeAudience(AbstractCrudObject):
         name = 'name'
         lookalike_spec = 'lookalike_spec'
         origin_audience_id = 'origin_audience_id'
-
+        id = 'id'
         page_id = 'page_id'
         conversion_type = 'conversion_type'
         country = 'country'
@@ -1887,9 +1888,31 @@ class TargetingSearch(AbstractObject):
         zipcode = 'adzipcode'
 
     @classmethod
-    def search(cls, type, target_class=None, query=None, params=None, api=None):
-        # TODO
-        return None
+    def search(cls, params=None, api=None):
+        api = api or FacebookAdsApi.get_default_api()
+        if not api:
+            raise FacebookBadObjectError(
+                "An Api instance must be provided as an argument or set as "
+                "the default Api in FacebookAdsApi."
+            )
+
+        params = {} if not params else params.copy()
+        response = api.call(
+            FacebookAdsApi.HTTP_METHOD_GET,
+            "/".join((
+                FacebookSession.GRAPH,
+                FacebookAdsApi.API_VERSION,
+                'search'
+            )),
+            params
+        ).json()
+
+        ret_val = []
+        for item in response['data']:
+            search_obj = TargetingSearch()
+            search_obj.update(item)
+            ret_val.append(search_obj)
+        return ret_val
 
 
 class TargetingSpecsField(object):
@@ -1945,31 +1968,6 @@ class Transaction(AbstractObject):
     @classmethod
     def get_endpoint(cls):
         return 'transactions'
-
-
-class AutoComplete(AbstractCrudObject):
-
-    class Type(object):
-        adcountry = 'adcountry'
-        adregion = 'adregion'
-        adcity = 'adcity'
-        adeducationschool = 'adeducationschool'
-        adeducationmajor = 'adeducationmajor'
-        adlocale = 'adlocale'
-        adworkemployer = 'adworkemployer'
-        adworkposition = 'adworkposition'
-        adkeyword = 'adkeyword'
-        adzipcode = 'adzipcode'
-        adgeolocation = 'adgeolocation'
-
-    @classmethod
-    def get_endpoint(cls):
-        return 'search'
-
-    def get_node_path(self):
-        return (
-            self.get_endpoint(),
-        )
 
 
 class Business(AbstractCrudObject, CannotCreate, CannotDelete):
@@ -2081,7 +2079,7 @@ class ProductCatalogExternalEventSource(
     CannotCreate,
     CannotDelete,
     CannotUpdate,
-    AbstractCrudObject
+    AbstractObject
 ):
 
     @classmethod
