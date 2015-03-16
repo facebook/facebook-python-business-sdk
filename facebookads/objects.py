@@ -23,7 +23,7 @@ objects module contains classes that represent and help traverse nodes on the
 Ads API.
 """
 
-from facebookads.exceptions import FacebookBadObjectError
+from facebookads.exceptions import FacebookBadObjectError, FacebookError
 from facebookads.api import FacebookAdsApi
 from facebookads.session import FacebookSession
 from facebookads.mixins import (
@@ -36,7 +36,7 @@ from facebookads.mixins import (
     HasStatus,
     HasBidInfo,
 )
-from facebookads.video_uploader import VideoUploader
+from facebookads.video_uploader import VideoUploader, VideoEncodingStatusChecker
 
 import hashlib
 import collections
@@ -1475,6 +1475,16 @@ class AdVideo(AbstractCrudObject):
         response = video_uploader.upload(self)
         self._set_data(response)
         return response
+
+    def waitUntilEncodingReady(self):
+        if 'id' not in self:
+            raise FacebookError(
+                'Invalid Video ID',
+            )
+        VideoEncodingStatusChecker.waitUntilReady(
+            self.get_api_assured(),
+            self['id'],
+        )
 
 
 class AdPreview(AbstractObject):

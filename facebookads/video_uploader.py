@@ -23,10 +23,12 @@ video uploader that is used to upload video to adaccount
 """
 
 from facebookads.exceptions import FacebookError
+from facebookads.exceptions import FacebookRequestError
 from abc import ABCMeta, abstractmethod
 
 import os
 import ntpath
+import time
 
 
 class VideoUploader(object):
@@ -37,12 +39,13 @@ class VideoUploader(object):
     def __init__(self):
         self._session = None
 
-    def upload(self, video):
+    def upload(self, video, wait_for_encoding=False):
         """
         Upload the given video file.
 
         Args:
-            file_path(required): The path of the file
+            video(required): The AdVideo object that will be uploaded
+            wait_for_encoding: Whether to wait until encoding is finished.
         """
         # Check there is no existing session
         if self._session:
@@ -51,17 +54,20 @@ class VideoUploader(object):
             )
 
         # Initiate an upload session
-        self._session = VideoUploadSession(video)
-        return self._session.start()
+        self._session = VideoUploadSession(video, wait_for_encoding)
+        result = self._session.start()
+        self._session = None
+        return result
 
 
 class VideoUploadSession(object):
 
-    def __init__(self, video):
+    def __init__(self, video, wait_for_encoding=False):
         self._video = video
         self._api = video.get_api_assured()
         self._file_path = video[video.Field.filepath]
         self._account_id = video.get_parent_id_assured()
+        self._wait_for_encoding = wait_for_encoding
         # Setup start request manager
         self._start_request_manager = VideoUploadStartRequestManager(
             self._api,
@@ -78,10 +84,7 @@ class VideoUploadSession(object):
         )
 
     def start(self):
-        # TODO: Validate the file
-
         # Run start request manager
-        print "===Start uploading video==="
         start_response = self._start_request_manager.send_request(
             self.getStartRequestContext(),
         ).json()
@@ -99,11 +102,9 @@ class VideoUploadSession(object):
         response = self._post_request_manager.send_request(
             self.getPostRequestContext(),
         )
-        if response.json()['success']:
-            print '===Video uploaded successfully==='
-            print 'Video ID: ' + video_id
-        else:
-            print '===Failed to upload video==='
+
+        if self._wait_for_encoding:
+            VideoEncodingStatusChecker.waitUntilReady(self._api, video_id)
 
         # Populate the video info
         body = response.json().copy()
@@ -189,10 +190,13 @@ class VideoUploadReceiveRequestManager(VideoUploadRequestManager):
         self._start_offset = context.start_offset
         self._end_offset = context.end_offset
         filepath = context.file_path
+        file_size = os.path.getsize(filepath)
+        # Give a chance to retry every 10M, or at least twice
+        retry = max(file_size / (1024 * 1024 * 10), 2)
+        f = open(filepath, 'rb')
         # While the there are still more chunks to send
         while self._start_offset != self._end_offset:
             # Read a chunk of file
-            f = open(filepath, 'rb')
             f.seek(self._start_offset)
             chunk = f.read(self._end_offset - self._start_offset)
             context.start_offset = self._start_offset
@@ -207,12 +211,38 @@ class VideoUploadReceiveRequestManager(VideoUploadRequestManager):
                 )},
             )
             # send the request
-            response = request.send(
-                (context.account_id, 'advideos')
-            ).json()
-            self._start_offset = int(response['start_offset'])
-            self._end_offset = int(response['end_offset'])
-            # TODO: add retry mechanism
+            try:
+                response = request.send(
+                    (context.account_id, 'advideos')
+                ).json()
+                self._start_offset = int(response['start_offset'])
+                self._end_offset = int(response['end_offset'])
+            except FacebookRequestError, e:
+                subcode = e.api_error_subcode()
+                body = e.body()
+                if subcode == 1363037:
+                    # existing issue, try again immedidately
+                    if (body and 'error' in body and
+                            'error_data' in body['error'] and
+                            'start_offset' in body['error']['error_data'] and
+                            retry > 0):
+                        self._start_offset = int(
+                            body['error']['error_data']['start_offset']
+                        )
+                        self._end_offset = int(
+                            body['error']['error_data']['end_offset']
+                        )
+                        retry = max(retry - 1, 0)
+                        continue
+                elif ('error' in body and
+                        'is_transient' in body['error']):
+                    if body['error']['is_transient']:
+                        time.sleep(1)
+                        continue
+                f.close()
+                raise e
+
+        f.close()
         return response
 
     def getParamsFromContext(self, context):
@@ -337,3 +367,27 @@ class VideoUploadRequest(object):
     def setParams(self, params, files=None):
         self._params = params
         self._files = files
+
+
+class VideoEncodingStatusChecker(object):
+
+    @staticmethod
+    def waitUntilReady(api, video_id):
+        status = 'processing'
+        while status == 'processing':
+            status = VideoEncodingStatusChecker.getStatus(api, video_id)
+            time.sleep(1)
+        if status != 'ready':
+            raise FacebookError(
+                'video encoding status: ' + status
+            )
+        return
+
+    @staticmethod
+    def getStatus(api, video_id):
+        result = api.call(
+            'GET',
+            [int(video_id)],
+            params={'fields': 'status'},
+        ).json()
+        return result['status']

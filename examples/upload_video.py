@@ -32,5 +32,6 @@ if __name__ == '__main__':
 
     # remove create
     video.remote_create()
+    video.waitUntilEncodingReady()
 
     print(video)

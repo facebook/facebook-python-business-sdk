@@ -68,6 +68,8 @@ class FacebookRequestError(FacebookError):
                 self._api_error_message = self._error['message']
             if 'code' in self._error:
                 self._api_error_code = self._error['code']
+            if 'error_subcode' in self._error:
+                self._api_error_subcode = self._error['error_subcode']
             if 'type' in self._error:
                 self._api_error_type = self._error['type']
             if self._error.get('error_data', {}).get('blame_field_specs'):
@@ -110,6 +112,9 @@ class FacebookRequestError(FacebookError):
 
     def api_error_code(self):
         return self._api_error_code
+
+    def api_error_subcode(self):
+        return self._api_error_subcode
 
     def api_error_type(self):
         return self._api_error_type
