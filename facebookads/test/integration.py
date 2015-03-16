@@ -267,6 +267,23 @@ class AbstractCrudObjectTestCase(AbstractObjectTestCase):
         assert 'execution_options' not in subject
         assert cached_data == subject._data
 
+    @classmethod
+    def assert_can_save(cls, subject):
+        """
+        Asserts that the id is empty before creation and then updates
+        """
+        assert subject[subject.Field.id] is None
+
+        subject.remote_save()
+
+        assert subject[subject.Field.id] is not None
+
+        subject.remote_save()
+
+        mirror = cls.get_mirror(subject)
+
+        assert subject[subject.Field.id] == mirror[mirror.Field.id]
+
 
 class AdUserTestCase(AbstractCrudObjectTestCase):
 
@@ -350,6 +367,8 @@ class AdCampaignTestCase(AbstractCrudObjectTestCase):
         self.assert_can_archive(self.subject)
 
         self.assert_can_delete(self.subject)
+
+        self.assert_can_save(self.subject)
 
 
 class GetByIDsTestCase(AbstractCrudObjectTestCase):
@@ -441,6 +460,8 @@ class AdSetTestCase(AbstractCrudObjectTestCase):
 
         self.assert_can_delete(self.subject)
 
+        self.assert_can_save(self.subject)
+
 
 class AdGroupTestCase(AbstractCrudObjectTestCase):
 
@@ -480,6 +501,8 @@ class AdGroupTestCase(AbstractCrudObjectTestCase):
         self.assert_can_archive(self.subject)
 
         self.assert_can_delete(self.subject)
+
+        self.assert_can_save(self.subject)
 
 
 class TargetingSearchTestCase(AbstractObjectTestCase):

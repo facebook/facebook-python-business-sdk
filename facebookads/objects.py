@@ -698,7 +698,7 @@ class AbstractCrudObject(AbstractObject):
 
     # Helpers
 
-    def save(self, *args, **kwargs):
+    def remote_save(self, *args, **kwargs):
         """
         Calls remote_create method if object has not been created. Else, calls
         the remote_update method.
@@ -707,6 +707,9 @@ class AbstractCrudObject(AbstractObject):
             return self.remote_update(*args, **kwargs)
         else:
             return self.remote_create(*args, **kwargs)
+
+    # To avoid breaking change. Will be deprecated
+    save = remote_save
 
     def iterate_edge(self, target_objects_class, fields=None, params=None):
         """
