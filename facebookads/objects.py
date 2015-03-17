@@ -1308,6 +1308,31 @@ class AdImage(CannotUpdate, AbstractCrudObject):
     def get_endpoint(cls):
         return 'adimages'
 
+    @classmethod
+    def remote_create_from_zip(cls, filename, parent_id, api=None):
+        api = api or FacebookAdsApi.get_default_api()
+        open_file = open(filename, 'rb')
+        response = api.call(
+            'POST',
+            (parent_id, cls.get_endpoint()),
+            files={filename: open_file}
+        )
+        open_file.close()
+
+        data = response.json()
+
+        objs = []
+        for image_filename in data['images']:
+            image = AdImage(parent_id=parent_id)
+            image.update(data['images'][image_filename])
+            image[cls.Field.id] = '%s:%s' % (
+                parent_id[4:],
+                data['images'][image_filename][cls.Field.hash],
+            )
+            objs.append(image)
+
+        return objs
+
     def get_node_path(self):
         return (self.get_parent_id_assured(), self.get_endpoint())
 
