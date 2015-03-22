@@ -1732,7 +1732,7 @@ class LookalikeAudience(AbstractCrudObject):
 
         class LookalikeSpec(object):
             type = 'type'
-            ratio = 'raito'
+            ratio = 'ratio'
             country = 'country'
             pixel_ids = 'pixel_ids'
             conversion_type = 'conversion_type'
