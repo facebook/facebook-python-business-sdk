@@ -29,30 +29,32 @@ from facebookads.objects import (
     AdAccount,
     CustomAudience,
 )
-import pprint
-import argparse
-import sys
-import os
-import configparser
 
-config = configparser.RawConfigParser()
+import argparse
+import json
+import os
+import pprint
+import sys
+
 pp = pprint.pprint
 
 this_dir = os.path.dirname(__file__)
-config_filename = os.path.join(this_dir, 'my_app_session.cfg')
+config_filename = os.path.join(this_dir, 'config.json')
 
 ### Setup session and api objects
-with open(config_filename) as config_file:
-    config.readfp(config_file)
+config_file = open(config_filename)
+config = json.load(config_file)
+config_file.close()
+
 auth_info = (
-    config.get('Authentication', 'app_id'),
-    config.get('Authentication', 'app_secret'),
-    config.get('Authentication', 'access_token'))
+    config['app_id'],
+    config['app_secret'],
+    config['access_token'])
 
 FacebookAdsApi.init(*auth_info)
 
 ### Get account from config file
-my_account = AdAccount('act_' + config.get('Defaults', 'ad_account'))
+my_account = AdAccount(config['act_id'])
 
 def ListCustomAudiences(**kwargs):
     audiences = my_account.get_custom_audiences(fields=[

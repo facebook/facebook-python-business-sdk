@@ -31,21 +31,21 @@ from facebookads.objects import (
 )
 
 import ad_creation_utils
-import configparser
+import json
 import os
 
-config = configparser.RawConfigParser()
 this_dir = os.path.dirname(__file__)
-config_filename = os.path.join(this_dir, 'my_app_session.cfg')
+config_filename = os.path.join(this_dir, 'config.json')
 
-with open(config_filename) as config_file:
-    config.readfp(config_file)
+config_file = open(config_filename)
+config = json.load(config_file)
+config_file.close()
 
 ### Setup session and api objects
 session = FacebookSession(
-    config.get('Authentication', 'app_id'),
-    config.get('Authentication', 'app_secret'),
-    config.get('Authentication', 'access_token'),
+    config['app_id'],
+    config['app_secret'],
+    config['access_token'],
 )
 api = FacebookAdsApi(session)
 
