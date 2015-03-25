@@ -129,7 +129,7 @@ class FacebookAdsApi(object):
             this sdk.
     """
 
-    SDK_VERSION = '2.3.0'
+    SDK_VERSION = '2.3.1'
 
     API_VERSION = 'v2.3'
 
