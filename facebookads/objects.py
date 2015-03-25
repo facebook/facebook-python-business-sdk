@@ -1151,6 +1151,7 @@ class AdSet(CanValidate, HasStatus, CanArchive, AbstractCrudObject):
         daily_budget = 'daily_budget'
         end_time = 'end_time'
         id = 'id'
+        is_autobid = 'is_autobid'
         lifetime_budget = 'lifetime_budget'
         name = 'name'
         pacing_type = 'pacing_type'
