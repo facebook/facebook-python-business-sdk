@@ -268,23 +268,6 @@ class AbstractCrudObjectTestCase(AbstractObjectTestCase):
         assert 'execution_options' not in subject
         assert cached_data == subject._data
 
-    @classmethod
-    def assert_can_save(cls, subject):
-        """
-        Asserts that the id is empty before creation and then updates
-        """
-        assert subject[subject.Field.id] is None
-
-        subject.remote_save()
-
-        assert subject[subject.Field.id] is not None
-
-        subject.remote_save()
-
-        mirror = cls.get_mirror(subject)
-
-        assert subject[subject.Field.id] == mirror[mirror.Field.id]
-
 
 class AdUserTestCase(AbstractCrudObjectTestCase):
 
@@ -368,8 +351,6 @@ class AdCampaignTestCase(AbstractCrudObjectTestCase):
         self.assert_can_archive(self.subject)
 
         self.assert_can_delete(self.subject)
-
-        self.assert_can_save(self.subject)
 
 
 class GetByIDsTestCase(AbstractCrudObjectTestCase):
@@ -461,8 +442,6 @@ class AdSetTestCase(AbstractCrudObjectTestCase):
 
         self.assert_can_delete(self.subject)
 
-        self.assert_can_save(self.subject)
-
 
 class AdGroupTestCase(AbstractCrudObjectTestCase):
 
@@ -503,8 +482,6 @@ class AdGroupTestCase(AbstractCrudObjectTestCase):
 
         self.assert_can_delete(self.subject)
 
-        self.assert_can_save(self.subject)
-
 
 class TargetingSearchTestCase(AbstractObjectTestCase):
     def test_call(self):
@@ -525,6 +502,7 @@ class CustomAudienceTestCase(AbstractCrudObjectTestCase):
         self.delete_in_teardown(ca)
         ca[objects.CustomAudience.Field.name] = \
             'Custom Audience Test ' + self.TEST_ID
+        ca[objects.CustomAudience.Field.subtype] = 'CUSTOM'
         ca.remote_create()
 
         users = ['someone@example.com']
@@ -604,6 +582,18 @@ class AdImageTestCase(AbstractCrudObjectTestCase):
     def test_can_read(self):
         self.new_test_ad_image()
         self.TEST_ACCOUNT.get_ad_images()
+
+
+class InsightsTestCase(AbstractCrudObjectTestCase):
+    def test_can_read_without_job(self):
+        self.TEST_ACCOUNT.get_insights(fields=[
+            objects.Insights.Field.clicks,
+            objects.Insights.Field.impressions,
+            objects.Insights.Field.adgroup_id,
+            objects.Insights.Field.adgroup_name,
+        ], params={
+            'level': objects.Insights.Level.adgroup,
+        })
 
 
 class BatchTestCase(FacebookAdsTestCase):

@@ -57,6 +57,7 @@ class LinkData(ValidatesFields, AbstractObject):
         image_crops = 'image_crops'
         link = 'link'
         message = 'message'
+        multi_share_optimized = 'multi_share_optimized'
         name = 'name'
         picture = 'picture'
 

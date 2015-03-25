@@ -127,7 +127,8 @@ class EdgeIterator(object):
         if self._finished_iteration:
             return False
 
-        self._params['summary'] = True
+        if 'summary' not in self._params:
+            self._params['summary'] = True
 
         response = self._source_object.get_api_assured().call(
             'GET',
@@ -804,6 +805,7 @@ class AdAccount(CannotCreate, CannotDelete, AbstractCrudObject):
         agency_client_declaration = 'agency_client_declaration'
         amount_spent = 'amount_spent'
         balance = 'balance'
+        business = 'business'
         business_city = 'business_city'
         business_country_code = 'business_country_code'
         business_name = 'business_name'
@@ -940,6 +942,11 @@ class AdAccount(CannotCreate, CannotDelete, AbstractCrudObject):
     def get_ad_images(self, fields=None, params=None):
         """Returns iterator over AdImage's associated with this account."""
         return self.iterate_edge(AdImage, fields, params)
+
+    def get_insights(self, fields=None, params=None):
+        params = params or {}
+        params['summary'] = params.get('summary')
+        return self.iterate_edge(Insights, fields, params)
 
     def get_broad_category_targeting(self, fields=None, params=None):
         """
@@ -1125,6 +1132,11 @@ class AdCampaign(CanValidate, HasStatus, HasObjective, CanArchive,
         """Returns iterator over AdStat's associated with this campaign."""
         return self.iterate_edge(AdStats, fields, params)
 
+    def get_insights(self, fields=None, params=None):
+        params = params or {}
+        params['summary'] = params.get('summary')
+        return self.iterate_edge(Insights, fields, params)
+
 
 class AdSet(CanValidate, HasStatus, CanArchive, AbstractCrudObject):
 
@@ -1175,6 +1187,11 @@ class AdSet(CanValidate, HasStatus, CanArchive, AbstractCrudObject):
         """Returns iterator over AdStat's associated with this set."""
         return self.iterate_edge(AdStats, fields, params)
 
+    def get_insights(self, fields=None, params=None):
+        params = params or {}
+        params['summary'] = params.get('summary')
+        return self.iterate_edge(Insights, fields, params)
+
 
 class AdGroup(HasStatus, HasObjective, CanArchive, AbstractCrudObject):
 
@@ -1187,11 +1204,9 @@ class AdGroup(HasStatus, HasObjective, CanArchive, AbstractCrudObject):
         conversion_specs = 'conversion_specs'
         created_time = 'created_time'
         creative = 'creative'
-        creative_ids = 'creative_ids'
         failed_delivery_checks = 'failed_delivery_checks'
         id = 'id'
         name = 'name'
-        objective = 'objective'
         redownload = 'redownload'
         social_prefs = 'social_prefs'
         status = 'adgroup_status'
@@ -1239,6 +1254,11 @@ class AdGroup(HasStatus, HasObjective, CanArchive, AbstractCrudObject):
     def get_conversion_stats(self, fields=None, params=None):
         """Returns ConversionStats object associated with this ad."""
         return self.edge_object(ConversionStats, fields, params)
+
+    def get_insights(self, fields=None, params=None):
+        params = params or {}
+        params['summary'] = params.get('summary')
+        return self.iterate_edge(Insights, fields, params)
 
 
 class AdConversionPixel(AbstractCrudObject):
@@ -2037,7 +2057,7 @@ class Transaction(AbstractObject):
         return 'transactions'
 
 
-class Business(AbstractCrudObject, CannotCreate, CannotDelete):
+class Business(CannotCreate, CannotDelete, AbstractCrudObject):
 
     class Field(object):
         created_by = 'created_by'
@@ -2052,6 +2072,11 @@ class Business(AbstractCrudObject, CannotCreate, CannotDelete):
 
     def get_product_catalogs(self, fields=None, params=None):
         return self.iterate_edge(ProductCatalog, fields, params)
+
+    def get_insights(self, fields=None, params=None):
+        params = params or {}
+        params['summary'] = params.get('summary')
+        return self.iterate_edge(Insights, fields, params)
 
 
 class ProductCatalog(AbstractCrudObject):
@@ -2308,3 +2333,136 @@ class ProductAudience(CannotUpdate, CannotDelete, AbstractCrudObject):
     @classmethod
     def get_endpoint(cls):
         return 'product_audiences'
+
+
+class Insights(CannotCreate, CannotDelete, CannotUpdate, AbstractCrudObject):
+    class Field(object):
+        account_id = 'account_id'
+        account_name = 'account_name'
+        action_values = 'action_values'
+        actions = 'actions'
+        actions_per_impression = 'actions_per_impression'
+        adgroup_id = 'adgroup_id'
+        adgroup_name = 'adgroup_name'
+        async_percent_completion = 'async_percent_completion'
+        async_status = 'async_status'
+        campaign_end = 'campaign_end'
+        campaign_group_end = 'campaign_group_end'
+        campaign_group_id = 'campaign_group_id'
+        campaign_group_name = 'campaign_group_name'
+        campaign_id = 'campaign_id'
+        campaign_name = 'campaign_name'
+        campaign_start = 'campaign_start'
+        clicks = 'clicks'
+        cost_per_action_type = 'cost_per_action_type'
+        cost_per_result = 'cost_per_result'
+        cost_per_total_action = 'cost_per_total_action'
+        cost_per_unique_click = 'cost_per_unique_click'
+        cpc = 'cpc'
+        cpm = 'cpm'
+        cpp = 'cpp'
+        ctr = 'ctr'
+        date_start = 'date_start'
+        date_stop = 'date_stop'
+        frequency = 'frequency'
+        id = 'id'
+        impressions = 'impressions'
+        objective = 'objective'
+        reach = 'reach'
+        relevance_score = 'relevance_score'
+        report_run_id = 'report_run_id'
+        result_rate = 'result_rate'
+        results = 'results'
+        roas = 'roas'
+        social_clicks = 'social_clicks'
+        social_impressions = 'social_impressions'
+        social_reach = 'social_reach'
+        spend = 'spend'
+        today_spend = 'today_spend'
+        total_action_value = 'total_action_value'
+        total_actions = 'total_actions'
+        total_unique_actions = 'total_unique_actions'
+        unique_clicks = 'unique_clicks'
+        unique_ctr = 'unique_ctr'
+        unique_social_clicks = 'unique_social_clicks'
+        video_avg_pct_watched_actions = 'video_avg_pct_watched_actions'
+        video_avg_sec_watched_actions = 'video_avg_sec_watched_actions'
+        video_complete_watched_actions = 'video_complete_watched_actions'
+        video_p100_watched_actions = 'video_p100_watched_actions'
+        video_p25_watched_actions = 'video_p25_watched_actions'
+        video_p50_watched_actions = 'video_p50_watched_actions'
+        video_p75_watched_actions = 'video_p75_watched_actions'
+        video_p95_watched_actions = 'video_p95_watched_actions'
+        video_start_actions = 'video_start_actions'
+
+    @classmethod
+    def get_endpoint(cls):
+        return 'insights'
+
+    class Preset(object):
+        last_14_days = 'last_14_days'
+        last_28_days = 'last_28_days'
+        last_30_days = 'last_30_days'
+        last_3_months = 'last_3_months'
+        last_week = 'last_week'
+        last_90_days = 'last_90_days'
+        last_month = 'last_month'
+        last_week = 'this_week'
+        this_month = 'this_month'
+        this_quarter = 'this_quarter'
+        today = 'today'
+        yesterday = 'yesterday'
+
+    class Increment(object):
+        monthly = 'monthly'
+        all_days = 'all_days'
+
+    class Breakdown(object):
+        age = 'age'
+        country = 'country'
+        gender = 'gender'
+        impression_device = 'impression_device'
+        placement = 'placement'
+
+    class Level(object):
+        account = 'account'
+        adgroup = 'adgroup'
+        campaign = 'campaign'
+        campaign_group = 'campaign_group'
+
+    class ActionBreakdown(object):
+        action_destination = 'action_destination'
+        action_device = 'action_device'
+        action_target_id = 'action_target_id'
+        action_type = 'action_type'
+        action_video_type = 'action_video_type'
+
+    class ActionAttributionWindow(object):
+        click_1d = '1d_click'
+        view_1d = '1d_view'
+        click_28d = '28d_click'
+        view_28d = '28d_view'
+        click_7d = '7d_click'
+        view_7d = '7d_view'
+        default = 'default'
+
+    class Operator(object):
+        all = 'all'
+        any = 'any'
+        contain = 'contain'
+        equal = 'equal'
+        greater_than = 'greater_than'
+        greater_than_or_equal = 'greater_than_or_equal'
+        in_ = 'in'
+        in_range = 'in_range'
+        less_than = 'less_than'
+        less_than_or_equal = 'less_than_or_equal'
+        none = 'none'
+        not_contain = 'not_contain'
+        not_equal = 'not_equal'
+        not_in = 'not_in'
+        not_in_range = 'not_in_range'
+
+    class ActionReportTime(object):
+        conversion = 'conversion'
+        impression = 'impression'
