@@ -42,6 +42,7 @@ import hashlib
 import collections
 import json
 import six
+import base64
 
 
 class EdgeIterator(object):
@@ -2165,6 +2166,47 @@ class ProductCatalog(AbstractCrudObject):
             ProductCatalogExternalEventSource,
             fields,
             params
+        )
+
+    def update_product(self, retailer_id, **kwargs):
+        """Updates a product stored in a product catalog
+
+        Args:
+            retailer_id: product id from product feed. g:price tag in Google
+                Shopping feed
+            kwargs: key-value pairs to update on the object
+
+        Returns:
+            The FacebookResponse object.
+        """
+        if not kwargs:
+            raise FacebookError(
+                """No fields to update provided. Example:
+                   catalog = ProductCatalog('catalog_id')
+                   catalog.update_product(
+                       retailer_id,
+                       price=100,
+                       availability=Product.Availability.out_of_stock
+                   )
+                """
+            )
+
+        product_endpoint = ':'.join((
+            'catalog',
+            self.get_id_assured(),
+            base64.b64encode(retailer_id.encode('utf-8')),
+        ))
+
+        url = '/'.join((
+            FacebookSession.GRAPH,
+            FacebookAdsApi.API_VERSION,
+            product_endpoint,
+        ))
+
+        return self.get_api_assured().call(
+            'POST',
+            url,
+            params=kwargs,
         )
 
 
