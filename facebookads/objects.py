@@ -1633,6 +1633,7 @@ class CustomAudience(AbstractCrudObject):
         description = 'description'
         force_delete_lookalikes = 'force_delete_lookalikes'
         id = 'id'
+        pixel_id = 'pixel_id'
         lookalike_audience_ids = 'lookalike_audience_ids'
         lookalike_spec = 'lookalike_spec'
         name = 'name'
