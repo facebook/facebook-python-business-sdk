@@ -2174,7 +2174,8 @@ class ProductCatalog(AbstractCrudObject):
         Args:
             retailer_id: product id from product feed. g:price tag in Google
                 Shopping feed
-            kwargs: key-value pairs to update on the object
+            kwargs: key-value pairs to update on the object, being key the
+                field name and value the updated value
 
         Returns:
             The FacebookResponse object.
@@ -2194,7 +2195,7 @@ class ProductCatalog(AbstractCrudObject):
         product_endpoint = ':'.join((
             'catalog',
             self.get_id_assured(),
-            base64.b64encode(retailer_id.encode('utf-8')),
+            self.b64_encoded_id(retailer_id),
         ))
 
         url = '/'.join((
@@ -2208,6 +2209,13 @@ class ProductCatalog(AbstractCrudObject):
             url,
             params=kwargs,
         )
+
+    def b64_encoded_id(self, retailer_id):
+        # # we need a byte string for base64.b64encode argument
+        b64_id = base64.urlsafe_b64encode(retailer_id.encode('utf8'))
+
+        # and we need a str to join with other url snippets
+        return b64_id.decode('utf8')
 
 
 class ProductCatalogExternalEventSource(

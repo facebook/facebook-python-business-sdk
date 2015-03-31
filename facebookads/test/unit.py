@@ -279,5 +279,14 @@ class SessionTestCase(unittest.TestCase):
         )
 
 
+class ProductCatalogTestCase(unittest.TestCase):
+    def test_b64_encode_is_correct(self):
+        product_id = 'ID_1'
+        b64_id_as_str = 'SURfMQ=='
+
+        catalog = objects.ProductCatalog()
+        self.assertEqual(b64_id_as_str, catalog.b64_encoded_id(product_id))
+
+
 if __name__ == '__main__':
     unittest.main()
