@@ -73,13 +73,13 @@ class VideoUploadSession(object):
             self._api,
         )
 
-        # Setup receive request manager
-        self._receive_request_manager = VideoUploadReceiveRequestManager(
+        # Setup transfer request manager
+        self._transfer_request_manager = VideoUploadTransferRequestManager(
             self._api,
         )
 
-        # Setup post request manager
-        self._post_request_manager = VideoUploadPostRequestManager(
+        # Setup finish request manager
+        self._finish_request_manager = VideoUploadFinishRequestManager(
             self._api,
         )
 
@@ -90,17 +90,17 @@ class VideoUploadSession(object):
         ).json()
         self._start_offset = int(start_response['start_offset'])
         self._end_offset = int(start_response['end_offset'])
-        self._session_id = start_response['id']
+        self._session_id = start_response['upload_session_id']
         video_id = start_response['video_id']
 
-        # Run receive request manager
-        self._receive_request_manager.send_request(
-            self.getReceiveRequestContext(),
+        # Run transfer request manager
+        self._transfer_request_manager.send_request(
+            self.getTransferRequestContext(),
         )
 
-        # Run post request manager
-        response = self._post_request_manager.send_request(
-            self.getPostRequestContext(),
+        # Run finish request manager
+        response = self._finish_request_manager.send_request(
+            self.getFinishRequestContext(),
         )
 
         if self._wait_for_encoding:
@@ -115,12 +115,11 @@ class VideoUploadSession(object):
 
     def getStartRequestContext(self):
         context = VideoUploadRequestContext()
-        context.file_name = ntpath.basename(self._file_path)
         context.file_size = os.path.getsize(self._file_path)
         context.account_id = self._account_id
         return context
 
-    def getReceiveRequestContext(self):
+    def getTransferRequestContext(self):
         context = VideoUploadRequestContext()
         context.session_id = self._session_id
         context.start_offset = self._start_offset
@@ -129,10 +128,11 @@ class VideoUploadSession(object):
         context.account_id = self._account_id
         return context
 
-    def getPostRequestContext(self):
+    def getFinishRequestContext(self):
         context = VideoUploadRequestContext()
         context.session_id = self._session_id
         context.account_id = self._account_id
+        context.file_name = ntpath.basename(self._file_path)
         return context
 
 
@@ -173,17 +173,16 @@ class VideoUploadStartRequestManager(VideoUploadRequestManager):
 
     def getParamsFromContext(self, context):
         return {
-            'name': context.file_name,
             'file_size': context.file_size,
             'upload_phase': 'start',
         }
 
 
-class VideoUploadReceiveRequestManager(VideoUploadRequestManager):
+class VideoUploadTransferRequestManager(VideoUploadRequestManager):
 
     def send_request(self, context):
         """
-        send receive request with the given context
+        send transfer request with the given context
         """
         # Init a VideoUploadRequest
         request = VideoUploadRequest(self._api)
@@ -247,17 +246,17 @@ class VideoUploadReceiveRequestManager(VideoUploadRequestManager):
 
     def getParamsFromContext(self, context):
         return {
-            'upload_phase': 'receive',
+            'upload_phase': 'transfer',
             'start_offset': context.start_offset,
-            'chunk_session_id': context.session_id,
+            'upload_session_id': context.session_id,
         }
 
 
-class VideoUploadPostRequestManager(VideoUploadRequestManager):
+class VideoUploadFinishRequestManager(VideoUploadRequestManager):
 
     def send_request(self, context):
         """
-        send receive request with the given context
+        send transfer request with the given context
         """
         # Init a VideoUploadRequest
         request = VideoUploadRequest(self._api)
@@ -270,8 +269,9 @@ class VideoUploadPostRequestManager(VideoUploadRequestManager):
 
     def getParamsFromContext(self, context):
         return {
-            'upload_phase': 'post',
-            'chunk_session_id': context.session_id,
+            'upload_phase': 'finish',
+            'upload_session_id': context.session_id,
+            'title': context.file_name,
         }
 
 
@@ -373,9 +373,11 @@ class VideoEncodingStatusChecker(object):
 
     @staticmethod
     def waitUntilReady(api, video_id):
-        status = 'processing'
-        while status == 'processing':
+        while True:
             status = VideoEncodingStatusChecker.getStatus(api, video_id)
+            status = status['video_status']
+            if status != 'processing':
+                break
             time.sleep(1)
         if status != 'ready':
             raise FacebookError(
