@@ -1149,6 +1149,7 @@ class AdSet(CanValidate, HasStatus, CanArchive, AbstractCrudObject):
         campaign_group_id = 'campaign_group_id'
         campaign_schedule = 'campaign_schedule'
         created_time = 'created_time'
+        creative_sequence = 'creative_sequence'
         daily_budget = 'daily_budget'
         end_time = 'end_time'
         id = 'id'
