@@ -329,18 +329,19 @@ class AbstractCrudObject(AbstractObject):
         return not self.__eq__(other)
 
     @classmethod
-    def get_by_ids(cls, ids, params=None, fields=None):
+    def get_by_ids(cls, ids, params=None, fields=None, api=None):
+        api = api or FacebookAdsApi.get_default_api()
         params = dict(params or {})
         cls._assign_fields_to_params(fields, params)
         params['ids'] = ','.join(map(str, ids))
-        response = FacebookAdsApi.get_default_api().call(
+        response = api.call(
             'GET',
             ['/'],
             params=params,
         )
         result = []
         for fbid, data in response.json().items():
-            obj = cls(fbid, api=FacebookAdsApi.get_default_api())
+            obj = cls(fbid, api=api)
             obj._set_data(data)
             result.append(obj)
         return result
