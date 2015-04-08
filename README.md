@@ -251,6 +251,69 @@ campaign.remote_delete()
 
 ## Useful Arguments
 
+### MULTIPLE ACCESS TOKENS
+
+Throughout the docs, the method FacebookAdsApi.init is called before making any API calls. This
+method set up a default FacebookAdsApi object to be used everywhere. That simplifies the usage
+but it's not feasible when a system using the SDK will make calls on behalf of multiple users.
+
+The reason why this is not feasible is because each user should have its own FacebookSession, with its own
+access token, rather than using the same session for every one. Each session should be used to create a
+separate FacebookAdsApi object. See example below:
+
+
+```python
+my_app_id = '<APP_ID>'
+my_app_secret = '<APP_SECRET>'
+my_access_token_1 = '<ACCESS_TOKEN_1>'
+my_access_token_2 = '<ACCESS_TOKEN_2>'
+
+session1 = FacebookSession(
+    my_app_id,
+    my_app_secret,
+    my_access_token_1,
+)
+
+session2 = FacebookSession(
+    my_app_id,
+    my_app_secret,
+    my_access_token_2,
+)
+
+api1 = FacebookAdsApi(session1)
+api2 = FacebookAdsApi(session2)
+```
+In the SDK examples, we always set a single FacebookAdsApi object as the default one.
+However, working with multiples access_tokens, require us to use multiples apis. We may set a default
+api for a user, but, for the other users,  we shall use its the api object as a param. In the example below,
+we create two AdUsers, the first one using the default api and the second one using its api object:
+
+```python
+FacebookAdsApi.set_default_api(api1)
+
+me1 = AdUser(fbid='me')
+me2 = AdUser(fbid='me', api=api2)
+```
+Another way to create the same objects from above would be:
+
+```python
+me1 = AdUser(fbid='me', api=api1)
+me2 = AdUser(fbid='me', api=api2)
+```
+From here, all the following workflow for these objects remains the same. The only exceptions are
+the classmethods calls, where we now should pass the api we want to use as the last parameter
+on every call. For instance, a call to the Aduser.get_by_ids method should be like this:
+
+```python
+session = FacebookSession(
+ my_app_id,
+ my_app_secret,
+ my_access_token_1,
+)
+
+api = FacebookAdsApi(session1)
+Aduser.get_by_ids(ids=['<UID_1>', '<UID_2>'], api=api)
+```
 ### CRUD
 
 All CRUD calls support a ``params`` keyword argument which takes a dictionary
