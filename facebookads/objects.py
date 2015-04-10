@@ -464,6 +464,7 @@ class AbstractCrudObject(AbstractObject):
         files=None,
         params=None,
         success=None,
+        api_version=None,
     ):
         """Creates the object by calling the API.
 
@@ -511,6 +512,7 @@ class AbstractCrudObject(AbstractObject):
                 files=files,
                 success=callback_success,
                 failure=callback_failure,
+                api_version=api_version,
             )
             return batch_call
         else:
@@ -519,6 +521,7 @@ class AbstractCrudObject(AbstractObject):
                 (self.get_parent_id_assured(), self.get_endpoint()),
                 params=params,
                 files=files,
+                api_version=api_version,
             )
             self._set_data(response.json())
             self._clear_history()
@@ -532,6 +535,7 @@ class AbstractCrudObject(AbstractObject):
         fields=None,
         params=None,
         success=None,
+        api_version=None,
     ):
         """Reads the object by calling the API.
 
@@ -573,6 +577,7 @@ class AbstractCrudObject(AbstractObject):
                 params=params,
                 success=callback_success,
                 failure=callback_failure,
+                api_version=api_version,
             )
             return batch_call
         else:
@@ -580,6 +585,7 @@ class AbstractCrudObject(AbstractObject):
                 'GET',
                 self.get_node_path(),
                 params=params,
+                api_version=api_version,
             )
             self._set_data(response.json())
 
@@ -592,6 +598,7 @@ class AbstractCrudObject(AbstractObject):
         files=None,
         params=None,
         success=None,
+        api_version=None,
     ):
         """Updates the object by calling the API with only the changes recorded.
 
@@ -634,6 +641,7 @@ class AbstractCrudObject(AbstractObject):
                 files=files,
                 params=params,
                 success=callback_success,
+                api_version=api_version,
             )
             return batch_call
         else:
@@ -642,6 +650,7 @@ class AbstractCrudObject(AbstractObject):
                 self.get_node_path(),
                 files=files,
                 params=params,
+                api_version=api_version,
             )
             self._clear_history()
 
@@ -653,6 +662,7 @@ class AbstractCrudObject(AbstractObject):
         failure=None,
         params=None,
         success=None,
+        api_version=None,
     ):
         """Deletes the object by calling the API with the DELETE http method.
 
@@ -688,6 +698,7 @@ class AbstractCrudObject(AbstractObject):
                 params=params,
                 success=callback_success,
                 failure=callback_failure,
+                api_version=api_version,
             )
             return batch_call
         else:
@@ -695,6 +706,7 @@ class AbstractCrudObject(AbstractObject):
                 'DELETE',
                 self.get_node_path(),
                 params=params,
+                api_version=api_version,
             )
             self.clear_id()
 
@@ -1295,6 +1307,7 @@ class AdCreative(AbstractCrudObject):
         actor_name = 'actor_name'
         body = 'body'
         call_to_action_type = 'call_to_action_type'
+        filename = 'filename'
         follow_redirect = 'follow_redirect'
         id = 'id'
         image_crops = 'image_crops'
@@ -1430,6 +1443,7 @@ class AdImage(CannotUpdate, AbstractCrudObject):
         files=None,
         params=None,
         success=None,
+        api_version=None,
     ):
         """Uploads filename and creates the AdImage object from it.
 
@@ -1442,15 +1456,15 @@ class AdImage(CannotUpdate, AbstractCrudObject):
                 "AdImage required a filename to be defined."
             )
         filename = self[self.Field.filename]
-        open_file = open(filename, 'rb')
-        return_val = super(AdImage, self).remote_create(
-            files={filename: open_file},
-            batch=batch,
-            failure=failure,
-            params=params,
-            success=success,
-        )
-        open_file.close()
+        with open(filename, 'rb') as open_file:
+            return_val = super(AdImage, self).remote_create(
+                files={filename: open_file},
+                batch=batch,
+                failure=failure,
+                params=params,
+                success=success,
+                api_version=api_version,
+            )
         return return_val
 
     def get_hash(self):
@@ -1464,6 +1478,7 @@ class AdImage(CannotUpdate, AbstractCrudObject):
         fields=None,
         params=None,
         success=None,
+        api_version=None,
     ):
         if self[AdImage.Field.id]:
             _, image_hash = self[AdImage.Field.id].split(':')

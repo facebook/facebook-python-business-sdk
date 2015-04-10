@@ -22,11 +22,15 @@
 api module contains classes that make http requests to Facebook's graph API.
 """
 
-from facebookads.exceptions import FacebookRequestError
+from facebookads.exceptions import (
+    FacebookRequestError,
+    FacebookBadObjectError,
+)
 from facebookads.session import FacebookSession
 import json
 import six
 import collections
+import re
 from six.moves import urllib
 from six.moves import http_client
 
@@ -209,10 +213,10 @@ class FacebookAdsApi(object):
         self,
         method,
         path,
+        api_version=None,
         params=None,
         headers=None,
         files=None,
-        url_override=None,
     ):
         """Makes an API call.
 
@@ -245,13 +249,19 @@ class FacebookAdsApi(object):
         if not files:
             files = {}
 
+        if api_version and not re.search('v[0-9]+\.[0-9]+', api_version):
+            raise FacebookBadObjectError(
+                'Please provide the API version in the following format: %s'
+                % self.API_VERSION
+            )
+
         self._num_requests_attempted += 1
 
         if not isinstance(path, six.string_types):
             # Path is not a full path
             path = "/".join((
-                url_override or self._session.GRAPH,
-                self.API_VERSION,
+                self._session.GRAPH,
+                api_version or self.API_VERSION,
                 '/'.join(map(str, path)),
             ))
 

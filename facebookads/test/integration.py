@@ -268,6 +268,45 @@ class AbstractCrudObjectTestCase(AbstractObjectTestCase):
         assert 'execution_options' not in subject
         assert cached_data == subject._data
 
+    @classmethod
+    def assert_can_save(cls, subject):
+        """
+        Asserts that the id is empty before creation and then updates
+        """
+        assert subject[subject.Field.id] is None
+
+        subject.remote_save()
+
+        assert subject[subject.Field.id] is not None
+
+        subject.remote_save()
+
+        mirror = cls.get_mirror(subject)
+
+        assert subject[subject.Field.id] == mirror[mirror.Field.id]
+
+    def test_can_select_api_version(self, subject):
+        image_file = os.path.join(os.path.dirname(__file__), 'test.png')
+
+        test_image_one = objects.AdImage(
+            parent_id=self.TEST_ACCOUNT.get_id_assured(),
+        )
+
+        test_image_one[objects.AdImage.Field.filename] = image_file
+
+        assert test_image_one.remote_create(api_version="v2.3") is not None
+
+        test_image_two = objects.AdImage(
+            parent_id=self.TEST_ACCOUNT.get_id_assured(),
+        )
+
+        test_image_two[objects.AdImage.Field.filename] = image_file
+
+        try:
+            test_image_two.remote_create(api_version="v.2.3")
+        except fbexceptions.FacebookBadObjectError as e:
+            assert e is not None
+
 
 class AdUserTestCase(AbstractCrudObjectTestCase):
 
