@@ -309,5 +309,14 @@ class ProductCatalogTestCase(unittest.TestCase):
         self.assertEqual(b64_id_as_str, catalog.b64_encoded_id(product_id))
 
 
+class SessionWithoutAppSecretTestCase(unittest.TestCase):
+    def test_appsecret_proof_absence(self):
+        try:
+            session.FacebookSession(
+                access_token='thisisfakeaccesstoken'
+            )
+        except Exception as e:
+            self.fail("Could not instantiate " + "\n  " + str(e))
+
 if __name__ == '__main__':
     unittest.main()
