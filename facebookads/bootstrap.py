@@ -45,11 +45,15 @@ class Authentication():
         It's intended for development. Use FacebookAdsApi.init in production
     """
 
-    _is_authenticated = FacebookAdsApi.get_default_api()
+    _api = FacebookAdsApi.get_default_api()
+    if _api:
+        _is_authenticated = True
+    else:
+        _is_authenticated = False
 
     @property
-    def is_authenticated(self):
-        return self._is_authenticated
+    def is_authenticated(cls):
+        return cls._is_authenticated
 
     @classmethod
     def load_config(cls):
