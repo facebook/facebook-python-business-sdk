@@ -279,6 +279,27 @@ class SessionTestCase(unittest.TestCase):
         )
 
 
+class BootstrapTestCase(unittest.TestCase):
+
+    def setUp(self):
+        self.old_api = objects.FacebookAdsApi.get_default_api()
+        objects.FacebookAdsApi.set_default_api(None)
+
+    def test_doesnt_authenticate_automatically_in_tests(self):
+        # importing bootstrap calls auth() in interactive environments
+        # check if this isn't happening in tests
+        from .. import bootstrap
+        self.assertIsNone(objects.FacebookAdsApi.get_default_api())
+
+    def test_can_authenticate(self):
+        from .. import bootstrap
+        bootstrap.auth()
+        self.assertIsNotNone(objects.FacebookAdsApi.get_default_api())
+
+    def tearDown(self):
+        objects.FacebookAdsApi.set_default_api(self.old_api)
+
+
 class ProductCatalogTestCase(unittest.TestCase):
     def test_b64_encode_is_correct(self):
         product_id = 'ID_1'
