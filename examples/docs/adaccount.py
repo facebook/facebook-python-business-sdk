@@ -33,6 +33,103 @@ app_secret = config['app_secret']
 
 FacebookAdsApi.init(app_id, app_secret, access_token)
 
+# _DOC open [ADACCOUNT_READ]
+from facebookads.objects import AdAccount
+
+account = AdAccount(account_id)
+
+account.remote_read(fields=[
+    AdAccount.Field.name,
+    AdAccount.Field.balance
+])
+print(account[AdAccount.Field.name])
+print(account[AdAccount.Field.balance])
+# _DOC close [ADACCOUNT_READ]
+
+from facebookads.objects import AdAccount
+
+account = AdAccount(account_id)
+account.remote_read(fields=[AdAccount.Field.name])
+old_name = account[AdAccount.Field.name]
+
+# _DOC open [ADACCOUNT_UPDATE]
+from facebookads.objects import AdAccount
+
+account = AdAccount(account_id)
+
+account[AdAccount.Field.name] = 'New Name'
+account.remote_update()
+# _DOC close [ADACCOUNT_UPDATE]
+
+account[AdAccount.Field.name] = old_name
+account.remote_update()
+
+# _DOC open [ADACCOUNT_GET_ADCAMPAIGNS]
+from facebookads.objects import AdAccount, AdCampaign
+
+account = AdAccount(account_id)
+campaigns = account.get_ad_campaigns(fields=[
+    AdCampaign.Field.name,
+])
+for campaign in campaigns:
+    print(campaign[AdCampaign.Field.name])
+# _DOC close [ADACCOUNT_GET_ADCAMPAIGNS]
+
+old_spend_cap = account.remote_read(fields=[
+    AdAccount.Field.spend_cap
+])[AdAccount.Field.spend_cap]
+
+# _DOC open [ADACCOUNT_UPDATE_SPEND_CAP]
+from facebookads.objects import AdAccount
+
+account = AdAccount(account_id)
+
+account[AdAccount.Field.spend_cap] = 10000
+account.remote_update()
+# _DOC close [ADACCOUNT_UPDATE_SPEND_CAP]
+
+account[AdAccount.Field.spend_cap] = old_spend_cap
+account.remote_update()
+
+# _DOC open [ADACCOUNT_GET_ADSETS]
+from facebookads.objects import AdAccount, AdSet
+
+account = AdAccount(account_id)
+adsets = account.get_ad_sets(fields=[AdSet.Field.name])
+
+for adset in adsets:
+    print(adset[AdSet.Field.name])
+# _DOC close [ADACCOUNT_GET_ADSETS]
+
+# _DOC open [ADACCOUNT_GET_CONNECTION_OBJECTS]
+from facebookads.objects import AdAccount
+
+account = AdAccount(account_id)
+objects = account.get_connection_objects()
+
+for obj in objects:
+    print(obj[AdAccount.Field.name])
+# _DOC close [ADACCOUNT_GET_CONNECTION_OBJECTS]
+
+# _DOC open [ADACCOUNT_GET_ADUSERS]
+from facebookads.objects import AdAccount, AdUser
+
+account = AdAccount(account_id)
+users = account.get_ad_users()
+for user in users:
+    print(user[AdUser.Field.id])
+# _DOC close [ADACCOUNT_GET_ADUSERS]
+
+# _DOC open [ADACCOUNT_READ_TOS_ACCEPTED]
+from facebookads.objects import AdAccount
+
+account = AdAccount(account_id)
+account.remote_read(fields=[AdAccount.Field.tos_accepted])
+
+for tos in account[AdAccount.Field.tos_accepted]:
+    print(tos)
+# _DOC close [ADACCOUNT_READ_TOS_ACCEPTED]
+
 # _DOC open [ADACCOUNT_GET_ADIMAGES]
 # from facebookads.objects import AdAccount
 
