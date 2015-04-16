@@ -53,8 +53,8 @@ from facebookads.objects import AdAccount
 
 if __name__ == '__main__':
     ad_account_id = 'act_831792586836538'
-    # _DOC open [READ_ADACCOUNT]
+    #! _DOC open [READ_ADACCOUNT]
     print('**** READ AD ACCOUNT ****')
     ad_account = AdAccount(fbid=ad_account_id)
     print(ad_account.remote_read())
-    # _DOC close [READ_ADACCOUNT]
+    #! _DOC close [READ_ADACCOUNT]
