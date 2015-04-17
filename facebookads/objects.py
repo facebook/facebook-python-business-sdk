@@ -512,7 +512,6 @@ class AbstractCrudObject(AbstractObject):
                 files=files,
                 success=callback_success,
                 failure=callback_failure,
-                api_version=api_version,
             )
             return batch_call
         else:
@@ -577,7 +576,6 @@ class AbstractCrudObject(AbstractObject):
                 params=params,
                 success=callback_success,
                 failure=callback_failure,
-                api_version=api_version,
             )
             return batch_call
         else:
@@ -641,7 +639,6 @@ class AbstractCrudObject(AbstractObject):
                 files=files,
                 params=params,
                 success=callback_success,
-                api_version=api_version,
             )
             return batch_call
         else:
@@ -698,7 +695,6 @@ class AbstractCrudObject(AbstractObject):
                 params=params,
                 success=callback_success,
                 failure=callback_failure,
-                api_version=api_version,
             )
             return batch_call
         else:

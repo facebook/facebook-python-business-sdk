@@ -213,10 +213,10 @@ class FacebookAdsApi(object):
         self,
         method,
         path,
-        api_version=None,
         params=None,
         headers=None,
         files=None,
+        api_version=None,
     ):
         """Makes an API call.
 

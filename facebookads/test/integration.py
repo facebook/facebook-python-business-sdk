@@ -285,7 +285,7 @@ class AbstractCrudObjectTestCase(AbstractObjectTestCase):
 
         assert subject[subject.Field.id] == mirror[mirror.Field.id]
 
-    def test_can_select_api_version(self, subject):
+    def test_can_select_api_version(self):
         image_file = os.path.join(os.path.dirname(__file__), 'test.png')
 
         test_image_one = objects.AdImage(
@@ -525,7 +525,7 @@ class AdGroupTestCase(AbstractCrudObjectTestCase):
 class TargetingSearchTestCase(AbstractObjectTestCase):
     def test_call(self):
         params = {
-            'q': 'un',
+            'q': 'uk',
             'type': 'adgeolocation',
             'location_types': ['country']
         }
