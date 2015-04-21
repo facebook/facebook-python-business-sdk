@@ -937,6 +937,12 @@ class AdAccount(CannotCreate, CannotDelete, AbstractCrudObject):
         """Returns iterator over Activity's associated with this account."""
         return self.iterate_edge(AdGroupStats, fields, params)
 
+    def get_ad_conversion_pixels(self, fields=None, params=None):
+        """
+        Returns iterator over AdConversionPixels associated with this account.
+        """
+        return self.iterate_edge(AdConversionPixel, fields, params)
+
     def get_ad_creatives(self, fields=None, params=None):
         """Returns iterator over AdCreative's associated with this account."""
         return self.iterate_edge(AdCreative, fields, params)
