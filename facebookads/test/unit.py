@@ -114,7 +114,7 @@ class EdgeIteratorTestCase(unittest.TestCase):
 
     def test_builds_from_object_with_data_key(self):
         """
-        Sometimes the response returns a single JSON object — with a "data".
+        Sometimes the response returns a single JSON object - with a "data".
         For instamce with reachestimate. This asserts that we successfully
         build the object that is in "data" key.
         """

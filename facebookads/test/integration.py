@@ -595,6 +595,7 @@ class InsightsTestCase(AbstractCrudObjectTestCase):
             'level': objects.Insights.Level.adgroup,
         })
 
+
 class ReachEstimateTestCase(AbstractCrudObjectTestCase):
     def test_can_read_reach_estimate_from_ad_group(self):
         self.campaign = self.new_test_ad_campaign()
