@@ -1146,7 +1146,7 @@ class AdCampaign(CanValidate, HasStatus, HasObjective, CanArchive,
 
     def get_stats(self, fields=None, params=None):
         """Returns iterator over AdStat's associated with this campaign."""
-        return self.iterate_edge(AdStats, fields, params)
+        return self.edge_object(AdStats, fields, params)
 
     def get_insights(self, fields=None, params=None):
         params = params or {}
