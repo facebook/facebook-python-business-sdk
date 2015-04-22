@@ -45,6 +45,7 @@ class FacebookAdsTestCase(unittest.TestCase):
     TEST_ACCOUNT = None
     TEST_ID = str(int(time.time()) % 1000)
     TEST_IMAGE_PATH = os.path.join(os.path.dirname(__file__), 'test.png')
+    TEST_ZIP_PATH = os.path.join(os.path.dirname(__file__), 'test.zip')
 
     def setUp(self):
         super(FacebookAdsTestCase, self).setUp()
@@ -267,6 +268,45 @@ class AbstractCrudObjectTestCase(AbstractObjectTestCase):
         assert 'execution_options' not in subject
         assert cached_data == subject._data
 
+    @classmethod
+    def assert_can_save(cls, subject):
+        """
+        Asserts that the id is empty before creation and then updates
+        """
+        assert subject[subject.Field.id] is None
+
+        subject.remote_save()
+
+        assert subject[subject.Field.id] is not None
+
+        subject.remote_save()
+
+        mirror = cls.get_mirror(subject)
+
+        assert subject[subject.Field.id] == mirror[mirror.Field.id]
+
+    def test_can_select_api_version(self):
+        image_file = os.path.join(os.path.dirname(__file__), 'test.png')
+
+        test_image_one = objects.AdImage(
+            parent_id=self.TEST_ACCOUNT.get_id_assured(),
+        )
+
+        test_image_one[objects.AdImage.Field.filename] = image_file
+
+        assert test_image_one.remote_create(api_version="v2.3") is not None
+
+        test_image_two = objects.AdImage(
+            parent_id=self.TEST_ACCOUNT.get_id_assured(),
+        )
+
+        test_image_two[objects.AdImage.Field.filename] = image_file
+
+        try:
+            test_image_two.remote_create(api_version="v.2.3")
+        except fbexceptions.FacebookBadObjectError as e:
+            assert e is not None
+
 
 class AdUserTestCase(AbstractCrudObjectTestCase):
 
@@ -485,7 +525,7 @@ class AdGroupTestCase(AbstractCrudObjectTestCase):
 class TargetingSearchTestCase(AbstractObjectTestCase):
     def test_call(self):
         params = {
-            'q': 'un',
+            'q': 'uk',
             'type': 'adgeolocation',
             'location_types': ['country']
         }
@@ -501,6 +541,7 @@ class CustomAudienceTestCase(AbstractCrudObjectTestCase):
         self.delete_in_teardown(ca)
         ca[objects.CustomAudience.Field.name] = \
             'Custom Audience Test ' + self.TEST_ID
+        ca[objects.CustomAudience.Field.subtype] = 'CUSTOM'
         ca.remote_create()
 
         users = ['someone@example.com']
@@ -570,9 +611,28 @@ class MultiProductAdObjectStorySpecTestCase(AbstractCrudObjectTestCase):
 
 class AdImageTestCase(AbstractCrudObjectTestCase):
 
+    def test_can_upload_zip(self):
+        images = objects.AdImage.remote_create_from_zip(
+            filename=self.TEST_ZIP_PATH,
+            parent_id=self.TEST_ACCOUNT.get_id()
+        )
+        assert len(images) == 2
+
     def test_can_read(self):
         self.new_test_ad_image()
         self.TEST_ACCOUNT.get_ad_images()
+
+
+class InsightsTestCase(AbstractCrudObjectTestCase):
+    def test_can_read_without_job(self):
+        self.TEST_ACCOUNT.get_insights(fields=[
+            objects.Insights.Field.clicks,
+            objects.Insights.Field.impressions,
+            objects.Insights.Field.adgroup_id,
+            objects.Insights.Field.adgroup_name,
+        ], params={
+            'level': objects.Insights.Level.adgroup,
+        })
 
 
 class BatchTestCase(FacebookAdsTestCase):

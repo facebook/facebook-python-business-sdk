@@ -23,7 +23,7 @@ objects module contains classes that represent and help traverse nodes on the
 Ads API.
 """
 
-from facebookads.exceptions import FacebookBadObjectError
+from facebookads.exceptions import FacebookBadObjectError, FacebookError
 from facebookads.api import FacebookAdsApi
 from facebookads.session import FacebookSession
 from facebookads.mixins import (
@@ -36,11 +36,13 @@ from facebookads.mixins import (
     HasStatus,
     HasBidInfo,
 )
+from facebookads.video_uploader import VideoUploader, VideoEncodingStatusChecker
 
 import hashlib
 import collections
 import json
 import six
+import base64
 
 
 class EdgeIterator(object):
@@ -126,7 +128,8 @@ class EdgeIterator(object):
         if self._finished_iteration:
             return False
 
-        self._params['summary'] = True
+        if 'summary' not in self._params:
+            self._params['summary'] = True
 
         response = self._source_object.get_api_assured().call(
             'GET',
@@ -326,18 +329,19 @@ class AbstractCrudObject(AbstractObject):
         return not self.__eq__(other)
 
     @classmethod
-    def get_by_ids(cls, ids, params=None, fields=None):
+    def get_by_ids(cls, ids, params=None, fields=None, api=None):
+        api = api or FacebookAdsApi.get_default_api()
         params = dict(params or {})
         cls._assign_fields_to_params(fields, params)
         params['ids'] = ','.join(map(str, ids))
-        response = FacebookAdsApi.get_default_api().call(
+        response = api.call(
             'GET',
             ['/'],
             params=params,
         )
         result = []
         for fbid, data in response.json().items():
-            obj = cls(fbid, api=FacebookAdsApi.get_default_api())
+            obj = cls(fbid, api=api)
             obj._set_data(data)
             result.append(obj)
         return result
@@ -460,6 +464,7 @@ class AbstractCrudObject(AbstractObject):
         files=None,
         params=None,
         success=None,
+        api_version=None,
     ):
         """Creates the object by calling the API.
 
@@ -515,6 +520,7 @@ class AbstractCrudObject(AbstractObject):
                 (self.get_parent_id_assured(), self.get_endpoint()),
                 params=params,
                 files=files,
+                api_version=api_version,
             )
             self._set_data(response.json())
             self._clear_history()
@@ -528,6 +534,7 @@ class AbstractCrudObject(AbstractObject):
         fields=None,
         params=None,
         success=None,
+        api_version=None,
     ):
         """Reads the object by calling the API.
 
@@ -576,6 +583,7 @@ class AbstractCrudObject(AbstractObject):
                 'GET',
                 self.get_node_path(),
                 params=params,
+                api_version=api_version,
             )
             self._set_data(response.json())
 
@@ -588,6 +596,7 @@ class AbstractCrudObject(AbstractObject):
         files=None,
         params=None,
         success=None,
+        api_version=None,
     ):
         """Updates the object by calling the API with only the changes recorded.
 
@@ -638,6 +647,7 @@ class AbstractCrudObject(AbstractObject):
                 self.get_node_path(),
                 files=files,
                 params=params,
+                api_version=api_version,
             )
             self._clear_history()
 
@@ -649,6 +659,7 @@ class AbstractCrudObject(AbstractObject):
         failure=None,
         params=None,
         success=None,
+        api_version=None,
     ):
         """Deletes the object by calling the API with the DELETE http method.
 
@@ -691,6 +702,7 @@ class AbstractCrudObject(AbstractObject):
                 'DELETE',
                 self.get_node_path(),
                 params=params,
+                api_version=api_version,
             )
             self.clear_id()
 
@@ -698,7 +710,7 @@ class AbstractCrudObject(AbstractObject):
 
     # Helpers
 
-    def save(self, *args, **kwargs):
+    def remote_save(self, *args, **kwargs):
         """
         Calls remote_create method if object has not been created. Else, calls
         the remote_update method.
@@ -707,6 +719,9 @@ class AbstractCrudObject(AbstractObject):
             return self.remote_update(*args, **kwargs)
         else:
             return self.remote_create(*args, **kwargs)
+
+    # To avoid breaking change. Will be deprecated
+    save = remote_save
 
     def iterate_edge(self, target_objects_class, fields=None, params=None):
         """
@@ -800,6 +815,7 @@ class AdAccount(CannotCreate, CannotDelete, AbstractCrudObject):
         agency_client_declaration = 'agency_client_declaration'
         amount_spent = 'amount_spent'
         balance = 'balance'
+        business = 'business'
         business_city = 'business_city'
         business_country_code = 'business_country_code'
         business_name = 'business_name'
@@ -929,6 +945,12 @@ class AdAccount(CannotCreate, CannotDelete, AbstractCrudObject):
         """Returns iterator over Activity's associated with this account."""
         return self.iterate_edge(AdGroupStats, fields, params)
 
+    def get_ad_conversion_pixels(self, fields=None, params=None):
+        """
+        Returns iterator over AdConversionPixels associated with this account.
+        """
+        return self.iterate_edge(AdConversionPixel, fields, params)
+
     def get_ad_creatives(self, fields=None, params=None):
         """Returns iterator over AdCreative's associated with this account."""
         return self.iterate_edge(AdCreative, fields, params)
@@ -936,6 +958,11 @@ class AdAccount(CannotCreate, CannotDelete, AbstractCrudObject):
     def get_ad_images(self, fields=None, params=None):
         """Returns iterator over AdImage's associated with this account."""
         return self.iterate_edge(AdImage, fields, params)
+
+    def get_insights(self, fields=None, params=None):
+        params = params or {}
+        params['summary'] = params.get('summary')
+        return self.iterate_edge(Insights, fields, params)
 
     def get_broad_category_targeting(self, fields=None, params=None):
         """
@@ -1121,6 +1148,11 @@ class AdCampaign(CanValidate, HasStatus, HasObjective, CanArchive,
         """Returns iterator over AdStat's associated with this campaign."""
         return self.iterate_edge(AdStats, fields, params)
 
+    def get_insights(self, fields=None, params=None):
+        params = params or {}
+        params['summary'] = params.get('summary')
+        return self.iterate_edge(Insights, fields, params)
+
 
 class AdSet(CanValidate, HasStatus, CanArchive, AbstractCrudObject):
 
@@ -1132,9 +1164,11 @@ class AdSet(CanValidate, HasStatus, CanArchive, AbstractCrudObject):
         campaign_group_id = 'campaign_group_id'
         campaign_schedule = 'campaign_schedule'
         created_time = 'created_time'
+        creative_sequence = 'creative_sequence'
         daily_budget = 'daily_budget'
         end_time = 'end_time'
         id = 'id'
+        is_autobid = 'is_autobid'
         lifetime_budget = 'lifetime_budget'
         name = 'name'
         pacing_type = 'pacing_type'
@@ -1171,6 +1205,11 @@ class AdSet(CanValidate, HasStatus, CanArchive, AbstractCrudObject):
         """Returns iterator over AdStat's associated with this set."""
         return self.iterate_edge(AdStats, fields, params)
 
+    def get_insights(self, fields=None, params=None):
+        params = params or {}
+        params['summary'] = params.get('summary')
+        return self.iterate_edge(Insights, fields, params)
+
 
 class AdGroup(HasStatus, HasObjective, CanArchive, AbstractCrudObject):
 
@@ -1183,11 +1222,9 @@ class AdGroup(HasStatus, HasObjective, CanArchive, AbstractCrudObject):
         conversion_specs = 'conversion_specs'
         created_time = 'created_time'
         creative = 'creative'
-        creative_ids = 'creative_ids'
         failed_delivery_checks = 'failed_delivery_checks'
         id = 'id'
         name = 'name'
-        objective = 'objective'
         redownload = 'redownload'
         social_prefs = 'social_prefs'
         status = 'adgroup_status'
@@ -1236,6 +1273,11 @@ class AdGroup(HasStatus, HasObjective, CanArchive, AbstractCrudObject):
         """Returns ConversionStats object associated with this ad."""
         return self.edge_object(ConversionStats, fields, params)
 
+    def get_insights(self, fields=None, params=None):
+        params = params or {}
+        params['summary'] = params.get('summary')
+        return self.iterate_edge(Insights, fields, params)
+
 
 class AdConversionPixel(AbstractCrudObject):
 
@@ -1261,6 +1303,7 @@ class AdCreative(AbstractCrudObject):
         actor_name = 'actor_name'
         body = 'body'
         call_to_action_type = 'call_to_action_type'
+        filename = 'filename'
         follow_redirect = 'follow_redirect'
         id = 'id'
         image_crops = 'image_crops'
@@ -1304,6 +1347,31 @@ class AdImage(CannotUpdate, AbstractCrudObject):
     @classmethod
     def get_endpoint(cls):
         return 'adimages'
+
+    @classmethod
+    def remote_create_from_zip(cls, filename, parent_id, api=None):
+        api = api or FacebookAdsApi.get_default_api()
+        open_file = open(filename, 'rb')
+        response = api.call(
+            'POST',
+            (parent_id, cls.get_endpoint()),
+            files={filename: open_file}
+        )
+        open_file.close()
+
+        data = response.json()
+
+        objs = []
+        for image_filename in data['images']:
+            image = AdImage(parent_id=parent_id)
+            image.update(data['images'][image_filename])
+            image[cls.Field.id] = '%s:%s' % (
+                parent_id[4:],
+                data['images'][image_filename][cls.Field.hash],
+            )
+            objs.append(image)
+
+        return objs
 
     def get_node_path(self):
         return (self.get_parent_id_assured(), self.get_endpoint())
@@ -1371,6 +1439,7 @@ class AdImage(CannotUpdate, AbstractCrudObject):
         files=None,
         params=None,
         success=None,
+        api_version=None,
     ):
         """Uploads filename and creates the AdImage object from it.
 
@@ -1383,15 +1452,15 @@ class AdImage(CannotUpdate, AbstractCrudObject):
                 "AdImage required a filename to be defined."
             )
         filename = self[self.Field.filename]
-        open_file = open(filename, 'rb')
-        return_val = super(AdImage, self).remote_create(
-            files={filename: open_file},
-            batch=batch,
-            failure=failure,
-            params=params,
-            success=success,
-        )
-        open_file.close()
+        with open(filename, 'rb') as open_file:
+            return_val = super(AdImage, self).remote_create(
+                files={filename: open_file},
+                batch=batch,
+                failure=failure,
+                params=params,
+                success=success,
+                api_version=api_version,
+            )
         return return_val
 
     def get_hash(self):
@@ -1405,6 +1474,7 @@ class AdImage(CannotUpdate, AbstractCrudObject):
         fields=None,
         params=None,
         success=None,
+        api_version=None,
     ):
         if self[AdImage.Field.id]:
             _, image_hash = self[AdImage.Field.id].split(':')
@@ -1418,6 +1488,44 @@ class AdImage(CannotUpdate, AbstractCrudObject):
             if images:
                 self._set_data(images[0]._data)
 
+
+class AdVideo(AbstractCrudObject):
+
+    class Field(object):
+        filepath = 'filepath'
+        id = 'id'
+
+    def remote_create(
+        self,
+        batch=None,
+        failure=None,
+        params=None,
+        success=None,
+    ):
+        """
+        Uploads filepath and creates the AdVideo object from it.
+        It has same arguments as AbstractCrudObject.remote_create except it does
+        not have the files argument but requires the 'filepath' property to be
+        defined.
+        """
+        if not self[self.Field.filepath]:
+            raise FacebookBadObjectError(
+                "AdVideo required a filepath to be defined."
+            )
+        video_uploader = VideoUploader()
+        response = video_uploader.upload(self)
+        self._set_data(response)
+        return response
+
+    def waitUntilEncodingReady(self):
+        if 'id' not in self:
+            raise FacebookError(
+                'Invalid Video ID',
+            )
+        VideoEncodingStatusChecker.waitUntilReady(
+            self.get_api_assured(),
+            self['id'],
+        )
 
 
 class AdPreview(AbstractObject):
@@ -1545,6 +1653,7 @@ class CustomAudience(AbstractCrudObject):
         description = 'description'
         force_delete_lookalikes = 'force_delete_lookalikes'
         id = 'id'
+        pixel_id = 'pixel_id'
         lookalike_audience_ids = 'lookalike_audience_ids'
         lookalike_spec = 'lookalike_spec'
         name = 'name'
@@ -1704,7 +1813,7 @@ class LookalikeAudience(AbstractCrudObject):
 
         class LookalikeSpec(object):
             type = 'type'
-            ratio = 'raito'
+            ratio = 'ratio'
             country = 'country'
             pixel_ids = 'pixel_ids'
             conversion_type = 'conversion_type'
@@ -1970,7 +2079,7 @@ class Transaction(AbstractObject):
         return 'transactions'
 
 
-class Business(AbstractCrudObject, CannotCreate, CannotDelete):
+class Business(CannotCreate, CannotDelete, AbstractCrudObject):
 
     class Field(object):
         created_by = 'created_by'
@@ -1985,6 +2094,11 @@ class Business(AbstractCrudObject, CannotCreate, CannotDelete):
 
     def get_product_catalogs(self, fields=None, params=None):
         return self.iterate_edge(ProductCatalog, fields, params)
+
+    def get_insights(self, fields=None, params=None):
+        params = params or {}
+        params['summary'] = params.get('summary')
+        return self.iterate_edge(Insights, fields, params)
 
 
 class ProductCatalog(AbstractCrudObject):
@@ -2073,6 +2187,55 @@ class ProductCatalog(AbstractCrudObject):
             fields,
             params
         )
+
+    def update_product(self, retailer_id, **kwargs):
+        """Updates a product stored in a product catalog
+
+        Args:
+            retailer_id: product id from product feed. g:price tag in Google
+                Shopping feed
+            kwargs: key-value pairs to update on the object, being key the
+                field name and value the updated value
+
+        Returns:
+            The FacebookResponse object.
+        """
+        if not kwargs:
+            raise FacebookError(
+                """No fields to update provided. Example:
+                   catalog = ProductCatalog('catalog_id')
+                   catalog.update_product(
+                       retailer_id,
+                       price=100,
+                       availability=Product.Availability.out_of_stock
+                   )
+                """
+            )
+
+        product_endpoint = ':'.join((
+            'catalog',
+            self.get_id_assured(),
+            self.b64_encoded_id(retailer_id),
+        ))
+
+        url = '/'.join((
+            FacebookSession.GRAPH,
+            FacebookAdsApi.API_VERSION,
+            product_endpoint,
+        ))
+
+        return self.get_api_assured().call(
+            'POST',
+            url,
+            params=kwargs,
+        )
+
+    def b64_encoded_id(self, retailer_id):
+        # # we need a byte string for base64.b64encode argument
+        b64_id = base64.urlsafe_b64encode(retailer_id.encode('utf8'))
+
+        # and we need a str to join with other url snippets
+        return b64_id.decode('utf8')
 
 
 class ProductCatalogExternalEventSource(
@@ -2241,3 +2404,136 @@ class ProductAudience(CannotUpdate, CannotDelete, AbstractCrudObject):
     @classmethod
     def get_endpoint(cls):
         return 'product_audiences'
+
+
+class Insights(CannotCreate, CannotDelete, CannotUpdate, AbstractCrudObject):
+    class Field(object):
+        account_id = 'account_id'
+        account_name = 'account_name'
+        action_values = 'action_values'
+        actions = 'actions'
+        actions_per_impression = 'actions_per_impression'
+        adgroup_id = 'adgroup_id'
+        adgroup_name = 'adgroup_name'
+        async_percent_completion = 'async_percent_completion'
+        async_status = 'async_status'
+        campaign_end = 'campaign_end'
+        campaign_group_end = 'campaign_group_end'
+        campaign_group_id = 'campaign_group_id'
+        campaign_group_name = 'campaign_group_name'
+        campaign_id = 'campaign_id'
+        campaign_name = 'campaign_name'
+        campaign_start = 'campaign_start'
+        clicks = 'clicks'
+        cost_per_action_type = 'cost_per_action_type'
+        cost_per_result = 'cost_per_result'
+        cost_per_total_action = 'cost_per_total_action'
+        cost_per_unique_click = 'cost_per_unique_click'
+        cpc = 'cpc'
+        cpm = 'cpm'
+        cpp = 'cpp'
+        ctr = 'ctr'
+        date_start = 'date_start'
+        date_stop = 'date_stop'
+        frequency = 'frequency'
+        id = 'id'
+        impressions = 'impressions'
+        objective = 'objective'
+        reach = 'reach'
+        relevance_score = 'relevance_score'
+        report_run_id = 'report_run_id'
+        result_rate = 'result_rate'
+        results = 'results'
+        roas = 'roas'
+        social_clicks = 'social_clicks'
+        social_impressions = 'social_impressions'
+        social_reach = 'social_reach'
+        spend = 'spend'
+        today_spend = 'today_spend'
+        total_action_value = 'total_action_value'
+        total_actions = 'total_actions'
+        total_unique_actions = 'total_unique_actions'
+        unique_clicks = 'unique_clicks'
+        unique_ctr = 'unique_ctr'
+        unique_social_clicks = 'unique_social_clicks'
+        video_avg_pct_watched_actions = 'video_avg_pct_watched_actions'
+        video_avg_sec_watched_actions = 'video_avg_sec_watched_actions'
+        video_complete_watched_actions = 'video_complete_watched_actions'
+        video_p100_watched_actions = 'video_p100_watched_actions'
+        video_p25_watched_actions = 'video_p25_watched_actions'
+        video_p50_watched_actions = 'video_p50_watched_actions'
+        video_p75_watched_actions = 'video_p75_watched_actions'
+        video_p95_watched_actions = 'video_p95_watched_actions'
+        video_start_actions = 'video_start_actions'
+
+    @classmethod
+    def get_endpoint(cls):
+        return 'insights'
+
+    class Preset(object):
+        last_14_days = 'last_14_days'
+        last_28_days = 'last_28_days'
+        last_30_days = 'last_30_days'
+        last_3_months = 'last_3_months'
+        last_week = 'last_week'
+        last_90_days = 'last_90_days'
+        last_month = 'last_month'
+        last_week = 'this_week'
+        this_month = 'this_month'
+        this_quarter = 'this_quarter'
+        today = 'today'
+        yesterday = 'yesterday'
+
+    class Increment(object):
+        monthly = 'monthly'
+        all_days = 'all_days'
+
+    class Breakdown(object):
+        age = 'age'
+        country = 'country'
+        gender = 'gender'
+        impression_device = 'impression_device'
+        placement = 'placement'
+
+    class Level(object):
+        account = 'account'
+        adgroup = 'adgroup'
+        campaign = 'campaign'
+        campaign_group = 'campaign_group'
+
+    class ActionBreakdown(object):
+        action_destination = 'action_destination'
+        action_device = 'action_device'
+        action_target_id = 'action_target_id'
+        action_type = 'action_type'
+        action_video_type = 'action_video_type'
+
+    class ActionAttributionWindow(object):
+        click_1d = '1d_click'
+        view_1d = '1d_view'
+        click_28d = '28d_click'
+        view_28d = '28d_view'
+        click_7d = '7d_click'
+        view_7d = '7d_view'
+        default = 'default'
+
+    class Operator(object):
+        all = 'all'
+        any = 'any'
+        contain = 'contain'
+        equal = 'equal'
+        greater_than = 'greater_than'
+        greater_than_or_equal = 'greater_than_or_equal'
+        in_ = 'in'
+        in_range = 'in_range'
+        less_than = 'less_than'
+        less_than_or_equal = 'less_than_or_equal'
+        none = 'none'
+        not_contain = 'not_contain'
+        not_equal = 'not_equal'
+        not_in = 'not_in'
+        not_in_range = 'not_in_range'
+
+    class ActionReportTime(object):
+        conversion = 'conversion'
+        impression = 'impression'

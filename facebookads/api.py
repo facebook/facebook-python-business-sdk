@@ -22,11 +22,15 @@
 api module contains classes that make http requests to Facebook's graph API.
 """
 
-from facebookads.exceptions import FacebookRequestError
+from facebookads.exceptions import (
+    FacebookRequestError,
+    FacebookBadObjectError,
+)
 from facebookads.session import FacebookSession
 import json
 import six
 import collections
+import re
 from six.moves import urllib
 from six.moves import http_client
 
@@ -82,6 +86,8 @@ class FacebookResponse(object):
             return False
         elif bool(json_body):
             # Has body and no error
+            if 'success' in json_body:
+                return json_body['success']
             return True
         elif self._http_status == http_client.NOT_MODIFIED:
             # ETAG Hit
@@ -127,9 +133,9 @@ class FacebookAdsApi(object):
             this sdk.
     """
 
-    SDK_VERSION = '2.2.7'
+    SDK_VERSION = '2.3.1'
 
-    API_VERSION = 'v2.2'
+    API_VERSION = 'v2.3'
 
     HTTP_METHOD_GET = 'GET'
 
@@ -203,7 +209,15 @@ class FacebookAdsApi(object):
     def get_default_account_id(cls):
         return cls._default_account_id
 
-    def call(self, method, path, params=None, headers=None, files=None):
+    def call(
+        self,
+        method,
+        path,
+        params=None,
+        headers=None,
+        files=None,
+        api_version=None,
+    ):
         """Makes an API call.
 
         Args:
@@ -235,13 +249,19 @@ class FacebookAdsApi(object):
         if not files:
             files = {}
 
+        if api_version and not re.search('v[0-9]+\.[0-9]+', api_version):
+            raise FacebookBadObjectError(
+                'Please provide the API version in the following format: %s'
+                % self.API_VERSION
+            )
+
         self._num_requests_attempted += 1
 
         if not isinstance(path, six.string_types):
             # Path is not a full path
             path = "/".join((
                 self._session.GRAPH,
-                self.API_VERSION,
+                api_version or self.API_VERSION,
                 '/'.join(map(str, path)),
             ))
 

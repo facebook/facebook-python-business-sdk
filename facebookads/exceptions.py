@@ -68,6 +68,8 @@ class FacebookRequestError(FacebookError):
                 self._api_error_message = self._error['message']
             if 'code' in self._error:
                 self._api_error_code = self._error['code']
+            if 'error_subcode' in self._error:
+                self._api_error_subcode = self._error['error_subcode']
             if 'type' in self._error:
                 self._api_error_type = self._error['type']
             if self._error.get('error_data', {}).get('blame_field_specs'):
@@ -76,9 +78,15 @@ class FacebookRequestError(FacebookError):
         else:
             self._error = None
 
+        # We do not want to print the file bytes
+        request = self._request_context
+        if 'files' in self._request_context:
+            request = self._request_context.copy()
+            del request['files']
+
         super(FacebookRequestError, self).__init__(
             "%s \n" % self._message +
-            "Request:\n\t%s\n" % self._request_context +
+            "Request:\n\t%s\n" % request +
             "Response:\n" +
             "\tHTTP Status: %s\n\tHeaders:%s\n\tBody: %s\n" % (
                 self._http_status,
@@ -104,6 +112,9 @@ class FacebookRequestError(FacebookError):
 
     def api_error_code(self):
         return self._api_error_code
+
+    def api_error_subcode(self):
+        return self._api_error_subcode
 
     def api_error_type(self):
         return self._api_error_type
