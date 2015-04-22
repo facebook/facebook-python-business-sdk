@@ -289,12 +289,12 @@ class BootstrapTestCase(unittest.TestCase):
         # importing bootstrap calls auth() in interactive environments
         # check if this isn't happening in tests
         from .. import bootstrap
-        self.assertIsNone(objects.FacebookAdsApi.get_default_api())
+        self.assertEqual(objects.FacebookAdsApi.get_default_api(), None)
 
     def test_can_authenticate(self):
         from .. import bootstrap
         bootstrap.auth()
-        self.assertIsNotNone(objects.FacebookAdsApi.get_default_api())
+        self.assertNotEqual(objects.FacebookAdsApi.get_default_api(), None)
 
     def tearDown(self):
         objects.FacebookAdsApi.set_default_api(self.old_api)
