@@ -1672,6 +1672,16 @@ class CustomAudience(AbstractCrudObject):
         phone_hash = 'PHONE_SHA256'
         mobile_advertiser_id = 'MOBILE_ADVERTISER_ID'
 
+    class Subtype(object):
+        custom = 'CUSTOM'
+        lookalike = 'LOOKALIKE'
+        website = 'WEBSITE'
+        app = 'APP'
+        partner = 'PARTNER'
+        managed = 'MANAGED'
+        video = 'VIDEO'
+        app_combination = 'APP_COMBINATION'
+
     @classmethod
     def get_endpoint(cls):
         return 'customaudiences'

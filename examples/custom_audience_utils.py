@@ -78,7 +78,9 @@ def DeleteCustomAudience(audience_id):
 
 def CreateCustomAudience(name, description=None, f=None, datatype='email'):
     audience = CustomAudience(parent_id=my_account.get_id_assured())
-    audience.update({CustomAudience.Field.name: name})
+    audience.update({CustomAudience.Field.name: name,
+    CustomAudience.Field.subtype: CustomAudience.Subtype.custom,})
+
     if description:
             audience.update({CustomAudience.Field.description: description})
     audience.remote_create()
