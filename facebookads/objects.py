@@ -117,6 +117,8 @@ class EdgeIterator(object):
         return self._queue[index]
 
     def total(self):
+        if self._total_count is None:
+            raise FacebookError("Couldn't retrieve the object total count for that type of request.")
         return self._total_count
 
     def load_next_page(self):
@@ -1146,7 +1148,7 @@ class AdCampaign(CanValidate, HasStatus, HasObjective, CanArchive,
 
     def get_stats(self, fields=None, params=None):
         """Returns iterator over AdStat's associated with this campaign."""
-        return self.iterate_edge(AdStats, fields, params)
+        return self.edge_object(AdStats, fields, params)
 
     def get_insights(self, fields=None, params=None):
         params = params or {}
