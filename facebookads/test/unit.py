@@ -112,6 +112,21 @@ class EdgeIteratorTestCase(unittest.TestCase):
         obj = ei.build_objects_from_response(response)
         assert len(obj) == 1 and obj[0]['id'] == "601957/targetingsentencelines"
 
+    def test_total_is_none(self):
+        ei = objects.EdgeIterator(
+            objects.AdAccount(fbid='123'),
+            objects.AdGroup,
+        )
+        self.assertRaises(exceptions.FacebookError, ei.total)
+
+    def test_total_is_defined(self):
+        ei = objects.EdgeIterator(
+            objects.AdAccount(fbid='123'),
+            objects.AdGroup,
+        )
+        ei._total_count = 32
+        self.assertEqual(ei.total(), 32)
+
 
 class AbstractCrudObjectTestCase(unittest.TestCase):
     def test_all_aco_has_id_field(self):

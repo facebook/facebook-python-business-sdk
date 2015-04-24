@@ -117,6 +117,8 @@ class EdgeIterator(object):
         return self._queue[index]
 
     def total(self):
+        if self._total_count is None:
+            raise FacebookError("Couldn't retrieve the object total count for that type of request.")
         return self._total_count
 
     def load_next_page(self):
