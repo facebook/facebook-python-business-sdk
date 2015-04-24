@@ -117,7 +117,10 @@ class EdgeIteratorTestCase(unittest.TestCase):
             objects.AdAccount(fbid='123'),
             objects.AdGroup,
         )
-        self.assertRaises(exceptions.FacebookUnavailablePropertyException, ei.total)
+        self.assertRaises(
+            exceptions.FacebookUnavailablePropertyException,
+            ei.total
+        )
 
     def test_total_is_defined(self):
         ei = objects.EdgeIterator(
