@@ -23,13 +23,26 @@ try:
 except ImportError:
     from distutils.core import setup
 import os
+import re
 
 this_dir = os.path.dirname(__file__)
 readme_filename = os.path.join(this_dir, 'README.md')
 requirements_filename = os.path.join(this_dir, 'requirements.txt')
+package_init_filename = os.path.join(this_dir, 'facebookads/__init__.py')
+
+version = ''
+with open(package_init_filename, 'r') as handle:
+    file_content = handle.read()
+    version = re.search(
+        r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]',
+        file_content, re.MULTILINE
+    ).group(1)
+
+if not version:
+    raise RuntimeError('Cannot find version information')
 
 PACKAGE_NAME = 'facebookads'
-PACKAGE_VERSION = '2.3.1'
+PACKAGE_VERSION = version
 PACKAGE_AUTHOR = 'Facebook'
 PACKAGE_AUTHOR_EMAIL = ''
 PACKAGE_URL = 'https://github.com/facebook/facebook-python-ads-sdk'
