@@ -136,3 +136,11 @@ for tos in account[AdAccount.Field.tos_accepted]:
 account = AdAccount(account_id)
 images = account.get_ad_images()
 # _DOC close [ADACCOUNT_GET_ADIMAGES]
+
+# _DOC open [ADACCOUNT_GET_RATECARDS]
+#from facebookads.objects import AdAccount
+
+ad_account = AdAccount(account_id)
+rate_cards = ad_account.get_rate_cards()
+print rate_cards
+# _DOC close [ADACCOUNT_GET_RATECARDS]
