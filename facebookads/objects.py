@@ -1864,6 +1864,11 @@ class PartnerCategory(
 
 class RateCard(AbstractObject):
 
+    class Field(object):
+        country = "country"
+        currency = "currency"
+        rate = "rate"
+
     @classmethod
     def get_endpoint(cls):
         return 'ratecard'
