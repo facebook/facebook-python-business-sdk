@@ -48,8 +48,8 @@ homepage_campaign.update({
 homepage_campaign.remote_create()
 
 homepage_campaign_group_id = homepage_campaign.get_id()
-rate = rate_cards[0]['rate']
-country = rate_cards[0]['country']
+rate = rate_cards[0][RateCard.Field.rate]
+country = rate_cards[0][RateCard.Field.country]
 
 # _DOC open [ADSET_CREATE_HOMEPAGE]
 #from facebookads.objects import AdSet
