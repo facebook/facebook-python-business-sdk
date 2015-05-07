@@ -19,12 +19,14 @@
 # DEALINGS IN THE SOFTWARE.
 
 import time
+import os
 
 from facebookads.objects import *
 from facebookads.api import *
 from facebookads.exceptions import *
 
-config_file = open('./examples/docs/config.json')
+this_dir = os.path.dirname(__file__)
+config_file = open(os.path.join(this_dir, 'config.json'))
 config = json.load(config_file)
 config_file.close()
 
@@ -33,6 +35,7 @@ access_token = config['access_token']
 app_id = config['app_id']
 app_secret = config['app_secret']
 page_id = config['page_id']
+connections_id = config['connections_id']
 
 FacebookAdsApi.init(app_id, app_secret, access_token)
 
@@ -53,13 +56,14 @@ country = rate_cards[0][RateCard.Field.country]
 
 # _DOC open [ADSET_CREATE_HOMEPAGE]
 #from facebookads.objects import AdSet
+
 lifetime_budget = str(rate * 5000)
 start_date = int(time.time())
 end_date = int(time.time() + 12 * 3600)
 
 ad_set = AdSet(parent_id=account_id)
 ad_set.update({
-    AdSet.Field.name: 'Adset Test DocSmith - Homepage Ads',
+    AdSet.Field.name: 'Homepage Ads - Ad Set',
     AdSet.Field.campaign_group_id: homepage_campaign_group_id,
     AdSet.Field.bid_type: AdSet.BidType.multi_premium,
     AdSet.Field.bid_info: {
@@ -86,3 +90,41 @@ print ad_set
 
 ad_set.remote_delete()
 homepage_campaign.remote_delete()
+
+campaign = AdCampaign(parent_id=account_id)
+campaign.update({
+    AdCampaign.Field.name: 'My Campaign',
+    AdCampaign.Field.objective: AdCampaign.Objective.none,
+})
+campaign.remote_create()
+
+campaign_group_id = campaign.get_id()
+
+# _DOC open [ADSET_CREATE_APP_CONNECTIONS_TARGETING]
+#from facebookads.objects import AdSet
+
+ad_set = AdSet(parent_id=account_id)
+ad_set.update({
+    AdSet.Field.name: 'Android Connections Targeting - Ad Set',
+    AdSet.Field.campaign_group_id: campaign_group_id,
+    AdSet.Field.bid_type: AdSet.BidType.cpc,
+    AdSet.Field.bid_info: {
+        AdSet.Field.BidInfo.clicks: 150,
+    },
+    AdSet.Field.daily_budget: 2000,
+    AdSet.Field.targeting: {
+        TargetingSpecsField.geo_locations: {
+            'countries': [country],
+        },
+        TargetingSpecsField.connections: [connections_id],
+        TargetingSpecsField.user_os: ['Android'],
+    },
+    AdSet.Field.status: 'ACTIVE',
+})
+
+ad_set.remote_create()
+print ad_set
+# _DOC close [ADSET_CREATE_APP_CONNECTIONS_TARGETING]
+
+ad_set.remote_delete()
+campaign.remote_delete()
