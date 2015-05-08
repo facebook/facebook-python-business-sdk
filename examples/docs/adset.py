@@ -96,16 +96,17 @@ campaign.update({
 })
 campaign.remote_create()
 
-campaign_group_id = campaign.get_id()
+campaign_id = campaign.get_id()
 
 connections_id = page_id
 # _DOC open [ADSET_CREATE_APP_CONNECTIONS_TARGETING]
+# _DOC vars [account_id:s, campaign_id, connections_id]
 #from facebookads.objects import AdSet
 
 ad_set = AdSet(parent_id=account_id)
 ad_set.update({
     AdSet.Field.name: 'Android Connections Targeting - Ad Set',
-    AdSet.Field.campaign_group_id: campaign_group_id,
+    AdSet.Field.campaign_group_id: campaign_id,
     AdSet.Field.bid_type: AdSet.BidType.cpc,
     AdSet.Field.bid_info: {
         AdSet.Field.BidInfo.clicks: 150,

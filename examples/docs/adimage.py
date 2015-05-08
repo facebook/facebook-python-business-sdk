@@ -36,6 +36,7 @@ app_secret = config['app_secret']
 FacebookAdsApi.init(app_id, app_secret, access_token)
 
 # _DOC open [ADIMAGE_CREATE]
+# _DOC vars [account_id:s, image_path:s]
 # from facebookads.objects import AdImage
 
 image = AdImage(parent_id=account_id)
@@ -50,6 +51,7 @@ image_id = image[AdImage.Field.id]
 image_hash = image[AdImage.Field.hash]
 
 # _DOC open [ADIMAGE_DELETE]
+# _DOC vars [image_id, account_id:s, image_hash:s]
 # from facebookads.objects import AdImage
 
 image = AdImage(image_id, account_id)
@@ -57,6 +59,7 @@ image.remote_delete(params={AdImage.Field.hash: image_hash})
 # _DOC close [ADIMAGE_DELETE]
 
 # _DOC open [ADIMAGE_CREATE_ZIP]
+# _DOC vars [image_zip_path:s, account_id:s]
 # from facebookads.objects import AdImage
 
 images = AdImage.remote_create_from_zip(
@@ -73,6 +76,7 @@ image_1_hash = images[0][AdImage.Field.hash]
 image_2_hash = images[1][AdImage.Field.hash]
 
 # _DOC open [ADIMAGE_READ_MULTI_WITH_HASH]
+# _DOC vars [account_id:s, image_1_hash, image_2_hash]
 # from facebookads.objects import AdAccount
 
 account = AdAccount(account_id)

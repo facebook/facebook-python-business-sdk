@@ -52,6 +52,7 @@ adset[AdSet.Field.daily_budget] = 1000
 adset.remote_create()
 
 # _DOC open [ADGROUP_CREATE_INLINE_CREATIVE]
+# _DOC vars [account_id:s, image_path:s]
 # from facebookads.objects import AdImage, AdCreative, AdGroup
 
 image = AdImage(parent_id=account_id)

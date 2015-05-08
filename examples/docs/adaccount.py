@@ -34,6 +34,7 @@ app_secret = config['app_secret']
 FacebookAdsApi.init(app_id, app_secret, access_token)
 
 # _DOC open [ADACCOUNT_READ]
+# _DOC vars [account_id:s]
 from facebookads.objects import AdAccount
 
 account = AdAccount(account_id)
@@ -45,7 +46,7 @@ account.remote_read(fields=[
 print(account[AdAccount.Field.name])
 print(account[AdAccount.Field.balance])
 # _DOC close [ADACCOUNT_READ]
-
+# _DOC vars [account_id:s]
 from facebookads.objects import AdAccount
 
 account = AdAccount(account_id)
@@ -53,6 +54,7 @@ account.remote_read(fields=[AdAccount.Field.name])
 old_name = account[AdAccount.Field.name]
 
 # _DOC open [ADACCOUNT_UPDATE]
+# _DOC vars [account_id:s]
 from facebookads.objects import AdAccount
 
 account = AdAccount(account_id)
@@ -65,6 +67,7 @@ account[AdAccount.Field.name] = old_name
 account.remote_update()
 
 # _DOC open [ADACCOUNT_GET_ADCAMPAIGNS]
+# _DOC vars [account_id:s]
 from facebookads.objects import AdAccount, AdCampaign
 
 account = AdAccount(account_id)
@@ -80,6 +83,7 @@ old_spend_cap = account.remote_read(fields=[
 ])[AdAccount.Field.spend_cap]
 
 # _DOC open [ADACCOUNT_UPDATE_SPEND_CAP]
+# _DOC vars [account_id:s]
 from facebookads.objects import AdAccount
 
 account = AdAccount(account_id)
@@ -92,6 +96,7 @@ account[AdAccount.Field.spend_cap] = old_spend_cap
 account.remote_update()
 
 # _DOC open [ADACCOUNT_GET_ADSETS]
+# _DOC vars [account_id:s]
 from facebookads.objects import AdAccount, AdSet
 
 account = AdAccount(account_id)
@@ -102,6 +107,7 @@ for adset in adsets:
 # _DOC close [ADACCOUNT_GET_ADSETS]
 
 # _DOC open [ADACCOUNT_GET_CONNECTION_OBJECTS]
+# _DOC vars [account_id:s]
 from facebookads.objects import AdAccount
 
 account = AdAccount(account_id)
@@ -112,6 +118,7 @@ for obj in objects:
 # _DOC close [ADACCOUNT_GET_CONNECTION_OBJECTS]
 
 # _DOC open [ADACCOUNT_GET_ADUSERS]
+# _DOC vars [account_id:s]
 from facebookads.objects import AdAccount, AdUser
 
 account = AdAccount(account_id)
@@ -121,6 +128,7 @@ for user in users:
 # _DOC close [ADACCOUNT_GET_ADUSERS]
 
 # _DOC open [ADACCOUNT_READ_TOS_ACCEPTED]
+# _DOC vars [account_id:s]
 from facebookads.objects import AdAccount
 
 account = AdAccount(account_id)
@@ -131,6 +139,7 @@ for tos in account[AdAccount.Field.tos_accepted]:
 # _DOC close [ADACCOUNT_READ_TOS_ACCEPTED]
 
 # _DOC open [ADACCOUNT_GET_ADIMAGES]
+# _DOC vars [account_id:s]
 # from facebookads.objects import AdAccount
 
 account = AdAccount(account_id)
@@ -138,6 +147,7 @@ images = account.get_ad_images()
 # _DOC close [ADACCOUNT_GET_ADIMAGES]
 
 # _DOC open [ADACCOUNT_GET_RATECARDS]
+# _DOC vars [account_id:s]
 #from facebookads.objects import AdAccount
 
 ad_account = AdAccount(account_id)
