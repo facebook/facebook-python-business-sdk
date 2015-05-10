@@ -60,7 +60,7 @@ def ListCustomAudiences(**kwargs):
     audiences = my_account.get_custom_audiences(fields=[
         CustomAudience.Field.name,
         CustomAudience.Field.description])
-    if(audiences):
+    if audiences:
         print(">>> Account")
         print(my_account[CustomAudience.Field.id])
         print(">>> Audiences")
@@ -78,11 +78,13 @@ def DeleteCustomAudience(audience_id):
 
 def CreateCustomAudience(name, description=None, f=None, datatype='email'):
     audience = CustomAudience(parent_id=my_account.get_id_assured())
-    audience.update({CustomAudience.Field.name: name,
-    CustomAudience.Field.subtype: CustomAudience.Subtype.custom,})
+    audience.update({
+        CustomAudience.Field.name: name,
+        CustomAudience.Field.subtype: CustomAudience.Subtype.custom,
+    })
 
     if description:
-            audience.update({CustomAudience.Field.description: description})
+        audience.update({CustomAudience.Field.description: description})
     audience.remote_create()
     print('Created custom audience id ' + audience[CustomAudience.Field.id])
     if f and datatype:

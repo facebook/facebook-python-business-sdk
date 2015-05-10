@@ -635,20 +635,6 @@ class InsightsTestCase(AbstractCrudObjectTestCase):
         })
 
 
-class ReachEstimateTestCase(AbstractCrudObjectTestCase):
-    def test_can_read_reach_estimate_from_ad_group(self):
-        self.campaign = self.new_test_ad_campaign()
-        self.campaign.remote_create()
-
-        self.ad_set = self.new_test_ad_set(self.campaign)
-        self.ad_set.remote_create()
-
-        self.ad_group = self.new_test_ad_group(self.ad_set)
-        self.ad_group.remote_create()
-
-        self.reach_estimate = self.ad_group.get_reach_estimate()
-
-
 class BatchTestCase(FacebookAdsTestCase):
 
     def setUp(self):

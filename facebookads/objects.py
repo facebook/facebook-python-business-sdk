@@ -150,7 +150,7 @@ class EdgeIterator(object):
         return len(self._queue) > 0
 
     def build_objects_from_response(self, response):
-        if 'data' in response and isinstance(response['data'], list):
+        if 'data' in response:
             ret = []
             if isinstance(response['data'], list):
                 for json_obj in response['data']:
@@ -162,9 +162,8 @@ class EdgeIterator(object):
                 obj._set_data(response['data'])
                 ret.append(obj)
         else:
-            data = response['data'] if 'data' in response else response
             obj = self._target_objects_class()
-            obj._set_data(data)
+            obj._set_data(response)
             ret = [obj]
 
         return ret
@@ -844,7 +843,7 @@ class AdAccount(CannotCreate, CannotDelete, AbstractCrudObject):
         partner = 'partner'
         spend_cap = 'spend_cap'
         tax_id_status = 'tax_id_status'
-        timezone_id = 'timezone_id'
+        timezon_id = 'timezone_id'
         timezone_name = 'timezone_name'
         timezone_offset_hours_utc = 'timezone_offset_hours_utc'
         tos_accepted = 'tos_accepted'

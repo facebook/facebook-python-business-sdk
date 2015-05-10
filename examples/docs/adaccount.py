@@ -18,6 +18,8 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
+from datetime import datetime, timedelta
+from dateutil import tz
 from facebookads.objects import *
 from facebookads.api import *
 from facebookads.exceptions import *
@@ -78,10 +80,6 @@ for campaign in campaigns:
     print(campaign[AdCampaign.Field.name])
 # _DOC close [ADACCOUNT_GET_ADCAMPAIGNS]
 
-old_spend_cap = account.remote_read(fields=[
-    AdAccount.Field.spend_cap
-])[AdAccount.Field.spend_cap]
-
 # _DOC open [ADACCOUNT_UPDATE_SPEND_CAP]
 # _DOC vars [account_id:s]
 from facebookads.objects import AdAccount
@@ -91,9 +89,6 @@ account = AdAccount(account_id)
 account[AdAccount.Field.spend_cap] = 10000
 account.remote_update()
 # _DOC close [ADACCOUNT_UPDATE_SPEND_CAP]
-
-account[AdAccount.Field.spend_cap] = old_spend_cap
-account.remote_update()
 
 # _DOC open [ADACCOUNT_GET_ADSETS]
 # _DOC vars [account_id:s]
@@ -152,5 +147,245 @@ images = account.get_ad_images()
 
 ad_account = AdAccount(account_id)
 rate_cards = ad_account.get_rate_cards()
-print rate_cards
+print(rate_cards)
 # _DOC close [ADACCOUNT_GET_RATECARDS]
+
+# _DOC open [ADACCOUNT_GET_REPORTSTATS]
+# _DOC vars [account_id:s]
+# from facebookads.objects import AdAccount
+account = AdAccount(account_id)
+
+params = {
+    'date_preset': 'last_28_days',
+    'data_columns': ['adgroup_id', 'actions', 'spend'],
+}
+
+stats = account.get_report_stats(params=params)
+
+for stat in stats:
+    print(stat['impressions'])
+    print(stat['actions'])
+# _DOC close [ADACCOUNT_GET_REPORTSTATS]
+
+# _DOC open [ADACCOUNT_GET_REPORTSTATS_LAST_7_DAYS]
+# _DOC vars [account_id:s]
+# from facebookads.objects import AdAccount
+
+account = AdAccount(account_id)
+
+params = {
+    'date_preset': 'last_7_days',
+    'data_columns': [
+        'adgroup_id',
+        'country',
+        'reach',
+        'ctr',
+    ],
+    'actions_group_by': [
+        'action_type',
+        'action_target_id',
+    ],
+    'sort_by': 'reach',
+    'sort_dir': 'desc',
+    'filters': [{
+        'field': 'reach',
+        'type': '<',
+        'value': '1000',
+    }],
+}
+
+stats = account.get_report_stats(params=params)
+
+for stat in stats:
+    print(stat)
+# _DOC close [ADACCOUNT_GET_REPORTSTATS_LAST_7_DAYS]
+
+# _DOC open [ADACCOUNT_GET_REPORTSTATS_WITH_DATE_TIME_RANGES]
+# _DOC vars [account_id:s]
+# from datetime import datetime, timedelta
+# from facebookads.objects import AdAccount
+
+account = AdAccount(account_id)
+day_start = datetime.today() - timedelta(weeks=2)
+day_stop = datetime.today() - timedelta(weeks=1)
+
+params = {
+    'data_columns': [
+        'campaign_name',
+        'reach',
+        'actions',
+        'spend',
+    ],
+    'time_ranges': [{
+        'day_start': {
+            'day': day_start.day,
+            'month': day_start.month,
+            'year': day_start.year,
+        },
+        'day_stop': {
+            'day': day_stop.day,
+            'month': day_stop.month,
+            'year': day_stop.year,
+        },
+    }],
+}
+
+stats = account.get_report_stats(params=params)
+# _DOC close [ADACCOUNT_GET_REPORTSTATS_WITH_DATE_TIME_RANGES]
+
+# _DOC open [ADACCOUNT_GET_REPORTSTATS_WITH_UNIX_TIME_RANGES]
+# _DOC vars [account_id:s]
+# from datetime import datetime, timedelta
+# from dateutil import tz
+# from facebookads.objects import AdAccount
+
+account = AdAccount(account_id)
+today = datetime.today()
+today = datetime(today.year, today.month, today.day, tzinfo=tz.tzlocal())
+epoch = datetime(1970, 1, 1, tzinfo=tz.tzlocal())
+day_start = today - timedelta(weeks=2)
+day_stop = today - timedelta(weeks=1)
+
+params = {
+    'data_columns': [
+        'campaign_name',
+        'reach',
+        'actions',
+        'spend',
+        'clicks',
+    ],
+    'time_ranges': [{
+        'time_start': int((day_start - epoch).total_seconds()),
+        'time_stop': int((day_stop - epoch).total_seconds()),
+    }],
+}
+
+stats = account.get_report_stats(params=params)
+# _DOC close [ADACCOUNT_GET_REPORTSTATS_WITH_UNIX_TIME_RANGES]
+
+# _DOC open [ADACCOUNT_GET_REPORTSTATS_WITH_RELATIVE_DATE_YESTERDAY]
+# _DOC vars [account_id:s]
+# from facebookads.objects import AdAccount
+
+account = AdAccount(account_id)
+
+params = {
+    'date_preset': 'yesterday',
+    'data_columns': [
+        'campaign_name',
+        'reach',
+        'clicks',
+        'actions',
+        'spend',
+    ],
+}
+
+stats = account.get_report_stats(params=params)
+# _DOC close [ADACCOUNT_GET_REPORTSTATS_WITH_RELATIVE_DATE_YESTERDAY]
+
+# _DOC open [ADACCOUNT_GET_REPORTSTATS_WITH_RELATIVE_DATE_LAST_WEEK]
+# _DOC vars [account_id:s]
+#from facebookads.objects import AdAccount
+
+account = AdAccount(account_id)
+
+params = {
+    'date_preset': 'last_week',
+    'data_columns': [
+        'campaign_name',
+        'reach',
+        'clicks',
+        'actions',
+        'spend',
+    ],
+    'time_increment': 1,
+}
+
+stats = account.get_report_stats(params=params)
+# _DOC close [ADACCOUNT_GET_REPORTSTATS_WITH_RELATIVE_DATE_LAST_WEEK]
+
+# _DOC open [ADACCOUNT_GET_REPORTSTATS_WITH_UNIX_TIME_INTERVAL]
+# _DOC vars [account_id:s]
+# from datetime import datetime, timedelta
+# from dateutil import tz
+# from facebookads.objects import AdAccount
+
+account = AdAccount(account_id)
+today = datetime.today()
+today = datetime(today.year, today.month, today.day, tzinfo=tz.tzlocal())
+epoch = datetime(1970, 1, 1, tzinfo=tz.tzlocal())
+day_start = today - timedelta(days=1)
+day_stop = today
+
+params = {
+    'date_preset': 'last_7_days',
+    'data_columns': [
+        'campaign_id',
+        'impressions',
+        'spend',
+        'age',
+        'gender',
+        'cpc',
+    ],
+    'time_interval': {
+        'time_start': int((day_start - epoch).total_seconds()),
+        'time_stop': int((day_stop - epoch).total_seconds()),
+    },
+    'time_increment': 1,
+}
+
+stats = account.get_report_stats(params=params)
+# _DOC close [ADACCOUNT_GET_REPORTSTATS_WITH_UNIX_TIME_INTERVAL]
+
+# _DOC open [ADACCOUNT_GET_REPORTSTATS_CROSS_DEVICE_REPORT]
+# _DOC vars [account_id:s]
+# from facebookads.objects import AdAccount
+account = AdAccount(account_id)
+
+params = {
+    'date_preset': 'today',
+    'data_columns': [
+        'account_id',
+        'actions',
+        'impressions',
+        'placement',
+        'impression_device',
+    ],
+    'actions_group_by': [
+        'action_type',
+        'action_device',
+    ],
+}
+
+stats = account.get_report_stats(params=params)
+# _DOC close [ADACCOUNT_GET_REPORTSTATS_CROSS_DEVICE_REPORT]
+
+# _DOC open [ADACCOUNT_GET_REPORTSTATS_RELEVANCE_SCORE]
+# _DOC vars [account_id:s]
+from facebookads.objects import AdAccount
+account = AdAccount(account_id)
+
+params = {
+    'date_preset': 'last_14_days',
+    'data_columns': [
+        'adgroup_id',
+        'relevance_score',
+    ],
+    'sort_by': 'relevance_score:score',
+    'sort_dir': 'desc',
+    'filters': [
+        {
+            'field': 'relevance_score:score',
+            'type': '>',
+            'value': 2,
+        },
+        {
+            'field': 'relevance_score:negative_feedback',
+            'type': 'starts_with',
+            'value': 'LOW',
+        },
+    ],
+}
+
+stats = account.get_report_stats(params=params)
+# _DOC close [ADACCOUNT_GET_REPORTSTATS_RELEVANCE_SCORE]
