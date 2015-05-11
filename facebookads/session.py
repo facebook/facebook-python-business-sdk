@@ -75,6 +75,6 @@ class FacebookSession(object):
         )
 
         self.appsecret_proof = h.hexdigest()
-
+        return self.appsecret_proof
 
 __all__ = ['FacebookSession']
