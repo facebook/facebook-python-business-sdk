@@ -39,8 +39,6 @@ connections_id = config['connections_id']
 
 FacebookAdsApi.init(app_id, app_secret, access_token)
 
-ad_account = AdAccount(account_id)
-rate_cards = ad_account.get_rate_cards()
 
 homepage_campaign = AdCampaign(parent_id=account_id)
 homepage_campaign.update({
@@ -50,38 +48,39 @@ homepage_campaign.update({
 })
 homepage_campaign.remote_create()
 
-homepage_campaign_group_id = homepage_campaign.get_id()
-rate = rate_cards[0][RateCard.Field.rate]
-country = rate_cards[0][RateCard.Field.country]
+campaign_id = homepage_campaign.get_id()
 
 # _DOC open [ADSET_CREATE_HOMEPAGE]
-#from facebookads.objects import AdSet
+# _DOC vars [account_id:s, campaign_id]
+#from facebookads.objects import AdAccount, AdSet
+ad_account = AdAccount(account_id)
+rate_cards = ad_account.get_rate_cards()
+country = rate_cards[0][RateCard.Field.country]
+rate = rate_cards[0][RateCard.Field.rate]
 
+impressions = 5000
 lifetime_budget = str(rate * 5000)
-start_date = int(time.time())
 end_date = int(time.time() + 12 * 3600)
 
 ad_set = AdSet(parent_id=account_id)
 ad_set.update({
-    AdSet.Field.name: 'Homepage Ads - Ad Set',
-    AdSet.Field.campaign_group_id: homepage_campaign_group_id,
+    AdSet.Field.name: 'Adset Homepage Ads',
+    AdSet.Field.campaign_group_id: campaign_id,
+    AdSet.Field.lifetime_budget: lifetime_budget,
+    AdSet.Field.lifetime_imps: impressions,
     AdSet.Field.bid_type: AdSet.BidType.multi_premium,
     AdSet.Field.bid_info: {
         AdSet.Field.BidInfo.clicks: 20,
         AdSet.Field.BidInfo.social: 40,
         AdSet.Field.BidInfo.impressions: 40
     },
-    AdSet.Field.lifetime_budget: lifetime_budget,
-    AdSet.Field.lifetime_imps: '5000',
-    AdSet.Field.start_time: start_date,
-    AdSet.Field.end_time: end_date,
     AdSet.Field.targeting: {
         TargetingSpecsField.page_types: ['home'],
         TargetingSpecsField.geo_locations: {
             'countries': [country],
         }
     },
-    AdSet.Field.status: 'ACTIVE',
+    AdSet.Field.end_time: end_date,
 })
 
 ad_set.remote_create()
