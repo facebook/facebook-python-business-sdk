@@ -98,7 +98,7 @@ campaign.remote_create()
 
 campaign_group_id = campaign.get_id()
 
-connections_id = 134533113411503
+connections_id = app_id
 # _DOC open [ADSET_CREATE_APP_CONNECTIONS_TARGETING]
 #from facebookads.objects import AdSet
 
@@ -113,7 +113,7 @@ ad_set.update({
     AdSet.Field.daily_budget: 2000,
     AdSet.Field.targeting: {
         TargetingSpecsField.geo_locations: {
-            'countries': [country],
+            'countries': ['US'],
         },
         TargetingSpecsField.connections: [connections_id],
         TargetingSpecsField.user_os: ['Android'],
