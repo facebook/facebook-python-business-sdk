@@ -35,7 +35,6 @@ access_token = config['access_token']
 app_id = config['app_id']
 app_secret = config['app_secret']
 page_id = config['page_id']
-connections_id = config['connections_id']
 
 FacebookAdsApi.init(app_id, app_secret, access_token)
 
@@ -99,6 +98,7 @@ campaign.remote_create()
 
 campaign_group_id = campaign.get_id()
 
+connections_id = 134533113411503
 # _DOC open [ADSET_CREATE_APP_CONNECTIONS_TARGETING]
 #from facebookads.objects import AdSet
 
