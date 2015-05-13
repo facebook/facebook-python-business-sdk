@@ -2438,6 +2438,7 @@ class Insights(CannotCreate, CannotDelete, CannotUpdate, AbstractCrudObject):
         adgroup_name = 'adgroup_name'
         async_percent_completion = 'async_percent_completion'
         async_status = 'async_status'
+        call_to_action_clicks = 'call_to_action_clicks'
         campaign_end = 'campaign_end'
         campaign_group_end = 'campaign_group_end'
         campaign_group_id = 'campaign_group_id'
