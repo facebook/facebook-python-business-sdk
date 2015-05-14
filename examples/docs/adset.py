@@ -98,7 +98,7 @@ campaign.remote_create()
 
 campaign_group_id = campaign.get_id()
 
-connections_id = app_id
+connections_id = page_id
 # _DOC open [ADSET_CREATE_APP_CONNECTIONS_TARGETING]
 #from facebookads.objects import AdSet
 
