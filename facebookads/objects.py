@@ -150,7 +150,7 @@ class EdgeIterator(object):
         return len(self._queue) > 0
 
     def build_objects_from_response(self, response):
-        if 'data' in response:
+        if 'data' in response and isinstance(response['data'], list):
             ret = []
             if isinstance(response['data'], list):
                 for json_obj in response['data']:
@@ -162,8 +162,9 @@ class EdgeIterator(object):
                 obj._set_data(response['data'])
                 ret.append(obj)
         else:
+            data = response['data'] if 'data' in response else response
             obj = self._target_objects_class()
-            obj._set_data(response)
+            obj._set_data(data)
             ret = [obj]
 
         return ret

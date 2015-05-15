@@ -112,6 +112,36 @@ class EdgeIteratorTestCase(unittest.TestCase):
         obj = ei.build_objects_from_response(response)
         assert len(obj) == 1 and obj[0]['id'] == "601957/targetingsentencelines"
 
+    def test_builds_from_object_with_data_key(self):
+        """
+        Sometimes the response returns a single JSON object - with a "data".
+        For instamce with reachestimate. This asserts that we successfully
+        build the object that is in "data" key.
+        """
+        response = {
+            "data": {
+                "estimate_ready": True,
+                "bid_estimations": [{
+                    "cpa_min": 63,
+                    "cpa_median": 116,
+                    "cpm_max": 331,
+                    "cpc_max": 48,
+                    "cpc_median": 35,
+                    "cpc_min": 17,
+                    "cpm_min": 39,
+                    "cpm_median": 212,
+                    "unsupported": False,
+                    "location": 3,
+                    "cpa_max": 163}],
+                "users": 7600000
+            }
+        }
+        ei = objects.EdgeIterator(
+            objects.AdGroup('123'),
+            objects.ReachEstimate,
+        )
+        obj = ei.build_objects_from_response(response)
+        assert len(obj) == 1 and obj[0]['users'] == 7600000
 
 class AbstractCrudObjectTestCase(unittest.TestCase):
     def test_all_aco_has_id_field(self):
