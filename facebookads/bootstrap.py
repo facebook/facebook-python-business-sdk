@@ -23,6 +23,7 @@ import os
 
 this_dir = os.path.dirname(__file__)
 repo_dir = os.path.join(this_dir, os.pardir)
+sys.path.insert(1, repo_dir)
 
 import __main__ as main
 import json

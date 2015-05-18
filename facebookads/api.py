@@ -133,7 +133,7 @@ class FacebookAdsApi(object):
             this sdk.
     """
 
-    SDK_VERSION = '2.3.1'
+    SDK_VERSION = '2.3.2'
 
     API_VERSION = 'v2.3'
 
@@ -216,6 +216,7 @@ class FacebookAdsApi(object):
         params=None,
         headers=None,
         files=None,
+        url_override=None,
         api_version=None,
     ):
         """Makes an API call.
@@ -260,7 +261,7 @@ class FacebookAdsApi(object):
         if not isinstance(path, six.string_types):
             # Path is not a full path
             path = "/".join((
-                self._session.GRAPH,
+                self._session.GRAPH or url_override,
                 api_version or self.API_VERSION,
                 '/'.join(map(str, path)),
             ))

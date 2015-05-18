@@ -5,9 +5,8 @@ Upload a video to adaccount
 from facebookads import FacebookAdsApi
 from facebookads.objects import AdAccount, AdVideo
 
-import configparser
 import os
-
+import configparser
 config = configparser.RawConfigParser()
 this_dir = os.path.dirname(__file__)
 config_filename = os.path.join(this_dir, 'my_app_session.cfg')
@@ -22,7 +21,7 @@ FacebookAdsApi.init(
 )
 
 if __name__ == '__main__':
-    my_account = AdAccount('act_<AD_ACCOUNT_ID>')
+    my_account = AdAccount(config.get('Defaults', 'ad_account'))
 
     # create video object
     video = AdVideo(parent_id=my_account.get_id_assured())
