@@ -125,15 +125,10 @@ class FacebookAdsApi(object):
     """Encapsulates session attributes and methods to make API calls.
 
     Attributes:
-        SDK_VERSION (class): indicating sdk version.
         HTTP_METHOD_GET (class): HTTP GET method name.
         HTTP_METHOD_POST (class): HTTP POST method name
         HTTP_METHOD_DELETE (class): HTTP DELETE method name
-        HTTP_DEFAULT_HEADERS (class): Default HTTP headers for requests made by
-            this sdk.
     """
-
-    SDK_VERSION = '2.3.1'
 
     API_VERSION = 'v2.3'
 
@@ -142,10 +137,6 @@ class FacebookAdsApi(object):
     HTTP_METHOD_POST = 'POST'
 
     HTTP_METHOD_DELETE = 'DELETE'
-
-    HTTP_DEFAULT_HEADERS = {
-        'User-Agent': "fb-python-ads-api-sdk-%s" % SDK_VERSION,
-    }
 
     _default_api = None
     _default_account_id = None
@@ -168,6 +159,13 @@ class FacebookAdsApi(object):
     def get_num_requests_succeeded(self):
         """Returns the number of calls that succeeded."""
         return self._num_requests_succeeded
+
+    @property
+    def default_headers(self):
+        import facebookads  # cyclic-import
+        return {
+            'User-Agent': "fb-python-ads-api-sdk-%s" % facebookads.__version__,
+        }
 
     @classmethod
     def init(cls, app_id, app_secret, access_token, account_id=None):
@@ -267,7 +265,7 @@ class FacebookAdsApi(object):
 
         # Include api headers in http request
         headers = headers.copy()
-        headers.update(FacebookAdsApi.HTTP_DEFAULT_HEADERS)
+        headers.update(self.default_headers)
 
         if params:
             params = _top_level_param_json_encode(params)
