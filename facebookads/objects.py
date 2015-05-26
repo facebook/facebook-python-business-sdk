@@ -2005,6 +2005,7 @@ class TargetingSearch(AbstractObject):
         education = 'adeducationschool'
         employer = 'adworkemployer'
         geolocation = 'adgeolocation'
+        geometadata = 'adgeolocationmeta'
         interest = 'adinterest'
         interest_suggestion = 'adinterestsuggestion'
         interest_validate = 'adinterestvalid'
@@ -2038,10 +2039,21 @@ class TargetingSearch(AbstractObject):
         ).json()
 
         ret_val = []
-        for item in response['data']:
-            search_obj = TargetingSearch()
-            search_obj.update(item)
-            ret_val.append(search_obj)
+        if response:
+            keys = response['data']
+            # The response object can be either a dictionary of dictionaries
+            # or a dictionary of lists.
+            if isinstance(keys, list):
+                for item in keys:
+                    search_obj = TargetingSearch()
+                    search_obj.update(item)
+                    ret_val.append(search_obj)
+            elif isinstance(keys, dict):
+                for item in keys:
+                    search_obj = TargetingSearch()
+                    search_obj.update(keys[item])
+                    if keys[item]:
+                        ret_val.append(search_obj)
         return ret_val
 
 
@@ -2050,9 +2062,11 @@ class TargetingSpecsField(object):
     age_max = 'age_max'
     age_min = 'age_min'
     behaviors = 'behaviors'
+    cities = 'cities'
     college_years = 'college_years'
     conjunctive_user_adclusters = 'conjunctive_user_adclusters'
     connections = 'connections'
+    countries = 'countries'
     custom_audiences = 'custom_audiences'
     dynamic_audience_ids = 'dynamic_audience_ids'
     education_majors = 'education_majors'
@@ -2083,6 +2097,7 @@ class TargetingSpecsField(object):
     office_type = 'office_type'
     page_types = 'page_types'
     politics = 'politics'
+    regions = 'regions'
     relationship_statuses = 'relationship_statuses'
     user_adclusters = 'user_adclusters'
     user_device = 'user_device'
