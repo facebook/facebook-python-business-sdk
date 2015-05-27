@@ -2531,6 +2531,10 @@ class Insights(CannotCreate, CannotDelete, CannotUpdate, AbstractCrudObject):
         age = 'age'
         country = 'country'
         gender = 'gender'
+        hourly_stats_aggregated_by_advertiser_time_zone = \
+            'hourly_stats_aggregated_by_advertiser_time_zone'
+        hourly_stats_aggregated_by_audience_time_zone = \
+            'hourly_stats_aggregated_by_audience_time_zone'
         impression_device = 'impression_device'
         placement = 'placement'
 
