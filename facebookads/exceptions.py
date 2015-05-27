@@ -24,6 +24,7 @@ raised by the sdk.
 """
 
 import json
+import re
 
 
 class FacebookError(Exception):
@@ -85,14 +86,18 @@ class FacebookRequestError(FacebookError):
             del request['files']
 
         super(FacebookRequestError, self).__init__(
-            "%s \n" % self._message +
-            "Request:\n\t%s\n" % request +
-            "Response:\n" +
-            "\tHTTP Status: %s\n\tHeaders:%s\n\tBody: %s\n" % (
-                self._http_status,
-                self._http_headers,
-                body,
-            )
+            "\n\n" +
+            "  Message: %s\n" % self._message +
+            "  Method:  %s\n" % request['method'] +
+            "  Path:    %s\n" % request['path'] +
+            "  Params:  %s\n" % request['params'] +
+            "\n" +
+            "  Status:  %s\n" % self._http_status +
+            "  Response:\n    %s" % re.sub(
+                r"\n", "\n    ",
+                json.dumps(self._body, indent=2)
+            ) +
+            "\n"
         )
 
     def request_context(self):

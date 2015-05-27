@@ -405,7 +405,9 @@ class AbstractCrudObject(AbstractObject):
         api = self.get_api()
         if not api:
             raise FacebookBadObjectError(
-                "%s does not yet have an associated api object."
+                "%s does not yet have an associated api object.\n"
+                "Did you forget to instantiate an API session with: "
+                "FacebookAdsApi.init(app_id, app_secret, access_token)"
                 % self.__class__.__name__
             )
 
