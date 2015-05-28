@@ -295,6 +295,7 @@ class AbstractCrudObjectTestCase(AbstractObjectTestCase):
             parent_id=self.TEST_ACCOUNT.get_id_assured(),
         )
 
+        self.delete_in_teardown(test_image_one)
         test_image_one[objects.AdImage.Field.filename] = image_file
 
         assert test_image_one.remote_create(api_version="v2.3") is not None
@@ -303,6 +304,7 @@ class AbstractCrudObjectTestCase(AbstractObjectTestCase):
             parent_id=self.TEST_ACCOUNT.get_id_assured(),
         )
 
+        self.delete_in_teardown(test_image_two)
         test_image_two[objects.AdImage.Field.filename] = image_file
 
         try:
