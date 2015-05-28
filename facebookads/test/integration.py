@@ -616,12 +616,95 @@ class MultiProductAdObjectStorySpecTestCase(AbstractCrudObjectTestCase):
 
 class AdImageTestCase(AbstractCrudObjectTestCase):
 
-    def test_can_upload_zip(self):
+    def test_can_upload_zip_from_path_interim(self):
+        """
+        Testing the backward compatibility of upload feature with the 'filename' argument
+        This is the interim form of the upload until the argument name will be changed to 'file'
+        """
         images = objects.AdImage.remote_create_from_zip(
             filename=self.TEST_ZIP_PATH,
             parent_id=self.TEST_ACCOUNT.get_id()
         )
+        for image in images:
+            self.delete_in_teardown(image)
         assert len(images) == 2
+
+    def test_can_upload_zip_from_file_object_interim(self):
+        """
+        Testing the backward compatibility of upload feature with the 'filename' argument
+        This is the interim form of the upload until the argument name will be changed to 'file'
+        """
+        with open(self.TEST_ZIP_PATH, "rb") as zipfile:
+            images = objects.AdImage.remote_create_from_zip(
+                filename=zipfile,
+                parent_id=self.TEST_ACCOUNT.get_id()
+            )
+            for image in images:
+                self.delete_in_teardown(image)
+            assert len(images) == 2
+
+    def test_can_upload_zip_from_path(self):
+        images = objects.AdImage.remote_create_from_zip(
+            file=self.TEST_ZIP_PATH,
+            parent_id=self.TEST_ACCOUNT.get_id()
+        )
+        for image in images:
+            self.delete_in_teardown(image)
+        assert len(images) == 2
+
+    def test_can_upload_zip_from_file_object(self):
+        with open(self.TEST_ZIP_PATH, "rb") as zipfile:
+            images = objects.AdImage.remote_create_from_zip(
+                file=zipfile,
+                parent_id=self.TEST_ACCOUNT.get_id()
+            )
+            for image in images:
+                self.delete_in_teardown(image)
+            assert len(images) == 2
+
+    def test_can_upload_image_from_path_interim(self):
+        """
+        Testing the backward compatibility of upload feature with the 'filename' property
+        This is the interim form of the upload until the property name will be changed to 'file'
+        """
+        img = objects.AdImage(
+            parent_id=self.TEST_ACCOUNT.get_id_assured(),
+        )
+        self.delete_in_teardown(img)
+        img[objects.AdImage.Field.filename] = self.TEST_IMAGE_PATH
+        img.remote_create()
+        assert img[objects.AdImage.Field.id] is not None
+
+    def test_can_upload_image_from_file_object_interim(self):
+        """
+        Testing the backward compatibility of upload feature with the 'filename' property
+        This is the interim form of the upload until the property name will be changed to 'file'
+        """
+        img = objects.AdImage(
+            parent_id=self.TEST_ACCOUNT.get_id_assured(),
+        )
+        self.delete_in_teardown(img)
+        img[objects.AdImage.Field.filename] = open(self.TEST_IMAGE_PATH, "rb")
+        img.remote_create()
+        assert img[objects.AdImage.Field.id] is not None
+
+    def test_can_upload_image_from_path(self):
+        img = objects.AdImage(
+            parent_id=self.TEST_ACCOUNT.get_id_assured(),
+        )
+        self.delete_in_teardown(img)
+        img[objects.AdImage.Field.file] = self.TEST_IMAGE_PATH
+        img.remote_create()
+        assert img[objects.AdImage.Field.id] is not None
+
+    def test_can_upload_image_from_file_object(self):
+        img = objects.AdImage(
+            parent_id=self.TEST_ACCOUNT.get_id_assured(),
+        )
+        self.delete_in_teardown(img)
+        img[objects.AdImage.Field.file] = open(self.TEST_IMAGE_PATH, "rb")
+        img.remote_create()
+        assert img[objects.AdImage.Field.id] is not None
 
     def test_can_read(self):
         self.new_test_ad_image()
