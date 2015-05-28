@@ -62,7 +62,10 @@ class FacebookAdsTestCase(unittest.TestCase):
         for o in reversed(self.remote_objects):
             if o.Field.id in o and o.get_id() is not None:
                 try:
-                    o.remote_delete()
+                    params = None
+                    if isinstance(o, objects.AdImage):
+                        params = {objects.AdImage.Field.hash: o.get_hash()}
+                    o.remote_delete(params=params)
                 except Exception:
                     if isinstance(o, objects.AdImage):
                         # AdImages are often reused automatically since the
