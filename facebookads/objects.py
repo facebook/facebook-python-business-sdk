@@ -43,7 +43,7 @@ import collections
 import json
 import six
 import base64
-
+import warnings
 
 class EdgeIterator(object):
 
@@ -1359,6 +1359,9 @@ class AdImage(CannotUpdate, AbstractCrudObject):
 
     @classmethod
     def remote_create_from_zip(cls, file=None, parent_id=None, api=None, filename=None):
+        if filename:
+            warnings.warn("The 'filename' argument has been depricated "
+                          "in favor of 'file'", DeprecationWarning, stacklevel=2)
         file = file or filename
         api = api or FacebookAdsApi.get_default_api()
         if isinstance(file, basestring):
@@ -1469,6 +1472,9 @@ class AdImage(CannotUpdate, AbstractCrudObject):
             raise FacebookBadObjectError(
                 "AdImage required a file or filename to be defined."
             )
+        if self.get(self.Field.filename):
+            warnings.warn("The 'filename' property has been depricated "
+                          "in favor of 'file'", DeprecationWarning, stacklevel=2)
         file = self.get(self.Field.file, self.get(self.Field.filename))
         if isinstance(file, basestring):
             open_file = open(file, 'rb')
