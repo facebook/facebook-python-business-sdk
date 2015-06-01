@@ -64,7 +64,8 @@ class FacebookAdsTestCase(unittest.TestCase):
             if o.Field.id in o and o.get_id() is not None:
                 try:
                     if isinstance(o, objects.AdImage):
-                        o.remote_delete(params={objects.AdImage.Field.hash: o.get_hash()})
+                        o.remote_delete(
+                            params={objects.AdImage.Field.hash: o.get_hash()})
                     else:
                         o.remote_delete()
                 except Exception:
@@ -619,8 +620,9 @@ class AdImageTestCase(AbstractCrudObjectTestCase):
 
     def test_can_upload_zip_from_path_interim(self):
         """
-        Testing the backward compatibility of upload feature with the 'filename' argument
-        This is the interim form of the upload until the argument name will be changed to 'file'
+        Testing the backward compatibility of file upload feature using
+        the 'filename' argument. This is the interim form of the upload
+        until the argument name will be changed to 'file'.
         """
         with warnings.catch_warnings(record=True) as warns:
             warnings.simplefilter("always", DeprecationWarning)
@@ -637,8 +639,9 @@ class AdImageTestCase(AbstractCrudObjectTestCase):
 
     def test_can_upload_zip_from_file_object_interim(self):
         """
-        Testing the backward compatibility of upload feature with the 'filename' argument
-        This is the interim form of the upload until the argument name will be changed to 'file'
+        Testing the backward compatibility of file upload feature using
+        the 'filename' argument. This is the interim form of the upload
+        until the argument name will be changed to 'file'.
         """
         with warnings.catch_warnings(record=True) as warns:
             warnings.simplefilter("always", DeprecationWarning)
@@ -685,8 +688,9 @@ class AdImageTestCase(AbstractCrudObjectTestCase):
 
     def test_can_upload_image_from_path_interim(self):
         """
-        Testing the backward compatibility of upload feature with the 'filename' property
-        This is the interim form of the upload until the property name will be changed to 'file'
+        Testing the backward compatibility of file upload feature using
+        the 'filename' property. This is the interim form of the upload
+        until the property name will be changed to 'file'.
         """
         with warnings.catch_warnings(record=True) as warns:
             warnings.simplefilter("always", DeprecationWarning)
@@ -703,8 +707,9 @@ class AdImageTestCase(AbstractCrudObjectTestCase):
 
     def test_can_upload_image_from_file_object_interim(self):
         """
-        Testing the backward compatibility of upload feature with the 'filename' property
-        This is the interim form of the upload until the property name will be changed to 'file'
+        Testing the backward compatibility of file upload feature using
+        the 'filename' property. This is the interim form of the upload
+        until the property name will be changed to 'file'.
         """
         with warnings.catch_warnings(record=True) as warns:
             warnings.simplefilter("always", DeprecationWarning)
@@ -713,7 +718,8 @@ class AdImageTestCase(AbstractCrudObjectTestCase):
                 parent_id=self.TEST_ACCOUNT.get_id_assured(),
             )
             self.delete_in_teardown(img)
-            img[objects.AdImage.Field.filename] = open(self.TEST_IMAGE_PATH, "rb")
+            img[objects.AdImage.Field.filename] = \
+                open(self.TEST_IMAGE_PATH, "rb")
             img.remote_create()
             assert img[objects.AdImage.Field.id] is not None
 

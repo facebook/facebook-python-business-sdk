@@ -1358,10 +1358,11 @@ class AdImage(CannotUpdate, AbstractCrudObject):
         return 'adimages'
 
     @classmethod
-    def remote_create_from_zip(cls, file=None, parent_id=None, api=None, filename=None):
+    def remote_create_from_zip(cls, file=None, parent_id=None, api=None,
+                               filename=None):
         if filename:
-            warnings.warn("The 'filename' argument has been depricated "
-                          "in favor of 'file'", DeprecationWarning, stacklevel=2)
+            warnings.warn("The 'filename' argument has been depricated in "
+                          "favor of 'file'", DeprecationWarning, stacklevel=2)
         file = file or filename
         api = api or FacebookAdsApi.get_default_api()
         if isinstance(file, basestring):
@@ -1450,7 +1451,8 @@ class AdImage(CannotUpdate, AbstractCrudObject):
             return super(AdImage, self)._set_data(data)
 
     def export_data(self):
-        """Since AdImage is not updatable there's no need to collect changed properties"""
+        """Since AdImage is not updatable there's no need to collect
+        changed properties"""
         return {}
 
     def remote_create(
@@ -1473,8 +1475,8 @@ class AdImage(CannotUpdate, AbstractCrudObject):
                 "AdImage required a file or filename to be defined."
             )
         if self.get(self.Field.filename):
-            warnings.warn("The 'filename' property has been depricated "
-                          "in favor of 'file'", DeprecationWarning, stacklevel=2)
+            warnings.warn("The 'filename' property has been depricated in "
+                          "favor of 'file'", DeprecationWarning, stacklevel=2)
         file = self.get(self.Field.file, self.get(self.Field.filename))
         if isinstance(file, basestring):
             open_file = open(file, 'rb')
