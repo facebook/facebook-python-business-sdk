@@ -35,14 +35,14 @@ FacebookAdsApi.init(app_id, app_secret, access_token)
 
 # _DOC open [ADCAMPAIGN_CREATE_HOMEPAGE]
 # _DOC vars [account_id:s]
-#from facebookads.objects import AdCampaign
+# from facebookads.objects import AdCampaign
 
 campaign = AdCampaign(parent_id=account_id)
 campaign.update({
     AdCampaign.Field.name: 'Homepage Campaign',
     AdCampaign.Field.buying_type: AdCampaign.BuyingType.fixed_cpm,
     AdCampaign.Field.objective: AdCampaign.Objective.none,
-    AdCampaign.Field.status: 'ACTIVE',
+    AdCampaign.Field.status: AdCampaign.Status.paused,
 })
 
 campaign.remote_create()

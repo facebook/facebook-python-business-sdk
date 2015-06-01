@@ -51,7 +51,7 @@ campaign_id = homepage_campaign.get_id()
 
 # _DOC open [ADSET_CREATE_HOMEPAGE]
 # _DOC vars [account_id:s, campaign_id]
-#from facebookads.objects import AdAccount, AdSet
+# from facebookads.objects import AdAccount, AdSet
 ad_account = AdAccount(account_id)
 rate_cards = ad_account.get_rate_cards()
 country = rate_cards[0][RateCard.Field.country]
@@ -101,7 +101,7 @@ campaign_id = campaign.get_id()
 connections_id = page_id
 # _DOC open [ADSET_CREATE_APP_CONNECTIONS_TARGETING]
 # _DOC vars [account_id:s, campaign_id, connections_id]
-#from facebookads.objects import AdSet
+# from facebookads.objects import AdSet
 
 ad_set = AdSet(parent_id=account_id)
 ad_set.update({
@@ -119,12 +119,19 @@ ad_set.update({
         TargetingSpecsField.connections: [connections_id],
         TargetingSpecsField.user_os: ['Android'],
     },
-    AdSet.Field.status: 'ACTIVE',
+    AdSet.Field.status: AdSet.Status.paused,
 })
 
 ad_set.remote_create()
 print ad_set
 # _DOC close [ADSET_CREATE_APP_CONNECTIONS_TARGETING]
+
+adset_id = ad_set.get_id()
+# _DOC open [ADSET_READ_ADCREATIVE]
+# _DOC vars [adset_id]
+adset = AdSet(fbid=adset_id)
+adset.get_ad_creatives([AdCreative.Field.object_story_id])
+# _DOC close [ADSET_READ_ADCREATIVE]
 
 ad_set.remote_delete()
 campaign.remote_delete()
