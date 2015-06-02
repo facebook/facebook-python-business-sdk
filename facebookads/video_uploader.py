@@ -372,13 +372,16 @@ class VideoUploadRequest(object):
 class VideoEncodingStatusChecker(object):
 
     @staticmethod
-    def waitUntilReady(api, video_id):
+    def waitUntilReady(api, video_id, interval, timeout):
+        start_time = time.time()
         while True:
             status = VideoEncodingStatusChecker.getStatus(api, video_id)
             status = status['video_status']
             if status != 'processing':
                 break
-            time.sleep(1)
+            if start_time + timeout <= time.time():
+                raise FacebookError('video encoding timeout: ' + str(timeout))
+            time.sleep(interval)
         if status != 'ready':
             raise FacebookError(
                 'video encoding status: ' + status
