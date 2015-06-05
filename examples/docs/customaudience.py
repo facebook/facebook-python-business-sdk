@@ -21,8 +21,8 @@
 from __future__ import print_function
 from __future__ import unicode_literals
 
-import sys
 import os
+import sys
 from facebookads.objects import *
 from facebookads.api import *
 from facebookads.exceptions import *
@@ -39,52 +39,62 @@ account_id = config['account_id']
 access_token = config['access_token']
 app_id = config['app_id']
 app_secret = config['app_secret']
+page_id = config['page_id']
+file_path = config['file_path']
 
 FacebookAdsApi.init(app_id, app_secret, access_token)
+api = FacebookAdsApi.get_default_api()
 
-# _DOC open [ADCAMPAIGN_CREATE_WEBSITE_CONVERSIONS]
-# _DOC vars [account_id:s]
-# from facebookads.objects import AdCampaign
+response = api.call(
+    'GET',
+    'https://graph.facebook.com/' + FacebookAdsApi.API_VERSION + '/me/accounts',
+)
+data = response.json()['data']
 
-campaign = AdCampaign(parent_id=account_id)
-campaign[AdCampaign.Field.name] = 'My First Campaign'
-campaign[AdCampaign.Field.status] = AdCampaign.Status.paused
-campaign[AdCampaign.Field.objective] = AdCampaign.Objective.website_conversions
+page_token = ''
+for page in data:
+    if page['id'] == page_id:
+        page_token = page['access_token']
+        break
+if page_token == '':
+    raise Exception(
+        'Page access token for the page id ' + page_id + ' cannot be found.'
+    )
 
-campaign.remote_create()
-print(campaign)
-# _DOC close [ADCAMPAIGN_CREATE_WEBSITE_CONVERSIONS]
-campaign.remote_delete()
+FacebookAdsApi.init(app_id, app_secret, page_token)
+api = FacebookAdsApi.get_default_api()
 
-# _DOC open [ADCAMPAIGN_CREATE_HOMEPAGE]
-# _DOC vars [account_id:s]
-# from facebookads.objects import AdCampaign
+response = api.call(
+    'POST',
+    'https://graph-video.facebook.com/v2.3/' + page_id + '/videos',
+    files={'source': (file_path, 'multipart/form-data')},
+)
+video_id = response.json()['id']
 
-campaign = AdCampaign(parent_id=account_id)
-campaign.update({
-    AdCampaign.Field.name: 'Homepage Campaign',
-    AdCampaign.Field.buying_type: AdCampaign.BuyingType.fixed_cpm,
-    AdCampaign.Field.objective: AdCampaign.Objective.none,
-    AdCampaign.Field.status: AdCampaign.Status.paused,
+FacebookAdsApi.init(app_id, app_secret, access_token)
+api = FacebookAdsApi.get_default_api()
+
+# _DOC open [CUSTOM_AUDIENCE_CREATE_VIDEO_VIEWS_RETARGET]
+# _DOC vars [account_id:s, video_id]
+# from facebookads.objects import CustomAudience
+
+lookalike = CustomAudience(parent_id=account_id)
+lookalike.update({
+    CustomAudience.Field.lookalike_spec: {
+        'ratio': 0.01,
+        'country': 'US',
+        'engagement_specs': [
+            {
+                'action.type': 'video_view',
+                'post': video_id,
+            },
+        ],
+        'conversion_type': 'dynamic_rule',
+    },
 })
 
-campaign.remote_create()
-print(campaign)
-# _DOC close [ADCAMPAIGN_CREATE_HOMEPAGE]
-campaign.remote_delete()
+lookalike.remote_create()
+print(lookalike)
+# _DOC close [CUSTOM_AUDIENCE_CREATE_VIDEO_VIEWS_RETARGET]
 
-# _DOC open [ADCAMPAIGN_CREATE_VIDEO_VIEWS]
-# _DOC vars [account_id:s]
-# from facebookads.objects import AdCampaign
-
-campaign = AdCampaign(parent_id=account_id)
-campaign.update({
-    AdCampaign.Field.name: 'Video Views Campaign',
-    AdCampaign.Field.status: AdCampaign.Status.paused,
-    AdCampaign.Field.objective: AdCampaign.Objective.video_views,
-})
-
-campaign.remote_create()
-print(campaign)
-# _DOC close [ADCAMPAIGN_CREATE_VIDEO_VIEWS]
-campaign.remote_delete()
+lookalike.remote_delete()

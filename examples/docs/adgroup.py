@@ -23,15 +23,14 @@ from __future__ import unicode_literals
 
 import sys
 import os
-
-this_dir = os.path.dirname(__file__)
-repo_dir = os.path.join(this_dir, os.pardir, os.pardir)
-sys.path.insert(1, repo_dir)
-
 from facebookads.objects import *
 from facebookads.api import *
 from facebookads.exceptions import *
 from facebookads.specs import *
+
+this_dir = os.path.dirname(__file__)
+repo_dir = os.path.join(this_dir, os.pardir, os.pardir)
+sys.path.insert(1, repo_dir)
 
 config_file = open(os.path.join(this_dir, 'config.json'))
 config = json.load(config_file)
@@ -95,6 +94,7 @@ adgroup[AdGroup.Field.campaign_id] = adset_id
 adgroup[AdGroup.Field.creative] = {
     'creative_id': creative_id,
 }
+adgroup[AdGroup.Field.status] = 'PAUSED'
 adgroup.remote_create()
 
 print(adgroup)
@@ -121,11 +121,10 @@ adgroup = AdGroup(parent_id=account_id)
 adgroup[AdGroup.Field.name] = 'My Ad'
 adgroup[AdGroup.Field.campaign_id] = adset_id
 adgroup[AdGroup.Field.creative] = creative
+adgroup[AdGroup.Field.status] = 'PAUSED'
 adgroup.remote_create()
 # _DOC close [ADGROUP_CREATE_INLINE_CREATIVE]
 
-adgroup.remote_read(fields=[AdGroup.Field.creative])
-creative_id = adgroup[AdGroup.Field.creative]['id']
 adgroup.remote_delete()
 adset.remote_delete()
 campaign.remote_delete()

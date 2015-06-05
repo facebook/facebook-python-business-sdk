@@ -18,13 +18,22 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
+from __future__ import unicode_literals
+
+import os
+import sys
 from datetime import datetime, timedelta
 from dateutil import tz
 from facebookads.objects import *
 from facebookads.api import *
 from facebookads.exceptions import *
 
-config_file = open('./examples/docs/config.json')
+this_dir = os.path.dirname(__file__)
+repo_dir = os.path.join(this_dir, os.pardir, os.pardir)
+sys.path.insert(1, repo_dir)
+
+config_file = open(os.path.join(this_dir, 'config.json'))
 config = json.load(config_file)
 config_file.close()
 
@@ -397,3 +406,23 @@ params = {
 
 stats = account.get_report_stats(params=params)
 # _DOC close [ADACCOUNT_GET_REPORTSTATS_RELEVANCE_SCORE]
+
+# _DOC open [ADACCOUNT_GET_INSIGHTS_VIDEO_VIEWS]
+# _DOC vars [account_id:s]
+# from facebookads.objects import AdAccount, Insights
+
+account = AdAccount(account_id)
+
+params = {
+    'action_breakdowns': Insights.ActionBreakdown.action_video_type,
+    'date_preset': Insights.Preset.last_30_days,
+    'fields': [
+        Insights.Field.actions,
+        Insights.Field.video_avg_pct_watched_actions,
+        Insights.Field.video_complete_watched_actions,
+    ],
+}
+
+stats = account.get_insights(params=params)
+print(stats)
+# _DOC close [ADACCOUNT_GET_INSIGHTS_VIDEO_VIEWS]

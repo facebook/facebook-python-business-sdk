@@ -24,14 +24,13 @@ from __future__ import unicode_literals
 import time
 import os
 import sys
+from facebookads.objects import *
+from facebookads.api import *
+from facebookads.exceptions import *
 
 this_dir = os.path.dirname(__file__)
 repo_dir = os.path.join(this_dir, os.pardir, os.pardir)
 sys.path.insert(1, repo_dir)
-
-from facebookads.objects import *
-from facebookads.api import *
-from facebookads.exceptions import *
 
 config_file = open(os.path.join(this_dir, 'config.json'))
 config = json.load(config_file)
@@ -105,6 +104,32 @@ campaign.update({
 campaign.remote_create()
 
 campaign_id = campaign.get_id()
+
+# _DOC open [ADSET_CREATE]
+# _DOC vars [account_id:s, campaign_id]
+# from facebookads.objects import AdSet, TargetingSpecsField
+
+adset = AdSet(parent_id=account_id)
+adset.update({
+    AdSet.Field.name: 'My Ad Set',
+    AdSet.Field.campaign_group_id: campaign_id,
+    AdSet.Field.daily_budget: 1000,
+    AdSet.Field.bid_type: AdSet.BidType.absolute_ocpm,
+    AdSet.Field.bid_info: {
+        AdSet.Field.BidInfo.actions: 150,
+    },
+    AdSet.Field.targeting: {
+        TargetingSpecsField.geo_locations: {
+            'countries': ['US'],
+        },
+    },
+    AdSet.Field.status: AdSet.Status.paused,
+})
+
+adset.remote_create()
+print(adset)
+# _DOC close [ADSET_CREATE]
+adset.remote_delete()
 
 connections_id = page_id
 # _DOC open [ADSET_CREATE_APP_CONNECTIONS_TARGETING]

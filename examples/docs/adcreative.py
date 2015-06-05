@@ -23,15 +23,14 @@ from __future__ import unicode_literals
 
 import sys
 import os
-
-this_dir = os.path.dirname(__file__)
-repo_dir = os.path.join(this_dir, os.pardir, os.pardir)
-sys.path.insert(1, repo_dir)
-
 from facebookads.objects import *
 from facebookads.specs import *
 from facebookads.api import *
 from facebookads.specs import *
+
+this_dir = os.path.dirname(__file__)
+repo_dir = os.path.join(this_dir, os.pardir, os.pardir)
+sys.path.insert(1, repo_dir)
 
 config_file = open(os.path.join(this_dir, 'config.json'))
 config = json.load(config_file)
