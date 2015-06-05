@@ -129,7 +129,6 @@ creative.remote_delete()
 
 # _DOC open [ADCREATIVE_CREATE_PAGE_POST]
 # from facebookads.objects import AdCreative
-# from facebookads.specs import ObjectStorySpec, LinkData
 
 creative = AdCreative(parent_id=account_id)
 creative[AdCreative.Field.object_story_id] = post_id

@@ -135,6 +135,8 @@ for tos in account[AdAccount.Field.tos_accepted]:
 
 # _DOC open [ADACCOUNT_GET_ADCREATIVES]
 # _DOC vars [account_id:s]
+# from facebookads.objects import AdAccount, AdCreative
+
 ad_account = AdAccount(fbid=account_id)
 ad_account.get_ad_creatives(fields=[AdCreative.Field.object_story_id])
 # _DOC close [ADACCOUNT_GET_ADCREATIVES]
@@ -291,7 +293,7 @@ stats = account.get_report_stats(params=params)
 
 # _DOC open [ADACCOUNT_GET_REPORTSTATS_WITH_RELATIVE_DATE_LAST_WEEK]
 # _DOC vars [account_id:s]
-#from facebookads.objects import AdAccount
+# from facebookads.objects import AdAccount
 
 account = AdAccount(account_id)
 
