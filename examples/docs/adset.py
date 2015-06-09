@@ -18,14 +18,21 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
+from __future__ import print_function
+from __future__ import unicode_literals
+
 import time
 import os
+import sys
+
+this_dir = os.path.dirname(__file__)
+repo_dir = os.path.join(this_dir, os.pardir, os.pardir)
+sys.path.insert(1, repo_dir)
 
 from facebookads.objects import *
 from facebookads.api import *
 from facebookads.exceptions import *
 
-this_dir = os.path.dirname(__file__)
 config_file = open(os.path.join(this_dir, 'config.json'))
 config = json.load(config_file)
 config_file.close()
@@ -35,6 +42,7 @@ access_token = config['access_token']
 app_id = config['app_id']
 app_secret = config['app_secret']
 page_id = config['page_id']
+connections_id = page_id
 
 FacebookAdsApi.init(app_id, app_secret, access_token)
 
@@ -83,7 +91,7 @@ ad_set.update({
 })
 
 ad_set.remote_create()
-print ad_set
+print(ad_set)
 # _DOC close [ADSET_CREATE_HOMEPAGE]
 
 ad_set.remote_delete()
@@ -123,8 +131,45 @@ ad_set.update({
 })
 
 ad_set.remote_create()
-print ad_set
+print(ad_set)
 # _DOC close [ADSET_CREATE_APP_CONNECTIONS_TARGETING]
+
+campaign = AdCampaign(parent_id=account_id)
+campaign.update({
+    AdCampaign.Field.name: 'My Page Likes Campaign',
+    AdCampaign.Field.objective: AdCampaign.Objective.page_likes,
+})
+campaign.remote_create()
+
+campaign_group_id = campaign.get_id()
+
+# _DOC open [ADSET_CREATE_CPC_PROMOTING_PAGE]
+# _DOC vars [account_id:s, page_id:s, campaign_group_id:s]
+import time
+from facebookads.objects import AdSet
+
+adset = AdSet(parent_id=account_id)
+adset[AdSet.Field.name] = 'My Ad Set'
+adset[AdSet.Field.status] = AdSet.Status.paused
+adset[AdSet.Field.daily_budget] = 10000
+adset[AdSet.Field.bid_type] = AdSet.BidType.cpc
+adset[AdSet.Field.bid_info] = {
+    'CLICKS': 150,
+}
+adset[AdSet.Field.promoted_object] = {'page_id': page_id}
+adset[AdSet.Field.targeting] = {
+    'geo_locations': {
+        'countries': ['US'],
+    }
+}
+adset[AdSet.Field.start_time] = int(time.time())
+adset[AdSet.Field.campaign_group_id] = campaign_group_id
+adset.remote_create()
+
+print(adset)
+# _DOC close [ADSET_CREATE_CPC_PROMOTING_PAGE]
+adset.remote_delete()
+campaign.remote_delete()
 
 adset_id = ad_set.get_id()
 # _DOC open [ADSET_READ_ADCREATIVE]

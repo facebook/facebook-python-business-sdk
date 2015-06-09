@@ -21,8 +21,8 @@
 from __future__ import print_function
 from __future__ import unicode_literals
 
-import sys
 import os
+import sys
 
 this_dir = os.path.dirname(__file__)
 repo_dir = os.path.join(this_dir, os.pardir, os.pardir)
@@ -36,40 +36,20 @@ config_file = open(os.path.join(this_dir, 'config.json'))
 config = json.load(config_file)
 config_file.close()
 
-account_id = config['account_id']
 access_token = config['access_token']
 app_id = config['app_id']
 app_secret = config['app_secret']
 
 FacebookAdsApi.init(app_id, app_secret, access_token)
 
-# _DOC open [ADCAMPAIGN_CREATE_WEBSITE_CONVERSIONS]
-# _DOC vars [account_id:s]
-# from facebookads.objects import AdCampaign
+# _DOC open [ADUSER_GET_ADACCOUNTS]
+# from facebookads.objects import AdUser
+# from facebookads.objects import AdAccount
 
-campaign = AdCampaign(parent_id=account_id)
-campaign[AdCampaign.Field.name] = 'My First Campaign'
-campaign[AdCampaign.Field.status] = AdCampaign.Status.paused
-campaign[AdCampaign.Field.objective] = AdCampaign.Objective.website_conversions
+me = AdUser(fbid='me')
+accounts = me.get_ad_accounts()
 
-campaign.remote_create()
-print(campaign)
-# _DOC close [ADCAMPAIGN_CREATE_WEBSITE_CONVERSIONS]
-campaign.remote_delete()
-
-# _DOC open [ADCAMPAIGN_CREATE_HOMEPAGE]
-# _DOC vars [account_id:s]
-# from facebookads.objects import AdCampaign
-
-campaign = AdCampaign(parent_id=account_id)
-campaign.update({
-    AdCampaign.Field.name: 'Homepage Campaign',
-    AdCampaign.Field.buying_type: AdCampaign.BuyingType.fixed_cpm,
-    AdCampaign.Field.objective: AdCampaign.Objective.none,
-    AdCampaign.Field.status: AdCampaign.Status.paused,
-})
-
-campaign.remote_create()
-print(campaign)
-# _DOC close [ADCAMPAIGN_CREATE_HOMEPAGE]
-campaign.remote_delete()
+# Output account ID
+for account in accounts:
+    print(account)
+# _DOC close [ADUSER_GET_ADACCOUNTS]
