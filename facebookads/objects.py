@@ -154,15 +154,15 @@ class EdgeIterator(object):
             ret = []
             if isinstance(response['data'], list):
                 for json_obj in response['data']:
-                    obj = self._target_objects_class()
+                    obj = self._target_objects_class(api=self._source_object.get_api_assured())
                     obj._set_data(json_obj)
                     ret.append(obj)
             else:
-                obj = self._target_objects_class()
+                obj = self._target_objects_class(api=self._source_object.get_api_assured())
                 obj._set_data(response['data'])
                 ret.append(obj)
         else:
-            obj = self._target_objects_class()
+            obj = self._target_objects_class(api=self._source_object.get_api_assured())
             obj._set_data(response)
             ret = [obj]
 
