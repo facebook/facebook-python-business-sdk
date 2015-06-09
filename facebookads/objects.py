@@ -1339,8 +1339,10 @@ class AdCreative(AbstractCrudObject):
         return 'adcreatives'
 
     def get_ad_preview(self, fields=None, params=None):
-        """Returns iterator over AdPreview's associated with this creative."""
-        return self.iterate_edge(AdPreview, fields, params)
+        """
+        Returns iterator over AdCreativePreview's associated with this creative.
+        """
+        return self.iterate_edge(AdCreativePreview, fields, params)
 
 
 class AdImage(CannotUpdate, AbstractCrudObject):
