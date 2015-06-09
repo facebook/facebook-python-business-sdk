@@ -149,20 +149,27 @@ class EdgeIterator(object):
         self._queue = self.build_objects_from_response(response)
         return len(self._queue) > 0
 
+    def create_object(self):
+        try:
+            return self._target_objects_class(api=self._source_object.get_api_assured())
+        except TypeError, e:
+            return self._target_objects_class()
+
     def build_objects_from_response(self, response):
         if 'data' in response:
             ret = []
             if isinstance(response['data'], list):
                 for json_obj in response['data']:
-                    obj = self._target_objects_class(api=self._source_object.get_api_assured())
+                    obj = self.create_object()
+
                     obj._set_data(json_obj)
                     ret.append(obj)
             else:
-                obj = self._target_objects_class(api=self._source_object.get_api_assured())
+                obj = self.create_object()
                 obj._set_data(response['data'])
                 ret.append(obj)
         else:
-            obj = self._target_objects_class(api=self._source_object.get_api_assured())
+            obj = self.create_object()
             obj._set_data(response)
             ret = [obj]
 
