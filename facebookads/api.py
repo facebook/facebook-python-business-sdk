@@ -170,7 +170,13 @@ class FacebookAdsApi(object):
         return self._num_requests_succeeded
 
     @classmethod
-    def init(cls, app_id, app_secret, access_token, account_id=None):
+    def init(
+        cls,
+        app_id=None,
+        app_secret=None,
+        access_token=None,
+        account_id=None
+    ):
         session = FacebookSession(app_id, app_secret, access_token)
         api = cls(session)
         cls.set_default_api(api)
