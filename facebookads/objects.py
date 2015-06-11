@@ -1040,6 +1040,9 @@ class AdAccount(CannotCreate, CannotDelete, AbstractCrudObject):
         """Returns iterator over AdPreview's associated with this account."""
         return self.iterate_edge(AdPreview, fields, params)
 
+    def get_ads_pixels(self, fields=None, params=None):
+        return self.edge_object(AdsPixel, fields, params)
+
 
 class AdAccountGroup(AbstractCrudObject):
 
@@ -1301,6 +1304,70 @@ class AdConversionPixel(AbstractCrudObject):
     @classmethod
     def get_endpoint(cls):
         return 'offsitepixels'
+
+
+class AdsPixel(AbstractCrudObject):
+
+    class Field(object):
+        code = 'code'
+        audiences = 'audiences'
+        id = 'id'
+        last_fired_time = 'last_fired_time'
+        name = 'name'
+        owner_ad_account = 'owner_ad_account'
+
+    def share_pixel(self, business_id, account_id):
+        return self.get_api_assured().call(
+            'POST',
+            (self.get_id_assured(), 'shared_accounts'),
+            params={
+                'business': business_id,
+                'account_id': account_id},
+        )
+
+    def share_pixel_agencies(self, business_id, agency_id):
+        return self.get_api_assured().call(
+            'POST',
+            (self.get_id_assured(), 'shared_agencies'),
+            params={
+                'business': business_id,
+                'agency_id': agency_id},
+        )
+
+    def list_ad_accounts(self, business_id):
+        response = self.get_api_assured().call(
+            'GET',
+            (self.get_id_assured(), 'shared_accounts'),
+            params={'business': business_id},
+        ).json()
+
+        ret_val = []
+        if response:
+            keys = response['data']
+            for item in keys:
+                search_obj = AdAccount()
+                search_obj.update(item)
+                ret_val.append(search_obj)
+        return ret_val
+
+    def list_shared_agencies(self):
+        response = self.get_api_assured().call(
+            'GET',
+            (self.get_id_assured(), 'shared_agencies'),
+        ).json()
+
+        ret_val = []
+        if response:
+            keys = response['data']
+            for item in keys:
+                search_obj = Business()
+                search_obj.update(item)
+                ret_val.append(search_obj)
+        return ret_val
+
+    @classmethod
+    def get_endpoint(cls):
+        return 'adspixels'
 
 
 class AdCreative(AbstractCrudObject):
