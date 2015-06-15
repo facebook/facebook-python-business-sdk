@@ -2178,6 +2178,9 @@ class ProductCatalog(AbstractCrudObject):
     def get_product_feeds(self, fields=None, params=None):
         return self.iterate_edge(ProductFeed, fields, params)
 
+    def get_product_sets(self, fields=None, params=None):
+        return self.iterate_edge(ProductSet, fields, params)
+
     def add_user(self, user, role):
         params = {
             'user': user,
