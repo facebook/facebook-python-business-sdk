@@ -43,8 +43,8 @@ app_secret = config['app_secret']
 FacebookAdsApi.init(app_id, app_secret, access_token)
 
 # _DOC open [ADUSER_GET_ADACCOUNTS]
-# from facebookads.objects import AdUser
-# from facebookads.objects import AdAccount
+from facebookads.objects import AdUser
+from facebookads.objects import AdAccount
 
 me = AdUser(fbid='me')
 accounts = me.get_ad_accounts()

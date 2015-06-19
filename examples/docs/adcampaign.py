@@ -44,7 +44,7 @@ FacebookAdsApi.init(app_id, app_secret, access_token)
 
 # _DOC open [ADCAMPAIGN_CREATE_WEBSITE_CONVERSIONS]
 # _DOC vars [account_id:s]
-# from facebookads.objects import AdCampaign
+from facebookads.objects import AdCampaign
 
 campaign = AdCampaign(parent_id=account_id)
 campaign[AdCampaign.Field.name] = 'My First Campaign'
@@ -58,7 +58,7 @@ campaign.remote_delete()
 
 # _DOC open [ADCAMPAIGN_CREATE_HOMEPAGE]
 # _DOC vars [account_id:s]
-# from facebookads.objects import AdCampaign
+from facebookads.objects import AdCampaign
 
 campaign = AdCampaign(parent_id=account_id)
 campaign.update({
@@ -75,7 +75,7 @@ campaign.remote_delete()
 
 # _DOC open [ADCAMPAIGN_CREATE_VIDEO_VIEWS]
 # _DOC vars [account_id:s]
-# from facebookads.objects import AdCampaign
+from facebookads.objects import AdCampaign
 
 campaign = AdCampaign(parent_id=account_id)
 campaign.update({

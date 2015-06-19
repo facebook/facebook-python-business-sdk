@@ -57,8 +57,8 @@ link = 'http://example.com'
 
 # _DOC open [ADCREATIVE_CREATE_LINK_AD]
 # _DOC vars [account_id:s, image_hash:s, page_id, link:s]
-# from facebookads.objects import AdCreative
-# from facebookads.specs import ObjectStorySpec, LinkData
+from facebookads.objects import AdCreative
+from facebookads.specs import ObjectStorySpec, LinkData
 
 link_data = LinkData()
 link_data[LinkData.Field.message] = 'try it out'
@@ -82,8 +82,8 @@ img.remote_delete(params={AdImage.Field.hash: image_hash})
 
 # _DOC open [ADCREATIVE_CREATE_LINK_AD_CALL_TO_ACTION]
 # _DOC vars [url:s, page_id, account_id:s]
-# from facebookads.objects import AdCreative
-# from facebookads.specs import ObjectStorySpec, LinkData
+from facebookads.objects import AdCreative
+from facebookads.specs import ObjectStorySpec, LinkData
 
 link_data = LinkData()
 link_data[LinkData.Field.message] = 'My message'
@@ -125,8 +125,8 @@ image_url = img[AdImage.Field.url]
 image_hash = img.get_hash()
 # _DOC open [ADCREATIVE_CREATE_VIDEO_PAGE_LIKE_AD]
 # _DOC vars [image_url:s, page_id, account_id:s, file_path:s, video_id]
-# from facebookads.objects import AdCreative
-# from facebookads.specs import ObjectStorySpec, LinkData
+from facebookads.objects import AdCreative
+from facebookads.specs import ObjectStorySpec, LinkData
 video_data = VideoData()
 video_data[VideoData.Field.description] = 'My Description'
 video_data[VideoData.Field.video_id] = video_id
@@ -152,7 +152,7 @@ img.remote_delete(params={AdImage.Field.hash: image_hash})
 creative.remote_delete()
 
 # _DOC open [ADCREATIVE_CREATE_PAGE_POST]
-# from facebookads.objects import AdCreative
+from facebookads.objects import AdCreative
 
 creative = AdCreative(parent_id=account_id)
 creative[AdCreative.Field.object_story_id] = post_id
@@ -165,7 +165,7 @@ creative.remote_delete()
 
 # _DOC open [ADCREATIVE_CREATE_URL_TAG]
 # _DOC vars [account_id:s, post_id]
-# from facebookads.objects import AdCreative
+from facebookads.objects import AdCreative
 
 creative = AdCreative(parent_id=account_id)
 creative[AdCreative.Field.object_story_id] = post_id
@@ -179,7 +179,7 @@ creative_id = creative.get_id()
 
 # _DOC open [ADCREATIVE_UPDATE]
 # _DOC vars [creative_id]
-# from facebookads.objects import AdCreative
+from facebookads.objects import AdCreative
 
 creative = AdCreative(creative_id)
 creative[AdCreative.Field.name] = 'New Creative Name'
@@ -190,7 +190,7 @@ print(creative)
 
 # _DOC open [ADCREATIVE_READ]
 # _DOC vars [creative_id]
-# from facebookads.objects import AdCreative
+from facebookads.objects import AdCreative
 
 creative = AdCreative(creative_id)
 creative.remote_read(
@@ -200,7 +200,7 @@ creative.remote_read(
 
 # _DOC open [ADCREATIVE_READ_THUMBNAIL_WITH_DIMENSIONS]
 # _DOC vars [creative_id]
-# from facebookads.objects import AdCreative
+from facebookads.objects import AdCreative
 
 creative = AdCreative(creative_id)
 fields = [AdCreative.Field.thumbnail_url]
@@ -216,8 +216,8 @@ creative.remote_delete()
 
 # _DOC open [ADCREATIVE_CREATE_MULTI_PRODUCT_AD]
 # _DOC vars [account_id:s, page_id, url:s, image_hash:s]
-# from facebookads.objects import AdCreative
-# from facebookads.specs import ObjectStorySpec, LinkData, AttachmentData
+from facebookads.objects import AdCreative
+from facebookads.specs import ObjectStorySpec, LinkData, AttachmentData
 
 product1 = AttachmentData()
 product1[AttachmentData.Field.link] = url + '/product1'
@@ -255,7 +255,7 @@ print(creative)
 
 # _DOC open [ADCREATIVE_DELETE]
 # _DOC vars [creative_id]
-# from facebookads.objects import AdCreative
+from facebookads.objects import AdCreative
 
 creative = AdCreative(creative_id)
 creative.remote_delete()

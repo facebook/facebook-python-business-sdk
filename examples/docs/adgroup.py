@@ -86,7 +86,7 @@ creative_id = creative.get_id_assured()
 
 # _DOC open [ADGROUP_CREATE]
 # _DOC vars [account_id:s, adset_id, creative_id]
-# from facebookads.objects import AdGroup
+from facebookads.objects import AdGroup
 
 adgroup = AdGroup(parent_id=account_id)
 adgroup[AdGroup.Field.name] = 'My Ad'
@@ -105,7 +105,7 @@ img.remote_delete(params={AdImage.Field.hash: image_hash})
 
 # _DOC open [ADGROUP_CREATE_INLINE_CREATIVE]
 # _DOC vars [account_id:s, image_path:s, adset_id]
-# from facebookads.objects import AdImage, AdCreative, AdGroup
+from facebookads.objects import AdImage, AdCreative, AdGroup
 
 image = AdImage(parent_id=account_id)
 image[image.Field.filename] = image_path

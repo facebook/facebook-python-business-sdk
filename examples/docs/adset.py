@@ -58,7 +58,7 @@ campaign_id = homepage_campaign.get_id()
 
 # _DOC open [ADSET_CREATE_HOMEPAGE]
 # _DOC vars [account_id:s, campaign_id]
-# from facebookads.objects import AdAccount, AdSet
+from facebookads.objects import AdAccount, AdSet
 ad_account = AdAccount(account_id)
 rate_cards = ad_account.get_rate_cards()
 country = rate_cards[0][RateCard.Field.country]
@@ -107,7 +107,7 @@ campaign_id = campaign.get_id()
 
 # _DOC open [ADSET_CREATE]
 # _DOC vars [account_id:s, campaign_id]
-# from facebookads.objects import AdSet, TargetingSpecsField
+from facebookads.objects import AdSet, TargetingSpecsField
 
 adset = AdSet(parent_id=account_id)
 adset.update({
@@ -134,7 +134,7 @@ adset.remote_delete()
 connections_id = page_id
 # _DOC open [ADSET_CREATE_APP_CONNECTIONS_TARGETING]
 # _DOC vars [account_id:s, campaign_id, connections_id]
-# from facebookads.objects import AdSet
+from facebookads.objects import AdSet
 
 ad_set = AdSet(parent_id=account_id)
 ad_set.update({

@@ -76,7 +76,7 @@ api = FacebookAdsApi.get_default_api()
 
 # _DOC open [CUSTOM_AUDIENCE_CREATE_VIDEO_VIEWS_RETARGET]
 # _DOC vars [account_id:s, video_id]
-# from facebookads.objects import CustomAudience
+from facebookads.objects import CustomAudience
 
 lookalike = CustomAudience(parent_id=account_id)
 lookalike.update({

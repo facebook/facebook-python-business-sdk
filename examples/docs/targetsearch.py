@@ -36,7 +36,7 @@ app_secret = config['app_secret']
 FacebookAdsApi.init(app_id, app_secret, access_token)
 
 # _DOC open [SEARCH_GEOLOCATION_WITH_COUNTRY]
-# from facebookads.objects import TargetingSearch
+from facebookads.objects import TargetingSearch
 params = {
     'q': 'un',
     'type': 'adgeolocation',
@@ -48,7 +48,7 @@ print(resp)
 # _DOC close [SEARCH_GEOLOCATION_WITH_COUNTRY]
 
 # _DOC open [SEARCH_GEOLOCATION_WITH_REGION]
-# from facebookads.objects import TargetingSearch
+from facebookads.objects import TargetingSearch
 params = {
     'q': 'al',
     'type': 'adgeolocation',
@@ -60,7 +60,7 @@ print(resp)
 # _DOC close [SEARCH_GEOLOCATION_WITH_REGION]
 
 # _DOC open [SEARCH_GEOLOCATION_WITH_CITY]
-# from facebookads.objects import TargetingSearch
+from facebookads.objects import TargetingSearch
 params = {
     'q': 'dub',
     'type': 'adgeolocation',
@@ -72,7 +72,7 @@ print(resp)
 # _DOC close [SEARCH_GEOLOCATION_WITH_CITY]
 
 # _DOC open [SEARCH_GEOLOCATION_WITH_ZIP]
-# from facebookads.objects import TargetingSearch
+from facebookads.objects import TargetingSearch
 params = {
     'q': '9',
     'type': 'adgeolocation',
@@ -84,7 +84,7 @@ print(resp)
 # _DOC close [SEARCH_GEOLOCATION_WITH_ZIP]
 
 # _DOC open [SEARCH_GEOLOCATION_WITH_GEO_MARKET]
-# from facebookads.objects import TargetingSearch
+from facebookads.objects import TargetingSearch
 params = {
     'q': 'New',
     'type': 'adgeolocation',
@@ -96,7 +96,7 @@ print(resp)
 # _DOC close [SEARCH_GEOLOCATION_WITH_GEO_MARKET]
 
 # _DOC open [SEARCH_LOCATIONS_METADATA]
-# from facebookads.objects import TargetingSearch
+from facebookads.objects import TargetingSearch
 params = {
     'type': 'adgeolocationmeta',
     'cities': [2418779],
@@ -110,7 +110,7 @@ print(resp)
 # _DOC close [SEARCH_LOCATIONS_METADATA]
 
 # _DOC open [SEARCH_RADIUS_SUGGESTION]
-# from facebookads.objects import TargetingSearch
+from facebookads.objects import TargetingSearch
 params = {
     'type': 'adradiussuggestion',
     'latitude': 37.449478,
@@ -122,7 +122,7 @@ print(resp)
 # _DOC close [SEARCH_RADIUS_SUGGESTION]
 
 # _DOC open [SEARCH_RADIUS_SUGGESTION_WITH_KILOMETER]
-# from facebookads.objects import TargetingSearch
+from facebookads.objects import TargetingSearch
 params = {
     'type': 'adradiussuggestion',
     'latitude': 37.449478,
@@ -135,7 +135,7 @@ print(resp)
 # _DOC close [SEARCH_RADIUS_SUGGESTION_WITH_KILOMETER]
 
 # _DOC open [SEARCH_INTEREST]
-# from facebookads.objects import TargetingSearch
+from facebookads.objects import TargetingSearch
 params = {
     'q': 'baseball',
     'type': 'adinterest',
@@ -146,7 +146,7 @@ print(resp)
 # _DOC close [SEARCH_INTEREST]
 
 # _DOC open [SEARCH_INTEREST_SUGGESTION]
-# from facebookads.objects import TargetingSearch
+from facebookads.objects import TargetingSearch
 params = {
     'type': 'adinterestsuggestion',
     'interest_list': ['soccer'],
@@ -157,7 +157,7 @@ print(resp)
 # _DOC close [SEARCH_INTEREST_SUGGESTION]
 
 # _DOC open [SEARCH_VALIDATION]
-# from facebookads.objects import TargetingSearch
+from facebookads.objects import TargetingSearch
 params = {
     'type': 'adinterestvalid',
     'interest_list': ['Japan', 'nonexistantkeyword'],
@@ -168,7 +168,7 @@ print(resp)
 # _DOC close [SEARCH_VALIDATION]
 
 # _DOC open [SEARCH_TARGETING_CATEGORY_WITH_INTERESTS]
-# from facebookads.objects import TargetingSearch
+from facebookads.objects import TargetingSearch
 params = {
     'type': 'adTargetingCategory',
     'class': 'interests',
@@ -179,7 +179,7 @@ print(resp)
 # _DOC close [SEARCH_TARGETING_CATEGORY_WITH_INTERESTS]
 
 # _DOC open [SEARCH_TARGETING_CATEGORY_WITH_BEHAVIORS]
-# from facebookads.objects import TargetingSearch
+from facebookads.objects import TargetingSearch
 params = {
     'type': 'adTargetingCategory',
     'class': 'behaviors',
@@ -190,7 +190,7 @@ print(resp)
 # _DOC close [SEARCH_TARGETING_CATEGORY_WITH_BEHAVIORS]
 
 # _DOC open [SEARCH_LOCALE]
-# from facebookads.objects import TargetingSearch
+from facebookads.objects import TargetingSearch
 params = {
     'q': 'en',
     'type': 'adlocale',
@@ -201,7 +201,7 @@ print(resp)
 # _DOC close [SEARCH_LOCALE]
 
 # _DOC open [SEARCH_EDUCATION_SCHOOL]
-# from facebookads.objects import TargetingSearch
+from facebookads.objects import TargetingSearch
 params = {
     'q': 'ha',
     'type': 'adeducationschool',
@@ -212,7 +212,7 @@ print(resp)
 # _DOC close [SEARCH_EDUCATION_SCHOOL]
 
 # _DOC open [SEARCH_EDUCATION_MAJOR]
-# from facebookads.objects import TargetingSearch
+from facebookads.objects import TargetingSearch
 params = {
     'q': 'ph',
     'type': 'adeducationmajor',
@@ -223,7 +223,7 @@ print(resp)
 # _DOC close [SEARCH_EDUCATION_MAJOR]
 
 # _DOC open [SEARCH_WORK_EMPLOYER]
-# from facebookads.objects import TargetingSearch
+from facebookads.objects import TargetingSearch
 params = {
     'q': 'mic',
     'type': 'adworkemployer',
@@ -234,7 +234,7 @@ print(resp)
 # _DOC close [SEARCH_WORK_EMPLOYER]
 
 # _DOC open [SEARCH_WORK_POSITION]
-# from facebookads.objects import TargetingSearch
+from facebookads.objects import TargetingSearch
 params = {
     'q': 'ana',
     'type': 'adworkposition',

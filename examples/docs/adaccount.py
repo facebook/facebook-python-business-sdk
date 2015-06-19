@@ -144,7 +144,7 @@ for tos in account[AdAccount.Field.tos_accepted]:
 
 # _DOC open [ADACCOUNT_GET_ADCREATIVES]
 # _DOC vars [account_id:s]
-# from facebookads.objects import AdAccount, AdCreative
+from facebookads.objects import AdAccount, AdCreative
 
 ad_account = AdAccount(fbid=account_id)
 ad_account.get_ad_creatives(fields=[AdCreative.Field.object_story_id])
@@ -152,7 +152,7 @@ ad_account.get_ad_creatives(fields=[AdCreative.Field.object_story_id])
 
 # _DOC open [ADACCOUNT_GET_ADIMAGES]
 # _DOC vars [account_id:s]
-# from facebookads.objects import AdAccount
+from facebookads.objects import AdAccount
 
 account = AdAccount(account_id)
 images = account.get_ad_images()
@@ -160,7 +160,7 @@ images = account.get_ad_images()
 
 # _DOC open [ADACCOUNT_GET_RATECARDS]
 # _DOC vars [account_id:s]
-# from facebookads.objects import AdAccount
+from facebookads.objects import AdAccount
 
 ad_account = AdAccount(account_id)
 rate_cards = ad_account.get_rate_cards()
@@ -169,7 +169,7 @@ print(rate_cards)
 
 # _DOC open [ADACCOUNT_GET_REPORTSTATS]
 # _DOC vars [account_id:s]
-# from facebookads.objects import AdAccount
+from facebookads.objects import AdAccount
 account = AdAccount(account_id)
 
 params = {
@@ -186,7 +186,7 @@ for stat in stats:
 
 # _DOC open [ADACCOUNT_GET_REPORTSTATS_LAST_7_DAYS]
 # _DOC vars [account_id:s]
-# from facebookads.objects import AdAccount
+from facebookads.objects import AdAccount
 
 account = AdAccount(account_id)
 
@@ -219,8 +219,8 @@ for stat in stats:
 
 # _DOC open [ADACCOUNT_GET_REPORTSTATS_WITH_DATE_TIME_RANGES]
 # _DOC vars [account_id:s]
-# from datetime import datetime, timedelta
-# from facebookads.objects import AdAccount
+from datetime import datetime, timedelta
+from facebookads.objects import AdAccount
 
 account = AdAccount(account_id)
 day_start = datetime.today() - timedelta(weeks=2)
@@ -252,9 +252,9 @@ stats = account.get_report_stats(params=params)
 
 # _DOC open [ADACCOUNT_GET_REPORTSTATS_WITH_UNIX_TIME_RANGES]
 # _DOC vars [account_id:s]
-# from datetime import datetime, timedelta
-# from dateutil import tz
-# from facebookads.objects import AdAccount
+from datetime import datetime, timedelta
+from dateutil import tz
+from facebookads.objects import AdAccount
 
 account = AdAccount(account_id)
 today = datetime.today()
@@ -282,7 +282,7 @@ stats = account.get_report_stats(params=params)
 
 # _DOC open [ADACCOUNT_GET_REPORTSTATS_WITH_RELATIVE_DATE_YESTERDAY]
 # _DOC vars [account_id:s]
-# from facebookads.objects import AdAccount
+from facebookads.objects import AdAccount
 
 account = AdAccount(account_id)
 
@@ -302,7 +302,7 @@ stats = account.get_report_stats(params=params)
 
 # _DOC open [ADACCOUNT_GET_REPORTSTATS_WITH_RELATIVE_DATE_LAST_WEEK]
 # _DOC vars [account_id:s]
-# from facebookads.objects import AdAccount
+from facebookads.objects import AdAccount
 
 account = AdAccount(account_id)
 
@@ -323,9 +323,9 @@ stats = account.get_report_stats(params=params)
 
 # _DOC open [ADACCOUNT_GET_REPORTSTATS_WITH_UNIX_TIME_INTERVAL]
 # _DOC vars [account_id:s]
-# from datetime import datetime, timedelta
-# from dateutil import tz
-# from facebookads.objects import AdAccount
+from datetime import datetime, timedelta
+from dateutil import tz
+from facebookads.objects import AdAccount
 
 account = AdAccount(account_id)
 today = datetime.today()
@@ -356,7 +356,7 @@ stats = account.get_report_stats(params=params)
 
 # _DOC open [ADACCOUNT_GET_REPORTSTATS_CROSS_DEVICE_REPORT]
 # _DOC vars [account_id:s]
-# from facebookads.objects import AdAccount
+from facebookads.objects import AdAccount
 account = AdAccount(account_id)
 
 params = {
@@ -409,7 +409,7 @@ stats = account.get_report_stats(params=params)
 
 # _DOC open [ADACCOUNT_GET_INSIGHTS_VIDEO_VIEWS]
 # _DOC vars [account_id:s]
-# from facebookads.objects import AdAccount, Insights
+from facebookads.objects import AdAccount, Insights
 
 account = AdAccount(account_id)
 
