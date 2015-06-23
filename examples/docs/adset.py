@@ -159,6 +159,16 @@ ad_set.remote_create()
 print(ad_set)
 # _DOC close [ADSET_CREATE_APP_CONNECTIONS_TARGETING]
 
+# _DOC open [ADSET_GET_ADGROUPS]
+# _DOC vars [adset_id]
+# from facebookads.objects import AdSet, AdGroup
+
+ad_set = AdSet(adset_id)
+ad_group_iter = ad_set.get_ad_groups(fields=[AdGroup.Field.name])
+for ad_group in ad_group_iter:
+    print ad_group[AdGroup.Field.name]
+# _DOC close [ADSET_GET_ADGROUPS]
+
 campaign = AdCampaign(parent_id=account_id)
 campaign.update({
     AdCampaign.Field.name: 'My Page Likes Campaign',

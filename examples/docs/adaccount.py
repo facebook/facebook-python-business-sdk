@@ -158,6 +158,31 @@ account = AdAccount(account_id)
 images = account.get_ad_images()
 # _DOC close [ADACCOUNT_GET_ADIMAGES]
 
+# _DOC open [ADACCOUNT_GET_ADGROUPS]
+# _DOC vars [account_id:s]
+# from facebookads.objects import AdAccount, AdGroup
+
+ad_account = AdAccount(account_id)
+ad_group_iter = ad_account.get_ad_groups(fields=[AdGroup.Field.name])
+for ad_group in ad_group_iter:
+    print ad_group[AdGroup.Field.name]
+# _DOC close [ADACCOUNT_GET_ADGROUPS]
+
+# _DOC open [ADACCOUNT_GET_ADGROUPS_WITH_STATUS]
+# _DOC vars [account_id:s]
+# from facebookads.objects import AdAccount, AdGroup
+
+account = AdAccount(account_id)
+params = {
+    'adgroup_status': ['ACTIVE', 'PAUSED', 'CAMPAIGN_PAUSED',
+                       'CAMPAIGN_GROUP_PAUSED', 'PENDING_REVIEW', 'DISAPPROVED',
+                       'PREAPPROVED', 'PENDING_BILLING_INFO', 'ARCHIVED']
+}
+adgroup_iter = account.get_ad_groups(params=params)
+for adgroup in adgroup_iter:
+    print adgroup
+# _DOC close [ADACCOUNT_GET_ADGROUPS_WITH_STATUS]
+
 # _DOC open [ADACCOUNT_GET_RATECARDS]
 # _DOC vars [account_id:s]
 from facebookads.objects import AdAccount

@@ -110,18 +110,122 @@ from facebookads.objects import AdImage, AdCreative, AdGroup
 image = AdImage(parent_id=account_id)
 image[image.Field.filename] = image_path
 image.remote_create()
+image_hash = image[AdImage.Field.hash]
 
+creative = AdCreative(parent_id=account_id)
+creative[AdCreative.Field.title] = 'My Creative'
+creative[AdCreative.Field.body] = 'My Ad Creative Body'
+creative[AdCreative.Field.object_url] = 'https://www.facebook.com/facebook'
+creative[AdCreative.Field.image_hash] = image[AdImage.Field.hash]
+creative.remote_create()
+creative_id = creative.get_id()
+
+# _DOC open [ADGROUP_CREATE]
+# _DOC vars [adset_id, creative_id, account_id:s]
+# from facebookads.objects import AdGroup
+
+adgroup = AdGroup(parent_id=account_id)
+adgroup[AdGroup.Field.name] = 'My AdGroup'
+adgroup[AdGroup.Field.campaign_id] = adset_id
+adgroup[AdGroup.Field.status] = AdCampaign.Status.paused
+adgroup[AdGroup.Field.creative] = {'creative_id': str(creative_id)}
+adgroup.remote_create()
+# _DOC close [ADGROUP_CREATE]
+
+adgroup.remote_delete()
+
+# _DOC open [ADGROUP_CREATE_REDOWNLOAD]
+# _DOC vars [adset_id, creative_id, account_id:s]
+# from facebookads.objects import AdGroup
+
+adgroup = AdGroup(parent_id = account_id)
+adgroup[AdGroup.Field.name] = 'My AdGroup'
+adgroup[AdGroup.Field.campaign_id] = adset_id
+adgroup[AdGroup.Field.creative] = {'creative_id': str(creative_id)}
+adgroup[AdGroup.Field.status] = AdGroup.Status.paused
+adgroup[AdGroup.Field.redownload] = True
+adgroup.remote_create()
+# _DOC close [ADGROUP_CREATE_REDOWNLOAD]
+
+adgroup_id = adgroup.get_id()
+
+# _DOC open [ADGROUP_READ]
+# _DOC vars [adgroup_id]
+# from facebookads.objects import AdGroup
+
+adgroup = AdGroup(adgroup_id)
+adgroup.remote_read(fields=[AdGroup.Field.name])
+# _DOC close [ADGROUP_READ]
+
+# _DOC open [ADGROUP_READ_CONVERSION_BID]
+# _DOC vars [adgroup_id]
+# from facebookads.objects import AdGroup
+
+adgroup = AdGroup(adgroup_id)
+adgroup.remote_read(fields=[AdGroup.Field.conversion_specs, 'bid_type'])
+# _DOC close [ADGROUP_READ_CONVERSION_BID]
+
+# _DOC open [ADGROUP_UPDATE]
+# _DOC vars [adgroup_id]
+# from facebookads.objects import AdGroup
+
+adgroup = AdGroup(adgroup_id)
+adgroup[AdGroup.Field.name] = 'New AdGroup Name'
+adgroup.remote_update()
+# _DOC close [ADGROUP_UPDATE]
+
+# _DOC open [ADGROUP_UPDATE_WITH_REDOWNLOAD]
+# _DOC vars [adgroup_id]
+# from facebookads.objects import AdGroup
+
+adgroup = AdGroup(adgroup_id)
+adgroup[AdGroup.Field.name] = 'New AdGroup Name'
+adgroup['redownload'] = True
+adgroup.remote_update()
+# _DOC close [ADGROUP_UPDATE_WITH_REDOWNLOAD]
+
+# _DOC open [ADGROUP_UPDATE_STATUS]
+# _DOC vars [adgroup_id]
+# from facebookads.objects import AdGroup
+
+adgroup = AdGroup(adgroup_id)
+adgroup[AdGroup.Field.status] = AdGroup.Status.paused
+adgroup.remote_update()
+# _DOC close [ADGROUP_UPDATE_STATUS]
+
+# _DOC open [ADGROUP_DELETE]
+# _DOC vars [adgroup_id]
+# from facebookads.objects import AdGroup
+
+adgroup = AdGroup(adgroup_id)
+adgroup.remote_delete()
+# _DOC close [ADGROUP_DELETE]
+
+
+# _DOC open [ADGROUP_CREATE_INLINE_CREATIVE]
+# _DOC vars [account_id:s, image_hash:s, adset_id]
+# from facebookads.objects import AdImage, AdCreative, AdGroup
+
+# First, upload the ad image that you will use in your ad creative
+# Please refer to Ad Image Create for details.
+
+creative.remote_delete()
+
+# Then, use the image hash returned from above
 creative = AdCreative(parent_id=account_id)
 creative[AdCreative.Field.title] = 'My Test Creative'
 creative[AdCreative.Field.body] = 'My Test Ad Creative Body'
 creative[AdCreative.Field.object_url] = 'https://www.facebook.com/facebook'
-creative[AdCreative.Field.image_hash] = image[AdImage.Field.hash]
+creative[AdCreative.Field.image_hash] = image_hash
 
+# Finally, create your ad along with ad creative.
+# Please note that the ad creative is not created independently, rather its
+# data structure is appended to the ad group
 adgroup = AdGroup(parent_id=account_id)
 adgroup[AdGroup.Field.name] = 'My Ad'
 adgroup[AdGroup.Field.campaign_id] = adset_id
 adgroup[AdGroup.Field.creative] = creative
-adgroup[AdGroup.Field.status] = 'PAUSED'
+adgroup[AdGroup.Field.status] = AdGroup.Status.paused
 adgroup.remote_create()
 # _DOC close [ADGROUP_CREATE_INLINE_CREATIVE]
 
@@ -130,4 +234,4 @@ adset.remote_delete()
 campaign.remote_delete()
 creative = AdCreative(fbid=creative_id)
 creative.remote_delete()
-image.remote_delete(params={AdImage.Field.hash: image[image.Field.hash]})
+image.remote_delete(params={AdImage.Field.hash: image_hash})

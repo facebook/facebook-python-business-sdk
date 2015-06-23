@@ -71,6 +71,19 @@ campaign.update({
 campaign.remote_create()
 print(campaign)
 # _DOC close [ADCAMPAIGN_CREATE_HOMEPAGE]
+
+campaign_id = campaign.get_id()
+
+# _DOC open [ADCAMPAIGN_GET_ADGROUPS]
+# _DOC vars [campaign_id]
+# from facebookads.objects import AdCampaign, AdGroup
+
+ad_campaign = AdCampaign(campaign_id)
+ad_group_iter = ad_campaign.get_ad_groups(fields=[AdGroup.Field.name])
+for ad_group in ad_group_iter:
+    print ad_group[AdGroup.Field.name]
+# _DOC close [ADCAMPAIGN_GET_ADGROUPS]
+
 campaign.remote_delete()
 
 # _DOC open [ADCAMPAIGN_CREATE_VIDEO_VIEWS]
