@@ -160,7 +160,7 @@ images = account.get_ad_images()
 
 # _DOC open [ADACCOUNT_GET_ADGROUPS]
 # _DOC vars [account_id:s]
-# from facebookads.objects import AdAccount, AdGroup
+from facebookads.objects import AdAccount, AdGroup
 
 ad_account = AdAccount(account_id)
 ad_group_iter = ad_account.get_ad_groups(fields=[AdGroup.Field.name])
@@ -170,7 +170,7 @@ for ad_group in ad_group_iter:
 
 # _DOC open [ADACCOUNT_GET_ADGROUPS_WITH_STATUS]
 # _DOC vars [account_id:s]
-# from facebookads.objects import AdAccount, AdGroup
+from facebookads.objects import AdAccount, AdGroup
 
 account = AdAccount(account_id)
 params = {

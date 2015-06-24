@@ -161,7 +161,7 @@ print(ad_set)
 
 # _DOC open [ADSET_GET_ADGROUPS]
 # _DOC vars [adset_id]
-# from facebookads.objects import AdSet, AdGroup
+from facebookads.objects import AdSet, AdGroup
 
 ad_set = AdSet(adset_id)
 ad_group_iter = ad_set.get_ad_groups(fields=[AdGroup.Field.name])
