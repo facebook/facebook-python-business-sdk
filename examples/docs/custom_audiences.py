@@ -39,6 +39,7 @@ from facebookads.objects import CustomAudience
 audience = CustomAudience(parent_id=account_id)
 
 audience[CustomAudience.Field.name] = 'My new CA'
+audience[CustomAudience.Field.subtype] = 'CUSTOM'
 audience[CustomAudience.Field.description] = 'People who bought on my website'
 
 audience.remote_create()
