@@ -1306,7 +1306,7 @@ class AdConversionPixel(AbstractCrudObject):
         return 'offsitepixels'
 
 
-class AdsPixel(AbstractCrudObject):
+class AdsPixel(CannotUpdate, CannotDelete, AbstractCrudObject):
 
     class Field(object):
         code = 'code'
