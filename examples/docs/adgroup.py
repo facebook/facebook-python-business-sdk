@@ -195,6 +195,22 @@ adgroup[AdGroup.Field.status] = AdGroup.Status.paused
 adgroup.remote_create()
 # _DOC close [ADGROUP_CREATE_INLINE_CREATIVE]
 
+# _DOC open [ADGROUP_ARCHIVE]
+# _DOC vars [adgroup_id]
+from facebookads.objects import AdGroup
+
+adgroup = AdGroup(adgroup_id)
+adgroup.remote_archive()
+# _DOC close [ADGROUP_ARCHIVE]
+
+# _DOC open [ADGROUP_READ_FAILED_DELIVERY_CHECKS]
+# _DOC vars [adgroup_id]
+from facebookads.objects import AdGroup
+
+adgroup = AdGroup(adgroup_id)
+adgroup.remote_read(fields=[AdGroup.Field.failed_delivery_checks])
+# _DOC close [ADGROUP_READ_FAILED_DELIVERY_CHECKS]
+
 adgroup.remote_delete()
 adset.remote_delete()
 campaign.remote_delete()
