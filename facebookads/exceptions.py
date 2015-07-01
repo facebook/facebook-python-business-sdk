@@ -131,3 +131,8 @@ class FacebookRequestError(FacebookError):
 class FacebookBadObjectError(FacebookError):
     """Raised when a guarantee about the object validity fails."""
     pass
+
+
+class FacebookUnavailablePropertyException(FacebookError):
+    """Raised when an object's property or method is not available."""
+    pass

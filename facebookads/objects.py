@@ -23,7 +23,11 @@ objects module contains classes that represent and help traverse nodes on the
 Ads API.
 """
 
-from facebookads.exceptions import FacebookBadObjectError, FacebookError
+from facebookads.exceptions import (
+    FacebookBadObjectError,
+    FacebookError,
+    FacebookUnavailablePropertyException,
+)
 from facebookads.api import FacebookAdsApi
 from facebookads.session import FacebookSession
 from facebookads.mixins import (
@@ -117,6 +121,11 @@ class EdgeIterator(object):
         return self._queue[index]
 
     def total(self):
+        if self._total_count is None:
+            raise FacebookUnavailablePropertyException(
+                "Couldn't retrieve the object total count for that type "
+                "of request."
+            )
         return self._total_count
 
     def load_next_page(self):
