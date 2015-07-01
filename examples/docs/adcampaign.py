@@ -35,7 +35,7 @@ config_file = open(os.path.join(this_dir, 'config.json'))
 config = json.load(config_file)
 config_file.close()
 
-account_id = config['account_id']
+ad_account_id = config['account_id']
 access_token = config['access_token']
 app_id = config['app_id']
 app_secret = config['app_secret']
@@ -43,10 +43,10 @@ app_secret = config['app_secret']
 FacebookAdsApi.init(app_id, app_secret, access_token)
 
 # _DOC open [ADCAMPAIGN_CREATE_WEBSITE_CONVERSIONS]
-# _DOC vars [account_id:s]
+# _DOC vars [ad_account_id:s]
 from facebookads.objects import AdCampaign
 
-campaign = AdCampaign(parent_id=account_id)
+campaign = AdCampaign(parent_id=ad_account_id)
 campaign[AdCampaign.Field.name] = 'My First Campaign'
 campaign[AdCampaign.Field.status] = AdCampaign.Status.paused
 campaign[AdCampaign.Field.objective] = AdCampaign.Objective.website_conversions
@@ -57,10 +57,10 @@ print(campaign)
 campaign.remote_delete()
 
 # _DOC open [ADCAMPAIGN_CREATE_HOMEPAGE]
-# _DOC vars [account_id:s]
+# _DOC vars [ad_account_id:s]
 from facebookads.objects import AdCampaign
 
-campaign = AdCampaign(parent_id=account_id)
+campaign = AdCampaign(parent_id=ad_account_id)
 campaign.update({
     AdCampaign.Field.name: 'Homepage Campaign',
     AdCampaign.Field.buying_type: AdCampaign.BuyingType.fixed_cpm,
@@ -72,13 +72,13 @@ campaign.remote_create()
 print(campaign)
 # _DOC close [ADCAMPAIGN_CREATE_HOMEPAGE]
 
-campaign_id = campaign.get_id()
+campaign_group_id = campaign.get_id()
 
 # _DOC open [ADCAMPAIGN_GET_ADGROUPS]
-# _DOC vars [campaign_id]
+# _DOC vars [campaign_group_id]
 from facebookads.objects import AdCampaign, AdGroup
 
-ad_campaign = AdCampaign(campaign_id)
+ad_campaign = AdCampaign(campaign_group_id)
 ad_group_iter = ad_campaign.get_ad_groups(fields=[AdGroup.Field.name])
 for ad_group in ad_group_iter:
     print(ad_group[AdGroup.Field.name])
@@ -87,10 +87,10 @@ for ad_group in ad_group_iter:
 campaign.remote_delete()
 
 # _DOC open [ADCAMPAIGN_CREATE_VIDEO_VIEWS]
-# _DOC vars [account_id:s]
+# _DOC vars [ad_account_id:s]
 from facebookads.objects import AdCampaign
 
-campaign = AdCampaign(parent_id=account_id)
+campaign = AdCampaign(parent_id=ad_account_id)
 campaign.update({
     AdCampaign.Field.name: 'Video Views Campaign',
     AdCampaign.Field.status: AdCampaign.Status.paused,
@@ -102,11 +102,11 @@ print(campaign)
 # _DOC close [ADCAMPAIGN_CREATE_VIDEO_VIEWS]
 
 # _DOC open [ADCAMPAIGN_GET_ADGROUPS_WITH_STATUS_ARCHIVED]
-# _DOC vars [campaign_id]
+# _DOC vars [campaign_group_id]
 from facebookads.objects import AdGroup, AdCampaign
 
-adcampaign_id = campaign_id
-adcampaign = AdCampaign(adcampaign_id)
+adcampaign_group_id = campaign_group_id
+adcampaign = AdCampaign(adcampaign_group_id)
 params = {
     AdGroup.Field.status: [AdGroup.Status.archived],
 }

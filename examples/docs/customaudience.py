@@ -35,7 +35,7 @@ config_file = open(os.path.join(this_dir, 'config.json'))
 config = json.load(config_file)
 config_file.close()
 
-account_id = config['account_id']
+ad_account_id = config['account_id']
 access_token = config['access_token']
 app_id = config['app_id']
 app_secret = config['app_secret']
@@ -75,10 +75,10 @@ FacebookAdsApi.init(app_id, app_secret, access_token)
 api = FacebookAdsApi.get_default_api()
 
 # _DOC open [CUSTOM_AUDIENCE_CREATE]
-# _DOC vars [account_id:s]
+# _DOC vars [ad_account_id:s]
 from facebookads.objects import CustomAudience
 
-audience = CustomAudience(parent_id=account_id)
+audience = CustomAudience(parent_id=ad_account_id)
 audience[CustomAudience.Field.name] = 'My new CA'
 audience[CustomAudience.Field.description] = 'People who bought on my website'
 
@@ -118,7 +118,7 @@ audience.remote_update()
 
 audience.remote_delete()
 
-audience = CustomAudience(parent_id=account_id)
+audience = CustomAudience(parent_id=ad_account_id)
 audience[CustomAudience.Field.name] = 'My new CA'
 audience[CustomAudience.Field.description] = 'Docsmith Example CA'
 audience.remote_create()
@@ -136,22 +136,22 @@ apps = [app_id]
 audience.add_users(CustomAudience.Schema.uid, users, apps)
 # _DOC close [CUSTOM_AUDIENCE_USERS_ADD_ID]
 
-account = AdAccount(account_id)
+account = AdAccount(ad_account_id)
 pixels = account.get_ads_pixels([AdsPixel.Field.code])
 if len(pixels):
     pixel = pixels[0]
 else:
-    pixel = AdsPixel(parent_id=account_id)
+    pixel = AdsPixel(parent_id=ad_account_id)
     pixel[AdsPixel.Field.name] = 'My WCA Pixel'
     pixel.remote_create()
 
 pixel_id = pixel[AdsPixel.Field.id]
 
 # _DOC open [CUSTOM_AUDIENCE_CREATE_WCA]
-# _DOC vars [account_id:s, pixel_id]
+# _DOC vars [ad_account_id:s, pixel_id]
 from facebookads.objects import CustomAudience
 
-audience = CustomAudience(parent_id=account_id)
+audience = CustomAudience(parent_id=ad_account_id)
 audience[CustomAudience.Field.name] = 'my audience'
 audience[CustomAudience.Field.subtype] = 'WEBSITE'
 audience[CustomAudience.Field.retention_days] = 15
@@ -192,10 +192,10 @@ audience.remote_delete()
 # _DOC close [CUSTOM_AUDIENCE_DELETE]
 
 # _DOC open [CUSTOM_AUDIENCE_CREATE_VIDEO_VIEWS_RETARGET]
-# _DOC vars [account_id:s, video_id]
+# _DOC vars [ad_account_id:s, video_id]
 from facebookads.objects import CustomAudience
 
-lookalike = CustomAudience(parent_id=account_id)
+lookalike = CustomAudience(parent_id=ad_account_id)
 lookalike.update({
     CustomAudience.Field.lookalike_spec: {
         'ratio': 0.01,

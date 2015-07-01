@@ -37,7 +37,7 @@ config_file = open(os.path.join(this_dir, 'config.json'))
 config = json.load(config_file)
 config_file.close()
 
-account_id = config['account_id']
+ad_account_id = config['account_id']
 access_token = config['access_token']
 app_id = config['app_id']
 app_secret = config['app_secret']
@@ -45,10 +45,10 @@ app_secret = config['app_secret']
 FacebookAdsApi.init(app_id, app_secret, access_token)
 
 # _DOC open [ADACCOUNT_READ]
-# _DOC vars [account_id:s]
+# _DOC vars [ad_account_id:s]
 from facebookads.objects import AdAccount
 
-account = AdAccount(account_id)
+account = AdAccount(ad_account_id)
 
 account.remote_read(fields=[
     AdAccount.Field.name,
@@ -57,18 +57,18 @@ account.remote_read(fields=[
 print(account[AdAccount.Field.name])
 print(account[AdAccount.Field.balance])
 # _DOC close [ADACCOUNT_READ]
-# _DOC vars [account_id:s]
+# _DOC vars [ad_account_id:s]
 from facebookads.objects import AdAccount
 
-account = AdAccount(account_id)
+account = AdAccount(ad_account_id)
 account.remote_read(fields=[AdAccount.Field.name])
 old_name = account[AdAccount.Field.name]
 
 # _DOC open [ADACCOUNT_UPDATE]
-# _DOC vars [account_id:s]
+# _DOC vars [ad_account_id:s]
 from facebookads.objects import AdAccount
 
-account = AdAccount(account_id)
+account = AdAccount(ad_account_id)
 
 account[AdAccount.Field.name] = 'New Name'
 account.remote_update()
@@ -78,10 +78,10 @@ account[AdAccount.Field.name] = old_name
 account.remote_update()
 
 # _DOC open [ADACCOUNT_GET_ADCAMPAIGNS]
-# _DOC vars [account_id:s]
+# _DOC vars [ad_account_id:s]
 from facebookads.objects import AdAccount, AdCampaign
 
-account = AdAccount(account_id)
+account = AdAccount(ad_account_id)
 campaigns = account.get_ad_campaigns(fields=[
     AdCampaign.Field.name,
 ])
@@ -90,20 +90,20 @@ for campaign in campaigns:
 # _DOC close [ADACCOUNT_GET_ADCAMPAIGNS]
 
 # _DOC open [ADACCOUNT_UPDATE_SPEND_CAP]
-# _DOC vars [account_id:s]
+# _DOC vars [ad_account_id:s]
 from facebookads.objects import AdAccount
 
-account = AdAccount(account_id)
+account = AdAccount(ad_account_id)
 
 account[AdAccount.Field.spend_cap] = 10000
 account.remote_update()
 # _DOC close [ADACCOUNT_UPDATE_SPEND_CAP]
 
 # _DOC open [ADACCOUNT_GET_ADSETS]
-# _DOC vars [account_id:s]
+# _DOC vars [ad_account_id:s]
 from facebookads.objects import AdAccount, AdSet
 
-account = AdAccount(account_id)
+account = AdAccount(ad_account_id)
 adsets = account.get_ad_sets(fields=[AdSet.Field.name])
 
 for adset in adsets:
@@ -111,10 +111,10 @@ for adset in adsets:
 # _DOC close [ADACCOUNT_GET_ADSETS]
 
 # _DOC open [ADACCOUNT_GET_CONNECTION_OBJECTS]
-# _DOC vars [account_id:s]
+# _DOC vars [ad_account_id:s]
 from facebookads.objects import AdAccount
 
-account = AdAccount(account_id)
+account = AdAccount(ad_account_id)
 objects = account.get_connection_objects()
 
 for obj in objects:
@@ -122,20 +122,20 @@ for obj in objects:
 # _DOC close [ADACCOUNT_GET_CONNECTION_OBJECTS]
 
 # _DOC open [ADACCOUNT_GET_ADUSERS]
-# _DOC vars [account_id:s]
+# _DOC vars [ad_account_id:s]
 from facebookads.objects import AdAccount, AdUser
 
-account = AdAccount(account_id)
+account = AdAccount(ad_account_id)
 users = account.get_ad_users()
 for user in users:
     print(user[AdUser.Field.id])
 # _DOC close [ADACCOUNT_GET_ADUSERS]
 
 # _DOC open [ADACCOUNT_READ_TOS_ACCEPTED]
-# _DOC vars [account_id:s]
+# _DOC vars [ad_account_id:s]
 from facebookads.objects import AdAccount
 
-account = AdAccount(account_id)
+account = AdAccount(ad_account_id)
 account.remote_read(fields=[AdAccount.Field.tos_accepted])
 
 for tos in account[AdAccount.Field.tos_accepted]:
@@ -143,36 +143,36 @@ for tos in account[AdAccount.Field.tos_accepted]:
 # _DOC close [ADACCOUNT_READ_TOS_ACCEPTED]
 
 # _DOC open [ADACCOUNT_GET_ADCREATIVES]
-# _DOC vars [account_id:s]
+# _DOC vars [ad_account_id:s]
 from facebookads.objects import AdAccount, AdCreative
 
-ad_account = AdAccount(fbid=account_id)
+ad_account = AdAccount(fbid=ad_account_id)
 ad_account.get_ad_creatives(fields=[AdCreative.Field.object_story_id])
 # _DOC close [ADACCOUNT_GET_ADCREATIVES]
 
 # _DOC open [ADACCOUNT_GET_ADIMAGES]
-# _DOC vars [account_id:s]
+# _DOC vars [ad_account_id:s]
 from facebookads.objects import AdAccount
 
-account = AdAccount(account_id)
+account = AdAccount(ad_account_id)
 images = account.get_ad_images()
 # _DOC close [ADACCOUNT_GET_ADIMAGES]
 
 # _DOC open [ADACCOUNT_GET_ADGROUPS]
-# _DOC vars [account_id:s]
+# _DOC vars [ad_account_id:s]
 from facebookads.objects import AdAccount, AdGroup
 
-ad_account = AdAccount(account_id)
+ad_account = AdAccount(ad_account_id)
 ad_group_iter = ad_account.get_ad_groups(fields=[AdGroup.Field.name])
 for ad_group in ad_group_iter:
     print ad_group[AdGroup.Field.name]
 # _DOC close [ADACCOUNT_GET_ADGROUPS]
 
 # _DOC open [ADACCOUNT_GET_ADGROUPS_WITH_STATUS]
-# _DOC vars [account_id:s]
+# _DOC vars [ad_account_id:s]
 from facebookads.objects import AdAccount, AdGroup
 
-account = AdAccount(account_id)
+account = AdAccount(ad_account_id)
 params = {
     'adgroup_status': ['ACTIVE', 'PAUSED', 'CAMPAIGN_PAUSED',
                        'CAMPAIGN_GROUP_PAUSED', 'PENDING_REVIEW', 'DISAPPROVED',
@@ -184,10 +184,10 @@ for adgroup in adgroup_iter:
 # _DOC close [ADACCOUNT_GET_ADGROUPS_WITH_STATUS]
 
 # _DOC open [ADACCOUNT_GET_CUSTOMAUDIENCES_NAME]
-# _DOC vars [account_id:s]
+# _DOC vars [ad_account_id:s]
 from facebookads.objects import AdAccount, CustomAudience
 
-ad_account = AdAccount(account_id)
+ad_account = AdAccount(ad_account_id)
 custom_audience_iter = ad_account.get_custom_audiences(fields=[
     CustomAudience.Field.name
 ])
@@ -196,18 +196,18 @@ for custom_audience in custom_audience_iter:
 # _DOC close [ADACCOUNT_GET_CUSTOMAUDIENCES_NAME]
 
 # _DOC open [ADACCOUNT_GET_RATECARDS]
-# _DOC vars [account_id:s]
+# _DOC vars [ad_account_id:s]
 from facebookads.objects import AdAccount
 
-ad_account = AdAccount(account_id)
+ad_account = AdAccount(ad_account_id)
 rate_cards = ad_account.get_rate_cards()
 print(rate_cards)
 # _DOC close [ADACCOUNT_GET_RATECARDS]
 
 # _DOC open [ADACCOUNT_GET_REPORTSTATS]
-# _DOC vars [account_id:s]
+# _DOC vars [ad_account_id:s]
 from facebookads.objects import AdAccount
-account = AdAccount(account_id)
+account = AdAccount(ad_account_id)
 
 params = {
     'date_preset': 'last_28_days',
@@ -222,10 +222,10 @@ for stat in stats:
 # _DOC close [ADACCOUNT_GET_REPORTSTATS]
 
 # _DOC open [ADACCOUNT_GET_REPORTSTATS_LAST_7_DAYS]
-# _DOC vars [account_id:s]
+# _DOC vars [ad_account_id:s]
 from facebookads.objects import AdAccount
 
-account = AdAccount(account_id)
+account = AdAccount(ad_account_id)
 
 params = {
     'date_preset': 'last_7_days',
@@ -255,11 +255,11 @@ for stat in stats:
 # _DOC close [ADACCOUNT_GET_REPORTSTATS_LAST_7_DAYS]
 
 # _DOC open [ADACCOUNT_GET_REPORTSTATS_WITH_DATE_TIME_RANGES]
-# _DOC vars [account_id:s]
+# _DOC vars [ad_account_id:s]
 from datetime import datetime, timedelta
 from facebookads.objects import AdAccount
 
-account = AdAccount(account_id)
+account = AdAccount(ad_account_id)
 day_start = datetime.today() - timedelta(weeks=2)
 day_stop = datetime.today() - timedelta(weeks=1)
 
@@ -288,12 +288,12 @@ stats = account.get_report_stats(params=params)
 # _DOC close [ADACCOUNT_GET_REPORTSTATS_WITH_DATE_TIME_RANGES]
 
 # _DOC open [ADACCOUNT_GET_REPORTSTATS_WITH_UNIX_TIME_RANGES]
-# _DOC vars [account_id:s]
+# _DOC vars [ad_account_id:s]
 from datetime import datetime, timedelta
 from dateutil import tz
 from facebookads.objects import AdAccount
 
-account = AdAccount(account_id)
+account = AdAccount(ad_account_id)
 today = datetime.today()
 today = datetime(today.year, today.month, today.day, tzinfo=tz.tzlocal())
 epoch = datetime(1970, 1, 1, tzinfo=tz.tzlocal())
@@ -318,10 +318,10 @@ stats = account.get_report_stats(params=params)
 # _DOC close [ADACCOUNT_GET_REPORTSTATS_WITH_UNIX_TIME_RANGES]
 
 # _DOC open [ADACCOUNT_GET_REPORTSTATS_WITH_RELATIVE_DATE_YESTERDAY]
-# _DOC vars [account_id:s]
+# _DOC vars [ad_account_id:s]
 from facebookads.objects import AdAccount
 
-account = AdAccount(account_id)
+account = AdAccount(ad_account_id)
 
 params = {
     'date_preset': 'yesterday',
@@ -338,10 +338,10 @@ stats = account.get_report_stats(params=params)
 # _DOC close [ADACCOUNT_GET_REPORTSTATS_WITH_RELATIVE_DATE_YESTERDAY]
 
 # _DOC open [ADACCOUNT_GET_REPORTSTATS_WITH_RELATIVE_DATE_LAST_WEEK]
-# _DOC vars [account_id:s]
+# _DOC vars [ad_account_id:s]
 from facebookads.objects import AdAccount
 
-account = AdAccount(account_id)
+account = AdAccount(ad_account_id)
 
 params = {
     'date_preset': 'last_week',
@@ -359,12 +359,12 @@ stats = account.get_report_stats(params=params)
 # _DOC close [ADACCOUNT_GET_REPORTSTATS_WITH_RELATIVE_DATE_LAST_WEEK]
 
 # _DOC open [ADACCOUNT_GET_REPORTSTATS_WITH_UNIX_TIME_INTERVAL]
-# _DOC vars [account_id:s]
+# _DOC vars [ad_account_id:s]
 from datetime import datetime, timedelta
 from dateutil import tz
 from facebookads.objects import AdAccount
 
-account = AdAccount(account_id)
+account = AdAccount(ad_account_id)
 today = datetime.today()
 today = datetime(today.year, today.month, today.day, tzinfo=tz.tzlocal())
 epoch = datetime(1970, 1, 1, tzinfo=tz.tzlocal())
@@ -392,9 +392,9 @@ stats = account.get_report_stats(params=params)
 # _DOC close [ADACCOUNT_GET_REPORTSTATS_WITH_UNIX_TIME_INTERVAL]
 
 # _DOC open [ADACCOUNT_GET_REPORTSTATS_CROSS_DEVICE_REPORT]
-# _DOC vars [account_id:s]
+# _DOC vars [ad_account_id:s]
 from facebookads.objects import AdAccount
-account = AdAccount(account_id)
+account = AdAccount(ad_account_id)
 
 params = {
     'date_preset': 'today',
@@ -415,9 +415,9 @@ stats = account.get_report_stats(params=params)
 # _DOC close [ADACCOUNT_GET_REPORTSTATS_CROSS_DEVICE_REPORT]
 
 # _DOC open [ADACCOUNT_GET_REPORTSTATS_RELEVANCE_SCORE]
-# _DOC vars [account_id:s]
+# _DOC vars [ad_account_id:s]
 from facebookads.objects import AdAccount
-account = AdAccount(account_id)
+account = AdAccount(ad_account_id)
 
 params = {
     'date_preset': 'last_14_days',
@@ -445,10 +445,10 @@ stats = account.get_report_stats(params=params)
 # _DOC close [ADACCOUNT_GET_REPORTSTATS_RELEVANCE_SCORE]
 
 # _DOC open [ADACCOUNT_GET_INSIGHTS_VIDEO_VIEWS]
-# _DOC vars [account_id:s]
+# _DOC vars [ad_account_id:s]
 from facebookads.objects import AdAccount, Insights
 
-account = AdAccount(account_id)
+account = AdAccount(ad_account_id)
 
 params = {
     'action_breakdowns': Insights.ActionBreakdown.action_video_type,

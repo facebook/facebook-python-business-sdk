@@ -36,7 +36,7 @@ config_file = open(os.path.join(this_dir, 'config.json'))
 config = json.load(config_file)
 config_file.close()
 
-account_id = config['account_id']
+ad_account_id = config['account_id']
 access_token = config['access_token']
 app_id = config['app_id']
 app_secret = config['app_secret']
@@ -45,11 +45,11 @@ image_path = os.path.join(this_dir, os.pardir, 'test.png')
 
 FacebookAdsApi.init(app_id, app_secret, access_token)
 
-campaign = AdCampaign(parent_id=account_id)
+campaign = AdCampaign(parent_id=ad_account_id)
 campaign[AdCampaign.Field.name] = 'Foo'
 campaign.remote_create()
 
-adset = AdSet(parent_id=account_id)
+adset = AdSet(parent_id=ad_account_id)
 adset[AdSet.Field.name] = 'Foo 2'
 adset[AdSet.Field.campaign_group_id] = campaign.get_id()
 adset[AdSet.Field.targeting] = {
@@ -61,9 +61,9 @@ adset[AdSet.Field.bid_info] = {'CLICKS': 500}
 adset[AdSet.Field.bid_type] = AdSet.BidType.cpc
 adset[AdSet.Field.daily_budget] = 1000
 adset.remote_create()
-adset_id = adset.get_id_assured()
+ad_set_id = adset.get_id_assured()
 
-img = AdImage(parent_id=account_id)
+img = AdImage(parent_id=ad_account_id)
 img[AdImage.Field.filename] = image_path
 img.remote_create()
 image_hash = img.get_hash()
@@ -78,19 +78,19 @@ object_story_spec = ObjectStorySpec()
 object_story_spec[ObjectStorySpec.Field.page_id] = page_id
 object_story_spec[ObjectStorySpec.Field.link_data] = link_data
 
-creative = AdCreative(parent_id=account_id)
+creative = AdCreative(parent_id=ad_account_id)
 creative[AdCreative.Field.name] = 'AdCreative for Link Ad'
 creative[AdCreative.Field.object_story_spec] = object_story_spec
 creative.remote_create()
 creative_id = creative.get_id_assured()
 
 # _DOC open [ADGROUP_CREATE]
-# _DOC vars [account_id:s, adset_id, creative_id:s]
+# _DOC vars [ad_account_id:s, ad_set_id, creative_id:s]
 from facebookads.objects import AdGroup
 
-adgroup = AdGroup(parent_id=account_id)
+adgroup = AdGroup(parent_id=ad_account_id)
 adgroup[AdGroup.Field.name] = 'My AdGroup'
-adgroup[AdGroup.Field.campaign_id] = adset_id
+adgroup[AdGroup.Field.campaign_id] = ad_set_id
 adgroup[AdGroup.Field.status] = AdGroup.Status.paused
 adgroup[AdGroup.Field.creative] = {
     'creative_id': creative_id,
@@ -103,82 +103,82 @@ creative.remote_delete()
 img.remote_delete(params={AdImage.Field.hash: image_hash})
 
 # _DOC open [ADGROUP_CREATE_REDOWNLOAD]
-# _DOC vars [adset_id, creative_id, account_id:s]
+# _DOC vars [ad_set_id, creative_id, ad_account_id:s]
 from facebookads.objects import AdGroup
 
-adgroup = AdGroup(parent_id = account_id)
+adgroup = AdGroup(parent_id=ad_account_id)
 adgroup[AdGroup.Field.name] = 'My AdGroup'
-adgroup[AdGroup.Field.campaign_id] = adset_id
+adgroup[AdGroup.Field.campaign_id] = ad_set_id
 adgroup[AdGroup.Field.creative] = {'creative_id': str(creative_id)}
 adgroup[AdGroup.Field.status] = AdGroup.Status.paused
 adgroup[AdGroup.Field.redownload] = True
 adgroup.remote_create()
 # _DOC close [ADGROUP_CREATE_REDOWNLOAD]
 
-adgroup_id = adgroup.get_id()
+ad_group_id = adgroup.get_id()
 
 # _DOC open [ADGROUP_READ]
-# _DOC vars [adgroup_id]
+# _DOC vars [ad_group_id]
 from facebookads.objects import AdGroup
 
-adgroup = AdGroup(adgroup_id)
+adgroup = AdGroup(ad_group_id)
 adgroup.remote_read(fields=[AdGroup.Field.name])
 # _DOC close [ADGROUP_READ]
 
 # _DOC open [ADGROUP_READ_CONVERSION_BID]
-# _DOC vars [adgroup_id]
+# _DOC vars [ad_group_id]
 from facebookads.objects import AdGroup
 
-adgroup = AdGroup(adgroup_id)
+adgroup = AdGroup(ad_group_id)
 adgroup.remote_read(fields=[AdGroup.Field.conversion_specs, 'bid_type'])
 # _DOC close [ADGROUP_READ_CONVERSION_BID]
 
 # _DOC open [ADGROUP_UPDATE]
-# _DOC vars [adgroup_id]
+# _DOC vars [ad_group_id]
 from facebookads.objects import AdGroup
 
-adgroup = AdGroup(adgroup_id)
+adgroup = AdGroup(ad_group_id)
 adgroup[AdGroup.Field.name] = 'New AdGroup Name'
 adgroup.remote_update()
 # _DOC close [ADGROUP_UPDATE]
 
 # _DOC open [ADGROUP_UPDATE_WITH_REDOWNLOAD]
-# _DOC vars [adgroup_id]
+# _DOC vars [ad_group_id]
 from facebookads.objects import AdGroup
 
-adgroup = AdGroup(adgroup_id)
+adgroup = AdGroup(ad_group_id)
 adgroup[AdGroup.Field.name] = 'New AdGroup Name'
 adgroup['redownload'] = True
 adgroup.remote_update()
 # _DOC close [ADGROUP_UPDATE_WITH_REDOWNLOAD]
 
 # _DOC open [ADGROUP_UPDATE_STATUS]
-# _DOC vars [adgroup_id]
+# _DOC vars [ad_group_id]
 from facebookads.objects import AdGroup
 
-adgroup = AdGroup(adgroup_id)
+adgroup = AdGroup(ad_group_id)
 adgroup[AdGroup.Field.status] = AdGroup.Status.paused
 adgroup.remote_update()
 # _DOC close [ADGROUP_UPDATE_STATUS]
 
 # _DOC open [ADGROUP_DELETE]
-# _DOC vars [adgroup_id]
+# _DOC vars [ad_group_id]
 from facebookads.objects import AdGroup
 
-adgroup = AdGroup(adgroup_id)
+adgroup = AdGroup(ad_group_id)
 adgroup.remote_delete()
 # _DOC close [ADGROUP_DELETE]
 
 
 # _DOC open [ADGROUP_CREATE_INLINE_CREATIVE]
-# _DOC vars [account_id:s, image_hash:s, adset_id]
+# _DOC vars [ad_account_id:s, image_hash:s, ad_set_id]
 from facebookads.objects import AdImage, AdCreative, AdGroup
 
 # First, upload the ad image that you will use in your ad creative
 # Please refer to Ad Image Create for details.
 
 # Then, use the image hash returned from above
-creative = AdCreative(parent_id=account_id)
+creative = AdCreative(parent_id=ad_account_id)
 creative[AdCreative.Field.title] = 'My Test Creative'
 creative[AdCreative.Field.body] = 'My Test Ad Creative Body'
 creative[AdCreative.Field.object_url] = 'https://www.facebook.com/facebook'
@@ -187,27 +187,27 @@ creative[AdCreative.Field.image_hash] = image_hash
 # Finally, create your ad along with ad creative.
 # Please note that the ad creative is not created independently, rather its
 # data structure is appended to the ad group
-adgroup = AdGroup(parent_id=account_id)
+adgroup = AdGroup(parent_id=ad_account_id)
 adgroup[AdGroup.Field.name] = 'My Ad'
-adgroup[AdGroup.Field.campaign_id] = adset_id
+adgroup[AdGroup.Field.campaign_id] = ad_set_id
 adgroup[AdGroup.Field.creative] = creative
 adgroup[AdGroup.Field.status] = AdGroup.Status.paused
 adgroup.remote_create()
 # _DOC close [ADGROUP_CREATE_INLINE_CREATIVE]
 
 # _DOC open [ADGROUP_ARCHIVE]
-# _DOC vars [adgroup_id]
+# _DOC vars [ad_group_id]
 from facebookads.objects import AdGroup
 
-adgroup = AdGroup(adgroup_id)
+adgroup = AdGroup(ad_group_id)
 adgroup.remote_archive()
 # _DOC close [ADGROUP_ARCHIVE]
 
 # _DOC open [ADGROUP_READ_FAILED_DELIVERY_CHECKS]
-# _DOC vars [adgroup_id]
+# _DOC vars [ad_group_id]
 from facebookads.objects import AdGroup
 
-adgroup = AdGroup(adgroup_id)
+adgroup = AdGroup(ad_group_id)
 adgroup.remote_read(fields=[AdGroup.Field.failed_delivery_checks])
 # _DOC close [ADGROUP_READ_FAILED_DELIVERY_CHECKS]
 

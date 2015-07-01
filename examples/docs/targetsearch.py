@@ -28,7 +28,7 @@ config_file = open('./examples/docs/config.json')
 config = json.load(config_file)
 config_file.close()
 
-account_id = config['account_id']
+ad_account_id = config['account_id']
 access_token = config['access_token']
 app_id = config['app_id']
 app_secret = config['app_secret']

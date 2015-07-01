@@ -36,7 +36,7 @@ config_file = open(os.path.join(this_dir, 'config.json'))
 config = json.load(config_file)
 config_file.close()
 
-account_id = config['account_id']
+ad_account_id = config['account_id']
 page_id = config['page_id']
 post_id = config['post_id']
 url = config['url']
@@ -48,7 +48,7 @@ app_secret = config['app_secret']
 
 FacebookAdsApi.init(app_id, app_secret, access_token)
 
-img = AdImage(parent_id=account_id)
+img = AdImage(parent_id=ad_account_id)
 img[AdImage.Field.filename] = os.path.join(this_dir, os.pardir, 'test.png')
 img.remote_create()
 image_hash = img.get_hash()
@@ -56,7 +56,7 @@ image_hash = img.get_hash()
 link = 'http://example.com'
 
 # _DOC open [ADCREATIVE_CREATE_LINK_AD]
-# _DOC vars [account_id:s, image_hash:s, page_id, link:s]
+# _DOC vars [ad_account_id:s, image_hash:s, page_id, link:s]
 from facebookads.objects import AdCreative
 from facebookads.specs import ObjectStorySpec, LinkData
 
@@ -70,7 +70,7 @@ object_story_spec = ObjectStorySpec()
 object_story_spec[ObjectStorySpec.Field.page_id] = page_id
 object_story_spec[ObjectStorySpec.Field.link_data] = link_data
 
-creative = AdCreative(parent_id=account_id)
+creative = AdCreative(parent_id=ad_account_id)
 creative[AdCreative.Field.name] = 'AdCreative for Link Ad'
 creative[AdCreative.Field.object_story_spec] = object_story_spec
 creative.remote_create()
@@ -81,7 +81,7 @@ creative.remote_delete()
 img.remote_delete(params={AdImage.Field.hash: image_hash})
 
 # _DOC open [ADCREATIVE_CREATE_LINK_AD_CALL_TO_ACTION]
-# _DOC vars [url:s, page_id, account_id:s]
+# _DOC vars [url:s, page_id, ad_account_id:s]
 from facebookads.objects import AdCreative
 from facebookads.specs import ObjectStorySpec, LinkData
 
@@ -104,7 +104,7 @@ object_story_spec = ObjectStorySpec()
 object_story_spec[ObjectStorySpec.Field.page_id] = page_id
 object_story_spec[ObjectStorySpec.Field.link_data] = link_data
 
-creative = AdCreative(parent_id=account_id)
+creative = AdCreative(parent_id=ad_account_id)
 creative[AdCreative.Field.name] = 'AdCreative for Link Ad with CTA'
 creative[AdCreative.Field.object_story_spec] = object_story_spec
 creative.remote_create()
@@ -112,19 +112,19 @@ print(creative)
 # _DOC close [ADCREATIVE_CREATE_LINK_AD_CALL_TO_ACTION]
 creative.remote_delete()
 
-video = AdVideo(parent_id=account_id)
+video = AdVideo(parent_id=ad_account_id)
 video[AdVideo.Field.filepath] = file_path
 video.remote_create()
 video.waitUntilEncodingReady()
 video_id = video.get_id()
 
-img = AdImage(parent_id=account_id)
+img = AdImage(parent_id=ad_account_id)
 img[AdImage.Field.filename] = os.path.join(this_dir, os.pardir, 'test.png')
 img.remote_create()
 image_url = img[AdImage.Field.url]
 image_hash = img.get_hash()
 # _DOC open [ADCREATIVE_CREATE_VIDEO_PAGE_LIKE_AD]
-# _DOC vars [image_url:s, page_id, account_id:s, file_path:s, video_id]
+# _DOC vars [image_url:s, page_id, ad_account_id:s, file_path:s, video_id]
 from facebookads.objects import AdCreative
 from facebookads.specs import ObjectStorySpec, LinkData
 video_data = VideoData()
@@ -142,7 +142,7 @@ object_story_spec = ObjectStorySpec()
 object_story_spec[ObjectStorySpec.Field.page_id] = page_id
 object_story_spec[ObjectStorySpec.Field.video_data] = video_data
 
-creative = AdCreative(parent_id=account_id)
+creative = AdCreative(parent_id=ad_account_id)
 creative[AdCreative.Field.name] = 'Video Ad Creative'
 creative[AdCreative.Field.object_story_spec] = object_story_spec
 creative.remote_create()
@@ -154,7 +154,7 @@ creative.remote_delete()
 # _DOC open [ADCREATIVE_CREATE_PAGE_POST]
 from facebookads.objects import AdCreative
 
-creative = AdCreative(parent_id=account_id)
+creative = AdCreative(parent_id=ad_account_id)
 creative[AdCreative.Field.object_story_id] = post_id
 creative[AdCreative.Field.name] = 'AdCreative with post ID'
 
@@ -164,10 +164,10 @@ print(creative)
 creative.remote_delete()
 
 # _DOC open [ADCREATIVE_CREATE_URL_TAG]
-# _DOC vars [account_id:s, post_id]
+# _DOC vars [ad_account_id:s, post_id]
 from facebookads.objects import AdCreative
 
-creative = AdCreative(parent_id=account_id)
+creative = AdCreative(parent_id=ad_account_id)
 creative[AdCreative.Field.object_story_id] = post_id
 creative[AdCreative.Field.name] = 'Ad Creative with URL tag'
 creative[AdCreative.Field.url_tags] = 'key1=val1&key2=val2'
@@ -215,7 +215,7 @@ print(creative[AdCreative.Field.thumbnail_url])
 creative.remote_delete()
 
 # _DOC open [ADCREATIVE_CREATE_MULTI_PRODUCT_AD]
-# _DOC vars [account_id:s, page_id, url:s, image_hash:s]
+# _DOC vars [ad_account_id:s, page_id, url:s, image_hash:s]
 from facebookads.objects import AdCreative
 from facebookads.specs import ObjectStorySpec, LinkData, AttachmentData
 
@@ -246,7 +246,7 @@ story = ObjectStorySpec()
 story[story.Field.page_id] = page_id
 story[story.Field.link_data] = link
 
-creative = AdCreative(parent_id=account_id)
+creative = AdCreative(parent_id=ad_account_id)
 creative[AdCreative.Field.name] = 'MPA Creative'
 creative[AdCreative.Field.object_story_spec] = story
 creative.remote_create()
