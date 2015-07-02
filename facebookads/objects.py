@@ -1052,6 +1052,12 @@ class AdAccount(CannotCreate, CannotDelete, AbstractCrudObject):
     def get_ads_pixels(self, fields=None, params=None):
         return self.edge_object(AdsPixel, fields, params)
 
+    def get_targeting_description(self, fields=None, params=None):
+        """
+        Returns TargetingDescription object associated with this account.
+        """
+        return self.edge_object(TargetingDescription, fields, params)
+
 
 class AdAccountGroup(AbstractCrudObject):
 
