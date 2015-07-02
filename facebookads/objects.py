@@ -2306,6 +2306,18 @@ class ProductCatalog(AbstractCrudObject):
             params
         )
 
+    def get_products(self, fields=None, params=None):
+        """get products in a product catalog
+
+        Args:
+            fields:
+                list of fields of ProductItem
+            params:
+                filter:
+                    JSON Filter Specification for filter products
+        """
+        return self.iterate_edge(Product, fields, params)
+
     def update_product(self, retailer_id, **kwargs):
         """Updates a product stored in a product catalog
 
@@ -2483,15 +2495,18 @@ class Product(AbstractCrudObject):
         link = 'link'
         material = 'material'
         mpn = 'mpn'
+        name = 'name'
         pattern = 'pattern'
         price = 'price'
         product_type = 'product_type'
+        retailer_id = 'retailer_id'
         sale_price = 'sale_price'
         sale_price_effective_date = 'sale_price_effective_date'
         shipping = 'shipping'
         shipping_size = 'shipping_size'
         shipping_weight = 'shipping_weight'
         title = 'title'
+        url = 'url'
 
     class Availability(object):
         in_stock = 'IN_STOCK'
