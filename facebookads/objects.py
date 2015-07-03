@@ -66,6 +66,7 @@ class EdgeIterator(object):
         target_objects_class,
         fields=None,
         params=None,
+        include_summary=True,
     ):
         """
         Initializes an iterator over the objects to which there is an edge from
@@ -82,8 +83,8 @@ class EdgeIterator(object):
                 is the parameter name and its value is a string or an object
                 which can be JSON-encoded.
         """
-        self._params = dict(params or {})
-        target_objects_class._assign_fields_to_params(fields, self._params)
+        self.params = dict(params or {})
+        target_objects_class._assign_fields_to_params(fields, self.params)
         self._source_object = source_object
         self._target_objects_class = target_objects_class
         self._path = (
@@ -93,9 +94,7 @@ class EdgeIterator(object):
         self._queue = []
         self._finished_iteration = False
         self._total_count = None
-
-        if self._source_object.get_api():
-            self.load_next_page()
+        self._include_summary = include_summary
 
     def __repr__(self):
         return str(self._queue)
@@ -137,13 +136,14 @@ class EdgeIterator(object):
         if self._finished_iteration:
             return False
 
-        if 'summary' not in self._params:
-            self._params['summary'] = True
+        if self._include_summary:
+            if 'summary' not in self.params:
+                self.params['summary'] = True
 
         response = self._source_object.get_api_assured().call(
             'GET',
             self._path,
-            params=self._params,
+            params=self.params,
         ).json()
 
         if 'paging' in response and 'next' in response['paging']:
@@ -152,7 +152,11 @@ class EdgeIterator(object):
             # Indicate if this was the last page
             self._finished_iteration = True
 
-        if 'summary' in response and 'total_count' in response['summary']:
+        if (
+            self._include_summary and
+            'summary' in response and
+            'total_count' in response['summary']
+        ):
             self._total_count = response['summary']['total_count']
 
         self._queue = self.build_objects_from_response(response)
@@ -311,6 +315,7 @@ class AbstractCrudObject(AbstractObject):
         self._parent_id = parent_id
         self._api = api
         self._data[self.Field.id] = fbid
+        self._include_summary = True
 
     def __setitem__(self, key, value):
         """Sets an item in this CRUD object while maintaining a changelog."""
@@ -739,7 +744,8 @@ class AbstractCrudObject(AbstractObject):
     # To avoid breaking change. Will be deprecated
     save = remote_save
 
-    def iterate_edge(self, target_objects_class, fields=None, params=None):
+    def iterate_edge(self, target_objects_class, fields=None, params=None,
+                     fetch_first_page=True, include_summary=True):
         """
         Returns EdgeIterator with argument self as source_object and
         the rest as given __init__ arguments.
@@ -747,12 +753,71 @@ class AbstractCrudObject(AbstractObject):
         Note: list(iterate_edge(...)) can prefetch all the objects.
         """
         source_object = self
-        return EdgeIterator(
+        iterator = EdgeIterator(
             source_object,
             target_objects_class,
             fields=fields,
-            params=params
+            params=params,
+            include_summary=include_summary,
         )
+        if fetch_first_page:
+            iterator.load_next_page()
+        return iterator
+
+    def iterate_edge_async(self, target_objects_class, fields=None,
+                           params=None, async=False, include_summary=True):
+        """
+        Behaves as iterate_edge(...) if parameter async if False
+        (Default value)
+
+        If async is True:
+        Returns an AsyncJob which can be checked using remote_read()
+        to verify when the job is completed and the result ready to query
+        or download using get_result()
+
+        Example:
+        >>> job = object.iterate_edge_async(
+                TargetClass, fields, params, async=True)
+        >>> time.sleep(10)
+        >>> job.remote_read()
+        >>> if job:
+                result = job.read_result()
+                print result
+        """
+        synchronous = not async
+        synchronous_iterator = self.iterate_edge(
+            target_objects_class,
+            fields,
+            params,
+            fetch_first_page=synchronous,
+            include_summary=include_summary
+        )
+        if synchronous:
+            return synchronous_iterator
+
+        if not params:
+            params = {}
+        else:
+            params = dict(params)
+        self.__class__._assign_fields_to_params(fields, params)
+
+        # To force an async response from an edge, do a POST instead of GET.
+        # The response comes in the format of an AsyncJob which
+        # indicates the progress of the async request.
+        response = self.get_api_assured().call(
+            'POST',
+            (self.get_id_assured(), target_objects_class.get_endpoint()),
+            params=params,
+        ).json()
+
+        # AsyncJob stores the real iterator
+        # for when the result is ready to be queried
+        result = AsyncJob(synchronous_iterator)
+
+        if 'report_run_id' in response:
+            response['id'] = response['report_run_id']
+        result._set_data(response)
+        return result
 
     def edge_object(self, target_objects_class, fields=None, params=None):
         """
@@ -975,10 +1040,14 @@ class AdAccount(CannotCreate, CannotDelete, AbstractCrudObject):
         """Returns iterator over AdImage's associated with this account."""
         return self.iterate_edge(AdImage, fields, params)
 
-    def get_insights(self, fields=None, params=None):
-        params = params or {}
-        params['summary'] = params.get('summary')
-        return self.iterate_edge(Insights, fields, params)
+    def get_insights(self, fields=None, params=None, async=False):
+        return self.iterate_edge_async(
+            Insights,
+            fields,
+            params,
+            async,
+            include_summary=False
+        )
 
     def get_broad_category_targeting(self, fields=None, params=None):
         """
@@ -1015,9 +1084,9 @@ class AdAccount(CannotCreate, CannotDelete, AbstractCrudObject):
         """
         return self.iterate_edge(ReachEstimate, fields, params)
 
-    def get_report_stats(self, fields=None, params=None):
+    def get_report_stats(self, fields=None, params=None, async=False):
         """Returns iterator over ReportStats's associated with this account."""
-        return self.iterate_edge(ReportStats, fields, params)
+        return self.iterate_edge_async(ReportStats, fields, params, async)
 
     def get_stats(self, fields=None, params=None):
         """Returns iterator over AdStats's associated with this account."""
@@ -1173,10 +1242,14 @@ class AdCampaign(CanValidate, HasStatus, HasObjective, CanArchive,
         """Returns iterator over AdStat's associated with this campaign."""
         return self.iterate_edge(AdStats, fields, params)
 
-    def get_insights(self, fields=None, params=None):
-        params = params or {}
-        params['summary'] = params.get('summary')
-        return self.iterate_edge(Insights, fields, params)
+    def get_insights(self, fields=None, params=None, async=False):
+        return self.iterate_edge_async(
+            Insights,
+            fields,
+            params,
+            async,
+            include_summary=False
+        )
 
 
 class AdSet(CanValidate, HasStatus, CanArchive, AbstractCrudObject):
@@ -1231,10 +1304,14 @@ class AdSet(CanValidate, HasStatus, CanArchive, AbstractCrudObject):
         """Returns iterator over AdStat's associated with this set."""
         return self.iterate_edge(AdStats, fields, params)
 
-    def get_insights(self, fields=None, params=None):
-        params = params or {}
-        params['summary'] = params.get('summary')
-        return self.iterate_edge(Insights, fields, params)
+    def get_insights(self, fields=None, params=None, async=False):
+        return self.iterate_edge_async(
+            Insights,
+            fields,
+            params,
+            async,
+            include_summary=False
+        )
 
 
 class AdGroup(HasStatus, HasObjective, CanArchive, AbstractCrudObject):
@@ -1299,10 +1376,14 @@ class AdGroup(HasStatus, HasObjective, CanArchive, AbstractCrudObject):
         """Returns ConversionStats object associated with this ad."""
         return self.edge_object(ConversionStats, fields, params)
 
-    def get_insights(self, fields=None, params=None):
-        params = params or {}
-        params['summary'] = params.get('summary')
-        return self.iterate_edge(Insights, fields, params)
+    def get_insights(self, fields=None, params=None, async=False):
+        return self.iterate_edge_async(
+            Insights,
+            fields,
+            params,
+            async,
+            include_summary=False
+        )
 
 
 class AdConversionPixel(AbstractCrudObject):
@@ -2219,10 +2300,14 @@ class Business(CannotCreate, CannotDelete, AbstractCrudObject):
     def get_product_catalogs(self, fields=None, params=None):
         return self.iterate_edge(ProductCatalog, fields, params)
 
-    def get_insights(self, fields=None, params=None):
-        params = params or {}
-        params['summary'] = params.get('summary')
-        return self.iterate_edge(Insights, fields, params)
+    def get_insights(self, fields=None, params=None, async=False):
+        return self.iterate_edge_async(
+            Insights,
+            fields,
+            params,
+            async,
+            include_summary=False
+        )
 
 
 class ProductCatalog(AbstractCrudObject):
@@ -2684,3 +2769,29 @@ class Insights(CannotCreate, CannotDelete, CannotUpdate, AbstractCrudObject):
     class ActionReportTime(object):
         conversion = 'conversion'
         impression = 'impression'
+
+
+class AsyncJob(CannotCreate, AbstractCrudObject):
+
+    class Field(object):
+        id = 'id'
+        async_status = 'async_status'
+        async_percent_completion = 'async_percent_completion'
+
+    def __init__(self, edge_iterator):
+        AbstractCrudObject.__init__(self)
+        self.edge_iterator = edge_iterator
+
+    def get_result(self, params=None):
+        """
+        Gets the final result from an async job
+        Accepts params such as limit
+        """
+        params = params or {}
+        params['report_run_id'] = self[self.Field.id]
+        self.edge_iterator.params = params
+        self.edge_iterator.load_next_page()
+        return self.edge_iterator
+
+    def __nonzero__(self):
+        return self[self.Field.async_percent_completion] == 100
