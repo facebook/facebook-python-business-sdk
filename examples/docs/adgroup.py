@@ -100,7 +100,6 @@ adgroup.remote_create()
 
 adgroup.remote_delete()
 creative.remote_delete()
-img.remote_delete(params={AdImage.Field.hash: image_hash})
 
 # _DOC open [ADGROUP_CREATE_REDOWNLOAD]
 # _DOC vars [ad_set_id, creative_id, ad_account_id:s]
@@ -161,6 +160,14 @@ adgroup[AdGroup.Field.status] = AdGroup.Status.paused
 adgroup.remote_update()
 # _DOC close [ADGROUP_UPDATE_STATUS]
 
+# _DOC open [ADGROUP_ARCHIVE]
+# _DOC vars [ad_group_id]
+from facebookads.objects import AdGroup
+
+adgroup = AdGroup(ad_group_id)
+adgroup.remote_archive()
+# _DOC close [ADGROUP_ARCHIVE]
+
 # _DOC open [ADGROUP_DELETE]
 # _DOC vars [ad_group_id]
 from facebookads.objects import AdGroup
@@ -195,13 +202,7 @@ adgroup[AdGroup.Field.status] = AdGroup.Status.paused
 adgroup.remote_create()
 # _DOC close [ADGROUP_CREATE_INLINE_CREATIVE]
 
-# _DOC open [ADGROUP_ARCHIVE]
-# _DOC vars [ad_group_id]
-from facebookads.objects import AdGroup
-
-adgroup = AdGroup(ad_group_id)
-adgroup.remote_archive()
-# _DOC close [ADGROUP_ARCHIVE]
+ad_creatives = adgroup.get_ad_creatives(fields=[AdCreative.Field.name])
 
 # _DOC open [ADGROUP_READ_FAILED_DELIVERY_CHECKS]
 # _DOC vars [ad_group_id]
@@ -211,9 +212,26 @@ adgroup = AdGroup(ad_group_id)
 adgroup.remote_read(fields=[AdGroup.Field.failed_delivery_checks])
 # _DOC close [ADGROUP_READ_FAILED_DELIVERY_CHECKS]
 
+# _DOC open [ADGROUP_GET_TARGETING_DESCRIPTION]
+# _DOC vars [ad_group_id]
+from facebookads.objects import AdGroup
+
+adgroup = AdGroup(ad_group_id)
+targeting_description = adgroup.get_targeting_description()
+
+# Output the targeting description
+for description in targeting_description['targetingsentencelines']:
+    print(description['content'])
+    for child in description['children']:
+        print("\t" + child)
+# _DOC close [ADGROUP_GET_TARGETING_DESCRIPTION]
+
 adgroup.remote_delete()
 adset.remote_delete()
 campaign.remote_delete()
 creative = AdCreative(fbid=creative_id)
 creative.remote_delete()
-image.remote_delete(params={AdImage.Field.hash: image_hash})
+for creative in ad_creatives:
+    creative = AdCreative(fbid=creative.get_id_assured())
+    creative.remote_delete()
+img.remote_delete(params={AdImage.Field.hash: image_hash})

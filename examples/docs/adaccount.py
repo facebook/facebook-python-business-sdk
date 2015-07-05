@@ -165,7 +165,7 @@ from facebookads.objects import AdAccount, AdGroup
 ad_account = AdAccount(ad_account_id)
 ad_group_iter = ad_account.get_ad_groups(fields=[AdGroup.Field.name])
 for ad_group in ad_group_iter:
-    print ad_group[AdGroup.Field.name]
+    print(ad_group[AdGroup.Field.name])
 # _DOC close [ADACCOUNT_GET_ADGROUPS]
 
 # _DOC open [ADACCOUNT_GET_ADGROUPS_WITH_STATUS]
@@ -180,7 +180,7 @@ params = {
 }
 adgroup_iter = account.get_ad_groups(params=params)
 for adgroup in adgroup_iter:
-    print adgroup
+    print(adgroup)
 # _DOC close [ADACCOUNT_GET_ADGROUPS_WITH_STATUS]
 
 # _DOC open [ADACCOUNT_GET_CUSTOMAUDIENCES_NAME]
@@ -192,7 +192,7 @@ custom_audience_iter = ad_account.get_custom_audiences(fields=[
     CustomAudience.Field.name
 ])
 for custom_audience in custom_audience_iter:
-    print custom_audience[CustomAudience.Field.name]
+    print(custom_audience[CustomAudience.Field.name])
 # _DOC close [ADACCOUNT_GET_CUSTOMAUDIENCES_NAME]
 
 # _DOC open [ADACCOUNT_GET_RATECARDS]
@@ -211,7 +211,7 @@ account = AdAccount(ad_account_id)
 
 params = {
     'date_preset': 'last_28_days',
-    'data_columns': ['adgroup_id', 'actions', 'spend'],
+    'data_columns': ['adgroup_id', 'actions', 'spend', 'impressions'],
 }
 
 stats = account.get_report_stats(params=params)
@@ -463,3 +463,28 @@ params = {
 stats = account.get_insights(params=params)
 print(stats)
 # _DOC close [ADACCOUNT_GET_INSIGHTS_VIDEO_VIEWS]
+
+# _DOC open [ADACCOUNT_GET_TARGETING_DESCRIPTION]
+# _DOC vars [ad_account_id:s]
+from facebookads.objects import AdAccount, TargetingSpecsField
+
+account = AdAccount(ad_account_id)
+params = {
+    'targeting_spec': {
+        TargetingSpecsField.geo_locations: {
+            TargetingSpecsField.countries: ['US', 'JP'],
+        },
+        TargetingSpecsField.genders: [1],
+        TargetingSpecsField.age_min: 20,
+        TargetingSpecsField.age_max: 24,
+    }
+}
+
+targeting_description = account.get_targeting_description(params=params)
+
+# Output the targeting description
+for description in targeting_description['targetingsentencelines']:
+    print(description['content'])
+    for child in description['children']:
+        print("\t" + child)
+# _DOC close [ADACCOUNT_GET_TARGETING_DESCRIPTION]
