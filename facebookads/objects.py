@@ -1098,21 +1098,21 @@ class AdAccount(CannotCreate, CannotDelete, AbstractCrudObject):
 
     def get_conversion_stats(self, fields=None, params=None):
         """
-        Returns iterator over ConversionStats's associated with this account.
+        Returns ConversionStats object for this account.
         """
         return self.edge_object(ConversionStats, fields, params)
 
     def get_ad_campaign_conversion_stats(self, fields=None, params=None):
-        """Returns an AdCampaignConversionStats object for this account."""
-        return self.edge_object(
+        """Returns iterator over AdCampaignConversionStats objects associated this account."""
+        return self.iterate_edge(
             AdCampaignConversionStats,
             fields,
             params,
         )
 
     def get_ad_group_conversion_stats(self, fields=None, params=None):
-        """Returns an AdGroupConversionStats object for this account."""
-        return self.edge_object(AdGroupConversionStats, fields, params)
+        """Returns iterator over AdGroupConversionStats objects associated with this account."""
+        return self.iterate_edge(AdGroupConversionStats, fields, params)
 
     def get_ad_preview(self, fields=None, params=None):
         """Returns iterator over AdPreview's associated with this account."""
