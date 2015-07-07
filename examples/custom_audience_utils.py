@@ -91,7 +91,7 @@ def CreateCustomAudience(name, description=None, f=None, datatype='email'):
         LoadCustomAudience(audience, f, datatype)
 
 
-def LoadCustomAudience(audience, f, datatype, schema=None):
+def LoadCustomAudience(audience, f, datatype, schema=None, app_ids=None):
     # File format is one type per file (ie email), and one entry per line
     if datatype == 'email':
         schema = CustomAudience.Schema.email_hash
@@ -106,7 +106,7 @@ def LoadCustomAudience(audience, f, datatype, schema=None):
 
     print('Adding users to audience using ' + str(schema))
     data = [line.strip() for line in f]
-    r = audience.add_users(schema, data)
+    r = audience.add_users(schema, data, app_ids=app_ids)
     pp(r._body)
 
 
