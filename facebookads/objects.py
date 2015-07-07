@@ -906,7 +906,6 @@ class AdAccount(CannotCreate, CannotDelete, AbstractCrudObject):
         business_zip = 'business_zip'
         capabilities = 'capabilities'
         currency = 'currency'
-        daily_spend_limit = 'daily_spend_limit'
         end_advertiser = 'end_advertiser'
         funding_source = 'funding_source'
         funding_source_details = 'funding_source_details'
