@@ -27,11 +27,11 @@ from facebookads.exceptions import (
     FacebookBadObjectError,
 )
 from facebookads.session import FacebookSession
+from facebookads.utils import urls
 import json
 import six
 import collections
 import re
-from six.moves import urllib
 from six.moves import http_client
 
 
@@ -390,7 +390,7 @@ class FacebookAdsApiBatch(object):
 
         if params:
             params = _top_level_param_json_encode(params)
-            keyvals = ['%s=%s' % (key, urllib.parse.quote(value))
+            keyvals = ['%s=%s' % (key, urls.quote_with_encoding(value))
                        for key, value in params.items()]
             call['body'] = '&'.join(keyvals)
 
