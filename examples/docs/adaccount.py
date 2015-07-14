@@ -18,31 +18,9 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from __future__ import print_function
-from __future__ import unicode_literals
+from facebookads import test_config as config
 
-import os
-import sys
-from datetime import datetime, timedelta
-from dateutil import tz
-from facebookads.objects import *
-from facebookads.api import *
-from facebookads.exceptions import *
-
-this_dir = os.path.dirname(__file__)
-repo_dir = os.path.join(this_dir, os.pardir, os.pardir)
-sys.path.insert(1, repo_dir)
-
-config_file = open(os.path.join(this_dir, 'config.json'))
-config = json.load(config_file)
-config_file.close()
-
-ad_account_id = config['account_id']
-access_token = config['access_token']
-app_id = config['app_id']
-app_secret = config['app_secret']
-
-FacebookAdsApi.init(app_id, app_secret, access_token)
+ad_account_id = config.account_id
 
 # _DOC open [ADACCOUNT_READ]
 # _DOC vars [ad_account_id:s]

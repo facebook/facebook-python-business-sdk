@@ -18,33 +18,11 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from __future__ import print_function
-from __future__ import unicode_literals
-
-import time
-import os
-import sys
+from facebookads import test_config as config
 from facebookads.objects import *
-from facebookads.api import *
-from facebookads.exceptions import *
 
-this_dir = os.path.dirname(__file__)
-repo_dir = os.path.join(this_dir, os.pardir, os.pardir)
-sys.path.insert(1, repo_dir)
-
-config_file = open(os.path.join(this_dir, 'config.json'))
-config = json.load(config_file)
-config_file.close()
-
-ad_account_id = config['account_id']
-access_token = config['access_token']
-app_id = config['app_id']
-app_secret = config['app_secret']
-page_id = config['page_id']
-connections_id = page_id
-
-FacebookAdsApi.init(app_id, app_secret, access_token)
-
+ad_account_id = config.account_id
+connections_id = page_id = config.page_id
 
 homepage_campaign = AdCampaign(parent_id=ad_account_id)
 homepage_campaign.update({
@@ -58,6 +36,7 @@ campaign_group_id = homepage_campaign.get_id()
 
 # _DOC open [ADSET_CREATE_HOMEPAGE]
 # _DOC vars [ad_account_id:s, campaign_group_id]
+import time
 from facebookads.objects import AdAccount, AdSet
 ad_account = AdAccount(ad_account_id)
 rate_cards = ad_account.get_rate_cards()
@@ -131,7 +110,6 @@ print(adset)
 # _DOC close [ADSET_CREATE]
 adset.remote_delete()
 
-connections_id = page_id
 # _DOC open [ADSET_CREATE_APP_CONNECTIONS_TARGETING]
 # _DOC vars [ad_account_id:s, campaign_group_id, connections_id]
 from facebookads.objects import AdSet
@@ -159,6 +137,8 @@ ad_set.remote_create()
 print(ad_set)
 # _DOC close [ADSET_CREATE_APP_CONNECTIONS_TARGETING]
 
+ad_set_id = ad_set.get_id()
+
 # _DOC open [ADSET_GET_ADGROUPS]
 # _DOC vars [ad_set_id]
 from facebookads.objects import AdSet, AdGroup
@@ -166,7 +146,7 @@ from facebookads.objects import AdSet, AdGroup
 ad_set = AdSet(ad_set_id)
 ad_group_iter = ad_set.get_ad_groups(fields=[AdGroup.Field.name])
 for ad_group in ad_group_iter:
-    print ad_group[AdGroup.Field.name]
+    print(ad_group[AdGroup.Field.name])
 # _DOC close [ADSET_GET_ADGROUPS]
 
 campaign = AdCampaign(parent_id=ad_account_id)

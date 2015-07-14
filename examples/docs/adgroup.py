@@ -18,32 +18,16 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from __future__ import print_function
-from __future__ import unicode_literals
-
-import sys
-import os
+from facebookads import test_config as config
 from facebookads.objects import *
-from facebookads.api import *
-from facebookads.exceptions import *
 from facebookads.specs import *
 
-this_dir = os.path.dirname(__file__)
-repo_dir = os.path.join(this_dir, os.pardir, os.pardir)
-sys.path.insert(1, repo_dir)
-
-config_file = open(os.path.join(this_dir, 'config.json'))
-config = json.load(config_file)
-config_file.close()
-
-ad_account_id = config['account_id']
-access_token = config['access_token']
-app_id = config['app_id']
-app_secret = config['app_secret']
-page_id = config['page_id']
-image_path = os.path.join(this_dir, os.pardir, 'test.png')
-
-FacebookAdsApi.init(app_id, app_secret, access_token)
+ad_account_id = config.account_id
+access_token = config.access_token
+app_id = config.app_id
+app_secret = config.app_secret
+page_id = config.page_id
+image_path = config.image_path
 
 campaign = AdCampaign(parent_id=ad_account_id)
 campaign[AdCampaign.Field.name] = 'Foo'
@@ -234,4 +218,5 @@ creative.remote_delete()
 for creative in ad_creatives:
     creative = AdCreative(fbid=creative.get_id_assured())
     creative.remote_delete()
+
 img.remote_delete(params={AdImage.Field.hash: image_hash})

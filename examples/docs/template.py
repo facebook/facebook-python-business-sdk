@@ -18,43 +18,28 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from __future__ import print_function
-from __future__ import unicode_literals
-
 '''
-    This is a template for DocSmith samples in Python.
+    This is a template for DocSmith samples in Python. Copy it and create yours
 
     Code should follow guidelines at
     https://our.intern.facebook.com/intern/wiki/Solutions_Engineering/DocSmith
 
     facebookads repo folder must be added to PYTHONPATH in order to run
-'''
-
-import sys
-import os
-
-this_dir = os.path.dirname(__file__)
-repo_dir = os.path.join(this_dir, os.pardir, os.pardir)
-sys.path.insert(1, repo_dir)
-
-from facebookads import bootstrap
-bootstrap.auth()
-
-'''
-    Base file to create new examples for Ads API docs. Copy it and create yours
 
     Comments on style:
     - IDs should be defined outside of _DOC blocks so they don't appear into the
     docs
-
 '''
 
+from facebookads import test_config as config
+
+ad_account_id = config.account_id
+
+#! _DOC open [READ_ADACCOUNT]
+# _DOC vars [ad_account_id]
 from facebookads.objects import AdAccount
 
-if __name__ == '__main__':
-    ad_account_id = 'act_831792586836538'
-    #! _DOC open [READ_ADACCOUNT]
-    print('**** READ AD ACCOUNT ****')
-    ad_account = AdAccount(fbid=ad_account_id)
-    print(ad_account.remote_read())
-    #! _DOC close [READ_ADACCOUNT]
+ad_account = AdAccount(fbid=ad_account_id)
+ad_account.remote_read()
+print(ad_account)
+#! _DOC close [READ_ADACCOUNT]

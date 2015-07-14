@@ -29,7 +29,11 @@ if __name__ == '__main__':
     # create video object
     video = AdVideo(parent_id=config['act_id'])
 
-    video_path = os.path.join(os.path.dirname(__file__), 'test_video.mp4')
+    video_path = os.path.join(
+        os.path.dirname(__file__),
+        os.pardir,
+        'facebookads/test/misc/video.mp4'
+    )
 
     # set video fields
     video[AdVideo.Field.filepath] = video_path

@@ -18,22 +18,11 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebookads.objects import *
-from facebookads.api import *
-from facebookads.exceptions import *
+from facebookads import test_config as config
 
-config_file = open('./examples/docs/config.json')
-config = json.load(config_file)
-config_file.close()
-
-ad_account_id = config['account_id']
-access_token = config['access_token']
-image_path = config['image_jpg']
-image_zip_path = config['image_zip']
-app_id = config['app_id']
-app_secret = config['app_secret']
-
-FacebookAdsApi.init(app_id, app_secret, access_token)
+ad_account_id = config.account_id
+image_path = config.image_path
+image_zip_path = config.images_zip_path
 
 # _DOC open [ADIMAGE_CREATE]
 # _DOC vars [ad_account_id:s, image_path:s]
@@ -91,4 +80,4 @@ images = account.get_ad_images(params=params)
 
 for _image in images:
     image = AdImage(_image[AdImage.Field.id], ad_account_id)
-    image.remote_delete(params={AdImage.Field.hash: image_hash})
+    image.remote_delete(params={AdImage.Field.hash: _image[AdImage.Field.hash]})

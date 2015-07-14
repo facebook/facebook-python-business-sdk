@@ -18,42 +18,20 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from __future__ import print_function
-from __future__ import unicode_literals
-
-import sys
-import os
+from facebookads import test_config as config
 from facebookads.objects import *
-from facebookads.specs import *
-from facebookads.api import *
-from facebookads.specs import *
 
-this_dir = os.path.dirname(__file__)
-repo_dir = os.path.join(this_dir, os.pardir, os.pardir)
-sys.path.insert(1, repo_dir)
-
-config_file = open(os.path.join(this_dir, 'config.json'))
-config = json.load(config_file)
-config_file.close()
-
-ad_account_id = config['account_id']
-page_id = config['page_id']
-post_id = config['post_id']
-url = config['url']
-file_path = os.path.join(this_dir, os.pardir, 'test_video.mp4')
-
-access_token = config['access_token']
-app_id = config['app_id']
-app_secret = config['app_secret']
-
-FacebookAdsApi.init(app_id, app_secret, access_token)
+ad_account_id = config.account_id
+page_id = config.page_id
+post_id = config.post_id
+link = url = config.app_url
+image_path = config.image_path
+video_path = config.video_path
 
 img = AdImage(parent_id=ad_account_id)
-img[AdImage.Field.filename] = os.path.join(this_dir, os.pardir, 'test.png')
+img[AdImage.Field.filename] = image_path
 img.remote_create()
 image_hash = img.get_hash()
-
-link = 'http://example.com'
 
 # _DOC open [ADCREATIVE_CREATE_LINK_AD]
 # _DOC vars [ad_account_id:s, image_hash:s, page_id, link:s]
@@ -78,7 +56,6 @@ creative.remote_create()
 print(creative)
 # _DOC close [ADCREATIVE_CREATE_LINK_AD]
 creative.remote_delete()
-img.remote_delete(params={AdImage.Field.hash: image_hash})
 
 # _DOC open [ADCREATIVE_CREATE_LINK_AD_CALL_TO_ACTION]
 # _DOC vars [url:s, page_id, ad_account_id:s]
@@ -113,20 +90,18 @@ print(creative)
 creative.remote_delete()
 
 video = AdVideo(parent_id=ad_account_id)
-video[AdVideo.Field.filepath] = file_path
+video[AdVideo.Field.filepath] = video_path
 video.remote_create()
 video.waitUntilEncodingReady()
 video_id = video.get_id()
 
-img = AdImage(parent_id=ad_account_id)
-img[AdImage.Field.filename] = os.path.join(this_dir, os.pardir, 'test.png')
-img.remote_create()
 image_url = img[AdImage.Field.url]
 image_hash = img.get_hash()
+
 # _DOC open [ADCREATIVE_CREATE_VIDEO_PAGE_LIKE_AD]
 # _DOC vars [image_url:s, page_id, ad_account_id:s, file_path:s, video_id]
 from facebookads.objects import AdCreative
-from facebookads.specs import ObjectStorySpec, LinkData
+from facebookads.specs import ObjectStorySpec, VideoData
 video_data = VideoData()
 video_data[VideoData.Field.description] = 'My Description'
 video_data[VideoData.Field.video_id] = video_id

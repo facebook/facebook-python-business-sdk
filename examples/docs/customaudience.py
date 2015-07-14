@@ -18,31 +18,14 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from __future__ import print_function
-from __future__ import unicode_literals
-
-import os
-import sys
+from facebookads import test_config as config
 from facebookads.objects import *
-from facebookads.api import *
-from facebookads.exceptions import *
 
-this_dir = os.path.dirname(__file__)
-repo_dir = os.path.join(this_dir, os.pardir, os.pardir)
-sys.path.insert(1, repo_dir)
+app_id = config.app_id
+ad_account_id = config.account_id
+page_id = config.page_id
+video_path = config.video_path
 
-config_file = open(os.path.join(this_dir, 'config.json'))
-config = json.load(config_file)
-config_file.close()
-
-ad_account_id = config['account_id']
-access_token = config['access_token']
-app_id = config['app_id']
-app_secret = config['app_secret']
-page_id = config['page_id']
-file_path = config['file_path']
-
-FacebookAdsApi.init(app_id, app_secret, access_token)
 api = FacebookAdsApi.get_default_api()
 
 response = api.call(
@@ -53,26 +36,26 @@ data = response.json()['data']
 
 page_token = ''
 for page in data:
-    if page['id'] == page_id:
+    if page['id'] == str(page_id):
         page_token = page['access_token']
         break
 if page_token == '':
     raise Exception(
-        'Page access token for the page id ' + page_id + ' cannot be found.'
+        'Page access token for the page id '
+        + str(page_id) + ' cannot be found.'
     )
 
-FacebookAdsApi.init(app_id, app_secret, page_token)
-api = FacebookAdsApi.get_default_api()
+page_session = FacebookSession(config.app_id, config.app_secret, page_token)
+page_api = FacebookAdsApi(page_session)
 
-response = api.call(
+graph_video_upload_url = 'https://graph-video.facebook.com/' \
+    + FacebookAdsApi.API_VERSION + '/' + str(page_id) + '/videos'
+response = page_api.call(
     'POST',
-    'https://graph-video.facebook.com/v2.3/' + page_id + '/videos',
-    files={'source': (file_path, 'multipart/form-data')},
+    graph_video_upload_url,
+    files={'source': (video_path, 'multipart/form-data')},
 )
 video_id = response.json()['id']
-
-FacebookAdsApi.init(app_id, app_secret, access_token)
-api = FacebookAdsApi.get_default_api()
 
 # _DOC open [CUSTOM_AUDIENCE_CREATE]
 # _DOC vars [ad_account_id:s]

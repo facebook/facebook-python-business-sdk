@@ -18,22 +18,9 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from __future__ import print_function
-from __future__ import unicode_literals
-from facebookads.objects import TargetingSearch
-from facebookads.api import FacebookAdsApi
-from facebookads.exceptions import *
+from facebookads import test_config as config
 
-config_file = open('./examples/docs/config.json')
-config = json.load(config_file)
-config_file.close()
-
-ad_account_id = config['account_id']
-access_token = config['access_token']
-app_id = config['app_id']
-app_secret = config['app_secret']
-
-FacebookAdsApi.init(app_id, app_secret, access_token)
+ad_account_id = config.account_id
 
 # _DOC open [SEARCH_GEOLOCATION_WITH_COUNTRY]
 from facebookads.objects import TargetingSearch

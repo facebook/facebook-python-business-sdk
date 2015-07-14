@@ -44,8 +44,8 @@ class FacebookAdsTestCase(unittest.TestCase):
     TEST_API = None
     TEST_ACCOUNT = None
     TEST_ID = str(int(time.time()) % 1000)
-    TEST_IMAGE_PATH = os.path.join(os.path.dirname(__file__), 'test.png')
-    TEST_ZIP_PATH = os.path.join(os.path.dirname(__file__), 'test.zip')
+    TEST_IMAGE_PATH = os.path.join(os.path.dirname(__file__), 'misc/image.png')
+    TEST_ZIP_PATH = os.path.join(os.path.dirname(__file__), 'misc/images.zip')
 
     def setUp(self):
         super(FacebookAdsTestCase, self).setUp()
