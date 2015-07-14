@@ -39,6 +39,7 @@ from facebookads.mixins import (
     HasObjective,
     HasStatus,
     HasBidInfo,
+    HasAdLabels,
 )
 from facebookads.video_uploader import VideoUploader, VideoEncodingStatusChecker
 
@@ -887,12 +888,13 @@ class Activity(AbstractObject):
         return 'activities'
 
 
-class AdAccount(CannotCreate, CannotDelete, AbstractCrudObject):
+class AdAccount(CannotCreate, CannotDelete, HasAdLabels, AbstractCrudObject):
 
     class Field(object):
         account_groups = 'account_groups'
         account_id = 'account_id'
         account_status = 'account_status'
+        adlabels = 'adlabels'
         age = 'age'
         agency_client_declaration = 'agency_client_declaration'
         amount_spent = 'amount_spent'
@@ -1127,6 +1129,29 @@ class AdAccount(CannotCreate, CannotDelete, AbstractCrudObject):
         """
         return self.edge_object(TargetingDescription, fields, params)
 
+    def get_ad_labels(self, fields=None, params=None):
+        """
+        Returns all the ad labels associated with the ad account
+        """
+        return self.iterate_edge(AdLabel, fields, params)
+
+    def get_ad_groups_by_labels(self, fields=None, params=None):
+        """
+        Returns the ad Groups associated with the ad AdLabel
+        """
+        return self.iterate_edge(AdGroupsByLabels, fields, params)
+
+    def get_ad_campaigns_by_labels(self, fields=None, params=None):
+        """
+        Returns the ad sets associated with the ad AdLabel
+        """
+        return self.iterate_edge(AdCampaignsByLabels, fields, params)
+
+    def get_ad_campaign_groups_by_labels(self, fields=None, params=None):
+        """
+        Returns the ad campaigns associated with the ad AdLabel
+        """
+        return self.iterate_edge(AdCampaignGroupsByLabels, fields, params)
 
 class AdAccountGroup(AbstractCrudObject):
 
@@ -1208,11 +1233,12 @@ class AdAccountGroupUser(AbstractCrudObject):
         return AdUser(fbid=self[self.Field.uid])
 
 
-class AdCampaign(CanValidate, HasStatus, HasObjective, CanArchive,
+class AdCampaign(CanValidate, HasStatus, HasObjective, HasAdLabels, CanArchive,
                  AbstractCrudObject):
 
     class Field(object):
         account_id = 'account_id'
+        adlabels = 'adlabels'
         buying_type = 'buying_type'
         id = 'id'
         is_completed = 'is_completed'
@@ -1252,12 +1278,15 @@ class AdCampaign(CanValidate, HasStatus, HasObjective, CanArchive,
         )
 
 
-class AdSet(CanValidate, HasStatus, CanArchive, AbstractCrudObject):
+class AdSet(CanValidate, HasStatus, CanArchive, HasAdLabels,
+            AbstractCrudObject):
 
     class Field(HasBidInfo, object):
         account_id = 'account_id'
+        adlabels = 'adlabels'
+        bid_amount = 'bid_amount'
         bid_info = 'bid_info'
-        bid_type = 'bid_type'
+        billing_event = 'billing_event'
         budget_remaining = 'budget_remaining'
         campaign_group_id = 'campaign_group_id'
         campaign_schedule = 'campaign_schedule'
@@ -1270,19 +1299,43 @@ class AdSet(CanValidate, HasStatus, CanArchive, AbstractCrudObject):
         lifetime_budget = 'lifetime_budget'
         lifetime_imps = 'lifetime_imps'
         name = 'name'
+        optimization_goal = 'optimization_goal'
         pacing_type = 'pacing_type'
         promoted_object = 'promoted_object'
         rf_prediction_id = 'rf_prediction_id'
+        rtb_flag = 'rtb_flag'
         start_time = 'start_time'
         status = 'campaign_status'
         targeting = 'targeting'
         updated_time = 'updated_time'
 
-    class BidType(object):
-        absolute_ocpm = 'ABSOLUTE_OCPM'
-        cpc = 'CPC'
-        cpm = 'CPM'
-        multi_premium = 'MULTI_PREMIUM'
+    class BillingEvent(object):
+        app_installs = 'APP_INSTALLS'
+        clicks = 'CLICKS'
+        impressions = 'IMPRESSIONS'
+        link_clicks = 'LINK_CLICKS'
+        none = 'NONE'
+        offer_claims = 'OFFER_CLAIMS'
+        page_likes = 'PAGE_LIKES'
+        post_engagement = 'POST_ENGAGEMENT'
+
+    class OptimizationGoal(object):
+        app_installs = 'APP_INSTALLS'
+        clicks = 'CLICKS'
+        engaged_users = 'ENGAGED_USERS'
+        event_responses = 'EVENT_RESPONSES'
+        external = 'EXTERNAL'
+        impressions = 'IMPRESSIONS'
+        link_clicks = 'LINK_CLICKS'
+        none = 'NONE'
+        offer_claims = 'OFFER_CLAIMS'
+        offsite_conversions = 'OFFSITE_CONVERSIONS'
+        page_engagement = 'PAGE_ENGAGEMENT'
+        page_likes = 'PAGE_LIKES'
+        post_engagement = 'POST_ENGAGEMENT'
+        reach = 'REACH'
+        social_impressions = 'SOCIAL_IMPRESSIONS'
+        video_views = 'VIDEO_VIEWS'
 
     class PacingType(object):
         day_parting = 'day_parting'
@@ -1314,11 +1367,13 @@ class AdSet(CanValidate, HasStatus, CanArchive, AbstractCrudObject):
         )
 
 
-class AdGroup(HasStatus, CanArchive, AbstractCrudObject):
+class AdGroup(HasStatus, CanArchive, HasAdLabels, AbstractCrudObject):
 
     class Field(HasBidInfo, object):
         account_id = 'account_id'
         adgroup_review_feedback = 'adgroup_review_feedback'
+        adlabels = 'adlabels'
+        bid_amount = 'bid_amount'
         bid_info = 'bid_info'
         campaign_group_id = 'campaign_group_id'
         campaign_id = 'campaign_id'
@@ -1466,12 +1521,13 @@ class AdsPixel(CannotUpdate, CannotDelete, AbstractCrudObject):
         return 'adspixels'
 
 
-class AdCreative(AbstractCrudObject):
+class AdCreative(HasAdLabels, AbstractCrudObject):
 
     class Field(object):
         actor_id = 'actor_id'
         actor_image_hash = 'actor_image_hash'
         actor_name = 'actor_name'
+        adlabels = 'adlabels'
         body = 'body'
         call_to_action_type = 'call_to_action_type'
         filename = 'filename'
@@ -2771,6 +2827,38 @@ class Insights(CannotCreate, CannotDelete, CannotUpdate, AbstractCrudObject):
     class ActionReportTime(object):
         conversion = 'conversion'
         impression = 'impression'
+
+
+class AdLabel(AbstractCrudObject):
+
+    class Field(object):
+        id = 'id'
+        name = 'name'
+
+    @classmethod
+    def get_endpoint(cls):
+        return 'adlabels'
+
+
+class AdGroupsByLabels(AbstractObject):
+
+    @classmethod
+    def get_endpoint(cls):
+        return 'adgroupsbylabels'
+
+
+class AdCampaignsByLabels(AbstractObject):
+
+    @classmethod
+    def get_endpoint(cls):
+        return 'adcampaignsbylabels'
+
+
+class AdCampaignGroupsByLabels(AbstractObject):
+
+    @classmethod
+    def get_endpoint(cls):
+        return 'adcampaigngroupsbylabels'
 
 
 class AsyncJob(CannotCreate, AbstractCrudObject):

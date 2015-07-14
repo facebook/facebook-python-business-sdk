@@ -182,6 +182,14 @@ class FacebookAdsTestCase(unittest.TestCase):
         img.remote_create()
         return img
 
+    def new_test_ad_label(self):
+        label = objects.AdLabel(
+            parent_id=self.TEST_ACCOUNT.get_id_assured(),
+        )
+        label[objects.AdLabel.Field.name] = 'Test Label'
+        label.remote_create()
+        self.delete_in_teardown(label)
+        return label
 
 class AbstractObjectTestCase(FacebookAdsTestCase):
     pass
@@ -647,6 +655,26 @@ class ReachEstimateTestCase(AbstractCrudObjectTestCase):
         self.ad_group.remote_create()
 
         self.reach_estimate = self.ad_group.get_reach_estimate()
+
+
+class AdLabelTestCase(AbstractCrudObjectTestCase):
+    """
+        Create a new ad set object and test adding and removing labels
+    """
+    def runTest(self):
+        label = self.new_test_ad_label()
+        adlabels = [label.get_id()]
+        ad_set = self.new_test_ad_set()
+
+        try:
+            ad_set.add_labels(adlabels)
+        except:
+            self.fail("Could not add ad labels")
+
+        try:
+            ad_set.remove_labels(adlabels)
+        except:
+            self.fail("Could not remove ad labels")
 
 
 class BatchTestCase(FacebookAdsTestCase):
