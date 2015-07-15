@@ -1300,6 +1300,7 @@ class AdSet(CanValidate, HasStatus, CanArchive, HasAdLabels,
         lifetime_imps = 'lifetime_imps'
         name = 'name'
         optimization_goal = 'optimization_goal'
+        product_ad_behavior = 'product_ad_behavior'
         pacing_type = 'pacing_type'
         promoted_object = 'promoted_object'
         rf_prediction_id = 'rf_prediction_id'
@@ -1528,6 +1529,7 @@ class AdCreative(HasAdLabels, AbstractCrudObject):
         actor_image_hash = 'actor_image_hash'
         actor_name = 'actor_name'
         adlabels = 'adlabels'
+        applink_treatment = 'applink_treatment'
         body = 'body'
         call_to_action_type = 'call_to_action_type'
         filename = 'filename'
@@ -1548,6 +1550,7 @@ class AdCreative(HasAdLabels, AbstractCrudObject):
         object_url = 'object_url'
         preview_url = 'preview_url'
         product_set_id = 'product_set_id'
+        template_url = 'template_url'
         thumbnail_url = 'thumbnail_url'
         title = 'title'
         url_tags = 'url_tags'
@@ -1766,6 +1769,7 @@ class AdPreview(AbstractObject):
         body = 'body'
         creative = 'creative'
         post = 'post'
+        product_item_ids = 'product_item_ids'
 
     class AdFormat(object):
         desktop_feed_standard = 'DESKTOP_FEED_STANDARD'

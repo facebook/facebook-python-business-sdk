@@ -139,6 +139,7 @@ class HasObjective(object):
         website_clicks = 'WEBSITE_CLICKS'
         website_conversions = 'WEBSITE_CONVERSIONS'
         video_views = 'VIDEO_VIEWS'
+        product_catalog_sales = 'PRODUCT_CATALOG_SALES'
 
 
 class HasStatus(object):
