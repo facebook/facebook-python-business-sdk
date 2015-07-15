@@ -28,6 +28,7 @@ from facebookads.exceptions import (
 )
 from facebookads.session import FacebookSession
 from facebookads.utils import urls
+from facebookads.utils import version
 import json
 import six
 import collections
@@ -133,7 +134,7 @@ class FacebookAdsApi(object):
             this sdk.
     """
 
-    SDK_VERSION = '2.3.3'
+    SDK_VERSION = version.get_version()
 
     API_VERSION = 'v2.3'
 

@@ -29,6 +29,7 @@ import unittest
 import json
 import inspect
 import six
+import re
 from six.moves import urllib
 from sys import version_info
 from .. import api
@@ -398,6 +399,12 @@ class FacebookAdsApiBatchTestCase(unittest.TestCase):
             'body': 'key=' + utils.urls.quote_with_encoding(u'vàlué')
         })
 
+
+class VersionUtilsTestCase(unittest.TestCase):
+
+    def test_api_version_is_pulled(self):
+        version_value = utils.version.get_version()
+        assert re.search('[0-9]+\.[0-9]+\.[0-9]', version_value)
 
 if __name__ == '__main__':
     unittest.main()
