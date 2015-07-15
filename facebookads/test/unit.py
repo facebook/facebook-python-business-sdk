@@ -28,12 +28,15 @@ How to run:
 import unittest
 import json
 import inspect
+import six
+from six.moves import urllib
 from sys import version_info
 from .. import api
 from .. import objects
 from .. import specs
 from .. import exceptions
 from .. import session
+from .. import utils
 
 
 class CustomAudienceTestCase(unittest.TestCase):
@@ -342,6 +345,59 @@ class SessionWithoutAppSecretTestCase(unittest.TestCase):
             )
         except Exception as e:
             self.fail("Could not instantiate " + "\n  " + str(e))
+
+
+class UrlsUtilsTestCase(unittest.TestCase):
+
+    def test_quote_with_encoding_basestring(self):
+        s = "some string"
+        self.assertEqual(
+            utils.urls.quote_with_encoding(s),
+            urllib.parse.quote(s)
+        )
+        # do not need to test for that in PY3
+        if six.PY2:
+            s = u"some string with ùnicode".encode("utf-8")
+            self.assertEqual(
+                utils.urls.quote_with_encoding(s),
+                urllib.parse.quote(s)
+            )
+
+    def test_quote_with_encoding_unicode(self):
+        s = u"some string with ùnicode"
+        self.assertEqual(
+            utils.urls.quote_with_encoding(s),
+            urllib.parse.quote(s.encode("utf-8"))
+        )
+
+    def test_quote_with_encoding_integer(self):
+        s = 1234
+        self.assertEqual(
+            utils.urls.quote_with_encoding(s),
+            urllib.parse.quote('1234')
+        )
+
+    def test_quote_with_encoding_other_than_string_and_integer(self):
+        s = [1, 2]
+        self.assertRaises(
+            ValueError,
+            utils.urls.quote_with_encoding, s
+        )
+
+
+class FacebookAdsApiBatchTestCase(unittest.TestCase):
+
+    def test_add_works_with_utf8(self):
+        default_api = api.FacebookAdsApi.get_default_api()
+        batch_api = api.FacebookAdsApiBatch(default_api)
+        batch_api.add('GET', 'some/path', params={"key": u"vàlué"})
+        self.assertEqual(len(batch_api), 1)
+        self.assertEqual(batch_api._batch[0], {
+            'method': 'GET',
+            'relative_url': 'some/path',
+            'body': 'key=' + utils.urls.quote_with_encoding(u'vàlué')
+        })
+
 
 if __name__ == '__main__':
     unittest.main()
