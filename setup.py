@@ -35,7 +35,7 @@ PACKAGE_AUTHOR_EMAIL = ''
 PACKAGE_URL = 'https://github.com/facebook/facebook-python-ads-sdk'
 PACKAGE_DOWNLOAD_URL = \
     'https://github.com/facebook/facebook-python-ads-sdk/tarball/' + PACKAGE_VERSION
-PACKAGES = ['facebookads', 'facebookads.test']
+PACKAGES = ['facebookads', 'facebookads.test', 'facebookads.utils']
 PACKAGE_DATA = {
     'facebookads': ['*.crt'],
     'facebookads.test': ['*.jpg']
