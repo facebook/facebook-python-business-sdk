@@ -9,3 +9,4 @@ build
 *.swp
 *.swo
 config.json
+test_config.py
