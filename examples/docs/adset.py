@@ -53,14 +53,11 @@ ad_set.update({
     AdSet.Field.campaign_group_id: campaign_group_id,
     AdSet.Field.lifetime_budget: lifetime_budget,
     AdSet.Field.lifetime_imps: impressions,
-    AdSet.Field.bid_type: AdSet.BidType.multi_premium,
-    AdSet.Field.bid_info: {
-        AdSet.Field.BidInfo.clicks: 20,
-        AdSet.Field.BidInfo.social: 40,
-        AdSet.Field.BidInfo.impressions: 40
-    },
+    AdSet.Field.optimization_goal: AdSet.OptimizationGoal.reach,
+    AdSet.Field.billing_event: AdSet.BillingEvent.impressions,
+    AdSet.Field.bid_amount: 100,
     AdSet.Field.targeting: {
-        TargetingSpecsField.page_types: ['home'],
+        TargetingSpecsField.page_types: ['logout'],
         TargetingSpecsField.geo_locations: {
             'countries': [country],
         }
@@ -93,10 +90,9 @@ adset.update({
     AdSet.Field.name: 'My Ad Set',
     AdSet.Field.campaign_group_id: campaign_group_id,
     AdSet.Field.daily_budget: 1000,
-    AdSet.Field.bid_type: AdSet.BidType.absolute_ocpm,
-    AdSet.Field.bid_info: {
-        AdSet.Field.BidInfo.actions: 150,
-    },
+    AdSet.Field.billing_event: AdSet.BillingEvent.impressions,
+    AdSet.Field.optimization_goal: AdSet.OptimizationGoal.reach,
+    AdSet.Field.bid_amount: 2,
     AdSet.Field.targeting: {
         TargetingSpecsField.geo_locations: {
             'countries': ['US'],
@@ -118,11 +114,10 @@ ad_set = AdSet(parent_id=ad_account_id)
 ad_set.update({
     AdSet.Field.name: 'Android Connections Targeting - Ad Set',
     AdSet.Field.campaign_group_id: campaign_group_id,
-    AdSet.Field.bid_type: AdSet.BidType.cpc,
-    AdSet.Field.bid_info: {
-        AdSet.Field.BidInfo.clicks: 150,
-    },
-    AdSet.Field.daily_budget: 2000,
+    AdSet.Field.optimization_goal: AdSet.OptimizationGoal.post_engagement,
+    AdSet.Field.billing_event: AdSet.BillingEvent.post_engagement,
+    AdSet.Field.bid_amount: 1500,
+    AdSet.Field.daily_budget: 10000,
     AdSet.Field.targeting: {
         TargetingSpecsField.geo_locations: {
             'countries': ['US'],
@@ -149,6 +144,8 @@ for ad_group in ad_group_iter:
     print(ad_group[AdGroup.Field.name])
 # _DOC close [ADSET_GET_ADGROUPS]
 
+campaign.remote_delete()
+
 campaign = AdCampaign(parent_id=ad_account_id)
 campaign.update({
     AdCampaign.Field.name: 'My Page Likes Campaign',
@@ -164,21 +161,22 @@ import time
 from facebookads.objects import AdSet
 
 adset = AdSet(parent_id=ad_account_id)
-adset[AdSet.Field.name] = 'My Ad Set'
-adset[AdSet.Field.status] = AdSet.Status.paused
-adset[AdSet.Field.daily_budget] = 10000
-adset[AdSet.Field.bid_type] = AdSet.BidType.cpc
-adset[AdSet.Field.bid_info] = {
-    'CLICKS': 150,
-}
-adset[AdSet.Field.promoted_object] = {'page_id': page_id}
-adset[AdSet.Field.targeting] = {
-    'geo_locations': {
-        'countries': ['US'],
-    }
-}
-adset[AdSet.Field.start_time] = int(time.time())
-adset[AdSet.Field.campaign_group_id] = campaign_group_id
+adset.update({
+    AdSet.Field.name: 'My Ad Set',
+    AdSet.Field.status: AdSet.Status.paused,
+    AdSet.Field.daily_budget: 10000,
+    AdSet.Field.optimization_goal: AdSet.OptimizationGoal.page_likes,
+    AdSet.Field.billing_event: AdSet.BillingEvent.page_likes,
+    AdSet.Field.bid_amount: 1500,
+    AdSet.Field.promoted_object: {'page_id': page_id},
+    AdSet.Field.targeting: {
+        'geo_locations': {
+            'countries': ['US'],
+        }
+    },
+    AdSet.Field.start_time: int(time.time()),
+    AdSet.Field.campaign_group_id: campaign_group_id
+})
 adset.remote_create()
 
 print(adset)
