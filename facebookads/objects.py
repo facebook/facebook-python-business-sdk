@@ -814,7 +814,7 @@ class AbstractCrudObject(AbstractObject):
 
         # AsyncJob stores the real iterator
         # for when the result is ready to be queried
-        result = AsyncJob(synchronous_iterator)
+        result = AsyncJob(target_objects_class)
 
         if 'report_run_id' in response:
             response['id'] = response['report_run_id']
@@ -2886,20 +2886,20 @@ class AsyncJob(CannotCreate, AbstractCrudObject):
         async_status = 'async_status'
         async_percent_completion = 'async_percent_completion'
 
-    def __init__(self, edge_iterator):
+    def __init__(self, target_objects_class):
         AbstractCrudObject.__init__(self)
-        self.edge_iterator = edge_iterator
+        self.target_objects_class = target_objects_class
 
     def get_result(self, params=None):
         """
         Gets the final result from an async job
         Accepts params such as limit
         """
-        params = params or {}
-        params['report_run_id'] = self[self.Field.id]
-        self.edge_iterator.params = params
-        self.edge_iterator.load_next_page()
-        return self.edge_iterator
+        return self.iterate_edge(
+            self.target_objects_class,
+            params=params,
+            include_summary=False
+        )
 
     def __nonzero__(self):
         return self[self.Field.async_percent_completion] == 100
