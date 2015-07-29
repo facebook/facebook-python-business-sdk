@@ -1135,6 +1135,12 @@ class AdAccount(CannotCreate, CannotDelete, HasAdLabels, AbstractCrudObject):
         """
         return self.iterate_edge(AdLabel, fields, params)
 
+    def get_ad_creatives_by_labels(self, fields=None, params=None):
+        """
+        Returns the ad creatives associated with the ad AdLabel
+        """
+        return self.iterate_edge(AdCreativesByLabels, fields, params)
+
     def get_ad_groups_by_labels(self, fields=None, params=None):
         """
         Returns the ad Groups associated with the ad AdLabel
@@ -2850,6 +2856,13 @@ class AdGroupsByLabels(AbstractObject):
     @classmethod
     def get_endpoint(cls):
         return 'adgroupsbylabels'
+
+
+class AdCreativesByLabels(AbstractObject):
+
+    @classmethod
+    def get_endpoint(cls):
+        return 'adcreativesbylabels'
 
 
 class AdCampaignsByLabels(AbstractObject):
