@@ -193,3 +193,59 @@ adset.get_ad_creatives([AdCreative.Field.object_story_id])
 
 ad_set.remote_delete()
 campaign.remote_delete()
+
+
+campaign = AdCampaign(parent_id=ad_account_id)
+campaign.update({
+    AdCampaign.Field.name: 'Local awareness campaign',
+    AdCampaign.Field.objective: AdCampaign.Objective.local_awareness,
+    AdCampaign.Field.status: AdCampaign.Status.paused,
+})
+campaign.remote_create()
+
+campaign_group_id = campaign.get_id()
+
+# _DOC open [ADSET_CREATE_LOCAL_AWARENESS]
+# _DOC vars [ad_account_id:s, campaign_group_id:s]
+from facebookads.objects import AdSet
+
+adset = AdSet(parent_id=ad_account_id)
+adset.update({
+    AdSet.Field.name: 'Local awareness adset',
+    AdSet.Field.daily_budget: 10000,
+    AdSet.Field.status: AdSet.Status.paused,
+    AdSet.Field.campaign_group_id: campaign_group_id,
+    AdSet.Field.optimization_goal: AdSet.OptimizationGoal.reach,
+    AdSet.Field.billing_event: AdSet.BillingEvent.impressions,
+    AdSet.Field.bid_amount: 300,
+    AdSet.Field.targeting: {
+        'page_types': ['mobilefeed'],
+        'geo_locations': {
+            'custom_locations': [
+                {
+                    'latitude': 37.48327,
+                    'longitude': -122.15033,
+                    'radius': 10,
+                    'distance_unit': 'mile',
+                    'address_string': '1601 Willow Road, Menlo Park, CA 94025',
+                },
+            ],
+            'location_types': [
+                'home',
+                'recent',
+            ],
+        },
+        'excluded_geo_locations': {
+            'zips': [
+                {
+                    'key': 'US:94040',
+                },
+            ],
+        },
+    },
+})
+
+adset.remote_create()
+# _DOC close [ADSET_CREATE_LOCAL_AWARENESS]
+adset.remote_delete()
+campaign.remote_delete()

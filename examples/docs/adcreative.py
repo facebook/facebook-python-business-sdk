@@ -235,3 +235,30 @@ from facebookads.objects import AdCreative
 creative = AdCreative(creative_id)
 creative.remote_delete()
 # _DOC close [ADCREATIVE_DELETE]
+
+video_image_url = image_url
+
+# _DOC open [ADCREATIVE_CREATE_GET_DIRECTIONS_VIDEO]
+# _DOC vars [video_image_url:s, video_id, page_id, ad_account_id:s]
+from facebookads.objects import AdCreative
+
+video_data = VideoData()
+video_data[VideoData.Field.image_url] = video_image_url
+video_data[VideoData.Field.video_id] = video_id
+video_data[VideoData.Field.description]\
+    = 'Come check out our new store in Menlo Park!',
+video_data[VideoData.Field.call_to_action] = {
+    'type': 'GET_DIRECTIONS',
+    'value': {
+        'link': 'fbgeo://37.48327, -122.15033, "1601 Willow Rd Menlo Park CA"',
+    },
+}
+
+story = ObjectStorySpec()
+story[ObjectStorySpec.Field.page_id] = page_id
+story[ObjectStorySpec.Field.video_data] = video_data
+
+creative = AdCreative(parent_id=ad_account_id)
+creative[AdCreative.Field.object_story_spec] = story
+creative.remote_create()
+# _DOC close [ADCREATIVE_CREATE_GET_DIRECTIONS_VIDEO]

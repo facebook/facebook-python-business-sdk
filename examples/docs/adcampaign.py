@@ -103,3 +103,19 @@ for ad_group in adgroup_iter:
 # _DOC close [ADCAMPAIGN_GET_ADGROUPS_WITH_STATUS_ARCHIVED]
 
 campaign.remote_delete()
+
+# _DOC open [ADCAMPAIGN_CREATE_LOCAL_AWARENESS]
+# _DOC vars [ad_account_id:s]
+from facebookads.objects import AdCampaign
+
+campaign = AdCampaign(parent_id=ad_account_id)
+campaign.update({
+    AdCampaign.Field.name: 'Local awareness campaign',
+    AdCampaign.Field.status: AdCampaign.Status.paused,
+    AdCampaign.Field.objective: AdCampaign.Objective.local_awareness,
+})
+
+campaign.remote_create()
+# _DOC close [ADCAMPAIGN_CREATE_LOCAL_AWARENESS]
+
+campaign.remote_delete()
