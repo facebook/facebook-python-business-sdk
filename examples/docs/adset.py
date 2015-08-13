@@ -248,4 +248,30 @@ adset.update({
 adset.remote_create()
 # _DOC close [ADSET_CREATE_LOCAL_AWARENESS]
 adset.remote_delete()
+
+# _DOC open [ADSET_CREATE_OCPM]
+# _DOC vars [ad_account_id:s, campaign_group_id:s]
+from facebookads.objects import AdSet
+
+# Create an Ad Set with bid_type set to oCPM
+adset = AdSet(parent_id=ad_account_id)
+adset.update({
+    AdSet.Field.name: 'My Ad Set for oCPM',
+    AdSet.Field.billing_event: AdSet.BillingEvent.impressions,
+    AdSet.Field.optimization_goal: AdSet.OptimizationGoal.clicks,
+    AdSet.Field.bid_amount: 150,
+    AdSet.Field.campaign_group_id: campaign_group_id,
+    AdSet.Field.daily_budget: 1000,
+    AdSet.Field.targeting: {
+        TargetingSpecsField.geo_locations: {
+            'countries': ['US'],
+        },
+    },
+    AdSet.Field.status: AdSet.Status.paused,
+})
+adset.remote_create()
+
+# _DOC close [ADSET_CREATE_OCPM]
+adset.remote_delete()
+
 campaign.remote_delete()
