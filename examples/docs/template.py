@@ -24,22 +24,26 @@
     Code should follow guidelines at
     https://our.intern.facebook.com/intern/wiki/Solutions_Engineering/DocSmith
 
-    facebookads repo folder must be added to PYTHONPATH in order to run
+    Each example should be run using facebookads/docs_runner/doc_runner.py
 
     Comments on style:
     - IDs should be defined outside of _DOC blocks so they don't appear into the
     docs
+    - Dependencies, like campaigns, should be generated in the fixtures module
 '''
 
-from facebookads import test_config as config
+from examples.docs import fixtures
 
-ad_account_id = config.account_id
+campaign_group_id = fixtures.create_adcampaign().get_id_assured()
 
-#! _DOC open [READ_ADACCOUNT]
-# _DOC vars [ad_account_id]
-from facebookads.objects import AdAccount
 
-ad_account = AdAccount(fbid=ad_account_id)
-ad_account.remote_read()
-print(ad_account)
-#! _DOC close [READ_ADACCOUNT]
+#! _DOC open [TEMPLATE]
+#! _DOC vars [campaign_group_id]
+from facebookads.objects import AdCampaign, AdGroup
+
+ad_campaign = AdCampaign(campaign_group_id)
+ad_groups = ad_campaign.get_ad_groups(fields=[AdGroup.Field.name])
+
+for ad_group in ad_groups:
+    print(ad_group[AdGroup.Field.name])
+#! _DOC close [TEMPLATE]

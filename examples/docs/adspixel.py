@@ -21,7 +21,7 @@
 from __future__ import print_function
 from __future__ import unicode_literals
 
-from facebookads import test_config as config
+from facebookads import config
 
 ad_account_id = config.account_id
 

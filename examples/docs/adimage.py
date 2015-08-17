@@ -18,11 +18,19 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebookads import test_config as config
+from examples.docs import fixtures
+from facebookads import test_config
+from facebookads.objects import AdImage
 
-ad_account_id = config.account_id
-image_path = config.image_path
-image_zip_path = config.images_zip_path
+ad_account_id = test_config.account_id
+image_path = test_config.image_path
+image_zip_path = test_config.images_zip_path
+
+
+image = fixtures.create_image()
+image_id = image[AdImage.Field.id]
+image_hash = image[AdImage.Field.hash]
+
 
 # _DOC open [ADIMAGE_CREATE]
 # _DOC vars [ad_account_id:s, image_path:s]
@@ -36,16 +44,6 @@ image.remote_create()
 print(image[AdImage.Field.hash])
 # _DOC close [ADIMAGE_CREATE]
 
-image_id = image[AdImage.Field.id]
-image_hash = image[AdImage.Field.hash]
-
-# _DOC open [ADIMAGE_DELETE]
-# _DOC vars [image_id, ad_account_id:s, image_hash:s]
-from facebookads.objects import AdImage
-
-image = AdImage(image_id, ad_account_id)
-image.remote_delete(params={AdImage.Field.hash: image_hash})
-# _DOC close [ADIMAGE_DELETE]
 
 # _DOC open [ADIMAGE_CREATE_ZIP]
 # _DOC vars [image_zip_path:s, ad_account_id:s]
@@ -61,8 +59,10 @@ for image in images:
     print(image[AdImage.Field.hash])
 # _DOC close [ADIMAGE_CREATE_ZIP]
 
-image_1_hash = images[0][AdImage.Field.hash]
-image_2_hash = images[1][AdImage.Field.hash]
+
+image = fixtures.create_image()
+image_1_hash = image[AdImage.Field.hash]
+image_2_hash = image[AdImage.Field.hash]
 
 # _DOC open [ADIMAGE_READ_MULTI_WITH_HASH]
 # _DOC vars [ad_account_id:s, image_1_hash, image_2_hash]
@@ -78,6 +78,15 @@ params = {
 images = account.get_ad_images(params=params)
 # _DOC close [ADIMAGE_READ_MULTI_WITH_HASH]
 
-for _image in images:
-    image = AdImage(_image[AdImage.Field.id], ad_account_id)
-    image.remote_delete(params={AdImage.Field.hash: _image[AdImage.Field.hash]})
+
+# Failed to delete account image: Image with hash
+# 7aa4a47d513acd589f968c833f2757b1 is still being used!
+exit(0)
+
+# _DOC open [ADIMAGE_DELETE]
+# _DOC vars [image_id, ad_account_id:s, image_hash:s]
+from facebookads.objects import AdImage
+
+image = AdImage(image_id, ad_account_id)
+image.remote_delete(params={AdImage.Field.hash: image_hash})
+# _DOC close [ADIMAGE_DELETE]

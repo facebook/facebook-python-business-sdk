@@ -18,117 +18,27 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebookads import test_config as config
-from facebookads.objects import *
+from examples.docs import fixtures
+from facebookads import test_config
 
-app_id = config.app_id
-ad_account_id = config.account_id
-page_id = config.page_id
-video_path = config.video_path
+ad_account_id = test_config.account_id
+video_path = test_config.video_path
 
-api = FacebookAdsApi.get_default_api()
-
-response = api.call(
-    'GET',
-    'https://graph.facebook.com/' + FacebookAdsApi.API_VERSION + '/me/accounts',
-)
-data = response.json()['data']
-
-page_token = ''
-for page in data:
-    if page['id'] == str(page_id):
-        page_token = page['access_token']
-        break
-if page_token == '':
-    raise Exception(
-        'Page access token for the page id '
-        + str(page_id) + ' cannot be found.'
-    )
-
-page_session = FacebookSession(config.app_id, config.app_secret, page_token)
-page_api = FacebookAdsApi(page_session)
-
-graph_video_upload_url = 'https://graph-video.facebook.com/' \
-    + FacebookAdsApi.API_VERSION + '/' + str(page_id) + '/videos'
-response = page_api.call(
-    'POST',
-    graph_video_upload_url,
-    files={'source': (video_path, 'multipart/form-data')},
-)
-video_id = response.json()['id']
 
 # _DOC open [CUSTOM_AUDIENCE_CREATE]
 # _DOC vars [ad_account_id:s]
 from facebookads.objects import CustomAudience
 
 audience = CustomAudience(parent_id=ad_account_id)
+audience[CustomAudience.Field.subtype] = CustomAudience.Subtype.custom
 audience[CustomAudience.Field.name] = 'My new CA'
 audience[CustomAudience.Field.description] = 'People who bought on my website'
 
 audience.remote_create()
 # _DOC close [CUSTOM_AUDIENCE_CREATE]
 
-custom_audience_id = audience.get_id()
 
-# _DOC open [CUSTOM_AUDIENCE_USERS_ADD_EMAILS]
-# _DOC vars [custom_audience_id:s]
-from facebookads.objects import CustomAudience
-
-audience = CustomAudience(custom_audience_id)
-users = ['test1@example.com', 'test2@example.com', 'test3@example.com']
-
-audience.add_users(CustomAudience.Schema.email_hash, users)
-# _DOC close [CUSTOM_AUDIENCE_USERS_ADD_EMAILS]
-
-# _DOC open [CUSTOM_AUDIENCE_USERS_REMOVE_EMAILS]
-# _DOC vars [custom_audience_id:s]
-from facebookads.objects import CustomAudience
-
-audience = CustomAudience(custom_audience_id)
-users = ['test1@example.com', 'test2@example.com', 'test3@example.com']
-
-audience.remove_users(CustomAudience.Schema.email_hash, users)
-# _DOC close [CUSTOM_AUDIENCE_USERS_REMOVE_EMAILS]
-
-# _DOC open [CUSTOM_AUDIENCE_UPDATE_OPTOUT]
-# _DOC vars [custom_audience_id:s]
-from facebookads.objects import CustomAudience
-
-audience = CustomAudience(custom_audience_id)
-audience[CustomAudience.Field.opt_out_link] = 'http://www.yourdomain.com/optout'
-audience.remote_update()
-# _DOC close [CUSTOM_AUDIENCE_UPDATE_OPTOUT]
-
-audience.remote_delete()
-
-audience = CustomAudience(parent_id=ad_account_id)
-audience[CustomAudience.Field.name] = 'My new CA'
-audience[CustomAudience.Field.description] = 'Docsmith Example CA'
-audience.remote_create()
-custom_audience_id = audience.get_id()
-user_id_1 = 1234
-user_id_2 = 12345
-
-# _DOC open [CUSTOM_AUDIENCE_USERS_ADD_ID]
-# _DOC vars [custom_audience_id:s, app_id:s, user_id_1:s, user_id_2:s]
-from facebookads.objects import CustomAudience
-
-audience = CustomAudience(custom_audience_id)
-users = [user_id_1, user_id_2]
-apps = [app_id]
-audience.add_users(CustomAudience.Schema.uid, users, apps)
-# _DOC close [CUSTOM_AUDIENCE_USERS_ADD_ID]
-
-account = AdAccount(ad_account_id)
-pixels = account.get_ads_pixels([AdsPixel.Field.code])
-if len(pixels):
-    pixel = pixels[0]
-else:
-    pixel = AdsPixel(parent_id=ad_account_id)
-    pixel[AdsPixel.Field.name] = 'My WCA Pixel'
-    pixel.remote_create()
-
-pixel_id = pixel[AdsPixel.Field.id]
+pixel_id = fixtures.create_ads_pixel().get_id_assured()
 
 # _DOC open [CUSTOM_AUDIENCE_CREATE_WCA]
 # _DOC vars [ad_account_id:s, pixel_id]
@@ -136,7 +46,7 @@ from facebookads.objects import CustomAudience
 
 audience = CustomAudience(parent_id=ad_account_id)
 audience[CustomAudience.Field.name] = 'my audience'
-audience[CustomAudience.Field.subtype] = 'WEBSITE'
+audience[CustomAudience.Field.subtype] = CustomAudience.Subtype.website
 audience[CustomAudience.Field.retention_days] = 15
 audience[CustomAudience.Field.rule] = {'url': {'i_contains': 'shoes'}}
 audience[CustomAudience.Field.pixel_id] = pixel_id
@@ -144,16 +54,19 @@ audience[CustomAudience.Field.pixel_id] = pixel_id
 audience.remote_create()
 # _DOC close [CUSTOM_AUDIENCE_CREATE_WCA]
 
-custom_audience_id = audience.get_id()
 
-# _DOC open [CUSTOM_AUDIENCE_UPDATE_NAME]
+custom_audience_id = fixtures.create_custom_audience().get_id_assured()
+
+# _DOC open [CUSTOM_AUDIENCE_DELETE]
 # _DOC vars [custom_audience_id:s]
 from facebookads.objects import CustomAudience
 
 audience = CustomAudience(custom_audience_id)
-audience[CustomAudience.Field.name] = 'Updated name for CA'
-audience.remote_update()
-# _DOC close [CUSTOM_AUDIENCE_UPDATE_NAME]
+audience.remote_delete()
+# _DOC close [CUSTOM_AUDIENCE_DELETE]
+
+
+custom_audience_id = fixtures.create_custom_audience().get_id_assured()
 
 # _DOC open [CUSTOM_AUDIENCE_READ_RULE]
 # _DOC vars [custom_audience_id:s]
@@ -166,13 +79,82 @@ audience.remote_read(fields=[
 ])
 # _DOC close [CUSTOM_AUDIENCE_READ_RULE]
 
-# _DOC open [CUSTOM_AUDIENCE_DELETE]
+
+custom_audience_id = fixtures.create_custom_audience().get_id_assured()
+
+# _DOC open [CUSTOM_AUDIENCE_UPDATE_NAME]
 # _DOC vars [custom_audience_id:s]
 from facebookads.objects import CustomAudience
 
 audience = CustomAudience(custom_audience_id)
-audience.remote_delete()
-# _DOC close [CUSTOM_AUDIENCE_DELETE]
+audience[CustomAudience.Field.name] = 'Updated name for CA'
+audience.remote_update()
+# _DOC close [CUSTOM_AUDIENCE_UPDATE_NAME]
+
+
+custom_audience_id = fixtures.create_custom_audience().get_id_assured()
+
+# _DOC open [CUSTOM_AUDIENCE_UPDATE_OPTOUT]
+# _DOC vars [custom_audience_id:s]
+from facebookads.objects import CustomAudience
+
+audience = CustomAudience(custom_audience_id)
+audience[CustomAudience.Field.opt_out_link] = 'http://www.yourdomain.com/optout'
+audience.remote_update()
+# _DOC close [CUSTOM_AUDIENCE_UPDATE_OPTOUT]
+
+
+custom_audience_id = fixtures.create_custom_audience().get_id_assured()
+
+# _DOC open [CUSTOM_AUDIENCE_USERS_ADD_EMAILS]
+# _DOC vars [custom_audience_id:s]
+from facebookads.objects import CustomAudience
+
+audience = CustomAudience(custom_audience_id)
+users = ['test1@example.com', 'test2@example.com', 'test3@example.com']
+
+audience.add_users(CustomAudience.Schema.email_hash, users)
+# _DOC close [CUSTOM_AUDIENCE_USERS_ADD_EMAILS]
+
+
+custom_audience_id = fixtures.create_custom_audience().get_id_assured()
+user_id_1 = 1234
+user_id_2 = 12345
+app_id = fixtures.test_config.app_id
+
+# _DOC open [CUSTOM_AUDIENCE_USERS_ADD_ID]
+# _DOC vars [custom_audience_id:s, app_id:s, user_id_1:s, user_id_2:s]
+from facebookads.objects import CustomAudience
+
+audience = CustomAudience(custom_audience_id)
+users = [user_id_1, user_id_2]
+apps = [app_id]
+audience.add_users(CustomAudience.Schema.uid, users, apps)
+# _DOC close [CUSTOM_AUDIENCE_USERS_ADD_ID]
+
+
+custom_audience_id = fixtures.create_custom_audience().get_id_assured()
+
+# _DOC open [CUSTOM_AUDIENCE_USERS_REMOVE_EMAILS]
+# _DOC vars [custom_audience_id:s]
+from facebookads.objects import CustomAudience
+
+audience = CustomAudience(custom_audience_id)
+users = ['test1@example.com', 'test2@example.com', 'test3@example.com']
+
+audience.remove_users(CustomAudience.Schema.email_hash, users)
+# _DOC close [CUSTOM_AUDIENCE_USERS_REMOVE_EMAILS]
+
+
+exit(0)
+
+##
+# (#2654) Source Audience is Too Small: There aren't enough people in your
+# source in the country you chose. Please choose a country that includes at
+# least 100 people in your source.
+
+custom_audience_id = fixtures.create_custom_audience().get_id_assured()
+video_id = fixtures.upload_video(video_path)['id']
 
 # _DOC open [CUSTOM_AUDIENCE_CREATE_VIDEO_VIEWS_RETARGET]
 # _DOC vars [ad_account_id:s, video_id]
@@ -180,6 +162,7 @@ from facebookads.objects import CustomAudience
 
 lookalike = CustomAudience(parent_id=ad_account_id)
 lookalike.update({
+    CustomAudience.Field.subtype: CustomAudience.Subtype.lookalike,
     CustomAudience.Field.lookalike_spec: {
         'ratio': 0.01,
         'country': 'US',
@@ -196,5 +179,4 @@ lookalike.update({
 lookalike.remote_create()
 print(lookalike)
 # _DOC close [CUSTOM_AUDIENCE_CREATE_VIDEO_VIEWS_RETARGET]
-
 lookalike.remote_delete()

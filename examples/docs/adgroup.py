@@ -18,54 +18,25 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebookads import test_config as config
-from facebookads.objects import *
-from facebookads.specs import *
+from facebookads import test_config
+from examples.docs import fixtures
 
-ad_account_id = config.account_id
-access_token = config.access_token
-app_id = config.app_id
-app_secret = config.app_secret
-page_id = config.page_id
-image_path = config.image_path
+ad_account_id = test_config.account_id
 
-campaign = AdCampaign(parent_id=ad_account_id)
-campaign[AdCampaign.Field.name] = 'Foo'
-campaign.remote_create()
 
-adset = AdSet(parent_id=ad_account_id)
-adset[AdSet.Field.name] = 'Foo 2'
-adset[AdSet.Field.campaign_group_id] = campaign.get_id()
-adset[AdSet.Field.targeting] = {
-    'geo_locations': {
-        'countries': ['US']
-    }
-}
-adset[AdSet.Field.bid_info] = {'CLICKS': 500}
-adset[AdSet.Field.bid_type] = AdSet.BidType.cpc
-adset[AdSet.Field.daily_budget] = 1000
-adset.remote_create()
-ad_set_id = adset.get_id_assured()
+ad_group_id = fixtures.create_adgroup().get_id_assured()
 
-img = AdImage(parent_id=ad_account_id)
-img[AdImage.Field.filename] = image_path
-img.remote_create()
-image_hash = img.get_hash()
+# _DOC open [ADGROUP_ARCHIVE]
+# _DOC vars [ad_group_id]
+from facebookads.objects import AdGroup
 
-link_data = LinkData()
-link_data[LinkData.Field.message] = 'try it out'
-link_data[LinkData.Field.link] = 'http://example.com'
-link_data[LinkData.Field.caption] = 'www.example.com'
-link_data[LinkData.Field.image_hash] = image_hash
+adgroup = AdGroup(ad_group_id)
+adgroup.remote_archive()
+# _DOC close [ADGROUP_ARCHIVE]
 
-object_story_spec = ObjectStorySpec()
-object_story_spec[ObjectStorySpec.Field.page_id] = page_id
-object_story_spec[ObjectStorySpec.Field.link_data] = link_data
 
-creative = AdCreative(parent_id=ad_account_id)
-creative[AdCreative.Field.name] = 'AdCreative for Link Ad'
-creative[AdCreative.Field.object_story_spec] = object_story_spec
-creative.remote_create()
+ad_set_id = fixtures.create_adset().get_id_assured()
+creative = fixtures.create_creative()
 creative_id = creative.get_id_assured()
 
 # _DOC open [ADGROUP_CREATE]
@@ -81,89 +52,15 @@ adgroup[AdGroup.Field.creative] = {
 }
 adgroup.remote_create()
 # _DOC close [ADGROUP_CREATE]
-
 adgroup.remote_delete()
-creative.remote_delete()
 
-# _DOC open [ADGROUP_CREATE_REDOWNLOAD]
-# _DOC vars [ad_set_id, creative_id, ad_account_id:s]
-from facebookads.objects import AdGroup
 
-adgroup = AdGroup(parent_id=ad_account_id)
-adgroup[AdGroup.Field.name] = 'My AdGroup'
-adgroup[AdGroup.Field.campaign_id] = ad_set_id
-adgroup[AdGroup.Field.creative] = {'creative_id': str(creative_id)}
-adgroup[AdGroup.Field.status] = AdGroup.Status.paused
-adgroup[AdGroup.Field.redownload] = True
-adgroup.remote_create()
-# _DOC close [ADGROUP_CREATE_REDOWNLOAD]
-
-ad_group_id = adgroup.get_id()
-
-# _DOC open [ADGROUP_READ]
-# _DOC vars [ad_group_id]
-from facebookads.objects import AdGroup
-
-adgroup = AdGroup(ad_group_id)
-adgroup.remote_read(fields=[AdGroup.Field.name])
-# _DOC close [ADGROUP_READ]
-
-# _DOC open [ADGROUP_READ_CONVERSION_BID]
-# _DOC vars [ad_group_id]
-from facebookads.objects import AdGroup
-
-adgroup = AdGroup(ad_group_id)
-adgroup.remote_read(fields=[AdGroup.Field.conversion_specs, 'bid_type'])
-# _DOC close [ADGROUP_READ_CONVERSION_BID]
-
-# _DOC open [ADGROUP_UPDATE]
-# _DOC vars [ad_group_id]
-from facebookads.objects import AdGroup
-
-adgroup = AdGroup(ad_group_id)
-adgroup[AdGroup.Field.name] = 'New AdGroup Name'
-adgroup.remote_update()
-# _DOC close [ADGROUP_UPDATE]
-
-# _DOC open [ADGROUP_UPDATE_WITH_REDOWNLOAD]
-# _DOC vars [ad_group_id]
-from facebookads.objects import AdGroup
-
-adgroup = AdGroup(ad_group_id)
-adgroup[AdGroup.Field.name] = 'New AdGroup Name'
-adgroup['redownload'] = True
-adgroup.remote_update()
-# _DOC close [ADGROUP_UPDATE_WITH_REDOWNLOAD]
-
-# _DOC open [ADGROUP_UPDATE_STATUS]
-# _DOC vars [ad_group_id]
-from facebookads.objects import AdGroup
-
-adgroup = AdGroup(ad_group_id)
-adgroup[AdGroup.Field.status] = AdGroup.Status.paused
-adgroup.remote_update()
-# _DOC close [ADGROUP_UPDATE_STATUS]
-
-# _DOC open [ADGROUP_ARCHIVE]
-# _DOC vars [ad_group_id]
-from facebookads.objects import AdGroup
-
-adgroup = AdGroup(ad_group_id)
-adgroup.remote_archive()
-# _DOC close [ADGROUP_ARCHIVE]
-
-# _DOC open [ADGROUP_DELETE]
-# _DOC vars [ad_group_id]
-from facebookads.objects import AdGroup
-
-adgroup = AdGroup(ad_group_id)
-adgroup.remote_delete()
-# _DOC close [ADGROUP_DELETE]
-
+image_hash = fixtures.create_image().get_hash()
+ad_set_id = fixtures.create_adset().get_id_assured()
 
 # _DOC open [ADGROUP_CREATE_INLINE_CREATIVE]
 # _DOC vars [ad_account_id:s, image_hash:s, ad_set_id]
-from facebookads.objects import AdImage, AdCreative, AdGroup
+from facebookads.objects import AdCreative, AdGroup
 
 # First, upload the ad image that you will use in your ad creative
 # Please refer to Ad Image Create for details.
@@ -185,16 +82,39 @@ adgroup[AdGroup.Field.creative] = creative
 adgroup[AdGroup.Field.status] = AdGroup.Status.paused
 adgroup.remote_create()
 # _DOC close [ADGROUP_CREATE_INLINE_CREATIVE]
+adgroup.remote_delete()
 
-ad_creatives = adgroup.get_ad_creatives(fields=[AdCreative.Field.name])
 
-# _DOC open [ADGROUP_READ_FAILED_DELIVERY_CHECKS]
+ad_set_id = fixtures.create_adset().get_id_assured()
+creative_id = fixtures.create_creative().get_id_assured()
+
+# _DOC open [ADGROUP_CREATE_REDOWNLOAD]
+# _DOC vars [ad_set_id, creative_id, ad_account_id:s]
+from facebookads.objects import AdGroup
+
+adgroup = AdGroup(parent_id=ad_account_id)
+adgroup[AdGroup.Field.name] = 'My AdGroup'
+adgroup[AdGroup.Field.campaign_id] = ad_set_id
+adgroup[AdGroup.Field.creative] = {'creative_id': str(creative_id)}
+adgroup[AdGroup.Field.status] = AdGroup.Status.paused
+adgroup[AdGroup.Field.redownload] = True
+adgroup.remote_create()
+# _DOC close [ADGROUP_CREATE_REDOWNLOAD]
+adgroup.remote_delete()
+
+
+ad_group_id = fixtures.create_adgroup().get_id_assured()
+
+# _DOC open [ADGROUP_DELETE]
 # _DOC vars [ad_group_id]
 from facebookads.objects import AdGroup
 
 adgroup = AdGroup(ad_group_id)
-adgroup.remote_read(fields=[AdGroup.Field.failed_delivery_checks])
-# _DOC close [ADGROUP_READ_FAILED_DELIVERY_CHECKS]
+adgroup.remote_delete()
+# _DOC close [ADGROUP_DELETE]
+
+
+ad_group_id = fixtures.create_adgroup().get_id_assured()
 
 # _DOC open [ADGROUP_GET_TARGETING_DESCRIPTION]
 # _DOC vars [ad_group_id]
@@ -210,13 +130,73 @@ for description in targeting_description['targetingsentencelines']:
         print("\t" + child)
 # _DOC close [ADGROUP_GET_TARGETING_DESCRIPTION]
 
-adgroup.remote_delete()
-adset.remote_delete()
-campaign.remote_delete()
-creative = AdCreative(fbid=creative_id)
-creative.remote_delete()
-for creative in ad_creatives:
-    creative = AdCreative(fbid=creative.get_id_assured())
-    creative.remote_delete()
 
-img.remote_delete(params={AdImage.Field.hash: image_hash})
+ad_group_id = fixtures.create_adgroup().get_id_assured()
+
+# _DOC open [ADGROUP_READ]
+# _DOC vars [ad_group_id]
+from facebookads.objects import AdGroup
+
+adgroup = AdGroup(ad_group_id)
+adgroup.remote_read(fields=[AdGroup.Field.name])
+# _DOC close [ADGROUP_READ]
+
+
+ad_group_id = fixtures.create_adgroup().get_id_assured()
+
+# _DOC open [ADGROUP_READ_CONVERSION_BID]
+# _DOC vars [ad_group_id]
+from facebookads.objects import AdGroup
+
+adgroup = AdGroup(ad_group_id)
+adgroup.remote_read(fields=[AdGroup.Field.conversion_specs, 'bid_type'])
+# _DOC close [ADGROUP_READ_CONVERSION_BID]
+
+
+ad_group_id = fixtures.create_adgroup().get_id_assured()
+
+# _DOC open [ADGROUP_READ_FAILED_DELIVERY_CHECKS]
+# _DOC vars [ad_group_id]
+from facebookads.objects import AdGroup
+
+adgroup = AdGroup(ad_group_id)
+adgroup.remote_read(fields=[AdGroup.Field.failed_delivery_checks])
+# _DOC close [ADGROUP_READ_FAILED_DELIVERY_CHECKS]
+# Copyright 2014 Facebook, Inc.
+
+
+ad_group_id = fixtures.create_adgroup().get_id_assured()
+
+# _DOC open [ADGROUP_UPDATE]
+# _DOC vars [ad_group_id]
+from facebookads.objects import AdGroup
+
+adgroup = AdGroup(ad_group_id)
+adgroup[AdGroup.Field.name] = 'New AdGroup Name'
+adgroup.remote_update()
+# _DOC close [ADGROUP_UPDATE]
+
+
+ad_group_id = fixtures.create_adgroup().get_id_assured()
+
+# _DOC open [ADGROUP_UPDATE_STATUS]
+# _DOC vars [ad_group_id]
+from facebookads.objects import AdGroup
+
+adgroup = AdGroup(ad_group_id)
+adgroup[AdGroup.Field.status] = AdGroup.Status.paused
+adgroup.remote_update()
+# _DOC close [ADGROUP_UPDATE_STATUS]
+
+
+ad_group_id = fixtures.create_adgroup().get_id_assured()
+
+# _DOC open [ADGROUP_UPDATE_WITH_REDOWNLOAD]
+# _DOC vars [ad_group_id]
+from facebookads.objects import AdGroup
+
+adgroup = AdGroup(ad_group_id)
+adgroup[AdGroup.Field.name] = 'New AdGroup Name'
+adgroup['redownload'] = True
+adgroup.remote_update()
+# _DOC close [ADGROUP_UPDATE_WITH_REDOWNLOAD]

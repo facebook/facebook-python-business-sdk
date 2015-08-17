@@ -18,26 +18,119 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebookads import test_config as config
-from facebookads.objects import *
+from examples.docs import fixtures
+from facebookads import test_config
+from facebookads.objects import AdCampaign
 
-ad_account_id = config.account_id
-connections_id = page_id = config.page_id
+ad_account_id = test_config.account_id
+page_id = test_config.page_id
 
-homepage_campaign = AdCampaign(parent_id=ad_account_id)
-homepage_campaign.update({
-    AdCampaign.Field.name: 'Homepage Ads',
-    AdCampaign.Field.buying_type: AdCampaign.BuyingType.fixed_cpm,
-    AdCampaign.Field.objective: AdCampaign.Objective.none,
+
+campaign_group_id = fixtures.create_adcampaign().get_id_assured()
+
+# _DOC open [ADSET_CREATE]
+# _DOC vars [ad_account_id:s, campaign_group_id]
+from facebookads.objects import AdSet, TargetingSpecsField
+
+adset = AdSet(parent_id=ad_account_id)
+adset.update({
+    AdSet.Field.name: 'My Ad Set',
+    AdSet.Field.campaign_group_id: campaign_group_id,
+    AdSet.Field.daily_budget: 1000,
+    AdSet.Field.billing_event: AdSet.BillingEvent.impressions,
+    AdSet.Field.optimization_goal: AdSet.OptimizationGoal.reach,
+    AdSet.Field.bid_amount: 2,
+    AdSet.Field.targeting: {
+        TargetingSpecsField.geo_locations: {
+            'countries': ['US'],
+        },
+    },
+    AdSet.Field.status: AdSet.Status.paused,
 })
-homepage_campaign.remote_create()
 
-campaign_group_id = homepage_campaign.get_id()
+adset.remote_create()
+print(adset)
+# _DOC close [ADSET_CREATE]
+adset.remote_delete()
+
+
+campaign_group_id = fixtures.create_adcampaign().get_id_assured()
+connections_id = page_id
+
+# _DOC open [ADSET_CREATE_APP_CONNECTIONS_TARGETING]
+# _DOC vars [ad_account_id:s, campaign_group_id, connections_id]
+from facebookads.objects import AdSet, TargetingSpecsField
+
+ad_set = AdSet(parent_id=ad_account_id)
+ad_set.update({
+    AdSet.Field.name: 'Android Connections Targeting - Ad Set',
+    AdSet.Field.campaign_group_id: campaign_group_id,
+    AdSet.Field.optimization_goal: AdSet.OptimizationGoal.post_engagement,
+    AdSet.Field.billing_event: AdSet.BillingEvent.post_engagement,
+    AdSet.Field.bid_amount: 1500,
+    AdSet.Field.daily_budget: 10000,
+    AdSet.Field.targeting: {
+        TargetingSpecsField.geo_locations: {
+            'countries': ['US'],
+        },
+        TargetingSpecsField.connections: [connections_id],
+        TargetingSpecsField.user_os: ['Android'],
+    },
+    AdSet.Field.status: AdSet.Status.paused,
+})
+
+ad_set.remote_create()
+print(ad_set)
+# _DOC close [ADSET_CREATE_APP_CONNECTIONS_TARGETING]
+
+
+campaign_group_id = fixtures.create_adcampaign().get_id_assured()
+
+# _DOC open [ADSET_CREATE_CPC_PROMOTING_PAGE]
+# _DOC vars [ad_account_id:s, page_id:s, campaign_group_id:s]
+import time
+from facebookads.objects import AdSet
+
+adset = AdSet(parent_id=ad_account_id)
+adset.update({
+    AdSet.Field.name: 'My Ad Set',
+    AdSet.Field.status: AdSet.Status.paused,
+    AdSet.Field.daily_budget: 10000,
+    AdSet.Field.optimization_goal: AdSet.OptimizationGoal.page_likes,
+    AdSet.Field.billing_event: AdSet.BillingEvent.page_likes,
+    AdSet.Field.bid_amount: 1500,
+    AdSet.Field.promoted_object: {'page_id': page_id},
+    AdSet.Field.targeting: {
+        'geo_locations': {
+            'countries': ['US'],
+        }
+    },
+    AdSet.Field.start_time: int(time.time()),
+    AdSet.Field.campaign_group_id: campaign_group_id
+})
+adset.remote_create()
+
+print(adset)
+# _DOC close [ADSET_CREATE_CPC_PROMOTING_PAGE]
+adset.remote_delete()
+
+
+params = {
+    AdCampaign.Field.buying_type: AdCampaign.BuyingType.fixed_cpm
+}
+
+campaign_group_id = fixtures.create_adcampaign(params).get_id_assured()
 
 # _DOC open [ADSET_CREATE_HOMEPAGE]
 # _DOC vars [ad_account_id:s, campaign_group_id]
 import time
-from facebookads.objects import AdAccount, AdSet
+from facebookads.objects import (
+    AdAccount,
+    AdSet,
+    RateCard,
+    TargetingSpecsField
+)
+
 ad_account = AdAccount(ad_account_id)
 rate_cards = ad_account.get_rate_cards()
 country = rate_cards[0][RateCard.Field.country]
@@ -69,70 +162,8 @@ ad_set.remote_create()
 print(ad_set)
 # _DOC close [ADSET_CREATE_HOMEPAGE]
 
-ad_set.remote_delete()
-homepage_campaign.remote_delete()
 
-campaign = AdCampaign(parent_id=ad_account_id)
-campaign.update({
-    AdCampaign.Field.name: 'My Campaign',
-    AdCampaign.Field.objective: AdCampaign.Objective.none,
-})
-campaign.remote_create()
-
-campaign_group_id = campaign.get_id()
-
-# _DOC open [ADSET_CREATE]
-# _DOC vars [ad_account_id:s, campaign_group_id]
-from facebookads.objects import AdSet, TargetingSpecsField
-
-adset = AdSet(parent_id=ad_account_id)
-adset.update({
-    AdSet.Field.name: 'My Ad Set',
-    AdSet.Field.campaign_group_id: campaign_group_id,
-    AdSet.Field.daily_budget: 1000,
-    AdSet.Field.billing_event: AdSet.BillingEvent.impressions,
-    AdSet.Field.optimization_goal: AdSet.OptimizationGoal.reach,
-    AdSet.Field.bid_amount: 2,
-    AdSet.Field.targeting: {
-        TargetingSpecsField.geo_locations: {
-            'countries': ['US'],
-        },
-    },
-    AdSet.Field.status: AdSet.Status.paused,
-})
-
-adset.remote_create()
-print(adset)
-# _DOC close [ADSET_CREATE]
-adset.remote_delete()
-
-# _DOC open [ADSET_CREATE_APP_CONNECTIONS_TARGETING]
-# _DOC vars [ad_account_id:s, campaign_group_id, connections_id]
-from facebookads.objects import AdSet
-
-ad_set = AdSet(parent_id=ad_account_id)
-ad_set.update({
-    AdSet.Field.name: 'Android Connections Targeting - Ad Set',
-    AdSet.Field.campaign_group_id: campaign_group_id,
-    AdSet.Field.optimization_goal: AdSet.OptimizationGoal.post_engagement,
-    AdSet.Field.billing_event: AdSet.BillingEvent.post_engagement,
-    AdSet.Field.bid_amount: 1500,
-    AdSet.Field.daily_budget: 10000,
-    AdSet.Field.targeting: {
-        TargetingSpecsField.geo_locations: {
-            'countries': ['US'],
-        },
-        TargetingSpecsField.connections: [connections_id],
-        TargetingSpecsField.user_os: ['Android'],
-    },
-    AdSet.Field.status: AdSet.Status.paused,
-})
-
-ad_set.remote_create()
-print(ad_set)
-# _DOC close [ADSET_CREATE_APP_CONNECTIONS_TARGETING]
-
-ad_set_id = ad_set.get_id()
+ad_set_id = fixtures.create_adset().get_id_assured()
 
 # _DOC open [ADSET_GET_ADGROUPS]
 # _DOC vars [ad_set_id]
@@ -144,66 +175,19 @@ for ad_group in ad_group_iter:
     print(ad_group[AdGroup.Field.name])
 # _DOC close [ADSET_GET_ADGROUPS]
 
-campaign.remote_delete()
 
-campaign = AdCampaign(parent_id=ad_account_id)
-campaign.update({
-    AdCampaign.Field.name: 'My Page Likes Campaign',
-    AdCampaign.Field.objective: AdCampaign.Objective.page_likes,
-})
-campaign.remote_create()
+ad_set_id = fixtures.create_adset().get_id_assured()
 
-campaign_group_id = campaign.get_id()
-
-# _DOC open [ADSET_CREATE_CPC_PROMOTING_PAGE]
-# _DOC vars [ad_account_id:s, page_id:s, campaign_group_id:s]
-import time
-from facebookads.objects import AdSet
-
-adset = AdSet(parent_id=ad_account_id)
-adset.update({
-    AdSet.Field.name: 'My Ad Set',
-    AdSet.Field.status: AdSet.Status.paused,
-    AdSet.Field.daily_budget: 10000,
-    AdSet.Field.optimization_goal: AdSet.OptimizationGoal.page_likes,
-    AdSet.Field.billing_event: AdSet.BillingEvent.page_likes,
-    AdSet.Field.bid_amount: 1500,
-    AdSet.Field.promoted_object: {'page_id': page_id},
-    AdSet.Field.targeting: {
-        'geo_locations': {
-            'countries': ['US'],
-        }
-    },
-    AdSet.Field.start_time: int(time.time()),
-    AdSet.Field.campaign_group_id: campaign_group_id
-})
-adset.remote_create()
-
-print(adset)
-# _DOC close [ADSET_CREATE_CPC_PROMOTING_PAGE]
-adset.remote_delete()
-campaign.remote_delete()
-
-ad_set_id = ad_set.get_id()
 # _DOC open [ADSET_READ_ADCREATIVE]
 # _DOC vars [ad_set_id]
+from facebookads.objects import AdSet, AdCreative
+
 adset = AdSet(fbid=ad_set_id)
 adset.get_ad_creatives([AdCreative.Field.object_story_id])
 # _DOC close [ADSET_READ_ADCREATIVE]
 
-ad_set.remote_delete()
-campaign.remote_delete()
 
-
-campaign = AdCampaign(parent_id=ad_account_id)
-campaign.update({
-    AdCampaign.Field.name: 'Local awareness campaign',
-    AdCampaign.Field.objective: AdCampaign.Objective.local_awareness,
-    AdCampaign.Field.status: AdCampaign.Status.paused,
-})
-campaign.remote_create()
-
-campaign_group_id = campaign.get_id()
+campaign_group_id = fixtures.create_adcampaign().get_id_assured()
 
 # _DOC open [ADSET_CREATE_LOCAL_AWARENESS]
 # _DOC vars [ad_account_id:s, campaign_group_id:s]
@@ -249,6 +233,9 @@ adset.remote_create()
 # _DOC close [ADSET_CREATE_LOCAL_AWARENESS]
 adset.remote_delete()
 
+
+campaign_group_id = fixtures.create_adcampaign().get_id_assured()
+
 # _DOC open [ADSET_CREATE_OCPM]
 # _DOC vars [ad_account_id:s, campaign_group_id:s]
 from facebookads.objects import AdSet
@@ -258,7 +245,7 @@ adset = AdSet(parent_id=ad_account_id)
 adset.update({
     AdSet.Field.name: 'My Ad Set for oCPM',
     AdSet.Field.billing_event: AdSet.BillingEvent.impressions,
-    AdSet.Field.optimization_goal: AdSet.OptimizationGoal.clicks,
+    AdSet.Field.optimization_goal: AdSet.OptimizationGoal.link_clicks,
     AdSet.Field.bid_amount: 150,
     AdSet.Field.campaign_group_id: campaign_group_id,
     AdSet.Field.daily_budget: 1000,
@@ -273,5 +260,3 @@ adset.remote_create()
 
 # _DOC close [ADSET_CREATE_OCPM]
 adset.remote_delete()
-
-campaign.remote_delete()
