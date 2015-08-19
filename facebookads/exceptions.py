@@ -88,9 +88,9 @@ class FacebookRequestError(FacebookError):
         super(FacebookRequestError, self).__init__(
             "\n\n" +
             "  Message: %s\n" % self._message +
-            "  Method:  %s\n" % request['method'] +
-            "  Path:    %s\n" % request['path'] +
-            "  Params:  %s\n" % request['params'] +
+            "  Method:  %s\n" % request.get('method') +
+            "  Path:    %s\n" % request.get('path', '/') +
+            "  Params:  %s\n" % request.get('params') +
             "\n" +
             "  Status:  %s\n" % self._http_status +
             "  Response:\n    %s" % re.sub(

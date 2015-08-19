@@ -1928,7 +1928,7 @@ class CustomAudience(AbstractCrudObject):
         return 'customaudiences'
 
     @classmethod
-    def format_params(cls, schema, users, app_ids=None):
+    def format_params(cls, schema, users, app_ids=None, pre_hashed=None):
         hashed_users = []
         if schema in (cls.Schema.phone_hash, cls.Schema.email_hash):
             for user in users:
@@ -1936,7 +1936,10 @@ class CustomAudience(AbstractCrudObject):
                     user = user.strip(" \t\r\n\0\x0B.").lower()
                 if isinstance(user, six.text_type):
                     user = user.encode('utf8')  # required for hashlib
-                hashed_users.append(hashlib.sha256(user).hexdigest())
+                if pre_hashed:
+                    hashed_users.append(user)
+                else:
+                    hashed_users.append(hashlib.sha256(user).hexdigest())
 
         payload = {
             'schema': schema,
@@ -1955,7 +1958,7 @@ class CustomAudience(AbstractCrudObject):
             'payload': payload,
         }
 
-    def add_users(self, schema, users, app_ids=None):
+    def add_users(self, schema, users, app_ids=None, pre_hashed=None):
         """Adds users to this CustomAudience.
 
         Args:
@@ -1969,10 +1972,13 @@ class CustomAudience(AbstractCrudObject):
         return self.get_api_assured().call(
             'POST',
             (self.get_id_assured(), 'users'),
-            params=CustomAudience.format_params(schema, users, app_ids),
+            params=CustomAudience.format_params(schema,
+                                                users,
+                                                app_ids,
+                                                pre_hashed),
         )
 
-    def remove_users(self, schema, users, app_ids=None):
+    def remove_users(self, schema, users, app_ids=None, pre_hashed=None):
         """Deletes users from this CustomAudience.
 
         Args:
@@ -1986,7 +1992,10 @@ class CustomAudience(AbstractCrudObject):
         return self.get_api_assured().call(
             'DELETE',
             (self.get_id_assured(), 'users'),
-            params=CustomAudience.format_params(schema, users, app_ids),
+            params=CustomAudience.format_params(schema,
+                                                users,
+                                                app_ids,
+                                                pre_hashed),
         )
 
     def share_audience(self, account_ids):

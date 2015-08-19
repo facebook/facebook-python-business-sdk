@@ -118,11 +118,12 @@ class FacebookAdsTestCase(unittest.TestCase):
             objects.AdSet.Field.pacing_type: [
                 objects.AdSet.PacingType.standard,
             ],
-            objects.AdSet.Field.daily_budget: 100,
-            objects.AdSet.Field.bid_type: objects.AdSet.BidType.cpc,
-            objects.AdSet.Field.bid_info: {
-                objects.AdSet.Field.BidInfo.clicks: 20,
-            },
+            objects.AdSet.Field.daily_budget: 2500,
+            objects.AdSet.Field.optimization_goal:
+            objects.AdSet.OptimizationGoal.impressions,
+            objects.AdSet.Field.billing_event:
+            objects.AdSet.BillingEvent.impressions,
+            objects.AdSet.Field.bid_amount: 500,
             objects.AdSet.Field.targeting: {
                 objects.TargetingSpecsField.geo_locations: {
                     'countries': [
@@ -354,7 +355,6 @@ class AdAccountTestCase(AbstractCrudObjectTestCase):
             objects.AdAccount.Field.account_status,
             objects.AdAccount.Field.business_name,
             objects.AdAccount.Field.timezone_name,
-            objects.AdAccount.Field.daily_spend_limit,
         ])
 
     def tearDown(self):
@@ -460,7 +460,6 @@ class AdSetTestCase(AbstractCrudObjectTestCase):
             objects.AdSet.Field.daily_budget,
             objects.AdSet.Field.created_time,
             objects.AdSet.Field.campaign_group_id,
-            objects.AdSet.Field.bid_type,
             objects.AdSet.Field.name,
         ])
 

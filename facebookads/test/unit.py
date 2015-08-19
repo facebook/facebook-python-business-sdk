@@ -66,6 +66,19 @@ class CustomAudienceTestCase(unittest.TestCase):
             uid_payload,
         )
 
+    def test_format_params_pre_hashed(self):
+        # This is the value of "test" when it's hashed with sha256
+        test_hash = \
+            "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08"
+        payload = objects.CustomAudience.format_params(
+            objects.CustomAudience.Schema.email_hash,
+            ["9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08"], 
+            pre_hashed=True
+        )
+
+        users = payload['payload']['data']
+        assert users[0] == test_hash
+
 
 class EdgeIteratorTestCase(unittest.TestCase):
 
