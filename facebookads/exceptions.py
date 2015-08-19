@@ -85,20 +85,26 @@ class FacebookRequestError(FacebookError):
             request = self._request_context.copy()
             del request['files']
 
-        super(FacebookRequestError, self).__init__(
+        message = (
             "\n\n" +
             "  Message: %s\n" % self._message +
-            "  Method:  %s\n" % request['method'] +
-            "  Path:    %s\n" % request['path'] +
-            "  Params:  %s\n" % request['params'] +
+            "  Method:  %s\n" % request['method'])
+
+        if 'path' in request:
+            message += "  Path:    %s\n" % request['path']
+        if 'params' in request:
+            message += "  Params:  %s\n" % request['params']
+
+        message += (
             "\n" +
             "  Status:  %s\n" % self._http_status +
             "  Response:\n    %s" % re.sub(
                 r"\n", "\n    ",
                 json.dumps(self._body, indent=2)
             ) +
-            "\n"
-        )
+            "\n")
+
+        super(FacebookRequestError, self).__init__(message)
 
     def request_context(self):
         return self._request_context
