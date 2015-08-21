@@ -19,6 +19,8 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebookads import test_config
+from facebookads.objects import AdLabel
+from examples.docs import fixtures
 
 ad_account_id = test_config.account_id
 
@@ -168,7 +170,6 @@ images = account.get_ad_images()
 # _DOC close [ADACCOUNT_GET_ADIMAGES]
 
 
-
 # _DOC open [ADACCOUNT_GET_CUSTOMAUDIENCES_NAME]
 # _DOC vars [ad_account_id:s]
 from facebookads.objects import AdAccount, CustomAudience
@@ -201,6 +202,198 @@ params = {
 stats = account.get_insights(params=params)
 print(stats)
 # _DOC close [ADACCOUNT_GET_INSIGHTS_VIDEO_VIEWS]
+
+
+# _DOC open [ADACCOUNT_GET_INSIGHTS_CAROUSEL_BREAKDOWNS]
+# _DOC vars [ad_account_id:s]
+from facebookads.objects import AdAccount, Insights
+
+account = AdAccount(ad_account_id)
+
+params = {
+    'action_breakdowns': [
+        Insights.ActionBreakdown.action_type,
+        Insights.ActionBreakdown.action_carousel_card_id,
+    ],
+    'fields': [
+        Insights.Field.impressions,
+        Insights.Field.clicks,
+        Insights.Field.actions,
+        Insights.Field.website_ctr,
+    ],
+    'level': Insights.Level.adgroup,
+    'date_preset': Insights.Preset.last_30_days,
+    'time_increment': 'all_days',
+    'breakdowns': Insights.Breakdown.placement,
+    'filtering': [{
+        'field': 'action_type',
+        'operator': 'IN',
+        'value': ['link_click']
+    }]
+}
+
+stats = account.get_insights(params=params)
+print(stats)
+# _DOC close [ADACCOUNT_GET_INSIGHTS_CAROUSEL_BREAKDOWNS]
+
+
+# _DOC open [ADACCOUNT_GET_INSIGHTS_CAROUSEL_CPA]
+# _DOC vars [ad_account_id:s]
+from facebookads.objects import AdAccount, Insights
+
+account = AdAccount(ad_account_id)
+
+params = {
+    'action_breakdowns': [
+        Insights.ActionBreakdown.action_type,
+        Insights.ActionBreakdown.action_carousel_card_name,
+    ],
+    'fields': [
+        Insights.Field.impressions,
+        Insights.Field.campaign_group_name,
+        Insights.Field.cost_per_action_type,
+    ],
+    'level': Insights.Level.adgroup,
+}
+
+stats = account.get_insights(params=params)
+print(stats)
+# _DOC close [ADACCOUNT_GET_INSIGHTS_CAROUSEL_CPA]
+
+
+# _DOC open [ADACCOUNT_GET_INSIGHTS_FILTERING_CAMPAIGN]
+# _DOC vars [ad_account_id:s]
+from facebookads.objects import AdAccount, Insights
+
+ad_account = AdAccount(ad_account_id)
+params = {
+    'filtering': [{
+        'field': Insights.Field.campaign_group_name,
+        'operator': 'CONTAIN',
+        'value': '18-25'
+    }]
+}
+
+stats = ad_account.get_insights(params=params)
+print(stats)
+# _DOC close [ADACCOUNT_GET_INSIGHTS_FILTERING_CAMPAIGN]
+
+
+# _DOC open [ADACCOUNT_GET_INSIGHTS_FILTERING_BREAKDOWN]
+# _DOC vars [ad_account_id:s]
+from facebookads.objects import AdAccount, Insights
+
+ad_account = AdAccount(ad_account_id)
+params = {
+    'breakdowns': [
+        Insights.Breakdown.age,
+        Insights.Breakdown.gender
+    ],
+    'filtering': [{
+        'field': Insights.Field.campaign_group_name,
+        'operator': 'CONTAIN',
+        'value': '18-25'
+    }]
+}
+
+stats = ad_account.get_insights(params=params)
+print(stats)
+# _DOC close [ADACCOUNT_GET_INSIGHTS_FILTERING_BREAKDOWN]
+
+
+# _DOC open [ADACCOUNT_GET_INSIGHTS_FILTERING_DELIVERY_INFO]
+# _DOC vars [ad_account_id:s]
+from facebookads.objects import AdAccount
+
+ad_account = AdAccount(ad_account_id)
+params = {
+    'filtering': [{
+        'field': 'adgroup.delivery_info',
+        'operator': 'IN',
+        'value': ['archived']
+    }]
+}
+
+stats = ad_account.get_insights(params=params)
+print(stats)
+# _DOC close [ADACCOUNT_GET_INSIGHTS_FILTERING_DELIVERY_INFO]
+
+
+# _DOC open [ADACCOUNT_GET_INSIGHTS_FILTERING_DELIVERY_INFO_LEVEL]
+# _DOC vars [ad_account_id:s]
+from facebookads.objects import AdAccount
+
+ad_account = AdAccount(ad_account_id)
+params = {
+    'level': 'adgroup',
+    'filtering': [{
+        'field': 'adgroup.delivery_info',
+        'operator': 'IN',
+        'value': ['archived']
+    }]
+}
+
+stats = ad_account.get_insights(params=params)
+print(stats)
+# _DOC close [ADACCOUNT_GET_INSIGHTS_FILTERING_DELIVERY_INFO_LEVEL]
+
+
+ad_label_name = fixtures.create_adlabel()[AdLabel.Field.name]
+
+# _DOC open [ADACCOUNT_GET_INSIGHTS_FILTERING_ADLABEL_NAMES]
+# _DOC vars [ad_account_id:s, ad_label_name:s]
+from facebookads.objects import AdAccount, Insights
+
+ad_account = AdAccount(ad_account_id)
+params = {
+    'fields': [
+        Insights.Field.clicks,
+        Insights.Field.cpc,
+        Insights.Field.total_actions
+    ],
+    'level': 'adgroup',
+    'filtering': [{
+        'field': 'adgroup.adlabels',
+        'operator': 'ANY',
+        'value': [ad_label_name]
+    }],
+    'time_range': {
+        'since': '2015-03-01',
+        'until': '2015-03-31'
+    }
+}
+stats = ad_account.get_insights(params=params)
+print(stats)
+# _DOC close [ADACCOUNT_GET_INSIGHTS_FILTERING_AD_LABEL_NAMES]
+
+
+ad_label_id = fixtures.create_adlabel().get_id()
+
+# _DOC open [ADACCOUNT_GET_INSIGHTS_FILTERING_ADLABEL]
+# _DOC vars [ad_account_id:s, ad_label_id:s]
+from facebookads.objects import AdAccount, Insights
+
+ad_account = AdAccount(ad_account_id)
+params = {
+    'fields': [
+        Insights.Field.clicks,
+        Insights.Field.cpc,
+        Insights.Field.total_actions
+    ],
+    'level': 'adgroup',
+    'filtering': [{
+        'field': 'adgroup.adlabel_ids',
+        'operator': 'ANY',
+        'value': [ad_label_id]
+    }],
+    'time_range': {
+        'since': '2015-03-01',
+        'until': '2015-03-31'
+    }
+}
+stats = ad_account.get_insights(params=params)
+print(stats)
+# _DOC close [ADACCOUNT_GET_INSIGHTS_FILTERING_ADLABEL]
 
 
 # _DOC open [ADACCOUNT_GET_RATECARDS]

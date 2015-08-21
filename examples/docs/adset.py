@@ -24,9 +24,9 @@ from facebookads.objects import AdCampaign
 
 ad_account_id = test_config.account_id
 page_id = test_config.page_id
-
-
+connections_id = page_id
 campaign_group_id = fixtures.create_adcampaign().get_id_assured()
+ad_set_id = fixtures.create_adset().get_id_assured()
 
 # _DOC open [ADSET_CREATE]
 # _DOC vars [ad_account_id:s, campaign_group_id]
@@ -54,8 +54,6 @@ print(adset)
 adset.remote_delete()
 
 
-campaign_group_id = fixtures.create_adcampaign().get_id_assured()
-connections_id = page_id
 
 # _DOC open [ADSET_CREATE_APP_CONNECTIONS_TARGETING]
 # _DOC vars [ad_account_id:s, campaign_group_id, connections_id]
@@ -83,8 +81,6 @@ ad_set.remote_create()
 print(ad_set)
 # _DOC close [ADSET_CREATE_APP_CONNECTIONS_TARGETING]
 
-
-campaign_group_id = fixtures.create_adcampaign().get_id_assured()
 
 # _DOC open [ADSET_CREATE_CPC_PROMOTING_PAGE]
 # _DOC vars [ad_account_id:s, page_id:s, campaign_group_id:s]
@@ -260,3 +256,47 @@ adset.remote_create()
 
 # _DOC close [ADSET_CREATE_OCPM]
 adset.remote_delete()
+
+
+# _DOC open [ADSET_GET_INSIGHTS]
+# _DOC vars [ad_set_id]
+from facebookads.objects import AdSet, Insights
+
+adset = AdSet(fbid=ad_set_id)
+params = {
+    'level': Insights.Level.adgroup
+}
+
+stats = adset.get_insights(params=params)
+print(stats)
+# _DOC close [ADSET_GET_INSIGHTS]
+
+
+ad_set_id = fixtures.create_adset().get_id()
+
+# _DOC open [ADSET_GET_INSIGHTS_SORT]
+# _DOC vars [ad_set_id]
+from facebookads.objects import AdSet
+
+adset = AdSet(fbid=ad_set_id)
+params = {
+    'sort': 'reach_descending'
+}
+
+stats = adset.get_insights(params=params)
+print(stats)
+# _DOC close [ADSET_GET_INSIGHTS_SORT]
+
+
+# _DOC open [ADSET_GET_INSIGHTS_LEVEL_ADGROUP]
+# _DOC vars [ad_set_id]
+from facebookads.objects import AdSet, Insights
+
+adset = AdSet(fbid=ad_set_id)
+params = {
+    'level': Insights.Level.adgroup
+}
+
+stats = adset.get_insights(params=params)
+print(stats)
+# _DOC close [ADSET_GET_INSIGHTS_LEVEL_ADGROUP]

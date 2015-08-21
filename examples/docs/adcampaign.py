@@ -20,8 +20,10 @@
 
 from facebookads import test_config
 from examples.docs import fixtures
+import time
 
 ad_account_id = test_config.account_id
+campaign_group_id = fixtures.create_adcampaign().get_id()
 
 
 # _DOC open [ADCAMPAIGN_CREATE_HOMEPAGE]
@@ -73,22 +75,17 @@ print(campaign)
 campaign.remote_delete()
 
 
-campaign = fixtures.create_adcampaign()
-campaign_group_id = campaign['id']
-
 # _DOC open [ADCAMPAIGN_GET_ADGROUPS]
 # _DOC vars [campaign_group_id]
 from facebookads.objects import AdCampaign, AdGroup
 
 ad_campaign = AdCampaign(campaign_group_id)
 ad_groups = ad_campaign.get_ad_groups(fields=[AdGroup.Field.name])
+
 for ad_group in ad_groups:
     print(ad_group[AdGroup.Field.name])
 # _DOC close [ADCAMPAIGN_GET_ADGROUPS]
 
-
-campaign = fixtures.create_adcampaign()
-campaign_group_id = campaign['id']
 
 # _DOC open [ADCAMPAIGN_GET_ADGROUPS_WITH_STATUS_ARCHIVED]
 # _DOC vars [campaign_group_id]
@@ -122,3 +119,97 @@ campaign.update({
 campaign.remote_create()
 # _DOC close [ADCAMPAIGN_CREATE_LOCAL_AWARENESS]
 campaign.remote_delete()
+
+
+# _DOC open [ADCAMPAIGN_GET_INSIGHTS_DATE_PRESET]
+# _DOC vars [campaign_group_id:s]
+from facebookads.objects import AdCampaign, Insights
+
+campaign = AdCampaign(campaign_group_id)
+params = {
+    'date_preset': Insights.Preset.last_7_days,
+}
+insights = campaign.get_insights(params=params)
+print(insights)
+# _DOC close [ADCAMPAIGN_GET_INSIGHTS_DATE_PRESET]
+
+
+# _DOC open [ADCAMPAIGN_GET_INSIGHTS_TIME_RANGES]
+# _DOC vars [campaign_group_id:s]
+from facebookads.objects import AdCampaign
+
+campaign = AdCampaign(campaign_group_id)
+params = {
+    'time_range': {
+        'since': '2015-01-01',
+        'until': '2015-01-20',
+    },
+}
+insights = campaign.get_insights(params=params)
+print(insights)
+# _DOC close [ADCAMPAIGN_GET_INSIGHTS_TIME_RANGES]
+
+
+# _DOC open [ADCAMPAIGN_GET_INSIGHTS_BREAKDOWNS]
+# _DOC vars [campaign_group_id:s]
+from facebookads.objects import AdCampaign
+
+campaign = AdCampaign(campaign_group_id)
+params = {
+    'breakdowns': [
+        Insights.Breakdown.age,
+        Insights.Breakdown.gender
+    ]
+}
+insights = campaign.get_insights(params=params)
+print(insights)
+# _DOC close [ADCAMPAIGN_GET_INSIGHTS_BREAKDOWNS]
+
+
+# _DOC open [ADCAMPAIGN_GET_INSIGHTS_ACTION_BREAKDOWNS]
+# _DOC vars [campaign_group_id:s]
+from facebookads.objects import AdCampaign
+
+campaign = AdCampaign(campaign_group_id)
+params = {
+    'action_breakdowns': [
+        Insights.ActionBreakdown.action_destination,
+        Insights.ActionBreakdown.action_type
+    ]
+}
+insights = campaign.get_insights(params=params)
+print(insights)
+# _DOC close [ADCAMPAIGN_GET_INSIGHTS_ACTION_BREAKDOWNS]
+
+
+# _DOC open [ADCAMPAIGN_GET_INSIGHTS_ACTIONS_REPORT_TIME]
+# _DOC vars [campaign_group_id:s]
+from facebookads.objects import AdCampaign
+
+campaign = AdCampaign(campaign_group_id)
+params = {
+    'action_report_time': 'conversion'
+}
+insights = campaign.get_insights(params=params)
+print(insights)
+# _DOC close [ADCAMPAIGN_GET_INSIGHTS_ACTIONS_REPORT_TIME]
+
+
+# _DOC open [ADCAMPAIGN_GET_INSIGHTS_ASYNC]
+# _DOC vars [campaign_group_id:s]
+from facebookads.objects import AdCampaign, Insights
+
+campaign = AdCampaign(campaign_group_id)
+params = {
+    'level': Insights.Level.campaign_group
+}
+async_job = campaign.get_insights(params=params, async=True)
+
+async_job.remote_read()
+
+while async_job['async_percent_completion'] < 100:
+    time.sleep(1)
+    async_job.remote_read()
+
+print(async_job.get_result())
+# _DOC close [ADCAMPAIGN_GET_INSIGHTS_ASYNC]

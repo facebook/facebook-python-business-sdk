@@ -2770,6 +2770,7 @@ class Insights(CannotCreate, CannotDelete, CannotUpdate, AbstractCrudObject):
         video_p75_watched_actions = 'video_p75_watched_actions'
         video_p95_watched_actions = 'video_p95_watched_actions'
         video_start_actions = 'video_start_actions'
+        website_ctr = 'website_ctr'
 
     @classmethod
     def get_endpoint(cls):
@@ -2812,6 +2813,8 @@ class Insights(CannotCreate, CannotDelete, CannotUpdate, AbstractCrudObject):
         campaign_group = 'campaign_group'
 
     class ActionBreakdown(object):
+        action_carousel_card_id = 'action_carousel_card_id'
+        action_carousel_card_name = 'action_carousel_card_name'
         action_destination = 'action_destination'
         action_device = 'action_device'
         action_target_id = 'action_target_id'

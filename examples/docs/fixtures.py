@@ -27,6 +27,7 @@ from facebookads import (
 from facebookads.objects import (
     AdAccount,
     AdCampaign,
+    AdLabel,
     AdVideo,
     AdImage,
     AdSet,
@@ -41,12 +42,6 @@ import time
 import atexit
 
 default_api_url = 'https://graph.facebook.com/' + FacebookAdsApi.API_VERSION
-default_campaign_params = {
-    AdCampaign.Field.name: 'Test Campaign',
-    AdCampaign.Field.buying_type: AdCampaign.BuyingType.auction,
-    AdCampaign.Field.objective: AdCampaign.Objective.none,
-    AdCampaign.Field.status: AdCampaign.Status.paused,
-}
 
 
 def api_get(path, api=None, url=default_api_url):
@@ -117,11 +112,13 @@ def delete_image(image):
 
 
 def create_adcampaign(params={}):
-    campaign_params = default_campaign_params.copy()
-    campaign_params.update(params)
-
     campaign = AdCampaign(parent_id=test_config.account_id)
-    campaign.update(campaign_params)
+    campaign[AdCampaign.Field.name] = unique_name('Test Campaign')
+    campaign[AdCampaign.Field.buying_type] = AdCampaign.BuyingType.auction
+    campaign[AdCampaign.Field.objective] = AdCampaign.Objective.none
+    campaign[AdCampaign.Field.status] = AdCampaign.Status.paused
+
+    campaign.update(params)
     campaign.remote_create()
 
     atexit.register(remote_delete, campaign)
@@ -180,7 +177,7 @@ def create_creative(image=create_image()):
 def create_custom_audience():
     audience = CustomAudience(parent_id=test_config.account_id)
     audience[CustomAudience.Field.subtype] = CustomAudience.Subtype.custom
-    audience[CustomAudience.Field.name] = 'Test Audience'
+    audience[CustomAudience.Field.name] = unique_name('Test Audience')
     audience[CustomAudience.Field.description] = 'Created for docsmith example'
     audience.remote_create()
 
@@ -195,7 +192,7 @@ def create_ads_pixel():
 
     if pixel is None:
         pixel = AdsPixel(parent_id=test_config.account_id)
-        pixel[AdsPixel.Field.name] = 'Test Pixel'
+        pixel[AdsPixel.Field.name] = unique_name('Test Pixel')
         pixel.remote_create()
 
     return pixel
@@ -203,7 +200,7 @@ def create_ads_pixel():
 
 def create_adset(campaign=create_adcampaign()):
     adset = AdSet(parent_id=test_config.account_id)
-    adset[AdSet.Field.name] = 'Test Adset'
+    adset[AdSet.Field.name] = unique_name('Test Adset')
     adset[AdSet.Field.campaign_group_id] = campaign.get_id()
     adset[AdSet.Field.targeting] = {
         'geo_locations': {
@@ -223,7 +220,7 @@ def create_adset(campaign=create_adcampaign()):
 
 def create_adgroup(ad_set=create_adset(), creative=create_creative()):
     adgroup = AdGroup(parent_id=test_config.account_id)
-    adgroup[AdGroup.Field.name] = 'My AdGroup'
+    adgroup[AdGroup.Field.name] = unique_name('My AdGroup')
     adgroup[AdGroup.Field.campaign_id] = ad_set.get_id_assured()
     adgroup[AdGroup.Field.status] = AdGroup.Status.paused
     adgroup[AdGroup.Field.creative] = {
@@ -234,3 +231,14 @@ def create_adgroup(ad_set=create_adset(), creative=create_creative()):
     atexit.register(remote_delete, adgroup)
 
     return adgroup
+
+
+def create_adlabel(params={}):
+    adlabel = AdLabel(parent_id=test_config.account_id)
+    adlabel[AdLabel.Field.name] = unique_name('Label Name')
+    adlabel.update(params)
+    adlabel.remote_create()
+
+    atexit.register(remote_delete, adlabel)
+
+    return adlabel
