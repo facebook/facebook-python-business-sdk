@@ -136,6 +136,7 @@ print(creative)
 post_id = fixtures.get_promotable_post()['id']
 
 # _DOC open [ADCREATIVE_CREATE_PAGE_POST]
+# _DOC vars [ad_account_id:s, post_id]
 from facebookads.objects import AdCreative
 
 creative = AdCreative(parent_id=ad_account_id)

@@ -51,10 +51,10 @@ def api_get(path, api=None, url=default_api_url):
     return response.json()
 
 
-def api_post(path, params={}, api=None, url=default_api_url):
+def api_post(path, params={}, api=None, url=default_api_url, **kwargs):
     if api is None:
         api = FacebookAdsApi.get_default_api()
-    response = api.call('POST', url + path, **params)
+    response = api.call('POST', url + path, params=params, **kwargs)
     return response.json()
 
 
@@ -86,15 +86,20 @@ def get_promotable_post():
     return posts[0]
 
 
+def create_post(**params):
+    api = get_page_api()
+    path = "/{}/feed".format(test_config.page_id)
+
+    return api_post(path, params, api)
+
+
 def upload_video(video_path):
     api = get_page_api()
     path = "/{}/videos".format(test_config.page_id)
     url = 'https://graph-video.facebook.com/' + FacebookAdsApi.API_VERSION
+    args = {'files': {'source': open(video_path)}}
 
-    return api_post(path,
-                    {'files': {'source': open(video_path)}},
-                    api,
-                    url)
+    return api_post(path, {}, api, url, args)
 
 
 def remote_delete(obj):
