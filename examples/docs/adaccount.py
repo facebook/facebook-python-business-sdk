@@ -364,7 +364,7 @@ params = {
 }
 stats = ad_account.get_insights(params=params)
 print(stats)
-# _DOC close [ADACCOUNT_GET_INSIGHTS_FILTERING_AD_LABEL_NAMES]
+# _DOC close [ADACCOUNT_GET_INSIGHTS_FILTERING_ADLABEL_NAMES]
 
 
 ad_label_id = fixtures.create_adlabel().get_id()
@@ -431,6 +431,7 @@ for description in targeting_description['targetingsentencelines']:
         print("\t" + child)
 # _DOC close [ADACCOUNT_GET_TARGETING_DESCRIPTION]
 
+
 # _DOC open [ADACCOUNT_GET_REPORTSTATS_DYNAMIC_PRODUCT_ADS]
 # _DOC vars [ad_account_id:s]
 from facebookads.objects import AdAccount
@@ -447,3 +448,32 @@ params = {
 
 stats = account.get_report_stats(params=params)
 # _DOC close [ADACCOUNT_GET_REPORTSTATS_DYNAMIC_PRODUCT_ADS]
+
+
+ad_label_id = fixtures.create_adlabel().get_id()
+
+# _DOC open [ADACCOUNT_GET_ADLABELS]
+# _DOC vars [ad_account_id:s]
+from facebookads.objects import AdAccount
+from facebookads.objects import AdLabel
+
+account = AdAccount(ad_account_id)
+adlabels = account.get_ad_labels()
+
+for adlabel in adlabels:
+    print(adlabel[AdLabel.Field.name])
+# _DOC close [ADACCOUNT_GET_ADLABELS]
+
+
+# _DOC open [ADACCOUNT_GET_ADGROUPS_BY_LABEL]
+# _DOC vars [ad_account_id:s, ad_label_id]
+from facebookads.objects import AdAccount
+from facebookads.objects import AdLabel
+
+account = AdAccount(ad_account_id)
+params = {'ad_label_ids': [ad_label_id], 'operator': 'ALL'}
+adlabels = account.get_ad_groups_by_labels([AdGroup.Field.name], params=params)
+
+for adlabel in adlabels:
+    print(adlabel[AdLabel.Field.name])
+# _DOC close [ADACCOUNT_GET_ADGROUPS_BY_LABEL]

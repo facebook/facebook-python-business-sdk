@@ -19,6 +19,7 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebookads import test_config
+from facebookads.objects import AdLabel
 from examples.docs import fixtures
 import string
 
@@ -250,6 +251,83 @@ from facebookads.objects import AdGroup
 adgroup = AdGroup(ad_group_id)
 adgroup.remote_archive()
 # _DOC close [ADGROUP_ARCHIVE]
+
+
+# _DOC open [ADGROUP_GET_ADLABELS]
+# _DOC vars [ad_group_id]
+from facebookads.objects import AdGroup
+
+adgroup = AdGroup(ad_group_id)
+adgroup.get_ad_labels()
+# _DOC close [ADGROUP_GET_ADLABELS]
+
+
+ad_label = fixtures.create_adlabel()
+ad_label_id = ad_label.get_id()
+ad_group_id = fixtures.create_adgroup().get_id()
+
+# _DOC open [ADGROUP_UPDATE_LABELS]
+# _DOC vars [ad_group_id, ad_label_id]
+from facebookads.objects import AdGroup
+
+adgroup = AdGroup(ad_group_id)
+adgroup[AdGroup.Field.adlabels] = [
+    {AdLabel.Field.id: ad_label_id},
+    {AdLabel.Field.name: 'New Label Name'},
+]
+adgroup.remote.update()
+# _DOC close [ADGROUP_UPDATE_LABELS]
+
+
+# _DOC open [ADGROUP_ADD_LABELS]
+# _DOC vars [ad_group_id, ad_label_id]
+from facebookads.objects import AdGroup
+
+adgroup = AdGroup(ad_group_id)
+adlabels = [ad_label_id]
+adgroup.add_labels(adlabels)
+# _DOC close [ADGROUP_ADD_LABELS]
+
+
+# _DOC open [ADGROUP_REMOVE_LABELS]
+# _DOC vars [ad_group_id, ad_label_id]
+from facebookads.objects import AdGroup
+
+adgroup = AdGroup(ad_group_id)
+adlabels = [ad_label_id]
+adgroup.remove_labels(adlabels)
+# _DOC close [ADGROUP_REMOVE_LABELS]
+
+
+ad_label_name = ad_label[AdLabel.Field.name]
+
+# _DOC open [ADGROUP_GET_INSIGHTS_ADLABEL]
+# _DOC vars [ad_label_name, ad_label_id]
+from facebookads.objects import AdGroup, Insights
+
+adgroup = AdGroup(ad_group_id)
+params = {
+    'level': 'adgroup',
+    'filtering': [{
+        'field': 'adgroup.adlabels',
+        'operator': 'ANY',
+        'value': [ad_label_name]
+    }],
+    'time_range': {
+        'since': '2015-03-01',
+        'until': '2015-03-31'
+    }
+}
+
+fields = [
+    Insights.Field.clicks,
+    Insights.Field.cpc,
+    Insights.Field.total_actions,
+]
+
+stats = adgroup.get_insights(fields, params=params)
+print(stats)
+# _DOC close [ADGROUP_GET_INSIGHTS_ADLABEL]
 
 
 # _DOC open [ADGROUP_DELETE]
