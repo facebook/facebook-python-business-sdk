@@ -27,6 +27,8 @@ page_id = test_config.page_id
 connections_id = page_id
 campaign_group_id = fixtures.create_adcampaign().get_id_assured()
 ad_set_id = fixtures.create_adset().get_id_assured()
+product_catalog_id = test_config.product_catalog_id
+product_set_id = test_config.product_set_id
 
 # _DOC open [ADSET_CREATE]
 # _DOC vars [ad_account_id:s, campaign_group_id]
@@ -300,3 +302,87 @@ params = {
 stats = adset.get_insights(params=params)
 print(stats)
 # _DOC close [ADSET_GET_INSIGHTS_LEVEL_ADGROUP]
+
+params = {
+    AdCampaign.Field.objective: AdCampaign.Objective.product_catalog_sales,
+    AdCampaign.Field.promoted_object: {'product_catalog_id': product_catalog_id}
+}
+
+campaign_group_id = fixtures.create_adcampaign(params).get_id_assured()
+
+# _DOC open [ADSET_CREATE_DYNAMIC_PROSPECTIING]
+# _DOC vars [ad_account_id:s, product_set_id, campaign_group_id]
+from facebookads.objects import AdSet, TargetingSpecsField
+
+adset = AdSet(parent_id=ad_account_id)
+adset[AdSet.Field.name] = 'Case 1 Adset'
+adset[AdSet.Field.bid_amount] = 3000
+adset[AdSet.Field.billing_event] = AdSet.BillingEvent.link_clicks
+adset[AdSet.Field.optimization_goal] = AdSet.OptimizationGoal.link_clicks
+adset[AdSet.Field.status] = AdSet.Status.active
+adset[AdSet.Field.daily_budget] = 15000
+adset[AdSet.Field.campaign_group_id] = campaign_group_id
+adset[AdSet.Field.targeting] = {
+    TargetingSpecsField.geo_locations: {
+        TargetingSpecsField.countries: ['US'],
+    },
+    TargetingSpecsField.interests: [{
+        'id': 6003397425735,
+        'name': 'Tennis',
+    }],
+}
+adset[AdSet.Field.promoted_object] = {'product_set_id': product_set_id}
+behavior = 'FALL_BACK_TO_FB_RECOMMENDATIONS'
+adset[AdSet.Field.product_ad_behavior] = behavior
+
+adset.remote_create()
+# _DOC close [ADSET_CREATE_DYNAMIC_PROSPECTIING]
+adset.remote_delete()
+
+product_set_id_1 = product_set_id
+product_set_id_2 = product_set_id
+
+# _DOC open [ADSET_CREATE_DYNAMIC_RETARGETING]
+# _DOC vars [ad_account_id:s, product_set_id_1, product_set_id_2, campaign_group_id]
+from facebookads.objects import AdSet, TargetingSpecsField
+
+adset = AdSet(parent_id=ad_account_id)
+adset[AdSet.Field.name] = 'My cross sell ad set'
+adset[AdSet.Field.bid_amount] = 3000
+adset[AdSet.Field.billing_event] = 'LINK_CLICKS'
+adset[AdSet.Field.optimization_goal] = 'LINK_CLICKS'
+adset[AdSet.Field.status] = AdSet.Status.active
+adset[AdSet.Field.daily_budget] = 15000
+adset[AdSet.Field.campaign_group_id] = campaign_group_id
+adset[AdSet.Field.targeting] = {
+    TargetingSpecsField.geo_locations: {
+        TargetingSpecsField.countries: ['US'],
+    },
+    TargetingSpecsField.product_audience_specs: [{
+        'product_set_id': product_set_id_2,
+        'inclusions': [{
+            'retention_seconds': 432000,
+            'rule': {'event': {'eq': 'ViewContent'}},
+        }],
+        'exclusions': [{
+            'retention_seconds': 432000,
+            'rule': {'event': {'eq': 'Purchase'}},
+        }],
+    }],
+    TargetingSpecsField.excluded_product_audience_specs: [{
+        'product_set_id': product_set_id_2,
+        'inclusions': [{
+            'retention_seconds': 259200,
+            'rule': {'event': {'eq': 'ViewContent'}},
+        }],
+    }],
+}
+adset[AdSet.Field.promoted_object] = {
+    'product_set_id': product_set_id_1
+}
+behavior = 'FALL_BACK_TO_FB_RECOMMENDATIONS'
+adset[AdSet.Field.product_ad_behavior] = behavior
+
+adset.remote_create()
+# _DOC close [ADSET_CREATE_DYNAMIC_RETARGETING]
+adset.remote_delete()

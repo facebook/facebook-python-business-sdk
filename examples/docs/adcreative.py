@@ -19,11 +19,14 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebookads.objects import AdImage
+from facebookads.objects import AdPreview
 from facebookads import test_config
 from examples.docs import fixtures
 
 ad_account_id = test_config.account_id
 page_id = test_config.page_id
+product_catalog_id = test_config.product_catalog_id
+product_set_id = test_config.product_set_id
 
 image_hash = fixtures.create_image().get_hash()
 link = 'http://example.com'
@@ -277,3 +280,146 @@ creative = AdCreative(parent_id=ad_account_id)
 creative[AdCreative.Field.object_story_spec] = story
 creative.remote_create()
 # _DOC close [ADCREATIVE_CREATE_GET_DIRECTIONS_VIDEO]
+
+# _DOC open [ADCREATIVE_CREATE_DPA_CAROUSEL]
+# _DOC vars [ad_account_id:s, page_id, link:s, product_set_id]
+from facebookads.objects import AdCreative
+from facebookads.specs import ObjectStorySpec
+
+story = ObjectStorySpec()
+story[story.Field.page_id] = page_id
+story[story.Field.template_data] = {
+    'message': 'Test {{product.name | titleize}}',
+    'link': link,
+    'name': 'Headline {{product.price}}',
+    'description': 'Description {{product.description}}',
+    'max_product_count': 3,
+}
+
+creative = AdCreative(parent_id=ad_account_id)
+creative[AdCreative.Field.name] = 'Dynamic Ad Template Creative Sample'
+creative[AdCreative.Field.object_story_spec] = story
+creative[AdCreative.Field.product_set_id] = product_set_id
+creative.remote_create()
+# _DOC close [ADCREATIVE_CREATE_DPA_CAROUSEL]
+creative.remote_delete()
+
+# _DOC open [ADCREATIVE_CREATE_DPA_SINGLE_PRODUCT_CTA]
+# _DOC vars [ad_account_id:s, page_id, link:s, product_set_id]
+from facebookads.objects import AdCreative
+from facebookads.specs import ObjectStorySpec
+
+story = ObjectStorySpec()
+story[story.Field.page_id] = page_id
+story[story.Field.template_data] = {
+    'call_to_action': {'type': 'SHOP_NOW'},
+    'message': 'Test {{product.name | titleize}}',
+    'link': link,
+    'name': 'Headline {{product.price}}',
+    'description': 'Description {{product.description}}',
+}
+
+creative = AdCreative(parent_id=ad_account_id)
+creative[AdCreative.Field.name] = 'Dynamic Ad Template Creative Sample'
+creative[AdCreative.Field.object_story_spec] = story
+creative[AdCreative.Field.product_set_id] = product_set_id
+creative.remote_create()
+# _DOC close [ADCREATIVE_CREATE_DPA_SINGLE_PRODUCT_CTA]
+creative.remote_delete()
+
+# _DOC open [ADCREATIVE_CREATE_DPA_CAROUSEL_TEMPLATE_URL]
+# _DOC vars [ad_account_id:s, page_id, link:s, product_set_id]
+from facebookads.objects import AdCreative
+from facebookads.specs import ObjectStorySpec
+
+story = ObjectStorySpec()
+story[story.Field.page_id] = page_id
+story[story.Field.template_data] = {
+    'message': 'Test {{product.name | titleize}}',
+    'link': link,
+    'name': 'Headline {{product.price}}',
+    'description': 'Description {{product.description}}',
+}
+
+creative = AdCreative(parent_id=ad_account_id)
+creative[AdCreative.Field.name] = 'Dynamic Ad Template Creative Sample'
+creative[AdCreative.Field.object_story_spec] = story
+template_url = ('http://clicktrack.com/cm325?id={{product.retailer_id}}'
+                '&redirect_url={{product.url|urlencode}}')
+creative[AdCreative.Field.template_url] = template_url
+creative[AdCreative.Field.product_set_id] = product_set_id
+creative.remote_create()
+# _DOC close [ADCREATIVE_CREATE_DPA_CAROUSEL_TEMPLATE_URL]
+
+creative_id = creative.get_id()
+creative.remote_delete()
+
+# _DOC open [ADCREATIVE_CREATE_DPA_DEEPLINK]
+# _DOC vars [ad_account_id:s, page_id, link:s, product_set_id]
+from facebookads.objects import AdCreative
+from facebookads.specs import ObjectStorySpec
+
+story = ObjectStorySpec()
+story[story.Field.page_id] = page_id
+story[story.Field.template_data] = {
+    'call_to_action': {'type': 'SHOP_NOW'},
+    'message': 'Test {{product.name | titleize}}',
+    'link': link,
+    'name': 'Headline {{product.price}}',
+    'description': 'Description {{product.description}}',
+}
+
+creative = AdCreative(parent_id=ad_account_id)
+creative[AdCreative.Field.name] = 'Dynamic Ad Template Creative Sample'
+creative[AdCreative.Field.applink_treatment] = 'deeplink_with_web_fallback'
+creative[AdCreative.Field.object_story_spec] = story
+creative[AdCreative.Field.product_set_id] = product_set_id
+creative.remote_create()
+# _DOC close [ADCREATIVE_CREATE_DPA_DEEPLINK]
+
+product_set_id_1 = product_set_id
+# _DOC open [ADCREATIVE_CREATE_DPA_RETARGETING]
+# _DOC vars [ad_account_id:s, page_id, link:s, product_set_id_1]
+from facebookads.objects import AdCreative
+from facebookads.specs import ObjectStorySpec
+story = ObjectStorySpec()
+story[story.Field.page_id] = page_id
+story[story.Field.template_data] = {
+    'message': 'Test {{product.name | titleize}}',
+    'link': link,
+    'name': 'Headline {{product.price}}',
+    'description': 'Description {{product.description}}',
+    'max_product_count': 3,
+}
+
+creative = AdCreative(parent_id=ad_account_id)
+creative[AdCreative.Field.name] = 'Dynamic Ad Template Creative Sample'
+creative[AdCreative.Field.object_story_spec] = story
+creative[AdCreative.Field.product_set_id] = product_set_id_1
+creative.remote_create()
+# _DOC close [ADCREATIVE_CREATE_DPA_RETARGETING]
+creative.remote_delete()
+
+# FIXME excluded from runtime
+exit(0)
+
+retailer_id = ''
+catalog_id = product_catalog_id
+# _DOC open [ADCREATIVE_READ_DPA_PREVIEW]
+# _DOC vars [creative_id, catalog_id, retailer_id:s]
+import base64
+from facebookads.objects import AdCreative, AdCreativePreview
+
+item_id = retailer_id
+b64_id = base64.urlsafe_b64encode(item_id.encode('utf8'))
+b64_encoded_id = b64_id.decode('utf8')
+
+creative = AdCreative(creative_id)
+params = {
+    AdCreativePreview.Field.ad_format: AdPreview.AdFormat.desktop_feed_standard,
+    AdCreativePreview.Field.product_item_ids: [
+        "catalog:%d:%s" % (catalog_id, b64_encoded_id)
+    ]
+}
+preview = creative.get_ad_preview(params=params)
+# _DOC close [ADCREATIVE_READ_DPA_PREVIEW]

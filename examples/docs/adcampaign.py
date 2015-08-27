@@ -24,7 +24,8 @@ import time
 
 ad_account_id = test_config.account_id
 campaign_group_id = fixtures.create_adcampaign().get_id()
-
+product_catalog_id = test_config.product_catalog_id
+product_set_id = test_config.product_set_id
 
 # _DOC open [ADCAMPAIGN_CREATE_HOMEPAGE]
 # _DOC vars [ad_account_id:s]
@@ -213,3 +214,20 @@ while async_job['async_percent_completion'] < 100:
 
 print(async_job.get_result())
 # _DOC close [ADCAMPAIGN_GET_INSIGHTS_ASYNC]
+
+# _DOC open [ADCAMPAIGN_CREATE_OBJECTIVE_PRODUCT_CATELOG_SALES]
+# _DOC vars [ad_account_id:s, product_catalog_id]
+from facebookads.objects import AdCampaign
+
+campaign = AdCampaign(parent_id=ad_account_id)
+campaign[AdCampaign.Field.name] = 'Product Catalog Sales Campaign Group'
+campaign[AdCampaign.Field.status] = AdCampaign.Status.paused
+objective = AdCampaign.Objective.product_catalog_sales
+campaign[AdCampaign.Field.objective] = objective
+campaign[AdCampaign.Field.promoted_object] = {
+    'product_catalog_id': product_catalog_id
+}
+
+campaign.remote_create()
+# _DOC close [ADCAMPAIGN_CREATE_OBJECTIVE_PRODUCT_CATELOG_SALES]
+campaign.remote_delete()

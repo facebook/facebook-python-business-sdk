@@ -259,3 +259,17 @@ from facebookads.objects import AdGroup
 adgroup = AdGroup(ad_group_id)
 adgroup.remote_delete()
 # _DOC close [ADGROUP_DELETE]
+
+campaign_id = ad_set_id
+# _DOC open [ADGROUP_CREATE_DYNAMIC_AD]
+# _DOC vars [ad_account_id:s, campaign_id, creative_id]
+from facebookads.objects import AdGroup
+
+adgroup = AdGroup(parent_id=ad_account_id)
+adgroup[AdGroup.Field.name] = 'my dynamic ad'
+adgroup[AdGroup.Field.campaign_id] = campaign_id
+adgroup[AdGroup.Field.creative] = {'creative_id': creative_id}
+
+adgroup.remote_create()
+# _DOC close [ADGROUP_CREATE_DYNAMIC_AD]
+adgroup.remote_delete()

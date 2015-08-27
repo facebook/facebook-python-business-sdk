@@ -430,3 +430,20 @@ for description in targeting_description['targetingsentencelines']:
     for child in description['children']:
         print("\t" + child)
 # _DOC close [ADACCOUNT_GET_TARGETING_DESCRIPTION]
+
+# _DOC open [ADACCOUNT_GET_REPORTSTATS_DYNAMIC_PRODUCT_ADS]
+# _DOC vars [ad_account_id:s]
+from facebookads.objects import AdAccount
+
+account = AdAccount(ad_account_id)
+
+params = {
+    'data_columns': [
+        'account_name', 'impressions', 'clicks', 'actions', 'product_id'
+    ],
+    'date_preset': 'last_week',
+    'actions_group_by': ['action_type'],
+}
+
+stats = account.get_report_stats(params=params)
+# _DOC close [ADACCOUNT_GET_REPORTSTATS_DYNAMIC_PRODUCT_ADS]
