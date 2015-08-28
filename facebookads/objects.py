@@ -1961,7 +1961,7 @@ class CustomAudience(AbstractCrudObject):
             for user in users:
                 if schema == cls.Schema.email_hash:
                     user = user.strip(" \t\r\n\0\x0B.").lower()
-                if isinstance(user, six.text_type):
+                if isinstance(user, six.text_type) and not(pre_hashed):
                     user = user.encode('utf8')  # required for hashlib
                 if pre_hashed:
                     hashed_users.append(user)

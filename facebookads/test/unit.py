@@ -30,6 +30,7 @@ import json
 import inspect
 import six
 import re
+import hashlib
 from six.moves import urllib
 from sys import version_info
 from .. import api
@@ -68,11 +69,11 @@ class CustomAudienceTestCase(unittest.TestCase):
 
     def test_format_params_pre_hashed(self):
         # This is the value of "test" when it's hashed with sha256
-        test_hash = \
-            "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08"
+        user = "test"
+        test_hash = (hashlib.sha256(user.encode('utf8')).hexdigest())
         payload = objects.CustomAudience.format_params(
             objects.CustomAudience.Schema.email_hash,
-            ["9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08"], 
+            [test_hash], 
             pre_hashed=True
         )
 
