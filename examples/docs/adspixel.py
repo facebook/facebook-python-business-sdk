@@ -23,7 +23,6 @@ from __future__ import unicode_literals
 
 from facebookads import config
 
-ad_account_id = config.account_id
 
 # _DOC open [ADSPIXEL_CREATE]
 # _DOC vars [ad_account_id:s]

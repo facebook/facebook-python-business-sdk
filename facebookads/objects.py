@@ -876,6 +876,33 @@ class AdUser(CannotCreate, CannotDelete, CannotUpdate, AbstractCrudObject):
         """Returns first AdAccount associated with this user."""
         return self.edge_object(AdAccount, fields, params)
 
+    def get_pages(self, fields=None, params=None):
+        """Returns iterator over Pages's associated with this user."""
+        return self.iterate_edge(Page, fields, params)
+
+
+class Page(CannotCreate, CannotDelete, CannotUpdate, AbstractCrudObject):
+
+    class Field(object):
+        id = 'id'
+        name = 'name'
+        category = 'category'
+        access_token = 'access_token'
+        location = 'location'
+        website = 'website'
+        phone = 'phone'
+
+    class Location(object):
+        city = 'city'
+        country = 'country'
+        latitude = 'latitude'
+        longitude = 'longitude'
+        street = 'street'
+        zip = 'zip'
+
+    @classmethod
+    def get_endpoint(cls):
+        return 'accounts'
 
 class Activity(AbstractObject):
 
