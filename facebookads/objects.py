@@ -1283,7 +1283,7 @@ class AdCampaign(CanValidate, HasStatus, HasObjective, HasAdLabels, CanArchive,
     class BuyingType(object):
         auction = 'AUCTION'
         fixed_cpm = 'FIXED_CPM'
-        mixed = 'MIXED'
+        reserved = 'RESERVED'
 
     @classmethod
     def get_endpoint(cls):
