@@ -904,6 +904,13 @@ class Page(CannotCreate, CannotDelete, CannotUpdate, AbstractCrudObject):
     def get_endpoint(cls):
         return 'accounts'
 
+    def get_leadgen_forms(self, fields=None, params=None):
+        """
+        Returns all leadgen forms on the page
+        """
+        return self.iterate_edge(LeadgenForm, fields, params)
+
+
 class Activity(AbstractObject):
 
     class Field(object):
@@ -1473,6 +1480,12 @@ class AdGroup(HasStatus, CanArchive, HasAdLabels, AbstractCrudObject):
             async,
             include_summary=False
         )
+
+    def get_leads(self, fields=None, params=None):
+        """
+        Returns all the leads associated with the adgroup
+        """
+        return self.iterate_edge(Lead, fields, params)
 
 
 class AdConversionPixel(AbstractCrudObject):
@@ -2916,6 +2929,48 @@ class AdCampaignGroupsByLabels(AbstractObject):
     @classmethod
     def get_endpoint(cls):
         return 'adcampaigngroupsbylabels'
+
+
+class Lead(AbstractCrudObject):
+
+    class Field(object):
+        adgroup_id = 'adgroup_id'
+        created_time = 'created_time'
+        field_data = 'field_data'
+        form_id = 'form_id'
+        id = 'id'
+        is_tcpa_compliant = 'is_tcpa_compliant'
+        tcpa_disclosure = 'tcpa_disclosure'
+
+    @classmethod
+    def get_endpoint(cls):
+        return 'leads'
+
+
+class LeadgenForm(AbstractCrudObject):
+
+    class Field(object):
+        created_time = 'created_time'
+        customized_tcpa_content = 'customized_tcpa_content'
+        follow_up_action_text = 'follow_up_action_text'
+        follow_up_action_url = 'follow_up_action_url'
+        id = 'id'
+        leadgen_export_csv_url = 'leadgen_export_csv_url'
+        leads = 'leads'
+        locale = 'locale'
+        name = 'name'
+        privacy_policy_url = 'privacy_policy_url'
+        tcpa_compliance = 'tcpa_compliance'
+
+    @classmethod
+    def get_endpoint(cls):
+        return 'leadgen_forms'
+
+    def get_leads(self, fields=None, params=None):
+        """
+        Returns all the leads associated with the ad leadgen form
+        """
+        return self.iterate_edge(Lead, fields, params)
 
 
 class AsyncJob(CannotCreate, AbstractCrudObject):
