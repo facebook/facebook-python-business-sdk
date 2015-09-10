@@ -2809,7 +2809,6 @@ class Insights(CannotCreate, CannotDelete, CannotUpdate, AbstractCrudObject):
         video_p50_watched_actions = 'video_p50_watched_actions'
         video_p75_watched_actions = 'video_p75_watched_actions'
         video_p95_watched_actions = 'video_p95_watched_actions'
-        video_start_actions = 'video_start_actions'
         website_ctr = 'website_ctr'
 
     @classmethod
