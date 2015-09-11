@@ -420,5 +420,24 @@ class VersionUtilsTestCase(unittest.TestCase):
         version_value = utils.version.get_version()
         assert re.search('[0-9]+\.[0-9]+\.[0-9]', version_value)
 
+
+class AsyncJobTestCase(unittest.TestCase):
+
+    def test_init(self):
+        async_job = objects.AsyncJob(objects.Insights)
+        self.assertEqual(async_job.target_objects_class, objects.Insights)
+
+    def test___nonzero__(self):
+        async_job = objects.AsyncJob(objects.Insights)
+        # no async_percent_completion
+        self.assertFalse(async_job)
+        # not 100
+        async_job[async_job.Field.async_percent_completion] = 42
+        self.assertFalse(async_job)
+        # 100
+        async_job[async_job.Field.async_percent_completion] = 100
+        self.assertTrue(async_job)
+
+
 if __name__ == '__main__':
     unittest.main()

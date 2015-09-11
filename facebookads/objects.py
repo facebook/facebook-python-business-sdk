@@ -2941,4 +2941,7 @@ class AsyncJob(CannotCreate, AbstractCrudObject):
         )
 
     def __nonzero__(self):
-        return self[self.Field.async_percent_completion] == 100
+        try:
+            return self[self.Field.async_percent_completion] == 100
+        except KeyError:
+            return False
