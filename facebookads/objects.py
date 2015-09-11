@@ -2942,3 +2942,12 @@ class AsyncJob(CannotCreate, AbstractCrudObject):
 
     def __nonzero__(self):
         return self[self.Field.async_percent_completion] == 100
+
+    def poll(self):
+        """
+        This is a blocking method that will poll until the async job is done.
+        """
+        async_job.remote_read()
+        while not async_job:
+            time.sleep(0.5)
+            async_job.remote_read()
