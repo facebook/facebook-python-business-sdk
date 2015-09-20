@@ -1193,6 +1193,13 @@ class AdAccount(CannotCreate, CannotDelete, HasAdLabels, AbstractCrudObject):
         """
         return self.iterate_edge(AdCampaignGroupsByLabels, fields, params)
 
+    def get_minimum_budgets(self, fields=None, params=None):
+        """
+        Returns the minimum budget associated with the AdAccount
+        """
+        return self.iterate_edge(MinimumBudget, fields, params)
+
+
 class AdAccountGroup(AbstractCrudObject):
 
     class Field(object):
@@ -2971,6 +2978,19 @@ class LeadgenForm(AbstractCrudObject):
         Returns all the leads associated with the ad leadgen form
         """
         return self.iterate_edge(Lead, fields, params)
+
+
+class MinimumBudget(AbstractObject):
+
+    class Field(object):
+        currency = 'currency'
+        min_daily_budget_imp = 'min_daily_budget_imp'
+        min_daily_budget_high_freq = 'min_daily_budget_high_freq'
+        min_daily_budget_low_freq = 'min_daily_budget_low_freq'
+
+    @classmethod
+    def get_endpoint(cls):
+        return 'minimum_budgets'
 
 
 class AsyncJob(CannotCreate, AbstractCrudObject):
