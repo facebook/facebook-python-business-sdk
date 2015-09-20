@@ -1349,6 +1349,7 @@ class AdSet(CanValidate, HasStatus, CanArchive, HasAdLabels,
         status = 'campaign_status'
         targeting = 'targeting'
         updated_time = 'updated_time'
+        use_new_app_click = 'use_new_app_click'
 
     class BillingEvent(object):
         app_installs = 'APP_INSTALLS'
