@@ -1830,13 +1830,6 @@ class AdCreativePreview(AdPreview):
         return 'previews'
 
 
-class AdPreview(AdCreativePreview):
-
-    @classmethod
-    def get_endpoint(cls):
-        return 'previews'
-
-
 class KeywordStats(AbstractObject):
 
     @classmethod
@@ -2502,7 +2495,7 @@ class ProductCatalog(AbstractCrudObject):
         url = '/'.join((
             FacebookSession.GRAPH,
             FacebookAdsApi.API_VERSION,
-            product_endpoint
+            product_endpoint,
         ))
 
         return self.get_api_assured().call(
