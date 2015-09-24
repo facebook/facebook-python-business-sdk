@@ -1593,6 +1593,8 @@ class AdCreative(HasAdLabels, AbstractCrudObject):
         image_file = 'image_file'
         image_hash = 'image_hash'
         image_url = 'image_url'
+        instagram_actor_id = 'instagram_actor_id'
+        instagram_permalink_url = 'instagram_permalink_url'
         link_deep_link_url = 'link_deep_link_url'
         link_url = 'link_url'
         name = 'name'

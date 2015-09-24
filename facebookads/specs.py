@@ -29,6 +29,7 @@ from facebookads.mixins import ValidatesFields
 
 class ObjectStorySpec(ValidatesFields, AbstractObject):
     class Field(object):
+        instagram_actor_id = 'instagram_actor_id'
         link_data = 'link_data'
         offer_data = 'offer_data'
         page_id = 'page_id'
