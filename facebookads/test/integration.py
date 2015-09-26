@@ -30,6 +30,7 @@ import time
 import sys
 import os
 import json
+import warnings
 
 from .. import objects
 from .. import specs
@@ -62,7 +63,11 @@ class FacebookAdsTestCase(unittest.TestCase):
         for o in reversed(self.remote_objects):
             if o.Field.id in o and o.get_id() is not None:
                 try:
-                    o.remote_delete()
+                    if isinstance(o, objects.AdImage):
+                        o.remote_delete(
+                            params={objects.AdImage.Field.hash: o.get_hash()})
+                    else:
+                        o.remote_delete()
                 except Exception:
                     if isinstance(o, objects.AdImage):
                         # AdImages are often reused automatically since the
@@ -301,6 +306,7 @@ class AbstractCrudObjectTestCase(AbstractObjectTestCase):
             parent_id=self.TEST_ACCOUNT.get_id_assured(),
         )
 
+        self.delete_in_teardown(test_image_one)
         test_image_one[objects.AdImage.Field.filename] = image_file
 
         assert test_image_one.remote_create(api_version="v2.3") is not None
@@ -309,6 +315,7 @@ class AbstractCrudObjectTestCase(AbstractObjectTestCase):
             parent_id=self.TEST_ACCOUNT.get_id_assured(),
         )
 
+        self.delete_in_teardown(test_image_two)
         test_image_two[objects.AdImage.Field.filename] = image_file
 
         try:
@@ -618,12 +625,140 @@ class MultiProductAdObjectStorySpecTestCase(AbstractCrudObjectTestCase):
 
 class AdImageTestCase(AbstractCrudObjectTestCase):
 
-    def test_can_upload_zip(self):
-        images = objects.AdImage.remote_create_from_zip(
-            filename=self.TEST_ZIP_PATH,
-            parent_id=self.TEST_ACCOUNT.get_id()
-        )
-        assert len(images) == 2
+    def test_can_upload_zip_from_path_interim(self):
+        """
+        Testing the backward compatibility of file upload feature using
+        the 'filename' argument. This is the interim form of the upload
+        until the argument name will be changed to 'file'.
+        """
+        with warnings.catch_warnings(record=True) as warns:
+            warnings.simplefilter("always", DeprecationWarning)
+
+            images = objects.AdImage.remote_create_from_zip(
+                filename=self.TEST_ZIP_PATH,
+                parent_id=self.TEST_ACCOUNT.get_id()
+            )
+            for image in images:
+                self.delete_in_teardown(image)
+            assert len(images) == 2
+
+            assert len(warns) == 1
+
+    def test_can_upload_zip_from_file_object_interim(self):
+        """
+        Testing the backward compatibility of file upload feature using
+        the 'filename' argument. This is the interim form of the upload
+        until the argument name will be changed to 'file'.
+        """
+        with warnings.catch_warnings(record=True) as warns:
+            warnings.simplefilter("always", DeprecationWarning)
+
+            with open(self.TEST_ZIP_PATH, "rb") as zipfile:
+                images = objects.AdImage.remote_create_from_zip(
+                    filename=zipfile,
+                    parent_id=self.TEST_ACCOUNT.get_id()
+                )
+                for image in images:
+                    self.delete_in_teardown(image)
+                assert len(images) == 2
+
+            assert len(warns) == 1
+
+    def test_can_upload_zip_from_path(self):
+        with warnings.catch_warnings(record=True) as warns:
+            warnings.simplefilter("always", DeprecationWarning)
+
+            images = objects.AdImage.remote_create_from_zip(
+                file=self.TEST_ZIP_PATH,
+                parent_id=self.TEST_ACCOUNT.get_id()
+            )
+            for image in images:
+                self.delete_in_teardown(image)
+            assert len(images) == 2
+
+            assert len(warns) == 0
+
+    def test_can_upload_zip_from_file_object(self):
+        with warnings.catch_warnings(record=True) as warns:
+            warnings.simplefilter("always", DeprecationWarning)
+
+            with open(self.TEST_ZIP_PATH, "rb") as zipfile:
+                images = objects.AdImage.remote_create_from_zip(
+                    file=zipfile,
+                    parent_id=self.TEST_ACCOUNT.get_id()
+                )
+                for image in images:
+                    self.delete_in_teardown(image)
+                assert len(images) == 2
+
+            assert len(warns) == 0
+
+    def test_can_upload_image_from_path_interim(self):
+        """
+        Testing the backward compatibility of file upload feature using
+        the 'filename' property. This is the interim form of the upload
+        until the property name will be changed to 'file'.
+        """
+        with warnings.catch_warnings(record=True) as warns:
+            warnings.simplefilter("always", DeprecationWarning)
+
+            img = objects.AdImage(
+                parent_id=self.TEST_ACCOUNT.get_id_assured(),
+            )
+            self.delete_in_teardown(img)
+            img[objects.AdImage.Field.filename] = self.TEST_IMAGE_PATH
+            img.remote_create()
+            assert img[objects.AdImage.Field.id] is not None
+
+            assert len(warns) == 1
+
+    def test_can_upload_image_from_file_object_interim(self):
+        """
+        Testing the backward compatibility of file upload feature using
+        the 'filename' property. This is the interim form of the upload
+        until the property name will be changed to 'file'.
+        """
+        with warnings.catch_warnings(record=True) as warns:
+            warnings.simplefilter("always", DeprecationWarning)
+
+            img = objects.AdImage(
+                parent_id=self.TEST_ACCOUNT.get_id_assured(),
+            )
+            self.delete_in_teardown(img)
+            img[objects.AdImage.Field.filename] = \
+                open(self.TEST_IMAGE_PATH, "rb")
+            img.remote_create()
+            assert img[objects.AdImage.Field.id] is not None
+
+            assert len(warns) == 1
+
+    def test_can_upload_image_from_path(self):
+        with warnings.catch_warnings(record=True) as warns:
+            warnings.simplefilter("always", DeprecationWarning)
+
+            img = objects.AdImage(
+                parent_id=self.TEST_ACCOUNT.get_id_assured(),
+            )
+            self.delete_in_teardown(img)
+            img[objects.AdImage.Field.file] = self.TEST_IMAGE_PATH
+            img.remote_create()
+            assert img[objects.AdImage.Field.id] is not None
+
+            assert len(warns) == 0
+
+    def test_can_upload_image_from_file_object(self):
+        with warnings.catch_warnings(record=True) as warns:
+            warnings.simplefilter("always", DeprecationWarning)
+
+            img = objects.AdImage(
+                parent_id=self.TEST_ACCOUNT.get_id_assured(),
+            )
+            self.delete_in_teardown(img)
+            img[objects.AdImage.Field.file] = open(self.TEST_IMAGE_PATH, "rb")
+            img.remote_create()
+            assert img[objects.AdImage.Field.id] is not None
+
+            assert len(warns) == 0
 
     def test_can_read(self):
         self.new_test_ad_image()

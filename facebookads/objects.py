@@ -48,7 +48,7 @@ import collections
 import json
 import six
 import base64
-
+import warnings
 
 class EdgeIterator(object):
 
@@ -1625,6 +1625,7 @@ class AdImage(CannotUpdate, AbstractCrudObject):
 
     class Field(object):
         creatives = 'creatives'
+        file = 'file'
         filename = 'filename'
         hash = 'hash'
         id = 'id'
@@ -1635,15 +1636,24 @@ class AdImage(CannotUpdate, AbstractCrudObject):
         return 'adimages'
 
     @classmethod
-    def remote_create_from_zip(cls, filename, parent_id, api=None):
+    def remote_create_from_zip(cls, file=None, parent_id=None, api=None,
+                               filename=None):
+        if filename:
+            warnings.warn("The 'filename' argument has been depricated in "
+                          "favor of 'file'", DeprecationWarning, stacklevel=2)
+        file = file or filename
         api = api or FacebookAdsApi.get_default_api()
-        open_file = open(filename, 'rb')
+        if isinstance(file, basestring):
+            open_file = open(file, 'rb')
+        else:
+            open_file = file
         response = api.call(
             'POST',
             (parent_id, cls.get_endpoint()),
-            files={filename: open_file}
+            files={open_file.name: open_file}
         )
-        open_file.close()
+        if open_file != file:
+            open_file.close()
 
         data = response.json()
 
@@ -1718,6 +1728,11 @@ class AdImage(CannotUpdate, AbstractCrudObject):
         else:
             return super(AdImage, self)._set_data(data)
 
+    def export_data(self):
+        """Since AdImage is not updatable there's no need to collect
+        changed properties"""
+        return {}
+
     def remote_create(
         self,
         batch=None,
@@ -1730,23 +1745,31 @@ class AdImage(CannotUpdate, AbstractCrudObject):
         """Uploads filename and creates the AdImage object from it.
 
         It has same arguments as AbstractCrudObject.remote_create except it does
-        not have the files argument but requires the 'filename' property to be
-        defined.
+        not have the files argument but requires the 'file' or 'filename'
+        property to be defined.
         """
-        if not self[self.Field.filename]:
+        if not (self.Field.file in self or self.Field.filename in self):
             raise FacebookBadObjectError(
-                "AdImage required a filename to be defined."
+                "AdImage required a file or filename to be defined."
             )
-        filename = self[self.Field.filename]
-        with open(filename, 'rb') as open_file:
-            return_val = super(AdImage, self).remote_create(
-                files={filename: open_file},
-                batch=batch,
-                failure=failure,
-                params=params,
-                success=success,
-                api_version=api_version,
-            )
+        if self.get(self.Field.filename):
+            warnings.warn("The 'filename' property has been depricated in "
+                          "favor of 'file'", DeprecationWarning, stacklevel=2)
+        file = self.get(self.Field.file, self.get(self.Field.filename))
+        if isinstance(file, basestring):
+            open_file = open(file, 'rb')
+        else:
+            open_file = file
+        return_val = super(AdImage, self).remote_create(
+            files={open_file.name: open_file},
+            batch=batch,
+            failure=failure,
+            params=params,
+            success=success,
+            api_version=api_version,
+        )
+        if open_file != file:
+            open_file.close()
         return return_val
 
     def get_hash(self):
