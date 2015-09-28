@@ -129,6 +129,7 @@ class HasObjective(object):
         canvas_app_engagement = 'CANVAS_APP_ENGAGEMENT'
         canvas_app_installs = 'CANVAS_APP_INSTALLS'
         event_responses = 'EVENT_RESPONSES'
+        lead_generation = 'LEAD_GENERATION'
         local_awareness = 'LOCAL_AWARENESS'
         mobile_app_engagement = 'MOBILE_APP_ENGAGEMENT'
         mobile_app_installs = 'MOBILE_APP_INSTALLS'
