@@ -955,7 +955,7 @@ class AdAccount(CannotCreate, CannotDelete, HasAdLabels, AbstractCrudObject):
         partner = 'partner'
         spend_cap = 'spend_cap'
         tax_id_status = 'tax_id_status'
-        timezon_id = 'timezone_id'
+        timezone_id = 'timezone_id'
         timezone_name = 'timezone_name'
         timezone_offset_hours_utc = 'timezone_offset_hours_utc'
         tos_accepted = 'tos_accepted'
