@@ -1367,6 +1367,7 @@ class AdSet(CanValidate, HasStatus, CanArchive, HasAdLabels,
         offer_claims = 'OFFER_CLAIMS'
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
+        video_views = 'VIDEO_VIEWS'
 
     class OptimizationGoal(object):
         app_installs = 'APP_INSTALLS'
