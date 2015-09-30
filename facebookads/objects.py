@@ -1293,6 +1293,12 @@ class AdCampaign(CanValidate, HasStatus, HasObjective, HasAdLabels, CanArchive,
         objective = 'objective'
         promoted_object = 'promoted_object'
         status = 'campaign_group_status'
+        can_use_spend_cap = 'can_use_spend_cap'
+        spend_cap = 'spend_cap'
+        created_time = 'created_time'
+        updated_time = 'updated_time'
+        start_time = 'start_time'
+        stop_time = 'stop_time'
 
     class BuyingType(object):
         auction = 'AUCTION'
