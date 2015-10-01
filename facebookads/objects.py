@@ -1448,17 +1448,15 @@ class AdGroup(HasStatus, CanArchive, HasAdLabels, AbstractCrudObject):
         return 'adgroups'
 
     def get_ad_creatives(self, fields=None, params=None):
-        """Returns iterator over AdCreative's associated with this ad."""
+        """Returns iterator over AdCreatives associated with this ad."""
         return self.iterate_edge(AdCreative, fields, params)
 
     def get_targeting_description(self, fields=None, params=None):
-        """
-        Returns TargetingDescription object associated with this ad.
-        """
+        """Returns TargetingDescription object associated with this ad."""
         return self.edge_object(TargetingDescription, fields, params)
 
     def get_keyword_stats(self, fields=None, params=None):
-        """Returns iterator over KeywordStats's associated with this ad."""
+        """Returns iterator over KeywordStats associated with this ad."""
         return self.edge_object(KeywordStats, fields, params)
 
     def get_ad_preview(self, fields=None, params=None):
@@ -1466,7 +1464,7 @@ class AdGroup(HasStatus, CanArchive, HasAdLabels, AbstractCrudObject):
         return self.edge_object(AdGroupPreview, fields, params)
 
     def get_reach_estimate(self, fields=None, params=None):
-        """Returns iterator over ReachEstimate's associated with this ad."""
+        """Returns iterator over ReachEstimates associated with this ad."""
         return self.iterate_edge(ReachEstimate, fields, params)
 
     def get_stats(self, fields=None, params=None):
@@ -1474,7 +1472,7 @@ class AdGroup(HasStatus, CanArchive, HasAdLabels, AbstractCrudObject):
         return self.edge_object(AdStats, fields, params)
 
     def get_click_tracking_tag(self, fields=None, params=None):
-        """Returns iterator over ClickTrackingTag's associated with this ad."""
+        """Returns iterator over ClickTrackingTags associated with this ad."""
         return self.iterate_edge(ClickTrackingTag, fields, params)
 
     def get_conversion_stats(self, fields=None, params=None):
@@ -1817,6 +1815,28 @@ class AdVideo(AbstractCrudObject):
             interval,
             timeout,
         )
+
+    def get_thumbnails(self, fields=None, params=None):
+        """
+        Returns all the thumbnails associated with the ad video
+        """
+        return self.iterate_edge(VideoThumbnail, fields, params)
+
+
+class VideoThumbnail(AbstractObject):
+
+    class Field(object):
+        id = 'id'
+        height = 'height'
+        name = 'name'
+        scale = 'scale'
+        uri = 'uri'
+        width = 'width'
+        is_preferred = 'is_preferred'
+
+    @classmethod
+    def get_endpoint(cls):
+        return 'thumbnails'
 
 
 class AdPreview(AbstractObject):

@@ -198,6 +198,7 @@ class HasAdLabels(object):
             params={'adlabels': [{'id': label} for label in labels]},
         )
 
+
 class ValidatesFields(object):
     def __setitem__(self, key, value):
         if key not in self.Field.__dict__:
