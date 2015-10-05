@@ -1169,10 +1169,12 @@ class AdCampaign(CanValidate, HasStatus, HasObjective, CanArchive,
         return self.iterate_edge(Insights, fields, params)
 
 
-class AdSet(CanValidate, HasStatus, CanArchive, AbstractCrudObject):
+class AdSet(CanValidate, HasStatus, CanArchive, HasAdLabels, AbstractCrudObject):
 
     class Field(HasBidInfo, object):
         account_id = 'account_id'
+        adlabels = 'adlabels'
+        bid_amount = 'bid_amount'
         bid_info = 'bid_info'
         bid_type = 'bid_type'
         billing_event = 'billing_event'
