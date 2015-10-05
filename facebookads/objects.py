@@ -1082,14 +1082,10 @@ class AdAccount(CannotCreate, CannotDelete, HasAdLabels, AbstractCrudObject):
         """Returns iterator over AdImage's associated with this account."""
         return self.iterate_edge(AdImage, fields, params)
 
-    def get_insights(self, fields=None, params=None, async=False):
-        return self.iterate_edge_async(
-            Insights,
-            fields,
-            params,
-            async,
-            include_summary=False
-        )
+    def get_insights(self, fields=None, params=None):
+        params = params or {}
+        params['summary'] = params.get('summary')
+        return self.iterate_edge(Insights, fields, params)
 
     def get_broad_category_targeting(self, fields=None, params=None):
         """
@@ -1321,14 +1317,10 @@ class AdCampaign(CanValidate, HasStatus, HasObjective, HasAdLabels, CanArchive,
         """Returns iterator over AdStat's associated with this campaign."""
         return self.iterate_edge(AdStats, fields, params)
 
-    def get_insights(self, fields=None, params=None, async=False):
-        return self.iterate_edge_async(
-            Insights,
-            fields,
-            params,
-            async,
-            include_summary=False
-        )
+    def get_insights(self, fields=None, params=None):
+        params = params or {}
+        params['summary'] = params.get('summary')
+        return self.iterate_edge(Insights, fields, params)
 
 
 class AdSet(CanValidate, HasStatus, CanArchive, HasAdLabels,
@@ -1413,14 +1405,10 @@ class AdSet(CanValidate, HasStatus, CanArchive, HasAdLabels,
         """Returns iterator over AdStat's associated with this set."""
         return self.iterate_edge(AdStats, fields, params)
 
-    def get_insights(self, fields=None, params=None, async=False):
-        return self.iterate_edge_async(
-            Insights,
-            fields,
-            params,
-            async,
-            include_summary=False
-        )
+    def get_insights(self, fields=None, params=None):
+        params = params or {}
+        params['summary'] = params.get('summary')
+        return self.iterate_edge(Insights, fields, params)
 
 
 class AdGroup(HasStatus, CanArchive, HasAdLabels, AbstractCrudObject):
@@ -1487,14 +1475,10 @@ class AdGroup(HasStatus, CanArchive, HasAdLabels, AbstractCrudObject):
         """Returns ConversionStats object associated with this ad."""
         return self.edge_object(ConversionStats, fields, params)
 
-    def get_insights(self, fields=None, params=None, async=False):
-        return self.iterate_edge_async(
-            Insights,
-            fields,
-            params,
-            async,
-            include_summary=False
-        )
+    def get_insights(self, fields=None, params=None):
+        params = params or {}
+        params['summary'] = params.get('summary')
+        return self.iterate_edge(Insights, fields, params)
 
     def get_leads(self, fields=None, params=None):
         """
@@ -2432,14 +2416,10 @@ class Business(CannotCreate, CannotDelete, AbstractCrudObject):
     def get_product_catalogs(self, fields=None, params=None):
         return self.iterate_edge(ProductCatalog, fields, params)
 
-    def get_insights(self, fields=None, params=None, async=False):
-        return self.iterate_edge_async(
-            Insights,
-            fields,
-            params,
-            async,
-            include_summary=False
-        )
+    def get_insights(self, fields=None, params=None):
+        params = params or {}
+        params['summary'] = params.get('summary')
+        return self.iterate_edge(Insights, fields, params)
 
 
 class ProductCatalog(AbstractCrudObject):
