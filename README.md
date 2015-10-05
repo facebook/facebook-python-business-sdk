@@ -200,7 +200,7 @@ Campaign</a>).
 ``help(objects.AdCampaign.Field)`` or look at ``facebookads/objects.py``.
 
 ```python
-campaign[objects.AdCampaign.Field.name] = "Potato Campain" # sic
+campaign[objects.AdCampaign.Field.name] = "Potato Campaign" # sic
 campaign[objects.AdCampaign.Field.status] = objects.AdCampaign.Status.paused
 ```
 
@@ -232,7 +232,7 @@ You can access them just like accessing a key of a dictionary:
 
 To update an object, we can modify its properties and then call the
 ``remote_update`` method to sync the object with the server. Let's correct the
-typo "Campain" to "Campaign":
+typo "Campaign" to "Campaign":
 
 ```python
 >>> campaign[objects.AdCampaign.Field.name] = "Potato Campaign"
