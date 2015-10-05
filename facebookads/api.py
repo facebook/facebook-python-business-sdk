@@ -27,11 +27,12 @@ from facebookads.exceptions import (
     FacebookBadObjectError,
 )
 from facebookads.session import FacebookSession
+from facebookads.utils import urls
+from facebookads.utils import version
 import json
 import six
 import collections
 import re
-from six.moves import urllib
 from six.moves import http_client
 
 
@@ -133,9 +134,9 @@ class FacebookAdsApi(object):
             this sdk.
     """
 
-    SDK_VERSION = '2.3.3'
+    SDK_VERSION = version.get_version()
 
-    API_VERSION = 'v2.4'
+    API_VERSION = 'v' + str(re.sub('^(\d+\.\d+)\.\d+$', '\g<1>', SDK_VERSION))
 
     HTTP_METHOD_GET = 'GET'
 
@@ -170,7 +171,13 @@ class FacebookAdsApi(object):
         return self._num_requests_succeeded
 
     @classmethod
-    def init(cls, app_id, app_secret, access_token, account_id=None):
+    def init(
+        cls,
+        app_id=None,
+        app_secret=None,
+        access_token=None,
+        account_id=None
+    ):
         session = FacebookSession(app_id, app_secret, access_token)
         api = cls(session)
         cls.set_default_api(api)
@@ -384,7 +391,7 @@ class FacebookAdsApiBatch(object):
 
         if params:
             params = _top_level_param_json_encode(params)
-            keyvals = ['%s=%s' % (key, urllib.parse.quote(value))
+            keyvals = ['%s=%s' % (key, urls.quote_with_encoding(value))
                        for key, value in params.items()]
             call['body'] = '&'.join(keyvals)
 

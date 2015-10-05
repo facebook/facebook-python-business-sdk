@@ -139,6 +139,7 @@ class HasObjective(object):
         website_clicks = 'WEBSITE_CLICKS'
         website_conversions = 'WEBSITE_CONVERSIONS'
         video_views = 'VIDEO_VIEWS'
+        product_catalog_sales = 'PRODUCT_CATALOG_SALES'
 
 
 class HasStatus(object):
@@ -167,6 +168,34 @@ class HasBidInfo(object):
         reach = 'REACH'
         social = 'SOCIAL'
 
+
+class HasAdLabels(object):
+
+    def add_labels(self, labels=None):
+        """Adds labels to an ad object.
+        Args:
+            labels: A list of ad label IDs
+        Returns:
+            The FacebookResponse object.
+        """
+        return self.get_api_assured().call(
+            'POST',
+            (self.get_id_assured(), 'adlabels'),
+            params={'adlabels': [{'id': label} for label in labels]},
+        )
+
+    def remove_labels(self, labels=None):
+        """Remove labels to an ad object.
+        Args:
+            labels: A list of ad label IDs
+        Returns:
+            The FacebookResponse object.
+        """
+        return self.get_api_assured().call(
+            'DELETE',
+            (self.get_id_assured(), 'adlabels'),
+            params={'adlabels': [{'id': label} for label in labels]},
+        )
 
 class ValidatesFields(object):
     def __setitem__(self, key, value):

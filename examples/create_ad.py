@@ -103,7 +103,11 @@ if __name__ == '__main__':
 
     ### Upload an image to an account.
     img = AdImage(parent_id=my_account.get_id_assured())
-    img[AdImage.Field.filename] = os.path.join(this_dir, 'test.png')
+    img[AdImage.Field.filename] = os.path.join(
+        os.path.dirname(__file__),
+        os.pardir,
+        'facebookads/test/misc/image.png'
+    )
     img.remote_create()
     print("**** DONE: Image uploaded:")
     pp.pprint(img)  # The image hash can be found using img[AdImage.Field.hash]

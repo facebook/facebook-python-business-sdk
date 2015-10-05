@@ -1,13 +1,13 @@
-# Ads API SDK for Python
+# Marketing API SDK for Python
 
 [![Build Status](https://travis-ci.org/facebook/facebook-python-ads-sdk.svg)](https://travis-ci.org/facebook/facebook-python-ads-sdk)
 
-## The Ads SDK for Python provides an easy interface and abstraction to the Ads API.
+## The Ads SDK for Python provides an easy interface and abstraction to the Marketing API.
 
 Python is currently the most popular language for our third party ads
 developers. ``facebookads`` is a Python package that provides an interface
 between your Python application and Facebook's
-<a href="https://developers.facebook.com/docs/ads-api">Ads API</a>. This
+<a href="https://developers.facebook.com/docs/marketing-apis">Marketing API</a>. This
 tutorial covers the basics knowledge needed to use the SDK and provide some
 exercises for the reader.
 
@@ -26,7 +26,7 @@ developers.facebook.com</a>.
 **IMPORTANT**: For extra security, the SDK requires that you turn on 'App Secret
 Proof for Server API calls' in your app's Settings->Advanced page.
 
-Your app should now be able to use the Ads API!
+Your app should now be able to use the Marketing API!
 
 ### An Access Token
 
@@ -114,7 +114,7 @@ AbstractCrudObject can have all or some of the following methods:
 * ``remote_delete``
 
 For example, AdCampaign has all these methods but AdAccount does not. Read the
-Ads API documentation for more information about
+Marketing API documentation for more information about
 <a href="https://developers.facebook.com/docs/ads-api/objects">how different ad
 objects are used</a>.
 
@@ -366,7 +366,7 @@ my_api_batch.execute()
 ```
 
 Please follow <a href="https://developers.facebook.com/docs/graph-api/making-multiple-requests">
-batch call guidelines in the Ads API documentation</a>. There are optimal
+batch call guidelines in the Marketing API documentation</a>. There are optimal
 numbers of calls per batch. In addition, you may need to watch out that for rate
 limiting as a batch call simply improves network performance and each call does
 count individually towards rate limiting.
