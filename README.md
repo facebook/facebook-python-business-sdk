@@ -113,7 +113,7 @@ AbstractCrudObject can have all or some of the following methods:
 * ``remote_update``
 * ``remote_delete``
 
-For example, AdCampaign has all these methods but AdAccount does not. Read the
+For example, Campaign has all these methods but AdAccount does not. Read the
 Marketing API documentation for more information about
 <a href="https://developers.facebook.com/docs/ads-api/objects">how different ad
 objects are used</a>.
@@ -187,21 +187,21 @@ Let's create a campaign. It's in the context of the account, i.e. its parent
 should be the account.
 
 ```python
-campaign = objects.AdCampaign(parent_id = my_account.get_id_assured())
+campaign = objects.Campaign(parent_id = my_account.get_id_assured())
 ```
 
 Then we specify some details about the campaign. To figure out what properties
 to define, you should look at the available fields of the object (located in
-``AdCampaign.Field``) and also look at the ad object's documentation (e.g.
-<a href="https://developers.facebook.com/docs/reference/ads-api/adcampaign">Ad
+``Campaign.Field``) and also look at the ad object's documentation (e.g.
+<a href="https://developers.facebook.com/docs/reference/ads-api/adcampaign">
 Campaign</a>).
 
 **NOTE**: To find out the fields, use Python's builtin help function:
-``help(objects.AdCampaign.Field)`` or look at ``facebookads/objects.py``.
+``help(objects.Campaign.Field)`` or look at ``facebookads/objects.py``.
 
 ```python
-campaign[objects.AdCampaign.Field.name] = "Potato Campain" # sic
-campaign[objects.AdCampaign.Field.status] = objects.AdCampaign.Status.paused
+campaign[objects.Campaign.Field.name] = "Potato Campain" # sic
+campaign[objects.Campaign.Field.status] = objects.Campaign.Status.paused
 ```
 
 Finally, we make the create request by calling the ``remote_create`` method.
@@ -235,7 +235,7 @@ To update an object, we can modify its properties and then call the
 typo "Campain" to "Campaign":
 
 ```python
->>> campaign[objects.AdCampaign.Field.name] = "Potato Campaign"
+>>> campaign[objects.Campaign.Field.name] = "Potato Campaign"
 >>> campaign.remote_update()
 ```
 

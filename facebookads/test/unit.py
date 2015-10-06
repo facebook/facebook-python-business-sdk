@@ -98,7 +98,7 @@ class EdgeIteratorTestCase(unittest.TestCase):
         }
         ei = objects.EdgeIterator(
             objects.AdAccount(fbid='123'),
-            objects.AdGroup,
+            objects.Ad,
         )
         objs = ei.build_objects_from_response(response)
         assert len(objs) == 2
@@ -125,7 +125,7 @@ class EdgeIteratorTestCase(unittest.TestCase):
         }
         ei = objects.EdgeIterator(
             objects.AdAccount(fbid='123'),
-            objects.AdGroup,
+            objects.Ad,
         )
         obj = ei.build_objects_from_response(response)
         assert len(obj) == 1 and obj[0]['id'] == "601957/targetingsentencelines"
@@ -133,7 +133,7 @@ class EdgeIteratorTestCase(unittest.TestCase):
     def test_total_is_none(self):
         ei = objects.EdgeIterator(
             objects.AdAccount(fbid='123'),
-            objects.AdGroup,
+            objects.Ad,
         )
         self.assertRaises(
             exceptions.FacebookUnavailablePropertyException, ei.total)
@@ -141,7 +141,7 @@ class EdgeIteratorTestCase(unittest.TestCase):
     def test_total_is_defined(self):
         ei = objects.EdgeIterator(
             objects.AdAccount(fbid='123'),
-            objects.AdGroup,
+            objects.Ad,
         )
         ei._total_count = 32
         self.assertEqual(ei.total(), 32)
@@ -171,7 +171,7 @@ class EdgeIteratorTestCase(unittest.TestCase):
             }
         }
         ei = objects.EdgeIterator(
-            objects.AdGroup('123'),
+            objects.Ad('123'),
             objects.ReachEstimate,
         )
         obj = ei.build_objects_from_response(response)
