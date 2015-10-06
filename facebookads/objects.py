@@ -163,22 +163,28 @@ class EdgeIterator(object):
         self._queue = self.build_objects_from_response(response)
         return len(self._queue) > 0
 
+    def create_object(self):
+        try:
+            return self._target_objects_class(api=self._source_object.get_api_assured())
+        except TypeError, e:
+            return self._target_objects_class()
+
     def build_objects_from_response(self, response):
         if 'data' in response and isinstance(response['data'], list):
             ret = []
             if isinstance(response['data'], list):
                 for json_obj in response['data']:
-                    obj = self._target_objects_class()
+                    obj = self.create_object()
+
                     obj._set_data(json_obj)
                     ret.append(obj)
             else:
-                obj = self._target_objects_class()
+                obj = self.create_object()
                 obj._set_data(response['data'])
                 ret.append(obj)
         else:
-            data = response['data'] if 'data' in response else response
-            obj = self._target_objects_class()
-            obj._set_data(data)
+            obj = self.create_object()
+            obj._set_data(response)
             ret = [obj]
 
         return ret
@@ -1078,12 +1084,12 @@ class AdAccount(CannotCreate, CannotDelete, HasAdLabels, AbstractCrudObject):
 
     def get_insights(self, fields=None, params=None, async=False):
         return self.iterate_edge_async(
-            Insights,
-            fields,
-            params,
-            async,
-            include_summary=False
-        )
+                Insights,
+                fields,
+                params,
+                async,
+                include_summary=False
+                )
 
     def get_broad_category_targeting(self, fields=None, params=None):
         """
@@ -1317,12 +1323,12 @@ class AdCampaign(CanValidate, HasStatus, HasObjective, HasAdLabels, CanArchive,
 
     def get_insights(self, fields=None, params=None, async=False):
         return self.iterate_edge_async(
-            Insights,
-            fields,
-            params,
-            async,
-            include_summary=False
-        )
+                Insights,
+                fields,
+                params,
+                async,
+                include_summary=False
+                )
 
 
 class AdSet(CanValidate, HasStatus, CanArchive, HasAdLabels,
@@ -1333,6 +1339,7 @@ class AdSet(CanValidate, HasStatus, CanArchive, HasAdLabels,
         adlabels = 'adlabels'
         bid_amount = 'bid_amount'
         bid_info = 'bid_info'
+        bid_type = 'bid_type'
         billing_event = 'billing_event'
         budget_remaining = 'budget_remaining'
         campaign_group_id = 'campaign_group_id'
@@ -1408,12 +1415,12 @@ class AdSet(CanValidate, HasStatus, CanArchive, HasAdLabels,
 
     def get_insights(self, fields=None, params=None, async=False):
         return self.iterate_edge_async(
-            Insights,
-            fields,
-            params,
-            async,
-            include_summary=False
-        )
+                Insights,
+                fields,
+                params,
+                async,
+                include_summary=False
+                )
 
 
 class AdGroup(HasStatus, CanArchive, HasAdLabels, AbstractCrudObject):
@@ -1482,12 +1489,12 @@ class AdGroup(HasStatus, CanArchive, HasAdLabels, AbstractCrudObject):
 
     def get_insights(self, fields=None, params=None, async=False):
         return self.iterate_edge_async(
-            Insights,
-            fields,
-            params,
-            async,
-            include_summary=False
-        )
+                Insights,
+                fields,
+                params,
+                async,
+                include_summary=False
+                )
 
     def get_leads(self, fields=None, params=None):
         """
@@ -2427,12 +2434,12 @@ class Business(CannotCreate, CannotDelete, AbstractCrudObject):
 
     def get_insights(self, fields=None, params=None, async=False):
         return self.iterate_edge_async(
-            Insights,
-            fields,
-            params,
-            async,
-            include_summary=False
-        )
+                Insights,
+                fields,
+                params,
+                async,
+                include_summary=False
+                )
 
 
 class ProductCatalog(AbstractCrudObject):
