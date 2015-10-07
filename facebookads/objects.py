@@ -1262,7 +1262,7 @@ class Campaign(CanValidate, HasStatus, HasObjective, HasAdLabels, CanArchive,
 
     class BuyingType(object):
         auction = 'AUCTION'
-        fixed_cpm = 'FIXED_CPM'
+        fixed_price = 'FIXED_PRICE'
         reserved = 'RESERVED'
 
     @classmethod
@@ -1320,7 +1320,6 @@ class AdSet(CanValidate, HasStatus, CanArchive, HasAdLabels,
         status = 'status'
         targeting = 'targeting'
         updated_time = 'updated_time'
-        use_new_app_click = 'use_new_app_click'
 
     class BillingEvent(object):
         app_installs = 'APP_INSTALLS'
@@ -2219,7 +2218,6 @@ class TargetingSearch(AbstractObject):
         politics = 'politics'
 
     class TargetingSearchTypes(object):
-        city = 'adcity'
         country = 'adcountry'
         education = 'adeducationschool'
         employer = 'adworkemployer'
@@ -2233,7 +2231,6 @@ class TargetingSearch(AbstractObject):
         major = 'adeducationmajor'
         position = 'adworkposition'
         radius_suggestion = 'adradiussuggestion'
-        region = 'adregion'
         targeting_category = 'adtargetingcategory'
         zipcode = 'adzipcode'
 
@@ -2704,12 +2701,12 @@ class Insights(CannotCreate, CannotDelete, CannotUpdate, AbstractCrudObject):
         campaign_end = 'campaign_end'
         campaign_id = 'campaign_id'
         campaign_name = 'campaign_name'
-        clicks = 'clicks'
         cost_per_action_type = 'cost_per_action_type'
+        cost_per_inline_link_click = 'cost_per_inline_link_click',
+        cost_per_inline_post_engagement = 'cost_per_inline_post_engagement',
         cost_per_result = 'cost_per_result'
         cost_per_total_action = 'cost_per_total_action'
         cost_per_unique_click = 'cost_per_unique_click'
-        cpc = 'cpc'
         cpm = 'cpm'
         cpp = 'cpp'
         ctr = 'ctr'
@@ -2718,6 +2715,8 @@ class Insights(CannotCreate, CannotDelete, CannotUpdate, AbstractCrudObject):
         frequency = 'frequency'
         id = 'id'
         impressions = 'impressions'
+        inline_link_clicks = 'inline_link_clicks',
+        inline_post_engagement = 'inline_post_engagement',
         objective = 'objective'
         reach = 'reach'
         relevance_score = 'relevance_score'

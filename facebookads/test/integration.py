@@ -633,7 +633,7 @@ class AdImageTestCase(AbstractCrudObjectTestCase):
 class InsightsTestCase(AbstractCrudObjectTestCase):
     def test_can_read_without_job(self):
         self.TEST_ACCOUNT.get_insights(fields=[
-            objects.Insights.Field.clicks,
+            objects.Insights.Field.unique_clicks,
             objects.Insights.Field.impressions,
             objects.Insights.Field.ad_id,
             objects.Insights.Field.ad_name,

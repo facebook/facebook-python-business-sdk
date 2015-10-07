@@ -137,8 +137,8 @@ class HasObjective(object):
         offer_claims = 'OFFER_CLAIMS'
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
-        website_clicks = 'WEBSITE_CLICKS'
-        website_conversions = 'WEBSITE_CONVERSIONS'
+        link_clicks = 'LINK_CLICKS'
+        conversions = 'CONVERSIONS'
         video_views = 'VIDEO_VIEWS'
         product_catalog_sales = 'PRODUCT_CATALOG_SALES'
 
