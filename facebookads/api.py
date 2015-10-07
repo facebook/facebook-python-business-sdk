@@ -349,7 +349,6 @@ class FacebookAdsApiBatch(object):
         self,
         method,
         relative_path,
-        name=None,
         params=None,
         headers=None,
         files=None,
@@ -388,7 +387,7 @@ class FacebookAdsApiBatch(object):
         call = {
             'method': method,
             'relative_url': relative_url,
-            'name': name
+            'name': params['method_name']
         }
 
         if params:
