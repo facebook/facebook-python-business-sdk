@@ -1364,6 +1364,7 @@ class AdSet(CanValidate, HasStatus, CanArchive, HasAdLabels,
         targeting = 'targeting'
         updated_time = 'updated_time'
         use_new_app_click = 'use_new_app_click'
+        method_name = 'method_name'
 
     class BillingEvent(object):
         app_installs = 'APP_INSTALLS'
@@ -1616,6 +1617,7 @@ class AdCreative(HasAdLabels, AbstractCrudObject):
         title = 'title'
         url_tags = 'url_tags'
         video_id = 'video_id'
+        method_name = 'method_name'
 
     @classmethod
     def get_endpoint(cls):
