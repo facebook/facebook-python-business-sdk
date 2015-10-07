@@ -494,6 +494,7 @@ class AbstractCrudObject(AbstractObject):
         params=None,
         success=None,
         api_version=None,
+        name=None,
     ):
         """Creates the object by calling the API.
 
@@ -541,6 +542,7 @@ class AbstractCrudObject(AbstractObject):
                 files=files,
                 success=callback_success,
                 failure=callback_failure,
+                name=name,
             )
             return batch_call
         else:
@@ -1364,7 +1366,6 @@ class AdSet(CanValidate, HasStatus, CanArchive, HasAdLabels,
         targeting = 'targeting'
         updated_time = 'updated_time'
         use_new_app_click = 'use_new_app_click'
-        method_name = 'method_name'
 
     class BillingEvent(object):
         app_installs = 'APP_INSTALLS'
