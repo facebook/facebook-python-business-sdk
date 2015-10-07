@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<rss xmlns:g="http://base.google.com/ns/1.0" version="2.0">
+    <channel>
+        <title>Test Store</title>
+        <link>http://www.example.com</link>
+        <description>An example item from the feed</description>
+
+        <item>
+            <g:id>ID_1</g:id>
+            <g:title>Dog Bowl In Blue</g:title>
+            <g:description>Solid plastic Dog Bowl in marine blue color</g:description>
+            <g:link>http://www.example.com/bowls/db-1.html</g:link>
+            <g:image_link>http://images.example.com/ID_1.png</g:image_link>
+            <g:brand>Example</g:brand>
+            <g:condition>new</g:condition>
+            <g:availability>in stock</g:availability>
+            <g:price>9.99 BRL</g:price>
+            <g:shipping>
+                <g:country>BR</g:country>
+                <g:service>Standard</g:service>
+                <g:price>4.95 BRL</g:price>
+            </g:shipping>
+
+            <g:google_product_category>Animals &gt; Pet Supplies</g:google_product_category>
+        </item>
+        <item>
+            <g:id>ID_2</g:id>
+            <g:title>Cat Bowl In Blue</g:title>
+            <g:description>Solid plastic Dog Bowl in marine blue color</g:description>
+            <g:link>http://www.example.com/bowls/db-1.html</g:link>
+            <g:image_link>http://images.example.com/ID_1.png</g:image_link>
+            <g:brand>Example</g:brand>
+            <g:condition>new</g:condition>
+            <g:availability>in stock</g:availability>
+            <g:price>9.99 BRL</g:price>
+            <g:shipping>
+                <g:country>BR</g:country>
+                <g:service>Standard</g:service>
+                <g:price>4.95 BRL</g:price>
+            </g:shipping>
+
+            <g:google_product_category>Animals &gt; Pet Supplies</g:google_product_category>
+        </item>
+        <item>
+            <g:id>ID_3</g:id>
+            <g:title>Parrot Bowl In Blue</g:title>
+            <g:description>Solid plastic Dog Bowl in marine blue color</g:description>
+            <g:link>http://www.example.com/bowls/db-1.html</g:link>
+            <g:image_link>http://images.example.com/ID_1.png</g:image_link>
+            <g:brand>Example</g:brand>
+            <g:condition>new</g:condition>
+            <g:availability>in stock</g:availability>
+            <g:price>9.99 BRL</g:price>
+            <g:shipping>
+                <g:country>BR</g:country>
+                <g:service>Standard</g:service>
+                <g:price>4.95 BRL</g:price>
+            </g:shipping>
+
+            <g:google_product_category>Animals &gt; Pet Supplies</g:google_product_category>
+        </item>
+
+        <item>
+            <g:id>ID_4</g:id>
+            <g:title>Fish Food</g:title>
+            <g:description>Food for your gold fish</g:description>
+            <g:link>http://www.example.com/food/db-4.html</g:link>
+            <g:image_link>http://images.example.com/ID_4.png</g:image_link>
+            <g:brand>Example</g:brand>
+            <g:condition>new</g:condition>
+            <g:availability>in stock</g:availability>
+            <g:price>6.99 BRL</g:price>
+            <g:shipping>
+                <g:country>BR</g:country>
+                <g:service>Standard</g:service>
+                <g:price>4.95 BRL</g:price>
+            </g:shipping>
+
+            <g:google_product_category>Animals &gt; Food</g:google_product_category>
+        </item>
+        <item>
+            <g:id>ID_5</g:id>
+            <g:title>Dog Food</g:title>
+            <g:description>Good old Dog food</g:description>
+            <g:link>http://www.example.com/bowls/db-5.html</g:link>
+            <g:image_link>http://images.example.com/ID_5.png</g:image_link>
+            <g:brand>Example</g:brand>
+            <g:condition>new</g:condition>
+            <g:availability>in stock</g:availability>
+            <g:price>59.99 BRL</g:price>
+            <g:shipping>
+                <g:country>BR</g:country>
+                <g:service>Standard</g:service>
+                <g:price>4.95 BRL</g:price>
+            </g:shipping>
+
+            <g:google_product_category>Animals &gt; Food</g:google_product_category>
+        </item>
+        <item>
+            <g:id>ID_6</g:id>
+            <g:title>Cat food</g:title>
+            <g:description>Cat food for big cats</g:description>
+            <g:link>http://www.example.com/bowls/db-6.html</g:link>
+            <g:image_link>http://images.example.com/ID_6.png</g:image_link>
+            <g:brand>Example</g:brand>
+            <g:condition>new</g:condition>
+            <g:availability>in stock</g:availability>
+            <g:price>39.99 BRL</g:price>
+            <g:shipping>
+                <g:country>BR</g:country>
+                <g:service>Standard</g:service>
+                <g:price>4.95 BRL</g:price>
+            </g:shipping>
+
+            <g:google_product_category>Animals &gt; Food</g:google_product_category>
+        </item>
+    </channel>
+</rss>

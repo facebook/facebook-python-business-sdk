@@ -28,12 +28,17 @@ How to run:
 import unittest
 import json
 import inspect
+import six
+import re
+import hashlib
+from six.moves import urllib
 from sys import version_info
 from .. import api
 from .. import objects
 from .. import specs
 from .. import exceptions
 from .. import session
+from .. import utils
 
 
 class CustomAudienceTestCase(unittest.TestCase):
@@ -61,6 +66,19 @@ class CustomAudienceTestCase(unittest.TestCase):
             exceptions.FacebookBadObjectError,
             uid_payload,
         )
+
+    def test_format_params_pre_hashed(self):
+        # This is the value of "test" when it's hashed with sha256
+        user = "test"
+        test_hash = (hashlib.sha256(user.encode('utf8')).hexdigest())
+        payload = objects.CustomAudience.format_params(
+            objects.CustomAudience.Schema.email_hash,
+            [test_hash], 
+            pre_hashed=True
+        )
+
+        users = payload['payload']['data']
+        assert users[0] == test_hash
 
 
 class EdgeIteratorTestCase(unittest.TestCase):
@@ -112,6 +130,52 @@ class EdgeIteratorTestCase(unittest.TestCase):
         obj = ei.build_objects_from_response(response)
         assert len(obj) == 1 and obj[0]['id'] == "601957/targetingsentencelines"
 
+    def test_total_is_none(self):
+        ei = objects.EdgeIterator(
+            objects.AdAccount(fbid='123'),
+            objects.AdGroup,
+        )
+        self.assertRaises(
+            exceptions.FacebookUnavailablePropertyException, ei.total)
+
+    def test_total_is_defined(self):
+        ei = objects.EdgeIterator(
+            objects.AdAccount(fbid='123'),
+            objects.AdGroup,
+        )
+        ei._total_count = 32
+        self.assertEqual(ei.total(), 32)
+
+    def test_builds_from_object_with_data_key(self):
+        """
+        Sometimes the response returns a single JSON object - with a "data".
+        For instance with reachestimate. This asserts that we successfully
+        build the object that is in "data" key.
+        """
+        response = {
+            "data": {
+                "estimate_ready": True,
+                "bid_estimations": [{
+                    "cpa_min": 63,
+                    "cpa_median": 116,
+                    "cpm_max": 331,
+                    "cpc_max": 48,
+                    "cpc_median": 35,
+                    "cpc_min": 17,
+                    "cpm_min": 39,
+                    "cpm_median": 212,
+                    "unsupported": False,
+                    "location": 3,
+                    "cpa_max": 163}],
+                "users": 7600000
+            }
+        }
+        ei = objects.EdgeIterator(
+            objects.AdGroup('123'),
+            objects.ReachEstimate,
+        )
+        obj = ei.build_objects_from_response(response)
+        assert len(obj) == 1 and obj[0]['users'] == 7600000
 
 class AbstractCrudObjectTestCase(unittest.TestCase):
     def test_all_aco_has_id_field(self):
@@ -296,6 +360,65 @@ class SessionWithoutAppSecretTestCase(unittest.TestCase):
             )
         except Exception as e:
             self.fail("Could not instantiate " + "\n  " + str(e))
+
+
+class UrlsUtilsTestCase(unittest.TestCase):
+
+    def test_quote_with_encoding_basestring(self):
+        s = "some string"
+        self.assertEqual(
+            utils.urls.quote_with_encoding(s),
+            urllib.parse.quote(s)
+        )
+        # do not need to test for that in PY3
+        if six.PY2:
+            s = u"some string with ùnicode".encode("utf-8")
+            self.assertEqual(
+                utils.urls.quote_with_encoding(s),
+                urllib.parse.quote(s)
+            )
+
+    def test_quote_with_encoding_unicode(self):
+        s = u"some string with ùnicode"
+        self.assertEqual(
+            utils.urls.quote_with_encoding(s),
+            urllib.parse.quote(s.encode("utf-8"))
+        )
+
+    def test_quote_with_encoding_integer(self):
+        s = 1234
+        self.assertEqual(
+            utils.urls.quote_with_encoding(s),
+            urllib.parse.quote('1234')
+        )
+
+    def test_quote_with_encoding_other_than_string_and_integer(self):
+        s = [1, 2]
+        self.assertRaises(
+            ValueError,
+            utils.urls.quote_with_encoding, s
+        )
+
+
+class FacebookAdsApiBatchTestCase(unittest.TestCase):
+
+    def test_add_works_with_utf8(self):
+        default_api = api.FacebookAdsApi.get_default_api()
+        batch_api = api.FacebookAdsApiBatch(default_api)
+        batch_api.add('GET', 'some/path', params={"key": u"vàlué"})
+        self.assertEqual(len(batch_api), 1)
+        self.assertEqual(batch_api._batch[0], {
+            'method': 'GET',
+            'relative_url': 'some/path',
+            'body': 'key=' + utils.urls.quote_with_encoding(u'vàlué')
+        })
+
+
+class VersionUtilsTestCase(unittest.TestCase):
+
+    def test_api_version_is_pulled(self):
+        version_value = utils.version.get_version()
+        assert re.search('[0-9]+\.[0-9]+\.[0-9]', version_value)
 
 if __name__ == '__main__':
     unittest.main()

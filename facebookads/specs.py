@@ -61,6 +61,7 @@ class LinkData(ValidatesFields, AbstractObject):
         multi_share_optimized = 'multi_share_optimized'
         name = 'name'
         picture = 'picture'
+        attachment_style = 'attachment_style'
 
 
 class OfferData(ValidatesFields, AbstractObject):

@@ -88,9 +88,9 @@ class FacebookRequestError(FacebookError):
         super(FacebookRequestError, self).__init__(
             "\n\n" +
             "  Message: %s\n" % self._message +
-            "  Method:  %s\n" % request['method'] +
-            "  Path:    %s\n" % request['path'] +
-            "  Params:  %s\n" % request['params'] +
+            "  Method:  %s\n" % request.get('method') +
+            "  Path:    %s\n" % request.get('path', '/') +
+            "  Params:  %s\n" % request.get('params') +
             "\n" +
             "  Status:  %s\n" % self._http_status +
             "  Response:\n    %s" % re.sub(
@@ -130,4 +130,9 @@ class FacebookRequestError(FacebookError):
 
 class FacebookBadObjectError(FacebookError):
     """Raised when a guarantee about the object validity fails."""
+    pass
+
+
+class FacebookUnavailablePropertyException(FacebookError):
+    """Raised when an object's property or method is not available."""
     pass

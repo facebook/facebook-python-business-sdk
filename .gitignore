@@ -9,3 +9,5 @@ build
 *.swp
 *.swo
 config.json
+test_config.py
+arcanist/.phutil_module_cache
