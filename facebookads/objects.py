@@ -41,7 +41,10 @@ from facebookads.mixins import (
     HasBidInfo,
     HasAdLabels,
 )
-from facebookads.video_uploader import VideoUploader, VideoEncodingStatusChecker
+from facebookads.video_uploader import (
+    VideoUploader,
+    VideoEncodingStatusChecker,
+)
 
 import hashlib
 import collections
@@ -124,7 +127,7 @@ class EdgeIterator(object):
         if self._total_count is None:
             raise FacebookUnavailablePropertyException(
                 "Couldn't retrieve the object total count for that type "
-                "of request."
+                "of request.",
             )
         return self._total_count
 
@@ -224,7 +227,7 @@ class AbstractObject(collections.MutableMapping):
                 self.export_value(self._data),
                 sort_keys=True,
                 indent=4,
-                separators=(',', ': ')
+                separators=(',', ': '),
             ),
         )
 
@@ -237,7 +240,7 @@ class AbstractObject(collections.MutableMapping):
                 that derives from this abstract class.
         """
         raise NotImplementedError(
-            "%s must have implemented get_endpoint." % cls.__name__
+            "%s must have implemented get_endpoint." % cls.__name__,
         )
 
     @classmethod
@@ -379,8 +382,8 @@ class AbstractCrudObject(AbstractObject):
 
     def get_api(self):
         """
-        Returns the api associated with the object. If None, returns the default
-        api.
+        Returns the api associated with the object. If None, returns the
+        default api.
         """
         return self._api or FacebookAdsApi.get_default_api()
 
@@ -393,7 +396,7 @@ class AbstractCrudObject(AbstractObject):
         if not self.get(self.Field.id):
             raise FacebookBadObjectError(
                 "%s object needs an id for this operation."
-                % self.__class__.__name__
+                % self.__class__.__name__,
             )
 
         return self.get_id()
@@ -407,7 +410,7 @@ class AbstractCrudObject(AbstractObject):
         if not self.get_parent_id():
             raise FacebookBadObjectError(
                 "%s object needs a parent_id for this operation."
-                % self.__class__.__name__
+                % self.__class__.__name__,
             )
 
         return self.get_parent_id()
@@ -424,7 +427,7 @@ class AbstractCrudObject(AbstractObject):
                 "%s does not yet have an associated api object.\n"
                 "Did you forget to instantiate an API session with: "
                 "FacebookAdsApi.init(app_id, app_secret, access_token)"
-                % self.__class__.__name__
+                % self.__class__.__name__,
             )
 
         return api
@@ -510,7 +513,8 @@ class AbstractCrudObject(AbstractObject):
         """
         if self.get_id():
             raise FacebookBadObjectError(
-                "This %s object was already created." % self.__class__.__name__
+                "This %s object was already created."
+                % self.__class__.__name__,
             )
 
         params = {} if not params else params.copy()
@@ -792,7 +796,7 @@ class AbstractCrudObject(AbstractObject):
             fields,
             params,
             fetch_first_page=synchronous,
-            include_summary=include_summary
+            include_summary=include_summary,
         )
         if synchronous:
             return synchronous_iterator
@@ -831,7 +835,7 @@ class AbstractCrudObject(AbstractObject):
         for obj in self.iterate_edge(
             target_objects_class,
             fields=fields,
-            params=params
+            params=params,
         ):
             return obj
 
@@ -1072,7 +1076,7 @@ class AdAccount(CannotCreate, CannotDelete, HasAdLabels, AbstractCrudObject):
             fields,
             params,
             async,
-            include_summary=False
+            include_summary=False,
         )
 
     def get_broad_category_targeting(self, fields=None, params=None):
@@ -1245,7 +1249,7 @@ class AdAccountGroupUser(AbstractCrudObject):
 
 
 class Campaign(CanValidate, HasStatus, HasObjective, HasAdLabels, CanArchive,
-                 AbstractCrudObject):
+               AbstractCrudObject):
 
     class Field(object):
         account_id = 'account_id'
@@ -1283,7 +1287,7 @@ class Campaign(CanValidate, HasStatus, HasObjective, HasAdLabels, CanArchive,
             fields,
             params,
             async,
-            include_summary=False
+            include_summary=False,
         )
 
 
@@ -1372,7 +1376,7 @@ class AdSet(CanValidate, HasStatus, CanArchive, HasAdLabels,
             fields,
             params,
             async,
-            include_summary=False
+            include_summary=False,
         )
 
 
@@ -1438,7 +1442,7 @@ class Ad(HasStatus, CanArchive, HasAdLabels, AbstractCrudObject):
             fields,
             params,
             async,
-            include_summary=False
+            include_summary=False,
         )
 
     def get_leads(self, fields=None, params=None):
@@ -1480,7 +1484,8 @@ class AdsPixel(CannotUpdate, CannotDelete, AbstractCrudObject):
             (self.get_id_assured(), 'shared_accounts'),
             params={
                 'business': business_id,
-                'account_id': account_id},
+                'account_id': account_id,
+            },
         )
 
     def share_pixel_agencies(self, business_id, agency_id):
@@ -1489,7 +1494,8 @@ class AdsPixel(CannotUpdate, CannotDelete, AbstractCrudObject):
             (self.get_id_assured(), 'shared_agencies'),
             params={
                 'business': business_id,
-                'agency_id': agency_id},
+                'agency_id': agency_id,
+            },
         )
 
     def list_ad_accounts(self, business_id):
@@ -1570,7 +1576,7 @@ class AdCreative(HasAdLabels, AbstractCrudObject):
 
     def get_ad_preview(self, fields=None, params=None):
         """
-        Returns iterator over AdCreativePreview's associated with this creative.
+        Returns iterator over AdCreativePreviews associated with this creative.
         """
         return self.iterate_edge(AdCreativePreview, fields, params)
 
@@ -1595,7 +1601,7 @@ class AdImage(CannotUpdate, AbstractCrudObject):
         response = api.call(
             'POST',
             (parent_id, cls.get_endpoint()),
-            files={filename: open_file}
+            files={filename: open_file},
         )
         open_file.close()
 
@@ -1623,8 +1629,8 @@ class AdImage(CannotUpdate, AbstractCrudObject):
             AdAccount.get_ad_images().
 
             While reading existing images, _set_data from AbstractCrudObject
-            handles everything correctly, but we need to treat the remote_create
-            case.
+            handles everything correctly, but we need to treat the
+            remote_create case.
 
             remote_create sample response:
             {
@@ -1683,13 +1689,13 @@ class AdImage(CannotUpdate, AbstractCrudObject):
     ):
         """Uploads filename and creates the AdImage object from it.
 
-        It has same arguments as AbstractCrudObject.remote_create except it does
-        not have the files argument but requires the 'filename' property to be
-        defined.
+        It has same arguments as AbstractCrudObject.remote_create except it
+        does not have the files argument but requires the 'filename' property
+        to be defined.
         """
         if not self[self.Field.filename]:
             raise FacebookBadObjectError(
-                "AdImage required a filename to be defined."
+                "AdImage required a filename to be defined.",
             )
         filename = self[self.Field.filename]
         with open(filename, 'rb') as open_file:
@@ -1744,13 +1750,13 @@ class AdVideo(AbstractCrudObject):
     ):
         """
         Uploads filepath and creates the AdVideo object from it.
-        It has same arguments as AbstractCrudObject.remote_create except it does
-        not have the files argument but requires the 'filepath' property to be
-        defined.
+        It has same arguments as AbstractCrudObject.remote_create except it
+        does not have the files argument but requires the 'filepath' property
+        to be defined.
         """
         if not self[self.Field.filepath]:
             raise FacebookBadObjectError(
-                "AdVideo required a filepath to be defined."
+                "AdVideo required a filepath to be defined.",
             )
         video_uploader = VideoUploader()
         response = video_uploader.upload(self)
@@ -1924,7 +1930,7 @@ class CustomAudience(AbstractCrudObject):
             if not app_ids:
                 raise FacebookBadObjectError(
                     "Custom Audiences with type " + cls.Schema.uid +
-                    "require at least one app_id"
+                    "require at least one app_id",
                 )
             payload['app_ids'] = app_ids
 
@@ -1949,7 +1955,8 @@ class CustomAudience(AbstractCrudObject):
             params=CustomAudience.format_params(schema,
                                                 users,
                                                 app_ids,
-                                                pre_hashed),
+                                                pre_hashed,
+                                                ),
         )
 
     def remove_users(self, schema, users, app_ids=None, pre_hashed=None):
@@ -1969,7 +1976,8 @@ class CustomAudience(AbstractCrudObject):
             params=CustomAudience.format_params(schema,
                                                 users,
                                                 app_ids,
-                                                pre_hashed),
+                                                pre_hashed,
+                                                ),
         )
 
     def share_audience(self, account_ids):
@@ -2240,7 +2248,7 @@ class TargetingSearch(AbstractObject):
         if not api:
             raise FacebookBadObjectError(
                 "An Api instance must be provided as an argument or set as "
-                "the default Api in FacebookAdsApi."
+                "the default Api in FacebookAdsApi.",
             )
 
         params = {} if not params else params.copy()
@@ -2251,7 +2259,7 @@ class TargetingSearch(AbstractObject):
                 FacebookAdsApi.API_VERSION,
                 'search'
             )),
-            params
+            params,
         ).json()
 
         ret_val = []
@@ -2355,7 +2363,7 @@ class Business(CannotCreate, CannotDelete, AbstractCrudObject):
             fields,
             params,
             async,
-            include_summary=False
+            include_summary=False,
         )
 
 
@@ -2409,7 +2417,7 @@ class ProductCatalog(AbstractCrudObject):
         return self.get_api_assured().call(
             'POST',
             (self.get_id_assured(), 'userpermissions'),
-            params=params
+            params=params,
         )
 
     def remove_user(self, user):
@@ -2419,7 +2427,7 @@ class ProductCatalog(AbstractCrudObject):
         return self.get_api_assured().call(
             'DELETE',
             (self.get_id_assured(), 'userpermissions'),
-            params=params
+            params=params,
         )
 
     def add_external_event_sources(self, pixel_ids):
@@ -2429,7 +2437,7 @@ class ProductCatalog(AbstractCrudObject):
         return self.get_api_assured().call(
             'POST',
             (self.get_id_assured(), 'external_event_sources'),
-            params=params
+            params=params,
         )
 
     def remove_external_event_sources(self, pixel_ids):
@@ -2439,14 +2447,14 @@ class ProductCatalog(AbstractCrudObject):
         return self.get_api_assured().call(
             'DELETE',
             (self.get_id_assured(), 'external_event_sources'),
-            params=params
+            params=params,
         )
 
     def get_external_event_sources(self, fields=None, params=None):
         return self.iterate_edge(
             ProductCatalogExternalEventSource,
             fields,
-            params
+            params,
         )
 
     def get_products(self, fields=None, params=None):
@@ -2482,7 +2490,7 @@ class ProductCatalog(AbstractCrudObject):
                        price=100,
                        availability=Product.Availability.out_of_stock
                    )
-                """
+                """,
             )
 
         product_endpoint = ':'.join((
@@ -2494,7 +2502,7 @@ class ProductCatalog(AbstractCrudObject):
         url = '/'.join((
             FacebookSession.GRAPH,
             FacebookAdsApi.API_VERSION,
-            product_endpoint,
+            product_endpoint
         ))
 
         return self.get_api_assured().call(
@@ -2692,19 +2700,15 @@ class Insights(CannotCreate, CannotDelete, CannotUpdate, AbstractCrudObject):
         ad_id = 'ad_id'
         ad_name = 'ad_name'
         adset_id = 'adset_id'
-        adset_end = 'adset_end'
         adset_name = 'adset_name'
-        adset_start = 'adset_start'
         async_percent_completion = 'async_percent_completion'
         async_status = 'async_status'
         call_to_action_clicks = 'call_to_action_clicks'
-        campaign_end = 'campaign_end'
         campaign_id = 'campaign_id'
         campaign_name = 'campaign_name'
         cost_per_action_type = 'cost_per_action_type'
         cost_per_inline_link_click = 'cost_per_inline_link_click',
         cost_per_inline_post_engagement = 'cost_per_inline_post_engagement',
-        cost_per_result = 'cost_per_result'
         cost_per_total_action = 'cost_per_total_action'
         cost_per_unique_click = 'cost_per_unique_click'
         cpm = 'cpm'
@@ -2717,18 +2721,13 @@ class Insights(CannotCreate, CannotDelete, CannotUpdate, AbstractCrudObject):
         impressions = 'impressions'
         inline_link_clicks = 'inline_link_clicks',
         inline_post_engagement = 'inline_post_engagement',
-        objective = 'objective'
         reach = 'reach'
         relevance_score = 'relevance_score'
         report_run_id = 'report_run_id'
-        result_rate = 'result_rate'
-        results = 'results'
-        roas = 'roas'
         social_clicks = 'social_clicks'
         social_impressions = 'social_impressions'
         social_reach = 'social_reach'
         spend = 'spend'
-        today_spend = 'today_spend'
         total_action_value = 'total_action_value'
         total_actions = 'total_actions'
         total_unique_actions = 'total_unique_actions'
@@ -2938,7 +2937,7 @@ class AsyncJob(CannotCreate, AbstractCrudObject):
         return self.iterate_edge(
             self.target_objects_class,
             params=params,
-            include_summary=False
+            include_summary=False,
         )
 
     def __nonzero__(self):
