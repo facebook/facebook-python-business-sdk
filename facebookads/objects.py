@@ -1841,6 +1841,7 @@ class AdPreview(AbstractObject):
         mobile_feed_standard = 'MOBILE_FEED_STANDARD'
         mobile_interstitial = 'MOBILE_INTERSTITIAL'
         right_column_standard = 'RIGHT_COLUMN_STANDARD'
+        instagram_standard = 'INSTAGRAM_STANDARD'
 
     @classmethod
     def get_endpoint(cls):
