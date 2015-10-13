@@ -1478,16 +1478,6 @@ class AdsPixel(CannotUpdate, CannotDelete, AbstractCrudObject):
         name = 'name'
         owner_ad_account = 'owner_ad_account'
 
-    class Aggregation(object):
-        browser_type = 'browser_type'
-        custom_data_field = 'custom_data_field'
-        device_os = 'device_os'
-        device_type = 'device_type'
-        event = 'event'
-        host = 'host'
-        pixel_fire = 'pixel_fire'
-        url = 'url'
-
     def share_pixel(self, business_id, account_id):
         return self.get_api_assured().call(
             'POST',
