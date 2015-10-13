@@ -1025,7 +1025,7 @@ class AdAccount(CannotCreate, CannotDelete, HasAdLabels, AbstractCrudObject):
         return my_account
 
     def get_instagram_accounts(self, fields=None, params=None):
-        """Returns iterator over AdAccount's associated with this user."""
+        """Returns iterator over Instagram Accounts associated with this Ad account."""
         return self.iterate_edge(InstagramAccount, fields, params)
 
     def opt_out_user_from_targeting(self, schema, users, app_ids=None):
