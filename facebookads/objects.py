@@ -1471,8 +1471,8 @@ class AdConversionPixel(AbstractCrudObject):
 class AdsPixel(CannotUpdate, CannotDelete, AbstractCrudObject):
 
     class Field(object):
-        code = 'code'
         audiences = 'audiences'
+        code = 'code'
         id = 'id'
         last_fired_time = 'last_fired_time'
         name = 'name'
@@ -1528,6 +1528,10 @@ class AdsPixel(CannotUpdate, CannotDelete, AbstractCrudObject):
                 search_obj.update(item)
                 ret_val.append(search_obj)
         return ret_val
+
+    def get_stats(self, fields=None, params=None):
+        """Returns iterator over Stats associated with this pixel."""
+        return self.edge_object(AdsPixelStat, fields, params)
 
     @classmethod
     def get_endpoint(cls):
@@ -1828,6 +1832,28 @@ class AdCreativePreview(AdPreview):
     @classmethod
     def get_endpoint(cls):
         return 'previews'
+
+
+class AdsPixelStat(AbstractObject):
+
+    class Field(object):
+        aggregation = 'aggregation'
+        end_time = 'end_time'
+        start_time = 'start_time'
+
+    class Aggregation(object):
+        browser_type = 'browser_type'
+        custom_data_field = 'custom_data_field'
+        device_os = 'device_os'
+        device_type = 'device_type'
+        event = 'event'
+        host = 'host'
+        pixel_fire = 'pixel_fire'
+        url = 'url'
+
+    @classmethod
+    def get_endpoint(cls):
+        return 'stats'
 
 
 class KeywordStats(AbstractObject):
