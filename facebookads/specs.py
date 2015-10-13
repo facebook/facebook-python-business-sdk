@@ -36,6 +36,7 @@ class ObjectStorySpec(ValidatesFields, AbstractObject):
         template_data = 'template_data'
         text_data = 'text_data'
         video_data = 'video_data'
+        instagram_actor_id = 'instagram_actor_id'
 
 
 class AttachmentData(ValidatesFields, AbstractObject):

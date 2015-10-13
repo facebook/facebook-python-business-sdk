@@ -1024,6 +1024,10 @@ class AdAccount(CannotCreate, CannotDelete, HasAdLabels, AbstractCrudObject):
 
         return my_account
 
+    def get_instagram_accounts(self, fields=None, params=None):
+        """Returns iterator over Instagram Accounts associated with this Ad account."""
+        return self.iterate_edge(InstagramAccount, fields, params)
+
     def opt_out_user_from_targeting(self, schema, users, app_ids=None):
         """Opts out users from being targeted by this ad account.
 
@@ -1841,6 +1845,7 @@ class AdPreview(AbstractObject):
         mobile_feed_standard = 'MOBILE_FEED_STANDARD'
         mobile_interstitial = 'MOBILE_INTERSTITIAL'
         right_column_standard = 'RIGHT_COLUMN_STANDARD'
+        instagram_standard = 'INSTAGRAM_STANDARD'
 
     @classmethod
     def get_endpoint(cls):
@@ -3001,6 +3006,18 @@ class MinimumBudget(AbstractObject):
     @classmethod
     def get_endpoint(cls):
         return 'minimum_budgets'
+
+
+class InstagramAccount(CannotCreate, CannotDelete, AbstractCrudObject):
+
+    class Field(object):
+        username = 'username'
+        profile_pic = 'profile_pic'
+        id = 'id'
+
+    @classmethod
+    def get_endpoint(cls):
+        return 'instagram_accounts'
 
 
 class AsyncJob(CannotCreate, AbstractCrudObject):
