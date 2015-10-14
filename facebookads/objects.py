@@ -1357,6 +1357,7 @@ class AdSet(CanValidate, HasStatus, CanArchive, HasAdLabels,
     class PacingType(object):
         day_parting = 'day_parting'
         standard = 'standard'
+        no_pacing = 'no_pacing'
 
     @classmethod
     def get_endpoint(cls):
