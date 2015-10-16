@@ -1119,8 +1119,8 @@ class AdAccount(CannotCreate, CannotDelete, HasAdLabels, AbstractCrudObject):
         return self.iterate_edge(Transaction, fields, params)
 
     def get_ad_preview(self, fields=None, params=None):
-        """Returns iterator over AdPreview's associated with this account."""
-        return self.iterate_edge(AdPreview, fields, params)
+        """Returns iterator over previews generated under this account."""
+        return self.iterate_edge(GeneratePreview, fields, params)
 
     def get_ads_pixels(self, fields=None, params=None):
         return self.edge_object(AdsPixel, fields, params)
@@ -1802,7 +1802,7 @@ class VideoThumbnail(AbstractObject):
         return 'thumbnails'
 
 
-class AdPreview(AbstractObject):
+class GeneratePreview(AbstractObject):
 
     class Field(object):
         ad_format = 'ad_format'
@@ -1827,7 +1827,14 @@ class AdPreview(AbstractObject):
         return self[self.Field.body]
 
 
-class AdCreativePreview(AdPreview):
+class AdCreativePreview(GeneratePreview):
+
+    @classmethod
+    def get_endpoint(cls):
+        return 'previews'
+
+
+class AdPreview(AdCreativePreview):
 
     @classmethod
     def get_endpoint(cls):
