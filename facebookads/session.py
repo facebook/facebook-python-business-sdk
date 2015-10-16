@@ -26,6 +26,7 @@ import hashlib
 import hmac
 import requests
 import os
+from requests.adapters import HTTPAdapter
 
 
 class FacebookSession(object):
@@ -44,17 +45,30 @@ class FacebookSession(object):
     """
     GRAPH = 'https://graph.facebook.com'
 
-    def __init__(self, app_id=None, app_secret=None, access_token=None):
+    def __init__(self, app_id=None, app_secret=None, access_token=None,
+                 pool_maxsize=10, max_retries=0):
         """
         Initializes and populates the instance attributes with app_id,
         app_secret, access_token, appsecret_proof, and requests given arguments
         app_id, app_secret, and access_token.
+
+        Args:
+            pool_maxsize: you change the default Requests connection pool size
+                (useful for multi-threaded data loading scenarios)
+            max_retries: Requests library can do retries for you, by default it doesn't
         """
         self.app_id = app_id
         self.app_secret = app_secret
         self.access_token = access_token
 
+        self.pool_maxsize = pool_maxsize
+        self.max_retries = max_retries
+
         self.requests = requests.Session()
+        self.requests.mount(
+            'https://',
+            HTTPAdapter(pool_maxsize=self.pool_maxsize,
+                        max_retries=self.max_retries))
         self.requests.verify = os.path.join(
             os.path.dirname(__file__),
             'fb_ca_chain_bundle.crt',

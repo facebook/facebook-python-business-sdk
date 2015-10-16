@@ -176,9 +176,12 @@ class FacebookAdsApi(object):
         app_id=None,
         app_secret=None,
         access_token=None,
-        account_id=None
+        account_id=None,
+        pool_maxsize=10,
+        max_retries=0
     ):
-        session = FacebookSession(app_id, app_secret, access_token)
+        session = FacebookSession(app_id, app_secret, access_token,
+                                  pool_maxsize, max_retries)
         api = cls(session)
         cls.set_default_api(api)
 
