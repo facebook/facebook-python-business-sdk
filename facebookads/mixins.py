@@ -56,7 +56,7 @@ class CanArchive(object):
     ):
         return self.remote_update(
             params={
-                self.Field.status: self.Status.deleted,
+                'status': self.Status.deleted,
             },
             batch=batch,
             failure=failure,
@@ -75,7 +75,7 @@ class CanArchive(object):
     ):
         return self.remote_update(
             params={
-                self.Field.status: self.Status.archived,
+                'status': self.Status.archived,
             },
             batch=batch,
             failure=failure,

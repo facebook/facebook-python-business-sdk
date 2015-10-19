@@ -1262,7 +1262,6 @@ class Campaign(CanValidate, HasStatus, HasObjective, HasAdLabels, CanArchive,
         name = 'name'
         objective = 'objective'
         promoted_object = 'promoted_object'
-        status = 'status'
 
     class BuyingType(object):
         auction = 'AUCTION'
@@ -1321,7 +1320,6 @@ class AdSet(CanValidate, HasStatus, CanArchive, HasAdLabels,
         rf_prediction_id = 'rf_prediction_id'
         rtb_flag = 'rtb_flag'
         start_time = 'start_time'
-        status = 'status'
         targeting = 'targeting'
         updated_time = 'updated_time'
 
@@ -1401,7 +1399,6 @@ class Ad(HasStatus, CanArchive, HasAdLabels, AbstractCrudObject):
         name = 'name'
         redownload = 'redownload'
         social_prefs = 'social_prefs'
-        status = 'status'
         tracking_specs = 'tracking_specs'
         updated_time = 'updated_time'
         view_tags = 'view_tags'
@@ -2734,8 +2731,8 @@ class Insights(CannotCreate, CannotDelete, CannotUpdate, AbstractCrudObject):
         campaign_id = 'campaign_id'
         campaign_name = 'campaign_name'
         cost_per_action_type = 'cost_per_action_type'
-        cost_per_inline_link_click = 'cost_per_inline_link_click',
-        cost_per_inline_post_engagement = 'cost_per_inline_post_engagement',
+        cost_per_inline_link_click = 'cost_per_inline_link_click'
+        cost_per_inline_post_engagement = 'cost_per_inline_post_engagement'
         cost_per_total_action = 'cost_per_total_action'
         cost_per_unique_click = 'cost_per_unique_click'
         cpm = 'cpm'
@@ -2746,8 +2743,8 @@ class Insights(CannotCreate, CannotDelete, CannotUpdate, AbstractCrudObject):
         frequency = 'frequency'
         id = 'id'
         impressions = 'impressions'
-        inline_link_clicks = 'inline_link_clicks',
-        inline_post_engagement = 'inline_post_engagement',
+        inline_link_clicks = 'inline_link_clicks'
+        inline_post_engagement = 'inline_post_engagement'
         reach = 'reach'
         relevance_score = 'relevance_score'
         report_run_id = 'report_run_id'

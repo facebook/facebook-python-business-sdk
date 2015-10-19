@@ -114,7 +114,7 @@ class FacebookAdsTestCase(unittest.TestCase):
         ad_set.update({
             objects.AdSet.Field.name: 'AdSetTestCase %s' % self.TEST_ID,
             objects.AdSet.Field.campaign_id: campaign_id,
-            objects.AdSet.Field.status: objects.AdSet.Status.paused,
+            'status': objects.AdSet.Status.paused,
             objects.AdSet.Field.pacing_type: [
                 objects.AdSet.PacingType.standard,
             ],
@@ -169,7 +169,7 @@ class FacebookAdsTestCase(unittest.TestCase):
             objects.Ad.Field.creative: {
                 objects.Ad.Field.Creative.creative_id: creative_id,
             },
-            objects.Ad.Field.status: objects.Ad.Status.paused,
+            'status': objects.Ad.Status.paused,
         })
 
         return ad
@@ -303,7 +303,7 @@ class AbstractCrudObjectTestCase(AbstractObjectTestCase):
 
         test_image_one[objects.AdImage.Field.filename] = image_file
 
-        assert test_image_one.remote_create(api_version="v2.4") is not None
+        assert test_image_one.remote_create(api_version="v2.5") is not None
 
         test_image_two = objects.AdImage(
             parent_id=self.TEST_ACCOUNT.get_id_assured(),
@@ -312,7 +312,7 @@ class AbstractCrudObjectTestCase(AbstractObjectTestCase):
         test_image_two[objects.AdImage.Field.filename] = image_file
 
         try:
-            test_image_two.remote_create(api_version="v2.4")
+            test_image_two.remote_create(api_version="v2.5")
         except fbexceptions.FacebookBadObjectError as e:
             assert e is not None
 
