@@ -47,6 +47,7 @@ class AttachmentData(ValidatesFields, AbstractObject):
         link = 'link'
         name = 'name'
         picture = 'picture'
+        video_id = 'video_id'
 
 
 class LinkData(ValidatesFields, AbstractObject):
