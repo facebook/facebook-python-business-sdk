@@ -1388,7 +1388,7 @@ class Ad(HasStatus, CanArchive, HasAdLabels, AbstractCrudObject):
         adset_id = 'adset_id'
         bid_amount = 'bid_amount'
         bid_info = 'bid_info'
-        adset_id = 'adset_id'
+        campaign_id = 'campaign_id'
         configured_status = 'configured_status'
         conversion_specs = 'conversion_specs'
         created_time = 'created_time'
