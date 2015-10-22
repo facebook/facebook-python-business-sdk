@@ -1089,8 +1089,8 @@ class AdAccount(CannotCreate, CannotDelete, HasAdLabels, AbstractCrudObject):
         return self.iterate_edge(AdImage, fields, params)
 
     def get_ad_videos(self, fields=None, params=None):
-        """Returns iterator over AdVideos's associated with this account."""
-        return self.iterate_edge(AdVideos, fields, params)
+        """Returns iterator over AdVideo's associated with this account."""
+        return self.iterate_edge(AdVideo, fields, params)
 
     def get_insights(self, fields=None, params=None, async=False):
         return self.iterate_edge_async(
@@ -1798,6 +1798,9 @@ class AdVideo(AbstractCrudObject):
     class Field(object):
         filepath = 'filepath'
         id = 'id'
+        title = 'title'
+        picture = 'picture'
+        source = 'source'
 
     def remote_create(
         self,
