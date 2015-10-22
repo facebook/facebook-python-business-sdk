@@ -67,6 +67,7 @@ class VideoUploadSession(object):
         self._api = video.get_api_assured()
         self._file_path = video[video.Field.filepath]
         self._account_id = video.get_parent_id_assured()
+        self._name = video[video.Field.name]
         self._wait_for_encoding = wait_for_encoding
         # Setup start request manager
         self._start_request_manager = VideoUploadStartRequestManager(
@@ -132,7 +133,7 @@ class VideoUploadSession(object):
         context = VideoUploadRequestContext()
         context.session_id = self._session_id
         context.account_id = self._account_id
-        context.file_name = ntpath.basename(self._file_path)
+        context.file_name = self._name
         return context
 
 
