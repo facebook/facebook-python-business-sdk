@@ -1799,6 +1799,7 @@ class AdVideo(AbstractCrudObject):
         filepath = 'filepath'
         id = 'id'
         title = 'title'
+        name = 'name'
         picture = 'picture'
         source = 'source'
 
