@@ -1088,6 +1088,10 @@ class AdAccount(CannotCreate, CannotDelete, HasAdLabels, AbstractCrudObject):
         """Returns iterator over AdImage's associated with this account."""
         return self.iterate_edge(AdImage, fields, params)
 
+    def get_ad_videos(self, fields=None, params=None):
+        """Returns iterator over AdVideos's associated with this account."""
+        return self.iterate_edge(AdVideos, fields, params)
+
     def get_insights(self, fields=None, params=None, async=False):
         return self.iterate_edge_async(
                 Insights,
@@ -1828,6 +1832,10 @@ class AdVideo(AbstractCrudObject):
             interval,
             timeout,
         )
+
+    @classmethod
+    def get_endpoint(cls):
+        return 'advideos'
 
 
 class AdPreview(AbstractObject):
