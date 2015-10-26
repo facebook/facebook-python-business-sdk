@@ -1904,6 +1904,7 @@ class CustomAudience(AbstractCrudObject):
         name = 'name'
         operation_status = 'operation_status'
         opt_out_link = 'opt_out_link'
+        origin_audience_id = 'origin_audience_id'
         permission_for_actions = 'permission_for_actions'
         prefill = 'prefill'
         retention_days = 'retention_days'
