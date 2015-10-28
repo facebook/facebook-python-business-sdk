@@ -2770,6 +2770,7 @@ class Insights(CannotCreate, CannotDelete, CannotUpdate, AbstractCrudObject):
         impressions = 'impressions'
         inline_link_clicks = 'inline_link_clicks'
         inline_post_engagement = 'inline_post_engagement'
+        product_id = 'product_id'
         reach = 'reach'
         relevance_score = 'relevance_score'
         report_run_id = 'report_run_id'
