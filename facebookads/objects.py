@@ -2699,7 +2699,7 @@ class Product(AbstractCrudObject):
         return 'products'
 
 
-class ProductAudience(CannotUpdate, CannotDelete, AbstractCrudObject):
+class ProductAudience(AbstractCrudObject):
 
     class Field(object):
         description = 'description'
