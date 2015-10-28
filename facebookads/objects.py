@@ -1911,6 +1911,19 @@ class ClickTrackingTag(AbstractCrudObject):
     def get_endpoint(cls):
         return 'trackingtag'
 
+    def get_node_path(self):
+        return (
+            self.get_parent_id_assured(),
+            self.get_endpoint()
+        )
+
+    def remote_delete(self, params=None):
+        return self.get_api_assured().call(
+            'DELETE',
+            self.get_node_path(),
+            params=params,
+        )
+
 
 class CustomAudience(AbstractCrudObject):
 
