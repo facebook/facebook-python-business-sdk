@@ -1486,9 +1486,29 @@ class AdsPixel(CannotUpdate, CannotDelete, AbstractCrudObject):
             },
         )
 
+    def unshare_pixel(self, business_id, account_id):
+        return self.get_api_assured().call(
+            'DELETE',
+            (self.get_id_assured(), 'shared_accounts'),
+            params={
+                'business': business_id,
+                'account_id': account_id,
+            },
+        )
+
     def share_pixel_agencies(self, business_id, agency_id):
         return self.get_api_assured().call(
             'POST',
+            (self.get_id_assured(), 'shared_agencies'),
+            params={
+                'business': business_id,
+                'agency_id': agency_id,
+            },
+        )
+
+    def unshare_pixel_agencies(self, business_id, agency_id):
+        return self.get_api_assured().call(
+            'DELETE',
             (self.get_id_assured(), 'shared_agencies'),
             params={
                 'business': business_id,
