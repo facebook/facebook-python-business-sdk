@@ -873,7 +873,7 @@ class AdUser(CannotCreate, CannotDelete, CannotUpdate, AbstractCrudObject):
         return 'users'
 
     def get_ad_accounts(self, fields=None, params=None):
-        """Returns iterator over AdAccount's associated with this user."""
+        """Returns iterator over AdAccounts associated with this user."""
         return self.iterate_edge(AdAccount, fields, params)
 
     def get_ad_account(self, fields=None, params=None):
@@ -883,6 +883,10 @@ class AdUser(CannotCreate, CannotDelete, CannotUpdate, AbstractCrudObject):
     def get_pages(self, fields=None, params=None):
         """Returns iterator over Pages's associated with this user."""
         return self.iterate_edge(Page, fields, params)
+
+    def get_ad_account_groups(self, fields=None, params=None):
+        """Returns iterator over AdAccount Groups associated with this user."""
+        return self.iterate_edge(AdAccountGroup, fields, params)
 
 
 class Page(CannotCreate, CannotDelete, CannotUpdate, AbstractCrudObject):
