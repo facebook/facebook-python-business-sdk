@@ -1171,6 +1171,12 @@ class AdAccount(CannotCreate, CannotDelete, HasAdLabels, AbstractCrudObject):
         """
         return self.iterate_edge(MinimumBudget, fields, params)
 
+    def get_ad_place_page_sets(self, fields=None, params=None):
+        """
+        Returns the ad place page sets associated with the AdAccount
+        """
+        return self.iterate_edge(AdPlacePageSet, fields, params)
+
 
 class AdAccountGroup(AbstractCrudObject):
 
@@ -1570,6 +1576,7 @@ class AdCreative(HasAdLabels, AbstractCrudObject):
         applink_treatment = 'applink_treatment'
         body = 'body'
         call_to_action_type = 'call_to_action_type'
+        dynamic_ad_voice = 'dynamic_ad_voice'
         filename = 'filename'
         follow_redirect = 'follow_redirect'
         id = 'id'
@@ -1588,6 +1595,7 @@ class AdCreative(HasAdLabels, AbstractCrudObject):
         object_story_spec = 'object_story_spec'
         object_type = 'object_type'
         object_url = 'object_url'
+        place_page_set_id = 'place_page_set_id'
         preview_url = 'preview_url'
         product_set_id = 'product_set_id'
         template_url = 'template_url'
@@ -2839,6 +2847,7 @@ class Insights(CannotCreate, CannotDelete, CannotUpdate, AbstractCrudObject):
         hourly_stats_aggregated_by_audience_time_zone = \
             'hourly_stats_aggregated_by_audience_time_zone'
         impression_device = 'impression_device'
+        place_page_id = 'place_page_id'
         placement = 'placement'
 
     class Level(object):
@@ -3005,3 +3014,17 @@ class AsyncJob(CannotCreate, AbstractCrudObject):
 
     def __nonzero__(self):
         return self[self.Field.async_percent_completion] == 100
+
+
+class AdPlacePageSet(CannotDelete, AbstractCrudObject):
+
+    class Field(object):
+        account_id = 'account_id'
+        id = 'id'
+        name = 'name'
+        pages_count = 'pages_count'
+        parent_page = 'parent_page'
+
+    @classmethod
+    def get_endpoint(cls):
+        return 'ad_place_page_sets'

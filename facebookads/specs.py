@@ -94,6 +94,7 @@ class TemplateData(ValidatesFields, AbstractObject):
         max_product_count = 'max_product_count'
         message = 'message'
         name = 'name'
+        picture = 'picture'
 
 
 class TextData(ValidatesFields, AbstractObject):
