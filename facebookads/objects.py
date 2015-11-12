@@ -1272,6 +1272,7 @@ class Campaign(CanValidate, HasStatus, HasObjective, HasAdLabels, CanArchive,
         name = 'name'
         objective = 'objective'
         promoted_object = 'promoted_object'
+        spend_cap = 'spend_cap'
 
     class BuyingType(object):
         auction = 'AUCTION'
@@ -2114,18 +2115,15 @@ class ConnectionObject(AbstractObject):
 class LookalikeAudience(AbstractCrudObject):
 
     class Field(object):
-        name = 'name'
-        lookalike_spec = 'lookalike_spec'
-        origin_audience_id = 'origin_audience_id'
         id = 'id'
-        page_id = 'page_id'
-        conversion_type = 'conversion_type'
-        country = 'country'
-        ratio = 'ratio'
+        lookalike_spec = 'lookalike_spec'
+        name = 'name'
+        origin_audience_id = 'origin_audience_id'
 
         class LookalikeSpec(object):
             type = 'type'
             ratio = 'ratio'
+            starting_ratio = 'starting_ratio'
             country = 'country'
             pixel_ids = 'pixel_ids'
             conversion_type = 'conversion_type'
