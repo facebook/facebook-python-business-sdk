@@ -51,6 +51,27 @@ import collections
 import json
 import six
 import base64
+import warnings
+import functools
+
+
+def deprecated(fun=None, replacement=None):
+    if fun is None:
+        return functools.partial(deprecated, replacement=replacement)
+
+    @functools.wraps(fun)
+    def inner(*args, **kwargs):
+        msg = "%s is deprecated" % fun.__name__
+        if replacement:
+            msg += "; use %s instead" % replacement
+        warnings.simplefilter('always', DeprecationWarning)  # turn off filter
+        warnings.warn(msg, category=DeprecationWarning, stacklevel=2)
+        doc = msg + '\n'
+        if fun.__doc__:
+            doc += fun.__doc__
+        fun.__doc__ = doc
+        return fun(*args, **kwargs)
+    return inner
 
 
 class EdgeIterator(object):
@@ -1487,7 +1508,7 @@ class AdsPixel(CannotUpdate, CannotDelete, AbstractCrudObject):
         name = 'name'
         owner_ad_account = 'owner_ad_account'
 
-    def share_pixel(self, business_id, account_id):
+    def share_pixel_with_ad_account(self, business_id, account_id):
         return self.get_api_assured().call(
             'POST',
             (self.get_id_assured(), 'shared_accounts'),
@@ -1497,17 +1518,7 @@ class AdsPixel(CannotUpdate, CannotDelete, AbstractCrudObject):
             },
         )
 
-    def unshare_pixel(self, business_id, account_id):
-        return self.get_api_assured().call(
-            'DELETE',
-            (self.get_id_assured(), 'shared_accounts'),
-            params={
-                'business': business_id,
-                'account_id': account_id,
-            },
-        )
-
-    def share_pixel_agencies(self, business_id, agency_id):
+    def share_pixel_with_agency(self, business_id, agency_id):
         return self.get_api_assured().call(
             'POST',
             (self.get_id_assured(), 'shared_agencies'),
@@ -1517,17 +1528,7 @@ class AdsPixel(CannotUpdate, CannotDelete, AbstractCrudObject):
             },
         )
 
-    def unshare_pixel_agencies(self, business_id, agency_id):
-        return self.get_api_assured().call(
-            'DELETE',
-            (self.get_id_assured(), 'shared_agencies'),
-            params={
-                'business': business_id,
-                'agency_id': agency_id,
-            },
-        )
-
-    def list_ad_accounts(self, business_id):
+    def get_ad_accounts(self, business_id):
         response = self.get_api_assured().call(
             'GET',
             (self.get_id_assured(), 'shared_accounts'),
@@ -1543,7 +1544,7 @@ class AdsPixel(CannotUpdate, CannotDelete, AbstractCrudObject):
                 ret_val.append(search_obj)
         return ret_val
 
-    def list_shared_agencies(self):
+    def get_agencies(self):
         response = self.get_api_assured().call(
             'GET',
             (self.get_id_assured(), 'shared_agencies'),
@@ -1558,9 +1559,53 @@ class AdsPixel(CannotUpdate, CannotDelete, AbstractCrudObject):
                 ret_val.append(search_obj)
         return ret_val
 
+    def unshare_pixel_from_ad_account(self, business_id, account_id):
+        return self.get_api_assured().call(
+            'DELETE',
+            (self.get_id_assured(), 'shared_accounts'),
+            params={
+                'business': business_id,
+                'account_id': account_id,
+            },
+        )
+
+    def unshare_pixel_from_agency(self, business_id, agency_id):
+        return self.get_api_assured().call(
+            'DELETE',
+            (self.get_id_assured(), 'shared_agencies'),
+            params={
+                'business': business_id,
+                'agency_id': agency_id,
+            },
+        )
+
     def get_stats(self, fields=None, params=None):
         """Returns iterator over Stats associated with this pixel."""
         return self.edge_object(AdsPixelStat, fields, params)
+
+    @deprecated(replacement='unshare_pixel_from_ad_account')
+    def unshare_pixel(self, business_id, account_id):
+        return self.unshare_pixel_from_ad_account(business_id, account_id)
+
+    @deprecated(replacement='unshare_pixel_from_agency')
+    def unshare_pixel_agencies(self, business_id, agency_id):
+        return self.unshare_pixel_from_agency(business_id, agency_id)
+
+    @deprecated(replacement='share_pixel_with_ad_account')
+    def share_pixel(self, business_id, account_id):
+        return self.share_pixel_with_ad_account(business_id, account_id)
+
+    @deprecated(replacement='share_pixel_with_agency')
+    def share_pixel_agencies(self, business_id, agency_id):
+        return self.share_pixel_with_agency(business_id, agency_id)
+
+    @deprecated(replacement='get_ad_accounts')
+    def list_ad_accounts(self, business_id):
+        return self.get_ad_accounts(business_id)
+
+    @deprecated(replacement='get_agencies')
+    def list_shared_agencies(self):
+        return self.get_agencies()
 
     @classmethod
     def get_endpoint(cls):
