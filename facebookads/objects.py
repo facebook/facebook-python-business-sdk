@@ -2833,6 +2833,7 @@ class Insights(CannotCreate, CannotDelete, CannotUpdate, AbstractCrudObject):
         this_week = 'this_week'
         today = 'today'
         yesterday = 'yesterday'
+        lifetime = 'lifetime'
 
     class Increment(object):
         monthly = 'monthly'
