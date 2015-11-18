@@ -2986,8 +2986,6 @@ class Lead(AbstractCrudObject):
         field_data = 'field_data'
         form_id = 'form_id'
         id = 'id'
-        is_tcpa_compliant = 'is_tcpa_compliant'
-        tcpa_disclosure = 'tcpa_disclosure'
 
     @classmethod
     def get_endpoint(cls):
