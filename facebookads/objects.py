@@ -2415,6 +2415,7 @@ class TargetingSpecsField(object):
     excluded_geo_locations = 'excluded_geo_locations'
     excluded_product_audience_specs = 'excluded_product_audience_specs'
     excluded_user_adclusters = 'excluded_user_adclusters'
+    family_statuses = 'family_statuses'
     friends_of_connections = 'friends_of_connections'
     genders = 'genders'
     generation = 'generation'
