@@ -59,6 +59,7 @@ class FacebookRequestError(FacebookError):
             self._body = body
 
         self._api_error_code = None
+        self._api_error_subcode = None
         self._api_error_type = None
         self._api_error_message = None
         self._api_blame_field_specs = None
