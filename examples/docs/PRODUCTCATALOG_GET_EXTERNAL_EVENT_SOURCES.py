@@ -22,7 +22,7 @@ from examples.docs import fixtures
 
 product_catalog_id = fixtures.create_product_catalog().get_id()
 
-# _DOC oncalls [pruno]
+# _DOC oncall [pruno]
 # _DOC open [PRODUCTCATALOG_GET_EXTERNAL_EVENT_SOURCES]
 # _DOC vars [product_catalog_id]
 from facebookads.objects import ProductCatalog

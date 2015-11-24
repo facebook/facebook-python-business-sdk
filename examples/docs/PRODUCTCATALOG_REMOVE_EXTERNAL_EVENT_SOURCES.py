@@ -32,7 +32,7 @@ product_catalog.add_external_event_sources([
     app_id,
 ])
 
-# _DOC oncalls [pruno]
+# _DOC oncall [pruno]
 # _DOC open [PRODUCTCATALOG_REMOVE_EXTERNAL_EVENT_SOURCES]
 # _DOC vars [product_catalog_id, pixel_id, app_id]
 from facebookads.objects import ProductCatalog

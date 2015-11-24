@@ -22,7 +22,7 @@ from examples.docs import fixtures
 
 pixel_id = fixtures.create_ads_pixel().get_id()
 
-# _DOC oncalls [pruno]
+# _DOC oncall [pruno]
 # _DOC open [ADSPIXEL_GET_STATS_DEVICE_TYPE]
 # _DOC vars [pixel_id]
 from facebookads.objects import AdsPixel

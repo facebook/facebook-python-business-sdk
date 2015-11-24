@@ -25,7 +25,7 @@ product_catalog_id = fixtures.create_product_catalog().get_id()
 pixel_id = fixtures.create_ads_pixel().get_id()
 app_id = test_config.app_id
 
-# _DOC oncalls [pruno]
+# _DOC oncall [pruno]
 # _DOC open [PRODUCTCATALOG_ADD_EXTERNAL_EVENT_SOURCES]
 # _DOC vars [product_catalog_id, pixel_id, app_id]
 from facebookads.objects import ProductCatalog
