@@ -53,6 +53,7 @@ import six
 import base64
 import warnings
 import functools
+import re
 
 
 def deprecated(fun=None, replacement=None):
@@ -2009,6 +2010,21 @@ class CustomAudience(AbstractCrudObject):
         phone_hash = 'PHONE_SHA256'
         mobile_advertiser_id = 'MOBILE_ADVERTISER_ID'
 
+        class MultiKeySchema(object):
+            email = 'EMAIL'
+            phone = 'PHONE'
+            gen = 'GEN'
+            doby = 'DOBY'
+            dobm = 'DOBM'
+            dobd = 'DOBD'
+            ln = 'LN'
+            fn = 'FN'
+            fi = 'FI'
+            ct = 'CT'
+            st = 'ST'
+            zip = 'ZIP'
+            madid = 'MADID'
+
     class Subtype(object):
         custom = 'CUSTOM'
         lookalike = 'LOOKALIKE'
@@ -2024,9 +2040,16 @@ class CustomAudience(AbstractCrudObject):
         return 'customaudiences'
 
     @classmethod
-    def format_params(cls, schema, users, app_ids=None, pre_hashed=None):
+    def format_params(cls,
+                      schema,
+                      users,
+                      is_raw=False,
+                      app_ids=None,
+                      pre_hashed=None):
         hashed_users = []
-        if schema in (cls.Schema.phone_hash, cls.Schema.email_hash):
+        if schema in (cls.Schema.phone_hash,
+                      cls.Schema.email_hash,
+                      cls.Schema.mobile_advertiser_id):
             for user in users:
                 if schema == cls.Schema.email_hash:
                     user = user.strip(" \t\r\n\0\x0B.").lower()
@@ -2036,9 +2059,42 @@ class CustomAudience(AbstractCrudObject):
                     hashed_users.append(user)
                 else:
                     hashed_users.append(hashlib.sha256(user).hexdigest())
+        elif isinstance(schema, list):
+            # SDK will support only single PII
+            if not is_raw:
+                raise FacebookBadObjectError(
+                    "Please send single PIIs i.e. is_raw should be true. " +
+                    "The combining of the keys will be done internally.",
+                )
+            # users is array of array
+            for user in users:
+                if len(schema) != len(user):
+                    raise FacebookBadObjectError(
+                        "Number of keys in each list in the data should " +
+                        "match the number of keys specified in scheme",
+                    )
+                    break
+
+                # If the keys are already hashed then send as it is
+                if pre_hashed:
+                    hashed_users.append(user)
+                else:
+                    counter = 0
+                    hashed_user = []
+                    for key in user:
+                        key = key.strip(" \t\r\n\0\x0B.").lower()
+                        key = CustomAudience.normalize_key(schema[counter],
+                                                           str(key))
+                        if isinstance(key, six.text_type):
+                            key = key.encode('utf8')
+                        key = hashlib.sha256(key).hexdigest()
+                        counter = counter + 1
+                        hashed_user.append(key)
+                    hashed_users.append(hashed_user)
 
         payload = {
             'schema': schema,
+            'is_raw': is_raw,
             'data': hashed_users or users,
         }
 
@@ -2054,7 +2110,56 @@ class CustomAudience(AbstractCrudObject):
             'payload': payload,
         }
 
-    def add_users(self, schema, users, app_ids=None, pre_hashed=None):
+    @classmethod
+    def normalize_key(cls, key_name, key_value=None):
+        """
+            Normalize the value based on the key
+        """
+        if key_value is None:
+            return key_value
+
+        if(key_name == CustomAudience.Schema.MultiKeySchema.email or
+           key_name == CustomAudience.Schema.MultiKeySchema.madid):
+            return key_value
+
+        if(key_name == CustomAudience.Schema.MultiKeySchema.phone):
+            key_value = re.sub(r'[^0-9]', '', key_value)
+            return key_value
+
+        if(key_name == CustomAudience.Schema.MultiKeySchema.gen):
+            key_value = key_value.strip()[:1]
+            return key_value
+
+        if(key_name == CustomAudience.Schema.MultiKeySchema.doby):
+            key_value = re.sub(r'[^0-9]', '', key_value)
+            return key_value
+
+        if(key_name == CustomAudience.Schema.MultiKeySchema.dobm or
+           key_name == CustomAudience.Schema.MultiKeySchema.dobd):
+
+            key_value = re.sub(r'[^0-9]', '', key_value)
+            if len(key_value) == 1:
+                key_value = '0' + key_value
+            return key_value
+
+        if(key_name == CustomAudience.Schema.MultiKeySchema.ln or
+           key_name == CustomAudience.Schema.MultiKeySchema.fn or
+           key_name == CustomAudience.Schema.MultiKeySchema.ct or
+           key_name == CustomAudience.Schema.MultiKeySchema.fi or
+           key_name == CustomAudience.Schema.MultiKeySchema.st):
+            key_value = re.sub(r'[^a-zA-Z]', '', key_value)
+            return key_value
+
+        if(key_name == CustomAudience.Schema.MultiKeySchema.zip):
+            key_value = re.split('-', key_value)[0]
+            return key_value
+
+    def add_users(self,
+                  schema,
+                  users,
+                  is_raw=False,
+                  app_ids=None,
+                  pre_hashed=None):
         """Adds users to this CustomAudience.
 
         Args:
@@ -2070,12 +2175,18 @@ class CustomAudience(AbstractCrudObject):
             (self.get_id_assured(), 'users'),
             params=CustomAudience.format_params(schema,
                                                 users,
+                                                is_raw,
                                                 app_ids,
                                                 pre_hashed,
                                                 ),
         )
 
-    def remove_users(self, schema, users, app_ids=None, pre_hashed=None):
+    def remove_users(self,
+                     schema,
+                     users,
+                     is_raw=False,
+                     app_ids=None,
+                     pre_hashed=None):
         """Deletes users from this CustomAudience.
 
         Args:
@@ -2091,6 +2202,7 @@ class CustomAudience(AbstractCrudObject):
             (self.get_id_assured(), 'users'),
             params=CustomAudience.format_params(schema,
                                                 users,
+                                                is_raw,
                                                 app_ids,
                                                 pre_hashed,
                                                 ),
