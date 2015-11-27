@@ -1,3 +1,2 @@
 requests >= 2.3.0
 six >= 1.7.3
-configparser >= 3.5.0b1

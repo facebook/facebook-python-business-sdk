@@ -47,10 +47,6 @@ The easiest way to install the SDK is via ``pip`` in your shell.
 
 **NOTE**: For Python 3, use ``pip3`` and ``python3`` instead.
 
-**WARNING**: There is currently a dependency installation issue with Python 3.
-If you're running Python 3 and ``configparser`` fails to install, manually
-download the package.
-
 **NOTE**: Use ``sudo`` if any of these complain about permissions. (This might
 happen if you are using a system installed Python.)
 
