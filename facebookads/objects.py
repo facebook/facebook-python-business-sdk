@@ -1199,6 +1199,12 @@ class AdAccount(CannotCreate, CannotDelete, HasAdLabels, AbstractCrudObject):
         """
         return self.iterate_edge(AdPlacePageSet, fields, params)
 
+    def get_custom_conversions(self, fields=None, params=None):
+        """
+        Returns the custom conversions associated with the AdAccount
+        """
+        return self.iterate_edge(CustomConversion, fields, params)
+
 
 class AdAccountGroup(AbstractCrudObject):
 
@@ -3182,3 +3188,18 @@ class AdPlacePageSet(CannotDelete, AbstractCrudObject):
     @classmethod
     def get_endpoint(cls):
         return 'ad_place_page_sets'
+
+
+class CustomConversion(CannotDelete, AbstractCrudObject):
+
+    class Field(object):
+        custom_event_type = 'custom_event_type'
+        description = 'description'
+        id = 'id'
+        name = 'name'
+        pixel_id = 'pixel_id'
+        pixel_rule = 'pixel_rule'
+
+    @classmethod
+    def get_endpoint(cls):
+        return 'customconversions'

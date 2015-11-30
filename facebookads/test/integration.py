@@ -766,6 +766,27 @@ class AdsPixelTestCase(AbstractCrudObjectTestCase):
         assert len(resp) > 1
 
 
+class CustomConversion(AbstractCrudObjectTestCase):
+
+    @unittest.skip('Deletion is not supported')
+    def runTest(self):
+        pixel = self.new_test_pixel()
+        custom_conversion = objects.CustomConversion(
+            parent_id=self.TEST_ACCOUNT.get_id_assured(),
+        )
+        custom_conversion.update({
+            objects.CustomConversion.Field.name: 'Example Custom Conversion',
+            objects.CustomConversion.Field.pixel_id:
+            pixel[objects.AdsPixel.id],
+            objects.CustomConversion.Field.pixel_rule: {
+                'url': {'i_contains': 'thankyou.html'},
+            },
+            objects.CustomConversion.Field.custom_event_type: 'PURCHASE',
+        })
+
+        custom_conversion.remote_create()
+
+
 class BatchTestCase(FacebookAdsTestCase):
 
     def setUp(self):
