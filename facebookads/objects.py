@@ -43,6 +43,7 @@ from facebookads.mixins import (
 )
 from facebookads.video_uploader import (
     VideoUploader,
+    VideoUploadRequest,
     VideoEncodingStatusChecker,
 )
 
@@ -1827,6 +1828,7 @@ class AdVideo(AbstractCrudObject):
     class Field(object):
         filepath = 'filepath'
         id = 'id'
+        slideshow_spec = 'slideshow_spec'
 
     def remote_create(
         self,
@@ -1841,9 +1843,20 @@ class AdVideo(AbstractCrudObject):
         does not have the files argument but requires the 'filepath' property
         to be defined.
         """
-        if not self[self.Field.filepath]:
+        if self.Field.slideshow_spec in self:
+            request = VideoUploadRequest(self.get_api_assured())
+            spec = self[self.Field.slideshow_spec]
+            print(spec)
+            request.setParams(params={'slideshow_spec': {
+                'images_urls': self[self.Field.slideshow_spec]['images_urls'],
+                'duration_ms': self[self.Field.slideshow_spec]['duration_ms'],
+                'transition_ms': self[self.Field.slideshow_spec]['transition_ms'],
+            }})
+            request.send((self.get_parent_id_assured(), 'advideos'))
+            exit()
+        elif not (self.Field.filepath in self):
             raise FacebookBadObjectError(
-                "AdVideo required a filepath to be defined.",
+                "AdVideo requires a filepath or slideshow_spec to be defined.",
             )
         video_uploader = VideoUploader()
         response = video_uploader.upload(self)

@@ -50,7 +50,7 @@ class VideoUploader(object):
         # Check there is no existing session
         if self._session:
             raise FacebookError(
-                "There is already an upload session for this video uploader"
+                "There is already an upload session for this video uploader",
             )
 
         # Initiate an upload session
@@ -65,7 +65,12 @@ class VideoUploadSession(object):
     def __init__(self, video, wait_for_encoding=False):
         self._video = video
         self._api = video.get_api_assured()
-        self._file_path = video[video.Field.filepath]
+        if (video.Field.filepath in video):
+            self._file_path = video[video.Field.filepath]
+            self._slideshow_spec = None
+        elif (video.Field.slideshow_spec in video):
+            self._slideshow_spec = video[video.Field.slideshow_spec]
+            self._file_path = None
         self._account_id = video.get_parent_id_assured()
         self._wait_for_encoding = wait_for_encoding
         # Setup start request manager
@@ -115,7 +120,8 @@ class VideoUploadSession(object):
 
     def getStartRequestContext(self):
         context = VideoUploadRequestContext()
-        context.file_size = os.path.getsize(self._file_path)
+        if (self._file_path):
+            context.file_size = os.path.getsize(self._file_path)
         context.account_id = self._account_id
         return context
 
@@ -124,7 +130,10 @@ class VideoUploadSession(object):
         context.session_id = self._session_id
         context.start_offset = self._start_offset
         context.end_offset = self._end_offset
-        context.file_path = self._file_path
+        if (self._file_path):
+            context.file_path = self._file_path
+        if (self._slideshow_spec):
+            context.slideshow_spec = self._slideshow_spec
         context.account_id = self._account_id
         return context
 
@@ -132,7 +141,8 @@ class VideoUploadSession(object):
         context = VideoUploadRequestContext()
         context.session_id = self._session_id
         context.account_id = self._account_id
-        context.file_name = ntpath.basename(self._file_path)
+        if (self._file_path):
+            context.file_name = ntpath.basename(self._file_path)
         return context
 
 
@@ -212,7 +222,7 @@ class VideoUploadTransferRequestManager(VideoUploadRequestManager):
             # send the request
             try:
                 response = request.send(
-                    (context.account_id, 'advideos')
+                    (context.account_id, 'advideos'),
                 ).json()
                 self._start_offset = int(response['start_offset'])
                 self._end_offset = int(response['end_offset'])
@@ -226,10 +236,10 @@ class VideoUploadTransferRequestManager(VideoUploadRequestManager):
                             'start_offset' in body['error']['error_data'] and
                             retry > 0):
                         self._start_offset = int(
-                            body['error']['error_data']['start_offset']
+                            body['error']['error_data']['start_offset'],
                         )
                         self._end_offset = int(
-                            body['error']['error_data']['end_offset']
+                            body['error']['error_data']['end_offset'],
                         )
                         retry = max(retry - 1, 0)
                         continue
@@ -384,7 +394,7 @@ class VideoEncodingStatusChecker(object):
             time.sleep(interval)
         if status != 'ready':
             raise FacebookError(
-                'video encoding status: ' + status
+                'video encoding status: ' + status,
             )
         return
 

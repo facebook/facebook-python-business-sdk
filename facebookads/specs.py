@@ -109,3 +109,10 @@ class VideoData(ValidatesFields, AbstractObject):
         image_url = 'image_url'
         title = 'title'
         video_id = 'video_id'
+
+
+class SlideshowSpec(ValidatesFields, AbstractObject):
+    class Field(object):
+        images_urls = 'images_urls'
+        duration_ms = 'duration_ms'
+        transition_ms = 'transition_ms'
