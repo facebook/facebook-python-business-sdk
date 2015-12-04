@@ -34,7 +34,7 @@ You need to generate a user access token for your app and ask for the
 ``ads_management`` permission. It is expected that an app in production will
 build its own infrastructure to interact with a user to generate an access token
 and choose an account to manage.
-<a href="https://developers.facebook.com/docs/reference/ads-api/overview/">Learn
+<a href="https://developers.facebook.com/docs/marketing-api/using-the-api">Learn
 more about access tokens here</a>.
 
 For now, we can use the
@@ -115,7 +115,7 @@ AbstractCrudObject can have all or some of the following methods:
 
 For example, Campaign has all these methods but AdAccount does not. Read the
 Marketing API documentation for more information about
-<a href="https://developers.facebook.com/docs/ads-api/objects">how different ad
+<a href="https://developers.facebook.com/docs/marketing-api/reference">how different ad
 objects are used</a>.
 
 ## Exploring the Graph
@@ -144,7 +144,7 @@ returns an iterator of ``AdAccount`` objects.
 ### Ad Account
 
 Most ad-related operations are in the context of an ad account. You can go to
-<a href="https://www.facebook.com/ads/manage">Ads Manager</a> to see accounts
+<a href="https://www.facebook.com/business/">Ads Manager</a> to see accounts
 for which you have permission. Most of you probably have a personal account.
 
 Let's get all the ad accounts for the user with the given access token. I only
@@ -193,7 +193,7 @@ campaign = objects.Campaign(parent_id = my_account.get_id_assured())
 Then we specify some details about the campaign. To figure out what properties
 to define, you should look at the available fields of the object (located in
 ``Campaign.Field``) and also look at the ad object's documentation (e.g.
-<a href="https://developers.facebook.com/docs/reference/ads-api/adcampaign">
+<a href="https://developers.facebook.com/docs/marketing-api/reference/ad-campaign-group">
 Campaign</a>).
 
 **NOTE**: To find out the fields, use Python's builtin help function:
