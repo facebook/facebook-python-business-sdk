@@ -62,10 +62,6 @@ adset.update({
                     'radius': 1,
                 },
             ],
-            'location_types': [
-                'home',
-                'recent',
-            ],
         },
         'page_types': [
             'mobilefeed',
