@@ -2253,7 +2253,7 @@ class CustomAudience(AbstractCrudObject):
         """
         return self.get_api_assured().call(
             'DELETE',
-            (self.get_id_assured(), 'users'),
+            (self.get_id_assured(), 'adaccounts'),
             params={'adaccounts': account_ids},
         )
 
