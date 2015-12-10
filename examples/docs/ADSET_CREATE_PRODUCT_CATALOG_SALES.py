@@ -34,8 +34,9 @@ from facebookads.objects import AdSet, TargetingSpecsField
 adset = AdSet(parent_id=ad_account_id)
 adset[AdSet.Field.name] = 'Product Catalog Sales Adset'
 adset[AdSet.Field.bid_amount] = 3000
-adset[AdSet.Field.billing_event] = AdSet.BillingEvent.link_clicks
-adset[AdSet.Field.optimization_goal] = AdSet.OptimizationGoal.link_clicks
+adset[AdSet.Field.billing_event] = AdSet.BillingEvent.impressions
+adset[AdSet.Field.optimization_goal] = \
+    AdSet.OptimizationGoal.offsite_conversions
 adset[AdSet.Field.daily_budget] = 15000
 adset[AdSet.Field.campaign_id] = campaign_id
 adset[AdSet.Field.targeting] = {
