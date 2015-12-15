@@ -26,11 +26,11 @@ from facebookads import FacebookSession
 from facebookads import FacebookAdsApi
 from facebookads.objects import (
     AdUser,
-    AdCampaign,
+    Campaign,
     AdSet,
     AdImage,
     AdCreative,
-    AdGroup,
+    Ad,
     TargetingSpecsField,
 )
 
@@ -65,13 +65,12 @@ if __name__ == '__main__':
 
     ### Get first account connected to the user
     my_account = me.get_ad_account()
-
     ### Create a Campaign
-    campaign = AdCampaign(parent_id=my_account.get_id_assured())
+    campaign = Campaign(parent_id=my_account.get_id_assured())
     campaign.update({
-        AdCampaign.Field.name: 'Seattle Ad Campaign',
-        AdCampaign.Field.objective: AdCampaign.Objective.website_clicks,
-        AdCampaign.Field.status: AdCampaign.Status.paused,
+        Campaign.Field.name: 'Seattle Ad Campaign',
+        Campaign.Field.objective: 'LINK_CLICKS',
+        Campaign.Field.effective_status: Campaign.Status.paused,
     })
     campaign.remote_create()
     print("**** DONE: Campaign created:")
@@ -81,14 +80,12 @@ if __name__ == '__main__':
     ad_set = AdSet(parent_id=my_account.get_id_assured())
     ad_set.update({
         AdSet.Field.name: 'Puget Sound AdSet',
-        AdSet.Field.status: AdSet.Status.paused,
-        AdSet.Field.bid_type: AdSet.BidType.cpm,  # Bidding for impressions
-        AdSet.Field.bid_info: {
-            AdSet.Field.BidInfo.impressions: 500,   # $5 per 1000 impression
-        },
+        AdSet.Field.effective_status: AdSet.Status.paused,
         AdSet.Field.daily_budget: 3600,  # $36.00
+        AdSet.Field.billing_event: 'IMPRESSIONS',  # $36.00
+        AdSet.Field.is_autobid: 'true',  # $36.00
         AdSet.Field.start_time: int(time.time()) + 15,  # 15 seconds from now
-        AdSet.Field.campaign_group_id: campaign.get_id_assured(),
+        AdSet.Field.campaign_id: campaign.get_id_assured(),
         AdSet.Field.targeting: {
             TargetingSpecsField.geo_locations: {
                 'countries': [
@@ -125,14 +122,17 @@ if __name__ == '__main__':
     pp.pprint(creative)
 
     ### Get excited, we are finally creating an ad!!!
-    ad = AdGroup(parent_id=my_account.get_id_assured())
+    ad = Ad(parent_id=my_account.get_id_assured())
     ad.update({
-        AdGroup.Field.name: 'Puget Sound impression ad',
-        AdGroup.Field.campaign_id: ad_set.get_id_assured(),
-        AdGroup.Field.creative: {
-            AdGroup.Field.Creative.creative_id: creative.get_id_assured(),
+        Ad.Field.name: 'Puget Sound impression ad',
+        Ad.Field.adset_id: ad_set.get_id_assured(),
+        Ad.Field.creative: {
+            Ad.Field.Creative.creative_id: creative.get_id_assured(),
         },
     })
-    ad.remote_create()
+    ad.remote_create(params={
+                        'status': AdSet.Status.paused,
+                    })
     print("**** DONE: Ad created:")
     pp.pprint(ad)
+
