@@ -479,7 +479,7 @@ class AbstractCrudObject(AbstractObject):
         Returns a dictionary of property names mapped to their values for
         properties modified from their original values.
         """
-        data = {}
+        data = super(AbstractCrudObject, self).export_data()
 
         for key, value in self._changes.items():
             if isinstance(value, AbstractObject):
