@@ -670,11 +670,12 @@ class InsightsTestCase(AbstractCrudObjectTestCase):
             fields=[
                 objects.Insights.Field.unique_clicks,
                 objects.Insights.Field.impressions,
-                objects.Insights.Field.ad_id,
-                objects.Insights.Field.ad_name,
+                objects.Insights.Field.campaign_id,
+                objects.Insights.Field.campaign_name,
             ],
             params={
-                'level': objects.Insights.Level.ad,
+                'date_preset': objects.Insights.Preset.today,
+                'level': objects.Insights.Level.campaign,
             },
         )
 
