@@ -34,7 +34,7 @@ You need to generate a user access token for your app and ask for the
 ``ads_management`` permission. It is expected that an app in production will
 build its own infrastructure to interact with a user to generate an access token
 and choose an account to manage.
-<a href="https://developers.facebook.com/docs/reference/ads-api/overview/">Learn
+<a href="https://developers.facebook.com/docs/marketing-api/using-the-api">Learn
 more about access tokens here</a>.
 
 For now, we can use the
@@ -111,7 +111,7 @@ AbstractCrudObject can have all or some of the following methods:
 
 For example, Campaign has all these methods but AdAccount does not. Read the
 Marketing API documentation for more information about
-<a href="https://developers.facebook.com/docs/ads-api/objects">how different ad
+<a href="https://developers.facebook.com/docs/marketing-api/reference">how different ad
 objects are used</a>.
 
 ## Exploring the Graph
@@ -189,7 +189,7 @@ campaign = objects.Campaign(parent_id = my_account.get_id_assured())
 Then we specify some details about the campaign. To figure out what properties
 to define, you should look at the available fields of the object (located in
 ``Campaign.Field``) and also look at the ad object's documentation (e.g.
-<a href="https://developers.facebook.com/docs/reference/ads-api/adcampaign">
+<a href="https://developers.facebook.com/docs/marketing-api/reference/ad-campaign-group">
 Campaign</a>).
 
 **NOTE**: To find out the fields, use Python's builtin help function:
@@ -197,7 +197,7 @@ Campaign</a>).
 
 ```python
 campaign[objects.Campaign.Field.name] = "Potato Campain" # sic
-campaign[objects.Campaign.Field.status] = objects.Campaign.Status.paused
+campaign[objects.Campaign.Field.configured_status] = objects.Campaign.Status.paused
 ```
 
 Finally, we make the create request by calling the ``remote_create`` method.
