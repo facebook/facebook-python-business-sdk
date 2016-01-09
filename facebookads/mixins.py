@@ -126,6 +126,7 @@ class HasObjective(object):
     """
 
     class Objective(object):
+        brand_awareness = 'BRAND_AWARENESS'
         canvas_app_engagement = 'CANVAS_APP_ENGAGEMENT'
         canvas_app_installs = 'CANVAS_APP_INSTALLS'
         event_responses = 'EVENT_RESPONSES'

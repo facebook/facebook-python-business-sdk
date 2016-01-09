@@ -1376,6 +1376,7 @@ class AdSet(CanValidate, HasStatus, CanArchive, HasAdLabels,
 
     class OptimizationGoal(object):
         app_installs = 'APP_INSTALLS'
+        brand_awareness = 'BRAND_AWARENESS'
         clicks = 'CLICKS'
         engaged_users = 'ENGAGED_USERS'
         event_responses = 'EVENT_RESPONSES'
