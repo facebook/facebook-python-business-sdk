@@ -1302,6 +1302,9 @@ class Campaign(CanValidate, HasStatus, HasObjective, HasAdLabels, CanArchive,
         objective = 'objective'
         promoted_object = 'promoted_object'
         spend_cap = 'spend_cap'
+        start_time = 'start_time'
+        stop_time = 'stop_time'
+        updated_time = 'updated_time'
 
     class BuyingType(object):
         auction = 'AUCTION'
