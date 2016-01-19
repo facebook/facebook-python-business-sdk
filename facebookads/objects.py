@@ -3192,6 +3192,9 @@ class AsyncJob(CannotCreate, AbstractCrudObject):
     def __nonzero__(self):
         return self[self.Field.async_percent_completion] == 100
 
+    def __bool__(self):
+        return self.__nonzero__()
+
 
 class AdPlacePageSet(CannotDelete, AbstractCrudObject):
 
