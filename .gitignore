@@ -11,3 +11,4 @@ build
 config.json
 test_config.py
 arcanist/.phutil_module_cache
+autogen_docs_config.json
