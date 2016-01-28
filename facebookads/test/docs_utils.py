@@ -42,24 +42,63 @@ class DocsDataStore(object):
         return self._data[key]
 
 
+linted_classes = []
+
+
 class DocsTestCase(unittest.TestCase):
     def __init__(self, *args, **kwargs):
+
         super(DocsTestCase, self).__init__(*args, **kwargs)
 
-        members = inspect.getmembers(self, inspect.ismethod)
-        members = [m for m in members
-                   if (m[0].startswith('test_'))]
-        for member in members:
-            expected_string = re.sub(r'^test_', '', member[0]) + "("
-            sourcelines = inspect.getsourcelines(member[1])[0]
-            sourcelines.pop(0)
-            source = "".join(sourcelines).strip()
-            if expected_string not in source and source != "pass":
-                print(
-                    "Expected method call to " + expected_string + ") not "
-                    "used in " + self.__class__.__name__ + "::" + member[0]
-                )
+        def get_aco_methods():
+            sdk_obj = getattr(sys.modules[__name__], 'AbstractCrudObject')
+            members = inspect.getmembers(sdk_obj)
+            member_names = [m[0] for m in members]
+            return member_names
+
+        errors = []
+        warnings = []
+
+        sdk_class_name = re.sub(r'DocsTestCase$', '', self.__class__.__name__)
+
+        if sdk_class_name not in linted_classes:
+            sdk_obj = getattr(sys.modules[__name__], sdk_class_name)
+            sdk_members = inspect.getmembers(sdk_obj, inspect.ismethod)
+            sdk_members = [m[0] for m in sdk_members
+                           if m[0] not in get_aco_methods() and
+                           not m[0].startswith('remote_')]
+
+            members = inspect.getmembers(self, inspect.ismethod)
+            members = [m for m in members
+                       if (m[0].startswith('test_'))]
+            for member in members:
+                expected_string = re.sub(r'^test_', '', member[0]) + "("
+                sourcelines = inspect.getsourcelines(member[1])[0]
+                sourcelines.pop(0)
+                source = "".join(sourcelines).strip()
+                if expected_string not in source and source != "pass":
+                    errors.append(
+                        "Error: Expected method call to " + expected_string +
+                        ") not used in " + self.__class__.__name__ + "::" +
+                        member[0],
+                    )
+
+            member_names = [m[0] for m in members]
+            for sdk_member in sdk_members:
+                if "test_" + sdk_member not in member_names:
+                    warnings.append(
+                        "Warning: Method defined in SDK not defined in " +
+                        "test - " + sdk_class_name + "::" + sdk_member + "()",
+                    )
+
+            if len(warnings) > 0:
+                print "\n".join(warnings)
+
+            if len(errors) > 0:
+                print "\n".join(errors)
                 sys.exit()
+
+            linted_classes.append(sdk_class_name)
 
     def tearDown(self):
         account = AdAccount(DocsDataStore.get('adaccount_id'))
@@ -175,7 +214,7 @@ class DocsTestCase(unittest.TestCase):
         rfp['prediction_mode'] = 0
         rfp['target_spec'] = {
             'geo_locations': {
-                'countries': ['US']
+                'countries': ['US'],
             },
         }
         rfp.remote_create()
@@ -194,7 +233,9 @@ class DocsTestCase(unittest.TestCase):
     def create_product_catalog(self):
         params = {}
         params['name'] = 'Test Catalog'
-        product_catalog = ProductCatalog(None, DocsDataStore.get('business_id'))
+        product_catalog = ProductCatalog(
+            parent_id=DocsDataStore.get('business_id')
+        )
         product_catalog.update(params)
         product_catalog.remote_create()
         return product_catalog
