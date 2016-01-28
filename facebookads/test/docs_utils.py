@@ -18,6 +18,7 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
+import sys
 import unittest
 import inspect
 import re
@@ -42,6 +43,24 @@ class DocsDataStore(object):
 
 
 class DocsTestCase(unittest.TestCase):
+    def __init__(self, *args, **kwargs):
+        super(DocsTestCase, self).__init__(*args, **kwargs)
+
+        members = inspect.getmembers(self, inspect.ismethod)
+        members = [m for m in members
+                   if (m[0].startswith('test_'))]
+        for member in members:
+            expected_string = re.sub(r'^test_', '', member[0]) + "("
+            sourcelines = inspect.getsourcelines(member[1])[0]
+            sourcelines.pop(0)
+            source = "".join(sourcelines).strip()
+            if expected_string not in source and source != "pass":
+                print(
+                    "Expected method call to " + expected_string + ") not "
+                    "used in " + self.__class__.__name__ + "::" + member[0]
+                )
+                sys.exit()
+
     def tearDown(self):
         account = AdAccount(DocsDataStore.get('adaccount_id'))
         campaigns = account.get_campaigns()
