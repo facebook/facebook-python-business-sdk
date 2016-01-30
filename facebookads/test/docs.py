@@ -129,7 +129,7 @@ class AdAccountDocsTestCase(DocsTestCase):
         images = account.get_ad_images(fields=[
             AdImage.Field.hash,
         ])
-        self.store_response(images)
+        self.store_response(images[0:2])
 
     def test_get_ad_conversion_pixels(self):
         account = AdAccount(DocsDataStore.get('adaccount_id'))
@@ -153,7 +153,7 @@ class AdAccountDocsTestCase(DocsTestCase):
     def test_get_custom_audiences(self):
         account = AdAccount(DocsDataStore.get('adaccount_id'))
         custom_audiences = account.get_custom_audiences()
-        self.store_response(custom_audiences)
+        self.store_response(custom_audiences[0:2])
 
     def test_get_partner_categories(self):
         account = AdAccount(DocsDataStore.get('adaccount_id'))
@@ -181,7 +181,7 @@ class AdAccountDocsTestCase(DocsTestCase):
     def test_get_transactions(self):
         account = AdAccount(DocsDataStore.get('adaccount_id'))
         transactions = account.get_transactions()
-        self.store_response(transactions)
+        self.store_response(transactions[0:2])
 
     def test_get_ad_preview(self):
         account = AdAccount(DocsDataStore.get('adaccount_id'))
@@ -269,7 +269,7 @@ class AdAccountDocsTestCase(DocsTestCase):
     def test_get_minimum_budgets(self):
         account = AdAccount(DocsDataStore.get('adaccount_id'))
         min_budgets = account.get_minimum_budgets()
-        self.store_response(min_budgets)
+        self.store_response(min_budgets[0:2])
 
 
 class AdCreativeDocsTestCase(DocsTestCase):
@@ -434,8 +434,7 @@ class BusinessDocsTestCase(DocsTestCase):
     def test_get_product_catalogs(self):
         business = Business(DocsDataStore.get('business_id'))
         catalogs = business.get_product_catalogs()
-        if catalogs:
-            self.store_response(catalogs[0])
+        self.store_response(catalogs[0])
 
     def test_get_insights(self):
         business = Business(DocsDataStore.get('business_id'))
@@ -531,8 +530,7 @@ class ProductFeedDocsTestCase(DocsTestCase):
             Product.Field.title,
             Product.Field.price,
         ])
-        if products:
-            self.store_response(products)
+        self.store_response(products)
 
 
 class ProductAudienceDocsTestCase(DocsTestCase):
@@ -554,8 +552,7 @@ class ProductCatalogDocsTestCase(DocsTestCase):
     def test_get_product_feeds(self):
         catalog = ProductCatalog(DocsDataStore.get('dpa_catalog_id'))
         feeds = catalog.get_product_feeds()
-        if feeds:
-            self.store_response(feeds[0])
+        self.store_response(feeds[0])
 
     def test_add_external_event_sources(self):
         catalog = ProductCatalog(DocsDataStore.get('dpa_catalog_id'))
@@ -623,7 +620,7 @@ class PageDocsTestCase(DocsTestCase):
     def test_get_leadgen_forms(self):
         page = Page(DocsDataStore.get('page_id'))
         leadgen_forms = page.get_leadgen_forms()
-        self.store_response(leadgen_forms)
+        self.store_response(leadgen_forms[0:2])
 
 class ReachFrequencyPredictionDocsTestCase(DocsTestCase):
     def setUp(self):
