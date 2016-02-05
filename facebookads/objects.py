@@ -913,6 +913,9 @@ class AdUser(CannotCreate, CannotDelete, CannotUpdate, AbstractCrudObject):
 
 
 class Page(CannotCreate, CannotDelete, CannotUpdate, AbstractCrudObject):
+    """
+        Represents a Facebook page
+    """
 
     class Field(object):
         id = 'id'
@@ -954,6 +957,10 @@ class Activity(AbstractObject):
 
 
 class AdAccount(CannotCreate, CannotDelete, HasAdLabels, AbstractCrudObject):
+
+    """
+        Represents an adaccount with Facebook used for creating ads
+    """
 
     class Field(object):
         account_groups = 'account_groups'
@@ -1209,6 +1216,10 @@ class AdAccount(CannotCreate, CannotDelete, HasAdLabels, AbstractCrudObject):
 
 class AdAccountGroup(AbstractCrudObject):
 
+    """
+        Represents account group under which multiple accounts can appear
+    """
+
     class Field(object):
         account_group_id = 'account_group_id'
         accounts = 'accounts'
@@ -1238,6 +1249,10 @@ class AdAccountGroup(AbstractCrudObject):
 
 
 class AdAccountGroupAccount(AbstractObject):
+
+    """
+        Returns a AdAccoutGroupAccount object
+    """
 
     class Field(object):
         account_id = 'account_id'
@@ -1290,6 +1305,10 @@ class AdAccountGroupUser(AbstractCrudObject):
 class Campaign(CanValidate, HasStatus, HasObjective, HasAdLabels, CanArchive,
                AbstractCrudObject):
 
+    """
+        Represents an campaign object
+    """
+
     class Field(object):
         account_id = 'account_id'
         adlabels = 'adlabels'
@@ -1324,6 +1343,7 @@ class Campaign(CanValidate, HasStatus, HasObjective, HasAdLabels, CanArchive,
         return self.iterate_edge(Ad, fields, params)
 
     def get_insights(self, fields=None, params=None, async=False):
+        """Returns listing available insights for campaign."""
         return self.iterate_edge_async(
             Insights,
             fields,
@@ -1335,6 +1355,10 @@ class Campaign(CanValidate, HasStatus, HasObjective, HasAdLabels, CanArchive,
 
 class AdSet(CanValidate, HasStatus, CanArchive, HasAdLabels,
             AbstractCrudObject):
+
+    """
+        Represents an ad set object
+    """
 
     class Field(HasBidInfo, object):
         account_id = 'account_id'
@@ -1367,6 +1391,10 @@ class AdSet(CanValidate, HasStatus, CanArchive, HasAdLabels,
         updated_time = 'updated_time'
 
     class BillingEvent(object):
+        """
+            The possible billing events that can be associated
+            with an ad set
+        """
         app_installs = 'APP_INSTALLS'
         clicks = 'CLICKS'
         impressions = 'IMPRESSIONS'
@@ -1378,6 +1406,10 @@ class AdSet(CanValidate, HasStatus, CanArchive, HasAdLabels,
         video_views = 'VIDEO_VIEWS'
 
     class OptimizationGoal(object):
+        """
+            The possible optimization goals that can be associated
+            with an ad set
+        """
         app_installs = 'APP_INSTALLS'
         brand_awareness = 'BRAND_AWARENESS'
         clicks = 'CLICKS'
@@ -1397,6 +1429,10 @@ class AdSet(CanValidate, HasStatus, CanArchive, HasAdLabels,
         video_views = 'VIDEO_VIEWS'
 
     class PacingType(object):
+        """
+            The possible pacing types that can be associated
+            with an ad set
+        """
         day_parting = 'day_parting'
         standard = 'standard'
         no_pacing = 'no_pacing'
@@ -1414,6 +1450,7 @@ class AdSet(CanValidate, HasStatus, CanArchive, HasAdLabels,
         return self.iterate_edge(AdCreative, fields, params)
 
     def get_insights(self, fields=None, params=None, async=False):
+        """Returns iterator that lists available insights for adset."""
         return self.iterate_edge_async(
             Insights,
             fields,
@@ -1424,6 +1461,10 @@ class AdSet(CanValidate, HasStatus, CanArchive, HasAdLabels,
 
 
 class Ad(HasStatus, CanArchive, HasAdLabels, AbstractCrudObject):
+
+    """
+        Represents an ad object
+    """
 
     class Field(HasBidInfo, object):
         account_id = 'account_id'
@@ -1479,6 +1520,7 @@ class Ad(HasStatus, CanArchive, HasAdLabels, AbstractCrudObject):
         return self.iterate_edge(ClickTrackingTag, fields, params)
 
     def get_insights(self, fields=None, params=None, async=False):
+        """Returns iterator that lists available insights for ad."""
         return self.iterate_edge_async(
             Insights,
             fields,
@@ -1512,6 +1554,10 @@ class AdConversionPixel(AbstractCrudObject):
 
 class AdsPixel(CannotUpdate, CannotDelete, AbstractCrudObject):
 
+    """
+        Represents a Facebook ads pixel
+    """
+
     class Field(object):
         audiences = 'audiences'
         code = 'code'
@@ -1521,6 +1567,7 @@ class AdsPixel(CannotUpdate, CannotDelete, AbstractCrudObject):
         owner_ad_account = 'owner_ad_account'
 
     def share_pixel_with_ad_account(self, business_id, account_id):
+        """Associate ads pixel with another ad account"""
         return self.get_api_assured().call(
             'POST',
             (self.get_id_assured(), 'shared_accounts'),
@@ -1531,6 +1578,7 @@ class AdsPixel(CannotUpdate, CannotDelete, AbstractCrudObject):
         )
 
     def share_pixel_with_agency(self, business_id, agency_id):
+        """Associate ads pixel with another business"""
         return self.get_api_assured().call(
             'POST',
             (self.get_id_assured(), 'shared_agencies'),
@@ -1541,6 +1589,7 @@ class AdsPixel(CannotUpdate, CannotDelete, AbstractCrudObject):
         )
 
     def get_ad_accounts(self, business_id):
+        """Returns list of adaccounts associated with the ads pixel"""
         response = self.get_api_assured().call(
             'GET',
             (self.get_id_assured(), 'shared_accounts'),
@@ -1557,6 +1606,7 @@ class AdsPixel(CannotUpdate, CannotDelete, AbstractCrudObject):
         return ret_val
 
     def get_agencies(self):
+        """Returns a list of businesses associated with the ads pixel"""
         response = self.get_api_assured().call(
             'GET',
             (self.get_id_assured(), 'shared_agencies'),
@@ -1572,6 +1622,7 @@ class AdsPixel(CannotUpdate, CannotDelete, AbstractCrudObject):
         return ret_val
 
     def unshare_pixel_from_ad_account(self, business_id, account_id):
+        """Dis-associates the ads pixel from an adaccount"""
         return self.get_api_assured().call(
             'DELETE',
             (self.get_id_assured(), 'shared_accounts'),
@@ -1582,6 +1633,7 @@ class AdsPixel(CannotUpdate, CannotDelete, AbstractCrudObject):
         )
 
     def unshare_pixel_from_agency(self, business_id, agency_id):
+        """Dis-associates the ads pixel from a business"""
         return self.get_api_assured().call(
             'DELETE',
             (self.get_id_assured(), 'shared_agencies'),
@@ -1625,6 +1677,10 @@ class AdsPixel(CannotUpdate, CannotDelete, AbstractCrudObject):
 
 
 class AdCreative(HasAdLabels, AbstractCrudObject):
+
+    """
+        Represents creative for an ad
+    """
 
     class Field(object):
         actor_id = 'actor_id'
@@ -1675,6 +1731,10 @@ class AdCreative(HasAdLabels, AbstractCrudObject):
 
 class AdImage(CannotUpdate, AbstractCrudObject):
 
+    """
+        Represnts the image for ad creative
+    """
+
     class Field(object):
         creatives = 'creatives'
         filename = 'filename'
@@ -1688,6 +1748,9 @@ class AdImage(CannotUpdate, AbstractCrudObject):
 
     @classmethod
     def remote_create_from_zip(cls, filename, parent_id, api=None):
+        """
+        Returns object for each image in a zip for an ad's creative
+        """
         api = api or FacebookAdsApi.get_default_api()
         open_file = open(filename, 'rb')
         response = api.call(
@@ -1829,6 +1892,10 @@ class AdImage(CannotUpdate, AbstractCrudObject):
 
 class AdVideo(AbstractCrudObject):
 
+    """
+        Represents an Ad Video object
+    """
+
     class Field(object):
         filepath = 'filepath'
         id = 'id'
@@ -1887,6 +1954,10 @@ class AdVideo(AbstractCrudObject):
 
 
 class VideoThumbnail(AbstractObject):
+
+    """
+        Represents a Video Thumbnail Object
+    """
 
     class Field(object):
         id = 'id'
@@ -2005,6 +2076,10 @@ class ClickTrackingTag(AbstractCrudObject):
 
 class CustomAudience(AbstractCrudObject):
 
+    """
+        Represents a Custom Audience object
+    """
+
     class Field(object):
         account_id = 'account_id'
         approximate_count = 'approximate_count'
@@ -2028,12 +2103,16 @@ class CustomAudience(AbstractCrudObject):
         time_updated = 'time_updated'
 
     class Schema(object):
+        """
+           Different identifiers you can use to create this custom audience
+        """
         uid = 'UID'
         email_hash = 'EMAIL_SHA256'
         phone_hash = 'PHONE_SHA256'
         mobile_advertiser_id = 'MOBILE_ADVERTISER_ID'
 
         class MultiKeySchema(object):
+            """List of keys available under multikey matching."""
             email = 'EMAIL'
             phone = 'PHONE'
             gen = 'GEN'
@@ -2049,6 +2128,7 @@ class CustomAudience(AbstractCrudObject):
             madid = 'MADID'
 
     class Subtype(object):
+        """When creating custom audience, use one of the following subtypes"""
         custom = 'CUSTOM'
         lookalike = 'LOOKALIKE'
         website = 'WEBSITE'
@@ -2293,6 +2373,9 @@ class ConnectionObject(AbstractObject):
 
 
 class LookalikeAudience(AbstractCrudObject):
+    """
+        Represents lookalike custom audience
+    """
 
     class Field(object):
         id = 'id'
@@ -2343,6 +2426,10 @@ class PartnerCategory(
 
 class RateCard(AbstractObject):
 
+    """
+        Represents a rate card
+    """
+
     class Field(object):
         country = "country"
         currency = "currency"
@@ -2361,6 +2448,9 @@ class ReachEstimate(AbstractObject):
 
 
 class ReachFrequencyPrediction(AbstractCrudObject):
+    """
+        Represnts a Reach and Freqeuncy prediction
+    """
 
     class Field(object):
         account_id = 'account_id'
@@ -2455,7 +2545,14 @@ class TargetingDescription(AbstractObject):
 
 class TargetingSearch(AbstractObject):
 
+    """
+        Represents a targeting search object
+    """
+
     class DemographicSearchClasses(object):
+        """
+            Classes you can use to search via demographics.
+        """
         demographics = 'demographics'
         ethnic_affinity = 'ethnic_affinity'
         family_statuses = 'family_statuses'
@@ -2474,6 +2571,9 @@ class TargetingSearch(AbstractObject):
         politics = 'politics'
 
     class TargetingSearchTypes(object):
+        """
+            Available types under Targeting search
+        """
         country = 'adcountry'
         education = 'adeducationschool'
         employer = 'adworkemployer'
@@ -2492,6 +2592,10 @@ class TargetingSearch(AbstractObject):
 
     @classmethod
     def search(cls, params=None, api=None):
+        """
+            Returns an iterator that lists matching data that targeting
+            search retrieves
+        """
         api = api or FacebookAdsApi.get_default_api()
         if not api:
             raise FacebookBadObjectError(
@@ -2530,6 +2634,9 @@ class TargetingSearch(AbstractObject):
 
 
 class TargetingSpecsField(object):
+    """
+        Represents Targeting Spec Fields
+    """
 
     age_max = 'age_max'
     age_min = 'age_min'
@@ -2591,6 +2698,9 @@ class Transaction(AbstractObject):
 
 
 class Business(CannotCreate, CannotDelete, AbstractCrudObject):
+    """
+        Represents a Facebook business manager object
+    """
 
     class Field(object):
         created_by = 'created_by'
@@ -2604,6 +2714,10 @@ class Business(CannotCreate, CannotDelete, AbstractCrudObject):
         vertical_id = 'vertical_id'
 
     def get_product_catalogs(self, fields=None, params=None):
+        """
+           Returns an iterator that lists product catalogs
+           associated with the business
+        """
         return self.iterate_edge(ProductCatalog, fields, params)
 
     def get_insights(self, fields=None, params=None, async=False):
@@ -2617,6 +2731,9 @@ class Business(CannotCreate, CannotDelete, AbstractCrudObject):
 
 
 class ProductCatalog(AbstractCrudObject):
+    """
+        Represents a product catalog
+    """
 
     class Field(object):
         id = 'id'
@@ -2653,12 +2770,19 @@ class ProductCatalog(AbstractCrudObject):
         return 'product_catalogs'
 
     def get_product_feeds(self, fields=None, params=None):
+        """Returns a iterator product feeds associated
+           with the product catalog.
+        """
         return self.iterate_edge(ProductFeed, fields, params)
 
     def get_product_sets(self, fields=None, params=None):
+        """Returns a iterator over product sets associated
+           with the product catalog.
+        """
         return self.iterate_edge(ProductSet, fields, params)
 
     def add_user(self, user, role):
+        """Add a user to the product catalog."""
         params = {
             'user': user,
             'role': role,
@@ -2670,6 +2794,7 @@ class ProductCatalog(AbstractCrudObject):
         )
 
     def remove_user(self, user):
+        """Remove a user from the product catalog."""
         params = {
             'user': user,
         }
@@ -2680,6 +2805,10 @@ class ProductCatalog(AbstractCrudObject):
         )
 
     def add_external_event_sources(self, pixel_ids):
+        """
+           Add external event sources such as pixel
+           to the product catalog.
+        """
         params = {
             'external_event_sources': pixel_ids,
         }
@@ -2690,6 +2819,10 @@ class ProductCatalog(AbstractCrudObject):
         )
 
     def remove_external_event_sources(self, pixel_ids):
+        """
+           Remove external event sources such as pixel
+           from the product catalog.
+        """
         params = {
             'external_event_sources': pixel_ids,
         }
@@ -2700,6 +2833,9 @@ class ProductCatalog(AbstractCrudObject):
         )
 
     def get_external_event_sources(self, fields=None, params=None):
+        """Returns iterator that lists event sources associated with the
+           product catalog
+        """
         return self.iterate_edge(
             ProductCatalogExternalEventSource,
             fields,
@@ -2781,6 +2917,9 @@ class ProductCatalogExternalEventSource(
 
 
 class ProductFeed(AbstractCrudObject):
+    """
+       Represents a Product feed
+    """
 
     class Field(object):
         country = 'country'
@@ -2814,10 +2953,15 @@ class ProductFeed(AbstractCrudObject):
         return 'product_feeds'
 
     def get_products(self, fields=None, params=None):
+        """Returns an iterator over all the products in a product feed"""
         return self.iterate_edge(Product, fields, params)
 
 
 class ProductFeedUpload(AbstractCrudObject):
+
+    """
+        Represnts the product feed upload
+    """
 
     class Field(object):
         end_time = 'end_time'
@@ -2829,10 +2973,18 @@ class ProductFeedUpload(AbstractCrudObject):
         return 'uploads'
 
     def get_errors(self, fields=None, params=None):
+        """
+           Returns an iterator over the errors that occured during
+           the product feed upload.
+        """
         return self.iterate_edge(ProductFeedUploadError, fields, params)
 
 
 class ProductFeedUploadError(AbstractCrudObject):
+
+    """
+        Represnts the product feed upload error
+    """
 
     class Field(object):
         column_number = 'column_number'
@@ -2849,6 +3001,10 @@ class ProductFeedUploadError(AbstractCrudObject):
 
 class ProductSet(AbstractCrudObject):
 
+    """
+        Represnts a product set
+    """
+
     class Field(object):
         filter = 'filter'
         id = 'id'
@@ -2859,13 +3015,25 @@ class ProductSet(AbstractCrudObject):
         return 'product_sets'
 
     def get_product_groups(self, fields=None, params=None):
+        """
+           Returns iterator that lists all the product groups
+           associated with the product set.
+        """
         return self.iterate_edge(ProductGroup, fields, params)
 
     def get_products(self, fields=None, params=None):
+        """
+           Returns iterator that lists all the product
+           associated with the product set.
+        """
         return self.iterate_edge(Product, fields, params)
 
 
 class ProductGroup(AbstractCrudObject):
+
+    """
+        Represnts a product group
+    """
 
     class Field(object):
         id = 'id'
@@ -2876,6 +3044,10 @@ class ProductGroup(AbstractCrudObject):
 
 
 class Product(AbstractCrudObject):
+
+    """
+        Represnts a product
+    """
 
     class Field(object):
         additional_image_link = 'additional_image_link'
@@ -2925,6 +3097,10 @@ class Product(AbstractCrudObject):
 
 class ProductAudience(AbstractCrudObject):
 
+    """
+        Represnts a product audience
+    """
+
     class Field(object):
         description = 'description'
         exclusions = 'exclusions'
@@ -2940,6 +3116,10 @@ class ProductAudience(AbstractCrudObject):
 
 
 class Insights(CannotCreate, CannotDelete, CannotUpdate, AbstractCrudObject):
+
+    """
+        Represnts an insights object
+    """
     class Field(object):
         account_id = 'account_id'
         account_name = 'account_name'
@@ -2999,6 +3179,7 @@ class Insights(CannotCreate, CannotDelete, CannotUpdate, AbstractCrudObject):
         return 'insights'
 
     class Preset(object):
+        """Available presets to use with dates in retrieving insights."""
         last_14_days = 'last_14_days'
         last_28_days = 'last_28_days'
         last_30_days = 'last_30_days'
@@ -3018,6 +3199,7 @@ class Insights(CannotCreate, CannotDelete, CannotUpdate, AbstractCrudObject):
         all_days = 'all_days'
 
     class Breakdown(object):
+        """Available breakdowns to use with dates in retrieving insights."""
         age = 'age'
         country = 'country'
         gender = 'gender'
@@ -3030,6 +3212,7 @@ class Insights(CannotCreate, CannotDelete, CannotUpdate, AbstractCrudObject):
         placement = 'placement'
 
     class Level(object):
+        """Levels at which insights are available."""
         account = 'account'
         ad = 'ad'
         adset = 'adset'
@@ -3054,6 +3237,7 @@ class Insights(CannotCreate, CannotDelete, CannotUpdate, AbstractCrudObject):
         default = 'default'
 
     class Operator(object):
+        """Available operators to use in filtering insights."""
         all = 'all'
         any = 'any'
         contain = 'contain'
@@ -3077,6 +3261,10 @@ class Insights(CannotCreate, CannotDelete, CannotUpdate, AbstractCrudObject):
 
 class AdLabel(AbstractCrudObject):
 
+    """
+        Represnts an Ad Label Object
+    """
+
     class Field(object):
         id = 'id'
         name = 'name'
@@ -3088,12 +3276,20 @@ class AdLabel(AbstractCrudObject):
 
 class AdsByLabels(AbstractObject):
 
+    """
+        Represents Ad object associated with an Ad Label
+    """
+
     @classmethod
     def get_endpoint(cls):
         return 'adsbylabels'
 
 
 class AdCreativesByLabels(AbstractObject):
+
+    """
+        Represents AdCreative object associated with an Ad Label
+    """
 
     @classmethod
     def get_endpoint(cls):
@@ -3102,6 +3298,10 @@ class AdCreativesByLabels(AbstractObject):
 
 class AdSetsByLabels(AbstractObject):
 
+    """
+        Represents AdSetsassociated with an Ad Label
+    """
+
     @classmethod
     def get_endpoint(cls):
         return 'adsetsbylabels'
@@ -3109,12 +3309,20 @@ class AdSetsByLabels(AbstractObject):
 
 class CampaignsByLabels(AbstractObject):
 
+    """
+        Represents Campaign object associated with an Ad Label
+    """
+
     @classmethod
     def get_endpoint(cls):
         return 'campaignsbylabels'
 
 
 class Lead(AbstractCrudObject):
+
+    """
+        Represents a Lead
+    """
 
     class Field(object):
         Ad_id = 'ad_id'
@@ -3129,6 +3337,10 @@ class Lead(AbstractCrudObject):
 
 
 class LeadgenForm(AbstractCrudObject):
+
+    """
+        Represents a Leadgen Form object
+    """
 
     class Field(object):
         created_time = 'created_time'
@@ -3155,6 +3367,10 @@ class LeadgenForm(AbstractCrudObject):
 
 
 class MinimumBudget(AbstractObject):
+
+    """
+        Represents the minimum budget object
+    """
 
     class Field(object):
         currency = 'currency'
@@ -3195,6 +3411,10 @@ class AsyncJob(CannotCreate, AbstractCrudObject):
 
 class AdPlacePageSet(CannotDelete, AbstractCrudObject):
 
+    """
+        Represents a Ad Place Page Set object
+    """
+
     class Field(object):
         account_id = 'account_id'
         id = 'id'
@@ -3208,6 +3428,10 @@ class AdPlacePageSet(CannotDelete, AbstractCrudObject):
 
 
 class CustomConversion(CannotDelete, AbstractCrudObject):
+
+    """
+        Represents custom conversion object
+    """
 
     class Field(object):
         custom_event_type = 'custom_event_type'

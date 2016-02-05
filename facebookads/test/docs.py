@@ -272,6 +272,36 @@ class AdAccountDocsTestCase(DocsTestCase):
         self.store_response(min_budgets[0:2])
 
 
+class AdUserDocsTestCase(DocsTestCase):
+    def test_get_ad_accounts(self):
+        user = AdUser('me')
+        accounts = user.get_ad_accounts(fields=[
+            AdAccount.Field.name,
+        ])
+        self.store_response(accounts[0:3])
+
+    def test_get_ad_account(self):
+        user = AdUser('me')
+        account = user.get_ad_account(fields=[
+            AdAccount.Field.name,
+        ])
+        self.store_response(account)
+
+    def test_get_ad_account_group(self):
+        user = AdUser('me')
+        account_group = user.get_ad_account_groups(fields=[
+            AdAccountGroup.Field.name,
+        ])
+        self.store_response(account_group)
+
+    def test_get_pages(self):
+        user = AdUser('me')
+        pages = user.get_pages(fields=[
+            Page.Field.name,
+        ])
+        self.store_response(pages)
+
+
 class AdCreativeDocsTestCase(DocsTestCase):
     def setUp(self):
         creative = self.create_creative(1)
