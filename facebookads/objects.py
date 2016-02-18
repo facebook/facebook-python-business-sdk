@@ -1313,8 +1313,9 @@ class Campaign(CanValidate, HasStatus, HasObjective, HasAdLabels, CanArchive,
         account_id = 'account_id'
         adlabels = 'adlabels'
         buying_type = 'buying_type'
-        configured_status = 'configured_status'
-        effective_status = 'effective_status'
+        status = 'status'  # Write-only attribute
+        configured_status = 'configured_status'  # Read-only attribute
+        effective_status = 'effective_status'  # Read-only attribute
         id = 'id'
         is_completed = 'is_completed'
         name = 'name'
