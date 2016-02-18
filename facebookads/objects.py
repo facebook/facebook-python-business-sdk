@@ -1313,8 +1313,9 @@ class Campaign(CanValidate, HasStatus, HasObjective, HasAdLabels, CanArchive,
         account_id = 'account_id'
         adlabels = 'adlabels'
         buying_type = 'buying_type'
-        configured_status = 'configured_status'
-        effective_status = 'effective_status'
+        status = 'status'  # Write-only attribute
+        configured_status = 'configured_status'  # Read-only attribute
+        effective_status = 'effective_status'  # Read-only attribute
         id = 'id'
         is_completed = 'is_completed'
         name = 'name'
@@ -1387,6 +1388,7 @@ class AdSet(CanValidate, HasStatus, CanArchive, HasAdLabels,
         rf_prediction_id = 'rf_prediction_id'
         rtb_flag = 'rtb_flag'
         start_time = 'start_time'
+        status = 'status'  # Write-only attribute
         targeting = 'targeting'
         updated_time = 'updated_time'
 
@@ -1484,6 +1486,7 @@ class Ad(HasStatus, CanArchive, HasAdLabels, AbstractCrudObject):
         name = 'name'
         redownload = 'redownload'
         social_prefs = 'social_prefs'
+        status = 'status'  # Write-only attribute
         tracking_specs = 'tracking_specs'
         updated_time = 'updated_time'
         view_tags = 'view_tags'
