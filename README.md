@@ -197,7 +197,7 @@ Campaign</a>).
 
 ```python
 campaign[objects.Campaign.Field.name] = "Potato Campain" # sic
-campaign[objects.Campaign.Field.configured_status] = objects.Campaign.Status.paused
+campaign[objects.Campaign.Field.status] = objects.Campaign.Status.paused
 ```
 
 Finally, we make the create request by calling the ``remote_create`` method.
