@@ -1388,6 +1388,7 @@ class AdSet(CanValidate, HasStatus, CanArchive, HasAdLabels,
         rf_prediction_id = 'rf_prediction_id'
         rtb_flag = 'rtb_flag'
         start_time = 'start_time'
+        status = 'status'  # Write only attribute
         targeting = 'targeting'
         updated_time = 'updated_time'
 
