@@ -119,6 +119,7 @@ class EdgeIterator(object):
             target_objects_class.get_endpoint(),
         )
         self._queue = []
+        self._count = 0
         self._finished_iteration = False
         self._total_count = None
         self._include_summary = include_summary
@@ -133,12 +134,14 @@ class EdgeIterator(object):
         return self
 
     def __next__(self):
+        self._count += 1
         # Load next page at end.
+        # If the queue counter equals the length of the queue and
         # If load_next_page returns False, raise StopIteration exception
-        if not self._queue and not self.load_next_page():
+        if (self._count == len(self._queue) and not self.load_next_page()):
             raise StopIteration()
 
-        return self._queue.pop(0)
+        return self._queue[self._count-1]
 
     # Python 2 compatibility.
     next = __next__
@@ -187,6 +190,8 @@ class EdgeIterator(object):
             self._total_count = response['summary']['total_count']
 
         self._queue = self.build_objects_from_response(response)
+        self._count = 0
+
         return len(self._queue) > 0
 
     def build_objects_from_response(self, response):
