@@ -1383,6 +1383,7 @@ class AdSet(CanValidate, HasStatus, CanArchive, HasAdLabels,
         effective_status = 'effective_status'
         end_time = 'end_time'
         execution_options = 'execution_options'
+        frequency_control_specs = 'frequency_control_specs'
         id = 'id'
         is_autobid = 'is_autobid'
         lifetime_budget = 'lifetime_budget'
