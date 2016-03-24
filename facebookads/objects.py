@@ -1737,10 +1737,13 @@ class AdImage(CannotUpdate, AbstractCrudObject):
 
     class Field(object):
         creatives = 'creatives'
-        filename = 'filename'
+        name = 'name'
         hash = 'hash'
         id = 'id'
         url = 'url'
+        height = 'height'
+        width = 'width'
+        created_time = 'created_time'
 
     @classmethod
     def get_endpoint(cls):
