@@ -80,6 +80,28 @@ class CustomAudienceTestCase(unittest.TestCase):
         users = payload['payload']['data']
         assert users[0] == test_hash
 
+    def test_multi_key_params(self):
+        schema = [
+            objects.CustomAudience.Schema.MultiKeySchema.fn,
+            objects.CustomAudience.Schema.MultiKeySchema.email,
+            objects.CustomAudience.Schema.MultiKeySchema.ln,
+        ]
+        payload = objects.CustomAudience.format_params(
+            schema,
+            [["  TEST ", "test", "..test.."]],
+            is_raw=True,
+        )
+        # This is the value of ["  Test ", " test", "..test"] and
+        # ["TEST2", 'TEST3', '..test5..'] when it's hashed with sha256
+        test_hash1 = [
+            "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08",
+            "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08",
+            "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08",
+        ]
+
+        users = payload['payload']['data']
+        assert users[0] == test_hash1
+
 
 class EdgeIteratorTestCase(unittest.TestCase):
 
@@ -98,7 +120,7 @@ class EdgeIteratorTestCase(unittest.TestCase):
         }
         ei = objects.EdgeIterator(
             objects.AdAccount(fbid='123'),
-            objects.AdGroup,
+            objects.Ad,
         )
         objs = ei.build_objects_from_response(response)
         assert len(objs) == 2
@@ -125,7 +147,7 @@ class EdgeIteratorTestCase(unittest.TestCase):
         }
         ei = objects.EdgeIterator(
             objects.AdAccount(fbid='123'),
-            objects.AdGroup,
+            objects.Ad,
         )
         obj = ei.build_objects_from_response(response)
         assert len(obj) == 1 and obj[0]['id'] == "601957/targetingsentencelines"
@@ -133,7 +155,7 @@ class EdgeIteratorTestCase(unittest.TestCase):
     def test_total_is_none(self):
         ei = objects.EdgeIterator(
             objects.AdAccount(fbid='123'),
-            objects.AdGroup,
+            objects.Ad,
         )
         self.assertRaises(
             exceptions.FacebookUnavailablePropertyException, ei.total)
@@ -141,7 +163,7 @@ class EdgeIteratorTestCase(unittest.TestCase):
     def test_total_is_defined(self):
         ei = objects.EdgeIterator(
             objects.AdAccount(fbid='123'),
-            objects.AdGroup,
+            objects.Ad,
         )
         ei._total_count = 32
         self.assertEqual(ei.total(), 32)
@@ -171,7 +193,7 @@ class EdgeIteratorTestCase(unittest.TestCase):
             }
         }
         ei = objects.EdgeIterator(
-            objects.AdGroup('123'),
+            objects.Ad('123'),
             objects.ReachEstimate,
         )
         obj = ei.build_objects_from_response(response)

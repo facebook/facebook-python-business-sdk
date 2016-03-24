@@ -56,7 +56,7 @@ class CanArchive(object):
     ):
         return self.remote_update(
             params={
-                self.Field.status: self.Status.deleted,
+                'status': self.Status.deleted,
             },
             batch=batch,
             failure=failure,
@@ -75,7 +75,7 @@ class CanArchive(object):
     ):
         return self.remote_update(
             params={
-                self.Field.status: self.Status.archived,
+                'status': self.Status.archived,
             },
             batch=batch,
             failure=failure,
@@ -126,9 +126,11 @@ class HasObjective(object):
     """
 
     class Objective(object):
+        brand_awareness = 'BRAND_AWARENESS'
         canvas_app_engagement = 'CANVAS_APP_ENGAGEMENT'
         canvas_app_installs = 'CANVAS_APP_INSTALLS'
         event_responses = 'EVENT_RESPONSES'
+        lead_generation = 'LEAD_GENERATION'
         local_awareness = 'LOCAL_AWARENESS'
         mobile_app_engagement = 'MOBILE_APP_ENGAGEMENT'
         mobile_app_installs = 'MOBILE_APP_INSTALLS'
@@ -136,8 +138,8 @@ class HasObjective(object):
         offer_claims = 'OFFER_CLAIMS'
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
-        website_clicks = 'WEBSITE_CLICKS'
-        website_conversions = 'WEBSITE_CONVERSIONS'
+        link_clicks = 'LINK_CLICKS'
+        conversions = 'CONVERSIONS'
         video_views = 'VIDEO_VIEWS'
         product_catalog_sales = 'PRODUCT_CATALOG_SALES'
 
@@ -196,6 +198,7 @@ class HasAdLabels(object):
             (self.get_id_assured(), 'adlabels'),
             params={'adlabels': [{'id': label} for label in labels]},
         )
+
 
 class ValidatesFields(object):
     def __setitem__(self, key, value):

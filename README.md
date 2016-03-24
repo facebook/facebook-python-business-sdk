@@ -34,7 +34,7 @@ You need to generate a user access token for your app and ask for the
 ``ads_management`` permission. It is expected that an app in production will
 build its own infrastructure to interact with a user to generate an access token
 and choose an account to manage.
-<a href="https://developers.facebook.com/docs/reference/ads-api/overview/">Learn
+<a href="https://developers.facebook.com/docs/marketing-api/using-the-api">Learn
 more about access tokens here</a>.
 
 For now, we can use the
@@ -46,10 +46,6 @@ get an access token.
 The easiest way to install the SDK is via ``pip`` in your shell.
 
 **NOTE**: For Python 3, use ``pip3`` and ``python3`` instead.
-
-**WARNING**: There is currently a dependency installation issue with Python 3.
-If you're running Python 3 and ``configparser`` fails to install, manually
-download the package.
 
 **NOTE**: Use ``sudo`` if any of these complain about permissions. (This might
 happen if you are using a system installed Python.)
@@ -113,9 +109,9 @@ AbstractCrudObject can have all or some of the following methods:
 * ``remote_update``
 * ``remote_delete``
 
-For example, AdCampaign has all these methods but AdAccount does not. Read the
+For example, Campaign has all these methods but AdAccount does not. Read the
 Marketing API documentation for more information about
-<a href="https://developers.facebook.com/docs/ads-api/objects">how different ad
+<a href="https://developers.facebook.com/docs/marketing-api/reference">how different ad
 objects are used</a>.
 
 ## Exploring the Graph
@@ -187,21 +183,21 @@ Let's create a campaign. It's in the context of the account, i.e. its parent
 should be the account.
 
 ```python
-campaign = objects.AdCampaign(parent_id = my_account.get_id_assured())
+campaign = objects.Campaign(parent_id = my_account.get_id_assured())
 ```
 
 Then we specify some details about the campaign. To figure out what properties
 to define, you should look at the available fields of the object (located in
-``AdCampaign.Field``) and also look at the ad object's documentation (e.g.
-<a href="https://developers.facebook.com/docs/reference/ads-api/adcampaign">Ad
+``Campaign.Field``) and also look at the ad object's documentation (e.g.
+<a href="https://developers.facebook.com/docs/marketing-api/reference/ad-campaign-group">
 Campaign</a>).
 
 **NOTE**: To find out the fields, use Python's builtin help function:
-``help(objects.AdCampaign.Field)`` or look at ``facebookads/objects.py``.
+``help(objects.Campaign.Field)`` or look at ``facebookads/objects.py``.
 
 ```python
-campaign[objects.AdCampaign.Field.name] = "Potato Campain" # sic
-campaign[objects.AdCampaign.Field.status] = objects.AdCampaign.Status.paused
+campaign[objects.Campaign.Field.name] = "Potato Campain" # sic
+campaign[objects.Campaign.Field.configured_status] = objects.Campaign.Status.paused
 ```
 
 Finally, we make the create request by calling the ``remote_create`` method.
@@ -235,7 +231,7 @@ To update an object, we can modify its properties and then call the
 typo "Campain" to "Campaign":
 
 ```python
->>> campaign[objects.AdCampaign.Field.name] = "Potato Campaign"
+>>> campaign[objects.Campaign.Field.name] = "Potato Campaign"
 >>> campaign.remote_update()
 ```
 

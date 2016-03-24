@@ -42,10 +42,13 @@ class FacebookAdsTestCase(unittest.TestCase):
 
     TEST_SESSION = None
     TEST_API = None
+    TEST_BUSINESS = None
     TEST_ACCOUNT = None
     TEST_ID = str(int(time.time()) % 1000)
     TEST_IMAGE_PATH = os.path.join(os.path.dirname(__file__), 'misc/image.png')
     TEST_ZIP_PATH = os.path.join(os.path.dirname(__file__), 'misc/images.zip')
+    TEST_SECONDARY_ACCOUNT = None
+    TEST_SECONDARY_BUSINESS = None
 
     def setUp(self):
         super(FacebookAdsTestCase, self).setUp()
@@ -93,19 +96,19 @@ class FacebookAdsTestCase(unittest.TestCase):
 
         return creative
 
-    def new_test_ad_campaign(self):
-        campaign = objects.AdCampaign(
+    def new_test_campaign(self):
+        campaign = objects.Campaign(
             parent_id=self.TEST_ACCOUNT.get_id_assured(),
         )
         self.delete_in_teardown(campaign)
         campaign.update({
-            objects.AdCampaign.Field.name: 'AdSetTestCase %s' % self.TEST_ID,
+            objects.Campaign.Field.name: 'CampaignTestCase %s' % self.TEST_ID,
         })
 
         return campaign
 
     def new_test_ad_set(self, campaign):
-        campaign_group_id = campaign.get_id_assured()
+        campaign_id = campaign.get_id_assured()
 
         ad_set = objects.AdSet(
             parent_id=self.TEST_ACCOUNT.get_id_assured(),
@@ -113,8 +116,8 @@ class FacebookAdsTestCase(unittest.TestCase):
         self.delete_in_teardown(ad_set)
         ad_set.update({
             objects.AdSet.Field.name: 'AdSetTestCase %s' % self.TEST_ID,
-            objects.AdSet.Field.campaign_group_id: campaign_group_id,
-            objects.AdSet.Field.status: objects.AdSet.Status.paused,
+            objects.AdSet.Field.campaign_id: campaign_id,
+            'status': objects.AdSet.Status.paused,
             objects.AdSet.Field.pacing_type: [
                 objects.AdSet.PacingType.standard,
             ],
@@ -135,8 +138,8 @@ class FacebookAdsTestCase(unittest.TestCase):
 
         return ad_set
 
-    def new_test_ad_group(self, ad_set):
-        campaign_id = ad_set.get_id_assured()
+    def new_test_ad(self, ad_set):
+        adset_id = ad_set.get_id_assured()
 
         img = objects.AdImage(
             parent_id=self.TEST_ACCOUNT.get_id_assured(),
@@ -151,7 +154,8 @@ class FacebookAdsTestCase(unittest.TestCase):
         )
         self.delete_in_teardown(creative)
         creative.update({
-            objects.AdCreative.Field.title: "Test AdCreative %s" % self.TEST_ID,
+            objects.AdCreative.Field.title:
+                "Test AdCreative %s" % self.TEST_ID,
             objects.AdCreative.Field.body: "Test ad",
             objects.AdCreative.Field.object_url: "https://www.facebook.com/",
             objects.AdCreative.Field.image_hash: image_hash,
@@ -159,20 +163,20 @@ class FacebookAdsTestCase(unittest.TestCase):
         creative.remote_create()
         creative_id = creative.get_id_assured()
 
-        ad_group = objects.AdGroup(
+        ad = objects.Ad(
             parent_id=self.TEST_ACCOUNT.get_id_assured(),
         )
-        self.delete_in_teardown(ad_group)
-        ad_group.update({
-            objects.AdGroup.Field.name: 'AdGroupTestCase %s' % self.TEST_ID,
-            objects.AdGroup.Field.campaign_id: campaign_id,
-            objects.AdGroup.Field.creative: {
-                objects.AdGroup.Field.Creative.creative_id: creative_id,
+        self.delete_in_teardown(ad)
+        ad.update({
+            objects.Ad.Field.name: 'AdTestCase %s' % self.TEST_ID,
+            objects.Ad.Field.adset_id: adset_id,
+            objects.Ad.Field.creative: {
+                objects.Ad.Field.Creative.creative_id: creative_id,
             },
-            objects.AdGroup.Field.status: objects.AdGroup.Status.paused,
+            'status': objects.Ad.Status.paused,
         })
 
-        return ad_group
+        return ad
 
     def new_test_ad_image(self):
         img = objects.AdImage(
@@ -191,6 +195,21 @@ class FacebookAdsTestCase(unittest.TestCase):
         label.remote_create()
         self.delete_in_teardown(label)
         return label
+
+    def new_test_pixel(self):
+        account = objects.AdAccount(self.TEST_ACCOUNT.get_id_assured())
+        pixels = account.get_ads_pixels()
+
+        if len(pixels) > 0:
+            return pixels[0]
+
+        pixel = objects.AdsPixel(
+            parent_id=self.TEST_ACCOUNT.get_id_assured(),
+        )
+        pixel[objects.AdsPixel.Field.name] = 'My new Pixel'
+        pixel.remote_create()
+        return pixel
+
 
 class AbstractObjectTestCase(FacebookAdsTestCase):
     pass
@@ -303,7 +322,7 @@ class AbstractCrudObjectTestCase(AbstractObjectTestCase):
 
         test_image_one[objects.AdImage.Field.filename] = image_file
 
-        assert test_image_one.remote_create(api_version="v2.3") is not None
+        assert test_image_one.remote_create(api_version="v2.5") is not None
 
         test_image_two = objects.AdImage(
             parent_id=self.TEST_ACCOUNT.get_id_assured(),
@@ -312,7 +331,7 @@ class AbstractCrudObjectTestCase(AbstractObjectTestCase):
         test_image_two[objects.AdImage.Field.filename] = image_file
 
         try:
-            test_image_two.remote_create(api_version="v.2.3")
+            test_image_two.remote_create(api_version="v2.5")
         except fbexceptions.FacebookBadObjectError as e:
             assert e is not None
 
@@ -322,9 +341,11 @@ class AdUserTestCase(AbstractCrudObjectTestCase):
     def setUp(self):
         super(AdUserTestCase, self).setUp()
         self.orig_aduser_fields = objects.AdUser.get_default_read_fields()
-        objects.AdUser.set_default_read_fields([
-            objects.AdUser.Field.name,
-        ])
+        objects.AdUser.set_default_read_fields(
+            [
+                objects.AdUser.Field.name,
+            ],
+        )
 
     def tearDown(self):
         objects.AdUser.set_default_read_fields(self.orig_aduser_fields)
@@ -336,7 +357,7 @@ class AdUserTestCase(AbstractCrudObjectTestCase):
         self.assert_can_read(self.subject)
 
         for user in self.TEST_ACCOUNT.get_ad_users(
-            fields=[objects.AdUser.Field.role]
+            fields=[objects.AdUser.Field.role],
         ):
             if user == self.subject:
                 valid_roles = (
@@ -350,12 +371,15 @@ class AdAccountTestCase(AbstractCrudObjectTestCase):
 
     def setUp(self):
         super(AdAccountTestCase, self).setUp()
-        self.orig_adaccount_fields = objects.AdAccount.get_default_read_fields()
-        objects.AdAccount.set_default_read_fields([
-            objects.AdAccount.Field.account_status,
-            objects.AdAccount.Field.business_name,
-            objects.AdAccount.Field.timezone_name,
-        ])
+        self.orig_adaccount_fields = \
+            objects.AdAccount.get_default_read_fields()
+        objects.AdAccount.set_default_read_fields(
+            [
+                objects.AdAccount.Field.account_status,
+                objects.AdAccount.Field.business_name,
+                objects.AdAccount.Field.timezone_name,
+            ],
+        )
 
     def tearDown(self):
         objects.AdAccount.set_default_read_fields(self.orig_adaccount_fields)
@@ -366,22 +390,24 @@ class AdAccountTestCase(AbstractCrudObjectTestCase):
         self.assert_can_read(self.subject)
 
 
-class AdCampaignTestCase(AbstractCrudObjectTestCase):
+class CampaignTestCase(AbstractCrudObjectTestCase):
 
     def setUp(self):
-        super(AdCampaignTestCase, self).setUp()
-        self.orig_adcampaign_fields = \
-            objects.AdCampaign.get_default_read_fields()
-        objects.AdCampaign.set_default_read_fields([
-            objects.AdCampaign.Field.name,
-        ])
+        super(CampaignTestCase, self).setUp()
+        self.orig_campaign_fields = \
+            objects.Campaign.get_default_read_fields()
+        objects.Campaign.set_default_read_fields(
+            [
+                objects.Campaign.Field.name,
+            ],
+        )
 
     def tearDown(self):
-        objects.AdCampaign.set_default_read_fields(self.orig_adcampaign_fields)
-        super(AdCampaignTestCase, self).tearDown()
+        objects.Campaign.set_default_read_fields(self.orig_campaign_fields)
+        super(CampaignTestCase, self).tearDown()
 
     def runTest(self):
-        self.subject = self.new_test_ad_campaign()
+        self.subject = self.new_test_campaign()
 
         self.assert_can_validate(self.subject)
 
@@ -390,8 +416,8 @@ class AdCampaignTestCase(AbstractCrudObjectTestCase):
         self.assert_can_read(self.subject)
 
         self.subject.update({
-            objects.AdCampaign.Field.name: 'AdCampaignTestCase Updated %s'
-                                           % self.TEST_ID
+            objects.Campaign.Field.name:
+                'CampaignTestCase Updated %s' % self.TEST_ID,
         })
         self.assert_can_update(self.subject)
 
@@ -403,16 +429,16 @@ class AdCampaignTestCase(AbstractCrudObjectTestCase):
 class GetByIDsTestCase(AbstractCrudObjectTestCase):
 
     def runTest(self):
-        self.campaign1 = self.new_test_ad_campaign()
+        self.campaign1 = self.new_test_campaign()
         self.campaign1['name'] = "Campaign 1"
         self.campaign1.remote_create()
-        self.campaign2 = self.new_test_ad_campaign()
+        self.campaign2 = self.new_test_campaign()
         self.campaign2['name'] = "Campaign 2"
         self.campaign2.remote_create()
 
-        campaigns = objects.AdCampaign.get_by_ids(
+        campaigns = objects.Campaign.get_by_ids(
             ids=[self.campaign1.get_id(), self.campaign2.get_id()],
-            fields=['name']
+            fields=['name'],
         )
 
         assert len(campaigns) == 2
@@ -424,31 +450,33 @@ class DefaultReadFieldsTestCase(AbstractCrudObjectTestCase):
 
     def setUp(self):
         super(DefaultReadFieldsTestCase, self).setUp()
-        self.orig_adcampaign_fields = \
-            objects.AdCampaign.get_default_read_fields()
+        self.orig_campaign_fields = \
+            objects.Campaign.get_default_read_fields()
 
     def tearDown(self):
-        objects.AdCampaign.set_default_read_fields(self.orig_adcampaign_fields)
+        objects.Campaign.set_default_read_fields(self.orig_campaign_fields)
         super(DefaultReadFieldsTestCase, self).tearDown()
 
     def runTest(self):
-        campaign = self.new_test_ad_campaign()
+        campaign = self.new_test_campaign()
         campaign.remote_create()
-        same_campaign = objects.AdCampaign(campaign.get_id())
+        same_campaign = objects.Campaign(campaign.get_id())
         same_campaign.remote_read()
-        assert objects.AdCampaign.Field.status not in same_campaign
+        assert objects.Campaign.Field.status not in same_campaign
 
-        campaigns = objects.AdCampaign.get_by_ids(ids=[campaign.get_id()])
-        assert objects.AdCampaign.Field.status not in campaigns[0]
+        campaigns = objects.Campaign.get_by_ids(ids=[campaign.get_id()])
+        assert objects.Campaign.Field.status not in campaigns[0]
 
-        objects.AdCampaign.set_default_read_fields([
-            objects.AdCampaign.Field.status,
-        ])
+        objects.Campaign.set_default_read_fields(
+            [
+                objects.Campaign.Field.status,
+            ],
+        )
         same_campaign.remote_read()
-        assert objects.AdCampaign.Field.status in same_campaign
+        assert objects.Campaign.Field.status in same_campaign
 
-        campaigns = objects.AdCampaign.get_by_ids(ids=[campaign.get_id()])
-        assert objects.AdCampaign.Field.status in campaigns[0]
+        campaigns = objects.Campaign.get_by_ids(ids=[campaign.get_id()])
+        assert objects.Campaign.Field.status in campaigns[0]
 
 
 class AdSetTestCase(AbstractCrudObjectTestCase):
@@ -456,19 +484,21 @@ class AdSetTestCase(AbstractCrudObjectTestCase):
     def setUp(self):
         super(AdSetTestCase, self).setUp()
         self.orig_adset_fields = objects.AdSet.get_default_read_fields()
-        objects.AdSet.set_default_read_fields([
-            objects.AdSet.Field.daily_budget,
-            objects.AdSet.Field.created_time,
-            objects.AdSet.Field.campaign_group_id,
-            objects.AdSet.Field.name,
-        ])
+        objects.AdSet.set_default_read_fields(
+            [
+                objects.AdSet.Field.daily_budget,
+                objects.AdSet.Field.created_time,
+                objects.AdSet.Field.campaign_id,
+                objects.AdSet.Field.name,
+            ],
+        )
 
     def tearDown(self):
         objects.AdSet.set_default_read_fields(self.orig_adset_fields)
         super(AdSetTestCase, self).tearDown()
 
     def runTest(self):
-        self.campaign = self.new_test_ad_campaign()
+        self.campaign = self.new_test_campaign()
         self.campaign.remote_create()
 
         self.subject = self.new_test_ad_set(self.campaign)
@@ -480,7 +510,8 @@ class AdSetTestCase(AbstractCrudObjectTestCase):
         self.assert_can_read(self.subject)
 
         self.subject.update({
-            objects.AdSet.Field.name: 'AdSetTestCase Updated %s' % self.TEST_ID,
+            objects.AdSet.Field.name:
+                'AdSetTestCase Updated %s' % self.TEST_ID,
         })
         self.assert_can_update(self.subject)
 
@@ -489,36 +520,38 @@ class AdSetTestCase(AbstractCrudObjectTestCase):
         self.assert_can_delete(self.subject)
 
 
-class AdGroupTestCase(AbstractCrudObjectTestCase):
+class AdTestCase(AbstractCrudObjectTestCase):
 
     def setUp(self):
-        super(AdGroupTestCase, self).setUp()
-        self.orig_adgroup_fields = objects.AdGroup.get_default_read_fields()
-        objects.AdGroup.set_default_read_fields([
-            objects.AdGroup.Field.created_time,
-            objects.AdGroup.Field.name,
-            objects.AdGroup.Field.campaign_id,
-        ])
+        super(AdTestCase, self).setUp()
+        self.orig_ad_fields = objects.Ad.get_default_read_fields()
+        objects.Ad.set_default_read_fields(
+            [
+                objects.Ad.Field.created_time,
+                objects.Ad.Field.name,
+                objects.Ad.Field.adset_id,
+            ],
+        )
 
     def tearDown(self):
-        objects.AdGroup.set_default_read_fields(self.orig_adgroup_fields)
-        super(AdGroupTestCase, self).tearDown()
+        objects.Ad.set_default_read_fields(self.orig_ad_fields)
+        super(AdTestCase, self).tearDown()
 
     def runTest(self):
-        self.campaign = self.new_test_ad_campaign()
+        self.campaign = self.new_test_campaign()
         self.campaign.remote_create()
 
         self.ad_set = self.new_test_ad_set(self.campaign)
         self.ad_set.remote_create()
 
-        self.subject = self.new_test_ad_group(self.ad_set)
+        self.subject = self.new_test_ad(self.ad_set)
 
         self.assert_can_create(self.subject)
 
         self.assert_can_read(self.subject)
 
         self.subject.update({
-            objects.AdGroup.Field.name: 'AdGroupTestCase Updated %s' % (
+            objects.Ad.Field.name: 'AdTestCase Updated %s' % (
                 self.TEST_ID
             ),
         })
@@ -534,10 +567,11 @@ class TargetingSearchTestCase(AbstractObjectTestCase):
         params = {
             'q': 'uk',
             'type': 'adgeolocation',
-            'location_types': ['country']
+            'location_types': ['country'],
         }
         resp = objects.TargetingSearch.search(params=params)
         assert len(resp) > 0
+
 
 class CustomAudienceTestCase(AbstractCrudObjectTestCase):
 
@@ -621,7 +655,7 @@ class AdImageTestCase(AbstractCrudObjectTestCase):
     def test_can_upload_zip(self):
         images = objects.AdImage.remote_create_from_zip(
             filename=self.TEST_ZIP_PATH,
-            parent_id=self.TEST_ACCOUNT.get_id()
+            parent_id=self.TEST_ACCOUNT.get_id(),
         )
         assert len(images) == 2
 
@@ -632,28 +666,32 @@ class AdImageTestCase(AbstractCrudObjectTestCase):
 
 class InsightsTestCase(AbstractCrudObjectTestCase):
     def test_can_read_without_job(self):
-        self.TEST_ACCOUNT.get_insights(fields=[
-            objects.Insights.Field.clicks,
-            objects.Insights.Field.impressions,
-            objects.Insights.Field.adgroup_id,
-            objects.Insights.Field.adgroup_name,
-        ], params={
-            'level': objects.Insights.Level.adgroup,
-        })
+        self.TEST_ACCOUNT.get_insights(
+            fields=[
+                objects.Insights.Field.unique_clicks,
+                objects.Insights.Field.impressions,
+                objects.Insights.Field.campaign_id,
+                objects.Insights.Field.campaign_name,
+            ],
+            params={
+                'date_preset': objects.Insights.Preset.today,
+                'level': objects.Insights.Level.campaign,
+            },
+        )
 
 
 class ReachEstimateTestCase(AbstractCrudObjectTestCase):
-    def test_can_read_reach_estimate_from_ad_group(self):
-        self.campaign = self.new_test_ad_campaign()
+    def test_can_read_reach_estimate_from_ad(self):
+        self.campaign = self.new_test_campaign()
         self.campaign.remote_create()
 
         self.ad_set = self.new_test_ad_set(self.campaign)
         self.ad_set.remote_create()
 
-        self.ad_group = self.new_test_ad_group(self.ad_set)
-        self.ad_group.remote_create()
+        self.ad = self.new_test_ad(self.ad_set)
+        self.ad.remote_create()
 
-        self.reach_estimate = self.ad_group.get_reach_estimate()
+        self.reach_estimate = self.ad.get_reach_estimate()
 
 
 class AdLabelTestCase(AbstractCrudObjectTestCase):
@@ -676,6 +714,80 @@ class AdLabelTestCase(AbstractCrudObjectTestCase):
             self.fail("Could not remove ad labels")
 
 
+class AdsPixelTestCase(AbstractCrudObjectTestCase):
+
+    def runTest(self):
+        pixel = self.new_test_pixel()
+
+        pixel.share_pixel(
+            self.TEST_BUSINESS.get_id(),
+            self.TEST_SECONDARY_ACCOUNT.get_id(),
+        )
+
+        pixel.unshare_pixel_from_ad_account(
+            self.TEST_BUSINESS.get_id(),
+            self.TEST_SECONDARY_ACCOUNT.get_id(),
+        )
+
+        pixel.share_pixel_with_ad_account(
+            self.TEST_BUSINESS.get_id(),
+            self.TEST_SECONDARY_ACCOUNT.get_id(),
+        )
+
+        old_resp = pixel.list_ad_accounts(
+            self.TEST_BUSINESS.get_id(),
+        )
+
+        resp = pixel.get_ad_accounts(
+            self.TEST_BUSINESS.get_id(),
+        )
+
+        assert len(old_resp) > 1
+        assert len(resp) > 1
+
+        pixel.share_pixel_agencies(
+            self.TEST_BUSINESS.get_id(),
+            self.TEST_SECONDARY_BUSINESS.get_id(),
+        )
+
+        pixel.unshare_pixel_from_agency(
+            self.TEST_BUSINESS.get_id(),
+            self.TEST_SECONDARY_BUSINESS.get_id(),
+        )
+
+        pixel.share_pixel_with_agency(
+            self.TEST_BUSINESS.get_id(),
+            self.TEST_SECONDARY_BUSINESS.get_id(),
+        )
+
+        old_resp = pixel.list_shared_agencies()
+        resp = pixel.get_agencies()
+
+        assert len(old_resp) > 1
+        assert len(resp) > 1
+
+
+class CustomConversion(AbstractCrudObjectTestCase):
+
+    @unittest.skip('Deletion is not supported')
+    def runTest(self):
+        pixel = self.new_test_pixel()
+        custom_conversion = objects.CustomConversion(
+            parent_id=self.TEST_ACCOUNT.get_id_assured(),
+        )
+        custom_conversion.update({
+            objects.CustomConversion.Field.name: 'Example Custom Conversion',
+            objects.CustomConversion.Field.pixel_id:
+            pixel[objects.AdsPixel.id],
+            objects.CustomConversion.Field.pixel_rule: {
+                'url': {'i_contains': 'thankyou.html'},
+            },
+            objects.CustomConversion.Field.custom_event_type: 'PURCHASE',
+        })
+
+        custom_conversion.remote_create()
+
+
 class BatchTestCase(FacebookAdsTestCase):
 
     def setUp(self):
@@ -686,15 +798,20 @@ class BatchTestCase(FacebookAdsTestCase):
     def create_campaigns(self):
         ret_val = []
         for i in range(self.num_campaigns):
-            campaign = self.new_test_ad_campaign()
+            campaign = self.new_test_campaign()
             ret_val.append(campaign)
             self.delete_in_teardown(campaign)
         return ret_val
 
     def check_ids(self, campaigns):
         # Check if the campaigns were created by counting distinct ids
-        ids = set(filter(None, [campaign[objects.AdCampaign.Field.id]
-                                for campaign in campaigns]))
+        ids = set(
+            filter(
+                None,
+                [campaign[objects.Campaign.Field.id]
+                    for campaign in campaigns],
+            ),
+        )
         self.created_ids.append(ids)
         self.assertEqual(len(ids), len(campaigns))
 
@@ -731,9 +848,12 @@ if __name__ == '__main__':
     config_file.close()
 
     test_account_id = config['act_id']
+    test_business_id = config['business']
     page_id = config['page_id']
     app_id = config['app_id']
     app_secret = config['app_secret']
+    test_sec_business_id = config['sec_business']
+    test_sec_account_id = config['sec_act_id']
 
     if 'access_token' in config:
         access_token = config['access_token']
@@ -746,10 +866,10 @@ if __name__ == '__main__':
     FacebookAdsTestCase.TEST_SESSION = session.FacebookSession(
         app_id,
         app_secret,
-        access_token
+        access_token,
     )
     FacebookAdsTestCase.TEST_API = api.FacebookAdsApi(
-        FacebookAdsTestCase.TEST_SESSION
+        FacebookAdsTestCase.TEST_SESSION,
     )
     api.FacebookAdsApi.set_default_api(FacebookAdsTestCase.TEST_API)
 
@@ -757,5 +877,8 @@ if __name__ == '__main__':
         test_account_id = 'act_' + test_account_id
     FacebookAdsTestCase.TEST_ACCOUNT = objects.AdAccount(test_account_id)
     FacebookAdsTestCase.PAGE_ID = page_id
+    FacebookAdsTestCase.TEST_BUSINESS = test_business_id
+    FacebookAdsTestCase.TEST_SECONDARY_ACCOUNT = test_sec_account_id
+    FacebookAdsTestCase.TEST_SECONDARY_BUSINESS = test_sec_business_id
 
     unittest.main()

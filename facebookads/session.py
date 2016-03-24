@@ -26,7 +26,6 @@ import hashlib
 import hmac
 import requests
 import os
-from sys import version_info
 
 
 class FacebookSession(object):
