@@ -26,7 +26,7 @@ from facebookads import FacebookSession
 from facebookads import FacebookAdsApi
 from facebookads.objects import (
     AdAccount,
-    AdGroup,
+    Ad,
     AdSet,
 )
 
@@ -100,7 +100,7 @@ if __name__ == '__main__':
     )
 
     for ad in my_ads:
-        print("created ad: %s" % str(ad[AdGroup.Field.creative]))
+        print("created ad: %s" % str(ad[Ad.Field.creative]))
 
     # Print out api statistics
     print("\nHTTP Request Statistics: %s attempted, %s succeeded." % (

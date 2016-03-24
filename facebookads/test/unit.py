@@ -431,8 +431,7 @@ class FacebookAdsApiBatchTestCase(unittest.TestCase):
         self.assertEqual(len(batch_api), 1)
         self.assertEqual(batch_api._batch[0], {
             'method': 'GET',
-            'relative_url': 'some/path',
-            'body': 'key=' + utils.urls.quote_with_encoding(u'vàlué')
+            'relative_url': 'some/path?'+'key=' + utils.urls.quote_with_encoding(u'vàlué')
         })
 
 

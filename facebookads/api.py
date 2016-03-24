@@ -393,7 +393,10 @@ class FacebookAdsApiBatch(object):
             params = _top_level_param_json_encode(params)
             keyvals = ['%s=%s' % (key, urls.quote_with_encoding(value))
                        for key, value in params.items()]
-            call['body'] = '&'.join(keyvals)
+            if method == 'GET':
+                call['relative_url'] += '?' + '&'.join(keyvals)
+            else:
+                call['body'] = '&'.join(keyvals)
 
         if files:
             call['attached_files'] = ','.join(files.keys())
