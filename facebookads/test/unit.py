@@ -431,8 +431,26 @@ class FacebookAdsApiBatchTestCase(unittest.TestCase):
         self.assertEqual(len(batch_api), 1)
         self.assertEqual(batch_api._batch[0], {
             'method': 'GET',
+            'relative_url': (
+                'some/path?key=' + utils.urls.quote_with_encoding(u'vàlué'))
+        })
+
+    def test_add_puts_payload_in_body_for_post_and_put(self):
+        default_api = api.FacebookAdsApi.get_default_api()
+        batch_api = api.FacebookAdsApiBatch(default_api)
+        params = {"key1": "value1", "key2": "value2"}
+        body = '&'.join([k + '=' + v for k, v in params.iteritems()])
+        batch_api.add('POST', 'some/path', params=params)
+        self.assertEqual(batch_api._batch[0], {
+            'method': 'POST',
             'relative_url': 'some/path',
-            'body': 'key=' + utils.urls.quote_with_encoding(u'vàlué')
+            'body': body
+        })
+        batch_api.add('PUT', 'some/path', params=params)
+        self.assertEqual(batch_api._batch[1], {
+            'method': 'PUT',
+            'relative_url': 'some/path',
+            'body': body
         })
 
 
