@@ -189,22 +189,28 @@ class EdgeIterator(object):
         self._queue = self.build_objects_from_response(response)
         return len(self._queue) > 0
 
+    def create_object(self):
+        try:
+            return self._target_objects_class(api=self._source_object.get_api_assured())
+        except TypeError, e:
+            return self._target_objects_class()
+
     def build_objects_from_response(self, response):
         if 'data' in response and isinstance(response['data'], list):
             ret = []
             if isinstance(response['data'], list):
                 for json_obj in response['data']:
-                    obj = self._target_objects_class()
+                    obj = self.create_object()
+
                     obj._set_data(json_obj)
                     ret.append(obj)
             else:
-                obj = self._target_objects_class()
+                obj = self.create_object()
                 obj._set_data(response['data'])
                 ret.append(obj)
         else:
-            data = response['data'] if 'data' in response else response
-            obj = self._target_objects_class()
-            obj._set_data(data)
+            obj = self.create_object()
+            obj._set_data(response)
             ret = [obj]
 
         return ret
@@ -514,6 +520,7 @@ class AbstractCrudObject(AbstractObject):
         params=None,
         success=None,
         api_version=None,
+        name=None,
     ):
         """Creates the object by calling the API.
 
@@ -562,6 +569,7 @@ class AbstractCrudObject(AbstractObject):
                 files=files,
                 success=callback_success,
                 failure=callback_failure,
+                name=name,
             )
             return batch_call
         else:
@@ -1054,6 +1062,10 @@ class AdAccount(CannotCreate, CannotDelete, HasAdLabels, AbstractCrudObject):
 
         return my_account
 
+    def get_instagram_accounts(self, fields=None, params=None):
+        """Returns iterator over Instagram Accounts associated with this Ad account."""
+        return self.iterate_edge(InstagramAccount, fields, params)
+
     def opt_out_user_from_targeting(self, schema, users, app_ids=None):
         """Opts out users from being targeted by this ad account.
 
@@ -1103,6 +1115,10 @@ class AdAccount(CannotCreate, CannotDelete, HasAdLabels, AbstractCrudObject):
     def get_ad_images(self, fields=None, params=None):
         """Returns iterator over AdImage's associated with this account."""
         return self.iterate_edge(AdImage, fields, params)
+
+    def get_ad_videos(self, fields=None, params=None):
+        """Returns iterator over AdVideo's associated with this account."""
+        return self.iterate_edge(AdVideo, fields, params)
 
     def get_insights(self, fields=None, params=None, async=False):
         return self.iterate_edge_async(
@@ -1365,6 +1381,7 @@ class AdSet(CanValidate, HasStatus, CanArchive, HasAdLabels,
         adlabels = 'adlabels'
         bid_amount = 'bid_amount'
         bid_info = 'bid_info'
+        bid_type = 'bid_type'
         billing_event = 'billing_event'
         budget_remaining = 'budget_remaining'
         campaign_id = 'campaign_id'
@@ -1717,6 +1734,7 @@ class AdCreative(HasAdLabels, AbstractCrudObject):
         title = 'title'
         url_tags = 'url_tags'
         video_id = 'video_id'
+        method_name = 'method_name'
 
     @classmethod
     def get_endpoint(cls):
@@ -1899,6 +1917,10 @@ class AdVideo(AbstractCrudObject):
     class Field(object):
         filepath = 'filepath'
         id = 'id'
+        title = 'title'
+        name = 'name'
+        picture = 'picture'
+        source = 'source'
         slideshow_spec = 'slideshow_spec'
 
     def remote_create(
@@ -1952,6 +1974,9 @@ class AdVideo(AbstractCrudObject):
         """
         return self.iterate_edge(VideoThumbnail, fields, params)
 
+    @classmethod
+    def get_endpoint(cls):
+        return 'advideos'
 
 class VideoThumbnail(AbstractObject):
 
@@ -1988,6 +2013,7 @@ class GeneratePreview(AbstractObject):
         mobile_feed_standard = 'MOBILE_FEED_STANDARD'
         mobile_interstitial = 'MOBILE_INTERSTITIAL'
         right_column_standard = 'RIGHT_COLUMN_STANDARD'
+        instagram_standard = 'INSTAGRAM_STANDARD'
 
     @classmethod
     def get_endpoint(cls):
@@ -3381,6 +3407,18 @@ class MinimumBudget(AbstractObject):
     @classmethod
     def get_endpoint(cls):
         return 'minimum_budgets'
+
+
+class InstagramAccount(CannotCreate, CannotDelete, AbstractCrudObject):
+
+    class Field(object):
+        username = 'username'
+        profile_pic = 'profile_pic'
+        id = 'id'
+
+    @classmethod
+    def get_endpoint(cls):
+        return 'instagram_accounts'
 
 
 class AsyncJob(CannotCreate, AbstractCrudObject):

@@ -72,6 +72,7 @@ class VideoUploadSession(object):
             self._slideshow_spec = video[video.Field.slideshow_spec]
             self._file_path = None
         self._account_id = video.get_parent_id_assured()
+        self._name = video[video.Field.name]
         self._wait_for_encoding = wait_for_encoding
         # Setup start request manager
         self._start_request_manager = VideoUploadStartRequestManager(

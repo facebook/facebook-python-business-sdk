@@ -37,6 +37,7 @@ class ObjectStorySpec(ValidatesFields, AbstractObject):
         template_data = 'template_data'
         text_data = 'text_data'
         video_data = 'video_data'
+        instagram_actor_id = 'instagram_actor_id'
 
 
 class AttachmentData(ValidatesFields, AbstractObject):
@@ -63,6 +64,7 @@ class LinkData(ValidatesFields, AbstractObject):
         multi_share_optimized = 'multi_share_optimized'
         name = 'name'
         picture = 'picture'
+        attachment_style = 'attachment_style'
 
 
 class OfferData(ValidatesFields, AbstractObject):
