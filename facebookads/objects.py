@@ -1322,6 +1322,7 @@ class Campaign(CanValidate, HasStatus, HasObjective, HasAdLabels, CanArchive,
         promoted_object = 'promoted_object'
         spend_cap = 'spend_cap'
         start_time = 'start_time'
+        status = 'status'
         stop_time = 'stop_time'
         updated_time = 'updated_time'
 
