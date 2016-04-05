@@ -2125,6 +2125,7 @@ class CustomAudience(AbstractCrudObject):
 
         class MultiKeySchema(object):
             """List of keys available under multikey matching."""
+            extern_id = 'EXTERN_ID'
             email = 'EMAIL'
             phone = 'PHONE'
             gen = 'GEN'
@@ -2138,6 +2139,7 @@ class CustomAudience(AbstractCrudObject):
             st = 'ST'
             zip = 'ZIP'
             madid = 'MADID'
+            country = 'COUNTRY'
 
     class Subtype(object):
         """When creating custom audience, use one of the following subtypes"""
@@ -2202,7 +2204,9 @@ class CustomAudience(AbstractCrudObject):
                                                            str(key))
                         if isinstance(key, six.text_type):
                             key = key.encode('utf8')
-                        key = hashlib.sha256(key).hexdigest()
+                        if schema[counter] != \
+                                cls.Schema.MultiKeySchema.extern_id:
+                            key = hashlib.sha256(key).hexdigest()
                         counter = counter + 1
                         hashed_user.append(key)
                     hashed_users.append(hashed_user)
@@ -2233,7 +2237,8 @@ class CustomAudience(AbstractCrudObject):
         if key_value is None:
             return key_value
 
-        if(key_name == CustomAudience.Schema.MultiKeySchema.email or
+        if(key_name == CustomAudience.Schema.MultiKeySchema.extern_id or
+           key_name == CustomAudience.Schema.MultiKeySchema.email or
            key_name == CustomAudience.Schema.MultiKeySchema.madid):
             return key_value
 
@@ -2251,7 +2256,6 @@ class CustomAudience(AbstractCrudObject):
 
         if(key_name == CustomAudience.Schema.MultiKeySchema.dobm or
            key_name == CustomAudience.Schema.MultiKeySchema.dobd):
-
             key_value = re.sub(r'[^0-9]', '', key_value)
             if len(key_value) == 1:
                 key_value = '0' + key_value
@@ -2267,6 +2271,10 @@ class CustomAudience(AbstractCrudObject):
 
         if(key_name == CustomAudience.Schema.MultiKeySchema.zip):
             key_value = re.split('-', key_value)[0]
+            return key_value
+
+        if(key_name == CustomAudience.Schema.MultiKeySchema.country):
+            key_value = re.sub(r'[^a-zA-Z]', '', key_value)[:2]
             return key_value
 
     def add_users(self,
