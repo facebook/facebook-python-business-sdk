@@ -1928,21 +1928,20 @@ class AdVideo(AbstractCrudObject):
         """
         if self.Field.slideshow_spec in self:
             request = VideoUploadRequest(self.get_api_assured())
-            spec = self[self.Field.slideshow_spec]
-            print(spec)
             request.setParams(params={'slideshow_spec': {
                 'images_urls': self[self.Field.slideshow_spec]['images_urls'],
                 'duration_ms': self[self.Field.slideshow_spec]['duration_ms'],
                 'transition_ms': self[self.Field.slideshow_spec]['transition_ms'],
             }})
-            request.send((self.get_parent_id_assured(), 'advideos'))
-            exit()
+            response = \
+                request.send((self.get_parent_id_assured(), 'advideos')).json()
         elif not (self.Field.filepath in self):
             raise FacebookBadObjectError(
                 "AdVideo requires a filepath or slideshow_spec to be defined.",
             )
-        video_uploader = VideoUploader()
-        response = video_uploader.upload(self)
+        else:
+            video_uploader = VideoUploader()
+            response = video_uploader.upload(self)
         self._set_data(response)
         return response
 
