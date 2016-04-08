@@ -1125,12 +1125,6 @@ class AdAccount(CannotCreate, CannotDelete, HasAdLabels, AbstractCrudObject):
         """
         return self.iterate_edge(BroadCategoryTargeting, fields, params)
 
-    def get_connection_objects(self, fields=None, params=None):
-        """
-        Returns iterator over ConnectionObject's associated with this account.
-        """
-        return self.iterate_edge(ConnectionObject, fields, params)
-
     def get_custom_audiences(self, fields=None, params=None):
         """
         Returns iterator over CustomAudience's associated with this account.
@@ -1390,7 +1384,6 @@ class AdSet(CanValidate, HasStatus, CanArchive, HasAdLabels,
         lifetime_imps = 'lifetime_imps'
         name = 'name'
         optimization_goal = 'optimization_goal'
-        product_ad_behavior = 'product_ad_behavior'
         pacing_type = 'pacing_type'
         promoted_object = 'promoted_object'
         recommendations = 'recommendations'
@@ -2361,36 +2354,6 @@ class CustomAudience(AbstractCrudObject):
         )
 
 
-class ConnectionObject(AbstractObject):
-
-    class Field(object):
-        app_installs_tracked = 'app_installs_tracked'
-        id = 'id'
-        is_game = 'is_game'
-        name = 'name'
-        native_app_store_ids = 'native_app_store_ids'
-        native_app_targeting_ids = 'native_app_targeting_ids'
-        og_actions = 'og_actions'
-        og_namespace = 'og_namespace'
-        og_object = 'og_object'
-        picture = 'picture'
-        supported_platforms = 'supported_platforms'
-        tabs = 'tabs'
-        type = 'type'
-        url = 'url'
-
-    class Type(object):
-        application = 2
-        domain = 7
-        event = 3
-        page = 1
-        place = 6
-
-    @classmethod
-    def get_endpoint(cls):
-        return 'connectionobjects'
-
-
 class LookalikeAudience(AbstractCrudObject):
     """
         Represents lookalike custom audience
@@ -3169,7 +3132,6 @@ class Insights(CannotCreate, CannotDelete, CannotUpdate, AbstractCrudObject):
         impressions = 'impressions'
         inline_link_clicks = 'inline_link_clicks'
         inline_post_engagement = 'inline_post_engagement'
-        product_id = 'product_id'
         reach = 'reach'
         relevance_score = 'relevance_score'
         report_run_id = 'report_run_id'
@@ -3222,6 +3184,7 @@ class Insights(CannotCreate, CannotDelete, CannotUpdate, AbstractCrudObject):
         age = 'age'
         country = 'country'
         gender = 'gender'
+        frequency_value = 'frequency_value'
         hourly_stats_aggregated_by_advertiser_time_zone = \
             'hourly_stats_aggregated_by_advertiser_time_zone'
         hourly_stats_aggregated_by_audience_time_zone = \
@@ -3229,6 +3192,8 @@ class Insights(CannotCreate, CannotDelete, CannotUpdate, AbstractCrudObject):
         impression_device = 'impression_device'
         place_page_id = 'place_page_id'
         placement = 'placement'
+        product_id = 'product_id'
+        region = 'region'
 
     class Level(object):
         """Levels at which insights are available."""
@@ -3257,21 +3222,21 @@ class Insights(CannotCreate, CannotDelete, CannotUpdate, AbstractCrudObject):
 
     class Operator(object):
         """Available operators to use in filtering insights."""
-        all = 'all'
-        any = 'any'
-        contain = 'contain'
-        equal = 'equal'
-        greater_than = 'greater_than'
-        greater_than_or_equal = 'greater_than_or_equal'
-        in_ = 'in'
-        in_range = 'in_range'
-        less_than = 'less_than'
-        less_than_or_equal = 'less_than_or_equal'
-        none = 'none'
-        not_contain = 'not_contain'
-        not_equal = 'not_equal'
-        not_in = 'not_in'
-        not_in_range = 'not_in_range'
+        all = 'ALL'
+        any = 'ANY'
+        contain = 'CONTAIN'
+        equal = 'EQUAL'
+        greater_than = 'GREATER_THAN'
+        greater_than_or_equal = 'GREATHER_THAN_OR_EQUAL'
+        in_ = 'IN'
+        in_range = 'IN_RANGE'
+        less_than = 'LESS_THAN'
+        less_than_or_equal = 'LESS_THAN_OR_EQUAL'
+        none = 'NONE'
+        not_contain = 'NOT_CONTAIN'
+        not_equal = 'NOT_EQUAL'
+        not_in = 'NOT_IN'
+        not_in_range = 'NOT_IN_RANGE'
 
     class ActionReportTime(object):
         conversion = 'conversion'
