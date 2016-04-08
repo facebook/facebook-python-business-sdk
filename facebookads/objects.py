@@ -138,7 +138,7 @@ class EdgeIterator(object):
         # Load next page at end.
         # If the queue counter equals the length of the queue and
         # If load_next_page returns False, raise StopIteration exception
-        if (self._count == len(self._queue) and not self.load_next_page()) or (len(self._queue) == 0):
+        if (self._count > len(self._queue) and not self.load_next_page()) or (len(self._queue) == 0):
             raise StopIteration()
 
         return self._queue[self._count-1]
