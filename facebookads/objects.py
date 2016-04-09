@@ -1744,7 +1744,7 @@ class AdCreative(HasAdLabels, AbstractCrudObject):
 class AdImage(CannotUpdate, AbstractCrudObject):
 
     """
-        Represnts the image for ad creative
+        Represents the image for ad creative
     """
 
     class Field(object):
@@ -1753,6 +1753,17 @@ class AdImage(CannotUpdate, AbstractCrudObject):
         hash = 'hash'
         id = 'id'
         url = 'url'
+        account_id = 'account_id'
+        created_time = 'created_time'
+        height = 'height'
+        name = 'name'
+        original_height = 'original_height'
+        original_width = 'original_width'
+        permalink_url = 'permalink_url'
+        status = 'status'
+        updated_time = 'updated_time'
+        url_128 = 'url_128'
+        width = 'width'
 
     @classmethod
     def get_endpoint(cls):
@@ -1862,7 +1873,7 @@ class AdImage(CannotUpdate, AbstractCrudObject):
         """
         if not self[self.Field.filename]:
             raise FacebookBadObjectError(
-                "AdImage required a filename to be defined.",
+                "AdImage requires a filename to be defined.",
             )
         filename = self[self.Field.filename]
         with open(filename, 'rb') as open_file:
