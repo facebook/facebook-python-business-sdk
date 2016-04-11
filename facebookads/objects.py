@@ -2194,10 +2194,10 @@ class CustomAudience(AbstractCrudObject):
                         key = key.strip(" \t\r\n\0\x0B.").lower()
                         key = CustomAudience.normalize_key(schema[counter],
                                                            str(key))
-                        if isinstance(key, six.text_type):
-                            key = key.encode('utf8')
                         if schema[counter] != \
                                 cls.Schema.MultiKeySchema.extern_id:
+                            if isinstance(key, six.text_type):
+                                key = key.encode('utf8')
                             key = hashlib.sha256(key).hexdigest()
                         counter = counter + 1
                         hashed_user.append(key)
