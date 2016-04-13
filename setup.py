@@ -40,6 +40,7 @@ PACKAGES = [
     'facebookads.test',
     'facebookads.utils',
     'facebookads.adobjects',
+    'facebookads.adobjects.helpers',
 ]
 PACKAGE_DATA = {
     'facebookads': ['*.crt'],
