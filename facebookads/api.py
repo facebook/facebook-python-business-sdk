@@ -808,10 +808,11 @@ class Cursor(object):
 
 @contextmanager
 def open_files(files):
+    opened_files = {}
     for key, path in files.items():
-        files.update({key: open(path, 'rb')})
-    yield files
-    for file in files.values():
+        opened_files.update({key: open(path, 'rb')})
+    yield opened_files
+    for file in opened_files.values():
         file.close()
 
 def _top_level_param_json_encode(params):
