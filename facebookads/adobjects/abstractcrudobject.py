@@ -385,7 +385,6 @@ class AbstractCrudObject(AbstractObject):
         params = {} if not params else params.copy()
         params.update(self.export_changed_data())
         self._set_data(params)
-        request = self.api_update(pending=True)
         if hasattr(self, 'api_update'):
             request = self.api_update(pending=True)
         else:
