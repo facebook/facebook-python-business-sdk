@@ -808,7 +808,8 @@ class Cursor(object):
 
 @contextmanager
 def open_files(files):
-    files = {key: open(path, 'rb') for key, path in files.items()}
+    for key, path in files.items():
+        files.update({key: open(path, 'rb')})
     yield files
     for file in files.values():
         file.close()
