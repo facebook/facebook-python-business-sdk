@@ -259,6 +259,7 @@ class AbstractCrudObject(AbstractObject):
                 node_id=self.get_parent_id_assured(),
                 method='POST',
                 endpoint=self.get_endpoint(),
+                api=self._api,
                 target_class=self.__class__,
                 response_parser=ObjectParser(
                     reuse_object=self
@@ -327,6 +328,7 @@ class AbstractCrudObject(AbstractObject):
                 node_id=self.get_id_assured(),
                 method='GET',
                 endpoint='/',
+                api=self._api,
                 target_class=self.__class__,
                 response_parser=ObjectParser(
                     reuse_object=self
@@ -392,6 +394,7 @@ class AbstractCrudObject(AbstractObject):
                 node_id=self.get_id_assured(),
                 method='POST',
                 endpoint='/',
+                api=self._api,
                 target_class=self.__class__,
                 response_parser=ObjectParser(
                     reuse_object=self
@@ -453,6 +456,7 @@ class AbstractCrudObject(AbstractObject):
                 node_id=self.get_id_assured(),
                 method='DELETE',
                 endpoint='/',
+                api=self._api,
             )
         request.add_params(params)
         if batch is not None:
