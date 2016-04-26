@@ -416,8 +416,8 @@ class AbstractCrudObject(AbstractObject):
 
             batch_call = batch.add_request(
                 request,
-                params=params,
                 success=callback_success,
+                failure=callback_failure,
             )
             return batch_call
         else:
