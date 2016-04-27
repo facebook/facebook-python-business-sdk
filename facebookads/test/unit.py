@@ -464,5 +464,16 @@ class VersionUtilsTestCase(unittest.TestCase):
         version_value = utils.version.get_version()
         assert re.search('[0-9]+\.[0-9]+\.[0-9]', version_value)
 
+
+class FacebookResponseTestCase(unittest.TestCase):
+
+    def test_is_success_200(self):
+        resp = api.FacebookResponse(http_status=200)
+        self.assertTrue(resp.is_success())
+
+    def test_is_success_service_unavailable(self):
+        resp = api.FacebookResponse(body="Service Unavailable", http_status=200)
+        self.assertFalse(resp.is_success())
+
 if __name__ == '__main__':
     unittest.main()
