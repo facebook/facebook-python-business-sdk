@@ -58,7 +58,6 @@ class Targeting(
         education_statuses = 'education_statuses'
         effective_device_platforms = 'effective_device_platforms'
         effective_facebook_positions = 'effective_facebook_positions'
-        effective_platforms = 'effective_platforms'
         engagement_specs = 'engagement_specs'
         ethnic_affinity = 'ethnic_affinity'
         exclude_reached_since = 'exclude_reached_since'
@@ -121,11 +120,6 @@ class Targeting(
         mobile = 'MOBILE'
         desktop = 'DESKTOP'
 
-    class EffectivePlatforms:
-        facebook = 'FACEBOOK'
-        instagram = 'INSTAGRAM'
-        audience_network = 'AUDIENCE_NETWORK'
-
     _field_types = {
         'adgroup_id': 'string',
         'age_max': 'unsigned int',
@@ -147,7 +141,6 @@ class Targeting(
         'education_statuses': 'list<unsigned int>',
         'effective_device_platforms': 'EffectiveDevicePlatforms',
         'effective_facebook_positions': 'list<string>',
-        'effective_platforms': 'EffectivePlatforms',
         'engagement_specs': 'list<TargetingDynamicRule>',
         'ethnic_affinity': 'list<IDName>',
         'exclude_reached_since': 'list<string>',
@@ -208,5 +201,4 @@ class Targeting(
         field_enum_info = {}
         field_enum_info['DevicePlatforms'] = Targeting.DevicePlatforms.__dict__.values()
         field_enum_info['EffectiveDevicePlatforms'] = Targeting.EffectiveDevicePlatforms.__dict__.values()
-        field_enum_info['EffectivePlatforms'] = Targeting.EffectivePlatforms.__dict__.values()
         return field_enum_info

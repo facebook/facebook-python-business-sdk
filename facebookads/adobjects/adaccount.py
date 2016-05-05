@@ -1327,9 +1327,9 @@ class AdAccount(
             endpoint='/customconversions',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=CustomConversion,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject),
+            response_parser=ObjectParser(target_class=CustomConversion),
         )
         request.add_params(params)
         request.add_fields(fields)

@@ -264,9 +264,9 @@ class User(
             endpoint='/businesses',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=Business,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject),
+            response_parser=ObjectParser(target_class=Business),
         )
         request.add_params(params)
         request.add_fields(fields)

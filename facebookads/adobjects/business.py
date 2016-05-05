@@ -102,6 +102,7 @@ class Business(
         return request if pending else request.execute()
 
     def create_ad_account(self, fields=None, params=None, batch=None, pending=False):
+        from facebookads.adobjects.adaccount import AdAccount
         self.assure_call()
         param_types = {
             'currency': 'string',
@@ -124,9 +125,9 @@ class Business(
             endpoint='/adaccount',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=AdAccount,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject),
+            response_parser=ObjectParser(target_class=AdAccount),
         )
         request.add_params(params)
         request.add_fields(fields)

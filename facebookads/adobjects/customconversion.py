@@ -53,6 +53,7 @@ class CustomConversion(
         name = 'name'
         pixel = 'pixel'
         pixel_rule = 'pixel_rule'
+        pixel_id = 'pixel_id'
 
     class CustomEventType:
         activate_app = 'ACTIVATE_APP'
@@ -75,6 +76,10 @@ class CustomConversion(
     @classmethod
     def get_endpoint(cls):
         return 'customconversions'
+
+    def api_create(self, parent_id, fields=None, params=None, batch=None, pending=False):
+        from facebookads.adobjects.adaccount import AdAccount
+        return AdAccount(api=self._api, fbid=parent_id).create_custom_conversion(fields, params, batch, pending)
 
     def api_delete(self, fields=None, params=None, batch=None, pending=False):
         self.assure_call()
@@ -198,6 +203,7 @@ class CustomConversion(
         'name': 'string',
         'pixel': 'AdsPixel',
         'pixel_rule': 'string',
+        'pixel_id': 'string',
     }
 
     @classmethod

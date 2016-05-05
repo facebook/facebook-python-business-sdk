@@ -415,7 +415,7 @@ class AbstractCrudObject(AbstractObject):
                     failure(response)
 
             batch_call = batch.add_request(
-                request,
+                request=request,
                 success=callback_success,
                 failure=callback_failure,
             )
@@ -471,7 +471,7 @@ class AbstractCrudObject(AbstractObject):
                     failure(response)
 
             batch_call = batch.add_request(
-                request,
+                request=request,
                 success=callback_success,
                 failure=callback_failure,
             )

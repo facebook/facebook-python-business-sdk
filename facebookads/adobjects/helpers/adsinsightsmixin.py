@@ -25,7 +25,7 @@ class AdsInsightsMixin:
         all_days = 'all_days'
 
     class Operator(object):
-        all = 'all'
+        all = 'ALL'
         any = 'ANY'
         contain = 'CONTAIN'
         equal = 'EQUAL'
