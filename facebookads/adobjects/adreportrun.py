@@ -82,7 +82,6 @@ class AdReportRun(
         return AdAccount(api=self._api, fbid=parent_id).get_insights_async(fields, params, batch, pending)
 
     def api_get(self, fields=None, params=None, batch=None, pending=False):
-        self.assure_call()
         param_types = {
         }
         enums = {
@@ -103,14 +102,16 @@ class AdReportRun(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def get_insights(self, fields=None, params=None, async=False, batch=None, pending=False):
         from facebookads.adobjects.adsinsights import AdsInsights
         if async:
           return self.get_insights_async(fields, params, batch, pending)
-        self.assure_call()
         param_types = {
             'default_summary': 'bool',
             'fields': 'list<fields_enum>',
@@ -138,8 +139,11 @@ class AdReportRun(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     _field_types = {
         'account_id': 'string',

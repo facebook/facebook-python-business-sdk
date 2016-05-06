@@ -52,7 +52,6 @@ class ProductFeedUpload(
         server_fetch = 'Server Fetch'
 
     def api_get(self, fields=None, params=None, batch=None, pending=False):
-        self.assure_call()
         param_types = {
         }
         enums = {
@@ -73,12 +72,14 @@ class ProductFeedUpload(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def get_errors(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.productfeeduploaderror import ProductFeedUploadError
-        self.assure_call()
         param_types = {
         }
         enums = {
@@ -99,8 +100,11 @@ class ProductFeedUpload(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     _field_types = {
         'end_time': 'datetime',

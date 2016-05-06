@@ -56,7 +56,6 @@ class ProductFeedUploadError(
         return 'errors'
 
     def api_get(self, fields=None, params=None, batch=None, pending=False):
-        self.assure_call()
         param_types = {
         }
         enums = {
@@ -77,12 +76,14 @@ class ProductFeedUploadError(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def get_samples(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.productfeeduploaderrorsample import ProductFeedUploadErrorSample
-        self.assure_call()
         param_types = {
         }
         enums = {
@@ -103,8 +104,11 @@ class ProductFeedUploadError(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     _field_types = {
         'description': 'string',

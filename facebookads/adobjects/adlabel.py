@@ -61,7 +61,6 @@ class AdLabel(
         return AdAccount(api=self._api, fbid=parent_id).create_ad_label(fields, params, batch, pending)
 
     def api_delete(self, fields=None, params=None, batch=None, pending=False):
-        self.assure_call()
         param_types = {
             'id': 'string',
         }
@@ -83,11 +82,13 @@ class AdLabel(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def api_get(self, fields=None, params=None, batch=None, pending=False):
-        self.assure_call()
         param_types = {
         }
         enums = {
@@ -108,11 +109,13 @@ class AdLabel(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def api_update(self, fields=None, params=None, batch=None, pending=False):
-        self.assure_call()
         param_types = {
             'id': 'string',
             'name': 'string',
@@ -135,12 +138,14 @@ class AdLabel(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def get_ad_creatives(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.adcreative import AdCreative
-        self.assure_call()
         param_types = {
         }
         enums = {
@@ -161,12 +166,14 @@ class AdLabel(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def get_ads(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.ad import Ad
-        self.assure_call()
         param_types = {
         }
         enums = {
@@ -187,12 +194,14 @@ class AdLabel(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def get_ad_sets(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.adset import AdSet
-        self.assure_call()
         param_types = {
         }
         enums = {
@@ -213,12 +222,14 @@ class AdLabel(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def get_campaigns(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.campaign import Campaign
-        self.assure_call()
         param_types = {
         }
         enums = {
@@ -239,8 +250,11 @@ class AdLabel(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     _field_types = {
         'account': 'AdAccount',

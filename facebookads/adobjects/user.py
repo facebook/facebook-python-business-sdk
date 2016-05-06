@@ -104,7 +104,6 @@ class User(
         start_now_v2 = 'START_NOW_V2'
 
     def api_get(self, fields=None, params=None, batch=None, pending=False):
-        self.assure_call()
         param_types = {
         }
         enums = {
@@ -125,11 +124,13 @@ class User(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def get_accounts(self, fields=None, params=None, batch=None, pending=False):
-        self.assure_call()
         param_types = {
             'business_id': 'string',
             'is_business': 'bool',
@@ -154,12 +155,14 @@ class User(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def get_ad_account_groups(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.adaccountgroup import AdAccountGroup
-        self.assure_call()
         param_types = {
         }
         enums = {
@@ -180,12 +183,14 @@ class User(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def create_ad_account_group(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.adaccountgroup import AdAccountGroup
-        self.assure_call()
         param_types = {
             'accounts': 'map',
             'id': 'int',
@@ -211,12 +216,14 @@ class User(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def get_ad_accounts(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.adaccount import AdAccount
-        self.assure_call()
         param_types = {
         }
         enums = {
@@ -237,12 +244,14 @@ class User(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def create_businesse(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.business import Business
-        self.assure_call()
         param_types = {
             'id': 'int',
             'name': 'string',
@@ -274,12 +283,14 @@ class User(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def get_lead_gen_forms(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.leadgenform import LeadgenForm
-        self.assure_call()
         param_types = {
             'query': 'string',
         }
@@ -301,12 +312,14 @@ class User(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def get_promotable_domains(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.domain import Domain
-        self.assure_call()
         param_types = {
         }
         enums = {
@@ -327,12 +340,14 @@ class User(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def get_promotable_events(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.event import Event
-        self.assure_call()
         param_types = {
             'is_page_event': 'bool',
         }
@@ -354,8 +369,11 @@ class User(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     _field_types = {
         'about': 'string',

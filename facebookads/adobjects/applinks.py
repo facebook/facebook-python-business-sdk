@@ -52,7 +52,6 @@ class AppLinks(
         windows_universal = 'windows_universal'
 
     def api_get(self, fields=None, params=None, batch=None, pending=False):
-        self.assure_call()
         param_types = {
         }
         enums = {
@@ -73,8 +72,11 @@ class AppLinks(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     _field_types = {
         'android': 'list<AndroidAppLink>',

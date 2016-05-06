@@ -76,7 +76,6 @@ class AdImage(
         return AdAccount(api=self._api, fbid=parent_id).create_ad_image(fields, params, batch, pending)
 
     def api_get(self, fields=None, params=None, batch=None, pending=False):
-        self.assure_call()
         param_types = {
         }
         enums = {
@@ -97,8 +96,11 @@ class AdImage(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     _field_types = {
         'account_id': 'string',

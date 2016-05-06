@@ -57,7 +57,6 @@ class AdAccountGroup(
         return AdAccountUser(api=self._api, fbid=parent_id).create_ad_account_group(fields, params, batch, pending)
 
     def api_delete(self, fields=None, params=None, batch=None, pending=False):
-        self.assure_call()
         param_types = {
             'id': 'string',
         }
@@ -79,11 +78,13 @@ class AdAccountGroup(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def api_get(self, fields=None, params=None, batch=None, pending=False):
-        self.assure_call()
         param_types = {
         }
         enums = {
@@ -104,11 +105,13 @@ class AdAccountGroup(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def api_update(self, fields=None, params=None, batch=None, pending=False):
-        self.assure_call()
         param_types = {
             'accounts': 'map',
             'id': 'string',
@@ -135,11 +138,13 @@ class AdAccountGroup(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def delete_ad_accounts(self, fields=None, params=None, batch=None, pending=False):
-        self.assure_call()
         param_types = {
             'account_id': 'string',
             'id': 'string',
@@ -162,11 +167,13 @@ class AdAccountGroup(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def get_ad_accounts(self, fields=None, params=None, batch=None, pending=False):
-        self.assure_call()
         param_types = {
         }
         enums = {
@@ -187,11 +194,13 @@ class AdAccountGroup(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def create_ad_account(self, fields=None, params=None, batch=None, pending=False):
-        self.assure_call()
         param_types = {
             'account_ids': 'list<string>',
             'id': 'string',
@@ -215,11 +224,13 @@ class AdAccountGroup(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def delete_users(self, fields=None, params=None, batch=None, pending=False):
-        self.assure_call()
         param_types = {
             'id': 'string',
             'redownload': 'bool',
@@ -243,11 +254,13 @@ class AdAccountGroup(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def create_user(self, fields=None, params=None, batch=None, pending=False):
-        self.assure_call()
         param_types = {
             'account_group_roles': 'list<map>',
             'id': 'string',
@@ -271,8 +284,11 @@ class AdAccountGroup(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     _field_types = {
         'account_group_id': 'string',

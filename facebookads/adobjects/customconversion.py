@@ -82,7 +82,6 @@ class CustomConversion(
         return AdAccount(api=self._api, fbid=parent_id).create_custom_conversion(fields, params, batch, pending)
 
     def api_delete(self, fields=None, params=None, batch=None, pending=False):
-        self.assure_call()
         param_types = {
             'id': 'string',
         }
@@ -104,11 +103,13 @@ class CustomConversion(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def api_get(self, fields=None, params=None, batch=None, pending=False):
-        self.assure_call()
         param_types = {
         }
         enums = {
@@ -129,11 +130,13 @@ class CustomConversion(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def api_update(self, fields=None, params=None, batch=None, pending=False):
-        self.assure_call()
         param_types = {
             'default_conversion_value': 'float',
             'description': 'string',
@@ -157,12 +160,14 @@ class CustomConversion(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def get_stats(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.adspixelstatsresult import AdsPixelStatsResult
-        self.assure_call()
         param_types = {
             'aggregation': 'aggregation_enum',
             'end_time': 'datetime',
@@ -187,8 +192,11 @@ class CustomConversion(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     _field_types = {
         'account_id': 'string',

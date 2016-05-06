@@ -127,7 +127,6 @@ class CustomAudience(
         return AdAccount(api=self._api, fbid=parent_id).create_custom_audience(fields, params, batch, pending)
 
     def api_delete(self, fields=None, params=None, batch=None, pending=False):
-        self.assure_call()
         param_types = {
             'id': 'int',
         }
@@ -149,11 +148,13 @@ class CustomAudience(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def api_get(self, fields=None, params=None, batch=None, pending=False):
-        self.assure_call()
         param_types = {
         }
         enums = {
@@ -174,11 +175,13 @@ class CustomAudience(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def api_update(self, fields=None, params=None, batch=None, pending=False):
-        self.assure_call()
         param_types = {
             'content_type': 'content_type_enum',
             'description': 'string',
@@ -210,12 +213,14 @@ class CustomAudience(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def delete_ad_accounts(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.customaudienceadaccount import CustomAudienceAdAccount
-        self.assure_call()
         param_types = {
             'adaccounts': 'list<string>',
             'id': 'string',
@@ -238,12 +243,14 @@ class CustomAudience(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def get_ad_accounts(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.customaudienceadaccount import CustomAudienceAdAccount
-        self.assure_call()
         param_types = {
             'permissions': 'string',
         }
@@ -265,12 +272,14 @@ class CustomAudience(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def create_ad_account(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.customaudienceadaccount import CustomAudienceAdAccount
-        self.assure_call()
         param_types = {
             'adaccounts': 'list<string>',
             'id': 'string',
@@ -295,12 +304,14 @@ class CustomAudience(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def get_ads(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.ad import Ad
-        self.assure_call()
         param_types = {
             'effective_status': 'list<string>',
         }
@@ -322,12 +333,14 @@ class CustomAudience(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def get_prefills(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.customaudienceprefillstate import CustomAudiencePrefillState
-        self.assure_call()
         param_types = {
         }
         enums = {
@@ -348,12 +361,14 @@ class CustomAudience(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def get_sessions(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.customaudiencesession import CustomAudienceSession
-        self.assure_call()
         param_types = {
             'session_id': 'unsigned int',
         }
@@ -375,11 +390,13 @@ class CustomAudience(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def delete_users(self, fields=None, params=None, batch=None, pending=False):
-        self.assure_call()
         param_types = {
             'id': 'string',
             'payload': 'Object',
@@ -403,11 +420,13 @@ class CustomAudience(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def create_user(self, fields=None, params=None, batch=None, pending=False):
-        self.assure_call()
         param_types = {
             'id': 'string',
             'payload': 'Object',
@@ -431,8 +450,11 @@ class CustomAudience(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     _field_types = {
         'account_id': 'string',

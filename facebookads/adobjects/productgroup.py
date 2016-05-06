@@ -54,7 +54,6 @@ class ProductGroup(
         return ProductCatalog(api=self._api, fbid=parent_id).create_product_group(fields, params, batch, pending)
 
     def api_get(self, fields=None, params=None, batch=None, pending=False):
-        self.assure_call()
         param_types = {
         }
         enums = {
@@ -75,11 +74,13 @@ class ProductGroup(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def api_update(self, fields=None, params=None, batch=None, pending=False):
-        self.assure_call()
         param_types = {
             'id': 'string',
             'variants': 'list<Object>',
@@ -102,12 +103,14 @@ class ProductGroup(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def get_product_sets(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.productset import ProductSet
-        self.assure_call()
         param_types = {
         }
         enums = {
@@ -128,12 +131,14 @@ class ProductGroup(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def get_products(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.productitem import ProductItem
-        self.assure_call()
         param_types = {
         }
         enums = {
@@ -154,12 +159,14 @@ class ProductGroup(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def create_product(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.productitem import ProductItem
-        self.assure_call()
         param_types = {
             'additional_image_urls': 'list<string>',
             'android_app_name': 'string',
@@ -235,8 +242,11 @@ class ProductGroup(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     _field_types = {
         'id': 'string',

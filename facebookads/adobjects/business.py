@@ -77,7 +77,6 @@ class Business(
         other = 'OTHER'
 
     def api_get(self, fields=None, params=None, batch=None, pending=False):
-        self.assure_call()
         param_types = {
         }
         enums = {
@@ -98,12 +97,14 @@ class Business(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def create_ad_account(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.adaccount import AdAccount
-        self.assure_call()
         param_types = {
             'currency': 'string',
             'end_advertiser': 'Object',
@@ -135,12 +136,14 @@ class Business(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def create_ad_accounts(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.adaccount import AdAccount
-        self.assure_call()
         param_types = {
             'access_type': 'access_type_enum',
             'adaccount_id': 'string',
@@ -167,12 +170,14 @@ class Business(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def get_ads_pixels(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.adspixel import AdsPixel
-        self.assure_call()
         param_types = {
         }
         enums = {
@@ -193,11 +198,13 @@ class Business(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def delete_apps(self, fields=None, params=None, batch=None, pending=False):
-        self.assure_call()
         param_types = {
             'app_id': 'int',
             'id': 'string',
@@ -220,12 +227,14 @@ class Business(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def get_assigned_ad_accounts(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.adaccount import AdAccount
-        self.assure_call()
         param_types = {
             'email': 'string',
             'user_id': 'int',
@@ -248,11 +257,13 @@ class Business(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def get_assigned_pages(self, fields=None, params=None, batch=None, pending=False):
-        self.assure_call()
         param_types = {
             'email': 'string',
             'user_id': 'int',
@@ -275,12 +286,14 @@ class Business(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def get_assigned_product_catalogs(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.productcatalog import ProductCatalog
-        self.assure_call()
         param_types = {
             'email': 'string',
             'user_id': 'int',
@@ -303,12 +316,14 @@ class Business(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def get_client_ad_account_requests(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.businessadaccountrequest import BusinessAdAccountRequest
-        self.assure_call()
         param_types = {
         }
         enums = {
@@ -329,12 +344,14 @@ class Business(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def get_client_ad_accounts(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.adaccount import AdAccount
-        self.assure_call()
         param_types = {
         }
         enums = {
@@ -355,12 +372,14 @@ class Business(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def get_client_page_requests(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.businesspagerequest import BusinessPageRequest
-        self.assure_call()
         param_types = {
         }
         enums = {
@@ -381,11 +400,13 @@ class Business(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def get_client_pages(self, fields=None, params=None, batch=None, pending=False):
-        self.assure_call()
         param_types = {
         }
         enums = {
@@ -406,12 +427,14 @@ class Business(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def get_grp_plans(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.reachfrequencyprediction import ReachFrequencyPrediction
-        self.assure_call()
         param_types = {
             'status': 'status_enum',
         }
@@ -434,11 +457,13 @@ class Business(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def get_instagram_accounts(self, fields=None, params=None, batch=None, pending=False):
-        self.assure_call()
         param_types = {
         }
         enums = {
@@ -459,12 +484,14 @@ class Business(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def get_measurement_reports(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.measurementreport import MeasurementReport
-        self.assure_call()
         param_types = {
             'filters': 'list<Object>',
             'report_type': 'report_type_enum',
@@ -492,12 +519,14 @@ class Business(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def create_measurement_report(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.measurementreport import MeasurementReport
-        self.assure_call()
         param_types = {
             'id': 'Object',
             'metadata': 'string',
@@ -526,11 +555,13 @@ class Business(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def get_offline_conversion_data_sets(self, fields=None, params=None, batch=None, pending=False):
-        self.assure_call()
         param_types = {
         }
         enums = {
@@ -551,11 +582,13 @@ class Business(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def create_offline_conversion_data_set(self, fields=None, params=None, batch=None, pending=False):
-        self.assure_call()
         param_types = {
             'description': 'string',
             'name': 'string',
@@ -578,12 +611,14 @@ class Business(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def get_owned_ad_account_requests(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.businessadaccountrequest import BusinessAdAccountRequest
-        self.assure_call()
         param_types = {
         }
         enums = {
@@ -604,12 +639,14 @@ class Business(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def get_owned_ad_accounts(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.adaccount import AdAccount
-        self.assure_call()
         param_types = {
         }
         enums = {
@@ -630,11 +667,13 @@ class Business(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def get_owned_instagram_accounts(self, fields=None, params=None, batch=None, pending=False):
-        self.assure_call()
         param_types = {
         }
         enums = {
@@ -655,12 +694,14 @@ class Business(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def get_owned_page_requests(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.businesspagerequest import BusinessPageRequest
-        self.assure_call()
         param_types = {
         }
         enums = {
@@ -681,11 +722,13 @@ class Business(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def get_owned_pages(self, fields=None, params=None, batch=None, pending=False):
-        self.assure_call()
         param_types = {
         }
         enums = {
@@ -706,12 +749,14 @@ class Business(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def get_owned_pixels(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.adspixel import AdsPixel
-        self.assure_call()
         param_types = {
         }
         enums = {
@@ -732,12 +777,14 @@ class Business(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def get_picture(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.profilepicturesource import ProfilePictureSource
-        self.assure_call()
         param_types = {
             'height': 'int',
             'redirect': 'bool',
@@ -763,12 +810,14 @@ class Business(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def get_product_catalogs(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.productcatalog import ProductCatalog
-        self.assure_call()
         param_types = {
         }
         enums = {
@@ -789,12 +838,14 @@ class Business(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def create_product_catalog(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.productcatalog import ProductCatalog
-        self.assure_call()
         param_types = {
             'id': 'string',
             'name': 'string',
@@ -817,11 +868,13 @@ class Business(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def get_received_audience_permissions(self, fields=None, params=None, batch=None, pending=False):
-        self.assure_call()
         param_types = {
             'partner_id': 'string',
         }
@@ -843,11 +896,13 @@ class Business(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def get_shared_audience_permissions(self, fields=None, params=None, batch=None, pending=False):
-        self.assure_call()
         param_types = {
             'partner_id': 'string',
         }
@@ -869,11 +924,13 @@ class Business(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def get_system_users(self, fields=None, params=None, batch=None, pending=False):
-        self.assure_call()
         param_types = {
         }
         enums = {
@@ -894,11 +951,13 @@ class Business(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def create_user_permission(self, fields=None, params=None, batch=None, pending=False):
-        self.assure_call()
         param_types = {
             'email': 'string',
             'id': 'string',
@@ -933,8 +992,11 @@ class Business(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     _field_types = {
         'id': 'string',

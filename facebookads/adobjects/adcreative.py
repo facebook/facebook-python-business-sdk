@@ -155,7 +155,6 @@ class AdCreative(
         return AdAccount(api=self._api, fbid=parent_id).create_ad_creative(fields, params, batch, pending)
 
     def api_delete(self, fields=None, params=None, batch=None, pending=False):
-        self.assure_call()
         param_types = {
             'account_id': 'string',
             'adlabels': 'list<Object>',
@@ -181,11 +180,13 @@ class AdCreative(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def api_get(self, fields=None, params=None, batch=None, pending=False):
-        self.assure_call()
         param_types = {
         }
         enums = {
@@ -206,11 +207,13 @@ class AdCreative(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def api_update(self, fields=None, params=None, batch=None, pending=False):
-        self.assure_call()
         param_types = {
             'account_id': 'string',
             'adlabels': 'list<Object>',
@@ -236,11 +239,13 @@ class AdCreative(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def delete_ad_labels(self, fields=None, params=None, batch=None, pending=False):
-        self.assure_call()
         param_types = {
             'adlabels': 'list<Object>',
             'id': 'string',
@@ -263,11 +268,13 @@ class AdCreative(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def create_ad_label(self, fields=None, params=None, batch=None, pending=False):
-        self.assure_call()
         param_types = {
             'adlabels': 'list<Object>',
             'id': 'string',
@@ -290,12 +297,14 @@ class AdCreative(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def get_previews(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.adpreview import AdPreview
-        self.assure_call()
         param_types = {
             'ad_format': 'ad_format_enum',
             'height': 'unsigned int',
@@ -323,8 +332,11 @@ class AdCreative(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     _field_types = {
         'actor_id': 'string',

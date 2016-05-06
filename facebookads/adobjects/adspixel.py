@@ -60,7 +60,6 @@ class AdsPixel(
         return AdAccount(api=self._api, fbid=parent_id).create_ads_pixel(fields, params, batch, pending)
 
     def api_get(self, fields=None, params=None, batch=None, pending=False):
-        self.assure_call()
         param_types = {
         }
         enums = {
@@ -81,11 +80,13 @@ class AdsPixel(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def api_update(self, fields=None, params=None, batch=None, pending=False):
-        self.assure_call()
         param_types = {
             'name': 'string',
         }
@@ -107,12 +108,14 @@ class AdsPixel(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def get_audiences(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.customaudience import CustomAudience
-        self.assure_call()
         param_types = {
         }
         enums = {
@@ -133,12 +136,14 @@ class AdsPixel(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def get_shared_accounts(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.adaccount import AdAccount
-        self.assure_call()
         param_types = {
             'business': 'string',
         }
@@ -160,12 +165,14 @@ class AdsPixel(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def get_shared_agencies(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.business import Business
-        self.assure_call()
         param_types = {
         }
         enums = {
@@ -186,12 +193,14 @@ class AdsPixel(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def get_stats(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.adspixelstatsresult import AdsPixelStatsResult
-        self.assure_call()
         param_types = {
             'aggregation': 'aggregation_enum',
             'end_time': 'datetime',
@@ -217,8 +226,11 @@ class AdsPixel(
         if batch is not None:
             request.add_to_batch(batch)
             return request
-
-        return request if pending else request.execute()
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     _field_types = {
         'code': 'string',
