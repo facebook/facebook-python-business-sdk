@@ -1372,6 +1372,43 @@ class AdAccount(
             self.assure_call()
             return request.execute()
 
+    def get_custom_conversions(self, fields=None, params=None, batch=None, pending=False):
+        from facebookads.adobjects.customconversion import CustomConversion
+        param_types = {
+            'custom_event_type': 'custom_event_type_enum',
+            'default_conversion_value': 'float',
+            'description': 'string',
+            'id': 'string',
+            'name': 'string',
+            'pixel_id': 'string',
+            'pixel_rule': 'string',
+        }
+        enums = {
+            'custom_event_type_enum': CustomConversion.CustomEventType.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/customconversions',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=CustomConversion,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=CustomConversion),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+
     def create_custom_conversion(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.customconversion import CustomConversion
         param_types = {
