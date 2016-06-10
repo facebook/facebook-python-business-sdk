@@ -58,7 +58,7 @@ class ObjectParser:
             return self._custom_parse_method(response, self._api)
 
         data = response
-        if 'data' in response:
+        if 'data' in response and isinstance(response['data'], dict):
             data = response['data']
         elif 'images' in response:
             _, data = data['images'].popitem()
