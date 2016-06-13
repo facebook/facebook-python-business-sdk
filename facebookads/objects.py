@@ -950,6 +950,8 @@ class Activity(AbstractObject):
     class Field(object):
         event_time = 'event_time'
         event_type = 'event_type'
+        extra_data = 'extra_data'
+        object_id = 'object_id'
 
     @classmethod
     def get_endpoint(cls):
