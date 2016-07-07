@@ -281,6 +281,11 @@ class AbstractCrudObjectTestCase(unittest.TestCase):
 
 
 class AbstractObjectTestCase(unittest.TestCase):
+    def test_init(self):
+        obj = objects.Campaign()
+        self.assertNotIn(None, obj._data)
+        self.assertNotIn("facebookads.adobjects.campaign", obj._data)
+
     def test_export_nested_object(self):
         obj = specs.ObjectStorySpec()
         obj2 = specs.OfferData()
