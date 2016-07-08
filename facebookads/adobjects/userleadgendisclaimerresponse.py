@@ -19,11 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebookads.adobjects.abstractobject import AbstractObject
-from facebookads.adobjects.abstractcrudobject import AbstractCrudObject
-from facebookads.adobjects.objectparser import ObjectParser
-from facebookads.api import FacebookRequest
-from facebookads.typechecker import TypeChecker
-from facebookads.adobjects.helpers.adaccountusermixin import AdAccountUserMixin
 
 """
 This class is auto-generated.
@@ -33,30 +28,22 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdAccountUser(
-    AbstractCrudObject,
-    AdAccountUserMixin,
+class UserLeadGenDisclaimerResponse(
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isAdAccountUser = True
-        super(AdAccountUser, self).__init__(fbid, parent_id, api)
+    def __init__(self, api=None):
+        super(UserLeadGenDisclaimerResponse, self).__init__()
+        self._isUserLeadGenDisclaimerResponse = True
+        self._api = api
 
     class Field(AbstractObject.Field):
-        id = 'id'
-        name = 'name'
-        permissions = 'permissions'
-        role = 'role'
-
-    @classmethod
-    def get_endpoint(cls):
-        return 'users'
+        checkbox_key = 'checkbox_key'
+        is_checked = 'is_checked'
 
     _field_types = {
-        'id': 'string',
-        'name': 'string',
-        'permissions': 'list<unsigned int>',
-        'role': 'unsigned int',
+        'checkbox_key': 'string',
+        'is_checked': 'string',
     }
 
     @classmethod

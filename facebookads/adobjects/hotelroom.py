@@ -32,28 +32,25 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdPlacePageSet(
+class HotelRoom(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isAdPlacePageSet = True
-        super(AdPlacePageSet, self).__init__(fbid, parent_id, api)
+        self._isHotelRoom = True
+        super(HotelRoom, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        account_id = 'account_id'
+        applinks = 'applinks'
+        base_price = 'base_price'
+        currency = 'currency'
+        description = 'description'
         id = 'id'
+        images = 'images'
+        margin_level = 'margin_level'
         name = 'name'
-        pages_count = 'pages_count'
-        parent_page = 'parent_page'
-
-    @classmethod
-    def get_endpoint(cls):
-        return 'ad_place_page_sets'
-
-    def api_create(self, parent_id, fields=None, params=None, batch=None, pending=False):
-        from facebookads.adobjects.adaccount import AdAccount
-        return AdAccount(api=self._api, fbid=parent_id).create_ad_place_page_set(fields, params, batch, pending)
+        room_id = 'room_id'
+        url = 'url'
 
     def api_get(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
@@ -66,7 +63,7 @@ class AdPlacePageSet(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AdPlacePageSet,
+            target_class=HotelRoom,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -84,7 +81,15 @@ class AdPlacePageSet(
 
     def api_update(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
+            'applinks': 'Object',
+            'base_price': 'float',
+            'currency': 'string',
+            'description': 'string',
+            'images': 'list<Object>',
+            'margin_level': 'unsigned int',
             'name': 'string',
+            'pricing_variables': 'list<Object>',
+            'url': 'string',
         }
         enums = {
         }
@@ -94,7 +99,7 @@ class AdPlacePageSet(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AdPlacePageSet,
+            target_class=HotelRoom,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -111,11 +116,16 @@ class AdPlacePageSet(
             return request.execute()
 
     _field_types = {
-        'account_id': 'string',
+        'applinks': 'AppLinks',
+        'base_price': 'string',
+        'currency': 'string',
+        'description': 'string',
         'id': 'string',
+        'images': 'list<string>',
+        'margin_level': 'string',
         'name': 'string',
-        'pages_count': 'int',
-        'parent_page': 'Object',
+        'room_id': 'string',
+        'url': 'string',
     }
 
     @classmethod

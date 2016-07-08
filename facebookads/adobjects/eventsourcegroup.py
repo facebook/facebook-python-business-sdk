@@ -23,7 +23,6 @@ from facebookads.adobjects.abstractcrudobject import AbstractCrudObject
 from facebookads.adobjects.objectparser import ObjectParser
 from facebookads.api import FacebookRequest
 from facebookads.typechecker import TypeChecker
-from facebookads.adobjects.helpers.adaccountusermixin import AdAccountUserMixin
 
 """
 This class is auto-generated.
@@ -33,30 +32,58 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdAccountUser(
+class EventSourceGroup(
     AbstractCrudObject,
-    AdAccountUserMixin,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isAdAccountUser = True
-        super(AdAccountUser, self).__init__(fbid, parent_id, api)
+        self._isEventSourceGroup = True
+        super(EventSourceGroup, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        event_sources = 'event_sources'
         id = 'id'
         name = 'name'
-        permissions = 'permissions'
-        role = 'role'
 
     @classmethod
     def get_endpoint(cls):
-        return 'users'
+        return 'event_source_groups'
+
+    def api_create(self, parent_id, fields=None, params=None, batch=None, pending=False):
+        from facebookads.adobjects.business import Business
+        return Business(api=self._api, fbid=parent_id).create_event_source_group(fields, params, batch, pending)
+
+    def api_get(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=EventSourceGroup,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     _field_types = {
+        'event_sources': 'list<ExternalEventSource>',
         'id': 'string',
         'name': 'string',
-        'permissions': 'list<unsigned int>',
-        'role': 'unsigned int',
     }
 
     @classmethod

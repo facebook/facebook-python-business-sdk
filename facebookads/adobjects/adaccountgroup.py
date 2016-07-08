@@ -58,7 +58,6 @@ class AdAccountGroup(
 
     def api_delete(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
-            'id': 'string',
         }
         enums = {
         }
@@ -114,7 +113,6 @@ class AdAccountGroup(
     def api_update(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
             'accounts': 'map',
-            'id': 'string',
             'name': 'string',
             'redownload': 'bool',
             'status': 'unsigned int',
@@ -147,7 +145,6 @@ class AdAccountGroup(
     def delete_ad_accounts(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
             'account_id': 'string',
-            'id': 'string',
         }
         enums = {
         }
@@ -203,7 +200,6 @@ class AdAccountGroup(
     def create_ad_account(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
             'account_ids': 'list<string>',
-            'id': 'string',
             'redownload': 'bool',
         }
         enums = {
@@ -232,7 +228,6 @@ class AdAccountGroup(
 
     def delete_users(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
-            'id': 'string',
             'redownload': 'bool',
             'uid': 'int',
         }
@@ -263,7 +258,6 @@ class AdAccountGroup(
     def create_user(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
             'account_group_roles': 'list<map>',
-            'id': 'string',
             'redownload': 'bool',
         }
         enums = {

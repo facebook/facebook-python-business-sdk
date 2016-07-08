@@ -73,6 +73,8 @@ class CustomAudienceDataSource(
         fb_pixel_hits = 'FB_PIXEL_HITS'
         ig_promoted_post = 'IG_PROMOTED_POST'
         place_visits = 'PLACE_VISITS'
+        offline_event_users = 'OFFLINE_EVENT_USERS'
+        expanded_audience = 'EXPANDED_AUDIENCE'
         mail_chimp_email_hashes = 'MAIL_CHIMP_EMAIL_HASHES'
         constant_contacts_email_hashes = 'CONSTANT_CONTACTS_EMAIL_HASHES'
         copy_paste_email_hashes = 'COPY_PASTE_EMAIL_HASHES'

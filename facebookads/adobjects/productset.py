@@ -57,7 +57,6 @@ class ProductSet(
 
     def api_delete(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
-            'id': 'string',
         }
         enums = {
         }
@@ -113,7 +112,6 @@ class ProductSet(
     def api_update(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
             'filter': 'Object',
-            'id': 'string',
             'name': 'string',
         }
         enums = {
@@ -124,7 +122,7 @@ class ProductSet(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=ProductSet,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )

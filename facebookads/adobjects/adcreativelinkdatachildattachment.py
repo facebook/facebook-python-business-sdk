@@ -57,7 +57,7 @@ class AdCreativeLinkDataChildAttachment(
         'link': 'string',
         'name': 'string',
         'picture': 'string',
-        'place_data': 'Object',
+        'place_data': 'AdCreativePlaceData',
         'static_card': 'bool',
         'video_id': 'string',
     }

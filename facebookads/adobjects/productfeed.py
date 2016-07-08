@@ -87,7 +87,6 @@ class ProductFeed(
 
     def api_delete(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
-            'id': 'string',
         }
         enums = {
         }
@@ -146,7 +145,6 @@ class ProductFeed(
             'deletion_enabled': 'bool',
             'delimiter': 'delimiter_enum',
             'encoding': 'encoding_enum',
-            'id': 'string',
             'name': 'string',
             'quoted_fields': 'bool',
             'schedule': 'string',
@@ -161,7 +159,7 @@ class ProductFeed(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=ProductFeed,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -237,8 +235,8 @@ class ProductFeed(
         from facebookads.adobjects.productfeedupload import ProductFeedUpload
         param_types = {
             'file': 'file',
-            'id': 'string',
             'password': 'string',
+            'update_only': 'bool',
             'url': 'string',
             'username': 'string',
         }

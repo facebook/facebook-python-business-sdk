@@ -24,7 +24,6 @@ from facebookads.adobjects.objectparser import ObjectParser
 from facebookads.api import FacebookRequest
 from facebookads.typechecker import TypeChecker
 from facebookads.mixins import HasAdLabels
-from facebookads.mixins import CanValidate
 
 """
 This class is auto-generated.
@@ -37,7 +36,6 @@ pull request for this class.
 class AdSet(
     AbstractCrudObject,
     HasAdLabels,
-    CanValidate,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
@@ -48,6 +46,9 @@ class AdSet(
         account_id = 'account_id'
         adlabels = 'adlabels'
         adset_schedule = 'adset_schedule'
+        asset_feed_id = 'asset_feed_id'
+        attribution_window_days = 'attribution_window_days'
+        best_creative = 'best_creative'
         bid_amount = 'bid_amount'
         bid_info = 'bid_info'
         billing_event = 'billing_event'
@@ -78,6 +79,8 @@ class AdSet(
         start_time = 'start_time'
         status = 'status'
         targeting = 'targeting'
+        time_based_ad_rotation_id_blocks = 'time_based_ad_rotation_id_blocks'
+        time_based_ad_rotation_intervals = 'time_based_ad_rotation_intervals'
         updated_time = 'updated_time'
         use_new_app_click = 'use_new_app_click'
         daily_imps = 'daily_imps'
@@ -156,9 +159,8 @@ class AdSet(
         lifetime = 'lifetime'
 
     class ExecutionOptions:
-        validate_only = 'VALIDATE_ONLY'
-        synchronous_ad_review = 'SYNCHRONOUS_AD_REVIEW'
-        include_recommendations = 'INCLUDE_RECOMMENDATIONS'
+        validate_only = 'validate_only'
+        include_recommendations = 'include_recommendations'
 
     class Operator:
         all = 'ALL'
@@ -175,7 +177,6 @@ class AdSet(
     def api_delete(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
             'account_id': 'string',
-            'id': 'string',
         }
         enums = {
         }
@@ -233,6 +234,7 @@ class AdSet(
             'account_id': 'string',
             'adlabels': 'list<Object>',
             'adset_schedule': 'list<Object>',
+            'attribution_window_days': 'unsigned int',
             'bid_amount': 'int',
             'billing_event': 'billing_event_enum',
             'creative_sequence': 'list<string>',
@@ -240,7 +242,6 @@ class AdSet(
             'daily_imps': 'unsigned int',
             'end_time': 'datetime',
             'execution_options': 'list<execution_options_enum>',
-            'id': 'string',
             'is_autobid': 'bool',
             'lifetime_budget': 'unsigned int',
             'lifetime_imps': 'unsigned int',
@@ -253,6 +254,8 @@ class AdSet(
             'start_time': 'datetime',
             'status': 'status_enum',
             'targeting': 'Targeting',
+            'time_based_ad_rotation_id_blocks': 'list<list<unsigned int>>',
+            'time_based_ad_rotation_intervals': 'list<unsigned int>',
         }
         enums = {
             'billing_event_enum': AdSet.BillingEvent.__dict__.values(),
@@ -266,7 +269,7 @@ class AdSet(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=AdSet,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -285,10 +288,8 @@ class AdSet(
     def get_activities(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.adactivity import AdActivity
         param_types = {
-            'after': 'string',
             'business_id': 'string',
             'category': 'category_enum',
-            'limit': 'int',
             'since': 'datetime',
             'uid': 'int',
             'until': 'datetime',
@@ -351,7 +352,6 @@ class AdSet(
         param_types = {
             'adlabels': 'list<Object>',
             'execution_options': 'list<execution_options_enum>',
-            'id': 'string',
         }
         enums = {
             'execution_options_enum': AdLabel.ExecutionOptions.__dict__.values(),
@@ -383,7 +383,6 @@ class AdSet(
         param_types = {
             'adlabels': 'list<Object>',
             'execution_options': 'list<execution_options_enum>',
-            'id': 'string',
         }
         enums = {
             'execution_options_enum': AdLabel.ExecutionOptions.__dict__.values(),
@@ -394,9 +393,9 @@ class AdSet(
             endpoint='/adlabels',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=AdLabel,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject),
+            response_parser=ObjectParser(target_class=AdLabel),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -616,6 +615,9 @@ class AdSet(
         'account_id': 'string',
         'adlabels': 'list<AdLabel>',
         'adset_schedule': 'list<DayPart>',
+        'asset_feed_id': 'string',
+        'attribution_window_days': 'unsigned int',
+        'best_creative': 'Object',
         'bid_amount': 'unsigned int',
         'bid_info': 'map<string, unsigned int>',
         'billing_event': 'BillingEvent',
@@ -646,6 +648,8 @@ class AdSet(
         'start_time': 'datetime',
         'status': 'Status',
         'targeting': 'Targeting',
+        'time_based_ad_rotation_id_blocks': 'list<list<int>>',
+        'time_based_ad_rotation_intervals': 'list<unsigned int>',
         'updated_time': 'datetime',
         'use_new_app_click': 'bool',
         'daily_imps': 'unsigned int',

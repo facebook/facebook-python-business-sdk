@@ -21,7 +21,6 @@
 from facebookads.adobjects.adaccount import AdAccount
 from facebookads.api import FacebookAdsApi
 from facebookads.exceptions import FacebookBadObjectError
-from facebookads.adobjects.abstractcrudobject import AbstractCrudObject
 
 class AdImageMixin:
     @classmethod
@@ -103,7 +102,7 @@ class AdImageMixin:
 
             return self
         else:
-            return AbstractCrudObject._set_data(self, data)
+            return super(self.__class__, self)._set_data(data)
 
     def remote_create(
         self,
@@ -125,8 +124,7 @@ class AdImageMixin:
             )
         filename = self[self.Field.filename]
         with open(filename, 'rb') as open_file:
-            return_val = AbstractCrudObject.remote_create(
-                self,
+            return_val = super(self.__class__, self).remote_create(
                 files={filename: open_file},
                 batch=batch,
                 failure=failure,

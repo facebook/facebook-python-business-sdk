@@ -30,8 +30,8 @@ pull request for this class.
 """
 
 class AdPreview(
-    AdPreviewMixin,
     AbstractObject,
+    AdPreviewMixin,
 ):
 
     def __init__(self, api=None):

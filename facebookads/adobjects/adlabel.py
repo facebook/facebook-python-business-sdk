@@ -48,9 +48,7 @@ class AdLabel(
         updated_time = 'updated_time'
 
     class ExecutionOptions:
-        validate_only = 'VALIDATE_ONLY'
-        synchronous_ad_review = 'SYNCHRONOUS_AD_REVIEW'
-        include_recommendations = 'INCLUDE_RECOMMENDATIONS'
+        validate_only = 'validate_only'
 
     @classmethod
     def get_endpoint(cls):
@@ -62,7 +60,6 @@ class AdLabel(
 
     def api_delete(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
-            'id': 'string',
         }
         enums = {
         }
@@ -117,7 +114,6 @@ class AdLabel(
 
     def api_update(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
-            'id': 'string',
             'name': 'string',
         }
         enums = {
@@ -128,7 +124,7 @@ class AdLabel(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=AdLabel,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )

@@ -50,6 +50,7 @@ class AdsActionStats(
         action_device = 'action_device'
         action_target_id = 'action_target_id'
         action_type = 'action_type'
+        action_video_sound = 'action_video_sound'
         action_video_type = 'action_video_type'
         value = 'value'
 
@@ -66,6 +67,7 @@ class AdsActionStats(
         'action_device': 'string',
         'action_target_id': 'string',
         'action_type': 'string',
+        'action_video_sound': 'string',
         'action_video_type': 'string',
         'value': 'float',
     }

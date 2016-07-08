@@ -61,8 +61,8 @@ class FacebookRequestError(FacebookError):
         self._api_error_code = None
         self._api_error_type = None
         self._api_error_message = None
-        self._api_error_subcode = None
         self._api_blame_field_specs = None
+        self._api_error_subcode = None
         self._api_transient_error = False
 
         if self._body and 'error' in self._body:

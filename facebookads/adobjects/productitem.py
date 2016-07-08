@@ -50,6 +50,7 @@ class ProductItem(
         color = 'color'
         commerce_insights = 'commerce_insights'
         condition = 'condition'
+        currency = 'currency'
         custom_data = 'custom_data'
         custom_label_0 = 'custom_label_0'
         custom_label_1 = 'custom_label_1'
@@ -88,7 +89,6 @@ class ProductItem(
         android_package = 'android_package'
         android_url = 'android_url'
         checkout_url = 'checkout_url'
-        currency = 'currency'
         inventory = 'inventory'
         ios_app_name = 'ios_app_name'
         ios_app_store_id = 'ios_app_store_id'
@@ -142,151 +142,6 @@ class ProductItem(
         staging = 'staging'
         published = 'published'
 
-    class ReviewRejectionReasons:
-        unknown = 'UNKNOWN'
-        irregular_app_install = 'IRREGULAR_APP_INSTALL'
-        text_overlay = 'TEXT_OVERLAY'
-        adult_content = 'ADULT_CONTENT'
-        adult_health = 'ADULT_HEALTH'
-        alcohol = 'ALCOHOL'
-        animated_image = 'ANIMATED_IMAGE'
-        before_and_after = 'BEFORE_AND_AFTER'
-        casual_dating = 'CASUAL_DATING'
-        dating = 'DATING'
-        facebook_reference = 'FACEBOOK_REFERENCE'
-        financial = 'FINANCIAL'
-        gambling = 'GAMBLING'
-        idealized_body = 'IDEALIZED_BODY'
-        language = 'LANGUAGE'
-        landing_page_fail = 'LANDING_PAGE_FAIL'
-        sexual = 'SEXUAL'
-        test = 'TEST'
-        tobacco_sale = 'TOBACCO_SALE'
-        trapping = 'TRAPPING'
-        unsubstantiated_claim = 'UNSUBSTANTIATED_CLAIM'
-        other = 'OTHER'
-        weapon_sale = 'WEAPON_SALE'
-        work_from_home = 'WORK_FROM_HOME'
-        cash_advance = 'CASH_ADVANCE'
-        shock_and_scare = 'SHOCK_AND_SCARE'
-        spy_camera = 'SPY_CAMERA'
-        bad_health_product = 'BAD_HEALTH_PRODUCT'
-        grammar = 'GRAMMAR'
-        illegal = 'ILLEGAL'
-        misuse_of_like = 'MISUSE_OF_LIKE'
-        non_existent_functionality = 'NON_EXISTENT_FUNCTIONALITY'
-        online_pharmacy = 'ONLINE_PHARMACY'
-        penny_auction = 'PENNY_AUCTION'
-        porn = 'PORN'
-        copyright = 'COPYRIGHT'
-        trademark = 'TRADEMARK'
-        counterfeit = 'COUNTERFEIT'
-        system_issue = 'SYSTEM_ISSUE'
-        q_blurry_pixelated = 'Q_BLURRY_PIXELATED'
-        q_borderline_sexual = 'Q_BORDERLINE_SEXUAL'
-        q_border_background = 'Q_BORDER_BACKGROUND'
-        q_grammar_capitalization = 'Q_GRAMMAR_CAPITALIZATION'
-        q_irrelevant_image_copy = 'Q_IRRELEVANT_IMAGE_COPY'
-        q_misleading = 'Q_MISLEADING'
-        q_multiple_images = 'Q_MULTIPLE_IMAGES'
-        q_hot_button = 'Q_HOT_BUTTON'
-        q_zoom_in_body_parts = 'Q_ZOOM_IN_BODY_PARTS'
-        q_zoom_in_food = 'Q_ZOOM_IN_FOOD'
-        quality_low = 'QUALITY_LOW'
-        lead_ad_from_aggregator = 'LEAD_AD_FROM_AGGREGATOR'
-        unsuitable_question = 'UNSUITABLE_QUESTION'
-        fraud_associated = 'FRAUD_ASSOCIATED'
-        mystery_image = 'MYSTERY_IMAGE'
-        app_scam = 'APP_SCAM'
-        text_penalty_high = 'TEXT_PENALTY_HIGH'
-        text_penalty_medium = 'TEXT_PENALTY_MEDIUM'
-        text_penalty_low = 'TEXT_PENALTY_LOW'
-        bad_subscription = 'BAD_SUBSCRIPTION'
-        facebook_word_manipulated = 'FACEBOOK_WORD_MANIPULATED'
-        facebook_icons = 'FACEBOOK_ICONS'
-        facebook_page_lookalike = 'FACEBOOK_PAGE_LOOKALIKE'
-        facebook_logo_focus = 'FACEBOOK_LOGO_FOCUS'
-        facebook_logo_overlap = 'FACEBOOK_LOGO_OVERLAP'
-        facebook_logo = 'FACEBOOK_LOGO'
-        facebook_logo_thumbs_up = 'FACEBOOK_LOGO_THUMBS_UP'
-        facebook_screenshot_prod = 'FACEBOOK_SCREENSHOT_PROD'
-        facebook_wordmark = 'FACEBOOK_WORDMARK'
-        facebook_zuckpic = 'FACEBOOK_ZUCKPIC'
-        highlighted_pain_points = 'HIGHLIGHTED_PAIN_POINTS'
-        perfect_body = 'PERFECT_BODY'
-        scales = 'SCALES'
-        tape_measure = 'TAPE_MEASURE'
-        undesirable_body = 'UNDESIRABLE_BODY'
-        zoom_body_part = 'ZOOM_BODY_PART'
-        harrassment = 'HARRASSMENT'
-        user_attributes_callout = 'USER_ATTRIBUTES_CALLOUT'
-        user_finanical_callout = 'USER_FINANICAL_CALLOUT'
-        user_health_attributes = 'USER_HEALTH_ATTRIBUTES'
-        user_weight_attributes = 'USER_WEIGHT_ATTRIBUTES'
-        profanity = 'PROFANITY'
-        fake_form_elements = 'FAKE_FORM_ELEMENTS'
-        fake_notifications = 'FAKE_NOTIFICATIONS'
-        mouse_cursor = 'MOUSE_CURSOR'
-        play_button = 'PLAY_BUTTON'
-        qr_codes = 'QR_CODES'
-        excessive_skin = 'EXCESSIVE_SKIN'
-        indirect_nudity = 'INDIRECT_NUDITY'
-        indirect_sexual_act = 'INDIRECT_SEXUAL_ACT'
-        sexual_other = 'SEXUAL_OTHER'
-        zoom_sexual_image = 'ZOOM_SEXUAL_IMAGE'
-        breastenlargement = 'BREASTENLARGEMENT'
-        genitalsurgery = 'GENITALSURGERY'
-        libido = 'LIBIDO'
-        nudity_notporn = 'NUDITY_NOTPORN'
-        pheromone = 'PHEROMONE'
-        scheme_hotgirlpage = 'SCHEME_HOTGIRLPAGE'
-        services_seduction = 'SERVICES_SEDUCTION'
-        sexpublications = 'SEXPUBLICATIONS'
-        sextoys = 'SEXTOYS'
-        sexualpleasure = 'SEXUALPLEASURE'
-        stripclubs = 'STRIPCLUBS'
-        mention_botox = 'MENTION_BOTOX'
-        mention_dietproduct = 'MENTION_DIETPRODUCT'
-        mention_lasers = 'MENTION_LASERS'
-        mention_sexualhealth = 'MENTION_SEXUALHEALTH'
-        mention_supplement = 'MENTION_SUPPLEMENT'
-        mention_surgery = 'MENTION_SURGERY'
-        mention_brand_alcohol = 'MENTION_BRAND_ALCOHOL'
-        mention_consumption_alcohol = 'MENTION_CONSUMPTION_ALCOHOL'
-        mention_sales_alcohol = 'MENTION_SALES_ALCOHOL'
-        sponsorship = 'SPONSORSHIP'
-        mention_sales_badhealthproduct = 'MENTION_SALES_BADHEALTHPRODUCT'
-        unclear_cancellation_subscription = 'UNCLEAR_CANCELLATION_SUBSCRIPTION'
-        unclear_pricing_subscription = 'UNCLEAR_PRICING_SUBSCRIPTION'
-        ba_hairloss = 'BA_HAIRLOSS'
-        ba_medical = 'BA_MEDICAL'
-        ba_skin = 'BA_SKIN'
-        ba_teeth = 'BA_TEETH'
-        ba_weightloss = 'BA_WEIGHTLOSS'
-        gibberish = 'GIBBERISH'
-        randomcharacters = 'RANDOMCHARACTERS'
-        drugs_illegal = 'DRUGS_ILLEGAL'
-        human_trafficking = 'HUMAN_TRAFFICKING'
-        services_escort = 'SERVICES_ESCORT'
-        image_animalcruelty = 'IMAGE_ANIMALCRUELTY'
-        image_medical = 'IMAGE_MEDICAL'
-        image_offensivegesture = 'IMAGE_OFFENSIVEGESTURE'
-        image_vehiclecollision = 'IMAGE_VEHICLECOLLISION'
-        image_weaponatuser = 'IMAGE_WEAPONATUSER'
-        mention_image_violence_gore = 'MENTION_IMAGE_VIOLENCE_GORE'
-        mention_accessory_consumption_tobacco = 'MENTION_ACCESSORY_CONSUMPTION_TOBACCO'
-        mention_brand_tobacco = 'MENTION_BRAND_TOBACCO'
-        falsenotification = 'FALSENOTIFICATION'
-        impossiblecures = 'IMPOSSIBLECURES'
-        mention_numeric_claim = 'MENTION_NUMERIC_CLAIM'
-        mention_trickstips = 'MENTION_TRICKSTIPS'
-        specificindividualclaim = 'SPECIFICINDIVIDUALCLAIM'
-        unrealistic_ebookpromise = 'UNREALISTIC_EBOOKPROMISE'
-        videosexual = 'VIDEOSEXUAL'
-        videoschockandscare = 'VIDEOSCHOCKANDSCARE'
-        videolanguage = 'VIDEOLANGUAGE'
-        not_dating_partner = 'NOT_DATING_PARTNER'
-
     @classmethod
     def get_endpoint(cls):
         return 'products'
@@ -297,7 +152,6 @@ class ProductItem(
 
     def api_delete(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
-            'id': 'string',
         }
         enums = {
         }
@@ -325,6 +179,8 @@ class ProductItem(
 
     def api_get(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
+            'image_height': 'unsigned int',
+            'image_width': 'unsigned int',
         }
         enums = {
         }
@@ -374,7 +230,6 @@ class ProductItem(
             'expiration_date': 'string',
             'gender': 'gender_enum',
             'gtin': 'string',
-            'id': 'string',
             'image_url': 'string',
             'inventory': 'unsigned int',
             'ios_app_name': 'string',
@@ -415,7 +270,7 @@ class ProductItem(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=ProductItem,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -469,6 +324,7 @@ class ProductItem(
         'color': 'string',
         'commerce_insights': 'ProductItemCommerceInsights',
         'condition': 'Condition',
+        'currency': 'string',
         'custom_data': 'list<Object>',
         'custom_label_0': 'string',
         'custom_label_1': 'string',
@@ -491,7 +347,7 @@ class ProductItem(
         'product_type': 'string',
         'retailer_id': 'string',
         'retailer_product_group_id': 'string',
-        'review_rejection_reasons': 'ReviewRejectionReasons',
+        'review_rejection_reasons': 'list<string>',
         'review_status': 'ReviewStatus',
         'sale_price': 'string',
         'sale_price_end_date': 'string',
@@ -507,7 +363,6 @@ class ProductItem(
         'android_package': 'string',
         'android_url': 'string',
         'checkout_url': 'string',
-        'currency': 'string',
         'inventory': 'unsigned int',
         'ios_app_name': 'string',
         'ios_app_store_id': 'unsigned int',
@@ -533,5 +388,4 @@ class ProductItem(
         field_enum_info['ReviewStatus'] = ProductItem.ReviewStatus.__dict__.values()
         field_enum_info['ShippingWeightUnit'] = ProductItem.ShippingWeightUnit.__dict__.values()
         field_enum_info['Visibility'] = ProductItem.Visibility.__dict__.values()
-        field_enum_info['ReviewRejectionReasons'] = ProductItem.ReviewRejectionReasons.__dict__.values()
         return field_enum_info

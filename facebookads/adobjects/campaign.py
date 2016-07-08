@@ -24,7 +24,6 @@ from facebookads.adobjects.objectparser import ObjectParser
 from facebookads.api import FacebookRequest
 from facebookads.typechecker import TypeChecker
 from facebookads.mixins import HasAdLabels
-from facebookads.mixins import CanValidate
 
 """
 This class is auto-generated.
@@ -37,7 +36,6 @@ pull request for this class.
 class Campaign(
     AbstractCrudObject,
     HasAdLabels,
-    CanValidate,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
@@ -111,9 +109,8 @@ class Campaign(
         delete_archived_before = 'DELETE_ARCHIVED_BEFORE'
 
     class ExecutionOptions:
-        validate_only = 'VALIDATE_ONLY'
-        synchronous_ad_review = 'SYNCHRONOUS_AD_REVIEW'
-        include_recommendations = 'INCLUDE_RECOMMENDATIONS'
+        validate_only = 'validate_only'
+        include_recommendations = 'include_recommendations'
 
     class Objective:
         brand_awareness = 'BRAND_AWARENESS'
@@ -131,6 +128,7 @@ class Campaign(
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
         product_catalog_sales = 'PRODUCT_CATALOG_SALES'
+        reach = 'REACH'
         video_views = 'VIDEO_VIEWS'
 
     class Operator:
@@ -147,7 +145,6 @@ class Campaign(
 
     def api_delete(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
-            'id': 'string',
         }
         enums = {
         }
@@ -221,7 +218,7 @@ class Campaign(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=Campaign,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -242,7 +239,6 @@ class Campaign(
         param_types = {
             'adlabels': 'list<Object>',
             'execution_options': 'list<execution_options_enum>',
-            'id': 'string',
         }
         enums = {
             'execution_options_enum': AdLabel.ExecutionOptions.__dict__.values(),
@@ -274,7 +270,6 @@ class Campaign(
         param_types = {
             'adlabels': 'list<Object>',
             'execution_options': 'list<execution_options_enum>',
-            'id': 'string',
         }
         enums = {
             'execution_options_enum': AdLabel.ExecutionOptions.__dict__.values(),
@@ -285,9 +280,9 @@ class Campaign(
             endpoint='/adlabels',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=AdLabel,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject),
+            response_parser=ObjectParser(target_class=AdLabel),
         )
         request.add_params(params)
         request.add_fields(fields)

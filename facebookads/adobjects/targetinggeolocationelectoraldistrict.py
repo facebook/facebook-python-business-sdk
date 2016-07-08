@@ -28,26 +28,26 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class ConnectionObjectOpenGraphAction(
+class TargetingGeoLocationElectoralDistrict(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(ConnectionObjectOpenGraphAction, self).__init__()
-        self._isConnectionObjectOpenGraphAction = True
+        super(TargetingGeoLocationElectoralDistrict, self).__init__()
+        self._isTargetingGeoLocationElectoralDistrict = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        connected_objects = 'connected_objects'
-        display_name = 'display_name'
+        country = 'country'
+        electoral_district = 'electoral_district'
+        key = 'key'
         name = 'name'
-        properties = 'properties'
 
     _field_types = {
-        'connected_objects': 'list<string>',
-        'display_name': 'string',
+        'country': 'string',
+        'electoral_district': 'string',
+        'key': 'string',
         'name': 'string',
-        'properties': 'list<ConnectionObjectOpenGraphObjectProperty>',
     }
 
     @classmethod

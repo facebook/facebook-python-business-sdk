@@ -34,8 +34,8 @@ pull request for this class.
 """
 
 class AdReportRun(
-    AdReportRunMixin,
     AbstractCrudObject,
+    AdReportRunMixin,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):

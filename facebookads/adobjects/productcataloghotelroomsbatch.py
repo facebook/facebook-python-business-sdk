@@ -19,11 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebookads.adobjects.abstractobject import AbstractObject
-from facebookads.adobjects.abstractcrudobject import AbstractCrudObject
-from facebookads.adobjects.objectparser import ObjectParser
-from facebookads.api import FacebookRequest
-from facebookads.typechecker import TypeChecker
-from facebookads.adobjects.helpers.adaccountusermixin import AdAccountUserMixin
 
 """
 This class is auto-generated.
@@ -33,33 +28,47 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdAccountUser(
-    AbstractCrudObject,
-    AdAccountUserMixin,
+class ProductCatalogHotelRoomsBatch(
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isAdAccountUser = True
-        super(AdAccountUser, self).__init__(fbid, parent_id, api)
+    def __init__(self, api=None):
+        super(ProductCatalogHotelRoomsBatch, self).__init__()
+        self._isProductCatalogHotelRoomsBatch = True
+        self._api = api
 
     class Field(AbstractObject.Field):
-        id = 'id'
-        name = 'name'
-        permissions = 'permissions'
-        role = 'role'
+        errors = 'errors'
+        errors_total_count = 'errors_total_count'
+        handle = 'handle'
+        status = 'status'
+        file = 'file'
+        standard = 'standard'
+        update_only = 'update_only'
+
+    class Standard:
+        google = 'google'
 
     @classmethod
     def get_endpoint(cls):
-        return 'users'
+        return 'hotel_rooms_batch'
+
+    def api_create(self, parent_id, fields=None, params=None, batch=None, pending=False):
+        from facebookads.adobjects.productcatalog import ProductCatalog
+        return ProductCatalog(api=self._api, fbid=parent_id).create_hotel_rooms_batch(fields, params, batch, pending)
 
     _field_types = {
-        'id': 'string',
-        'name': 'string',
-        'permissions': 'list<unsigned int>',
-        'role': 'unsigned int',
+        'errors': 'list<Object>',
+        'errors_total_count': 'int',
+        'handle': 'string',
+        'status': 'string',
+        'file': 'file',
+        'standard': 'Standard',
+        'update_only': 'bool',
     }
 
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['Standard'] = ProductCatalogHotelRoomsBatch.Standard.__dict__.values()
         return field_enum_info
