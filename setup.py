@@ -57,7 +57,7 @@ with open(requirements_filename) as f:
 
 setup(
     name=PACKAGE_NAME,
-    version=PACKAGE_VERSION,
+    version="2.6.2.1",
     author=PACKAGE_AUTHOR,
     author_email=PACKAGE_AUTHOR_EMAIL,
     url=PACKAGE_URL,
