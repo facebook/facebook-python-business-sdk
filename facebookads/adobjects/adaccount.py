@@ -35,8 +35,8 @@ pull request for this class.
 """
 
 class AdAccount(
-    AbstractCrudObject,
     AdAccountMixin,
+    AbstractCrudObject,
     HasAdLabels,
 ):
 

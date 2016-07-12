@@ -34,8 +34,8 @@ pull request for this class.
 """
 
 class AdAccountUser(
-    AbstractCrudObject,
     AdAccountUserMixin,
+    AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):

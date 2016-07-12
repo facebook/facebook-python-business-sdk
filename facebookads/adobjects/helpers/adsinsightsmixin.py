@@ -30,7 +30,7 @@ class AdsInsightsMixin:
         contain = 'CONTAIN'
         equal = 'EQUAL'
         greater_than = 'GREATER_THAN'
-        greater_than_or_equal = 'GREATER_TAN_OR_EQUAL'
+        greater_than_or_equal = 'GREATER_THAN_OR_EQUAL'
         in_ = 'IN'
         in_range = 'IN_RANGE'
         less_than = 'LESS_THAN'
