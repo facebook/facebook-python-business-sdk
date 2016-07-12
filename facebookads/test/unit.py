@@ -33,12 +33,12 @@ import re
 import hashlib
 from six.moves import urllib
 from sys import version_info
-from .. import api
-from .. import objects
-from .. import specs
-from .. import exceptions
-from .. import session
-from .. import utils
+from .. import (
+    api, objects, specs, exceptions,
+    session, typechecker, utils
+)
+from facebookads.adobjects.ad import Ad
+from facebookads.adobjects.adset import AdSet
 from facebookads.utils import version
 
 
@@ -474,6 +474,75 @@ class FacebookResponseTestCase(unittest.TestCase):
     def test_is_success_service_unavailable(self):
         resp = api.FacebookResponse(body="Service Unavailable", http_status=200)
         self.assertFalse(resp.is_success())
+
+
+class TypeCheckerTestCase(unittest.TestCase):
+
+    def test__import_object_adobject(self):
+        checker = typechecker.TypeChecker({}, None)
+        klass = checker._import_object("Ad")
+        self.assertIs(klass, Ad)
+
+    def test__import_object_custom_path(self):
+        checker = typechecker.TypeChecker({}, None)
+        klass = checker._import_object("facebookads.api.FacebookResponse")
+        self.assertIs(klass, api.FacebookResponse)
+
+    def test__import_object_wrong_custom_path(self):
+        checker = typechecker.TypeChecker({}, None)
+        self.assertIsNone(checker._import_object("this_is_a_bad_module"))
+
+    def test__import_object_unknown_module(self):
+        checker = typechecker.TypeChecker({}, None)
+        self.assertIsNone(checker._import_object("module.that.doesnt.exist"))
+
+    def test__import_object_unknown_class_in_module(self):
+        checker = typechecker.TypeChecker({}, None)
+        self.assertIsNone(checker._import_object("facebookads.Boom"))
+
+    def test__create_field_object_adobject(self):
+        checker = typechecker.TypeChecker({}, None)
+        obj = checker._create_field_object("Ad", {Ad.Field.name: "yep"})
+        self.assertIsInstance(obj, Ad)
+        self.assertEqual(obj[Ad.Field.name], "yep")
+
+    def test__create_field_object_custom_path(self):
+        checker = typechecker.TypeChecker({}, None)
+        obj = checker._create_field_object("facebookads.adobjects.adset.AdSet")
+        self.assertIsInstance(obj, AdSet)
+
+    def test__create_field_object_wrong_custom_path(self):
+        checker = typechecker.TypeChecker({}, None)
+        self.assertIsNone(checker._create_field_object("this_is_a_bad_module"))
+
+    def test__create_field_object_unknown_module(self):
+        checker = typechecker.TypeChecker({}, None)
+        self.assertIsNone(checker._create_field_object("module.that.doesnt.exist"))
+
+    def test__create_field_object_unknown_class_in_module(self):
+        checker = typechecker.TypeChecker({}, None)
+        self.assertIsNone(checker._create_field_object("facebookads.Boom"))
+
+    def test__type_is_ad_object_adobject(self):
+        checker = typechecker.TypeChecker({}, None)
+        self.assertTrue(checker._type_is_ad_object("Ad"))
+
+    def test__type_is_ad_object_custom_path(self):
+        checker = typechecker.TypeChecker({}, None)
+        self.assertTrue(checker._type_is_ad_object("facebookads.adobjects.adset.AdSet"))
+
+    def test__type_is_ad_object_wrong_custom_path(self):
+        checker = typechecker.TypeChecker({}, None)
+        self.assertFalse(checker._type_is_ad_object("this_is_a_bad_module"))
+
+    def test__type_is_ad_object_unknown_module(self):
+        checker = typechecker.TypeChecker({}, None)
+        self.assertFalse(checker._type_is_ad_object("module.that.doesnt.exist"))
+
+    def test__type_is_ad_object_unknown_class_in_module(self):
+        checker = typechecker.TypeChecker({}, None)
+        self.assertFalse(checker._type_is_ad_object("facebookads.Boom"))
+
 
 if __name__ == '__main__':
     unittest.main()

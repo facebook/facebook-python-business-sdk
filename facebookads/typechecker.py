@@ -197,20 +197,39 @@ class TypeChecker:
                 ' Expect ' + field_type + '; got ' + str(type(typed_value)))
         return typed_value
 
-    def _create_field_object(self, field_type, data=None):
-        mod = importlib.import_module(
-            "facebookads.adobjects." + field_type.lower())
-        if mod is not None and hasattr(mod, field_type):
-            obj = (getattr(mod, field_type))()
-            if data is not None:
-                obj._set_data(data)
-            return obj
+    def _import_object(self, path_or_field_type):
+        """
+        Import an object from the facebookads.adobjects module, or
+        any other absolute path. Return `None` if we cannot find
+        any object.
+
+        :param path_or_field_type:    can be an object class contained
+                                      in facebookads.adobjects or an
+                                      absolute path to a class
+        :return:                      object or None
+        """
+        paths = [
+            "facebookads.adobjects.%s.%s" % (path_or_field_type.lower(), path_or_field_type),
+            path_or_field_type,
+        ]
+        for path in paths:
+            try:
+                module_name, class_name = path.rsplit(".", 1)
+                module = importlib.import_module(module_name)
+                return getattr(module, class_name)
+            except (ValueError, ImportError, AttributeError):
+                continue
         return None
 
+    def _create_field_object(self, field_type, data=None):
+        klass = self._import_object(field_type)
+        if not klass:
+            return None
+
+        obj = klass()
+        if data is not None:
+            obj._set_data(data)
+        return obj
+
     def _type_is_ad_object(self, value_type):
-        try:
-            mod = importlib.import_module(
-                "facebookads.adobjects." + value_type.lower())
-            return mod is not None
-        except:
-            return False
+        return self._import_object(value_type) is not None
