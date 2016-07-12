@@ -24,6 +24,7 @@ from facebookads.adobjects.objectparser import ObjectParser
 from facebookads.api import FacebookRequest
 from facebookads.typechecker import TypeChecker
 from facebookads.mixins import HasAdLabels
+from facebookads.mixins import CanValidate
 
 """
 This class is auto-generated.
@@ -36,6 +37,7 @@ pull request for this class.
 class Campaign(
     AbstractCrudObject,
     HasAdLabels,
+    CanValidate,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):

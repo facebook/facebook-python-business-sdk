@@ -30,8 +30,8 @@ pull request for this class.
 """
 
 class AdsInsights(
-    AbstractObject,
     AdsInsightsMixin,
+    AbstractObject,
 ):
 
     def __init__(self, api=None):

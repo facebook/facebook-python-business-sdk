@@ -40,7 +40,7 @@ class AbstractObject(collections.MutableMapping):
         pass
 
     def __init__(self):
-        self._data = dict.fromkeys(self.Field.__dict__.values())
+        self._data = {}
         self._field_checker = TypeChecker(self._field_types,
             self._get_field_enum_info())
 
