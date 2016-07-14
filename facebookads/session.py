@@ -42,7 +42,7 @@ class FacebookSession(object):
         requests: The python requests object through which calls to the api can
             be made.
     """
-    GRAPH = 'https://graph.intern.facebook.com'
+    GRAPH = 'https://graph.facebook.com'
 
     def __init__(self, app_id=None, app_secret=None, access_token=None):
         """
