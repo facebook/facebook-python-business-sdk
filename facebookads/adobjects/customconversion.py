@@ -195,7 +195,7 @@ class CustomConversion(
         'account_id': 'string',
         'creation_time': 'datetime',
         'custom_event_type': 'CustomEventType',
-        'default_conversion_value': 'unsigned int',
+        'default_conversion_value': 'int',
         'description': 'string',
         'first_fired_time': 'datetime',
         'id': 'string',

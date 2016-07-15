@@ -43,7 +43,6 @@ class AdsPixelStatsResult(
         timestamp = 'timestamp'
 
     class Aggregation:
-        browser_type = 'browser_type'
         custom_data_field = 'custom_data_field'
         device_os = 'device_os'
         device_type = 'device_type'

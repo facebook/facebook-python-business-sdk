@@ -62,6 +62,9 @@ class AdReportRun(
         breakdowns = 'breakdowns'
         date_preset = 'date_preset'
         default_summary = 'default_summary'
+        export_columns = 'export_columns'
+        export_format = 'export_format'
+        export_name = 'export_name'
         fields = 'fields'
         filtering = 'filtering'
         level = 'level'
@@ -165,6 +168,9 @@ class AdReportRun(
         'breakdowns': 'Breakdowns',
         'date_preset': 'DatePreset',
         'default_summary': 'bool',
+        'export_columns': 'list<string>',
+        'export_format': 'string',
+        'export_name': 'string',
         'fields': 'Summary',
         'filtering': 'list<Object>',
         'level': 'Level',

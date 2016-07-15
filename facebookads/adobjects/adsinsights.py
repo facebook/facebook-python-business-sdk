@@ -90,9 +90,7 @@ class AdsInsights(
         place_page_id = 'place_page_id'
         place_page_name = 'place_page_name'
         placement = 'placement'
-        platform_position = 'platform_position'
         product_id = 'product_id'
-        publisher_platform = 'publisher_platform'
         reach = 'reach'
         region = 'region'
         relevance_score = 'relevance_score'
@@ -137,6 +135,7 @@ class AdsInsights(
         value_default = 'default'
 
     class ActionBreakdowns:
+        canvas_component_id = 'canvas_component_id'
         action_carousel_card_id = 'action_carousel_card_id'
         action_carousel_card_name = 'action_carousel_card_name'
         action_destination = 'action_destination'
@@ -187,6 +186,7 @@ class AdsInsights(
         account = 'account'
 
     class SummaryActionBreakdowns:
+        canvas_component_id = 'canvas_component_id'
         action_carousel_card_id = 'action_carousel_card_id'
         action_carousel_card_name = 'action_carousel_card_name'
         action_destination = 'action_destination'
@@ -266,9 +266,7 @@ class AdsInsights(
         'place_page_id': 'string',
         'place_page_name': 'string',
         'placement': 'string',
-        'platform_position': 'string',
         'product_id': 'string',
-        'publisher_platform': 'string',
         'reach': 'string',
         'region': 'string',
         'relevance_score': 'AdgroupRelevanceScore',

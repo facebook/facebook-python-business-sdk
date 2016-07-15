@@ -52,6 +52,7 @@ class AdsActionStats(
         action_type = 'action_type'
         action_video_sound = 'action_video_sound'
         action_video_type = 'action_video_type'
+        canvas_component_id = 'canvas_component_id'
         value = 'value'
 
     _field_types = {
@@ -69,6 +70,7 @@ class AdsActionStats(
         'action_type': 'string',
         'action_video_sound': 'string',
         'action_video_type': 'string',
+        'canvas_component_id': 'string',
         'value': 'float',
     }
 
