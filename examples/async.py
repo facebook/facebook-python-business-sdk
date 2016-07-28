@@ -50,7 +50,7 @@ while True:
     print("Percent done: " + str(job[AsyncJob.Field.async_percent_completion]))
     time.sleep(1)
     if job:
-        print "Done!"
+        # print "Done!"
         break
 
 print(i_async_job.get_result())

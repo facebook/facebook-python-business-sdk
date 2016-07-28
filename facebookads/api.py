@@ -189,9 +189,12 @@ class FacebookAdsApi(object):
         app_secret=None,
         access_token=None,
         account_id=None,
-        api_version=None
+        api_version=None,
+        pool_maxsize=10,
+        max_retries=0
     ):
-        session = FacebookSession(app_id, app_secret, access_token)
+        session = FacebookSession(app_id, app_secret, access_token,
+                                  pool_maxsize, max_retries)
         api = cls(session, api_version)
         cls.set_default_api(api)
 
@@ -832,7 +835,8 @@ def _top_level_param_json_encode(params):
 
     for param, value in params.items():
         if (
-            isinstance(value, (collections.Mapping, collections.Sequence, bool))
+            isinstance(value, (collections.Mapping, collections.Sequence,
+                               collections.Set, bool))
             and not isinstance(value, six.string_types)
         ):
             params[param] = json.dumps(

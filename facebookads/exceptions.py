@@ -26,6 +26,8 @@ raised by the sdk.
 import json
 import re
 
+from facebookads.utils.fberrcodes import FacebookErrorCodes
+
 
 class FacebookError(Exception):
     """
@@ -53,10 +55,12 @@ class FacebookRequestError(FacebookError):
         self._request_context = request_context
         self._http_status = http_status
         self._http_headers = http_headers
+        self._is_body_json = True
         try:
             self._body = json.loads(body)
         except (TypeError, ValueError):
             self._body = body
+            self._is_body_json = False
 
         self._api_error_code = None
         self._api_error_type = None
@@ -89,6 +93,12 @@ class FacebookRequestError(FacebookError):
             request = self._request_context.copy()
             del request['files']
 
+        # if self._api_error_code and FacebookErrorCodes.unsupported_request == self._api_error_code:
+        #     super(FacebookRequestError, self).__init__(
+        #         "Unsupported Request, Facebook error: %s, method: %s, path: %s, params: %s" %
+        #         (self._message, request.get('method'), request.get('path', '/'), request.get('params'))
+        #     )
+        # else:
         super(FacebookRequestError, self).__init__(
             "\n\n" +
             "  Message: %s\n" % self._message +
@@ -116,6 +126,9 @@ class FacebookRequestError(FacebookError):
     def body(self):
         return self._body
 
+    def is_body_json(self):
+        return self._is_body_json
+
     def api_error_message(self):
         return self._api_error_message
 
@@ -138,6 +151,28 @@ class FacebookRequestError(FacebookError):
         return self._message
 
 
+class FacebookCallFailedError(FacebookError):
+    """
+    Encapsulates errors raised during HTTP call - adds request context.
+    """
+    def __init__(self, request_context, error):
+        self._request_context = request_context
+        self._error = error
+
+        # We do not want to print the file bytes
+        request = self._request_context
+        if 'files' in self._request_context:
+            request = self._request_context.copy()
+            del request['files']
+
+        super(FacebookCallFailedError, self).__init__(
+            "  %s: %s\n" % (type(self._error), str(self._error)) +
+            "  Method:  %s\n" % request.get('method') +
+            "  Path:    %s\n" % request.get('path', '/') +
+            "  Params:  %s\n" % request.get('params')
+        )
+
+
 class FacebookBadObjectError(FacebookError):
     """Raised when a guarantee about the object validity fails."""
     pass
@@ -148,6 +183,19 @@ class FacebookBadParameterError(FacebookError):
 
 class FacebookUnavailablePropertyException(FacebookError):
     """Raised when an object's property or method is not available."""
+    pass
+
+
+class FacebookApiTimeout(FacebookError):
+    """Raised when async request timed out."""
+    pass
+
+
+class JobFailedException(FacebookError):
+    pass
+
+
+class JobFailedForArchivedDataException(FacebookError):
     pass
 
 

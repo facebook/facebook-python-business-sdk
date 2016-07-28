@@ -536,3 +536,19 @@ class AdPlacePageSet(adplacepageset.AdPlacePageSet):
 
 class CustomConversion(customconversion.CustomConversion):
     pass
+
+
+class OrderIdAttributions(AbstractCrudObject):
+
+    @classmethod
+    def get_endpoint(cls):
+        return 'order_id_attributions'
+
+    class Field(object):
+        id = 'id'
+        order_id = 'order_id'
+        pixel_id = 'pixel_id'
+        order_timestamp = 'order_timestamp'
+        conversion_device = 'conversion_device'
+        attribution_type = 'attribution_type'
+        attributions = 'attributions'
