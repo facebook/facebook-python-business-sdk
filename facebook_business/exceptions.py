@@ -26,6 +26,8 @@ raised by the sdk.
 import json
 import re
 
+from facebookads.utils.fberrcodes import FacebookErrorCodes
+
 
 class FacebookError(Exception):
     """
@@ -203,6 +205,10 @@ class FacebookApiTimeout(FacebookError):
 
 
 class JobFailedException(FacebookError):
+    pass
+
+
+class JobFailedForArchivedDataException(FacebookError):
     pass
 
 
