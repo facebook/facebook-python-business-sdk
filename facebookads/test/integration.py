@@ -805,11 +805,11 @@ class BatchTestCase(FacebookAdsTestCase):
         # Make sure the calls went into the batch, not executed directly
         self.assertEqual(len(batch), self.num_campaigns)
 
-    def execute_batch(self, batch, max_tries):
+    def execute_batch(self, batch, max_tries, **kwargs):
         # Avoid a flaky test by retrying the batch calls if needed
         for i in range(max_tries):
             if batch:
-                batch = batch.execute()
+                batch = batch.execute(**kwargs)
             else:
                 break
 
@@ -820,6 +820,15 @@ class BatchTestCase(FacebookAdsTestCase):
             campaign.remote_create(batch=batch)
         self.check_batch_size(batch)
         self.execute_batch(batch, self.num_campaigns)
+        self.check_ids(campaigns)
+
+    def test_batch_call_no_headers(self):
+        campaigns = self.create_campaigns()
+        batch = FacebookAdsTestCase.TEST_API.new_batch()
+        for campaign in campaigns:
+            campaign.remote_create(batch=batch)
+        self.check_batch_size(batch)
+        self.execute_batch(batch, self.num_campaigns, include_headers=False)
         self.check_ids(campaigns)
 
 

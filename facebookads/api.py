@@ -457,13 +457,17 @@ class FacebookAdsApiBatch(object):
             request=request,
         )
 
-    def execute(self):
+    def execute(self, include_headers=True):
         """Makes a batch call to the api associated with this object.
         For each individual call response, calls the success or failure callback
         function if they were specified.
         Note: Does not explicitly raise exceptions. Individual exceptions won't
         be thrown for each call that fails. The success and failure callback
         functions corresponding to a call should handle its success or failure.
+        Args:
+            include_headers (optional): determines whether to include headers with
+            the incoming responses or not. Not returning headers is more efficient
+            if you do not intend to make use of them. Default value of True.
         Returns:
             If some of the calls have failed, returns  a new FacebookAdsApiBatch
             object with those calls. Otherwise, returns None.
@@ -472,7 +476,7 @@ class FacebookAdsApiBatch(object):
             return None
         method = 'POST'
         path = tuple()
-        params = {'batch': self._batch}
+        params = {'batch': self._batch, 'include_headers': include_headers}
         files = {}
         for call_files in self._files:
             if call_files:
