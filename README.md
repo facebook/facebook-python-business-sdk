@@ -385,6 +385,12 @@ Once you're finished adding calls to the batch, you can send off the request:
 my_api_batch.execute()
 ```
 
+You can specify not to include headers for better performance:
+
+```python
+my_api_batch.execute(include_headers=False)
+```
+
 Please follow <a href="https://developers.facebook.com/docs/graph-api/making-multiple-requests">
 batch call guidelines in the Marketing API documentation</a>. There are optimal
 numbers of calls per batch. In addition, you may need to watch out that for rate
