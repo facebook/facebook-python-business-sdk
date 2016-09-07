@@ -59,7 +59,7 @@ class ObjectParser:
 
         data = response
         if isinstance(response, dict):
-            if 'data' in response:
+            if 'data' in response and isinstance(response['data'], dict):
                 data = response['data']
             elif 'images' in response:
                 _, data = response['images'].popitem()
