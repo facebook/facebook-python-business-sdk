@@ -34,8 +34,8 @@ pull request for this class.
 """
 
 class ProductCatalog(
-    AbstractCrudObject,
     ProductCatalogMixin,
+    AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
@@ -46,8 +46,15 @@ class ProductCatalog(
         business = 'business'
         feed_count = 'feed_count'
         id = 'id'
+        image_padding_landscape = 'image_padding_landscape'
+        image_padding_square = 'image_padding_square'
         name = 'name'
         product_count = 'product_count'
+        vertical = 'vertical'
+
+    class Vertical:
+        commerce = 'commerce'
+        hotels = 'hotels'
 
     @classmethod
     def get_endpoint(cls):
@@ -59,7 +66,6 @@ class ProductCatalog(
 
     def api_delete(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
-            'id': 'string',
         }
         enums = {
         }
@@ -114,7 +120,6 @@ class ProductCatalog(
 
     def api_update(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
-            'id': 'string',
             'name': 'string',
         }
         enums = {
@@ -125,7 +130,7 @@ class ProductCatalog(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=ProductCatalog,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -156,36 +161,6 @@ class ProductCatalog(
             target_class=Business,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=Business),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def delete_external_event_sources(self, fields=None, params=None, batch=None, pending=False):
-        from facebookads.adobjects.externaleventsource import ExternalEventSource
-        param_types = {
-            'external_event_sources': 'list<string>',
-            'id': 'string',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='DELETE',
-            endpoint='/external_event_sources',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=ExternalEventSource,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=ExternalEventSource),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -231,7 +206,6 @@ class ProductCatalog(
         from facebookads.adobjects.externaleventsource import ExternalEventSource
         param_types = {
             'external_event_sources': 'list<string>',
-            'id': 'string',
         }
         enums = {
         }
@@ -244,6 +218,162 @@ class ProductCatalog(
             target_class=ExternalEventSource,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=ExternalEventSource),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_hotel_rooms_batch(self, fields=None, params=None, batch=None, pending=False):
+        from facebookads.adobjects.productcataloghotelroomsbatch import ProductCatalogHotelRoomsBatch
+        param_types = {
+            'handle': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/hotel_rooms_batch',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ProductCatalogHotelRoomsBatch,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ProductCatalogHotelRoomsBatch),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_hotel_rooms_batch(self, fields=None, params=None, batch=None, pending=False):
+        from facebookads.adobjects.productcataloghotelroomsbatch import ProductCatalogHotelRoomsBatch
+        param_types = {
+            'file': 'file',
+            'standard': 'standard_enum',
+            'update_only': 'bool',
+        }
+        enums = {
+            'standard_enum': ProductCatalogHotelRoomsBatch.Standard.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/hotel_rooms_batch',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ProductCatalogHotelRoomsBatch,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ProductCatalogHotelRoomsBatch),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_hotels(self, fields=None, params=None, batch=None, pending=False):
+        from facebookads.adobjects.hotel import Hotel
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/hotels',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Hotel,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Hotel),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_hotel(self, fields=None, params=None, batch=None, pending=False):
+        from facebookads.adobjects.hotel import Hotel
+        param_types = {
+            'address': 'Object',
+            'applinks': 'Object',
+            'brand': 'string',
+            'description': 'string',
+            'guest_ratings': 'list<Object>',
+            'hotel_id': 'string',
+            'images': 'list<Object>',
+            'name': 'string',
+            'phone': 'string',
+            'star_rating': 'float',
+            'url': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/hotels',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Hotel,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Hotel),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_pricing_variables_batch(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'handle': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/pricing_variables_batch',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -294,7 +424,6 @@ class ProductCatalog(
             'delimiter': 'delimiter_enum',
             'encoding': 'encoding_enum',
             'file_name': 'string',
-            'id': 'string',
             'name': 'string',
             'quoted_fields_mode': 'quoted_fields_mode_enum',
             'schedule': 'string',
@@ -357,7 +486,6 @@ class ProductCatalog(
     def create_product_group(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.productgroup import ProductGroup
         param_types = {
-            'id': 'string',
             'retailer_id': 'string',
             'variants': 'list<Object>',
         }
@@ -391,6 +519,7 @@ class ProductCatalog(
             'ancestor_id': 'string',
             'has_children': 'bool',
             'parent_id': 'string',
+            'retailer_id': 'string',
         }
         enums = {
         }
@@ -420,7 +549,6 @@ class ProductCatalog(
         from facebookads.adobjects.productset import ProductSet
         param_types = {
             'filter': 'Object',
-            'id': 'string',
             'name': 'string',
         }
         enums = {
@@ -434,6 +562,34 @@ class ProductCatalog(
             target_class=ProductSet,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=ProductSet),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_product_sets_batch(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'handle': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/product_sets_batch',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -501,7 +657,6 @@ class ProductCatalog(
             'expiration_date': 'string',
             'gender': 'gender_enum',
             'gtin': 'string',
-            'id': 'string',
             'image_url': 'string',
             'inventory': 'unsigned int',
             'ios_app_name': 'string',
@@ -560,15 +715,93 @@ class ProductCatalog(
             self.assure_call()
             return request.execute()
 
+    def create_video(self, fields=None, params=None, batch=None, pending=False):
+        from facebookads.adobjects.advideo import AdVideo
+        param_types = {
+            'content_category': 'content_category_enum',
+            'description': 'string',
+            'embeddable': 'bool',
+            'file_size': 'unsigned int',
+            'file_url': 'string',
+            'referenced_sticker_id': 'string',
+            'slideshow_spec': 'map',
+            'source': 'string',
+            'start_offset': 'unsigned int',
+            'thumb': 'file',
+            'title': 'string',
+            'unpublished_content_type': 'unpublished_content_type_enum',
+            'upload_phase': 'upload_phase_enum',
+            'upload_session_id': 'string',
+            'video_file_chunk': 'string',
+        }
+        enums = {
+            'content_category_enum': [
+                'BEAUTY_FASHION',
+                'BUSINESS',
+                'CARS_TRUCKS',
+                'COMEDY',
+                'CUTE_ANIMALS',
+                'ENTERTAINMENT',
+                'FAMILY',
+                'FOOD_HEALTH',
+                'HOME',
+                'LIFESTYLE',
+                'MUSIC',
+                'NEWS',
+                'POLITICS',
+                'SCIENCE',
+                'SPORTS',
+                'TECHNOLOGY',
+                'VIDEO_GAMING',
+                'OTHER',
+            ],
+            'unpublished_content_type_enum': [
+                'SCHEDULED',
+                'DRAFT',
+                'ADS_POST',
+            ],
+            'upload_phase_enum': [
+                'start',
+                'transfer',
+                'finish',
+                'cancel',
+            ],
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/videos',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     _field_types = {
         'business': 'Business',
         'feed_count': 'int',
         'id': 'string',
+        'image_padding_landscape': 'bool',
+        'image_padding_square': 'bool',
         'name': 'string',
         'product_count': 'int',
+        'vertical': 'string',
     }
 
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['Vertical'] = ProductCatalog.Vertical.__dict__.values()
         return field_enum_info

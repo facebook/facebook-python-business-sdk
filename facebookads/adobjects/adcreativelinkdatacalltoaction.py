@@ -75,7 +75,7 @@ class AdCreativeLinkDataCallToAction(
 
     _field_types = {
         'type': 'Type',
-        'value': 'Object',
+        'value': 'AdCreativeLinkDataCallToActionValue',
     }
 
     @classmethod

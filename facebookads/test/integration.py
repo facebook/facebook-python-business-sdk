@@ -322,7 +322,7 @@ class AbstractCrudObjectTestCase(AbstractObjectTestCase):
 
         test_image_one[objects.AdImage.Field.filename] = image_file
 
-        assert test_image_one.remote_create(api_version="v2.6") is not None
+        assert test_image_one.remote_create(api_version="v2.7") is not None
 
         test_image_two = objects.AdImage(
             parent_id=self.TEST_ACCOUNT.get_id_assured(),
@@ -331,7 +331,7 @@ class AbstractCrudObjectTestCase(AbstractObjectTestCase):
         test_image_two[objects.AdImage.Field.filename] = image_file
 
         try:
-            test_image_two.remote_create(api_version="v2.6")
+            test_image_two.remote_create(api_version="v2.7")
         except fbexceptions.FacebookBadObjectError as e:
             assert e is not None
 
@@ -678,20 +678,6 @@ class InsightsTestCase(AbstractCrudObjectTestCase):
                 'level': objects.Insights.Level.campaign,
             },
         )
-
-
-class ReachEstimateTestCase(AbstractCrudObjectTestCase):
-    def test_can_read_reach_estimate_from_ad(self):
-        self.campaign = self.new_test_campaign()
-        self.campaign.remote_create()
-
-        self.ad_set = self.new_test_ad_set(self.campaign)
-        self.ad_set.remote_create()
-
-        self.ad = self.new_test_ad(self.ad_set)
-        self.ad.remote_create()
-
-        self.reach_estimate = self.ad.get_reach_estimate()
 
 
 class AdLabelTestCase(AbstractCrudObjectTestCase):

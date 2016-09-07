@@ -30,8 +30,8 @@ pull request for this class.
 """
 
 class AdsInsights(
-    AbstractObject,
     AdsInsightsMixin,
+    AbstractObject,
 ):
 
     def __init__(self, api=None):
@@ -59,7 +59,6 @@ class AdsInsights(
         clicks = 'clicks'
         cost_per_10_sec_video_view = 'cost_per_10_sec_video_view'
         cost_per_action_type = 'cost_per_action_type'
-        cost_per_estimated_ad_recallers = 'cost_per_estimated_ad_recallers'
         cost_per_inline_link_click = 'cost_per_inline_link_click'
         cost_per_inline_post_engagement = 'cost_per_inline_post_engagement'
         cost_per_total_action = 'cost_per_total_action'
@@ -74,8 +73,6 @@ class AdsInsights(
         date_start = 'date_start'
         date_stop = 'date_stop'
         deeplink_clicks = 'deeplink_clicks'
-        estimated_ad_recall_rate = 'estimated_ad_recall_rate'
-        estimated_ad_recallers = 'estimated_ad_recallers'
         frequency = 'frequency'
         frequency_value = 'frequency_value'
         gender = 'gender'
@@ -93,7 +90,9 @@ class AdsInsights(
         place_page_id = 'place_page_id'
         place_page_name = 'place_page_name'
         placement = 'placement'
+        platform_position = 'platform_position'
         product_id = 'product_id'
+        publisher_platform = 'publisher_platform'
         reach = 'reach'
         region = 'region'
         relevance_score = 'relevance_score'
@@ -144,6 +143,7 @@ class AdsInsights(
         action_device = 'action_device'
         action_target_id = 'action_target_id'
         action_type = 'action_type'
+        action_video_sound = 'action_video_sound'
         action_video_type = 'action_video_type'
 
     class ActionReportTime:
@@ -160,7 +160,6 @@ class AdsInsights(
         impression_device = 'impression_device'
         place_page_id = 'place_page_id'
         placement = 'placement'
-        placement_merge_rhc = 'placement_merge_rhc'
         product_id = 'product_id'
         region = 'region'
 
@@ -194,6 +193,7 @@ class AdsInsights(
         action_device = 'action_device'
         action_target_id = 'action_target_id'
         action_type = 'action_type'
+        action_video_sound = 'action_video_sound'
         action_video_type = 'action_video_type'
 
     class Summary:
@@ -225,17 +225,16 @@ class AdsInsights(
         'adset_id': 'string',
         'adset_name': 'string',
         'age': 'string',
-        'app_store_clicks': 'unsigned int',
+        'app_store_clicks': 'string',
         'buying_type': 'string',
-        'call_to_action_clicks': 'unsigned int',
+        'call_to_action_clicks': 'string',
         'campaign_id': 'string',
         'campaign_name': 'string',
         'canvas_avg_view_percent': 'float',
         'canvas_avg_view_time': 'float',
-        'clicks': 'unsigned int',
+        'clicks': 'string',
         'cost_per_10_sec_video_view': 'list<AdsActionStats>',
         'cost_per_action_type': 'list<AdsActionStats>',
-        'cost_per_estimated_ad_recallers': 'float',
         'cost_per_inline_link_click': 'float',
         'cost_per_inline_post_engagement': 'float',
         'cost_per_total_action': 'float',
@@ -249,9 +248,7 @@ class AdsInsights(
         'ctr': 'float',
         'date_start': 'string',
         'date_stop': 'string',
-        'deeplink_clicks': 'unsigned int',
-        'estimated_ad_recall_rate': 'float',
-        'estimated_ad_recallers': 'unsigned int',
+        'deeplink_clicks': 'string',
         'frequency': 'float',
         'frequency_value': 'string',
         'gender': 'string',
@@ -260,36 +257,38 @@ class AdsInsights(
         'impression_device': 'string',
         'impressions': 'string',
         'inline_link_click_ctr': 'float',
-        'inline_link_clicks': 'unsigned int',
-        'inline_post_engagement': 'unsigned int',
+        'inline_link_clicks': 'string',
+        'inline_post_engagement': 'string',
         'newsfeed_avg_position': 'float',
-        'newsfeed_clicks': 'unsigned int',
-        'newsfeed_impressions': 'unsigned int',
+        'newsfeed_clicks': 'string',
+        'newsfeed_impressions': 'string',
         'objective': 'string',
         'place_page_id': 'string',
         'place_page_name': 'string',
         'placement': 'string',
+        'platform_position': 'string',
         'product_id': 'string',
-        'reach': 'unsigned int',
+        'publisher_platform': 'string',
+        'reach': 'string',
         'region': 'string',
         'relevance_score': 'AdgroupRelevanceScore',
-        'social_clicks': 'unsigned int',
-        'social_impressions': 'Object',
-        'social_reach': 'unsigned int',
+        'social_clicks': 'string',
+        'social_impressions': 'string',
+        'social_reach': 'string',
         'social_spend': 'float',
         'spend': 'float',
         'total_action_value': 'float',
-        'total_actions': 'unsigned int',
-        'total_unique_actions': 'unsigned int',
+        'total_actions': 'string',
+        'total_unique_actions': 'string',
         'unique_actions': 'list<AdsActionStats>',
-        'unique_clicks': 'unsigned int',
+        'unique_clicks': 'string',
         'unique_ctr': 'float',
-        'unique_impressions': 'unsigned int',
+        'unique_impressions': 'string',
         'unique_inline_link_click_ctr': 'float',
-        'unique_inline_link_clicks': 'unsigned int',
+        'unique_inline_link_clicks': 'string',
         'unique_link_clicks_ctr': 'float',
-        'unique_social_clicks': 'unsigned int',
-        'unique_social_impressions': 'unsigned int',
+        'unique_social_clicks': 'string',
+        'unique_social_impressions': 'string',
         'video_10_sec_watched_actions': 'list<AdsActionStats>',
         'video_15_sec_watched_actions': 'list<AdsActionStats>',
         'video_30_sec_watched_actions': 'list<AdsActionStats>',
@@ -301,7 +300,7 @@ class AdsInsights(
         'video_p50_watched_actions': 'list<AdsActionStats>',
         'video_p75_watched_actions': 'list<AdsActionStats>',
         'video_p95_watched_actions': 'list<AdsActionStats>',
-        'website_clicks': 'unsigned int',
+        'website_clicks': 'string',
         'website_ctr': 'list<AdsActionStats>',
     }
 

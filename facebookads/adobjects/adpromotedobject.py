@@ -49,7 +49,6 @@ class AdPromotedObject(
         product_set_id = 'product_set_id'
 
     class CustomEventType:
-        activate_app = 'ACTIVATE_APP'
         complete_registration = 'COMPLETE_REGISTRATION'
         content_view = 'CONTENT_VIEW'
         search = 'SEARCH'

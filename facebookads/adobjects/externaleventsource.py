@@ -42,12 +42,9 @@ class ExternalEventSource(
 
     class Field(AbstractObject.Field):
         id = 'id'
+        name = 'name'
         source_type = 'source_type'
         external_event_sources = 'external_event_sources'
-
-    class SourceType:
-        app = 'APP'
-        pixel = 'PIXEL'
 
     @classmethod
     def get_endpoint(cls):
@@ -86,12 +83,12 @@ class ExternalEventSource(
 
     _field_types = {
         'id': 'string',
-        'source_type': 'SourceType',
+        'name': 'string',
+        'source_type': 'string',
         'external_event_sources': 'list<string>',
     }
 
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['SourceType'] = ExternalEventSource.SourceType.__dict__.values()
         return field_enum_info

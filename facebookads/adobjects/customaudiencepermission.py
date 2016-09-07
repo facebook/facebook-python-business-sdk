@@ -42,12 +42,14 @@ class CustomAudiencePermission(
         can_see_insight = 'can_see_insight'
         can_share = 'can_share'
         subtype_supports_lookalike = 'subtype_supports_lookalike'
+        supports_recipient_lookalike = 'supports_recipient_lookalike'
 
     _field_types = {
         'can_edit': 'bool',
         'can_see_insight': 'bool',
         'can_share': 'bool',
         'subtype_supports_lookalike': 'bool',
+        'supports_recipient_lookalike': 'bool',
     }
 
     @classmethod

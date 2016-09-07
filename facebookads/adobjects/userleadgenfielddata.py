@@ -28,38 +28,22 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class TargetingGeoLocation(
+class UserLeadGenFieldData(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(TargetingGeoLocation, self).__init__()
-        self._isTargetingGeoLocation = True
+        super(UserLeadGenFieldData, self).__init__()
+        self._isUserLeadGenFieldData = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        cities = 'cities'
-        countries = 'countries'
-        country_groups = 'country_groups'
-        custom_locations = 'custom_locations'
-        electoral_districts = 'electoral_districts'
-        geo_markets = 'geo_markets'
-        location_types = 'location_types'
-        places = 'places'
-        regions = 'regions'
-        zips = 'zips'
+        name = 'name'
+        values = 'values'
 
     _field_types = {
-        'cities': 'list<TargetingGeoLocationCity>',
-        'countries': 'list<string>',
-        'country_groups': 'list<string>',
-        'custom_locations': 'list<TargetingGeoLocationCustomLocation>',
-        'electoral_districts': 'list<TargetingGeoLocationElectoralDistrict>',
-        'geo_markets': 'list<TargetingGeoLocationMarket>',
-        'location_types': 'list<string>',
-        'places': 'list<TargetingGeoLocationPlace>',
-        'regions': 'list<TargetingGeoLocationRegion>',
-        'zips': 'list<TargetingGeoLocationZip>',
+        'name': 'string',
+        'values': 'list<string>',
     }
 
     @classmethod

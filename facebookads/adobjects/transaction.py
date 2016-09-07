@@ -44,6 +44,7 @@ class Transaction(
         account_id = 'account_id'
         app_amount = 'app_amount'
         billing_end_time = 'billing_end_time'
+        billing_reason = 'billing_reason'
         billing_start_time = 'billing_start_time'
         charge_type = 'charge_type'
         fatura_id = 'fatura_id'
@@ -67,6 +68,7 @@ class Transaction(
         'account_id': 'string',
         'app_amount': 'TransactionCurrencyAmount',
         'billing_end_time': 'unsigned int',
+        'billing_reason': 'string',
         'billing_start_time': 'unsigned int',
         'charge_type': 'string',
         'fatura_id': 'unsigned int',

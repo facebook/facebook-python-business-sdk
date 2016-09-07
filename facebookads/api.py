@@ -47,6 +47,7 @@ from facebookads.typechecker import TypeChecker
 api module contains classes that make http requests to Facebook's graph API.
 """
 
+
 class FacebookResponse(object):
 
     """Encapsulates an http response from Facebook's Graph API."""
@@ -126,7 +127,7 @@ class FacebookResponse(object):
                 self._call,
                 self.status(),
                 self.headers(),
-                self.body()
+                self.body(),
             )
         else:
             return None
@@ -161,15 +162,17 @@ class FacebookAdsApi(object):
     _default_api = None
     _default_account_id = None
 
-    def __init__(self, session):
+    def __init__(self, session, api_version=None):
         """Initializes the api instance.
         Args:
             session: FacebookSession object that contains a requests interface
                 and attribute GRAPH (the Facebook GRAPH API URL).
+            api_version: API version
         """
         self._session = session
         self._num_requests_succeeded = 0
         self._num_requests_attempted = 0
+        self._api_version = api_version or self.API_VERSION
 
     def get_num_requests_attempted(self):
         """Returns the number of calls attempted."""
@@ -185,10 +188,11 @@ class FacebookAdsApi(object):
         app_id=None,
         app_secret=None,
         access_token=None,
-        account_id=None
+        account_id=None,
+        api_version=None
     ):
         session = FacebookSession(app_id, app_secret, access_token)
-        api = cls(session)
+        api = cls(session, api_version)
         cls.set_default_api(api)
 
         if account_id:
@@ -216,7 +220,7 @@ class FacebookAdsApi(object):
         if account_id.find('act_') == -1:
             raise ValueError(
                 "Account ID provided in FacebookAdsApi.set_default_account_id "
-                "expects a string that begins with 'act_'"
+                "expects a string that begins with 'act_'",
             )
         cls._default_account_id = account_id
 
@@ -262,10 +266,12 @@ class FacebookAdsApi(object):
         if not files:
             files = {}
 
+        api_version = api_version or self._api_version
+
         if api_version and not re.search('v[0-9]+\.[0-9]+', api_version):
             raise FacebookBadObjectError(
                 'Please provide the API version in the following format: %s'
-                % self.API_VERSION
+                % self.API_VERSION,
             )
 
         self._num_requests_attempted += 1
@@ -274,7 +280,7 @@ class FacebookAdsApi(object):
             # Path is not a full path
             path = "/".join((
                 self._session.GRAPH or url_override,
-                api_version or self.API_VERSION,
+                api_version,
                 '/'.join(map(str, path)),
             ))
 
@@ -515,6 +521,7 @@ class FacebookAdsApiBatch(object):
         else:
             return None
 
+
 class FacebookRequest:
     """
     Represents an API request
@@ -577,7 +584,8 @@ class FacebookRequest:
             self._file_counter += 1
         else:
             raise FacebookBadParameterError(
-                'Cannot find file ' + file_path + '!')
+                'Cannot find file ' + file_path + '!',
+            )
         return self
 
     def add_files(self, files):
@@ -669,6 +677,7 @@ class FacebookRequest:
                 for (k, v) in value.items())
         else:
             return value
+
 
 class Cursor(object):
 
@@ -807,6 +816,7 @@ class Cursor(object):
     def build_objects_from_response(self, response):
         return self._object_parser.parse_multiple(response)
 
+
 @contextmanager
 def open_files(files):
     opened_files = {}
@@ -815,6 +825,7 @@ def open_files(files):
     yield opened_files
     for file in opened_files.values():
         file.close()
+
 
 def _top_level_param_json_encode(params):
     params = params.copy()

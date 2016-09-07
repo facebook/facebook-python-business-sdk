@@ -32,26 +32,24 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdAccountTargetingInsights(
+class AdAccountTargetingUnified(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isAdAccountTargetingInsights = True
-        super(AdAccountTargetingInsights, self).__init__(fbid, parent_id, api)
+        self._isAdAccountTargetingUnified = True
+        super(AdAccountTargetingUnified, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
         audience_size = 'audience_size'
-        exploration_ratio = 'exploration_ratio'
+        description = 'description'
         id = 'id'
         name = 'name'
         path = 'path'
-        performance_rating = 'performance_rating'
-        recommendation_rating = 'recommendation_rating'
-        tags = 'tags'
         type = 'type'
+        valid = 'valid'
 
-    class Type:
+    class LimitType:
         adgroup_id = 'adgroup_id'
         genders = 'genders'
         age_min = 'age_min'
@@ -84,8 +82,8 @@ class AdAccountTargetingInsights(
         friends_of_connections = 'friends_of_connections'
         user_event = 'user_event'
         page_types = 'page_types'
-        platforms = 'platforms'
-        effective_platforms = 'effective_platforms'
+        publisher_platforms = 'publisher_platforms'
+        effective_publisher_platforms = 'effective_publisher_platforms'
         facebook_positions = 'facebook_positions'
         effective_facebook_positions = 'effective_facebook_positions'
         device_platforms = 'device_platforms'
@@ -94,12 +92,14 @@ class AdAccountTargetingInsights(
         excluded_dynamic_audience_ids = 'excluded_dynamic_audience_ids'
         rtb_flag = 'rtb_flag'
         user_device = 'user_device'
+        excluded_user_device = 'excluded_user_device'
         user_os = 'user_os'
         wireless_carrier = 'wireless_carrier'
         site_category = 'site_category'
         geo_locations = 'geo_locations'
         excluded_geo_locations = 'excluded_geo_locations'
         timezones = 'timezones'
+        place_page_set_id = 'place_page_set_id'
         family_statuses = 'family_statuses'
         industries = 'industries'
         life_events = 'life_events'
@@ -130,46 +130,22 @@ class AdAccountTargetingInsights(
         excluded_publisher_list_ids = 'excluded_publisher_list_ids'
         fb_deal_id = 'fb_deal_id'
         audience_network_positions = 'audience_network_positions'
+        effective_audience_network_positions = 'effective_audience_network_positions'
         interest_defaults_source = 'interest_defaults_source'
         excluded_mobile_device_model = 'excluded_mobile_device_model'
 
-    class Mode:
-        all = 'ALL'
-        frequently_used = 'FREQUENTLY_USED'
-
-    class Objective:
-        page_likes = 'PAGE_LIKES'
-        post_engagement = 'POST_ENGAGEMENT'
-        website_conversions = 'WEBSITE_CONVERSIONS'
-        mobile_app_installs = 'MOBILE_APP_INSTALLS'
-        website_clicks = 'WEBSITE_CLICKS'
-        video_views = 'VIDEO_VIEWS'
-
-    class RankMode:
-        most_explored = 'MOST_EXPLORED'
-        least_explored = 'LEAST_EXPLORED'
-        best_performing = 'BEST_PERFORMING'
-        worst_performing = 'WORST_PERFORMING'
-        recommend_inclusion = 'RECOMMEND_INCLUSION'
-        recommend_exclusion = 'RECOMMEND_EXCLUSION'
-
     _field_types = {
         'audience_size': 'unsigned int',
-        'exploration_ratio': 'float',
+        'description': 'string',
         'id': 'string',
         'name': 'string',
         'path': 'list<string>',
-        'performance_rating': 'unsigned int',
-        'recommendation_rating': 'unsigned int',
-        'tags': 'list<string>',
-        'type': 'Type',
+        'type': 'string',
+        'valid': 'bool',
     }
 
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['Type'] = AdAccountTargetingInsights.Type.__dict__.values()
-        field_enum_info['Mode'] = AdAccountTargetingInsights.Mode.__dict__.values()
-        field_enum_info['Objective'] = AdAccountTargetingInsights.Objective.__dict__.values()
-        field_enum_info['RankMode'] = AdAccountTargetingInsights.RankMode.__dict__.values()
+        field_enum_info['LimitType'] = AdAccountTargetingUnified.LimitType.__dict__.values()
         return field_enum_info

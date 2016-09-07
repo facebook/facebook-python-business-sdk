@@ -32,28 +32,36 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdPlacePageSet(
+class Hotel(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isAdPlacePageSet = True
-        super(AdPlacePageSet, self).__init__(fbid, parent_id, api)
+        self._isHotel = True
+        super(Hotel, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        account_id = 'account_id'
+        address = 'address'
+        applinks = 'applinks'
+        brand = 'brand'
+        description = 'description'
+        guest_ratings = 'guest_ratings'
+        hotel_id = 'hotel_id'
         id = 'id'
+        images = 'images'
+        lowest_base_price = 'lowest_base_price'
         name = 'name'
-        pages_count = 'pages_count'
-        parent_page = 'parent_page'
+        phone = 'phone'
+        star_rating = 'star_rating'
+        url = 'url'
 
     @classmethod
     def get_endpoint(cls):
-        return 'ad_place_page_sets'
+        return 'hotels'
 
     def api_create(self, parent_id, fields=None, params=None, batch=None, pending=False):
-        from facebookads.adobjects.adaccount import AdAccount
-        return AdAccount(api=self._api, fbid=parent_id).create_ad_place_page_set(fields, params, batch, pending)
+        from facebookads.adobjects.productcatalog import ProductCatalog
+        return ProductCatalog(api=self._api, fbid=parent_id).create_hotel(fields, params, batch, pending)
 
     def api_get(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
@@ -66,7 +74,7 @@ class AdPlacePageSet(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AdPlacePageSet,
+            target_class=Hotel,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -82,21 +90,31 @@ class AdPlacePageSet(
             self.assure_call()
             return request.execute()
 
-    def api_update(self, fields=None, params=None, batch=None, pending=False):
+    def create_hotel_room(self, fields=None, params=None, batch=None, pending=False):
+        from facebookads.adobjects.hotelroom import HotelRoom
         param_types = {
+            'applinks': 'Object',
+            'base_price': 'float',
+            'currency': 'string',
+            'description': 'string',
+            'images': 'list<Object>',
+            'margin_level': 'unsigned int',
             'name': 'string',
+            'pricing_variables': 'list<Object>',
+            'room_id': 'string',
+            'url': 'string',
         }
         enums = {
         }
         request = FacebookRequest(
             node_id=self['id'],
             method='POST',
-            endpoint='/',
+            endpoint='/hotel_rooms',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AdPlacePageSet,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
+            target_class=HotelRoom,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=HotelRoom),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -111,11 +129,19 @@ class AdPlacePageSet(
             return request.execute()
 
     _field_types = {
-        'account_id': 'string',
+        'address': 'string',
+        'applinks': 'AppLinks',
+        'brand': 'string',
+        'description': 'string',
+        'guest_ratings': 'string',
+        'hotel_id': 'string',
         'id': 'string',
+        'images': 'list<string>',
+        'lowest_base_price': 'string',
         'name': 'string',
-        'pages_count': 'int',
-        'parent_page': 'Object',
+        'phone': 'string',
+        'star_rating': 'string',
+        'url': 'string',
     }
 
     @classmethod

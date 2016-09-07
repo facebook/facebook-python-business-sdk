@@ -56,22 +56,16 @@ class CustomConversion(
         pixel_id = 'pixel_id'
 
     class CustomEventType:
-        activate_app = 'ACTIVATE_APP'
-        complete_registration = 'COMPLETE_REGISTRATION'
-        content_view = 'CONTENT_VIEW'
-        search = 'SEARCH'
-        rate = 'RATE'
-        tutorial_completion = 'TUTORIAL_COMPLETION'
+        add_payment_info = 'ADD_PAYMENT_INFO'
         add_to_cart = 'ADD_TO_CART'
         add_to_wishlist = 'ADD_TO_WISHLIST'
+        complete_registration = 'COMPLETE_REGISTRATION'
+        content_view = 'CONTENT_VIEW'
         initiated_checkout = 'INITIATED_CHECKOUT'
-        add_payment_info = 'ADD_PAYMENT_INFO'
-        purchase = 'PURCHASE'
         lead = 'LEAD'
-        level_achieved = 'LEVEL_ACHIEVED'
-        achievement_unlocked = 'ACHIEVEMENT_UNLOCKED'
-        spent_credits = 'SPENT_CREDITS'
         other = 'OTHER'
+        purchase = 'PURCHASE'
+        search = 'SEARCH'
 
     @classmethod
     def get_endpoint(cls):
@@ -83,7 +77,6 @@ class CustomConversion(
 
     def api_delete(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
-            'id': 'string',
         }
         enums = {
         }
@@ -150,7 +143,7 @@ class CustomConversion(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=CustomConversion,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )

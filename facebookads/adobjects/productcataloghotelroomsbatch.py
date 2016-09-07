@@ -28,41 +28,47 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class TargetingGeoLocation(
+class ProductCatalogHotelRoomsBatch(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(TargetingGeoLocation, self).__init__()
-        self._isTargetingGeoLocation = True
+        super(ProductCatalogHotelRoomsBatch, self).__init__()
+        self._isProductCatalogHotelRoomsBatch = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        cities = 'cities'
-        countries = 'countries'
-        country_groups = 'country_groups'
-        custom_locations = 'custom_locations'
-        electoral_districts = 'electoral_districts'
-        geo_markets = 'geo_markets'
-        location_types = 'location_types'
-        places = 'places'
-        regions = 'regions'
-        zips = 'zips'
+        errors = 'errors'
+        errors_total_count = 'errors_total_count'
+        handle = 'handle'
+        status = 'status'
+        file = 'file'
+        standard = 'standard'
+        update_only = 'update_only'
+
+    class Standard:
+        google = 'google'
+
+    @classmethod
+    def get_endpoint(cls):
+        return 'hotel_rooms_batch'
+
+    def api_create(self, parent_id, fields=None, params=None, batch=None, pending=False):
+        from facebookads.adobjects.productcatalog import ProductCatalog
+        return ProductCatalog(api=self._api, fbid=parent_id).create_hotel_rooms_batch(fields, params, batch, pending)
 
     _field_types = {
-        'cities': 'list<TargetingGeoLocationCity>',
-        'countries': 'list<string>',
-        'country_groups': 'list<string>',
-        'custom_locations': 'list<TargetingGeoLocationCustomLocation>',
-        'electoral_districts': 'list<TargetingGeoLocationElectoralDistrict>',
-        'geo_markets': 'list<TargetingGeoLocationMarket>',
-        'location_types': 'list<string>',
-        'places': 'list<TargetingGeoLocationPlace>',
-        'regions': 'list<TargetingGeoLocationRegion>',
-        'zips': 'list<TargetingGeoLocationZip>',
+        'errors': 'list<Object>',
+        'errors_total_count': 'int',
+        'handle': 'string',
+        'status': 'string',
+        'file': 'file',
+        'standard': 'Standard',
+        'update_only': 'bool',
     }
 
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['Standard'] = ProductCatalogHotelRoomsBatch.Standard.__dict__.values()
         return field_enum_info
