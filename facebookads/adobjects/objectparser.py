@@ -58,17 +58,21 @@ class ObjectParser:
             return self._custom_parse_method(response, self._api)
 
         data = response
-        if 'data' in response and isinstance(response['data'], dict):
-            data = response['data']
-        elif 'images' in response:
-            _, data = data['images'].popitem()
-        if 'campaigns' in data:
-            _, data = data['campaigns'].popitem()
-        elif 'adsets' in data:
-            _, data = data['adsets'].popitem()
-        elif 'ads' in data:
-            _, data = data['ads'].popitem()
-        if 'success' in data:
+        if isinstance(response, dict):
+            if 'data' in response:
+                data = response['data']
+            elif 'images' in response:
+                _, data = response['images'].popitem()
+
+        if isinstance(data, dict):
+            if 'campaigns' in data:
+                _, data = data['campaigns'].popitem()
+            elif 'adsets' in data:
+                _, data = data['adsets'].popitem()
+            elif 'ads' in data:
+                _, data = data['ads'].popitem()
+
+        if isinstance(data, dict) and 'success' in data:
             del data['success']
 
         if self._reuse_object is not None:
