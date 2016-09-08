@@ -168,13 +168,6 @@ class AdAccountAsyncDocsTestCase(AsyncDocsTestCase):
         bct = account.get_broad_category_targeting_aio()
         self.store_response(bct[0:2])
 
-    def test_get_connection_objects(self):
-        account = AdAccount(AsyncDocsDataStore.get('adaccount_id'))
-        connection_objects = account.get_connection_objects_aio()
-        connection_objects = [
-            co for co in connection_objects if co['id'] == '606699326111137']
-        self.store_response(connection_objects)
-
     def test_get_custom_audiences(self):
         account = AdAccount(AsyncDocsDataStore.get('adaccount_id'))
         custom_audiences = account.get_custom_audiences_aio()

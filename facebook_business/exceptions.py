@@ -208,10 +208,6 @@ class JobFailedException(FacebookError):
     pass
 
 
-class JobFailedForArchivedDataException(FacebookError):
-    pass
-
-
 class DocsmithSkipTestError(Exception):
     """Raised when a docsmith test is skipped."""
     def __init__(self, message):
