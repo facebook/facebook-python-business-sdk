@@ -177,9 +177,11 @@ class FacebookBadObjectError(FacebookError):
     """Raised when a guarantee about the object validity fails."""
     pass
 
+
 class FacebookBadParameterError(FacebookError):
     """Raised when a guarantee about the parameter validity fails."""
     pass
+
 
 class FacebookUnavailablePropertyException(FacebookError):
     """Raised when an object's property or method is not available."""
@@ -195,10 +197,6 @@ class JobFailedException(FacebookError):
     pass
 
 
-class JobFailedForArchivedDataException(FacebookError):
-    pass
-
-
 class DocsmithSkipTestError(Exception):
     """Raised when a docsmith test is skipped."""
     def __init__(self, message):
@@ -206,6 +204,7 @@ class DocsmithSkipTestError(Exception):
 
     def get_skip_error_msg(self):
         return self._message
+
 
 class FacebookBadParameterTypeException(FacebookError):
     """Raised when a parameter or field is set with improper type."""

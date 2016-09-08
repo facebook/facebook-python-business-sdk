@@ -17,7 +17,6 @@ from facebookads.api import FacebookSession, FacebookResponse, \
 __author__ = 'pasha-r'
 
 logger = logging.getLogger("facebookclient")
-#logging.getLogger('requests.packages.urllib3.connectionpool').setLevel(30)
 
 
 class FacebookAsyncResponse(FacebookResponse):
@@ -97,7 +96,8 @@ class FacebookAdsAsyncApi(FacebookAdsApi):
     @classmethod
     def init(cls, app_id=None, app_secret=None, access_token=None,
              account_id=None, api_version=None, pool_maxsize=10, max_retries=0):
-        # connection pool size is +1 because there also is the main thread that can also issue a request
+        # connection pool size is +1 because there also is the main thread
+        #  that can also issue a request
         session = FacebookSession(app_id, app_secret, access_token,
                                   pool_maxsize+1, max_retries)
         api = cls(session, api_version=api_version, threadpool_size=pool_maxsize)
@@ -116,6 +116,7 @@ class FacebookAdsAsyncApi(FacebookAdsApi):
             headers = {}
         if not files:
             files = {}
+        api_version = api_version or self._api_version
         if api_version and not re.search('v[0-9]+\.[0-9]+', api_version):
             raise FacebookBadObjectError(
                     'Please provide the API version in the following format: %s'
