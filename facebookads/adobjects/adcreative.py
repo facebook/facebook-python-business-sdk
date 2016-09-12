@@ -51,6 +51,7 @@ class AdCreative(
         applink_treatment = 'applink_treatment'
         body = 'body'
         call_to_action_type = 'call_to_action_type'
+        effective_object_story_id = 'effective_object_story_id'
         id = 'id'
         image_crops = 'image_crops'
         image_hash = 'image_hash'
@@ -131,8 +132,6 @@ class AdCreative(
         store_item = 'STORE_ITEM'
         video = 'VIDEO'
         invalid = 'INVALID'
-        action_spec = 'ACTION_SPEC'
-        instagram_media = 'INSTAGRAM_MEDIA'
 
     class RunStatus:
         active = 'ACTIVE'
@@ -158,7 +157,6 @@ class AdCreative(
         param_types = {
             'account_id': 'string',
             'adlabels': 'list<Object>',
-            'id': 'string',
             'name': 'string',
             'run_status': 'unsigned int',
         }
@@ -188,6 +186,8 @@ class AdCreative(
 
     def api_get(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
+            'thumbnail_height': 'unsigned int',
+            'thumbnail_width': 'unsigned int',
         }
         enums = {
         }
@@ -217,7 +217,6 @@ class AdCreative(
         param_types = {
             'account_id': 'string',
             'adlabels': 'list<Object>',
-            'id': 'string',
             'name': 'string',
             'run_status': 'unsigned int',
         }
@@ -229,7 +228,7 @@ class AdCreative(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=AdCreative,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -248,7 +247,6 @@ class AdCreative(
     def delete_ad_labels(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
             'adlabels': 'list<Object>',
-            'id': 'string',
         }
         enums = {
         }
@@ -275,9 +273,9 @@ class AdCreative(
             return request.execute()
 
     def create_ad_label(self, fields=None, params=None, batch=None, pending=False):
+        from facebookads.adobjects.adlabel import AdLabel
         param_types = {
             'adlabels': 'list<Object>',
-            'id': 'string',
         }
         enums = {
         }
@@ -287,9 +285,9 @@ class AdCreative(
             endpoint='/adlabels',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=AdLabel,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject),
+            response_parser=ObjectParser(target_class=AdLabel),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -307,7 +305,9 @@ class AdCreative(
         from facebookads.adobjects.adpreview import AdPreview
         param_types = {
             'ad_format': 'ad_format_enum',
+            'dynamic_creative_spec': 'Object',
             'height': 'unsigned int',
+            'interactive': 'bool',
             'locale': 'string',
             'post': 'Object',
             'product_item_ids': 'list<string>',
@@ -347,6 +347,7 @@ class AdCreative(
         'applink_treatment': 'ApplinkTreatment',
         'body': 'string',
         'call_to_action_type': 'CallToActionType',
+        'effective_object_story_id': 'string',
         'id': 'string',
         'image_crops': 'AdsImageCrops',
         'image_hash': 'string',

@@ -92,6 +92,7 @@ class AdActivity(
         update_ad_run_status = 'update_ad_run_status'
         update_ad_friendly_name = 'update_ad_friendly_name'
         update_ad_targets_spec = 'update_ad_targets_spec'
+        update_adgroup_stop_delivery = 'update_adgroup_stop_delivery'
         update_ad_set_target_spec = 'update_ad_set_target_spec'
         ad_review_approved = 'ad_review_approved'
         ad_review_declined = 'ad_review_declined'

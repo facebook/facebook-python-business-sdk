@@ -19,6 +19,10 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebookads.adobjects.abstractobject import AbstractObject
+from facebookads.adobjects.abstractcrudobject import AbstractCrudObject
+from facebookads.adobjects.objectparser import ObjectParser
+from facebookads.api import FacebookRequest
+from facebookads.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -28,20 +32,27 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class CustomAudienceCapabilities(
-    AbstractObject,
+class LeadGenQualifier(
+    AbstractCrudObject,
 ):
 
-    def __init__(self, api=None):
-        super(CustomAudienceCapabilities, self).__init__()
-        self._isCustomAudienceCapabilities = True
-        self._api = api
+    def __init__(self, fbid=None, parent_id=None, api=None):
+        self._isLeadGenQualifier = True
+        super(LeadGenQualifier, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        capabilities = 'capabilities'
+        category = 'category'
+        field_key = 'field_key'
+        id = 'id'
+        label = 'label'
+        question = 'question'
 
     _field_types = {
-        'capabilities': 'map',
+        'category': 'string',
+        'field_key': 'string',
+        'id': 'string',
+        'label': 'string',
+        'question': 'string',
     }
 
     @classmethod

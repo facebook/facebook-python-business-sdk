@@ -34,8 +34,8 @@ pull request for this class.
 """
 
 class AdsPixel(
-    AbstractCrudObject,
     AdsPixelMixin,
+    AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
@@ -98,7 +98,7 @@ class AdsPixel(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=AdsPixel,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )

@@ -32,28 +32,26 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdPlacePageSet(
+class EventSourceGroup(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isAdPlacePageSet = True
-        super(AdPlacePageSet, self).__init__(fbid, parent_id, api)
+        self._isEventSourceGroup = True
+        super(EventSourceGroup, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        account_id = 'account_id'
+        event_sources = 'event_sources'
         id = 'id'
         name = 'name'
-        pages_count = 'pages_count'
-        parent_page = 'parent_page'
 
     @classmethod
     def get_endpoint(cls):
-        return 'ad_place_page_sets'
+        return 'event_source_groups'
 
     def api_create(self, parent_id, fields=None, params=None, batch=None, pending=False):
-        from facebookads.adobjects.adaccount import AdAccount
-        return AdAccount(api=self._api, fbid=parent_id).create_ad_place_page_set(fields, params, batch, pending)
+        from facebookads.adobjects.business import Business
+        return Business(api=self._api, fbid=parent_id).create_event_source_group(fields, params, batch, pending)
 
     def api_get(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
@@ -66,35 +64,7 @@ class AdPlacePageSet(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AdPlacePageSet,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def api_update(self, fields=None, params=None, batch=None, pending=False):
-        param_types = {
-            'name': 'string',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AdPlacePageSet,
+            target_class=EventSourceGroup,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -111,11 +81,9 @@ class AdPlacePageSet(
             return request.execute()
 
     _field_types = {
-        'account_id': 'string',
+        'event_sources': 'list<ExternalEventSource>',
         'id': 'string',
         'name': 'string',
-        'pages_count': 'int',
-        'parent_page': 'Object',
     }
 
     @classmethod

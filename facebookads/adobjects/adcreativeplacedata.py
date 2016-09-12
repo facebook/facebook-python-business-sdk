@@ -28,21 +28,29 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class ConnectionObjectOpenGraphObjectProperty(
+class AdCreativePlaceData(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(ConnectionObjectOpenGraphObjectProperty, self).__init__()
-        self._isConnectionObjectOpenGraphObjectProperty = True
+        super(AdCreativePlaceData, self).__init__()
+        self._isAdCreativePlaceData = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        name = 'name'
+        address_string = 'address_string'
+        label = 'label'
+        latitude = 'latitude'
+        longitude = 'longitude'
+        phone_number = 'phone_number'
         type = 'type'
 
     _field_types = {
-        'name': 'string',
+        'address_string': 'string',
+        'label': 'string',
+        'latitude': 'float',
+        'longitude': 'float',
+        'phone_number': 'string',
         'type': 'string',
     }
 

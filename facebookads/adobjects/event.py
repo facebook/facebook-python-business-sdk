@@ -51,6 +51,7 @@ class Event(
         guest_list_enabled = 'guest_list_enabled'
         id = 'id'
         interested_count = 'interested_count'
+        is_canceled = 'is_canceled'
         is_page_owned = 'is_page_owned'
         is_viewer_admin = 'is_viewer_admin'
         maybe_count = 'maybe_count'
@@ -64,40 +65,6 @@ class Event(
         timezone = 'timezone'
         type = 'type'
         updated_time = 'updated_time'
-
-    class Category:
-        art_event = 'ART_EVENT'
-        book_event = 'BOOK_EVENT'
-        movie_event = 'MOVIE_EVENT'
-        fundraiser = 'FUNDRAISER'
-        volunteering = 'VOLUNTEERING'
-        family_event = 'FAMILY_EVENT'
-        festival_event = 'FESTIVAL_EVENT'
-        neighborhood = 'NEIGHBORHOOD'
-        religious_event = 'RELIGIOUS_EVENT'
-        shopping = 'SHOPPING'
-        comedy_event = 'COMEDY_EVENT'
-        music_event = 'MUSIC_EVENT'
-        dance_event = 'DANCE_EVENT'
-        nightlife = 'NIGHTLIFE'
-        theater_event = 'THEATER_EVENT'
-        dining_event = 'DINING_EVENT'
-        food_tasting = 'FOOD_TASTING'
-        conference_event = 'CONFERENCE_EVENT'
-        meetup = 'MEETUP'
-        class_event = 'CLASS_EVENT'
-        lecture = 'LECTURE'
-        workshop = 'WORKSHOP'
-        fitness = 'FITNESS'
-        sports_event = 'SPORTS_EVENT'
-        other = 'OTHER'
-
-    class Type:
-        private = 'private'
-        public = 'public'
-        group = 'group'
-        community = 'community'
-        legacy = 'legacy'
 
     def api_get(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
@@ -126,10 +93,43 @@ class Event(
             self.assure_call()
             return request.execute()
 
+    def get_picture(self, fields=None, params=None, batch=None, pending=False):
+        from facebookads.adobjects.profilepicturesource import ProfilePictureSource
+        param_types = {
+            'height': 'int',
+            'redirect': 'bool',
+            'type': 'type_enum',
+            'width': 'int',
+        }
+        enums = {
+            'type_enum': ProfilePictureSource.Type.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/picture',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ProfilePictureSource,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ProfilePictureSource),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     _field_types = {
         'attending_count': 'int',
         'can_guests_invite': 'bool',
-        'category': 'Category',
+        'category': 'string',
         'cover': 'Object',
         'declined_count': 'int',
         'description': 'string',
@@ -137,6 +137,7 @@ class Event(
         'guest_list_enabled': 'bool',
         'id': 'string',
         'interested_count': 'int',
+        'is_canceled': 'bool',
         'is_page_owned': 'bool',
         'is_viewer_admin': 'bool',
         'maybe_count': 'int',
@@ -148,13 +149,11 @@ class Event(
         'start_time': 'string',
         'ticket_uri': 'string',
         'timezone': 'string',
-        'type': 'Type',
+        'type': 'string',
         'updated_time': 'datetime',
     }
 
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['Category'] = Event.Category.__dict__.values()
-        field_enum_info['Type'] = Event.Type.__dict__.values()
         return field_enum_info

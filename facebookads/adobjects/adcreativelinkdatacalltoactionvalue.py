@@ -28,24 +28,38 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class ConnectionObjectOpenGraphObject(
+class AdCreativeLinkDataCallToActionValue(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(ConnectionObjectOpenGraphObject, self).__init__()
-        self._isConnectionObjectOpenGraphObject = True
+        super(AdCreativeLinkDataCallToActionValue, self).__init__()
+        self._isAdCreativeLinkDataCallToActionValue = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        display_name = 'display_name'
-        name = 'name'
-        properties = 'properties'
+        app_link = 'app_link'
+        application = 'application'
+        event_id = 'event_id'
+        lead_gen_form_id = 'lead_gen_form_id'
+        link = 'link'
+        link_caption = 'link_caption'
+        link_description = 'link_description'
+        link_title = 'link_title'
+        page = 'page'
+        product_link = 'product_link'
 
     _field_types = {
-        'display_name': 'string',
-        'name': 'string',
-        'properties': 'list<ConnectionObjectOpenGraphObjectProperty>',
+        'app_link': 'string',
+        'application': 'string',
+        'event_id': 'string',
+        'lead_gen_form_id': 'string',
+        'link': 'string',
+        'link_caption': 'string',
+        'link_description': 'string',
+        'link_title': 'string',
+        'page': 'string',
+        'product_link': 'string',
     }
 
     @classmethod

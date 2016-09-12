@@ -42,7 +42,6 @@ class Targeting(
         age_max = 'age_max'
         age_min = 'age_min'
         app_install_state = 'app_install_state'
-        audience_network_positions = 'audience_network_positions'
         behaviors = 'behaviors'
         cities = 'cities'
         college_years = 'college_years'
@@ -58,6 +57,7 @@ class Targeting(
         education_statuses = 'education_statuses'
         effective_device_platforms = 'effective_device_platforms'
         effective_facebook_positions = 'effective_facebook_positions'
+        effective_publisher_platforms = 'effective_publisher_platforms'
         engagement_specs = 'engagement_specs'
         ethnic_affinity = 'ethnic_affinity'
         exclude_reached_since = 'exclude_reached_since'
@@ -66,9 +66,11 @@ class Targeting(
         excluded_dynamic_audience_ids = 'excluded_dynamic_audience_ids'
         excluded_engagement_specs = 'excluded_engagement_specs'
         excluded_geo_locations = 'excluded_geo_locations'
+        excluded_mobile_device_model = 'excluded_mobile_device_model'
         excluded_product_audience_specs = 'excluded_product_audience_specs'
         excluded_publisher_categories = 'excluded_publisher_categories'
         excluded_publisher_list_ids = 'excluded_publisher_list_ids'
+        excluded_user_device = 'excluded_user_device'
         exclusions = 'exclusions'
         facebook_positions = 'facebook_positions'
         family_statuses = 'family_statuses'
@@ -93,10 +95,11 @@ class Targeting(
         net_worth = 'net_worth'
         office_type = 'office_type'
         page_types = 'page_types'
-        platforms = 'platforms'
+        place_page_set_id = 'place_page_set_id'
         political_views = 'political_views'
         politics = 'politics'
         product_audience_specs = 'product_audience_specs'
+        publisher_platforms = 'publisher_platforms'
         radius = 'radius'
         regions = 'regions'
         relationship_statuses = 'relationship_statuses'
@@ -113,19 +116,18 @@ class Targeting(
         zips = 'zips'
 
     class DevicePlatforms:
-        mobile = 'MOBILE'
-        desktop = 'DESKTOP'
+        mobile = 'mobile'
+        desktop = 'desktop'
 
     class EffectiveDevicePlatforms:
-        mobile = 'MOBILE'
-        desktop = 'DESKTOP'
+        mobile = 'mobile'
+        desktop = 'desktop'
 
     _field_types = {
         'adgroup_id': 'string',
         'age_max': 'unsigned int',
         'age_min': 'unsigned int',
         'app_install_state': 'string',
-        'audience_network_positions': 'list<string>',
         'behaviors': 'list<IDName>',
         'cities': 'list<IDName>',
         'college_years': 'list<unsigned int>',
@@ -141,6 +143,7 @@ class Targeting(
         'education_statuses': 'list<unsigned int>',
         'effective_device_platforms': 'EffectiveDevicePlatforms',
         'effective_facebook_positions': 'list<string>',
+        'effective_publisher_platforms': 'list<string>',
         'engagement_specs': 'list<TargetingDynamicRule>',
         'ethnic_affinity': 'list<IDName>',
         'exclude_reached_since': 'list<string>',
@@ -149,13 +152,15 @@ class Targeting(
         'excluded_dynamic_audience_ids': 'list<string>',
         'excluded_engagement_specs': 'list<TargetingDynamicRule>',
         'excluded_geo_locations': 'TargetingGeoLocation',
+        'excluded_mobile_device_model': 'list<string>',
         'excluded_product_audience_specs': 'list<TargetingProductAudienceSpec>',
         'excluded_publisher_categories': 'list<string>',
         'excluded_publisher_list_ids': 'list<string>',
+        'excluded_user_device': 'list<string>',
         'exclusions': 'FlexibleTargeting',
         'facebook_positions': 'list<string>',
         'family_statuses': 'list<IDName>',
-        'fb_deal_id': 'unsigned int',
+        'fb_deal_id': 'string',
         'flexible_spec': 'list<FlexibleTargeting>',
         'friends_of_connections': 'list<IDName>',
         'genders': 'list<unsigned int>',
@@ -176,10 +181,11 @@ class Targeting(
         'net_worth': 'list<IDName>',
         'office_type': 'list<IDName>',
         'page_types': 'list<string>',
-        'platforms': 'list<string>',
+        'place_page_set_id': 'string',
         'political_views': 'list<unsigned int>',
         'politics': 'list<IDName>',
         'product_audience_specs': 'list<TargetingProductAudienceSpec>',
+        'publisher_platforms': 'list<string>',
         'radius': 'string',
         'regions': 'list<IDName>',
         'relationship_statuses': 'list<unsigned int>',

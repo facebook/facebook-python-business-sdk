@@ -120,9 +120,9 @@ class Ad(
         lifetime = 'lifetime'
 
     class ExecutionOptions:
-        validate_only = 'VALIDATE_ONLY'
-        synchronous_ad_review = 'SYNCHRONOUS_AD_REVIEW'
-        include_recommendations = 'INCLUDE_RECOMMENDATIONS'
+        validate_only = 'validate_only'
+        synchronous_ad_review = 'synchronous_ad_review'
+        include_recommendations = 'include_recommendations'
 
     class Operator:
         all = 'ALL'
@@ -213,7 +213,7 @@ class Ad(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=Ad,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -262,7 +262,6 @@ class Ad(
         param_types = {
             'adlabels': 'list<Object>',
             'execution_options': 'list<execution_options_enum>',
-            'id': 'string',
         }
         enums = {
             'execution_options_enum': AdLabel.ExecutionOptions.__dict__.values(),
@@ -294,7 +293,6 @@ class Ad(
         param_types = {
             'adlabels': 'list<Object>',
             'execution_options': 'list<execution_options_enum>',
-            'id': 'string',
         }
         enums = {
             'execution_options_enum': AdLabel.ExecutionOptions.__dict__.values(),
@@ -305,9 +303,9 @@ class Ad(
             endpoint='/adlabels',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=AdLabel,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject),
+            response_parser=ObjectParser(target_class=AdLabel),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -491,10 +489,12 @@ class Ad(
         from facebookads.adobjects.adpreview import AdPreview
         param_types = {
             'ad_format': 'ad_format_enum',
+            'dynamic_creative_spec': 'Object',
             'height': 'unsigned int',
+            'interactive': 'bool',
             'locale': 'string',
             'post': 'Object',
-            'product_item_ids': 'list<int>',
+            'product_item_ids': 'list<string>',
             'width': 'unsigned int',
         }
         enums = {

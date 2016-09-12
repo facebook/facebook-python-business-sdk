@@ -59,6 +59,33 @@ class Lead(
     def get_endpoint(cls):
         return 'leads'
 
+    def api_delete(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='DELETE',
+            endpoint='/',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def api_get(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
         }
@@ -94,8 +121,8 @@ class Lead(
         'campaign_id': 'string',
         'campaign_name': 'string',
         'created_time': 'datetime',
-        'custom_disclaimer_responses': 'list<Object>',
-        'field_data': 'list<Object>',
+        'custom_disclaimer_responses': 'list<UserLeadGenDisclaimerResponse>',
+        'field_data': 'list<UserLeadGenFieldData>',
         'form_id': 'string',
         'id': 'string',
         'is_organic': 'bool',

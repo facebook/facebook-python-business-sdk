@@ -82,7 +82,6 @@ class ProductGroup(
 
     def api_update(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
-            'id': 'string',
             'variants': 'list<Object>',
         }
         enums = {
@@ -93,7 +92,7 @@ class ProductGroup(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=ProductGroup,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -190,7 +189,6 @@ class ProductGroup(
             'expiration_date': 'string',
             'gender': 'gender_enum',
             'gtin': 'string',
-            'id': 'string',
             'image_url': 'string',
             'inventory': 'unsigned int',
             'ios_app_name': 'string',

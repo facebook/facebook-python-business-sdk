@@ -253,7 +253,7 @@ class AbstractCrudObject(AbstractObject):
         params.update(self.export_all_data())
         request = None
         if hasattr(self, 'api_create'):
-            request = self.api_create(self._parent_id, pending=True)
+            request = self.api_create(self.get_parent_id_assured(), pending=True)
         else:
             request = FacebookRequest(
                 node_id=self.get_parent_id_assured(),

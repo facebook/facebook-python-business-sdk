@@ -55,7 +55,6 @@ from facebookads.adobjects import (
     adactivity,
     adplacepageset,
     minimumbudget,
-    connectionobject,
     externaleventsource,
     customconversion,
     lead,
@@ -351,17 +350,6 @@ class ClickTrackingTag(clicktrackingtag.ClickTrackingTag):
 
 class CustomAudience(customaudience.CustomAudience):
     pass
-
-
-class ConnectionObject(connectionobject.ConnectionObject):
-
-    class Type(object):
-        application = 2
-        domain = 7
-        event = 3
-        page = 1
-        place = 6
-
 
 class LookalikeAudience(customaudience.CustomAudience):
 

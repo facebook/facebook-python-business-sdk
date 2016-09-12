@@ -279,6 +279,19 @@ class AbstractCrudObjectTestCase(unittest.TestCase):
             adclass._assign_fields_to_params(fields, params)
             assert params == expected
 
+    def test_remote_create_uses_get_parent_id_assured_if_api_create_defined(self):
+        class MyObject(objects.AbstractCrudObject):
+            class Field:
+                id = 'id'
+
+            def api_create(self, parent_id, pending):
+                pass
+
+        obj = MyObject()
+        self.assertIsNone(obj._parent_id)
+        with self.assertRaises(exceptions.FacebookBadObjectError):
+            obj.remote_create()
+            
 
 class AbstractObjectTestCase(unittest.TestCase):
     def test_export_nested_object(self):

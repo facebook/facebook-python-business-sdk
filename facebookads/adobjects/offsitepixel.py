@@ -66,7 +66,6 @@ class OffsitePixel(
 
     def api_delete(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
-            'id': 'string',
         }
         enums = {
         }
@@ -94,6 +93,7 @@ class OffsitePixel(
 
     def api_get(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
+            'value': 'unsigned int',
         }
         enums = {
         }
@@ -123,7 +123,6 @@ class OffsitePixel(
         param_types = {
             'app_event': 'string',
             'app_id_for_app_event_firing': 'int',
-            'id': 'string',
             'name': 'string',
             'tag': 'tag_enum',
         }
@@ -136,7 +135,7 @@ class OffsitePixel(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=OffsitePixel,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -153,7 +152,6 @@ class OffsitePixel(
             return request.execute()
 
     def delete_ad_accounts(self, fields=None, params=None, batch=None, pending=False):
-        from facebookads.adobjects.adaccount import AdAccount
         param_types = {
             'adaccounts': 'list<string>',
         }
@@ -165,9 +163,9 @@ class OffsitePixel(
             endpoint='/adaccounts',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AdAccount,
+            target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdAccount),
+            response_parser=ObjectParser(target_class=AbstractCrudObject),
         )
         request.add_params(params)
         request.add_fields(fields)

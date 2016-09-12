@@ -34,8 +34,8 @@ pull request for this class.
 """
 
 class ReachFrequencyPrediction(
-    AbstractCrudObject,
     ReachFrequencyPredictionMixin,
+    AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
@@ -67,6 +67,7 @@ class ReachFrequencyPrediction(
         instagram_destination_id = 'instagram_destination_id'
         interval_frequency_cap_reset_period = 'interval_frequency_cap_reset_period'
         name = 'name'
+        pause_periods = 'pause_periods'
         prediction_mode = 'prediction_mode'
         prediction_progress = 'prediction_progress'
         reservation_status = 'reservation_status'
@@ -140,7 +141,7 @@ class ReachFrequencyPrediction(
         'external_budget': 'int',
         'external_impression': 'unsigned int',
         'external_maximum_budget': 'int',
-        'external_maximum_impression': 'unsigned int',
+        'external_maximum_impression': 'int',
         'external_maximum_reach': 'unsigned int',
         'external_minimum_budget': 'int',
         'external_minimum_impression': 'unsigned int',
@@ -153,6 +154,7 @@ class ReachFrequencyPrediction(
         'instagram_destination_id': 'string',
         'interval_frequency_cap_reset_period': 'unsigned int',
         'name': 'string',
+        'pause_periods': 'string',
         'prediction_mode': 'unsigned int',
         'prediction_progress': 'unsigned int',
         'reservation_status': 'unsigned int',
