@@ -37,7 +37,7 @@ class AioEdgeIterator(baseobjects.EdgeIterator):
     """
 
     def __init__(self, source_object, target_objects_class,
-                 fields=None, params=None, include_summary=True,
+                 fields=None, params=None, include_summary=False,
                  limit=1000):
         """
         Initializes an iterator over the objects to which there is an edge from
@@ -427,7 +427,7 @@ class AioEdgeIterator(baseobjects.EdgeIterator):
 
 class EdgeLessIterator(AioEdgeIterator):
     def __init__(self, source_object,
-                 fields=None, params=None, include_summary=True,
+                 fields=None, params=None, include_summary=False,
                  limit=1000):
         super(EdgeLessIterator, self).__init__(
                 source_object, type(source_object), fields=fields,
@@ -438,7 +438,7 @@ class EdgeLessIterator(AioEdgeIterator):
 
 class ByIdsIterator(AioEdgeIterator):
     def __init__(self, target_object_class, ids, fields=None, params=None,
-                 include_summary=True, limit=50):
+                 include_summary=False, limit=50):
         super(ByIdsIterator, self).__init__(
                 target_object_class(str(ids[0])), target_object_class, fields=fields,
                 params=params, include_summary=include_summary,
@@ -521,7 +521,7 @@ class AbstractCrudAioObject(object):
     # Helpers
 
     def iterate_edge_aio(self, target_objects_class, fields=None, params=None,
-                         include_summary=True, limit=1000):
+                         include_summary=False, limit=1000):
         """
         Creates, sends it to the futures queue and returns EdgeIterator with argument self as source_object and
         the rest as given __init__ arguments.
@@ -1129,7 +1129,7 @@ class AsyncAioJob(AbstractCrudAioObject, baseobjects.AsyncJob):
 
 class AsyncAioJobIterator(AioEdgeIterator):
     def __init__(self, source_object, target_objects_class,
-                 fields=None, params=None, include_summary=True,
+                 fields=None, params=None, include_summary=False,
                  limit=500, stage='async_get_job',
                  no_progress_timeout=900, not_started_timeout=600,
                  has_action=None, needs_action_device=None, has_filters=False,
