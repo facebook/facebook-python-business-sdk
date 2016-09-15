@@ -116,6 +116,17 @@ class FacebookResponse(object):
         """Returns boolean indicating if the call failed."""
         return not self.is_success()
 
+    def is_transient(self):
+        """Returns boolean indicating if the response failure is transient."""
+        if self.is_success():
+            return False
+
+        json_body = self.json()
+        try:
+            return json_body.get('error', {}).get('is_transient', False)
+        except AttributeError:  # not a dict, we don't know much
+            return False
+
     def error(self):
         """
         Returns a FacebookRequestError (located in the exceptions module) with
@@ -489,25 +500,26 @@ class FacebookAdsApiBatch(object):
         retry_indices = []
 
         for index, response in enumerate(responses):
-            if response:
-                body = response.get('body')
-                code = response.get('code')
-                headers = response.get('headers')
-
-                inner_fb_response = FacebookResponse(
-                    body=body,
-                    headers=headers,
-                    http_status=code,
-                    call=self._batch[index],
-                )
-
-                if inner_fb_response.is_success():
-                    if self._success_callbacks[index]:
-                        self._success_callbacks[index](inner_fb_response)
-                elif self._failure_callbacks[index]:
-                    self._failure_callbacks[index](inner_fb_response)
-            else:
+            if not response:
                 retry_indices.append(index)
+                continue
+
+            inner_fb_response = FacebookResponse(
+                body=response.get('body'),
+                headers=response.get('headers'),
+                http_status=response.get('code'),
+                call=self._batch[index],
+            )
+            if inner_fb_response.is_success() and self._success_callbacks[index]:
+                self._success_callbacks[index](inner_fb_response)
+            else:
+                # retry transient errors
+                if inner_fb_response.is_transient():
+                    retry_indices.append(index)
+
+                # execute failure callbacks on error, even if transient
+                if self._failure_callbacks[index]:
+                    self._failure_callbacks[index](inner_fb_response)
 
         if retry_indices:
             new_batch = self.__class__(self._api)
