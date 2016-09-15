@@ -116,6 +116,17 @@ class FacebookResponse(object):
         """Returns boolean indicating if the call failed."""
         return not self.is_success()
 
+    def is_transient(self):
+        """Returns boolean indicating if the response failure is transient."""
+        if self.is_success():
+            return False
+
+        json_body = self.json()
+        try:
+            return json_body.get('error', {}).get('is_transient', False)
+        except AttributeError:  # not a dict, we don't know much
+            return False
+
     def error(self):
         """
         Returns a FacebookRequestError (located in the exceptions module) with
