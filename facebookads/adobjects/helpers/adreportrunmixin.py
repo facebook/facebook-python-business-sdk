@@ -38,6 +38,8 @@ class AdReportRunMixin:
             self.get(self.Field.async_status) == 'Job Completed'
         )
 
+    __bool__ = __nonzero__  # py3
+
     def _setitem_trigger(self, key, value):
         if key == 'report_run_id':
             self._data['id'] = self['report_run_id']
