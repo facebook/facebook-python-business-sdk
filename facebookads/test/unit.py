@@ -39,6 +39,7 @@ from .. import specs
 from .. import exceptions
 from .. import session
 from .. import utils
+from facebookads.adobjects.adreportrun import AdReportRun
 from facebookads.utils import version
 
 
@@ -124,6 +125,31 @@ class CustomAudienceTestCase(unittest.TestCase):
 
         actual = payload['payload']['data']
         assert actual == expected
+
+
+class AdReportRunTestCase(unittest.TestCase):
+
+    def test_nonzero_not_over(self):
+        report = AdReportRun()
+        report[report.Field.async_percent_completion] = 76
+        self.assertFalse(report)
+
+    def test_nonzero_over_async_status_not_fetched(self):
+        report = AdReportRun()
+        report[report.Field.async_percent_completion] = 100
+        self.assertFalse(report)
+
+    def test_nonzero_over_failed(self):
+        report = AdReportRun()
+        report[report.Field.async_percent_completion] = 100
+        report[report.Field.async_status] = 'Job failed'
+        self.assertFalse(report)
+
+    def test_nonzero_ok(self):
+        report = AdReportRun()
+        report[report.Field.async_percent_completion] = 100
+        report[report.Field.async_status] = 'Job Completed'
+        self.assertTrue(report)
 
 
 class EdgeIteratorTestCase(unittest.TestCase):

@@ -28,7 +28,15 @@ class AdReportRunMixin:
         return self.get_insights(params=params)
 
     def __nonzero__(self):
-        return self[self.Field.async_percent_completion] == 100
+        """
+        AdReportRunMixin evaluates to True if the report computation is over,
+        and False if not. There is an edge case when the computation is over
+        but marked as failed.
+        """
+        return (
+            self[self.Field.async_percent_completion] == 100 and
+            self.get(self.Field.async_status) == 'Job Completed'
+        )
 
     def _setitem_trigger(self, key, value):
         if key == 'report_run_id':
