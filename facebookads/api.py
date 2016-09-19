@@ -510,8 +510,9 @@ class FacebookAdsApiBatch(object):
                 http_status=response.get('code'),
                 call=self._batch[index],
             )
-            if inner_fb_response.is_success() and self._success_callbacks[index]:
-                self._success_callbacks[index](inner_fb_response)
+            if inner_fb_response.is_success():
+                if self._success_callbacks[index]:
+                    self._success_callbacks[index](inner_fb_response)
             else:
                 # retry transient errors
                 if inner_fb_response.is_transient():
