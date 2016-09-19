@@ -2361,6 +2361,46 @@ class AdAccount(
         'user_role': 'string',
     }
 
+    def create_user_permission(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'email': 'string',
+            'role': 'role_enum',
+            'user': 'int',
+        }
+        enums = {
+            'role_enum': [
+                'ADMIN',
+                'EMPLOYEE',
+                'SYSTEM_USER',
+                'ADMIN_SYSTEM_USER',
+                'INSTAGRAM_ADMIN',
+                'INSTAGRAM_EMPLOYEE',
+                'FB_EMPLOYEE_ACCOUNT_MANAGER',
+                'FB_EMPLOYEE_SALES_REP',
+            ],
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/userpermissions',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}

@@ -484,12 +484,16 @@ class FacebookAdsApiBatchTestCase(unittest.TestCase):
         ]
         fake_api = self.FakeApi(body)
         batch = api.FacebookAdsApiBatch(fake_api)
-        batch.add("GET", "/endpoint", params={"key": "value"})
+        self.success_called = False
+        def callback(resp):
+            self.success_called = True
+        batch.add("GET", "/endpoint", params={"key": "value"}, success=callback)
         self.assertIsNone(batch.execute())
         self.assertEqual(fake_api.method, 'POST')
         self.assertEqual(fake_api.path, ())
         self.assertEqual(fake_api.params, {"batch": [{'method': 'GET', 'relative_url': '/endpoint?key=value'}]})
         self.assertEqual(fake_api.files, {})
+        self.assertTrue(self.success_called)
 
     def test_execute_transient(self):
         body = [
@@ -497,13 +501,17 @@ class FacebookAdsApiBatchTestCase(unittest.TestCase):
         ]
         fake_api = self.FakeApi(body)
         batch = api.FacebookAdsApiBatch(fake_api)
-        batch.add("GET", "/endpoint", params={"key": "value"})
+        self.failure_called = False
+        def callback(resp):
+            self.failure_called = True
+        batch.add("GET", "/endpoint", params={"key": "value"}, failure=callback)
         new_batch = batch.execute()
         self.assertIsNotNone(new_batch)
         self.assertEqual(fake_api.method, 'POST')
         self.assertEqual(fake_api.path, ())
         self.assertEqual(fake_api.params, {"batch": [{'method': 'GET', 'relative_url': '/endpoint?key=value'}]})
         self.assertEqual(fake_api.files, {})
+        self.assertTrue(self.failure_called)
 
         self.assertEqual(len(new_batch), 1)  # one failure is transient
 
@@ -513,13 +521,17 @@ class FacebookAdsApiBatchTestCase(unittest.TestCase):
         ]
         fake_api = self.FakeApi(body)
         batch = api.FacebookAdsApiBatch(fake_api)
-        batch.add("GET", "/endpoint", params={"key": "value"})
+        self.failure_called = False
+        def callback(resp):
+            self.failure_called = True
+        batch.add("GET", "/endpoint", params={"key": "value"}, failure=callback)
         new_batch = batch.execute()
         self.assertIsNotNone(new_batch)
         self.assertEqual(fake_api.method, 'POST')
         self.assertEqual(fake_api.path, ())
         self.assertEqual(fake_api.params, {"batch": [{'method': 'GET', 'relative_url': '/endpoint?key=value'}]})
         self.assertEqual(fake_api.files, {})
+        self.assertFalse(self.failure_called)
 
         self.assertEqual(len(new_batch), 1)  # one failure is transient
 
