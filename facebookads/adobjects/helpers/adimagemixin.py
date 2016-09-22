@@ -113,6 +113,7 @@ class AdImageMixin:
         params=None,
         success=None,
         api_version=None,
+        transient_error=None,
     ):
         """Uploads filename and creates the AdImage object from it.
         It has same arguments as AbstractCrudObject.remote_create except it
@@ -133,6 +134,7 @@ class AdImageMixin:
                 params=params,
                 success=success,
                 api_version=api_version,
+                transient_error=transient_error,
             )
         return return_val
 
@@ -148,6 +150,7 @@ class AdImageMixin:
         params=None,
         success=None,
         api_version=None,
+        transient_error=None,
     ):
         if self[self.__class__.Field.id]:
             _, image_hash = self[self.__class__.Field.id].split(':')
