@@ -706,8 +706,8 @@ class FacebookRequest:
             else:
                 return response
 
-    def add_to_batch(self, batch, success=None, failure=None):
-        batch.add_request(self, success, failure)
+    def add_to_batch(self, batch, success=None, failure=None, transient_error=None):
+        batch.add_request(self, success, failure, transient_error)
 
     def _extract_value(self, value):
         if hasattr(value, 'export_all_data'):

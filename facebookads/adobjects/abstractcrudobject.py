@@ -222,6 +222,7 @@ class AbstractCrudObject(AbstractObject):
         params=None,
         success=None,
         api_version=None,
+        transient_error=None,
     ):
         """Creates the object by calling the API.
         Args:
@@ -236,6 +237,8 @@ class AbstractCrudObject(AbstractObject):
                 the FacebookResponse of this call if the call succeeded.
             failure (optional): A callback function which will be called with
                 the FacebookResponse of this call if the call failed.
+            transient_error (optional): A callback function which will be called with
+                the FacebookResponse of this call if the call failed with a transient error.
         Returns:
             self if not a batch call.
             the return value of batch.add if a batch call.
@@ -281,10 +284,15 @@ class AbstractCrudObject(AbstractObject):
                 if failure:
                     failure(response)
 
+            def callback_transient_error(response):
+                if transient_error:
+                    transient_error(response)
+
             return batch.add_request(
                 request=request,
                 success=callback_success,
                 failure=callback_failure,
+                transient_error=callback_transient_error,
             )
         else:
             response = request.execute()
@@ -301,6 +309,7 @@ class AbstractCrudObject(AbstractObject):
         params=None,
         success=None,
         api_version=None,
+        transient_error=None,
     ):
         """Reads the object by calling the API.
         Args:
@@ -316,6 +325,8 @@ class AbstractCrudObject(AbstractObject):
                 the FacebookResponse of this call if the call succeeded.
             failure (optional): A callback function which will be called with
                 the FacebookResponse of this call if the call failed.
+            transient_error (optional): A callback function which will be called with
+                the FacebookResponse of this call if the call failed with a transient error.
         Returns:
             self if not a batch call.
             the return value of batch.add if a batch call.
@@ -348,10 +359,15 @@ class AbstractCrudObject(AbstractObject):
                 if failure:
                     failure(response)
 
+            def callback_transient_error(response):
+                if transient_error:
+                    transient_error(response)
+
             batch_call = batch.add_request(
                 request=request,
                 success=callback_success,
                 failure=callback_failure,
+                transient_error=callback_transient_error,
             )
             return batch_call
         else:
@@ -366,6 +382,7 @@ class AbstractCrudObject(AbstractObject):
         params=None,
         success=None,
         api_version=None,
+        transient_error=None,
     ):
         """Updates the object by calling the API with only the changes recorded.
         Args:
@@ -380,6 +397,8 @@ class AbstractCrudObject(AbstractObject):
                 the FacebookResponse of this call if the call succeeded.
             failure (optional): A callback function which will be called with
                 the FacebookResponse of this call if the call failed.
+            transient_error (optional): A callback function which will be called with
+                the FacebookResponse of this call if the call failed with a transient error.
         Returns:
             self if not a batch call.
             the return value of batch.add if a batch call.
@@ -414,10 +433,15 @@ class AbstractCrudObject(AbstractObject):
                 if failure:
                     failure(response)
 
+            def callback_transient_error(response):
+                if transient_error:
+                    transient_error(response)
+
             batch_call = batch.add_request(
                 request=request,
                 success=callback_success,
                 failure=callback_failure,
+                transient_error=callback_transient_error,
             )
             return batch_call
         else:
@@ -433,6 +457,7 @@ class AbstractCrudObject(AbstractObject):
         params=None,
         success=None,
         api_version=None,
+        transient_error=None,
     ):
         """Deletes the object by calling the API with the DELETE http method.
         Args:
@@ -445,6 +470,8 @@ class AbstractCrudObject(AbstractObject):
                 the FacebookResponse of this call if the call succeeded.
             failure (optional): A callback function which will be called with
                 the FacebookResponse of this call if the call failed.
+            transient_error (optional): A callback function which will be called with
+                the FacebookResponse of this call if the call failed with a transient error.
         Returns:
             self if not a batch call.
             the return value of batch.add if a batch call.
@@ -470,10 +497,15 @@ class AbstractCrudObject(AbstractObject):
                 if failure:
                     failure(response)
 
+            def callback_transient_error(response):
+                if transient_error:
+                    transient_error(response)
+
             batch_call = batch.add_request(
                 request=request,
                 success=callback_success,
                 failure=callback_failure,
+                transient_error=callback_transient_error,
             )
             return batch_call
         else:
@@ -498,7 +530,8 @@ class AbstractCrudObject(AbstractObject):
         self,
         batch=None,
         failure=None,
-        success=None
+        success=None,
+        transient_error=None,
     ):
         if 'Status' not in dir(self) or 'archived' not in dir(self.Status):
             raise TypeError('Cannot archive object of type %s.'
@@ -511,6 +544,7 @@ class AbstractCrudObject(AbstractObject):
             batch=batch,
             failure=failure,
             success=success,
+            transient_error=transient_error,
         )
     # To avoid breaking change. Will be deprecated
     save = remote_save
