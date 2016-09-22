@@ -362,6 +362,7 @@ class FacebookAdsApiBatch(object):
         self._batch = []
         self._success_callbacks = []
         self._failure_callbacks = []
+        self._transient_errors_callbacks = []
         self._requests = []
 
     def __len__(self):
@@ -376,6 +377,7 @@ class FacebookAdsApiBatch(object):
         files=None,
         success=None,
         failure=None,
+        transient_error=None,
         request=None,
     ):
         """Adds a call to the batch.
@@ -401,6 +403,14 @@ class FacebookAdsApiBatch(object):
         Returns:
             A dictionary describing the call.
         """
+        if isinstance(transient_error, FacebookRequest):
+            api_utils.warning(
+                "8th argument of the FacebookAdsApiBatch.add() method is "
+                "now a callback for transient errors. Please either adapt "
+                "you positional arguments or switch to keyword arguments."
+            )
+            request, transient_error = transient_error, None
+
         if not isinstance(relative_path, six.string_types):
             relative_url = '/'.join(relative_path)
         else:
@@ -435,6 +445,7 @@ class FacebookAdsApiBatch(object):
         self._files.append(files)
         self._success_callbacks.append(success)
         self._failure_callbacks.append(failure)
+        self._transient_errors_callbacks.append(transient_error)
         self._requests.append(request)
 
         return call
@@ -444,6 +455,7 @@ class FacebookAdsApiBatch(object):
         request,
         success=None,
         failure=None,
+        transient_error=None,
     ):
         """Interface to add a APIRequest to the batch.
         Args:
@@ -465,6 +477,7 @@ class FacebookAdsApiBatch(object):
             files=request._file_params,
             success=success,
             failure=failure,
+            transient_error=transient_error,
             request=request,
         )
 
@@ -501,26 +514,39 @@ class FacebookAdsApiBatch(object):
 
         for index, response in enumerate(responses):
             if not response:
-                retry_indices.append(index)
-                continue
+                transient_body = {
+                    "error": {
+                        "is_transient": True,
+                        "message": "Transient Error",
+                        "type": "empty response"
+                    }
+                }
+                inner_fb_response = FacebookResponse(
+                    body=transient_body,
+                    http_status=500,
+                    call=self._batch[index],
+                )
+            else:
+                inner_fb_response = FacebookResponse(
+                    body=response.get('body'),
+                    headers=response.get('headers'),
+                    http_status=response.get('code'),
+                    call=self._batch[index],
+                )
 
-            inner_fb_response = FacebookResponse(
-                body=response.get('body'),
-                headers=response.get('headers'),
-                http_status=response.get('code'),
-                call=self._batch[index],
-            )
             if inner_fb_response.is_success():
                 if self._success_callbacks[index]:
                     self._success_callbacks[index](inner_fb_response)
             else:
+                error_callback = self._failure_callbacks[index]
                 # retry transient errors
                 if inner_fb_response.is_transient():
                     retry_indices.append(index)
+                    error_callback = self._transient_errors_callbacks[index]
 
-                # execute failure callbacks on error, even if transient
-                if self._failure_callbacks[index]:
-                    self._failure_callbacks[index](inner_fb_response)
+                # execute failure callbacks on error
+                if error_callback:
+                    error_callback(inner_fb_response)
 
         if retry_indices:
             new_batch = self.__class__(self._api)
@@ -530,6 +556,9 @@ class FacebookAdsApiBatch(object):
                                             for index in retry_indices]
             new_batch._failure_callbacks = [self._failure_callbacks[index]
                                             for index in retry_indices]
+            new_batch._transient_errors_callbacks = [
+                self._transient_errors_callbacks[index] for index in retry_indices
+            ]
             return new_batch
         else:
             return None

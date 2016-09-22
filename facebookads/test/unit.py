@@ -39,6 +39,7 @@ from .. import specs
 from .. import exceptions
 from .. import session
 from .. import utils
+from facebookads import apiconfig
 from facebookads.utils import version
 
 
@@ -460,6 +461,29 @@ class UrlsUtilsTestCase(unittest.TestCase):
 
 class FacebookAdsApiBatchTestCase(unittest.TestCase):
 
+    def tearDown(self):
+        apiconfig.ads_api_config["STRICT_MODE"] = False
+        super(FacebookAdsApiBatchTestCase, self).tearDown()
+
+    def test_init(self):
+        default_api = api.FacebookAdsApi.get_default_api()
+        batch = api.FacebookAdsApiBatch(default_api)
+        self.assertIs(batch._api, default_api)
+        self.assertEqual(batch._files, [])
+        self.assertEqual(batch._batch, [])
+        self.assertEqual(batch._success_callbacks, [])
+        self.assertEqual(batch._failure_callbacks, [])
+        self.assertEqual(batch._transient_errors_callbacks, [])
+        self.assertEqual(batch._requests, [])
+
+    def test_add_bad_argument_strictmode(self):
+        default_api = api.FacebookAdsApi.get_default_api()
+        batch = api.FacebookAdsApiBatch(default_api)
+        apiconfig.ads_api_config["STRICT_MODE"] = True
+        with self.assertRaises(exceptions.FacebookBadObjectError):
+            request = api.FacebookRequest(1337, "GET", "/")
+            batch.add("GET", "/", None, None, None, None, None, request, None)
+
     def test_add_works_with_utf8(self):
         default_api = api.FacebookAdsApi.get_default_api()
         batch_api = api.FacebookAdsApiBatch(default_api)
@@ -495,6 +519,24 @@ class FacebookAdsApiBatchTestCase(unittest.TestCase):
         self.assertEqual(fake_api.files, {})
         self.assertTrue(self.success_called)
 
+    def test_execute_failure(self):
+        body = [
+            {"body": {"error": {}}, "code": 400},
+        ]
+        fake_api = self.FakeApi(body)
+        batch = api.FacebookAdsApiBatch(fake_api)
+        self.failure_called = False
+        def callback(resp):
+            self.failure_called = True
+        batch.add("GET", "/endpoint", params={"key": "value"}, failure=callback)
+        new_batch = batch.execute()
+        self.assertIsNone(new_batch)
+        self.assertEqual(fake_api.method, 'POST')
+        self.assertEqual(fake_api.path, ())
+        self.assertEqual(fake_api.params, {"batch": [{'method': 'GET', 'relative_url': '/endpoint?key=value'}]})
+        self.assertEqual(fake_api.files, {})
+        self.assertTrue(self.failure_called)
+
     def test_execute_transient(self):
         body = [
             {"body": {"error": {"is_transient": True}}, "code": 400},
@@ -504,14 +546,18 @@ class FacebookAdsApiBatchTestCase(unittest.TestCase):
         self.failure_called = False
         def callback(resp):
             self.failure_called = True
-        batch.add("GET", "/endpoint", params={"key": "value"}, failure=callback)
+        self.transient_called = False
+        def transient_callback(resp):
+            self.transient_called = True
+        batch.add("GET", "/endpoint", params={"key": "value"}, failure=callback, transient_error=transient_callback)
         new_batch = batch.execute()
         self.assertIsNotNone(new_batch)
         self.assertEqual(fake_api.method, 'POST')
         self.assertEqual(fake_api.path, ())
         self.assertEqual(fake_api.params, {"batch": [{'method': 'GET', 'relative_url': '/endpoint?key=value'}]})
         self.assertEqual(fake_api.files, {})
-        self.assertTrue(self.failure_called)
+        self.assertTrue(self.transient_called)
+        self.assertFalse(self.failure_called)
 
         self.assertEqual(len(new_batch), 1)  # one failure is transient
 
@@ -521,17 +567,20 @@ class FacebookAdsApiBatchTestCase(unittest.TestCase):
         ]
         fake_api = self.FakeApi(body)
         batch = api.FacebookAdsApiBatch(fake_api)
-        self.failure_called = False
+        self.transient_resp = None
         def callback(resp):
-            self.failure_called = True
-        batch.add("GET", "/endpoint", params={"key": "value"}, failure=callback)
+            self.transient_resp = resp
+        batch.add("GET", "/endpoint", params={"key": "value"}, transient_error=callback)
         new_batch = batch.execute()
         self.assertIsNotNone(new_batch)
         self.assertEqual(fake_api.method, 'POST')
         self.assertEqual(fake_api.path, ())
         self.assertEqual(fake_api.params, {"batch": [{'method': 'GET', 'relative_url': '/endpoint?key=value'}]})
         self.assertEqual(fake_api.files, {})
-        self.assertFalse(self.failure_called)
+        self.assertIsNotNone(self.transient_resp)
+        self.assertIsInstance(self.transient_resp, api.FacebookResponse)
+        self.assertTrue(self.transient_resp.is_failure())
+        self.assertTrue(self.transient_resp.is_transient())
 
         self.assertEqual(len(new_batch), 1)  # one failure is transient
 
