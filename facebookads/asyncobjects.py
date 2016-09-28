@@ -91,6 +91,18 @@ class AioEdgeIterator(baseobjects.EdgeIterator):
         self.unknown_retries = 30
         self.too_much_data_retries = 14
 
+    @property
+    def future(self):
+        return self._future
+
+    @property
+    def page_ready(self):
+        return self._page_ready
+
+    @property
+    def request_failed(self):
+        return self._request_failed
+
     def __getitem__(self, index):
         if not self._queue:
             self.load_next_page()
@@ -498,7 +510,7 @@ class AbstractCrudAioObject(object):
 
         result = []
         for response in api.get_typed_async_results(cls):
-            if response._request_failed:
+            if response.request_failed:
                 raise response.last_error
 
             for fbid, data in response.get_all_results():

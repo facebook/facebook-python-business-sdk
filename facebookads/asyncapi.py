@@ -273,13 +273,13 @@ class FacebookAdsAsyncApi(FacebookAdsApi):
             elif isinstance(edge_iter, six.string_types) and edge_iter == "next":
                 continue
 
-            if edge_iter._future:
+            if edge_iter.future:
                 try:
-                    if edge_iter._future.done():
-                        result = edge_iter._future.result()
+                    if edge_iter.future.done():
+                        result = edge_iter.future.result()
                         del result
-                    elif edge_iter._future.running():
-                        edge_iter._future.cancel()
+                    elif edge_iter.future.running():
+                        edge_iter.future.cancel()
                 except Exception as exc:
                     logger.warn("Future stop failed: {}".format(exc))
                 del edge_iter._future
@@ -307,11 +307,11 @@ class FacebookAdsAsyncApi(FacebookAdsApi):
 
             edge_iter = edge_iter.extract_results()
 
-            if edge_iter._page_ready and edge_iter._finished_iteration:
+            if edge_iter.page_ready and edge_iter._finished_iteration:
                 # loaded all the data
                 yield edge_iter
             else:
-                if edge_iter._request_failed:
+                if edge_iter.request_failed:
                     # request failed unrecoverably
                     yield edge_iter
                 else:
@@ -339,7 +339,7 @@ class FacebookAdsAsyncApi(FacebookAdsApi):
 
             edge_iter = edge_iter.extract_results()
 
-            if edge_iter._page_ready and edge_iter._finished_iteration:
+            if edge_iter.page_ready and edge_iter._finished_iteration:
                 # loaded all the data
                 if edge_iter._target_objects_class == target_objects_class:
                     required_type_cnt += 1
@@ -348,7 +348,7 @@ class FacebookAdsAsyncApi(FacebookAdsApi):
                     self.put_in_futures(edge_iter)
 
             else:
-                if edge_iter._request_failed:
+                if edge_iter.request_failed:
                     # request failed unrecoverably
                     if edge_iter._target_objects_class == target_objects_class:
                         required_type_cnt += 1
