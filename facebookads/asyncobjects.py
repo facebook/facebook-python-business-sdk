@@ -211,6 +211,7 @@ class AioEdgeIterator(baseobjects.EdgeIterator):
                 data = response
             self._queue.append(data)
             new_cnt = 1
+        del self._response
         self._response = None
 
         return new_cnt
