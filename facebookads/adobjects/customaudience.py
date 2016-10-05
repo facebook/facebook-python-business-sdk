@@ -50,13 +50,11 @@ class CustomAudience(
         description = 'description'
         external_event_source = 'external_event_source'
         id = 'id'
-        last_used_time = 'last_used_time'
         lookalike_audience_ids = 'lookalike_audience_ids'
         lookalike_spec = 'lookalike_spec'
         name = 'name'
         operation_status = 'operation_status'
         opt_out_link = 'opt_out_link'
-        owner_business = 'owner_business'
         permission_for_actions = 'permission_for_actions'
         pixel_id = 'pixel_id'
         retention_days = 'retention_days'
@@ -73,20 +71,27 @@ class CustomAudience(
         origin_audience_id = 'origin_audience_id'
         prefill = 'prefill'
         product_set_id = 'product_set_id'
+        associated_audience_id = 'associated_audience_id'
+        creation_params = 'creation_params'
+        exclusions = 'exclusions'
+        inclusions = 'inclusions'
+        parent_audience_id = 'parent_audience_id'
+        tags = 'tags'
 
     class ClaimObjective:
         product = 'PRODUCT'
         travel = 'TRAVEL'
 
     class ContentType:
-        hotel = 'HOTEL'
+        destination = 'DESTINATION'
         flight = 'FLIGHT'
+        hotel = 'HOTEL'
 
     class Subtype:
         custom = 'CUSTOM'
         website = 'WEBSITE'
         app = 'APP'
-        offline = 'OFFLINE'
+        offline_conversion = 'OFFLINE_CONVERSION'
         claim = 'CLAIM'
         partner = 'PARTNER'
         managed = 'MANAGED'
@@ -95,6 +100,7 @@ class CustomAudience(
         engagement = 'ENGAGEMENT'
         data_set = 'DATA_SET'
         bag_of_accounts = 'BAG_OF_ACCOUNTS'
+        study_rule_audience = 'STUDY_RULE_AUDIENCE'
 
     class Fields:
         id = 'id'
@@ -104,13 +110,11 @@ class CustomAudience(
         delivery_status = 'delivery_status'
         description = 'description'
         external_event_source = 'external_event_source'
-        last_used_time = 'last_used_time'
         lookalike_audience_ids = 'lookalike_audience_ids'
         lookalike_spec = 'lookalike_spec'
         name = 'name'
         operation_status = 'operation_status'
         opt_out_link = 'opt_out_link'
-        owner_business = 'owner_business'
         permission_for_actions = 'permission_for_actions'
         pixel_id = 'pixel_id'
         retention_days = 'retention_days'
@@ -313,6 +317,7 @@ class CustomAudience(
         from facebookads.adobjects.ad import Ad
         param_types = {
             'effective_status': 'list<string>',
+            'status': 'list<string>',
         }
         enums = {
         }
@@ -397,6 +402,7 @@ class CustomAudience(
 
     def delete_users(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
+            'namespace': 'string',
             'payload': 'Object',
             'session': 'Object',
         }
@@ -427,6 +433,7 @@ class CustomAudience(
     def create_user(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.user import User
         param_types = {
+            'namespace': 'string',
             'payload': 'Object',
             'session': 'Object',
         }
@@ -462,13 +469,11 @@ class CustomAudience(
         'description': 'string',
         'external_event_source': 'AdsPixel',
         'id': 'string',
-        'last_used_time': 'datetime',
         'lookalike_audience_ids': 'list<string>',
         'lookalike_spec': 'LookalikeSpec',
         'name': 'string',
         'operation_status': 'CustomAudienceStatus',
         'opt_out_link': 'string',
-        'owner_business': 'Business',
         'permission_for_actions': 'CustomAudiencePermission',
         'pixel_id': 'string',
         'retention_days': 'int',
@@ -485,6 +490,12 @@ class CustomAudience(
         'origin_audience_id': 'string',
         'prefill': 'bool',
         'product_set_id': 'string',
+        'associated_audience_id': 'unsigned int',
+        'creation_params': 'map',
+        'exclusions': 'list<Object>',
+        'inclusions': 'list<Object>',
+        'parent_audience_id': 'unsigned int',
+        'tags': 'list<string>',
     }
 
     @classmethod

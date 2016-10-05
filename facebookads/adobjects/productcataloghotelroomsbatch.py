@@ -46,8 +46,11 @@ class ProductCatalogHotelRoomsBatch(
         handle = 'handle'
         status = 'status'
         file = 'file'
+        password = 'password'
         standard = 'standard'
         update_only = 'update_only'
+        url = 'url'
+        username = 'username'
 
     class Standard:
         google = 'google'
@@ -66,8 +69,11 @@ class ProductCatalogHotelRoomsBatch(
         'handle': 'string',
         'status': 'string',
         'file': 'file',
+        'password': 'string',
         'standard': 'Standard',
         'update_only': 'bool',
+        'url': 'string',
+        'username': 'string',
     }
 
     @classmethod

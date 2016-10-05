@@ -49,11 +49,9 @@ class AdImage(
         hash = 'hash'
         height = 'height'
         id = 'id'
-        last_used_time = 'last_used_time'
         name = 'name'
         original_height = 'original_height'
         original_width = 'original_width'
-        owner_business = 'owner_business'
         permalink_url = 'permalink_url'
         status = 'status'
         updated_time = 'updated_time'
@@ -111,11 +109,9 @@ class AdImage(
         'hash': 'string',
         'height': 'unsigned int',
         'id': 'string',
-        'last_used_time': 'datetime',
         'name': 'string',
         'original_height': 'unsigned int',
         'original_width': 'unsigned int',
-        'owner_business': 'Business',
         'permalink_url': 'string',
         'status': 'Status',
         'updated_time': 'datetime',

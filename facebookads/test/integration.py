@@ -34,9 +34,9 @@ import json
 from .. import objects
 from .. import specs
 from .. import api
+from .. import apiconfig
 from .. import session
 from .. import exceptions as fbexceptions
-
 
 class FacebookAdsTestCase(unittest.TestCase):
 
@@ -322,7 +322,8 @@ class AbstractCrudObjectTestCase(AbstractObjectTestCase):
 
         test_image_one[objects.AdImage.Field.filename] = image_file
 
-        assert test_image_one.remote_create(api_version="v2.7") is not None
+        assert test_image_one.remote_create(
+            api_version=apiconfig.ads_api_config['API_VERSION']) is not None
 
         test_image_two = objects.AdImage(
             parent_id=self.TEST_ACCOUNT.get_id_assured(),
@@ -331,7 +332,8 @@ class AbstractCrudObjectTestCase(AbstractObjectTestCase):
         test_image_two[objects.AdImage.Field.filename] = image_file
 
         try:
-            test_image_two.remote_create(api_version="v2.7")
+            test_image_two.remote_create(
+                api_version=apiconfig.ads_api_config['API_VERSION'])
         except fbexceptions.FacebookBadObjectError as e:
             assert e is not None
 

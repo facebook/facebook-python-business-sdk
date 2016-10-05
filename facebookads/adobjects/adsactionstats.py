@@ -48,30 +48,30 @@ class AdsActionStats(
         action_carousel_card_name = 'action_carousel_card_name'
         action_destination = 'action_destination'
         action_device = 'action_device'
+        action_reaction = 'action_reaction'
         action_target_id = 'action_target_id'
         action_type = 'action_type'
         action_video_sound = 'action_video_sound'
         action_video_type = 'action_video_type'
-        canvas_component_id = 'canvas_component_id'
         value = 'value'
 
     _field_types = {
-        '1d_click': 'float',
-        '1d_view': 'float',
-        '28d_click': 'float',
-        '28d_view': 'float',
-        '7d_click': 'float',
-        '7d_view': 'float',
+        '1d_click': 'string',
+        '1d_view': 'string',
+        '28d_click': 'string',
+        '28d_view': 'string',
+        '7d_click': 'string',
+        '7d_view': 'string',
         'action_carousel_card_id': 'string',
         'action_carousel_card_name': 'string',
         'action_destination': 'string',
         'action_device': 'string',
+        'action_reaction': 'string',
         'action_target_id': 'string',
         'action_type': 'string',
         'action_video_sound': 'string',
         'action_video_type': 'string',
-        'canvas_component_id': 'string',
-        'value': 'float',
+        'value': 'string',
     }
 
     @classmethod

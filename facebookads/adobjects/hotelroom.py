@@ -50,6 +50,7 @@ class HotelRoom(
         margin_level = 'margin_level'
         name = 'name'
         room_id = 'room_id'
+        sale_price = 'sale_price'
         url = 'url'
         pricing_variables = 'pricing_variables'
 
@@ -125,6 +126,7 @@ class HotelRoom(
             'margin_level': 'unsigned int',
             'name': 'string',
             'pricing_variables': 'list<Object>',
+            'sale_price': 'float',
             'url': 'string',
         }
         enums = {
@@ -161,6 +163,7 @@ class HotelRoom(
         'margin_level': 'string',
         'name': 'string',
         'room_id': 'string',
+        'sale_price': 'string',
         'url': 'string',
         'pricing_variables': 'list<Object>',
     }

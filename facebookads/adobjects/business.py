@@ -43,10 +43,17 @@ class Business(
         super(Business, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        created_by = 'created_by'
+        created_time = 'created_time'
         id = 'id'
+        link = 'link'
         name = 'name'
         payment_account_id = 'payment_account_id'
         primary_page = 'primary_page'
+        timezone_id = 'timezone_id'
+        two_factor_type = 'two_factor_type'
+        updated_by = 'updated_by'
+        updated_time = 'updated_time'
 
     def api_get(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
@@ -155,6 +162,35 @@ class Business(
         request = FacebookRequest(
             node_id=self['id'],
             method='GET',
+            endpoint='/adspixels',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdsPixel,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdsPixel),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_ads_pixel(self, fields=None, params=None, batch=None, pending=False):
+        from facebookads.adobjects.adspixel import AdsPixel
+        param_types = {
+            'name': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
             endpoint='/adspixels',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
@@ -1027,10 +1063,17 @@ class Business(
             return request.execute()
 
     _field_types = {
+        'created_by': 'User',
+        'created_time': 'datetime',
         'id': 'string',
+        'link': 'string',
         'name': 'string',
         'payment_account_id': 'string',
         'primary_page': 'Object',
+        'timezone_id': 'unsigned int',
+        'two_factor_type': 'string',
+        'updated_by': 'User',
+        'updated_time': 'datetime',
     }
 
     @classmethod
