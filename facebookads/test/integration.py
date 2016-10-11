@@ -103,6 +103,7 @@ class FacebookAdsTestCase(unittest.TestCase):
         self.delete_in_teardown(campaign)
         campaign.update({
             objects.Campaign.Field.name: 'CampaignTestCase %s' % self.TEST_ID,
+            objects.Campaign.Field.objective: objects.Campaign.Objective.conversions,
         })
 
         return campaign
@@ -816,10 +817,16 @@ class BatchTestCase(FacebookAdsTestCase):
     def test_batch_call(self):
         campaigns = self.create_campaigns()
         batch = FacebookAdsTestCase.TEST_API.new_batch()
+        self.errors = []
+        tc = self
+        def side_effect(response):
+            tc.errors.append(response.error() if response else "Error")
         for campaign in campaigns:
-            campaign.remote_create(batch=batch)
+            campaign.remote_create(batch=batch, failure=side_effect)
         self.check_batch_size(batch)
         self.execute_batch(batch, self.num_campaigns)
+        if self.errors:
+            self.fail("Errors occurred during batch call %s" % self.errors)
         self.check_ids(campaigns)
 
 
