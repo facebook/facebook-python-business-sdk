@@ -41,8 +41,12 @@ class LeadgenForm(
         super(LeadgenForm, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        allow_organic_lead = 'allow_organic_lead'
+        context_card = 'context_card'
+        continued_flow_request_method = 'continued_flow_request_method'
         created_time = 'created_time'
         creator = 'creator'
+        creator_id = 'creator_id'
         cusomized_tcpa_content = 'cusomized_tcpa_content'
         expired_leads_count = 'expired_leads_count'
         follow_up_action_text = 'follow_up_action_text'
@@ -51,12 +55,15 @@ class LeadgenForm(
         is_continued_flow = 'is_continued_flow'
         leadgen_export_csv_url = 'leadgen_export_csv_url'
         leads_count = 'leads_count'
+        legal_content = 'legal_content'
         locale = 'locale'
+        messenger_welcome_message = 'messenger_welcome_message'
         name = 'name'
         page = 'page'
         page_id = 'page_id'
         privacy_policy_url = 'privacy_policy_url'
         qualifiers = 'qualifiers'
+        questions = 'questions'
         status = 'status'
         tcpa_compliance = 'tcpa_compliance'
 
@@ -176,8 +183,12 @@ class LeadgenForm(
             return request.execute()
 
     _field_types = {
+        'allow_organic_lead': 'bool',
+        'context_card': 'Object',
+        'continued_flow_request_method': 'string',
         'created_time': 'datetime',
         'creator': 'User',
+        'creator_id': 'int',
         'cusomized_tcpa_content': 'string',
         'expired_leads_count': 'unsigned int',
         'follow_up_action_text': 'string',
@@ -186,12 +197,15 @@ class LeadgenForm(
         'is_continued_flow': 'bool',
         'leadgen_export_csv_url': 'string',
         'leads_count': 'unsigned int',
+        'legal_content': 'Object',
         'locale': 'string',
+        'messenger_welcome_message': 'string',
         'name': 'string',
         'page': 'Object',
         'page_id': 'string',
         'privacy_policy_url': 'string',
         'qualifiers': 'list<LeadGenQualifier>',
+        'questions': 'list<LeadGenQuestion>',
         'status': 'string',
         'tcpa_compliance': 'bool',
     }

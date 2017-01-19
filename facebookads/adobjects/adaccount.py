@@ -45,7 +45,6 @@ class AdAccount(
         super(AdAccount, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        account_groups = 'account_groups'
         account_id = 'account_id'
         account_status = 'account_status'
         age = 'age'
@@ -77,7 +76,6 @@ class AdAccount(
         is_personal = 'is_personal'
         is_prepay_account = 'is_prepay_account'
         is_tax_id_required = 'is_tax_id_required'
-        last_used_time = 'last_used_time'
         line_numbers = 'line_numbers'
         media_agency = 'media_agency'
         min_campaign_group_spend_cap = 'min_campaign_group_spend_cap'
@@ -85,7 +83,6 @@ class AdAccount(
         name = 'name'
         offsite_pixels_tos_accepted = 'offsite_pixels_tos_accepted'
         owner = 'owner'
-        owner_business = 'owner_business'
         partner = 'partner'
         rf_spec = 'rf_spec'
         spend_cap = 'spend_cap'
@@ -305,10 +302,6 @@ class AdAccount(
         from facebookads.adobjects.adcreative import AdCreative
         param_types = {
             'action_spec': 'list<unsigned int>',
-            'actor_id': 'unsigned int',
-            'actor_image_hash': 'string',
-            'actor_image_url': 'string',
-            'actor_name': 'string',
             'adlabels': 'list<Object>',
             'applink_treatment': 'applink_treatment_enum',
             'body': 'string',
@@ -321,6 +314,7 @@ class AdAccount(
             'image_url': 'string',
             'instagram_actor_id': 'string',
             'instagram_permalink_url': 'string',
+            'instagram_story_id': 'unsigned int',
             'link_og_id': 'string',
             'link_url': 'string',
             'name': 'string',
@@ -330,13 +324,13 @@ class AdAccount(
             'object_story_spec': 'AdCreativeObjectStorySpec',
             'object_type': 'string',
             'object_url': 'string',
-            'place_page_set_id': 'string',
             'platform_customizations': 'Object',
             'product_set_id': 'string',
             'template_url': 'string',
             'thumbnail_url': 'string',
             'title': 'string',
             'url_tags': 'string',
+            'use_page_actor_override': 'bool',
             'video_id': 'unsigned int',
         }
         enums = {
@@ -609,7 +603,7 @@ class AdAccount(
             'date_preset': 'date_preset_enum',
             'effective_status': 'list<string>',
             'include_deleted': 'bool',
-            'time_range': 'map',
+            'time_range': 'Object',
             'updated_since': 'int',
         }
         enums = {
@@ -718,7 +712,7 @@ class AdAccount(
             'effective_status': 'list<effective_status_enum>',
             'include_deleted': 'bool',
             'is_completed': 'bool',
-            'time_range': 'map',
+            'time_range': 'Object',
         }
         enums = {
             'date_preset_enum': AdSet.DatePreset.__dict__.values(),
@@ -762,6 +756,7 @@ class AdAccount(
             'execution_options': 'list<execution_options_enum>',
             'frequency_control_specs': 'list<Object>',
             'is_autobid': 'bool',
+            'is_average_price_pacing': 'bool',
             'lifetime_budget': 'unsigned int',
             'lifetime_imps': 'unsigned int',
             'name': 'string',
@@ -964,7 +959,6 @@ class AdAccount(
             'og_object_id': 'string',
             'og_phrase': 'string',
             'og_suggestion_mechanism': 'string',
-            'overwrite_id': 'string',
             'referenced_sticker_id': 'string',
             'slideshow_spec': 'map',
             'start_offset': 'unsigned int',
@@ -1171,7 +1165,7 @@ class AdAccount(
             'date_preset': 'date_preset_enum',
             'effective_status': 'list<effective_status_enum>',
             'is_completed': 'bool',
-            'time_range': 'map',
+            'time_range': 'Object',
         }
         enums = {
             'date_preset_enum': Campaign.DatePreset.__dict__.values(),
@@ -1203,6 +1197,7 @@ class AdAccount(
         from facebookads.adobjects.campaign import Campaign
         param_types = {
             'adlabels': 'list<Object>',
+            'budget_rebalance_flag': 'bool',
             'buying_type': 'string',
             'execution_options': 'list<execution_options_enum>',
             'name': 'string',
@@ -1315,7 +1310,7 @@ class AdAccount(
             'name': 'string',
             'opt_out_link': 'string',
             'origin_audience_id': 'string',
-            'pixel_id': 'unsigned int',
+            'pixel_id': 'string',
             'prefill': 'bool',
             'product_set_id': 'string',
             'retention_days': 'unsigned int',
@@ -1384,8 +1379,10 @@ class AdAccount(
             'default_conversion_value': 'float',
             'description': 'string',
             'name': 'string',
+            'pixel_aggregation_rule': 'string',
             'pixel_id': 'string',
             'pixel_rule': 'string',
+            'retention_days': 'int',
         }
         enums = {
             'custom_event_type_enum': CustomConversion.CustomEventType.__dict__.values(),
@@ -1421,6 +1418,7 @@ class AdAccount(
             'height': 'unsigned int',
             'interactive': 'bool',
             'locale': 'string',
+            'place_page_id': 'int',
             'post': 'Object',
             'product_item_ids': 'list<string>',
             'width': 'unsigned int',
@@ -1461,6 +1459,9 @@ class AdAccount(
             'breakdowns': 'list<breakdowns_enum>',
             'date_preset': 'date_preset_enum',
             'default_summary': 'bool',
+            'export_columns': 'list<string>',
+            'export_format': 'string',
+            'export_name': 'string',
             'fields': 'list<fields_enum>',
             'filtering': 'list<Object>',
             'level': 'level_enum',
@@ -1469,8 +1470,8 @@ class AdAccount(
             'summary': 'list<summary_enum>',
             'summary_action_breakdowns': 'list<summary_action_breakdowns_enum>',
             'time_increment': 'string',
-            'time_range': 'map',
-            'time_ranges': 'list<map>',
+            'time_range': 'Object',
+            'time_ranges': 'list<Object>',
         }
         enums = {
             'action_attribution_windows_enum': AdsInsights.ActionAttributionWindows.__dict__.values(),
@@ -1515,6 +1516,9 @@ class AdAccount(
             'breakdowns': 'list<breakdowns_enum>',
             'date_preset': 'date_preset_enum',
             'default_summary': 'bool',
+            'export_columns': 'list<string>',
+            'export_format': 'string',
+            'export_name': 'string',
             'fields': 'list<fields_enum>',
             'filtering': 'list<Object>',
             'level': 'level_enum',
@@ -1523,8 +1527,8 @@ class AdAccount(
             'summary': 'list<summary_enum>',
             'summary_action_breakdowns': 'list<summary_action_breakdowns_enum>',
             'time_increment': 'string',
-            'time_range': 'map',
-            'time_ranges': 'list<map>',
+            'time_range': 'Object',
+            'time_ranges': 'list<Object>',
         }
         enums = {
             'action_attribution_windows_enum': AdsInsights.ActionAttributionWindows.__dict__.values(),
@@ -1820,6 +1824,7 @@ class AdAccount(
             return request.execute()
 
     def create_product_audience(self, fields=None, params=None, batch=None, pending=False):
+        from facebookads.adobjects.customaudience import CustomAudience
         param_types = {
             'associated_audience_id': 'unsigned int',
             'creation_params': 'map',
@@ -1838,7 +1843,7 @@ class AdAccount(
                 'CUSTOM',
                 'WEBSITE',
                 'APP',
-                'OFFLINE',
+                'OFFLINE_CONVERSION',
                 'CLAIM',
                 'PARTNER',
                 'MANAGED',
@@ -1847,6 +1852,7 @@ class AdAccount(
                 'ENGAGEMENT',
                 'DATA_SET',
                 'BAG_OF_ACCOUNTS',
+                'STUDY_RULE_AUDIENCE',
             ],
         }
         request = FacebookRequest(
@@ -1855,9 +1861,9 @@ class AdAccount(
             endpoint='/product_audiences',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=CustomAudience,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject),
+            response_parser=ObjectParser(target_class=CustomAudience),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2021,6 +2027,7 @@ class AdAccount(
         param_types = {
             'budget': 'unsigned int',
             'campaign_group_id': 'string',
+            'day_parting_schedule': 'list<Object>',
             'destination_id': 'unsigned int',
             'destination_ids': 'list<string>',
             'end_time': 'unsigned int',
@@ -2307,7 +2314,6 @@ class AdAccount(
             return request.execute()
 
     _field_types = {
-        'account_groups': 'list<AdAccountGroupResult>',
         'account_id': 'string',
         'account_status': 'unsigned int',
         'age': 'float',
@@ -2339,7 +2345,6 @@ class AdAccount(
         'is_personal': 'unsigned int',
         'is_prepay_account': 'bool',
         'is_tax_id_required': 'bool',
-        'last_used_time': 'datetime',
         'line_numbers': 'list<int>',
         'media_agency': 'string',
         'min_campaign_group_spend_cap': 'string',
@@ -2347,7 +2352,6 @@ class AdAccount(
         'name': 'string',
         'offsite_pixels_tos_accepted': 'bool',
         'owner': 'string',
-        'owner_business': 'Business',
         'partner': 'string',
         'rf_spec': 'ReachFrequencySpec',
         'spend_cap': 'string',

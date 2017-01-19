@@ -41,6 +41,7 @@ class ProductSet(
         super(ProductSet, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        auto_creation_url = 'auto_creation_url'
         filter = 'filter'
         id = 'id'
         name = 'name'
@@ -169,6 +170,7 @@ class ProductSet(
     def get_products(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.productitem import ProductItem
         param_types = {
+            'bulk_pagination': 'bool',
         }
         enums = {
         }
@@ -195,6 +197,7 @@ class ProductSet(
             return request.execute()
 
     _field_types = {
+        'auto_creation_url': 'string',
         'filter': 'string',
         'id': 'string',
         'name': 'string',

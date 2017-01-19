@@ -40,6 +40,7 @@ class AdPromotedObject(
     class Field(AbstractObject.Field):
         application_id = 'application_id'
         custom_event_type = 'custom_event_type'
+        event_id = 'event_id'
         object_store_url = 'object_store_url'
         offer_id = 'offer_id'
         page_id = 'page_id'
@@ -60,6 +61,7 @@ class AdPromotedObject(
         add_payment_info = 'ADD_PAYMENT_INFO'
         purchase = 'PURCHASE'
         lead = 'LEAD'
+        flow_complete = 'FLOW_COMPLETE'
         level_achieved = 'LEVEL_ACHIEVED'
         achievement_unlocked = 'ACHIEVEMENT_UNLOCKED'
         spent_credits = 'SPENT_CREDITS'
@@ -68,6 +70,7 @@ class AdPromotedObject(
     _field_types = {
         'application_id': 'string',
         'custom_event_type': 'CustomEventType',
+        'event_id': 'string',
         'object_store_url': 'string',
         'offer_id': 'string',
         'page_id': 'string',

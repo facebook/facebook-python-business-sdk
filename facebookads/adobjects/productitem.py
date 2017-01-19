@@ -80,6 +80,7 @@ class ProductItem(
         sale_price_start_date = 'sale_price_start_date'
         shipping_weight_unit = 'shipping_weight_unit'
         shipping_weight_value = 'shipping_weight_value'
+        short_description = 'short_description'
         size = 'size'
         start_date = 'start_date'
         url = 'url'
@@ -250,6 +251,7 @@ class ProductItem(
             'sale_price': 'unsigned int',
             'sale_price_end_date': 'datetime',
             'sale_price_start_date': 'datetime',
+            'short_description': 'string',
             'size': 'string',
             'start_date': 'string',
             'url': 'string',
@@ -354,6 +356,7 @@ class ProductItem(
         'sale_price_start_date': 'string',
         'shipping_weight_unit': 'ShippingWeightUnit',
         'shipping_weight_value': 'float',
+        'short_description': 'string',
         'size': 'string',
         'start_date': 'string',
         'url': 'string',

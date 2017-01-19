@@ -62,6 +62,9 @@ class AdReportRun(
         breakdowns = 'breakdowns'
         date_preset = 'date_preset'
         default_summary = 'default_summary'
+        export_columns = 'export_columns'
+        export_format = 'export_format'
+        export_name = 'export_name'
         fields = 'fields'
         filtering = 'filtering'
         level = 'level'
@@ -113,14 +116,8 @@ class AdReportRun(
         if async:
           return self.get_insights_async(fields, params, batch, pending)
         param_types = {
-            'default_summary': 'bool',
-            'fields': 'list<fields_enum>',
-            'filtering': 'list<Object>',
-            'sort': 'list<string>',
-            'summary': 'list<summary_enum>',
         }
         enums = {
-            'summary_enum': AdsInsights.Summary.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -159,22 +156,25 @@ class AdReportRun(
         'schedule_id': 'string',
         'time_completed': 'unsigned int',
         'time_ref': 'unsigned int',
-        'action_attribution_windows': 'ActionAttributionWindows',
-        'action_breakdowns': 'ActionBreakdowns',
+        'action_attribution_windows': 'list<ActionAttributionWindows>',
+        'action_breakdowns': 'list<ActionBreakdowns>',
         'action_report_time': 'ActionReportTime',
-        'breakdowns': 'Breakdowns',
+        'breakdowns': 'list<Breakdowns>',
         'date_preset': 'DatePreset',
         'default_summary': 'bool',
-        'fields': 'Summary',
+        'export_columns': 'list<string>',
+        'export_format': 'string',
+        'export_name': 'string',
+        'fields': 'list<Summary>',
         'filtering': 'list<Object>',
         'level': 'Level',
         'product_id_limit': 'int',
         'sort': 'list<string>',
-        'summary': 'Summary',
-        'summary_action_breakdowns': 'SummaryActionBreakdowns',
+        'summary': 'list<Summary>',
+        'summary_action_breakdowns': 'list<SummaryActionBreakdowns>',
         'time_increment': 'string',
-        'time_range': 'map',
-        'time_ranges': 'list<map>',
+        'time_range': 'Object',
+        'time_ranges': 'list<Object>',
     }
 
     @classmethod

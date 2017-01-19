@@ -41,17 +41,18 @@ class FacebookSession(object):
         app_secret: The application secret.
         access_token: The access token.
         appsecret_proof: The application secret proof.
+        proxies: Object containing proxies for 'http' and 'https'
         requests: The python requests object through which calls to the api can
             be made.
     """
     GRAPH = 'https://graph.facebook.com'
 
-    def __init__(self, app_id=None, app_secret=None, access_token=None,
+    def __init__(self, app_id=None, app_secret=None, access_token=None, proxies=None,
                  pool_maxsize=10, max_retries=0, pool_block=True):
         """
         Initializes and populates the instance attributes with app_id,
-        app_secret, access_token, appsecret_proof, and requests given arguments
-        app_id, app_secret, and access_token.
+        app_secret, access_token, appsecret_proof, proxies, and requests given arguments
+        app_id, app_secret, access_token and proxies.
 
         Args:
             pool_maxsize: you change the default Requests connection pool size
@@ -61,6 +62,7 @@ class FacebookSession(object):
         self.app_id = app_id
         self.app_secret = app_secret
         self.access_token = access_token
+        self.proxies = proxies
 
         self.pool_maxsize = pool_maxsize
         self.max_retries = max_retries
@@ -81,6 +83,9 @@ class FacebookSession(object):
         if app_secret:
             params['appsecret_proof'] = self._gen_appsecret_proof()
         self.requests.params.update(params)
+
+        if self.proxies:
+            self.requests.proxies.update(self.proxies)
 
     def _gen_appsecret_proof(self):
         h = hmac.new(

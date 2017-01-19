@@ -43,10 +43,17 @@ class Business(
         super(Business, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        created_by = 'created_by'
+        created_time = 'created_time'
         id = 'id'
+        link = 'link'
         name = 'name'
         payment_account_id = 'payment_account_id'
         primary_page = 'primary_page'
+        timezone_id = 'timezone_id'
+        two_factor_type = 'two_factor_type'
+        updated_by = 'updated_by'
+        updated_time = 'updated_time'
 
     def api_get(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
@@ -113,49 +120,6 @@ class Business(
             self.assure_call()
             return request.execute()
 
-    def create_ad_account_creation_request(self, fields=None, params=None, batch=None, pending=False):
-        param_types = {
-            'account_type': 'string',
-            'additional_comment': 'string',
-            'address_in_chinese': 'string',
-            'address_in_english': 'Object',
-            'billing_party_name': 'string',
-            'business_registration': 'file',
-            'business_registration_id': 'unsigned int',
-            'chinese_legal_entity_name': 'string',
-            'contact': 'Object',
-            'currency': 'string',
-            'english_legal_entity_name': 'string',
-            'fb_page_url': 'string',
-            'fb_sales_rep_email': 'string',
-            'has_planning_agency': 'bool',
-            'is_targeting_outside_china': 'bool',
-            'planning_agency_name': 'string',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/adaccountcreationrequests',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def create_ad_accounts(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.adaccount import AdAccount
         param_types = {
@@ -198,6 +162,35 @@ class Business(
         request = FacebookRequest(
             node_id=self['id'],
             method='GET',
+            endpoint='/adspixels',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdsPixel,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdsPixel),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_ads_pixel(self, fields=None, params=None, batch=None, pending=False):
+        from facebookads.adobjects.adspixel import AdsPixel
+        param_types = {
+            'name': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
             endpoint='/adspixels',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
@@ -432,6 +425,34 @@ class Business(
             target_class=AbstractCrudObject,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=AbstractCrudObject),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_event_source_groups(self, fields=None, params=None, batch=None, pending=False):
+        from facebookads.adobjects.eventsourcegroup import EventSourceGroup
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/event_source_groups',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=EventSourceGroup,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=EventSourceGroup),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1042,10 +1063,17 @@ class Business(
             return request.execute()
 
     _field_types = {
+        'created_by': 'User',
+        'created_time': 'datetime',
         'id': 'string',
+        'link': 'string',
         'name': 'string',
         'payment_account_id': 'string',
         'primary_page': 'Object',
+        'timezone_id': 'unsigned int',
+        'two_factor_type': 'string',
+        'updated_by': 'User',
+        'updated_time': 'datetime',
     }
 
     @classmethod

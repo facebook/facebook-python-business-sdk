@@ -330,6 +330,9 @@ class Ad(
             'breakdowns': 'list<breakdowns_enum>',
             'date_preset': 'date_preset_enum',
             'default_summary': 'bool',
+            'export_columns': 'list<string>',
+            'export_format': 'string',
+            'export_name': 'string',
             'fields': 'list<fields_enum>',
             'filtering': 'list<Object>',
             'level': 'level_enum',
@@ -338,8 +341,8 @@ class Ad(
             'summary': 'list<summary_enum>',
             'summary_action_breakdowns': 'list<summary_action_breakdowns_enum>',
             'time_increment': 'string',
-            'time_range': 'map',
-            'time_ranges': 'list<map>',
+            'time_range': 'Object',
+            'time_ranges': 'list<Object>',
         }
         enums = {
             'action_attribution_windows_enum': AdsInsights.ActionAttributionWindows.__dict__.values(),
@@ -384,6 +387,9 @@ class Ad(
             'breakdowns': 'list<breakdowns_enum>',
             'date_preset': 'date_preset_enum',
             'default_summary': 'bool',
+            'export_columns': 'list<string>',
+            'export_format': 'string',
+            'export_name': 'string',
             'fields': 'list<fields_enum>',
             'filtering': 'list<Object>',
             'level': 'level_enum',
@@ -392,8 +398,8 @@ class Ad(
             'summary': 'list<summary_enum>',
             'summary_action_breakdowns': 'list<summary_action_breakdowns_enum>',
             'time_increment': 'string',
-            'time_range': 'map',
-            'time_ranges': 'list<map>',
+            'time_range': 'Object',
+            'time_ranges': 'list<Object>',
         }
         enums = {
             'action_attribution_windows_enum': AdsInsights.ActionAttributionWindows.__dict__.values(),
@@ -493,6 +499,7 @@ class Ad(
             'height': 'unsigned int',
             'interactive': 'bool',
             'locale': 'string',
+            'place_page_id': 'int',
             'post': 'Object',
             'product_item_ids': 'list<string>',
             'width': 'unsigned int',
@@ -607,7 +614,7 @@ class Ad(
         'updated_time': 'datetime',
         'date_format': 'string',
         'display_sequence': 'unsigned int',
-        'execution_options': 'ExecutionOptions',
+        'execution_options': 'list<ExecutionOptions>',
         'redownload': 'bool',
         'filename': 'file'
     }

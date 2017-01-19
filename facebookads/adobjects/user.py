@@ -44,7 +44,6 @@ class User(
         about = 'about'
         admin_notes = 'admin_notes'
         age_range = 'age_range'
-        bio = 'bio'
         birthday = 'birthday'
         context = 'context'
         cover = 'cover'
@@ -52,6 +51,7 @@ class User(
         devices = 'devices'
         education = 'education'
         email = 'email'
+        employee_number = 'employee_number'
         favorite_athletes = 'favorite_athletes'
         favorite_teams = 'favorite_teams'
         first_name = 'first_name'
@@ -74,6 +74,7 @@ class User(
         middle_name = 'middle_name'
         name = 'name'
         name_format = 'name_format'
+        page_scoped_id = 'page_scoped_id'
         payment_pricepoints = 'payment_pricepoints'
         political = 'political'
         public_key = 'public_key'
@@ -140,66 +141,6 @@ class User(
             target_class=AbstractCrudObject,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=AbstractCrudObject),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def get_ad_account_groups(self, fields=None, params=None, batch=None, pending=False):
-        from facebookads.adobjects.adaccountgroup import AdAccountGroup
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/adaccountgroups',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AdAccountGroup,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdAccountGroup),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_ad_account_group(self, fields=None, params=None, batch=None, pending=False):
-        from facebookads.adobjects.adaccountgroup import AdAccountGroup
-        param_types = {
-            'accounts': 'map',
-            'name': 'string',
-            'redownload': 'bool',
-            'users': 'map',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/adaccountgroups',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AdAccountGroup,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdAccountGroup),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -364,7 +305,6 @@ class User(
         'about': 'string',
         'admin_notes': 'list<Object>',
         'age_range': 'Object',
-        'bio': 'string',
         'birthday': 'string',
         'context': 'Object',
         'cover': 'Object',
@@ -372,6 +312,7 @@ class User(
         'devices': 'list<Object>',
         'education': 'list<Object>',
         'email': 'string',
+        'employee_number': 'string',
         'favorite_athletes': 'list<Object>',
         'favorite_teams': 'list<Object>',
         'first_name': 'string',
@@ -394,6 +335,7 @@ class User(
         'middle_name': 'string',
         'name': 'string',
         'name_format': 'string',
+        'page_scoped_id': 'string',
         'payment_pricepoints': 'Object',
         'political': 'string',
         'public_key': 'string',

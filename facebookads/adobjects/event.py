@@ -66,6 +66,39 @@ class Event(
         type = 'type'
         updated_time = 'updated_time'
 
+    class Category:
+        art_event = 'ART_EVENT'
+        book_event = 'BOOK_EVENT'
+        movie_event = 'MOVIE_EVENT'
+        fundraiser = 'FUNDRAISER'
+        volunteering = 'VOLUNTEERING'
+        family_event = 'FAMILY_EVENT'
+        festival_event = 'FESTIVAL_EVENT'
+        neighborhood = 'NEIGHBORHOOD'
+        religious_event = 'RELIGIOUS_EVENT'
+        shopping = 'SHOPPING'
+        comedy_event = 'COMEDY_EVENT'
+        music_event = 'MUSIC_EVENT'
+        dance_event = 'DANCE_EVENT'
+        nightlife = 'NIGHTLIFE'
+        theater_event = 'THEATER_EVENT'
+        dining_event = 'DINING_EVENT'
+        food_tasting = 'FOOD_TASTING'
+        conference_event = 'CONFERENCE_EVENT'
+        meetup = 'MEETUP'
+        class_event = 'CLASS_EVENT'
+        lecture = 'LECTURE'
+        workshop = 'WORKSHOP'
+        fitness = 'FITNESS'
+        sports_event = 'SPORTS_EVENT'
+        other = 'OTHER'
+
+    class Type:
+        private = 'private'
+        public = 'public'
+        group = 'group'
+        community = 'community'
+
     def api_get(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
         }
@@ -129,7 +162,7 @@ class Event(
     _field_types = {
         'attending_count': 'int',
         'can_guests_invite': 'bool',
-        'category': 'string',
+        'category': 'Category',
         'cover': 'Object',
         'declined_count': 'int',
         'description': 'string',
@@ -149,11 +182,13 @@ class Event(
         'start_time': 'string',
         'ticket_uri': 'string',
         'timezone': 'string',
-        'type': 'string',
+        'type': 'Type',
         'updated_time': 'datetime',
     }
 
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['Category'] = Event.Category.__dict__.values()
+        field_enum_info['Type'] = Event.Type.__dict__.values()
         return field_enum_info
