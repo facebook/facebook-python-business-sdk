@@ -894,6 +894,15 @@ class TargetingSearch(AbstractCrudAioObject, baseobjects.AbstractCrudObject, bas
         country_iter.submit_next_page_aio()
         return [x for x in country_iter]
 
+    @classmethod
+    def get_all_regions(cls):
+        ts = cls('no')
+        reg_iter = EdgeLessIterator(
+                ts, params={'type': ts.TargetingSearchTypes.geolocation,
+                            'location_types': ['region']})
+        reg_iter.submit_next_page_aio()
+        return [x for x in reg_iter]
+
 
 class Ad(AbstractCrudAioObject, ad.Ad):
     def get_ad_creatives_aio(self, fields=None, params=None, limit=1000):
