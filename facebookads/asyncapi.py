@@ -56,9 +56,8 @@ class FacebookAsyncResponse(FacebookResponse):
         elif self._http_status == http_client.OK:
             # HTTP Okay
             return not bool(self._error)
-        else:
-            # Something else
-            return False
+        # Something else
+        return False
 
     def error(self):
         """
@@ -91,7 +90,7 @@ class FacebookAdsAsyncApi(FacebookAdsApi):
         self._futures = {}
         """:type: dict[int, facebookads.asyncobjects.AioEdgeIterator]"""
         self._futures_ordered = []
-        """:type: list[facebookads.asyncobjects.AioEdgeIterator]"""
+        """:type: list[int]"""
 
     @classmethod
     def init(cls, app_id=None, app_secret=None, access_token=None,
@@ -207,6 +206,7 @@ class FacebookAdsAsyncApi(FacebookAdsApi):
             file objects. These files will be attached to the request.
         :param url_override:
         :param api_version:
+        :type delay_next_call_for: int
         :rtype: FacebookAsyncResponse
         """
         path, params, headers, files = self.prepare_request_params(
@@ -223,6 +223,7 @@ class FacebookAdsAsyncApi(FacebookAdsApi):
     def put_in_futures(self, edge_iter):
         """
         Adds iterator to a queue of futures self._futures_ordered and to dictionary self._futures
+        :type edge_iter: facebookads.asyncobjects.AioEdgeIterator
         """
         with self._thread_lock:
             edge_iter_id = id(edge_iter)
@@ -243,26 +244,22 @@ class FacebookAdsAsyncApi(FacebookAdsApi):
                 pass
 
     def pop_one_from_futures(self):
+        """
+        Pops one job from the futures list
+
+        :rtype: facebookads.asyncobjects.AioEdgeIterator
+        """
         with self._thread_lock:
             try:
                 edge_iter_id = self._futures_ordered.pop(0)
 
-                if not edge_iter_id in self._futures:
+                if edge_iter_id not in self._futures:
                     return "next"
 
                 edge_iter = self._futures.pop(edge_iter_id)
             except IndexError:
                 return None
         return edge_iter
-
-    def __del__(self):
-        if self._thread_pool:
-            try:
-                if not self._thread_pool._shutdown:
-                    self._thread_pool.shutdown(False)
-            except Exception:
-                pass
-            del self._thread_pool
 
     # helper results iterator
 
@@ -282,8 +279,9 @@ class FacebookAdsAsyncApi(FacebookAdsApi):
                     elif edge_iter.future.running():
                         edge_iter.future.cancel()
                 except Exception as exc:
-                    logger.warn("Future stop failed: {}".format(exc))
-                del edge_iter._future
+                    logger.warning("Future stop failed: {}".format(exc))
+                edge_iter.clear_future()
+        return
 
     def get_all_async_results(self):
         """
@@ -308,7 +306,7 @@ class FacebookAdsAsyncApi(FacebookAdsApi):
 
             edge_iter = edge_iter.extract_results()
 
-            if edge_iter.page_ready and edge_iter._finished_iteration:
+            if edge_iter.page_ready and edge_iter.finished_iteration():
                 # loaded all the data
                 yield edge_iter
             else:
@@ -340,9 +338,9 @@ class FacebookAdsAsyncApi(FacebookAdsApi):
 
             edge_iter = edge_iter.extract_results()
 
-            if edge_iter.page_ready and edge_iter._finished_iteration:
+            if edge_iter.page_ready and edge_iter.finished_iteration():
                 # loaded all the data
-                if edge_iter._target_objects_class == target_objects_class:
+                if edge_iter.target_objects_class() == target_objects_class:
                     required_type_cnt += 1
                     yield edge_iter
                 else:
@@ -351,13 +349,13 @@ class FacebookAdsAsyncApi(FacebookAdsApi):
             else:
                 if edge_iter.request_failed:
                     # request failed unrecoverably
-                    if edge_iter._target_objects_class == target_objects_class:
+                    if edge_iter.target_objects_class() == target_objects_class:
                         required_type_cnt += 1
                         yield edge_iter
                     else:
                         self.put_in_futures(edge_iter)
                 else:
-                    if edge_iter._target_objects_class == target_objects_class:
+                    if edge_iter.target_objects_class() == target_objects_class:
                         required_type_cnt += 1
                     # some more loading needs to be done
                     edge_iter.submit_next_page_aio()
@@ -371,3 +369,13 @@ class FacebookAdsAsyncApi(FacebookAdsApi):
                 cnt = 0
                 required_type_cnt = 0
                 time.sleep(0.5)
+
+    def __del__(self):
+        if self._thread_pool:
+            try:
+                if not self._thread_pool._shutdown:
+                    self._thread_pool.shutdown(False)
+            except Exception:
+                pass
+            del self._thread_pool
+        return

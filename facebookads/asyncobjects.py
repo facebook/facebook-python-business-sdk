@@ -102,6 +102,14 @@ class AioEdgeIterator(baseobjects.EdgeIterator):
         return self._page_ready
 
     @property
+    def target_objects_class(self):
+        return self._target_objects_class
+
+    @property
+    def finished_iteration(self):
+        return self._finished_iteration
+
+    @property
     def request_failed(self):
         return self._request_failed
 
@@ -109,6 +117,9 @@ class AioEdgeIterator(baseobjects.EdgeIterator):
         if not self._queue:
             self.load_next_page()
         return self._queue[index]
+
+    def clear_future(self):
+        del self._future
 
     def get_all_results(self):
         """
@@ -225,7 +236,7 @@ class AioEdgeIterator(baseobjects.EdgeIterator):
         If future is done, removes it from the futures list, dict and iterator itself.
         Then, if future finished successfully,
 
-        :return: FbFutureHolder
+        :rtype: facebookads.asyncobjects.AioEdgeIterator
         """
         self._request_failed = False
 
