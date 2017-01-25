@@ -7,14 +7,10 @@ import logging
 import collections
 import concurrent.futures
 import threading
-# noinspection PyUnresolvedReferences
-from six.moves import http_client
 
 from facebookads.exceptions import FacebookCallFailedError, FacebookBadObjectError
 from facebookads.api import FacebookSession, FacebookResponse, \
     FacebookAdsApi, _top_level_param_json_encode
-
-__author__ = 'pasha-r'
 
 logger = logging.getLogger("facebookclient")
 
@@ -43,17 +39,18 @@ class FacebookAsyncResponse(FacebookResponse):
         if isinstance(self._json_body, collections.Mapping) and 'error' in self._json_body:
             # Is a dictionary, has error in it
             return False
-        elif self._http_status not in (http_client.NOT_MODIFIED, http_client.OK):
+        elif self._http_status not in (304, 200):
+            # successful statuses are only NOT MODIFIED and OK
             return False
         elif bool(self._json_body):
             # Has body and no error
             if 'success' in self._json_body:
                 return not bool(self._error) and self._json_body['success']
             return not bool(self._error)
-        elif self._http_status == http_client.NOT_MODIFIED:
+        elif self._http_status == 304:
             # ETAG Hit
             return not bool(self._error)
-        elif self._http_status == http_client.OK:
+        elif self._http_status == 200:
             # HTTP Okay
             return not bool(self._error)
         # Something else
@@ -107,6 +104,13 @@ class FacebookAdsAsyncApi(FacebookAdsApi):
 
         if account_id:
             cls.set_default_account_id(account_id)
+
+    @classmethod
+    def get_default_api(cls):
+        """
+        :rtype: FacebookAdsAsyncApi
+        """
+        return cls._default_api
 
     def prepare_request_params(self, path, params, headers, files,
                                url_override, api_version):
@@ -306,7 +310,7 @@ class FacebookAdsAsyncApi(FacebookAdsApi):
 
             edge_iter = edge_iter.extract_results()
 
-            if edge_iter.page_ready and edge_iter.finished_iteration():
+            if edge_iter.page_ready and edge_iter.finished_iteration:
                 # loaded all the data
                 yield edge_iter
             else:
@@ -338,9 +342,9 @@ class FacebookAdsAsyncApi(FacebookAdsApi):
 
             edge_iter = edge_iter.extract_results()
 
-            if edge_iter.page_ready and edge_iter.finished_iteration():
+            if edge_iter.page_ready and edge_iter.finished_iteration:
                 # loaded all the data
-                if edge_iter.target_objects_class() == target_objects_class:
+                if edge_iter.target_objects_class == target_objects_class:
                     required_type_cnt += 1
                     yield edge_iter
                 else:
@@ -349,13 +353,13 @@ class FacebookAdsAsyncApi(FacebookAdsApi):
             else:
                 if edge_iter.request_failed:
                     # request failed unrecoverably
-                    if edge_iter.target_objects_class() == target_objects_class:
+                    if edge_iter.target_objects_class == target_objects_class:
                         required_type_cnt += 1
                         yield edge_iter
                     else:
                         self.put_in_futures(edge_iter)
                 else:
-                    if edge_iter.target_objects_class() == target_objects_class:
+                    if edge_iter.target_objects_class == target_objects_class:
                         required_type_cnt += 1
                     # some more loading needs to be done
                     edge_iter.submit_next_page_aio()

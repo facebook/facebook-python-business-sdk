@@ -106,6 +106,10 @@ class AioEdgeIterator(baseobjects.EdgeIterator):
         return self._target_objects_class
 
     @property
+    def source_object(self):
+        return self._source_object
+
+    @property
     def finished_iteration(self):
         return self._finished_iteration
 
