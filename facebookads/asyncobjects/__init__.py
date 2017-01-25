@@ -574,7 +574,7 @@ class AbstractCrudAioObject(object):
 
     def iterate_edge_async_aio(self, target_objects_class, fields=None, params=None,
                                has_action=None, needs_action_device=None, limit=500,
-                               has_filters=False, for_date=None):
+                               has_filters=False, for_date=None, needs_carousel_name=False):
         """
         Returns an AsyncAioJob which can be checked using remote_read()
         to verify when the job is completed and the result ready to query
@@ -592,7 +592,8 @@ class AbstractCrudAioObject(object):
             fields=fields, limit=limit,
             params=params, has_action=has_action,
             needs_action_device=needs_action_device,
-            has_filters=has_filters, for_date=for_date
+            has_filters=has_filters, for_date=for_date,
+            needs_carousel_name=needs_carousel_name
         )
 
         result.launch_job()
@@ -742,7 +743,7 @@ class AdAccount(AbstractCrudAioObject, adaccount.AdAccount):
 
     def get_insights_aio(self, fields=None, params=None, limit=1000, async=False,
                          has_action=None, needs_action_device=None,
-                         has_filters=False, for_date=None):
+                         has_filters=False, for_date=None, needs_carousel_name=False):
         """
         If async is False, returns EdgeIterator.
 
@@ -757,7 +758,8 @@ class AdAccount(AbstractCrudAioObject, adaccount.AdAccount):
             return self.iterate_edge_async_aio(
                 Insights, fields, params, has_action,
                 needs_action_device, limit=limit,
-                has_filters=has_filters, for_date=for_date
+                has_filters=has_filters, for_date=for_date,
+                needs_carousel_name=needs_carousel_name
             )
         return self.iterate_edge_aio(
             Insights,
@@ -795,7 +797,7 @@ class Campaign(AbstractCrudAioObject, campaign.Campaign):
 
     def get_insights_aio(self, fields=None, params=None, limit=1000, async=False,
                          has_action=None, needs_action_device=None,
-                         has_filters=False, for_date=None):
+                         has_filters=False, for_date=None, needs_carousel_name=False):
         """
         If async is False, returns EdgeIterator.
 
@@ -810,7 +812,8 @@ class Campaign(AbstractCrudAioObject, campaign.Campaign):
             return self.iterate_edge_async_aio(
                 Insights, fields, params, has_action,
                 needs_action_device, limit=limit,
-                has_filters=has_filters, for_date=for_date
+                has_filters=has_filters, for_date=for_date,
+                needs_carousel_name=needs_carousel_name
             )
         return self.iterate_edge_aio(
             Insights,
@@ -831,7 +834,7 @@ class AdSet(AbstractCrudAioObject, adset.AdSet):
 
     def get_insights_aio(self, fields=None, params=None, limit=1000, async=False,
                          has_action=None, needs_action_device=None,
-                         has_filters=False, for_date=None):
+                         has_filters=False, for_date=None, needs_carousel_name=False):
         """
         If async is False, returns EdgeIterator.
 
@@ -846,7 +849,8 @@ class AdSet(AbstractCrudAioObject, adset.AdSet):
             return self.iterate_edge_async_aio(
                 Insights, fields, params, has_action,
                 needs_action_device, limit=limit,
-                has_filters=has_filters, for_date=for_date
+                has_filters=has_filters, for_date=for_date,
+                needs_carousel_name=needs_carousel_name
             )
         return self.iterate_edge_aio(
             Insights,
@@ -952,7 +956,7 @@ class Ad(AbstractCrudAioObject, ad.Ad):
 
     def get_insights_aio(self, fields=None, params=None, limit=1000, async=False,
                          has_action=None, needs_action_device=None,
-                         has_filters=False, for_date=None):
+                         has_filters=False, for_date=None, needs_carousel_name=False):
         """
         If async is False, returns EdgeIterator.
 
@@ -967,7 +971,8 @@ class Ad(AbstractCrudAioObject, ad.Ad):
             return self.iterate_edge_async_aio(
                 Insights, fields, params, has_action,
                 needs_action_device, limit=limit,
-                has_filters=has_filters, for_date=for_date
+                has_filters=has_filters, for_date=for_date,
+                needs_carousel_name=needs_carousel_name
             )
         return self.iterate_edge_aio(
             Insights,
@@ -1177,7 +1182,7 @@ class AsyncAioJobIterator(AioEdgeIterator):
                  limit=500, stage='async_get_job',
                  no_progress_timeout=900, not_started_timeout=600,
                  has_action=None, needs_action_device=None, has_filters=False,
-                 for_date=None):
+                 for_date=None, needs_carousel_name=False):
 
         super(AsyncAioJobIterator, self).__init__(source_object, target_objects_class,
                                                   fields=fields, params=params,
@@ -1204,6 +1209,7 @@ class AsyncAioJobIterator(AioEdgeIterator):
         self.needs_action_device = needs_action_device
         self.has_filters = has_filters
         self.for_date = for_date
+        self.needs_carousel_name = needs_carousel_name
 
     def launch_job(self):
         """
@@ -1261,7 +1267,8 @@ class AsyncAioJobIterator(AioEdgeIterator):
         self.job = AsyncAioJob(self._target_objects_class, edge_params=self.params,
                                has_action=self.has_action,
                                needs_action_device=self.needs_action_device,
-                               has_filters=self.has_filters)
+                               has_filters=self.has_filters,
+                               needs_carousel_name=self.needs_carousel_name)
         self.job._set_data(response)
         self.job_id = response['id'] if 'id' in response else 'no id'
         self._source_object.get_api_assured().put_in_futures(self)
