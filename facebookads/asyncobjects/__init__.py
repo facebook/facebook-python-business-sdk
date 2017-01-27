@@ -1135,6 +1135,7 @@ class AsyncAioJob(AbstractCrudAioObject, baseobjects.AsyncJob):
         self.edge_params = kwargs.pop('edge_params', None)
         self.has_action = kwargs.pop('has_action', None)
         self.needs_action_device = kwargs.pop('needs_action_device', None)
+        self.needs_carousel_name = kwargs.pop('needs_carousel_name', None)
         self.has_filters = kwargs.pop('has_filters', False)
 
         super(AsyncAioJob, self).__init__(*args, **kwargs)
