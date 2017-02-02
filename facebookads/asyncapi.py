@@ -2,7 +2,7 @@ from __future__ import unicode_literals, absolute_import, print_function
 import re
 import six
 import time
-import ujson
+import json
 import logging
 import collections
 import concurrent.futures
@@ -27,9 +27,10 @@ class FacebookAsyncResponse(FacebookResponse):
             return self._json_body
 
         try:
-            self._json_body = ujson.loads(self._body)
+            self._json_body = json.loads(self._body)
             return self._json_body
-        except (TypeError, ValueError):
+        except (TypeError, ValueError) as exc:
+            logger.exception("Facebook response, conversion to JSON failed: {}".format(str(exc)))
             self._json_body = None
             return self._body
 
