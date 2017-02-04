@@ -421,8 +421,9 @@ class FacebookAdsApiBatch(object):
                 batch_formatted_header['value'] = headers[header]
                 call['headers'].append(batch_formatted_header)
 
-        success = request.callback if success is None else success
-        failure = request.callback if failure is None else failure
+        if request: 
+            success = request.callback if success is None else success
+            failure = request.callback if failure is None else failure
 
         self._batch.append(call)
         self._files.append(files)
