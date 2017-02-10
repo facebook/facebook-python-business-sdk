@@ -178,6 +178,8 @@ class ProductFeed(
     def get_products(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.productitem import ProductItem
         param_types = {
+            'bulk_pagination': 'bool',
+            'filter': 'Object',
         }
         enums = {
         }

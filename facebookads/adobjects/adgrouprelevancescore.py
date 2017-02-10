@@ -46,7 +46,7 @@ class AdgroupRelevanceScore(
     _field_types = {
         'negative_feedback': 'string',
         'positive_feedback': 'string',
-        'score': 'int',
+        'score': 'string',
         'status': 'string',
     }
 

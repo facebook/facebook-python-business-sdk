@@ -48,7 +48,6 @@ class AdsInsights(
         ad_name = 'ad_name'
         adset_id = 'adset_id'
         adset_name = 'adset_name'
-        age = 'age'
         app_store_clicks = 'app_store_clicks'
         buying_type = 'buying_type'
         call_to_action_clicks = 'call_to_action_clicks'
@@ -59,13 +58,13 @@ class AdsInsights(
         clicks = 'clicks'
         cost_per_10_sec_video_view = 'cost_per_10_sec_video_view'
         cost_per_action_type = 'cost_per_action_type'
+        cost_per_estimated_ad_recallers = 'cost_per_estimated_ad_recallers'
         cost_per_inline_link_click = 'cost_per_inline_link_click'
         cost_per_inline_post_engagement = 'cost_per_inline_post_engagement'
         cost_per_total_action = 'cost_per_total_action'
         cost_per_unique_action_type = 'cost_per_unique_action_type'
         cost_per_unique_click = 'cost_per_unique_click'
         cost_per_unique_inline_link_click = 'cost_per_unique_inline_link_click'
-        country = 'country'
         cpc = 'cpc'
         cpm = 'cpm'
         cpp = 'cpp'
@@ -73,12 +72,9 @@ class AdsInsights(
         date_start = 'date_start'
         date_stop = 'date_stop'
         deeplink_clicks = 'deeplink_clicks'
+        estimated_ad_recall_rate = 'estimated_ad_recall_rate'
+        estimated_ad_recallers = 'estimated_ad_recallers'
         frequency = 'frequency'
-        frequency_value = 'frequency_value'
-        gender = 'gender'
-        hourly_stats_aggregated_by_advertiser_time_zone = 'hourly_stats_aggregated_by_advertiser_time_zone'
-        hourly_stats_aggregated_by_audience_time_zone = 'hourly_stats_aggregated_by_audience_time_zone'
-        impression_device = 'impression_device'
         impressions = 'impressions'
         inline_link_click_ctr = 'inline_link_click_ctr'
         inline_link_clicks = 'inline_link_clicks'
@@ -87,14 +83,8 @@ class AdsInsights(
         newsfeed_clicks = 'newsfeed_clicks'
         newsfeed_impressions = 'newsfeed_impressions'
         objective = 'objective'
-        place_page_id = 'place_page_id'
         place_page_name = 'place_page_name'
-        placement = 'placement'
-        platform_position = 'platform_position'
-        product_id = 'product_id'
-        publisher_platform = 'publisher_platform'
         reach = 'reach'
-        region = 'region'
         relevance_score = 'relevance_score'
         social_clicks = 'social_clicks'
         social_impressions = 'social_impressions'
@@ -117,7 +107,9 @@ class AdsInsights(
         video_15_sec_watched_actions = 'video_15_sec_watched_actions'
         video_30_sec_watched_actions = 'video_30_sec_watched_actions'
         video_avg_pct_watched_actions = 'video_avg_pct_watched_actions'
+        video_avg_percent_watched_actions = 'video_avg_percent_watched_actions'
         video_avg_sec_watched_actions = 'video_avg_sec_watched_actions'
+        video_avg_time_watched_actions = 'video_avg_time_watched_actions'
         video_complete_watched_actions = 'video_complete_watched_actions'
         video_p100_watched_actions = 'video_p100_watched_actions'
         video_p25_watched_actions = 'video_p25_watched_actions'
@@ -141,6 +133,7 @@ class AdsInsights(
         action_carousel_card_name = 'action_carousel_card_name'
         action_destination = 'action_destination'
         action_device = 'action_device'
+        action_reaction = 'action_reaction'
         action_target_id = 'action_target_id'
         action_type = 'action_type'
         action_video_sound = 'action_video_sound'
@@ -160,6 +153,7 @@ class AdsInsights(
         impression_device = 'impression_device'
         place_page_id = 'place_page_id'
         placement = 'placement'
+        device_platform = 'device_platform'
         product_id = 'product_id'
         region = 'region'
 
@@ -191,6 +185,7 @@ class AdsInsights(
         action_carousel_card_name = 'action_carousel_card_name'
         action_destination = 'action_destination'
         action_device = 'action_device'
+        action_reaction = 'action_reaction'
         action_target_id = 'action_target_id'
         action_type = 'action_type'
         action_video_sound = 'action_video_sound'
@@ -224,76 +219,68 @@ class AdsInsights(
         'ad_name': 'string',
         'adset_id': 'string',
         'adset_name': 'string',
-        'age': 'string',
         'app_store_clicks': 'string',
         'buying_type': 'string',
         'call_to_action_clicks': 'string',
         'campaign_id': 'string',
         'campaign_name': 'string',
-        'canvas_avg_view_percent': 'float',
-        'canvas_avg_view_time': 'float',
+        'canvas_avg_view_percent': 'string',
+        'canvas_avg_view_time': 'string',
         'clicks': 'string',
         'cost_per_10_sec_video_view': 'list<AdsActionStats>',
         'cost_per_action_type': 'list<AdsActionStats>',
-        'cost_per_inline_link_click': 'float',
-        'cost_per_inline_post_engagement': 'float',
-        'cost_per_total_action': 'float',
+        'cost_per_estimated_ad_recallers': 'string',
+        'cost_per_inline_link_click': 'string',
+        'cost_per_inline_post_engagement': 'string',
+        'cost_per_total_action': 'string',
         'cost_per_unique_action_type': 'list<AdsActionStats>',
-        'cost_per_unique_click': 'float',
-        'cost_per_unique_inline_link_click': 'float',
-        'country': 'string',
-        'cpc': 'float',
-        'cpm': 'float',
-        'cpp': 'float',
-        'ctr': 'float',
+        'cost_per_unique_click': 'string',
+        'cost_per_unique_inline_link_click': 'string',
+        'cpc': 'string',
+        'cpm': 'string',
+        'cpp': 'string',
+        'ctr': 'string',
         'date_start': 'string',
         'date_stop': 'string',
         'deeplink_clicks': 'string',
-        'frequency': 'float',
-        'frequency_value': 'string',
-        'gender': 'string',
-        'hourly_stats_aggregated_by_advertiser_time_zone': 'string',
-        'hourly_stats_aggregated_by_audience_time_zone': 'string',
-        'impression_device': 'string',
+        'estimated_ad_recall_rate': 'string',
+        'estimated_ad_recallers': 'string',
+        'frequency': 'string',
         'impressions': 'string',
-        'inline_link_click_ctr': 'float',
+        'inline_link_click_ctr': 'string',
         'inline_link_clicks': 'string',
         'inline_post_engagement': 'string',
-        'newsfeed_avg_position': 'float',
+        'newsfeed_avg_position': 'string',
         'newsfeed_clicks': 'string',
         'newsfeed_impressions': 'string',
         'objective': 'string',
-        'place_page_id': 'string',
         'place_page_name': 'string',
-        'placement': 'string',
-        'platform_position': 'string',
-        'product_id': 'string',
-        'publisher_platform': 'string',
         'reach': 'string',
-        'region': 'string',
         'relevance_score': 'AdgroupRelevanceScore',
         'social_clicks': 'string',
         'social_impressions': 'string',
         'social_reach': 'string',
-        'social_spend': 'float',
-        'spend': 'float',
-        'total_action_value': 'float',
+        'social_spend': 'string',
+        'spend': 'string',
+        'total_action_value': 'string',
         'total_actions': 'string',
         'total_unique_actions': 'string',
         'unique_actions': 'list<AdsActionStats>',
         'unique_clicks': 'string',
-        'unique_ctr': 'float',
+        'unique_ctr': 'string',
         'unique_impressions': 'string',
-        'unique_inline_link_click_ctr': 'float',
+        'unique_inline_link_click_ctr': 'string',
         'unique_inline_link_clicks': 'string',
-        'unique_link_clicks_ctr': 'float',
+        'unique_link_clicks_ctr': 'string',
         'unique_social_clicks': 'string',
         'unique_social_impressions': 'string',
         'video_10_sec_watched_actions': 'list<AdsActionStats>',
         'video_15_sec_watched_actions': 'list<AdsActionStats>',
         'video_30_sec_watched_actions': 'list<AdsActionStats>',
         'video_avg_pct_watched_actions': 'list<AdsActionStats>',
+        'video_avg_percent_watched_actions': 'list<AdsActionStats>',
         'video_avg_sec_watched_actions': 'list<AdsActionStats>',
+        'video_avg_time_watched_actions': 'list<AdsActionStats>',
         'video_complete_watched_actions': 'list<AdsActionStats>',
         'video_p100_watched_actions': 'list<AdsActionStats>',
         'video_p25_watched_actions': 'list<AdsActionStats>',

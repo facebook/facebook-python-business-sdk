@@ -43,7 +43,6 @@ class AdCreativeLinkData(
         attachment_style = 'attachment_style'
         branded_content_sponsor_page_id = 'branded_content_sponsor_page_id'
         call_to_action = 'call_to_action'
-        canvas_enabled = 'canvas_enabled'
         caption = 'caption'
         child_attachments = 'child_attachments'
         description = 'description'
@@ -56,6 +55,7 @@ class AdCreativeLinkData(
         multi_share_end_card = 'multi_share_end_card'
         multi_share_optimized = 'multi_share_optimized'
         name = 'name'
+        offer_id = 'offer_id'
         picture = 'picture'
 
     class AttachmentStyle:
@@ -68,7 +68,6 @@ class AdCreativeLinkData(
         'attachment_style': 'AttachmentStyle',
         'branded_content_sponsor_page_id': 'string',
         'call_to_action': 'AdCreativeLinkDataCallToAction',
-        'canvas_enabled': 'bool',
         'caption': 'string',
         'child_attachments': 'list<AdCreativeLinkDataChildAttachment>',
         'description': 'string',
@@ -81,6 +80,7 @@ class AdCreativeLinkData(
         'multi_share_end_card': 'bool',
         'multi_share_optimized': 'bool',
         'name': 'string',
+        'offer_id': 'string',
         'picture': 'string',
     }
 

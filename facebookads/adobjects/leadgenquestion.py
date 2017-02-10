@@ -28,54 +28,29 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class ProductFeedSchedule(
+class LeadGenQuestion(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(ProductFeedSchedule, self).__init__()
-        self._isProductFeedSchedule = True
+        super(LeadGenQuestion, self).__init__()
+        self._isLeadGenQuestion = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        day_of_month = 'day_of_month'
-        day_of_week = 'day_of_week'
-        hour = 'hour'
-        interval = 'interval'
-        minute = 'minute'
-        timezone = 'timezone'
-        url = 'url'
-        username = 'username'
-
-    class DayOfWeek:
-        sunday = 'SUNDAY'
-        monday = 'MONDAY'
-        tuesday = 'TUESDAY'
-        wednesday = 'WEDNESDAY'
-        thursday = 'THURSDAY'
-        friday = 'FRIDAY'
-        saturday = 'SATURDAY'
-
-    class Interval:
-        hourly = 'HOURLY'
-        daily = 'DAILY'
-        weekly = 'WEEKLY'
-        monthly = 'MONTHLY'
+        key = 'key'
+        label = 'label'
+        options = 'options'
+        type = 'type'
 
     _field_types = {
-        'day_of_month': 'unsigned int',
-        'day_of_week': 'DayOfWeek',
-        'hour': 'unsigned int',
-        'interval': 'Interval',
-        'minute': 'unsigned int',
-        'timezone': 'string',
-        'url': 'string',
-        'username': 'string',
+        'key': 'string',
+        'label': 'string',
+        'options': 'list<LeadGenQuestionOption>',
+        'type': 'string',
     }
 
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['DayOfWeek'] = ProductFeedSchedule.DayOfWeek.__dict__.values()
-        field_enum_info['Interval'] = ProductFeedSchedule.Interval.__dict__.values()
         return field_enum_info

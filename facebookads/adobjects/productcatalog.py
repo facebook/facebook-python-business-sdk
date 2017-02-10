@@ -54,6 +54,7 @@ class ProductCatalog(
 
     class Vertical:
         commerce = 'commerce'
+        destinations = 'destinations'
         hotels = 'hotels'
 
     @classmethod
@@ -174,6 +175,63 @@ class ProductCatalog(
             self.assure_call()
             return request.execute()
 
+    def get_destinations(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'bulk_pagination': 'bool',
+            'filter': 'Object',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/destinations',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def delete_external_event_sources(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'external_event_sources': 'list<string>',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='DELETE',
+            endpoint='/external_event_sources',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_external_event_sources(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.externaleventsource import ExternalEventSource
         param_types = {
@@ -264,8 +322,11 @@ class ProductCatalog(
         from facebookads.adobjects.productcataloghotelroomsbatch import ProductCatalogHotelRoomsBatch
         param_types = {
             'file': 'file',
+            'password': 'string',
             'standard': 'standard_enum',
             'update_only': 'bool',
+            'url': 'string',
+            'username': 'string',
         }
         enums = {
             'standard_enum': ProductCatalogHotelRoomsBatch.Standard.__dict__.values(),
@@ -295,6 +356,8 @@ class ProductCatalog(
     def get_hotels(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.hotel import Hotel
         param_types = {
+            'bulk_pagination': 'bool',
+            'filter': 'Object',
         }
         enums = {
         }
@@ -360,6 +423,7 @@ class ProductCatalog(
             return request.execute()
 
     def get_pricing_variables_batch(self, fields=None, params=None, batch=None, pending=False):
+        from facebookads.adobjects.productcatalogpricingvariablesbatch import ProductCatalogPricingVariablesBatch
         param_types = {
             'handle': 'string',
         }
@@ -371,9 +435,44 @@ class ProductCatalog(
             endpoint='/pricing_variables_batch',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=ProductCatalogPricingVariablesBatch,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject),
+            response_parser=ObjectParser(target_class=ProductCatalogPricingVariablesBatch),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_pricing_variables_batch(self, fields=None, params=None, batch=None, pending=False):
+        from facebookads.adobjects.productcatalogpricingvariablesbatch import ProductCatalogPricingVariablesBatch
+        param_types = {
+            'file': 'file',
+            'password': 'string',
+            'standard': 'standard_enum',
+            'update_only': 'bool',
+            'url': 'string',
+            'username': 'string',
+        }
+        enums = {
+            'standard_enum': ProductCatalogPricingVariablesBatch.Standard.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/pricing_variables_batch',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ProductCatalogPricingVariablesBatch,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ProductCatalogPricingVariablesBatch),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -606,6 +705,7 @@ class ProductCatalog(
     def get_products(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.productitem import ProductItem
         param_types = {
+            'bulk_pagination': 'bool',
             'filter': 'Object',
         }
         enums = {
@@ -679,6 +779,7 @@ class ProductCatalog(
             'sale_price': 'unsigned int',
             'sale_price_end_date': 'datetime',
             'sale_price_start_date': 'datetime',
+            'short_description': 'string',
             'size': 'string',
             'start_date': 'string',
             'url': 'string',
@@ -724,9 +825,11 @@ class ProductCatalog(
             'file_size': 'unsigned int',
             'file_url': 'string',
             'referenced_sticker_id': 'string',
+            'replace_video_id': 'string',
             'slideshow_spec': 'map',
             'source': 'string',
             'start_offset': 'unsigned int',
+            'swap_mode': 'swap_mode_enum',
             'thumb': 'file',
             'title': 'string',
             'unpublished_content_type': 'unpublished_content_type_enum',
@@ -754,6 +857,9 @@ class ProductCatalog(
                 'TECHNOLOGY',
                 'VIDEO_GAMING',
                 'OTHER',
+            ],
+            'swap_mode_enum': [
+                'replace',
             ],
             'unpublished_content_type_enum': [
                 'SCHEDULED',
