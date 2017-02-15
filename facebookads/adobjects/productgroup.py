@@ -210,6 +210,7 @@ class ProductGroup(
             'sale_price': 'unsigned int',
             'sale_price_end_date': 'datetime',
             'sale_price_start_date': 'datetime',
+            'short_description': 'string',
             'size': 'string',
             'start_date': 'string',
             'url': 'string',

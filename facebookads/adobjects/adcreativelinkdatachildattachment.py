@@ -39,6 +39,7 @@ class AdCreativeLinkDataChildAttachment(
 
     class Field(AbstractObject.Field):
         call_to_action = 'call_to_action'
+        caption = 'caption'
         description = 'description'
         image_crops = 'image_crops'
         image_hash = 'image_hash'
@@ -51,6 +52,7 @@ class AdCreativeLinkDataChildAttachment(
 
     _field_types = {
         'call_to_action': 'AdCreativeLinkDataCallToAction',
+        'caption': 'string',
         'description': 'string',
         'image_crops': 'AdsImageCrops',
         'image_hash': 'string',

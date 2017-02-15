@@ -43,14 +43,11 @@ class AdCreative(
         super(AdCreative, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        actor_id = 'actor_id'
-        actor_image_hash = 'actor_image_hash'
-        actor_image_url = 'actor_image_url'
-        actor_name = 'actor_name'
         adlabels = 'adlabels'
         applink_treatment = 'applink_treatment'
         body = 'body'
         call_to_action_type = 'call_to_action_type'
+        effective_instagram_story_id = 'effective_instagram_story_id'
         effective_object_story_id = 'effective_object_story_id'
         id = 'id'
         image_crops = 'image_crops'
@@ -74,13 +71,13 @@ class AdCreative(
         thumbnail_url = 'thumbnail_url'
         title = 'title'
         url_tags = 'url_tags'
+        use_page_actor_override = 'use_page_actor_override'
         action_spec = 'action_spec'
         call_to_action = 'call_to_action'
         dynamic_ad_voice = 'dynamic_ad_voice'
         follow_redirect = 'follow_redirect'
         image_file = 'image_file'
         object_instagram_id = 'object_instagram_id'
-        place_page_set_id = 'place_page_set_id'
         video_id = 'video_id'
 
     class ApplinkTreatment:
@@ -99,7 +96,6 @@ class AdCreative(
         use_mobile_app = 'USE_MOBILE_APP'
         book_travel = 'BOOK_TRAVEL'
         listen_music = 'LISTEN_MUSIC'
-        watch_video = 'WATCH_VIDEO'
         learn_more = 'LEARN_MORE'
         sign_up = 'SIGN_UP'
         download = 'DOWNLOAD'
@@ -118,6 +114,7 @@ class AdCreative(
         contact_us = 'CONTACT_US'
         record_now = 'RECORD_NOW'
         vote_now = 'VOTE_NOW'
+        register_now = 'REGISTER_NOW'
         open_movies = 'OPEN_MOVIES'
 
     class ObjectType:
@@ -309,6 +306,7 @@ class AdCreative(
             'height': 'unsigned int',
             'interactive': 'bool',
             'locale': 'string',
+            'place_page_id': 'int',
             'post': 'Object',
             'product_item_ids': 'list<string>',
             'width': 'unsigned int',
@@ -339,14 +337,11 @@ class AdCreative(
             return request.execute()
 
     _field_types = {
-        'actor_id': 'string',
-        'actor_image_hash': 'string',
-        'actor_image_url': 'string',
-        'actor_name': 'string',
         'adlabels': 'list<AdLabel>',
         'applink_treatment': 'ApplinkTreatment',
         'body': 'string',
         'call_to_action_type': 'CallToActionType',
+        'effective_instagram_story_id': 'string',
         'effective_object_story_id': 'string',
         'id': 'string',
         'image_crops': 'AdsImageCrops',
@@ -370,13 +365,13 @@ class AdCreative(
         'thumbnail_url': 'string',
         'title': 'string',
         'url_tags': 'string',
+        'use_page_actor_override': 'bool',
         'action_spec': 'list<unsigned int>',
         'call_to_action': 'Object',
         'dynamic_ad_voice': 'DynamicAdVoice',
         'follow_redirect': 'bool',
         'image_file': 'string',
         'object_instagram_id': 'unsigned int',
-        'place_page_set_id': 'string',
         'video_id': 'unsigned int',
     }
 

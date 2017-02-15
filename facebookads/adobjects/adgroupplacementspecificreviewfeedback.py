@@ -38,12 +38,22 @@ class AdgroupPlacementSpecificReviewFeedback(
         self._api = api
 
     class Field(AbstractObject.Field):
+        account_admin = 'account_admin'
+        ad = 'ad'
         facebook = 'facebook'
         instagram = 'instagram'
+        page_admin = 'page_admin'
+        product = 'product'
+        seller = 'seller'
 
     _field_types = {
+        'account_admin': 'map<string, string>',
+        'ad': 'map<string, string>',
         'facebook': 'map<string, string>',
         'instagram': 'map<string, string>',
+        'page_admin': 'map<string, string>',
+        'product': 'map<string, string>',
+        'seller': 'map<string, string>',
     }
 
     @classmethod

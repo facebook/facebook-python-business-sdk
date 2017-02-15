@@ -29,7 +29,7 @@ readme_filename = os.path.join(this_dir, 'README.md')
 requirements_filename = os.path.join(this_dir, 'requirements.txt')
 
 PACKAGE_NAME = 'facebookads'
-PACKAGE_VERSION = '2.7.1'
+PACKAGE_VERSION = '2.8.1'
 PACKAGE_AUTHOR = 'Facebook'
 PACKAGE_AUTHOR_EMAIL = ''
 PACKAGE_URL = 'https://github.com/facebook/facebook-python-ads-sdk'
@@ -57,7 +57,7 @@ with open(requirements_filename) as f:
 
 setup(
     name=PACKAGE_NAME,
-    version="2.7.1.5",
+    version="2.8.1.1",
     author=PACKAGE_AUTHOR,
     author_email=PACKAGE_AUTHOR_EMAIL,
     url=PACKAGE_URL,

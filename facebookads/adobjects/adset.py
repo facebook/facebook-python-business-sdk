@@ -48,9 +48,7 @@ class AdSet(
         account_id = 'account_id'
         adlabels = 'adlabels'
         adset_schedule = 'adset_schedule'
-        asset_feed_id = 'asset_feed_id'
         attribution_window_days = 'attribution_window_days'
-        best_creative = 'best_creative'
         bid_amount = 'bid_amount'
         bid_info = 'bid_info'
         billing_event = 'billing_event'
@@ -68,6 +66,7 @@ class AdSet(
         frequency_control_specs = 'frequency_control_specs'
         id = 'id'
         is_autobid = 'is_autobid'
+        is_average_price_pacing = 'is_average_price_pacing'
         lifetime_budget = 'lifetime_budget'
         lifetime_frequency_cap = 'lifetime_frequency_cap'
         lifetime_imps = 'lifetime_imps'
@@ -76,6 +75,7 @@ class AdSet(
         pacing_type = 'pacing_type'
         promoted_object = 'promoted_object'
         recommendations = 'recommendations'
+        recurring_budget_semantics = 'recurring_budget_semantics'
         rf_prediction_id = 'rf_prediction_id'
         rtb_flag = 'rtb_flag'
         start_time = 'start_time'
@@ -178,7 +178,6 @@ class AdSet(
 
     def api_delete(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
-            'account_id': 'string',
         }
         enums = {
         }
@@ -245,6 +244,7 @@ class AdSet(
             'end_time': 'datetime',
             'execution_options': 'list<execution_options_enum>',
             'is_autobid': 'bool',
+            'is_average_price_pacing': 'bool',
             'lifetime_budget': 'unsigned int',
             'lifetime_imps': 'unsigned int',
             'name': 'string',
@@ -418,7 +418,7 @@ class AdSet(
             'date_preset': 'date_preset_enum',
             'effective_status': 'list<string>',
             'include_deleted': 'bool',
-            'time_range': 'map',
+            'time_range': 'Object',
             'updated_since': 'int',
         }
         enums = {
@@ -487,6 +487,9 @@ class AdSet(
             'breakdowns': 'list<breakdowns_enum>',
             'date_preset': 'date_preset_enum',
             'default_summary': 'bool',
+            'export_columns': 'list<string>',
+            'export_format': 'string',
+            'export_name': 'string',
             'fields': 'list<fields_enum>',
             'filtering': 'list<Object>',
             'level': 'level_enum',
@@ -495,8 +498,8 @@ class AdSet(
             'summary': 'list<summary_enum>',
             'summary_action_breakdowns': 'list<summary_action_breakdowns_enum>',
             'time_increment': 'string',
-            'time_range': 'map',
-            'time_ranges': 'list<map>',
+            'time_range': 'Object',
+            'time_ranges': 'list<Object>',
         }
         enums = {
             'action_attribution_windows_enum': AdsInsights.ActionAttributionWindows.__dict__.values(),
@@ -541,6 +544,9 @@ class AdSet(
             'breakdowns': 'list<breakdowns_enum>',
             'date_preset': 'date_preset_enum',
             'default_summary': 'bool',
+            'export_columns': 'list<string>',
+            'export_format': 'string',
+            'export_name': 'string',
             'fields': 'list<fields_enum>',
             'filtering': 'list<Object>',
             'level': 'level_enum',
@@ -549,8 +555,8 @@ class AdSet(
             'summary': 'list<summary_enum>',
             'summary_action_breakdowns': 'list<summary_action_breakdowns_enum>',
             'time_increment': 'string',
-            'time_range': 'map',
-            'time_ranges': 'list<map>',
+            'time_range': 'Object',
+            'time_ranges': 'list<Object>',
         }
         enums = {
             'action_attribution_windows_enum': AdsInsights.ActionAttributionWindows.__dict__.values(),
@@ -617,9 +623,7 @@ class AdSet(
         'account_id': 'string',
         'adlabels': 'list<AdLabel>',
         'adset_schedule': 'list<DayPart>',
-        'asset_feed_id': 'string',
         'attribution_window_days': 'unsigned int',
-        'best_creative': 'Object',
         'bid_amount': 'unsigned int',
         'bid_info': 'map<string, unsigned int>',
         'billing_event': 'BillingEvent',
@@ -637,6 +641,7 @@ class AdSet(
         'frequency_control_specs': 'list<Object>',
         'id': 'string',
         'is_autobid': 'bool',
+        'is_average_price_pacing': 'bool',
         'lifetime_budget': 'string',
         'lifetime_frequency_cap': 'unsigned int',
         'lifetime_imps': 'int',
@@ -645,6 +650,7 @@ class AdSet(
         'pacing_type': 'list<string>',
         'promoted_object': 'AdPromotedObject',
         'recommendations': 'list<AdRecommendation>',
+        'recurring_budget_semantics': 'bool',
         'rf_prediction_id': 'string',
         'rtb_flag': 'bool',
         'start_time': 'datetime',
@@ -655,7 +661,7 @@ class AdSet(
         'updated_time': 'datetime',
         'use_new_app_click': 'bool',
         'daily_imps': 'unsigned int',
-        'execution_options': 'ExecutionOptions',
+        'execution_options': 'list<ExecutionOptions>',
         'redownload': 'bool',
     }
 
