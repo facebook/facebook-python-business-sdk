@@ -44,7 +44,7 @@ PACKAGES = [
 ]
 PACKAGE_DATA = {
     'facebookads': ['*.crt'],
-    'facebookads.test': ['*.jpg']
+    'facebookads.test': ['*.png']
 }
 PACKAGE_LICENSE = 'LICENSE.txt'
 PACKAGE_DESCRIPTION = 'Facebook Ads API SDK'
