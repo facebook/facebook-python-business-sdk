@@ -674,7 +674,7 @@ class FacebookRequest:
         batch.add_request(self, success, failure)
 
     def callback(self, response): 
-       self._response = response
+        self._response = response
 
     def load(self): 
         if self._response is None:
@@ -684,7 +684,7 @@ class FacebookRequest:
 
         params = copy.deepcopy(self._params)
         if self._response.error():
-            raise response.error()
+            raise self._response.error()
         elif self._api_type == "EDGE" and self._method == "GET":
             response = self._response.json()
             cursor = Cursor(
