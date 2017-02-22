@@ -30,7 +30,7 @@ class FacebookAsyncResponse(FacebookResponse):
             self._json_body = json.loads(self._body)
             return self._json_body
         except (TypeError, ValueError) as exc:
-            logger.exception("Facebook response, conversion to JSON failed: {}".format(str(exc)))
+            logger.warning("Facebook response, conversion to JSON failed: {}".format(str(exc)))
             self._json_body = None
             return self._body
 

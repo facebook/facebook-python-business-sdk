@@ -4,6 +4,7 @@ from facebookads.adobjects import adaccount
 from facebookads.adobjects import adset
 from facebookads.adobjects import business
 from facebookads.adobjects import campaign
+from facebookads.adobjects import adspixel
 from facebookads.asyncobjects.abstractcrudaioobject import AbstractCrudAioObject
 from facebookads.asyncobjects.aioedgeiterator import AioEdgeIterator
 from facebookads.asyncobjects.asyncaiojob import AsyncAioJob
@@ -57,7 +58,7 @@ class AdAccount(AbstractCrudAioObject, adaccount.AdAccount):
         """
         Returns iterator over AdConversionPixels associated with this account.
         """
-        return self.iterate_edge_aio(AdConversionPixel, fields, params, limit=limit)
+        return self.iterate_edge_aio(adspixel.AdsPixel, fields, params, limit=limit)
 
     def get_ad_creatives_aio(self, fields=None, params=None, limit=1000):
         """Returns iterator over AdCreative's associated with this account."""
@@ -394,7 +395,7 @@ class Ad(AbstractCrudAioObject, ad.Ad):
         )
 
 
-class AdConversionPixel(AbstractCrudAioObject, baseobjects.AdConversionPixel):
+class AdConversionPixel(AbstractCrudAioObject, adspixel.AdsPixel):
     pass
 
 
