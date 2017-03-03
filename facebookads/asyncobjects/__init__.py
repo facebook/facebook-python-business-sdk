@@ -322,7 +322,7 @@ class TargetingSearch(AbstractCrudAioObject, baseobjects.AbstractCrudObject, bas
     def get_all_countries(cls):
         ts = cls('no')
         country_iter = EdgeLessIterator(
-                ts, params={'type': ts.TargetingSearchTypes.country})
+                ts, params={'type': ts.TargetingSearchTypes.country, 'q': ''})
         country_iter.submit_next_page_aio()
         return [x for x in country_iter]
 
@@ -331,7 +331,7 @@ class TargetingSearch(AbstractCrudAioObject, baseobjects.AbstractCrudObject, bas
         ts = cls('no')
         reg_iter = EdgeLessIterator(
                 ts, params={'type': ts.TargetingSearchTypes.geolocation,
-                            'location_types': ['region']})
+                            'location_types': ['region'], 'q': ''})
         reg_iter.submit_next_page_aio()
         return [x for x in reg_iter]
 
