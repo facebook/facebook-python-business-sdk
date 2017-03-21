@@ -27,9 +27,18 @@ from facebookads.mixins import (
     CannotCreate,
     CannotDelete,
     CannotUpdate,
+    HasCreateUserPermission,
 )
 
-class Page(CannotCreate, CannotDelete, CannotUpdate, AbstractCrudObject):
+class Page(CannotCreate, CannotDelete, CannotUpdate, HasCreateUserPermission, AbstractCrudObject):
+
+    ROLE_ENUM = [
+        'MANAGER',
+        'CONTENT_CREATOR',
+        'MODERATOR',
+        'ADVERTISER',
+        'INSIGHTS_ANALYST',
+    ]
 
     class Field(object):
         id = 'id'
