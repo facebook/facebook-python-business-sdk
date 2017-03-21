@@ -22,7 +22,11 @@
 mixins contains attributes that objects share
 """
 
+from facebookads.adobjects.abstractcrudobject import AbstractCrudObject
+from facebookads.adobjects.objectparser import ObjectParser
+from facebookads.api import FacebookRequest
 from facebookads.exceptions import FacebookBadObjectError
+from facebookads.typechecker import TypeChecker
 
 
 class CanValidate(object):
@@ -213,3 +217,37 @@ class ValidatesFields(object):
             )
         else:
             super(ValidatesFields, self).__setitem__(key, value)
+
+
+class HasCreateUserPermission(object):
+
+    def create_user_permission(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'email': 'string',
+            'role': 'role_enum',
+            'user': 'int',
+        }
+        enums = {
+            'role_enum': self.ROLE_ENUM
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/userpermissions',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
