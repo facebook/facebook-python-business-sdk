@@ -228,7 +228,7 @@ class HasCreateUserPermission(object):
             'user': 'int',
         }
         enums = {
-            'role_enum': self.ROLE_ENUM
+            'role_enum': self.PERMISSION_ROLE_ENUM
         }
         request = FacebookRequest(
             node_id=self['id'],
