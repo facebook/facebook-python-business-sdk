@@ -216,6 +216,14 @@ class ValidatesFields(object):
 
 
 class HasCreateUserPermission(object):
+    """
+    This mixin allows assigning a user to have roles on a CrudObject.
+    See Facebook documentation for more details:
+        * https://developers.facebook.com/docs/marketing-api/businessmanager/systemuser/v2.8
+
+    Make sure `PERMISSION_ROLE_ENUM` attribute, with the list of allowed roles, are defiled on
+    the CrudObject.
+    """
 
     def create_user_permission(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
