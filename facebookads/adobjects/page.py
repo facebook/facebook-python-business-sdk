@@ -32,7 +32,7 @@ from facebookads.mixins import (
 
 class Page(CannotCreate, CannotDelete, CannotUpdate, HasCreateUserPermission, AbstractCrudObject):
 
-    ROLE_ENUM = [
+    PERMISSION_ROLE_ENUM = [
         'MANAGER',
         'CONTENT_CREATOR',
         'MODERATOR',

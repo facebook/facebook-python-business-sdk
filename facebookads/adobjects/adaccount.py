@@ -41,7 +41,7 @@ class AdAccount(
     HasAdLabels,
 ):
 
-    ROLE_ENUM = [
+    PERMISSION_ROLE_ENUM = [
         'ADMIN',
         'EMPLOYEE',
         'SYSTEM_USER',
