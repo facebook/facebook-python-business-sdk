@@ -49,6 +49,7 @@ class ReachFrequencyPrediction(
         campaign_time_start = 'campaign_time_start'
         campaign_time_stop = 'campaign_time_stop'
         curve_budget_reach = 'curve_budget_reach'
+        daily_impression_curve = 'daily_impression_curve'
         destination_id = 'destination_id'
         expiration_time = 'expiration_time'
         external_budget = 'external_budget'
@@ -68,6 +69,7 @@ class ReachFrequencyPrediction(
         interval_frequency_cap_reset_period = 'interval_frequency_cap_reset_period'
         name = 'name'
         pause_periods = 'pause_periods'
+        placement_breakdown = 'placement_breakdown'
         prediction_mode = 'prediction_mode'
         prediction_progress = 'prediction_progress'
         reservation_status = 'reservation_status'
@@ -78,6 +80,7 @@ class ReachFrequencyPrediction(
         time_created = 'time_created'
         time_updated = 'time_updated'
         budget = 'budget'
+        day_parting_schedule = 'day_parting_schedule'
         destination_ids = 'destination_ids'
         end_time = 'end_time'
         num_curve_points = 'num_curve_points'
@@ -136,6 +139,7 @@ class ReachFrequencyPrediction(
         'campaign_time_start': 'datetime',
         'campaign_time_stop': 'datetime',
         'curve_budget_reach': 'string',
+        'daily_impression_curve': 'list<float>',
         'destination_id': 'string',
         'expiration_time': 'datetime',
         'external_budget': 'int',
@@ -155,6 +159,7 @@ class ReachFrequencyPrediction(
         'interval_frequency_cap_reset_period': 'unsigned int',
         'name': 'string',
         'pause_periods': 'string',
+        'placement_breakdown': 'Object',
         'prediction_mode': 'unsigned int',
         'prediction_progress': 'unsigned int',
         'reservation_status': 'unsigned int',
@@ -165,6 +170,7 @@ class ReachFrequencyPrediction(
         'time_created': 'datetime',
         'time_updated': 'datetime',
         'budget': 'unsigned int',
+        'day_parting_schedule': 'list<Object>',
         'destination_ids': 'list<string>',
         'end_time': 'unsigned int',
         'num_curve_points': 'unsigned int',

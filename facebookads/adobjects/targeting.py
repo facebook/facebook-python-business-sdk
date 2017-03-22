@@ -41,6 +41,7 @@ class Targeting(
         adgroup_id = 'adgroup_id'
         age_max = 'age_max'
         age_min = 'age_min'
+        alternate_auto_targeting_option = 'alternate_auto_targeting_option'
         app_install_state = 'app_install_state'
         behaviors = 'behaviors'
         cities = 'cities'
@@ -69,6 +70,7 @@ class Targeting(
         excluded_mobile_device_model = 'excluded_mobile_device_model'
         excluded_product_audience_specs = 'excluded_product_audience_specs'
         excluded_publisher_categories = 'excluded_publisher_categories'
+        excluded_publisher_domains = 'excluded_publisher_domains'
         excluded_publisher_list_ids = 'excluded_publisher_list_ids'
         excluded_user_device = 'excluded_user_device'
         exclusions = 'exclusions'
@@ -95,11 +97,12 @@ class Targeting(
         net_worth = 'net_worth'
         office_type = 'office_type'
         page_types = 'page_types'
-        place_page_set_id = 'place_page_set_id'
+        place_page_set_ids = 'place_page_set_ids'
         political_views = 'political_views'
         politics = 'politics'
         product_audience_specs = 'product_audience_specs'
         publisher_platforms = 'publisher_platforms'
+        publisher_visibility_categories = 'publisher_visibility_categories'
         radius = 'radius'
         regions = 'regions'
         relationship_statuses = 'relationship_statuses'
@@ -127,6 +130,7 @@ class Targeting(
         'adgroup_id': 'string',
         'age_max': 'unsigned int',
         'age_min': 'unsigned int',
+        'alternate_auto_targeting_option': 'string',
         'app_install_state': 'string',
         'behaviors': 'list<IDName>',
         'cities': 'list<IDName>',
@@ -136,12 +140,12 @@ class Targeting(
         'country': 'list<string>',
         'country_groups': 'list<string>',
         'custom_audiences': 'list<IDName>',
-        'device_platforms': 'DevicePlatforms',
+        'device_platforms': 'list<DevicePlatforms>',
         'dynamic_audience_ids': 'list<string>',
         'education_majors': 'list<IDName>',
         'education_schools': 'list<IDName>',
         'education_statuses': 'list<unsigned int>',
-        'effective_device_platforms': 'EffectiveDevicePlatforms',
+        'effective_device_platforms': 'list<EffectiveDevicePlatforms>',
         'effective_facebook_positions': 'list<string>',
         'effective_publisher_platforms': 'list<string>',
         'engagement_specs': 'list<TargetingDynamicRule>',
@@ -155,6 +159,7 @@ class Targeting(
         'excluded_mobile_device_model': 'list<string>',
         'excluded_product_audience_specs': 'list<TargetingProductAudienceSpec>',
         'excluded_publisher_categories': 'list<string>',
+        'excluded_publisher_domains': 'list<string>',
         'excluded_publisher_list_ids': 'list<string>',
         'excluded_user_device': 'list<string>',
         'exclusions': 'FlexibleTargeting',
@@ -181,11 +186,12 @@ class Targeting(
         'net_worth': 'list<IDName>',
         'office_type': 'list<IDName>',
         'page_types': 'list<string>',
-        'place_page_set_id': 'string',
+        'place_page_set_ids': 'list<string>',
         'political_views': 'list<unsigned int>',
         'politics': 'list<IDName>',
         'product_audience_specs': 'list<TargetingProductAudienceSpec>',
         'publisher_platforms': 'list<string>',
+        'publisher_visibility_categories': 'list<string>',
         'radius': 'string',
         'regions': 'list<IDName>',
         'relationship_statuses': 'list<unsigned int>',

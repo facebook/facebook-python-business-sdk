@@ -63,6 +63,33 @@ class Hotel(
         from facebookads.adobjects.productcatalog import ProductCatalog
         return ProductCatalog(api=self._api, fbid=parent_id).create_hotel(fields, params, batch, pending)
 
+    def api_delete(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='DELETE',
+            endpoint='/',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def api_get(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
         }
@@ -71,6 +98,43 @@ class Hotel(
         request = FacebookRequest(
             node_id=self['id'],
             method='GET',
+            endpoint='/',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Hotel,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def api_update(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'address': 'Object',
+            'applinks': 'Object',
+            'brand': 'string',
+            'description': 'string',
+            'guest_ratings': 'list<Object>',
+            'images': 'list<Object>',
+            'name': 'string',
+            'phone': 'string',
+            'star_rating': 'float',
+            'url': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
@@ -102,6 +166,7 @@ class Hotel(
             'name': 'string',
             'pricing_variables': 'list<Object>',
             'room_id': 'string',
+            'sale_price': 'float',
             'url': 'string',
         }
         enums = {

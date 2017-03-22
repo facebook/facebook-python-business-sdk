@@ -52,7 +52,6 @@ class AdCreativeLinkDataCallToAction(
         use_mobile_app = 'USE_MOBILE_APP'
         book_travel = 'BOOK_TRAVEL'
         listen_music = 'LISTEN_MUSIC'
-        watch_video = 'WATCH_VIDEO'
         learn_more = 'LEARN_MORE'
         sign_up = 'SIGN_UP'
         download = 'DOWNLOAD'
@@ -71,6 +70,7 @@ class AdCreativeLinkDataCallToAction(
         contact_us = 'CONTACT_US'
         record_now = 'RECORD_NOW'
         vote_now = 'VOTE_NOW'
+        register_now = 'REGISTER_NOW'
         open_movies = 'OPEN_MOVIES'
 
     _field_types = {

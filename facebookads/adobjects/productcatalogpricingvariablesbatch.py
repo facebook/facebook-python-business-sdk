@@ -32,13 +32,13 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class ProductCatalogHotelRoomsBatch(
+class ProductCatalogPricingVariablesBatch(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isProductCatalogHotelRoomsBatch = True
-        super(ProductCatalogHotelRoomsBatch, self).__init__(fbid, parent_id, api)
+        self._isProductCatalogPricingVariablesBatch = True
+        super(ProductCatalogPricingVariablesBatch, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
         errors = 'errors'
@@ -57,11 +57,11 @@ class ProductCatalogHotelRoomsBatch(
 
     @classmethod
     def get_endpoint(cls):
-        return 'hotel_rooms_batch'
+        return 'pricing_variables_batch'
 
     def api_create(self, parent_id, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.productcatalog import ProductCatalog
-        return ProductCatalog(api=self._api, fbid=parent_id).create_hotel_rooms_batch(fields, params, batch, pending)
+        return ProductCatalog(api=self._api, fbid=parent_id).create_pricing_variables_batch(fields, params, batch, pending)
 
     _field_types = {
         'errors': 'list<Object>',
@@ -79,5 +79,5 @@ class ProductCatalogHotelRoomsBatch(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['Standard'] = ProductCatalogHotelRoomsBatch.Standard.__dict__.values()
+        field_enum_info['Standard'] = ProductCatalogPricingVariablesBatch.Standard.__dict__.values()
         return field_enum_info

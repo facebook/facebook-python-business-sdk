@@ -38,6 +38,7 @@ class AdCreativeLinkDataCallToActionValue(
         self._api = api
 
     class Field(AbstractObject.Field):
+        app_destination = 'app_destination'
         app_link = 'app_link'
         application = 'application'
         event_id = 'event_id'
@@ -45,11 +46,13 @@ class AdCreativeLinkDataCallToActionValue(
         link = 'link'
         link_caption = 'link_caption'
         link_description = 'link_description'
+        link_format = 'link_format'
         link_title = 'link_title'
         page = 'page'
         product_link = 'product_link'
 
     _field_types = {
+        'app_destination': 'string',
         'app_link': 'string',
         'application': 'string',
         'event_id': 'string',
@@ -57,6 +60,7 @@ class AdCreativeLinkDataCallToActionValue(
         'link': 'string',
         'link_caption': 'string',
         'link_description': 'string',
+        'link_format': 'string',
         'link_title': 'string',
         'page': 'string',
         'product_link': 'string',

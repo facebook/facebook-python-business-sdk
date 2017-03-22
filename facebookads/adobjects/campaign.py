@@ -47,6 +47,7 @@ class Campaign(
     class Field(AbstractObject.Field):
         account_id = 'account_id'
         adlabels = 'adlabels'
+        budget_rebalance_flag = 'budget_rebalance_flag'
         buying_type = 'buying_type'
         can_use_spend_cap = 'can_use_spend_cap'
         configured_status = 'configured_status'
@@ -202,6 +203,7 @@ class Campaign(
     def api_update(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
             'adlabels': 'list<Object>',
+            'budget_rebalance_flag': 'bool',
             'execution_options': 'list<execution_options_enum>',
             'name': 'string',
             'objective': 'objective_enum',
@@ -305,7 +307,7 @@ class Campaign(
             'date_preset': 'date_preset_enum',
             'effective_status': 'list<string>',
             'include_deleted': 'bool',
-            'time_range': 'map',
+            'time_range': 'Object',
             'updated_since': 'int',
         }
         enums = {
@@ -340,7 +342,7 @@ class Campaign(
             'date_preset': 'date_preset_enum',
             'effective_status': 'list<effective_status_enum>',
             'is_completed': 'bool',
-            'time_range': 'map',
+            'time_range': 'Object',
         }
         enums = {
             'date_preset_enum': AdSet.DatePreset.__dict__.values(),
@@ -379,6 +381,9 @@ class Campaign(
             'breakdowns': 'list<breakdowns_enum>',
             'date_preset': 'date_preset_enum',
             'default_summary': 'bool',
+            'export_columns': 'list<string>',
+            'export_format': 'string',
+            'export_name': 'string',
             'fields': 'list<fields_enum>',
             'filtering': 'list<Object>',
             'level': 'level_enum',
@@ -387,8 +392,8 @@ class Campaign(
             'summary': 'list<summary_enum>',
             'summary_action_breakdowns': 'list<summary_action_breakdowns_enum>',
             'time_increment': 'string',
-            'time_range': 'map',
-            'time_ranges': 'list<map>',
+            'time_range': 'Object',
+            'time_ranges': 'list<Object>',
         }
         enums = {
             'action_attribution_windows_enum': AdsInsights.ActionAttributionWindows.__dict__.values(),
@@ -433,6 +438,9 @@ class Campaign(
             'breakdowns': 'list<breakdowns_enum>',
             'date_preset': 'date_preset_enum',
             'default_summary': 'bool',
+            'export_columns': 'list<string>',
+            'export_format': 'string',
+            'export_name': 'string',
             'fields': 'list<fields_enum>',
             'filtering': 'list<Object>',
             'level': 'level_enum',
@@ -441,8 +449,8 @@ class Campaign(
             'summary': 'list<summary_enum>',
             'summary_action_breakdowns': 'list<summary_action_breakdowns_enum>',
             'time_increment': 'string',
-            'time_range': 'map',
-            'time_ranges': 'list<map>',
+            'time_range': 'Object',
+            'time_ranges': 'list<Object>',
         }
         enums = {
             'action_attribution_windows_enum': AdsInsights.ActionAttributionWindows.__dict__.values(),
@@ -480,6 +488,7 @@ class Campaign(
     _field_types = {
         'account_id': 'string',
         'adlabels': 'list<AdLabel>',
+        'budget_rebalance_flag': 'bool',
         'buying_type': 'string',
         'can_use_spend_cap': 'bool',
         'configured_status': 'ConfiguredStatus',
@@ -494,7 +503,7 @@ class Campaign(
         'status': 'Status',
         'stop_time': 'datetime',
         'updated_time': 'datetime',
-        'execution_options': 'ExecutionOptions',
+        'execution_options': 'list<ExecutionOptions>',
         'promoted_object': 'Object',
     }
 

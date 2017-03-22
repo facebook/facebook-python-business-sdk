@@ -52,7 +52,9 @@ class CustomConversion(
         last_fired_time = 'last_fired_time'
         name = 'name'
         pixel = 'pixel'
+        pixel_aggregation_rule = 'pixel_aggregation_rule'
         pixel_rule = 'pixel_rule'
+        retention_days = 'retention_days'
         pixel_id = 'pixel_id'
 
     class CustomEventType:
@@ -159,6 +161,42 @@ class CustomConversion(
             self.assure_call()
             return request.execute()
 
+    def get_activities(self, fields=None, params=None, batch=None, pending=False):
+        from facebookads.adobjects.customconversionactivities import CustomConversionActivities
+        param_types = {
+            'end_time': 'datetime',
+            'event_type': 'event_type_enum',
+            'start_time': 'datetime',
+        }
+        enums = {
+            'event_type_enum': [
+                'conversion_create',
+                'conversion_delete',
+                'conversion_update',
+            ],
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/activities',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_stats(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.adspixelstatsresult import AdsPixelStatsResult
         param_types = {
@@ -195,7 +233,7 @@ class CustomConversion(
         'account_id': 'string',
         'creation_time': 'datetime',
         'custom_event_type': 'CustomEventType',
-        'default_conversion_value': 'unsigned int',
+        'default_conversion_value': 'int',
         'description': 'string',
         'first_fired_time': 'datetime',
         'id': 'string',
@@ -203,7 +241,9 @@ class CustomConversion(
         'last_fired_time': 'datetime',
         'name': 'string',
         'pixel': 'AdsPixel',
+        'pixel_aggregation_rule': 'string',
         'pixel_rule': 'string',
+        'retention_days': 'unsigned int',
         'pixel_id': 'string',
     }
 
