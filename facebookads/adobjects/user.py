@@ -45,6 +45,7 @@ class User(
         admin_notes = 'admin_notes'
         age_range = 'age_range'
         birthday = 'birthday'
+        can_review_measurement_request = 'can_review_measurement_request'
         context = 'context'
         cover = 'cover'
         currency = 'currency'
@@ -74,7 +75,6 @@ class User(
         middle_name = 'middle_name'
         name = 'name'
         name_format = 'name_format'
-        page_scoped_id = 'page_scoped_id'
         payment_pricepoints = 'payment_pricepoints'
         political = 'political'
         public_key = 'public_key'
@@ -306,6 +306,7 @@ class User(
         'admin_notes': 'list<Object>',
         'age_range': 'Object',
         'birthday': 'string',
+        'can_review_measurement_request': 'bool',
         'context': 'Object',
         'cover': 'Object',
         'currency': 'Object',
@@ -335,7 +336,6 @@ class User(
         'middle_name': 'string',
         'name': 'string',
         'name_format': 'string',
-        'page_scoped_id': 'string',
         'payment_pricepoints': 'Object',
         'political': 'string',
         'public_key': 'string',

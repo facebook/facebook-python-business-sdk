@@ -62,6 +62,7 @@ class AdKeywordStats(
         unique_ctr = 'unique_ctr'
         unique_impressions = 'unique_impressions'
 
+    # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'keywordstats'

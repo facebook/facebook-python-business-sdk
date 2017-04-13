@@ -48,6 +48,7 @@ class AdAccountUser(
         permissions = 'permissions'
         role = 'role'
 
+    # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'users'

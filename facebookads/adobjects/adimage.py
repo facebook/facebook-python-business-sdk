@@ -49,6 +49,7 @@ class AdImage(
         hash = 'hash'
         height = 'height'
         id = 'id'
+        is_associated_creatives_in_adgroups = 'is_associated_creatives_in_adgroups'
         name = 'name'
         original_height = 'original_height'
         original_width = 'original_width'
@@ -67,6 +68,7 @@ class AdImage(
         active = 'ACTIVE'
         deleted = 'DELETED'
 
+    # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'adimages'
@@ -109,6 +111,7 @@ class AdImage(
         'hash': 'string',
         'height': 'unsigned int',
         'id': 'string',
+        'is_associated_creatives_in_adgroups': 'bool',
         'name': 'string',
         'original_height': 'unsigned int',
         'original_width': 'unsigned int',

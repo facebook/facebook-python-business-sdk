@@ -43,12 +43,10 @@ class BusinessAdAccountRequest(
     class Field(AbstractObject.Field):
         ad_account = 'ad_account'
         id = 'id'
-        permitted_roles = 'permitted_roles'
 
     _field_types = {
         'ad_account': 'AdAccount',
         'id': 'string',
-        'permitted_roles': 'list<string>',
     }
 
     @classmethod

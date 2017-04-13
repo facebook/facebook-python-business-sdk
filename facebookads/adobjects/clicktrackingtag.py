@@ -27,7 +27,8 @@ class ClickTrackingTag(AbstractCrudObject):
         ad_id = 'ad_id'
         id = 'id'
         url = 'url'
-
+  
+    # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'trackingtag'

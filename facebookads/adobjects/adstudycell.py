@@ -32,62 +32,57 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class Transaction(
+class AdStudyCell(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isTransaction = True
-        super(Transaction, self).__init__(fbid, parent_id, api)
+        self._isAdStudyCell = True
+        super(AdStudyCell, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        account_id = 'account_id'
-        app_amount = 'app_amount'
-        billing_end_time = 'billing_end_time'
-        billing_reason = 'billing_reason'
-        billing_start_time = 'billing_start_time'
-        charge_type = 'charge_type'
-        checkout_campaign_group_id = 'checkout_campaign_group_id'
-        credential_id = 'credential_id'
-        fatura_id = 'fatura_id'
+        ad_entities_count = 'ad_entities_count'
+        control_percentage = 'control_percentage'
         id = 'id'
-        payment_option = 'payment_option'
-        product_type = 'product_type'
-        provider_amount = 'provider_amount'
-        status = 'status'
-        time = 'time'
-        tracking_id = 'tracking_id'
+        name = 'name'
+        treatment_percentage = 'treatment_percentage'
 
-    class ProductType:
-        facebook_ad = 'facebook_ad'
-        ig_ad = 'ig_ad'
+    def api_get(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdStudyCell,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
 
-    # @deprecated get_endpoint function is deprecated
-    @classmethod
-    def get_endpoint(cls):
-        return 'transactions'
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     _field_types = {
-        'account_id': 'string',
-        'app_amount': 'TransactionCurrencyAmount',
-        'billing_end_time': 'unsigned int',
-        'billing_reason': 'string',
-        'billing_start_time': 'unsigned int',
-        'charge_type': 'string',
-        'checkout_campaign_group_id': 'string',
-        'credential_id': 'string',
-        'fatura_id': 'unsigned int',
+        'ad_entities_count': 'unsigned int',
+        'control_percentage': 'float',
         'id': 'string',
-        'payment_option': 'string',
-        'product_type': 'ProductType',
-        'provider_amount': 'TransactionCurrencyAmount',
-        'status': 'string',
-        'time': 'unsigned int',
-        'tracking_id': 'string',
+        'name': 'string',
+        'treatment_percentage': 'float',
     }
 
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['ProductType'] = Transaction.ProductType.__dict__.values()
         return field_enum_info

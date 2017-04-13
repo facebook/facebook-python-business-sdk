@@ -76,6 +76,7 @@ class AdReportRun(
         time_range = 'time_range'
         time_ranges = 'time_ranges'
 
+    # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'insights'

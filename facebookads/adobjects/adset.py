@@ -85,6 +85,8 @@ class AdSet(
         time_based_ad_rotation_intervals = 'time_based_ad_rotation_intervals'
         updated_time = 'updated_time'
         use_new_app_click = 'use_new_app_click'
+        view_through_attribution_window_days = 'view_through_attribution_window_days'
+        campaign_spec = 'campaign_spec'
         daily_imps = 'daily_imps'
         execution_options = 'execution_options'
         redownload = 'redownload'
@@ -98,6 +100,7 @@ class AdSet(
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
         video_views = 'VIDEO_VIEWS'
+        mrc_video_views = 'MRC_VIDEO_VIEWS'
 
     class ConfiguredStatus:
         active = 'ACTIVE'
@@ -123,7 +126,6 @@ class AdSet(
         brand_awareness = 'BRAND_AWARENESS'
         clicks = 'CLICKS'
         engaged_users = 'ENGAGED_USERS'
-        external = 'EXTERNAL'
         event_responses = 'EVENT_RESPONSES'
         impressions = 'IMPRESSIONS'
         lead_generation = 'LEAD_GENERATION'
@@ -136,6 +138,7 @@ class AdSet(
         reach = 'REACH'
         social_impressions = 'SOCIAL_IMPRESSIONS'
         video_views = 'VIDEO_VIEWS'
+        app_downloads = 'APP_DOWNLOADS'
 
     class Status:
         active = 'ACTIVE'
@@ -168,6 +171,7 @@ class AdSet(
         all = 'ALL'
         any = 'ANY'
 
+    # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'adsets'
@@ -258,6 +262,7 @@ class AdSet(
             'targeting': 'Targeting',
             'time_based_ad_rotation_id_blocks': 'list<list<unsigned int>>',
             'time_based_ad_rotation_intervals': 'list<unsigned int>',
+            'view_through_attribution_window_days': 'unsigned int',
         }
         enums = {
             'billing_event_enum': AdSet.BillingEvent.__dict__.values(),
@@ -660,6 +665,8 @@ class AdSet(
         'time_based_ad_rotation_intervals': 'list<unsigned int>',
         'updated_time': 'datetime',
         'use_new_app_click': 'bool',
+        'view_through_attribution_window_days': 'unsigned int',
+        'campaign_spec': 'Object',
         'daily_imps': 'unsigned int',
         'execution_options': 'list<ExecutionOptions>',
         'redownload': 'bool',

@@ -82,11 +82,51 @@ class Business(
             self.assure_call()
             return request.execute()
 
+    def create_ad_study(self, fields=None, params=None, batch=None, pending=False):
+        from facebookads.adobjects.adstudy import AdStudy
+        param_types = {
+            'cells': 'list<Object>',
+            'confidence_level': 'float',
+            'cooldown_start_time': 'int',
+            'description': 'string',
+            'end_time': 'int',
+            'name': 'string',
+            'objectives': 'list<Object>',
+            'observation_end_time': 'int',
+            'start_time': 'int',
+            'type': 'type_enum',
+            'viewers': 'list<int>',
+        }
+        enums = {
+            'type_enum': AdStudy.Type.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/ad_studies',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdStudy,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdStudy),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def create_ad_account(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.adaccount import AdAccount
         param_types = {
             'currency': 'string',
-            'end_advertiser': 'string',
+            'end_advertiser': 'Object',
             'funding_id': 'string',
             'invoice': 'bool',
             'io': 'bool',
@@ -156,6 +196,8 @@ class Business(
     def get_ads_pixels(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.adspixel import AdsPixel
         param_types = {
+            'id_filter': 'string',
+            'name_filter': 'string',
         }
         enums = {
         }
@@ -554,7 +596,6 @@ class Business(
             return request.execute()
 
     def get_measurement_reports(self, fields=None, params=None, batch=None, pending=False):
-        from facebookads.adobjects.measurementreport import MeasurementReport
         param_types = {
             'filters': 'list<Object>',
             'report_type': 'report_type_enum',
@@ -590,7 +631,6 @@ class Business(
             return request.execute()
 
     def create_measurement_report(self, fields=None, params=None, batch=None, pending=False):
-        from facebookads.adobjects.measurementreport import MeasurementReport
         param_types = {
             'metadata': 'string',
             'report_type': 'report_type_enum',
@@ -654,7 +694,9 @@ class Business(
 
     def create_offline_conversion_data_set(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
+            'auto_assign_to_new_accounts_only': 'bool',
             'description': 'string',
+            'enable_auto_assign_to_accounts': 'bool',
             'name': 'string',
         }
         enums = {
@@ -682,7 +724,7 @@ class Business(
             return request.execute()
 
     def get_owned_ad_account_requests(self, fields=None, params=None, batch=None, pending=False):
-        from facebookads.adobjects.businessadaccountrequest import BusinessAdAccountRequest
+        from facebookads.adobjects.legacybusinessadaccountrequest import LegacyBusinessAdAccountRequest
         param_types = {
         }
         enums = {
@@ -693,9 +735,9 @@ class Business(
             endpoint='/owned_ad_account_requests',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=BusinessAdAccountRequest,
+            target_class=LegacyBusinessAdAccountRequest,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=BusinessAdAccountRequest),
+            response_parser=ObjectParser(target_class=LegacyBusinessAdAccountRequest),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -911,6 +953,7 @@ class Business(
     def create_product_catalog(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.productcatalog import ProductCatalog
         param_types = {
+            'da_display_settings': 'Object',
             'name': 'string',
             'vertical': 'vertical_enum',
         }

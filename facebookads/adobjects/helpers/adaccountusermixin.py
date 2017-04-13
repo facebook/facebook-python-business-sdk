@@ -46,6 +46,7 @@ class AdAccountUserMixin:
         analyst = 1003
         manager = 1002
 
+    # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'users'
