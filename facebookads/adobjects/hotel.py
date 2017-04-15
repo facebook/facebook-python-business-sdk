@@ -55,6 +55,7 @@ class Hotel(
         star_rating = 'star_rating'
         url = 'url'
 
+    # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'hotels'

@@ -47,8 +47,10 @@ class Campaign(
     class Field(AbstractObject.Field):
         account_id = 'account_id'
         adlabels = 'adlabels'
+        brand_lift_studies = 'brand_lift_studies'
         budget_rebalance_flag = 'budget_rebalance_flag'
         buying_type = 'buying_type'
+        can_create_brand_lift_study = 'can_create_brand_lift_study'
         can_use_spend_cap = 'can_use_spend_cap'
         configured_status = 'configured_status'
         created_time = 'created_time'
@@ -116,12 +118,12 @@ class Campaign(
         include_recommendations = 'include_recommendations'
 
     class Objective:
+        app_installs = 'APP_INSTALLS'
         brand_awareness = 'BRAND_AWARENESS'
         canvas_app_engagement = 'CANVAS_APP_ENGAGEMENT'
         canvas_app_installs = 'CANVAS_APP_INSTALLS'
         conversions = 'CONVERSIONS'
         event_responses = 'EVENT_RESPONSES'
-        external = 'EXTERNAL'
         lead_generation = 'LEAD_GENERATION'
         link_clicks = 'LINK_CLICKS'
         local_awareness = 'LOCAL_AWARENESS'
@@ -138,6 +140,7 @@ class Campaign(
         all = 'ALL'
         any = 'ANY'
 
+    # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'campaigns'
@@ -488,8 +491,10 @@ class Campaign(
     _field_types = {
         'account_id': 'string',
         'adlabels': 'list<AdLabel>',
+        'brand_lift_studies': 'list<AdStudy>',
         'budget_rebalance_flag': 'bool',
         'buying_type': 'string',
+        'can_create_brand_lift_study': 'bool',
         'can_use_spend_cap': 'bool',
         'configured_status': 'ConfiguredStatus',
         'created_time': 'datetime',

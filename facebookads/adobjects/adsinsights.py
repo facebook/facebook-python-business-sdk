@@ -48,13 +48,16 @@ class AdsInsights(
         ad_name = 'ad_name'
         adset_id = 'adset_id'
         adset_name = 'adset_name'
+        age = 'age'
         app_store_clicks = 'app_store_clicks'
         buying_type = 'buying_type'
+        call_to_action_asset = 'call_to_action_asset'
         call_to_action_clicks = 'call_to_action_clicks'
         campaign_id = 'campaign_id'
         campaign_name = 'campaign_name'
         canvas_avg_view_percent = 'canvas_avg_view_percent'
         canvas_avg_view_time = 'canvas_avg_view_time'
+        canvas_component_avg_pct_view = 'canvas_component_avg_pct_view'
         clicks = 'clicks'
         cost_per_10_sec_video_view = 'cost_per_10_sec_video_view'
         cost_per_action_type = 'cost_per_action_type'
@@ -65,6 +68,7 @@ class AdsInsights(
         cost_per_unique_action_type = 'cost_per_unique_action_type'
         cost_per_unique_click = 'cost_per_unique_click'
         cost_per_unique_inline_link_click = 'cost_per_unique_inline_link_click'
+        country = 'country'
         cpc = 'cpc'
         cpm = 'cpm'
         cpp = 'cpp'
@@ -72,10 +76,18 @@ class AdsInsights(
         date_start = 'date_start'
         date_stop = 'date_stop'
         deeplink_clicks = 'deeplink_clicks'
+        device_platform = 'device_platform'
+        dma = 'dma'
         estimated_ad_recall_rate = 'estimated_ad_recall_rate'
         estimated_ad_recallers = 'estimated_ad_recallers'
         frequency = 'frequency'
+        frequency_value = 'frequency_value'
+        gender = 'gender'
+        hourly_stats_aggregated_by_advertiser_time_zone = 'hourly_stats_aggregated_by_advertiser_time_zone'
+        hourly_stats_aggregated_by_audience_time_zone = 'hourly_stats_aggregated_by_audience_time_zone'
+        impression_device = 'impression_device'
         impressions = 'impressions'
+        impressions_dummy = 'impressions_dummy'
         inline_link_click_ctr = 'inline_link_click_ctr'
         inline_link_clicks = 'inline_link_clicks'
         inline_post_engagement = 'inline_post_engagement'
@@ -83,8 +95,12 @@ class AdsInsights(
         newsfeed_clicks = 'newsfeed_clicks'
         newsfeed_impressions = 'newsfeed_impressions'
         objective = 'objective'
+        place_page_id = 'place_page_id'
         place_page_name = 'place_page_name'
+        placement = 'placement'
+        product_id = 'product_id'
         reach = 'reach'
+        region = 'region'
         relevance_score = 'relevance_score'
         social_clicks = 'social_clicks'
         social_impressions = 'social_impressions'
@@ -129,6 +145,7 @@ class AdsInsights(
         value_default = 'default'
 
     class ActionBreakdowns:
+        action_canvas_component_name = 'action_canvas_component_name'
         action_carousel_card_id = 'action_carousel_card_id'
         action_carousel_card_name = 'action_carousel_card_name'
         action_destination = 'action_destination'
@@ -146,6 +163,7 @@ class AdsInsights(
     class Breakdowns:
         age = 'age'
         country = 'country'
+        dma = 'dma'
         gender = 'gender'
         frequency_value = 'frequency_value'
         hourly_stats_aggregated_by_advertiser_time_zone = 'hourly_stats_aggregated_by_advertiser_time_zone'
@@ -153,6 +171,8 @@ class AdsInsights(
         impression_device = 'impression_device'
         place_page_id = 'place_page_id'
         placement = 'placement'
+        publisher_platform = 'publisher_platform'
+        platform_position = 'platform_position'
         device_platform = 'device_platform'
         product_id = 'product_id'
         region = 'region'
@@ -181,6 +201,7 @@ class AdsInsights(
         account = 'account'
 
     class SummaryActionBreakdowns:
+        action_canvas_component_name = 'action_canvas_component_name'
         action_carousel_card_id = 'action_carousel_card_id'
         action_carousel_card_name = 'action_carousel_card_name'
         action_destination = 'action_destination'
@@ -206,6 +227,7 @@ class AdsInsights(
         time_completed = 'time_completed'
         time_ref = 'time_ref'
 
+    # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'insights'
@@ -219,13 +241,16 @@ class AdsInsights(
         'ad_name': 'string',
         'adset_id': 'string',
         'adset_name': 'string',
+        'age': 'string',
         'app_store_clicks': 'string',
         'buying_type': 'string',
+        'call_to_action_asset': 'Object',
         'call_to_action_clicks': 'string',
         'campaign_id': 'string',
         'campaign_name': 'string',
         'canvas_avg_view_percent': 'string',
         'canvas_avg_view_time': 'string',
+        'canvas_component_avg_pct_view': 'list<AdsActionStats>',
         'clicks': 'string',
         'cost_per_10_sec_video_view': 'list<AdsActionStats>',
         'cost_per_action_type': 'list<AdsActionStats>',
@@ -236,6 +261,7 @@ class AdsInsights(
         'cost_per_unique_action_type': 'list<AdsActionStats>',
         'cost_per_unique_click': 'string',
         'cost_per_unique_inline_link_click': 'string',
+        'country': 'string',
         'cpc': 'string',
         'cpm': 'string',
         'cpp': 'string',
@@ -243,10 +269,18 @@ class AdsInsights(
         'date_start': 'string',
         'date_stop': 'string',
         'deeplink_clicks': 'string',
+        'device_platform': 'string',
+        'dma': 'string',
         'estimated_ad_recall_rate': 'string',
         'estimated_ad_recallers': 'string',
         'frequency': 'string',
+        'frequency_value': 'string',
+        'gender': 'string',
+        'hourly_stats_aggregated_by_advertiser_time_zone': 'string',
+        'hourly_stats_aggregated_by_audience_time_zone': 'string',
+        'impression_device': 'string',
         'impressions': 'string',
+        'impressions_dummy': 'string',
         'inline_link_click_ctr': 'string',
         'inline_link_clicks': 'string',
         'inline_post_engagement': 'string',
@@ -254,8 +288,12 @@ class AdsInsights(
         'newsfeed_clicks': 'string',
         'newsfeed_impressions': 'string',
         'objective': 'string',
+        'place_page_id': 'string',
         'place_page_name': 'string',
+        'placement': 'string',
+        'product_id': 'string',
         'reach': 'string',
+        'region': 'string',
         'relevance_score': 'AdgroupRelevanceScore',
         'social_clicks': 'string',
         'social_impressions': 'string',

@@ -41,11 +41,13 @@ class DayPart(
         days = 'days'
         end_minute = 'end_minute'
         start_minute = 'start_minute'
+        timezone_type = 'timezone_type'
 
     _field_types = {
         'days': 'list<int>',
         'end_minute': 'int',
         'start_minute': 'int',
+        'timezone_type': 'string',
     }
 
     @classmethod

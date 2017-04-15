@@ -63,6 +63,11 @@ class ProductFeed(
         tilde = 'TILDE'
         semicolon = 'SEMICOLON'
 
+    class QuotedFieldsMode:
+        autodetect = 'AUTODETECT'
+        on = 'ON'
+        off = 'OFF'
+
     class Encoding:
         autodetect = 'AUTODETECT'
         latin1 = 'LATIN1'
@@ -72,11 +77,7 @@ class ProductFeed(
         utf32le = 'UTF32LE'
         utf32be = 'UTF32BE'
 
-    class QuotedFieldsMode:
-        autodetect = 'AUTODETECT'
-        on = 'ON'
-        off = 'OFF'
-
+    # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'product_feeds'
@@ -147,11 +148,13 @@ class ProductFeed(
             'encoding': 'encoding_enum',
             'name': 'string',
             'quoted_fields': 'bool',
+            'quoted_fields_mode': 'quoted_fields_mode_enum',
             'schedule': 'string',
         }
         enums = {
             'delimiter_enum': ProductFeed.Delimiter.__dict__.values(),
             'encoding_enum': ProductFeed.Encoding.__dict__.values(),
+            'quoted_fields_mode_enum': ProductFeed.QuotedFieldsMode.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -272,7 +275,7 @@ class ProductFeed(
         'default_currency': 'string',
         'deletion_enabled': 'bool',
         'delimiter': 'Delimiter',
-        'encoding': 'Encoding',
+        'encoding': 'string',
         'file_name': 'string',
         'id': 'string',
         'latest_upload': 'ProductFeedUpload',
@@ -286,6 +289,6 @@ class ProductFeed(
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['Delimiter'] = ProductFeed.Delimiter.__dict__.values()
-        field_enum_info['Encoding'] = ProductFeed.Encoding.__dict__.values()
         field_enum_info['QuotedFieldsMode'] = ProductFeed.QuotedFieldsMode.__dict__.values()
+        field_enum_info['Encoding'] = ProductFeed.Encoding.__dict__.values()
         return field_enum_info

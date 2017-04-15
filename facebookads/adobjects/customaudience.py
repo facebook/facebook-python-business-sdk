@@ -50,6 +50,7 @@ class CustomAudience(
         description = 'description'
         external_event_source = 'external_event_source'
         id = 'id'
+        is_value_based = 'is_value_based'
         lookalike_audience_ids = 'lookalike_audience_ids'
         lookalike_spec = 'lookalike_spec'
         name = 'name'
@@ -79,6 +80,7 @@ class CustomAudience(
         tags = 'tags'
 
     class ClaimObjective:
+        home_listing = 'HOME_LISTING'
         product = 'PRODUCT'
         travel = 'TRAVEL'
 
@@ -86,6 +88,7 @@ class CustomAudience(
         destination = 'DESTINATION'
         flight = 'FLIGHT'
         hotel = 'HOTEL'
+        home_listing = 'HOME_LISTING'
 
     class Subtype:
         custom = 'CUSTOM'
@@ -110,6 +113,7 @@ class CustomAudience(
         delivery_status = 'delivery_status'
         description = 'description'
         external_event_source = 'external_event_source'
+        is_value_based = 'is_value_based'
         lookalike_audience_ids = 'lookalike_audience_ids'
         lookalike_spec = 'lookalike_spec'
         name = 'name'
@@ -124,6 +128,7 @@ class CustomAudience(
         time_created = 'time_created'
         time_updated = 'time_updated'
 
+    # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'customaudiences'
@@ -469,6 +474,7 @@ class CustomAudience(
         'description': 'string',
         'external_event_source': 'AdsPixel',
         'id': 'string',
+        'is_value_based': 'bool',
         'lookalike_audience_ids': 'list<string>',
         'lookalike_spec': 'LookalikeSpec',
         'name': 'string',

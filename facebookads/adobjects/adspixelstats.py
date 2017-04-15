@@ -39,10 +39,12 @@ class AdsPixelStats(
 
     class Field(AbstractObject.Field):
         count = 'count'
+        diagnostics_hourly_last_timestamp = 'diagnostics_hourly_last_timestamp'
         value = 'value'
 
     _field_types = {
         'count': 'int',
+        'diagnostics_hourly_last_timestamp': 'datetime',
         'value': 'string',
     }
 

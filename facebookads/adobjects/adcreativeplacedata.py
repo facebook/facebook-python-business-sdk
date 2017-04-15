@@ -42,7 +42,6 @@ class AdCreativePlaceData(
         label = 'label'
         latitude = 'latitude'
         longitude = 'longitude'
-        phone_number = 'phone_number'
         type = 'type'
 
     _field_types = {
@@ -50,7 +49,6 @@ class AdCreativePlaceData(
         'label': 'string',
         'latitude': 'float',
         'longitude': 'float',
-        'phone_number': 'string',
         'type': 'string',
     }
 

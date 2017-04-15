@@ -49,7 +49,6 @@ class ReachEstimate(
         brand_awareness = 'BRAND_AWARENESS'
         clicks = 'CLICKS'
         engaged_users = 'ENGAGED_USERS'
-        external = 'EXTERNAL'
         event_responses = 'EVENT_RESPONSES'
         impressions = 'IMPRESSIONS'
         lead_generation = 'LEAD_GENERATION'
@@ -62,7 +61,9 @@ class ReachEstimate(
         reach = 'REACH'
         social_impressions = 'SOCIAL_IMPRESSIONS'
         video_views = 'VIDEO_VIEWS'
+        app_downloads = 'APP_DOWNLOADS'
 
+    # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'reachestimate'

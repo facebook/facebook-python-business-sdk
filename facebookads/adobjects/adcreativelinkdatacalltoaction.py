@@ -58,11 +58,13 @@ class AdCreativeLinkDataCallToAction(
         watch_more = 'WATCH_MORE'
         no_button = 'NO_BUTTON'
         call_now = 'CALL_NOW'
+        apply_now = 'APPLY_NOW'
         buy_now = 'BUY_NOW'
         get_offer = 'GET_OFFER'
         get_offer_view = 'GET_OFFER_VIEW'
         get_directions = 'GET_DIRECTIONS'
         message_page = 'MESSAGE_PAGE'
+        message_user = 'MESSAGE_USER'
         subscribe = 'SUBSCRIBE'
         sell_now = 'SELL_NOW'
         donate_now = 'DONATE_NOW'
@@ -71,6 +73,8 @@ class AdCreativeLinkDataCallToAction(
         record_now = 'RECORD_NOW'
         vote_now = 'VOTE_NOW'
         register_now = 'REGISTER_NOW'
+        request_time = 'REQUEST_TIME'
+        see_menu = 'SEE_MENU'
         open_movies = 'OPEN_MOVIES'
 
     _field_types = {

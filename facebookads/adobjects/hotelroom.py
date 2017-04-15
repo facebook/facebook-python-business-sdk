@@ -54,6 +54,7 @@ class HotelRoom(
         url = 'url'
         pricing_variables = 'pricing_variables'
 
+    # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'hotel_rooms'

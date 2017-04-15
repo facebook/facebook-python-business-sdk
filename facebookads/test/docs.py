@@ -287,13 +287,6 @@ class AdUserDocsTestCase(DocsTestCase):
         ])
         self.store_response(account)
 
-    def test_get_ad_account_group(self):
-        user = AdUser('me')
-        account_group = user.get_ad_account_groups(fields=[
-            AdAccountGroup.Field.name,
-        ])
-        self.store_response(account_group)
-
     def test_get_pages(self):
         user = AdUser('me')
         pages = user.get_pages(fields=[

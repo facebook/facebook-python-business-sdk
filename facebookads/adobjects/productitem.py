@@ -69,7 +69,9 @@ class ProductItem(
         ordering_index = 'ordering_index'
         pattern = 'pattern'
         price = 'price'
+        product_catalog = 'product_catalog'
         product_feed = 'product_feed'
+        product_group = 'product_group'
         product_type = 'product_type'
         retailer_id = 'retailer_id'
         retailer_product_group_id = 'retailer_product_group_id'
@@ -105,11 +107,11 @@ class ProductItem(
         windows_phone_url = 'windows_phone_url'
 
     class AgeGroup:
-        kids = 'kids'
         adult = 'adult'
         infant = 'infant'
-        toddler = 'toddler'
+        kids = 'kids'
         newborn = 'newborn'
+        toddler = 'toddler'
 
     class Availability:
         in_stock = 'in stock'
@@ -143,6 +145,7 @@ class ProductItem(
         staging = 'staging'
         published = 'published'
 
+    # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'products'
@@ -243,6 +246,7 @@ class ProductItem(
             'iphone_app_store_id': 'unsigned int',
             'iphone_url': 'string',
             'manufacturer_part_number': 'string',
+            'material': 'string',
             'name': 'string',
             'ordering_index': 'unsigned int',
             'pattern': 'string',
@@ -345,7 +349,9 @@ class ProductItem(
         'ordering_index': 'int',
         'pattern': 'string',
         'price': 'string',
+        'product_catalog': 'ProductCatalog',
         'product_feed': 'ProductFeed',
+        'product_group': 'ProductGroup',
         'product_type': 'string',
         'retailer_id': 'string',
         'retailer_product_group_id': 'string',

@@ -39,14 +39,18 @@ class AdCreativePhotoData(
 
     class Field(AbstractObject.Field):
         branded_content_sponsor_page_id = 'branded_content_sponsor_page_id'
+        branded_content_sponsor_relationship = 'branded_content_sponsor_relationship'
         caption = 'caption'
         image_hash = 'image_hash'
+        page_welcome_message = 'page_welcome_message'
         url = 'url'
 
     _field_types = {
         'branded_content_sponsor_page_id': 'string',
+        'branded_content_sponsor_relationship': 'string',
         'caption': 'string',
         'image_hash': 'string',
+        'page_welcome_message': 'string',
         'url': 'string',
     }
 

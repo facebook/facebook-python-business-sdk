@@ -49,10 +49,10 @@ class AdsPixelStatsResult(
         device_type = 'device_type'
         event = 'event'
         host = 'host'
-        user_match = 'user_match'
         pixel_fire = 'pixel_fire'
         url = 'url'
 
+    # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'stats'

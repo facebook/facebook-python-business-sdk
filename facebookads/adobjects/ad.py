@@ -65,6 +65,7 @@ class Ad(
         status = 'status'
         tracking_specs = 'tracking_specs'
         updated_time = 'updated_time'
+        adset_spec = 'adset_spec'
         date_format = 'date_format'
         display_sequence = 'display_sequence'
         execution_options = 'execution_options'
@@ -128,6 +129,7 @@ class Ad(
         all = 'ALL'
         any = 'ANY'
 
+    # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'ads'
@@ -495,13 +497,13 @@ class Ad(
         from facebookads.adobjects.adpreview import AdPreview
         param_types = {
             'ad_format': 'ad_format_enum',
-            'dynamic_creative_spec': 'Object',
+            'end_date': 'datetime',
             'height': 'unsigned int',
-            'interactive': 'bool',
             'locale': 'string',
             'place_page_id': 'int',
             'post': 'Object',
             'product_item_ids': 'list<string>',
+            'start_date': 'datetime',
             'width': 'unsigned int',
         }
         enums = {
@@ -612,6 +614,7 @@ class Ad(
         'status': 'Status',
         'tracking_specs': 'list<ConversionActionQuery>',
         'updated_time': 'datetime',
+        'adset_spec': 'AdSet',
         'date_format': 'string',
         'display_sequence': 'unsigned int',
         'execution_options': 'list<ExecutionOptions>',

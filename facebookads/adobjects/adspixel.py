@@ -46,11 +46,13 @@ class AdsPixel(
         code = 'code'
         creation_time = 'creation_time'
         id = 'id'
+        is_created_by_business = 'is_created_by_business'
         last_fired_time = 'last_fired_time'
         name = 'name'
         owner_ad_account = 'owner_ad_account'
         owner_business = 'owner_business'
 
+    # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'adspixels'
@@ -236,6 +238,7 @@ class AdsPixel(
         'code': 'string',
         'creation_time': 'datetime',
         'id': 'string',
+        'is_created_by_business': 'bool',
         'last_fired_time': 'datetime',
         'name': 'string',
         'owner_ad_account': 'AdAccount',

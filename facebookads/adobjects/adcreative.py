@@ -43,6 +43,8 @@ class AdCreative(
         super(AdCreative, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        account_id = 'account_id'
+        actor_id = 'actor_id'
         adlabels = 'adlabels'
         applink_treatment = 'applink_treatment'
         body = 'body'
@@ -68,17 +70,18 @@ class AdCreative(
         product_set_id = 'product_set_id'
         run_status = 'run_status'
         template_url = 'template_url'
+        template_url_spec = 'template_url_spec'
         thumbnail_url = 'thumbnail_url'
         title = 'title'
         url_tags = 'url_tags'
         use_page_actor_override = 'use_page_actor_override'
+        video_id = 'video_id'
         action_spec = 'action_spec'
         call_to_action = 'call_to_action'
         dynamic_ad_voice = 'dynamic_ad_voice'
         follow_redirect = 'follow_redirect'
         image_file = 'image_file'
         object_instagram_id = 'object_instagram_id'
-        video_id = 'video_id'
 
     class ApplinkTreatment:
         deeplink_with_web_fallback = 'deeplink_with_web_fallback'
@@ -102,11 +105,13 @@ class AdCreative(
         watch_more = 'WATCH_MORE'
         no_button = 'NO_BUTTON'
         call_now = 'CALL_NOW'
+        apply_now = 'APPLY_NOW'
         buy_now = 'BUY_NOW'
         get_offer = 'GET_OFFER'
         get_offer_view = 'GET_OFFER_VIEW'
         get_directions = 'GET_DIRECTIONS'
         message_page = 'MESSAGE_PAGE'
+        message_user = 'MESSAGE_USER'
         subscribe = 'SUBSCRIBE'
         sell_now = 'SELL_NOW'
         donate_now = 'DONATE_NOW'
@@ -115,6 +120,8 @@ class AdCreative(
         record_now = 'RECORD_NOW'
         vote_now = 'VOTE_NOW'
         register_now = 'REGISTER_NOW'
+        request_time = 'REQUEST_TIME'
+        see_menu = 'SEE_MENU'
         open_movies = 'OPEN_MOVIES'
 
     class ObjectType:
@@ -142,6 +149,7 @@ class AdCreative(
         all = 'ALL'
         any = 'ANY'
 
+    # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'adcreatives'
@@ -302,13 +310,13 @@ class AdCreative(
         from facebookads.adobjects.adpreview import AdPreview
         param_types = {
             'ad_format': 'ad_format_enum',
-            'dynamic_creative_spec': 'Object',
+            'end_date': 'datetime',
             'height': 'unsigned int',
-            'interactive': 'bool',
             'locale': 'string',
             'place_page_id': 'int',
             'post': 'Object',
             'product_item_ids': 'list<string>',
+            'start_date': 'datetime',
             'width': 'unsigned int',
         }
         enums = {
@@ -337,6 +345,8 @@ class AdCreative(
             return request.execute()
 
     _field_types = {
+        'account_id': 'string',
+        'actor_id': 'string',
         'adlabels': 'list<AdLabel>',
         'applink_treatment': 'ApplinkTreatment',
         'body': 'string',
@@ -362,17 +372,18 @@ class AdCreative(
         'product_set_id': 'string',
         'run_status': 'RunStatus',
         'template_url': 'string',
+        'template_url_spec': 'Object',
         'thumbnail_url': 'string',
         'title': 'string',
         'url_tags': 'string',
         'use_page_actor_override': 'bool',
+        'video_id': 'string',
         'action_spec': 'list<unsigned int>',
         'call_to_action': 'Object',
         'dynamic_ad_voice': 'DynamicAdVoice',
         'follow_redirect': 'bool',
         'image_file': 'string',
         'object_instagram_id': 'unsigned int',
-        'video_id': 'unsigned int',
     }
 
     def _setitem_trigger(self, key, value):

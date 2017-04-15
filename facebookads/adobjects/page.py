@@ -18,16 +18,15 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
+from facebookads.adobjects.event import Event
 from facebookads.adobjects.leadgenform import LeadgenForm
 from facebookads.adobjects.abstractcrudobject import AbstractCrudObject
-from facebookads.adobjects.objectparser import ObjectParser
-from facebookads.api import FacebookRequest
-from facebookads.typechecker import TypeChecker
 from facebookads.mixins import (
     CannotCreate,
     CannotDelete,
     CannotUpdate,
 )
+
 
 class Page(CannotCreate, CannotDelete, CannotUpdate, AbstractCrudObject):
 
@@ -48,6 +47,7 @@ class Page(CannotCreate, CannotDelete, CannotUpdate, AbstractCrudObject):
         street = 'street'
         zip = 'zip'
 
+    # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'accounts'
@@ -56,4 +56,15 @@ class Page(CannotCreate, CannotDelete, CannotUpdate, AbstractCrudObject):
         """
         Returns all leadgen forms on the page
         """
-        return self.iterate_edge(LeadgenForm, fields, params, endpoint='leadgen_forms')
+        return self.iterate_edge(
+            LeadgenForm,
+            fields,
+            params,
+            endpoint='leadgen_forms',
+        )
+
+    def get_events(self, fields=None, params=None):
+        """
+        Returns all events on the page
+        """
+        return self.iterate_edge(Event, fields, params, endpoint='events')

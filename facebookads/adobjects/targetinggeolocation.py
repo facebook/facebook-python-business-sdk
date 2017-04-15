@@ -46,6 +46,7 @@ class TargetingGeoLocation(
         geo_markets = 'geo_markets'
         location_types = 'location_types'
         places = 'places'
+        political_districts = 'political_districts'
         regions = 'regions'
         zips = 'zips'
 
@@ -58,6 +59,7 @@ class TargetingGeoLocation(
         'geo_markets': 'list<TargetingGeoLocationMarket>',
         'location_types': 'list<string>',
         'places': 'list<TargetingGeoLocationPlace>',
+        'political_districts': 'list<TargetingGeoLocationPoliticalDistrict>',
         'regions': 'list<TargetingGeoLocationRegion>',
         'zips': 'list<TargetingGeoLocationZip>',
     }

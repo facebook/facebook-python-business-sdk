@@ -42,19 +42,24 @@ class CustomConversion(
 
     class Field(AbstractObject.Field):
         account_id = 'account_id'
+        aggregation_rule = 'aggregation_rule'
         creation_time = 'creation_time'
         custom_event_type = 'custom_event_type'
         default_conversion_value = 'default_conversion_value'
         description = 'description'
+        event_source_type = 'event_source_type'
         first_fired_time = 'first_fired_time'
         id = 'id'
         is_archived = 'is_archived'
         last_fired_time = 'last_fired_time'
         name = 'name'
+        offline_conversion_data_set = 'offline_conversion_data_set'
         pixel = 'pixel'
         pixel_aggregation_rule = 'pixel_aggregation_rule'
         pixel_rule = 'pixel_rule'
         retention_days = 'retention_days'
+        rule = 'rule'
+        event_source_id = 'event_source_id'
         pixel_id = 'pixel_id'
 
     class CustomEventType:
@@ -69,6 +74,7 @@ class CustomConversion(
         purchase = 'PURCHASE'
         search = 'SEARCH'
 
+    # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'customconversions'
@@ -162,7 +168,6 @@ class CustomConversion(
             return request.execute()
 
     def get_activities(self, fields=None, params=None, batch=None, pending=False):
-        from facebookads.adobjects.customconversionactivities import CustomConversionActivities
         param_types = {
             'end_time': 'datetime',
             'event_type': 'event_type_enum',
@@ -198,14 +203,14 @@ class CustomConversion(
             return request.execute()
 
     def get_stats(self, fields=None, params=None, batch=None, pending=False):
-        from facebookads.adobjects.adspixelstatsresult import AdsPixelStatsResult
+        from facebookads.adobjects.customconversionstatsresult import CustomConversionStatsResult
         param_types = {
             'aggregation': 'aggregation_enum',
             'end_time': 'datetime',
             'start_time': 'datetime',
         }
         enums = {
-            'aggregation_enum': AdsPixelStatsResult.Aggregation.__dict__.values(),
+            'aggregation_enum': CustomConversionStatsResult.Aggregation.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -213,9 +218,9 @@ class CustomConversion(
             endpoint='/stats',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AdsPixelStatsResult,
+            target_class=CustomConversionStatsResult,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdsPixelStatsResult),
+            response_parser=ObjectParser(target_class=CustomConversionStatsResult),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -231,19 +236,24 @@ class CustomConversion(
 
     _field_types = {
         'account_id': 'string',
+        'aggregation_rule': 'string',
         'creation_time': 'datetime',
         'custom_event_type': 'CustomEventType',
         'default_conversion_value': 'int',
         'description': 'string',
+        'event_source_type': 'string',
         'first_fired_time': 'datetime',
         'id': 'string',
         'is_archived': 'bool',
         'last_fired_time': 'datetime',
         'name': 'string',
+        'offline_conversion_data_set': 'Object',
         'pixel': 'AdsPixel',
         'pixel_aggregation_rule': 'string',
         'pixel_rule': 'string',
         'retention_days': 'unsigned int',
+        'rule': 'string',
+        'event_source_id': 'string',
         'pixel_id': 'string',
     }
 

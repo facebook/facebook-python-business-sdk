@@ -54,7 +54,9 @@ class Lead(
         id = 'id'
         is_organic = 'is_organic'
         post = 'post'
+        retailer_item_id = 'retailer_item_id'
 
+    # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'leads'
@@ -127,6 +129,7 @@ class Lead(
         'id': 'string',
         'is_organic': 'bool',
         'post': 'Object',
+        'retailer_item_id': 'string',
     }
 
     @classmethod

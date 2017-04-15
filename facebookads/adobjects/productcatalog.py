@@ -44,6 +44,9 @@ class ProductCatalog(
 
     class Field(AbstractObject.Field):
         business = 'business'
+        da_display_settings = 'da_display_settings'
+        default_image_url = 'default_image_url'
+        fallback_image_url = 'fallback_image_url'
         feed_count = 'feed_count'
         id = 'id'
         image_padding_landscape = 'image_padding_landscape'
@@ -55,8 +58,10 @@ class ProductCatalog(
     class Vertical:
         commerce = 'commerce'
         destinations = 'destinations'
+        flights = 'flights'
         hotels = 'hotels'
 
+    # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'product_catalogs'
@@ -121,6 +126,9 @@ class ProductCatalog(
 
     def api_update(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
+            'da_display_settings': 'Object',
+            'default_image_url': 'string',
+            'fallback_image_url': 'string',
             'name': 'string',
         }
         enums = {
@@ -276,6 +284,35 @@ class ProductCatalog(
             target_class=ExternalEventSource,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=ExternalEventSource),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_flights(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'bulk_pagination': 'bool',
+            'filter': 'Object',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/flights',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -769,6 +806,7 @@ class ProductCatalog(
             'iphone_app_store_id': 'unsigned int',
             'iphone_url': 'string',
             'manufacturer_part_number': 'string',
+            'material': 'string',
             'name': 'string',
             'ordering_index': 'unsigned int',
             'pattern': 'string',
@@ -817,17 +855,21 @@ class ProductCatalog(
             return request.execute()
 
     def create_video(self, fields=None, params=None, batch=None, pending=False):
-        from facebookads.adobjects.advideo import AdVideo
         param_types = {
             'content_category': 'content_category_enum',
             'description': 'string',
             'embeddable': 'bool',
             'file_size': 'unsigned int',
             'file_url': 'string',
+            'fov': 'unsigned int',
+            'initial_heading': 'unsigned int',
+            'initial_pitch': 'unsigned int',
+            'original_projection_type': 'original_projection_type_enum',
             'referenced_sticker_id': 'string',
             'replace_video_id': 'string',
             'slideshow_spec': 'map',
             'source': 'string',
+            'spherical': 'bool',
             'start_offset': 'unsigned int',
             'swap_mode': 'swap_mode_enum',
             'thumb': 'file',
@@ -857,6 +899,10 @@ class ProductCatalog(
                 'TECHNOLOGY',
                 'VIDEO_GAMING',
                 'OTHER',
+            ],
+            'original_projection_type_enum': [
+                'equirectangular',
+                'cubemap',
             ],
             'swap_mode_enum': [
                 'replace',
@@ -897,6 +943,9 @@ class ProductCatalog(
 
     _field_types = {
         'business': 'Business',
+        'da_display_settings': 'ProductCatalogImageSettings',
+        'default_image_url': 'string',
+        'fallback_image_url': 'list<string>',
         'feed_count': 'int',
         'id': 'string',
         'image_padding_landscape': 'bool',
