@@ -34,25 +34,19 @@ import hashlib
 from six.moves import urllib
 from sys import version_info
 from .. import api
+from .. import objects
 from .. import specs
 from .. import exceptions
 from .. import session
 from .. import utils
-from facebookads.adobjects import (abstractcrudobject,
-                                   ad,
-                                   adaccount,
-                                   adcreative,
-                                   customaudience,
-                                   productcatalog,
-                                   reachestimate)
 from facebookads.utils import version
 
 
 class CustomAudienceTestCase(unittest.TestCase):
 
     def test_format_params(self):
-        payload = customaudience.CustomAudience.format_params(
-            customaudience.CustomAudience.Schema.email_hash,
+        payload = objects.CustomAudience.format_params(
+            objects.CustomAudience.Schema.email_hash,
             ["  test  ", "test", "..test.."]
         )
         # This is the value of "test" when it's hashed with sha256
@@ -65,8 +59,8 @@ class CustomAudienceTestCase(unittest.TestCase):
 
     def test_fail_when_no_app_ids(self):
         def uid_payload():
-            customaudience.CustomAudience.format_params(
-                customaudience.CustomAudience.Schema.uid,
+            objects.CustomAudience.format_params(
+                objects.CustomAudience.Schema.uid,
                 ["123123"],
             )
         self.assertRaises(
@@ -78,8 +72,8 @@ class CustomAudienceTestCase(unittest.TestCase):
         # This is the value of "test" when it's hashed with sha256
         user = "test"
         test_hash = (hashlib.sha256(user.encode('utf8')).hexdigest())
-        payload = customaudience.CustomAudience.format_params(
-            customaudience.CustomAudience.Schema.email_hash,
+        payload = objects.CustomAudience.format_params(
+            objects.CustomAudience.Schema.email_hash,
             [test_hash], 
             pre_hashed=True
         )
@@ -89,12 +83,12 @@ class CustomAudienceTestCase(unittest.TestCase):
 
     def test_multi_key_params(self):
         schema = [
-            customaudience.CustomAudience.Schema.MultiKeySchema.extern_id,
-            customaudience.CustomAudience.Schema.MultiKeySchema.fn,
-            customaudience.CustomAudience.Schema.MultiKeySchema.email,
-            customaudience.CustomAudience.Schema.MultiKeySchema.ln,
+            objects.CustomAudience.Schema.MultiKeySchema.extern_id,
+            objects.CustomAudience.Schema.MultiKeySchema.fn,
+            objects.CustomAudience.Schema.MultiKeySchema.email,
+            objects.CustomAudience.Schema.MultiKeySchema.ln,
         ]
-        payload = customaudience.CustomAudience.format_params(
+        payload = objects.CustomAudience.format_params(
             schema,[["abc123def", "  TEST ", "test", "..test.."]],
             is_raw=True,
         )
@@ -114,9 +108,9 @@ class CustomAudienceTestCase(unittest.TestCase):
     def test_extern_id_key_single(self):
 
         schema = [
-            customaudience.CustomAudience.Schema.MultiKeySchema.extern_id,
+            objects.CustomAudience.Schema.MultiKeySchema.extern_id,
         ]
-        payload = customaudience.CustomAudience.format_params(
+        payload = objects.CustomAudience.format_params(
             schema,
             [
                 ["abc123def"], ["abc234def"], ["abc345def"], ["abc456def"],
@@ -147,9 +141,9 @@ class EdgeIteratorTestCase(unittest.TestCase):
                 "id": "6018402"
             }]
         }
-        ei = api.Cursor(
-            adaccount.AdAccount(fbid='123'),
-            ad.Ad,
+        ei = objects.EdgeIterator(
+            objects.AdAccount(fbid='123'),
+            objects.Ad,
         )
         objs = ei.build_objects_from_response(response)
         assert len(objs) == 2
@@ -174,25 +168,25 @@ class EdgeIteratorTestCase(unittest.TestCase):
                 ]
             }]
         }
-        ei = api.Cursor(
-            adaccount.AdAccount(fbid='123'),
-            ad.Ad,
+        ei = objects.EdgeIterator(
+            objects.AdAccount(fbid='123'),
+            objects.Ad,
         )
         obj = ei.build_objects_from_response(response)
         assert len(obj) == 1 and obj[0]['id'] == "601957/targetingsentencelines"
 
     def test_total_is_none(self):
-        ei = api.Cursor(
-            adaccount.AdAccount(fbid='123'),
-            ad.Ad,
+        ei = objects.EdgeIterator(
+            objects.AdAccount(fbid='123'),
+            objects.Ad,
         )
         self.assertRaises(
             exceptions.FacebookUnavailablePropertyException, ei.total)
 
     def test_total_is_defined(self):
-        ei = api.Cursor(
-            adaccount.AdAccount(fbid='123'),
-            ad.Ad,
+        ei = objects.EdgeIterator(
+            objects.AdAccount(fbid='123'),
+            objects.Ad,
         )
         ei._total_count = 32
         self.assertEqual(ei.total(), 32)
@@ -221,9 +215,9 @@ class EdgeIteratorTestCase(unittest.TestCase):
                 "users": 7600000
             }
         }
-        ei = api.Cursor(
-            ad.Ad('123'),
-            reachestimate.ReachEstimate,
+        ei = objects.EdgeIterator(
+            objects.Ad('123'),
+            objects.ReachEstimate,
         )
         obj = ei.build_objects_from_response(response)
         assert len(obj) == 1 and obj[0]['users'] == 7600000
@@ -231,31 +225,27 @@ class EdgeIteratorTestCase(unittest.TestCase):
 class AbstractCrudObjectTestCase(unittest.TestCase):
     def test_all_aco_has_id_field(self):
         # Some objects do not have FBIDs or don't need checking (ACO)
-        for obj in (ad.Ad,
-                    adaccount.AdAccount,
-                    adcreative.AdCreative,
-                    customaudience.CustomAudience,
-                    productcatalog.ProductCatalog):
+        for name, obj in inspect.getmembers(objects):
             if (
                 inspect.isclass(obj) and
-                issubclass(obj, abstractcrudobject.AbstractCrudObject) and
-                obj != abstractcrudobject.AbstractCrudObject
+                issubclass(obj, objects.AbstractCrudObject) and
+                obj != objects.AbstractCrudObject
             ):
                 try:
                     id_field = obj.Field.id
                     assert id_field != ''
                 except Exception as e:
-                    self.fail("Could not instantiate " + str(obj) + "\n  " + str(e))
+                    self.fail("Could not instantiate " + name + "\n  " + str(e))
 
     def test_inherits_account_id(self):
         parent_id = 'act_19tg0j239g023jg9230j932'
         api.FacebookAdsApi.set_default_account_id(parent_id)
-        ac = adaccount.AdAccount()
+        ac = objects.AdAccount()
         assert ac.get_parent_id() == parent_id
         api.FacebookAdsApi._default_account_id = None
 
     def test_delitem_changes_history(self):
-        account = adaccount.AdAccount()
+        account = objects.AdAccount()
         account['name'] = 'foo'
         assert len(account._changes) > 0
         del account['name']
@@ -266,10 +256,10 @@ class AbstractCrudObjectTestCase(unittest.TestCase):
         Demonstrates that AbstractCrudObject._assign_fields_to_params()
         handles various combinations of params and fields properly.
         """
-        class Foo(abstractcrudobject.AbstractCrudObject):
+        class Foo(objects.AbstractCrudObject):
             _default_read_fields = ['id', 'name']
 
-        class Bar(abstractcrudobject.AbstractCrudObject):
+        class Bar(objects.AbstractCrudObject):
             _default_read_fields = []
 
         for adclass, fields, params, expected in [
@@ -290,7 +280,7 @@ class AbstractCrudObjectTestCase(unittest.TestCase):
             assert params == expected
 
     def test_remote_create_uses_get_parent_id_assured_if_api_create_defined(self):
-        class MyObject(abstractcrudobject.AbstractCrudObject):
+        class MyObject(objects.AbstractCrudObject):
             class Field:
                 id = 'id'
 
@@ -343,7 +333,7 @@ class AbstractObjectTestCase(unittest.TestCase):
         assert obj.export_data() == expected
 
     def test_export_list(self):
-        obj = adcreative.AdCreative()
+        obj = objects.AdCreative()
         obj2 = specs.LinkData()
         obj3 = specs.AttachmentData()
         obj3['description'] = "$100"
@@ -416,7 +406,7 @@ class ProductCatalogTestCase(unittest.TestCase):
         product_id = 'ID_1'
         b64_id_as_str = 'SURfMQ=='
 
-        catalog = productcatalog.ProductCatalog()
+        catalog = objects.ProductCatalog()
         self.assertEqual(b64_id_as_str, catalog.b64_encoded_id(product_id))
 
 
