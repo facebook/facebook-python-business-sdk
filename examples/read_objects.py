@@ -26,7 +26,7 @@ from facebookads import FacebookSession
 from facebookads import FacebookAdsApi
 from facebookads.objects import (
     AdUser,
-    Campaign,
+    AdCampaign,
 )
 
 import json
@@ -75,11 +75,11 @@ if __name__ == '__main__':
         pp.pprint(account)
 
     print(">>> Campaign Stats")
-    for campaign in my_account.get_campaigns(fields=[Campaign.Field.name]):
-        for stat in campaign.get_insights(fields=[
+    for campaign in my_account.get_ad_campaigns(fields=[AdCampaign.Field.name]):
+        for stat in campaign.get_stats(fields=[
             'impressions',
             'clicks',
-            'spend',
+            'spent',
             'unique_clicks',
             'actions',
         ]):

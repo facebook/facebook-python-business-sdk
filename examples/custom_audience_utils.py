@@ -25,9 +25,10 @@ https://github.com/facebook/facebook-python-ads-sdk
 """
 
 from facebookads import FacebookAdsApi
-from facebookads.adobjects.adaccount import AdAccount
-from facebookads.adobjects.customaudience import CustomAudience
-
+from facebookads.objects import (
+    AdAccount,
+    CustomAudience,
+)
 
 import argparse
 import json
