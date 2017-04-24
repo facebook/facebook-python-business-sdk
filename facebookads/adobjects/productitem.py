@@ -136,10 +136,10 @@ class ProductItem(
         approved = 'approved'
 
     class ShippingWeightUnit:
-        lb = 'lb'
-        oz = 'oz'
         value_g = 'g'
         kg = 'kg'
+        oz = 'oz'
+        lb = 'lb'
 
     class Visibility:
         staging = 'staging'

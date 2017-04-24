@@ -306,14 +306,12 @@ class AdAccount(
     def create_ad_creative(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.adcreative import AdCreative
         param_types = {
-            'action_spec': 'list<unsigned int>',
             'actor_id': 'unsigned int',
             'adlabels': 'list<Object>',
             'applink_treatment': 'applink_treatment_enum',
             'body': 'string',
             'call_to_action': 'Object',
             'dynamic_ad_voice': 'dynamic_ad_voice_enum',
-            'follow_redirect': 'bool',
             'image_crops': 'map',
             'image_file': 'string',
             'image_hash': 'string',
@@ -325,7 +323,6 @@ class AdAccount(
             'link_url': 'string',
             'name': 'string',
             'object_id': 'unsigned int',
-            'object_instagram_id': 'unsigned int',
             'object_story_id': 'string',
             'object_story_spec': 'AdCreativeObjectStorySpec',
             'object_type': 'string',
@@ -752,7 +749,7 @@ class AdAccount(
         param_types = {
             'adlabels': 'list<Object>',
             'adset_schedule': 'list<Object>',
-            'attribution_window_days': 'unsigned int',
+            'attribution_spec': 'list<map>',
             'bid_amount': 'int',
             'billing_event': 'billing_event_enum',
             'campaign_id': 'string',
@@ -779,7 +776,6 @@ class AdAccount(
             'targeting': 'Targeting',
             'time_based_ad_rotation_id_blocks': 'list<list<unsigned int>>',
             'time_based_ad_rotation_intervals': 'list<unsigned int>',
-            'view_through_attribution_window_days': 'unsigned int',
         }
         enums = {
             'billing_event_enum': AdSet.BillingEvent.__dict__.values(),
@@ -1395,9 +1391,6 @@ class AdAccount(
             'description': 'string',
             'event_source_id': 'string',
             'name': 'string',
-            'pixel_aggregation_rule': 'string',
-            'pixel_id': 'string',
-            'pixel_rule': 'string',
             'retention_days': 'int',
             'rule': 'string',
         }

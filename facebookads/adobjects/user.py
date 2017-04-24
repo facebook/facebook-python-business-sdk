@@ -83,6 +83,7 @@ class User(
         religion = 'religion'
         security_settings = 'security_settings'
         shared_login_upgrade_required_by = 'shared_login_upgrade_required_by'
+        short_name = 'short_name'
         significant_other = 'significant_other'
         sports = 'sports'
         test_group = 'test_group'
@@ -344,6 +345,7 @@ class User(
         'religion': 'string',
         'security_settings': 'Object',
         'shared_login_upgrade_required_by': 'datetime',
+        'short_name': 'string',
         'significant_other': 'User',
         'sports': 'list<Object>',
         'test_group': 'unsigned int',

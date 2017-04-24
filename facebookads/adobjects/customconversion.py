@@ -55,12 +55,9 @@ class CustomConversion(
         name = 'name'
         offline_conversion_data_set = 'offline_conversion_data_set'
         pixel = 'pixel'
-        pixel_aggregation_rule = 'pixel_aggregation_rule'
-        pixel_rule = 'pixel_rule'
         retention_days = 'retention_days'
         rule = 'rule'
         event_source_id = 'event_source_id'
-        pixel_id = 'pixel_id'
 
     class CustomEventType:
         add_payment_info = 'ADD_PAYMENT_INFO'
@@ -249,12 +246,9 @@ class CustomConversion(
         'name': 'string',
         'offline_conversion_data_set': 'Object',
         'pixel': 'AdsPixel',
-        'pixel_aggregation_rule': 'string',
-        'pixel_rule': 'string',
         'retention_days': 'unsigned int',
         'rule': 'string',
         'event_source_id': 'string',
-        'pixel_id': 'string',
     }
 
     @classmethod
