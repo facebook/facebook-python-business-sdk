@@ -45,9 +45,7 @@ class AdCreativeLinkDataCallToActionValue(
         lead_gen_form_id = 'lead_gen_form_id'
         link = 'link'
         link_caption = 'link_caption'
-        link_description = 'link_description'
         link_format = 'link_format'
-        link_title = 'link_title'
         page = 'page'
         product_link = 'product_link'
 
@@ -59,9 +57,7 @@ class AdCreativeLinkDataCallToActionValue(
         'lead_gen_form_id': 'string',
         'link': 'string',
         'link_caption': 'string',
-        'link_description': 'string',
         'link_format': 'string',
-        'link_title': 'string',
         'page': 'string',
         'product_link': 'string',
     }

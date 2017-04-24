@@ -147,7 +147,6 @@ class ProductFeed(
             'delimiter': 'delimiter_enum',
             'encoding': 'encoding_enum',
             'name': 'string',
-            'quoted_fields': 'bool',
             'quoted_fields_mode': 'quoted_fields_mode_enum',
             'schedule': 'string',
         }

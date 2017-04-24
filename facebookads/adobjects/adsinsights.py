@@ -91,9 +91,6 @@ class AdsInsights(
         inline_link_click_ctr = 'inline_link_click_ctr'
         inline_link_clicks = 'inline_link_clicks'
         inline_post_engagement = 'inline_post_engagement'
-        newsfeed_avg_position = 'newsfeed_avg_position'
-        newsfeed_clicks = 'newsfeed_clicks'
-        newsfeed_impressions = 'newsfeed_impressions'
         objective = 'objective'
         place_page_id = 'place_page_id'
         place_page_name = 'place_page_name'
@@ -113,20 +110,15 @@ class AdsInsights(
         unique_actions = 'unique_actions'
         unique_clicks = 'unique_clicks'
         unique_ctr = 'unique_ctr'
-        unique_impressions = 'unique_impressions'
         unique_inline_link_click_ctr = 'unique_inline_link_click_ctr'
         unique_inline_link_clicks = 'unique_inline_link_clicks'
         unique_link_clicks_ctr = 'unique_link_clicks_ctr'
         unique_social_clicks = 'unique_social_clicks'
-        unique_social_impressions = 'unique_social_impressions'
         video_10_sec_watched_actions = 'video_10_sec_watched_actions'
         video_15_sec_watched_actions = 'video_15_sec_watched_actions'
         video_30_sec_watched_actions = 'video_30_sec_watched_actions'
-        video_avg_pct_watched_actions = 'video_avg_pct_watched_actions'
         video_avg_percent_watched_actions = 'video_avg_percent_watched_actions'
-        video_avg_sec_watched_actions = 'video_avg_sec_watched_actions'
         video_avg_time_watched_actions = 'video_avg_time_watched_actions'
-        video_complete_watched_actions = 'video_complete_watched_actions'
         video_p100_watched_actions = 'video_p100_watched_actions'
         video_p25_watched_actions = 'video_p25_watched_actions'
         video_p50_watched_actions = 'video_p50_watched_actions'
@@ -170,7 +162,6 @@ class AdsInsights(
         hourly_stats_aggregated_by_audience_time_zone = 'hourly_stats_aggregated_by_audience_time_zone'
         impression_device = 'impression_device'
         place_page_id = 'place_page_id'
-        placement = 'placement'
         publisher_platform = 'publisher_platform'
         platform_position = 'platform_position'
         device_platform = 'device_platform'
@@ -180,19 +171,23 @@ class AdsInsights(
     class DatePreset:
         today = 'today'
         yesterday = 'yesterday'
-        last_3_days = 'last_3_days'
-        this_week = 'this_week'
-        last_week = 'last_week'
-        last_7_days = 'last_7_days'
-        last_14_days = 'last_14_days'
-        last_28_days = 'last_28_days'
-        last_30_days = 'last_30_days'
-        last_90_days = 'last_90_days'
         this_month = 'this_month'
         last_month = 'last_month'
         this_quarter = 'this_quarter'
-        last_3_months = 'last_3_months'
         lifetime = 'lifetime'
+        last_3d = 'last_3d'
+        last_7d = 'last_7d'
+        last_14d = 'last_14d'
+        last_28d = 'last_28d'
+        last_30d = 'last_30d'
+        last_90d = 'last_90d'
+        last_week_mon_sun = 'last_week_mon_sun'
+        last_week_sun_sat = 'last_week_sun_sat'
+        last_quarter = 'last_quarter'
+        last_year = 'last_year'
+        this_week_mon_today = 'this_week_mon_today'
+        this_week_sun_today = 'this_week_sun_today'
+        this_year = 'this_year'
 
     class Level:
         ad = 'ad'
@@ -284,9 +279,6 @@ class AdsInsights(
         'inline_link_click_ctr': 'string',
         'inline_link_clicks': 'string',
         'inline_post_engagement': 'string',
-        'newsfeed_avg_position': 'string',
-        'newsfeed_clicks': 'string',
-        'newsfeed_impressions': 'string',
         'objective': 'string',
         'place_page_id': 'string',
         'place_page_name': 'string',
@@ -306,20 +298,15 @@ class AdsInsights(
         'unique_actions': 'list<AdsActionStats>',
         'unique_clicks': 'string',
         'unique_ctr': 'string',
-        'unique_impressions': 'string',
         'unique_inline_link_click_ctr': 'string',
         'unique_inline_link_clicks': 'string',
         'unique_link_clicks_ctr': 'string',
         'unique_social_clicks': 'string',
-        'unique_social_impressions': 'string',
         'video_10_sec_watched_actions': 'list<AdsActionStats>',
         'video_15_sec_watched_actions': 'list<AdsActionStats>',
         'video_30_sec_watched_actions': 'list<AdsActionStats>',
-        'video_avg_pct_watched_actions': 'list<AdsActionStats>',
         'video_avg_percent_watched_actions': 'list<AdsActionStats>',
-        'video_avg_sec_watched_actions': 'list<AdsActionStats>',
         'video_avg_time_watched_actions': 'list<AdsActionStats>',
-        'video_complete_watched_actions': 'list<AdsActionStats>',
         'video_p100_watched_actions': 'list<AdsActionStats>',
         'video_p25_watched_actions': 'list<AdsActionStats>',
         'video_p50_watched_actions': 'list<AdsActionStats>',
