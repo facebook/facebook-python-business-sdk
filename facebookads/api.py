@@ -193,7 +193,8 @@ class FacebookAdsApi(object):
         proxies=None,
         timeout=None
     ):
-        session = FacebookSession(app_id, app_secret, access_token, proxies, timeout)
+        session = FacebookSession(app_id, app_secret, access_token, proxies,
+                                  timeout)
         api = cls(session, api_version)
         cls.set_default_api(api)
 
