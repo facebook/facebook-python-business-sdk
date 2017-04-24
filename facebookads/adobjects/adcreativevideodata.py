@@ -41,9 +41,10 @@ class AdCreativeVideoData(
         branded_content_sponsor_page_id = 'branded_content_sponsor_page_id'
         branded_content_sponsor_relationship = 'branded_content_sponsor_relationship'
         call_to_action = 'call_to_action'
-        description = 'description'
         image_hash = 'image_hash'
         image_url = 'image_url'
+        link_description = 'link_description'
+        message = 'message'
         offer_id = 'offer_id'
         page_welcome_message = 'page_welcome_message'
         targeting = 'targeting'
@@ -54,9 +55,10 @@ class AdCreativeVideoData(
         'branded_content_sponsor_page_id': 'string',
         'branded_content_sponsor_relationship': 'string',
         'call_to_action': 'AdCreativeLinkDataCallToAction',
-        'description': 'string',
         'image_hash': 'string',
         'image_url': 'string',
+        'link_description': 'string',
+        'message': 'string',
         'offer_id': 'string',
         'page_welcome_message': 'string',
         'targeting': 'Targeting',

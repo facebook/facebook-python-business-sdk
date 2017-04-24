@@ -38,7 +38,6 @@ class ReachEstimate(
         self._api = api
 
     class Field(AbstractObject.Field):
-        bid_estimations = 'bid_estimations'
         estimate_ready = 'estimate_ready'
         unsupported = 'unsupported'
         users = 'users'
@@ -69,7 +68,6 @@ class ReachEstimate(
         return 'reachestimate'
 
     _field_types = {
-        'bid_estimations': 'list',
         'estimate_ready': 'bool',
         'unsupported': 'bool',
         'users': 'unsigned int',

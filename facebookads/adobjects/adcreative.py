@@ -68,7 +68,7 @@ class AdCreative(
         object_url = 'object_url'
         platform_customizations = 'platform_customizations'
         product_set_id = 'product_set_id'
-        run_status = 'run_status'
+        status = 'status'
         template_url = 'template_url'
         template_url_spec = 'template_url_spec'
         thumbnail_url = 'thumbnail_url'
@@ -76,12 +76,9 @@ class AdCreative(
         url_tags = 'url_tags'
         use_page_actor_override = 'use_page_actor_override'
         video_id = 'video_id'
-        action_spec = 'action_spec'
         call_to_action = 'call_to_action'
         dynamic_ad_voice = 'dynamic_ad_voice'
-        follow_redirect = 'follow_redirect'
         image_file = 'image_file'
-        object_instagram_id = 'object_instagram_id'
 
     class ApplinkTreatment:
         deeplink_with_web_fallback = 'deeplink_with_web_fallback'
@@ -137,7 +134,7 @@ class AdCreative(
         video = 'VIDEO'
         invalid = 'INVALID'
 
-    class RunStatus:
+    class Status:
         active = 'ACTIVE'
         deleted = 'DELETED'
 
@@ -163,9 +160,10 @@ class AdCreative(
             'account_id': 'string',
             'adlabels': 'list<Object>',
             'name': 'string',
-            'run_status': 'unsigned int',
+            'status': 'status_enum',
         }
         enums = {
+            'status_enum': AdCreative.Status.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -223,9 +221,10 @@ class AdCreative(
             'account_id': 'string',
             'adlabels': 'list<Object>',
             'name': 'string',
-            'run_status': 'unsigned int',
+            'status': 'status_enum',
         }
         enums = {
+            'status_enum': AdCreative.Status.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -370,7 +369,7 @@ class AdCreative(
         'object_url': 'string',
         'platform_customizations': 'Object',
         'product_set_id': 'string',
-        'run_status': 'RunStatus',
+        'status': 'Status',
         'template_url': 'string',
         'template_url_spec': 'Object',
         'thumbnail_url': 'string',
@@ -378,12 +377,9 @@ class AdCreative(
         'url_tags': 'string',
         'use_page_actor_override': 'bool',
         'video_id': 'string',
-        'action_spec': 'list<unsigned int>',
         'call_to_action': 'Object',
         'dynamic_ad_voice': 'DynamicAdVoice',
-        'follow_redirect': 'bool',
         'image_file': 'string',
-        'object_instagram_id': 'unsigned int',
     }
 
     def _setitem_trigger(self, key, value):
@@ -396,7 +392,7 @@ class AdCreative(
         field_enum_info['ApplinkTreatment'] = AdCreative.ApplinkTreatment.__dict__.values()
         field_enum_info['CallToActionType'] = AdCreative.CallToActionType.__dict__.values()
         field_enum_info['ObjectType'] = AdCreative.ObjectType.__dict__.values()
-        field_enum_info['RunStatus'] = AdCreative.RunStatus.__dict__.values()
+        field_enum_info['Status'] = AdCreative.Status.__dict__.values()
         field_enum_info['DynamicAdVoice'] = AdCreative.DynamicAdVoice.__dict__.values()
         field_enum_info['Operator'] = AdCreative.Operator.__dict__.values()
         return field_enum_info

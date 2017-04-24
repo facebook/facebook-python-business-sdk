@@ -19,7 +19,7 @@
 # DEALINGS IN THE SOFTWARE.
 
 ads_api_config = {
-  'API_VERSION': 'v2.8',
-  'SDK_VERSION': 'v2.8.2',
+  'API_VERSION': 'v2.9',
+  'SDK_VERSION': 'v2.9.1',
   'STRICT_MODE': False
 }
