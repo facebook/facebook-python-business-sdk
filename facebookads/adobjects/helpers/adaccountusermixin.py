@@ -19,7 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebookads.adobjects.adaccount import AdAccount
-from facebookads.adobjects.adaccountgroup import AdAccountGroup
 from facebookads.adobjects.page import Page
 from facebookads.adobjects.objectparser import ObjectParser
 from facebookads.api import FacebookRequest
@@ -62,39 +61,3 @@ class AdAccountUserMixin:
     def get_pages(self, fields=None, params=None):
         """Returns iterator over Pages's associated with this user."""
         return self.iterate_edge(Page, fields, params)
-
-    def get_ad_account_groups(self, fields=None, params=None):
-        """Returns iterator over AdAccount Groups associated with this user."""
-        return self.iterate_edge(AdAccountGroup, fields, params)
-
-    def create_ad_account_group(self, fields=None, params=None, batch=None, pending=False):
-        param_types = {
-        }
-        enums = {
-        }
-        param_checker = TypeChecker(param_types, enums)
-        request = FacebookRequest(
-            api=self._api,
-            node_id=self['id'],
-            method='POST',
-            endpoint='/adaccountgroups',
-            param_checker=param_checker,
-            target_class=AdAccountGroup,
-            api_type='EDGE',
-            allow_file_upload=False,
-            response_parser=ObjectParser(
-                target_class=AdAccountGroup,
-            ),
-        )
-        if params is not None:
-            request.add_params(params)
-        if fields is not None:
-            request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            return request.execute()
