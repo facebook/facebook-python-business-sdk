@@ -48,6 +48,7 @@ class ProductSet(
         product_catalog = 'product_catalog'
         product_count = 'product_count'
 
+    # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'product_sets'
@@ -171,6 +172,7 @@ class ProductSet(
         from facebookads.adobjects.productitem import ProductItem
         param_types = {
             'bulk_pagination': 'bool',
+            'filter': 'Object',
         }
         enums = {
         }

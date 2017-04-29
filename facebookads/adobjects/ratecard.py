@@ -42,6 +42,7 @@ class RateCard(
         currency = 'currency'
         rate = 'rate'
 
+    # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'ratecard'

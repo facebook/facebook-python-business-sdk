@@ -100,6 +100,7 @@ class AbstractObject(collections.MutableMapping):
         """
         return {}
 
+    # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         """Returns the endpoint name.

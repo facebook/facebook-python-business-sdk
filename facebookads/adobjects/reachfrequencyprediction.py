@@ -66,6 +66,7 @@ class ReachFrequencyPrediction(
         holdout_percentage = 'holdout_percentage'
         id = 'id'
         instagram_destination_id = 'instagram_destination_id'
+        interval_frequency_cap = 'interval_frequency_cap'
         interval_frequency_cap_reset_period = 'interval_frequency_cap_reset_period'
         name = 'name'
         pause_periods = 'pause_periods'
@@ -97,6 +98,7 @@ class ReachFrequencyPrediction(
         active = 'ACTIVE'
         completed = 'COMPLETED'
 
+    # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'reachfrequencypredictions'
@@ -134,7 +136,7 @@ class ReachFrequencyPrediction(
 
     _field_types = {
         'account_id': 'int',
-        'campaign_group_id': 'unsigned int',
+        'campaign_group_id': 'int',
         'campaign_id': 'string',
         'campaign_time_start': 'datetime',
         'campaign_time_stop': 'datetime',
@@ -145,7 +147,7 @@ class ReachFrequencyPrediction(
         'external_budget': 'int',
         'external_impression': 'unsigned int',
         'external_maximum_budget': 'int',
-        'external_maximum_impression': 'int',
+        'external_maximum_impression': 'string',
         'external_maximum_reach': 'unsigned int',
         'external_minimum_budget': 'int',
         'external_minimum_impression': 'unsigned int',
@@ -156,6 +158,7 @@ class ReachFrequencyPrediction(
         'holdout_percentage': 'unsigned int',
         'id': 'string',
         'instagram_destination_id': 'string',
+        'interval_frequency_cap': 'unsigned int',
         'interval_frequency_cap_reset_period': 'unsigned int',
         'name': 'string',
         'pause_periods': 'string',

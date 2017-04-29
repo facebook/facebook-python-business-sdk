@@ -53,6 +53,11 @@ class PartnerCategory(
         status = 'status'
         targeting_type = 'targeting_type'
 
+    class PrivateOrPublic:
+        private = 'PRIVATE'
+        public = 'PUBLIC'
+
+    # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'partnercategories'
@@ -74,4 +79,5 @@ class PartnerCategory(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['PrivateOrPublic'] = PartnerCategory.PrivateOrPublic.__dict__.values()
         return field_enum_info

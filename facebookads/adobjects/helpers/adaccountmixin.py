@@ -62,7 +62,12 @@ class AdAccountMixin:
 
         return my_account
 
-    def opt_out_user_from_targeting(self, schema, users, app_ids=None):
+    def opt_out_user_from_targeting(self,
+                                    schema,
+                                    users,
+                                    is_raw=False,
+                                    app_ids=None,
+                                    pre_hashed=None):
         from facebookads.adobjects.customaudience import CustomAudience
         """Opts out users from being targeted by this ad account.
 
@@ -76,5 +81,9 @@ class AdAccountMixin:
         return self.get_api_assured().call(
             'DELETE',
             (self.get_id_assured(), 'usersofanyaudience'),
-            params=CustomAudience.format_params(schema, users, app_ids),
+            params=CustomAudience.format_params(schema,
+                                                users,
+                                                is_raw,
+                                                app_ids,
+                                                pre_hashed),
         )

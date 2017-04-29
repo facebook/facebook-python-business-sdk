@@ -19,6 +19,10 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebookads.adobjects.abstractobject import AbstractObject
+from facebookads.adobjects.abstractcrudobject import AbstractCrudObject
+from facebookads.adobjects.objectparser import ObjectParser
+from facebookads.api import FacebookRequest
+from facebookads.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -28,32 +32,23 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class LookalikeSpec(
-    AbstractObject,
+class LegacyBusinessAdAccountRequest(
+    AbstractCrudObject,
 ):
 
-    def __init__(self, api=None):
-        super(LookalikeSpec, self).__init__()
-        self._isLookalikeSpec = True
-        self._api = api
+    def __init__(self, fbid=None, parent_id=None, api=None):
+        self._isLegacyBusinessAdAccountRequest = True
+        super(LegacyBusinessAdAccountRequest, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        country = 'country'
-        is_financial_service = 'is_financial_service'
-        origin = 'origin'
-        ratio = 'ratio'
-        starting_ratio = 'starting_ratio'
-        target_countries = 'target_countries'
-        type = 'type'
+        ad_account = 'ad_account'
+        id = 'id'
+        permitted_roles = 'permitted_roles'
 
     _field_types = {
-        'country': 'string',
-        'is_financial_service': 'bool',
-        'origin': 'list<Object>',
-        'ratio': 'float',
-        'starting_ratio': 'float',
-        'target_countries': 'list<string>',
-        'type': 'string',
+        'ad_account': 'AdAccount',
+        'id': 'string',
+        'permitted_roles': 'list<string>',
     }
 
     @classmethod

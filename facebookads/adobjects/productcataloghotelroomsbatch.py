@@ -55,6 +55,7 @@ class ProductCatalogHotelRoomsBatch(
     class Standard:
         google = 'google'
 
+    # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'hotel_rooms_batch'

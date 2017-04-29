@@ -68,6 +68,7 @@ class AdAsyncRequestSet(
         sending = 'SENDING'
         sent = 'SENT'
 
+    # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'asyncadrequestsets'

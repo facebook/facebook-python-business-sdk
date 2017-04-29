@@ -42,6 +42,7 @@ class ProductFeedUploadError(
 
     class Field(AbstractObject.Field):
         description = 'description'
+        error_type = 'error_type'
         id = 'id'
         severity = 'severity'
         summary = 'summary'
@@ -51,6 +52,7 @@ class ProductFeedUploadError(
         fatal = 'fatal'
         warning = 'warning'
 
+    # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'errors'
@@ -112,6 +114,7 @@ class ProductFeedUploadError(
 
     _field_types = {
         'description': 'string',
+        'error_type': 'string',
         'id': 'string',
         'severity': 'Severity',
         'summary': 'string',

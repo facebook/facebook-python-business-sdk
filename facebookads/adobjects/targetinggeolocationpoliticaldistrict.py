@@ -28,32 +28,26 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class LookalikeSpec(
+class TargetingGeoLocationPoliticalDistrict(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(LookalikeSpec, self).__init__()
-        self._isLookalikeSpec = True
+        super(TargetingGeoLocationPoliticalDistrict, self).__init__()
+        self._isTargetingGeoLocationPoliticalDistrict = True
         self._api = api
 
     class Field(AbstractObject.Field):
         country = 'country'
-        is_financial_service = 'is_financial_service'
-        origin = 'origin'
-        ratio = 'ratio'
-        starting_ratio = 'starting_ratio'
-        target_countries = 'target_countries'
-        type = 'type'
+        key = 'key'
+        name = 'name'
+        political_district = 'political_district'
 
     _field_types = {
         'country': 'string',
-        'is_financial_service': 'bool',
-        'origin': 'list<Object>',
-        'ratio': 'float',
-        'starting_ratio': 'float',
-        'target_countries': 'list<string>',
-        'type': 'string',
+        'key': 'string',
+        'name': 'string',
+        'political_district': 'string',
     }
 
     @classmethod

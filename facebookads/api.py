@@ -190,9 +190,11 @@ class FacebookAdsApi(object):
         access_token=None,
         account_id=None,
         api_version=None,
-        proxies=None
+        proxies=None,
+        timeout=None
     ):
-        session = FacebookSession(app_id, app_secret, access_token, proxies)
+        session = FacebookSession(app_id, app_secret, access_token, proxies,
+                                  timeout)
         api = cls(session, api_version)
         cls.set_default_api(api)
 
@@ -300,6 +302,7 @@ class FacebookAdsApi(object):
                 params=params,
                 headers=headers,
                 files=files,
+                timeout=self._session.timeout
             )
         else:
             response = self._session.requests.request(
@@ -308,6 +311,7 @@ class FacebookAdsApi(object):
                 data=params,
                 headers=headers,
                 files=files,
+                timeout=self._session.timeout
             )
         fb_response = FacebookResponse(
             body=response.text,

@@ -47,8 +47,10 @@ class Campaign(
     class Field(AbstractObject.Field):
         account_id = 'account_id'
         adlabels = 'adlabels'
+        brand_lift_studies = 'brand_lift_studies'
         budget_rebalance_flag = 'budget_rebalance_flag'
         buying_type = 'buying_type'
+        can_create_brand_lift_study = 'can_create_brand_lift_study'
         can_use_spend_cap = 'can_use_spend_cap'
         configured_status = 'configured_status'
         created_time = 'created_time'
@@ -92,19 +94,23 @@ class Campaign(
     class DatePreset:
         today = 'today'
         yesterday = 'yesterday'
-        last_3_days = 'last_3_days'
-        this_week = 'this_week'
-        last_week = 'last_week'
-        last_7_days = 'last_7_days'
-        last_14_days = 'last_14_days'
-        last_28_days = 'last_28_days'
-        last_30_days = 'last_30_days'
-        last_90_days = 'last_90_days'
         this_month = 'this_month'
         last_month = 'last_month'
         this_quarter = 'this_quarter'
-        last_3_months = 'last_3_months'
         lifetime = 'lifetime'
+        last_3d = 'last_3d'
+        last_7d = 'last_7d'
+        last_14d = 'last_14d'
+        last_28d = 'last_28d'
+        last_30d = 'last_30d'
+        last_90d = 'last_90d'
+        last_week_mon_sun = 'last_week_mon_sun'
+        last_week_sun_sat = 'last_week_sun_sat'
+        last_quarter = 'last_quarter'
+        last_year = 'last_year'
+        this_week_mon_today = 'this_week_mon_today'
+        this_week_sun_today = 'this_week_sun_today'
+        this_year = 'this_year'
 
     class DeleteStrategy:
         delete_any = 'DELETE_ANY'
@@ -116,17 +122,13 @@ class Campaign(
         include_recommendations = 'include_recommendations'
 
     class Objective:
+        app_installs = 'APP_INSTALLS'
         brand_awareness = 'BRAND_AWARENESS'
-        canvas_app_engagement = 'CANVAS_APP_ENGAGEMENT'
-        canvas_app_installs = 'CANVAS_APP_INSTALLS'
         conversions = 'CONVERSIONS'
         event_responses = 'EVENT_RESPONSES'
-        external = 'EXTERNAL'
         lead_generation = 'LEAD_GENERATION'
         link_clicks = 'LINK_CLICKS'
         local_awareness = 'LOCAL_AWARENESS'
-        mobile_app_engagement = 'MOBILE_APP_ENGAGEMENT'
-        mobile_app_installs = 'MOBILE_APP_INSTALLS'
         offer_claims = 'OFFER_CLAIMS'
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
@@ -138,6 +140,7 @@ class Campaign(
         all = 'ALL'
         any = 'ANY'
 
+    # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'campaigns'
@@ -488,8 +491,10 @@ class Campaign(
     _field_types = {
         'account_id': 'string',
         'adlabels': 'list<AdLabel>',
+        'brand_lift_studies': 'list<AdStudy>',
         'budget_rebalance_flag': 'bool',
         'buying_type': 'string',
+        'can_create_brand_lift_study': 'bool',
         'can_use_spend_cap': 'bool',
         'configured_status': 'ConfiguredStatus',
         'created_time': 'datetime',

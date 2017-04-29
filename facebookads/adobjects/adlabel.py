@@ -50,6 +50,7 @@ class AdLabel(
     class ExecutionOptions:
         validate_only = 'validate_only'
 
+    # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'adlabels'
