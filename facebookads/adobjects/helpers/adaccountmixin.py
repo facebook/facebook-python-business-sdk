@@ -35,7 +35,8 @@ class AdAccountMixin:
 
     class Capabilities(object):
         bulk_account = 'BULK_ACCOUNT'
-        can_create_lookalikes_with_custom_ratio = 'CAN_CREATE_LOOKALIKES_WITH_CUSTOM_RATIO'
+        can_create_lookalikes_with_custom_ratio = ('CAN_CREATE_LOOKALIKES'
+                                                   '_WITH_CUSTOM_RATIO')
         can_use_conversion_lookalikes = 'CAN_USE_CONVERSION_LOOKALIKES'
         can_use_reach_and_frequency = 'CAN_USE_REACH_AND_FREQUENCY'
         custom_audiences_folders = 'CUSTOM_AUDIENCES_FOLDERS'
