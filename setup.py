@@ -48,6 +48,13 @@ PACKAGE_DATA = {
 }
 PACKAGE_LICENSE = 'LICENSE.txt'
 PACKAGE_DESCRIPTION = 'Facebook Ads API SDK'
+PACKAGE_CLASSIFIERS = [
+    'Programming Language :: Python :: 2',
+    'Programming Language :: Python :: 2.7',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.3',
+    'Programming Language :: Python :: 3.4',
+]
 
 with open(readme_filename) as f:
     PACKAGE_LONG_DESCRIPTION = f.read()
@@ -68,4 +75,5 @@ setup(
     description=PACKAGE_DESCRIPTION,
     long_description=PACKAGE_LONG_DESCRIPTION,
     install_requires=PACKAGE_INSTALL_REQUIRES,
+    classifiers=PACKAGE_CLASSIFIERS,
 )
