@@ -48,7 +48,7 @@ class AdSet(
         account_id = 'account_id'
         adlabels = 'adlabels'
         adset_schedule = 'adset_schedule'
-        attribution_window_days = 'attribution_window_days'
+        attribution_spec = 'attribution_spec'
         bid_amount = 'bid_amount'
         bid_info = 'bid_info'
         billing_event = 'billing_event'
@@ -85,6 +85,7 @@ class AdSet(
         time_based_ad_rotation_intervals = 'time_based_ad_rotation_intervals'
         updated_time = 'updated_time'
         use_new_app_click = 'use_new_app_click'
+        campaign_spec = 'campaign_spec'
         daily_imps = 'daily_imps'
         execution_options = 'execution_options'
         redownload = 'redownload'
@@ -98,6 +99,7 @@ class AdSet(
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
         video_views = 'VIDEO_VIEWS'
+        mrc_video_views = 'MRC_VIDEO_VIEWS'
 
     class ConfiguredStatus:
         active = 'ACTIVE'
@@ -123,7 +125,6 @@ class AdSet(
         brand_awareness = 'BRAND_AWARENESS'
         clicks = 'CLICKS'
         engaged_users = 'ENGAGED_USERS'
-        external = 'EXTERNAL'
         event_responses = 'EVENT_RESPONSES'
         impressions = 'IMPRESSIONS'
         lead_generation = 'LEAD_GENERATION'
@@ -136,6 +137,7 @@ class AdSet(
         reach = 'REACH'
         social_impressions = 'SOCIAL_IMPRESSIONS'
         video_views = 'VIDEO_VIEWS'
+        app_downloads = 'APP_DOWNLOADS'
 
     class Status:
         active = 'ACTIVE'
@@ -146,19 +148,23 @@ class AdSet(
     class DatePreset:
         today = 'today'
         yesterday = 'yesterday'
-        last_3_days = 'last_3_days'
-        this_week = 'this_week'
-        last_week = 'last_week'
-        last_7_days = 'last_7_days'
-        last_14_days = 'last_14_days'
-        last_28_days = 'last_28_days'
-        last_30_days = 'last_30_days'
-        last_90_days = 'last_90_days'
         this_month = 'this_month'
         last_month = 'last_month'
         this_quarter = 'this_quarter'
-        last_3_months = 'last_3_months'
         lifetime = 'lifetime'
+        last_3d = 'last_3d'
+        last_7d = 'last_7d'
+        last_14d = 'last_14d'
+        last_28d = 'last_28d'
+        last_30d = 'last_30d'
+        last_90d = 'last_90d'
+        last_week_mon_sun = 'last_week_mon_sun'
+        last_week_sun_sat = 'last_week_sun_sat'
+        last_quarter = 'last_quarter'
+        last_year = 'last_year'
+        this_week_mon_today = 'this_week_mon_today'
+        this_week_sun_today = 'this_week_sun_today'
+        this_year = 'this_year'
 
     class ExecutionOptions:
         validate_only = 'validate_only'
@@ -168,6 +174,7 @@ class AdSet(
         all = 'ALL'
         any = 'ANY'
 
+    # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'adsets'
@@ -235,7 +242,7 @@ class AdSet(
             'account_id': 'string',
             'adlabels': 'list<Object>',
             'adset_schedule': 'list<Object>',
-            'attribution_window_days': 'unsigned int',
+            'attribution_spec': 'list<map>',
             'bid_amount': 'int',
             'billing_event': 'billing_event_enum',
             'creative_sequence': 'list<string>',
@@ -623,7 +630,7 @@ class AdSet(
         'account_id': 'string',
         'adlabels': 'list<AdLabel>',
         'adset_schedule': 'list<DayPart>',
-        'attribution_window_days': 'unsigned int',
+        'attribution_spec': 'list<Object>',
         'bid_amount': 'unsigned int',
         'bid_info': 'map<string, unsigned int>',
         'billing_event': 'BillingEvent',
@@ -660,6 +667,7 @@ class AdSet(
         'time_based_ad_rotation_intervals': 'list<unsigned int>',
         'updated_time': 'datetime',
         'use_new_app_click': 'bool',
+        'campaign_spec': 'Object',
         'daily_imps': 'unsigned int',
         'execution_options': 'list<ExecutionOptions>',
         'redownload': 'bool',

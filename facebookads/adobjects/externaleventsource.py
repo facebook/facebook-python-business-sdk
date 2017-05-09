@@ -46,6 +46,7 @@ class ExternalEventSource(
         source_type = 'source_type'
         external_event_sources = 'external_event_sources'
 
+    # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'external_event_sources'

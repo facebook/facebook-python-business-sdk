@@ -46,6 +46,7 @@ class EventSourceGroup(
         id = 'id'
         name = 'name'
 
+    # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'event_source_groups'

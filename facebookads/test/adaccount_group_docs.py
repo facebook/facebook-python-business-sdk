@@ -31,23 +31,6 @@ import json
 from .docs_utils import *
 
 
-class AdAccountGroupDocsTestCase(DocsTestCase):
-
-    def setUp(self):
-        account_group = self.create_adaccount_group('adaccount_group_id')
-        DocsDataStore.set('adaccount_group_id', account_group.get_id())
-
-    def test_get_users(self):
-        account_group = AdAccountGroup(DocsDataStore.get('adaccount_group_id'))
-        users = account_group.get_users()
-        self.store_response(users)
-
-    def test_get_accounts(self):
-        account_group = AdAccountGroup(DocsDataStore.get('adaccount_group_id'))
-        accounts = account_group.get_accounts()
-        self.store_response(accounts)
-
-
 if __name__ == '__main__':
     handle = open(DocsDataStore.get('filename'), 'w')
     handle.write('')

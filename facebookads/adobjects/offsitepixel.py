@@ -56,6 +56,7 @@ class OffsitePixel(
         add_to_cart = 'ADD_TO_CART'
         other = 'OTHER'
 
+    # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'offsitepixels'

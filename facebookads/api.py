@@ -200,9 +200,10 @@ class FacebookAdsApi(object):
         app_secret=None,
         access_token=None,
         account_id=None,
-        api_version=None
+        api_version=None,
+        proxies=None
     ):
-        session = FacebookSession(app_id, app_secret, access_token)
+        session = FacebookSession(app_id, app_secret, access_token, proxies)
         api = cls(session, api_version)
         cls.set_default_api(api)
 

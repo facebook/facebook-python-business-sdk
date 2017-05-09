@@ -86,7 +86,8 @@ from facebookads import objects
 my_app_id = '<APP_ID>'
 my_app_secret = '<APP_SECRET>'
 my_access_token = '<ACCESS_TOKEN>'
-FacebookAdsApi.init(my_app_id, my_app_secret, my_access_token)
+proxies = {'http': '<HTTP_PROXY>', 'https': '<HTTPS_PROXY>'} # add proxies if needed
+FacebookAdsApi.init(my_app_id, my_app_secret, my_access_token, proxies)
 ```
 
 **NOTE**: We shall use the objects module throughout the rest of the tutorial. You can 
@@ -287,17 +288,20 @@ my_app_id = '<APP_ID>'
 my_app_secret = '<APP_SECRET>'
 my_access_token_1 = '<ACCESS_TOKEN_1>'
 my_access_token_2 = '<ACCESS_TOKEN_2>'
+proxies = {'http': '<HTTP_PROXY>', 'https': '<HTTPS_PROXY>'} # add proxies if needed
 
 session1 = FacebookSession(
     my_app_id,
     my_app_secret,
     my_access_token_1,
+    proxies,
 )
 
 session2 = FacebookSession(
     my_app_id,
     my_app_secret,
     my_access_token_2,
+    proxies,
 )
 
 api1 = FacebookAdsApi(session1)
@@ -329,6 +333,7 @@ session = FacebookSession(
  my_app_id,
  my_app_secret,
  my_access_token_1,
+ proxies,
 )
 
 api = FacebookAdsApi(session1)

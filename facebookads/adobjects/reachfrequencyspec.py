@@ -41,6 +41,7 @@ class ReachFrequencySpec(
         countries = 'countries'
         max_campaign_duration = 'max_campaign_duration'
         max_days_to_finish = 'max_days_to_finish'
+        max_pause_without_prediction_rerun = 'max_pause_without_prediction_rerun'
         min_campaign_duration = 'min_campaign_duration'
         min_reach_limits = 'min_reach_limits'
 
@@ -48,6 +49,7 @@ class ReachFrequencySpec(
         'countries': 'list<string>',
         'max_campaign_duration': 'Object',
         'max_days_to_finish': 'Object',
+        'max_pause_without_prediction_rerun': 'Object',
         'min_campaign_duration': 'Object',
         'min_reach_limits': 'Object',
     }

@@ -59,6 +59,7 @@ class LeadgenForm(
         locale = 'locale'
         messenger_welcome_message = 'messenger_welcome_message'
         name = 'name'
+        organic_leads_count = 'organic_leads_count'
         page = 'page'
         page_id = 'page_id'
         privacy_policy_url = 'privacy_policy_url'
@@ -67,6 +68,7 @@ class LeadgenForm(
         status = 'status'
         tcpa_compliance = 'tcpa_compliance'
 
+    # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'leadgen_forms'
@@ -201,6 +203,7 @@ class LeadgenForm(
         'locale': 'string',
         'messenger_welcome_message': 'string',
         'name': 'string',
+        'organic_leads_count': 'unsigned int',
         'page': 'Object',
         'page_id': 'string',
         'privacy_policy_url': 'string',

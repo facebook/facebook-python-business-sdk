@@ -55,6 +55,7 @@ class ProductCatalogPricingVariablesBatch(
     class Standard:
         google = 'google'
 
+    # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'pricing_variables_batch'

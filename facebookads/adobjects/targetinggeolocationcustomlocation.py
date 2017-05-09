@@ -40,10 +40,14 @@ class TargetingGeoLocationCustomLocation(
     class Field(AbstractObject.Field):
         address_string = 'address_string'
         country = 'country'
+        country_group = 'country_group'
+        custom_type = 'custom_type'
         distance_unit = 'distance_unit'
         key = 'key'
         latitude = 'latitude'
         longitude = 'longitude'
+        max_population = 'max_population'
+        min_population = 'min_population'
         name = 'name'
         primary_city_id = 'primary_city_id'
         radius = 'radius'
@@ -52,10 +56,14 @@ class TargetingGeoLocationCustomLocation(
     _field_types = {
         'address_string': 'string',
         'country': 'string',
+        'country_group': 'string',
+        'custom_type': 'string',
         'distance_unit': 'string',
         'key': 'string',
         'latitude': 'float',
         'longitude': 'float',
+        'max_population': 'int',
+        'min_population': 'int',
         'name': 'string',
         'primary_city_id': 'int',
         'radius': 'float',

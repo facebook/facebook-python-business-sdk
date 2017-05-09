@@ -48,6 +48,7 @@ class CustomAudienceMixin:
             zip = 'ZIP'
             madid = 'MADID'
             country = 'COUNTRY'
+            appuid = 'APPUID'
 
     @classmethod
     def format_params(cls,
@@ -63,9 +64,10 @@ class CustomAudienceMixin:
             for user in users:
                 if schema == cls.Schema.email_hash:
                     user = user.strip(" \t\r\n\0\x0B.").lower()
-                if isinstance(user, six.text_type) and not(pre_hashed):
+                if isinstance(user, six.text_type) and not(pre_hashed) and schema != cls.Schema.mobile_advertiser_id:
                     user = user.encode('utf8')  # required for hashlib
-                if pre_hashed:
+                # for mobile_advertiser_id, don't hash it
+                if pre_hashed or schema == cls.Schema.mobile_advertiser_id:
                     hashed_users.append(user)
                 else:
                     hashed_users.append(hashlib.sha256(user).hexdigest())
@@ -116,6 +118,8 @@ class CustomAudienceMixin:
                     "Custom Audiences with type " + cls.Schema.uid +
                     "require at least one app_id",
                 )
+
+        if app_ids:
             payload['app_ids'] = app_ids
 
         return {

@@ -28,32 +28,20 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class LookalikeSpec(
+class ProductCatalogImageSettingsOperation(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(LookalikeSpec, self).__init__()
-        self._isLookalikeSpec = True
+        super(ProductCatalogImageSettingsOperation, self).__init__()
+        self._isProductCatalogImageSettingsOperation = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        country = 'country'
-        is_financial_service = 'is_financial_service'
-        origin = 'origin'
-        ratio = 'ratio'
-        starting_ratio = 'starting_ratio'
-        target_countries = 'target_countries'
-        type = 'type'
+        transformation_type = 'transformation_type'
 
     _field_types = {
-        'country': 'string',
-        'is_financial_service': 'bool',
-        'origin': 'list<Object>',
-        'ratio': 'float',
-        'starting_ratio': 'float',
-        'target_countries': 'list<string>',
-        'type': 'string',
+        'transformation_type': 'string',
     }
 
     @classmethod
