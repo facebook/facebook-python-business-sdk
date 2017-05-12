@@ -34,10 +34,17 @@ class AdAccountMixin:
         pass
 
     class Capabilities(object):
+        bulk_account = 'BULK_ACCOUNT'
+        can_create_lookalikes_with_custom_ratio = ('CAN_CREATE_LOOKALIKES'
+                                                   '_WITH_CUSTOM_RATIO')
+        can_use_conversion_lookalikes = 'CAN_USE_CONVERSION_LOOKALIKES'
+        can_use_reach_and_frequency = 'CAN_USE_REACH_AND_FREQUENCY'
         custom_audiences_folders = 'CUSTOM_AUDIENCES_FOLDERS'
         custom_audiences_opt_out_link = 'CUSTOM_AUDENCES_OPT_OUT_LINK'
         custom_cluster_sharing = 'CUSTOM_CLUSTER_SHARING'
         direct_sales = 'DIRECT_SALES'
+        has_available_payment_methods = 'HAS_AVAILABLE_PAYMENT_METHODS'
+        holdout_view_tags = 'HOLDOUT_VIEW_TAGS'
         lookalike_audience = 'LOOKALIKE_AUDIENCE'
         new_campaign_structure = 'NEW_CAMPAIGN_STRUCTURE'
         premium = 'PREMIUM'
