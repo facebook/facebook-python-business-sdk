@@ -100,9 +100,7 @@ class FacebookAdsTestCase(unittest.TestCase):
         self.remote_objects.append(obj)
 
     def new_test_ad_creative(self):
-        creative = AdCreative(
-            parent_id=self.TEST_ACCOUNT.get_id_assured(),
-        )
+        creative = AdCreative()
         self.delete_in_teardown(creative)
         creative.update({
             AdCreative.Field.name: ('AdCreativeTestCase %s' %
@@ -112,9 +110,7 @@ class FacebookAdsTestCase(unittest.TestCase):
         return creative
 
     def new_test_campaign(self):
-        campaign = Campaign(
-            parent_id=self.TEST_ACCOUNT.get_id_assured(),
-        )
+        campaign = Campaign()
         self.delete_in_teardown(campaign)
         campaign.update({
             Campaign.Field.name: 'CampaignTestCase %s' % self.TEST_ID,
@@ -126,9 +122,7 @@ class FacebookAdsTestCase(unittest.TestCase):
     def new_test_ad_set(self, campaign):
         campaign_id = campaign.get_id_assured()
 
-        ad_set = AdSet(
-            parent_id=self.TEST_ACCOUNT.get_id_assured(),
-        )
+        ad_set = AdSet()
         self.delete_in_teardown(ad_set)
         ad_set.update({
             AdSet.Field.name: 'AdSetTestCase %s' % self.TEST_ID,
@@ -157,17 +151,13 @@ class FacebookAdsTestCase(unittest.TestCase):
     def new_test_ad(self, ad_set):
         adset_id = ad_set.get_id_assured()
 
-        img = AdImage(
-            parent_id=self.TEST_ACCOUNT.get_id_assured(),
-        )
+        img = AdImage()
         self.delete_in_teardown(img)
         img[AdImage.Field.filename] = self.TEST_IMAGE_PATH
         img.remote_create()
         image_hash = img.get_hash()
 
-        creative = AdCreative(
-            parent_id=self.TEST_ACCOUNT.get_id_assured(),
-        )
+        creative = AdCreative()
         self.delete_in_teardown(creative)
         creative.update({
             AdCreative.Field.title:
@@ -179,9 +169,7 @@ class FacebookAdsTestCase(unittest.TestCase):
         creative.remote_create()
         creative_id = creative.get_id_assured()
 
-        ad = Ad(
-            parent_id=self.TEST_ACCOUNT.get_id_assured(),
-        )
+        ad = Ad()
         self.delete_in_teardown(ad)
         ad.update({
             Ad.Field.name: 'AdTestCase %s' % self.TEST_ID,
@@ -195,18 +183,14 @@ class FacebookAdsTestCase(unittest.TestCase):
         return ad
 
     def new_test_ad_image(self):
-        img = AdImage(
-            parent_id=self.TEST_ACCOUNT.get_id_assured(),
-        )
+        img = AdImage()
         self.delete_in_teardown(img)
         img[AdImage.Field.filename] = self.TEST_IMAGE_PATH
         img.remote_create()
         return img
 
     def new_test_ad_label(self):
-        label = AdLabel(
-            parent_id=self.TEST_ACCOUNT.get_id_assured(),
-        )
+        label = AdLabel()
         label[AdLabel.Field.name] = 'Test Label'
         label.remote_create()
         self.delete_in_teardown(label)
@@ -219,9 +203,7 @@ class FacebookAdsTestCase(unittest.TestCase):
         if len(pixels) > 0:
             return pixels[0]
 
-        pixel = AdsPixel(
-            parent_id=self.TEST_ACCOUNT.get_id_assured(),
-        )
+        pixel = AdsPixel()
         pixel[AdsPixel.Field.name] = 'My new Pixel'
         pixel.remote_create()
         return pixel
@@ -332,18 +314,14 @@ class AbstractCrudObjectTestCase(AbstractObjectTestCase):
     def test_can_select_api_version(self):
         image_file = os.path.join(os.path.dirname(__file__), 'test.png')
 
-        test_image_one = AdImage(
-            parent_id=self.TEST_ACCOUNT.get_id_assured(),
-        )
+        test_image_one = AdImage()
 
         test_image_one[AdImage.Field.filename] = image_file
 
         assert test_image_one.remote_create(
             api_version=apiconfig.ads_api_config['API_VERSION']) is not None
 
-        test_image_two = AdImage(
-            parent_id=self.TEST_ACCOUNT.get_id_assured(),
-        )
+        test_image_two = AdImage()
 
         test_image_two[AdImage.Field.filename] = image_file
 
@@ -594,9 +572,7 @@ class TargetingSearchTestCase(AbstractObjectTestCase):
 class CustomAudienceTestCase(AbstractCrudObjectTestCase):
 
     def runTest(self):
-        ca = CustomAudience(
-            parent_id=self.TEST_ACCOUNT.get_id_assured(),
-        )
+        ca = CustomAudience()
         self.delete_in_teardown(ca)
         ca[CustomAudience.Field.name] = \
             'Custom Audience Test ' + self.TEST_ID
@@ -629,9 +605,7 @@ class MultiProductAdObjectStorySpecTestCase(AbstractCrudObjectTestCase):
         link[link.Field.link] = 'https://www.facebook.com'
         link[link.Field.caption] = 'My Caption'
 
-        img = AdImage(
-            parent_id=self.TEST_ACCOUNT.get_id_assured(),
-        )
+        img = AdImage()
         self.delete_in_teardown(img)
         img[AdImage.Field.filename] = self.TEST_IMAGE_PATH
         img.remote_create()
@@ -673,7 +647,7 @@ class AdImageTestCase(AbstractCrudObjectTestCase):
     def test_can_upload_zip(self):
         images = AdImage.remote_create_from_zip(
             filename=self.TEST_ZIP_PATH,
-            parent_id=self.TEST_ACCOUNT.get_id(),
+            parent_id=self.TEST_ACCOUNT.get_id_assured(),
         )
         assert len(images) == 2
 
@@ -776,9 +750,7 @@ class CustomConversion(AbstractCrudObjectTestCase):
     @unittest.skip('Deletion is not supported')
     def runTest(self):
         pixel = self.new_test_pixel()
-        custom_conversion = CustomConversion(
-            parent_id=self.TEST_ACCOUNT.get_id_assured(),
-        )
+        custom_conversion = CustomConversion()
         custom_conversion.update({
             CustomConversion.Field.name: 'Example Custom Conversion',
             CustomConversion.Field.pixel_id:
@@ -885,6 +857,7 @@ if __name__ == '__main__':
 
     if 'act_' not in test_account_id:
         test_account_id = 'act_' + test_account_id
+    api.FacebookAdsApi.set_default_account_id(test_account_id)
     FacebookAdsTestCase.TEST_ACCOUNT = AdAccount(test_account_id)
     FacebookAdsTestCase.PAGE_ID = page_id
     FacebookAdsTestCase.TEST_BUSINESS = test_business_id

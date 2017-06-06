@@ -39,7 +39,7 @@ class AdImageMixin:
 
         objs = []
         for image_filename in data['images']:
-            image = cls(parent_id=parent_id)
+            image = cls()
             image.update(data['images'][image_filename])
             image[cls.Field.id] = '%s:%s' % (
                 parent_id[4:],
