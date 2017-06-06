@@ -165,7 +165,7 @@ returns an iterator of ``AdAccount`` objects.
 ### Ad Account
 
 Most ad-related operations are in the context of an ad account. You can go to
-<a href="https://www.facebook.com/ads/manage">Ads Manager</a> to see accounts
+<a href="https://www.facebook.com/business/">Ads Manager</a> to see accounts
 for which you have permission. Most of you probably have a personal account.
 
 Let's get all the ad accounts for the user with the given access token. I only
