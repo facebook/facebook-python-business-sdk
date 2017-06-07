@@ -207,7 +207,7 @@ class Ad(
             'name': 'string',
             'redownload': 'bool',
             'status': 'status_enum',
-            'tracking_specs': 'Object',
+            'tracking_specs': 'list<ConversionActionQuery>',
         }
         enums = {
             'execution_options_enum': Ad.ExecutionOptions.__dict__.values(),
