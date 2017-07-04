@@ -56,7 +56,8 @@ class CustomAudienceMixin:
                       users,
                       is_raw=False,
                       app_ids=None,
-                      pre_hashed=None):
+                      pre_hashed=None,
+                      session=None):
         hashed_users = []
         if schema in (cls.Schema.phone_hash,
                       cls.Schema.email_hash,
@@ -122,9 +123,12 @@ class CustomAudienceMixin:
         if app_ids:
             payload['app_ids'] = app_ids
 
-        return {
+        params = {
             'payload': payload,
         }
+        if session:
+            params['session'] = session
+        return params
 
     @classmethod
     def normalize_key(cls, key_name, key_value=None):
@@ -180,7 +184,8 @@ class CustomAudienceMixin:
                   users,
                   is_raw=False,
                   app_ids=None,
-                  pre_hashed=None):
+                  pre_hashed=None,
+                  session=None):
         """Adds users to this CustomAudience.
 
         Args:
@@ -199,6 +204,7 @@ class CustomAudienceMixin:
                  is_raw,
                  app_ids,
                  pre_hashed,
+                 session,
             ),
         )
 
@@ -207,7 +213,8 @@ class CustomAudienceMixin:
                      users,
                      is_raw=False,
                      app_ids=None,
-                     pre_hashed=None):
+                     pre_hashed=None,
+                     session=None):
         """Deletes users from this CustomAudience.
 
         Args:
@@ -227,6 +234,7 @@ class CustomAudienceMixin:
                 is_raw,
                 app_ids,
                 pre_hashed,
+                session,
             ),
         )
 
