@@ -47,12 +47,12 @@ class FacebookSession(object):
     """
     GRAPH = 'https://graph.facebook.com'
 
-    def __init__(self, app_id=None, app_secret=None, access_token=None, proxies=None,
+    def __init__(self, app_id=None, app_secret=None, access_token=None, proxies=None, timeout=None,
                  pool_maxsize=10, max_retries=0, pool_block=True):
         """
         Initializes and populates the instance attributes with app_id,
-        app_secret, access_token, appsecret_proof, proxies, and requests given arguments
-        app_id, app_secret, access_token and proxies.
+        app_secret, access_token, appsecret_proof, proxies, timeout and requests
+        given arguments app_id, app_secret, access_token, proxies and timeout.
 
         Args:
             pool_maxsize: you change the default Requests connection pool size
@@ -63,6 +63,7 @@ class FacebookSession(object):
         self.app_secret = app_secret
         self.access_token = access_token
         self.proxies = proxies
+        self.timeout = timeout
 
         self.pool_maxsize = pool_maxsize
         self.max_retries = max_retries

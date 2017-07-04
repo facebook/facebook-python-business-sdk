@@ -50,6 +50,7 @@ class AdPreview(
         mobile_interstitial = 'MOBILE_INTERSTITIAL'
         mobile_banner = 'MOBILE_BANNER'
         mobile_medium_rectangle = 'MOBILE_MEDIUM_RECTANGLE'
+        mobile_fullwidth = 'MOBILE_FULLWIDTH'
         mobile_native = 'MOBILE_NATIVE'
         instagram_standard = 'INSTAGRAM_STANDARD'
         audience_network_outstream_video = 'AUDIENCE_NETWORK_OUTSTREAM_VIDEO'
@@ -57,6 +58,7 @@ class AdPreview(
         instream_video_desktop = 'INSTREAM_VIDEO_DESKTOP'
         instream_video_mobile = 'INSTREAM_VIDEO_MOBILE'
 
+    # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'previews'

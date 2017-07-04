@@ -40,7 +40,6 @@ class AdCreativeObjectStorySpec(
     class Field(AbstractObject.Field):
         instagram_actor_id = 'instagram_actor_id'
         link_data = 'link_data'
-        offer_data = 'offer_data'
         page_id = 'page_id'
         photo_data = 'photo_data'
         template_data = 'template_data'
@@ -50,7 +49,6 @@ class AdCreativeObjectStorySpec(
     _field_types = {
         'instagram_actor_id': 'string',
         'link_data': 'AdCreativeLinkData',
-        'offer_data': 'AdCreativeOfferData',
         'page_id': 'string',
         'photo_data': 'AdCreativePhotoData',
         'template_data': 'AdCreativeLinkData',

@@ -45,6 +45,7 @@ class TargetingSentenceLine(
         params = 'params'
         targetingsentencelines = 'targetingsentencelines'
 
+    # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'targetingsentencelines'

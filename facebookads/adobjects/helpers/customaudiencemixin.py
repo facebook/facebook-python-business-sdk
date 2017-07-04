@@ -48,6 +48,7 @@ class CustomAudienceMixin:
             zip = 'ZIP'
             madid = 'MADID'
             country = 'COUNTRY'
+            appuid = 'APPUID'
 
     @classmethod
     def format_params(cls,
@@ -55,7 +56,8 @@ class CustomAudienceMixin:
                       users,
                       is_raw=False,
                       app_ids=None,
-                      pre_hashed=None):
+                      pre_hashed=None,
+                      session=None):
         hashed_users = []
         if schema in (cls.Schema.phone_hash,
                       cls.Schema.email_hash,
@@ -63,9 +65,10 @@ class CustomAudienceMixin:
             for user in users:
                 if schema == cls.Schema.email_hash:
                     user = user.strip(" \t\r\n\0\x0B.").lower()
-                if isinstance(user, six.text_type) and not(pre_hashed):
+                if isinstance(user, six.text_type) and not(pre_hashed) and schema != cls.Schema.mobile_advertiser_id:
                     user = user.encode('utf8')  # required for hashlib
-                if pre_hashed:
+                # for mobile_advertiser_id, don't hash it
+                if pre_hashed or schema == cls.Schema.mobile_advertiser_id:
                     hashed_users.append(user)
                 else:
                     hashed_users.append(hashlib.sha256(user).hexdigest())
@@ -116,11 +119,16 @@ class CustomAudienceMixin:
                     "Custom Audiences with type " + cls.Schema.uid +
                     "require at least one app_id",
                 )
+
+        if app_ids:
             payload['app_ids'] = app_ids
 
-        return {
+        params = {
             'payload': payload,
         }
+        if session:
+            params['session'] = session
+        return params
 
     @classmethod
     def normalize_key(cls, key_name, key_value=None):
@@ -176,7 +184,8 @@ class CustomAudienceMixin:
                   users,
                   is_raw=False,
                   app_ids=None,
-                  pre_hashed=None):
+                  pre_hashed=None,
+                  session=None):
         """Adds users to this CustomAudience.
 
         Args:
@@ -195,6 +204,7 @@ class CustomAudienceMixin:
                  is_raw,
                  app_ids,
                  pre_hashed,
+                 session,
             ),
         )
 
@@ -203,7 +213,8 @@ class CustomAudienceMixin:
                      users,
                      is_raw=False,
                      app_ids=None,
-                     pre_hashed=None):
+                     pre_hashed=None,
+                     session=None):
         """Deletes users from this CustomAudience.
 
         Args:
@@ -223,6 +234,7 @@ class CustomAudienceMixin:
                 is_raw,
                 app_ids,
                 pre_hashed,
+                session,
             ),
         )
 

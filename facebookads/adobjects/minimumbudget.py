@@ -44,6 +44,7 @@ class MinimumBudget(
         min_daily_budget_low_freq = 'min_daily_budget_low_freq'
         min_daily_budget_video_views = 'min_daily_budget_video_views'
 
+    # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'minimum_budgets'

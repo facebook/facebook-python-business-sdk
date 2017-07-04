@@ -65,6 +65,7 @@ class Ad(
         status = 'status'
         tracking_specs = 'tracking_specs'
         updated_time = 'updated_time'
+        adset_spec = 'adset_spec'
         date_format = 'date_format'
         display_sequence = 'display_sequence'
         execution_options = 'execution_options'
@@ -105,19 +106,23 @@ class Ad(
     class DatePreset:
         today = 'today'
         yesterday = 'yesterday'
-        last_3_days = 'last_3_days'
-        this_week = 'this_week'
-        last_week = 'last_week'
-        last_7_days = 'last_7_days'
-        last_14_days = 'last_14_days'
-        last_28_days = 'last_28_days'
-        last_30_days = 'last_30_days'
-        last_90_days = 'last_90_days'
         this_month = 'this_month'
         last_month = 'last_month'
         this_quarter = 'this_quarter'
-        last_3_months = 'last_3_months'
         lifetime = 'lifetime'
+        last_3d = 'last_3d'
+        last_7d = 'last_7d'
+        last_14d = 'last_14d'
+        last_28d = 'last_28d'
+        last_30d = 'last_30d'
+        last_90d = 'last_90d'
+        last_week_mon_sun = 'last_week_mon_sun'
+        last_week_sun_sat = 'last_week_sun_sat'
+        last_quarter = 'last_quarter'
+        last_year = 'last_year'
+        this_week_mon_today = 'this_week_mon_today'
+        this_week_sun_today = 'this_week_sun_today'
+        this_year = 'this_year'
 
     class ExecutionOptions:
         validate_only = 'validate_only'
@@ -128,6 +133,7 @@ class Ad(
         all = 'ALL'
         any = 'ANY'
 
+    # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'ads'
@@ -495,13 +501,13 @@ class Ad(
         from facebookads.adobjects.adpreview import AdPreview
         param_types = {
             'ad_format': 'ad_format_enum',
-            'dynamic_creative_spec': 'Object',
+            'end_date': 'datetime',
             'height': 'unsigned int',
-            'interactive': 'bool',
             'locale': 'string',
             'place_page_id': 'int',
             'post': 'Object',
             'product_item_ids': 'list<string>',
+            'start_date': 'datetime',
             'width': 'unsigned int',
         }
         enums = {
@@ -516,38 +522,6 @@ class Ad(
             target_class=AdPreview,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=AdPreview),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def get_reach_estimate(self, fields=None, params=None, batch=None, pending=False):
-        from facebookads.adobjects.reachestimate import ReachEstimate
-        param_types = {
-            'currency': 'string',
-            'daily_budget': 'float',
-            'optimize_for': 'optimize_for_enum',
-        }
-        enums = {
-            'optimize_for_enum': ReachEstimate.OptimizeFor.__dict__.values(),
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/reachestimate',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=ReachEstimate,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=ReachEstimate),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -612,6 +586,7 @@ class Ad(
         'status': 'Status',
         'tracking_specs': 'list<ConversionActionQuery>',
         'updated_time': 'datetime',
+        'adset_spec': 'AdSet',
         'date_format': 'string',
         'display_sequence': 'unsigned int',
         'execution_options': 'list<ExecutionOptions>',

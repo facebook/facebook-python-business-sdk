@@ -53,6 +53,7 @@ class BroadTargetingCategories(
         untranslated_name = 'untranslated_name'
         untranslated_parent_name = 'untranslated_parent_name'
 
+    # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'broadtargetingcategories'

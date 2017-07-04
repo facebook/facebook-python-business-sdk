@@ -34,10 +34,17 @@ class AdAccountMixin:
         pass
 
     class Capabilities(object):
+        bulk_account = 'BULK_ACCOUNT'
+        can_create_lookalikes_with_custom_ratio = ('CAN_CREATE_LOOKALIKES'
+                                                   '_WITH_CUSTOM_RATIO')
+        can_use_conversion_lookalikes = 'CAN_USE_CONVERSION_LOOKALIKES'
+        can_use_reach_and_frequency = 'CAN_USE_REACH_AND_FREQUENCY'
         custom_audiences_folders = 'CUSTOM_AUDIENCES_FOLDERS'
         custom_audiences_opt_out_link = 'CUSTOM_AUDENCES_OPT_OUT_LINK'
         custom_cluster_sharing = 'CUSTOM_CLUSTER_SHARING'
         direct_sales = 'DIRECT_SALES'
+        has_available_payment_methods = 'HAS_AVAILABLE_PAYMENT_METHODS'
+        holdout_view_tags = 'HOLDOUT_VIEW_TAGS'
         lookalike_audience = 'LOOKALIKE_AUDIENCE'
         new_campaign_structure = 'NEW_CAMPAIGN_STRUCTURE'
         premium = 'PREMIUM'
@@ -62,7 +69,12 @@ class AdAccountMixin:
 
         return my_account
 
-    def opt_out_user_from_targeting(self, schema, users, app_ids=None):
+    def opt_out_user_from_targeting(self,
+                                    schema,
+                                    users,
+                                    is_raw=False,
+                                    app_ids=None,
+                                    pre_hashed=None):
         from facebookads.adobjects.customaudience import CustomAudience
         """Opts out users from being targeted by this ad account.
 
@@ -76,5 +88,9 @@ class AdAccountMixin:
         return self.get_api_assured().call(
             'DELETE',
             (self.get_id_assured(), 'usersofanyaudience'),
-            params=CustomAudience.format_params(schema, users, app_ids),
+            params=CustomAudience.format_params(schema,
+                                                users,
+                                                is_raw,
+                                                app_ids,
+                                                pre_hashed),
         )

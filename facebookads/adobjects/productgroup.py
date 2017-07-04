@@ -42,9 +42,11 @@ class ProductGroup(
 
     class Field(AbstractObject.Field):
         id = 'id'
+        product_catalog = 'product_catalog'
         retailer_id = 'retailer_id'
         variants = 'variants'
 
+    # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'product_groups'
@@ -52,6 +54,33 @@ class ProductGroup(
     def api_create(self, parent_id, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.productcatalog import ProductCatalog
         return ProductCatalog(api=self._api, fbid=parent_id).create_product_group(fields, params, batch, pending)
+
+    def api_delete(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='DELETE',
+            endpoint='/',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def api_get(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
@@ -201,6 +230,7 @@ class ProductGroup(
             'iphone_app_store_id': 'unsigned int',
             'iphone_url': 'string',
             'manufacturer_part_number': 'string',
+            'material': 'string',
             'name': 'string',
             'ordering_index': 'unsigned int',
             'pattern': 'string',
@@ -249,6 +279,7 @@ class ProductGroup(
 
     _field_types = {
         'id': 'string',
+        'product_catalog': 'ProductCatalog',
         'retailer_id': 'string',
         'variants': 'list<ProductVariant>',
     }

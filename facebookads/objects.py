@@ -60,7 +60,6 @@ from facebookads.adobjects import (
     lead,
     videothumbnail,
     targetingsentenceline,
-    adaccountgroup,
     leadgenform,
     adkeywordstats,
     broadtargetingcategories,
@@ -161,66 +160,6 @@ class AdAccount(adaccount.AdAccount):
     def get_ad_users(self, fields=None, params=None):
         """Returns iterator over AdUser's associated with this account."""
         return self.get_users(fields, params)
-
-
-class AdAccountGroup(adaccountgroup.AdAccountGroup):
-
-    def get_users(self, fields=None, params=None):
-        """
-        Returns iterator over AdAccountGroupUser's associated with this account
-        group.
-        """
-        return self.iterate_edge(AdAccountGroupUser, fields, params)
-
-
-class AdAccountGroupAccount(AbstractObject):
-
-    class Field(object):
-        account_id = 'account_id'
-        status = 'status'
-
-    @classmethod
-    def get_endpoint(cls):
-        return 'adaccounts'
-
-    def get_node_path(self):
-        return (
-            self.get_parent_id_assured(),
-            self.get_endpoint(),
-            self.get_id_assured()
-        )
-
-    def get_ad_account(self):
-        """Returns an AdAccount object with the same account id."""
-        return AdAccount(fbid='act_' + self[self.Field.account_id])
-
-
-class AdAccountGroupUser(AbstractCrudObject):
-
-    class Field(object):
-        id = 'uid'
-        role = 'role'
-        uid = 'uid'
-
-    class Role(object):
-        administrator = 1001
-        general_user = 1002
-        reports_only = 1003
-
-    @classmethod
-    def get_endpoint(cls):
-        return 'users'
-
-    def get_node_path(self):
-        return (
-            self.get_parent_id_assured(),
-            self.get_endpoint(),
-            self.get_id_assured()
-        )
-
-    def get_ad_user(self):
-        """Returns an AdUser object with the same account id."""
-        return AdUser(fbid=self[self.Field.uid])
 
 
 class Campaign(campaign.Campaign):

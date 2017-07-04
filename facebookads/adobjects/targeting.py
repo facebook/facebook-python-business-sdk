@@ -43,6 +43,7 @@ class Targeting(
         age_min = 'age_min'
         alternate_auto_targeting_option = 'alternate_auto_targeting_option'
         app_install_state = 'app_install_state'
+        audience_network_positions = 'audience_network_positions'
         behaviors = 'behaviors'
         cities = 'cities'
         college_years = 'college_years'
@@ -56,8 +57,11 @@ class Targeting(
         education_majors = 'education_majors'
         education_schools = 'education_schools'
         education_statuses = 'education_statuses'
+        effective_audience_network_positions = 'effective_audience_network_positions'
         effective_device_platforms = 'effective_device_platforms'
         effective_facebook_positions = 'effective_facebook_positions'
+        effective_instagram_positions = 'effective_instagram_positions'
+        effective_messenger_positions = 'effective_messenger_positions'
         effective_publisher_platforms = 'effective_publisher_platforms'
         engagement_specs = 'engagement_specs'
         ethnic_affinity = 'ethnic_affinity'
@@ -88,11 +92,13 @@ class Targeting(
         household_composition = 'household_composition'
         income = 'income'
         industries = 'industries'
+        instagram_positions = 'instagram_positions'
         interested_in = 'interested_in'
         interests = 'interests'
         keywords = 'keywords'
         life_events = 'life_events'
         locales = 'locales'
+        messenger_positions = 'messenger_positions'
         moms = 'moms'
         net_worth = 'net_worth'
         office_type = 'office_type'
@@ -121,10 +127,12 @@ class Targeting(
     class DevicePlatforms:
         mobile = 'mobile'
         desktop = 'desktop'
+        connected_tv = 'connected_tv'
 
     class EffectiveDevicePlatforms:
         mobile = 'mobile'
         desktop = 'desktop'
+        connected_tv = 'connected_tv'
 
     _field_types = {
         'adgroup_id': 'string',
@@ -132,6 +140,7 @@ class Targeting(
         'age_min': 'unsigned int',
         'alternate_auto_targeting_option': 'string',
         'app_install_state': 'string',
+        'audience_network_positions': 'list<string>',
         'behaviors': 'list<IDName>',
         'cities': 'list<IDName>',
         'college_years': 'list<unsigned int>',
@@ -145,8 +154,11 @@ class Targeting(
         'education_majors': 'list<IDName>',
         'education_schools': 'list<IDName>',
         'education_statuses': 'list<unsigned int>',
+        'effective_audience_network_positions': 'list<string>',
         'effective_device_platforms': 'list<EffectiveDevicePlatforms>',
         'effective_facebook_positions': 'list<string>',
+        'effective_instagram_positions': 'list<string>',
+        'effective_messenger_positions': 'list<string>',
         'effective_publisher_platforms': 'list<string>',
         'engagement_specs': 'list<TargetingDynamicRule>',
         'ethnic_affinity': 'list<IDName>',
@@ -177,11 +189,13 @@ class Targeting(
         'household_composition': 'list<IDName>',
         'income': 'list<IDName>',
         'industries': 'list<IDName>',
+        'instagram_positions': 'list<string>',
         'interested_in': 'list<unsigned int>',
         'interests': 'list<IDName>',
         'keywords': 'list<string>',
         'life_events': 'list<IDName>',
         'locales': 'list<unsigned int>',
+        'messenger_positions': 'list<string>',
         'moms': 'list<IDName>',
         'net_worth': 'list<IDName>',
         'office_type': 'list<IDName>',

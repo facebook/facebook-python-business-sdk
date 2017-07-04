@@ -51,6 +51,11 @@ class ProductFeedUpload(
         manual_upload = 'Manual Upload'
         server_fetch = 'Server Fetch'
 
+    # @deprecated get_endpoint function is deprecated
+    @classmethod
+    def get_endpoint(cls):
+        return 'uploads'
+
     def api_get(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
         }

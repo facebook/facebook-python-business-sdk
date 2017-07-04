@@ -30,6 +30,8 @@ from facebookads.api import (
 from facebookads.adobjects.abstractobject import AbstractObject
 from facebookads.adobjects.objectparser import ObjectParser
 
+import logging
+
 class AbstractCrudObject(AbstractObject):
     """
     Extends AbstractObject and implements methods to create, read, update,
@@ -52,6 +54,10 @@ class AbstractCrudObject(AbstractObject):
 
         self._api = api or FacebookAdsApi.get_default_api()
         self._changes = {}
+        if (parent_id is not None):
+            warning_message = "parent_id as a parameter of constructor is " \
+                  "being deprecated."
+            logging.warning(warning_message)
         self._parent_id = parent_id
         self._data['id'] = fbid
         self._include_summary = True

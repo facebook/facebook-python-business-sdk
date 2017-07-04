@@ -28,27 +28,38 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdAccountGroupResult(
+class CustomConversionStatsResult(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(AdAccountGroupResult, self).__init__()
-        self._isAdAccountGroupResult = True
+        super(CustomConversionStatsResult, self).__init__()
+        self._isCustomConversionStatsResult = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        account_group_id = 'account_group_id'
-        name = 'name'
-        status = 'status'
+        aggregation = 'aggregation'
+        data = 'data'
+        timestamp = 'timestamp'
+
+    class Aggregation:
+        count = 'count'
+        device_type = 'device_type'
+        host = 'host'
+        pixel_fire = 'pixel_fire'
+        unmatched_count = 'unmatched_count'
+        unmatched_usd_amount = 'unmatched_usd_amount'
+        url = 'url'
+        usd_amount = 'usd_amount'
 
     _field_types = {
-        'account_group_id': 'string',
-        'name': 'string',
-        'status': 'unsigned int',
+        'aggregation': 'Aggregation',
+        'data': 'list<Object>',
+        'timestamp': 'datetime',
     }
 
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['Aggregation'] = CustomConversionStatsResult.Aggregation.__dict__.values()
         return field_enum_info
