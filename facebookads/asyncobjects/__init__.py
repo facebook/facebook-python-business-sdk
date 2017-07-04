@@ -191,14 +191,6 @@ class AdAccount(AbstractCrudAioObject, adaccount.AdAccount):
         )
 
 
-class AdAccountGroup(AbstractCrudAioObject, baseobjects.AdAccountGroup):
-    pass
-
-
-class AdAccountGroupUser(AbstractCrudAioObject, baseobjects.AdAccountGroupUser):
-    pass
-
-
 class Campaign(AbstractCrudAioObject, campaign.Campaign):
     def get_ad_sets_aio(self, fields=None, params=None, limit=1000):
         """Returns iterator over AdSet's associated with this campaign."""
