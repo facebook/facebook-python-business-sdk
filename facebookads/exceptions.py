@@ -114,6 +114,10 @@ class FacebookRequestError(FacebookError):
             "\n"
         )
 
+    @property
+    def data(self):
+        return self._error
+
     def request_context(self):
         return self._request_context
 
