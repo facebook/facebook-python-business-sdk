@@ -18,14 +18,12 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebookads.adobjects.adaccount import AdAccount
 from facebookads.adobjects.campaign import Campaign
 from facebookads.adobjects.adset import AdSet
 from facebookads.adobjects.targeting import Targeting
 from facebookads.adobjects.ad import Ad
 from facebookads.adobjects.adimage import AdImage
 from facebookads.adobjects.adcreative import AdCreative
-from facebookads.adobjects.targetinggeolocation import TargetingGeoLocation
 
 import itertools
 from batch_utils import generate_batches

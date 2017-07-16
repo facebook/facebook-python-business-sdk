@@ -84,13 +84,14 @@ if __name__ == '__main__':
         age_max=65,
 
         campaign=config['campaign_id'],
-        status=AdSet.Status.paused,  # Default is False but let's keep this test ad paused
+        status=AdSet.Status.paused,
+        # Default is False but let's keep this test ad paused
     )
     print('**** Done!')
 
     # Get the preview and write an html file
     preview = my_ad.get_previews(params={
-        'ad_format':  AdPreview.AdFormat.right_column_standard,
+        'ad_format': AdPreview.AdFormat.right_column_standard,
     })
     preview_filename = os.path.join(this_dir, 'preview_ad.html')
     preview_file = open(preview_filename, 'w')
