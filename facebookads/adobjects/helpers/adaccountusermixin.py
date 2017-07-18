@@ -31,7 +31,6 @@ class AdAccountUserMixin:
         name = 'name'
         permissions = 'permissions'
         role = 'role'
-
     class Permission(object):
         account_admin = 1
         admanager_read = 2

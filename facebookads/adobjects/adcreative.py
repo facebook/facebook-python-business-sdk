@@ -119,6 +119,7 @@ class AdCreative(
         register_now = 'REGISTER_NOW'
         request_time = 'REQUEST_TIME'
         see_menu = 'SEE_MENU'
+        email_now = 'EMAIL_NOW'
         open_movies = 'OPEN_MOVIES'
 
     class ObjectType:
@@ -262,7 +263,7 @@ class AdCreative(
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -291,7 +292,7 @@ class AdCreative(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdLabel,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdLabel),
+            response_parser=ObjectParser(target_class=AdLabel, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -329,7 +330,7 @@ class AdCreative(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdPreview,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdPreview),
+            response_parser=ObjectParser(target_class=AdPreview, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

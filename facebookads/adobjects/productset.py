@@ -154,7 +154,7 @@ class ProductSet(
             param_checker=TypeChecker(param_types, enums),
             target_class=ProductGroup,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ProductGroup),
+            response_parser=ObjectParser(target_class=ProductGroup, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -184,7 +184,7 @@ class ProductSet(
             param_checker=TypeChecker(param_types, enums),
             target_class=ProductItem,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ProductItem),
+            response_parser=ObjectParser(target_class=ProductItem, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

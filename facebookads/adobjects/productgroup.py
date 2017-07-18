@@ -151,7 +151,7 @@ class ProductGroup(
             param_checker=TypeChecker(param_types, enums),
             target_class=ProductSet,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ProductSet),
+            response_parser=ObjectParser(target_class=ProductSet, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -179,7 +179,7 @@ class ProductGroup(
             param_checker=TypeChecker(param_types, enums),
             target_class=ProductItem,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ProductItem),
+            response_parser=ObjectParser(target_class=ProductItem, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -245,7 +245,7 @@ class ProductGroup(
             'start_date': 'string',
             'url': 'string',
             'visibility': 'visibility_enum',
-            'windows_phone_app_id': 'unsigned int',
+            'windows_phone_app_id': 'string',
             'windows_phone_app_name': 'string',
             'windows_phone_url': 'string',
         }
@@ -263,7 +263,7 @@ class ProductGroup(
             param_checker=TypeChecker(param_types, enums),
             target_class=ProductItem,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ProductItem),
+            response_parser=ObjectParser(target_class=ProductItem, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

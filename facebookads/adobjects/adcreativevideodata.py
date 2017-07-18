@@ -38,6 +38,7 @@ class AdCreativeVideoData(
         self._api = api
 
     class Field(AbstractObject.Field):
+        additional_image_index = 'additional_image_index'
         branded_content_sponsor_page_id = 'branded_content_sponsor_page_id'
         branded_content_sponsor_relationship = 'branded_content_sponsor_relationship'
         call_to_action = 'call_to_action'
@@ -47,11 +48,13 @@ class AdCreativeVideoData(
         message = 'message'
         offer_id = 'offer_id'
         page_welcome_message = 'page_welcome_message'
+        retailer_item_ids = 'retailer_item_ids'
         targeting = 'targeting'
         title = 'title'
         video_id = 'video_id'
 
     _field_types = {
+        'additional_image_index': 'int',
         'branded_content_sponsor_page_id': 'string',
         'branded_content_sponsor_relationship': 'string',
         'call_to_action': 'AdCreativeLinkDataCallToAction',
@@ -61,6 +64,7 @@ class AdCreativeVideoData(
         'message': 'string',
         'offer_id': 'string',
         'page_welcome_message': 'string',
+        'retailer_item_ids': 'list<string>',
         'targeting': 'Targeting',
         'title': 'string',
         'video_id': 'string',

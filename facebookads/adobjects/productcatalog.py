@@ -48,11 +48,13 @@ class ProductCatalog(
         default_image_url = 'default_image_url'
         fallback_image_url = 'fallback_image_url'
         feed_count = 'feed_count'
+        flight_catalog_settings = 'flight_catalog_settings'
         id = 'id'
         image_padding_landscape = 'image_padding_landscape'
         image_padding_square = 'image_padding_square'
         name = 'name'
         product_count = 'product_count'
+        qualified_product_count = 'qualified_product_count'
         vertical = 'vertical'
 
     class Vertical:
@@ -129,6 +131,7 @@ class ProductCatalog(
             'da_display_settings': 'Object',
             'default_image_url': 'string',
             'fallback_image_url': 'string',
+            'flight_catalog_settings': 'map',
             'name': 'string',
         }
         enums = {
@@ -169,7 +172,36 @@ class ProductCatalog(
             param_checker=TypeChecker(param_types, enums),
             target_class=Business,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=Business),
+            response_parser=ObjectParser(target_class=Business, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_check_batch_request_status(self, fields=None, params=None, batch=None, pending=False):
+        from facebookads.adobjects.checkbatchrequeststatus import CheckBatchRequestStatus
+        param_types = {
+            'handle': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/check_batch_request_status',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=CheckBatchRequestStatus,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=CheckBatchRequestStatus, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -198,7 +230,7 @@ class ProductCatalog(
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -226,7 +258,7 @@ class ProductCatalog(
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -254,7 +286,7 @@ class ProductCatalog(
             param_checker=TypeChecker(param_types, enums),
             target_class=ExternalEventSource,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ExternalEventSource),
+            response_parser=ObjectParser(target_class=ExternalEventSource, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -283,7 +315,7 @@ class ProductCatalog(
             param_checker=TypeChecker(param_types, enums),
             target_class=ExternalEventSource,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ExternalEventSource),
+            response_parser=ObjectParser(target_class=ExternalEventSource, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -312,7 +344,7 @@ class ProductCatalog(
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -341,7 +373,7 @@ class ProductCatalog(
             param_checker=TypeChecker(param_types, enums),
             target_class=ProductCatalogHotelRoomsBatch,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ProductCatalogHotelRoomsBatch),
+            response_parser=ObjectParser(target_class=ProductCatalogHotelRoomsBatch, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -376,7 +408,7 @@ class ProductCatalog(
             param_checker=TypeChecker(param_types, enums),
             target_class=ProductCatalogHotelRoomsBatch,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ProductCatalogHotelRoomsBatch),
+            response_parser=ObjectParser(target_class=ProductCatalogHotelRoomsBatch, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -406,7 +438,7 @@ class ProductCatalog(
             param_checker=TypeChecker(param_types, enums),
             target_class=Hotel,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=Hotel),
+            response_parser=ObjectParser(target_class=Hotel, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -445,7 +477,7 @@ class ProductCatalog(
             param_checker=TypeChecker(param_types, enums),
             target_class=Hotel,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=Hotel),
+            response_parser=ObjectParser(target_class=Hotel, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -474,7 +506,7 @@ class ProductCatalog(
             param_checker=TypeChecker(param_types, enums),
             target_class=ProductCatalogPricingVariablesBatch,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ProductCatalogPricingVariablesBatch),
+            response_parser=ObjectParser(target_class=ProductCatalogPricingVariablesBatch, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -509,7 +541,7 @@ class ProductCatalog(
             param_checker=TypeChecker(param_types, enums),
             target_class=ProductCatalogPricingVariablesBatch,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ProductCatalogPricingVariablesBatch),
+            response_parser=ObjectParser(target_class=ProductCatalogPricingVariablesBatch, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -537,7 +569,7 @@ class ProductCatalog(
             param_checker=TypeChecker(param_types, enums),
             target_class=ProductFeed,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ProductFeed),
+            response_parser=ObjectParser(target_class=ProductFeed, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -562,6 +594,7 @@ class ProductCatalog(
             'file_name': 'string',
             'name': 'string',
             'quoted_fields_mode': 'quoted_fields_mode_enum',
+            'rules': 'list<string>',
             'schedule': 'string',
         }
         enums = {
@@ -577,7 +610,7 @@ class ProductCatalog(
             param_checker=TypeChecker(param_types, enums),
             target_class=ProductFeed,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ProductFeed),
+            response_parser=ObjectParser(target_class=ProductFeed, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -605,7 +638,7 @@ class ProductCatalog(
             param_checker=TypeChecker(param_types, enums),
             target_class=ProductGroup,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ProductGroup),
+            response_parser=ObjectParser(target_class=ProductGroup, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -635,7 +668,7 @@ class ProductCatalog(
             param_checker=TypeChecker(param_types, enums),
             target_class=ProductGroup,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ProductGroup),
+            response_parser=ObjectParser(target_class=ProductGroup, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -667,7 +700,7 @@ class ProductCatalog(
             param_checker=TypeChecker(param_types, enums),
             target_class=ProductSet,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ProductSet),
+            response_parser=ObjectParser(target_class=ProductSet, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -697,7 +730,7 @@ class ProductCatalog(
             param_checker=TypeChecker(param_types, enums),
             target_class=ProductSet,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ProductSet),
+            response_parser=ObjectParser(target_class=ProductSet, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -725,7 +758,7 @@ class ProductCatalog(
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -755,7 +788,7 @@ class ProductCatalog(
             param_checker=TypeChecker(param_types, enums),
             target_class=ProductItem,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ProductItem),
+            response_parser=ObjectParser(target_class=ProductItem, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -822,7 +855,7 @@ class ProductCatalog(
             'start_date': 'string',
             'url': 'string',
             'visibility': 'visibility_enum',
-            'windows_phone_app_id': 'unsigned int',
+            'windows_phone_app_id': 'string',
             'windows_phone_app_name': 'string',
             'windows_phone_url': 'string',
         }
@@ -840,7 +873,7 @@ class ProductCatalog(
             param_checker=TypeChecker(param_types, enums),
             target_class=ProductItem,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ProductItem),
+            response_parser=ObjectParser(target_class=ProductItem, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -862,8 +895,11 @@ class ProductCatalog(
             'file_size': 'unsigned int',
             'file_url': 'string',
             'fov': 'unsigned int',
+            'guide': 'list<list<unsigned int>>',
+            'guide_enabled': 'bool',
             'initial_heading': 'unsigned int',
             'initial_pitch': 'unsigned int',
+            'original_fov': 'unsigned int',
             'original_projection_type': 'original_projection_type_enum',
             'referenced_sticker_id': 'string',
             'replace_video_id': 'string',
@@ -927,7 +963,7 @@ class ProductCatalog(
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -947,11 +983,13 @@ class ProductCatalog(
         'default_image_url': 'string',
         'fallback_image_url': 'list<string>',
         'feed_count': 'int',
+        'flight_catalog_settings': 'Object',
         'id': 'string',
         'image_padding_landscape': 'bool',
         'image_padding_square': 'bool',
         'name': 'string',
         'product_count': 'int',
+        'qualified_product_count': 'unsigned int',
         'vertical': 'string',
     }
 

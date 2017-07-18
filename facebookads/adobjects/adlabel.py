@@ -155,7 +155,7 @@ class AdLabel(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdCreative,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdCreative),
+            response_parser=ObjectParser(target_class=AdCreative, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -183,7 +183,7 @@ class AdLabel(
             param_checker=TypeChecker(param_types, enums),
             target_class=Ad,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=Ad),
+            response_parser=ObjectParser(target_class=Ad, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -211,7 +211,7 @@ class AdLabel(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdSet,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdSet),
+            response_parser=ObjectParser(target_class=AdSet, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -239,7 +239,7 @@ class AdLabel(
             param_checker=TypeChecker(param_types, enums),
             target_class=Campaign,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=Campaign),
+            response_parser=ObjectParser(target_class=Campaign, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

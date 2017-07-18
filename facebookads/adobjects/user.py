@@ -141,7 +141,7 @@ class User(
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -169,7 +169,7 @@ class User(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdAccount,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdAccount),
+            response_parser=ObjectParser(target_class=AdAccount, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -186,6 +186,7 @@ class User(
     def get_lead_gen_forms(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.leadgenform import LeadgenForm
         param_types = {
+            'page_id': 'string',
             'query': 'string',
         }
         enums = {
@@ -198,7 +199,7 @@ class User(
             param_checker=TypeChecker(param_types, enums),
             target_class=LeadgenForm,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=LeadgenForm),
+            response_parser=ObjectParser(target_class=LeadgenForm, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -231,7 +232,7 @@ class User(
             param_checker=TypeChecker(param_types, enums),
             target_class=ProfilePictureSource,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ProfilePictureSource),
+            response_parser=ObjectParser(target_class=ProfilePictureSource, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -259,7 +260,7 @@ class User(
             param_checker=TypeChecker(param_types, enums),
             target_class=Domain,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=Domain),
+            response_parser=ObjectParser(target_class=Domain, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -276,7 +277,9 @@ class User(
     def get_promotable_events(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.event import Event
         param_types = {
+            'include_past_events': 'bool',
             'is_page_event': 'bool',
+            'page_id': 'unsigned int',
         }
         enums = {
         }
@@ -288,7 +291,7 @@ class User(
             param_checker=TypeChecker(param_types, enums),
             target_class=Event,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=Event),
+            response_parser=ObjectParser(target_class=Event, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

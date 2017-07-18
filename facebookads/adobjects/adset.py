@@ -78,6 +78,8 @@ class AdSet(
         recurring_budget_semantics = 'recurring_budget_semantics'
         rf_prediction_id = 'rf_prediction_id'
         rtb_flag = 'rtb_flag'
+        source_adset = 'source_adset'
+        source_adset_id = 'source_adset_id'
         start_time = 'start_time'
         status = 'status'
         targeting = 'targeting'
@@ -100,6 +102,7 @@ class AdSet(
         post_engagement = 'POST_ENGAGEMENT'
         video_views = 'VIDEO_VIEWS'
         mrc_video_views = 'MRC_VIDEO_VIEWS'
+        completed_video_views = 'COMPLETED_VIDEO_VIEWS'
 
     class ConfiguredStatus:
         active = 'ACTIVE'
@@ -138,6 +141,7 @@ class AdSet(
         social_impressions = 'SOCIAL_IMPRESSIONS'
         video_views = 'VIDEO_VIEWS'
         app_downloads = 'APP_DOWNLOADS'
+        landing_page_views = 'LANDING_PAGE_VIEWS'
 
     class Status:
         active = 'ACTIVE'
@@ -314,7 +318,7 @@ class AdSet(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdActivity,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdActivity),
+            response_parser=ObjectParser(target_class=AdActivity, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -342,7 +346,7 @@ class AdSet(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdCreative,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdCreative),
+            response_parser=ObjectParser(target_class=AdCreative, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -373,7 +377,7 @@ class AdSet(
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -404,7 +408,7 @@ class AdSet(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdLabel,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdLabel),
+            response_parser=ObjectParser(target_class=AdLabel, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -439,7 +443,7 @@ class AdSet(
             param_checker=TypeChecker(param_types, enums),
             target_class=Ad,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=Ad),
+            response_parser=ObjectParser(target_class=Ad, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -469,7 +473,72 @@ class AdSet(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdAsyncRequest,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdAsyncRequest),
+            response_parser=ObjectParser(target_class=AdAsyncRequest, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_copies(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'date_preset': 'date_preset_enum',
+            'effective_status': 'list<effective_status_enum>',
+            'is_completed': 'bool',
+            'time_range': 'Object',
+        }
+        enums = {
+            'date_preset_enum': AdSet.DatePreset.__dict__.values(),
+            'effective_status_enum': AdSet.EffectiveStatus.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/copies',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdSet,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdSet, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_delivery_estimate(self, fields=None, params=None, batch=None, pending=False):
+        from facebookads.adobjects.adcampaigndeliveryestimate import AdCampaignDeliveryEstimate
+        param_types = {
+            'optimization_goal': 'optimization_goal_enum',
+            'promoted_object': 'Object',
+            'targeting_spec': 'Targeting',
+        }
+        enums = {
+            'optimization_goal_enum': AdCampaignDeliveryEstimate.OptimizationGoal.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/delivery_estimate',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdCampaignDeliveryEstimate,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdCampaignDeliveryEstimate, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -507,6 +576,7 @@ class AdSet(
             'time_increment': 'string',
             'time_range': 'Object',
             'time_ranges': 'list<Object>',
+            'use_account_attribution_setting': 'bool',
         }
         enums = {
             'action_attribution_windows_enum': AdsInsights.ActionAttributionWindows.__dict__.values(),
@@ -526,7 +596,7 @@ class AdSet(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdsInsights,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdsInsights),
+            response_parser=ObjectParser(target_class=AdsInsights, api=self._api),
             include_summary=False,
         )
         request.add_params(params)
@@ -564,6 +634,7 @@ class AdSet(
             'time_increment': 'string',
             'time_range': 'Object',
             'time_ranges': 'list<Object>',
+            'use_account_attribution_setting': 'bool',
         }
         enums = {
             'action_attribution_windows_enum': AdsInsights.ActionAttributionWindows.__dict__.values(),
@@ -583,7 +654,7 @@ class AdSet(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdReportRun,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdReportRun),
+            response_parser=ObjectParser(target_class=AdReportRun, api=self._api),
             include_summary=False,
         )
         request.add_params(params)
@@ -612,7 +683,7 @@ class AdSet(
             param_checker=TypeChecker(param_types, enums),
             target_class=TargetingSentenceLine,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=TargetingSentenceLine),
+            response_parser=ObjectParser(target_class=TargetingSentenceLine, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -660,6 +731,8 @@ class AdSet(
         'recurring_budget_semantics': 'bool',
         'rf_prediction_id': 'string',
         'rtb_flag': 'bool',
+        'source_adset': 'AdSet',
+        'source_adset_id': 'string',
         'start_time': 'datetime',
         'status': 'Status',
         'targeting': 'Targeting',

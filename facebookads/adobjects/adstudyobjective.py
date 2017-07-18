@@ -44,6 +44,7 @@ class AdStudyObjective(
         custom_attributes = 'custom_attributes'
         id = 'id'
         is_primary = 'is_primary'
+        last_updated_results = 'last_updated_results'
         name = 'name'
         results = 'results'
         type = 'type'
@@ -98,6 +99,7 @@ class AdStudyObjective(
         'custom_attributes': 'list<string>',
         'id': 'string',
         'is_primary': 'bool',
+        'last_updated_results': 'string',
         'name': 'string',
         'results': 'list<string>',
         'type': 'string',

@@ -61,6 +61,7 @@ class ReachEstimate(
         social_impressions = 'SOCIAL_IMPRESSIONS'
         video_views = 'VIDEO_VIEWS'
         app_downloads = 'APP_DOWNLOADS'
+        landing_page_views = 'LANDING_PAGE_VIEWS'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod

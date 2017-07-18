@@ -39,6 +39,7 @@ class ReachFrequencySpec(
 
     class Field(AbstractObject.Field):
         countries = 'countries'
+        default_creation_data = 'default_creation_data'
         max_campaign_duration = 'max_campaign_duration'
         max_days_to_finish = 'max_days_to_finish'
         max_pause_without_prediction_rerun = 'max_pause_without_prediction_rerun'
@@ -47,6 +48,7 @@ class ReachFrequencySpec(
 
     _field_types = {
         'countries': 'list<string>',
+        'default_creation_data': 'Object',
         'max_campaign_duration': 'Object',
         'max_days_to_finish': 'Object',
         'max_pause_without_prediction_rerun': 'Object',

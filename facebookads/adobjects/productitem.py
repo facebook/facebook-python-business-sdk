@@ -134,6 +134,7 @@ class ProductItem(
         pending = 'pending'
         rejected = 'rejected'
         approved = 'approved'
+        outdated = 'outdated'
 
     class ShippingWeightUnit:
         value_g = 'g'
@@ -260,7 +261,7 @@ class ProductItem(
             'start_date': 'string',
             'url': 'string',
             'visibility': 'visibility_enum',
-            'windows_phone_app_id': 'unsigned int',
+            'windows_phone_app_id': 'string',
             'windows_phone_app_name': 'string',
             'windows_phone_url': 'string',
         }
@@ -306,7 +307,7 @@ class ProductItem(
             param_checker=TypeChecker(param_types, enums),
             target_class=ProductSet,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ProductSet),
+            response_parser=ObjectParser(target_class=ProductSet, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -382,7 +383,7 @@ class ProductItem(
         'iphone_app_name': 'string',
         'iphone_app_store_id': 'unsigned int',
         'iphone_url': 'string',
-        'windows_phone_app_id': 'unsigned int',
+        'windows_phone_app_id': 'string',
         'windows_phone_app_name': 'string',
         'windows_phone_url': 'string',
     }

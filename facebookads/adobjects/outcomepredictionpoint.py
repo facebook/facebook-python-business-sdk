@@ -18,12 +18,39 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebookads.session import FacebookSession
-from facebookads.api import FacebookAdsApi
+from facebookads.adobjects.abstractobject import AbstractObject
 
-__version__ = '2.10.1'
-__all__ = [
-    'session',
-    'objects',
-    'api',
-]
+"""
+This class is auto-generated.
+
+For any issues or feature requests related to this class, please let us know on
+github and we'll fix in our codegen framework. We'll not be able to accept
+pull request for this class.
+"""
+
+class OutcomePredictionPoint(
+    AbstractObject,
+):
+
+    def __init__(self, api=None):
+        super(OutcomePredictionPoint, self).__init__()
+        self._isOutcomePredictionPoint = True
+        self._api = api
+
+    class Field(AbstractObject.Field):
+        actions = 'actions'
+        impressions = 'impressions'
+        reach = 'reach'
+        spend = 'spend'
+
+    _field_types = {
+        'actions': 'float',
+        'impressions': 'float',
+        'reach': 'float',
+        'spend': 'int',
+    }
+
+    @classmethod
+    def _get_field_enum_info(cls):
+        field_enum_info = {}
+        return field_enum_info

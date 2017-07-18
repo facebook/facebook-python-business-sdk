@@ -52,8 +52,10 @@ class ProductFeed(
         latest_upload = 'latest_upload'
         name = 'name'
         product_count = 'product_count'
+        qualified_product_count = 'qualified_product_count'
         quoted_fields_mode = 'quoted_fields_mode'
         schedule = 'schedule'
+        rules = 'rules'
 
     class Delimiter:
         autodetect = 'AUTODETECT'
@@ -193,7 +195,7 @@ class ProductFeed(
             param_checker=TypeChecker(param_types, enums),
             target_class=ProductItem,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ProductItem),
+            response_parser=ObjectParser(target_class=ProductItem, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -221,7 +223,7 @@ class ProductFeed(
             param_checker=TypeChecker(param_types, enums),
             target_class=ProductFeedUpload,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ProductFeedUpload),
+            response_parser=ObjectParser(target_class=ProductFeedUpload, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -254,7 +256,7 @@ class ProductFeed(
             param_checker=TypeChecker(param_types, enums),
             target_class=ProductFeedUpload,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ProductFeedUpload),
+            response_parser=ObjectParser(target_class=ProductFeedUpload, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -280,8 +282,10 @@ class ProductFeed(
         'latest_upload': 'ProductFeedUpload',
         'name': 'string',
         'product_count': 'int',
+        'qualified_product_count': 'unsigned int',
         'quoted_fields_mode': 'QuotedFieldsMode',
         'schedule': 'ProductFeedSchedule',
+        'rules': 'list<string>',
     }
 
     @classmethod

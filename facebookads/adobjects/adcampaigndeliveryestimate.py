@@ -19,7 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebookads.adobjects.abstractobject import AbstractObject
-from facebookads.adobjects.helpers.adpreviewmixin import AdPreviewMixin
 
 """
 This class is auto-generated.
@@ -29,48 +28,53 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdPreview(
-    AdPreviewMixin,
+class AdCampaignDeliveryEstimate(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(AdPreview, self).__init__()
-        self._isAdPreview = True
+        super(AdCampaignDeliveryEstimate, self).__init__()
+        self._isAdCampaignDeliveryEstimate = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        body = 'body'
+        bid_estimate = 'bid_estimate'
+        daily_outcomes_curve = 'daily_outcomes_curve'
+        estimate_dau = 'estimate_dau'
+        estimate_mau = 'estimate_mau'
+        estimate_ready = 'estimate_ready'
 
-    class AdFormat:
-        right_column_standard = 'RIGHT_COLUMN_STANDARD'
-        desktop_feed_standard = 'DESKTOP_FEED_STANDARD'
-        mobile_feed_standard = 'MOBILE_FEED_STANDARD'
-        mobile_feed_basic = 'MOBILE_FEED_BASIC'
-        mobile_interstitial = 'MOBILE_INTERSTITIAL'
-        mobile_banner = 'MOBILE_BANNER'
-        mobile_medium_rectangle = 'MOBILE_MEDIUM_RECTANGLE'
-        mobile_fullwidth = 'MOBILE_FULLWIDTH'
-        mobile_native = 'MOBILE_NATIVE'
-        instagram_standard = 'INSTAGRAM_STANDARD'
-        audience_network_outstream_video = 'AUDIENCE_NETWORK_OUTSTREAM_VIDEO'
-        instant_article_standard = 'INSTANT_ARTICLE_STANDARD'
-        instream_video_desktop = 'INSTREAM_VIDEO_DESKTOP'
-        instream_video_mobile = 'INSTREAM_VIDEO_MOBILE'
-        suggested_video_desktop = 'SUGGESTED_VIDEO_DESKTOP'
-        suggested_video_mobile = 'SUGGESTED_VIDEO_MOBILE'
-
-    # @deprecated get_endpoint function is deprecated
-    @classmethod
-    def get_endpoint(cls):
-        return 'previews'
+    class OptimizationGoal:
+        none = 'NONE'
+        app_installs = 'APP_INSTALLS'
+        brand_awareness = 'BRAND_AWARENESS'
+        clicks = 'CLICKS'
+        engaged_users = 'ENGAGED_USERS'
+        event_responses = 'EVENT_RESPONSES'
+        impressions = 'IMPRESSIONS'
+        lead_generation = 'LEAD_GENERATION'
+        link_clicks = 'LINK_CLICKS'
+        offer_claims = 'OFFER_CLAIMS'
+        offsite_conversions = 'OFFSITE_CONVERSIONS'
+        page_engagement = 'PAGE_ENGAGEMENT'
+        page_likes = 'PAGE_LIKES'
+        post_engagement = 'POST_ENGAGEMENT'
+        reach = 'REACH'
+        social_impressions = 'SOCIAL_IMPRESSIONS'
+        video_views = 'VIDEO_VIEWS'
+        app_downloads = 'APP_DOWNLOADS'
+        landing_page_views = 'LANDING_PAGE_VIEWS'
 
     _field_types = {
-        'body': 'string',
+        'bid_estimate': 'Object',
+        'daily_outcomes_curve': 'list<OutcomePredictionPoint>',
+        'estimate_dau': 'Object',
+        'estimate_mau': 'Object',
+        'estimate_ready': 'bool',
     }
 
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['AdFormat'] = AdPreview.AdFormat.__dict__.values()
+        field_enum_info['OptimizationGoal'] = AdCampaignDeliveryEstimate.OptimizationGoal.__dict__.values()
         return field_enum_info

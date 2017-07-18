@@ -166,7 +166,7 @@ class OffsitePixel(
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -194,7 +194,7 @@ class OffsitePixel(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdAccount,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdAccount),
+            response_parser=ObjectParser(target_class=AdAccount, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -223,7 +223,7 @@ class OffsitePixel(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdAccount,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdAccount),
+            response_parser=ObjectParser(target_class=AdAccount, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

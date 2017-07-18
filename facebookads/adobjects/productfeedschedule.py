@@ -42,6 +42,7 @@ class ProductFeedSchedule(
         day_of_week = 'day_of_week'
         hour = 'hour'
         interval = 'interval'
+        interval_count = 'interval_count'
         minute = 'minute'
         timezone = 'timezone'
         url = 'url'
@@ -67,6 +68,7 @@ class ProductFeedSchedule(
         'day_of_week': 'DayOfWeek',
         'hour': 'unsigned int',
         'interval': 'Interval',
+        'interval_count': 'unsigned int',
         'minute': 'unsigned int',
         'timezone': 'string',
         'url': 'string',

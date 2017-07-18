@@ -75,6 +75,7 @@ class AdReportRun(
         time_increment = 'time_increment'
         time_range = 'time_range'
         time_ranges = 'time_ranges'
+        use_account_attribution_setting = 'use_account_attribution_setting'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
@@ -128,7 +129,7 @@ class AdReportRun(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdsInsights,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdsInsights),
+            response_parser=ObjectParser(target_class=AdsInsights, api=self._api),
             include_summary=False,
         )
         request.add_params(params)
@@ -176,6 +177,7 @@ class AdReportRun(
         'time_increment': 'string',
         'time_range': 'Object',
         'time_ranges': 'list<Object>',
+        'use_account_attribution_setting': 'bool',
     }
 
     @classmethod

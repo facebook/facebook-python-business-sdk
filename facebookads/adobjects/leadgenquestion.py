@@ -38,12 +38,18 @@ class LeadGenQuestion(
         self._api = api
 
     class Field(AbstractObject.Field):
+        conditional_questions_choices = 'conditional_questions_choices'
+        conditional_questions_group_id = 'conditional_questions_group_id'
+        dependent_conditional_questions = 'dependent_conditional_questions'
         key = 'key'
         label = 'label'
         options = 'options'
         type = 'type'
 
     _field_types = {
+        'conditional_questions_choices': 'list<Object>',
+        'conditional_questions_group_id': 'string',
+        'dependent_conditional_questions': 'list<Object>',
         'key': 'string',
         'label': 'string',
         'options': 'list<LeadGenQuestionOption>',

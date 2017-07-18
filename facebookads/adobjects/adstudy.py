@@ -105,9 +105,10 @@ class AdStudy(
         param_types = {
             'adspixels': 'list<Object>',
             'applications': 'list<Object>',
+            'customconversions': 'list<Object>',
             'is_primary': 'bool',
             'name': 'string',
-            'offlinefeeds': 'list<Object>',
+            'offline_conversion_data_sets': 'list<Object>',
             'offsitepixels': 'list<Object>',
             'type': 'type_enum',
         }
@@ -122,7 +123,7 @@ class AdStudy(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdStudyObjective,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdStudyObjective),
+            response_parser=ObjectParser(target_class=AdStudyObjective, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
