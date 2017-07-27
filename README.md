@@ -81,7 +81,7 @@ into your program like the following sample app:
 
 ```python
 from facebookads.api import FacebookAdsApi
-from facebookads import objects
+from facebookads import adobjects
 
 my_app_id = '<APP_ID>'
 my_app_secret = '<APP_SECRET>'
@@ -90,7 +90,7 @@ proxies = {'http': '<HTTP_PROXY>', 'https': '<HTTPS_PROXY>'} # add proxies if ne
 FacebookAdsApi.init(my_app_id, my_app_secret, my_access_token, proxies)
 ```
 
-**NOTE**: We shall use the objects module throughout the rest of the tutorial. You can 
+**NOTE**: We shall use the adobjects module throughout the rest of the tutorial. You can 
 also use the individual class files under adobjects directly. 
 
 ## SDK Structure
@@ -143,7 +143,7 @@ both so as to aviod breaking existing codes.
 
 The way the SDK abstracts the API is by defining classes that represent objects
 on the graph. These class definitions and their helpers are located in
-``facebookads.objects``.
+``facebookads.adobjects``.
 
 ### Initializing Objects
 
@@ -172,12 +172,12 @@ Let's get all the ad accounts for the user with the given access token. I only
 have one account so the following is printed:
 
 ```python
->>> me = objects.AdUser(fbid='me')
+>>> me = adobjects.AdUser(fbid='me')
 >>> my_accounts = list(me.get_ad_accounts())
 >>> print(my_accounts)
 [{   'account_id': u'17842443', 'id': u'act_17842443'}]
 >>> type(my_accounts[0])
-<class 'facebookads.objects.AdAccount'>
+<class 'facebookads.adobjects.AdAccount'>
 ```
 
 **WARNING**: We do not specify a keyword argument ``api=api`` when instantiating
@@ -186,7 +186,7 @@ bootstrapping.
 
 **NOTE**: We wrap the return value of ``get_ad_accounts`` with ``list()``
 because ``get_ad_accounts`` returns an ``EdgeIterator`` object (located in
-``facebookads.objects``) and we want to get the full list right away instead of
+``facebookads.adobjects``) and we want to get the full list right away instead of
 having the iterator lazily loading accounts.
 
 For our purposes, we can just pick an account and do our experiments in its
