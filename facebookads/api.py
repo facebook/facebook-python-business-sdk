@@ -350,12 +350,16 @@ class FacebookAdsApiBatch(object):
         should handle its success or failure.
     """
 
-    def __init__(self, api):
+    def __init__(self, api, success=None, failure=None):
         self._api = api
         self._files = []
         self._batch = []
         self._success_callbacks = []
         self._failure_callbacks = []
+        if success is not None:
+            self._success_callbacks.append(success)
+        if failure is not None:
+            self._failure_callbacks.append(failure)
         self._requests = []
 
     def __len__(self):
