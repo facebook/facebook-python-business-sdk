@@ -96,6 +96,8 @@ class FacebookResponse(object):
         if isinstance(json_body, collections.Mapping) and 'error' in json_body:
             # Is a dictionary, has error in it
             return False
+        elif self._http_status >= 400:
+            return False
         elif bool(json_body):
             # Has body and no error
             if 'success' in json_body:
