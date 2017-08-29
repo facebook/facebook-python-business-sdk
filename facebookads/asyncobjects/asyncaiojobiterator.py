@@ -3,6 +3,7 @@ import time
 from datetime import datetime
 
 from six import string_types
+from requests.exceptions import SSLError
 
 from facebookads.asyncobjects.aioedgeiterator import AioEdgeIterator
 from facebookads.asyncobjects.asyncaiojob import AsyncAioJob
@@ -74,6 +75,11 @@ class AsyncAioJobIterator(AioEdgeIterator):
                     time.sleep(15 + i * 15)
                 elif i < 4 and exc.api_error_code() == FacebookErrorCodes.rate_limit:
                     time.sleep(60 + i * 60)
+                else:
+                    raise exc
+            except SSLError as exc:
+                if i < 4:
+                    time.sleep(10 + i * 10)
                 else:
                     raise exc
             else:
