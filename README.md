@@ -23,8 +23,7 @@ developers.facebook.com</a>.
 
 **IMPORTANT**: Enable all migrations in the App's Settings->Migrations page.
 
-**IMPORTANT**: For extra security, the SDK requires that you turn on 'App Secret
-Proof for Server API calls' in your app's Settings->Advanced page.
+**IMPORTANT**: For extra security, the SDK requires that you set 'Require App Secret' to *Yes* on your app's Settings->Advanced page.
 
 Your app should now be able to use the Marketing API!
 
