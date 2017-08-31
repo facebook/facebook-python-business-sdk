@@ -38,7 +38,7 @@ more about access tokens here</a>.
 
 For now, we can use the
 <a href="https://developers.facebook.com/tools/explorer">Graph Explorer</a> to
-get an access token.
+get an access token. Select your App from the dropdown in the top right, and then generate a token with the premissions you want to test with.
 
 ## Install package
 
