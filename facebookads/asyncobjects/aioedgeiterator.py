@@ -3,7 +3,7 @@ import random
 import time
 
 from six import string_types, text_type, binary_type
-from requests.exceptions import SSLError
+from requests.exceptions import ConnectionError
 
 import facebookads.api
 from facebookads.exceptions import FacebookUnavailablePropertyException, FacebookApiTimeout, FacebookRequestError
@@ -356,7 +356,7 @@ class AioEdgeIterator(facebookads.api.Cursor):
                 self.recover_tmp_error(exc)
             else:
                 self.recover_other_graph_error(exc)
-        elif isinstance(exc, SSLError):
+        elif isinstance(exc, ConnectionError):
             self.recover_tmp_error(exc)
         else:
             if resp.body() and isinstance(resp.json(), (string_types, text_type, binary_type)):
