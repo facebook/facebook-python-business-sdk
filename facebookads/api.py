@@ -123,7 +123,8 @@ class FacebookResponse(object):
 
         json_body = self.json()
         try:
-            return json_body.get('error', {}).get('is_transient', False)
+            error = json_body.get('error', {})
+            return error.get('is_transient', False) or error.get('message', False) == 'An unknown error occurred'
         except AttributeError:  # not a dict, we don't know much
             return False
 
