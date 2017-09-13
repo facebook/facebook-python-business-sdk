@@ -49,8 +49,9 @@ api module contains classes that make http requests to Facebook's graph API.
 
 
 class FacebookResponse(object):
-
     """Encapsulates an http response from Facebook's Graph API."""
+
+    TRANSIENT_ERROR_MESSAGE = 'An unknown error occurred'
 
     def __init__(self, body=None, http_status=None, headers=None, call=None):
         """Initializes the object's internal data.
@@ -61,6 +62,7 @@ class FacebookResponse(object):
             call (optional): The original call that was made.
         """
         self._body = body
+        self._evalute_if_transient()
         self._http_status = http_status
         self._headers = headers or {}
         self._call = call
@@ -115,6 +117,21 @@ class FacebookResponse(object):
     def is_failure(self):
         """Returns boolean indicating if the call failed."""
         return not self.is_success()
+
+    def _evalute_if_transient(self):
+        """Evaluate if the response has a transient error, depending on the status and the message"""
+        json_body = self.json()
+        try:
+            error = json_body.get('error', {})
+            is_transient = error.get('is_transient', False)
+            error_message = error.get('message', False)
+
+            if self.is_failure() and not is_transient and error_message == self.TRANSIENT_ERROR_MESSAGE:
+                error['is_transient'] = True
+                json_body['error'] = error
+                self._body = json.dumps(json_body)
+        except AttributeError:  # not a dict, we don't know much
+            return
 
     def is_transient(self):
         """Returns boolean indicating if the response failure is transient."""
