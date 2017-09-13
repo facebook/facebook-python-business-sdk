@@ -628,10 +628,34 @@ class FacebookResponseTestCase(unittest.TestCase):
 
     def test_is_transient_by_message(self):
         resp = api.FacebookResponse(
-            http_status=500,
+            http_status=500, call={},
             body=json.dumps({"error": {"is_transient": False, "message": "An unknown error occurred"}})
         )
         self.assertTrue(resp.is_transient())
+        self.assertEqual(
+            resp._body, json.dumps({"error": {"is_transient": True, "message": "An unknown error occurred"}}))
+        self.assertTrue(resp.error().api_transient_error())
+
+    def test_evalute_if_transient_not_json(self):
+        resp = api.FacebookResponse(
+            http_status=500,
+            body='hola'
+        )
+        self.assertIsInstance(resp, api.FacebookResponse)
+
+    def test_evalute_if_transient_not_failure(self):
+        resp = api.FacebookResponse(
+            http_status=200,
+            body=''
+        )
+        self.assertFalse(resp.is_transient())
+
+    def test_evalute_if_transient_failure_but_wrong_message(self):
+        resp = api.FacebookResponse(
+            http_status=500,
+            body=json.dumps({"error": {"is_transient": False, "message": "what ?"}})
+        )
+        self.assertFalse(resp.is_transient())
 
 
 if __name__ == '__main__':
