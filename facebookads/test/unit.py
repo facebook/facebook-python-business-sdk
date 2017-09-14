@@ -75,7 +75,7 @@ class CustomAudienceTestCase(unittest.TestCase):
         test_hash = (hashlib.sha256(user.encode('utf8')).hexdigest())
         payload = objects.CustomAudience.format_params(
             objects.CustomAudience.Schema.email_hash,
-            [test_hash], 
+            [test_hash],
             pre_hashed=True
         )
 
@@ -292,7 +292,7 @@ class AbstractCrudObjectTestCase(unittest.TestCase):
         self.assertIsNone(obj._parent_id)
         with self.assertRaises(exceptions.FacebookBadObjectError):
             obj.remote_create()
-            
+
 
 class AbstractObjectTestCase(unittest.TestCase):
     def test_export_nested_object(self):
@@ -636,21 +636,21 @@ class FacebookResponseTestCase(unittest.TestCase):
             resp._body, json.dumps({"error": {"is_transient": True, "message": "An unknown error occurred"}}))
         self.assertTrue(resp.error().api_transient_error())
 
-    def test_evalute_if_transient_not_json(self):
+    def test_evaluate_if_transient_not_json(self):
         resp = api.FacebookResponse(
             http_status=500,
             body='hola'
         )
         self.assertIsInstance(resp, api.FacebookResponse)
 
-    def test_evalute_if_transient_not_failure(self):
+    def test_evaluate_if_transient_not_failure(self):
         resp = api.FacebookResponse(
             http_status=200,
             body=''
         )
         self.assertFalse(resp.is_transient())
 
-    def test_evalute_if_transient_failure_but_wrong_message(self):
+    def test_evaluate_if_transient_failure_but_wrong_message(self):
         resp = api.FacebookResponse(
             http_status=500,
             body=json.dumps({"error": {"is_transient": False, "message": "what ?"}})

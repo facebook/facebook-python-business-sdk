@@ -62,7 +62,7 @@ class FacebookResponse(object):
             call (optional): The original call that was made.
         """
         self._body = body
-        self._evalute_if_transient()
+        self._evaluate_if_transient()
         self._http_status = http_status
         self._headers = headers or {}
         self._call = call
@@ -118,7 +118,7 @@ class FacebookResponse(object):
         """Returns boolean indicating if the call failed."""
         return not self.is_success()
 
-    def _evalute_if_transient(self):
+    def _evaluate_if_transient(self):
         """Evaluate if the response has a transient error, depending on the status and the message"""
         json_body = self.json()
         try:
