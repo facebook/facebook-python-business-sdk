@@ -79,15 +79,9 @@ class CustomAudienceTestCase(unittest.TestCase):
         # This is the value of "test" when it's hashed with sha256
         user = "test"
         test_hash = (hashlib.sha256(user.encode('utf8')).hexdigest())
-<<<<<<< HEAD
-        payload = objects.CustomAudience.format_params(
-            objects.CustomAudience.Schema.email_hash,
-            [test_hash],
-=======
         payload = customaudience.CustomAudience.format_params(
             customaudience.CustomAudience.Schema.email_hash,
             [test_hash],
->>>>>>> facebook/master
             pre_hashed=True
         )
 
