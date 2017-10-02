@@ -67,9 +67,9 @@ class CustomConversion(
         content_view = 'CONTENT_VIEW'
         initiated_checkout = 'INITIATED_CHECKOUT'
         lead = 'LEAD'
-        other = 'OTHER'
         purchase = 'PURCHASE'
         search = 'SEARCH'
+        other = 'OTHER'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
@@ -185,7 +185,63 @@ class CustomConversion(
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def delete_shared_agencies(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'business': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='DELETE',
+            endpoint='/shared_agencies',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_shared_agency(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'business': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/shared_agencies',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=CustomConversion,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=CustomConversion, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -217,7 +273,7 @@ class CustomConversion(
             param_checker=TypeChecker(param_types, enums),
             target_class=CustomConversionStatsResult,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=CustomConversionStatsResult),
+            response_parser=ObjectParser(target_class=CustomConversionStatsResult, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

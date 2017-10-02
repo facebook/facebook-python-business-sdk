@@ -50,10 +50,12 @@ class Business(
         name = 'name'
         payment_account_id = 'payment_account_id'
         primary_page = 'primary_page'
+        profile_picture_uri = 'profile_picture_uri'
         timezone_id = 'timezone_id'
         two_factor_type = 'two_factor_type'
         updated_by = 'updated_by'
         updated_time = 'updated_time'
+        vertical = 'vertical'
 
     def api_get(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
@@ -108,7 +110,7 @@ class Business(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdStudy,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdStudy),
+            response_parser=ObjectParser(target_class=AdStudy, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -125,6 +127,7 @@ class Business(
     def create_ad_account(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.adaccount import AdAccount
         param_types = {
+            'billing_address_id': 'string',
             'currency': 'string',
             'end_advertiser': 'Object',
             'funding_id': 'string',
@@ -146,7 +149,7 @@ class Business(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdAccount,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdAccount),
+            response_parser=ObjectParser(target_class=AdAccount, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -179,7 +182,7 @@ class Business(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdAccount,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdAccount),
+            response_parser=ObjectParser(target_class=AdAccount, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -209,7 +212,7 @@ class Business(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdsPixel,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdsPixel),
+            response_parser=ObjectParser(target_class=AdsPixel, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -238,7 +241,7 @@ class Business(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdsPixel,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdsPixel),
+            response_parser=ObjectParser(target_class=AdsPixel, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -266,7 +269,7 @@ class Business(
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -296,7 +299,7 @@ class Business(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdAccount,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdAccount),
+            response_parser=ObjectParser(target_class=AdAccount, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -325,7 +328,7 @@ class Business(
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -355,7 +358,7 @@ class Business(
             param_checker=TypeChecker(param_types, enums),
             target_class=ProductCatalog,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ProductCatalog),
+            response_parser=ObjectParser(target_class=ProductCatalog, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -383,7 +386,7 @@ class Business(
             param_checker=TypeChecker(param_types, enums),
             target_class=BusinessAdAccountRequest,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=BusinessAdAccountRequest),
+            response_parser=ObjectParser(target_class=BusinessAdAccountRequest, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -411,7 +414,7 @@ class Business(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdAccount,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdAccount),
+            response_parser=ObjectParser(target_class=AdAccount, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -439,7 +442,7 @@ class Business(
             param_checker=TypeChecker(param_types, enums),
             target_class=BusinessPageRequest,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=BusinessPageRequest),
+            response_parser=ObjectParser(target_class=BusinessPageRequest, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -466,7 +469,7 @@ class Business(
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -494,7 +497,7 @@ class Business(
             param_checker=TypeChecker(param_types, enums),
             target_class=EventSourceGroup,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=EventSourceGroup),
+            response_parser=ObjectParser(target_class=EventSourceGroup, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -524,7 +527,7 @@ class Business(
             param_checker=TypeChecker(param_types, enums),
             target_class=EventSourceGroup,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=EventSourceGroup),
+            response_parser=ObjectParser(target_class=EventSourceGroup, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -554,7 +557,7 @@ class Business(
             param_checker=TypeChecker(param_types, enums),
             target_class=ReachFrequencyPrediction,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ReachFrequencyPrediction),
+            response_parser=ObjectParser(target_class=ReachFrequencyPrediction, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -581,7 +584,7 @@ class Business(
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -616,7 +619,7 @@ class Business(
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -651,7 +654,7 @@ class Business(
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -678,7 +681,7 @@ class Business(
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -709,7 +712,7 @@ class Business(
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -737,7 +740,7 @@ class Business(
             param_checker=TypeChecker(param_types, enums),
             target_class=LegacyBusinessAdAccountRequest,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=LegacyBusinessAdAccountRequest),
+            response_parser=ObjectParser(target_class=LegacyBusinessAdAccountRequest, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -765,7 +768,7 @@ class Business(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdAccount,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdAccount),
+            response_parser=ObjectParser(target_class=AdAccount, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -792,7 +795,7 @@ class Business(
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -820,7 +823,7 @@ class Business(
             param_checker=TypeChecker(param_types, enums),
             target_class=BusinessPageRequest,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=BusinessPageRequest),
+            response_parser=ObjectParser(target_class=BusinessPageRequest, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -847,7 +850,7 @@ class Business(
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -875,7 +878,7 @@ class Business(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdsPixel,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdsPixel),
+            response_parser=ObjectParser(target_class=AdsPixel, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -908,7 +911,7 @@ class Business(
             param_checker=TypeChecker(param_types, enums),
             target_class=ProfilePictureSource,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ProfilePictureSource),
+            response_parser=ObjectParser(target_class=ProfilePictureSource, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -936,7 +939,7 @@ class Business(
             param_checker=TypeChecker(param_types, enums),
             target_class=ProductCatalog,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ProductCatalog),
+            response_parser=ObjectParser(target_class=ProductCatalog, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -954,6 +957,7 @@ class Business(
         from facebookads.adobjects.productcatalog import ProductCatalog
         param_types = {
             'da_display_settings': 'Object',
+            'flight_catalog_settings': 'map',
             'name': 'string',
             'vertical': 'vertical_enum',
         }
@@ -968,7 +972,7 @@ class Business(
             param_checker=TypeChecker(param_types, enums),
             target_class=ProductCatalog,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ProductCatalog),
+            response_parser=ObjectParser(target_class=ProductCatalog, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -996,7 +1000,7 @@ class Business(
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1024,7 +1028,7 @@ class Business(
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1051,7 +1055,46 @@ class Business(
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+
+    def create_user_permission(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'email': 'string',
+            'role': 'role_enum',
+            'user': 'int',
+        }
+        enums = {
+            'role_enum': [
+                'FINANCE_EDITOR',
+                'FINANCE_ANALYST',
+                'ADS_RIGHTS_REVIEWER',
+                'ADMIN',
+                'EMPLOYEE',
+                'FB_EMPLOYEE_SALES_REP',
+            ],
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/userpermissions',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1073,10 +1116,12 @@ class Business(
         'name': 'string',
         'payment_account_id': 'string',
         'primary_page': 'Object',
+        'profile_picture_uri': 'string',
         'timezone_id': 'unsigned int',
         'two_factor_type': 'string',
         'updated_by': 'User',
         'updated_time': 'datetime',
+        'vertical': 'string',
     }
 
     @classmethod

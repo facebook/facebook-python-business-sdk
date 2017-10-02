@@ -97,7 +97,7 @@ class ProductFeedUpload(
             param_checker=TypeChecker(param_types, enums),
             target_class=ProductFeedUploadError,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ProductFeedUploadError),
+            response_parser=ObjectParser(target_class=ProductFeedUploadError, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

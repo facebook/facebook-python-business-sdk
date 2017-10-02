@@ -48,10 +48,7 @@ class AdsInsights(
         ad_name = 'ad_name'
         adset_id = 'adset_id'
         adset_name = 'adset_name'
-        age = 'age'
-        app_store_clicks = 'app_store_clicks'
         buying_type = 'buying_type'
-        call_to_action_asset = 'call_to_action_asset'
         call_to_action_clicks = 'call_to_action_clicks'
         campaign_id = 'campaign_id'
         campaign_name = 'campaign_name'
@@ -64,40 +61,31 @@ class AdsInsights(
         cost_per_estimated_ad_recallers = 'cost_per_estimated_ad_recallers'
         cost_per_inline_link_click = 'cost_per_inline_link_click'
         cost_per_inline_post_engagement = 'cost_per_inline_post_engagement'
+        cost_per_outbound_click = 'cost_per_outbound_click'
         cost_per_total_action = 'cost_per_total_action'
         cost_per_unique_action_type = 'cost_per_unique_action_type'
         cost_per_unique_click = 'cost_per_unique_click'
         cost_per_unique_inline_link_click = 'cost_per_unique_inline_link_click'
-        country = 'country'
+        cost_per_unique_outbound_click = 'cost_per_unique_outbound_click'
         cpc = 'cpc'
         cpm = 'cpm'
         cpp = 'cpp'
         ctr = 'ctr'
         date_start = 'date_start'
         date_stop = 'date_stop'
-        deeplink_clicks = 'deeplink_clicks'
-        device_platform = 'device_platform'
-        dma = 'dma'
         estimated_ad_recall_rate = 'estimated_ad_recall_rate'
         estimated_ad_recallers = 'estimated_ad_recallers'
         frequency = 'frequency'
-        frequency_value = 'frequency_value'
-        gender = 'gender'
-        hourly_stats_aggregated_by_advertiser_time_zone = 'hourly_stats_aggregated_by_advertiser_time_zone'
-        hourly_stats_aggregated_by_audience_time_zone = 'hourly_stats_aggregated_by_audience_time_zone'
-        impression_device = 'impression_device'
         impressions = 'impressions'
-        impressions_dummy = 'impressions_dummy'
         inline_link_click_ctr = 'inline_link_click_ctr'
         inline_link_clicks = 'inline_link_clicks'
         inline_post_engagement = 'inline_post_engagement'
+        mobile_app_purchase_roas = 'mobile_app_purchase_roas'
         objective = 'objective'
-        place_page_id = 'place_page_id'
+        outbound_clicks = 'outbound_clicks'
+        outbound_clicks_ctr = 'outbound_clicks_ctr'
         place_page_name = 'place_page_name'
-        placement = 'placement'
-        product_id = 'product_id'
         reach = 'reach'
-        region = 'region'
         relevance_score = 'relevance_score'
         social_clicks = 'social_clicks'
         social_impressions = 'social_impressions'
@@ -113,6 +101,8 @@ class AdsInsights(
         unique_inline_link_click_ctr = 'unique_inline_link_click_ctr'
         unique_inline_link_clicks = 'unique_inline_link_clicks'
         unique_link_clicks_ctr = 'unique_link_clicks_ctr'
+        unique_outbound_clicks = 'unique_outbound_clicks'
+        unique_outbound_clicks_ctr = 'unique_outbound_clicks_ctr'
         unique_social_clicks = 'unique_social_clicks'
         video_10_sec_watched_actions = 'video_10_sec_watched_actions'
         video_15_sec_watched_actions = 'video_15_sec_watched_actions'
@@ -124,8 +114,8 @@ class AdsInsights(
         video_p50_watched_actions = 'video_p50_watched_actions'
         video_p75_watched_actions = 'video_p75_watched_actions'
         video_p95_watched_actions = 'video_p95_watched_actions'
-        website_clicks = 'website_clicks'
         website_ctr = 'website_ctr'
+        website_purchase_roas = 'website_purchase_roas'
 
     class ActionAttributionWindows:
         value_1d_view = '1d_view'
@@ -142,6 +132,7 @@ class AdsInsights(
         action_carousel_card_name = 'action_carousel_card_name'
         action_destination = 'action_destination'
         action_device = 'action_device'
+        action_link_click_destination = 'action_link_click_destination'
         action_reaction = 'action_reaction'
         action_target_id = 'action_target_id'
         action_type = 'action_type'
@@ -201,6 +192,7 @@ class AdsInsights(
         action_carousel_card_name = 'action_carousel_card_name'
         action_destination = 'action_destination'
         action_device = 'action_device'
+        action_link_click_destination = 'action_link_click_destination'
         action_reaction = 'action_reaction'
         action_target_id = 'action_target_id'
         action_type = 'action_type'
@@ -236,10 +228,7 @@ class AdsInsights(
         'ad_name': 'string',
         'adset_id': 'string',
         'adset_name': 'string',
-        'age': 'string',
-        'app_store_clicks': 'string',
         'buying_type': 'string',
-        'call_to_action_asset': 'Object',
         'call_to_action_clicks': 'string',
         'campaign_id': 'string',
         'campaign_name': 'string',
@@ -252,40 +241,31 @@ class AdsInsights(
         'cost_per_estimated_ad_recallers': 'string',
         'cost_per_inline_link_click': 'string',
         'cost_per_inline_post_engagement': 'string',
+        'cost_per_outbound_click': 'list<AdsActionStats>',
         'cost_per_total_action': 'string',
         'cost_per_unique_action_type': 'list<AdsActionStats>',
         'cost_per_unique_click': 'string',
         'cost_per_unique_inline_link_click': 'string',
-        'country': 'string',
+        'cost_per_unique_outbound_click': 'list<AdsActionStats>',
         'cpc': 'string',
         'cpm': 'string',
         'cpp': 'string',
         'ctr': 'string',
         'date_start': 'string',
         'date_stop': 'string',
-        'deeplink_clicks': 'string',
-        'device_platform': 'string',
-        'dma': 'string',
         'estimated_ad_recall_rate': 'string',
         'estimated_ad_recallers': 'string',
         'frequency': 'string',
-        'frequency_value': 'string',
-        'gender': 'string',
-        'hourly_stats_aggregated_by_advertiser_time_zone': 'string',
-        'hourly_stats_aggregated_by_audience_time_zone': 'string',
-        'impression_device': 'string',
         'impressions': 'string',
-        'impressions_dummy': 'string',
         'inline_link_click_ctr': 'string',
         'inline_link_clicks': 'string',
         'inline_post_engagement': 'string',
+        'mobile_app_purchase_roas': 'list<AdsActionStats>',
         'objective': 'string',
-        'place_page_id': 'string',
+        'outbound_clicks': 'list<AdsActionStats>',
+        'outbound_clicks_ctr': 'list<AdsActionStats>',
         'place_page_name': 'string',
-        'placement': 'string',
-        'product_id': 'string',
         'reach': 'string',
-        'region': 'string',
         'relevance_score': 'AdgroupRelevanceScore',
         'social_clicks': 'string',
         'social_impressions': 'string',
@@ -301,6 +281,8 @@ class AdsInsights(
         'unique_inline_link_click_ctr': 'string',
         'unique_inline_link_clicks': 'string',
         'unique_link_clicks_ctr': 'string',
+        'unique_outbound_clicks': 'list<AdsActionStats>',
+        'unique_outbound_clicks_ctr': 'list<AdsActionStats>',
         'unique_social_clicks': 'string',
         'video_10_sec_watched_actions': 'list<AdsActionStats>',
         'video_15_sec_watched_actions': 'list<AdsActionStats>',
@@ -312,8 +294,8 @@ class AdsInsights(
         'video_p50_watched_actions': 'list<AdsActionStats>',
         'video_p75_watched_actions': 'list<AdsActionStats>',
         'video_p95_watched_actions': 'list<AdsActionStats>',
-        'website_clicks': 'string',
         'website_ctr': 'list<AdsActionStats>',
+        'website_purchase_roas': 'list<AdsActionStats>',
     }
 
     @classmethod

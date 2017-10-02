@@ -48,6 +48,7 @@ class Targeting(
         cities = 'cities'
         college_years = 'college_years'
         connections = 'connections'
+        contextual_targeting_categories = 'contextual_targeting_categories'
         countries = 'countries'
         country = 'country'
         country_groups = 'country_groups'
@@ -74,7 +75,6 @@ class Targeting(
         excluded_mobile_device_model = 'excluded_mobile_device_model'
         excluded_product_audience_specs = 'excluded_product_audience_specs'
         excluded_publisher_categories = 'excluded_publisher_categories'
-        excluded_publisher_domains = 'excluded_publisher_domains'
         excluded_publisher_list_ids = 'excluded_publisher_list_ids'
         excluded_user_device = 'excluded_user_device'
         exclusions = 'exclusions'
@@ -145,6 +145,7 @@ class Targeting(
         'cities': 'list<IDName>',
         'college_years': 'list<unsigned int>',
         'connections': 'list<IDName>',
+        'contextual_targeting_categories': 'list<IDName>',
         'countries': 'list<string>',
         'country': 'list<string>',
         'country_groups': 'list<string>',
@@ -171,7 +172,6 @@ class Targeting(
         'excluded_mobile_device_model': 'list<string>',
         'excluded_product_audience_specs': 'list<TargetingProductAudienceSpec>',
         'excluded_publisher_categories': 'list<string>',
-        'excluded_publisher_domains': 'list<string>',
         'excluded_publisher_list_ids': 'list<string>',
         'excluded_user_device': 'list<string>',
         'exclusions': 'FlexibleTargeting',

@@ -29,7 +29,7 @@ readme_filename = os.path.join(this_dir, 'README.md')
 requirements_filename = os.path.join(this_dir, 'requirements.txt')
 
 PACKAGE_NAME = 'facebookads'
-PACKAGE_VERSION = '2.9.1.4'
+PACKAGE_VERSION = '2.10.1.1'
 PACKAGE_AUTHOR = 'Facebook'
 PACKAGE_AUTHOR_EMAIL = ''
 PACKAGE_URL = 'https://github.com/facebook/facebook-python-ads-sdk'
@@ -48,6 +48,13 @@ PACKAGE_DATA = {
 }
 PACKAGE_LICENSE = 'LICENSE.txt'
 PACKAGE_DESCRIPTION = 'Facebook Ads API SDK'
+PACKAGE_CLASSIFIERS = [
+    'Programming Language :: Python :: 2',
+    'Programming Language :: Python :: 2.7',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.3',
+    'Programming Language :: Python :: 3.4',
+]
 
 with open(readme_filename) as f:
     PACKAGE_LONG_DESCRIPTION = f.read()
@@ -68,4 +75,5 @@ setup(
     description=PACKAGE_DESCRIPTION,
     long_description=PACKAGE_LONG_DESCRIPTION,
     install_requires=PACKAGE_INSTALL_REQUIRES,
+    classifiers=PACKAGE_CLASSIFIERS,
 )

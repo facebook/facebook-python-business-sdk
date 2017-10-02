@@ -62,6 +62,7 @@ class AdAccount(
         age = 'age'
         agency_client_declaration = 'agency_client_declaration'
         amount_spent = 'amount_spent'
+        attribution_spec = 'attribution_spec'
         balance = 'balance'
         business = 'business'
         business_city = 'business_city'
@@ -84,6 +85,7 @@ class AdAccount(
         has_migrated_permissions = 'has_migrated_permissions'
         id = 'id'
         io_number = 'io_number'
+        is_attribution_spec_system_default = 'is_attribution_spec_system_default'
         is_notifications_enabled = 'is_notifications_enabled'
         is_personal = 'is_personal'
         is_prepay_account = 'is_prepay_account'
@@ -156,6 +158,7 @@ class AdAccount(
     def api_update(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
             'agency_client_declaration': 'map',
+            'attribution_spec': 'list<Object>',
             'business_info': 'map',
             'end_advertiser': 'string',
             'is_notifications_enabled': 'bool',
@@ -213,7 +216,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdActivity,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdActivity),
+            response_parser=ObjectParser(target_class=AdActivity, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -241,7 +244,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdPlacePageSet,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdPlacePageSet),
+            response_parser=ObjectParser(target_class=AdPlacePageSet, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -273,7 +276,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdPlacePageSet,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdPlacePageSet),
+            response_parser=ObjectParser(target_class=AdPlacePageSet, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -301,7 +304,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdCreative,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdCreative),
+            response_parser=ObjectParser(target_class=AdCreative, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -360,7 +363,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdCreative,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdCreative),
+            response_parser=ObjectParser(target_class=AdCreative, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -391,7 +394,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdCreative,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdCreative),
+            response_parser=ObjectParser(target_class=AdCreative, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -419,7 +422,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -453,7 +456,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdImage,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdImage),
+            response_parser=ObjectParser(target_class=AdImage, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -470,9 +473,9 @@ class AdAccount(
     def create_ad_image(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.adimage import AdImage
         param_types = {
-            'bytes': 'string',
+            'bytes': 'Object',
             'copy_from': 'Object',
-            'zipbytes': 'string',
+            'zipbytes': 'Object',
         }
         enums = {
         }
@@ -485,7 +488,7 @@ class AdAccount(
             target_class=AdImage,
             api_type='EDGE',
             allow_file_upload=True,
-            response_parser=ObjectParser(target_class=AdImage),
+            response_parser=ObjectParser(target_class=AdImage, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -513,7 +516,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdLabel,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdLabel),
+            response_parser=ObjectParser(target_class=AdLabel, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -542,7 +545,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdLabel,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdLabel),
+            response_parser=ObjectParser(target_class=AdLabel, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -570,7 +573,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdReportRun,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdReportRun),
+            response_parser=ObjectParser(target_class=AdReportRun, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -597,7 +600,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -632,7 +635,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=Ad,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=Ad),
+            response_parser=ObjectParser(target_class=Ad, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -675,7 +678,7 @@ class AdAccount(
             target_class=Ad,
             api_type='EDGE',
             allow_file_upload=True,
-            response_parser=ObjectParser(target_class=Ad),
+            response_parser=ObjectParser(target_class=Ad, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -706,7 +709,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=Ad,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=Ad),
+            response_parser=ObjectParser(target_class=Ad, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -742,7 +745,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdSet,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdSet),
+            response_parser=ObjectParser(target_class=AdSet, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -782,7 +785,6 @@ class AdAccount(
             'promoted_object': 'Object',
             'redownload': 'bool',
             'rf_prediction_id': 'string',
-            'rtb_flag': 'bool',
             'start_time': 'datetime',
             'status': 'status_enum',
             'targeting': 'Targeting',
@@ -803,7 +805,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdSet,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdSet),
+            response_parser=ObjectParser(target_class=AdSet, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -834,7 +836,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdSet,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdSet),
+            response_parser=ObjectParser(target_class=AdSet, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -862,7 +864,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdsPixel,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdsPixel),
+            response_parser=ObjectParser(target_class=AdsPixel, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -891,7 +893,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdsPixel,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdsPixel),
+            response_parser=ObjectParser(target_class=AdsPixel, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -920,7 +922,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -947,7 +949,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -975,6 +977,7 @@ class AdAccount(
             'og_object_id': 'string',
             'og_phrase': 'string',
             'og_suggestion_mechanism': 'string',
+            'original_fov': 'unsigned int',
             'original_projection_type': 'original_projection_type_enum',
             'referenced_sticker_id': 'string',
             'slideshow_spec': 'map',
@@ -1012,7 +1015,7 @@ class AdAccount(
             target_class=AbstractCrudObject,
             api_type='EDGE',
             allow_file_upload=True,
-            response_parser=ObjectParser(target_class=AbstractCrudObject),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1039,7 +1042,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1068,7 +1071,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdAsyncRequestSet,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdAsyncRequestSet),
+            response_parser=ObjectParser(target_class=AdAsyncRequestSet, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1104,7 +1107,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdAsyncRequestSet,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdAsyncRequestSet),
+            response_parser=ObjectParser(target_class=AdAsyncRequestSet, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1133,7 +1136,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=BroadTargetingCategories,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=BroadTargetingCategories),
+            response_parser=ObjectParser(target_class=BroadTargetingCategories, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1165,7 +1168,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1182,7 +1185,6 @@ class AdAccount(
     def get_campaigns(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.campaign import Campaign
         param_types = {
-            'ad_draft_id': 'string',
             'date_preset': 'date_preset_enum',
             'effective_status': 'list<effective_status_enum>',
             'is_completed': 'bool',
@@ -1200,7 +1202,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=Campaign,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=Campaign),
+            response_parser=ObjectParser(target_class=Campaign, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1240,7 +1242,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=Campaign,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=Campaign),
+            response_parser=ObjectParser(target_class=Campaign, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1271,7 +1273,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=Campaign,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=Campaign),
+            response_parser=ObjectParser(target_class=Campaign, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1304,7 +1306,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=CustomAudience,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=CustomAudience),
+            response_parser=ObjectParser(target_class=CustomAudience, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1337,6 +1339,7 @@ class AdAccount(
             'product_set_id': 'string',
             'retention_days': 'unsigned int',
             'rule': 'string',
+            'rule_aggregation': 'string',
             'subtype': 'subtype_enum',
         }
         enums = {
@@ -1352,7 +1355,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=CustomAudience,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=CustomAudience),
+            response_parser=ObjectParser(target_class=CustomAudience, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1380,7 +1383,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=CustomAudiencesTOS,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=CustomAudiencesTOS),
+            response_parser=ObjectParser(target_class=CustomAudiencesTOS, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1397,13 +1400,11 @@ class AdAccount(
     def create_custom_conversion(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.customconversion import CustomConversion
         param_types = {
-            'aggregation_rule': 'string',
             'custom_event_type': 'custom_event_type_enum',
             'default_conversion_value': 'float',
             'description': 'string',
             'event_source_id': 'string',
             'name': 'string',
-            'retention_days': 'int',
             'rule': 'string',
         }
         enums = {
@@ -1417,7 +1418,39 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=CustomConversion,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=CustomConversion),
+            response_parser=ObjectParser(target_class=CustomConversion, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_delivery_estimate(self, fields=None, params=None, batch=None, pending=False):
+        from facebookads.adobjects.adaccountdeliveryestimate import AdAccountDeliveryEstimate
+        param_types = {
+            'optimization_goal': 'optimization_goal_enum',
+            'promoted_object': 'Object',
+            'targeting_spec': 'Targeting',
+        }
+        enums = {
+            'optimization_goal_enum': AdAccountDeliveryEstimate.OptimizationGoal.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/delivery_estimate',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdAccountDeliveryEstimate,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdAccountDeliveryEstimate, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1456,7 +1489,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdPreview,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdPreview),
+            response_parser=ObjectParser(target_class=AdPreview, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1494,6 +1527,7 @@ class AdAccount(
             'time_increment': 'string',
             'time_range': 'Object',
             'time_ranges': 'list<Object>',
+            'use_account_attribution_setting': 'bool',
         }
         enums = {
             'action_attribution_windows_enum': AdsInsights.ActionAttributionWindows.__dict__.values(),
@@ -1513,7 +1547,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdsInsights,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdsInsights),
+            response_parser=ObjectParser(target_class=AdsInsights, api=self._api),
             include_summary=False,
         )
         request.add_params(params)
@@ -1551,6 +1585,7 @@ class AdAccount(
             'time_increment': 'string',
             'time_range': 'Object',
             'time_ranges': 'list<Object>',
+            'use_account_attribution_setting': 'bool',
         }
         enums = {
             'action_attribution_windows_enum': AdsInsights.ActionAttributionWindows.__dict__.values(),
@@ -1570,7 +1605,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdReportRun,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdReportRun),
+            response_parser=ObjectParser(target_class=AdReportRun, api=self._api),
             include_summary=False,
         )
         request.add_params(params)
@@ -1598,7 +1633,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1627,7 +1662,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=LeadgenForm,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=LeadgenForm),
+            response_parser=ObjectParser(target_class=LeadgenForm, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1656,7 +1691,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=MinimumBudget,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=MinimumBudget),
+            response_parser=ObjectParser(target_class=MinimumBudget, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1683,37 +1718,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_offline_conversion(self, fields=None, params=None, batch=None, pending=False):
-        param_types = {
-            'event': 'string',
-            'payload': 'list<Object>',
-            'pixel_id': 'string',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/offlineconversions',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1741,7 +1746,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=OffsitePixel,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=OffsitePixel),
+            response_parser=ObjectParser(target_class=OffsitePixel, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1772,7 +1777,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=OffsitePixel,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=OffsitePixel),
+            response_parser=ObjectParser(target_class=OffsitePixel, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1804,7 +1809,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=PartnerCategory,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=PartnerCategory),
+            response_parser=ObjectParser(target_class=PartnerCategory, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1832,7 +1837,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdsDataPartner,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdsDataPartner),
+            response_parser=ObjectParser(target_class=AdsDataPartner, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1876,6 +1881,7 @@ class AdAccount(
                 'DATA_SET',
                 'BAG_OF_ACCOUNTS',
                 'STUDY_RULE_AUDIENCE',
+                'FOX',
             ],
         }
         request = FacebookRequest(
@@ -1886,7 +1892,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=CustomAudience,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=CustomAudience),
+            response_parser=ObjectParser(target_class=CustomAudience, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1913,7 +1919,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1941,7 +1947,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1969,7 +1975,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=RateCard,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=RateCard),
+            response_parser=ObjectParser(target_class=RateCard, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2003,7 +2009,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=ReachEstimate,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ReachEstimate),
+            response_parser=ObjectParser(target_class=ReachEstimate, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2031,7 +2037,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=ReachFrequencyPrediction,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ReachFrequencyPrediction),
+            response_parser=ObjectParser(target_class=ReachFrequencyPrediction, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2076,7 +2082,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=ReachFrequencyPrediction,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ReachFrequencyPrediction),
+            response_parser=ObjectParser(target_class=ReachFrequencyPrediction, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2109,7 +2115,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdAccountRoas,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdAccountRoas),
+            response_parser=ObjectParser(target_class=AdAccountRoas, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2140,7 +2146,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdAccountTargetingUnified,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdAccountTargetingUnified),
+            response_parser=ObjectParser(target_class=AdAccountTargetingUnified, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2171,7 +2177,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdAccountTargetingUnified,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdAccountTargetingUnified),
+            response_parser=ObjectParser(target_class=AdAccountTargetingUnified, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2202,7 +2208,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=TargetingSentenceLine,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=TargetingSentenceLine),
+            response_parser=ObjectParser(target_class=TargetingSentenceLine, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2233,7 +2239,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdAccountTargetingUnified,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdAccountTargetingUnified),
+            response_parser=ObjectParser(target_class=AdAccountTargetingUnified, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2264,7 +2270,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdAccountTargetingUnified,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdAccountTargetingUnified),
+            response_parser=ObjectParser(target_class=AdAccountTargetingUnified, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2292,7 +2298,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2320,7 +2326,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2350,7 +2356,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=Transaction,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=Transaction),
+            response_parser=ObjectParser(target_class=Transaction, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2378,7 +2384,7 @@ class AdAccount(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdAccountUser,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdAccountUser),
+            response_parser=ObjectParser(target_class=AdAccountUser, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2398,6 +2404,7 @@ class AdAccount(
         'age': 'float',
         'agency_client_declaration': 'AgencyClientDeclaration',
         'amount_spent': 'string',
+        'attribution_spec': 'list<Object>',
         'balance': 'string',
         'business': 'Business',
         'business_city': 'string',
@@ -2420,6 +2427,7 @@ class AdAccount(
         'has_migrated_permissions': 'bool',
         'id': 'string',
         'io_number': 'string',
+        'is_attribution_spec_system_default': 'bool',
         'is_notifications_enabled': 'bool',
         'is_personal': 'unsigned int',
         'is_prepay_account': 'bool',

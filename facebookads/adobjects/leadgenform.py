@@ -42,6 +42,7 @@ class LeadgenForm(
 
     class Field(AbstractObject.Field):
         allow_organic_lead = 'allow_organic_lead'
+        block_display_for_non_targeted_viewer = 'block_display_for_non_targeted_viewer'
         context_card = 'context_card'
         continued_flow_request_method = 'continued_flow_request_method'
         created_time = 'created_time'
@@ -141,7 +142,7 @@ class LeadgenForm(
             param_checker=TypeChecker(param_types, enums),
             target_class=Lead,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=Lead),
+            response_parser=ObjectParser(target_class=Lead, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -170,7 +171,7 @@ class LeadgenForm(
             param_checker=TypeChecker(param_types, enums),
             target_class=LeadgenForm,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=LeadgenForm),
+            response_parser=ObjectParser(target_class=LeadgenForm, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -186,6 +187,7 @@ class LeadgenForm(
 
     _field_types = {
         'allow_organic_lead': 'bool',
+        'block_display_for_non_targeted_viewer': 'bool',
         'context_card': 'Object',
         'continued_flow_request_method': 'string',
         'created_time': 'datetime',

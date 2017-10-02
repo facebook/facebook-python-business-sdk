@@ -45,6 +45,7 @@ class AdsPixel(
     class Field(AbstractObject.Field):
         code = 'code'
         creation_time = 'creation_time'
+        creator = 'creator'
         id = 'id'
         is_created_by_business = 'is_created_by_business'
         last_fired_time = 'last_fired_time'
@@ -119,6 +120,7 @@ class AdsPixel(
     def get_audiences(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.customaudience import CustomAudience
         param_types = {
+            'ad_account': 'string',
         }
         enums = {
         }
@@ -130,7 +132,7 @@ class AdsPixel(
             param_checker=TypeChecker(param_types, enums),
             target_class=CustomAudience,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=CustomAudience),
+            response_parser=ObjectParser(target_class=CustomAudience, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -159,7 +161,7 @@ class AdsPixel(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdAccount,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdAccount),
+            response_parser=ObjectParser(target_class=AdAccount, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -187,7 +189,7 @@ class AdsPixel(
             param_checker=TypeChecker(param_types, enums),
             target_class=Business,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=Business),
+            response_parser=ObjectParser(target_class=Business, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -220,7 +222,7 @@ class AdsPixel(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdsPixelStatsResult,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdsPixelStatsResult),
+            response_parser=ObjectParser(target_class=AdsPixelStatsResult, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -237,6 +239,7 @@ class AdsPixel(
     _field_types = {
         'code': 'string',
         'creation_time': 'datetime',
+        'creator': 'User',
         'id': 'string',
         'is_created_by_business': 'bool',
         'last_fired_time': 'datetime',

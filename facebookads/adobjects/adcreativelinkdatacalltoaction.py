@@ -75,6 +75,7 @@ class AdCreativeLinkDataCallToAction(
         register_now = 'REGISTER_NOW'
         request_time = 'REQUEST_TIME'
         see_menu = 'SEE_MENU'
+        email_now = 'EMAIL_NOW'
         open_movies = 'OPEN_MOVIES'
 
     _field_types = {

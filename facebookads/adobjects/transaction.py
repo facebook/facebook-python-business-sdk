@@ -51,6 +51,7 @@ class Transaction(
         credential_id = 'credential_id'
         fatura_id = 'fatura_id'
         id = 'id'
+        is_business_ec_charge = 'is_business_ec_charge'
         payment_option = 'payment_option'
         product_type = 'product_type'
         provider_amount = 'provider_amount'
@@ -78,6 +79,7 @@ class Transaction(
         'credential_id': 'string',
         'fatura_id': 'unsigned int',
         'id': 'string',
+        'is_business_ec_charge': 'bool',
         'payment_option': 'string',
         'product_type': 'ProductType',
         'provider_amount': 'TransactionCurrencyAmount',

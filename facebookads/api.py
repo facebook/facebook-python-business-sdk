@@ -218,9 +218,11 @@ class FacebookAdsApi(object):
         access_token=None,
         account_id=None,
         api_version=None,
-        proxies=None
+        proxies=None,
+        timeout=None
     ):
-        session = FacebookSession(app_id, app_secret, access_token, proxies)
+        session = FacebookSession(app_id, app_secret, access_token, proxies,
+                                  timeout)
         api = cls(session, api_version)
         cls.set_default_api(api)
 
@@ -328,6 +330,7 @@ class FacebookAdsApi(object):
                 params=params,
                 headers=headers,
                 files=files,
+                timeout=self._session.timeout
             )
         else:
             response = self._session.requests.request(
@@ -336,6 +339,7 @@ class FacebookAdsApi(object):
                 data=params,
                 headers=headers,
                 files=files,
+                timeout=self._session.timeout
             )
         fb_response = FacebookResponse(
             body=response.text,
@@ -374,13 +378,19 @@ class FacebookAdsApiBatch(object):
         should handle its success or failure.
     """
 
-    def __init__(self, api):
+    def __init__(self, api, success=None, failure=None):
         self._api = api
         self._files = []
         self._batch = []
         self._success_callbacks = []
         self._failure_callbacks = []
         self._transient_errors_callbacks = []
+
+        if success is not None:
+            self._success_callbacks.append(success)
+        if failure is not None:
+            self._failure_callbacks.append(failure)
+
         self._requests = []
 
     def __len__(self):
