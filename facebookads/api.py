@@ -51,7 +51,10 @@ api module contains classes that make http requests to Facebook's graph API.
 class FacebookResponse(object):
     """Encapsulates an http response from Facebook's Graph API."""
 
-    TRANSIENT_ERROR_MESSAGE = 'An unknown error occurred'
+    TRANSIENT_ERROR_MESSAGES = [
+        'An unknown error occurred',
+        'This could happen if a dependent request failed or the entire request timed out.'
+    ]
 
     def __init__(self, body=None, http_status=None, headers=None, call=None):
         """Initializes the object's internal data.
@@ -126,7 +129,7 @@ class FacebookResponse(object):
             is_transient = error.get('is_transient', False)
             error_message = error.get('message', False)
 
-            if self.is_failure() and not is_transient and error_message == self.TRANSIENT_ERROR_MESSAGE:
+            if self.is_failure() and not is_transient and error_message in self.TRANSIENT_ERROR_MESSAGES:
                 error['is_transient'] = True
                 json_body['error'] = error
                 self._body = json.dumps(json_body)
