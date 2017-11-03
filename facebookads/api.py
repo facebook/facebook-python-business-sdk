@@ -129,10 +129,12 @@ class FacebookResponse(object):
             is_transient = error.get('is_transient', False)
             error_message = error.get('message', False)
 
-            if self.is_failure() and not is_transient and error_message in self.TRANSIENT_ERROR_MESSAGES:
-                error['is_transient'] = True
-                json_body['error'] = error
-                self._body = json.dumps(json_body)
+            for transient_error_message in self.TRANSIENT_ERROR_MESSAGES:
+                if self.is_failure() and not is_transient and transient_error_message in error_message:
+                    error['is_transient'] = True
+                    json_body['error'] = error
+                    self._body = json.dumps(json_body)
+                    break
         except AttributeError:  # not a dict, we don't know much
             return
 
