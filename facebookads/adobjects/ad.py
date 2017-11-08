@@ -505,6 +505,7 @@ class Ad(
         from facebookads.adobjects.adpreview import AdPreview
         param_types = {
             'ad_format': 'ad_format_enum',
+            'dynamic_creative_spec': 'Object',
             'end_date': 'datetime',
             'height': 'unsigned int',
             'locale': 'string',

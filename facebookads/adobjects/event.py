@@ -49,6 +49,7 @@ class Event(
         declined_count = 'declined_count'
         description = 'description'
         end_time = 'end_time'
+        event_times = 'event_times'
         guest_list_enabled = 'guest_list_enabled'
         id = 'id'
         interested_count = 'interested_count'
@@ -62,6 +63,7 @@ class Event(
         owner = 'owner'
         parent_group = 'parent_group'
         place = 'place'
+        scheduled_publish_time = 'scheduled_publish_time'
         start_time = 'start_time'
         ticket_uri = 'ticket_uri'
         ticketing_privacy_uri = 'ticketing_privacy_uri'
@@ -145,6 +147,7 @@ class Event(
         'declined_count': 'int',
         'description': 'string',
         'end_time': 'string',
+        'event_times': 'list<Object>',
         'guest_list_enabled': 'bool',
         'id': 'string',
         'interested_count': 'int',
@@ -158,6 +161,7 @@ class Event(
         'owner': 'Object',
         'parent_group': 'Object',
         'place': 'Object',
+        'scheduled_publish_time': 'string',
         'start_time': 'string',
         'ticket_uri': 'string',
         'ticketing_privacy_uri': 'string',

@@ -74,6 +74,7 @@ class AdAccount(
         id = 'id'
         io_number = 'io_number'
         is_attribution_spec_system_default = 'is_attribution_spec_system_default'
+        is_direct_deals_enabled = 'is_direct_deals_enabled'
         is_notifications_enabled = 'is_notifications_enabled'
         is_personal = 'is_personal'
         is_prepay_account = 'is_prepay_account'
@@ -83,6 +84,7 @@ class AdAccount(
         min_campaign_group_spend_cap = 'min_campaign_group_spend_cap'
         min_daily_budget = 'min_daily_budget'
         name = 'name'
+        next_bill_date = 'next_bill_date'
         offsite_pixels_tos_accepted = 'offsite_pixels_tos_accepted'
         owner = 'owner'
         partner = 'partner'
@@ -98,18 +100,6 @@ class AdAccount(
         timezone_offset_hours_utc = 'timezone_offset_hours_utc'
         tos_accepted = 'tos_accepted'
         user_role = 'user_role'
-
-    class AccessType:
-        owner = 'OWNER'
-        agency = 'AGENCY'
-
-    class PermittedRoles:
-        admin = 'ADMIN'
-        general_user = 'GENERAL_USER'
-        reports_only = 'REPORTS_ONLY'
-        instagram_advertiser = 'INSTAGRAM_ADVERTISER'
-        instagram_manager = 'INSTAGRAM_MANAGER'
-        fb_employee_dso_advertiser = 'FB_EMPLOYEE_DSO_ADVERTISER'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
@@ -278,6 +268,33 @@ class AdAccount(
             self.assure_call()
             return request.execute()
 
+    def get_ad_asset_feeds(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/adasset_feeds',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_ad_creatives(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.adcreative import AdCreative
         param_types = {
@@ -313,6 +330,7 @@ class AdAccount(
             'adlabels': 'list<Object>',
             'applink_treatment': 'applink_treatment_enum',
             'body': 'string',
+            'branded_content_sponsor_page_id': 'string',
             'call_to_action': 'Object',
             'dynamic_ad_voice': 'dynamic_ad_voice_enum',
             'image_crops': 'map',
@@ -332,6 +350,7 @@ class AdAccount(
             'object_url': 'string',
             'platform_customizations': 'Object',
             'product_set_id': 'string',
+            'recommender_settings': 'map',
             'template_url': 'string',
             'template_url_spec': 'Object',
             'thumbnail_url': 'string',
@@ -602,6 +621,70 @@ class AdAccount(
             self.assure_call()
             return request.execute()
 
+    def get_ad_rules_history(self, fields=None, params=None, batch=None, pending=False):
+        from facebookads.adobjects.adaccountadruleshistory import AdAccountAdRulesHistory
+        param_types = {
+            'hide_no_changes': 'bool',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/adrules_history',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdAccountAdRulesHistory,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdAccountAdRulesHistory, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_ad_rules_library(self, fields=None, params=None, batch=None, pending=False):
+        from facebookads.adobjects.adrule import AdRule
+        param_types = {
+            'account_id': 'string',
+            'evaluation_spec': 'Object',
+            'execution_spec': 'Object',
+            'name': 'string',
+            'schedule_spec': 'Object',
+            'status': 'status_enum',
+        }
+        enums = {
+            'status_enum': AdRule.Status.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/adrules_library',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdRule,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdRule, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_ads(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.ad import Ad
         param_types = {
@@ -760,6 +843,7 @@ class AdAccount(
             'creative_sequence': 'list<string>',
             'daily_budget': 'unsigned int',
             'daily_imps': 'unsigned int',
+            'destination_type': 'destination_type_enum',
             'end_time': 'datetime',
             'execution_options': 'list<execution_options_enum>',
             'frequency_control_specs': 'list<Object>',
@@ -781,6 +865,7 @@ class AdAccount(
         }
         enums = {
             'billing_event_enum': AdSet.BillingEvent.__dict__.values(),
+            'destination_type_enum': AdSet.DestinationType.__dict__.values(),
             'execution_options_enum': AdSet.ExecutionOptions.__dict__.values(),
             'optimization_goal_enum': AdSet.OptimizationGoal.__dict__.values(),
             'status_enum': AdSet.Status.__dict__.values(),
@@ -981,6 +1066,7 @@ class AdAccount(
             'original_projection_type_enum': [
                 'equirectangular',
                 'cubemap',
+                'equiangular_cubemap',
             ],
             'unpublished_content_type_enum': [
                 'SCHEDULED',
@@ -1311,6 +1397,7 @@ class AdAccount(
     def create_custom_audience(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.customaudience import CustomAudience
         param_types = {
+            'allowed_domains': 'list<string>',
             'claim_objective': 'claim_objective_enum',
             'content_type': 'content_type_enum',
             'dataset_id': 'string',
@@ -1457,6 +1544,7 @@ class AdAccount(
         param_types = {
             'ad_format': 'ad_format_enum',
             'creative': 'AdCreative',
+            'dynamic_creative_spec': 'Object',
             'end_date': 'datetime',
             'height': 'unsigned int',
             'locale': 'string',
@@ -1694,6 +1782,7 @@ class AdAccount(
             return request.execute()
 
     def get_offline_conversion_data_sets(self, fields=None, params=None, batch=None, pending=False):
+        from facebookads.adobjects.offlineconversiondataset import OfflineConversionDataSet
         param_types = {
         }
         enums = {
@@ -1704,9 +1793,9 @@ class AdAccount(
             endpoint='/offline_conversion_data_sets',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=OfflineConversionDataSet,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=OfflineConversionDataSet, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2416,6 +2505,7 @@ class AdAccount(
         'id': 'string',
         'io_number': 'string',
         'is_attribution_spec_system_default': 'bool',
+        'is_direct_deals_enabled': 'bool',
         'is_notifications_enabled': 'bool',
         'is_personal': 'unsigned int',
         'is_prepay_account': 'bool',
@@ -2425,6 +2515,7 @@ class AdAccount(
         'min_campaign_group_spend_cap': 'string',
         'min_daily_budget': 'unsigned int',
         'name': 'string',
+        'next_bill_date': 'datetime',
         'offsite_pixels_tos_accepted': 'bool',
         'owner': 'string',
         'partner': 'string',
@@ -2445,6 +2536,4 @@ class AdAccount(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['AccessType'] = AdAccount.AccessType.__dict__.values()
-        field_enum_info['PermittedRoles'] = AdAccount.PermittedRoles.__dict__.values()
         return field_enum_info

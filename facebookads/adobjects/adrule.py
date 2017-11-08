@@ -32,49 +32,39 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class LeadgenForm(
+class AdRule(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isLeadgenForm = True
-        super(LeadgenForm, self).__init__(fbid, parent_id, api)
+        self._isAdRule = True
+        super(AdRule, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        allow_organic_lead = 'allow_organic_lead'
-        block_display_for_non_targeted_viewer = 'block_display_for_non_targeted_viewer'
-        context_card = 'context_card'
+        account_id = 'account_id'
+        created_by = 'created_by'
         created_time = 'created_time'
-        creator = 'creator'
-        creator_id = 'creator_id'
-        cusomized_tcpa_content = 'cusomized_tcpa_content'
-        expired_leads_count = 'expired_leads_count'
-        extra_details = 'extra_details'
-        follow_up_action_text = 'follow_up_action_text'
-        follow_up_action_url = 'follow_up_action_url'
+        evaluation_spec = 'evaluation_spec'
+        execution_spec = 'execution_spec'
         id = 'id'
-        is_continued_flow = 'is_continued_flow'
-        leadgen_export_csv_url = 'leadgen_export_csv_url'
-        leads_count = 'leads_count'
-        legal_content = 'legal_content'
-        locale = 'locale'
-        messenger_welcome_message = 'messenger_welcome_message'
         name = 'name'
-        organic_leads_count = 'organic_leads_count'
-        page = 'page'
-        page_id = 'page_id'
-        privacy_policy_url = 'privacy_policy_url'
-        qualifiers = 'qualifiers'
-        question_page_custom_headline = 'question_page_custom_headline'
-        questions = 'questions'
+        schedule_spec = 'schedule_spec'
         status = 'status'
-        tcpa_compliance = 'tcpa_compliance'
-        thank_you_page = 'thank_you_page'
+        updated_time = 'updated_time'
+
+    class Status:
+        enabled = 'ENABLED'
+        disabled = 'DISABLED'
+        deleted = 'DELETED'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
-        return 'leadgen_forms'
+        return 'adrules_library'
+
+    def api_create(self, parent_id, fields=None, params=None, batch=None, pending=False):
+        from facebookads.adobjects.adaccount import AdAccount
+        return AdAccount(api=self._api, fbid=parent_id).create_ad_rules_library(fields, params, batch, pending)
 
     def api_delete(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
@@ -114,7 +104,7 @@ class LeadgenForm(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=LeadgenForm,
+            target_class=AdRule,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -130,21 +120,27 @@ class LeadgenForm(
             self.assure_call()
             return request.execute()
 
-    def get_leads(self, fields=None, params=None, batch=None, pending=False):
-        from facebookads.adobjects.lead import Lead
+    def api_update(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
+            'evaluation_spec': 'Object',
+            'execution_spec': 'Object',
+            'name': 'string',
+            'reset_period': 'int',
+            'schedule_spec': 'Object',
+            'status': 'status_enum',
         }
         enums = {
+            'status_enum': AdRule.Status.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
-            method='GET',
-            endpoint='/leads',
+            method='POST',
+            endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=Lead,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=Lead, api=self._api),
+            target_class=AdRule,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -158,22 +154,25 @@ class LeadgenForm(
             self.assure_call()
             return request.execute()
 
-    def create_test_lead(self, fields=None, params=None, batch=None, pending=False):
+    def get_history(self, fields=None, params=None, batch=None, pending=False):
+        from facebookads.adobjects.adrulehistory import AdRuleHistory
         param_types = {
-            'custom_disclaimer_responses': 'list<Object>',
-            'field_data': 'list<Object>',
+            'action': 'action_enum',
+            'hide_no_changes': 'bool',
+            'object_id': 'string',
         }
         enums = {
+            'action_enum': AdRuleHistory.Action.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
-            method='POST',
-            endpoint='/test_leads',
+            method='GET',
+            endpoint='/history',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=LeadgenForm,
+            target_class=AdRuleHistory,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=LeadgenForm, api=self._api),
+            response_parser=ObjectParser(target_class=AdRuleHistory, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -188,38 +187,20 @@ class LeadgenForm(
             return request.execute()
 
     _field_types = {
-        'allow_organic_lead': 'bool',
-        'block_display_for_non_targeted_viewer': 'bool',
-        'context_card': 'Object',
+        'account_id': 'string',
+        'created_by': 'User',
         'created_time': 'datetime',
-        'creator': 'User',
-        'creator_id': 'int',
-        'cusomized_tcpa_content': 'string',
-        'expired_leads_count': 'unsigned int',
-        'extra_details': 'list<string>',
-        'follow_up_action_text': 'string',
-        'follow_up_action_url': 'string',
+        'evaluation_spec': 'AdRuleEvaluationSpec',
+        'execution_spec': 'AdRuleExecutionSpec',
         'id': 'string',
-        'is_continued_flow': 'bool',
-        'leadgen_export_csv_url': 'string',
-        'leads_count': 'unsigned int',
-        'legal_content': 'Object',
-        'locale': 'string',
-        'messenger_welcome_message': 'string',
         'name': 'string',
-        'organic_leads_count': 'unsigned int',
-        'page': 'Object',
-        'page_id': 'string',
-        'privacy_policy_url': 'string',
-        'qualifiers': 'list<LeadGenQualifier>',
-        'question_page_custom_headline': 'string',
-        'questions': 'list<LeadGenQuestion>',
+        'schedule_spec': 'AdRuleScheduleSpec',
         'status': 'string',
-        'tcpa_compliance': 'bool',
-        'thank_you_page': 'Object',
+        'updated_time': 'datetime',
     }
 
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['Status'] = AdRule.Status.__dict__.values()
         return field_enum_info

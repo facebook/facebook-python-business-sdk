@@ -28,35 +28,36 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdCreativePhotoData(
+class AdRuleExecutionSpec(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(AdCreativePhotoData, self).__init__()
-        self._isAdCreativePhotoData = True
+        super(AdRuleExecutionSpec, self).__init__()
+        self._isAdRuleExecutionSpec = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        branded_content_shared_to_sponsor_status = 'branded_content_shared_to_sponsor_status'
-        branded_content_sponsor_page_id = 'branded_content_sponsor_page_id'
-        branded_content_sponsor_relationship = 'branded_content_sponsor_relationship'
-        caption = 'caption'
-        image_hash = 'image_hash'
-        page_welcome_message = 'page_welcome_message'
-        url = 'url'
+        execution_options = 'execution_options'
+        execution_type = 'execution_type'
+
+    class ExecutionType:
+        ping_endpoint = 'PING_ENDPOINT'
+        notification = 'NOTIFICATION'
+        pause = 'PAUSE'
+        rebalance_budget = 'REBALANCE_BUDGET'
+        change_budget = 'CHANGE_BUDGET'
+        change_bid = 'CHANGE_BID'
+        rotate = 'ROTATE'
+        unpause = 'UNPAUSE'
 
     _field_types = {
-        'branded_content_shared_to_sponsor_status': 'string',
-        'branded_content_sponsor_page_id': 'string',
-        'branded_content_sponsor_relationship': 'string',
-        'caption': 'string',
-        'image_hash': 'string',
-        'page_welcome_message': 'string',
-        'url': 'string',
+        'execution_options': 'list<AdRuleExecutionOptions>',
+        'execution_type': 'ExecutionType',
     }
 
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['ExecutionType'] = AdRuleExecutionSpec.ExecutionType.__dict__.values()
         return field_enum_info

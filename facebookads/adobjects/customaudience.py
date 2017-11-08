@@ -65,6 +65,7 @@ class CustomAudience(
         time_content_updated = 'time_content_updated'
         time_created = 'time_created'
         time_updated = 'time_updated'
+        allowed_domains = 'allowed_domains'
         claim_objective = 'claim_objective'
         content_type = 'content_type'
         dataset_id = 'dataset_id'
@@ -85,6 +86,7 @@ class CustomAudience(
         home_listing = 'HOME_LISTING'
         product = 'PRODUCT'
         travel = 'TRAVEL'
+        vehicle = 'VEHICLE'
 
     class ContentType:
         auto_offer = 'AUTO_OFFER'
@@ -92,6 +94,7 @@ class CustomAudience(
         flight = 'FLIGHT'
         home_listing = 'HOME_LISTING'
         hotel = 'HOTEL'
+        vehicle = 'VEHICLE'
 
     class Subtype:
         custom = 'CUSTOM'
@@ -198,6 +201,7 @@ class CustomAudience(
 
     def api_update(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
+            'allowed_domains': 'list<string>',
             'claim_objective': 'claim_objective_enum',
             'content_type': 'content_type_enum',
             'description': 'string',
@@ -495,6 +499,7 @@ class CustomAudience(
         'time_content_updated': 'unsigned int',
         'time_created': 'unsigned int',
         'time_updated': 'unsigned int',
+        'allowed_domains': 'list<string>',
         'claim_objective': 'ClaimObjective',
         'content_type': 'ContentType',
         'dataset_id': 'string',

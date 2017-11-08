@@ -28,32 +28,36 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdCreativePhotoData(
+class AdAccountAdRulesHistory(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(AdCreativePhotoData, self).__init__()
-        self._isAdCreativePhotoData = True
+        super(AdAccountAdRulesHistory, self).__init__()
+        self._isAdAccountAdRulesHistory = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        branded_content_shared_to_sponsor_status = 'branded_content_shared_to_sponsor_status'
-        branded_content_sponsor_page_id = 'branded_content_sponsor_page_id'
-        branded_content_sponsor_relationship = 'branded_content_sponsor_relationship'
-        caption = 'caption'
-        image_hash = 'image_hash'
-        page_welcome_message = 'page_welcome_message'
-        url = 'url'
+        evaluation_spec = 'evaluation_spec'
+        exception_code = 'exception_code'
+        exception_message = 'exception_message'
+        execution_spec = 'execution_spec'
+        is_manual = 'is_manual'
+        results = 'results'
+        rule_id = 'rule_id'
+        schedule_spec = 'schedule_spec'
+        timestamp = 'timestamp'
 
     _field_types = {
-        'branded_content_shared_to_sponsor_status': 'string',
-        'branded_content_sponsor_page_id': 'string',
-        'branded_content_sponsor_relationship': 'string',
-        'caption': 'string',
-        'image_hash': 'string',
-        'page_welcome_message': 'string',
-        'url': 'string',
+        'evaluation_spec': 'AdRuleEvaluationSpec',
+        'exception_code': 'int',
+        'exception_message': 'string',
+        'execution_spec': 'AdRuleExecutionSpec',
+        'is_manual': 'bool',
+        'results': 'list<AdRuleHistoryResult>',
+        'rule_id': 'int',
+        'schedule_spec': 'AdRuleScheduleSpec',
+        'timestamp': 'datetime',
     }
 
     @classmethod

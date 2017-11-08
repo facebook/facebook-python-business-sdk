@@ -28,20 +28,30 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdCreativeLinkDataCallToAction(
+class AdAssetFeedSpec(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(AdCreativeLinkDataCallToAction, self).__init__()
-        self._isAdCreativeLinkDataCallToAction = True
+        super(AdAssetFeedSpec, self).__init__()
+        self._isAdAssetFeedSpec = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        type = 'type'
-        value = 'value'
+        ad_formats = 'ad_formats'
+        bodies = 'bodies'
+        call_to_action_types = 'call_to_action_types'
+        captions = 'captions'
+        descriptions = 'descriptions'
+        groups = 'groups'
+        images = 'images'
+        link_urls = 'link_urls'
+        optimization_type = 'optimization_type'
+        target_rules = 'target_rules'
+        titles = 'titles'
+        videos = 'videos'
 
-    class Type:
+    class CallToActionTypes:
         open_link = 'OPEN_LINK'
         like_page = 'LIKE_PAGE'
         shop_now = 'SHOP_NOW'
@@ -83,12 +93,22 @@ class AdCreativeLinkDataCallToAction(
         open_movies = 'OPEN_MOVIES'
 
     _field_types = {
-        'type': 'Type',
-        'value': 'AdCreativeLinkDataCallToActionValue',
+        'ad_formats': 'list<string>',
+        'bodies': 'list<AdAssetFeedSpecBody>',
+        'call_to_action_types': 'list<CallToActionTypes>',
+        'captions': 'list<AdAssetFeedSpecCaption>',
+        'descriptions': 'list<AdAssetFeedSpecDescription>',
+        'groups': 'list<AdAssetFeedSpecGroupRule>',
+        'images': 'list<AdAssetFeedSpecImage>',
+        'link_urls': 'list<AdAssetFeedSpecLinkURL>',
+        'optimization_type': 'string',
+        'target_rules': 'list<AdAssetFeedSpecTargetRule>',
+        'titles': 'list<AdAssetFeedSpecTitle>',
+        'videos': 'list<AdAssetFeedSpecVideo>',
     }
 
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['Type'] = AdCreativeLinkDataCallToAction.Type.__dict__.values()
+        field_enum_info['CallToActionTypes'] = AdAssetFeedSpec.CallToActionTypes.__dict__.values()
         return field_enum_info

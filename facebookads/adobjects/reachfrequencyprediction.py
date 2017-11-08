@@ -161,7 +161,7 @@ class ReachFrequencyPrediction(
         'interval_frequency_cap': 'unsigned int',
         'interval_frequency_cap_reset_period': 'unsigned int',
         'name': 'string',
-        'pause_periods': 'string',
+        'pause_periods': 'list<Object>',
         'placement_breakdown': 'Object',
         'prediction_mode': 'unsigned int',
         'prediction_progress': 'unsigned int',

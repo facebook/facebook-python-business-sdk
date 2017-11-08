@@ -28,32 +28,28 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdCreativePhotoData(
+class AdAssetFeedSpecLinkURL(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(AdCreativePhotoData, self).__init__()
-        self._isAdCreativePhotoData = True
+        super(AdAssetFeedSpecLinkURL, self).__init__()
+        self._isAdAssetFeedSpecLinkURL = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        branded_content_shared_to_sponsor_status = 'branded_content_shared_to_sponsor_status'
-        branded_content_sponsor_page_id = 'branded_content_sponsor_page_id'
-        branded_content_sponsor_relationship = 'branded_content_sponsor_relationship'
-        caption = 'caption'
-        image_hash = 'image_hash'
-        page_welcome_message = 'page_welcome_message'
-        url = 'url'
+        adlabels = 'adlabels'
+        deeplink_url = 'deeplink_url'
+        display_url = 'display_url'
+        url_tags = 'url_tags'
+        website_url = 'website_url'
 
     _field_types = {
-        'branded_content_shared_to_sponsor_status': 'string',
-        'branded_content_sponsor_page_id': 'string',
-        'branded_content_sponsor_relationship': 'string',
-        'caption': 'string',
-        'image_hash': 'string',
-        'page_welcome_message': 'string',
-        'url': 'string',
+        'adlabels': 'list<AdAssetFeedSpecAssetLabel>',
+        'deeplink_url': 'string',
+        'display_url': 'string',
+        'url_tags': 'string',
+        'website_url': 'string',
     }
 
     @classmethod

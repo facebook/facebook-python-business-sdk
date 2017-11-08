@@ -28,35 +28,32 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdCreativePhotoData(
+class AdRuleEvaluationSpec(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(AdCreativePhotoData, self).__init__()
-        self._isAdCreativePhotoData = True
+        super(AdRuleEvaluationSpec, self).__init__()
+        self._isAdRuleEvaluationSpec = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        branded_content_shared_to_sponsor_status = 'branded_content_shared_to_sponsor_status'
-        branded_content_sponsor_page_id = 'branded_content_sponsor_page_id'
-        branded_content_sponsor_relationship = 'branded_content_sponsor_relationship'
-        caption = 'caption'
-        image_hash = 'image_hash'
-        page_welcome_message = 'page_welcome_message'
-        url = 'url'
+        evaluation_type = 'evaluation_type'
+        filters = 'filters'
+        trigger = 'trigger'
+
+    class EvaluationType:
+        schedule = 'SCHEDULE'
+        trigger = 'TRIGGER'
 
     _field_types = {
-        'branded_content_shared_to_sponsor_status': 'string',
-        'branded_content_sponsor_page_id': 'string',
-        'branded_content_sponsor_relationship': 'string',
-        'caption': 'string',
-        'image_hash': 'string',
-        'page_welcome_message': 'string',
-        'url': 'string',
+        'evaluation_type': 'EvaluationType',
+        'filters': 'list<AdRuleFilters>',
+        'trigger': 'AdRuleTrigger',
     }
 
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['EvaluationType'] = AdRuleEvaluationSpec.EvaluationType.__dict__.values()
         return field_enum_info

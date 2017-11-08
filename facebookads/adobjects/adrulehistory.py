@@ -28,35 +28,51 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdCreativePhotoData(
+class AdRuleHistory(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(AdCreativePhotoData, self).__init__()
-        self._isAdCreativePhotoData = True
+        super(AdRuleHistory, self).__init__()
+        self._isAdRuleHistory = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        branded_content_shared_to_sponsor_status = 'branded_content_shared_to_sponsor_status'
-        branded_content_sponsor_page_id = 'branded_content_sponsor_page_id'
-        branded_content_sponsor_relationship = 'branded_content_sponsor_relationship'
-        caption = 'caption'
-        image_hash = 'image_hash'
-        page_welcome_message = 'page_welcome_message'
-        url = 'url'
+        evaluation_spec = 'evaluation_spec'
+        exception_code = 'exception_code'
+        exception_message = 'exception_message'
+        execution_spec = 'execution_spec'
+        is_manual = 'is_manual'
+        results = 'results'
+        schedule_spec = 'schedule_spec'
+        timestamp = 'timestamp'
+
+    class Action:
+        budget_not_redistributed = 'BUDGET_NOT_REDISTRIBUTED'
+        changed_bid = 'CHANGED_BID'
+        changed_budget = 'CHANGED_BUDGET'
+        email = 'EMAIL'
+        endpoint_pinged = 'ENDPOINT_PINGED'
+        error = 'ERROR'
+        facebook_notification_sent = 'FACEBOOK_NOTIFICATION_SENT'
+        message_sent = 'MESSAGE_SENT'
+        not_changed = 'NOT_CHANGED'
+        paused = 'PAUSED'
+        unpaused = 'UNPAUSED'
 
     _field_types = {
-        'branded_content_shared_to_sponsor_status': 'string',
-        'branded_content_sponsor_page_id': 'string',
-        'branded_content_sponsor_relationship': 'string',
-        'caption': 'string',
-        'image_hash': 'string',
-        'page_welcome_message': 'string',
-        'url': 'string',
+        'evaluation_spec': 'AdRuleEvaluationSpec',
+        'exception_code': 'int',
+        'exception_message': 'string',
+        'execution_spec': 'AdRuleExecutionSpec',
+        'is_manual': 'bool',
+        'results': 'list<AdRuleHistoryResult>',
+        'schedule_spec': 'AdRuleScheduleSpec',
+        'timestamp': 'datetime',
     }
 
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['Action'] = AdRuleHistory.Action.__dict__.values()
         return field_enum_info

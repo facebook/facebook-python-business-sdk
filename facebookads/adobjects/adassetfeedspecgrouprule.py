@@ -28,32 +28,32 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdCreativePhotoData(
+class AdAssetFeedSpecGroupRule(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(AdCreativePhotoData, self).__init__()
-        self._isAdCreativePhotoData = True
+        super(AdAssetFeedSpecGroupRule, self).__init__()
+        self._isAdAssetFeedSpecGroupRule = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        branded_content_shared_to_sponsor_status = 'branded_content_shared_to_sponsor_status'
-        branded_content_sponsor_page_id = 'branded_content_sponsor_page_id'
-        branded_content_sponsor_relationship = 'branded_content_sponsor_relationship'
-        caption = 'caption'
-        image_hash = 'image_hash'
-        page_welcome_message = 'page_welcome_message'
-        url = 'url'
+        body_label = 'body_label'
+        caption_label = 'caption_label'
+        description_label = 'description_label'
+        image_label = 'image_label'
+        link_url_label = 'link_url_label'
+        title_label = 'title_label'
+        video_label = 'video_label'
 
     _field_types = {
-        'branded_content_shared_to_sponsor_status': 'string',
-        'branded_content_sponsor_page_id': 'string',
-        'branded_content_sponsor_relationship': 'string',
-        'caption': 'string',
-        'image_hash': 'string',
-        'page_welcome_message': 'string',
-        'url': 'string',
+        'body_label': 'AdAssetFeedSpecAssetLabel',
+        'caption_label': 'AdAssetFeedSpecAssetLabel',
+        'description_label': 'AdAssetFeedSpecAssetLabel',
+        'image_label': 'AdAssetFeedSpecAssetLabel',
+        'link_url_label': 'AdAssetFeedSpecAssetLabel',
+        'title_label': 'AdAssetFeedSpecAssetLabel',
+        'video_label': 'AdAssetFeedSpecAssetLabel',
     }
 
     @classmethod

@@ -19,6 +19,10 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebookads.adobjects.abstractobject import AbstractObject
+from facebookads.adobjects.abstractcrudobject import AbstractCrudObject
+from facebookads.adobjects.objectparser import ObjectParser
+from facebookads.api import FacebookRequest
+from facebookads.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -28,32 +32,21 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdCreativePhotoData(
-    AbstractObject,
+class AdAssetFeedSpecAssetLabel(
+    AbstractCrudObject,
 ):
 
-    def __init__(self, api=None):
-        super(AdCreativePhotoData, self).__init__()
-        self._isAdCreativePhotoData = True
-        self._api = api
+    def __init__(self, fbid=None, parent_id=None, api=None):
+        self._isAdAssetFeedSpecAssetLabel = True
+        super(AdAssetFeedSpecAssetLabel, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        branded_content_shared_to_sponsor_status = 'branded_content_shared_to_sponsor_status'
-        branded_content_sponsor_page_id = 'branded_content_sponsor_page_id'
-        branded_content_sponsor_relationship = 'branded_content_sponsor_relationship'
-        caption = 'caption'
-        image_hash = 'image_hash'
-        page_welcome_message = 'page_welcome_message'
-        url = 'url'
+        id = 'id'
+        name = 'name'
 
     _field_types = {
-        'branded_content_shared_to_sponsor_status': 'string',
-        'branded_content_sponsor_page_id': 'string',
-        'branded_content_sponsor_relationship': 'string',
-        'caption': 'string',
-        'image_hash': 'string',
-        'page_welcome_message': 'string',
-        'url': 'string',
+        'id': 'string',
+        'name': 'string',
     }
 
     @classmethod

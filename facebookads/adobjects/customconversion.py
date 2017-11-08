@@ -45,6 +45,7 @@ class CustomConversion(
         aggregation_rule = 'aggregation_rule'
         creation_time = 'creation_time'
         custom_event_type = 'custom_event_type'
+        data_sources = 'data_sources'
         default_conversion_value = 'default_conversion_value'
         description = 'description'
         event_source_type = 'event_source_type'
@@ -292,6 +293,7 @@ class CustomConversion(
         'aggregation_rule': 'string',
         'creation_time': 'datetime',
         'custom_event_type': 'CustomEventType',
+        'data_sources': 'list<ExternalEventSource>',
         'default_conversion_value': 'int',
         'description': 'string',
         'event_source_type': 'string',
@@ -300,7 +302,7 @@ class CustomConversion(
         'is_archived': 'bool',
         'last_fired_time': 'datetime',
         'name': 'string',
-        'offline_conversion_data_set': 'Object',
+        'offline_conversion_data_set': 'OfflineConversionDataSet',
         'pixel': 'AdsPixel',
         'retention_days': 'unsigned int',
         'rule': 'string',
