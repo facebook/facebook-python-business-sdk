@@ -362,6 +362,7 @@ class Ad(
             'summary_enum': AdsInsights.Summary.__dict__.values(),
             'level_enum': AdsInsights.Level.__dict__.values(),
             'summary_action_breakdowns_enum': AdsInsights.SummaryActionBreakdowns.__dict__.values(),
+            'fields_enum': AdsInsights.Field.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -420,6 +421,7 @@ class Ad(
             'summary_enum': AdsInsights.Summary.__dict__.values(),
             'level_enum': AdsInsights.Level.__dict__.values(),
             'summary_action_breakdowns_enum': AdsInsights.SummaryActionBreakdowns.__dict__.values(),
+            'fields_enum': AdsInsights.Field.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
