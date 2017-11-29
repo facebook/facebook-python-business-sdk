@@ -48,6 +48,7 @@ class AdAsyncRequest(
         result = 'result'
         scope_object_id = 'scope_object_id'
         status = 'status'
+        type = 'type'
         updated_time = 'updated_time'
 
     class Status:
@@ -107,6 +108,7 @@ class AdAsyncRequest(
         'result': 'map',
         'scope_object_id': 'string',
         'status': 'Status',
+        'type': 'string',
         'updated_time': 'datetime',
     }
 

@@ -199,12 +199,13 @@ class CustomAudienceMixin:
         return self.get_api_assured().call(
             'POST',
             (self.get_id_assured(), 'users'),
-            params=self.format_params(schema,
-                 users,
-                 is_raw,
-                 app_ids,
-                 pre_hashed,
-                 session,
+            params=self.format_params(
+                schema,
+                users,
+                is_raw,
+                app_ids,
+                pre_hashed,
+                session,
             ),
         )
 

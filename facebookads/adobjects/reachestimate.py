@@ -46,6 +46,7 @@ class ReachEstimate(
         none = 'NONE'
         app_installs = 'APP_INSTALLS'
         brand_awareness = 'BRAND_AWARENESS'
+        ad_recall_lift = 'AD_RECALL_LIFT'
         clicks = 'CLICKS'
         engaged_users = 'ENGAGED_USERS'
         event_responses = 'EVENT_RESPONSES'
@@ -61,6 +62,7 @@ class ReachEstimate(
         social_impressions = 'SOCIAL_IMPRESSIONS'
         video_views = 'VIDEO_VIEWS'
         app_downloads = 'APP_DOWNLOADS'
+        landing_page_views = 'LANDING_PAGE_VIEWS'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod

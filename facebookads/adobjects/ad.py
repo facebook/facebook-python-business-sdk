@@ -62,6 +62,8 @@ class Ad(
         last_updated_by_app_id = 'last_updated_by_app_id'
         name = 'name'
         recommendations = 'recommendations'
+        source_ad = 'source_ad'
+        source_ad_id = 'source_ad_id'
         status = 'status'
         tracking_specs = 'tracking_specs'
         updated_time = 'updated_time'
@@ -249,7 +251,7 @@ class Ad(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdCreative,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdCreative),
+            response_parser=ObjectParser(target_class=AdCreative, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -280,7 +282,7 @@ class Ad(
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -311,7 +313,7 @@ class Ad(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdLabel,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdLabel),
+            response_parser=ObjectParser(target_class=AdLabel, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -349,6 +351,7 @@ class Ad(
             'time_increment': 'string',
             'time_range': 'Object',
             'time_ranges': 'list<Object>',
+            'use_account_attribution_setting': 'bool',
         }
         enums = {
             'action_attribution_windows_enum': AdsInsights.ActionAttributionWindows.__dict__.values(),
@@ -368,7 +371,7 @@ class Ad(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdsInsights,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdsInsights),
+            response_parser=ObjectParser(target_class=AdsInsights, api=self._api),
             include_summary=False,
         )
         request.add_params(params)
@@ -406,6 +409,7 @@ class Ad(
             'time_increment': 'string',
             'time_range': 'Object',
             'time_ranges': 'list<Object>',
+            'use_account_attribution_setting': 'bool',
         }
         enums = {
             'action_attribution_windows_enum': AdsInsights.ActionAttributionWindows.__dict__.values(),
@@ -425,7 +429,7 @@ class Ad(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdReportRun,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdReportRun),
+            response_parser=ObjectParser(target_class=AdReportRun, api=self._api),
             include_summary=False,
         )
         request.add_params(params)
@@ -455,7 +459,7 @@ class Ad(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdKeywordStats,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdKeywordStats),
+            response_parser=ObjectParser(target_class=AdKeywordStats, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -483,7 +487,7 @@ class Ad(
             param_checker=TypeChecker(param_types, enums),
             target_class=Lead,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=Lead),
+            response_parser=ObjectParser(target_class=Lead, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -501,6 +505,7 @@ class Ad(
         from facebookads.adobjects.adpreview import AdPreview
         param_types = {
             'ad_format': 'ad_format_enum',
+            'dynamic_creative_spec': 'Object',
             'end_date': 'datetime',
             'height': 'unsigned int',
             'locale': 'string',
@@ -521,7 +526,7 @@ class Ad(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdPreview,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdPreview),
+            response_parser=ObjectParser(target_class=AdPreview, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -549,7 +554,7 @@ class Ad(
             param_checker=TypeChecker(param_types, enums),
             target_class=TargetingSentenceLine,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=TargetingSentenceLine),
+            response_parser=ObjectParser(target_class=TargetingSentenceLine, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -583,6 +588,8 @@ class Ad(
         'last_updated_by_app_id': 'string',
         'name': 'string',
         'recommendations': 'list<AdRecommendation>',
+        'source_ad': 'Ad',
+        'source_ad_id': 'string',
         'status': 'Status',
         'tracking_specs': 'list<ConversionActionQuery>',
         'updated_time': 'datetime',

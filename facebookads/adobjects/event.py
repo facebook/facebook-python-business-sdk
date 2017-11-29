@@ -43,15 +43,18 @@ class Event(
     class Field(AbstractObject.Field):
         attending_count = 'attending_count'
         can_guests_invite = 'can_guests_invite'
+        can_viewer_post = 'can_viewer_post'
         category = 'category'
         cover = 'cover'
         declined_count = 'declined_count'
         description = 'description'
         end_time = 'end_time'
+        event_times = 'event_times'
         guest_list_enabled = 'guest_list_enabled'
         id = 'id'
         interested_count = 'interested_count'
         is_canceled = 'is_canceled'
+        is_draft = 'is_draft'
         is_page_owned = 'is_page_owned'
         is_viewer_admin = 'is_viewer_admin'
         maybe_count = 'maybe_count'
@@ -60,8 +63,11 @@ class Event(
         owner = 'owner'
         parent_group = 'parent_group'
         place = 'place'
+        scheduled_publish_time = 'scheduled_publish_time'
         start_time = 'start_time'
         ticket_uri = 'ticket_uri'
+        ticketing_privacy_uri = 'ticketing_privacy_uri'
+        ticketing_terms_uri = 'ticketing_terms_uri'
         timezone = 'timezone'
         type = 'type'
         updated_time = 'updated_time'
@@ -118,7 +124,7 @@ class Event(
             param_checker=TypeChecker(param_types, enums),
             target_class=ProfilePictureSource,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ProfilePictureSource),
+            response_parser=ObjectParser(target_class=ProfilePictureSource, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -135,15 +141,18 @@ class Event(
     _field_types = {
         'attending_count': 'int',
         'can_guests_invite': 'bool',
+        'can_viewer_post': 'bool',
         'category': 'string',
         'cover': 'Object',
         'declined_count': 'int',
         'description': 'string',
         'end_time': 'string',
+        'event_times': 'list<Object>',
         'guest_list_enabled': 'bool',
         'id': 'string',
         'interested_count': 'int',
         'is_canceled': 'bool',
+        'is_draft': 'bool',
         'is_page_owned': 'bool',
         'is_viewer_admin': 'bool',
         'maybe_count': 'int',
@@ -152,8 +161,11 @@ class Event(
         'owner': 'Object',
         'parent_group': 'Object',
         'place': 'Object',
+        'scheduled_publish_time': 'string',
         'start_time': 'string',
         'ticket_uri': 'string',
+        'ticketing_privacy_uri': 'string',
+        'ticketing_terms_uri': 'string',
         'timezone': 'string',
         'type': 'Type',
         'updated_time': 'datetime',

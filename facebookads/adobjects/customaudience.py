@@ -60,10 +60,12 @@ class CustomAudience(
         pixel_id = 'pixel_id'
         retention_days = 'retention_days'
         rule = 'rule'
+        rule_aggregation = 'rule_aggregation'
         subtype = 'subtype'
         time_content_updated = 'time_content_updated'
         time_created = 'time_created'
         time_updated = 'time_updated'
+        allowed_domains = 'allowed_domains'
         claim_objective = 'claim_objective'
         content_type = 'content_type'
         dataset_id = 'dataset_id'
@@ -80,15 +82,19 @@ class CustomAudience(
         tags = 'tags'
 
     class ClaimObjective:
+        auto_offer = 'AUTO_OFFER'
         home_listing = 'HOME_LISTING'
         product = 'PRODUCT'
         travel = 'TRAVEL'
+        vehicle = 'VEHICLE'
 
     class ContentType:
+        auto_offer = 'AUTO_OFFER'
         destination = 'DESTINATION'
         flight = 'FLIGHT'
-        hotel = 'HOTEL'
         home_listing = 'HOME_LISTING'
+        hotel = 'HOTEL'
+        vehicle = 'VEHICLE'
 
     class Subtype:
         custom = 'CUSTOM'
@@ -104,6 +110,7 @@ class CustomAudience(
         data_set = 'DATA_SET'
         bag_of_accounts = 'BAG_OF_ACCOUNTS'
         study_rule_audience = 'STUDY_RULE_AUDIENCE'
+        fox = 'FOX'
 
     class Fields:
         id = 'id'
@@ -123,6 +130,7 @@ class CustomAudience(
         pixel_id = 'pixel_id'
         retention_days = 'retention_days'
         rule = 'rule'
+        rule_aggregation = 'rule_aggregation'
         subtype = 'subtype'
         time_content_updated = 'time_content_updated'
         time_created = 'time_created'
@@ -193,6 +201,7 @@ class CustomAudience(
 
     def api_update(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
+            'allowed_domains': 'list<string>',
             'claim_objective': 'claim_objective_enum',
             'content_type': 'content_type_enum',
             'description': 'string',
@@ -203,6 +212,7 @@ class CustomAudience(
             'product_set_id': 'string',
             'retention_days': 'unsigned int',
             'rule': 'string',
+            'rule_aggregation': 'string',
         }
         enums = {
             'claim_objective_enum': CustomAudience.ClaimObjective.__dict__.values(),
@@ -244,7 +254,7 @@ class CustomAudience(
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -273,7 +283,7 @@ class CustomAudience(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdAccount,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdAccount),
+            response_parser=ObjectParser(target_class=AdAccount, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -304,7 +314,7 @@ class CustomAudience(
             param_checker=TypeChecker(param_types, enums),
             target_class=AdAccount,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdAccount),
+            response_parser=ObjectParser(target_class=AdAccount, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -334,7 +344,7 @@ class CustomAudience(
             param_checker=TypeChecker(param_types, enums),
             target_class=Ad,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=Ad),
+            response_parser=ObjectParser(target_class=Ad, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -362,7 +372,7 @@ class CustomAudience(
             param_checker=TypeChecker(param_types, enums),
             target_class=CustomAudiencePrefillState,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=CustomAudiencePrefillState),
+            response_parser=ObjectParser(target_class=CustomAudiencePrefillState, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -391,7 +401,7 @@ class CustomAudience(
             param_checker=TypeChecker(param_types, enums),
             target_class=CustomAudienceSession,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=CustomAudienceSession),
+            response_parser=ObjectParser(target_class=CustomAudienceSession, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -421,7 +431,7 @@ class CustomAudience(
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -452,7 +462,7 @@ class CustomAudience(
             param_checker=TypeChecker(param_types, enums),
             target_class=User,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=User),
+            response_parser=ObjectParser(target_class=User, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -484,10 +494,12 @@ class CustomAudience(
         'pixel_id': 'string',
         'retention_days': 'int',
         'rule': 'string',
+        'rule_aggregation': 'string',
         'subtype': 'string',
         'time_content_updated': 'unsigned int',
         'time_created': 'unsigned int',
         'time_updated': 'unsigned int',
+        'allowed_domains': 'list<string>',
         'claim_objective': 'ClaimObjective',
         'content_type': 'ContentType',
         'dataset_id': 'string',

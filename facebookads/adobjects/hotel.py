@@ -180,7 +180,7 @@ class Hotel(
             param_checker=TypeChecker(param_types, enums),
             target_class=HotelRoom,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=HotelRoom),
+            response_parser=ObjectParser(target_class=HotelRoom, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

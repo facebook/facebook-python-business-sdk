@@ -44,6 +44,7 @@ class AdsImageCrops(
         field_400x150 = '400x150'
         field_400x500 = '400x500'
         field_600x360 = '600x360'
+        field_90x160 = '90x160'
 
     _field_types = {
         '100x100': 'list<list>',
@@ -52,6 +53,7 @@ class AdsImageCrops(
         '400x150': 'list<list>',
         '400x500': 'list<list>',
         '600x360': 'list<list>',
+        '90x160': 'list<list>',
     }
 
     @classmethod

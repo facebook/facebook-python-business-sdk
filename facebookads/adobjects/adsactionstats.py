@@ -49,11 +49,13 @@ class AdsActionStats(
         action_carousel_card_name = 'action_carousel_card_name'
         action_destination = 'action_destination'
         action_device = 'action_device'
+        action_link_click_destination = 'action_link_click_destination'
         action_reaction = 'action_reaction'
         action_target_id = 'action_target_id'
         action_type = 'action_type'
         action_video_sound = 'action_video_sound'
         action_video_type = 'action_video_type'
+        inline = 'inline'
         value = 'value'
 
     _field_types = {
@@ -68,11 +70,13 @@ class AdsActionStats(
         'action_carousel_card_name': 'string',
         'action_destination': 'string',
         'action_device': 'string',
+        'action_link_click_destination': 'string',
         'action_reaction': 'string',
         'action_target_id': 'string',
         'action_type': 'string',
         'action_video_sound': 'string',
         'action_video_type': 'string',
+        'inline': 'string',
         'value': 'string',
     }
 

@@ -125,7 +125,7 @@ class EventSourceGroup(
             param_checker=TypeChecker(param_types, enums),
             target_class=EventSourceGroup,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=EventSourceGroup),
+            response_parser=ObjectParser(target_class=EventSourceGroup, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

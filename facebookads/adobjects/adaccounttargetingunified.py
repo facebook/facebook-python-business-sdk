@@ -104,7 +104,6 @@ class AdAccountTargetingUnified(
         effective_audience_network_positions = 'effective_audience_network_positions'
         excluded_publisher_categories = 'excluded_publisher_categories'
         excluded_publisher_list_ids = 'excluded_publisher_list_ids'
-        excluded_publisher_domains = 'excluded_publisher_domains'
         publisher_visibility_categories = 'publisher_visibility_categories'
         user_device = 'user_device'
         mobile_device_model = 'mobile_device_model'
@@ -129,6 +128,7 @@ class AdAccountTargetingUnified(
         moms = 'moms'
         office_type = 'office_type'
         targeting_optimization = 'targeting_optimization'
+        direct_install_devices = 'direct_install_devices'
         engagement_specs = 'engagement_specs'
         excluded_engagement_specs = 'excluded_engagement_specs'
         product_audience_specs = 'product_audience_specs'
@@ -141,6 +141,16 @@ class AdAccountTargetingUnified(
         fb_deal_id = 'fb_deal_id'
         interest_defaults_source = 'interest_defaults_source'
         alternate_auto_targeting_option = 'alternate_auto_targeting_option'
+        contextual_targeting_categories = 'contextual_targeting_categories'
+        topic = 'topic'
+        format = 'format'
+        trending = 'trending'
+        gatekeepers = 'gatekeepers'
+        follow_profiles = 'follow_profiles'
+        follow_profiles_negative = 'follow_profiles_negative'
+        location_categories = 'location_categories'
+        user_page_threads = 'user_page_threads'
+        user_page_threads_excluded = 'user_page_threads_excluded'
 
     _field_types = {
         'audience_size': 'unsigned int',

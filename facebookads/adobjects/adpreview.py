@@ -57,6 +57,8 @@ class AdPreview(
         instant_article_standard = 'INSTANT_ARTICLE_STANDARD'
         instream_video_desktop = 'INSTREAM_VIDEO_DESKTOP'
         instream_video_mobile = 'INSTREAM_VIDEO_MOBILE'
+        suggested_video_desktop = 'SUGGESTED_VIDEO_DESKTOP'
+        suggested_video_mobile = 'SUGGESTED_VIDEO_MOBILE'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod

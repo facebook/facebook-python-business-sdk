@@ -48,11 +48,13 @@ class Targeting(
         cities = 'cities'
         college_years = 'college_years'
         connections = 'connections'
+        contextual_targeting_categories = 'contextual_targeting_categories'
         countries = 'countries'
         country = 'country'
         country_groups = 'country_groups'
         custom_audiences = 'custom_audiences'
         device_platforms = 'device_platforms'
+        direct_install_devices = 'direct_install_devices'
         dynamic_audience_ids = 'dynamic_audience_ids'
         education_majors = 'education_majors'
         education_schools = 'education_schools'
@@ -74,7 +76,6 @@ class Targeting(
         excluded_mobile_device_model = 'excluded_mobile_device_model'
         excluded_product_audience_specs = 'excluded_product_audience_specs'
         excluded_publisher_categories = 'excluded_publisher_categories'
-        excluded_publisher_domains = 'excluded_publisher_domains'
         excluded_publisher_list_ids = 'excluded_publisher_list_ids'
         excluded_user_device = 'excluded_user_device'
         exclusions = 'exclusions'
@@ -102,7 +103,6 @@ class Targeting(
         moms = 'moms'
         net_worth = 'net_worth'
         office_type = 'office_type'
-        page_types = 'page_types'
         place_page_set_ids = 'place_page_set_ids'
         political_views = 'political_views'
         politics = 'politics'
@@ -145,11 +145,13 @@ class Targeting(
         'cities': 'list<IDName>',
         'college_years': 'list<unsigned int>',
         'connections': 'list<IDName>',
+        'contextual_targeting_categories': 'list<IDName>',
         'countries': 'list<string>',
         'country': 'list<string>',
         'country_groups': 'list<string>',
         'custom_audiences': 'list<IDName>',
         'device_platforms': 'list<DevicePlatforms>',
+        'direct_install_devices': 'bool',
         'dynamic_audience_ids': 'list<string>',
         'education_majors': 'list<IDName>',
         'education_schools': 'list<IDName>',
@@ -171,7 +173,6 @@ class Targeting(
         'excluded_mobile_device_model': 'list<string>',
         'excluded_product_audience_specs': 'list<TargetingProductAudienceSpec>',
         'excluded_publisher_categories': 'list<string>',
-        'excluded_publisher_domains': 'list<string>',
         'excluded_publisher_list_ids': 'list<string>',
         'excluded_user_device': 'list<string>',
         'exclusions': 'FlexibleTargeting',
@@ -199,7 +200,6 @@ class Targeting(
         'moms': 'list<IDName>',
         'net_worth': 'list<IDName>',
         'office_type': 'list<IDName>',
-        'page_types': 'list<string>',
         'place_page_set_ids': 'list<string>',
         'political_views': 'list<unsigned int>',
         'politics': 'list<IDName>',

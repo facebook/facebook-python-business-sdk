@@ -53,12 +53,18 @@ class CustomAudienceDataSource(
         multi_hashes = 'MULTI_HASHES'
         tokens = 'TOKENS'
         external_ids_mix = 'EXTERNAL_IDS_MIX'
+        household_expansion = 'HOUSEHOLD_EXPANSION'
         web_pixel_hits = 'WEB_PIXEL_HITS'
         mobile_app_events = 'MOBILE_APP_EVENTS'
         mobile_app_combination_events = 'MOBILE_APP_COMBINATION_EVENTS'
         video_events = 'VIDEO_EVENTS'
         web_pixel_combination_events = 'WEB_PIXEL_COMBINATION_EVENTS'
         platform = 'PLATFORM'
+        multi_data_events = 'MULTI_DATA_EVENTS'
+        ig_business_events = 'IG_BUSINESS_EVENTS'
+        store_visit_events = 'STORE_VISIT_EVENTS'
+        instant_article_events = 'INSTANT_ARTICLE_EVENTS'
+        fb_event_signals = 'FB_EVENT_SIGNALS'
         engagement_event_users = 'ENGAGEMENT_EVENT_USERS'
         custom_audience_users = 'CUSTOM_AUDIENCE_USERS'
         page_fans = 'PAGE_FANS'
@@ -81,10 +87,13 @@ class CustomAudienceDataSource(
         page_smart_audience = 'PAGE_SMART_AUDIENCE'
         multicountry_combination = 'MULTICOUNTRY_COMBINATION'
         platform_users = 'PLATFORM_USERS'
+        multi_event_source = 'MULTI_EVENT_SOURCE'
+        smart_audience = 'SMART_AUDIENCE'
         mail_chimp_email_hashes = 'MAIL_CHIMP_EMAIL_HASHES'
         constant_contacts_email_hashes = 'CONSTANT_CONTACTS_EMAIL_HASHES'
         copy_paste_email_hashes = 'COPY_PASTE_EMAIL_HASHES'
         contact_importer = 'CONTACT_IMPORTER'
+        data_file = 'DATA_FILE'
 
     class Type:
         unknown = 'UNKNOWN'
@@ -94,6 +103,7 @@ class CustomAudienceDataSource(
         third_party_imported = 'THIRD_PARTY_IMPORTED'
         copy_paste = 'COPY_PASTE'
         contact_importer = 'CONTACT_IMPORTER'
+        household_audience = 'HOUSEHOLD_AUDIENCE'
 
     _field_types = {
         'creation_params': 'string',
