@@ -63,7 +63,6 @@ class AdSet(
         effective_status = 'effective_status'
         end_time = 'end_time'
         frequency_control_specs = 'frequency_control_specs'
-        full_funnel_exploration_mode = 'full_funnel_exploration_mode'
         id = 'id'
         instagram_actor_id = 'instagram_actor_id'
         is_autobid = 'is_autobid'
@@ -186,11 +185,6 @@ class AdSet(
     class Operator:
         all = 'ALL'
         any = 'ANY'
-
-    class FullFunnelExplorationMode:
-        none_exploration = 'NONE_EXPLORATION'
-        limited_exploration = 'LIMITED_EXPLORATION'
-        extended_exploration = 'EXTENDED_EXPLORATION'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
@@ -732,7 +726,6 @@ class AdSet(
         'effective_status': 'EffectiveStatus',
         'end_time': 'datetime',
         'frequency_control_specs': 'list<Object>',
-        'full_funnel_exploration_mode': 'string',
         'id': 'string',
         'instagram_actor_id': 'string',
         'is_autobid': 'bool',
@@ -774,5 +767,4 @@ class AdSet(
         field_enum_info['DestinationType'] = AdSet.DestinationType.__dict__.values()
         field_enum_info['ExecutionOptions'] = AdSet.ExecutionOptions.__dict__.values()
         field_enum_info['Operator'] = AdSet.Operator.__dict__.values()
-        field_enum_info['FullFunnelExplorationMode'] = AdSet.FullFunnelExplorationMode.__dict__.values()
         return field_enum_info
