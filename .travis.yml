@@ -4,13 +4,8 @@ sudo: false  # allows use of faster container-based builds
 language: python
 python: 2.7
 env:
-  - TOX_ENV=py36
-  - TOX_ENV=py35
-  - TOX_ENV=py34
-  - TOX_ENV=py27
-  - TOX_ENV=pypy
-  - TOX_ENV=pypy3
-install:
-  - pip install tox 
-script:
-  - tox -e $TOX_ENV
+  - "3.5"
+  - "3.4"
+  - "2.7"
+  - "pypy"
+  - "pypy3"
