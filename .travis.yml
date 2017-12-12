@@ -9,3 +9,6 @@ python:
   - "2.7"
   - "pypy"
   - "pypy3"
+
+script:
+  - tox
