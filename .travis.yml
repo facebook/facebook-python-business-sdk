@@ -10,5 +10,8 @@ python:
   - "pypy"
   - "pypy3"
 
+install:
+  - pip install tox-travis  # leaving out of requirements.txt b/c only needed by travis
+
 script:
   - tox
