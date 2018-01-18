@@ -55,6 +55,7 @@ class ProductFeed(
         qualified_product_count = 'qualified_product_count'
         quoted_fields_mode = 'quoted_fields_mode'
         schedule = 'schedule'
+        update_schedule = 'update_schedule'
         rules = 'rules'
 
     class Delimiter:
@@ -151,6 +152,7 @@ class ProductFeed(
             'name': 'string',
             'quoted_fields_mode': 'quoted_fields_mode_enum',
             'schedule': 'string',
+            'update_schedule': 'string',
         }
         enums = {
             'delimiter_enum': ProductFeed.Delimiter.__dict__.values(),
@@ -285,6 +287,7 @@ class ProductFeed(
         'qualified_product_count': 'unsigned int',
         'quoted_fields_mode': 'QuotedFieldsMode',
         'schedule': 'ProductFeedSchedule',
+        'update_schedule': 'ProductFeedSchedule',
         'rules': 'list<string>',
     }
 

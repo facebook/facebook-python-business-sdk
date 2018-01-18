@@ -40,6 +40,7 @@ class AdsInsights(
         self._api = api
 
     class Field(AbstractObject.Field):
+        account_currency = 'account_currency'
         account_id = 'account_id'
         account_name = 'account_name'
         action_values = 'action_values'
@@ -105,7 +106,6 @@ class AdsInsights(
         unique_outbound_clicks_ctr = 'unique_outbound_clicks_ctr'
         unique_social_clicks = 'unique_social_clicks'
         video_10_sec_watched_actions = 'video_10_sec_watched_actions'
-        video_15_sec_watched_actions = 'video_15_sec_watched_actions'
         video_30_sec_watched_actions = 'video_30_sec_watched_actions'
         video_avg_percent_watched_actions = 'video_avg_percent_watched_actions'
         video_avg_time_watched_actions = 'video_avg_time_watched_actions'
@@ -220,6 +220,7 @@ class AdsInsights(
         return 'insights'
 
     _field_types = {
+        'account_currency': 'string',
         'account_id': 'string',
         'account_name': 'string',
         'action_values': 'list<AdsActionStats>',
@@ -285,7 +286,6 @@ class AdsInsights(
         'unique_outbound_clicks_ctr': 'list<AdsActionStats>',
         'unique_social_clicks': 'string',
         'video_10_sec_watched_actions': 'list<AdsActionStats>',
-        'video_15_sec_watched_actions': 'list<AdsActionStats>',
         'video_30_sec_watched_actions': 'list<AdsActionStats>',
         'video_avg_percent_watched_actions': 'list<AdsActionStats>',
         'video_avg_time_watched_actions': 'list<AdsActionStats>',

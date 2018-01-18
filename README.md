@@ -23,8 +23,7 @@ developers.facebook.com</a>.
 
 **IMPORTANT**: Enable all migrations in the App's Settings->Migrations page.
 
-**IMPORTANT**: For extra security, the SDK requires that you turn on 'App Secret
-Proof for Server API calls' in your app's Settings->Advanced page.
+**IMPORTANT**: For extra security, the SDK requires that you set 'Require App Secret' to *Yes* on your app's Settings->Advanced page.
 
 Your app should now be able to use the Marketing API!
 
@@ -39,7 +38,7 @@ more about access tokens here</a>.
 
 For now, we can use the
 <a href="https://developers.facebook.com/tools/explorer">Graph Explorer</a> to
-get an access token.
+get an access token. Select your App from the dropdown in the top right, and then generate a token with the premissions you want to test with.
 
 ## Install package
 
@@ -159,7 +158,7 @@ API using a specific api object instead of the default, you can specify the
 ### Edges
 
 Look at the methods of an object to see what associations over which we can
-iterate. For example an ``AdUser`` object has a method ``get_ad_accounts`` which
+iterate. For example an ``AdAccountUser`` object has a method ``get_ad_accounts`` which
 returns an iterator of ``AdAccount`` objects.
 
 ### Ad Account
@@ -172,7 +171,7 @@ Let's get all the ad accounts for the user with the given access token. I only
 have one account so the following is printed:
 
 ```python
->>> me = adobjects.AdUser(fbid='me')
+>>> me = adobjects.AdAccountUser(fbid='me')
 >>> my_accounts = list(me.get_ad_accounts())
 >>> print(my_accounts)
 [{   'account_id': u'17842443', 'id': u'act_17842443'}]
@@ -181,7 +180,7 @@ have one account so the following is printed:
 ```
 
 **WARNING**: We do not specify a keyword argument ``api=api`` when instantiating
-the ``AdUser`` object here because we've already set the default api when
+the ``AdAccountUser`` object here because we've already set the default api when
 bootstrapping.
 
 **NOTE**: We wrap the return value of ``get_ad_accounts`` with ``list()``
@@ -310,23 +309,23 @@ api2 = FacebookAdsApi(session2)
 In the SDK examples, we always set a single FacebookAdsApi object as the default one.
 However, working with multiples access_tokens, require us to use multiples apis. We may set a default
 api for a user, but, for the other users,  we shall use its the api object as a param. In the example below,
-we create two AdUsers, the first one using the default api and the second one using its api object:
+we create two AdAccountUsers, the first one using the default api and the second one using its api object:
 
 ```python
 FacebookAdsApi.set_default_api(api1)
 
-me1 = AdUser(fbid='me')
-me2 = AdUser(fbid='me', api=api2)
+me1 = AdAccountUser(fbid='me')
+me2 = AdAccountUser(fbid='me', api=api2)
 ```
 Another way to create the same objects from above would be:
 
 ```python
-me1 = AdUser(fbid='me', api=api1)
-me2 = AdUser(fbid='me', api=api2)
+me1 = AdAccountUser(fbid='me', api=api1)
+me2 = AdAccountUser(fbid='me', api=api2)
 ```
 From here, all the following workflow for these objects remains the same. The only exceptions are
 the classmethods calls, where we now should pass the api we want to use as the last parameter
-on every call. For instance, a call to the Aduser.get_by_ids method should be like this:
+on every call. For instance, a call to the AdAccountUser.get_by_ids method should be like this:
 
 ```python
 session = FacebookSession(
@@ -337,7 +336,7 @@ session = FacebookSession(
 )
 
 api = FacebookAdsApi(session1)
-Aduser.get_by_ids(ids=['<UID_1>', '<UID_2>'], api=api)
+AdAccountUser.get_by_ids(ids=['<UID_1>', '<UID_2>'], api=api)
 ```
 ### CRUD
 

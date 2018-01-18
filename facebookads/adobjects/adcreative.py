@@ -47,7 +47,9 @@ class AdCreative(
         actor_id = 'actor_id'
         adlabels = 'adlabels'
         applink_treatment = 'applink_treatment'
+        asset_feed_spec = 'asset_feed_spec'
         body = 'body'
+        branded_content_sponsor_page_id = 'branded_content_sponsor_page_id'
         call_to_action_type = 'call_to_action_type'
         effective_instagram_story_id = 'effective_instagram_story_id'
         effective_object_story_id = 'effective_object_story_id'
@@ -68,6 +70,7 @@ class AdCreative(
         object_url = 'object_url'
         platform_customizations = 'platform_customizations'
         product_set_id = 'product_set_id'
+        recommender_settings = 'recommender_settings'
         status = 'status'
         template_url = 'template_url'
         template_url_spec = 'template_url_spec'
@@ -114,12 +117,16 @@ class AdCreative(
         donate_now = 'DONATE_NOW'
         get_quote = 'GET_QUOTE'
         contact_us = 'CONTACT_US'
+        start_order = 'START_ORDER'
         record_now = 'RECORD_NOW'
         vote_now = 'VOTE_NOW'
         register_now = 'REGISTER_NOW'
         request_time = 'REQUEST_TIME'
         see_menu = 'SEE_MENU'
         email_now = 'EMAIL_NOW'
+        get_showtimes = 'GET_SHOWTIMES'
+        try_it = 'TRY_IT'
+        listen_now = 'LISTEN_NOW'
         open_movies = 'OPEN_MOVIES'
 
     class ObjectType:
@@ -310,6 +317,7 @@ class AdCreative(
         from facebookads.adobjects.adpreview import AdPreview
         param_types = {
             'ad_format': 'ad_format_enum',
+            'dynamic_creative_spec': 'Object',
             'end_date': 'datetime',
             'height': 'unsigned int',
             'locale': 'string',
@@ -349,7 +357,9 @@ class AdCreative(
         'actor_id': 'string',
         'adlabels': 'list<AdLabel>',
         'applink_treatment': 'ApplinkTreatment',
+        'asset_feed_spec': 'AdAssetFeedSpec',
         'body': 'string',
+        'branded_content_sponsor_page_id': 'string',
         'call_to_action_type': 'CallToActionType',
         'effective_instagram_story_id': 'string',
         'effective_object_story_id': 'string',
@@ -370,6 +380,7 @@ class AdCreative(
         'object_url': 'string',
         'platform_customizations': 'Object',
         'product_set_id': 'string',
+        'recommender_settings': 'Object',
         'status': 'Status',
         'template_url': 'string',
         'template_url_spec': 'Object',

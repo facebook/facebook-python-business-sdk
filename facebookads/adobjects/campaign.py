@@ -47,6 +47,7 @@ class Campaign(
     class Field(AbstractObject.Field):
         account_id = 'account_id'
         adlabels = 'adlabels'
+        boosted_object_id = 'boosted_object_id'
         brand_lift_studies = 'brand_lift_studies'
         budget_rebalance_flag = 'budget_rebalance_flag'
         buying_type = 'buying_type'
@@ -56,6 +57,8 @@ class Campaign(
         created_time = 'created_time'
         effective_status = 'effective_status'
         id = 'id'
+        kpi_custom_conversion_id = 'kpi_custom_conversion_id'
+        kpi_type = 'kpi_type'
         name = 'name'
         objective = 'objective'
         recommendations = 'recommendations'
@@ -528,6 +531,7 @@ class Campaign(
     _field_types = {
         'account_id': 'string',
         'adlabels': 'list<AdLabel>',
+        'boosted_object_id': 'string',
         'brand_lift_studies': 'list<AdStudy>',
         'budget_rebalance_flag': 'bool',
         'buying_type': 'string',
@@ -537,6 +541,8 @@ class Campaign(
         'created_time': 'datetime',
         'effective_status': 'EffectiveStatus',
         'id': 'string',
+        'kpi_custom_conversion_id': 'string',
+        'kpi_type': 'string',
         'name': 'string',
         'objective': 'string',
         'recommendations': 'list<AdRecommendation>',

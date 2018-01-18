@@ -44,12 +44,12 @@ class LeadgenForm(
         allow_organic_lead = 'allow_organic_lead'
         block_display_for_non_targeted_viewer = 'block_display_for_non_targeted_viewer'
         context_card = 'context_card'
-        continued_flow_request_method = 'continued_flow_request_method'
         created_time = 'created_time'
         creator = 'creator'
         creator_id = 'creator_id'
         cusomized_tcpa_content = 'cusomized_tcpa_content'
         expired_leads_count = 'expired_leads_count'
+        extra_details = 'extra_details'
         follow_up_action_text = 'follow_up_action_text'
         follow_up_action_url = 'follow_up_action_url'
         id = 'id'
@@ -65,9 +65,11 @@ class LeadgenForm(
         page_id = 'page_id'
         privacy_policy_url = 'privacy_policy_url'
         qualifiers = 'qualifiers'
+        question_page_custom_headline = 'question_page_custom_headline'
         questions = 'questions'
         status = 'status'
         tcpa_compliance = 'tcpa_compliance'
+        thank_you_page = 'thank_you_page'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
@@ -189,12 +191,12 @@ class LeadgenForm(
         'allow_organic_lead': 'bool',
         'block_display_for_non_targeted_viewer': 'bool',
         'context_card': 'Object',
-        'continued_flow_request_method': 'string',
         'created_time': 'datetime',
         'creator': 'User',
         'creator_id': 'int',
         'cusomized_tcpa_content': 'string',
         'expired_leads_count': 'unsigned int',
+        'extra_details': 'list<string>',
         'follow_up_action_text': 'string',
         'follow_up_action_url': 'string',
         'id': 'string',
@@ -210,9 +212,11 @@ class LeadgenForm(
         'page_id': 'string',
         'privacy_policy_url': 'string',
         'qualifiers': 'list<LeadGenQualifier>',
+        'question_page_custom_headline': 'string',
         'questions': 'list<LeadGenQuestion>',
         'status': 'string',
         'tcpa_compliance': 'bool',
+        'thank_you_page': 'Object',
     }
 
     @classmethod

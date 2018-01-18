@@ -19,6 +19,10 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebookads.adobjects.abstractobject import AbstractObject
+from facebookads.adobjects.abstractcrudobject import AbstractCrudObject
+from facebookads.adobjects.objectparser import ObjectParser
+from facebookads.api import FacebookRequest
+from facebookads.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -29,27 +33,57 @@ pull request for this class.
 """
 
 class LeadGenQuestion(
-    AbstractObject,
+    AbstractCrudObject,
 ):
 
-    def __init__(self, api=None):
-        super(LeadGenQuestion, self).__init__()
+    def __init__(self, fbid=None, parent_id=None, api=None):
         self._isLeadGenQuestion = True
-        self._api = api
+        super(LeadGenQuestion, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
         conditional_questions_choices = 'conditional_questions_choices'
         conditional_questions_group_id = 'conditional_questions_group_id'
         dependent_conditional_questions = 'dependent_conditional_questions'
+        id = 'id'
+        inline_context = 'inline_context'
         key = 'key'
         label = 'label'
         options = 'options'
         type = 'type'
 
+    def api_get(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=LeadGenQuestion,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     _field_types = {
         'conditional_questions_choices': 'list<Object>',
         'conditional_questions_group_id': 'string',
         'dependent_conditional_questions': 'list<Object>',
+        'id': 'string',
+        'inline_context': 'string',
         'key': 'string',
         'label': 'string',
         'options': 'list<LeadGenQuestionOption>',

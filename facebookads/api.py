@@ -96,6 +96,8 @@ class FacebookResponse(object):
         if isinstance(json_body, collections.Mapping) and 'error' in json_body:
             # Is a dictionary, has error in it
             return False
+        elif self._http_status >= 400:
+            return False
         elif bool(json_body):
             # Has body and no error
             if 'success' in json_body:
@@ -350,12 +352,16 @@ class FacebookAdsApiBatch(object):
         should handle its success or failure.
     """
 
-    def __init__(self, api):
+    def __init__(self, api, success=None, failure=None):
         self._api = api
         self._files = []
         self._batch = []
         self._success_callbacks = []
         self._failure_callbacks = []
+        if success is not None:
+            self._success_callbacks.append(success)
+        if failure is not None:
+            self._failure_callbacks.append(failure)
         self._requests = []
 
     def __len__(self):
