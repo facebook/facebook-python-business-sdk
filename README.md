@@ -81,7 +81,7 @@ into your program like the following sample app:
 
 ```python
 from facebookads.api import FacebookAdsApi
-from facebookads import objects
+from facebookads import adobjects
 
 my_app_id = '<APP_ID>'
 my_app_secret = '<APP_SECRET>'
