@@ -23,8 +23,7 @@ developers.facebook.com</a>.
 
 **IMPORTANT**: Enable all migrations in the App's Settings->Migrations page.
 
-**IMPORTANT**: For extra security, the SDK requires that you turn on 'App Secret
-Proof for Server API calls' in your app's Settings->Advanced page.
+**IMPORTANT**: For extra security, the SDK requires that you set 'Require App Secret' to *Yes* on your app's Settings->Advanced page.
 
 Your app should now be able to use the Marketing API!
 
@@ -39,7 +38,7 @@ more about access tokens here</a>.
 
 For now, we can use the
 <a href="https://developers.facebook.com/tools/explorer">Graph Explorer</a> to
-get an access token.
+get an access token. Select your App from the dropdown in the top right, and then generate a token with the premissions you want to test with.
 
 ## Install package
 
