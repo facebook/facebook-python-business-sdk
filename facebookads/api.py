@@ -431,6 +431,10 @@ class FacebookAdsApiBatch(object):
                 batch_formatted_header['value'] = headers[header]
                 call['headers'].append(batch_formatted_header)
 
+        if request: 
+            success = request.callback if success is None else success
+            failure = request.callback if failure is None else failure
+
         self._batch.append(call)
         self._files.append(files)
         self._success_callbacks.append(success)
@@ -580,6 +584,7 @@ class FacebookRequest:
         self._api_version = api_version
         self._params = {}
         self._fields = []
+        self._response = None
         self._file_params = {}
         self._file_counter = 0
         self._accepted_fields = []
@@ -677,6 +682,49 @@ class FacebookRequest:
 
     def add_to_batch(self, batch, success=None, failure=None):
         batch.add_request(self, success, failure)
+
+    def callback(self, response): 
+        self._response = response
+
+    def load(self): 
+        if self._response is None:
+            raise FacebookUnavailablePropertyException(
+                "Couldn't retrieve the response for this request"
+            )
+
+        params = copy.deepcopy(self._params)
+        if self._response.error():
+            raise self._response.error()
+        elif self._api_type == "EDGE" and self._method == "GET":
+            response = self._response.json()
+            cursor = Cursor(
+                    target_objects_class=self._target_class,
+                    params=params,
+                    fields=self._fields,
+                    include_summary=self._include_summary,
+                    api=self._api,
+                    node_id=self._node_id,
+                    endpoint=self._endpoint,
+                )
+
+            if 'paging' in response and 'next' in response['paging']:
+                cursor._path = response['paging']['next']
+            else:
+                cursor._finished_iteration = True
+
+            if (
+                cursor._include_summary and
+                'summary' in response and
+                'total_count' in response['summary']
+            ):
+                cursor._total_count = response['summary']['total_count']
+
+            cursor._queue = cursor.build_objects_from_response(response)
+            return cursor
+        elif self._response_parser:
+            return self._response_parser.parse_single(self._response.json())
+        else:
+            return self._response.json()
 
     def _extract_value(self, value):
         if hasattr(value, 'export_all_data'):

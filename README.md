@@ -383,10 +383,21 @@ Calls can be added to the batch instead of being executed immediately:
 campaign.remote_delete(batch=my_api_batch)
 ```
 
+Requests can be saved to load the response after the batch call:
+
+```python
+request = campaign.get_insights(batch=my_api_batch)
+```
+
 Once you're finished adding calls to the batch, you can send off the request:
 
 ```python
 my_api_batch.execute()
+```
+
+After the batch call you may load your response: 
+```python
+response = request.load()
 ```
 
 Please follow <a href="https://developers.facebook.com/docs/graph-api/making-multiple-requests">
