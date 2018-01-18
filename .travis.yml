@@ -1,10 +1,17 @@
+dist: trusty
+sudo: false  # allows use of faster container-based builds
+
 language: python
-python: 2.7
-env:
-  - TOX_ENV=py34
-  - TOX_ENV=py33
-  - TOX_ENV=py27
+python:
+  - "3.6"
+  - "3.5"
+  - "3.4"
+  - "2.7"
+  - "pypy"
+  - "pypy3"
+
 install:
-  - pip install tox 
+  - pip install tox tox-travis  # leaving out of requirements.txt b/c only needed by travis
+
 script:
-  - tox -e $TOX_ENV
+  - tox
