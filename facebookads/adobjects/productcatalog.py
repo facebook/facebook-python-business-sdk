@@ -56,11 +56,24 @@ class ProductCatalog(
         product_count = 'product_count'
         qualified_product_count = 'qualified_product_count'
         vertical = 'vertical'
+        destination_catalog_settings = 'destination_catalog_settings'
+
+    class Vertical:
+        commerce = 'commerce'
+        destinations = 'destinations'
+        flights = 'flights'
+        home_listings = 'home_listings'
+        home_service_providers = 'home_service_providers'
+        hotels = 'hotels'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
-        return 'product_catalogs'
+        return 'owned_product_catalogs'
+
+    def api_create(self, parent_id, fields=None, params=None, batch=None, pending=False):
+        from facebookads.adobjects.business import Business
+        return Business(api=self._api, fbid=parent_id).create_owned_product_catalog(fields, params, batch, pending)
 
     def api_delete(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
@@ -1054,9 +1067,11 @@ class ProductCatalog(
         'product_count': 'int',
         'qualified_product_count': 'unsigned int',
         'vertical': 'string',
+        'destination_catalog_settings': 'map',
     }
 
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['Vertical'] = ProductCatalog.Vertical.__dict__.values()
         return field_enum_info

@@ -607,6 +607,63 @@ class Business(
             self.assure_call()
             return request.execute()
 
+    def create_owned_ad_account(self, fields=None, params=None, batch=None, pending=False):
+        from facebookads.adobjects.adaccount import AdAccount
+        param_types = {
+            'adaccount_id': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/owned_ad_accounts',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdAccount,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdAccount, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_owned_app(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'app_id': 'Object',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/owned_apps',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_owned_pages(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
         }
@@ -615,6 +672,34 @@ class Business(
         request = FacebookRequest(
             node_id=self['id'],
             method='GET',
+            endpoint='/owned_pages',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_owned_page(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'page_id': 'int',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
             endpoint='/owned_pages',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
@@ -649,6 +734,40 @@ class Business(
             target_class=AdsPixel,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=AdsPixel, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_owned_product_catalog(self, fields=None, params=None, batch=None, pending=False):
+        from facebookads.adobjects.productcatalog import ProductCatalog
+        param_types = {
+            'da_display_settings': 'Object',
+            'destination_catalog_settings': 'map',
+            'flight_catalog_settings': 'map',
+            'name': 'string',
+            'vertical': 'vertical_enum',
+        }
+        enums = {
+            'vertical_enum': ProductCatalog.Vertical.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/owned_product_catalogs',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ProductCatalog,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ProductCatalog, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
