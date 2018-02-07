@@ -93,18 +93,20 @@ class FacebookRequestError(FacebookError):
             request = self._request_context.copy()
             del request['files']
 
-        # if self._api_error_code and FacebookErrorCodes.unsupported_request == self._api_error_code:
-        #     super(FacebookRequestError, self).__init__(
-        #         "Unsupported Request, Facebook error: %s, method: %s, path: %s, params: %s" %
-        #         (self._message, request.get('method'), request.get('path', '/'), request.get('params'))
-        #     )
-        # else:
+        params_ = request.get('params')
+        try:
+            if params_["payload"]["data"] and len(params_["payload"]["data"]) > 15:
+                params_["payload"]["data"] = params_["payload"]["data"][:5] + \
+                                             ["... we don't need that much data in the logs ..."]
+        except (TypeError, KeyError):
+            pass
+
         super(FacebookRequestError, self).__init__(
             "\n\n" +
             "  Message: %s\n" % self._message +
             "  Method:  %s\n" % request.get('method') +
             "  Path:    %s\n" % request.get('path', '/') +
-            "  Params:  %s\n" % request.get('params') +
+            "  Params:  %s\n" % params_ +
             "\n" +
             "  Status:  %s\n" % self._http_status +
             "  Response:\n    %s" % re.sub(
