@@ -49,6 +49,7 @@ class CustomAudienceMixin:
             madid = 'MADID'
             country = 'COUNTRY'
             appuid = 'APPUID'
+            lookalike_value = 'LOOKALIKE_VALUE'
 
     @classmethod
     def format_params(cls,
@@ -95,14 +96,10 @@ class CustomAudienceMixin:
                     counter = 0
                     hashed_user = []
                     for key in user:
-                        key = key.strip(" \t\r\n\0\x0B.").lower()
-                        key = cls.normalize_key(schema[counter],
-                                                           str(key))
-                        if schema[counter] != \
-                                cls.Schema.MultiKeySchema.extern_id:
-                            if isinstance(key, six.text_type):
-                                key = key.encode('utf8')
-                            key = hashlib.sha256(key).hexdigest()
+                        key_name = schema[counter]
+                        key = cls._clean_key(key_name, key)
+                        key = cls._normalize_key(key_name, key)
+                        key = cls._hash_key(key_name, key)
                         counter = counter + 1
                         hashed_user.append(key)
                     hashed_users.append(hashed_user)
@@ -131,7 +128,24 @@ class CustomAudienceMixin:
         return params
 
     @classmethod
-    def normalize_key(cls, key_name, key_value=None):
+    def _clean_key(cls, key_name, key_value=None):
+        if key_name == cls.Schema.MultiKeySchema.lookalike_value:
+            return key_value
+        else:
+            return str(key_value.strip(" \t\r\n\0\x0B.").lower())
+
+    @classmethod
+    def _hash_key(cls, key_name, key):
+        if key_name not in {cls.Schema.MultiKeySchema.lookalike_value,
+                            cls.Schema.MultiKeySchema.extern_id}:
+            if isinstance(key, six.text_type):
+                key = key.encode('utf8')
+            return hashlib.sha256(key).hexdigest()
+        else:
+            return key
+
+    @classmethod
+    def _normalize_key(cls, key_name, key_value=None):
         """
             Normalize the value based on the key
         """
@@ -140,7 +154,8 @@ class CustomAudienceMixin:
 
         if(key_name == cls.Schema.MultiKeySchema.extern_id or
            key_name == cls.Schema.MultiKeySchema.email or
-           key_name == cls.Schema.MultiKeySchema.madid):
+           key_name == cls.Schema.MultiKeySchema.madid or
+           key_name == cls.Schema.MultiKeySchema.lookalike_value):
             return key_value
 
         if(key_name == cls.Schema.MultiKeySchema.phone):

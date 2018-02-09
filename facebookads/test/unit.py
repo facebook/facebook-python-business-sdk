@@ -111,6 +111,33 @@ class CustomAudienceTestCase(unittest.TestCase):
         users = payload['payload']['data']
         assert users[0] == test_hash1
 
+    def test_value_based_params(self):
+        schema = [
+            customaudience.CustomAudience.Schema.MultiKeySchema.extern_id,
+            customaudience.CustomAudience.Schema.MultiKeySchema.email,
+            customaudience.CustomAudience.Schema.MultiKeySchema.lookalike_value,
+        ]
+        payload = customaudience.CustomAudience.format_params(
+            schema,
+            [["abc123def", "test1@example.com", 100],
+             ["def890abc", "test2@example.com", 250]],
+            is_raw=True,
+        )
+        test_hash1 = [
+            "abc123def",
+            "9b431636bd164765d63c573c346708846af4f68fe3701a77a3bdd7e7e5166254",
+            100,
+        ]
+        test_hash2 = [
+            "def890abc",
+            "8cc62c145cd0c6dc444168eaeb1b61b351f9b1809a579cc9b4c9e9d7213a39ee",
+            250,
+        ]
+
+        users = payload['payload']['data']
+        assert users[0] == test_hash1
+        assert users[1] == test_hash2
+
     def test_extern_id_key_single(self):
 
         schema = [
