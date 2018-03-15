@@ -95,9 +95,11 @@ class FacebookRequestError(FacebookError):
 
         params_ = request.get('params')
         try:
-            if params_["payload"]["data"] and len(params_["payload"]["data"]) > 15:
-                params_["payload"]["data"] = params_["payload"]["data"][:5] + \
-                                             ["... we don't need that much data in the logs ..."]
+            if params_["payload"]["data"] and len(params_["payload"]["data"]) > 10:
+                explanation = "The payload data length is {} we don't need that much data in the logs ...".format(
+                    len(params_["payload"]["data"]))
+                params_["payload"]["data"] = params_["payload"]["data"][:5]
+                params_["payload"]["data"].append(explanation)
         except (TypeError, KeyError):
             pass
 
