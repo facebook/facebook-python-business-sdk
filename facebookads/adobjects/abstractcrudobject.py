@@ -349,13 +349,13 @@ class AbstractCrudObject(AbstractObject):
 
                 if success:
                     success(response)
-                else: 
+                else:
                     request.callback(response)
 
             def callback_failure(response):
                 if failure:
                     failure(response)
-                else: 
+                else:
                     request.callback(response)
 
             batch_call = batch.add_request(
@@ -419,13 +419,13 @@ class AbstractCrudObject(AbstractObject):
 
                 if success:
                     success(response)
-                else: 
+                else:
                     request.callback(response)
 
             def callback_failure(response):
                 if failure:
                     failure(response)
-                else: 
+                else:
                     request.callback(response)
 
             batch_call = batch.add_request(
@@ -479,14 +479,14 @@ class AbstractCrudObject(AbstractObject):
 
                 if success:
                     success(response)
-                else: 
+                else:
                     request.callback(response)
 
             def callback_failure(response):
                 if failure:
                     failure(response)
-                else: 
-                    request.callback(response)    
+                else:
+                    request.callback(response)
 
             batch_call = batch.add_request(
                 request=request,

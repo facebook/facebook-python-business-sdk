@@ -44,7 +44,7 @@ class AdRuleExecutionOptions(
 
     class Operator:
         equal = 'EQUAL'
-        in = 'IN'
+        value_in = 'IN'
 
     _field_types = {
         'field': 'string',

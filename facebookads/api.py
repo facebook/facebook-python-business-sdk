@@ -431,7 +431,7 @@ class FacebookAdsApiBatch(object):
                 batch_formatted_header['value'] = headers[header]
                 call['headers'].append(batch_formatted_header)
 
-        if request: 
+        if request:
             success = request.callback if success is None else success
             failure = request.callback if failure is None else failure
 
@@ -683,10 +683,10 @@ class FacebookRequest:
     def add_to_batch(self, batch, success=None, failure=None):
         batch.add_request(self, success, failure)
 
-    def callback(self, response): 
+    def callback(self, response):
         self._response = response
 
-    def load(self): 
+    def load(self):
         if self._response is None:
             raise FacebookUnavailablePropertyException(
                 "Couldn't retrieve the response for this request"
