@@ -70,7 +70,7 @@ class AdVideo(AbstractCrudObject):
         self._set_data(response)
         return response
 
-    def waitUntilEncodingReady(self, interval=30, timeout=600):
+    def waitUntilEncodingReady(self, interval=10, timeout=600):
         if 'id' not in self:
             raise FacebookError(
                 'Invalid Video ID',
