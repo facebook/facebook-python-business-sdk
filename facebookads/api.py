@@ -38,9 +38,13 @@ import json
 import six
 import collections
 import re
+import logging
 
 from facebookads.adobjects.objectparser import ObjectParser
 from facebookads.typechecker import TypeChecker
+
+
+log = logging.getLogger(__name__)
 
 
 """
@@ -64,6 +68,11 @@ class FacebookResponse(object):
         self._http_status = http_status
         self._headers = headers or {}
         self._call = call
+
+        # ensure all headers keys are upper-case
+        _headers = dict((key.upper(), value) for (key, value) in headers.items())
+        log.info("Rate limit header X-FB-ADS-INSIGHTS-THROTTLE: %s", _headers.get("X-FB-ADS-INSIGHTS-THROTTLE"))
+        log.info("Rate limit header X-APP-USAGE: %s", _headers.get("X-APP-USAGE"))
 
     def body(self):
         """Returns the response body."""
