@@ -50,6 +50,8 @@ class ProductFeedUpload(
     class InputMethod:
         manual_upload = 'Manual Upload'
         server_fetch = 'Server Fetch'
+        reupload_last_file = 'Reupload Last File'
+        user_initiated_server_fetch = 'User initiated server fetch'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod

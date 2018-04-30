@@ -70,12 +70,16 @@ class AdCreativeLinkDataCallToAction(
         donate_now = 'DONATE_NOW'
         get_quote = 'GET_QUOTE'
         contact_us = 'CONTACT_US'
+        start_order = 'START_ORDER'
         record_now = 'RECORD_NOW'
         vote_now = 'VOTE_NOW'
         register_now = 'REGISTER_NOW'
         request_time = 'REQUEST_TIME'
         see_menu = 'SEE_MENU'
         email_now = 'EMAIL_NOW'
+        get_showtimes = 'GET_SHOWTIMES'
+        try_it = 'TRY_IT'
+        listen_now = 'LISTEN_NOW'
         open_movies = 'OPEN_MOVIES'
 
     _field_types = {

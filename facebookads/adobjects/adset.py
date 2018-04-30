@@ -59,16 +59,15 @@ class AdSet(
         created_time = 'created_time'
         creative_sequence = 'creative_sequence'
         daily_budget = 'daily_budget'
+        destination_type = 'destination_type'
         effective_status = 'effective_status'
         end_time = 'end_time'
-        frequency_cap = 'frequency_cap'
-        frequency_cap_reset_period = 'frequency_cap_reset_period'
         frequency_control_specs = 'frequency_control_specs'
         id = 'id'
+        instagram_actor_id = 'instagram_actor_id'
         is_autobid = 'is_autobid'
         is_average_price_pacing = 'is_average_price_pacing'
         lifetime_budget = 'lifetime_budget'
-        lifetime_frequency_cap = 'lifetime_frequency_cap'
         lifetime_imps = 'lifetime_imps'
         name = 'name'
         optimization_goal = 'optimization_goal'
@@ -103,6 +102,7 @@ class AdSet(
         video_views = 'VIDEO_VIEWS'
         mrc_video_views = 'MRC_VIDEO_VIEWS'
         completed_video_views = 'COMPLETED_VIDEO_VIEWS'
+        video_views_15s = 'VIDEO_VIEWS_15S'
 
     class ConfiguredStatus:
         active = 'ACTIVE'
@@ -126,6 +126,7 @@ class AdSet(
         none = 'NONE'
         app_installs = 'APP_INSTALLS'
         brand_awareness = 'BRAND_AWARENESS'
+        ad_recall_lift = 'AD_RECALL_LIFT'
         clicks = 'CLICKS'
         engaged_users = 'ENGAGED_USERS'
         event_responses = 'EVENT_RESPONSES'
@@ -169,6 +170,13 @@ class AdSet(
         this_week_mon_today = 'this_week_mon_today'
         this_week_sun_today = 'this_week_sun_today'
         this_year = 'this_year'
+
+    class DestinationType:
+        undefined = 'UNDEFINED'
+        website = 'WEBSITE'
+        app = 'APP'
+        messenger = 'MESSENGER'
+        applinks_automatic = 'APPLINKS_AUTOMATIC'
 
     class ExecutionOptions:
         validate_only = 'validate_only'
@@ -252,6 +260,7 @@ class AdSet(
             'creative_sequence': 'list<string>',
             'daily_budget': 'unsigned int',
             'daily_imps': 'unsigned int',
+            'destination_type': 'destination_type_enum',
             'end_time': 'datetime',
             'execution_options': 'list<execution_options_enum>',
             'is_autobid': 'bool',
@@ -272,6 +281,7 @@ class AdSet(
         }
         enums = {
             'billing_event_enum': AdSet.BillingEvent.__dict__.values(),
+            'destination_type_enum': AdSet.DestinationType.__dict__.values(),
             'execution_options_enum': AdSet.ExecutionOptions.__dict__.values(),
             'optimization_goal_enum': AdSet.OptimizationGoal.__dict__.values(),
             'status_enum': AdSet.Status.__dict__.values(),
@@ -712,16 +722,15 @@ class AdSet(
         'created_time': 'datetime',
         'creative_sequence': 'list<string>',
         'daily_budget': 'string',
+        'destination_type': 'string',
         'effective_status': 'EffectiveStatus',
         'end_time': 'datetime',
-        'frequency_cap': 'unsigned int',
-        'frequency_cap_reset_period': 'unsigned int',
         'frequency_control_specs': 'list<Object>',
         'id': 'string',
+        'instagram_actor_id': 'string',
         'is_autobid': 'bool',
         'is_average_price_pacing': 'bool',
         'lifetime_budget': 'string',
-        'lifetime_frequency_cap': 'unsigned int',
         'lifetime_imps': 'int',
         'name': 'string',
         'optimization_goal': 'OptimizationGoal',
@@ -755,6 +764,7 @@ class AdSet(
         field_enum_info['OptimizationGoal'] = AdSet.OptimizationGoal.__dict__.values()
         field_enum_info['Status'] = AdSet.Status.__dict__.values()
         field_enum_info['DatePreset'] = AdSet.DatePreset.__dict__.values()
+        field_enum_info['DestinationType'] = AdSet.DestinationType.__dict__.values()
         field_enum_info['ExecutionOptions'] = AdSet.ExecutionOptions.__dict__.values()
         field_enum_info['Operator'] = AdSet.Operator.__dict__.values()
         return field_enum_info

@@ -614,6 +614,17 @@ class FacebookResponseTestCase(unittest.TestCase):
         resp = api.FacebookResponse(body="Service Unavailable", http_status=200)
         self.assertFalse(resp.is_success())
 
+    def test_is_success_not_modified(self):
+        resp = api.FacebookResponse(http_status=304)
+        self.assertTrue(resp.is_success())
+
+    def test_is_failure_for_html_body(self):
+        html_body = '<html><head></head><body>' \
+                    '<p>Something went wrong!</p>' \
+                    '</body></html>'
+        resp = api.FacebookResponse(http_status=400, body=html_body)
+        self.assertFalse(resp.is_success())
+
     def test_is_transient_success(self):
         resp = api.FacebookResponse(http_status=200)
         self.assertFalse(resp.is_transient())
@@ -671,7 +682,6 @@ class FacebookResponseTestCase(unittest.TestCase):
             body=json.dumps({"error": {"is_transient": False, "message": "what ?"}})
         )
         self.assertFalse(resp.is_transient())
-
 
 if __name__ == '__main__':
     unittest.main()

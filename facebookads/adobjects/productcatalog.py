@@ -56,21 +56,24 @@ class ProductCatalog(
         product_count = 'product_count'
         qualified_product_count = 'qualified_product_count'
         vertical = 'vertical'
+        destination_catalog_settings = 'destination_catalog_settings'
 
     class Vertical:
         commerce = 'commerce'
         destinations = 'destinations'
         flights = 'flights'
+        home_listings = 'home_listings'
+        home_service_providers = 'home_service_providers'
         hotels = 'hotels'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
-        return 'product_catalogs'
+        return 'owned_product_catalogs'
 
     def api_create(self, parent_id, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.business import Business
-        return Business(api=self._api, fbid=parent_id).create_product_catalog(fields, params, batch, pending)
+        return Business(api=self._api, fbid=parent_id).create_owned_product_catalog(fields, params, batch, pending)
 
     def api_delete(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
@@ -358,6 +361,77 @@ class ProductCatalog(
             self.assure_call()
             return request.execute()
 
+    def get_home_listings(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'bulk_pagination': 'bool',
+            'filter': 'Object',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/home_listings',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_home_listing(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'address': 'Object',
+            'availability': 'string',
+            'currency': 'string',
+            'description': 'string',
+            'home_listing_id': 'string',
+            'images': 'list<Object>',
+            'listing_type': 'string',
+            'name': 'string',
+            'num_baths': 'float',
+            'num_beds': 'float',
+            'num_units': 'float',
+            'price': 'float',
+            'property_type': 'string',
+            'url': 'string',
+            'year_built': 'unsigned int',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/home_listings',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_hotel_rooms_batch(self, fields=None, params=None, batch=None, pending=False):
         from facebookads.adobjects.productcataloghotelroomsbatch import ProductCatalogHotelRoomsBatch
         param_types = {
@@ -596,6 +670,7 @@ class ProductCatalog(
             'quoted_fields_mode': 'quoted_fields_mode_enum',
             'rules': 'list<string>',
             'schedule': 'string',
+            'update_schedule': 'string',
         }
         enums = {
             'delimiter_enum': ProductFeed.Delimiter.__dict__.values(),
@@ -939,6 +1014,7 @@ class ProductCatalog(
             'original_projection_type_enum': [
                 'equirectangular',
                 'cubemap',
+                'equiangular_cubemap',
             ],
             'swap_mode_enum': [
                 'replace',
@@ -991,6 +1067,7 @@ class ProductCatalog(
         'product_count': 'int',
         'qualified_product_count': 'unsigned int',
         'vertical': 'string',
+        'destination_catalog_settings': 'map',
     }
 
     @classmethod

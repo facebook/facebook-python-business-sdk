@@ -125,6 +125,7 @@ class User(
             return request.execute()
 
     def get_accounts(self, fields=None, params=None, batch=None, pending=False):
+        from facebookads.adobjects.page import Page
         param_types = {
             'business_id': 'string',
             'is_business': 'bool',
@@ -139,9 +140,9 @@ class User(
             endpoint='/accounts',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=Page,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=Page, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
