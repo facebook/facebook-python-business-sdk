@@ -146,6 +146,11 @@ class AdAccountTargetingUnified(
         format = 'format'
         trending = 'trending'
         gatekeepers = 'gatekeepers'
+        follow_profiles = 'follow_profiles'
+        follow_profiles_negative = 'follow_profiles_negative'
+        location_categories = 'location_categories'
+        user_page_threads = 'user_page_threads'
+        user_page_threads_excluded = 'user_page_threads_excluded'
 
     _field_types = {
         'audience_size': 'unsigned int',

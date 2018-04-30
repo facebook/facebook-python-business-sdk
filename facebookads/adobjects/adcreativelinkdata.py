@@ -41,16 +41,20 @@ class AdCreativeLinkData(
         additional_image_index = 'additional_image_index'
         app_link_spec = 'app_link_spec'
         attachment_style = 'attachment_style'
+        branded_content_shared_to_sponsor_status = 'branded_content_shared_to_sponsor_status'
         branded_content_sponsor_page_id = 'branded_content_sponsor_page_id'
         branded_content_sponsor_relationship = 'branded_content_sponsor_relationship'
         call_to_action = 'call_to_action'
         caption = 'caption'
         child_attachments = 'child_attachments'
+        collection_thumbnails = 'collection_thumbnails'
         description = 'description'
         event_id = 'event_id'
         force_single_link = 'force_single_link'
+        format_option = 'format_option'
         image_crops = 'image_crops'
         image_hash = 'image_hash'
+        image_overlay_spec = 'image_overlay_spec'
         link = 'link'
         message = 'message'
         multi_share_end_card = 'multi_share_end_card'
@@ -59,6 +63,7 @@ class AdCreativeLinkData(
         offer_id = 'offer_id'
         page_welcome_message = 'page_welcome_message'
         picture = 'picture'
+        post_click_configuration = 'post_click_configuration'
         retailer_item_ids = 'retailer_item_ids'
         show_multiple_images = 'show_multiple_images'
 
@@ -66,20 +71,29 @@ class AdCreativeLinkData(
         link = 'link'
         value_default = 'default'
 
+    class FormatOption:
+        carousel_images_multi_items = 'carousel_images_multi_items'
+        carousel_images_single_item = 'carousel_images_single_item'
+        single_image = 'single_image'
+
     _field_types = {
         'additional_image_index': 'int',
         'app_link_spec': 'AdCreativeLinkDataAppLinkSpec',
         'attachment_style': 'AttachmentStyle',
+        'branded_content_shared_to_sponsor_status': 'string',
         'branded_content_sponsor_page_id': 'string',
         'branded_content_sponsor_relationship': 'string',
         'call_to_action': 'AdCreativeLinkDataCallToAction',
         'caption': 'string',
         'child_attachments': 'list<AdCreativeLinkDataChildAttachment>',
+        'collection_thumbnails': 'list<AdCreativeCollectionThumbnailInfo>',
         'description': 'string',
         'event_id': 'string',
         'force_single_link': 'bool',
+        'format_option': 'FormatOption',
         'image_crops': 'AdsImageCrops',
         'image_hash': 'string',
+        'image_overlay_spec': 'AdCreativeLinkDataImageOverlaySpec',
         'link': 'string',
         'message': 'string',
         'multi_share_end_card': 'bool',
@@ -88,6 +102,7 @@ class AdCreativeLinkData(
         'offer_id': 'string',
         'page_welcome_message': 'string',
         'picture': 'string',
+        'post_click_configuration': 'AdCreativePostClickConfiguration',
         'retailer_item_ids': 'list<string>',
         'show_multiple_images': 'bool',
     }
@@ -96,4 +111,5 @@ class AdCreativeLinkData(
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['AttachmentStyle'] = AdCreativeLinkData.AttachmentStyle.__dict__.values()
+        field_enum_info['FormatOption'] = AdCreativeLinkData.FormatOption.__dict__.values()
         return field_enum_info

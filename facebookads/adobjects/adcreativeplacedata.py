@@ -41,6 +41,7 @@ class AdCreativePlaceData(
         address_string = 'address_string'
         label = 'label'
         latitude = 'latitude'
+        location_source_id = 'location_source_id'
         longitude = 'longitude'
         type = 'type'
 
@@ -48,6 +49,7 @@ class AdCreativePlaceData(
         'address_string': 'string',
         'label': 'string',
         'latitude': 'float',
+        'location_source_id': 'string',
         'longitude': 'float',
         'type': 'string',
     }

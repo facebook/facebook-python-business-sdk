@@ -360,10 +360,14 @@ class AbstractCrudObject(AbstractObject):
 
                 if success:
                     success(response)
+                else:
+                    request.callback(response)
 
             def callback_failure(response):
                 if failure:
                     failure(response)
+                else:
+                    request.callback(response)
 
             def callback_transient_error(response):
                 if transient_error:
@@ -434,10 +438,14 @@ class AbstractCrudObject(AbstractObject):
 
                 if success:
                     success(response)
+                else:
+                    request.callback(response)
 
             def callback_failure(response):
                 if failure:
                     failure(response)
+                else:
+                    request.callback(response)
 
             def callback_transient_error(response):
                 if transient_error:
@@ -498,10 +506,14 @@ class AbstractCrudObject(AbstractObject):
 
                 if success:
                     success(response)
+                else:
+                    request.callback(response)
 
             def callback_failure(response):
                 if failure:
                     failure(response)
+                else:
+                    request.callback(response)
 
             def callback_transient_error(response):
                 if transient_error:

@@ -60,7 +60,6 @@ class ConversionActionQuery(
         field_post_object = 'post.object'
         field_post_object_wall = 'post.object.wall'
         field_post_wall = 'post.wall'
-        product_set_id = 'product_set_id'
         question = 'question'
         field_question_creator = 'question.creator'
         response = 'response'
@@ -89,7 +88,6 @@ class ConversionActionQuery(
         'post.object': 'list<string>',
         'post.object.wall': 'list<string>',
         'post.wall': 'list<string>',
-        'product_set_id': 'list<string>',
         'question': 'list<string>',
         'question.creator': 'list<string>',
         'response': 'list<string>',

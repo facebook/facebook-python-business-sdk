@@ -74,6 +74,7 @@ class AdActivity(
         update_campaign_name = 'update_campaign_name'
         update_campaign_run_status = 'update_campaign_run_status'
         update_campaign_group_spend_cap = 'update_campaign_group_spend_cap'
+        campaign_ended = 'campaign_ended'
         create_campaign = 'create_campaign'
         create_campaign_legacy = 'create_campaign_legacy'
         update_campaign_budget = 'update_campaign_budget'

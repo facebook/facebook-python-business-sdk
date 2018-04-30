@@ -54,6 +54,7 @@ class Targeting(
         country_groups = 'country_groups'
         custom_audiences = 'custom_audiences'
         device_platforms = 'device_platforms'
+        direct_install_devices = 'direct_install_devices'
         dynamic_audience_ids = 'dynamic_audience_ids'
         education_majors = 'education_majors'
         education_schools = 'education_schools'
@@ -102,7 +103,6 @@ class Targeting(
         moms = 'moms'
         net_worth = 'net_worth'
         office_type = 'office_type'
-        page_types = 'page_types'
         place_page_set_ids = 'place_page_set_ids'
         political_views = 'political_views'
         politics = 'politics'
@@ -151,6 +151,7 @@ class Targeting(
         'country_groups': 'list<string>',
         'custom_audiences': 'list<IDName>',
         'device_platforms': 'list<DevicePlatforms>',
+        'direct_install_devices': 'bool',
         'dynamic_audience_ids': 'list<string>',
         'education_majors': 'list<IDName>',
         'education_schools': 'list<IDName>',
@@ -199,7 +200,6 @@ class Targeting(
         'moms': 'list<IDName>',
         'net_worth': 'list<IDName>',
         'office_type': 'list<IDName>',
-        'page_types': 'list<string>',
         'place_page_set_ids': 'list<string>',
         'political_views': 'list<unsigned int>',
         'politics': 'list<IDName>',
