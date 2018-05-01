@@ -32,9 +32,8 @@ from facebook_business.mixins import ValidatesFields
 from facebook_business.adobjects import adcreativeobjectstoryspec
 from facebook_business.adobjects import adcreativelinkdatachildattachment
 from facebook_business.adobjects import adcreativelinkdata
-from facebook_business.adobjects import adcreativeofferdata
-from facebook_business.adobjects import adcreativephotodata
 from facebook_business.adobjects import adcreativetextdata
+from facebook_business.adobjects import adcreativephotodata
 from facebook_business.adobjects import adcreativevideodata
 
 
@@ -50,19 +49,15 @@ class LinkData(adcreativelinkdata.AdCreativeLinkData):
     pass
 
 
-class OfferData(adcreativeofferdata.AdCreativeOfferData):
-    pass
-
-
-class PhotoData(adcreativephotodata.AdCreativePhotoData):
-    pass
-
-
 class TemplateData(adcreativelinkdata.AdCreativeLinkData):
     pass
 
 
 class TextData(adcreativetextdata.AdCreativeTextData):
+    pass
+
+
+class PhotoData(adcreativephotodata.AdCreativePhotoData):
     pass
 
 
