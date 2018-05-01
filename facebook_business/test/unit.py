@@ -19,7 +19,7 @@
 # DEALINGS IN THE SOFTWARE.
 
 '''
-Unit tests for the Python Facebook Ads API SDK.
+Unit tests for the Python Facebook Business SDK.
 
 How to run:
     python -m facebook_business.test.unit
@@ -80,7 +80,7 @@ class CustomAudienceTestCase(unittest.TestCase):
         test_hash = (hashlib.sha256(user.encode('utf8')).hexdigest())
         payload = customaudience.CustomAudience.format_params(
             customaudience.CustomAudience.Schema.email_hash,
-            [test_hash], 
+            [test_hash],
             pre_hashed=True
         )
 
@@ -301,17 +301,19 @@ class AbstractCrudObjectTestCase(unittest.TestCase):
         self.assertIsNone(obj._parent_id)
         with self.assertRaises(exceptions.FacebookBadObjectError):
             obj.remote_create()
-            
+
 
 class AbstractObjectTestCase(unittest.TestCase):
     def test_export_nested_object(self):
-        obj = specs.ObjectStorySpec()
-        obj2 = specs.OfferData()
-        obj2['barcode'] = 'foo'
-        obj['offer_data'] = obj2
+        obj = specs.PagePostData()
+        obj2 = specs.UserData()
+        obj2['id'] = 'id'
+        obj2['name'] = 'foo'
+        obj['from'] = obj2
         expected = {
-            'offer_data': {
-                'barcode': 'foo'
+            'from': {
+                'id': 'id',
+                'name': 'foo'
             }
         }
         assert obj.export_data() == expected
@@ -368,10 +370,11 @@ class AbstractObjectTestCase(unittest.TestCase):
 
     def test_can_print(self):
         '''Must be able to print nested objects without serialization issues'''
-        obj = specs.ObjectStorySpec()
-        obj2 = specs.OfferData()
-        obj2['barcode'] = 'foo'
-        obj['offer_data'] = obj2
+        obj = specs.PagePostData()
+        obj2 = specs.UserData()
+        obj2['id'] = 'id'
+        obj2['name'] = 'foo'
+        obj['from'] = obj2
 
         try:
             obj.__repr__()

@@ -19,7 +19,7 @@
 # DEALINGS IN THE SOFTWARE.
 
 '''
-Integration tests for the Python Facebook Ads API SDK.
+Integration tests for the Python Facebook Business SDK.
 
 How to run:
     python -m facebook_business.test.integration access_token

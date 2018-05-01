@@ -35,6 +35,8 @@ from facebook_business.adobjects import adcreativelinkdata
 from facebook_business.adobjects import adcreativetextdata
 from facebook_business.adobjects import adcreativephotodata
 from facebook_business.adobjects import adcreativevideodata
+from facebook_business.adobjects import pagepost
+from facebook_business.adobjects import user
 
 
 class ObjectStorySpec(adcreativeobjectstoryspec.AdCreativeObjectStorySpec):
@@ -64,6 +66,11 @@ class PhotoData(adcreativephotodata.AdCreativePhotoData):
 class VideoData(adcreativevideodata.AdCreativeVideoData):
     pass
 
+class PagePostData(pagepost.PagePost):
+    pass
+
+class UserData(user.User):
+    pass
 
 class SlideshowSpec(ValidatesFields, AbstractObject):
     class Field(object):

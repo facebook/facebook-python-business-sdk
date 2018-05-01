@@ -19,7 +19,7 @@
 # DEALINGS IN THE SOFTWARE.
 
 '''
-Unit tests for the Python Facebook Ads API SDK.
+Unit tests for the Python Facebook Business SDK.
 
 How to run:
     python -m facebook_business.test.adset_docs
