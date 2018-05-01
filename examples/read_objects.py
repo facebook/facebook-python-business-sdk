@@ -22,10 +22,12 @@
 Prints account permissions and campaign statistics.
 """
 
-from facebookads import FacebookSession
-from facebookads import FacebookAdsApi
-from facebookads.adobjects.adaccountuser import AdAccountUser
-from facebookads.adobjects.campaign import Campaign
+from facebook_business import FacebookSession
+from facebook_business import FacebookAdsApi
+from facebook_business.objects import (
+    AdUser,
+    AdCampaign,
+)
 
 import json
 import os
@@ -53,11 +55,11 @@ if __name__ == '__main__':
     print('\n\n\n********** Reading objects example. **********\n')
 
     ### Setup user and read the object from the server
-    me = AdAccountUser(fbid='me')
+    me = AdUser(fbid='me')
 
     ### Read user permissions
     print('>>> Reading permissions field of user:')
-    pp.pprint(me.remote_read(fields=[AdAccountUser.Field.permissions]))
+    pp.pprint(me.remote_read(fields=[AdUser.Field.permissions]))
 
     ### Get first account connected to the user
     my_account = me.get_ad_account()
@@ -73,11 +75,11 @@ if __name__ == '__main__':
         pp.pprint(account)
 
     print(">>> Campaign Stats")
-    for campaign in my_account.get_campaigns(fields=[Campaign.Field.name]):
-        for stat in campaign.get_insights(fields=[
+    for campaign in my_account.get_ad_campaigns(fields=[AdCampaign.Field.name]):
+        for stat in campaign.get_stats(fields=[
             'impressions',
             'clicks',
-            'spend',
+            'spent',
             'unique_clicks',
             'actions',
         ]):

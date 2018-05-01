@@ -1,3 +1,3 @@
 include *.txt *.md *.py
 recursive-include examples *.png *.py *.dist
-recursive-include facebookads *.py *.crt *.png
+recursive-include facebook_business *.py *.crt *.png

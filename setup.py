@@ -28,33 +28,26 @@ this_dir = os.path.dirname(__file__)
 readme_filename = os.path.join(this_dir, 'README.md')
 requirements_filename = os.path.join(this_dir, 'requirements.txt')
 
-PACKAGE_NAME = 'facebookads'
-PACKAGE_VERSION = '2.11.4'
+PACKAGE_NAME = 'facebook_business'
+PACKAGE_VERSION = '3.0.0'
 PACKAGE_AUTHOR = 'Facebook'
-PACKAGE_AUTHOR_EMAIL = ''
-PACKAGE_URL = 'https://github.com/facebook/facebook-python-ads-sdk'
+PACKAGE_AUTHOR_EMAIL = 'ellentao@fb.com'
+PACKAGE_URL = 'https://github.com/facebook/facebook-python-business-sdk'
 PACKAGE_DOWNLOAD_URL = \
-    'https://github.com/facebook/facebook-python-ads-sdk/tarball/' + PACKAGE_VERSION
+    'https://github.com/facebook/facebook-python-business-sdk/tarball/' + PACKAGE_VERSION
 PACKAGES = [
-    'facebookads',
-    'facebookads.test',
-    'facebookads.utils',
-    'facebookads.adobjects',
-    'facebookads.adobjects.helpers',
+    'facebook_business',
+    'facebook_business.test',
+    'facebook_business.utils',
+    'facebook_business.adobjects',
+    'facebook_business.adobjects.helpers',
 ]
 PACKAGE_DATA = {
-    'facebookads': ['*.crt'],
-    'facebookads.test': ['*.png']
+    'facebook_business': ['*.crt'],
+    'facebook_business.test': ['*.jpg']
 }
 PACKAGE_LICENSE = 'LICENSE.txt'
-PACKAGE_DESCRIPTION = 'Facebook Ads API SDK'
-PACKAGE_CLASSIFIERS = [
-    'Programming Language :: Python :: 2',
-    'Programming Language :: Python :: 2.7',
-    'Programming Language :: Python :: 3',
-    'Programming Language :: Python :: 3.3',
-    'Programming Language :: Python :: 3.4',
-]
+PACKAGE_DESCRIPTION = 'Facebook Business SDK'
 
 with open(readme_filename) as f:
     PACKAGE_LONG_DESCRIPTION = f.read()
@@ -75,5 +68,4 @@ setup(
     description=PACKAGE_DESCRIPTION,
     long_description=PACKAGE_LONG_DESCRIPTION,
     install_requires=PACKAGE_INSTALL_REQUIRES,
-    classifiers=PACKAGE_CLASSIFIERS,
 )

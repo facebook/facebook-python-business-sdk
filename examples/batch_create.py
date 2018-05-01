@@ -22,9 +22,9 @@
 Creates several ads using batch calls.
 """
 
-from facebookads import FacebookSession
-from facebookads import FacebookAdsApi
-from facebookads.objects import (
+from facebook_business import FacebookSession
+from facebook_business import FacebookAdsApi
+from facebook_business.objects import (
     AdAccount,
     Ad,
     AdSet,
@@ -85,7 +85,7 @@ if __name__ == '__main__':
             os.path.join(
                 os.path.dirname(__file__),
                 os.pardir,
-                'facebookads/test/misc/image.png'
+                'facebook_business/test/misc/image.png'
             )
         ],
 

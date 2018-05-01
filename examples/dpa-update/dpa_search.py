@@ -33,8 +33,8 @@ config_file = open(config_filename)
 config = json.load(config_file)
 config_file.close()
 
-from facebookads.api import FacebookAdsApi
-from facebookads.objects import ProductCatalog, Product
+from facebook_business.api import FacebookAdsApi
+from facebook_business.objects import ProductCatalog, Product
 
 FacebookAdsApi.init(
     config['app_id'],
