@@ -927,7 +927,6 @@ class Business(
             self.assure_call()
             return request.execute()
 
-
     def create_user_permission(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
             'email': 'string',
