@@ -24,10 +24,8 @@ Prints account permissions and campaign statistics.
 
 from facebook_business import FacebookSession
 from facebook_business import FacebookAdsApi
-from facebook_business.objects import (
-    AdUser,
-    AdCampaign,
-)
+from facebook_business.adobjects.campaign import Campaign as AdCampaign
+from facebook_business.adobjects.adaccountuser import AdAccountUser as AdUser
 
 import json
 import os
