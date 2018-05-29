@@ -20,6 +20,7 @@
 
 from facebookads.adobjects.videothumbnail import VideoThumbnail
 from facebookads.adobjects.abstractcrudobject import AbstractCrudObject
+from facebookads.adobjects.abstractobject import AbstractObject
 
 from facebookads.video_uploader import (
     VideoUploader,
@@ -33,7 +34,7 @@ from facebookads.exceptions import (
 
 class AdVideo(AbstractCrudObject):
 
-    class Field(object):
+    class Field(AbstractObject.Field):
         filepath = 'filepath'
         id = 'id'
         slideshow_spec = 'slideshow_spec'

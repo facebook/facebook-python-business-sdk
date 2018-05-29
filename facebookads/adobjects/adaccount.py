@@ -1037,6 +1037,7 @@ class AdAccount(
             return request.execute()
 
     def create_ad_video(self, fields=None, params=None, batch=None, pending=False):
+        from facebookads.adobjects.advideo import AdVideo
         param_types = {
             'composer_session_id': 'string',
             'description': 'string',
@@ -1086,7 +1087,7 @@ class AdAccount(
             endpoint='/advideos',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=AdVideo,
             api_type='EDGE',
             allow_file_upload=True,
             response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
