@@ -41,6 +41,7 @@ class ExtendedCreditInvoiceGroup(
         super(ExtendedCreditInvoiceGroup, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        customer_po_number = 'customer_po_number'
         email = 'email'
         emails = 'emails'
         id = 'id'
@@ -186,6 +187,7 @@ class ExtendedCreditInvoiceGroup(
             return request.execute()
 
     _field_types = {
+        'customer_po_number': 'string',
         'email': 'Object',
         'emails': 'list<string>',
         'id': 'string',

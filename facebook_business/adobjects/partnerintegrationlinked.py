@@ -45,6 +45,7 @@ class PartnerIntegrationLinked(
         external_id = 'external_id'
         has_oauth_token = 'has_oauth_token'
         id = 'id'
+        name = 'name'
         offline_conversion_data_set = 'offline_conversion_data_set'
         partner = 'partner'
         product_catalog = 'product_catalog'
@@ -82,6 +83,7 @@ class PartnerIntegrationLinked(
         'external_id': 'string',
         'has_oauth_token': 'bool',
         'id': 'string',
+        'name': 'string',
         'offline_conversion_data_set': 'OfflineConversionDataSet',
         'partner': 'string',
         'product_catalog': 'ProductCatalog',

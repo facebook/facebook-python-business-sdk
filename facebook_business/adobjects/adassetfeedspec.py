@@ -39,6 +39,7 @@ class AdAssetFeedSpec(
 
     class Field(AbstractObject.Field):
         ad_formats = 'ad_formats'
+        additional_data = 'additional_data'
         asset_customization_rules = 'asset_customization_rules'
         autotranslate = 'autotranslate'
         bodies = 'bodies'
@@ -99,9 +100,11 @@ class AdAssetFeedSpec(
         listen_now = 'LISTEN_NOW'
         event_rsvp = 'EVENT_RSVP'
         whatsapp_message = 'WHATSAPP_MESSAGE'
+        follow_news_storyline = 'FOLLOW_NEWS_STORYLINE'
 
     _field_types = {
         'ad_formats': 'list<string>',
+        'additional_data': 'Object',
         'asset_customization_rules': 'list<Object>',
         'autotranslate': 'list<string>',
         'bodies': 'list<AdAssetFeedSpecBody>',

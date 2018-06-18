@@ -43,6 +43,7 @@ class Business(
         super(Business, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        block_offline_analytics = 'block_offline_analytics'
         created_by = 'created_by'
         created_time = 'created_time'
         id = 'id'
@@ -288,7 +289,7 @@ class Business(
             'chinese_legal_entity_name': 'string',
             'contact': 'Object',
             'english_legal_entity_name': 'string',
-            'extended_credit_id': 'string',
+            'extended_credit_id': 'Object',
             'is_smb': 'bool',
             'is_test': 'bool',
             'official_website_url': 'Object',
@@ -420,6 +421,7 @@ class Business(
             'ordering_column_enum': [
                 'TIME',
                 'VALUE',
+                'METRIC',
             ],
             'ordering_type_enum': [
                 'ASCENDING',
@@ -513,6 +515,7 @@ class Business(
             'ordering_column_enum': [
                 'TIME',
                 'VALUE',
+                'METRIC',
             ],
             'ordering_type_enum': [
                 'ASCENDING',
@@ -1796,6 +1799,7 @@ class Business(
     def create_owned_page(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.page import Page
         param_types = {
+            'ig_password': 'string',
             'page_id': 'int',
         }
         enums = {
@@ -2414,6 +2418,7 @@ class Business(
             return request.execute()
 
     _field_types = {
+        'block_offline_analytics': 'bool',
         'created_by': 'User',
         'created_time': 'datetime',
         'id': 'string',

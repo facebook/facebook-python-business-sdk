@@ -64,6 +64,7 @@ class User(
         install_type = 'install_type'
         installed = 'installed'
         interested_in = 'interested_in'
+        is_famedeeplinkinguser = 'is_famedeeplinkinguser'
         is_payment_enabled = 'is_payment_enabled'
         is_shared_login = 'is_shared_login'
         is_verified = 'is_verified'
@@ -664,6 +665,7 @@ class User(
         'install_type': 'string',
         'installed': 'bool',
         'interested_in': 'list<string>',
+        'is_famedeeplinkinguser': 'bool',
         'is_payment_enabled': 'bool',
         'is_shared_login': 'bool',
         'is_verified': 'bool',

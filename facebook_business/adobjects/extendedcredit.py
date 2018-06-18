@@ -46,6 +46,7 @@ class ExtendedCredit(
         credit_available = 'credit_available'
         credit_type = 'credit_type'
         id = 'id'
+        is_automated_experience = 'is_automated_experience'
         last_payment_time = 'last_payment_time'
         legal_entity_name = 'legal_entity_name'
         liable_biz_name = 'liable_biz_name'
@@ -212,6 +213,7 @@ class ExtendedCredit(
         'credit_available': 'Object',
         'credit_type': 'string',
         'id': 'string',
+        'is_automated_experience': 'bool',
         'last_payment_time': 'datetime',
         'legal_entity_name': 'string',
         'liable_biz_name': 'string',

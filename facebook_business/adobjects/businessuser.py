@@ -43,8 +43,10 @@ class BusinessUser(
     class Field(AbstractObject.Field):
         business = 'business'
         email = 'email'
+        finance_permission = 'finance_permission'
         first_name = 'first_name'
         id = 'id'
+        ip_permission = 'ip_permission'
         last_name = 'last_name'
         marked_for_removal = 'marked_for_removal'
         name = 'name'
@@ -152,8 +154,10 @@ class BusinessUser(
     _field_types = {
         'business': 'Business',
         'email': 'string',
+        'finance_permission': 'string',
         'first_name': 'string',
         'id': 'string',
+        'ip_permission': 'string',
         'last_name': 'string',
         'marked_for_removal': 'bool',
         'name': 'string',

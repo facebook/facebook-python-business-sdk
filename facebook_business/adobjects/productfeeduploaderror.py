@@ -41,12 +41,18 @@ class ProductFeedUploadError(
         super(ProductFeedUploadError, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        affected_surfaces = 'affected_surfaces'
         description = 'description'
         error_type = 'error_type'
         id = 'id'
         severity = 'severity'
         summary = 'summary'
         total_count = 'total_count'
+
+    class AffectedSurfaces:
+        dynamic_ads = 'Dynamic Ads'
+        marketplace = 'Marketplace'
+        us_marketplace = 'US Marketplace'
 
     class Severity:
         fatal = 'fatal'
@@ -112,6 +118,7 @@ class ProductFeedUploadError(
             return request.execute()
 
     _field_types = {
+        'affected_surfaces': 'list<AffectedSurfaces>',
         'description': 'string',
         'error_type': 'string',
         'id': 'string',
@@ -123,5 +130,6 @@ class ProductFeedUploadError(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['AffectedSurfaces'] = ProductFeedUploadError.AffectedSurfaces.__dict__.values()
         field_enum_info['Severity'] = ProductFeedUploadError.Severity.__dict__.values()
         return field_enum_info

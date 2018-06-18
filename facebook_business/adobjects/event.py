@@ -47,6 +47,7 @@ class Event(
         cover = 'cover'
         declined_count = 'declined_count'
         description = 'description'
+        discount_code_enabled = 'discount_code_enabled'
         end_time = 'end_time'
         event_times = 'event_times'
         guest_list_enabled = 'guest_list_enabled'
@@ -90,6 +91,7 @@ class Event(
     class PromotableEventTypes:
         offsite_ticket = 'OFFSITE_TICKET'
         onsite_ticket = 'ONSITE_TICKET'
+        rsvp = 'RSVP'
 
     def api_get(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
@@ -145,7 +147,6 @@ class Event(
             'projection_enum': [
                 'EQUIRECTANGULAR',
                 'CUBEMAP',
-                'SINGLE_FISH_EYE',
             ],
             'spatial_audio_format_enum': [
                 'ambiX_4',
@@ -255,6 +256,7 @@ class Event(
 
     def create_video(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
+            'audio_story_wave_animation_handle': 'string',
             'content_category': 'content_category_enum',
             'description': 'string',
             'embeddable': 'bool',
@@ -357,6 +359,7 @@ class Event(
         'cover': 'CoverPhoto',
         'declined_count': 'int',
         'description': 'string',
+        'discount_code_enabled': 'bool',
         'end_time': 'string',
         'event_times': 'list<Object>',
         'guest_list_enabled': 'bool',

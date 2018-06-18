@@ -45,6 +45,7 @@ class CustomAudience(
     class Field(AbstractObject.Field):
         account_id = 'account_id'
         approximate_count = 'approximate_count'
+        customer_file_source = 'customer_file_source'
         data_source = 'data_source'
         delivery_status = 'delivery_status'
         description = 'description'
@@ -70,6 +71,7 @@ class CustomAudience(
         content_type = 'content_type'
         dataset_id = 'dataset_id'
         event_source_group = 'event_source_group'
+        event_sources = 'event_sources'
         list_of_accounts = 'list_of_accounts'
         origin_audience_id = 'origin_audience_id'
         prefill = 'prefill'
@@ -94,8 +96,14 @@ class CustomAudience(
         flight = 'FLIGHT'
         home_listing = 'HOME_LISTING'
         hotel = 'HOTEL'
+        media_title = 'MEDIA_TITLE'
         vehicle = 'VEHICLE'
         vehicle_offer = 'VEHICLE_OFFER'
+
+    class CustomerFileSource:
+        user_provided_only = 'USER_PROVIDED_ONLY'
+        partner_provided_only = 'PARTNER_PROVIDED_ONLY'
+        both_user_and_partner_provided = 'BOTH_USER_AND_PARTNER_PROVIDED'
 
     class Subtype:
         custom = 'CUSTOM'
@@ -117,6 +125,7 @@ class CustomAudience(
         id = 'id'
         account_id = 'account_id'
         approximate_count = 'approximate_count'
+        customer_file_source = 'customer_file_source'
         data_source = 'data_source'
         delivery_status = 'delivery_status'
         description = 'description'
@@ -205,8 +214,10 @@ class CustomAudience(
             'allowed_domains': 'list<string>',
             'claim_objective': 'claim_objective_enum',
             'content_type': 'content_type_enum',
+            'customer_file_source': 'customer_file_source_enum',
             'description': 'string',
             'event_source_group': 'string',
+            'event_sources': 'list<map>',
             'lookalike_spec': 'string',
             'name': 'string',
             'opt_out_link': 'string',
@@ -218,6 +229,7 @@ class CustomAudience(
         enums = {
             'claim_objective_enum': CustomAudience.ClaimObjective.__dict__.values(),
             'content_type_enum': CustomAudience.ContentType.__dict__.values(),
+            'customer_file_source_enum': CustomAudience.CustomerFileSource.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -480,6 +492,7 @@ class CustomAudience(
     _field_types = {
         'account_id': 'string',
         'approximate_count': 'int',
+        'customer_file_source': 'string',
         'data_source': 'CustomAudienceDataSource',
         'delivery_status': 'CustomAudienceStatus',
         'description': 'string',
@@ -505,6 +518,7 @@ class CustomAudience(
         'content_type': 'ContentType',
         'dataset_id': 'string',
         'event_source_group': 'string',
+        'event_sources': 'list<map>',
         'list_of_accounts': 'list<unsigned int>',
         'origin_audience_id': 'string',
         'prefill': 'bool',
@@ -522,6 +536,7 @@ class CustomAudience(
         field_enum_info = {}
         field_enum_info['ClaimObjective'] = CustomAudience.ClaimObjective.__dict__.values()
         field_enum_info['ContentType'] = CustomAudience.ContentType.__dict__.values()
+        field_enum_info['CustomerFileSource'] = CustomAudience.CustomerFileSource.__dict__.values()
         field_enum_info['Subtype'] = CustomAudience.Subtype.__dict__.values()
         field_enum_info['Fields'] = CustomAudience.Fields.__dict__.values()
         return field_enum_info

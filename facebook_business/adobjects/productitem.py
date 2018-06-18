@@ -41,6 +41,7 @@ class ProductItem(
         super(ProductItem, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        additional_image_cdn_urls = 'additional_image_cdn_urls'
         additional_image_urls = 'additional_image_urls'
         additional_variant_attributes = 'additional_variant_attributes'
         age_group = 'age_group'
@@ -63,10 +64,12 @@ class ProductItem(
         gender = 'gender'
         gtin = 'gtin'
         id = 'id'
+        image_cdn_urls = 'image_cdn_urls'
         image_url = 'image_url'
         inventory = 'inventory'
         manufacturer_part_number = 'manufacturer_part_number'
         material = 'material'
+        mobile_link = 'mobile_link'
         name = 'name'
         ordering_index = 'ordering_index'
         pattern = 'pattern'
@@ -113,9 +116,11 @@ class ProductItem(
 
     class AgeGroup:
         adult = 'adult'
+        all_ages = 'all ages'
         infant = 'infant'
         kids = 'kids'
         newborn = 'newborn'
+        teen = 'teen'
         toddler = 'toddler'
 
     class Availability:
@@ -256,6 +261,7 @@ class ProductItem(
             'iphone_url': 'string',
             'manufacturer_part_number': 'string',
             'material': 'string',
+            'mobile_link': 'Object',
             'name': 'string',
             'offer_price_amount': 'unsigned int',
             'offer_price_end_date': 'Object',
@@ -264,6 +270,7 @@ class ProductItem(
             'pattern': 'string',
             'price': 'unsigned int',
             'product_type': 'string',
+            'retailer_id': 'string',
             'sale_price': 'unsigned int',
             'sale_price_end_date': 'datetime',
             'sale_price_start_date': 'datetime',
@@ -333,6 +340,7 @@ class ProductItem(
             return request.execute()
 
     _field_types = {
+        'additional_image_cdn_urls': 'list<list<Object>>',
         'additional_image_urls': 'list<string>',
         'additional_variant_attributes': 'list<Object>',
         'age_group': 'AgeGroup',
@@ -355,10 +363,12 @@ class ProductItem(
         'gender': 'Gender',
         'gtin': 'string',
         'id': 'string',
+        'image_cdn_urls': 'list<Object>',
         'image_url': 'string',
         'inventory': 'int',
         'manufacturer_part_number': 'string',
         'material': 'string',
+        'mobile_link': 'string',
         'name': 'string',
         'ordering_index': 'int',
         'pattern': 'string',

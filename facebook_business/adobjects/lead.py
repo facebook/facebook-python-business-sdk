@@ -53,6 +53,7 @@ class Lead(
         form_id = 'form_id'
         id = 'id'
         is_organic = 'is_organic'
+        partner_name = 'partner_name'
         post = 'post'
         retailer_item_id = 'retailer_item_id'
 
@@ -128,6 +129,7 @@ class Lead(
         'form_id': 'string',
         'id': 'string',
         'is_organic': 'bool',
+        'partner_name': 'string',
         'post': 'Object',
         'retailer_item_id': 'string',
     }

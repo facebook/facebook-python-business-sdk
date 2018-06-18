@@ -88,6 +88,7 @@ class AdCreativeLinkDataCallToAction(
         listen_now = 'LISTEN_NOW'
         event_rsvp = 'EVENT_RSVP'
         whatsapp_message = 'WHATSAPP_MESSAGE'
+        follow_news_storyline = 'FOLLOW_NEWS_STORYLINE'
 
     _field_types = {
         'type': 'Type',

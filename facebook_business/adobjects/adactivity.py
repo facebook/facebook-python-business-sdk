@@ -85,6 +85,7 @@ class AdActivity(
         update_ad_set_duration = 'update_ad_set_duration'
         update_ad_set_run_status = 'update_ad_set_run_status'
         update_ad_set_name = 'update_ad_set_name'
+        update_ad_set_optimization_goal = 'update_ad_set_optimization_goal'
         update_ad_set_target_spec = 'update_ad_set_target_spec'
         update_ad_set_bid_adjustments = 'update_ad_set_bid_adjustments'
         create_ad = 'create_ad'
@@ -113,6 +114,7 @@ class AdActivity(
         funding_event_initiated = 'funding_event_initiated'
         funding_event_successful = 'funding_event_successful'
         update_ad_labels = 'update_ad_labels'
+        di_ad_set_learning_stage_exit = 'di_ad_set_learning_stage_exit'
 
     class Category:
         account = 'ACCOUNT'

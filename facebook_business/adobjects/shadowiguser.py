@@ -119,35 +119,6 @@ class ShadowIGUser(
             self.assure_call()
             return request.execute()
 
-    def create_media(self, fields=None, params=None, batch=None, pending=False):
-        param_types = {
-            'caption': 'string',
-            'image_url': 'string',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/media',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def get_media(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.shadowigmedia import ShadowIGMedia
         param_types = {
@@ -163,6 +134,36 @@ class ShadowIGUser(
             target_class=ShadowIGMedia,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=ShadowIGMedia, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_media(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'caption': 'string',
+            'image_url': 'string',
+            'media_type': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/media',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ShadowIGUser,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ShadowIGUser, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

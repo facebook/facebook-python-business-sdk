@@ -61,7 +61,6 @@ class ProductCatalog(
         destinations = 'destinations'
         flights = 'flights'
         home_listings = 'home_listings'
-        home_service_providers = 'home_service_providers'
         hotels = 'hotels'
         vehicles = 'vehicles'
 
@@ -1009,6 +1008,7 @@ class ProductCatalog(
             'iphone_url': 'string',
             'manufacturer_part_number': 'string',
             'material': 'string',
+            'mobile_link': 'Object',
             'name': 'string',
             'offer_price_amount': 'unsigned int',
             'offer_price_end_date': 'Object',
@@ -1118,6 +1118,7 @@ class ProductCatalog(
 
     def create_video(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
+            'audio_story_wave_animation_handle': 'string',
             'content_category': 'content_category_enum',
             'description': 'string',
             'embeddable': 'bool',

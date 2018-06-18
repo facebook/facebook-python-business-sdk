@@ -69,6 +69,7 @@ class AdCreativeLinkData(
         preferred_image_tags = 'preferred_image_tags'
         retailer_item_ids = 'retailer_item_ids'
         show_multiple_images = 'show_multiple_images'
+        static_fallback_spec = 'static_fallback_spec'
 
     class AttachmentStyle:
         link = 'link'
@@ -112,6 +113,7 @@ class AdCreativeLinkData(
         'preferred_image_tags': 'list<string>',
         'retailer_item_ids': 'list<string>',
         'show_multiple_images': 'bool',
+        'static_fallback_spec': 'Object',
     }
 
     @classmethod

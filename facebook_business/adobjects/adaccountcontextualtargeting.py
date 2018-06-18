@@ -38,6 +38,7 @@ class AdAccountContextualTargeting(
         self._api = api
 
     class Field(AbstractObject.Field):
+        pass
 
     _field_types = {
     }

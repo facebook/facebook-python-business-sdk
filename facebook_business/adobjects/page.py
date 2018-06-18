@@ -68,6 +68,7 @@ class Page(
         contact_address = 'contact_address'
         context = 'context'
         copyright_attribution_insights = 'copyright_attribution_insights'
+        copyright_whitelisted_ig_partners = 'copyright_whitelisted_ig_partners'
         country_page_likes = 'country_page_likes'
         cover = 'cover'
         culinary_team = 'culinary_team'
@@ -165,6 +166,7 @@ class Page(
         single_line_address = 'single_line_address'
         starring = 'starring'
         start_info = 'start_info'
+        store_code = 'store_code'
         store_location_descriptor = 'store_location_descriptor'
         store_number = 'store_number'
         studio = 'studio'
@@ -180,6 +182,7 @@ class Page(
         were_here_count = 'were_here_count'
         whatsapp_number = 'whatsapp_number'
         written_by = 'written_by'
+        ig_password = 'ig_password'
         page_id = 'page_id'
 
     class Attire:
@@ -1450,35 +1453,6 @@ class Page(
             self.assure_call()
             return request.execute()
 
-    def create_join_thread(self, fields=None, params=None, batch=None, pending=False):
-        param_types = {
-            'persona_id': 'Object',
-            'recipient_id': 'Object',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/join_threads',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=Page,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=Page, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def create_label(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.pagelabel import PageLabel
         param_types = {
@@ -1598,39 +1572,7 @@ class Page(
             'thank_you_page': 'Object',
         }
         enums = {
-            'locale_enum': [
-                'EN_US',
-                'IT_IT',
-                'FR_FR',
-                'ES_ES',
-                'ES_LA',
-                'DE_DE',
-                'EN_GB',
-                'PT_BR',
-                'ZH_TW',
-                'ZH_HK',
-                'TR_TR',
-                'AR_AR',
-                'CS_CZ',
-                'DA_DK',
-                'FI_FI',
-                'HE_IL',
-                'HI_IN',
-                'HU_HU',
-                'ID_ID',
-                'JA_JP',
-                'KO_KR',
-                'NB_NO',
-                'NL_NL',
-                'PL_PL',
-                'PT_PT',
-                'RO_RO',
-                'RU_RU',
-                'SV_SE',
-                'TH_TH',
-                'VI_VN',
-                'ZH_CN',
-            ],
+            'locale_enum': Page.Locale.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -1638,9 +1580,9 @@ class Page(
             endpoint='/leadgen_draft_forms',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=Page,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=Page, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1888,11 +1830,13 @@ class Page(
         param_types = {
             'attribution_app_id': 'string',
             'content_tags': 'list<string>',
+            'crossposting_actions': 'list<map>',
             'custom_labels': 'list<string>',
             'description': 'string',
             'encoding_settings': 'string',
             'fisheye_video_cropped': 'bool',
             'front_z_rotation': 'float',
+            'game_show': 'map',
             'is_spherical': 'bool',
             'live_encoders': 'list<string>',
             'original_fov': 'unsigned int',
@@ -2001,17 +1945,18 @@ class Page(
             'hours': 'map',
             'ignore_warnings': 'bool',
             'location': 'Object',
-            'location_page_id': 'int',
+            'location_page_id': 'Object',
             'old_store_number': 'unsigned int',
             'page_username': 'string',
             'permanently_closed': 'bool',
             'phone': 'string',
             'place_topics': 'list<string>',
             'price_range': 'string',
+            'store_code': 'string',
             'store_location_descriptor': 'string',
             'store_name': 'string',
             'store_number': 'unsigned int',
-            'website': 'string',
+            'website': 'Object',
         }
         enums = {
         }
@@ -2623,63 +2568,6 @@ class Page(
             self.assure_call()
             return request.execute()
 
-    def get_personas(self, fields=None, params=None, batch=None, pending=False):
-        from facebook_business.adobjects.persona import Persona
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/personas',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=Persona,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=Persona, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_persona(self, fields=None, params=None, batch=None, pending=False):
-        param_types = {
-            'name': 'string',
-            'profile_picture_url': 'Object',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/personas',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=Page,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=Page, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def get_photos(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.photo import Photo
         param_types = {
@@ -2828,6 +2716,7 @@ class Page(
             'android_key_hash': 'string',
             'caption': 'string',
             'composer_session_id': 'string',
+            'has_umg': 'bool',
             'height': 'unsigned int',
             'ios_bundle_id': 'string',
             'media_effect_ids': 'list<int>',
@@ -3746,6 +3635,7 @@ class Page(
     def create_video(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
             'ad_breaks': 'Object',
+            'audio_story_wave_animation_handle': 'string',
             'backdated_post': 'Object',
             'content_category': 'content_category_enum',
             'content_tags': 'list<string>',
@@ -3916,6 +3806,7 @@ class Page(
         'contact_address': 'MailingAddress',
         'context': 'OpenGraphContext',
         'copyright_attribution_insights': 'CopyrightAttributionInsights',
+        'copyright_whitelisted_ig_partners': 'list<string>',
         'country_page_likes': 'unsigned int',
         'cover': 'CoverPhoto',
         'culinary_team': 'string',
@@ -4013,6 +3904,7 @@ class Page(
         'single_line_address': 'string',
         'starring': 'string',
         'start_info': 'PageStartInfo',
+        'store_code': 'string',
         'store_location_descriptor': 'string',
         'store_number': 'unsigned int',
         'studio': 'string',
@@ -4028,6 +3920,7 @@ class Page(
         'were_here_count': 'unsigned int',
         'whatsapp_number': 'string',
         'written_by': 'string',
+        'ig_password': 'string',
         'page_id': 'int',
     }
 

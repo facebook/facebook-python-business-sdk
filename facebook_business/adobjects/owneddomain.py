@@ -43,7 +43,6 @@ class OwnedDomain(
     class Field(AbstractObject.Field):
         domain_name = 'domain_name'
         id = 'id'
-        page_block_list = 'page_block_list'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
@@ -84,7 +83,6 @@ class OwnedDomain(
     _field_types = {
         'domain_name': 'string',
         'id': 'string',
-        'page_block_list': 'Object',
     }
 
     @classmethod

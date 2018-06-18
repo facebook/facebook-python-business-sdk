@@ -53,6 +53,7 @@ class OfflineConversionDataSet(
         id = 'id'
         is_restricted_use = 'is_restricted_use'
         last_upload_app = 'last_upload_app'
+        match_rate_approx = 'match_rate_approx'
         matched_entries = 'matched_entries'
         name = 'name'
         usage = 'usage'
@@ -348,7 +349,7 @@ class OfflineConversionDataSet(
 
     def create_event(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
-            'data': 'list<Object>',
+            'data': 'list<string>',
             'namespace_id': 'string',
             'progress': 'Object',
             'upload_id': 'string',
@@ -559,7 +560,7 @@ class OfflineConversionDataSet(
 
     def create_validate(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
-            'data': 'list<Object>',
+            'data': 'list<string>',
             'namespace_id': 'string',
         }
         enums = {
@@ -599,6 +600,7 @@ class OfflineConversionDataSet(
         'id': 'string',
         'is_restricted_use': 'bool',
         'last_upload_app': 'string',
+        'match_rate_approx': 'int',
         'matched_entries': 'int',
         'name': 'string',
         'usage': 'Object',

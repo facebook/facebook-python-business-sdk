@@ -51,6 +51,7 @@ class AdStudy(
         id = 'id'
         name = 'name'
         observation_end_time = 'observation_end_time'
+        results_first_available_date = 'results_first_available_date'
         start_time = 'start_time'
         type = 'type'
         updated_by = 'updated_by'
@@ -290,6 +291,7 @@ class AdStudy(
         'id': 'string',
         'name': 'string',
         'observation_end_time': 'datetime',
+        'results_first_available_date': 'string',
         'start_time': 'datetime',
         'type': 'string',
         'updated_by': 'User',

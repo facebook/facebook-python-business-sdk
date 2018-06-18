@@ -68,6 +68,7 @@ class LiveVideo(
         follower = 'FOLLOWER'
         slow = 'SLOW'
         discussion = 'DISCUSSION'
+        restricted = 'RESTRICTED'
 
     class Status:
         unpublished = 'UNPUBLISHED'
@@ -94,7 +95,6 @@ class LiveVideo(
     class Projection:
         equirectangular = 'EQUIRECTANGULAR'
         cubemap = 'CUBEMAP'
-        single_fish_eye = 'SINGLE_FISH_EYE'
 
     class SpatialAudioFormat:
         ambix_4 = 'ambiX_4'
@@ -165,10 +165,12 @@ class LiveVideo(
             'ad_break_intent': 'bool',
             'ad_break_start_now': 'bool',
             'ad_break_time_offset': 'float',
+            'allow_bm_crossposting': 'bool',
             'attribution_app_id': 'string',
             'attribution_app_metadata': 'string',
             'commercial_break_durations': 'list<unsigned int>',
             'content_tags': 'list<string>',
+            'crossposting_actions': 'list<map>',
             'custom_labels': 'list<string>',
             'description': 'string',
             'direct_share_status': 'unsigned int',

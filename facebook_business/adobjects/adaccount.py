@@ -72,10 +72,12 @@ class AdAccount(
         funding_source = 'funding_source'
         funding_source_details = 'funding_source_details'
         has_migrated_permissions = 'has_migrated_permissions'
+        has_page_authorized_adaccount = 'has_page_authorized_adaccount'
         id = 'id'
         io_number = 'io_number'
         is_attribution_spec_system_default = 'is_attribution_spec_system_default'
         is_direct_deals_enabled = 'is_direct_deals_enabled'
+        is_in_middle_of_local_entity_migration = 'is_in_middle_of_local_entity_migration'
         is_notifications_enabled = 'is_notifications_enabled'
         is_personal = 'is_personal'
         is_prepay_account = 'is_prepay_account'
@@ -99,6 +101,16 @@ class AdAccount(
         timezone_offset_hours_utc = 'timezone_offset_hours_utc'
         tos_accepted = 'tos_accepted'
         user_role = 'user_role'
+        user_tos_accepted = 'user_tos_accepted'
+
+    class PermittedRoles:
+        admin = 'ADMIN'
+        general_user = 'GENERAL_USER'
+        reports_only = 'REPORTS_ONLY'
+        instagram_advertiser = 'INSTAGRAM_ADVERTISER'
+        instagram_manager = 'INSTAGRAM_MANAGER'
+        creative = 'CREATIVE'
+        fb_employee_dso_advertiser = 'FB_EMPLOYEE_DSO_ADVERTISER'
 
     class Role:
         admin = 'ADMIN'
@@ -109,14 +121,21 @@ class AdAccount(
         creative = 'CREATIVE'
         fb_employee_dso_advertiser = 'FB_EMPLOYEE_DSO_ADVERTISER'
 
-    class PermittedRoles:
-        admin = 'ADMIN'
-        general_user = 'GENERAL_USER'
-        reports_only = 'REPORTS_ONLY'
-        instagram_advertiser = 'INSTAGRAM_ADVERTISER'
-        instagram_manager = 'INSTAGRAM_MANAGER'
-        creative = 'CREATIVE'
-        fb_employee_dso_advertiser = 'FB_EMPLOYEE_DSO_ADVERTISER'
+    class Subtype:
+        custom = 'CUSTOM'
+        website = 'WEBSITE'
+        app = 'APP'
+        offline_conversion = 'OFFLINE_CONVERSION'
+        claim = 'CLAIM'
+        partner = 'PARTNER'
+        managed = 'MANAGED'
+        video = 'VIDEO'
+        lookalike = 'LOOKALIKE'
+        engagement = 'ENGAGEMENT'
+        data_set = 'DATA_SET'
+        bag_of_accounts = 'BAG_OF_ACCOUNTS'
+        study_rule_audience = 'STUDY_RULE_AUDIENCE'
+        fox = 'FOX'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
@@ -344,6 +363,7 @@ class AdAccount(
         param_types = {
             'adlabels': 'list<Object>',
             'applink_treatment': 'applink_treatment_enum',
+            'authorization_category': 'authorization_category_enum',
             'body': 'string',
             'branded_content_sponsor_page_id': 'string',
             'dynamic_ad_voice': 'dynamic_ad_voice_enum',
@@ -372,6 +392,7 @@ class AdAccount(
         }
         enums = {
             'applink_treatment_enum': AdCreative.ApplinkTreatment.__dict__.values(),
+            'authorization_category_enum': AdCreative.AuthorizationCategory.__dict__.values(),
             'dynamic_ad_voice_enum': AdCreative.DynamicAdVoice.__dict__.values(),
         }
         request = FacebookRequest(
@@ -636,6 +657,7 @@ class AdAccount(
                 'LISTEN_NOW',
                 'EVENT_RSVP',
                 'WHATSAPP_MESSAGE',
+                'FOLLOW_NEWS_STORYLINE',
             ],
         }
         request = FacebookRequest(
@@ -1140,6 +1162,7 @@ class AdAccount(
 
     def create_ad_video(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
+            'audio_story_wave_animation_handle': 'string',
             'composer_session_id': 'string',
             'description': 'string',
             'end_offset': 'unsigned int',
@@ -1245,15 +1268,7 @@ class AdAccount(
             'permitted_roles': 'list<permitted_roles_enum>',
         }
         enums = {
-            'permitted_roles_enum': [
-                'ADMIN',
-                'GENERAL_USER',
-                'REPORTS_ONLY',
-                'INSTAGRAM_ADVERTISER',
-                'INSTAGRAM_MANAGER',
-                'CREATIVE',
-                'FB_EMPLOYEE_DSO_ADVERTISER',
-            ],
+            'permitted_roles_enum': AdAccount.PermittedRoles.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -1261,9 +1276,9 @@ class AdAccount(
             endpoint='/agencies',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=AdAccount,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=AdAccount, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1720,9 +1735,11 @@ class AdAccount(
             'allowed_domains': 'list<string>',
             'claim_objective': 'claim_objective_enum',
             'content_type': 'content_type_enum',
+            'customer_file_source': 'customer_file_source_enum',
             'dataset_id': 'string',
             'description': 'string',
             'event_source_group': 'string',
+            'event_sources': 'list<map>',
             'is_value_based': 'bool',
             'list_of_accounts': 'list<unsigned int>',
             'lookalike_spec': 'string',
@@ -1740,6 +1757,7 @@ class AdAccount(
         enums = {
             'claim_objective_enum': CustomAudience.ClaimObjective.__dict__.values(),
             'content_type_enum': CustomAudience.ContentType.__dict__.values(),
+            'customer_file_source_enum': CustomAudience.CustomerFileSource.__dict__.values(),
             'subtype_enum': CustomAudience.Subtype.__dict__.values(),
         }
         request = FacebookRequest(
@@ -2157,37 +2175,6 @@ class AdAccount(
             self.assure_call()
             return request.execute()
 
-    def create_offsite_pixel(self, fields=None, params=None, batch=None, pending=False):
-        from facebook_business.adobjects.offsitepixel import OffsitePixel
-        param_types = {
-            'name': 'string',
-            'tag': 'tag_enum',
-        }
-        enums = {
-            'tag_enum': OffsitePixel.Tag.__dict__.values(),
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/offsitepixels',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=OffsitePixel,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=OffsitePixel, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def get_partner_categories(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.partnercategory import PartnerCategory
         param_types = {
@@ -2313,6 +2300,7 @@ class AdAccount(
             'associated_audience_id': 'unsigned int',
             'creation_params': 'map',
             'description': 'string',
+            'event_sources': 'list<map>',
             'exclusions': 'list<Object>',
             'inclusions': 'list<Object>',
             'name': 'string',
@@ -2323,7 +2311,7 @@ class AdAccount(
             'tags': 'list<string>',
         }
         enums = {
-            'subtype_enum': CustomAudience.Subtype.__dict__.values(),
+            'subtype_enum': AdAccount.Subtype.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -2376,8 +2364,6 @@ class AdAccount(
 
     def create_publisher_block_list(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
-            'block_list_id': 'Object',
-            'draft_id': 'Object',
             'name': 'string',
         }
         enums = {
@@ -2903,10 +2889,12 @@ class AdAccount(
         'funding_source': 'string',
         'funding_source_details': 'FundingSourceDetails',
         'has_migrated_permissions': 'bool',
+        'has_page_authorized_adaccount': 'bool',
         'id': 'string',
         'io_number': 'string',
         'is_attribution_spec_system_default': 'bool',
         'is_direct_deals_enabled': 'bool',
+        'is_in_middle_of_local_entity_migration': 'bool',
         'is_notifications_enabled': 'bool',
         'is_personal': 'unsigned int',
         'is_prepay_account': 'bool',
@@ -2930,11 +2918,13 @@ class AdAccount(
         'timezone_offset_hours_utc': 'float',
         'tos_accepted': 'map<string, int>',
         'user_role': 'string',
+        'user_tos_accepted': 'map<string, int>',
     }
 
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['Role'] = AdAccount.Role.__dict__.values()
         field_enum_info['PermittedRoles'] = AdAccount.PermittedRoles.__dict__.values()
+        field_enum_info['Role'] = AdAccount.Role.__dict__.values()
+        field_enum_info['Subtype'] = AdAccount.Subtype.__dict__.values()
         return field_enum_info

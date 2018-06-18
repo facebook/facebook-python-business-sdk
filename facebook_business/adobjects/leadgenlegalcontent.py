@@ -45,12 +45,6 @@ class LeadGenLegalContent(
         id = 'id'
         privacy_policy = 'privacy_policy'
 
-    class Status:
-        active = 'ACTIVE'
-        archived = 'ARCHIVED'
-        deleted = 'DELETED'
-        draft = 'DRAFT'
-
     def api_get(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
         }
@@ -59,37 +53,6 @@ class LeadGenLegalContent(
         request = FacebookRequest(
             node_id=self['id'],
             method='GET',
-            endpoint='/',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=LeadGenLegalContent,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def api_update(self, fields=None, params=None, batch=None, pending=False):
-        param_types = {
-            'custom_disclaimer': 'Object',
-            'privacy_policy': 'Object',
-            'status': 'status_enum',
-        }
-        enums = {
-            'status_enum': LeadGenLegalContent.Status.__dict__.values(),
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
@@ -118,5 +81,4 @@ class LeadGenLegalContent(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['Status'] = LeadGenLegalContent.Status.__dict__.values()
         return field_enum_info

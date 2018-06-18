@@ -80,6 +80,7 @@ class AdCreative(
         url_tags = 'url_tags'
         use_page_actor_override = 'use_page_actor_override'
         video_id = 'video_id'
+        authorization_category = 'authorization_category'
         dynamic_ad_voice = 'dynamic_ad_voice'
         image_file = 'image_file'
 
@@ -135,6 +136,7 @@ class AdCreative(
         listen_now = 'LISTEN_NOW'
         event_rsvp = 'EVENT_RSVP'
         whatsapp_message = 'WHATSAPP_MESSAGE'
+        follow_news_storyline = 'FOLLOW_NEWS_STORYLINE'
 
     class ObjectType:
         application = 'APPLICATION'
@@ -152,6 +154,10 @@ class AdCreative(
     class Status:
         active = 'ACTIVE'
         deleted = 'DELETED'
+
+    class AuthorizationCategory:
+        none = 'NONE'
+        political = 'POLITICAL'
 
     class DynamicAdVoice:
         dynamic = 'DYNAMIC'
@@ -396,6 +402,7 @@ class AdCreative(
         'url_tags': 'string',
         'use_page_actor_override': 'bool',
         'video_id': 'string',
+        'authorization_category': 'AuthorizationCategory',
         'dynamic_ad_voice': 'DynamicAdVoice',
         'image_file': 'string',
     }
@@ -411,6 +418,7 @@ class AdCreative(
         field_enum_info['CallToActionType'] = AdCreative.CallToActionType.__dict__.values()
         field_enum_info['ObjectType'] = AdCreative.ObjectType.__dict__.values()
         field_enum_info['Status'] = AdCreative.Status.__dict__.values()
+        field_enum_info['AuthorizationCategory'] = AdCreative.AuthorizationCategory.__dict__.values()
         field_enum_info['DynamicAdVoice'] = AdCreative.DynamicAdVoice.__dict__.values()
         field_enum_info['Operator'] = AdCreative.Operator.__dict__.values()
         return field_enum_info
