@@ -115,7 +115,7 @@ class ExtendedCredit(
 
     def create_extended_credit_invoice_group(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
-            'email': 'string',
+            'emails': 'list<string>',
             'name': 'string',
         }
         enums = {

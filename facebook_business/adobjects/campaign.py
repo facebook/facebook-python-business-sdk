@@ -47,16 +47,20 @@ class Campaign(
     class Field(AbstractObject.Field):
         account_id = 'account_id'
         adlabels = 'adlabels'
+        bid_strategy = 'bid_strategy'
         boosted_object_id = 'boosted_object_id'
         brand_lift_studies = 'brand_lift_studies'
         budget_rebalance_flag = 'budget_rebalance_flag'
+        budget_remaining = 'budget_remaining'
         buying_type = 'buying_type'
         can_create_brand_lift_study = 'can_create_brand_lift_study'
         can_use_spend_cap = 'can_use_spend_cap'
         configured_status = 'configured_status'
         created_time = 'created_time'
+        daily_budget = 'daily_budget'
         effective_status = 'effective_status'
         id = 'id'
+        lifetime_budget = 'lifetime_budget'
         name = 'name'
         objective = 'objective'
         recommendations = 'recommendations'
@@ -71,6 +75,11 @@ class Campaign(
         execution_options = 'execution_options'
         iterative_split_test_configs = 'iterative_split_test_configs'
         promoted_object = 'promoted_object'
+
+    class BidStrategy:
+        lowest_cost_without_cap = 'LOWEST_COST_WITHOUT_CAP'
+        lowest_cost_with_bid_cap = 'LOWEST_COST_WITH_BID_CAP'
+        target_cost = 'TARGET_COST'
 
     class ConfiguredStatus:
         active = 'ACTIVE'
@@ -212,9 +221,12 @@ class Campaign(
     def api_update(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
             'adlabels': 'list<Object>',
+            'bid_strategy': 'bid_strategy_enum',
             'budget_rebalance_flag': 'bool',
+            'daily_budget': 'unsigned int',
             'execution_options': 'list<execution_options_enum>',
             'iterative_split_test_configs': 'list<Object>',
+            'lifetime_budget': 'unsigned int',
             'name': 'string',
             'objective': 'objective_enum',
             'promoted_object': 'Object',
@@ -222,6 +234,7 @@ class Campaign(
             'status': 'status_enum',
         }
         enums = {
+            'bid_strategy_enum': Campaign.BidStrategy.__dict__.values(),
             'execution_options_enum': Campaign.ExecutionOptions.__dict__.values(),
             'objective_enum': Campaign.Objective.__dict__.values(),
             'status_enum': Campaign.Status.__dict__.values(),
@@ -561,16 +574,20 @@ class Campaign(
     _field_types = {
         'account_id': 'string',
         'adlabels': 'list<AdLabel>',
+        'bid_strategy': 'BidStrategy',
         'boosted_object_id': 'string',
         'brand_lift_studies': 'list<AdStudy>',
         'budget_rebalance_flag': 'bool',
+        'budget_remaining': 'string',
         'buying_type': 'string',
         'can_create_brand_lift_study': 'bool',
         'can_use_spend_cap': 'bool',
         'configured_status': 'ConfiguredStatus',
         'created_time': 'datetime',
+        'daily_budget': 'string',
         'effective_status': 'EffectiveStatus',
         'id': 'string',
+        'lifetime_budget': 'string',
         'name': 'string',
         'objective': 'string',
         'recommendations': 'list<AdRecommendation>',
@@ -590,6 +607,7 @@ class Campaign(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['BidStrategy'] = Campaign.BidStrategy.__dict__.values()
         field_enum_info['ConfiguredStatus'] = Campaign.ConfiguredStatus.__dict__.values()
         field_enum_info['EffectiveStatus'] = Campaign.EffectiveStatus.__dict__.values()
         field_enum_info['Status'] = Campaign.Status.__dict__.values()

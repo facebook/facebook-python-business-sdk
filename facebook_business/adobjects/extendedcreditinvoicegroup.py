@@ -103,7 +103,7 @@ class ExtendedCreditInvoiceGroup(
 
     def api_update(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
-            'email': 'string',
+            'emails': 'list<string>',
             'name': 'string',
         }
         enums = {

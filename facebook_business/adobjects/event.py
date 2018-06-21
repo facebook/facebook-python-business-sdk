@@ -272,6 +272,7 @@ class Event(
             'initial_pitch': 'unsigned int',
             'original_fov': 'unsigned int',
             'original_projection_type': 'original_projection_type_enum',
+            'react_mode_metadata': 'string',
             'referenced_sticker_id': 'string',
             'replace_video_id': 'string',
             'slideshow_spec': 'map',

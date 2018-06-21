@@ -44,6 +44,7 @@ class TargetingGeoLocation(
         custom_locations = 'custom_locations'
         electoral_districts = 'electoral_districts'
         geo_markets = 'geo_markets'
+        location_set_ids = 'location_set_ids'
         location_types = 'location_types'
         places = 'places'
         political_districts = 'political_districts'
@@ -57,6 +58,7 @@ class TargetingGeoLocation(
         'custom_locations': 'list<TargetingGeoLocationCustomLocation>',
         'electoral_districts': 'list<TargetingGeoLocationElectoralDistrict>',
         'geo_markets': 'list<TargetingGeoLocationMarket>',
+        'location_set_ids': 'list<string>',
         'location_types': 'list<string>',
         'places': 'list<TargetingGeoLocationPlace>',
         'political_districts': 'list<TargetingGeoLocationPoliticalDistrict>',

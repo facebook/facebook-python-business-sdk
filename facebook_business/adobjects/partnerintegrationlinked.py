@@ -42,6 +42,7 @@ class PartnerIntegrationLinked(
 
     class Field(AbstractObject.Field):
         ads_pixel = 'ads_pixel'
+        application = 'application'
         external_id = 'external_id'
         has_oauth_token = 'has_oauth_token'
         id = 'id'
@@ -80,6 +81,7 @@ class PartnerIntegrationLinked(
 
     _field_types = {
         'ads_pixel': 'AdsPixel',
+        'application': 'Object',
         'external_id': 'string',
         'has_oauth_token': 'bool',
         'id': 'string',

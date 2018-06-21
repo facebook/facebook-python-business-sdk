@@ -60,6 +60,8 @@ class AdSet(
         created_time = 'created_time'
         creative_sequence = 'creative_sequence'
         daily_budget = 'daily_budget'
+        daily_min_spend_target = 'daily_min_spend_target'
+        daily_spend_cap = 'daily_spend_cap'
         destination_type = 'destination_type'
         effective_status = 'effective_status'
         end_time = 'end_time'
@@ -68,6 +70,8 @@ class AdSet(
         instagram_actor_id = 'instagram_actor_id'
         lifetime_budget = 'lifetime_budget'
         lifetime_imps = 'lifetime_imps'
+        lifetime_min_spend_target = 'lifetime_min_spend_target'
+        lifetime_spend_cap = 'lifetime_spend_cap'
         name = 'name'
         optimization_goal = 'optimization_goal'
         pacing_type = 'pacing_type'
@@ -264,11 +268,15 @@ class AdSet(
             'creative_sequence': 'list<string>',
             'daily_budget': 'unsigned int',
             'daily_imps': 'unsigned int',
+            'daily_min_spend_target': 'unsigned int',
+            'daily_spend_cap': 'unsigned int',
             'destination_type': 'destination_type_enum',
             'end_time': 'datetime',
             'execution_options': 'list<execution_options_enum>',
             'lifetime_budget': 'unsigned int',
             'lifetime_imps': 'unsigned int',
+            'lifetime_min_spend_target': 'unsigned int',
+            'lifetime_spend_cap': 'unsigned int',
             'name': 'string',
             'optimization_goal': 'optimization_goal_enum',
             'pacing_type': 'list<string>',
@@ -753,6 +761,8 @@ class AdSet(
         'created_time': 'datetime',
         'creative_sequence': 'list<string>',
         'daily_budget': 'string',
+        'daily_min_spend_target': 'string',
+        'daily_spend_cap': 'string',
         'destination_type': 'string',
         'effective_status': 'EffectiveStatus',
         'end_time': 'datetime',
@@ -761,6 +771,8 @@ class AdSet(
         'instagram_actor_id': 'string',
         'lifetime_budget': 'string',
         'lifetime_imps': 'int',
+        'lifetime_min_spend_target': 'string',
+        'lifetime_spend_cap': 'string',
         'name': 'string',
         'optimization_goal': 'OptimizationGoal',
         'pacing_type': 'list<string>',
