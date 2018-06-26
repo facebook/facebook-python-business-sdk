@@ -49,6 +49,7 @@ class PartnerIntegrationLinked(
         name = 'name'
         offline_conversion_data_set = 'offline_conversion_data_set'
         partner = 'partner'
+        partner_profile = 'partner_profile'
         product_catalog = 'product_catalog'
         setup_status = 'setup_status'
 
@@ -88,6 +89,7 @@ class PartnerIntegrationLinked(
         'name': 'string',
         'offline_conversion_data_set': 'OfflineConversionDataSet',
         'partner': 'string',
+        'partner_profile': 'Object',
         'product_catalog': 'ProductCatalog',
         'setup_status': 'string',
     }

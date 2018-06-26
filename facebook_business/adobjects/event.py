@@ -139,6 +139,7 @@ class Event(
             'schedule_custom_profile_image': 'file',
             'spatial_audio_format': 'spatial_audio_format_enum',
             'status': 'status_enum',
+            'stereoscopic_mode': 'stereoscopic_mode_enum',
             'stop_on_delete_stream': 'bool',
             'stream_type': 'stream_type_enum',
             'title': 'string',
@@ -157,6 +158,11 @@ class Event(
                 'SCHEDULED_UNPUBLISHED',
                 'SCHEDULED_LIVE',
                 'SCHEDULED_CANCELED',
+            ],
+            'stereoscopic_mode_enum': [
+                'MONO',
+                'LEFT_RIGHT',
+                'TOP_BOTTOM',
             ],
             'stream_type_enum': [
                 'REGULAR',

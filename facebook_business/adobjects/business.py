@@ -1477,11 +1477,13 @@ class Business(
         from facebook_business.adobjects.offlineconversiondataset import OfflineConversionDataSet
         param_types = {
             'auto_assign_to_new_accounts_only': 'bool',
+            'data_origin': 'data_origin_enum',
             'description': 'string',
             'enable_auto_assign_to_accounts': 'bool',
             'name': 'string',
         }
         enums = {
+            'data_origin_enum': OfflineConversionDataSet.DataOrigin.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],

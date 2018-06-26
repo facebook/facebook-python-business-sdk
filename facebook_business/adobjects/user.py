@@ -416,6 +416,7 @@ class User(
             'schedule_custom_profile_image': 'file',
             'spatial_audio_format': 'spatial_audio_format_enum',
             'status': 'status_enum',
+            'stereoscopic_mode': 'stereoscopic_mode_enum',
             'stop_on_delete_stream': 'bool',
             'stream_type': 'stream_type_enum',
             'title': 'string',
@@ -424,6 +425,7 @@ class User(
             'projection_enum': LiveVideo.Projection.__dict__.values(),
             'spatial_audio_format_enum': LiveVideo.SpatialAudioFormat.__dict__.values(),
             'status_enum': LiveVideo.Status.__dict__.values(),
+            'stereoscopic_mode_enum': LiveVideo.StereoscopicMode.__dict__.values(),
             'stream_type_enum': LiveVideo.StreamType.__dict__.values(),
         }
         request = FacebookRequest(

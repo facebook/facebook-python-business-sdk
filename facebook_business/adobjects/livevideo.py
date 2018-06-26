@@ -46,6 +46,7 @@ class LiveVideo(
         broadcast_start_time = 'broadcast_start_time'
         copyright = 'copyright'
         creation_time = 'creation_time'
+        dash_ingest_url = 'dash_ingest_url'
         dash_preview_url = 'dash_preview_url'
         description = 'description'
         embed_html = 'embed_html'
@@ -98,6 +99,11 @@ class LiveVideo(
 
     class SpatialAudioFormat:
         ambix_4 = 'ambiX_4'
+
+    class StereoscopicMode:
+        mono = 'MONO'
+        left_right = 'LEFT_RIGHT'
+        top_bottom = 'TOP_BOTTOM'
 
     class Type:
         tagged = 'tagged'
@@ -227,6 +233,7 @@ class LiveVideo(
         'broadcast_start_time': 'datetime',
         'copyright': 'VideoCopyright',
         'creation_time': 'datetime',
+        'dash_ingest_url': 'string',
         'dash_preview_url': 'string',
         'description': 'string',
         'embed_html': 'string',
@@ -255,5 +262,6 @@ class LiveVideo(
         field_enum_info['BroadcastStatus'] = LiveVideo.BroadcastStatus.__dict__.values()
         field_enum_info['Projection'] = LiveVideo.Projection.__dict__.values()
         field_enum_info['SpatialAudioFormat'] = LiveVideo.SpatialAudioFormat.__dict__.values()
+        field_enum_info['StereoscopicMode'] = LiveVideo.StereoscopicMode.__dict__.values()
         field_enum_info['Type'] = LiveVideo.Type.__dict__.values()
         return field_enum_info

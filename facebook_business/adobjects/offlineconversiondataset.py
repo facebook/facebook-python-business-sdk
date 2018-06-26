@@ -44,6 +44,7 @@ class OfflineConversionDataSet(
         business = 'business'
         config = 'config'
         creation_time = 'creation_time'
+        data_origin = 'data_origin'
         description = 'description'
         duplicate_entries = 'duplicate_entries'
         enable_auto_assign_to_accounts = 'enable_auto_assign_to_accounts'
@@ -59,6 +60,12 @@ class OfflineConversionDataSet(
         usage = 'usage'
         valid_entries = 'valid_entries'
         auto_assign_to_new_accounts_only = 'auto_assign_to_new_accounts_only'
+
+    class DataOrigin:
+        directly_from_people = 'DIRECTLY_FROM_PEOPLE'
+        people_and_partners = 'PEOPLE_AND_PARTNERS'
+        directly_from_partners = 'DIRECTLY_FROM_PARTNERS'
+        none = 'NONE'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
@@ -126,11 +133,13 @@ class OfflineConversionDataSet(
     def api_update(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
             'auto_assign_to_new_accounts_only': 'bool',
+            'data_origin': 'data_origin_enum',
             'description': 'string',
             'enable_auto_assign_to_accounts': 'bool',
             'name': 'string',
         }
         enums = {
+            'data_origin_enum': OfflineConversionDataSet.DataOrigin.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -591,6 +600,7 @@ class OfflineConversionDataSet(
         'business': 'Business',
         'config': 'string',
         'creation_time': 'datetime',
+        'data_origin': 'string',
         'description': 'string',
         'duplicate_entries': 'int',
         'enable_auto_assign_to_accounts': 'bool',
@@ -611,4 +621,5 @@ class OfflineConversionDataSet(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['DataOrigin'] = OfflineConversionDataSet.DataOrigin.__dict__.values()
         return field_enum_info
