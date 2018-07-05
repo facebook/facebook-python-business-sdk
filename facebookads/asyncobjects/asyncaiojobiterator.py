@@ -17,7 +17,7 @@ class AsyncAioJobIterator(AioEdgeIterator):
     def __init__(self, source_object, target_objects_class,
                  fields=None, params=None, include_summary=False,
                  limit=500, stage='async_get_job',
-                 no_progress_timeout=900, not_started_timeout=600,
+                 no_progress_timeout=1400, not_started_timeout=600,
                  has_action=None, needs_action_device=None, has_filters=False,
                  for_date=None, needs_carousel_name=False):
 
@@ -265,7 +265,7 @@ class AsyncAioJobIterator(AioEdgeIterator):
                         datetime.fromtimestamp(self.job_started_at), self.attempt,
                         self.params, str(self.job)))
 
-                if self.attempt >= 4:
+                if self.attempt >= 2:
                     self.last_error = JobFailedException(
                         "job id {} stuck, completion {}, job requested at {}, "
                         "attempts made {}, report params: {}, response: '{}'".format(
@@ -277,7 +277,7 @@ class AsyncAioJobIterator(AioEdgeIterator):
                     return self
 
                 # create new job and wait for it to complete
-                time.sleep(10 + 10 * self.attempt)
+                time.sleep(10 + 20 * self.attempt)
                 self.launch_job()
 
         if self.job_previous_completion_value != current_job_completion_value:
