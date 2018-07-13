@@ -87,7 +87,7 @@ class VideoUploadSession(object):
             self._api,
         )
 
-    def start(self):
+    def start(self, interval=30, timeout=600):
         # Run start request manager
         start_response = self._start_request_manager.send_request(
             self.getStartRequestContext(),
@@ -108,7 +108,7 @@ class VideoUploadSession(object):
         )
 
         if self._wait_for_encoding:
-            VideoEncodingStatusChecker.waitUntilReady(self._api, video_id)
+            VideoEncodingStatusChecker.waitUntilReady(self._api, video_id, interval, timeout)
 
         # Populate the video info
         body = response.json().copy()

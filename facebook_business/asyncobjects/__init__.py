@@ -6,7 +6,7 @@ from facebook_business.adobjects import business
 from facebook_business.adobjects import campaign
 from facebook_business.adobjects import adspixel
 from facebook_business.asyncobjects.abstractcrudaioobject import AbstractCrudAioObject
-from facebook_business.asyncobjects import EdgeLessIterator
+from facebook_business.asyncobjects.edgelessiterator import EdgeLessIterator
 
 
 class AdUser(AbstractCrudAioObject, baseobjects.AdUser):
@@ -83,19 +83,11 @@ class AdAccount(AbstractCrudAioObject, adaccount.AdAccount):
         """
         return self.iterate_edge_aio(PartnerCategory, fields, params, limit=limit)
 
-    def get_rate_cards_aio(self, fields=None, params=None, limit=1000):
-        """Returns iterator over RateCard's associated with this account."""
-        return self.iterate_edge_aio(baseobjects.RateCard, fields, params, limit=limit)
-
     def get_reach_estimate_aio(self, fields=None, params=None, limit=1000):
         """
         Returns iterator over ReachEstimate's associated with this account.
         """
         return self.iterate_edge_aio(baseobjects.ReachEstimate, fields, params, limit=limit)
-
-    def get_transactions_aio(self, fields=None, params=None, limit=1000):
-        """Returns iterator over Transaction's associated with this account."""
-        return self.iterate_edge_aio(baseobjects.Transaction, fields, params, limit=limit)
 
     def get_ad_preview_aio(self, fields=None, params=None, limit=1000):
         """Returns iterator over previews generated under this account."""

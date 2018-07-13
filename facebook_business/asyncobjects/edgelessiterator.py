@@ -1,4 +1,4 @@
-from facebook_business.asyncobjects import AioEdgeIterator
+from facebook_business.asyncobjects.aioedgeiterator import AioEdgeIterator
 
 
 class EdgeLessIterator(AioEdgeIterator):

@@ -88,7 +88,7 @@ class AbstractCrudAioObject(object):
         or download using get_result()
         :type target_objects_class: AbstractCrudObject
         """
-        from facebook_business.asyncobjects import AsyncAioJobIterator
+        from facebook_business.asyncobjects.asyncaiojobiterator import AsyncAioJobIterator
 
         if not params:
             params = {}

@@ -43,10 +43,8 @@ from facebook_business.adobjects import (
     productfeedupload,
     productfeed,
     business,
-    transaction,
     reachfrequencyprediction,
     reachestimate,
-    ratecard,
     partnercategory,
     productset,
     adspixel,
@@ -74,7 +72,7 @@ from facebook_business.adobjects import (
     adreportrun,
 )
 
-import facebookads
+import facebook_business
 import warnings
 import functools
 
@@ -143,11 +141,6 @@ class AdAccount(adaccount.AdAccount):
         account.
         """
         return self.get_broad_targeting_categories(fields, params)
-
-    @deprecated(replacement='get_rate_card')
-    def get_rate_cards(self, fields=None, params=None):
-        """Returns iterator over RateCard's associated with this account."""
-        return self.get_rate_card(fields, params)
 
     @deprecated(replacement='get_ad_sets_by_labels')
     def get_adsets_by_labels(self, fields=None, params=None):
@@ -312,10 +305,6 @@ class PartnerCategory(partnercategory.PartnerCategory):
     pass
 
 
-class RateCard(ratecard.RateCard):
-    pass
-
-
 class ReachEstimate(reachestimate.ReachEstimate):
     pass
 
@@ -332,10 +321,6 @@ class TargetingSearch(targetingsearch.TargetingSearch):
     pass
 
 class TargetingSpecsField(targeting.Targeting.Field):
-    pass
-
-
-class Transaction(transaction.Transaction):
     pass
 
 
