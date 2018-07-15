@@ -1,10 +1,24 @@
 language: python
-python: 2.7
-env:
-  - TOX_ENV=py34
-  - TOX_ENV=py33
-  - TOX_ENV=py27
+matrix:
+  include:
+    - env: TOXENV=py27
+      python: 2.7
+    - env: TOXENV=py33
+      python: 3.3
+    - env: TOXENV=py34
+      python: 3.4
+    - env: TOXENV=py35
+      python: 3.5
+    - env: TOXENV=py36
+      python: 3.6
+    - env: TOXENV=py37
+      python: 3.7
+      sudo: required
+      dist: xenial
+
 install:
-  - pip install tox 
+  - pip install tox
+  - if [[ $TRAVIS_PYTHON_VERSION == 3.3 ]]; then pip install virtualenv==15.2.0; fi
 script:
-  - tox -e $TOX_ENV
+  - echo "$TOXENV"
+  - tox -e $TOXENV
