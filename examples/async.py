@@ -42,7 +42,7 @@ account_id = config['act_id']
 account = AdAccount(account_id)
 
 # Both Insights and Reportstats
-i_async_job = account.get_insights(params={'level': 'ad'}, async=True)
+i_async_job = account.get_insights(params={'level': 'ad'}, async_=True)
 
 # Insights
 while True:
