@@ -1887,7 +1887,7 @@ class Page(
 
     def delete_locations(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
-            'location_page_id': 'int',
+            'location_page_id': 'Object',
             'store_number': 'unsigned int',
         }
         enums = {
@@ -2062,7 +2062,6 @@ class Page(
                 'RESPONSE',
                 'UPDATE',
                 'MESSAGE_TAG',
-                'NON_PROMOTIONAL_SUBSCRIPTION',
             ],
             'notification_type_enum': [
                 'REGULAR',
@@ -3483,6 +3482,7 @@ class Page(
             'copyright_content_id': 'string',
             'excluded_ownership_countries': 'list<string>',
             'excluded_ownership_segments': 'list<Object>',
+            'fingerprint_id': 'string',
             'is_reference_disabled': 'bool',
             'is_reference_video': 'bool',
             'monitoring_type': 'monitoring_type_enum',

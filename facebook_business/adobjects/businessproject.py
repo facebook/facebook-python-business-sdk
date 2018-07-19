@@ -105,7 +105,7 @@ class BusinessProject(
     _field_types = {
         'business': 'Business',
         'created_time': 'datetime',
-        'creator': 'User',
+        'creator': 'Object',
         'id': 'string',
         'name': 'string',
     }

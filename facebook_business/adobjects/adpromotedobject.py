@@ -39,10 +39,12 @@ class AdPromotedObject(
 
     class Field(AbstractObject.Field):
         application_id = 'application_id'
+        custom_conversion_id = 'custom_conversion_id'
         custom_event_type = 'custom_event_type'
         event_id = 'event_id'
         object_store_url = 'object_store_url'
         offer_id = 'offer_id'
+        offline_conversion_data_set_id = 'offline_conversion_data_set_id'
         page_id = 'page_id'
         pixel_id = 'pixel_id'
         place_page_set_id = 'place_page_set_id'
@@ -61,6 +63,7 @@ class AdPromotedObject(
         complete_registration = 'COMPLETE_REGISTRATION'
         content_view = 'CONTENT_VIEW'
         search = 'SEARCH'
+        service_booking_request = 'SERVICE_BOOKING_REQUEST'
         messaging_conversation_started_7d = 'MESSAGING_CONVERSATION_STARTED_7D'
         level_achieved = 'LEVEL_ACHIEVED'
         achievement_unlocked = 'ACHIEVEMENT_UNLOCKED'
@@ -69,10 +72,12 @@ class AdPromotedObject(
 
     _field_types = {
         'application_id': 'string',
+        'custom_conversion_id': 'string',
         'custom_event_type': 'CustomEventType',
         'event_id': 'string',
         'object_store_url': 'string',
         'offer_id': 'string',
+        'offline_conversion_data_set_id': 'string',
         'page_id': 'string',
         'pixel_id': 'string',
         'place_page_set_id': 'string',

@@ -192,6 +192,7 @@ class LiveVideo(
             'product_items': 'list<string>',
             'published': 'bool',
             'schedule_custom_profile_image': 'file',
+            'schedule_feed_background_image': 'file',
             'sponsor_id': 'string',
             'sponsor_relationship': 'unsigned int',
             'status': 'status_enum',

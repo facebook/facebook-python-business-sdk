@@ -61,6 +61,7 @@ class AdAccountCreationRequest(
         is_under_authorization = 'is_under_authorization'
         official_website_url = 'official_website_url'
         planning_agency_business = 'planning_agency_business'
+        planning_agency_business_id = 'planning_agency_business_id'
         promotable_app_ids = 'promotable_app_ids'
         promotable_page_ids = 'promotable_page_ids'
         promotable_urls = 'promotable_urls'
@@ -71,7 +72,6 @@ class AdAccountCreationRequest(
         vertical = 'vertical'
         advertiser_business_id = 'advertiser_business_id'
         business_registration = 'business_registration'
-        planning_agency_business_id = 'planning_agency_business_id'
         promotable_page_urls = 'promotable_page_urls'
 
     class Subvertical:
@@ -173,7 +173,7 @@ class AdAccountCreationRequest(
         smb_religious = 'SMB_RELIGIOUS'
         smb_rentals = 'SMB_RENTALS'
         smb_repair_and_maintenance = 'SMB_REPAIR_AND_MAINTENANCE'
-        smb_wireline_services = 'SMB_WIRELINE_SERVICES'
+        other_wireline_services = 'OTHER_WIRELINE_SERVICES'
         software = 'SOFTWARE'
         sporting = 'SPORTING'
         sports = 'SPORTS'
@@ -358,6 +358,7 @@ class AdAccountCreationRequest(
         'is_under_authorization': 'bool',
         'official_website_url': 'string',
         'planning_agency_business': 'Business',
+        'planning_agency_business_id': 'string',
         'promotable_app_ids': 'list<string>',
         'promotable_page_ids': 'list<string>',
         'promotable_urls': 'list<string>',
@@ -368,7 +369,6 @@ class AdAccountCreationRequest(
         'vertical': 'string',
         'advertiser_business_id': 'string',
         'business_registration': 'file',
-        'planning_agency_business_id': 'string',
         'promotable_page_urls': 'list<Object>',
     }
 

@@ -47,7 +47,6 @@ class AdAccountUser(
         name = 'name'
         permissions = 'permissions'
         role = 'role'
-        roles = 'roles'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
@@ -59,7 +58,6 @@ class AdAccountUser(
         'name': 'string',
         'permissions': 'list<unsigned int>',
         'role': 'unsigned int',
-        'roles': 'list<string>',
     }
 
     @classmethod

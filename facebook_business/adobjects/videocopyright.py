@@ -52,6 +52,7 @@ class VideoCopyright(
         reference_file = 'reference_file'
         reference_file_disabled = 'reference_file_disabled'
         reference_file_disabled_by_ops = 'reference_file_disabled_by_ops'
+        reference_file_expired = 'reference_file_expired'
         reference_owner_id = 'reference_owner_id'
         rule_ids = 'rule_ids'
         whitelisted_ids = 'whitelisted_ids'
@@ -172,6 +173,7 @@ class VideoCopyright(
         'reference_file': 'Object',
         'reference_file_disabled': 'bool',
         'reference_file_disabled_by_ops': 'bool',
+        'reference_file_expired': 'bool',
         'reference_owner_id': 'string',
         'rule_ids': 'list<VideoCopyrightRule>',
         'whitelisted_ids': 'list<string>',

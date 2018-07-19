@@ -253,6 +253,38 @@ class CustomAudience(
             self.assure_call()
             return request.execute()
 
+    def create_ad_account(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adaccount import AdAccount
+        param_types = {
+            'adaccounts': 'list<string>',
+            'permissions': 'string',
+            'relationship_type': 'list<string>',
+            'replace': 'bool',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/ad_accounts',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdAccount,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdAccount, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def delete_ad_accounts(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
             'adaccounts': 'list<string>',
@@ -291,37 +323,6 @@ class CustomAudience(
         request = FacebookRequest(
             node_id=self['id'],
             method='GET',
-            endpoint='/adaccounts',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AdAccount,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdAccount, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_ad_account(self, fields=None, params=None, batch=None, pending=False):
-        from facebook_business.adobjects.adaccount import AdAccount
-        param_types = {
-            'adaccounts': 'list<string>',
-            'permissions': 'string',
-            'replace': 'bool',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
             endpoint='/adaccounts',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),

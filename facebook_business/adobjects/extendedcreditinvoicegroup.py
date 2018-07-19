@@ -41,6 +41,7 @@ class ExtendedCreditInvoiceGroup(
         super(ExtendedCreditInvoiceGroup, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        auto_enroll = 'auto_enroll'
         customer_po_number = 'customer_po_number'
         email = 'email'
         emails = 'emails'
@@ -187,6 +188,7 @@ class ExtendedCreditInvoiceGroup(
             return request.execute()
 
     _field_types = {
+        'auto_enroll': 'bool',
         'customer_po_number': 'string',
         'email': 'Object',
         'emails': 'list<string>',

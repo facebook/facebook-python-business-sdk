@@ -177,9 +177,9 @@ class CustomConversion(
 
     def get_activities(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
-            'end_time': 'datetime',
+            'end_time': 'Object',
             'event_type': 'event_type_enum',
-            'start_time': 'datetime',
+            'start_time': 'Object',
         }
         enums = {
             'event_type_enum': [
