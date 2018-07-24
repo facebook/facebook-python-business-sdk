@@ -38,6 +38,7 @@ from .. import specs
 from .. import exceptions
 from .. import session
 from .. import utils
+from facebook_business import apiconfig
 from facebook_business.adobjects import (abstractcrudobject,
                                    ad,
                                    adaccount,
@@ -473,6 +474,29 @@ class UrlsUtilsTestCase(unittest.TestCase):
 
 class FacebookAdsApiBatchTestCase(unittest.TestCase):
 
+    def tearDown(self):
+        apiconfig.ads_api_config["STRICT_MODE"] = False
+        super(FacebookAdsApiBatchTestCase, self).tearDown()
+
+    def test_init(self):
+        default_api = api.FacebookAdsApi.get_default_api()
+        batch = api.FacebookAdsApiBatch(default_api)
+        self.assertIs(batch._api, default_api)
+        self.assertEqual(batch._files, [])
+        self.assertEqual(batch._batch, [])
+        self.assertEqual(batch._success_callbacks, [])
+        self.assertEqual(batch._failure_callbacks, [])
+        self.assertEqual(batch._transient_errors_callbacks, [])
+        self.assertEqual(batch._requests, [])
+
+    def test_add_bad_argument_strictmode(self):
+        default_api = api.FacebookAdsApi.get_default_api()
+        batch = api.FacebookAdsApiBatch(default_api)
+        apiconfig.ads_api_config["STRICT_MODE"] = True
+        with self.assertRaises(exceptions.FacebookBadObjectError):
+            request = api.FacebookRequest(1337, "GET", "/")
+            batch.add("GET", "/", None, None, None, None, None, request, None)
+
     def test_add_works_with_utf8(self):
         default_api = api.FacebookAdsApi.get_default_api()
         batch_api = api.FacebookAdsApiBatch(default_api)
@@ -482,6 +506,98 @@ class FacebookAdsApiBatchTestCase(unittest.TestCase):
             'method': 'GET',
             'relative_url': 'some/path?'+'key=' + utils.urls.quote_with_encoding(u'vàlué')
         })
+
+    class FakeApi(object):
+        def __init__(self, body):
+            self.body = body
+
+        def call(self, method, path, params, files):
+            self.method, self.path, self.params, self.files = method, path, params, files
+            return api.FacebookResponse(http_status=200, body=json.dumps(self.body))
+
+    def test_execute_ok(self):
+        body = [
+            {"body": {}, "code": 200},
+        ]
+        fake_api = self.FakeApi(body)
+        batch = api.FacebookAdsApiBatch(fake_api)
+        self.success_called = False
+        def callback(resp):
+            self.success_called = True
+        batch.add("GET", "/endpoint", params={"key": "value"}, success=callback)
+        self.assertIsNone(batch.execute())
+        self.assertEqual(fake_api.method, 'POST')
+        self.assertEqual(fake_api.path, ())
+        self.assertEqual(fake_api.params, {"batch": [{'method': 'GET', 'relative_url': '/endpoint?key=value'}]})
+        self.assertEqual(fake_api.files, {})
+        self.assertTrue(self.success_called)
+
+    def test_execute_failure(self):
+        body = [
+            {"body": {"error": {}}, "code": 400},
+        ]
+        fake_api = self.FakeApi(body)
+        batch = api.FacebookAdsApiBatch(fake_api)
+        self.failure_called = False
+        def callback(resp):
+            self.failure_called = True
+        batch.add("GET", "/endpoint", params={"key": "value"}, failure=callback)
+        new_batch = batch.execute()
+        self.assertIsNone(new_batch)
+        self.assertEqual(fake_api.method, 'POST')
+        self.assertEqual(fake_api.path, ())
+        self.assertEqual(fake_api.params, {"batch": [{'method': 'GET', 'relative_url': '/endpoint?key=value'}]})
+        self.assertEqual(fake_api.files, {})
+        self.assertTrue(self.failure_called)
+
+    def test_execute_transient(self):
+        body = [
+            {"body": {"error": {"is_transient": True}}, "code": 400},
+        ]
+        fake_api = self.FakeApi(body)
+        batch = api.FacebookAdsApiBatch(fake_api)
+        self.failure_called = False
+        def callback(resp):
+            self.failure_called = True
+        self.transient_called = False
+        def transient_callback(resp):
+            self.transient_called = True
+        batch.add("GET", "/endpoint", params={"key": "value"}, failure=callback, transient_error=transient_callback)
+
+        new_batch = batch.execute()
+        self.assertIsNotNone(new_batch)
+        self.assertEqual(fake_api.method, 'POST')
+        self.assertEqual(fake_api.path, ())
+        self.assertEqual(fake_api.params, {"batch": [{'method': 'GET', 'relative_url': '/endpoint?key=value'}]})
+        self.assertEqual(fake_api.files, {})
+        self.assertTrue(self.transient_called)
+        self.assertFalse(self.failure_called)
+
+        self.assertEqual(len(new_batch), 1)  # one failure is transient
+
+    def test_execute_response_is_none(self):
+        body = [
+            None
+        ]
+        fake_api = self.FakeApi(body)
+        batch = api.FacebookAdsApiBatch(fake_api)
+        self.transient_resp = None
+        def callback(resp):
+            self.transient_resp = resp
+        batch.add("GET", "/endpoint", params={"key": "value"}, transient_error=callback)
+
+        new_batch = batch.execute()
+        self.assertIsNotNone(new_batch)
+        self.assertEqual(fake_api.method, 'POST')
+        self.assertEqual(fake_api.path, ())
+        self.assertEqual(fake_api.params, {"batch": [{'method': 'GET', 'relative_url': '/endpoint?key=value'}]})
+        self.assertEqual(fake_api.files, {})
+        self.assertIsNotNone(self.transient_resp)
+        self.assertIsInstance(self.transient_resp, api.FacebookResponse)
+        self.assertTrue(self.transient_resp.is_failure())
+        self.assertTrue(self.transient_resp.is_transient())
+
+        self.assertEqual(len(new_batch), 1)  # one failure is transient
 
 
 class VersionUtilsTestCase(unittest.TestCase):
@@ -500,6 +616,76 @@ class FacebookResponseTestCase(unittest.TestCase):
     def test_is_success_service_unavailable(self):
         resp = api.FacebookResponse(body="Service Unavailable", http_status=200)
         self.assertFalse(resp.is_success())
+
+    def test_is_success_not_modified(self):
+        resp = api.FacebookResponse(http_status=304)
+        self.assertTrue(resp.is_success())
+
+    def test_is_failure_for_html_body(self):
+        html_body = '<html><head></head><body>' \
+                    '<p>Something went wrong!</p>' \
+                    '</body></html>'
+        resp = api.FacebookResponse(http_status=400, body=html_body)
+        self.assertFalse(resp.is_success())
+
+    def test_is_transient_success(self):
+        resp = api.FacebookResponse(http_status=200)
+        self.assertFalse(resp.is_transient())
+
+    def test_is_transient_body_not_json(self):
+        resp = api.FacebookResponse(http_status=400)
+        self.assertFalse(resp.is_transient())
+
+    def test_is_transient_not_transient(self):
+        resp = api.FacebookResponse(
+            http_status=400,
+            body=json.dumps({"error": {"is_transient": False}})
+        )
+        self.assertFalse(resp.is_transient())
+
+    def test_is_transient_ok(self):
+        resp = api.FacebookResponse(
+            http_status=400,
+            body=json.dumps({"error": {"is_transient": True}})
+        )
+        self.assertTrue(resp.is_transient())
+
+    def test_is_transient_by_message(self):
+        messages = [
+            'An unknown error occurred',
+            'This could happen if a dependent request failed or the entire request timed out.'
+        ]
+        for message in messages:
+            resp = api.FacebookResponse(
+                http_status=500, call={},
+                body=json.dumps({"error": {"is_transient": False, "message": message}})
+            )
+            self.assertTrue(resp.is_transient())
+            self.assertEqual(
+                resp._body, json.dumps({"error": {"is_transient": True, "message": message}}))
+            self.assertTrue(resp.error().api_transient_error())
+
+    def test_evaluate_if_transient_not_json(self):
+        resp = api.FacebookResponse(
+            http_status=500,
+            body='hola'
+        )
+        self.assertIsInstance(resp, api.FacebookResponse)
+
+    def test_evaluate_if_transient_not_failure(self):
+        resp = api.FacebookResponse(
+            http_status=200,
+            body=''
+        )
+        self.assertFalse(resp.is_transient())
+
+    def test_evaluate_if_transient_failure_but_wrong_message(self):
+        resp = api.FacebookResponse(
+            http_status=500,
+            body=json.dumps({"error": {"is_transient": False, "message": "what ?"}})
+        )
+        self.assertFalse(resp.is_transient())
+
 
 if __name__ == '__main__':
     unittest.main()

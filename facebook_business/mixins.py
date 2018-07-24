@@ -52,7 +52,8 @@ class CanArchive(object):
         self,
         batch=None,
         failure=None,
-        success=None
+        success=None,
+        transient_error=None,
     ):
         return self.remote_update(
             params={
@@ -61,6 +62,7 @@ class CanArchive(object):
             batch=batch,
             failure=failure,
             success=success,
+            transient_error=transient_error,
         )
 
     """
@@ -71,7 +73,8 @@ class CanArchive(object):
         self,
         batch=None,
         failure=None,
-        success=None
+        success=None,
+        transient_error=None,
     ):
         return self.remote_update(
             params={
@@ -80,6 +83,7 @@ class CanArchive(object):
             batch=batch,
             failure=failure,
             success=success,
+            transient_error=transient_error,
         )
 
 

@@ -49,8 +49,12 @@ api module contains classes that make http requests to Facebook's graph API.
 
 
 class FacebookResponse(object):
-
     """Encapsulates an http response from Facebook's Graph API."""
+
+    TRANSIENT_ERROR_MESSAGES = [
+        'An unknown error occurred',
+        'This could happen if a dependent request failed or the entire request timed out.'
+    ]
 
     def __init__(self, body=None, http_status=None, headers=None, call=None):
         """Initializes the object's internal data.
@@ -61,6 +65,7 @@ class FacebookResponse(object):
             call (optional): The original call that was made.
         """
         self._body = body
+        self._evaluate_if_transient()
         self._http_status = http_status
         self._headers = headers or {}
         self._call = call
@@ -115,6 +120,37 @@ class FacebookResponse(object):
     def is_failure(self):
         """Returns boolean indicating if the call failed."""
         return not self.is_success()
+
+    def _evaluate_if_transient(self):
+        """Evaluate if the response has a transient error, depending on the status and the message"""
+        json_body = self.json()
+        try:
+            error = json_body.get('error', {})
+            is_transient = error.get('is_transient', False)
+            error_message = error.get('message', False)
+
+            if (
+                self.is_failure()
+                and not is_transient
+                and error_message
+                and any((transient_message in error_message for transient_message in self.TRANSIENT_ERROR_MESSAGES))
+            ):
+                error['is_transient'] = True
+                json_body['error'] = error
+                self._body = json.dumps(json_body)
+        except AttributeError:  # not a dict, we don't know much
+            return
+
+    def is_transient(self):
+        """Returns boolean indicating if the response failure is transient."""
+        if self.is_success():
+            return False
+
+        json_body = self.json()
+        try:
+            return json_body.get('error', {}).get('is_transient', False)
+        except AttributeError:  # not a dict, we don't know much
+            return False
 
     def error(self):
         """
@@ -356,10 +392,13 @@ class FacebookAdsApiBatch(object):
         self._batch = []
         self._success_callbacks = []
         self._failure_callbacks = []
+        self._transient_errors_callbacks = []
+
         if success is not None:
             self._success_callbacks.append(success)
         if failure is not None:
             self._failure_callbacks.append(failure)
+
         self._requests = []
 
     def __len__(self):
@@ -374,6 +413,7 @@ class FacebookAdsApiBatch(object):
         files=None,
         success=None,
         failure=None,
+        transient_error=None,
         request=None,
     ):
         """Adds a call to the batch.
@@ -399,6 +439,14 @@ class FacebookAdsApiBatch(object):
         Returns:
             A dictionary describing the call.
         """
+        if isinstance(transient_error, FacebookRequest):
+            api_utils.warning(
+                "8th argument of the FacebookAdsApiBatch.add() method is "
+                "now a callback for transient errors. Please either adapt "
+                "you positional arguments or switch to keyword arguments."
+            )
+            request, transient_error = transient_error, None
+
         if not isinstance(relative_path, six.string_types):
             relative_url = '/'.join(relative_path)
         else:
@@ -433,6 +481,7 @@ class FacebookAdsApiBatch(object):
         self._files.append(files)
         self._success_callbacks.append(success)
         self._failure_callbacks.append(failure)
+        self._transient_errors_callbacks.append(transient_error)
         self._requests.append(request)
 
         return call
@@ -442,6 +491,7 @@ class FacebookAdsApiBatch(object):
         request,
         success=None,
         failure=None,
+        transient_error=None,
     ):
         """Interface to add a APIRequest to the batch.
         Args:
@@ -463,6 +513,7 @@ class FacebookAdsApiBatch(object):
             files=request._file_params,
             success=success,
             failure=failure,
+            transient_error=transient_error,
             request=request,
         )
 
@@ -498,25 +549,40 @@ class FacebookAdsApiBatch(object):
         retry_indices = []
 
         for index, response in enumerate(responses):
-            if response:
-                body = response.get('body')
-                code = response.get('code')
-                headers = response.get('headers')
-
+            if not response:
+                transient_body = {
+                    "error": {
+                        "is_transient": True,
+                        "message": "Transient Error",
+                        "type": "empty response"
+                    }
+                }
                 inner_fb_response = FacebookResponse(
-                    body=body,
-                    headers=headers,
-                    http_status=code,
+                    body=transient_body,
+                    http_status=500,
+                    call=self._batch[index],
+                )
+            else:
+                inner_fb_response = FacebookResponse(
+                    body=response.get('body'),
+                    headers=response.get('headers'),
+                    http_status=response.get('code'),
                     call=self._batch[index],
                 )
 
-                if inner_fb_response.is_success():
-                    if self._success_callbacks[index]:
-                        self._success_callbacks[index](inner_fb_response)
-                elif self._failure_callbacks[index]:
-                    self._failure_callbacks[index](inner_fb_response)
+            if inner_fb_response.is_success():
+                if self._success_callbacks[index]:
+                    self._success_callbacks[index](inner_fb_response)
             else:
-                retry_indices.append(index)
+                error_callback = self._failure_callbacks[index]
+                # retry transient errors
+                if inner_fb_response.is_transient():
+                    retry_indices.append(index)
+                    error_callback = self._transient_errors_callbacks[index]
+
+                # execute failure callbacks on error
+                if error_callback:
+                    error_callback(inner_fb_response)
 
         if retry_indices:
             new_batch = self.__class__(self._api)
@@ -526,6 +592,9 @@ class FacebookAdsApiBatch(object):
                                             for index in retry_indices]
             new_batch._failure_callbacks = [self._failure_callbacks[index]
                                             for index in retry_indices]
+            new_batch._transient_errors_callbacks = [
+                self._transient_errors_callbacks[index] for index in retry_indices
+            ]
             return new_batch
         else:
             return None
@@ -673,8 +742,8 @@ class FacebookRequest:
             else:
                 return response
 
-    def add_to_batch(self, batch, success=None, failure=None):
-        batch.add_request(self, success, failure)
+    def add_to_batch(self, batch, success=None, failure=None, transient_error=None):
+        batch.add_request(self, success, failure, transient_error)
 
     def _extract_value(self, value):
         if hasattr(value, 'export_all_data'):
