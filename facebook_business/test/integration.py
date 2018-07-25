@@ -644,13 +644,6 @@ class MultiProductAdObjectStorySpecTestCase(AbstractCrudObjectTestCase):
 
 class AdImageTestCase(AbstractCrudObjectTestCase):
 
-    def test_can_upload_zip(self):
-        images = AdImage.remote_create_from_zip(
-            filename=self.TEST_ZIP_PATH,
-            parent_id=self.TEST_ACCOUNT.get_id_assured(),
-        )
-        assert len(images) == 2
-
     def test_can_read(self):
         self.new_test_ad_image()
         self.TEST_ACCOUNT.get_ad_images()
