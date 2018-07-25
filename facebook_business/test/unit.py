@@ -651,7 +651,7 @@ class FacebookResponseTestCase(unittest.TestCase):
             )
             self.assertTrue(resp.is_transient())
             self.assertEqual(
-                resp._body, json.dumps({"error": {"is_transient": True, "message": message}}))
+                json.loads(resp._body), {"error": {"is_transient": True, "message": message}})
             self.assertTrue(resp.error().api_transient_error())
 
     def test_evaluate_if_transient_not_json(self):
