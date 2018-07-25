@@ -22,9 +22,9 @@
 Pauses all active ad campaigns using batch calls.
 """
 
-from facebookads import FacebookSession
-from facebookads import FacebookAdsApi
-from facebookads.objects import (
+from facebook_business import FacebookSession
+from facebook_business import FacebookAdsApi
+from facebook_business.objects import (
     AdAccount,
     AdCampaign,
 )

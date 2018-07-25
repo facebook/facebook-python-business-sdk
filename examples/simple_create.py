@@ -22,13 +22,13 @@
 Creates an ad through a utility function.
 """
 
-from facebookads import FacebookAdsApi
-from facebookads import FacebookSession
-from facebookads.adobjects.business import Business
-from facebookads.adobjects.adaccount import AdAccount
-from facebookads.adobjects.adpreview import AdPreview
-from facebookads.adobjects.adset import AdSet
-from facebookads.adobjects.adpromotedobject import AdPromotedObject
+from facebook_business import FacebookSession
+from facebook_business import FacebookAdsApi
+from facebook_business.objects import (
+    AdAccount,
+    AdPreview,
+    AdSet,
+)
 
 import ad_creation_utils
 import json
@@ -54,13 +54,13 @@ if __name__ == '__main__':
 
     # Get my account (first account associated with the user associated with the
     #                 session of the default api)
-    my_account = AdAccount(fbid=config['act_id'])
+    my_account = AdAccount.get_my_account()
 
     print('**** Creating ad...')
 
     # Create my ad
     my_ad = ad_creation_utils.create_website_clicks_ad(
-        account=config['act_id'],
+        account=my_account,
 
         name="Visit Seattle",
         country='US',
@@ -71,34 +71,29 @@ if __name__ == '__main__':
         image_path=os.path.join(
             os.path.dirname(__file__),
             os.pardir,
-            'facebookads/test/misc/image.png'
+            'facebook_business/test/misc/image.png'
         ),
 
-        optimization_goal=AdSet.OptimizationGoal.offsite_conversions,
-        pixel_id=config['pixel_id'],
-        billing_event=AdSet.BillingEvent.impressions,
-        bid_amount=53,  # $0.53 / thousand
+        bid_type=AdSet.BidType.cpm,
+        bid_info={AdSet.Field.BidInfo.impressions: 53},  # $0.53 / thousand
         daily_budget=1000,  # $10.00 per day
 
         age_min=13,
         age_max=65,
 
-        campaign=config['campaign_id'],
-        status=AdSet.Status.paused,
-        # Default is False but let's keep this test ad paused
+        paused=True,  # Default is False but let's keep this test ad paused
     )
     print('**** Done!')
 
     # Get the preview and write an html file
-    preview = my_ad.get_previews(params={
-        'ad_format': AdPreview.AdFormat.right_column_standard,
+    preview = my_ad.get_ad_preview(params={
+        AdPreview.Field.ad_format: AdPreview.AdFormat.right_column_standard
     })
     preview_filename = os.path.join(this_dir, 'preview_ad.html')
     preview_file = open(preview_filename, 'w')
     preview_file.write(
         "<html><head><title>Facebook Ad Preview</title><body>%s</body></html>"
+        % preview.get_html()
     )
-    for each_ad in preview:
-        preview_file.write(each_ad.get_html())
     preview_file.close()
     print('**** %s has been created!' % preview_filename)

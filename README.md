@@ -1,44 +1,52 @@
-# Marketing API SDK for Python
+# Facebook Business SDK for Python
 
-[![Build Status](https://travis-ci.org/facebook/facebook-python-ads-sdk.svg)](https://travis-ci.org/facebook/facebook-python-ads-sdk)
+[![Build Status](https://travis-ci.org/facebook/facebook-python-business-sdk.svg)](https://travis-ci.org/facebook/facebook-python-business-sdk)
 
-## The Ads SDK for Python provides an easy interface and abstraction to the Marketing API.
+### Introduction
 
-Python is currently the most popular language for our third party ads
-developers. ``facebookads`` is a Python package that provides an interface
-between your Python application and Facebook's
-<a href="https://developers.facebook.com/docs/marketing-apis">Marketing API</a>. This
-tutorial covers the basics knowledge needed to use the SDK and provide some
-exercises for the reader.
+The Facebook <a href="https://developers.facebook.com/docs/business-sdk" target="_blank">Business SDK</a> is a one-stop shop to help our partners better serve their businesses. Partners are using multiple Facebook API's to server the needs of their clients. Adopting all these API's and keeping them up to date across the various platforms can be time consuming and ultimately prohibitive. For this reason Facebook has developed the Business SDK bundling many of its APIs into one SDK to ease implementation and upkeep. The Business SDK is an upgraded version of the Marketing API SDK that includes the Marketing API as well as many Facebook APIs from different platforms such as Pages, Business Manager, Instagram, etc.
 
-**NOTE**: ``facebookads`` package is compatible with Python 2 and 3!
+## Quick Start
+
+Business SDK <a href="https://developers.facebook.com/docs/business-sdk/getting-started" target="_blank">Getting Started Guide</a>
+
+Python is currently the most popular language for our third party developers. `facebook_business` is a Python package that provides an interface between your Python application and <a href="https://developers.facebook.com/docs/business-sdk/reference" target="_blank">Facebook's APIs within the Business SDK</a>. This tutorial covers the basic knowledge needed to use the SDK and provide some exercises for the reader.
+
+**NOTE**: ``facebook_business`` package is compatible with Python 2 and 3!
 
 ## Pre-requisites
 
-### An App
+### Register An App
 
-To get started with the SDK you must have a Facebook app
-<a href="https://developers.facebook.com/">registered on
-developers.facebook.com</a>.
+To get started with the SDK, you must have an app
+registered on <a href="https://developers.facebook.com/" target="_blank">developers.facebook.com</a>.
 
-**IMPORTANT**: Enable all migrations in the App's Settings->Migrations page.
+To manage the Marketing API, please visit your
+<a href="https://developers.facebook.com/apps/<YOUR APP ID>/dashboard"> App Dashboard </a>
+and add the <b>Marketing API</b> product to your app.
 
-**IMPORTANT**: For extra security, the SDK requires that you set 'Require App Secret' to *Yes* on your app's Settings->Advanced page.
+**IMPORTANT**: For security, it is recommended that you turn on 'App Secret
+Proof for Server API calls' in your app's Settings->Advanced page.
 
-Your app should now be able to use the Marketing API!
+### Obtain An Access Token
 
-### An Access Token
+When someone connects with an app using Facebook Login and approves the request
+for permissions, the app obtains an access token that provides temporary, secure
+access to Facebook APIs.
 
-You need to generate a user access token for your app and ask for the
-``ads_management`` permission. It is expected that an app in production will
-build its own infrastructure to interact with a user to generate an access token
-and choose an account to manage.
-<a href="https://developers.facebook.com/docs/marketing-api/using-the-api">Learn
-more about access tokens here</a>.
+An access token is an opaque string that identifies a User, app, or Page.
+
+For example, to access the Marketing API, you need to generate a User access token
+for your app and ask for the ``ads_management`` permission; to access Pages API,
+you need to generate a Page access token for your app and ask for the ``manage_page`` permission.
+
+Refer to our
+<a href="https://developers.facebook.com/docs/facebook-login/access-tokens" target="_blank">
+Access Token Guide</a> to learn more.
 
 For now, we can use the
-<a href="https://developers.facebook.com/tools/explorer">Graph Explorer</a> to
-get an access token. Select your App from the dropdown in the top right, and then generate a token with the premissions you want to test with.
+<a href="https://developers.facebook.com/tools/explorer" target="_blank">Graph Explorer</a>
+to get an access token.
 
 ## Install package
 
@@ -58,12 +66,12 @@ easy_install pip
 Now execute when you have pip:
 
 ```
-pip install facebookads
+pip install facebook_business
 ```
 
 If you care for the latest version instead of a possibly outdated version in the
-<a href="https://pypi.python.org">pypi.python.org</a> repository,
-<a href="https://github.com/facebook/facebook-python-ads-sdk">check out the
+<a href="https://pypi.python.org" target="_blank">pypi.python.org</a> repository,
+<a href="https://github.com/facebook/facebook-python-business-sdk">check out the
 repository from GitHub or download a release tarball</a>. Once you've got the
 package downloaded and unzipped, install it:
 
@@ -75,74 +83,87 @@ Great, now you are ready to use the SDK!
 
 ## Bootstrapping
 
-The rest of the example code given will assume you have bootstrapped the api
-into your program like the following sample app:
+### Create test.py
+Create a test.py file with the contents below (assuming your system is using python 2.7 and installed under /opt/homebrew. Update to your proper python location.):
 
 ```python
-from facebookads.api import FacebookAdsApi
-from facebookads import adobjects
+import sys
+sys.path.append('/opt/homebrew/lib/python2.7/site-packages') # Replace this with the place you installed facebookads using pip
+sys.path.append('/opt/homebrew/lib/python2.7/site-packages/facebook_business-3.0.0-py2.7.egg-info') # same as above
 
-my_app_id = '<APP_ID>'
-my_app_secret = '<APP_SECRET>'
-my_access_token = '<ACCESS_TOKEN>'
-proxies = {'http': '<HTTP_PROXY>', 'https': '<HTTPS_PROXY>'} # add proxies if needed
-FacebookAdsApi.init(my_app_id, my_app_secret, my_access_token, proxies)
+from facebook_business.api import FacebookAdsApi
+from facebook_business.adobjects.adaccount import AdAccount
+
+my_app_id = 'your-app-id'
+my_app_secret = 'your-appsecret'
+my_access_token = 'your-page-access-token'
+FacebookAdsApi.init(my_app_id, my_app_secret, my_access_token)
+my_account = AdAccount('your-adaccount-id')
+campaigns = my_account.get_campaigns()
+print(campaigns)
 ```
 
-**NOTE**: We shall use the adobjects module throughout the rest of the tutorial. You can 
-also use the individual class files under adobjects directly. 
+### Test Your Install
+Test your install with the following command:
+```python
+python test.py
+```
+You should see the result in your terminal window. If it complains about an expired token, repeat the process for requesting a Page Access Token described in the prerequisites section above.
+
+**NOTE**: We shall use the objects module throughout the rest of the tutorial. You can
+also use the individual class files under adobjects directly.
 
 ## SDK Structure
 
-The SDK contains the object module which has classes for every adobject. You
-will notice that these classes are essentially extending individual class from 
-``adobjects`` folder. We encourage you to use these files directly.We maintain the objects module 
+The SDK contains the object module which has classes for every object. You
+will notice that these classes are essentially extending individual class from
+``adobjects`` folder. We encourage you to use these files directly. We maintain the objects module
 for compatibility and this will be removed starting 2.7.
 
 ## Understanding CRUD
 
 The SDK implements a CRUD (create, read, update, delete) design. Objects
 relevant to exploring the graph are located in the objects module of the
-facebookads package.
+facebook_business package.
 
 All objects on the graph are instances of ``AbstractObject``. Some objects can
 be directly queried and thus are instances of ``AbstractCrudObject`` (a subclass
 of ``AbstractObject``). Both these abstract classes are located in
-``facebookads.adobjects``.
+``facebook_business.adobjects``.
 
 AbstractCrudObject can have all or some of the following methods:
 
-* ``remote_create`` 
+* ``remote_create``
 * ``remote_read``
 * ``remote_update``
 * ``remote_delete``
 
-In the newest version of the SDK, you will notice an additional folder 
-``adobjects`` under facebookads. Under this you will see a file for every ad object 
-in our Marketing API. These files are autogenerated from our API and therefore 
-are close in parity with what API has to offer. Based on what CRUD operations can be 
-performed on each object, you will see the presensce of the following methods in them:
+In the newest version of the SDK, you will notice an additional folder
+``adobjects`` under facebook_business. Under this you will see a file for every ad object
+in our Marketing API. These files are autogenerated from our API and therefore
+are close in parity with what API has to offer. Based on what CRUD operations can be
+performed on each object, you will see the presence of the following methods in them:
 
-* ``api_create`` 
+* ``api_create``
 * ``api_get``
 * ``api_update``
 * ``api_delete``
 
-The above methods have a one to one correspondence with the remote methods. 
+The above methods have a one to one correspondence with the remote methods.
 
 For example, Campaign has all these methods but AdAccount does not. Read the
 Marketing API documentation for more information about
-<a href="https://developers.facebook.com/docs/marketing-api/reference">how different ad
+<a href="https://developers.facebook.com/docs/marketing-api/reference" target="_blank">how different ad
 objects are used</a>.
 
-You can choose to continue to use the remote_* methods or the new methods. We offer 
-both so as to aviod breaking existing codes.
+You can choose to continue to use the remote_* methods or the new methods. We offer
+both so as to avoid breaking existing codes.
 
 ## Exploring the Graph
 
 The way the SDK abstracts the API is by defining classes that represent objects
 on the graph. These class definitions and their helpers are located in
-``facebookads.adobjects``.
+``facebook_business.adobjects``.
 
 ### Initializing Objects
 
@@ -158,7 +179,7 @@ API using a specific api object instead of the default, you can specify the
 ### Edges
 
 Look at the methods of an object to see what associations over which we can
-iterate. For example an ``AdAccountUser`` object has a method ``get_ad_accounts`` which
+iterate. For example an ``AdUser`` object has a method ``get_ad_accounts`` which
 returns an iterator of ``AdAccount`` objects.
 
 ### Ad Account
@@ -171,21 +192,21 @@ Let's get all the ad accounts for the user with the given access token. I only
 have one account so the following is printed:
 
 ```python
->>> me = adobjects.AdAccountUser(fbid='me')
+>>> me = adobjects.AdUser(fbid='me')
 >>> my_accounts = list(me.get_ad_accounts())
 >>> print(my_accounts)
 [{   'account_id': u'17842443', 'id': u'act_17842443'}]
 >>> type(my_accounts[0])
-<class 'facebookads.adobjects.AdAccount'>
+<class 'facebook_business.adobjects.AdAccount'>
 ```
 
 **WARNING**: We do not specify a keyword argument ``api=api`` when instantiating
-the ``AdAccountUser`` object here because we've already set the default api when
+the ``AdUser`` object here because we've already set the default api when
 bootstrapping.
 
 **NOTE**: We wrap the return value of ``get_ad_accounts`` with ``list()``
 because ``get_ad_accounts`` returns an ``EdgeIterator`` object (located in
-``facebookads.adobjects``) and we want to get the full list right away instead of
+``facebook_business.adobjects``) and we want to get the full list right away instead of
 having the iterator lazily loading accounts.
 
 For our purposes, we can just pick an account and do our experiments in its
@@ -198,7 +219,7 @@ context:
 Or if you already know your account id:
 
 ```python
->>> my_account = objects.AdAccount('act_17842443')
+>>> my_account = adobjects.AdAccount('act_17842443')
 ```
 
 ## Create
@@ -207,7 +228,7 @@ Let's create a campaign. It's in the context of the account, i.e. its parent
 should be the account.
 
 ```python
-campaign = objects.Campaign(parent_id = my_account.get_id_assured())
+campaign = adobjects.Campaign(parent_id = my_account.get_id_assured())
 ```
 
 Then we specify some details about the campaign. To figure out what properties
@@ -216,12 +237,12 @@ to define, you should look at the available fields of the object (located in
 <a href="https://developers.facebook.com/docs/marketing-api/reference/ad-campaign-group">
 Campaign</a>).
 
-**NOTE**: To find out the fields, look at the individual class file under adobjects 
-directory. 
+**NOTE**: To find out the fields, look at the individual class file under adobjects
+directory.
 
 ```python
-campaign[objects.Campaign.Field.name] = "Potato Campain" # sic
-campaign[objects.Campaign.Field.configured_status] = objects.Campaign.Status.paused
+campaign[adobjects.Campaign.Field.name] = "Potato Campain" # sic
+campaign[adobjects.Campaign.Field.configured_status] = adobjects.Campaign.Status.paused
 ```
 
 Finally, we make the create request by calling the ``remote_create`` method.
@@ -231,7 +252,7 @@ campaign.remote_create()
 ```
 
 If there's an error, an exception will be raised. Possible exceptions and their
-descriptions are listed in ``facebookads.exceptions``.
+descriptions are listed in ``facebook_business.exceptions``.
 
 ## Read
 
@@ -243,8 +264,8 @@ You can access them just like accessing a key of a dictionary:
 ```python
 >>> print(my_account)
 {'account_id': u'17842443', 'id': u'act_17842443'}
->>> my_account.remote_read(fields=[objects.AdAccount.Field.amount_spent])
->>> print(my_account[objects.AdAccount.Field.amount_spent])
+>>> my_account.remote_read(fields=[adobjects.AdAccount.Field.amount_spent])
+>>> print(my_account[adobjects.AdAccount.Field.amount_spent])
 {'amount_spent': 21167, 'account_id': u'17842443', 'id': u'act_17842443'}
 ```
 
@@ -255,7 +276,7 @@ To update an object, we can modify its properties and then call the
 typo "Campain" to "Campaign":
 
 ```python
->>> campaign[objects.Campaign.Field.name] = "Potato Campaign"
+>>> campaign[adobjects.Campaign.Field.name] = "Potato Campaign"
 >>> campaign.remote_update()
 ```
 
@@ -309,23 +330,23 @@ api2 = FacebookAdsApi(session2)
 In the SDK examples, we always set a single FacebookAdsApi object as the default one.
 However, working with multiples access_tokens, require us to use multiples apis. We may set a default
 api for a user, but, for the other users,  we shall use its the api object as a param. In the example below,
-we create two AdAccountUsers, the first one using the default api and the second one using its api object:
+we create two AdUsers, the first one using the default api and the second one using its api object:
 
 ```python
 FacebookAdsApi.set_default_api(api1)
 
-me1 = AdAccountUser(fbid='me')
-me2 = AdAccountUser(fbid='me', api=api2)
+me1 = AdUser(fbid='me')
+me2 = AdUser(fbid='me', api=api2)
 ```
 Another way to create the same objects from above would be:
 
 ```python
-me1 = AdAccountUser(fbid='me', api=api1)
-me2 = AdAccountUser(fbid='me', api=api2)
+me1 = AdUser(fbid='me', api=api1)
+me2 = AdUser(fbid='me', api=api2)
 ```
 From here, all the following workflow for these objects remains the same. The only exceptions are
 the classmethods calls, where we now should pass the api we want to use as the last parameter
-on every call. For instance, a call to the AdAccountUser.get_by_ids method should be like this:
+on every call. For instance, a call to the Aduser.get_by_ids method should be like this:
 
 ```python
 session = FacebookSession(
@@ -336,7 +357,7 @@ session = FacebookSession(
 )
 
 api = FacebookAdsApi(session1)
-AdAccountUser.get_by_ids(ids=['<UID_1>', '<UID_2>'], api=api)
+Aduser.get_by_ids(ids=['<UID_1>', '<UID_2>'], api=api)
 ```
 ### CRUD
 
@@ -370,7 +391,7 @@ edge more precisely.
 
 It is efficient to group together large numbers of calls into one http request.
 The SDK makes this process simple. You can group together calls into an instance
-of ``FacebookAdsApiBatch`` (available in facebookads.api). To easily get one
+of ``FacebookAdsApiBatch`` (available in facebook_business.api). To easily get one
 for your api instance:
 
 ```python
@@ -383,21 +404,10 @@ Calls can be added to the batch instead of being executed immediately:
 campaign.remote_delete(batch=my_api_batch)
 ```
 
-Requests can be saved to load the response after the batch call:
-
-```python
-request = campaign.get_insights(batch=my_api_batch)
-```
-
 Once you're finished adding calls to the batch, you can send off the request:
 
 ```python
 my_api_batch.execute()
-```
-
-After the batch call you may load your response: 
-```python
-response = request.load()
 ```
 
 Please follow <a href="https://developers.facebook.com/docs/graph-api/making-multiple-requests">
@@ -408,7 +418,7 @@ count individually towards rate limiting.
 
 ## Exceptions
 
-See ``facebookads.exceptions`` for a list of exceptions which may be thrown by
+See ``facebook_business.exceptions`` for a list of exceptions which may be thrown by
 the SDK.
 
 ## Tests
@@ -419,7 +429,7 @@ The unit tests don't require an access token or network access. Run them
 with your default installed Python as follows:
 
 ```
-python -m facebookads.test.unit
+python -m facebook_business.test.unit
 ```
 
 You can also use tox to run the unit tests with multiple Python versions:
@@ -450,7 +460,7 @@ Copy the `config.json.example` to `config.json` and fill in the appropriate
 details.
 
 ```
-python -m facebookads.test.integration <ACCESS_TOKEN>
+python -m facebook_business.test.integration <ACCESS_TOKEN>
 # Access token not required if it's defined in config.json
 ```
 
