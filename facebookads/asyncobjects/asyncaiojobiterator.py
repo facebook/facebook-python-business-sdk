@@ -73,7 +73,8 @@ class AsyncAioJobIterator(AioEdgeIterator):
                                                        FacebookErrorCodes.temporary] or
                               not exc.is_body_json()):
                     time.sleep(15 + i * 15)
-                elif i < 4 and exc.api_error_code() == FacebookErrorCodes.rate_limit:
+                elif i < 4 and exc.api_error_code() in (FacebookErrorCodes.rate_limit,
+                                                        FacebookErrorCodes.too_many_requests):
                     time.sleep(60 + i * 60)
                 else:
                     raise exc
