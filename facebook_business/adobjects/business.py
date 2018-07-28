@@ -957,10 +957,10 @@ class Business(
         from facebook_business.adobjects.adaccount import AdAccount
         param_types = {
             'adaccount_id': 'string',
-            'permitted_roles': 'list<permitted_roles_enum>',
+            'permitted_tasks': 'list<permitted_tasks_enum>',
         }
         enums = {
-            'permitted_roles_enum': AdAccount.PermittedRoles.__dict__.values(),
+            'permitted_tasks_enum': AdAccount.PermittedTasks.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],

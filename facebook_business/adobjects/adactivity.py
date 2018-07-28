@@ -48,6 +48,7 @@ class AdActivity(
         extra_data = 'extra_data'
         object_id = 'object_id'
         object_name = 'object_name'
+        object_type = 'object_type'
         translated_event_type = 'translated_event_type'
 
     class EventType:
@@ -140,6 +141,7 @@ class AdActivity(
         'extra_data': 'string',
         'object_id': 'string',
         'object_name': 'string',
+        'object_type': 'string',
         'translated_event_type': 'string',
     }
 

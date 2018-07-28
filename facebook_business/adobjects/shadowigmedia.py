@@ -168,9 +168,9 @@ class ShadowIGMedia(
             self.assure_call()
             return request.execute()
 
-    def get_insights(self, fields=None, params=None, async=False, batch=None, pending=False):
+    def get_insights(self, fields=None, params=None, is_async=False, batch=None, pending=False):
         from facebook_business.adobjects.instagraminsightsresult import InstagramInsightsResult
-        if async:
+        if is_async:
           return self.get_insights_async(fields, params, batch, pending)
         param_types = {
             'metric': 'list<metric_enum>',

@@ -282,7 +282,7 @@ class FacebookAdsApi(object):
         if not isinstance(path, six.string_types):
             # Path is not a full path
             path = "/".join((
-                self._session.GRAPH or url_override,
+                url_override or self._session.GRAPH,
                 api_version,
                 '/'.join(map(str, path)),
             ))
