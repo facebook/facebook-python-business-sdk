@@ -73,7 +73,8 @@ class AsyncAioJobIterator(AioEdgeIterator):
                                                        FacebookErrorCodes.temporary] or
                               not exc.is_body_json()):
                     time.sleep(15 + i * 15)
-                elif i < 4 and exc.api_error_code() == FacebookErrorCodes.rate_limit:
+                elif i < 4 and exc.api_error_code() in (FacebookErrorCodes.rate_limit,
+                                                        FacebookErrorCodes.too_many_requests):
                     time.sleep(60 + i * 60)
                 else:
                     raise exc
@@ -166,7 +167,7 @@ class AsyncAioJobIterator(AioEdgeIterator):
                 self.job_last_checked = time.time()
                 return self
 
-            if exc.api_error_code() == FacebookErrorCodes.unsupported_request:
+            if exc.api_error_code() != FacebookErrorCodes.unsupported_request:
                 async_status = 'Job Failed'
                 current_job_completion_value = 0
             else:
@@ -177,6 +178,24 @@ class AsyncAioJobIterator(AioEdgeIterator):
                         self.job_id, self.failed_with_unsupported_request,
                         datetime.fromtimestamp(self.job_started_at),
                         self.params, str(self.job)))
+
+        except TypeError:
+            if self.failed_with_unknown_error < 4:
+                logger.warning(
+                    "job id {} recieved unknown error as TypeError, attempts failed with the error {}, "
+                    "job requested at {}, report params: {}, response: '{}'".format(
+                        self.job_id, self.failed_with_unknown_error,
+                        datetime.fromtimestamp(self.job_started_at),
+                        self.params, str(self.job)))
+
+                time.sleep(5 + 2 * self.failed_with_unknown_error)
+                self.failed_with_unknown_error += 1
+                self.job_last_checked = time.time()
+                return self
+
+            async_status = 'Job Failed'
+            current_job_completion_value = 0
+
         else:
             async_status = self.job.get_async_status()
             current_job_completion_value = self.job.get_async_percent_completion()

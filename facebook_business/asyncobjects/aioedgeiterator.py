@@ -349,7 +349,7 @@ class AioEdgeIterator(facebook_business.api.Cursor):
                     self.recover_unknown_error(exc)
             elif exc.api_error_code() == FacebookErrorCodes.too_much_data:
                 self.recover_too_much_data_error(exc)
-            elif exc.api_error_code() == FacebookErrorCodes.rate_limit:
+            elif exc.api_error_code() in (FacebookErrorCodes.rate_limit, FacebookErrorCodes.too_many_requests):
                 self.recover_rate_limit_error(exc)
             elif not exc.is_body_json() or \
                     exc.api_error_code() == FacebookErrorCodes.report_cannot_be_accessed:
