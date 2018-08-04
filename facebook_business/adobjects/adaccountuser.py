@@ -45,9 +45,7 @@ class AdAccountUser(
     class Field(AbstractObject.Field):
         id = 'id'
         name = 'name'
-        permissions = 'permissions'
-        role = 'role'
-        roles = 'roles'
+        tasks = 'tasks'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
@@ -57,9 +55,7 @@ class AdAccountUser(
     _field_types = {
         'id': 'string',
         'name': 'string',
-        'permissions': 'list<unsigned int>',
-        'role': 'unsigned int',
-        'roles': 'list<string>',
+        'tasks': 'list<string>',
     }
 
     @classmethod

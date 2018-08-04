@@ -48,6 +48,7 @@ class AdActivity(
         extra_data = 'extra_data'
         object_id = 'object_id'
         object_name = 'object_name'
+        object_type = 'object_type'
         translated_event_type = 'translated_event_type'
 
     class EventType:
@@ -96,6 +97,7 @@ class AdActivity(
         update_ad_bid_info = 'update_ad_bid_info'
         update_ad_bid_type = 'update_ad_bid_type'
         update_ad_run_status = 'update_ad_run_status'
+        update_ad_run_status_to_be_set_after_review = 'update_ad_run_status_to_be_set_after_review'
         update_ad_friendly_name = 'update_ad_friendly_name'
         update_ad_targets_spec = 'update_ad_targets_spec'
         update_adgroup_stop_delivery = 'update_adgroup_stop_delivery'
@@ -139,6 +141,7 @@ class AdActivity(
         'extra_data': 'string',
         'object_id': 'string',
         'object_name': 'string',
+        'object_type': 'string',
         'translated_event_type': 'string',
     }
 

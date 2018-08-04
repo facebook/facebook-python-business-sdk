@@ -153,7 +153,7 @@ class BusinessRoleRequest(
             return request.execute()
 
     _field_types = {
-        'created_by': 'User',
+        'created_by': 'Object',
         'created_time': 'datetime',
         'email': 'string',
         'expiration_time': 'datetime',
@@ -164,7 +164,7 @@ class BusinessRoleRequest(
         'owner': 'Business',
         'role': 'string',
         'status': 'string',
-        'updated_by': 'User',
+        'updated_by': 'Object',
         'updated_time': 'datetime',
     }
 

@@ -213,6 +213,7 @@ class Business(
             'end_advertiser': 'Object',
             'funding_id': 'string',
             'invoice': 'bool',
+            'invoice_group_id': 'Object',
             'io': 'bool',
             'liable_address_id': 'Object',
             'media_agency': 'string',
@@ -956,10 +957,10 @@ class Business(
         from facebook_business.adobjects.adaccount import AdAccount
         param_types = {
             'adaccount_id': 'string',
-            'permitted_roles': 'list<permitted_roles_enum>',
+            'permitted_tasks': 'list<permitted_tasks_enum>',
         }
         enums = {
-            'permitted_roles_enum': AdAccount.PermittedRoles.__dict__.values(),
+            'permitted_tasks_enum': AdAccount.PermittedTasks.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -1025,33 +1026,6 @@ class Business(
             target_class=AbstractCrudObject,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def get_client_businesses(self, fields=None, params=None, batch=None, pending=False):
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/client_businesses',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=Business,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=Business, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2421,7 +2395,7 @@ class Business(
 
     _field_types = {
         'block_offline_analytics': 'bool',
-        'created_by': 'User',
+        'created_by': 'Object',
         'created_time': 'datetime',
         'id': 'string',
         'link': 'string',
@@ -2431,7 +2405,7 @@ class Business(
         'profile_picture_uri': 'string',
         'timezone_id': 'unsigned int',
         'two_factor_type': 'string',
-        'updated_by': 'User',
+        'updated_by': 'Object',
         'updated_time': 'datetime',
         'vertical': 'string',
     }
