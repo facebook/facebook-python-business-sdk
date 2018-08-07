@@ -31,10 +31,23 @@ jobs:
       - image: circleci/python:3.6-jessie-node
 
 
-workflows:
-  version: 2
-  default_build:
+
+all_jobs: &all_jobs
     jobs:
       - python-2.7
       - python-3.4
       - python-3.6
+
+workflows:
+  version: 2
+  default_build:
+    <<: *all_jobs
+  nightly:
+    <<: *all_jobs
+    triggers:
+      - schedule:
+          cron: "0 0 * * *"
+          filters:
+            branches:
+              only:
+                - master
