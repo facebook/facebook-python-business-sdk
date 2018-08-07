@@ -1,0 +1,38 @@
+# We could use an image with pyenv & tox, but it's just as much work as doing a matrix build.
+# Sorry tox.ini...
+version: 2
+
+shared: &shared
+    steps:
+      - checkout
+      # Define config in CircleCi's project settings → Environment Variables
+      - run: echo \{\"app_id\":\"$FB_APP_ID\",\"app_secret\":\"$FB_APP_SECRET\",\"act_id\":\"act_$FB_ACCOUNT_ID\",\"page_id\":\"$FB_PAGE_ID\",\"access_token\":\"$FB_ACCESS_TOKEN\",\"business\":\"$FB_BUSINESS_ID\",\"sec_business\":\"$FB_BUSINESS_ID_BIS\",\"sec_act_id\":\"act_$FB_ACCOUNT_ID_BIS\"\} > config.json
+      - run: python setup.py install
+      - run: python -m facebook_business.test.unit
+      - run: python -m facebook_business.test.integration
+
+jobs:
+  # Note: no 3.3 image from CCi readily available – not that we care about that version anyway.
+  python-2.7:
+    <<: *shared
+    docker:
+      - image: circleci/python:2.7-jessie-node
+
+  python-3.4:
+    <<: *shared
+    docker:
+      - image: circleci/python::3.4-jessie-node
+
+  python-3.6:  # Not specified in tox.ini
+    <<: *shared
+    docker:
+      - image: circleci/python::3.6-jessie-node
+
+
+workflows:
+  version: 2
+  default_build:
+    jobs:
+      - python-2.7
+      - python-3.4
+      - python-3.6
