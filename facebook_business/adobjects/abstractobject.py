@@ -55,8 +55,13 @@ class AbstractObject(collections.MutableMapping):
         return self
 
     def __eq__(self, other):
-        return other is not None and hasattr(targeting, 'export_all_data') and \
-            self.export_all_data() == other.export_all_data()
+        if other is None:
+            return False
+        if not hasattr(other, 'export_all_data'):
+            if isinstance(other, dict):
+                return self.export_all_data() == other
+            return False
+        return self.export_all_data() == other.export_all_data()
 
     def __delitem__(self, key):
         del self._data[key]
@@ -71,7 +76,7 @@ class AbstractObject(collections.MutableMapping):
         return key in self._data
 
     def __unicode__(self):
-        return unicode(self._data)
+        return str(self._data)
 
     def __repr__(self):
         return "<%s> %s" % (
