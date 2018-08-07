@@ -77,6 +77,7 @@ class AioEdgeIterator(facebook_business.api.Cursor):
         self.success_streak = 0
         self.last_yield = time.time()
 
+        self.unsupported_retries = 6
         self.tmp_retries = 25
         self.unknown_retries = 30
         self.too_much_data_retries = 14
@@ -377,12 +378,16 @@ class AioEdgeIterator(facebook_business.api.Cursor):
         self.set_last_error(exception_type)
         self.last_error = exc
         logger.warning("While loading url: {}, method GET with params: {}. "
-                       "Caught an error: {}".format(
-            str(self._path), str(self.params), str(exc)))
+                       "Caught an error: {}".format(str(self._path), str(self.params), str(exc)))
 
     def recover_other_graph_error(self, exc):
         if exc._http_status and 400 <= exc._http_status < 500:
-            self.set_fatal_error(exc)
+            err_type = "other FB graph error"
+            if self.errors_streak >= self.unsupported_retries:
+                self.set_fatal_error(exc)
+            else:
+                self.set_non_fatal_error(exc, err_type)
+                self.delay_next_call_for = 10 + 10 * self.errors_streak
         else:
             self.recover_unknown_error(exc)
 

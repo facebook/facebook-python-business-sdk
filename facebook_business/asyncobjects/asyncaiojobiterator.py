@@ -139,7 +139,7 @@ class AsyncAioJobIterator(AioEdgeIterator):
             self.job.remote_read()
         except FacebookRequestError as exc:
             if exc.api_error_code() == FacebookErrorCodes.unsupported_request and \
-                    self.failed_with_unsupported_request < 2:
+                    self.failed_with_unsupported_request < 3:
                 logger.warning(
                     "job id {} recieved unsupported request error, attempts failed with the "
                     "error {}, job requested at {}, report params: {}, response: '{}'".format(
@@ -147,7 +147,7 @@ class AsyncAioJobIterator(AioEdgeIterator):
                         datetime.fromtimestamp(self.job_started_at),
                         self.params, str(self.job)))
 
-                time.sleep(3 + 3 * self.failed_with_unsupported_request)
+                time.sleep(10 + 10 * self.failed_with_unsupported_request)
                 self.failed_with_unsupported_request += 1
                 self.job_last_checked = time.time()
                 return self
