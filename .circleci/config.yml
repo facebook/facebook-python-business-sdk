@@ -21,12 +21,12 @@ jobs:
   python-3.4:
     <<: *shared
     docker:
-      - image: circleci/python::3.4-jessie-node
+      - image: circleci/python:3.4-jessie-node
 
   python-3.6:  # Not specified in tox.ini
     <<: *shared
     docker:
-      - image: circleci/python::3.6-jessie-node
+      - image: circleci/python:3.6-jessie-node
 
 
 workflows:
