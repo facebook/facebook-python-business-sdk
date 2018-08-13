@@ -61,6 +61,7 @@ class LeadGenDataDraft(
         questions = 'questions'
         status = 'status'
         thank_you_page = 'thank_you_page'
+        tracking_parameters = 'tracking_parameters'
 
     class Locale:
         en_us = 'EN_US'
@@ -141,11 +142,12 @@ class LeadGenDataDraft(
             'legal_content_id': 'string',
             'locale': 'locale_enum',
             'name': 'string',
-            'privacy_policy': 'Object',
+            'privacy_policy': 'map',
             'question_page_custom_headline': 'string',
             'questions': 'list<Object>',
             'status': 'status_enum',
-            'thank_you_page': 'Object',
+            'thank_you_page': 'map',
+            'tracking_parameters': 'Object',
         }
         enums = {
             'locale_enum': LeadGenDataDraft.Locale.__dict__.values(),
@@ -194,6 +196,7 @@ class LeadGenDataDraft(
         'questions': 'list<LeadGenDraftQuestion>',
         'status': 'string',
         'thank_you_page': 'Object',
+        'tracking_parameters': 'list<Object>',
     }
 
     @classmethod

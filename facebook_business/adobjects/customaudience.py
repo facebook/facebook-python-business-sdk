@@ -91,12 +91,12 @@ class CustomAudience(
         vehicle = 'VEHICLE'
 
     class ContentType:
-        auto_offer = 'AUTO_OFFER'
         destination = 'DESTINATION'
         flight = 'FLIGHT'
         home_listing = 'HOME_LISTING'
         hotel = 'HOTEL'
         media_title = 'MEDIA_TITLE'
+        product = 'PRODUCT'
         vehicle = 'VEHICLE'
         vehicle_offer = 'VEHICLE_OFFER'
 
@@ -122,7 +122,6 @@ class CustomAudience(
         fox = 'FOX'
 
     class Fields:
-        id = 'id'
         account_id = 'account_id'
         approximate_count = 'approximate_count'
         customer_file_source = 'customer_file_source'
@@ -130,6 +129,7 @@ class CustomAudience(
         delivery_status = 'delivery_status'
         description = 'description'
         external_event_source = 'external_event_source'
+        id = 'id'
         is_value_based = 'is_value_based'
         lookalike_audience_ids = 'lookalike_audience_ids'
         lookalike_spec = 'lookalike_spec'

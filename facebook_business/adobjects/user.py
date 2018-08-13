@@ -65,12 +65,10 @@ class User(
         installed = 'installed'
         interested_in = 'interested_in'
         is_famedeeplinkinguser = 'is_famedeeplinkinguser'
-        is_payment_enabled = 'is_payment_enabled'
         is_shared_login = 'is_shared_login'
         is_verified = 'is_verified'
         labels = 'labels'
         languages = 'languages'
-        last_ad_referral = 'last_ad_referral'
         last_name = 'last_name'
         link = 'link'
         local_news_megaphone_dismiss_status = 'local_news_megaphone_dismiss_status'
@@ -368,11 +366,11 @@ class User(
         from facebook_business.adobjects.livevideo import LiveVideo
         param_types = {
             'broadcast_status': 'list<broadcast_status_enum>',
-            'type': 'type_enum',
+            'source': 'source_enum',
         }
         enums = {
             'broadcast_status_enum': LiveVideo.BroadcastStatus.__dict__.values(),
-            'type_enum': LiveVideo.Type.__dict__.values(),
+            'source_enum': LiveVideo.Source.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -668,12 +666,10 @@ class User(
         'installed': 'bool',
         'interested_in': 'list<string>',
         'is_famedeeplinkinguser': 'bool',
-        'is_payment_enabled': 'bool',
         'is_shared_login': 'bool',
         'is_verified': 'bool',
         'labels': 'list<PageLabel>',
         'languages': 'list<Object>',
-        'last_ad_referral': 'Object',
         'last_name': 'string',
         'link': 'string',
         'local_news_megaphone_dismiss_status': 'bool',

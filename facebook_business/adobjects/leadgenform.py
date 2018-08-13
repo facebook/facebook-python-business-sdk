@@ -70,6 +70,7 @@ class LeadgenForm(
         status = 'status'
         tcpa_compliance = 'tcpa_compliance'
         thank_you_page = 'thank_you_page'
+        tracking_parameters = 'tracking_parameters'
 
     class Locale:
         en_us = 'EN_US'
@@ -322,6 +323,7 @@ class LeadgenForm(
         'status': 'string',
         'tcpa_compliance': 'bool',
         'thank_you_page': 'Object',
+        'tracking_parameters': 'list<Object>',
     }
 
     @classmethod

@@ -90,6 +90,7 @@ class AdAccount(
         offsite_pixels_tos_accepted = 'offsite_pixels_tos_accepted'
         owner = 'owner'
         partner = 'partner'
+        rate_limit_reset_time = 'rate_limit_reset_time'
         rf_spec = 'rf_spec'
         show_checkout_experience = 'show_checkout_experience'
         spend_cap = 'spend_cap'
@@ -103,23 +104,15 @@ class AdAccount(
         user_role = 'user_role'
         user_tos_accepted = 'user_tos_accepted'
 
-    class PermittedRoles:
-        admin = 'ADMIN'
-        general_user = 'GENERAL_USER'
-        reports_only = 'REPORTS_ONLY'
-        instagram_advertiser = 'INSTAGRAM_ADVERTISER'
-        instagram_manager = 'INSTAGRAM_MANAGER'
-        creative = 'CREATIVE'
-        fb_employee_dso_advertiser = 'FB_EMPLOYEE_DSO_ADVERTISER'
+    class PermittedTasks:
+        manage = 'MANAGE'
+        advertise = 'ADVERTISE'
+        analyze = 'ANALYZE'
 
-    class Role:
-        admin = 'ADMIN'
-        general_user = 'GENERAL_USER'
-        reports_only = 'REPORTS_ONLY'
-        instagram_advertiser = 'INSTAGRAM_ADVERTISER'
-        instagram_manager = 'INSTAGRAM_MANAGER'
-        creative = 'CREATIVE'
-        fb_employee_dso_advertiser = 'FB_EMPLOYEE_DSO_ADVERTISER'
+    class Tasks:
+        manage = 'MANAGE'
+        advertise = 'ADVERTISE'
+        analyze = 'ANALYZE'
 
     class Subtype:
         custom = 'CUSTOM'
@@ -1270,10 +1263,10 @@ class AdAccount(
     def create_agency(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
             'business': 'string',
-            'permitted_roles': 'list<permitted_roles_enum>',
+            'permitted_tasks': 'list<permitted_tasks_enum>',
         }
         enums = {
-            'permitted_roles_enum': AdAccount.PermittedRoles.__dict__.values(),
+            'permitted_tasks_enum': AdAccount.PermittedTasks.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -1383,11 +1376,11 @@ class AdAccount(
 
     def create_assigned_user(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
-            'role': 'role_enum',
+            'tasks': 'list<tasks_enum>',
             'user': 'int',
         }
         enums = {
-            'role_enum': AdAccount.Role.__dict__.values(),
+            'tasks_enum': AdAccount.Tasks.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -1926,9 +1919,9 @@ class AdAccount(
             self.assure_call()
             return request.execute()
 
-    def get_insights(self, fields=None, params=None, async=False, batch=None, pending=False):
+    def get_insights(self, fields=None, params=None, is_async=False, batch=None, pending=False):
         from facebook_business.adobjects.adsinsights import AdsInsights
-        if async:
+        if is_async:
           return self.get_insights_async(fields, params, batch, pending)
         param_types = {
             'action_attribution_windows': 'list<action_attribution_windows_enum>',
@@ -2232,64 +2225,6 @@ class AdAccount(
             target_class=AdsDataPartner,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=AdsDataPartner, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def delete_pending_users(self, fields=None, params=None, batch=None, pending=False):
-        param_types = {
-            'request_id': 'int',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='DELETE',
-            endpoint='/pending_users',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_pending_user(self, fields=None, params=None, batch=None, pending=False):
-        param_types = {
-            'request_id': 'int',
-            'role': 'role_enum',
-        }
-        enums = {
-            'role_enum': AdAccount.Role.__dict__.values(),
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/pending_users',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AdAccount,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdAccount, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2916,6 +2851,7 @@ class AdAccount(
         'offsite_pixels_tos_accepted': 'bool',
         'owner': 'string',
         'partner': 'string',
+        'rate_limit_reset_time': 'string',
         'rf_spec': 'ReachFrequencySpec',
         'show_checkout_experience': 'bool',
         'spend_cap': 'string',
@@ -2933,7 +2869,7 @@ class AdAccount(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['PermittedRoles'] = AdAccount.PermittedRoles.__dict__.values()
-        field_enum_info['Role'] = AdAccount.Role.__dict__.values()
+        field_enum_info['PermittedTasks'] = AdAccount.PermittedTasks.__dict__.values()
+        field_enum_info['Tasks'] = AdAccount.Tasks.__dict__.values()
         field_enum_info['Subtype'] = AdAccount.Subtype.__dict__.values()
         return field_enum_info
