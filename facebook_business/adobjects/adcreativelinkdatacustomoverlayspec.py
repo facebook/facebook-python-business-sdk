@@ -76,6 +76,9 @@ class AdCreativeLinkDataCustomOverlaySpec(
         home_delivery = 'home_delivery'
         free_shipping = 'free_shipping'
         inventory = 'inventory'
+        pay_on_arrival = 'pay_on_arrival'
+        pay_at_hotel = 'pay_at_hotel'
+        fast_delivery = 'fast_delivery'
 
     class Position:
         top_left = 'top_left'

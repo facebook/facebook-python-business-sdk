@@ -43,7 +43,9 @@ class SystemUser(
     class Field(AbstractObject.Field):
         created_by = 'created_by'
         created_time = 'created_time'
+        finance_permission = 'finance_permission'
         id = 'id'
+        ip_permission = 'ip_permission'
         name = 'name'
         role = 'role'
         system_user_id = 'system_user_id'
@@ -59,7 +61,7 @@ class SystemUser(
     # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
-        return 'systemusers'
+        return 'system_users'
 
     def api_create(self, parent_id, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.business import Business
@@ -123,7 +125,9 @@ class SystemUser(
     _field_types = {
         'created_by': 'User',
         'created_time': 'datetime',
+        'finance_permission': 'string',
         'id': 'string',
+        'ip_permission': 'string',
         'name': 'string',
         'role': 'Role',
         'system_user_id': 'int',

@@ -68,6 +68,7 @@ class PageCallToAction(
         phone_call = 'PHONE_CALL'
         messenger = 'MESSENGER'
         email = 'EMAIL'
+        shop_on_facebook = 'SHOP_ON_FACEBOOK'
         none = 'NONE'
 
     class IphoneDestinationType:
@@ -77,6 +78,7 @@ class PageCallToAction(
         phone_call = 'PHONE_CALL'
         messenger = 'MESSENGER'
         email = 'EMAIL'
+        shop_on_facebook = 'SHOP_ON_FACEBOOK'
         none = 'NONE'
 
     class Type:
@@ -103,12 +105,14 @@ class PageCallToAction(
         buy_tickets = 'BUY_TICKETS'
         play_music = 'PLAY_MUSIC'
         visit_group = 'VISIT_GROUP'
+        shop_on_facebook = 'SHOP_ON_FACEBOOK'
 
     class WebDestinationType:
         email = 'EMAIL'
         messenger = 'MESSENGER'
         none = 'NONE'
         website = 'WEBSITE'
+        shop_on_facebook = 'SHOP_ON_FACEBOOK'
 
     def api_delete(self, fields=None, params=None, batch=None, pending=False):
         param_types = {

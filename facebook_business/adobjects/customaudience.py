@@ -62,6 +62,7 @@ class CustomAudience(
         retention_days = 'retention_days'
         rule = 'rule'
         rule_aggregation = 'rule_aggregation'
+        sharing_status = 'sharing_status'
         subtype = 'subtype'
         time_content_updated = 'time_content_updated'
         time_created = 'time_created'
@@ -91,6 +92,7 @@ class CustomAudience(
         vehicle = 'VEHICLE'
 
     class ContentType:
+        automotive_model = 'AUTOMOTIVE_MODEL'
         destination = 'DESTINATION'
         flight = 'FLIGHT'
         home_listing = 'HOME_LISTING'
@@ -123,13 +125,13 @@ class CustomAudience(
 
     class Fields:
         account_id = 'account_id'
-        approximate_count = 'approximate_count'
         customer_file_source = 'customer_file_source'
         data_source = 'data_source'
         delivery_status = 'delivery_status'
         description = 'description'
         external_event_source = 'external_event_source'
         id = 'id'
+        approximate_count = 'approximate_count'
         is_value_based = 'is_value_based'
         lookalike_audience_ids = 'lookalike_audience_ids'
         lookalike_spec = 'lookalike_spec'
@@ -141,6 +143,7 @@ class CustomAudience(
         retention_days = 'retention_days'
         rule = 'rule'
         rule_aggregation = 'rule_aggregation'
+        sharing_status = 'sharing_status'
         subtype = 'subtype'
         time_content_updated = 'time_content_updated'
         time_created = 'time_created'
@@ -184,6 +187,7 @@ class CustomAudience(
 
     def api_get(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
+            'ad_account_id': 'string',
         }
         enums = {
         }
@@ -505,11 +509,12 @@ class CustomAudience(
         'name': 'string',
         'operation_status': 'CustomAudienceStatus',
         'opt_out_link': 'string',
-        'permission_for_actions': 'CustomAudiencePermission',
+        'permission_for_actions': 'Object',
         'pixel_id': 'string',
         'retention_days': 'int',
         'rule': 'string',
         'rule_aggregation': 'string',
+        'sharing_status': 'CustomAudienceSharingStatus',
         'subtype': 'string',
         'time_content_updated': 'unsigned int',
         'time_created': 'unsigned int',

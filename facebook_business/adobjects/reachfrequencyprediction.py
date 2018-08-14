@@ -71,6 +71,7 @@ class ReachFrequencyPrediction(
         instagram_destination_id = 'instagram_destination_id'
         interval_frequency_cap = 'interval_frequency_cap'
         interval_frequency_cap_reset_period = 'interval_frequency_cap_reset_period'
+        is_io = 'is_io'
         name = 'name'
         pause_periods = 'pause_periods'
         placement_breakdown = 'placement_breakdown'
@@ -174,6 +175,7 @@ class ReachFrequencyPrediction(
         'instagram_destination_id': 'string',
         'interval_frequency_cap': 'unsigned int',
         'interval_frequency_cap_reset_period': 'unsigned int',
+        'is_io': 'bool',
         'name': 'string',
         'pause_periods': 'list<Object>',
         'placement_breakdown': 'Object',

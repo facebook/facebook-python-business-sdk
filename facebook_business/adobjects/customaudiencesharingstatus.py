@@ -28,28 +28,22 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class CustomAudiencePermission(
+class CustomAudienceSharingStatus(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(CustomAudiencePermission, self).__init__()
-        self._isCustomAudiencePermission = True
+        super(CustomAudienceSharingStatus, self).__init__()
+        self._isCustomAudienceSharingStatus = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        can_edit = 'can_edit'
-        can_see_insight = 'can_see_insight'
-        can_share = 'can_share'
-        subtype_supports_lookalike = 'subtype_supports_lookalike'
-        supports_recipient_lookalike = 'supports_recipient_lookalike'
+        sharing_relationship_id = 'sharing_relationship_id'
+        status = 'status'
 
     _field_types = {
-        'can_edit': 'bool',
-        'can_see_insight': 'bool',
-        'can_share': 'bool',
-        'subtype_supports_lookalike': 'bool',
-        'supports_recipient_lookalike': 'bool',
+        'sharing_relationship_id': 'Object',
+        'status': 'string',
     }
 
     @classmethod

@@ -45,6 +45,7 @@ class MediaFingerprint(
         expiration_time = 'expiration_time'
         fingerprint_content_type = 'fingerprint_content_type'
         fingerprint_type = 'fingerprint_type'
+        fingerprint_validity = 'fingerprint_validity'
         id = 'id'
         metadata = 'metadata'
         title = 'title'
@@ -146,6 +147,7 @@ class MediaFingerprint(
         'expiration_time': 'datetime',
         'fingerprint_content_type': 'string',
         'fingerprint_type': 'string',
+        'fingerprint_validity': 'string',
         'id': 'string',
         'metadata': 'Object',
         'title': 'string',

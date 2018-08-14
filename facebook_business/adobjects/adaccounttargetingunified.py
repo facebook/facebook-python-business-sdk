@@ -105,6 +105,8 @@ class AdAccountTargetingUnified(
         effective_device_platforms = 'effective_device_platforms'
         audience_network_positions = 'audience_network_positions'
         effective_audience_network_positions = 'effective_audience_network_positions'
+        whatsapp_positions = 'whatsapp_positions'
+        effective_whatsapp_positions = 'effective_whatsapp_positions'
         excluded_publisher_categories = 'excluded_publisher_categories'
         excluded_publisher_list_ids = 'excluded_publisher_list_ids'
         publisher_visibility_categories = 'publisher_visibility_categories'

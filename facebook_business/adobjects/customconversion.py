@@ -79,7 +79,6 @@ class CustomConversion(
         start_trial = 'START_TRIAL'
         submit_application = 'SUBMIT_APPLICATION'
         subscribe = 'SUBSCRIBE'
-        take_survey = 'TAKE_SURVEY'
         other = 'OTHER'
 
     # @deprecated get_endpoint function is deprecated

@@ -68,6 +68,7 @@ class AdSet(
         frequency_control_specs = 'frequency_control_specs'
         id = 'id'
         instagram_actor_id = 'instagram_actor_id'
+        is_dynamic_creative_optimization = 'is_dynamic_creative_optimization'
         lifetime_budget = 'lifetime_budget'
         lifetime_imps = 'lifetime_imps'
         lifetime_min_spend_target = 'lifetime_min_spend_target'
@@ -769,6 +770,7 @@ class AdSet(
         'frequency_control_specs': 'list<AdCampaignFrequencyControlSpecs>',
         'id': 'string',
         'instagram_actor_id': 'string',
+        'is_dynamic_creative_optimization': 'bool',
         'lifetime_budget': 'string',
         'lifetime_imps': 'int',
         'lifetime_min_spend_target': 'string',

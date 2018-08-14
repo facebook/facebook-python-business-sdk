@@ -41,6 +41,7 @@ class LookalikeSpec(
         country = 'country'
         is_financial_service = 'is_financial_service'
         origin = 'origin'
+        origin_event_source_type = 'origin_event_source_type'
         ratio = 'ratio'
         starting_ratio = 'starting_ratio'
         target_countries = 'target_countries'
@@ -50,6 +51,7 @@ class LookalikeSpec(
         'country': 'string',
         'is_financial_service': 'bool',
         'origin': 'list<Object>',
+        'origin_event_source_type': 'string',
         'ratio': 'float',
         'starting_ratio': 'float',
         'target_countries': 'list<string>',
