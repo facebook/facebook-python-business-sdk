@@ -28,7 +28,7 @@ jobs:
   python-3.7:  # Not specified in tox.ini
     <<: *shared
     docker:
-      - image: circleci/python:3.7-jessie-node
+      - image: circleci/python:3.7-stretch-node
 
 
 
