@@ -48,6 +48,7 @@ class ProductItem(
         applinks = 'applinks'
         availability = 'availability'
         brand = 'brand'
+        capability_to_review_status = 'capability_to_review_status'
         category = 'category'
         color = 'color'
         commerce_insights = 'commerce_insights'
@@ -347,6 +348,7 @@ class ProductItem(
         'applinks': 'AppLinks',
         'availability': 'Availability',
         'brand': 'string',
+        'capability_to_review_status': 'list<Object>',
         'category': 'string',
         'color': 'string',
         'commerce_insights': 'ProductItemCommerceInsights',

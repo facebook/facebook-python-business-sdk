@@ -123,6 +123,7 @@ class BusinessUser(
             'email': 'string',
             'first_name': 'string',
             'last_name': 'string',
+            'pending_email': 'string',
             'role': 'role_enum',
             'title': 'string',
         }

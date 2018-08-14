@@ -959,6 +959,7 @@ class AdAccount(
             'end_time': 'datetime',
             'execution_options': 'list<execution_options_enum>',
             'frequency_control_specs': 'list<Object>',
+            'is_dynamic_creative_optimization': 'bool',
             'lifetime_budget': 'unsigned int',
             'lifetime_imps': 'unsigned int',
             'lifetime_min_spend_target': 'unsigned int',
@@ -1188,6 +1189,7 @@ class AdAccount(
             'upload_phase': 'upload_phase_enum',
             'upload_session_id': 'string',
             'video_file_chunk': 'string',
+            'xpost_everstore_handle': 'string',
         }
         enums = {
             'original_projection_type_enum': [

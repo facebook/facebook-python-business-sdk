@@ -45,6 +45,7 @@ class BusinessRoleRequest(
         created_time = 'created_time'
         email = 'email'
         expiration_time = 'expiration_time'
+        expiry_time = 'expiry_time'
         finance_role = 'finance_role'
         id = 'id'
         invite_link = 'invite_link'
@@ -157,6 +158,7 @@ class BusinessRoleRequest(
         'created_time': 'datetime',
         'email': 'string',
         'expiration_time': 'datetime',
+        'expiry_time': 'datetime',
         'finance_role': 'string',
         'id': 'string',
         'invite_link': 'string',

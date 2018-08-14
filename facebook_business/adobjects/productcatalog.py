@@ -944,6 +944,7 @@ class ProductCatalog(
         param_types = {
             'bulk_pagination': 'bool',
             'filter': 'Object',
+            'return_only_approved_products': 'bool',
         }
         enums = {
         }
@@ -1148,6 +1149,7 @@ class ProductCatalog(
             'upload_phase': 'upload_phase_enum',
             'upload_session_id': 'string',
             'video_file_chunk': 'string',
+            'xpost_everstore_handle': 'string',
         }
         enums = {
             'content_category_enum': [

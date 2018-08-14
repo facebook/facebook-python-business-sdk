@@ -391,6 +391,8 @@ class Business(
             'metrics_enum': [
                 'FB_AD_NETWORK_BIDDING_REQUEST',
                 'FB_AD_NETWORK_BIDDING_RESPONSE',
+                'FB_AD_NETWORK_BIDDING_BID_RATE',
+                'FB_AD_NETWORK_BIDDING_WIN_RATE',
                 'FB_AD_NETWORK_REQUEST',
                 'FB_AD_NETWORK_FILLED_REQUEST',
                 'FB_AD_NETWORK_FILL_RATE',
@@ -485,6 +487,8 @@ class Business(
             'metrics_enum': [
                 'FB_AD_NETWORK_BIDDING_REQUEST',
                 'FB_AD_NETWORK_BIDDING_RESPONSE',
+                'FB_AD_NETWORK_BIDDING_BID_RATE',
+                'FB_AD_NETWORK_BIDDING_WIN_RATE',
                 'FB_AD_NETWORK_REQUEST',
                 'FB_AD_NETWORK_FILLED_REQUEST',
                 'FB_AD_NETWORK_FILL_RATE',
@@ -2248,7 +2252,7 @@ class Business(
         request = FacebookRequest(
             node_id=self['id'],
             method='POST',
-            endpoint='/systemusers',
+            endpoint='/system_users',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
             target_class=SystemUser,

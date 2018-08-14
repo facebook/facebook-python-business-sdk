@@ -51,6 +51,7 @@ class PageSavedFilter(
 
     class Section:
         audience_alerts = 'AUDIENCE_ALERTS'
+        campaign_center = 'CAMPAIGN_CENTER'
         chex_pending_orders = 'CHEX_PENDING_ORDERS'
         chex_completed_orders = 'CHEX_COMPLETED_ORDERS'
         commerce_platform_settings = 'COMMERCE_PLATFORM_SETTINGS'
