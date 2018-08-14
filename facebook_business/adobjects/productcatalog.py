@@ -943,7 +943,7 @@ class ProductCatalog(
         from facebook_business.adobjects.productitem import ProductItem
         param_types = {
             'bulk_pagination': 'bool',
-            'return_only_approved_products': 'bool',
+            'filter': 'Object',
         }
         enums = {
         }

@@ -97,6 +97,10 @@ class LiveVideo(
         equirectangular = 'EQUIRECTANGULAR'
         cubemap = 'CUBEMAP'
 
+    class Source:
+        target = 'target'
+        owner = 'owner'
+
     class SpatialAudioFormat:
         ambix_4 = 'ambiX_4'
 
@@ -104,10 +108,6 @@ class LiveVideo(
         mono = 'MONO'
         left_right = 'LEFT_RIGHT'
         top_bottom = 'TOP_BOTTOM'
-
-    class Type:
-        tagged = 'tagged'
-        uploaded = 'uploaded'
 
     def api_delete(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
@@ -262,7 +262,7 @@ class LiveVideo(
         field_enum_info['StreamType'] = LiveVideo.StreamType.__dict__.values()
         field_enum_info['BroadcastStatus'] = LiveVideo.BroadcastStatus.__dict__.values()
         field_enum_info['Projection'] = LiveVideo.Projection.__dict__.values()
+        field_enum_info['Source'] = LiveVideo.Source.__dict__.values()
         field_enum_info['SpatialAudioFormat'] = LiveVideo.SpatialAudioFormat.__dict__.values()
         field_enum_info['StereoscopicMode'] = LiveVideo.StereoscopicMode.__dict__.values()
-        field_enum_info['Type'] = LiveVideo.Type.__dict__.values()
         return field_enum_info

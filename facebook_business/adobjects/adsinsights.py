@@ -50,7 +50,6 @@ class AdsInsights(
         adset_id = 'adset_id'
         adset_name = 'adset_name'
         buying_type = 'buying_type'
-        call_to_action_clicks = 'call_to_action_clicks'
         campaign_id = 'campaign_id'
         campaign_name = 'campaign_name'
         canvas_avg_view_percent = 'canvas_avg_view_percent'
@@ -62,7 +61,6 @@ class AdsInsights(
         cost_per_inline_link_click = 'cost_per_inline_link_click'
         cost_per_inline_post_engagement = 'cost_per_inline_post_engagement'
         cost_per_outbound_click = 'cost_per_outbound_click'
-        cost_per_total_action = 'cost_per_total_action'
         cost_per_unique_action_type = 'cost_per_unique_action_type'
         cost_per_unique_click = 'cost_per_unique_click'
         cost_per_unique_inline_link_click = 'cost_per_unique_inline_link_click'
@@ -87,14 +85,10 @@ class AdsInsights(
         place_page_name = 'place_page_name'
         reach = 'reach'
         relevance_score = 'relevance_score'
-        social_clicks = 'social_clicks'
         social_impressions = 'social_impressions'
-        social_reach = 'social_reach'
         social_spend = 'social_spend'
         spend = 'spend'
         total_action_value = 'total_action_value'
-        total_actions = 'total_actions'
-        total_unique_actions = 'total_unique_actions'
         unique_actions = 'unique_actions'
         unique_clicks = 'unique_clicks'
         unique_ctr = 'unique_ctr'
@@ -103,7 +97,6 @@ class AdsInsights(
         unique_link_clicks_ctr = 'unique_link_clicks_ctr'
         unique_outbound_clicks = 'unique_outbound_clicks'
         unique_outbound_clicks_ctr = 'unique_outbound_clicks_ctr'
-        unique_social_clicks = 'unique_social_clicks'
         video_10_sec_watched_actions = 'video_10_sec_watched_actions'
         video_30_sec_watched_actions = 'video_30_sec_watched_actions'
         video_avg_percent_watched_actions = 'video_avg_percent_watched_actions'
@@ -237,7 +230,6 @@ class AdsInsights(
         'adset_id': 'string',
         'adset_name': 'string',
         'buying_type': 'string',
-        'call_to_action_clicks': 'string',
         'campaign_id': 'string',
         'campaign_name': 'string',
         'canvas_avg_view_percent': 'string',
@@ -249,7 +241,6 @@ class AdsInsights(
         'cost_per_inline_link_click': 'string',
         'cost_per_inline_post_engagement': 'string',
         'cost_per_outbound_click': 'list<AdsActionStats>',
-        'cost_per_total_action': 'string',
         'cost_per_unique_action_type': 'list<AdsActionStats>',
         'cost_per_unique_click': 'string',
         'cost_per_unique_inline_link_click': 'string',
@@ -274,14 +265,10 @@ class AdsInsights(
         'place_page_name': 'string',
         'reach': 'string',
         'relevance_score': 'AdgroupRelevanceScore',
-        'social_clicks': 'string',
         'social_impressions': 'string',
-        'social_reach': 'string',
         'social_spend': 'string',
         'spend': 'string',
         'total_action_value': 'string',
-        'total_actions': 'string',
-        'total_unique_actions': 'string',
         'unique_actions': 'list<AdsActionStats>',
         'unique_clicks': 'string',
         'unique_ctr': 'string',
@@ -290,7 +277,6 @@ class AdsInsights(
         'unique_link_clicks_ctr': 'string',
         'unique_outbound_clicks': 'list<AdsActionStats>',
         'unique_outbound_clicks_ctr': 'list<AdsActionStats>',
-        'unique_social_clicks': 'string',
         'video_10_sec_watched_actions': 'list<AdsActionStats>',
         'video_30_sec_watched_actions': 'list<AdsActionStats>',
         'video_avg_percent_watched_actions': 'list<AdsActionStats>',

@@ -249,12 +249,14 @@ class Page(
         vegetarian = 'Vegetarian'
         vietnamese = 'Vietnamese'
 
-    class Role:
-        manager = 'MANAGER'
-        content_creator = 'CONTENT_CREATOR'
-        moderator = 'MODERATOR'
-        advertiser = 'ADVERTISER'
-        insights_analyst = 'INSIGHTS_ANALYST'
+    class Tasks:
+        manage = 'MANAGE'
+        create_content = 'CREATE_CONTENT'
+        moderate = 'MODERATE'
+        moderate_community = 'MODERATE_COMMUNITY'
+        advertise = 'ADVERTISE'
+        analyze = 'ANALYZE'
+        create_live_content = 'CREATE_LIVE_CONTENT'
 
     class Locale:
         en_us = 'EN_US'
@@ -533,11 +535,11 @@ class Page(
 
     def create_assigned_user(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
-            'role': 'role_enum',
+            'tasks': 'list<tasks_enum>',
             'user': 'int',
         }
         enums = {
-            'role_enum': Page.Role.__dict__.values(),
+            'tasks_enum': Page.Tasks.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -1256,9 +1258,9 @@ class Page(
             self.assure_call()
             return request.execute()
 
-    def get_insights(self, fields=None, params=None, async=False, batch=None, pending=False):
+    def get_insights(self, fields=None, params=None, is_async=False, batch=None, pending=False):
         from facebook_business.adobjects.insightsresult import InsightsResult
-        if async:
+        if is_async:
           return self.get_insights_async(fields, params, batch, pending)
         param_types = {
             'date_preset': 'date_preset_enum',
@@ -1567,10 +1569,11 @@ class Page(
             'legal_content_id': 'string',
             'locale': 'locale_enum',
             'name': 'string',
-            'privacy_policy': 'Object',
+            'privacy_policy': 'map',
             'question_page_custom_headline': 'string',
             'questions': 'list<Object>',
-            'thank_you_page': 'Object',
+            'thank_you_page': 'map',
+            'tracking_parameters': 'Object',
         }
         enums = {
             'locale_enum': Page.Locale.__dict__.values(),
@@ -1602,19 +1605,19 @@ class Page(
             'allow_organic_lead_retrieval': 'bool',
             'block_display_for_non_targeted_viewer': 'bool',
             'context_card': 'Object',
-            'context_card_id': 'string',
+            'context_card_id': 'Object',
             'cover_photo': 'file',
             'custom_disclaimer': 'Object',
-            'follow_up_action_url': 'string',
+            'follow_up_action_url': 'Object',
             'is_optimized_for_quality': 'bool',
-            'legal_content_id': 'string',
+            'legal_content_id': 'Object',
             'locale': 'locale_enum',
             'name': 'string',
             'privacy_policy': 'Object',
             'question_page_custom_headline': 'string',
             'questions': 'list<Object>',
             'thank_you_page': 'Object',
-            'thank_you_page_id': 'string',
+            'thank_you_page_id': 'Object',
         }
         enums = {
             'locale_enum': Page.Locale.__dict__.values(),
@@ -1798,11 +1801,11 @@ class Page(
         from facebook_business.adobjects.livevideo import LiveVideo
         param_types = {
             'broadcast_status': 'list<broadcast_status_enum>',
-            'type': 'type_enum',
+            'source': 'source_enum',
         }
         enums = {
             'broadcast_status_enum': LiveVideo.BroadcastStatus.__dict__.values(),
-            'type_enum': LiveVideo.Type.__dict__.values(),
+            'source_enum': LiveVideo.Source.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -2382,50 +2385,6 @@ class Page(
             self.assure_call()
             return request.execute()
 
-    def create_offers_v3(self, fields=None, params=None, batch=None, pending=False):
-        param_types = {
-            'availability_location': 'availability_location_enum',
-            'description': 'string',
-            'destination_uri': 'string',
-            'discount_code': 'string',
-            'expiration_time': 'datetime',
-            'hidden': 'bool',
-            'photo_uris': 'list<string>',
-            'referrer': 'string',
-            'schedule_time': 'datetime',
-            'start_time': 'datetime',
-            'terms_and_conditions': 'string',
-            'video_ids': 'list<string>',
-        }
-        enums = {
-            'availability_location_enum': [
-                'both',
-                'offline',
-                'online',
-            ],
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/offers_v3',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def create_page_backed_instagram_account(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
         }
@@ -2470,93 +2429,6 @@ class Page(
             target_class=AbstractCrudObject,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def delete_pending_users(self, fields=None, params=None, batch=None, pending=False):
-        param_types = {
-            'request_id': 'int',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='DELETE',
-            endpoint='/pending_users',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def get_pending_users(self, fields=None, params=None, batch=None, pending=False):
-        from facebook_business.adobjects.businessrolerequest import BusinessRoleRequest
-        param_types = {
-            'business': 'int',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/pending_users',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=BusinessRoleRequest,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=BusinessRoleRequest, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_pending_user(self, fields=None, params=None, batch=None, pending=False):
-        param_types = {
-            'request_id': 'int',
-            'role': 'role_enum',
-        }
-        enums = {
-            'role_enum': Page.Role.__dict__.values(),
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/pending_users',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=Page,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=Page, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -3933,6 +3805,6 @@ class Page(
         field_enum_info = {}
         field_enum_info['Attire'] = Page.Attire.__dict__.values()
         field_enum_info['FoodStyles'] = Page.FoodStyles.__dict__.values()
-        field_enum_info['Role'] = Page.Role.__dict__.values()
+        field_enum_info['Tasks'] = Page.Tasks.__dict__.values()
         field_enum_info['Locale'] = Page.Locale.__dict__.values()
         return field_enum_info
