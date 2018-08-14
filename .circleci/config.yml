@@ -25,10 +25,10 @@ jobs:
     docker:
       - image: circleci/python:3.4-jessie-node
 
-  python-3.6:  # Not specified in tox.ini
+  python-3.7:  # Not specified in tox.ini
     <<: *shared
     docker:
-      - image: circleci/python:3.6-jessie-node
+      - image: circleci/python:3.7-jessie-node
 
 
 
@@ -36,7 +36,7 @@ all_jobs: &all_jobs
     jobs:
       - python-2.7
       - python-3.4
-      - python-3.6
+      - python-3.7
 
 workflows:
   version: 2
