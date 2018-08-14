@@ -18,12 +18,12 @@ jobs:
   python-2.7:
     <<: *shared
     docker:
-      - image: circleci/python:2.7-jessie-node
+      - image: circleci/python:2.7-stretch-node
 
   python-3.4:
     <<: *shared
     docker:
-      - image: circleci/python:3.4-jessie-node
+      - image: circleci/python:3.4-stretch-node
 
   python-3.7:  # Not specified in tox.ini
     <<: *shared
