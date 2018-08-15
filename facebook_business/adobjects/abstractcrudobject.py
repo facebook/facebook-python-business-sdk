@@ -549,26 +549,26 @@ class AbstractCrudObject(AbstractObject):
         return cursor
 
     def iterate_edge_async(self, target_objects_class, fields=None,
-                           params=None, async=False, include_summary=True,
+                           params=None, is_async=False, include_summary=True,
                            endpoint=None):
         from facebook_business.adobjects.adreportrun import AdReportRun
         """
-        Behaves as iterate_edge(...) if parameter async if False
+        Behaves as iterate_edge(...) if parameter is_async if False
         (Default value)
-        If async is True:
+        If is_async is True:
         Returns an AsyncJob which can be checked using remote_read()
         to verify when the job is completed and the result ready to query
         or download using get_result()
         Example:
         >>> job = object.iterate_edge_async(
-                TargetClass, fields, params, async=True)
+                TargetClass, fields, params, is_async=True)
         >>> time.sleep(10)
         >>> job.remote_read()
         >>> if job:
                 result = job.read_result()
                 print result
         """
-        synchronous = not async
+        synchronous = not is_async
         synchronous_iterator = self.iterate_edge(
             target_objects_class,
             fields,
