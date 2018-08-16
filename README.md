@@ -1,6 +1,6 @@
 # Facebook Business SDK for Python
 
-[![Build Status](https://travis-ci.org/facebook/facebook-python-business-sdk.svg)](https://travis-ci.org/facebook/facebook-python-business-sdk)
+[![Build Status](https://travis-ci.org/dpserretti/facebook-python-business-sdk.svg)](https://travis-ci.org/facebook/facebook-python-business-sdk)
 
 ### Introduction
 

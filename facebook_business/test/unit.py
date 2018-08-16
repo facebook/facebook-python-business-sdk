@@ -501,5 +501,6 @@ class FacebookResponseTestCase(unittest.TestCase):
         resp = api.FacebookResponse(body="Service Unavailable", http_status=200)
         self.assertFalse(resp.is_success())
 
+
 if __name__ == '__main__':
     unittest.main()

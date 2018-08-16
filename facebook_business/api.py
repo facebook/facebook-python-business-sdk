@@ -239,7 +239,7 @@ class FacebookAdsApi(object):
         headers=None,
         files=None,
         url_override=None,
-        api_version=None,
+        api_version="v3.1",
     ):
         """Makes an API call.
         Args:
