@@ -11,3 +11,7 @@ class FacebookErrorCodes(object):
     report_cannot_be_accessed = 2601
     service_error = 2650
     source_audience_too_small = 2654
+
+
+class FacebookErrorSubCodes(object):
+    already_archived = 1487862
