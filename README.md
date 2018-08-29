@@ -98,7 +98,7 @@ my_app_id = 'your-app-id'
 my_app_secret = 'your-appsecret'
 my_access_token = 'your-page-access-token'
 FacebookAdsApi.init(my_app_id, my_app_secret, my_access_token)
-my_account = AdAccount('your-adaccount-id')
+my_account = AdAccount('act_{}').format('your-adaccount-id')
 campaigns = my_account.get_campaigns()
 print(campaigns)
 ```
