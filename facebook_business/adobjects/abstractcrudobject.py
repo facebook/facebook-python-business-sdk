@@ -392,7 +392,7 @@ class AbstractCrudObject(AbstractObject):
         """
         params = {} if not params else params.copy()
         params.update(self.export_changed_data())
-        self._set_data(params)
+        request = None
         if hasattr(self, 'api_update'):
             request = self.api_update(pending=True)
         else:
@@ -411,6 +411,7 @@ class AbstractCrudObject(AbstractObject):
 
         if batch is not None:
             def callback_success(response):
+                self._set_data(params)
                 self._clear_history()
 
                 if success:
@@ -428,6 +429,7 @@ class AbstractCrudObject(AbstractObject):
             return batch_call
         else:
             request.execute()
+            self._set_data(params)
             self._clear_history()
 
             return self
