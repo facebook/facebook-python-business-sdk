@@ -124,8 +124,8 @@ class AdRule(
         param_types = {
             'evaluation_spec': 'Object',
             'execution_spec': 'Object',
-            'name': 'string',
             'schedule_spec': 'Object',
+            'name': 'string',
             'status': 'status_enum',
         }
         enums = {
@@ -153,12 +153,39 @@ class AdRule(
             self.assure_call()
             return request.execute()
 
+    def create_execute(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/execute',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_history(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.adrulehistory import AdRuleHistory
         param_types = {
+            'object_id': 'string',
             'action': 'action_enum',
             'hide_no_changes': 'bool',
-            'object_id': 'string',
         }
         enums = {
             'action_enum': AdRuleHistory.Action.__dict__.values(),
@@ -172,6 +199,33 @@ class AdRule(
             target_class=AdRuleHistory,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=AdRuleHistory, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_preview(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/preview',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdRule,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdRule, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

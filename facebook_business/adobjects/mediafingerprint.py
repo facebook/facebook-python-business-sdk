@@ -58,6 +58,11 @@ class MediaFingerprint(
         movie = 'MOVIE'
         am_songtrack = 'AM_SONGTRACK'
 
+    class FingerprintValidity:
+        valid = 'VALID'
+        expiring = 'EXPIRING'
+        expired = 'EXPIRED'
+
     def api_delete(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
         }
@@ -114,8 +119,8 @@ class MediaFingerprint(
 
     def api_update(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
-            'metadata': 'Object',
             'title': 'string',
+            'metadata': 'Object',
             'universal_content_id': 'string',
         }
         enums = {
@@ -158,4 +163,5 @@ class MediaFingerprint(
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['FingerprintContentType'] = MediaFingerprint.FingerprintContentType.__dict__.values()
+        field_enum_info['FingerprintValidity'] = MediaFingerprint.FingerprintValidity.__dict__.values()
         return field_enum_info

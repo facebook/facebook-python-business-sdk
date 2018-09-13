@@ -98,7 +98,7 @@ my_app_id = 'your-app-id'
 my_app_secret = 'your-appsecret'
 my_access_token = 'your-page-access-token'
 FacebookAdsApi.init(my_app_id, my_app_secret, my_access_token)
-my_account = AdAccount('your-adaccount-id')
+my_account = AdAccount('act_<your-adaccount-id>')
 campaigns = my_account.get_campaigns()
 print(campaigns)
 ```
@@ -447,22 +447,6 @@ On other distributions you can
 [build from source](https://www.python.org/downloads/) and then use
 `sudo make altinstall` to avoid conflicts with your system-installed
 version.
-
-### Integration tests
-
-The integration tests require an access token with ads_management scope.
-You can obtain a short-lived token from the
-[Graph API Explorer](https://developers.facebook.com/tools/explorer/).
-These tests access the live Facebook API but shouldn't actually
-launch an ad or spend any money.
-
-Copy the `config.json.example` to `config.json` and fill in the appropriate
-details.
-
-```
-python -m facebook_business.test.integration <ACCESS_TOKEN>
-# Access token not required if it's defined in config.json
-```
 
 ## Examples
 

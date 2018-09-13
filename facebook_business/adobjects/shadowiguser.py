@@ -82,15 +82,243 @@ class ShadowIGUser(
             self.assure_call()
             return request.execute()
 
+    def get_analytics_cohort_query(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.analyticscohortqueryresult import AnalyticsCohortQueryResult
+        param_types = {
+            'query_ids': 'list<string>',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/analytics_cohort_query',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AnalyticsCohortQueryResult,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AnalyticsCohortQueryResult, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_analytics_entity_user_config(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.analyticsentityuserconfig import AnalyticsEntityUserConfig
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/analytics_entity_user_config',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AnalyticsEntityUserConfig,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AnalyticsEntityUserConfig, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_analytics_event_types(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.analyticseventtypes import AnalyticsEventTypes
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/analytics_event_types',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AnalyticsEventTypes,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AnalyticsEventTypes, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_analytics_funnel_query(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.analyticsfunnelqueryresult import AnalyticsFunnelQueryResult
+        param_types = {
+            'query_ids': 'list<string>',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/analytics_funnel_query',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AnalyticsFunnelQueryResult,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AnalyticsFunnelQueryResult, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_analytics_query(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.analyticsqueryresult import AnalyticsQueryResult
+        param_types = {
+            'query_ids': 'list<string>',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/analytics_query',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AnalyticsQueryResult,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AnalyticsQueryResult, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_analytics_query_export(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.analyticsqueryexportresult import AnalyticsQueryExportResult
+        param_types = {
+            'query_ids': 'list<string>',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/analytics_query_export',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AnalyticsQueryExportResult,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AnalyticsQueryExportResult, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_analytics_segments(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.analyticssegment import AnalyticsSegment
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/analytics_segments',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AnalyticsSegment,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AnalyticsSegment, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_branded_content(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.shadowigmedia import ShadowIGMedia
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/branded_content',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ShadowIGMedia,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ShadowIGMedia, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_insights(self, fields=None, params=None, is_async=False, batch=None, pending=False):
         from facebook_business.adobjects.instagraminsightsresult import InstagramInsightsResult
         if is_async:
           return self.get_insights_async(fields, params, batch, pending)
         param_types = {
-            'metric': 'list<metric_enum>',
-            'period': 'list<period_enum>',
             'since': 'datetime',
             'until': 'datetime',
+            'metric': 'list<metric_enum>',
+            'period': 'list<period_enum>',
         }
         enums = {
             'metric_enum': InstagramInsightsResult.Metric.__dict__.values(),
@@ -148,10 +376,12 @@ class ShadowIGUser(
             return request.execute()
 
     def create_media(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.shadowigmedia import ShadowIGMedia
         param_types = {
+            'media_type': 'string',
             'caption': 'string',
             'image_url': 'string',
-            'media_type': 'string',
+            'children': 'list<unsigned int>',
         }
         enums = {
         }
@@ -161,9 +391,9 @@ class ShadowIGUser(
             endpoint='/media',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=ShadowIGUser,
+            target_class=ShadowIGMedia,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ShadowIGUser, api=self._api),
+            response_parser=ObjectParser(target_class=ShadowIGMedia, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -206,6 +436,34 @@ class ShadowIGUser(
             self.assure_call()
             return request.execute()
 
+    def get_stories(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.shadowigmedia import ShadowIGMedia
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/stories',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ShadowIGMedia,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ShadowIGMedia, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_tags(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.shadowigmedia import ShadowIGMedia
         param_types = {
@@ -221,6 +479,35 @@ class ShadowIGUser(
             target_class=ShadowIGMedia,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=ShadowIGMedia, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_video_groups(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.videogroup import VideoGroup
+        param_types = {
+            'retrieved_videos': 'list<string>',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/video_groups',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=VideoGroup,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=VideoGroup, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

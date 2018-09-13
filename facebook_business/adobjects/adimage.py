@@ -59,9 +59,6 @@ class AdImage(
         url = 'url'
         url_128 = 'url_128'
         width = 'width'
-        bytes = 'bytes'
-        copy_from = 'copy_from'
-        filename = 'filename'
 
     class Status:
         active = 'ACTIVE'
@@ -71,10 +68,6 @@ class AdImage(
     @classmethod
     def get_endpoint(cls):
         return 'adimages'
-
-    def api_create(self, parent_id, fields=None, params=None, batch=None, pending=False):
-        from facebook_business.adobjects.adaccount import AdAccount
-        return AdAccount(api=self._api, fbid=parent_id).create_ad_image(fields, params, batch, pending)
 
     def api_get(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
@@ -90,6 +83,122 @@ class AdImage(
             target_class=AdImage,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_assigned_partners(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.business import Business
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/assigned_partners',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Business,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Business, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_business_object_tags(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.businesstag import BusinessTag
+        param_types = {
+            'business_id': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/business_object_tags',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=BusinessTag,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=BusinessTag, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_business_requests(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.businessrequest import BusinessRequest
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/business_requests',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=BusinessRequest,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=BusinessRequest, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_connected_business_objects(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.businessobject import BusinessObject
+        param_types = {
+            'type': 'type_enum',
+            'business_id': 'string',
+        }
+        enums = {
+            'type_enum': BusinessObject.Type.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/connected_business_objects',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=BusinessObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=BusinessObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -120,9 +229,6 @@ class AdImage(
         'url': 'string',
         'url_128': 'string',
         'width': 'unsigned int',
-        'bytes': 'Object',
-        'copy_from': 'Object',
-        'filename': 'file'
     }
 
     @classmethod

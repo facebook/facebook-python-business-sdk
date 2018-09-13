@@ -19,6 +19,10 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
+from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
+from facebook_business.adobjects.objectparser import ObjectParser
+from facebook_business.api import FacebookRequest
+from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -29,13 +33,12 @@ pull request for this class.
 """
 
 class Targeting(
-    AbstractObject,
+    AbstractCrudObject,
 ):
 
-    def __init__(self, api=None):
-        super(Targeting, self).__init__()
+    def __init__(self, fbid=None, parent_id=None, api=None):
         self._isTargeting = True
-        self._api = api
+        super(Targeting, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
         adgroup_id = 'adgroup_id'
@@ -105,10 +108,12 @@ class Targeting(
         moms = 'moms'
         net_worth = 'net_worth'
         office_type = 'office_type'
+        page_types = 'page_types'
         place_page_set_ids = 'place_page_set_ids'
         political_views = 'political_views'
         politics = 'politics'
         product_audience_specs = 'product_audience_specs'
+        prospecting_audience = 'prospecting_audience'
         publisher_platforms = 'publisher_platforms'
         publisher_visibility_categories = 'publisher_visibility_categories'
         radius = 'radius'
@@ -125,6 +130,7 @@ class Targeting(
         work_employers = 'work_employers'
         work_positions = 'work_positions'
         zips = 'zips'
+        id = 'id'
 
     class DevicePlatforms:
         mobile = 'mobile'
@@ -135,6 +141,33 @@ class Targeting(
         mobile = 'mobile'
         desktop = 'desktop'
         connected_tv = 'connected_tv'
+
+    def api_get(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Targeting,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     _field_types = {
         'adgroup_id': 'string',
@@ -151,7 +184,7 @@ class Targeting(
         'countries': 'list<string>',
         'country': 'list<string>',
         'country_groups': 'list<string>',
-        'custom_audiences': 'list<Object>',
+        'custom_audiences': 'list<RawCustomAudience>',
         'device_platforms': 'list<DevicePlatforms>',
         'direct_install_devices': 'bool',
         'dynamic_audience_ids': 'list<string>',
@@ -204,10 +237,12 @@ class Targeting(
         'moms': 'list<IDName>',
         'net_worth': 'list<IDName>',
         'office_type': 'list<IDName>',
+        'page_types': 'list<string>',
         'place_page_set_ids': 'list<string>',
         'political_views': 'list<unsigned int>',
         'politics': 'list<IDName>',
         'product_audience_specs': 'list<TargetingProductAudienceSpec>',
+        'prospecting_audience': 'TargetingProspectingAudience',
         'publisher_platforms': 'list<string>',
         'publisher_visibility_categories': 'list<string>',
         'radius': 'string',
@@ -224,6 +259,7 @@ class Targeting(
         'work_employers': 'list<IDName>',
         'work_positions': 'list<IDName>',
         'zips': 'list<string>',
+        'id': 'string',
     }
 
     @classmethod

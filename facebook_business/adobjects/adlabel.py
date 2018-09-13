@@ -47,9 +47,6 @@ class AdLabel(
         name = 'name'
         updated_time = 'updated_time'
 
-    class ExecutionOptions:
-        validate_only = 'validate_only'
-
     # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
@@ -264,5 +261,4 @@ class AdLabel(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['ExecutionOptions'] = AdLabel.ExecutionOptions.__dict__.values()
         return field_enum_info

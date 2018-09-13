@@ -129,8 +129,35 @@ class PageLabel(
             self.assure_call()
             return request.execute()
 
-    def create_user(self, fields=None, params=None, batch=None, pending=False):
+    def get_users(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.user import User
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/users',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=User,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=User, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_user(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
             'user_ids': 'list<int>',
         }
@@ -142,9 +169,9 @@ class PageLabel(
             endpoint='/users',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=User,
+            target_class=PageLabel,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=User, api=self._api),
+            response_parser=ObjectParser(target_class=PageLabel, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

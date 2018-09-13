@@ -46,9 +46,14 @@ class AdSet(
 
     class Field(AbstractObject.Field):
         account_id = 'account_id'
+        ad_keywords = 'ad_keywords'
+        adasset_feed = 'adasset_feed'
         adlabels = 'adlabels'
         adset_schedule = 'adset_schedule'
+        asset_feed_id = 'asset_feed_id'
         attribution_spec = 'attribution_spec'
+        best_creative = 'best_creative'
+        bid_adjustments = 'bid_adjustments'
         bid_amount = 'bid_amount'
         bid_info = 'bid_info'
         bid_strategy = 'bid_strategy'
@@ -65,11 +70,18 @@ class AdSet(
         destination_type = 'destination_type'
         effective_status = 'effective_status'
         end_time = 'end_time'
+        frequency_cap = 'frequency_cap'
+        frequency_cap_reset_period = 'frequency_cap_reset_period'
         frequency_control_specs = 'frequency_control_specs'
+        full_funnel_exploration_mode = 'full_funnel_exploration_mode'
         id = 'id'
         instagram_actor_id = 'instagram_actor_id'
+        is_autobid = 'is_autobid'
+        is_average_price_pacing = 'is_average_price_pacing'
+        is_dynamic_creative = 'is_dynamic_creative'
         is_dynamic_creative_optimization = 'is_dynamic_creative_optimization'
         lifetime_budget = 'lifetime_budget'
+        lifetime_frequency_cap = 'lifetime_frequency_cap'
         lifetime_imps = 'lifetime_imps'
         lifetime_min_spend_target = 'lifetime_min_spend_target'
         lifetime_spend_cap = 'lifetime_spend_cap'
@@ -79,6 +91,7 @@ class AdSet(
         promoted_object = 'promoted_object'
         recommendations = 'recommendations'
         recurring_budget_semantics = 'recurring_budget_semantics'
+        review_feedback = 'review_feedback'
         rf_prediction_id = 'rf_prediction_id'
         rtb_flag = 'rtb_flag'
         source_adset = 'source_adset'
@@ -88,11 +101,20 @@ class AdSet(
         targeting = 'targeting'
         time_based_ad_rotation_id_blocks = 'time_based_ad_rotation_id_blocks'
         time_based_ad_rotation_intervals = 'time_based_ad_rotation_intervals'
+        tracking_specs = 'tracking_specs'
         updated_time = 'updated_time'
         use_new_app_click = 'use_new_app_click'
         campaign_spec = 'campaign_spec'
         daily_imps = 'daily_imps'
+        date_format = 'date_format'
         execution_options = 'execution_options'
+        line_number = 'line_number'
+        rb_prediction_id = 'rb_prediction_id'
+        redownload = 'redownload'
+        time_start = 'time_start'
+        time_stop = 'time_stop'
+        topline_id = 'topline_id'
+        upstream_events = 'upstream_events'
 
     class BidStrategy:
         lowest_cost_without_cap = 'LOWEST_COST_WITHOUT_CAP'
@@ -190,9 +212,19 @@ class AdSet(
         validate_only = 'validate_only'
         include_recommendations = 'include_recommendations'
 
+    class FullFunnelExplorationMode:
+        none_exploration = 'NONE_EXPLORATION'
+        limited_exploration = 'LIMITED_EXPLORATION'
+        extended_exploration = 'EXTENDED_EXPLORATION'
+
     class Operator:
         all = 'ALL'
         any = 'ANY'
+
+    class StatusOption:
+        active = 'ACTIVE'
+        paused = 'PAUSED'
+        inherited_from_source = 'INHERITED_FROM_SOURCE'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
@@ -232,8 +264,32 @@ class AdSet(
 
     def api_get(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
+            'date_preset': 'date_preset_enum',
+            'from_adtable': 'bool',
+            'time_range': 'Object',
         }
         enums = {
+            'date_preset_enum': [
+                'today',
+                'yesterday',
+                'this_month',
+                'last_month',
+                'this_quarter',
+                'lifetime',
+                'last_3d',
+                'last_7d',
+                'last_14d',
+                'last_28d',
+                'last_30d',
+                'last_90d',
+                'last_week_mon_sun',
+                'last_week_sun_sat',
+                'last_quarter',
+                'last_year',
+                'this_week_mon_today',
+                'this_week_sun_today',
+                'this_year',
+            ],
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -260,21 +316,30 @@ class AdSet(
     def api_update(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
             'account_id': 'string',
+            'ad_keywords': 'map',
             'adlabels': 'list<Object>',
-            'adset_schedule': 'list<Object>',
-            'attribution_spec': 'list<map>',
             'bid_amount': 'int',
+            'bid_adjustments': 'Object',
             'bid_strategy': 'bid_strategy_enum',
             'billing_event': 'billing_event_enum',
+            'campaign_spec': 'Object',
+            'adset_schedule': 'list<Object>',
+            'status': 'status_enum',
             'creative_sequence': 'list<string>',
             'daily_budget': 'unsigned int',
             'daily_imps': 'unsigned int',
             'daily_min_spend_target': 'unsigned int',
             'daily_spend_cap': 'unsigned int',
+            'date_format': 'string',
             'destination_type': 'destination_type_enum',
             'end_time': 'datetime',
             'execution_options': 'list<execution_options_enum>',
+            'frequency_cap': 'unsigned int',
+            'frequency_cap_reset_period': 'unsigned int',
+            'is_autobid': 'bool',
+            'is_average_price_pacing': 'bool',
             'lifetime_budget': 'unsigned int',
+            'lifetime_frequency_cap': 'unsigned int',
             'lifetime_imps': 'unsigned int',
             'lifetime_min_spend_target': 'unsigned int',
             'lifetime_spend_cap': 'unsigned int',
@@ -282,20 +347,27 @@ class AdSet(
             'optimization_goal': 'optimization_goal_enum',
             'pacing_type': 'list<string>',
             'promoted_object': 'Object',
+            'rb_prediction_id': 'string',
+            'redownload': 'bool',
             'rf_prediction_id': 'string',
             'start_time': 'datetime',
-            'status': 'status_enum',
             'targeting': 'Targeting',
             'time_based_ad_rotation_id_blocks': 'list<list<unsigned int>>',
             'time_based_ad_rotation_intervals': 'list<unsigned int>',
+            'time_start': 'datetime',
+            'time_stop': 'datetime',
+            'upstream_events': 'map',
+            'full_funnel_exploration_mode': 'full_funnel_exploration_mode_enum',
+            'attribution_spec': 'list<map>',
         }
         enums = {
             'bid_strategy_enum': AdSet.BidStrategy.__dict__.values(),
             'billing_event_enum': AdSet.BillingEvent.__dict__.values(),
+            'status_enum': AdSet.Status.__dict__.values(),
             'destination_type_enum': AdSet.DestinationType.__dict__.values(),
             'execution_options_enum': AdSet.ExecutionOptions.__dict__.values(),
             'optimization_goal_enum': AdSet.OptimizationGoal.__dict__.values(),
-            'status_enum': AdSet.Status.__dict__.values(),
+            'full_funnel_exploration_mode_enum': AdSet.FullFunnelExplorationMode.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -322,11 +394,13 @@ class AdSet(
     def get_activities(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.adactivity import AdActivity
         param_types = {
-            'business_id': 'string',
-            'category': 'category_enum',
+            'after': 'string',
+            'limit': 'int',
             'since': 'datetime',
-            'uid': 'int',
+            'category': 'category_enum',
             'until': 'datetime',
+            'uid': 'int',
+            'business_id': 'string',
         }
         enums = {
             'category_enum': AdActivity.Category.__dict__.values(),
@@ -340,6 +414,69 @@ class AdSet(
             target_class=AdActivity,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=AdActivity, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_activity_logs(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adcampaignactivity import AdCampaignActivity
+        param_types = {
+            'changed_all': 'list<changed_all_enum>',
+            'changed_any': 'list<changed_any_enum>',
+            'since': 'Object',
+            'until': 'Object',
+            'uid': 'Object',
+        }
+        enums = {
+            'changed_all_enum': AdCampaignActivity.ChangedAll.__dict__.values(),
+            'changed_any_enum': AdCampaignActivity.ChangedAny.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/activity_logs',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdCampaignActivity,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdCampaignActivity, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_ad_studies(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adstudy import AdStudy
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/ad_studies',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdStudy,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdStudy, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -381,14 +518,41 @@ class AdSet(
             self.assure_call()
             return request.execute()
 
+    def get_ad_drafts(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.addraft import AdDraft
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/addrafts',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdDraft,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdDraft, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def delete_ad_labels(self, fields=None, params=None, batch=None, pending=False):
-        from facebook_business.adobjects.adlabel import AdLabel
         param_types = {
             'adlabels': 'list<Object>',
             'execution_options': 'list<execution_options_enum>',
         }
         enums = {
-            'execution_options_enum': AdLabel.ExecutionOptions.__dict__.values(),
+            'execution_options_enum': AdSet.ExecutionOptions.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -413,13 +577,12 @@ class AdSet(
             return request.execute()
 
     def create_ad_label(self, fields=None, params=None, batch=None, pending=False):
-        from facebook_business.adobjects.adlabel import AdLabel
         param_types = {
             'adlabels': 'list<Object>',
             'execution_options': 'list<execution_options_enum>',
         }
         enums = {
-            'execution_options_enum': AdLabel.ExecutionOptions.__dict__.values(),
+            'execution_options_enum': AdSet.ExecutionOptions.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -427,9 +590,9 @@ class AdSet(
             endpoint='/adlabels',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AdLabel,
+            target_class=AdSet,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdLabel, api=self._api),
+            response_parser=ObjectParser(target_class=AdSet, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -475,11 +638,12 @@ class AdSet(
     def get_ads(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.ad import Ad
         param_types = {
-            'ad_draft_id': 'string',
-            'date_preset': 'date_preset_enum',
+            'include_deleted': 'bool',
             'effective_status': 'list<string>',
+            'date_preset': 'date_preset_enum',
             'time_range': 'Object',
             'updated_since': 'int',
+            'ad_draft_id': 'string',
         }
         enums = {
             'date_preset_enum': Ad.DatePreset.__dict__.values(),
@@ -536,16 +700,80 @@ class AdSet(
             self.assure_call()
             return request.execute()
 
+    def get_column_suggestions(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.columnsuggestions import ColumnSuggestions
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/column_suggestions',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ColumnSuggestions,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ColumnSuggestions, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_conversions(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adconversions import AdConversions
+        param_types = {
+            'start_time': 'datetime',
+            'end_time': 'datetime',
+            'time_start': 'datetime',
+            'time_stop': 'datetime',
+            'aggregate_days': 'int',
+            'by_impression_time': 'bool',
+            'include_deleted': 'bool',
+            'offset': 'int',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/conversions',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdConversions,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdConversions, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_copies(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
-            'date_preset': 'date_preset_enum',
             'effective_status': 'list<effective_status_enum>',
+            'date_preset': 'date_preset_enum',
             'is_completed': 'bool',
             'time_range': 'Object',
         }
         enums = {
-            'date_preset_enum': AdSet.DatePreset.__dict__.values(),
             'effective_status_enum': AdSet.EffectiveStatus.__dict__.values(),
+            'date_preset_enum': AdSet.DatePreset.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -569,12 +797,47 @@ class AdSet(
             self.assure_call()
             return request.execute()
 
+    def create_copy(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'deep_copy': 'bool',
+            'campaign_id': 'string',
+            'rename_options': 'Object',
+            'status_option': 'status_option_enum',
+            'start_time': 'datetime',
+            'end_time': 'datetime',
+            'create_dco_adset': 'bool',
+        }
+        enums = {
+            'status_option_enum': AdSet.StatusOption.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/copies',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdSet,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdSet, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_delivery_estimate(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.adcampaigndeliveryestimate import AdCampaignDeliveryEstimate
         param_types = {
+            'targeting_spec': 'Targeting',
             'optimization_goal': 'optimization_goal_enum',
             'promoted_object': 'Object',
-            'targeting_spec': 'Targeting',
         }
         enums = {
             'optimization_goal_enum': AdCampaignDeliveryEstimate.OptimizationGoal.__dict__.values(),
@@ -601,26 +864,121 @@ class AdSet(
             self.assure_call()
             return request.execute()
 
+    def get_delivery_insights(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.addeliveryinsights import AdDeliveryInsights
+        param_types = {
+            'fields': 'list<fields_enum>',
+        }
+        enums = {
+            'fields_enum': AdDeliveryInsights.Fields.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/delivery_insights',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdDeliveryInsights,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdDeliveryInsights, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_delivery_stats(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adcampaigndeliverystats import AdCampaignDeliveryStats
+        param_types = {
+            'bid_recommendation_days_back': 'unsigned int',
+            'bid_recommendation_time_range_type': 'bid_recommendation_time_range_type_enum',
+        }
+        enums = {
+            'bid_recommendation_time_range_type_enum': AdCampaignDeliveryStats.BidRecommendationTimeRangeType.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/delivery_stats',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdCampaignDeliveryStats,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdCampaignDeliveryStats, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_fame_ads(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.fameadgroup import FAMEAdGroup
+        param_types = {
+            'date_preset': 'date_preset_enum',
+            'effective_status': 'list<effective_status_enum>',
+            'time_range': 'Object',
+            'updated_since': 'int',
+        }
+        enums = {
+            'date_preset_enum': FAMEAdGroup.DatePreset.__dict__.values(),
+            'effective_status_enum': FAMEAdGroup.EffectiveStatus.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/fame_ads',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=FAMEAdGroup,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=FAMEAdGroup, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_insights(self, fields=None, params=None, is_async=False, batch=None, pending=False):
         from facebook_business.adobjects.adsinsights import AdsInsights
         if is_async:
           return self.get_insights_async(fields, params, batch, pending)
         param_types = {
+            'default_summary': 'bool',
+            'fields': 'list<string>',
+            'filtering': 'list<Object>',
+            'summary': 'list<string>',
+            'sort': 'list<string>',
             'action_attribution_windows': 'list<action_attribution_windows_enum>',
             'action_breakdowns': 'list<action_breakdowns_enum>',
             'action_report_time': 'action_report_time_enum',
             'breakdowns': 'list<breakdowns_enum>',
             'date_preset': 'date_preset_enum',
-            'default_summary': 'bool',
             'export_columns': 'list<string>',
             'export_format': 'string',
             'export_name': 'string',
-            'fields': 'list<fields_enum>',
-            'filtering': 'list<Object>',
             'level': 'level_enum',
             'product_id_limit': 'int',
-            'sort': 'list<string>',
-            'summary': 'list<summary_enum>',
             'summary_action_breakdowns': 'list<summary_action_breakdowns_enum>',
             'time_increment': 'string',
             'time_range': 'Object',
@@ -633,7 +991,6 @@ class AdSet(
             'action_report_time_enum': AdsInsights.ActionReportTime.__dict__.values(),
             'breakdowns_enum': AdsInsights.Breakdowns.__dict__.values(),
             'date_preset_enum': AdsInsights.DatePreset.__dict__.values(),
-            'summary_enum': AdsInsights.Summary.__dict__.values(),
             'level_enum': AdsInsights.Level.__dict__.values(),
             'summary_action_breakdowns_enum': AdsInsights.SummaryActionBreakdowns.__dict__.values(),
         }
@@ -664,21 +1021,21 @@ class AdSet(
         from facebook_business.adobjects.adreportrun import AdReportRun
         from facebook_business.adobjects.adsinsights import AdsInsights
         param_types = {
+            'default_summary': 'bool',
+            'fields': 'list<string>',
+            'filtering': 'list<Object>',
+            'summary': 'list<string>',
+            'sort': 'list<string>',
             'action_attribution_windows': 'list<action_attribution_windows_enum>',
             'action_breakdowns': 'list<action_breakdowns_enum>',
             'action_report_time': 'action_report_time_enum',
             'breakdowns': 'list<breakdowns_enum>',
             'date_preset': 'date_preset_enum',
-            'default_summary': 'bool',
             'export_columns': 'list<string>',
             'export_format': 'string',
             'export_name': 'string',
-            'fields': 'list<fields_enum>',
-            'filtering': 'list<Object>',
             'level': 'level_enum',
             'product_id_limit': 'int',
-            'sort': 'list<string>',
-            'summary': 'list<summary_enum>',
             'summary_action_breakdowns': 'list<summary_action_breakdowns_enum>',
             'time_increment': 'string',
             'time_range': 'Object',
@@ -691,7 +1048,6 @@ class AdSet(
             'action_report_time_enum': AdsInsights.ActionReportTime.__dict__.values(),
             'breakdowns_enum': AdsInsights.Breakdowns.__dict__.values(),
             'date_preset_enum': AdsInsights.DatePreset.__dict__.values(),
-            'summary_enum': AdsInsights.Summary.__dict__.values(),
             'level_enum': AdsInsights.Level.__dict__.values(),
             'summary_action_breakdowns_enum': AdsInsights.SummaryActionBreakdowns.__dict__.values(),
         }
@@ -705,6 +1061,150 @@ class AdSet(
             api_type='EDGE',
             response_parser=ObjectParser(target_class=AdReportRun, api=self._api),
             include_summary=False,
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_reach_estimate(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.reachestimate import ReachEstimate
+        param_types = {
+            'targeting_spec': 'Targeting',
+            'optimize_for': 'optimize_for_enum',
+            'daily_budget': 'unsigned int',
+            'is_debug': 'bool',
+        }
+        enums = {
+            'optimize_for_enum': ReachEstimate.OptimizeFor.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/reachestimate',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ReachEstimate,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ReachEstimate, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_reporting(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adsreportbuilder import AdsReportBuilder
+        param_types = {
+            'attribution_windows': 'list<attribution_windows_enum>',
+            'dimensions': 'list<dimensions_enum>',
+            'dimension_groups': 'list<list<adcampaignreporting_dimension_groups_enum_param>>',
+            'locked_dimensions': 'unsigned int',
+            'metrics': 'list<string>',
+            'filtering': 'Object',
+            'sorting': 'list<map>',
+            'date_preset': 'date_preset_enum',
+            'time_range': 'Object',
+            'default_summary': 'bool',
+            'last_report_snapshot_id': 'unsigned int',
+            'offset': 'unsigned int',
+            'limit': 'int',
+            'pagination_key': 'string',
+            'last_dimension': 'Object',
+            'summary_count': 'bool',
+        }
+        enums = {
+            'attribution_windows_enum': AdsReportBuilder.AttributionWindows.__dict__.values(),
+            'dimensions_enum': AdsReportBuilder.Dimensions.__dict__.values(),
+            'date_preset_enum': AdsReportBuilder.DatePreset.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/reporting',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdsReportBuilder,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdsReportBuilder, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_stats(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adcampaignstats import AdCampaignStats
+        param_types = {
+            'start_time': 'datetime',
+            'end_time': 'datetime',
+            'time_start': 'datetime',
+            'time_stop': 'datetime',
+            'action_attribution_days_after_click': 'action_attribution_days_after_click_enum',
+            'action_attribution_days_after_imp': 'action_attribution_days_after_imp_enum',
+        }
+        enums = {
+            'action_attribution_days_after_click_enum': AdCampaignStats.ActionAttributionDaysAfterClick.__dict__.values(),
+            'action_attribution_days_after_imp_enum': AdCampaignStats.ActionAttributionDaysAfterImp.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/stats',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdCampaignStats,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdCampaignStats, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_targeting_insights(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adstargetinginsights import AdsTargetingInsights
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/targeting_insights',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdsTargetingInsights,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdsTargetingInsights, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -748,9 +1248,14 @@ class AdSet(
 
     _field_types = {
         'account_id': 'string',
+        'ad_keywords': 'string',
+        'adasset_feed': 'AdAssetFeed',
         'adlabels': 'list<AdLabel>',
         'adset_schedule': 'list<DayPart>',
+        'asset_feed_id': 'string',
         'attribution_spec': 'list<AttributionSpec>',
+        'best_creative': 'AdDynamicCreative',
+        'bid_adjustments': 'AdBidAdjustments',
         'bid_amount': 'unsigned int',
         'bid_info': 'map<string, unsigned int>',
         'bid_strategy': 'BidStrategy',
@@ -767,11 +1272,18 @@ class AdSet(
         'destination_type': 'string',
         'effective_status': 'EffectiveStatus',
         'end_time': 'datetime',
+        'frequency_cap': 'unsigned int',
+        'frequency_cap_reset_period': 'unsigned int',
         'frequency_control_specs': 'list<AdCampaignFrequencyControlSpecs>',
+        'full_funnel_exploration_mode': 'string',
         'id': 'string',
         'instagram_actor_id': 'string',
+        'is_autobid': 'bool',
+        'is_average_price_pacing': 'bool',
+        'is_dynamic_creative': 'bool',
         'is_dynamic_creative_optimization': 'bool',
         'lifetime_budget': 'string',
+        'lifetime_frequency_cap': 'unsigned int',
         'lifetime_imps': 'int',
         'lifetime_min_spend_target': 'string',
         'lifetime_spend_cap': 'string',
@@ -781,6 +1293,7 @@ class AdSet(
         'promoted_object': 'AdPromotedObject',
         'recommendations': 'list<AdRecommendation>',
         'recurring_budget_semantics': 'bool',
+        'review_feedback': 'string',
         'rf_prediction_id': 'string',
         'rtb_flag': 'bool',
         'source_adset': 'AdSet',
@@ -790,11 +1303,20 @@ class AdSet(
         'targeting': 'Targeting',
         'time_based_ad_rotation_id_blocks': 'list<list<int>>',
         'time_based_ad_rotation_intervals': 'list<unsigned int>',
+        'tracking_specs': 'string',
         'updated_time': 'datetime',
         'use_new_app_click': 'bool',
         'campaign_spec': 'Object',
         'daily_imps': 'unsigned int',
+        'date_format': 'string',
         'execution_options': 'list<ExecutionOptions>',
+        'line_number': 'unsigned int',
+        'rb_prediction_id': 'string',
+        'redownload': 'bool',
+        'time_start': 'datetime',
+        'time_stop': 'datetime',
+        'topline_id': 'string',
+        'upstream_events': 'map',
     }
 
     @classmethod
@@ -809,5 +1331,7 @@ class AdSet(
         field_enum_info['DatePreset'] = AdSet.DatePreset.__dict__.values()
         field_enum_info['DestinationType'] = AdSet.DestinationType.__dict__.values()
         field_enum_info['ExecutionOptions'] = AdSet.ExecutionOptions.__dict__.values()
+        field_enum_info['FullFunnelExplorationMode'] = AdSet.FullFunnelExplorationMode.__dict__.values()
         field_enum_info['Operator'] = AdSet.Operator.__dict__.values()
+        field_enum_info['StatusOption'] = AdSet.StatusOption.__dict__.values()
         return field_enum_info

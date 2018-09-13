@@ -45,6 +45,7 @@ class AdAccountCreationRequest(
         additional_comment = 'additional_comment'
         address_in_chinese = 'address_in_chinese'
         address_in_english = 'address_in_english'
+        address_in_local_language = 'address_in_local_language'
         advertiser_business = 'advertiser_business'
         appeal_reason = 'appeal_reason'
         business = 'business'
@@ -59,6 +60,7 @@ class AdAccountCreationRequest(
         is_smb = 'is_smb'
         is_test = 'is_test'
         is_under_authorization = 'is_under_authorization'
+        legal_entity_name_in_local_language = 'legal_entity_name_in_local_language'
         official_website_url = 'official_website_url'
         planning_agency_business = 'planning_agency_business'
         planning_agency_business_id = 'planning_agency_business_id'
@@ -70,9 +72,9 @@ class AdAccountCreationRequest(
         subvertical = 'subvertical'
         time_created = 'time_created'
         vertical = 'vertical'
-        advertiser_business_id = 'advertiser_business_id'
         business_registration = 'business_registration'
         promotable_page_urls = 'promotable_page_urls'
+        advertiser_business_id = 'advertiser_business_id'
 
     class Subvertical:
         accounting_and_taxes_and_legal = 'ACCOUNTING_AND_TAXES_AND_LEGAL'
@@ -297,31 +299,33 @@ class AdAccountCreationRequest(
 
     def api_update(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
+            'extended_credit_id': 'string',
             'ad_accounts_info': 'list<Object>',
-            'additional_comment': 'string',
+            'business_registration': 'file',
+            'planning_agency_business_id': 'string',
+            'english_legal_entity_name': 'string',
+            'legal_entity_name_in_local_language': 'string',
+            'address_in_local_language': 'string',
+            'chinese_legal_entity_name': 'string',
             'address_in_chinese': 'string',
             'address_in_english': 'Object',
-            'advertiser_business_id': 'string',
-            'business_registration': 'file',
-            'business_registration_id': 'string',
-            'chinese_legal_entity_name': 'string',
-            'contact': 'Object',
-            'disapprove_appeal_comment': 'string',
-            'english_legal_entity_name': 'string',
-            'extended_credit_id': 'string',
-            'is_smb': 'bool',
             'official_website_url': 'Object',
-            'planning_agency_business_id': 'string',
-            'promotable_app_ids': 'list<string>',
-            'promotable_page_ids': 'list<string>',
-            'promotable_page_urls': 'list<Object>',
-            'promotable_urls': 'list<Object>',
-            'subvertical': 'subvertical_enum',
+            'business_registration_id': 'string',
             'vertical': 'vertical_enum',
+            'subvertical': 'subvertical_enum',
+            'promotable_page_urls': 'list<Object>',
+            'promotable_page_ids': 'list<string>',
+            'promotable_app_ids': 'list<string>',
+            'promotable_urls': 'list<Object>',
+            'contact': 'Object',
+            'additional_comment': 'string',
+            'is_smb': 'bool',
+            'advertiser_business_id': 'string',
+            'disapprove_appeal_comment': 'string',
         }
         enums = {
-            'subvertical_enum': AdAccountCreationRequest.Subvertical.__dict__.values(),
             'vertical_enum': AdAccountCreationRequest.Vertical.__dict__.values(),
+            'subvertical_enum': AdAccountCreationRequest.Subvertical.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -345,11 +349,40 @@ class AdAccountCreationRequest(
             self.assure_call()
             return request.execute()
 
+    def get_ad_accounts(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adaccount import AdAccount
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/adaccounts',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdAccount,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdAccount, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     _field_types = {
         'ad_accounts_info': 'list<Object>',
         'additional_comment': 'string',
         'address_in_chinese': 'string',
         'address_in_english': 'Object',
+        'address_in_local_language': 'string',
         'advertiser_business': 'Business',
         'appeal_reason': 'Object',
         'business': 'Business',
@@ -364,6 +397,7 @@ class AdAccountCreationRequest(
         'is_smb': 'bool',
         'is_test': 'bool',
         'is_under_authorization': 'bool',
+        'legal_entity_name_in_local_language': 'string',
         'official_website_url': 'string',
         'planning_agency_business': 'Business',
         'planning_agency_business_id': 'string',
@@ -375,9 +409,9 @@ class AdAccountCreationRequest(
         'subvertical': 'string',
         'time_created': 'datetime',
         'vertical': 'string',
-        'advertiser_business_id': 'string',
         'business_registration': 'file',
         'promotable_page_urls': 'list<Object>',
+        'advertiser_business_id': 'string',
     }
 
     @classmethod

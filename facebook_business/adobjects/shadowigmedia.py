@@ -111,6 +111,33 @@ class ShadowIGMedia(
             self.assure_call()
             return request.execute()
 
+    def get_children(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/children',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ShadowIGMedia,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ShadowIGMedia, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_comments(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.shadowigcomment import ShadowIGComment
         param_types = {

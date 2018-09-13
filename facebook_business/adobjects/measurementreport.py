@@ -121,8 +121,8 @@ class MeasurementReport(
 
     def api_update(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
-            'is_last_batch': 'bool',
             'payload': 'file',
+            'is_last_batch': 'bool',
             'url': 'string',
         }
         enums = {

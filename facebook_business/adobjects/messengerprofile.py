@@ -19,6 +19,10 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
+from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
+from facebook_business.adobjects.objectparser import ObjectParser
+from facebook_business.api import FacebookRequest
+from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -29,13 +33,12 @@ pull request for this class.
 """
 
 class MessengerProfile(
-    AbstractObject,
+    AbstractCrudObject,
 ):
 
-    def __init__(self, api=None):
-        super(MessengerProfile, self).__init__()
+    def __init__(self, fbid=None, parent_id=None, api=None):
         self._isMessengerProfile = True
-        self._api = api
+        super(MessengerProfile, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
         account_linking_url = 'account_linking_url'
@@ -46,16 +49,34 @@ class MessengerProfile(
         persistent_menu = 'persistent_menu'
         target_audience = 'target_audience'
         whitelisted_domains = 'whitelisted_domains'
+        id = 'id'
 
-    class Fields:
-        get_started = 'GET_STARTED'
-        persistent_menu = 'PERSISTENT_MENU'
-        target_audience = 'TARGET_AUDIENCE'
-        whitelisted_domains = 'WHITELISTED_DOMAINS'
-        greeting = 'GREETING'
-        account_linking_url = 'ACCOUNT_LINKING_URL'
-        payment_settings = 'PAYMENT_SETTINGS'
-        home_url = 'HOME_URL'
+    def api_get(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=MessengerProfile,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     _field_types = {
         'account_linking_url': 'string',
@@ -66,10 +87,10 @@ class MessengerProfile(
         'persistent_menu': 'list<Object>',
         'target_audience': 'Object',
         'whitelisted_domains': 'list<string>',
+        'id': 'string',
     }
 
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['Fields'] = MessengerProfile.Fields.__dict__.values()
         return field_enum_info

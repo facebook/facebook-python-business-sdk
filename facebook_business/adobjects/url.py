@@ -48,6 +48,7 @@ class URL(
         instant_article = 'instant_article'
         og_object = 'og_object'
         ownership_permissions = 'ownership_permissions'
+        share = 'share'
 
     def api_get(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
@@ -76,6 +77,64 @@ class URL(
             self.assure_call()
             return request.execute()
 
+    def api_update(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'locale': 'Object',
+            'hmac': 'string',
+            'ts': 'Object',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=URL,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_share_d_posts(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.post import Post
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/sharedposts',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Post,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Post, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     _field_types = {
         'app_links': 'AppLinks',
         'development_instant_article': 'InstantArticle',
@@ -84,6 +143,7 @@ class URL(
         'instant_article': 'InstantArticle',
         'og_object': 'Object',
         'ownership_permissions': 'Object',
+        'share': 'Object',
     }
 
     @classmethod

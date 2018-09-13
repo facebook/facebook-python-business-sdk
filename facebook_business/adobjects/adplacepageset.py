@@ -116,6 +116,124 @@ class AdPlacePageSet(
             self.assure_call()
             return request.execute()
 
+    def get_invalid_locations(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adplacepagesetinvalidlocation import AdPlacePageSetInvalidLocation
+        param_types = {
+            'targeting': 'Targeting',
+            'creative_spec': 'AdCreative',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/invalid_locations',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdPlacePageSetInvalidLocation,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdPlacePageSetInvalidLocation, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_locations(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.page import Page
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/locations',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Page,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Page, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_locations_breakdown(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.pagelocationsbreakdown import PageLocationsBreakdown
+        param_types = {
+            'filtering': 'list<Object>',
+            'type': 'type_enum',
+        }
+        enums = {
+            'type_enum': PageLocationsBreakdown.Type.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/locations_breakdown',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=PageLocationsBreakdown,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=PageLocationsBreakdown, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_targeted_locations(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.page import Page
+        param_types = {
+            'targeting': 'Targeting',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/targeted_locations',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Page,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Page, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     _field_types = {
         'account_id': 'string',
         'id': 'string',

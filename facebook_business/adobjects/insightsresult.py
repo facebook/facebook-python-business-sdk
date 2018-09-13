@@ -49,6 +49,21 @@ class InsightsResult(
         title = 'title'
         values = 'values'
 
+    class Metric:
+        daily_total = 'daily_total'
+        is_traveling_breakdowns = 'is_traveling_breakdowns'
+        hourly_breakdowns = 'hourly_breakdowns'
+        demographic_breakdowns = 'demographic_breakdowns'
+        seen_ads_daily_total = 'seen_ads_daily_total'
+        seen_ads_hourly_breakdowns = 'seen_ads_hourly_breakdowns'
+
+    class Period:
+        day = 'day'
+        week = 'week'
+        days_28 = 'days_28'
+        month = 'month'
+        lifetime = 'lifetime'
+
     class DatePreset:
         today = 'today'
         yesterday = 'yesterday'
@@ -70,13 +85,36 @@ class InsightsResult(
         this_week_sun_today = 'this_week_sun_today'
         this_year = 'this_year'
 
-    class Period:
-        day = 'day'
-        week = 'week'
-        days_28 = 'days_28'
-        month = 'month'
-        lifetime = 'lifetime'
-        total_over_range = 'total_over_range'
+    class SortDir:
+        asc = 'asc'
+        desc = 'desc'
+
+    def api_get(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=InsightsResult,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     _field_types = {
         'description': 'string',
@@ -91,6 +129,8 @@ class InsightsResult(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['DatePreset'] = InsightsResult.DatePreset.__dict__.values()
+        field_enum_info['Metric'] = InsightsResult.Metric.__dict__.values()
         field_enum_info['Period'] = InsightsResult.Period.__dict__.values()
+        field_enum_info['DatePreset'] = InsightsResult.DatePreset.__dict__.values()
+        field_enum_info['SortDir'] = InsightsResult.SortDir.__dict__.values()
         return field_enum_info

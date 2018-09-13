@@ -131,23 +131,23 @@ class LeadGenDataDraft(
 
     def api_update(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
+            'name': 'string',
+            'locale': 'locale_enum',
             'allow_organic_lead_retrieval': 'bool',
             'block_display_for_non_targeted_viewer': 'bool',
-            'context_card': 'Object',
-            'context_card_id': 'string',
-            'custom_disclaimer': 'Object',
-            'delete_missing_parameters': 'bool',
             'follow_up_action_url': 'string',
-            'is_optimized_for_quality': 'bool',
             'legal_content_id': 'string',
-            'locale': 'locale_enum',
-            'name': 'string',
-            'privacy_policy': 'map',
-            'question_page_custom_headline': 'string',
+            'context_card_id': 'string',
             'questions': 'list<Object>',
-            'status': 'status_enum',
+            'privacy_policy': 'map',
+            'custom_disclaimer': 'Object',
+            'context_card': 'Object',
             'thank_you_page': 'map',
             'tracking_parameters': 'Object',
+            'question_page_custom_headline': 'string',
+            'is_optimized_for_quality': 'bool',
+            'status': 'status_enum',
+            'delete_missing_parameters': 'bool',
         }
         enums = {
             'locale_enum': LeadGenDataDraft.Locale.__dict__.values(),

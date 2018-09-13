@@ -19,6 +19,10 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
+from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
+from facebook_business.adobjects.objectparser import ObjectParser
+from facebook_business.api import FacebookRequest
+from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -29,13 +33,12 @@ pull request for this class.
 """
 
 class LeadGenFormPreviewDetails(
-    AbstractObject,
+    AbstractCrudObject,
 ):
 
-    def __init__(self, api=None):
-        super(LeadGenFormPreviewDetails, self).__init__()
+    def __init__(self, fbid=None, parent_id=None, api=None):
         self._isLeadGenFormPreviewDetails = True
-        self._api = api
+        super(LeadGenFormPreviewDetails, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
         call_to_action_title = 'call_to_action_title'
@@ -49,6 +52,34 @@ class LeadGenFormPreviewDetails(
         review_your_info_text = 'review_your_info_text'
         slide_to_submit_text = 'slide_to_submit_text'
         submit_button_text = 'submit_button_text'
+        id = 'id'
+
+    def api_get(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=LeadGenFormPreviewDetails,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     _field_types = {
         'call_to_action_title': 'string',
@@ -62,6 +93,7 @@ class LeadGenFormPreviewDetails(
         'review_your_info_text': 'string',
         'slide_to_submit_text': 'string',
         'submit_button_text': 'string',
+        'id': 'string',
     }
 
     @classmethod

@@ -109,7 +109,7 @@ class VideoCopyrightRule(
             return request.execute()
 
     _field_types = {
-        'condition_groups': 'list<Object>',
+        'condition_groups': 'list<VideoCopyrightConditionGroup>',
         'copyrights': 'list<string>',
         'created_date': 'datetime',
         'creator': 'User',

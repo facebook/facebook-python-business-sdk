@@ -72,6 +72,62 @@ class AdsDataPartner(
             self.assure_call()
             return request.execute()
 
+    def get_partner_studies(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.partnerstudy import PartnerStudy
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/partnerstudies',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=PartnerStudy,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=PartnerStudy, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def delete_users_of_any_audience(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'external_ids': 'list<string>',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='DELETE',
+            endpoint='/usersofanyaudience',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     _field_types = {
         'id': 'string',
         'name': 'string',

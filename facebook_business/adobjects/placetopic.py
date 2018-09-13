@@ -50,18 +50,17 @@ class PlaceTopic(
         plural_name = 'plural_name'
         top_subtopic_names = 'top_subtopic_names'
 
-    class IconSize:
-        value_24 = '24'
-        value_36 = '36'
-        value_48 = '48'
-        value_72 = '72'
-
     def api_get(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
             'icon_size': 'icon_size_enum',
         }
         enums = {
-            'icon_size_enum': PlaceTopic.IconSize.__dict__.values(),
+            'icon_size_enum': [
+                '24',
+                '36',
+                '48',
+                '72',
+            ],
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -72,6 +71,37 @@ class PlaceTopic(
             target_class=PlaceTopic,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_picture(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.profilepicturesource import ProfilePictureSource
+        param_types = {
+            'type': 'type_enum',
+            'redirect': 'bool',
+        }
+        enums = {
+            'type_enum': ProfilePictureSource.Type.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/picture',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ProfilePictureSource,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ProfilePictureSource, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -99,5 +129,4 @@ class PlaceTopic(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['IconSize'] = PlaceTopic.IconSize.__dict__.values()
         return field_enum_info

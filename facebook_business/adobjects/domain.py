@@ -72,6 +72,41 @@ class Domain(
             self.assure_call()
             return request.execute()
 
+    def get_url_insights(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.insightsqueryresult import InsightsQueryResult
+        param_types = {
+            'metric_key': 'string',
+            'period': 'period_enum',
+            'since': 'datetime',
+            'until': 'datetime',
+            'breakdowns': 'list<string>',
+            'urls': 'list<string>',
+        }
+        enums = {
+            'period_enum': InsightsQueryResult.Period.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/url_insights',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=InsightsQueryResult,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=InsightsQueryResult, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     _field_types = {
         'id': 'string',
         'name': 'string',

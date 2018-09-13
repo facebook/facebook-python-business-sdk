@@ -153,6 +153,114 @@ class BusinessRoleRequest(
             self.assure_call()
             return request.execute()
 
+    def get_assigned_client_assets(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'asset_type': 'asset_type_enum',
+        }
+        enums = {
+            'asset_type_enum': [
+                'PAGE',
+                'AD_ACCOUNT',
+                'PRODUCT_CATALOG',
+                'APP',
+                'PIXEL',
+                'SYSTEM_USER',
+                'BRAND',
+                'USER',
+                'PROJECT',
+                'INSTAGRAM_ACCOUNT',
+                'ATLAS_ADVERTISER',
+                'FUNDING_SOURCE',
+                'LEGACY_LOGIN',
+                'BUSINESS_REQUEST',
+                'EXAMPLE_CAT',
+                'MONETIZATION_PROPERTY',
+                'GRP_PLAN',
+                'PERSONA',
+                'CREDIT_PARTITION',
+                'PAYOUT_ACCOUNT',
+                'AD_STUDY',
+                'SAVED_AUDIENCE',
+                'CUSTOM_AUDIENCE',
+                'PLATFORM_CUSTOM_AUDIENCE',
+                'EVENT_SOURCE_GROUP',
+                'OFFLINE_CONVERSION_DATA_SET',
+                'AD_IMAGE',
+                'PHOTO',
+                'BLOCK_LIST',
+                'FINANCE',
+                'IP',
+                'CREDIT_PARTITION_CONFIG',
+                'VIDEO_ASSET',
+                'BUSINESS_UNIT',
+                'PAGE_FOR_LOCATIONS',
+                'AD_ACCOUNT_CREATION_REQUEST',
+                'RESELLER_VETTING_OE_REQUEST',
+                'REGISTERED_TRADEMARK',
+                'CUSTOM_CONVERSION',
+                'LEADS_ACCESS',
+                'SPACO_DS_DATA_COLLECTION',
+                'OWNED_DOMAIN',
+                'WHATSAPP_BUSINESS_ACCOUNT',
+                'BUSINESS_RESOURCE_GROUP',
+                'HOTEL_PRICE_FETCHER_PULL_CONFIG',
+                'NEWS_PAGE',
+                'PLACE_PAGE_SET',
+                'BUSINESS_LOCATIONS_WRAPPER',
+            ],
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/assigned_client_assets',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_assigned_owned_assets(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.businessobject import BusinessObject
+        param_types = {
+            'asset_type': 'asset_type_enum',
+        }
+        enums = {
+            'asset_type_enum': BusinessObject.AssetType.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/assigned_owned_assets',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=BusinessObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=BusinessObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     _field_types = {
         'created_by': 'Object',
         'created_time': 'datetime',

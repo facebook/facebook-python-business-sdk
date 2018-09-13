@@ -45,40 +45,44 @@ class ProductCatalogPricingVariablesBatch(
         errors_total_count = 'errors_total_count'
         handle = 'handle'
         status = 'status'
-        file = 'file'
-        password = 'password'
-        standard = 'standard'
-        update_only = 'update_only'
-        url = 'url'
-        username = 'username'
+        id = 'id'
 
-    class Standard:
-        google = 'google'
+    def api_get(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ProductCatalogPricingVariablesBatch,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
 
-    # @deprecated get_endpoint function is deprecated
-    @classmethod
-    def get_endpoint(cls):
-        return 'pricing_variables_batch'
-
-    def api_create(self, parent_id, fields=None, params=None, batch=None, pending=False):
-        from facebook_business.adobjects.productcatalog import ProductCatalog
-        return ProductCatalog(api=self._api, fbid=parent_id).create_pricing_variables_batch(fields, params, batch, pending)
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     _field_types = {
         'errors': 'list<Object>',
         'errors_total_count': 'int',
         'handle': 'string',
         'status': 'string',
-        'file': 'file',
-        'password': 'string',
-        'standard': 'Standard',
-        'update_only': 'bool',
-        'url': 'string',
-        'username': 'string',
+        'id': 'string',
     }
 
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['Standard'] = ProductCatalogPricingVariablesBatch.Standard.__dict__.values()
         return field_enum_info

@@ -47,12 +47,23 @@ class AdCreative(
         actor_id = 'actor_id'
         adlabels = 'adlabels'
         applink_treatment = 'applink_treatment'
+        asset_feed_id = 'asset_feed_id'
         asset_feed_spec = 'asset_feed_spec'
+        authorization_category = 'authorization_category'
+        auto_update = 'auto_update'
         body = 'body'
         branded_content_sponsor_page_id = 'branded_content_sponsor_page_id'
+        bundle_folder_id = 'bundle_folder_id'
         call_to_action_type = 'call_to_action_type'
+        categorization_criteria = 'categorization_criteria'
+        category_media_source = 'category_media_source'
+        destination_set_id = 'destination_set_id'
+        dynamic_ad_voice = 'dynamic_ad_voice'
+        effective_authorization_category = 'effective_authorization_category'
         effective_instagram_story_id = 'effective_instagram_story_id'
         effective_object_story_id = 'effective_object_story_id'
+        enable_direct_install = 'enable_direct_install'
+        enable_launch_instant_app = 'enable_launch_instant_app'
         id = 'id'
         image_crops = 'image_crops'
         image_hash = 'image_hash'
@@ -60,16 +71,20 @@ class AdCreative(
         instagram_actor_id = 'instagram_actor_id'
         instagram_permalink_url = 'instagram_permalink_url'
         instagram_story_id = 'instagram_story_id'
+        link_deep_link_url = 'link_deep_link_url'
         link_og_id = 'link_og_id'
         link_url = 'link_url'
         messenger_sponsored_message = 'messenger_sponsored_message'
         name = 'name'
         object_id = 'object_id'
+        object_store_url = 'object_store_url'
         object_story_id = 'object_story_id'
         object_story_spec = 'object_story_spec'
         object_type = 'object_type'
         object_url = 'object_url'
+        place_page_set_id = 'place_page_set_id'
         platform_customizations = 'platform_customizations'
+        playable_asset_id = 'playable_asset_id'
         product_set_id = 'product_set_id'
         recommender_settings = 'recommender_settings'
         status = 'status'
@@ -80,9 +95,11 @@ class AdCreative(
         url_tags = 'url_tags'
         use_page_actor_override = 'use_page_actor_override'
         video_id = 'video_id'
-        authorization_category = 'authorization_category'
-        dynamic_ad_voice = 'dynamic_ad_voice'
+        is_dco_internal = 'is_dco_internal'
+        call_to_action = 'call_to_action'
         image_file = 'image_file'
+        mockup_id = 'mockup_id'
+        page_id = 'page_id'
 
     class ApplinkTreatment:
         deeplink_with_web_fallback = 'deeplink_with_web_fallback'
@@ -134,6 +151,7 @@ class AdCreative(
         record_now = 'RECORD_NOW'
         get_showtimes = 'GET_SHOWTIMES'
         listen_now = 'LISTEN_NOW'
+        woodhenge_support = 'WOODHENGE_SUPPORT'
         event_rsvp = 'EVENT_RSVP'
         whatsapp_message = 'WHATSAPP_MESSAGE'
         follow_news_storyline = 'FOLLOW_NEWS_STORYLINE'
@@ -159,6 +177,17 @@ class AdCreative(
         none = 'NONE'
         political = 'POLITICAL'
 
+    class CategorizationCriteria:
+        brand = 'brand'
+        category = 'category'
+        product_type = 'product_type'
+
+    class CategoryMediaSource:
+        category = 'CATEGORY'
+        mixed = 'MIXED'
+        products_collage = 'PRODUCTS_COLLAGE'
+        products_slideshow = 'PRODUCTS_SLIDESHOW'
+
     class DynamicAdVoice:
         dynamic = 'DYNAMIC'
         story_owner = 'STORY_OWNER'
@@ -179,8 +208,8 @@ class AdCreative(
     def api_delete(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
             'account_id': 'string',
-            'adlabels': 'list<Object>',
             'name': 'string',
+            'adlabels': 'list<Object>',
             'status': 'status_enum',
         }
         enums = {
@@ -240,8 +269,8 @@ class AdCreative(
     def api_update(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
             'account_id': 'string',
-            'adlabels': 'list<Object>',
             'name': 'string',
+            'adlabels': 'list<Object>',
             'status': 'status_enum',
         }
         enums = {
@@ -298,7 +327,6 @@ class AdCreative(
             return request.execute()
 
     def create_ad_label(self, fields=None, params=None, batch=None, pending=False):
-        from facebook_business.adobjects.adlabel import AdLabel
         param_types = {
             'adlabels': 'list<Object>',
         }
@@ -310,9 +338,9 @@ class AdCreative(
             endpoint='/adlabels',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AdLabel,
+            target_class=AdCreative,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdLabel, api=self._api),
+            response_parser=ObjectParser(target_class=AdCreative, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -331,16 +359,20 @@ class AdCreative(
         param_types = {
             'ad_format': 'ad_format_enum',
             'dynamic_creative_spec': 'Object',
-            'end_date': 'datetime',
-            'height': 'unsigned int',
-            'place_page_id': 'int',
+            'interactive': 'bool',
             'post': 'Object',
+            'height': 'unsigned int',
+            'width': 'unsigned int',
+            'place_page_id': 'int',
             'product_item_ids': 'list<string>',
             'start_date': 'datetime',
-            'width': 'unsigned int',
+            'end_date': 'datetime',
+            'locale': 'string',
+            'render_type': 'render_type_enum',
         }
         enums = {
             'ad_format_enum': AdPreview.AdFormat.__dict__.values(),
+            'render_type_enum': AdPreview.RenderType.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -369,12 +401,23 @@ class AdCreative(
         'actor_id': 'string',
         'adlabels': 'list<AdLabel>',
         'applink_treatment': 'ApplinkTreatment',
+        'asset_feed_id': 'string',
         'asset_feed_spec': 'AdAssetFeedSpec',
+        'authorization_category': 'string',
+        'auto_update': 'bool',
         'body': 'string',
         'branded_content_sponsor_page_id': 'string',
+        'bundle_folder_id': 'string',
         'call_to_action_type': 'CallToActionType',
+        'categorization_criteria': 'string',
+        'category_media_source': 'string',
+        'destination_set_id': 'string',
+        'dynamic_ad_voice': 'string',
+        'effective_authorization_category': 'string',
         'effective_instagram_story_id': 'string',
         'effective_object_story_id': 'string',
+        'enable_direct_install': 'bool',
+        'enable_launch_instant_app': 'bool',
         'id': 'string',
         'image_crops': 'AdsImageCrops',
         'image_hash': 'string',
@@ -382,29 +425,35 @@ class AdCreative(
         'instagram_actor_id': 'string',
         'instagram_permalink_url': 'string',
         'instagram_story_id': 'string',
+        'link_deep_link_url': 'string',
         'link_og_id': 'string',
         'link_url': 'string',
         'messenger_sponsored_message': 'string',
         'name': 'string',
         'object_id': 'string',
+        'object_store_url': 'string',
         'object_story_id': 'string',
         'object_story_spec': 'AdCreativeObjectStorySpec',
         'object_type': 'ObjectType',
         'object_url': 'string',
-        'platform_customizations': 'Object',
+        'place_page_set_id': 'string',
+        'platform_customizations': 'AdCreativePlatformCustomization',
+        'playable_asset_id': 'string',
         'product_set_id': 'string',
-        'recommender_settings': 'Object',
+        'recommender_settings': 'AdCreativeRecommenderSettings',
         'status': 'Status',
         'template_url': 'string',
-        'template_url_spec': 'Object',
+        'template_url_spec': 'AdCreativeTemplateURLSpec',
         'thumbnail_url': 'string',
         'title': 'string',
         'url_tags': 'string',
         'use_page_actor_override': 'bool',
         'video_id': 'string',
-        'authorization_category': 'AuthorizationCategory',
-        'dynamic_ad_voice': 'DynamicAdVoice',
+        'is_dco_internal': 'bool',
+        'call_to_action': 'Object',
         'image_file': 'string',
+        'mockup_id': 'string',
+        'page_id': 'string',
     }
 
     def _setitem_trigger(self, key, value):
@@ -419,6 +468,8 @@ class AdCreative(
         field_enum_info['ObjectType'] = AdCreative.ObjectType.__dict__.values()
         field_enum_info['Status'] = AdCreative.Status.__dict__.values()
         field_enum_info['AuthorizationCategory'] = AdCreative.AuthorizationCategory.__dict__.values()
+        field_enum_info['CategorizationCriteria'] = AdCreative.CategorizationCriteria.__dict__.values()
+        field_enum_info['CategoryMediaSource'] = AdCreative.CategoryMediaSource.__dict__.values()
         field_enum_info['DynamicAdVoice'] = AdCreative.DynamicAdVoice.__dict__.values()
         field_enum_info['Operator'] = AdCreative.Operator.__dict__.values()
         return field_enum_info

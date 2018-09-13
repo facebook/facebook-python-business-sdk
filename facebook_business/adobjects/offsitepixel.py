@@ -46,6 +46,7 @@ class OffsitePixel(
         js_pixel = 'js_pixel'
         last_firing_time = 'last_firing_time'
         name = 'name'
+        status = 'status'
         tag = 'tag'
 
     # @deprecated get_endpoint function is deprecated
@@ -87,6 +88,7 @@ class OffsitePixel(
         'js_pixel': 'string',
         'last_firing_time': 'datetime',
         'name': 'string',
+        'status': 'string',
         'tag': 'string',
     }
 

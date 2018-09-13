@@ -77,6 +77,33 @@ class AdAsyncRequestSet(
         from facebook_business.adobjects.adaccount import AdAccount
         return AdAccount(api=self._api, fbid=parent_id).create_async_ad_request_set(fields, params, batch, pending)
 
+    def api_delete(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='DELETE',
+            endpoint='/',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def api_get(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
         }
@@ -85,6 +112,37 @@ class AdAsyncRequestSet(
         request = FacebookRequest(
             node_id=self['id'],
             method='GET',
+            endpoint='/',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdAsyncRequestSet,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def api_update(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'name': 'string',
+            'notification_uri': 'string',
+            'notification_mode': 'notification_mode_enum',
+        }
+        enums = {
+            'notification_mode_enum': AdAsyncRequestSet.NotificationMode.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),

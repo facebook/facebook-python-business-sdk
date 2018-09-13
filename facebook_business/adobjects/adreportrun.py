@@ -56,21 +56,21 @@ class AdReportRun(
         schedule_id = 'schedule_id'
         time_completed = 'time_completed'
         time_ref = 'time_ref'
+        default_summary = 'default_summary'
+        fields = 'fields'
+        filtering = 'filtering'
+        summary = 'summary'
+        sort = 'sort'
         action_attribution_windows = 'action_attribution_windows'
         action_breakdowns = 'action_breakdowns'
         action_report_time = 'action_report_time'
         breakdowns = 'breakdowns'
         date_preset = 'date_preset'
-        default_summary = 'default_summary'
         export_columns = 'export_columns'
         export_format = 'export_format'
         export_name = 'export_name'
-        fields = 'fields'
-        filtering = 'filtering'
         level = 'level'
         product_id_limit = 'product_id_limit'
-        sort = 'sort'
-        summary = 'summary'
         summary_action_breakdowns = 'summary_action_breakdowns'
         time_increment = 'time_increment'
         time_range = 'time_range'
@@ -86,6 +86,33 @@ class AdReportRun(
         from facebook_business.adobjects.adaccount import AdAccount
         return AdAccount(api=self._api, fbid=parent_id).get_insights_async(fields, params, batch, pending)
 
+    def api_delete(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='DELETE',
+            endpoint='/',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def api_get(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
         }
@@ -94,6 +121,35 @@ class AdReportRun(
         request = FacebookRequest(
             node_id=self['id'],
             method='GET',
+            endpoint='/',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdReportRun,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def api_update(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'emails': 'list<string>',
+            'is_bookmarked': 'bool',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
@@ -144,6 +200,33 @@ class AdReportRun(
             self.assure_call()
             return request.execute()
 
+    def create_retry(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/retry',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdReportRun,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdReportRun, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     _field_types = {
         'account_id': 'string',
         'async_percent_completion': 'unsigned int',
@@ -158,21 +241,21 @@ class AdReportRun(
         'schedule_id': 'string',
         'time_completed': 'unsigned int',
         'time_ref': 'unsigned int',
+        'default_summary': 'bool',
+        'fields': 'list<string>',
+        'filtering': 'list<Object>',
+        'summary': 'list<string>',
+        'sort': 'list<string>',
         'action_attribution_windows': 'list<ActionAttributionWindows>',
         'action_breakdowns': 'list<ActionBreakdowns>',
         'action_report_time': 'ActionReportTime',
         'breakdowns': 'list<Breakdowns>',
         'date_preset': 'DatePreset',
-        'default_summary': 'bool',
         'export_columns': 'list<string>',
         'export_format': 'string',
         'export_name': 'string',
-        'fields': 'list<Summary>',
-        'filtering': 'list<Object>',
         'level': 'Level',
         'product_id_limit': 'int',
-        'sort': 'list<string>',
-        'summary': 'list<Summary>',
         'summary_action_breakdowns': 'list<SummaryActionBreakdowns>',
         'time_increment': 'string',
         'time_range': 'Object',

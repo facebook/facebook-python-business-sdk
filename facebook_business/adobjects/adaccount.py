@@ -47,6 +47,8 @@ class AdAccount(
     class Field(AbstractObject.Field):
         account_id = 'account_id'
         account_status = 'account_status'
+        ad_account_creation_request = 'ad_account_creation_request'
+        ad_account_promotable_objects = 'ad_account_promotable_objects'
         age = 'age'
         agency_client_declaration = 'agency_client_declaration'
         amount_spent = 'amount_spent'
@@ -64,6 +66,8 @@ class AdAccount(
         capabilities = 'capabilities'
         created_time = 'created_time'
         currency = 'currency'
+        daily_spend_limit = 'daily_spend_limit'
+        direct_deals_tos_accepted = 'direct_deals_tos_accepted'
         disable_reason = 'disable_reason'
         end_advertiser = 'end_advertiser'
         end_advertiser_name = 'end_advertiser_name'
@@ -104,6 +108,63 @@ class AdAccount(
         user_role = 'user_role'
         user_tos_accepted = 'user_tos_accepted'
 
+    class Currency:
+        aed = 'AED'
+        ars = 'ARS'
+        aud = 'AUD'
+        bdt = 'BDT'
+        bob = 'BOB'
+        brl = 'BRL'
+        cad = 'CAD'
+        chf = 'CHF'
+        clp = 'CLP'
+        cny = 'CNY'
+        cop = 'COP'
+        crc = 'CRC'
+        czk = 'CZK'
+        dkk = 'DKK'
+        dzd = 'DZD'
+        egp = 'EGP'
+        eur = 'EUR'
+        gbp = 'GBP'
+        gtq = 'GTQ'
+        hkd = 'HKD'
+        hnl = 'HNL'
+        huf = 'HUF'
+        idr = 'IDR'
+        ils = 'ILS'
+        inr = 'INR'
+        isk = 'ISK'
+        jpy = 'JPY'
+        kes = 'KES'
+        krw = 'KRW'
+        mop = 'MOP'
+        mxn = 'MXN'
+        myr = 'MYR'
+        ngn = 'NGN'
+        nio = 'NIO'
+        nok = 'NOK'
+        nzd = 'NZD'
+        pen = 'PEN'
+        php = 'PHP'
+        pkr = 'PKR'
+        pln = 'PLN'
+        pyg = 'PYG'
+        qar = 'QAR'
+        ron = 'RON'
+        rub = 'RUB'
+        sar = 'SAR'
+        sek = 'SEK'
+        sgd = 'SGD'
+        thb = 'THB'
+        value_try = 'TRY'
+        twd = 'TWD'
+        usd = 'USD'
+        uyu = 'UYU'
+        vef = 'VEF'
+        vnd = 'VND'
+        zar = 'ZAR'
+
     class PermittedTasks:
         manage = 'MANAGE'
         advertise = 'ADVERTISE'
@@ -113,6 +174,25 @@ class AdAccount(
         manage = 'MANAGE'
         advertise = 'ADVERTISE'
         analyze = 'ANALYZE'
+
+    class ClaimObjective:
+        auto_offer = 'AUTO_OFFER'
+        automotive_model = 'AUTOMOTIVE_MODEL'
+        home_listing = 'HOME_LISTING'
+        product = 'PRODUCT'
+        travel = 'TRAVEL'
+        vehicle = 'VEHICLE'
+
+    class ContentType:
+        automotive_model = 'AUTOMOTIVE_MODEL'
+        destination = 'DESTINATION'
+        flight = 'FLIGHT'
+        home_listing = 'HOME_LISTING'
+        hotel = 'HOTEL'
+        media_title = 'MEDIA_TITLE'
+        product = 'PRODUCT'
+        vehicle = 'VEHICLE'
+        vehicle_offer = 'VEHICLE_OFFER'
 
     class Subtype:
         custom = 'CUSTOM'
@@ -164,18 +244,23 @@ class AdAccount(
 
     def api_update(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
-            'agency_client_declaration': 'map',
-            'attribution_spec': 'list<Object>',
-            'business_info': 'map',
-            'end_advertiser': 'string',
-            'is_notifications_enabled': 'bool',
-            'media_agency': 'string',
             'name': 'string',
-            'partner': 'string',
-            'spend_cap': 'float',
             'spend_cap_action': 'string',
+            'spend_cap': 'float',
+            'agency_client_declaration': 'map',
+            'business_info': 'map',
+            'tos_accepted': 'map',
+            'redownload': 'bool',
+            'currency': 'currency_enum',
+            'timezone_id': 'unsigned int',
+            'end_advertiser': 'string',
+            'media_agency': 'string',
+            'partner': 'string',
+            'is_notifications_enabled': 'bool',
+            'attribution_spec': 'list<Object>',
         }
         enums = {
+            'currency_enum': AdAccount.Currency.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -202,14 +287,16 @@ class AdAccount(
     def get_activities(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.adactivity import AdActivity
         param_types = {
-            'add_children': 'bool',
-            'business_id': 'string',
-            'category': 'category_enum',
-            'extra_oids': 'list<string>',
-            'oid': 'string',
+            'after': 'string',
+            'limit': 'int',
             'since': 'datetime',
-            'uid': 'int',
+            'category': 'category_enum',
             'until': 'datetime',
+            'uid': 'int',
+            'business_id': 'string',
+            'oid': 'string',
+            'extra_oids': 'list<string>',
+            'add_children': 'bool',
         }
         enums = {
             'category_enum': AdActivity.Category.__dict__.values(),
@@ -223,6 +310,97 @@ class AdAccount(
             target_class=AdActivity,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=AdActivity, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_activity_logs(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adaccountactivity import AdAccountActivity
+        param_types = {
+            'changed_all': 'list<changed_all_enum>',
+            'changed_any': 'list<changed_any_enum>',
+            'since': 'Object',
+            'until': 'Object',
+            'uid': 'Object',
+        }
+        enums = {
+            'changed_all_enum': AdAccountActivity.ChangedAll.__dict__.values(),
+            'changed_any_enum': AdAccountActivity.ChangedAny.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/activity_logs',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdAccountActivity,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdAccountActivity, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_ad_column_sizes(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adcolumnsizes import AdColumnSizes
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/ad_column_sizes',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdColumnSizes,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdColumnSizes, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_ad_custom_derived_metrics(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adcustomderivedmetrics import AdCustomDerivedMetrics
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/ad_custom_derived_metrics',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdCustomDerivedMetrics,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdCustomDerivedMetrics, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -267,8 +445,8 @@ class AdAccount(
     def create_ad_place_page_set(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.adplacepageset import AdPlacePageSet
         param_types = {
-            'location_types': 'list<location_types_enum>',
             'name': 'string',
+            'location_types': 'list<location_types_enum>',
             'parent_page': 'string',
         }
         enums = {
@@ -296,7 +474,93 @@ class AdAccount(
             self.assure_call()
             return request.execute()
 
+    def get_ad_report_builder_reports(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adsreportbuildersavedreport import AdsReportBuilderSavedReport
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/ad_report_builder_reports',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdsReportBuilderSavedReport,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdsReportBuilderSavedReport, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_ad_saved_locations(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adsavedlocation import AdSavedLocation
+        param_types = {
+            'fields': 'list<string>',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/ad_saved_locations',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdSavedLocation,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdSavedLocation, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_ad_studies(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adstudy import AdStudy
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/ad_studies',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdStudy,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdStudy, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_ad_asset_feeds(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adassetfeed import AdAssetFeed
         param_types = {
         }
         enums = {
@@ -307,9 +571,158 @@ class AdAccount(
             endpoint='/adasset_feeds',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=AdAssetFeed,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=AdAssetFeed, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_ad_asset_feed(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adassetfeed import AdAssetFeed
+        param_types = {
+            'images': 'list<Object>',
+            'videos': 'list<Object>',
+            'bodies': 'list<Object>',
+            'call_to_action_types': 'list<call_to_action_types_enum>',
+            'descriptions': 'list<Object>',
+            'link_urls': 'list<Object>',
+            'titles': 'list<Object>',
+            'captions': 'list<Object>',
+            'ad_formats': 'list<ad_formats_enum>',
+            'groups': 'list<Object>',
+            'target_rules': 'list<Object>',
+            'asset_customization_rules': 'list<Object>',
+            'optimization_type': 'optimization_type_enum',
+            'call_to_actions': 'list<Object>',
+            'autotranslate': 'list<string>',
+            'additional_data': 'map',
+        }
+        enums = {
+            'call_to_action_types_enum': AdAssetFeed.CallToActionTypes.__dict__.values(),
+            'ad_formats_enum': AdAssetFeed.AdFormats.__dict__.values(),
+            'optimization_type_enum': AdAssetFeed.OptimizationType.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/adasset_feeds',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdAssetFeed,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdAssetFeed, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_ad_campaign_conversions(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adconversionvalues import AdConversionValues
+        param_types = {
+            'campaign_ids': 'list<string>',
+            'include_deleted': 'bool',
+            'start_time': 'datetime',
+            'end_time': 'datetime',
+            'time_start': 'datetime',
+            'time_stop': 'datetime',
+            'aggregate_days': 'int',
+            'by_impression_time': 'bool',
+            'offset': 'int',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/adcampaignconversions',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdConversionValues,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdConversionValues, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_ad_campaign_stats(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adcampaignstats import AdCampaignStats
+        param_types = {
+            'start_time': 'datetime',
+            'end_time': 'datetime',
+            'time_start': 'datetime',
+            'time_stop': 'datetime',
+            'action_attribution_days_after_click': 'action_attribution_days_after_click_enum',
+            'action_attribution_days_after_imp': 'action_attribution_days_after_imp_enum',
+            'include_deleted': 'bool',
+        }
+        enums = {
+            'action_attribution_days_after_click_enum': AdCampaignStats.ActionAttributionDaysAfterClick.__dict__.values(),
+            'action_attribution_days_after_imp_enum': AdCampaignStats.ActionAttributionDaysAfterImp.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/adcampaignstats',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdCampaignStats,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdCampaignStats, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_ad_contracts(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adcontract import AdContract
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/adcontracts',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdContract,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdContract, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -354,44 +767,91 @@ class AdAccount(
     def create_ad_creative(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.adcreative import AdCreative
         param_types = {
+            'actor_id': 'unsigned int',
             'adlabels': 'list<Object>',
             'applink_treatment': 'applink_treatment_enum',
+            'asset_feed_id': 'string',
+            'asset_feed_spec': 'Object',
             'authorization_category': 'authorization_category_enum',
+            'is_dco_internal': 'bool',
             'body': 'string',
             'branded_content_sponsor_page_id': 'string',
+            'bundle_folder_id': 'string',
+            'categorization_criteria': 'categorization_criteria_enum',
+            'category_media_source': 'category_media_source_enum',
+            'call_to_action': 'Object',
             'dynamic_ad_voice': 'dynamic_ad_voice_enum',
+            'destination_set_id': 'Object',
+            'enable_direct_install': 'bool',
+            'enable_launch_instant_app': 'bool',
             'image_crops': 'map',
             'image_file': 'string',
             'image_hash': 'string',
             'image_url': 'string',
             'instagram_actor_id': 'string',
             'instagram_permalink_url': 'string',
+            'instagram_story_id': 'unsigned int',
             'link_og_id': 'string',
             'link_url': 'string',
             'name': 'string',
             'object_id': 'unsigned int',
             'object_story_id': 'string',
-            'object_story_spec': 'AdCreativeObjectStorySpec',
             'object_type': 'string',
+            'object_url': 'string',
             'platform_customizations': 'Object',
+            'playable_asset_id': 'string',
             'product_set_id': 'string',
             'recommender_settings': 'map',
+            'messenger_sponsored_message': 'string',
             'template_url': 'string',
             'template_url_spec': 'Object',
             'thumbnail_url': 'string',
             'title': 'string',
             'url_tags': 'string',
             'use_page_actor_override': 'bool',
+            'object_story_spec': 'AdCreativeObjectStorySpec',
         }
         enums = {
             'applink_treatment_enum': AdCreative.ApplinkTreatment.__dict__.values(),
             'authorization_category_enum': AdCreative.AuthorizationCategory.__dict__.values(),
+            'categorization_criteria_enum': AdCreative.CategorizationCriteria.__dict__.values(),
+            'category_media_source_enum': AdCreative.CategoryMediaSource.__dict__.values(),
             'dynamic_ad_voice_enum': AdCreative.DynamicAdVoice.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
             method='POST',
             endpoint='/adcreatives',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdCreative,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdCreative, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_ad_creatives_from_mockup(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adcreative import AdCreative
+        param_types = {
+            'mockup_id': 'string',
+            'page_id': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/adcreatives_from_mockups',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
             target_class=AdCreative,
@@ -441,6 +901,112 @@ class AdAccount(
             self.assure_call()
             return request.execute()
 
+    def get_ad_drafts(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.addraft import AdDraft
+        param_types = {
+            'author_id': 'int',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/addrafts',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdDraft,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdDraft, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_ad_group_conversions(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adconversionvalues import AdConversionValues
+        param_types = {
+            'start_time': 'datetime',
+            'end_time': 'datetime',
+            'time_start': 'datetime',
+            'time_stop': 'datetime',
+            'aggregate_days': 'int',
+            'by_impression_time': 'bool',
+            'include_deleted': 'bool',
+            'offset': 'int',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/adgroupconversions',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdConversionValues,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdConversionValues, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_ad_group_stats(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adcampaignstats import AdCampaignStats
+        param_types = {
+            'start_time': 'datetime',
+            'end_time': 'datetime',
+            'time_start': 'datetime',
+            'time_stop': 'datetime',
+            'action_attribution_days_after_click': 'action_attribution_days_after_click_enum',
+            'action_attribution_days_after_imp': 'action_attribution_days_after_imp_enum',
+            'adgroup_ids': 'list<string>',
+            'campaign_ids': 'list<string>',
+            'offset': 'int',
+            'stats_mode': 'string',
+            'include_deleted': 'bool',
+        }
+        enums = {
+            'action_attribution_days_after_click_enum': AdCampaignStats.ActionAttributionDaysAfterClick.__dict__.values(),
+            'action_attribution_days_after_imp_enum': AdCampaignStats.ActionAttributionDaysAfterImp.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/adgroupstats',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdCampaignStats,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdCampaignStats, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def delete_ad_images(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
             'hash': 'string',
@@ -472,12 +1038,12 @@ class AdAccount(
     def get_ad_images(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.adimage import AdImage
         param_types = {
+            'hashes': 'list<string>',
+            'minwidth': 'unsigned int',
+            'minheight': 'unsigned int',
+            'name': 'string',
             'biz_tag_id': 'unsigned int',
             'business_id': 'string',
-            'hashes': 'list<string>',
-            'minheight': 'unsigned int',
-            'minwidth': 'unsigned int',
-            'name': 'string',
         }
         enums = {
         }
@@ -504,8 +1070,8 @@ class AdAccount(
             return request.execute()
 
     def create_ad_image(self, fields=None, params=None, batch=None, pending=False):
-        from facebook_business.adobjects.adimage import AdImage
         param_types = {
+            'zipbytes': 'Object',
             'bytes': 'Object',
             'copy_from': 'Object',
         }
@@ -517,10 +1083,10 @@ class AdAccount(
             endpoint='/adimages',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AdImage,
+            target_class=AbstractCrudObject,
             api_type='EDGE',
             allow_file_upload=True,
-            response_parser=ObjectParser(target_class=AdImage, api=self._api),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -591,72 +1157,139 @@ class AdAccount(
             self.assure_call()
             return request.execute()
 
-    def create_ad_language_asset(self, fields=None, params=None, batch=None, pending=False):
+    def get_ad_language_assets(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adassetfeed import AdAssetFeed
         param_types = {
-            'bodies': 'list<Object>',
-            'call_to_action_type': 'call_to_action_type_enum',
-            'default_language': 'string',
-            'descriptions': 'list<Object>',
-            'image': 'Object',
-            'link_urls': 'list<Object>',
-            'titles': 'list<Object>',
-            'video': 'Object',
         }
         enums = {
-            'call_to_action_type_enum': [
-                'OPEN_LINK',
-                'LIKE_PAGE',
-                'SHOP_NOW',
-                'PLAY_GAME',
-                'INSTALL_APP',
-                'USE_APP',
-                'CALL',
-                'CALL_ME',
-                'INSTALL_MOBILE_APP',
-                'USE_MOBILE_APP',
-                'MOBILE_DOWNLOAD',
-                'BOOK_TRAVEL',
-                'LISTEN_MUSIC',
-                'WATCH_VIDEO',
-                'LEARN_MORE',
-                'SIGN_UP',
-                'DOWNLOAD',
-                'WATCH_MORE',
-                'NO_BUTTON',
-                'VISIT_PAGES_FEED',
-                'APPLY_NOW',
-                'BUY_NOW',
-                'GET_OFFER',
-                'GET_OFFER_VIEW',
-                'BUY_TICKETS',
-                'UPDATE_APP',
-                'GET_DIRECTIONS',
-                'BUY',
-                'MESSAGE_PAGE',
-                'DONATE',
-                'SUBSCRIBE',
-                'SAY_THANKS',
-                'SELL_NOW',
-                'SHARE',
-                'DONATE_NOW',
-                'GET_QUOTE',
-                'CONTACT_US',
-                'ORDER_NOW',
-                'ADD_TO_CART',
-                'VIDEO_ANNOTATION',
-                'MOMENTS',
-                'RECORD_NOW',
-                'GET_SHOWTIMES',
-                'LISTEN_NOW',
-                'EVENT_RSVP',
-                'WHATSAPP_MESSAGE',
-                'FOLLOW_NEWS_STORYLINE',
-            ],
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/adlanguage_assets',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdAssetFeed,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdAssetFeed, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_ad_language_asset(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adassetfeed import AdAssetFeed
+        param_types = {
+            'image': 'Object',
+            'video': 'Object',
+            'call_to_action_type': 'call_to_action_type_enum',
+            'bodies': 'list<Object>',
+            'descriptions': 'list<Object>',
+            'titles': 'list<Object>',
+            'link_urls': 'list<Object>',
+            'default_language': 'string',
+        }
+        enums = {
+            'call_to_action_type_enum': AdAssetFeed.CallToActionType.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
             method='POST',
             endpoint='/adlanguage_assets',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdAssetFeed,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdAssetFeed, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_ad_playables(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.playablecontent import PlayableContent
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/adplayables',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=PlayableContent,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=PlayableContent, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_ad_playable(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.playablecontent import PlayableContent
+        param_types = {
+            'name': 'string',
+            'source': 'file',
+            'source_url': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/adplayables',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=PlayableContent,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=PlayableContent, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def delete_ad_report_runs(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='DELETE',
+            endpoint='/adreportruns',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
@@ -730,12 +1363,223 @@ class AdAccount(
             self.assure_call()
             return request.execute()
 
+    def create_ad_report_schedule(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'name': 'string',
+            'user_columns': 'list<string>',
+            'user_attribution_windows': 'list<string>',
+            'builtin_column_set': 'builtin_column_set_enum',
+            'normalized_filter': 'list<Object>',
+            'user_filter': 'list<Object>',
+            'sort': 'list<Object>',
+            'breakdowns': 'list<string>',
+            'insights_section': 'Object',
+            'level': 'level_enum',
+            'date_preset': 'date_preset_enum',
+            'date_interval': 'Object',
+            'format_version': 'unsigned int',
+            'creation_source': 'creation_source_enum',
+            'actions_group_by': 'list<actions_group_by_enum>',
+            'custom_column_set_id': 'string',
+            'data_columns': 'list<string>',
+            'emails': 'list<string>',
+            'export_columns': 'Object',
+            'filters': 'list<Object>',
+            'schedule_frequency': 'schedule_frequency_enum',
+            'sort_by': 'string',
+            'sort_dir': 'string',
+            'start_date': 'Object',
+            'status': 'status_enum',
+            'subscribers': 'list<int>',
+            'time_increment': 'string',
+        }
+        enums = {
+            'builtin_column_set_enum': [
+                '',
+                'APP_ENGAGEMENT',
+                'AUDIENCE_DIRECT',
+                'BIDDING_AND_OPTIMIZATION',
+                'CAROUSEL_ENGAGEMENT',
+                'CROSS_DEVICE',
+                'DELIVERY',
+                'ENGAGEMENT',
+                'HOUSEHOLD',
+                'MESSAGING_ENGAGEMENT',
+                'MESSENGER',
+                'OFFLINE_CONVERSIONS',
+                'PERFORMANCE',
+                'PERFORMANCE_LEGACY',
+                'TARGETING_AND_CREATIVE',
+                'VIDEO_ENGAGEMENT',
+                'VALIDATION_VIEW',
+            ],
+            'level_enum': [
+                'politicalad',
+                'ad',
+                'adgroup',
+                'campaign',
+                'campaign_group',
+                'account',
+            ],
+            'date_preset_enum': [
+                'today',
+                'yesterday',
+                'this_month',
+                'last_month',
+                'this_quarter',
+                'lifetime',
+                'last_3d',
+                'last_7d',
+                'last_14d',
+                'last_28d',
+                'last_30d',
+                'last_90d',
+                'last_week_mon_sun',
+                'last_week_sun_sat',
+                'last_quarter',
+                'last_year',
+                'this_week_mon_today',
+                'this_week_sun_today',
+                'this_year',
+            ],
+            'creation_source_enum': [
+                'adsManagerReporting',
+                'newAdsManager',
+                'adsExcelAddin',
+            ],
+            'actions_group_by_enum': [
+                'action_canvas_component_id',
+                'action_canvas_component_name',
+                'action_carousel_card_id',
+                'action_carousel_card_name',
+                'action_destination',
+                'action_device',
+                'action_event_channel',
+                'action_target_id',
+                'action_type',
+                'action_video_sound',
+                'action_video_type',
+            ],
+            'schedule_frequency_enum': [
+                'daily',
+                'weekly',
+                'monthly',
+            ],
+            'status_enum': [
+                'Active',
+                'Paused',
+                'Deleted',
+            ],
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/adreportschedules',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_ad_report_specs(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adreportspec import AdReportSpec
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/adreportspecs',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdReportSpec,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdReportSpec, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_ad_report_spec(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adreportspec import AdReportSpec
+        param_types = {
+            'time_ranges': 'Object',
+            'data_columns': 'list<string>',
+            'actions_group_by': 'list<actions_group_by_enum>',
+            'filters': 'list<Object>',
+            'sort_by': 'string',
+            'sort_dir': 'string',
+            'time_increment': 'string',
+            'time_interval': 'Object',
+            'date_preset': 'date_preset_enum',
+            'format': 'format_enum',
+            'export_columns': 'Object',
+            'report_run_id': 'string',
+            'name': 'string',
+            'user_report': 'bool',
+            'business_id': 'string',
+            'limit': 'int',
+            'bypass_async': 'bool',
+            'report_schedule_id': 'string',
+            'insights_section': 'Object',
+            'creation_source': 'creation_source_enum',
+            'format_version': 'unsigned int',
+        }
+        enums = {
+            'actions_group_by_enum': AdReportSpec.ActionsGroupBy.__dict__.values(),
+            'date_preset_enum': AdReportSpec.DatePreset.__dict__.values(),
+            'format_enum': AdReportSpec.Format.__dict__.values(),
+            'creation_source_enum': AdReportSpec.CreationSource.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/adreportspecs',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdReportSpec,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdReportSpec, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_ad_rules_history(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.adaccountadruleshistory import AdAccountAdRulesHistory
         param_types = {
+            'object_id': 'string',
             'action': 'action_enum',
             'hide_no_changes': 'bool',
-            'object_id': 'string',
         }
         enums = {
             'action_enum': AdAccountAdRulesHistory.Action.__dict__.values(),
@@ -762,14 +1606,42 @@ class AdAccount(
             self.assure_call()
             return request.execute()
 
+    def get_ad_rules_library(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adrule import AdRule
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/adrules_library',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdRule,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdRule, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def create_ad_rules_library(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.adrule import AdRule
         param_types = {
             'account_id': 'string',
             'evaluation_spec': 'Object',
             'execution_spec': 'Object',
-            'name': 'string',
             'schedule_spec': 'Object',
+            'name': 'string',
             'status': 'status_enum',
         }
         enums = {
@@ -797,14 +1669,50 @@ class AdAccount(
             self.assure_call()
             return request.execute()
 
+    def delete_ads(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'delete_strategy': 'delete_strategy_enum',
+            'object_count': 'int',
+            'before_date': 'datetime',
+        }
+        enums = {
+            'delete_strategy_enum': [
+                'DELETE_ANY',
+                'DELETE_OLDEST',
+                'DELETE_ARCHIVED_BEFORE',
+            ],
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='DELETE',
+            endpoint='/ads',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_ads(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.ad import Ad
         param_types = {
-            'ad_draft_id': 'string',
             'date_preset': 'date_preset_enum',
             'effective_status': 'list<string>',
+            'include_deleted': 'bool',
             'time_range': 'Object',
             'updated_since': 'int',
+            'ad_draft_id': 'string',
         }
         enums = {
             'date_preset_enum': Ad.DatePreset.__dict__.values(),
@@ -834,21 +1742,30 @@ class AdAccount(
     def create_ad(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.ad import Ad
         param_types = {
-            'adlabels': 'list<Object>',
+            'audience_id': 'string',
             'adset_id': 'unsigned int',
-            'adset_spec': 'AdSet',
-            'bid_amount': 'int',
-            'creative': 'AdCreative',
             'date_format': 'string',
-            'display_sequence': 'unsigned int',
-            'execution_options': 'list<execution_options_enum>',
+            'include_demolink_hashes': 'bool',
+            'creative': 'AdCreative',
             'name': 'string',
             'status': 'status_enum',
+            'priority': 'unsigned int',
             'tracking_specs': 'Object',
+            'social_prefs': 'list<string>',
+            'display_sequence': 'unsigned int',
+            'engagement_audience': 'bool',
+            'social_required': 'bool',
+            'adset_spec': 'AdSet',
+            'draft_adgroup_id': 'string',
+            'execution_options': 'list<execution_options_enum>',
+            'adlabels': 'list<Object>',
+            'bid_amount': 'int',
+            'redownload': 'bool',
+            'source_ad_id': 'string',
         }
         enums = {
-            'execution_options_enum': Ad.ExecutionOptions.__dict__.values(),
             'status_enum': Ad.Status.__dict__.values(),
+            'execution_options_enum': Ad.ExecutionOptions.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -904,18 +1821,110 @@ class AdAccount(
             self.assure_call()
             return request.execute()
 
+    def get_ad_script_execution_histories(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adscriptexecutionhistory import AdScriptExecutionHistory
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/adscript_execution_histories',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdScriptExecutionHistory,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdScriptExecutionHistory, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_ad_scripts(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adscript import AdScript
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/adscripts',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdScript,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdScript, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def delete_ad_sets(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'delete_strategy': 'delete_strategy_enum',
+            'object_count': 'int',
+            'before_date': 'datetime',
+        }
+        enums = {
+            'delete_strategy_enum': [
+                'DELETE_ANY',
+                'DELETE_OLDEST',
+                'DELETE_ARCHIVED_BEFORE',
+            ],
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='DELETE',
+            endpoint='/adsets',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_ad_sets(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.adset import AdSet
         param_types = {
-            'ad_draft_id': 'string',
-            'date_preset': 'date_preset_enum',
             'effective_status': 'list<effective_status_enum>',
+            'date_preset': 'date_preset_enum',
+            'include_deleted': 'bool',
             'is_completed': 'bool',
             'time_range': 'Object',
+            'ad_draft_id': 'string',
         }
         enums = {
-            'date_preset_enum': AdSet.DatePreset.__dict__.values(),
             'effective_status_enum': AdSet.EffectiveStatus.__dict__.values(),
+            'date_preset_enum': AdSet.DatePreset.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -942,46 +1951,65 @@ class AdAccount(
     def create_ad_set(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.adset import AdSet
         param_types = {
+            'ad_keywords': 'map',
             'adlabels': 'list<Object>',
-            'adset_schedule': 'list<Object>',
-            'attribution_spec': 'list<map>',
             'bid_amount': 'int',
+            'bid_adjustments': 'Object',
             'bid_strategy': 'bid_strategy_enum',
             'billing_event': 'billing_event_enum',
             'campaign_id': 'string',
             'campaign_spec': 'Object',
+            'adset_schedule': 'list<Object>',
+            'status': 'status_enum',
             'creative_sequence': 'list<string>',
             'daily_budget': 'unsigned int',
             'daily_imps': 'unsigned int',
             'daily_min_spend_target': 'unsigned int',
             'daily_spend_cap': 'unsigned int',
+            'date_format': 'string',
             'destination_type': 'destination_type_enum',
             'end_time': 'datetime',
             'execution_options': 'list<execution_options_enum>',
+            'frequency_cap': 'unsigned int',
+            'frequency_cap_reset_period': 'unsigned int',
             'frequency_control_specs': 'list<Object>',
+            'is_autobid': 'bool',
+            'is_average_price_pacing': 'bool',
+            'is_dynamic_creative': 'bool',
             'is_dynamic_creative_optimization': 'bool',
             'lifetime_budget': 'unsigned int',
+            'lifetime_frequency_cap': 'unsigned int',
             'lifetime_imps': 'unsigned int',
             'lifetime_min_spend_target': 'unsigned int',
             'lifetime_spend_cap': 'unsigned int',
+            'line_number': 'unsigned int',
             'name': 'string',
             'optimization_goal': 'optimization_goal_enum',
             'pacing_type': 'list<string>',
             'promoted_object': 'Object',
+            'rb_prediction_id': 'string',
+            'redownload': 'bool',
             'rf_prediction_id': 'string',
+            'source_adset_id': 'string',
             'start_time': 'datetime',
-            'status': 'status_enum',
             'targeting': 'Targeting',
             'time_based_ad_rotation_id_blocks': 'list<list<unsigned int>>',
             'time_based_ad_rotation_intervals': 'list<unsigned int>',
+            'time_start': 'datetime',
+            'time_stop': 'datetime',
+            'topline_id': 'string',
+            'upstream_events': 'map',
+            'full_funnel_exploration_mode': 'full_funnel_exploration_mode_enum',
+            'attribution_spec': 'list<map>',
         }
         enums = {
             'bid_strategy_enum': AdSet.BidStrategy.__dict__.values(),
             'billing_event_enum': AdSet.BillingEvent.__dict__.values(),
+            'status_enum': AdSet.Status.__dict__.values(),
             'destination_type_enum': AdSet.DestinationType.__dict__.values(),
             'execution_options_enum': AdSet.ExecutionOptions.__dict__.values(),
             'optimization_goal_enum': AdSet.OptimizationGoal.__dict__.values(),
-            'status_enum': AdSet.Status.__dict__.values(),
+            'full_funnel_exploration_mode_enum': AdSet.FullFunnelExplorationMode.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -1036,11 +2064,41 @@ class AdAccount(
             self.assure_call()
             return request.execute()
 
-    def get_ads_pixels(self, fields=None, params=None, batch=None, pending=False):
-        from facebook_business.adobjects.adspixel import AdsPixel
+    def get_ads_payment_cycle(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adspaymentcycle import AdsPaymentCycle
         param_types = {
         }
         enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/adspaymentcycle',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdsPaymentCycle,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdsPaymentCycle, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_ads_pixels(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adspixel import AdsPixel
+        param_types = {
+            'sort_by': 'sort_by_enum',
+        }
+        enums = {
+            'sort_by_enum': AdsPixel.SortBy.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -1093,7 +2151,64 @@ class AdAccount(
             self.assure_call()
             return request.execute()
 
+    def get_ad_topline_details(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adtoplinedetail import AdToplineDetail
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/adtoplinedetails',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdToplineDetail,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdToplineDetail, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_ad_top_lines(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adtopline import AdTopline
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/adtoplines',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdTopline,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdTopline, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_advertisable_applications(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.application import Application
         param_types = {
             'app_id': 'string',
             'business_id': 'string',
@@ -1106,9 +2221,9 @@ class AdAccount(
             endpoint='/advertisable_applications',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=Application,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=Application, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1123,16 +2238,17 @@ class AdAccount(
             return request.execute()
 
     def get_ad_videos(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.advideo import AdVideo
         param_types = {
-            'max_aspect_ratio': 'float',
-            'maxheight': 'unsigned int',
+            'title': 'string',
+            'minlength': 'unsigned int',
             'maxlength': 'unsigned int',
+            'minheight': 'unsigned int',
+            'maxheight': 'unsigned int',
+            'minwidth': 'unsigned int',
             'maxwidth': 'unsigned int',
             'min_aspect_ratio': 'float',
-            'minheight': 'unsigned int',
-            'minlength': 'unsigned int',
-            'minwidth': 'unsigned int',
-            'title': 'string',
+            'max_aspect_ratio': 'float',
         }
         enums = {
         }
@@ -1142,9 +2258,9 @@ class AdAccount(
             endpoint='/advideos',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=AdVideo,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=AdVideo, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1159,57 +2275,89 @@ class AdAccount(
             return request.execute()
 
     def create_ad_video(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.advideo import AdVideo
         param_types = {
-            'audio_story_wave_animation_handle': 'string',
-            'composer_session_id': 'string',
-            'description': 'string',
-            'end_offset': 'unsigned int',
-            'file_size': 'unsigned int',
-            'file_url': 'string',
-            'fisheye_video_cropped': 'bool',
-            'front_z_rotation': 'float',
-            'is_explicit_share': 'bool',
-            'manual_privacy': 'bool',
-            'name': 'string',
-            'og_action_type_id': 'string',
-            'og_icon_id': 'string',
-            'og_object_id': 'string',
-            'og_phrase': 'string',
-            'og_suggestion_mechanism': 'string',
-            'original_fov': 'unsigned int',
-            'original_projection_type': 'original_projection_type_enum',
-            'react_mode_metadata': 'string',
-            'referenced_sticker_id': 'string',
-            'slideshow_spec': 'map',
-            'start_offset': 'unsigned int',
-            'time_since_original_post': 'unsigned int',
             'title': 'string',
             'unpublished_content_type': 'unpublished_content_type_enum',
+            'time_since_original_post': 'unsigned int',
+            'file_url': 'string',
+            'composer_session_id': 'string',
+            'waterfall_id': 'string',
+            'og_action_type_id': 'string',
+            'og_object_id': 'string',
+            'og_phrase': 'string',
+            'og_icon_id': 'string',
+            'og_suggestion_mechanism': 'string',
+            'manual_privacy': 'bool',
+            'is_explicit_share': 'bool',
+            'thumb': 'file',
+            'spherical': 'bool',
+            'original_projection_type': 'original_projection_type_enum',
+            'initial_heading': 'unsigned int',
+            'initial_pitch': 'unsigned int',
+            'fov': 'unsigned int',
+            'original_fov': 'unsigned int',
+            'fisheye_video_cropped': 'bool',
+            'front_z_rotation': 'float',
+            'guide_enabled': 'bool',
+            'guide': 'list<list<unsigned int>>',
+            'audio_story_wave_animation_handle': 'string',
+            'adaptive_type': 'string',
+            'animated_effect_id': 'unsigned int',
+            'asked_fun_fact_prompt_id': 'unsigned int',
+            'composer_entry_picker': 'string',
+            'composer_entry_point': 'string',
+            'composer_entry_time': 'unsigned int',
+            'composer_session_events_log': 'string',
+            'composer_source_surface': 'string',
+            'composer_type': 'string',
+            'formatting': 'formatting_enum',
+            'fun_fact_prompt_id': 'string',
+            'fun_fact_toastee_id': 'unsigned int',
+            'is_group_linking_post': 'bool',
+            'has_nickname': 'bool',
+            'holiday_card': 'string',
+            'instant_game_entry_point_data': 'string',
+            'is_boost_intended': 'bool',
+            'location_source_id': 'string',
+            'description': 'string',
+            'offer_like_post_id': 'string',
+            'publish_event_id': 'unsigned int',
+            'react_mode_metadata': 'string',
+            'sales_promo_id': 'unsigned int',
+            'text_format_metadata': 'string',
+            'throwback_camera_roll_media': 'string',
+            'video_start_time_ms': 'unsigned int',
+            'application_id': 'string',
             'upload_phase': 'upload_phase_enum',
-            'upload_session_id': 'string',
+            'file_size': 'unsigned int',
+            'start_offset': 'unsigned int',
+            'end_offset': 'unsigned int',
             'video_file_chunk': 'string',
-            'xpost_everstore_handle': 'string',
+            'fbuploader_video_file_chunk': 'string',
+            'upload_session_id': 'string',
+            'is_voice_clip': 'bool',
+            'attribution_app_id': 'string',
+            'content_category': 'content_category_enum',
+            'embeddable': 'bool',
+            'slideshow_spec': 'map',
+            'upload_setting_properties': 'string',
+            'container_type': 'container_type_enum',
+            'referenced_sticker_id': 'string',
+            'replace_video_id': 'string',
+            'swap_mode': 'swap_mode_enum',
+            'music_added': 'bool',
+            'name': 'string',
+            'chunk_session_id': 'string',
         }
         enums = {
-            'original_projection_type_enum': [
-                'equirectangular',
-                'cubemap',
-                'equiangular_cubemap',
-                'half_equirectangular',
-            ],
-            'unpublished_content_type_enum': [
-                'SCHEDULED',
-                'DRAFT',
-                'ADS_POST',
-                'INLINE_CREATED',
-                'PUBLISHED',
-            ],
-            'upload_phase_enum': [
-                'start',
-                'transfer',
-                'finish',
-                'cancel',
-            ],
+            'unpublished_content_type_enum': AdVideo.UnpublishedContentType.__dict__.values(),
+            'original_projection_type_enum': AdVideo.OriginalProjectionType.__dict__.values(),
+            'formatting_enum': AdVideo.Formatting.__dict__.values(),
+            'upload_phase_enum': AdVideo.UploadPhase.__dict__.values(),
+            'content_category_enum': AdVideo.ContentCategory.__dict__.values(),
+            'container_type_enum': AdVideo.ContainerType.__dict__.values(),
+            'swap_mode_enum': AdVideo.SwapMode.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -1217,10 +2365,38 @@ class AdAccount(
             endpoint='/advideos',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=AdVideo,
             api_type='EDGE',
             allow_file_upload=True,
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=AdVideo, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_affected_ad_sets(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adset import AdSet
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/affectedadsets',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdSet,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdSet, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1249,6 +2425,34 @@ class AdAccount(
             target_class=AbstractCrudObject,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_agencies(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.business import Business
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/agencies',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Business,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Business, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1293,6 +2497,7 @@ class AdAccount(
             return request.execute()
 
     def get_applications(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.application import Application
         param_types = {
         }
         enums = {
@@ -1303,9 +2508,37 @@ class AdAccount(
             endpoint='/applications',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=Application,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=Application, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_assigned_partners(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.business import Business
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/assigned_partners',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Business,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Business, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1378,8 +2611,8 @@ class AdAccount(
 
     def create_assigned_user(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
-            'tasks': 'list<tasks_enum>',
             'user': 'int',
+            'tasks': 'list<tasks_enum>',
         }
         enums = {
             'tasks_enum': AdAccount.Tasks.__dict__.values(),
@@ -1409,8 +2642,8 @@ class AdAccount(
     def create_async_batch_request(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.campaign import Campaign
         param_types = {
-            'adbatch': 'list<Object>',
             'name': 'string',
+            'adbatch': 'list<Object>',
         }
         enums = {
         }
@@ -1423,6 +2656,66 @@ class AdAccount(
             target_class=Campaign,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=Campaign, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_async_requests(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.asyncrequest import AsyncRequest
+        param_types = {
+            'status': 'status_enum',
+            'type': 'type_enum',
+        }
+        enums = {
+            'status_enum': AsyncRequest.Status.__dict__.values(),
+            'type_enum': AsyncRequest.Type.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/async_requests',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AsyncRequest,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AsyncRequest, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_async_sessions(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.asyncsession import AsyncSession
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/async_sessions',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AsyncSession,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AsyncSession, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1470,14 +2763,11 @@ class AdAccount(
         param_types = {
             'ad_specs': 'list<map>',
             'name': 'string',
-            'notification_mode': 'notification_mode_enum',
             'notification_uri': 'string',
+            'notification_mode': 'notification_mode_enum',
         }
         enums = {
-            'notification_mode_enum': [
-                'OFF',
-                'ON_COMPLETE',
-            ],
+            'notification_mode_enum': AdAsyncRequestSet.NotificationMode.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -1501,10 +2791,106 @@ class AdAccount(
             self.assure_call()
             return request.execute()
 
+    def get_audience_insights_study_rules(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.audienceinsightsrule import AudienceInsightsRule
+        param_types = {
+            'partial_name': 'string',
+            'exact_name': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/audience_insights_study_rules',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AudienceInsightsRule,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AudienceInsightsRule, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_audience_studies(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.audiencestudy import AudienceStudy
+        param_types = {
+            'fields': 'list<string>',
+            'study_status': 'study_status_enum',
+            'name': 'string',
+            'description': 'string',
+            'author_id': 'Object',
+        }
+        enums = {
+            'study_status_enum': AudienceStudy.StudyStatus.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/audience_studies',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AudienceStudy,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AudienceStudy, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_audience_overlap(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.audienceoverlap import AudienceOverlap
+        param_types = {
+            'pivot_id': 'unsigned int',
+            'comparison_ids': 'list<unsigned int>',
+            'sort_by_overlap': 'bool',
+            'limit': 'unsigned int',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/audienceoverlap',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AudienceOverlap,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AudienceOverlap, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def create_audience_replace(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
-            'payload': 'Object',
             'session': 'Object',
+            'payload': 'Object',
         }
         enums = {
         }
@@ -1517,6 +2903,233 @@ class AdAccount(
             target_class=AbstractCrudObject,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_audience_sharing_account_valid(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.audiencesharingaccountvalid import AudienceSharingAccountValid
+        param_types = {
+            'recipient_adaccount': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/audiencesharing_accountvalid',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AudienceSharingAccountValid,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AudienceSharingAccountValid, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_audience_sharing_recipient_accounts(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.audiencesharingrecipientaccounts import AudienceSharingRecipientAccounts
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/audiencesharing_recipientaccounts',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AudienceSharingRecipientAccounts,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AudienceSharingRecipientAccounts, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_batch_replace(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'payload': 'list<string>',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/batchreplace',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_batch_upload(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'payload': 'list<string>',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/batchupload',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_block_list_draft(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'publisher_urls_file': 'file',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/block_list_drafts',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdAccount,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdAccount, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_brand_audiences(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.brandaudience import BrandAudience
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/brand_audiences',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=BrandAudience,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=BrandAudience, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_brand_lift_studies(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.researchpollstudy import ResearchPollStudy
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/brandlift_studies',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ResearchPollStudy,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ResearchPollStudy, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_brazil_credit_memos(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.brazilcreditmemo import BrazilCreditMemo
+        param_types = {
+            'time_start': 'Object',
+            'time_stop': 'Object',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/brazil_credit_memos',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=BrazilCreditMemo,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=BrazilCreditMemo, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1559,15 +3172,189 @@ class AdAccount(
             self.assure_call()
             return request.execute()
 
-    def delete_campaigns(self, fields=None, params=None, batch=None, pending=False):
-        from facebook_business.adobjects.campaign import Campaign
+    def get_business_activities(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.businessactivitylogevent import BusinessActivityLogEvent
         param_types = {
-            'before_date': 'datetime',
-            'delete_strategy': 'delete_strategy_enum',
-            'object_count': 'int',
+            'business': 'string',
         }
         enums = {
-            'delete_strategy_enum': Campaign.DeleteStrategy.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/business_activities',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=BusinessActivityLogEvent,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=BusinessActivityLogEvent, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_business_ad_account_requests(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.business import Business
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/business_ad_account_requests',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Business,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Business, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_business_object_tags(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.businesstag import BusinessTag
+        param_types = {
+            'business_id': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/business_object_tags',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=BusinessTag,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=BusinessTag, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_business_requests(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.businessrequest import BusinessRequest
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/business_requests',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=BusinessRequest,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=BusinessRequest, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_business_units(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.businessunit import BusinessUnit
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/business_units',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=BusinessUnit,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=BusinessUnit, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_business_projects(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.businessproject import BusinessProject
+        param_types = {
+            'business': 'Object',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/businessprojects',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=BusinessProject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=BusinessProject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def delete_campaigns(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'delete_strategy': 'delete_strategy_enum',
+            'object_count': 'int',
+            'before_date': 'datetime',
+        }
+        enums = {
+            'delete_strategy_enum': [
+                'DELETE_ANY',
+                'DELETE_OLDEST',
+                'DELETE_ARCHIVED_BEFORE',
+            ],
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -1594,13 +3381,13 @@ class AdAccount(
     def get_campaigns(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.campaign import Campaign
         param_types = {
-            'date_preset': 'date_preset_enum',
             'effective_status': 'list<effective_status_enum>',
+            'date_preset': 'date_preset_enum',
             'is_completed': 'bool',
         }
         enums = {
-            'date_preset_enum': Campaign.DatePreset.__dict__.values(),
             'effective_status_enum': Campaign.EffectiveStatus.__dict__.values(),
+            'date_preset_enum': Campaign.DatePreset.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -1627,25 +3414,31 @@ class AdAccount(
     def create_campaign(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.campaign import Campaign
         param_types = {
-            'adlabels': 'list<Object>',
+            'name': 'string',
+            'objective': 'objective_enum',
+            'status': 'status_enum',
             'bid_strategy': 'bid_strategy_enum',
             'budget_rebalance_flag': 'bool',
             'buying_type': 'string',
             'daily_budget': 'unsigned int',
-            'execution_options': 'list<execution_options_enum>',
-            'iterative_split_test_configs': 'list<Object>',
             'lifetime_budget': 'unsigned int',
-            'name': 'string',
-            'objective': 'objective_enum',
+            'pacing_type': 'list<string>',
             'promoted_object': 'Object',
+            'topline_id': 'string',
             'spend_cap': 'unsigned int',
-            'status': 'status_enum',
+            'execution_options': 'list<execution_options_enum>',
+            'upstream_events': 'map',
+            'adlabels': 'list<Object>',
+            'source_campaign_id': 'string',
+            'iterative_split_test_configs': 'list<Object>',
+            'kpi_custom_conversion_id': 'string',
+            'kpi_type': 'Object',
         }
         enums = {
-            'bid_strategy_enum': Campaign.BidStrategy.__dict__.values(),
-            'execution_options_enum': Campaign.ExecutionOptions.__dict__.values(),
             'objective_enum': Campaign.Objective.__dict__.values(),
             'status_enum': Campaign.Status.__dict__.values(),
+            'bid_strategy_enum': Campaign.BidStrategy.__dict__.values(),
+            'execution_options_enum': Campaign.ExecutionOptions.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -1700,16 +3493,250 @@ class AdAccount(
             self.assure_call()
             return request.execute()
 
+    def get_checkout_payments(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adaccountcheckoutpayment import AdAccountCheckoutPayment
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/checkout_payments',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdAccountCheckoutPayment,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdAccountCheckoutPayment, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_column_suggestions(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.columnsuggestions import ColumnSuggestions
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/column_suggestions',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ColumnSuggestions,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ColumnSuggestions, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_connected_business_objects(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.businessobject import BusinessObject
+        param_types = {
+            'type': 'type_enum',
+            'business_id': 'string',
+        }
+        enums = {
+            'type_enum': BusinessObject.Type.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/connected_business_objects',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=BusinessObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=BusinessObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_contextual_targeting_browse(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adaccountcontextualtargeting import AdAccountContextualTargeting
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/contextual_targeting_browse',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdAccountContextualTargeting,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdAccountContextualTargeting, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_conversions(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adconversions import AdConversions
+        param_types = {
+            'start_time': 'datetime',
+            'end_time': 'datetime',
+            'time_start': 'datetime',
+            'time_stop': 'datetime',
+            'aggregate_days': 'int',
+            'by_impression_time': 'bool',
+            'include_deleted': 'bool',
+            'offset': 'int',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/conversions',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdConversions,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdConversions, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_coupon(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'coupon_code': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/coupons',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdAccount,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdAccount, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_current_ad_drafts(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.addraft import AdDraft
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/current_addrafts',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdDraft,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdDraft, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_custom_audience_limits(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adaccountcustomaudiencelimits import AdAccountCustomAudienceLimits
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/custom_audience_limits',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdAccountCustomAudienceLimits,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdAccountCustomAudienceLimits, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_custom_audiences(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.customaudience import CustomAudience
         param_types = {
-            'business_id': 'string',
-            'fields': 'list<fields_enum>',
-            'filtering': 'list<Object>',
             'pixel_id': 'string',
+            'fields': 'list<string>',
+            'filtering': 'list<Object>',
+            'business_id': 'string',
         }
         enums = {
-            'fields_enum': CustomAudience.Fields.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -1736,33 +3763,58 @@ class AdAccount(
     def create_custom_audience(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.customaudience import CustomAudience
         param_types = {
-            'allowed_domains': 'list<string>',
-            'claim_objective': 'claim_objective_enum',
-            'content_type': 'content_type_enum',
-            'customer_file_source': 'customer_file_source_enum',
-            'dataset_id': 'string',
+            'creation_params': 'map',
             'description': 'string',
-            'event_source_group': 'string',
-            'event_sources': 'list<map>',
-            'is_value_based': 'bool',
-            'list_of_accounts': 'list<unsigned int>',
-            'lookalike_spec': 'string',
             'name': 'string',
             'opt_out_link': 'string',
-            'origin_audience_id': 'string',
-            'pixel_id': 'string',
-            'prefill': 'bool',
-            'product_set_id': 'string',
-            'retention_days': 'unsigned int',
-            'rule': 'string',
-            'rule_aggregation': 'string',
+            'parent_audience_id': 'unsigned int',
             'subtype': 'subtype_enum',
+            'seed_audience': 'unsigned int',
+            'tags': 'list<string>',
+            'associated_audience_id': 'unsigned int',
+            'is_household': 'bool',
+            'is_household_exclusion': 'bool',
+            'is_value_based': 'bool',
+            'allowed_domains': 'list<string>',
+            'is_snapshot': 'bool',
+            'lookalike_spec': 'string',
+            'retention_days': 'unsigned int',
+            'customer_file_source': 'customer_file_source_enum',
+            'rev_share_policy_id': 'unsigned int',
+            'partner_reference_key': 'string',
+            'rule': 'string',
+            'prefill': 'bool',
+            'pixel_id': 'string',
+            'rule_aggregation': 'string',
+            'inclusions': 'list<Object>',
+            'exclusions': 'list<Object>',
+            'countries': 'string',
+            'origin_audience_id': 'string',
+            'details': 'string',
+            'source': 'string',
+            'isPrivate': 'bool',
+            'additionalMetadata': 'string',
+            'minAge': 'unsigned int',
+            'maxAge': 'unsigned int',
+            'expectedSize': 'unsigned int',
+            'gender': 'string',
+            'partnerID': 'string',
+            'accountID': 'string',
+            'claim_objective': 'claim_objective_enum',
+            'content_type': 'content_type_enum',
+            'event_source_group': 'string',
+            'product_set_id': 'string',
+            'event_sources': 'list<map>',
+            'video_group_ids': 'list<string>',
+            'study_spec': 'Object',
+            'list_of_accounts': 'list<unsigned int>',
+            'dataset_id': 'string',
         }
         enums = {
+            'subtype_enum': CustomAudience.Subtype.__dict__.values(),
+            'customer_file_source_enum': CustomAudience.CustomerFileSource.__dict__.values(),
             'claim_objective_enum': CustomAudience.ClaimObjective.__dict__.values(),
             'content_type_enum': CustomAudience.ContentType.__dict__.values(),
-            'customer_file_source_enum': CustomAudience.CustomerFileSource.__dict__.values(),
-            'subtype_enum': CustomAudience.Subtype.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -1814,16 +3866,44 @@ class AdAccount(
             self.assure_call()
             return request.execute()
 
+    def get_custom_conversions(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.customconversion import CustomConversion
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/customconversions',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=CustomConversion,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=CustomConversion, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def create_custom_conversion(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.customconversion import CustomConversion
         param_types = {
-            'advanced_rule': 'string',
-            'custom_event_type': 'custom_event_type_enum',
-            'default_conversion_value': 'float',
+            'name': 'string',
             'description': 'string',
             'event_source_id': 'string',
-            'name': 'string',
             'rule': 'string',
+            'default_conversion_value': 'float',
+            'custom_event_type': 'custom_event_type_enum',
+            'advanced_rule': 'string',
         }
         enums = {
             'custom_event_type_enum': CustomConversion.CustomEventType.__dict__.values(),
@@ -1850,12 +3930,68 @@ class AdAccount(
             self.assure_call()
             return request.execute()
 
+    def get_da_checks(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.dacheck import DACheck
+        param_types = {
+            'checks': 'list<string>',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/da_checks',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=DACheck,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=DACheck, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_deactivate(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/deactivate',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdAccount,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdAccount, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_delivery_estimate(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.adaccountdeliveryestimate import AdAccountDeliveryEstimate
         param_types = {
+            'targeting_spec': 'Targeting',
             'optimization_goal': 'optimization_goal_enum',
             'promoted_object': 'Object',
-            'targeting_spec': 'Targeting',
         }
         enums = {
             'optimization_goal_enum': AdAccountDeliveryEstimate.OptimizationGoal.__dict__.values(),
@@ -1882,22 +4018,457 @@ class AdAccount(
             self.assure_call()
             return request.execute()
 
+    def get_delivery_insights_activities(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adactivity import AdActivity
+        param_types = {
+            'after': 'string',
+            'limit': 'int',
+            'since': 'datetime',
+            'category': 'category_enum',
+            'until': 'datetime',
+            'uid': 'int',
+            'business_id': 'string',
+            'ad_set_ids': 'list<string>',
+            'add_children': 'bool',
+            'activity_type': 'activity_type_enum',
+        }
+        enums = {
+            'category_enum': AdActivity.Category.__dict__.values(),
+            'activity_type_enum': AdActivity.ActivityType.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/delivery_insights_activities',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdActivity,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdActivity, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_deprecated_targeting_ad_sets(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adset import AdSet
+        param_types = {
+            'type': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/deprecatedtargetingadsets',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdSet,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdSet, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_direct_deals(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.directdeal import DirectDeal
+        param_types = {
+            'status': 'status_enum',
+        }
+        enums = {
+            'status_enum': DirectDeal.Status.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/direct_deals',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=DirectDeal,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=DirectDeal, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_direct_deals_to(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/direct_deals_tos',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdAccount,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdAccount, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_dpa_eligible_product_catalogs(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.productcatalog import ProductCatalog
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/dpa_eligible_product_catalogs',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ProductCatalog,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ProductCatalog, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_email_import(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.emailimport import EmailImport
+        param_types = {
+            'third_party_data': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/emailimport',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=EmailImport,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=EmailImport, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_email_import(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.emailimport import EmailImport
+        param_types = {
+            'name': 'string',
+            'third_party_data': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/emailimport',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=EmailImport,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=EmailImport, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_engagement_insights_rules(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.engagementinsightsrule import EngagementInsightsRule
+        param_types = {
+            'rule_ids': 'list<unsigned int>',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/engagementinsightsrules',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=EngagementInsightsRule,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=EngagementInsightsRule, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_export_ads(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.exportadgroup import ExportAdgroup
+        param_types = {
+            'time_range': 'Object',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/export_ads',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ExportAdgroup,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ExportAdgroup, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_export_ad_sets(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.exportadcampaign import ExportAdCampaign
+        param_types = {
+            'time_range': 'Object',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/export_adsets',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ExportAdCampaign,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ExportAdCampaign, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_export_campaigns(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.exportadcampaigngroup import ExportAdCampaignGroup
+        param_types = {
+            'time_range': 'Object',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/export_campaigns',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ExportAdCampaignGroup,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ExportAdCampaignGroup, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_fame_ads(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.fameadgroup import FAMEAdGroup
+        param_types = {
+            'date_preset': 'date_preset_enum',
+            'effective_status': 'list<string>',
+            'time_range': 'Object',
+            'include_deleted': 'bool',
+            'updated_since': 'int',
+        }
+        enums = {
+            'date_preset_enum': FAMEAdGroup.DatePreset.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/fame_ads',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=FAMEAdGroup,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=FAMEAdGroup, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_fame_ad_sets(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.fameadcampaign import FAMEAdCampaign
+        param_types = {
+            'date_preset': 'date_preset_enum',
+            'effective_status': 'list<effective_status_enum>',
+            'time_range': 'Object',
+            'include_deleted': 'bool',
+            'is_completed': 'bool',
+        }
+        enums = {
+            'date_preset_enum': FAMEAdCampaign.DatePreset.__dict__.values(),
+            'effective_status_enum': FAMEAdCampaign.EffectiveStatus.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/fame_adsets',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=FAMEAdCampaign,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=FAMEAdCampaign, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_fame_campaigns(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.fameadcampaigngroup import FAMEAdCampaignGroup
+        param_types = {
+            'date_preset': 'date_preset_enum',
+            'effective_status': 'list<effective_status_enum>',
+            'time_range': 'Object',
+        }
+        enums = {
+            'date_preset_enum': FAMEAdCampaignGroup.DatePreset.__dict__.values(),
+            'effective_status_enum': FAMEAdCampaignGroup.EffectiveStatus.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/fame_campaigns',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=FAMEAdCampaignGroup,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=FAMEAdCampaignGroup, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_generate_previews(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.adpreview import AdPreview
         param_types = {
             'ad_format': 'ad_format_enum',
-            'creative': 'AdCreative',
             'dynamic_creative_spec': 'Object',
-            'end_date': 'datetime',
-            'height': 'unsigned int',
-            'place_page_id': 'int',
+            'interactive': 'bool',
             'post': 'Object',
+            'height': 'unsigned int',
+            'width': 'unsigned int',
+            'place_page_id': 'int',
             'product_item_ids': 'list<string>',
             'start_date': 'datetime',
-            'width': 'unsigned int',
+            'end_date': 'datetime',
+            'locale': 'string',
+            'render_type': 'render_type_enum',
+            'creative': 'AdCreative',
         }
         enums = {
             'ad_format_enum': AdPreview.AdFormat.__dict__.values(),
+            'render_type_enum': AdPreview.RenderType.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -1921,26 +4492,54 @@ class AdAccount(
             self.assure_call()
             return request.execute()
 
+    def get_impacting_ad_studies(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adstudy import AdStudy
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/impacting_ad_studies',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdStudy,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdStudy, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_insights(self, fields=None, params=None, is_async=False, batch=None, pending=False):
         from facebook_business.adobjects.adsinsights import AdsInsights
         if is_async:
           return self.get_insights_async(fields, params, batch, pending)
         param_types = {
+            'default_summary': 'bool',
+            'fields': 'list<string>',
+            'filtering': 'list<Object>',
+            'summary': 'list<string>',
+            'sort': 'list<string>',
             'action_attribution_windows': 'list<action_attribution_windows_enum>',
             'action_breakdowns': 'list<action_breakdowns_enum>',
             'action_report_time': 'action_report_time_enum',
             'breakdowns': 'list<breakdowns_enum>',
             'date_preset': 'date_preset_enum',
-            'default_summary': 'bool',
             'export_columns': 'list<string>',
             'export_format': 'string',
             'export_name': 'string',
-            'fields': 'list<fields_enum>',
-            'filtering': 'list<Object>',
             'level': 'level_enum',
             'product_id_limit': 'int',
-            'sort': 'list<string>',
-            'summary': 'list<summary_enum>',
             'summary_action_breakdowns': 'list<summary_action_breakdowns_enum>',
             'time_increment': 'string',
             'time_range': 'Object',
@@ -1953,7 +4552,6 @@ class AdAccount(
             'action_report_time_enum': AdsInsights.ActionReportTime.__dict__.values(),
             'breakdowns_enum': AdsInsights.Breakdowns.__dict__.values(),
             'date_preset_enum': AdsInsights.DatePreset.__dict__.values(),
-            'summary_enum': AdsInsights.Summary.__dict__.values(),
             'level_enum': AdsInsights.Level.__dict__.values(),
             'summary_action_breakdowns_enum': AdsInsights.SummaryActionBreakdowns.__dict__.values(),
         }
@@ -1984,21 +4582,21 @@ class AdAccount(
         from facebook_business.adobjects.adreportrun import AdReportRun
         from facebook_business.adobjects.adsinsights import AdsInsights
         param_types = {
+            'default_summary': 'bool',
+            'fields': 'list<string>',
+            'filtering': 'list<Object>',
+            'summary': 'list<string>',
+            'sort': 'list<string>',
             'action_attribution_windows': 'list<action_attribution_windows_enum>',
             'action_breakdowns': 'list<action_breakdowns_enum>',
             'action_report_time': 'action_report_time_enum',
             'breakdowns': 'list<breakdowns_enum>',
             'date_preset': 'date_preset_enum',
-            'default_summary': 'bool',
             'export_columns': 'list<string>',
             'export_format': 'string',
             'export_name': 'string',
-            'fields': 'list<fields_enum>',
-            'filtering': 'list<Object>',
             'level': 'level_enum',
             'product_id_limit': 'int',
-            'sort': 'list<string>',
-            'summary': 'list<summary_enum>',
             'summary_action_breakdowns': 'list<summary_action_breakdowns_enum>',
             'time_increment': 'string',
             'time_range': 'Object',
@@ -2011,7 +4609,6 @@ class AdAccount(
             'action_report_time_enum': AdsInsights.ActionReportTime.__dict__.values(),
             'breakdowns_enum': AdsInsights.Breakdowns.__dict__.values(),
             'date_preset_enum': AdsInsights.DatePreset.__dict__.values(),
-            'summary_enum': AdsInsights.Summary.__dict__.values(),
             'level_enum': AdsInsights.Level.__dict__.values(),
             'summary_action_breakdowns_enum': AdsInsights.SummaryActionBreakdowns.__dict__.values(),
         }
@@ -2039,6 +4636,7 @@ class AdAccount(
             return request.execute()
 
     def get_instagram_accounts(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.instagramuser import InstagramUser
         param_types = {
         }
         enums = {
@@ -2049,9 +4647,41 @@ class AdAccount(
             endpoint='/instagram_accounts',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=InstagramUser,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=InstagramUser, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_kpi_shifts(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adkpishift import AdKpiShift
+        param_types = {
+            'ad_set_ids': 'list<string>',
+            'event_source': 'event_source_enum',
+            'notif_id': 'string',
+        }
+        enums = {
+            'event_source_enum': AdKpiShift.EventSource.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/kpi_shifts',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdKpiShift,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdKpiShift, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2094,6 +4724,68 @@ class AdAccount(
             self.assure_call()
             return request.execute()
 
+    def get_liable_addresses(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.crmaddress import CRMAddress
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/liable_addresses',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=CRMAddress,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=CRMAddress, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_matched_search_applications(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adaccountmatchedsearchapplicationsedgedata import AdAccountMatchedSearchApplicationsEdgeData
+        param_types = {
+            'app_store': 'app_store_enum',
+            'app_store_country': 'string',
+            'business_id': 'Object',
+            'query_term': 'string',
+            'allow_incomplete_app': 'bool',
+        }
+        enums = {
+            'app_store_enum': AdAccountMatchedSearchApplicationsEdgeData.AppStore.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/matched_search_applications',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdAccountMatchedSearchApplicationsEdgeData,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdAccountMatchedSearchApplicationsEdgeData, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_minimum_budgets(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.minimumbudget import MinimumBudget
         param_types = {
@@ -2110,6 +4802,66 @@ class AdAccount(
             target_class=MinimumBudget,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=MinimumBudget, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_mockup(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'mockup_access_token': 'string',
+            'source_mockup_id': 'string',
+            'page_id': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/mockups',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_nota_fiscals(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.notafiscal import NotaFiscal
+        param_types = {
+            'time_start': 'Object',
+            'time_stop': 'Object',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/nota_fiscals',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=NotaFiscal,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=NotaFiscal, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2179,13 +4931,106 @@ class AdAccount(
             self.assure_call()
             return request.execute()
 
+    def get_on_behalf_requests(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.businessownedobjectonbehalfofrequest import BusinessOwnedObjectOnBehalfOfRequest
+        param_types = {
+            'status': 'status_enum',
+        }
+        enums = {
+            'status_enum': BusinessOwnedObjectOnBehalfOfRequest.Status.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/onbehalf_requests',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=BusinessOwnedObjectOnBehalfOfRequest,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=BusinessOwnedObjectOnBehalfOfRequest, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_partner_integrations(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.partnerintegrationlinked import PartnerIntegrationLinked
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/partner_integrations',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=PartnerIntegrationLinked,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=PartnerIntegrationLinked, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_partner_integration(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.partnerintegrationlinked import PartnerIntegrationLinked
+        param_types = {
+            'external_id': 'string',
+            'gtm_account_id': 'string',
+            'gtm_container_id': 'string',
+            'name': 'string',
+            'partner': 'partner_enum',
+        }
+        enums = {
+            'partner_enum': PartnerIntegrationLinked.Partner.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/partner_integrations',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=PartnerIntegrationLinked,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=PartnerIntegrationLinked, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_partner_categories(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.partnercategory import PartnerCategory
         param_types = {
-            'hide_pc': 'bool',
-            'is_exclusion': 'bool',
-            'private_or_public': 'private_or_public_enum',
             'targeting_type': 'string',
+            'private_or_public': 'private_or_public_enum',
+            'hide_pc': 'bool',
+            'limit': 'unsigned int',
+            'is_exclusion': 'bool',
         }
         enums = {
             'private_or_public_enum': PartnerCategory.PrivateOrPublic.__dict__.values(),
@@ -2199,6 +5044,76 @@ class AdAccount(
             target_class=PartnerCategory,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=PartnerCategory, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_partner_datum(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'upload_id': 'unsigned int',
+            'type': 'string',
+            'start_new_upload': 'bool',
+            'total_expected': 'unsigned int',
+            'upload_metadata': 'string',
+            'upload_complete': 'bool',
+            'ignore_count_check': 'bool',
+            'abandon_upload': 'bool',
+            'payload': 'list<string>',
+            'payload_type': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/partnerdata',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdAccount,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdAccount, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_partner_request(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'category_ids': 'list<string>',
+            'account_ids': 'list<int>',
+            'type': 'type_enum',
+        }
+        enums = {
+            'type_enum': [
+                'SHARE_PC',
+            ],
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/partnerrequests',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2240,24 +5155,152 @@ class AdAccount(
             self.assure_call()
             return request.execute()
 
+    def get_partner_studies(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.partnerstudy import PartnerStudy
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/partnerstudies',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=PartnerStudy,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=PartnerStudy, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_payment_details_list(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adaccountpaymentdetails import AdAccountPaymentDetails
+        param_types = {
+            'payment_ids': 'list<string>',
+            'payment_status': 'string',
+            'should_filter_by_due_date_cc_id': 'bool',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/payment_details_list',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdAccountPaymentDetails,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdAccountPaymentDetails, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_pending_users(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.businessrolerequest import BusinessRoleRequest
+        param_types = {
+            'business': 'int',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/pending_users',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=BusinessRoleRequest,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=BusinessRoleRequest, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_placement_usage(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adaccountplacementusage import AdAccountPlacementUsage
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/placement_usage',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdAccountPlacementUsage,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdAccountPlacementUsage, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def create_product_audience(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.customaudience import CustomAudience
         param_types = {
-            'associated_audience_id': 'unsigned int',
             'creation_params': 'map',
             'description': 'string',
-            'event_sources': 'list<map>',
-            'exclusions': 'list<Object>',
-            'inclusions': 'list<Object>',
             'name': 'string',
             'opt_out_link': 'string',
             'parent_audience_id': 'unsigned int',
-            'product_set_id': 'string',
             'subtype': 'subtype_enum',
+            'seed_audience': 'unsigned int',
             'tags': 'list<string>',
+            'associated_audience_id': 'unsigned int',
+            'is_household': 'bool',
+            'is_household_exclusion': 'bool',
+            'is_value_based': 'bool',
+            'allowed_domains': 'list<string>',
+            'is_snapshot': 'bool',
+            'claim_objective': 'claim_objective_enum',
+            'content_type': 'content_type_enum',
+            'event_source_group': 'string',
+            'product_set_id': 'string',
+            'rev_share_policy_id': 'unsigned int',
+            'event_sources': 'list<map>',
+            'inclusions': 'list<Object>',
+            'exclusions': 'list<Object>',
         }
         enums = {
             'subtype_enum': AdAccount.Subtype.__dict__.values(),
+            'claim_objective_enum': AdAccount.ClaimObjective.__dict__.values(),
+            'content_type_enum': AdAccount.ContentType.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -2282,6 +5325,7 @@ class AdAccount(
             return request.execute()
 
     def get_publisher_block_lists(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.publisherblocklist import PublisherBlockList
         param_types = {
         }
         enums = {
@@ -2292,9 +5336,9 @@ class AdAccount(
             endpoint='/publisher_block_lists',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=PublisherBlockList,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=PublisherBlockList, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2309,6 +5353,7 @@ class AdAccount(
             return request.execute()
 
     def create_publisher_block_list(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.publisherblocklist import PublisherBlockList
         param_types = {
             'name': 'string',
         }
@@ -2320,9 +5365,37 @@ class AdAccount(
             endpoint='/publisher_block_lists',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=PublisherBlockList,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=PublisherBlockList, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_rate_card(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.ratecard import RateCard
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/ratecard',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=RateCard,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=RateCard, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2339,10 +5412,19 @@ class AdAccount(
     def get_reach_estimate(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.reachestimate import ReachEstimate
         param_types = {
-            'object_store_url': 'string',
             'targeting_spec': 'Targeting',
+            'currency': 'string',
+            'is_debug': 'bool',
+            'optimize_for': 'optimize_for_enum',
+            'daily_budget': 'float',
+            'creative_action_spec': 'string',
+            'adgroup_ids': 'list<string>',
+            'concepts': 'string',
+            'caller_id': 'string',
+            'object_store_url': 'string',
         }
         enums = {
+            'optimize_for_enum': ReachEstimate.OptimizeFor.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -2397,26 +5479,46 @@ class AdAccount(
     def create_reach_frequency_prediction(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.reachfrequencyprediction import ReachFrequencyPrediction
         param_types = {
-            'budget': 'unsigned int',
-            'campaign_group_id': 'string',
-            'day_parting_schedule': 'list<Object>',
-            'destination_id': 'unsigned int',
-            'destination_ids': 'list<string>',
-            'end_time': 'unsigned int',
-            'frequency_cap': 'unsigned int',
-            'instream_packages': 'list<instream_packages_enum>',
-            'interval_frequency_cap_reset_period': 'unsigned int',
-            'num_curve_points': 'unsigned int',
-            'objective': 'string',
-            'prediction_mode': 'unsigned int',
-            'reach': 'unsigned int',
-            'rf_prediction_id_to_share': 'string',
+            'action': 'action_enum',
+            'ad_formats': 'list<map>',
+            'target_spec': 'Targeting',
             'start_time': 'unsigned int',
             'stop_time': 'unsigned int',
+            'end_time': 'unsigned int',
+            'reach': 'unsigned int',
+            'impression': 'unsigned int',
+            'frequency_cap': 'unsigned int',
+            'budget': 'unsigned int',
+            'prediction_mode': 'unsigned int',
+            'destination_id': 'unsigned int',
+            'destination_ids': 'list<string>',
             'story_event_type': 'unsigned int',
-            'target_spec': 'Targeting',
+            'day_parting_schedule': 'list<Object>',
+            'target_cpm': 'unsigned int',
+            'buying_type': 'buying_type_enum',
+            'objective': 'string',
+            'rf_prediction_id': 'string',
+            'rf_prediction_id_to_release': 'string',
+            'rf_prediction_id_to_share': 'string',
+            'num_curve_points': 'unsigned int',
+            'interval_frequency_cap_reset_period': 'unsigned int',
+            'campaign_group_id': 'string',
+            'grp_buying': 'bool',
+            'instream_packages': 'list<instream_packages_enum>',
+            'is_bonus_media': 'bool',
+            'is_conversion_goal': 'bool',
+            'is_full_view': 'bool',
+            'is_reach_and_frequency_io_buying': 'bool',
+            'is_reserved_buying': 'bool',
+            'expiration_time': 'unsigned int',
+            'existing_campaign_id': 'string',
+            'video_view_length_constraint': 'unsigned int',
+            'auction_entry_option_index': 'unsigned int',
+            'exceptions': 'bool',
         }
         enums = {
+            'action_enum': ReachFrequencyPrediction.Action.__dict__.values(),
+            'buying_type_enum': ReachFrequencyPrediction.BuyingType.__dict__.values(),
             'instream_packages_enum': ReachFrequencyPrediction.InstreamPackages.__dict__.values(),
         }
         request = FacebookRequest(
@@ -2441,16 +5543,250 @@ class AdAccount(
             self.assure_call()
             return request.execute()
 
+    def get_referral(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.referral import Referral
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/referral',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Referral,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Referral, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_referral(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.referral import Referral
+        param_types = {
+            'invite_limit': 'unsigned int',
+            'messenger_cta': 'string',
+            'messenger_promotion_text': 'string',
+            'namespace': 'unsigned int',
+            'need_promo_code': 'bool',
+            'offer_origin': 'string',
+            'promotion_text': 'string',
+            'receiver_benefits_text': 'string',
+            'referral_link_uri': 'Object',
+            'sender_benefits_text': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/referral',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Referral,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Referral, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_reporting(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adsreportbuilder import AdsReportBuilder
+        param_types = {
+            'attribution_windows': 'list<attribution_windows_enum>',
+            'dimensions': 'list<dimensions_enum>',
+            'dimension_groups': 'list<list<adaccountreporting_dimension_groups_enum_param>>',
+            'locked_dimensions': 'unsigned int',
+            'metrics': 'list<string>',
+            'filtering': 'Object',
+            'sorting': 'list<map>',
+            'date_preset': 'date_preset_enum',
+            'time_range': 'Object',
+            'default_summary': 'bool',
+            'last_report_snapshot_id': 'unsigned int',
+            'offset': 'unsigned int',
+            'limit': 'int',
+            'pagination_key': 'string',
+            'last_dimension': 'Object',
+            'summary_count': 'bool',
+        }
+        enums = {
+            'attribution_windows_enum': AdsReportBuilder.AttributionWindows.__dict__.values(),
+            'dimensions_enum': AdsReportBuilder.Dimensions.__dict__.values(),
+            'date_preset_enum': AdsReportBuilder.DatePreset.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/reporting',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdsReportBuilder,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdsReportBuilder, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_report_stat(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'time_ranges': 'Object',
+            'data_columns': 'list<string>',
+            'actions_group_by': 'list<actions_group_by_enum>',
+            'filters': 'list<Object>',
+            'sort_by': 'string',
+            'sort_dir': 'string',
+            'time_increment': 'string',
+            'time_interval': 'Object',
+            'date_preset': 'date_preset_enum',
+            'format': 'format_enum',
+            'export_columns': 'Object',
+            'report_run_id': 'string',
+            'name': 'string',
+            'user_report': 'bool',
+            'business_id': 'string',
+            'limit': 'int',
+            'bypass_async': 'bool',
+            'summary': 'bool',
+        }
+        enums = {
+            'actions_group_by_enum': [
+                'action_canvas_component_id',
+                'action_canvas_component_name',
+                'action_carousel_card_id',
+                'action_carousel_card_name',
+                'action_destination',
+                'action_device',
+                'action_event_channel',
+                'action_target_id',
+                'action_type',
+                'action_video_sound',
+                'action_video_type',
+            ],
+            'date_preset_enum': [
+                'today',
+                'yesterday',
+                'this_month',
+                'last_month',
+                'this_quarter',
+                'lifetime',
+                'last_3d',
+                'last_7d',
+                'last_14d',
+                'last_28d',
+                'last_30d',
+                'last_90d',
+                'last_week_mon_sun',
+                'last_week_sun_sat',
+                'last_quarter',
+                'last_year',
+                'this_week_mon_today',
+                'this_week_sun_today',
+                'this_year',
+            ],
+            'format_enum': [
+                'JSON',
+                'CSV',
+                'XLS',
+                'XLSX',
+            ],
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/reportstats',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_report_stats_metadata(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.reportstatsmetadata import ReportStatsMetadata
+        param_types = {
+            'data_columns': 'list<string>',
+            'actions_group_by': 'list<actions_group_by_enum>',
+            'time_ranges': 'Object',
+            'time_increment': 'string',
+            'time_interval': 'Object',
+            'date_preset': 'date_preset_enum',
+            'filters': 'list<Object>',
+        }
+        enums = {
+            'actions_group_by_enum': ReportStatsMetadata.ActionsGroupBy.__dict__.values(),
+            'date_preset_enum': ReportStatsMetadata.DatePreset.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/reportstatsmetadata',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ReportStatsMetadata,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ReportStatsMetadata, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_roas(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.adaccountroas import AdAccountRoas
         param_types = {
-            'fields': 'list<fields_enum>',
-            'filtering': 'list<Object>',
             'time_increment': 'string',
             'time_range': 'Object',
+            'fields': 'list<string>',
+            'filtering': 'list<Object>',
         }
         enums = {
-            'fields_enum': AdAccountRoas.Fields.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -2474,11 +5810,127 @@ class AdAccount(
             self.assure_call()
             return request.execute()
 
+    def get_saved_audiences(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.savedaudience import SavedAudience
+        param_types = {
+            'fields': 'list<string>',
+            'filtering': 'list<Object>',
+            'business_id': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/saved_audiences',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=SavedAudience,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=SavedAudience, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_send_bill_to_addresses(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.crmaddress import CRMAddress
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/send_bill_to_addresses',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=CRMAddress,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=CRMAddress, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_sold_to_addresses(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.crmaddress import CRMAddress
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/sold_to_addresses',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=CRMAddress,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=CRMAddress, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_spend_limits(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adaccountspendlimit import AdAccountSpendLimit
+        param_types = {
+            'min_time': 'datetime',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/spendlimits',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdAccountSpendLimit,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdAccountSpendLimit, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def create_sponsored_message_ad(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
-            'bid_amount': 'int',
-            'daily_budget': 'unsigned int',
             'message_creative_id': 'string',
+            'daily_budget': 'unsigned int',
+            'bid_amount': 'int',
             'targeting': 'Targeting',
         }
         enums = {
@@ -2505,14 +5957,88 @@ class AdAccount(
             self.assure_call()
             return request.execute()
 
+    def get_stats(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adcampaignstats import AdCampaignStats
+        param_types = {
+            'start_time': 'datetime',
+            'end_time': 'datetime',
+            'time_start': 'datetime',
+            'time_stop': 'datetime',
+            'action_attribution_days_after_click': 'action_attribution_days_after_click_enum',
+            'action_attribution_days_after_imp': 'action_attribution_days_after_imp_enum',
+        }
+        enums = {
+            'action_attribution_days_after_click_enum': AdCampaignStats.ActionAttributionDaysAfterClick.__dict__.values(),
+            'action_attribution_days_after_imp_enum': AdCampaignStats.ActionAttributionDaysAfterImp.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/stats',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdCampaignStats,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdCampaignStats, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_study_audiences(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.customaudience import CustomAudience
+        param_types = {
+            'fields': 'list<string>',
+            'study_status': 'study_status_enum',
+            'name': 'string',
+            'description': 'string',
+            'author_id': 'Object',
+        }
+        enums = {
+            'study_status_enum': CustomAudience.StudyStatus.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/study_audiences',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=CustomAudience,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=CustomAudience, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_targeting_browse(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.adaccounttargetingunified import AdAccountTargetingUnified
         param_types = {
             'include_nodes': 'bool',
+            'excluded_category': 'string',
             'limit_type': 'limit_type_enum',
+            'is_exclusion': 'bool',
+            'whitelisted_types': 'list<whitelisted_types_enum>',
         }
         enums = {
             'limit_type_enum': AdAccountTargetingUnified.LimitType.__dict__.values(),
+            'whitelisted_types_enum': AdAccountTargetingUnified.WhitelistedTypes.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -2539,11 +6065,17 @@ class AdAccount(
     def get_targeting_search(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.adaccounttargetingunified import AdAccountTargetingUnified
         param_types = {
-            'limit_type': 'limit_type_enum',
             'q': 'string',
+            'limit_type': 'limit_type_enum',
+            'whitelisted_types': 'list<whitelisted_types_enum>',
+            'is_exclusion': 'bool',
+            'session_id': 'unsigned int',
+            'targeting_list': 'list<Object>',
+            'countries': 'list<string>',
         }
         enums = {
             'limit_type_enum': AdAccountTargetingUnified.LimitType.__dict__.values(),
+            'whitelisted_types_enum': AdAccountTargetingUnified.WhitelistedTypes.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -2567,12 +6099,77 @@ class AdAccount(
             self.assure_call()
             return request.execute()
 
+    def get_targeting_search_recommendation(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adaccounttargetingunified import AdAccountTargetingUnified
+        param_types = {
+            'q': 'string',
+            'limit_type': 'limit_type_enum',
+            'whitelisted_types': 'list<whitelisted_types_enum>',
+            'is_exclusion': 'bool',
+        }
+        enums = {
+            'limit_type_enum': AdAccountTargetingUnified.LimitType.__dict__.values(),
+            'whitelisted_types_enum': AdAccountTargetingUnified.WhitelistedTypes.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/targetingsearchrecommendation',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdAccountTargetingUnified,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdAccountTargetingUnified, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_targeting_search_replace_m_ents(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adaccounttargetingunified import AdAccountTargetingUnified
+        param_types = {
+            'targeting_option_id': 'string',
+            'country': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/targetingsearchreplacements',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdAccountTargetingUnified,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdAccountTargetingUnified, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_targeting_sentence_lines(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.targetingsentenceline import TargetingSentenceLine
         param_types = {
+            'targeting_spec': 'Targeting',
             'discard_ages': 'bool',
             'discard_placements': 'bool',
-            'targeting_spec': 'Targeting',
+            'hide_targeting_spec_from_return': 'bool',
         }
         enums = {
         }
@@ -2601,11 +6198,20 @@ class AdAccount(
     def get_targeting_suggestions(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.adaccounttargetingunified import AdAccountTargetingUnified
         param_types = {
-            'limit_type': 'limit_type_enum',
             'targeting_list': 'list<Object>',
+            'objective': 'objective_enum',
+            'objects': 'Object',
+            'limit_type': 'limit_type_enum',
+            'mode': 'mode_enum',
+            'session_id': 'unsigned int',
+            'whitelisted_types': 'list<whitelisted_types_enum>',
+            'countries': 'list<string>',
         }
         enums = {
+            'objective_enum': AdAccountTargetingUnified.Objective.__dict__.values(),
             'limit_type_enum': AdAccountTargetingUnified.LimitType.__dict__.values(),
+            'mode_enum': AdAccountTargetingUnified.Mode.__dict__.values(),
+            'whitelisted_types_enum': AdAccountTargetingUnified.WhitelistedTypes.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -2632,10 +6238,10 @@ class AdAccount(
     def get_targeting_validation(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.adaccounttargetingunified import AdAccountTargetingUnified
         param_types = {
-            'id_list': 'list<unsigned int>',
-            'is_exclusion': 'bool',
-            'name_list': 'list<string>',
             'targeting_list': 'list<Object>',
+            'id_list': 'list<unsigned int>',
+            'name_list': 'list<string>',
+            'is_exclusion': 'bool',
         }
         enums = {
         }
@@ -2648,6 +6254,68 @@ class AdAccount(
             target_class=AdAccountTargetingUnified,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=AdAccountTargetingUnified, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_timezone_offsets(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.timezoneoffset import TimezoneOffset
+        param_types = {
+            'start_year': 'unsigned int',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/timezoneoffsets',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=TimezoneOffset,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=TimezoneOffset, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_topic_discovery_responses(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.topicdiscoveryresponse import TopicDiscoveryResponse
+        param_types = {
+            'query_terms': 'list<string>',
+            'limit': 'int',
+            'query_method': 'query_method_enum',
+            'language': 'Object',
+        }
+        enums = {
+            'query_method_enum': TopicDiscoveryResponse.QueryMethod.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/topic_discovery_responses',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=TopicDiscoveryResponse,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=TopicDiscoveryResponse, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2689,6 +6357,34 @@ class AdAccount(
             self.assure_call()
             return request.execute()
 
+    def get_tracking(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adaccounttrackingdata import AdAccountTrackingData
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/tracking',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdAccountTrackingData,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdAccountTrackingData, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def create_tracking(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
             'tracking_specs': 'Object',
@@ -2701,9 +6397,101 @@ class AdAccount(
             endpoint='/tracking',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=AdAccount,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=AdAccount, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_transaction_details(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.transactiondetails import TransactionDetails
+        param_types = {
+            'transaction_keys': 'list<string>',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/transaction_details',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=TransactionDetails,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=TransactionDetails, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_transactions(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.transaction import Transaction
+        param_types = {
+            'time_start': 'int',
+            'time_stop': 'int',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/transactions',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Transaction,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Transaction, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_unique_ad_creatives(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.uniqueadcreative import UniqueAdCreative
+        param_types = {
+            'time_range': 'Object',
+            'date_preset': 'date_preset_enum',
+            'sort': 'list<string>',
+            'filtering': 'list<Object>',
+        }
+        enums = {
+            'date_preset_enum': UniqueAdCreative.DatePreset.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/unique_adcreatives',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=UniqueAdCreative,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=UniqueAdCreative, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2719,9 +6507,9 @@ class AdAccount(
 
     def delete_user_match(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
-            'bidirectional': 'bool',
-            'namespace': 'string',
             'payload': 'Object',
+            'namespace': 'string',
+            'bidirectional': 'bool',
         }
         enums = {
         }
@@ -2749,11 +6537,11 @@ class AdAccount(
 
     def create_user_match(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
-            'action': 'string',
-            'bidirectional': 'bool',
-            'namespace': 'string',
             'payload': 'Object',
+            'action': 'string',
+            'namespace': 'string',
             'retention': 'string',
+            'bidirectional': 'bool',
         }
         enums = {
         }
@@ -2761,6 +6549,127 @@ class AdAccount(
             node_id=self['id'],
             method='POST',
             endpoint='/user_match',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def delete_user_permissions(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'user': 'int',
+            'email': 'string',
+            'business': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='DELETE',
+            endpoint='/userpermissions',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_user_permissions(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adaccountuserpermissions import AdAccountUserPermissions
+        param_types = {
+            'business': 'Object',
+            'user': 'Object',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/userpermissions',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdAccountUserPermissions,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdAccountUserPermissions, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_user_permission(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'user': 'int',
+            'email': 'string',
+            'business': 'string',
+            'tasks': 'list<tasks_enum>',
+        }
+        enums = {
+            'tasks_enum': AdAccount.Tasks.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/userpermissions',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdAccount,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdAccount, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def delete_users(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'uid': 'int',
+            'uids': 'list<string>',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='DELETE',
+            endpoint='/users',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
@@ -2807,9 +6716,71 @@ class AdAccount(
             self.assure_call()
             return request.execute()
 
+    def create_user(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'uid': 'int',
+            'tasks': 'list<tasks_enum>',
+        }
+        enums = {
+            'tasks_enum': AdAccount.Tasks.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/users',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdAccount,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdAccount, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def delete_users_of_any_audience(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'session': 'Object',
+            'payload': 'Object',
+            'namespace': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='DELETE',
+            endpoint='/usersofanyaudience',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     _field_types = {
         'account_id': 'string',
         'account_status': 'unsigned int',
+        'ad_account_creation_request': 'AdAccountCreationRequest',
+        'ad_account_promotable_objects': 'AdAccountPromotableObjects',
         'age': 'float',
         'agency_client_declaration': 'AgencyClientDeclaration',
         'amount_spent': 'string',
@@ -2827,6 +6798,8 @@ class AdAccount(
         'capabilities': 'list<string>',
         'created_time': 'datetime',
         'currency': 'string',
+        'daily_spend_limit': 'string',
+        'direct_deals_tos_accepted': 'bool',
         'disable_reason': 'unsigned int',
         'end_advertiser': 'string',
         'end_advertiser_name': 'string',
@@ -2871,7 +6844,10 @@ class AdAccount(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['Currency'] = AdAccount.Currency.__dict__.values()
         field_enum_info['PermittedTasks'] = AdAccount.PermittedTasks.__dict__.values()
         field_enum_info['Tasks'] = AdAccount.Tasks.__dict__.values()
+        field_enum_info['ClaimObjective'] = AdAccount.ClaimObjective.__dict__.values()
+        field_enum_info['ContentType'] = AdAccount.ContentType.__dict__.values()
         field_enum_info['Subtype'] = AdAccount.Subtype.__dict__.values()
         return field_enum_info

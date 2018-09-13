@@ -106,6 +106,7 @@ class PageCallToAction(
         play_music = 'PLAY_MUSIC'
         visit_group = 'VISIT_GROUP'
         shop_on_facebook = 'SHOP_ON_FACEBOOK'
+        local_dev_platform = 'LOCAL_DEV_PLATFORM'
 
     class WebDestinationType:
         email = 'EMAIL'
@@ -170,26 +171,26 @@ class PageCallToAction(
 
     def api_update(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
-            'android_app_id': 'int',
-            'android_deeplink': 'string',
-            'android_destination_type': 'android_destination_type_enum',
-            'android_package_name': 'string',
-            'android_url': 'string',
-            'email_address': 'string',
-            'intl_number_with_plus': 'string',
-            'iphone_app_id': 'int',
-            'iphone_deeplink': 'string',
-            'iphone_destination_type': 'iphone_destination_type_enum',
-            'iphone_url': 'string',
             'type': 'type_enum',
+            'intl_number_with_plus': 'string',
+            'email_address': 'string',
             'web_destination_type': 'web_destination_type_enum',
             'web_url': 'string',
+            'android_destination_type': 'android_destination_type_enum',
+            'android_deeplink': 'string',
+            'android_package_name': 'string',
+            'android_url': 'string',
+            'android_app_id': 'int',
+            'iphone_destination_type': 'iphone_destination_type_enum',
+            'iphone_deeplink': 'string',
+            'iphone_url': 'string',
+            'iphone_app_id': 'int',
         }
         enums = {
-            'android_destination_type_enum': PageCallToAction.AndroidDestinationType.__dict__.values(),
-            'iphone_destination_type_enum': PageCallToAction.IphoneDestinationType.__dict__.values(),
             'type_enum': PageCallToAction.Type.__dict__.values(),
             'web_destination_type_enum': PageCallToAction.WebDestinationType.__dict__.values(),
+            'android_destination_type_enum': PageCallToAction.AndroidDestinationType.__dict__.values(),
+            'iphone_destination_type_enum': PageCallToAction.IphoneDestinationType.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -214,7 +215,7 @@ class PageCallToAction(
             return request.execute()
 
     _field_types = {
-        'android_app': 'Object',
+        'android_app': 'Application',
         'android_deeplink': 'string',
         'android_destination_type': 'string',
         'android_package_name': 'string',
@@ -224,7 +225,7 @@ class PageCallToAction(
         'from': 'Page',
         'id': 'string',
         'intl_number_with_plus': 'string',
-        'iphone_app': 'Object',
+        'iphone_app': 'Application',
         'iphone_deeplink': 'string',
         'iphone_destination_type': 'string',
         'iphone_url': 'string',

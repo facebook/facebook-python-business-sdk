@@ -60,6 +60,17 @@ class Profile(
         group = 'group'
         application = 'application'
 
+    class Type:
+        none = 'NONE'
+        like = 'LIKE'
+        love = 'LOVE'
+        wow = 'WOW'
+        haha = 'HAHA'
+        sad = 'SAD'
+        angry = 'ANGRY'
+        thankful = 'THANKFUL'
+        pride = 'PRIDE'
+
     def api_get(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
         }
@@ -91,9 +102,9 @@ class Profile(
         from facebook_business.adobjects.profilepicturesource import ProfilePictureSource
         param_types = {
             'height': 'int',
-            'redirect': 'bool',
-            'type': 'type_enum',
             'width': 'int',
+            'type': 'type_enum',
+            'redirect': 'bool',
         }
         enums = {
             'type_enum': ProfilePictureSource.Type.__dict__.values(),
@@ -138,4 +149,5 @@ class Profile(
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['ProfileType'] = Profile.ProfileType.__dict__.values()
+        field_enum_info['Type'] = Profile.Type.__dict__.values()
         return field_enum_info

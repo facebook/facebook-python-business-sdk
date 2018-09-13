@@ -120,7 +120,7 @@ class ExtendedCreditAllocationConfig(
             return request.execute()
 
     _field_types = {
-        'currency_amount': 'Object',
+        'currency_amount': 'CurrencyAmount',
         'id': 'string',
         'liability_type': 'string',
         'owning_business': 'Business',

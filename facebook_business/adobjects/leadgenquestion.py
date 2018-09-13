@@ -79,9 +79,9 @@ class LeadGenQuestion(
             return request.execute()
 
     _field_types = {
-        'conditional_questions_choices': 'list<Object>',
+        'conditional_questions_choices': 'list<LeadGenConditionalQuestionsGroupChoices>',
         'conditional_questions_group_id': 'string',
-        'dependent_conditional_questions': 'list<Object>',
+        'dependent_conditional_questions': 'list<LeadGenConditionalQuestionsGroupQuestions>',
         'id': 'string',
         'inline_context': 'string',
         'key': 'string',

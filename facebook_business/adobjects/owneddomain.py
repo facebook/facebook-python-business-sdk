@@ -44,6 +44,10 @@ class OwnedDomain(
         domain_name = 'domain_name'
         id = 'id'
 
+    class PermittedRoles:
+        admin = 'ADMIN'
+        webmaster_developer = 'WEBMASTER_DEVELOPER'
+
     # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
@@ -80,6 +84,273 @@ class OwnedDomain(
             self.assure_call()
             return request.execute()
 
+    def create_Agency(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'business': 'string',
+            'permitted_roles': 'list<permitted_roles_enum>',
+        }
+        enums = {
+            'permitted_roles_enum': OwnedDomain.PermittedRoles.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/Agencies',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=OwnedDomain,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=OwnedDomain, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_assigned_partners(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.business import Business
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/assigned_partners',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Business,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Business, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_blocked_ad_groups(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.ad import Ad
+        param_types = {
+            'pages': 'list<int>',
+            'restriction': 'restriction_enum',
+        }
+        enums = {
+            'restriction_enum': Ad.Restriction.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/blocked_adgroups',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Ad,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Ad, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_business_object_tags(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.businesstag import BusinessTag
+        param_types = {
+            'business_id': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/business_object_tags',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=BusinessTag,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=BusinessTag, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_business_requests(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.businessrequest import BusinessRequest
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/business_requests',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=BusinessRequest,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=BusinessRequest, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_connected_business_objects(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.businessobject import BusinessObject
+        param_types = {
+            'type': 'type_enum',
+            'business_id': 'string',
+        }
+        enums = {
+            'type_enum': BusinessObject.Type.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/connected_business_objects',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=BusinessObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=BusinessObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_pages_running_ad_groups(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/pages_running_adgroups',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_permitted_pages(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.page import Page
+        param_types = {
+            'permission': 'permission_enum',
+            'restriction': 'restriction_enum',
+        }
+        enums = {
+            'permission_enum': Page.Permission.__dict__.values(),
+            'restriction_enum': Page.Restriction.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/permitted_pages',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Page,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Page, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_running_ad_groups(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.ad import Ad
+        param_types = {
+            'pages': 'list<int>',
+            'restriction': 'restriction_enum',
+        }
+        enums = {
+            'restriction_enum': Ad.Restriction.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/running_adgroups',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Ad,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Ad, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     _field_types = {
         'domain_name': 'string',
         'id': 'string',
@@ -88,4 +359,5 @@ class OwnedDomain(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['PermittedRoles'] = OwnedDomain.PermittedRoles.__dict__.values()
         return field_enum_info

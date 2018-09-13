@@ -52,35 +52,21 @@ class LiveVideo(
         embed_html = 'embed_html'
         field_from = 'from'
         id = 'id'
+        ingest_streams = 'ingest_streams'
         is_manual_mode = 'is_manual_mode'
         is_reference_only = 'is_reference_only'
         live_encoders = 'live_encoders'
         live_views = 'live_views'
         permalink_url = 'permalink_url'
         planned_start_time = 'planned_start_time'
+        preview_url = 'preview_url'
         seconds_left = 'seconds_left'
         secure_stream_url = 'secure_stream_url'
         status = 'status'
         stream_url = 'stream_url'
         title = 'title'
+        total_views = 'total_views'
         video = 'video'
-
-    class LiveCommentModerationSetting:
-        follower = 'FOLLOWER'
-        slow = 'SLOW'
-        discussion = 'DISCUSSION'
-        restricted = 'RESTRICTED'
-
-    class Status:
-        unpublished = 'UNPUBLISHED'
-        live_now = 'LIVE_NOW'
-        scheduled_unpublished = 'SCHEDULED_UNPUBLISHED'
-        scheduled_live = 'SCHEDULED_LIVE'
-        scheduled_canceled = 'SCHEDULED_CANCELED'
-
-    class StreamType:
-        regular = 'REGULAR'
-        ambient = 'AMBIENT'
 
     class BroadcastStatus:
         unpublished = 'UNPUBLISHED'
@@ -96,6 +82,7 @@ class LiveVideo(
     class Projection:
         equirectangular = 'EQUIRECTANGULAR'
         cubemap = 'CUBEMAP'
+        half_equirectangular = 'HALF_EQUIRECTANGULAR'
 
     class Source:
         target = 'target'
@@ -104,10 +91,31 @@ class LiveVideo(
     class SpatialAudioFormat:
         ambix_4 = 'ambiX_4'
 
+    class Status:
+        unpublished = 'UNPUBLISHED'
+        live_now = 'LIVE_NOW'
+        scheduled_unpublished = 'SCHEDULED_UNPUBLISHED'
+        scheduled_live = 'SCHEDULED_LIVE'
+        scheduled_canceled = 'SCHEDULED_CANCELED'
+
     class StereoscopicMode:
         mono = 'MONO'
         left_right = 'LEFT_RIGHT'
         top_bottom = 'TOP_BOTTOM'
+
+    class StreamType:
+        regular = 'REGULAR'
+        ambient = 'AMBIENT'
+
+    class Type:
+        tagged = 'tagged'
+        uploaded = 'uploaded'
+
+    class LiveCommentModerationSetting:
+        follower = 'FOLLOWER'
+        slow = 'SLOW'
+        discussion = 'DISCUSSION'
+        restricted = 'RESTRICTED'
 
     def api_delete(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
@@ -165,46 +173,49 @@ class LiveVideo(
 
     def api_update(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
-            'ad_break_drop_live_stream': 'bool',
-            'ad_break_duration': 'unsigned int',
-            'ad_break_encoder_drops_live_stream': 'bool',
-            'ad_break_intent': 'bool',
-            'ad_break_start_now': 'bool',
-            'ad_break_time_offset': 'float',
-            'allow_bm_crossposting': 'bool',
+            'content_tags': 'list<string>',
+            'privacy': 'Object',
+            'title': 'string',
+            'description': 'string',
+            'embeddable': 'bool',
+            'disturbing': 'bool',
+            'place': 'Object',
+            'published': 'bool',
+            'status': 'status_enum',
+            'end_live_video': 'bool',
+            'targeting': 'Object',
+            'tags': 'list<int>',
+            'og_phrase': 'string',
+            'og_icon_id': 'string',
+            'sponsor_id': 'string',
+            'direct_share_status': 'unsigned int',
+            'sponsor_relationship': 'unsigned int',
+            'planned_start_time': 'int',
+            'stream_type': 'stream_type_enum',
             'attribution_app_id': 'string',
             'attribution_app_metadata': 'string',
-            'commercial_break_durations': 'list<unsigned int>',
-            'content_tags': 'list<string>',
-            'crossposting_actions': 'list<map>',
             'custom_labels': 'list<string>',
-            'description': 'string',
-            'direct_share_status': 'unsigned int',
-            'disturbing': 'bool',
-            'embeddable': 'bool',
-            'end_live_video': 'bool',
+            'commercial_break_durations': 'list<unsigned int>',
+            'is_audio_only': 'bool',
             'is_manual_mode': 'bool',
-            'live_comment_moderation_setting': 'list<live_comment_moderation_setting_enum>',
-            'live_encoders': 'list<string>',
-            'place': 'Object',
-            'planned_start_time': 'int',
-            'privacy': 'Object',
-            'product_items': 'list<string>',
-            'published': 'bool',
             'schedule_custom_profile_image': 'file',
             'schedule_feed_background_image': 'file',
-            'sponsor_id': 'string',
-            'sponsor_relationship': 'unsigned int',
-            'status': 'status_enum',
-            'stream_type': 'stream_type_enum',
-            'tags': 'list<int>',
-            'targeting': 'Object',
-            'title': 'string',
+            'product_items': 'list<string>',
+            'ad_break_intent': 'bool',
+            'ad_break_start_now': 'bool',
+            'ad_break_drop_live_stream': 'bool',
+            'ad_break_time_offset': 'float',
+            'ad_break_encoder_drops_live_stream': 'bool',
+            'ad_break_duration': 'unsigned int',
+            'live_encoders': 'list<string>',
+            'live_comment_moderation_setting': 'list<live_comment_moderation_setting_enum>',
+            'crossposting_actions': 'list<map>',
+            'allow_bm_crossposting': 'bool',
         }
         enums = {
-            'live_comment_moderation_setting_enum': LiveVideo.LiveCommentModerationSetting.__dict__.values(),
             'status_enum': LiveVideo.Status.__dict__.values(),
             'stream_type_enum': LiveVideo.StreamType.__dict__.values(),
+            'live_comment_moderation_setting_enum': LiveVideo.LiveCommentModerationSetting.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -228,8 +239,331 @@ class LiveVideo(
             self.assure_call()
             return request.execute()
 
+    def get_blocked_users(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.user import User
+        param_types = {
+            'uid': 'Object',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/blocked_users',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=User,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=User, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_comments(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.comment import Comment
+        param_types = {
+            'filter': 'filter_enum',
+            'order': 'order_enum',
+            'live_filter': 'live_filter_enum',
+            'since': 'datetime',
+        }
+        enums = {
+            'filter_enum': Comment.Filter.__dict__.values(),
+            'order_enum': Comment.Order.__dict__.values(),
+            'live_filter_enum': Comment.LiveFilter.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/comments',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Comment,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Comment, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_crosspost_share_d_pages(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.page import Page
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/crosspost_shared_pages',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Page,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Page, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_crossposted_broadcasts(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/crossposted_broadcasts',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=LiveVideo,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=LiveVideo, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_errors(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.livevideoerror import LiveVideoError
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/errors',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=LiveVideoError,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=LiveVideoError, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_game_shows(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.videogameshow import VideoGameShow
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/game_shows',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=VideoGameShow,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=VideoGameShow, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_input_stream(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/input_streams',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=LiveVideo,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=LiveVideo, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_likes(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.profile import Profile
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/likes',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Profile,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Profile, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_polls(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.videopoll import VideoPoll
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/polls',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=VideoPoll,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=VideoPoll, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_poll(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.videopoll import VideoPoll
+        param_types = {
+            'question': 'string',
+            'options': 'list<string>',
+            'correct_option': 'unsigned int',
+            'default_open': 'bool',
+            'show_results': 'bool',
+            'show_gradient': 'bool',
+            'close_after_voting': 'bool',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/polls',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=VideoPoll,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=VideoPoll, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_reactions(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.profile import Profile
+        param_types = {
+            'type': 'type_enum',
+        }
+        enums = {
+            'type_enum': Profile.Type.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/reactions',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Profile,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Profile, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     _field_types = {
-        'ad_break_config': 'Object',
+        'ad_break_config': 'LiveVideoAdBreakConfig',
         'ad_break_failure_reason': 'string',
         'broadcast_start_time': 'datetime',
         'copyright': 'VideoCopyright',
@@ -240,29 +574,33 @@ class LiveVideo(
         'embed_html': 'string',
         'from': 'Object',
         'id': 'string',
+        'ingest_streams': 'list<LiveVideoInputStream>',
         'is_manual_mode': 'bool',
         'is_reference_only': 'bool',
-        'live_encoders': 'list<Object>',
+        'live_encoders': 'list<LiveEncoder>',
         'live_views': 'unsigned int',
         'permalink_url': 'string',
         'planned_start_time': 'datetime',
+        'preview_url': 'string',
         'seconds_left': 'int',
         'secure_stream_url': 'string',
         'status': 'string',
         'stream_url': 'string',
         'title': 'string',
-        'video': 'Object',
+        'total_views': 'string',
+        'video': 'AdVideo',
     }
 
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['LiveCommentModerationSetting'] = LiveVideo.LiveCommentModerationSetting.__dict__.values()
-        field_enum_info['Status'] = LiveVideo.Status.__dict__.values()
-        field_enum_info['StreamType'] = LiveVideo.StreamType.__dict__.values()
         field_enum_info['BroadcastStatus'] = LiveVideo.BroadcastStatus.__dict__.values()
         field_enum_info['Projection'] = LiveVideo.Projection.__dict__.values()
         field_enum_info['Source'] = LiveVideo.Source.__dict__.values()
         field_enum_info['SpatialAudioFormat'] = LiveVideo.SpatialAudioFormat.__dict__.values()
+        field_enum_info['Status'] = LiveVideo.Status.__dict__.values()
         field_enum_info['StereoscopicMode'] = LiveVideo.StereoscopicMode.__dict__.values()
+        field_enum_info['StreamType'] = LiveVideo.StreamType.__dict__.values()
+        field_enum_info['Type'] = LiveVideo.Type.__dict__.values()
+        field_enum_info['LiveCommentModerationSetting'] = LiveVideo.LiveCommentModerationSetting.__dict__.values()
         return field_enum_info

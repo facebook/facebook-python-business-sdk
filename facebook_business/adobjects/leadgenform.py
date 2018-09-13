@@ -206,6 +206,65 @@ class LeadgenForm(
             self.assure_call()
             return request.execute()
 
+    def get_ad_sets(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'query': 'string',
+            'campaign': 'string',
+            'adsets': 'list<Object>',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/adsets',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_campaigns(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'query': 'string',
+            'campaigns': 'list<string>',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/campaigns',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_leads(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.lead import Lead
         param_types = {
@@ -235,10 +294,11 @@ class LeadgenForm(
             return request.execute()
 
     def create_lead(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.lead import Lead
         param_types = {
+            'start_time': 'datetime',
             'end_time': 'datetime',
             'session_id': 'string',
-            'start_time': 'datetime',
         }
         enums = {
         }
@@ -248,9 +308,37 @@ class LeadgenForm(
             endpoint='/leads',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=LeadgenForm,
+            target_class=Lead,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=LeadgenForm, api=self._api),
+            response_parser=ObjectParser(target_class=Lead, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_test_leads(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.lead import Lead
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/test_leads',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Lead,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Lead, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -265,9 +353,10 @@ class LeadgenForm(
             return request.execute()
 
     def create_test_lead(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.lead import Lead
         param_types = {
-            'custom_disclaimer_responses': 'list<Object>',
             'field_data': 'list<Object>',
+            'custom_disclaimer_responses': 'list<Object>',
         }
         enums = {
         }
@@ -277,9 +366,9 @@ class LeadgenForm(
             endpoint='/test_leads',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=LeadgenForm,
+            target_class=Lead,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=LeadgenForm, api=self._api),
+            response_parser=ObjectParser(target_class=Lead, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -296,7 +385,7 @@ class LeadgenForm(
     _field_types = {
         'allow_organic_lead': 'bool',
         'block_display_for_non_targeted_viewer': 'bool',
-        'context_card': 'Object',
+        'context_card': 'LeadGenContextCard',
         'created_time': 'datetime',
         'creator': 'User',
         'creator_id': 'int',

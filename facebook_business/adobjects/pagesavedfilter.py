@@ -51,7 +51,7 @@ class PageSavedFilter(
 
     class Section:
         audience_alerts = 'AUDIENCE_ALERTS'
-        campaign_center = 'CAMPAIGN_CENTER'
+        candidate_videos = 'CANDIDATE_VIDEOS'
         chex_pending_orders = 'CHEX_PENDING_ORDERS'
         chex_completed_orders = 'CHEX_COMPLETED_ORDERS'
         commerce_platform_settings = 'COMMERCE_PLATFORM_SETTINGS'
@@ -128,7 +128,6 @@ class PageSavedFilter(
         archived_events = 'ARCHIVED_EVENTS'
         tours = 'TOURS'
         polls_composer = 'POLLS_COMPOSER'
-        brand_asset_library = 'BRAND_ASSET_LIBRARY'
         job_applications = 'JOB_APPLICATIONS'
         subscriptions = 'SUBSCRIPTIONS'
         news_subscriptions_publisher_tools = 'NEWS_SUBSCRIPTIONS_PUBLISHER_TOOLS'
@@ -142,6 +141,7 @@ class PageSavedFilter(
         branded_content = 'BRANDED_CONTENT'
         branded_content_creator = 'BRANDED_CONTENT_CREATOR'
         sounds_collection = 'SOUNDS_COLLECTION'
+        creator_studio = 'CREATOR_STUDIO'
         content_tests = 'CONTENT_TESTS'
         gem_producer_dashboard = 'GEM_PRODUCER_DASHBOARD'
         monetized_videos = 'MONETIZED_VIDEOS'
@@ -149,6 +149,33 @@ class PageSavedFilter(
         news_storylines = 'NEWS_STORYLINES'
         registrations = 'REGISTRATIONS'
         ia_regiwall_settings = 'IA_REGIWALL_SETTINGS'
+
+    def api_delete(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='DELETE',
+            endpoint='/',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def api_get(self, fields=None, params=None, batch=None, pending=False):
         param_types = {

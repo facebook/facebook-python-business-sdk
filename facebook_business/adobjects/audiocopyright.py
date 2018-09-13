@@ -54,6 +54,11 @@ class AudioCopyright(
         whitelisted_fb_users = 'whitelisted_fb_users'
         whitelisted_ig_users = 'whitelisted_ig_users'
 
+    class UpdateSource:
+        edit_reference_dialog = 'edit_reference_dialog'
+        ddex = 'ddex'
+        reference_conflict_dialog = 'reference_conflict_dialog'
+
     def api_get(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
         }
@@ -68,6 +73,68 @@ class AudioCopyright(
             target_class=AudioCopyright,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def api_update(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'update_source': 'update_source_enum',
+            'match_rule': 'string',
+            'ownership_countries': 'list<string>',
+            'whitelisted_fb_users': 'list<string>',
+            'whitelisted_ig_users': 'list<string>',
+            'append_excluded_ownership_segments': 'bool',
+            'excluded_ownership_segments': 'list<Object>',
+        }
+        enums = {
+            'update_source_enum': AudioCopyright.UpdateSource.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AudioCopyright,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_update_records(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/update_records',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -99,4 +166,5 @@ class AudioCopyright(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['UpdateSource'] = AudioCopyright.UpdateSource.__dict__.values()
         return field_enum_info

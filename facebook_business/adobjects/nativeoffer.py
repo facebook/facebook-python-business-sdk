@@ -45,6 +45,7 @@ class NativeOffer(
         barcode_photo_uri = 'barcode_photo_uri'
         barcode_type = 'barcode_type'
         barcode_value = 'barcode_value'
+        block_reshares = 'block_reshares'
         details = 'details'
         disable_location = 'disable_location'
         discounts = 'discounts'
@@ -56,6 +57,7 @@ class NativeOffer(
         online_code = 'online_code'
         page = 'page'
         page_set_id = 'page_set_id'
+        redemption_code = 'redemption_code'
         redemption_link = 'redemption_link'
         save_count = 'save_count'
         terms = 'terms'
@@ -124,8 +126,8 @@ class NativeOffer(
 
     def create_code(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
-            'file': 'file',
             'unique_codes_file_code_type': 'unique_codes_file_code_type_enum',
+            'file': 'file',
         }
         enums = {
             'unique_codes_file_code_type_enum': NativeOffer.UniqueCodesFileCodeType.__dict__.values(),
@@ -154,16 +156,19 @@ class NativeOffer(
 
     def create_native_offer_view(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
+            'urls': 'list<string>',
+            'photos': 'list<string>',
             'ad_account': 'string',
             'ad_image_hashes': 'list<string>',
+            'image_crops': 'list<map>',
+            'published_ads': 'bool',
+            'published': 'bool',
+            'message': 'string',
+            'place_data': 'Object',
+            'deeplinks': 'list<string>',
             'carousel_captions': 'list<string>',
             'carousel_links': 'list<string>',
-            'image_crops': 'list<map>',
-            'message': 'string',
-            'photos': 'list<string>',
-            'published': 'bool',
-            'published_ads': 'bool',
-            'urls': 'list<string>',
+            'carousel_data': 'list<Object>',
             'videos': 'list<string>',
         }
         enums = {
@@ -190,14 +195,43 @@ class NativeOffer(
             self.assure_call()
             return request.execute()
 
+    def get_views(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.nativeofferview import NativeOfferView
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/views',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=NativeOfferView,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=NativeOfferView, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     _field_types = {
         'barcode_photo': 'string',
         'barcode_photo_uri': 'string',
         'barcode_type': 'string',
         'barcode_value': 'string',
+        'block_reshares': 'bool',
         'details': 'string',
         'disable_location': 'bool',
-        'discounts': 'list<Object>',
+        'discounts': 'list<NativeOfferDiscount>',
         'expiration_time': 'datetime',
         'id': 'string',
         'instore_code': 'string',
@@ -206,6 +240,7 @@ class NativeOffer(
         'online_code': 'string',
         'page': 'Page',
         'page_set_id': 'string',
+        'redemption_code': 'string',
         'redemption_link': 'string',
         'save_count': 'int',
         'terms': 'string',
