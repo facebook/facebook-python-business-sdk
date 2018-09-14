@@ -42,7 +42,7 @@ account_id = config['act_id']
 account = AdAccount(account_id)
 
 # Both Insights and Reportstats
-i_async_job = account.get_insights(params={'level': 'ad'}, async=True)
+i_async_job = account.get_insights(params={'level': 'ad'}, is_async=True)
 
 # Insights
 while True:
@@ -50,7 +50,7 @@ while True:
     print("Percent done: " + str(job[AsyncJob.Field.async_percent_completion]))
     time.sleep(1)
     if job:
-        print "Done!"
+        print("Done!")
         break
 
 print(i_async_job.get_result())

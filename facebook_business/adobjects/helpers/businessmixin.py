@@ -22,11 +22,11 @@ from facebook_business.adobjects.adsinsights import AdsInsights
 
 class BusinessMixin:
 
-    def get_insights(self, fields=None, params=None, async=False):
+    def get_insights(self, fields=None, params=None, is_async=False):
         return self.iterate_edge_async(
             AdsInsights,
             fields,
             params,
-            async,
+            is_async,
             include_summary=False,
         )

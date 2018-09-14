@@ -1070,6 +1070,7 @@ class AdAccount(
             return request.execute()
 
     def create_ad_image(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adimage import AdImage
         param_types = {
             'zipbytes': 'Object',
             'bytes': 'Object',
@@ -1083,10 +1084,10 @@ class AdAccount(
             endpoint='/adimages',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=AdImage,
             api_type='EDGE',
             allow_file_upload=True,
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=AdImage, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

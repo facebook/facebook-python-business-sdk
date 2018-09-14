@@ -59,6 +59,10 @@ class AdImage(
         url = 'url'
         url_128 = 'url_128'
         width = 'width'
+        zipbytes = 'zipbytes'
+        bytes = 'bytes'
+        copy_from = 'copy_from'
+        filename = 'filename'
 
     class Status:
         active = 'ACTIVE'
@@ -68,6 +72,10 @@ class AdImage(
     @classmethod
     def get_endpoint(cls):
         return 'adimages'
+
+    def api_create(self, parent_id, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adaccount import AdAccount
+        return AdAccount(api=self._api, fbid=parent_id).create_ad_image(fields, params, batch, pending)
 
     def api_get(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
@@ -229,6 +237,10 @@ class AdImage(
         'url': 'string',
         'url_128': 'string',
         'width': 'unsigned int',
+        'zipbytes': 'Object',
+        'bytes': 'Object',
+        'copy_from': 'Object',
+        'filename': 'file'
     }
 
     @classmethod
