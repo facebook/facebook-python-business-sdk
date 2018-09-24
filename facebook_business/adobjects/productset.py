@@ -201,7 +201,7 @@ class ProductSet(
 
     _field_types = {
         'auto_creation_url': 'string',
-        'filter': 'string',
+        'filter': 'Object',
         'id': 'string',
         'name': 'string',
         'product_catalog': 'ProductCatalog',
@@ -212,3 +212,4 @@ class ProductSet(
     def _get_field_enum_info(cls):
         field_enum_info = {}
         return field_enum_info
+
