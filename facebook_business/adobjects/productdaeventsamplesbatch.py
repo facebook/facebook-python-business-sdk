@@ -19,6 +19,10 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
+from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
+from facebook_business.adobjects.objectparser import ObjectParser
+from facebook_business.api import FacebookRequest
+from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -29,18 +33,18 @@ pull request for this class.
 """
 
 class ProductDaEventSamplesBatch(
-    AbstractObject,
+    AbstractCrudObject,
 ):
 
-    def __init__(self, api=None):
-        super(ProductDaEventSamplesBatch, self).__init__()
+    def __init__(self, fbid=None, parent_id=None, api=None):
         self._isProductDaEventSamplesBatch = True
-        self._api = api
+        super(ProductDaEventSamplesBatch, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
         samples = 'samples'
         time_start = 'time_start'
         time_stop = 'time_stop'
+        id = 'id'
 
     class AggregationType:
         content_id = 'CONTENT_ID'
@@ -55,15 +59,44 @@ class ProductDaEventSamplesBatch(
         lead = 'Lead'
         addtowishlist = 'AddToWishlist'
 
+    def api_get(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ProductDaEventSamplesBatch,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     _field_types = {
         'samples': 'list<Object>',
         'time_start': 'unsigned int',
         'time_stop': 'unsigned int',
+        'id': 'string',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['AggregationType'] = ProductDaEventSamplesBatch.AggregationType.__dict__.values()
         field_enum_info['Event'] = ProductDaEventSamplesBatch.Event.__dict__.values()
         return field_enum_info
+
+

@@ -52,6 +52,16 @@ class HotelRoom(
         room_id = 'room_id'
         sale_price = 'sale_price'
         url = 'url'
+        pricing_variables = 'pricing_variables'
+
+    # @deprecated get_endpoint function is deprecated
+    @classmethod
+    def get_endpoint(cls):
+        return 'hotel_rooms'
+
+    def api_create(self, parent_id, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.hotel import Hotel
+        return Hotel(api=self._api, fbid=parent_id).create_hotel_room(fields, params, batch, pending)
 
     def api_delete(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
@@ -109,16 +119,16 @@ class HotelRoom(
 
     def api_update(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
-            'applinks': 'Object',
-            'base_price': 'float',
-            'currency': 'string',
             'description': 'string',
+            'name': 'string',
+            'url': 'string',
+            'currency': 'string',
+            'base_price': 'float',
+            'applinks': 'Object',
             'images': 'list<Object>',
             'margin_level': 'unsigned int',
-            'name': 'string',
             'pricing_variables': 'list<Object>',
             'sale_price': 'float',
-            'url': 'string',
         }
         enums = {
         }
@@ -144,6 +154,34 @@ class HotelRoom(
             self.assure_call()
             return request.execute()
 
+    def get_pricing_variables(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.dynamicpriceconfigbydate import DynamicPriceConfigByDate
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/pricing_variables',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=DynamicPriceConfigByDate,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=DynamicPriceConfigByDate, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     _field_types = {
         'applinks': 'AppLinks',
         'base_price': 'string',
@@ -156,9 +194,11 @@ class HotelRoom(
         'room_id': 'string',
         'sale_price': 'string',
         'url': 'string',
+        'pricing_variables': 'list<Object>',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         return field_enum_info
+
+

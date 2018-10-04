@@ -106,8 +106,9 @@ class PageAdminNote(
         'id': 'string',
         'user': 'User',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         return field_enum_info
+
+

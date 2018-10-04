@@ -140,6 +140,185 @@ class ProductSet(
             self.assure_call()
             return request.execute()
 
+    def get_automotive_models(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.automotivemodel import AutomotiveModel
+        param_types = {
+            'bulk_pagination': 'bool',
+            'filter': 'Object',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/automotive_models',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AutomotiveModel,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AutomotiveModel, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_da_checks(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.dacheck import DACheck
+        param_types = {
+            'checks': 'list<string>',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/da_checks',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=DACheck,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=DACheck, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_destinations(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.destination import Destination
+        param_types = {
+            'bulk_pagination': 'bool',
+            'filter': 'Object',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/destinations',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Destination,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Destination, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_flights(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.flight import Flight
+        param_types = {
+            'bulk_pagination': 'bool',
+            'filter': 'Object',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/flights',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Flight,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Flight, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_home_listings(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.homelisting import HomeListing
+        param_types = {
+            'bulk_pagination': 'bool',
+            'filter': 'Object',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/home_listings',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=HomeListing,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=HomeListing, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_hotels(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.hotel import Hotel
+        param_types = {
+            'bulk_pagination': 'bool',
+            'filter': 'Object',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/hotels',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Hotel,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Hotel, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_products(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.productitem import ProductItem
         param_types = {
@@ -171,6 +350,7 @@ class ProductSet(
             return request.execute()
 
     def get_vehicles(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.vehicle import Vehicle
         param_types = {
             'bulk_pagination': 'bool',
             'filter': 'Object',
@@ -183,9 +363,9 @@ class ProductSet(
             endpoint='/vehicles',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=Vehicle,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=Vehicle, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -207,9 +387,9 @@ class ProductSet(
         'product_catalog': 'ProductCatalog',
         'product_count': 'unsigned int',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         return field_enum_info
+
 

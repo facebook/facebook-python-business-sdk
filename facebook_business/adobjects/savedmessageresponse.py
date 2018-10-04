@@ -62,6 +62,7 @@ class SavedMessageResponse(
         smart_reply_location = 'SMART_REPLY_LOCATION'
         smart_reply_negative_feedback = 'SMART_REPLY_NEGATIVE_FEEDBACK'
         smart_reply_positive_feedback = 'SMART_REPLY_POSITIVE_FEEDBACK'
+        job_application = 'JOB_APPLICATION'
 
     def api_delete(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
@@ -119,10 +120,10 @@ class SavedMessageResponse(
 
     def api_update(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
-            'image': 'string',
             'message': 'string',
-            'remove_image': 'bool',
             'title': 'string',
+            'image': 'string',
+            'remove_image': 'bool',
         }
         enums = {
         }
@@ -148,6 +149,34 @@ class SavedMessageResponse(
             self.assure_call()
             return request.execute()
 
+    def get_macros(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.savedmessageresponsemacro import SavedMessageResponseMacro
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/macros',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=SavedMessageResponseMacro,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=SavedMessageResponseMacro, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     _field_types = {
         'category': 'string',
         'id': 'string',
@@ -156,9 +185,10 @@ class SavedMessageResponse(
         'message': 'string',
         'title': 'string',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['Category'] = SavedMessageResponse.Category.__dict__.values()
         return field_enum_info
+
+

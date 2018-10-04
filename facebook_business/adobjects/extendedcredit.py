@@ -46,6 +46,7 @@ class ExtendedCredit(
         credit_available = 'credit_available'
         credit_type = 'credit_type'
         id = 'id'
+        is_access_revoked = 'is_access_revoked'
         is_automated_experience = 'is_automated_experience'
         last_payment_time = 'last_payment_time'
         legal_entity_name = 'legal_entity_name'
@@ -72,6 +73,33 @@ class ExtendedCredit(
             target_class=ExtendedCredit,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_extended_credit_emails(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/extended_credit_emails',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -114,9 +142,10 @@ class ExtendedCredit(
             return request.execute()
 
     def create_extended_credit_invoice_group(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.extendedcreditinvoicegroup import ExtendedCreditInvoiceGroup
         param_types = {
-            'emails': 'list<string>',
             'name': 'string',
+            'emails': 'list<string>',
         }
         enums = {
         }
@@ -126,9 +155,9 @@ class ExtendedCredit(
             endpoint='/extended_credit_invoice_groups',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=ExtendedCredit,
+            target_class=ExtendedCreditInvoiceGroup,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ExtendedCredit, api=self._api),
+            response_parser=ObjectParser(target_class=ExtendedCreditInvoiceGroup, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -174,16 +203,16 @@ class ExtendedCredit(
     def create_owning_credit_allocation_config(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.extendedcreditallocationconfig import ExtendedCreditAllocationConfig
         param_types = {
+            'receiving_business_id': 'string',
             'amount': 'Object',
             'liability_type': 'liability_type_enum',
-            'partition_type': 'partition_type_enum',
-            'receiving_business_id': 'string',
             'send_bill_to': 'send_bill_to_enum',
+            'partition_type': 'partition_type_enum',
         }
         enums = {
             'liability_type_enum': ExtendedCreditAllocationConfig.LiabilityType.__dict__.values(),
-            'partition_type_enum': ExtendedCreditAllocationConfig.PartitionType.__dict__.values(),
             'send_bill_to_enum': ExtendedCreditAllocationConfig.SendBillTo.__dict__.values(),
+            'partition_type_enum': ExtendedCreditAllocationConfig.PartitionType.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -208,25 +237,27 @@ class ExtendedCredit(
             return request.execute()
 
     _field_types = {
-        'allocated_amount': 'Object',
-        'balance': 'Object',
-        'credit_available': 'Object',
+        'allocated_amount': 'CurrencyAmount',
+        'balance': 'CurrencyAmount',
+        'credit_available': 'CurrencyAmount',
         'credit_type': 'string',
         'id': 'string',
+        'is_access_revoked': 'bool',
         'is_automated_experience': 'bool',
         'last_payment_time': 'datetime',
         'legal_entity_name': 'string',
         'liable_biz_name': 'string',
-        'max_balance': 'Object',
-        'online_max_balance': 'Object',
+        'max_balance': 'CurrencyAmount',
+        'online_max_balance': 'CurrencyAmount',
         'owner_business': 'Business',
         'owner_business_name': 'string',
         'partition_from': 'string',
         'receiving_credit_allocation_config': 'ExtendedCreditAllocationConfig',
         'send_bill_to_biz_name': 'string',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         return field_enum_info
+
+

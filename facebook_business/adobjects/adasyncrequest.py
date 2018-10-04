@@ -73,6 +73,33 @@ class AdAsyncRequest(
         error_dependency = 'ERROR_DEPENDENCY'
         error_conflicts = 'ERROR_CONFLICTS'
 
+    def api_delete(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='DELETE',
+            endpoint='/',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def api_get(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
         }
@@ -111,10 +138,11 @@ class AdAsyncRequest(
         'type': 'string',
         'updated_time': 'datetime',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['Status'] = AdAsyncRequest.Status.__dict__.values()
         field_enum_info['Statuses'] = AdAsyncRequest.Statuses.__dict__.values()
         return field_enum_info
+
+

@@ -169,10 +169,11 @@ class BusinessRoleRequest(
         'updated_by': 'Object',
         'updated_time': 'datetime',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['Role'] = BusinessRoleRequest.Role.__dict__.values()
         field_enum_info['Status'] = BusinessRoleRequest.Status.__dict__.values()
         return field_enum_info
+
+

@@ -120,7 +120,7 @@ class ExtendedCreditAllocationConfig(
             return request.execute()
 
     _field_types = {
-        'currency_amount': 'Object',
+        'currency_amount': 'CurrencyAmount',
         'id': 'string',
         'liability_type': 'string',
         'owning_business': 'Business',
@@ -131,7 +131,6 @@ class ExtendedCreditAllocationConfig(
         'request_status': 'string',
         'send_bill_to': 'string',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
@@ -139,3 +138,5 @@ class ExtendedCreditAllocationConfig(
         field_enum_info['PartitionType'] = ExtendedCreditAllocationConfig.PartitionType.__dict__.values()
         field_enum_info['SendBillTo'] = ExtendedCreditAllocationConfig.SendBillTo.__dict__.values()
         return field_enum_info
+
+

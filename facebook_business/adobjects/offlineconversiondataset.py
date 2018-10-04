@@ -41,6 +41,7 @@ class OfflineConversionDataSet(
         super(OfflineConversionDataSet, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        attribute_stats = 'attribute_stats'
         business = 'business'
         config = 'config'
         creation_time = 'creation_time'
@@ -56,6 +57,7 @@ class OfflineConversionDataSet(
         last_upload_app = 'last_upload_app'
         match_rate_approx = 'match_rate_approx'
         matched_entries = 'matched_entries'
+        matched_unique_users = 'matched_unique_users'
         name = 'name'
         usage = 'usage'
         valid_entries = 'valid_entries'
@@ -66,6 +68,22 @@ class OfflineConversionDataSet(
         people_and_partners = 'PEOPLE_AND_PARTNERS'
         directly_from_partners = 'DIRECTLY_FROM_PARTNERS'
         none = 'NONE'
+
+    class PermittedRoles:
+        admin = 'ADMIN'
+        uploader = 'UPLOADER'
+        advertiser = 'ADVERTISER'
+
+    class RelationshipType:
+        ad_manager = 'AD_MANAGER'
+        audience_manager = 'AUDIENCE_MANAGER'
+        agency = 'AGENCY'
+        other = 'OTHER'
+
+    class Role:
+        admin = 'ADMIN'
+        uploader = 'UPLOADER'
+        advertiser = 'ADVERTISER'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
@@ -132,11 +150,11 @@ class OfflineConversionDataSet(
 
     def api_update(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
-            'auto_assign_to_new_accounts_only': 'bool',
-            'data_origin': 'data_origin_enum',
-            'description': 'string',
-            'enable_auto_assign_to_accounts': 'bool',
             'name': 'string',
+            'description': 'string',
+            'data_origin': 'data_origin_enum',
+            'enable_auto_assign_to_accounts': 'bool',
+            'auto_assign_to_new_accounts_only': 'bool',
         }
         enums = {
             'data_origin_enum': OfflineConversionDataSet.DataOrigin.__dict__.values(),
@@ -166,9 +184,9 @@ class OfflineConversionDataSet(
     def get_activities(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
             'business_id': 'string',
+            'start_time': 'datetime',
             'end_time': 'datetime',
             'event_type': 'event_type_enum',
-            'start_time': 'datetime',
         }
         enums = {
             'event_type_enum': [
@@ -270,8 +288,8 @@ class OfflineConversionDataSet(
     def create_ad_account(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
             'account_id': 'string',
-            'auto_track_for_ads': 'bool',
             'business': 'string',
+            'auto_track_for_ads': 'bool',
         }
         enums = {
         }
@@ -281,9 +299,9 @@ class OfflineConversionDataSet(
             endpoint='/adaccounts',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=OfflineConversionDataSet,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=OfflineConversionDataSet, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -325,18 +343,15 @@ class OfflineConversionDataSet(
             self.assure_call()
             return request.execute()
 
-    def create_agency(self, fields=None, params=None, batch=None, pending=False):
+    def get_agencies(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.business import Business
         param_types = {
-            'business': 'string',
-            'permitted_roles': 'list<permitted_roles_enum>',
         }
         enums = {
-            'permitted_roles_enum': Business.PermittedRoles.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
-            method='POST',
+            method='GET',
             endpoint='/agencies',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
@@ -356,13 +371,134 @@ class OfflineConversionDataSet(
             self.assure_call()
             return request.execute()
 
+    def create_agency(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'business': 'string',
+            'permitted_roles': 'list<permitted_roles_enum>',
+            'relationship_type': 'list<relationship_type_enum>',
+            'other_relationship': 'string',
+        }
+        enums = {
+            'permitted_roles_enum': OfflineConversionDataSet.PermittedRoles.__dict__.values(),
+            'relationship_type_enum': OfflineConversionDataSet.RelationshipType.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/agencies',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=OfflineConversionDataSet,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=OfflineConversionDataSet, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_audiences(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.customaudience import CustomAudience
+        param_types = {
+            'ad_account': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/audiences',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=CustomAudience,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=CustomAudience, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_custom_conversions(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.customconversion import CustomConversion
+        param_types = {
+            'ad_account': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/customconversions',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=CustomConversion,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=CustomConversion, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_da_checks(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.dacheck import DACheck
+        param_types = {
+            'checks': 'list<string>',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/da_checks',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=DACheck,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=DACheck, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def create_event(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
+            'upload_tag': 'string',
+            'upload_id': 'string',
+            'upload_source': 'string',
             'data': 'list<string>',
             'namespace_id': 'string',
             'progress': 'Object',
-            'upload_id': 'string',
-            'upload_tag': 'string',
         }
         enums = {
         }
@@ -390,12 +526,12 @@ class OfflineConversionDataSet(
 
     def get_stats(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
-            'aggr_time': 'aggr_time_enum',
-            'end': 'int',
-            'granularity': 'granularity_enum',
-            'skip_empty_values': 'bool',
             'start': 'int',
+            'end': 'int',
+            'skip_empty_values': 'bool',
+            'aggr_time': 'aggr_time_enum',
             'user_timezone_id': 'unsigned int',
+            'granularity': 'granularity_enum',
         }
         enums = {
             'aggr_time_enum': [
@@ -405,6 +541,7 @@ class OfflineConversionDataSet(
             'granularity_enum': [
                 'daily',
                 'hourly',
+                'six_hourly',
             ],
         }
         request = FacebookRequest(
@@ -431,17 +568,13 @@ class OfflineConversionDataSet(
 
     def get_uploads(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
-            'end_time': 'Object',
-            'order': 'order_enum',
-            'sort_by': 'sort_by_enum',
-            'start_time': 'Object',
             'upload_tag': 'string',
+            'start_time': 'Object',
+            'end_time': 'Object',
+            'sort_by': 'sort_by_enum',
+            'order': 'order_enum',
         }
         enums = {
-            'order_enum': [
-                'ASCENDING',
-                'DESCENDING',
-            ],
             'sort_by_enum': [
                 'CREATION_TIME',
                 'FIRST_UPLOAD_TIME',
@@ -450,6 +583,10 @@ class OfflineConversionDataSet(
                 'EVENT_TIME_MIN',
                 'EVENT_TIME_MAX',
                 'IS_EXCLUDED_FOR_LIFT',
+            ],
+            'order_enum': [
+                'ASCENDING',
+                'DESCENDING',
             ],
         }
         request = FacebookRequest(
@@ -504,9 +641,9 @@ class OfflineConversionDataSet(
 
     def delete_user_permissions(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
-            'business': 'Object',
-            'email': 'string',
             'user': 'int',
+            'email': 'string',
+            'business': 'Object',
         }
         enums = {
         }
@@ -532,18 +669,42 @@ class OfflineConversionDataSet(
             self.assure_call()
             return request.execute()
 
-    def create_user_permission(self, fields=None, params=None, batch=None, pending=False):
+    def get_user_permissions(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
             'business': 'Object',
-            'role': 'role_enum',
-            'user': 'int',
         }
         enums = {
-            'role_enum': [
-                'ADMIN',
-                'UPLOADER',
-                'ADVERTISER',
-            ],
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/userpermissions',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_user_permission(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'user': 'int',
+            'role': 'role_enum',
+            'business': 'Object',
+        }
+        enums = {
+            'role_enum': OfflineConversionDataSet.Role.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -551,9 +712,9 @@ class OfflineConversionDataSet(
             endpoint='/userpermissions',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=OfflineConversionDataSet,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=OfflineConversionDataSet, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -597,6 +758,7 @@ class OfflineConversionDataSet(
             return request.execute()
 
     _field_types = {
+        'attribute_stats': 'string',
         'business': 'Business',
         'config': 'string',
         'creation_time': 'datetime',
@@ -612,14 +774,19 @@ class OfflineConversionDataSet(
         'last_upload_app': 'string',
         'match_rate_approx': 'int',
         'matched_entries': 'int',
+        'matched_unique_users': 'int',
         'name': 'string',
         'usage': 'Object',
         'valid_entries': 'int',
         'auto_assign_to_new_accounts_only': 'bool',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['DataOrigin'] = OfflineConversionDataSet.DataOrigin.__dict__.values()
+        field_enum_info['PermittedRoles'] = OfflineConversionDataSet.PermittedRoles.__dict__.values()
+        field_enum_info['RelationshipType'] = OfflineConversionDataSet.RelationshipType.__dict__.values()
+        field_enum_info['Role'] = OfflineConversionDataSet.Role.__dict__.values()
         return field_enum_info
+
+

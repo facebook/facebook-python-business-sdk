@@ -87,10 +87,10 @@ class ShadowIGUser(
         if is_async:
           return self.get_insights_async(fields, params, batch, pending)
         param_types = {
-            'metric': 'list<metric_enum>',
-            'period': 'list<period_enum>',
             'since': 'datetime',
             'until': 'datetime',
+            'metric': 'list<metric_enum>',
+            'period': 'list<period_enum>',
         }
         enums = {
             'metric_enum': InstagramInsightsResult.Metric.__dict__.values(),
@@ -119,39 +119,13 @@ class ShadowIGUser(
             self.assure_call()
             return request.execute()
 
-    def get_media(self, fields=None, params=None, batch=None, pending=False):
+    def create_media(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.shadowigmedia import ShadowIGMedia
         param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/media',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=ShadowIGMedia,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=ShadowIGMedia, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_media(self, fields=None, params=None, batch=None, pending=False):
-        param_types = {
+            'media_type': 'string',
             'caption': 'string',
             'image_url': 'string',
-            'media_type': 'string',
+            'children': 'list<unsigned int>',
         }
         enums = {
         }
@@ -161,9 +135,9 @@ class ShadowIGUser(
             endpoint='/media',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=ShadowIGUser,
+            target_class=ShadowIGMedia,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ShadowIGUser, api=self._api),
+            response_parser=ObjectParser(target_class=ShadowIGMedia, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -206,34 +180,6 @@ class ShadowIGUser(
             self.assure_call()
             return request.execute()
 
-    def get_tags(self, fields=None, params=None, batch=None, pending=False):
-        from facebook_business.adobjects.shadowigmedia import ShadowIGMedia
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/tags',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=ShadowIGMedia,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=ShadowIGMedia, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     _field_types = {
         'biography': 'string',
         'business_discovery': 'ShadowIGUser',
@@ -249,8 +195,9 @@ class ShadowIGUser(
         'username': 'string',
         'website': 'string',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         return field_enum_info
+
+

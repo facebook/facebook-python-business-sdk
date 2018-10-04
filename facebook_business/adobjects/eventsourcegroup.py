@@ -46,6 +46,10 @@ class EventSourceGroup(
         id = 'id'
         name = 'name'
 
+    class Role:
+        analyst = 'ANALYST'
+        limited_analyst = 'LIMITED_ANALYST'
+
     # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
@@ -111,7 +115,35 @@ class EventSourceGroup(
             self.assure_call()
             return request.execute()
 
-    def create_shared_account(self, fields=None, params=None, batch=None, pending=False):
+    def get_share_d_accounts(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adaccount import AdAccount
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/shared_accounts',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdAccount,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdAccount, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_share_d_account(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
             'accounts': 'list<string>',
         }
@@ -167,20 +199,15 @@ class EventSourceGroup(
             self.assure_call()
             return request.execute()
 
-    def create_user_permission(self, fields=None, params=None, batch=None, pending=False):
+    def get_user_permissions(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
-            'role': 'role_enum',
             'user': 'int',
         }
         enums = {
-            'role_enum': [
-                'ANALYST',
-                'LIMITED_ANALYST',
-            ],
         }
         request = FacebookRequest(
             node_id=self['id'],
-            method='POST',
+            method='GET',
             endpoint='/userpermissions',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
@@ -200,14 +227,46 @@ class EventSourceGroup(
             self.assure_call()
             return request.execute()
 
+    def create_user_permission(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'user': 'int',
+            'role': 'role_enum',
+        }
+        enums = {
+            'role_enum': EventSourceGroup.Role.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/userpermissions',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=EventSourceGroup,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=EventSourceGroup, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     _field_types = {
         'business': 'Business',
         'event_sources': 'list<ExternalEventSource>',
         'id': 'string',
         'name': 'string',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['Role'] = EventSourceGroup.Role.__dict__.values()
         return field_enum_info
+
+

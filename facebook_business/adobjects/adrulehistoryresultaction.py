@@ -19,6 +19,10 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
+from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
+from facebook_business.adobjects.objectparser import ObjectParser
+from facebook_business.api import FacebookRequest
+from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -29,28 +33,57 @@ pull request for this class.
 """
 
 class AdRuleHistoryResultAction(
-    AbstractObject,
+    AbstractCrudObject,
 ):
 
-    def __init__(self, api=None):
-        super(AdRuleHistoryResultAction, self).__init__()
+    def __init__(self, fbid=None, parent_id=None, api=None):
         self._isAdRuleHistoryResultAction = True
-        self._api = api
+        super(AdRuleHistoryResultAction, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
         action = 'action'
         field = 'field'
         new_value = 'new_value'
         old_value = 'old_value'
+        id = 'id'
+
+    def api_get(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdRuleHistoryResultAction,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     _field_types = {
         'action': 'string',
         'field': 'string',
         'new_value': 'string',
         'old_value': 'string',
+        'id': 'string',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         return field_enum_info
+
+

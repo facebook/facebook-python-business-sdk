@@ -19,6 +19,10 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
+from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
+from facebook_business.adobjects.objectparser import ObjectParser
+from facebook_business.api import FacebookRequest
+from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -29,31 +33,44 @@ pull request for this class.
 """
 
 class AdPromotedObject(
-    AbstractObject,
+    AbstractCrudObject,
 ):
 
-    def __init__(self, api=None):
-        super(AdPromotedObject, self).__init__()
+    def __init__(self, fbid=None, parent_id=None, api=None):
         self._isAdPromotedObject = True
-        self._api = api
+        super(AdPromotedObject, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
         application_id = 'application_id'
         custom_conversion_id = 'custom_conversion_id'
         custom_event_type = 'custom_event_type'
         event_id = 'event_id'
+        fundraiser_campaign_id = 'fundraiser_campaign_id'
         object_store_url = 'object_store_url'
         offer_id = 'offer_id'
         offline_conversion_data_set_id = 'offline_conversion_data_set_id'
         page_id = 'page_id'
+        pixel_aggregation_rule = 'pixel_aggregation_rule'
         pixel_id = 'pixel_id'
+        pixel_rule = 'pixel_rule'
         place_page_set_id = 'place_page_set_id'
         product_catalog_id = 'product_catalog_id'
+        product_item_id = 'product_item_id'
         product_set_id = 'product_set_id'
+        retention_days = 'retention_days'
+        id = 'id'
 
     class CustomEventType:
         rate = 'RATE'
         tutorial_completion = 'TUTORIAL_COMPLETION'
+        contact = 'CONTACT'
+        customize_product = 'CUSTOMIZE_PRODUCT'
+        donate = 'DONATE'
+        find_location = 'FIND_LOCATION'
+        schedule = 'SCHEDULE'
+        start_trial = 'START_TRIAL'
+        submit_application = 'SUBMIT_APPLICATION'
+        subscribe = 'SUBSCRIBE'
         add_to_cart = 'ADD_TO_CART'
         add_to_wishlist = 'ADD_TO_WISHLIST'
         initiated_checkout = 'INITIATED_CHECKOUT'
@@ -70,23 +87,57 @@ class AdPromotedObject(
         spent_credits = 'SPENT_CREDITS'
         other = 'OTHER'
 
+    def api_get(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdPromotedObject,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     _field_types = {
         'application_id': 'string',
         'custom_conversion_id': 'string',
         'custom_event_type': 'CustomEventType',
         'event_id': 'string',
+        'fundraiser_campaign_id': 'string',
         'object_store_url': 'string',
         'offer_id': 'string',
         'offline_conversion_data_set_id': 'string',
         'page_id': 'string',
+        'pixel_aggregation_rule': 'string',
         'pixel_id': 'string',
+        'pixel_rule': 'string',
         'place_page_set_id': 'string',
         'product_catalog_id': 'string',
+        'product_item_id': 'string',
         'product_set_id': 'string',
+        'retention_days': 'string',
+        'id': 'string',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['CustomEventType'] = AdPromotedObject.CustomEventType.__dict__.values()
         return field_enum_info
+
+
