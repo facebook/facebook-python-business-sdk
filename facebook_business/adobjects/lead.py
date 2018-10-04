@@ -54,6 +54,7 @@ class Lead(
         id = 'id'
         is_organic = 'is_organic'
         partner_name = 'partner_name'
+        platform = 'platform'
         post = 'post'
         retailer_item_id = 'retailer_item_id'
 
@@ -130,11 +131,13 @@ class Lead(
         'id': 'string',
         'is_organic': 'bool',
         'partner_name': 'string',
-        'post': 'Object',
+        'platform': 'string',
+        'post': 'Link',
         'retailer_item_id': 'string',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         return field_enum_info
+
+

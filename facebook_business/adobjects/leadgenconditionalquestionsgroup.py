@@ -73,12 +73,13 @@ class LeadGenConditionalQuestionsGroup(
             return request.execute()
 
     _field_types = {
-        'choices': 'list<Object>',
-        'questions': 'list<Object>',
+        'choices': 'list<LeadGenConditionalQuestionsGroupChoices>',
+        'questions': 'list<LeadGenConditionalQuestionsGroupQuestions>',
         'id': 'string',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         return field_enum_info
+
+

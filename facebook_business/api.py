@@ -38,6 +38,7 @@ import json
 import six
 import collections
 import re
+import curlify
 
 from facebook_business.adobjects.objectparser import ObjectParser
 from facebook_business.typechecker import TypeChecker
@@ -162,7 +163,7 @@ class FacebookAdsApi(object):
     _default_api = None
     _default_account_id = None
 
-    def __init__(self, session, api_version=None):
+    def __init__(self, session, api_version=None, enable_debug_logger=False):
         """Initializes the api instance.
         Args:
             session: FacebookSession object that contains a requests interface
@@ -173,6 +174,7 @@ class FacebookAdsApi(object):
         self._num_requests_succeeded = 0
         self._num_requests_attempted = 0
         self._api_version = api_version or self.API_VERSION
+        self._enable_debug_logger = enable_debug_logger
 
     def get_num_requests_attempted(self):
         """Returns the number of calls attempted."""
@@ -191,11 +193,12 @@ class FacebookAdsApi(object):
         account_id=None,
         api_version=None,
         proxies=None,
-        timeout=None
+        timeout=None,
+        debug=False
     ):
         session = FacebookSession(app_id, app_secret, access_token, proxies,
                                   timeout)
-        api = cls(session, api_version)
+        api = cls(session, api_version, enable_debug_logger=debug)
         cls.set_default_api(api)
 
         if account_id:
@@ -304,6 +307,7 @@ class FacebookAdsApi(object):
                 files=files,
                 timeout=self._session.timeout
             )
+
         else:
             response = self._session.requests.request(
                 method,
@@ -313,6 +317,8 @@ class FacebookAdsApi(object):
                 files=files,
                 timeout=self._session.timeout
             )
+        if self._enable_debug_logger:
+            print(curlify.to_curl(response.request))
         fb_response = FacebookResponse(
             body=response.text,
             headers=response.headers,

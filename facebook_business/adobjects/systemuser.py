@@ -94,21 +94,133 @@ class SystemUser(
             self.assure_call()
             return request.execute()
 
-    def api_update(self, fields=None, params=None, batch=None, pending=False):
+    def get_assigned_ad_accounts(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adaccount import AdAccount
         param_types = {
-            'name': 'string',
         }
         enums = {
         }
         request = FacebookRequest(
             node_id=self['id'],
-            method='POST',
-            endpoint='/',
+            method='GET',
+            endpoint='/assigned_ad_accounts',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=SystemUser,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
+            target_class=AdAccount,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdAccount, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_assigned_monetization_properties(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.admonetizationproperty import AdMonetizationProperty
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/assigned_monetization_properties',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdMonetizationProperty,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdMonetizationProperty, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_assigned_pages(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.page import Page
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/assigned_pages',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Page,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Page, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_assigned_product_catalogs(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.productcatalog import ProductCatalog
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/assigned_product_catalogs',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ProductCatalog,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ProductCatalog, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_updated_by(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.user import User
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/updated_by',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=User,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=User, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -132,9 +244,10 @@ class SystemUser(
         'role': 'Role',
         'system_user_id': 'int',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['Role'] = SystemUser.Role.__dict__.values()
         return field_enum_info
+
+

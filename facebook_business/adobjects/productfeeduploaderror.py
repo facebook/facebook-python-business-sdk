@@ -42,9 +42,11 @@ class ProductFeedUploadError(
 
     class Field(AbstractObject.Field):
         affected_surfaces = 'affected_surfaces'
+        column_number = 'column_number'
         description = 'description'
         error_type = 'error_type'
         id = 'id'
+        row_number = 'row_number'
         severity = 'severity'
         summary = 'summary'
         total_count = 'total_count'
@@ -91,6 +93,7 @@ class ProductFeedUploadError(
             return request.execute()
 
     def get_samples(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.productfeeduploaderrorsample import ProductFeedUploadErrorSample
         param_types = {
         }
         enums = {
@@ -101,9 +104,9 @@ class ProductFeedUploadError(
             endpoint='/samples',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=ProductFeedUploadErrorSample,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=ProductFeedUploadErrorSample, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -119,17 +122,20 @@ class ProductFeedUploadError(
 
     _field_types = {
         'affected_surfaces': 'list<AffectedSurfaces>',
+        'column_number': 'unsigned int',
         'description': 'string',
         'error_type': 'string',
         'id': 'string',
+        'row_number': 'unsigned int',
         'severity': 'Severity',
         'summary': 'string',
         'total_count': 'unsigned int',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['AffectedSurfaces'] = ProductFeedUploadError.AffectedSurfaces.__dict__.values()
         field_enum_info['Severity'] = ProductFeedUploadError.Severity.__dict__.values()
         return field_enum_info
+
+

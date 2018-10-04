@@ -107,8 +107,99 @@ class RTBDynamicPost(
             self.assure_call()
             return request.execute()
 
+    def get_comments(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.comment import Comment
+        param_types = {
+            'filter': 'filter_enum',
+            'order': 'order_enum',
+            'live_filter': 'live_filter_enum',
+            'since': 'datetime',
+        }
+        enums = {
+            'filter_enum': Comment.Filter.__dict__.values(),
+            'order_enum': Comment.Order.__dict__.values(),
+            'live_filter_enum': Comment.LiveFilter.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/comments',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Comment,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Comment, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_instagram_comments(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.instagramcomment import InstagramComment
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/instagram_comments',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=InstagramComment,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=InstagramComment, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_likes(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.profile import Profile
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/likes',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Profile,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Profile, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     _field_types = {
-        'child_attachments': 'list<Object>',
+        'child_attachments': 'list<DynamicPostChildAttachment>',
         'created': 'datetime',
         'description': 'string',
         'id': 'string',
@@ -120,8 +211,9 @@ class RTBDynamicPost(
         'product_id': 'string',
         'title': 'string',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         return field_enum_info
+
+

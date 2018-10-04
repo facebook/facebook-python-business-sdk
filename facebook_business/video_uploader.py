@@ -213,7 +213,7 @@ class VideoUploadTransferRequestManager(VideoUploadRequestManager):
             request.setParams(
                 self.getParamsFromContext(context),
                 {'video_file_chunk': (
-                    context.file_path,
+                    os.path.basename(context.file_path),
                     chunk,
                     'multipart/form-data',
                 )},

@@ -54,6 +54,24 @@ class AdsPixel(
         owner_ad_account = 'owner_ad_account'
         owner_business = 'owner_business'
 
+    class SortBy:
+        last_fired_time = 'LAST_FIRED_TIME'
+        name = 'NAME'
+
+    class Tasks:
+        edit = 'EDIT'
+        analyze = 'ANALYZE'
+
+    class Type:
+        primary = 'PRIMARY'
+        secondary = 'SECONDARY'
+
+    class RelationshipType:
+        ad_manager = 'AD_MANAGER'
+        audience_manager = 'AUDIENCE_MANAGER'
+        agency = 'AGENCY'
+        other = 'OTHER'
+
     # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
@@ -118,6 +136,95 @@ class AdsPixel(
             self.assure_call()
             return request.execute()
 
+    def delete_assigned_users(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'user': 'int',
+            'business': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='DELETE',
+            endpoint='/assigned_users',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_assigned_users(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.assigneduser import AssignedUser
+        param_types = {
+            'business': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/assigned_users',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AssignedUser,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AssignedUser, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_assigned_user(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'user': 'int',
+            'tasks': 'list<tasks_enum>',
+            'business': 'string',
+        }
+        enums = {
+            'tasks_enum': AdsPixel.Tasks.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/assigned_users',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdsPixel,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdsPixel, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_audiences(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.customaudience import CustomAudience
         param_types = {
@@ -147,7 +254,183 @@ class AdsPixel(
             self.assure_call()
             return request.execute()
 
-    def delete_shared_accounts(self, fields=None, params=None, batch=None, pending=False):
+    def create_create_server_to_server_key(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/create_server_to_server_keys',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdsPixel,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdsPixel, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_da_checks(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.dacheck import DACheck
+        param_types = {
+            'checks': 'list<string>',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/da_checks',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=DACheck,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=DACheck, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_extractors(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.signalsiwlextractor import SignalsIWLExtractor
+        param_types = {
+            'current_domain': 'Object',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/extractors',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=SignalsIWLExtractor,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=SignalsIWLExtractor, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_extractor(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.signalsiwlextractor import SignalsIWLExtractor
+        param_types = {
+            'domain_uri': 'Object',
+            'event_type': 'event_type_enum',
+            'extractor_config': 'map',
+            'extractor_type': 'extractor_type_enum',
+        }
+        enums = {
+            'event_type_enum': SignalsIWLExtractor.EventType.__dict__.values(),
+            'extractor_type_enum': SignalsIWLExtractor.ExtractorType.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/extractors',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=SignalsIWLExtractor,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=SignalsIWLExtractor, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_pending_share_d_agencies(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.business import Business
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/pending_shared_agencies',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Business,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Business, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_reset_server_to_server_key(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'type': 'type_enum',
+        }
+        enums = {
+            'type_enum': AdsPixel.Type.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/reset_server_to_server_key',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdsPixel,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdsPixel, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def delete_share_d_accounts(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
             'account_id': 'string',
             'business': 'string',
@@ -176,7 +459,7 @@ class AdsPixel(
             self.assure_call()
             return request.execute()
 
-    def get_shared_accounts(self, fields=None, params=None, batch=None, pending=False):
+    def get_share_d_accounts(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.adaccount import AdAccount
         param_types = {
             'business': 'string',
@@ -205,7 +488,7 @@ class AdsPixel(
             self.assure_call()
             return request.execute()
 
-    def create_shared_account(self, fields=None, params=None, batch=None, pending=False):
+    def create_share_d_account(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
             'account_id': 'string',
             'business': 'string',
@@ -216,6 +499,35 @@ class AdsPixel(
             node_id=self['id'],
             method='POST',
             endpoint='/shared_accounts',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdsPixel,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdsPixel, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def delete_share_d_agencies(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'agency_id': 'string',
+            'business': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='DELETE',
+            endpoint='/shared_agencies',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
@@ -234,7 +546,7 @@ class AdsPixel(
             self.assure_call()
             return request.execute()
 
-    def get_shared_agencies(self, fields=None, params=None, batch=None, pending=False):
+    def get_share_d_agencies(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.business import Business
         param_types = {
         }
@@ -262,13 +574,45 @@ class AdsPixel(
             self.assure_call()
             return request.execute()
 
+    def create_share_d_agency(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'agency_id': 'string',
+            'business': 'string',
+            'relationship_type': 'list<relationship_type_enum>',
+            'other_relationship': 'string',
+        }
+        enums = {
+            'relationship_type_enum': AdsPixel.RelationshipType.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/shared_agencies',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdsPixel,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdsPixel, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_stats(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.adspixelstatsresult import AdsPixelStatsResult
         param_types = {
-            'aggregation': 'aggregation_enum',
-            'end_time': 'Object',
-            'event': 'string',
             'start_time': 'Object',
+            'end_time': 'Object',
+            'aggregation': 'aggregation_enum',
+            'event': 'string',
         }
         enums = {
             'aggregation_enum': AdsPixelStatsResult.Aggregation.__dict__.values(),
@@ -307,8 +651,13 @@ class AdsPixel(
         'owner_ad_account': 'AdAccount',
         'owner_business': 'Business',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['SortBy'] = AdsPixel.SortBy.__dict__.values()
+        field_enum_info['Tasks'] = AdsPixel.Tasks.__dict__.values()
+        field_enum_info['Type'] = AdsPixel.Type.__dict__.values()
+        field_enum_info['RelationshipType'] = AdsPixel.RelationshipType.__dict__.values()
         return field_enum_info
+
+

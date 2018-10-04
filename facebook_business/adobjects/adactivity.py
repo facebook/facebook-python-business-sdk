@@ -19,6 +19,10 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
+from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
+from facebook_business.adobjects.objectparser import ObjectParser
+from facebook_business.api import FacebookRequest
+from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -29,13 +33,12 @@ pull request for this class.
 """
 
 class AdActivity(
-    AbstractObject,
+    AbstractCrudObject,
 ):
 
-    def __init__(self, api=None):
-        super(AdActivity, self).__init__()
+    def __init__(self, fbid=None, parent_id=None, api=None):
         self._isAdActivity = True
-        self._api = api
+        super(AdActivity, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
         actor_id = 'actor_id'
@@ -50,6 +53,7 @@ class AdActivity(
         object_name = 'object_name'
         object_type = 'object_type'
         translated_event_type = 'translated_event_type'
+        id = 'id'
 
     class EventType:
         ad_account_update_spend_limit = 'ad_account_update_spend_limit'
@@ -130,6 +134,33 @@ class AdActivity(
         status = 'STATUS'
         targeting = 'TARGETING'
 
+    def api_get(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdActivity,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     _field_types = {
         'actor_id': 'string',
         'actor_name': 'string',
@@ -143,11 +174,13 @@ class AdActivity(
         'object_name': 'string',
         'object_type': 'string',
         'translated_event_type': 'string',
+        'id': 'string',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['EventType'] = AdActivity.EventType.__dict__.values()
         field_enum_info['Category'] = AdActivity.Category.__dict__.values()
         return field_enum_info
+
+

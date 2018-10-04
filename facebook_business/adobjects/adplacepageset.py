@@ -124,9 +124,10 @@ class AdPlacePageSet(
         'pages_count': 'int',
         'parent_page': 'Page',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['LocationTypes'] = AdPlacePageSet.LocationTypes.__dict__.values()
         return field_enum_info
+
+

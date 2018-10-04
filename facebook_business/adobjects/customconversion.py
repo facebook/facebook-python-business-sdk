@@ -43,6 +43,7 @@ class CustomConversion(
     class Field(AbstractObject.Field):
         account_id = 'account_id'
         aggregation_rule = 'aggregation_rule'
+        business = 'business'
         creation_time = 'creation_time'
         custom_event_type = 'custom_event_type'
         data_sources = 'data_sources'
@@ -58,8 +59,9 @@ class CustomConversion(
         pixel = 'pixel'
         retention_days = 'retention_days'
         rule = 'rule'
-        advanced_rule = 'advanced_rule'
         event_source_id = 'event_source_id'
+        advanced_rule = 'advanced_rule'
+        custom_conversion_id = 'custom_conversion_id'
 
     class CustomEventType:
         add_payment_info = 'ADD_PAYMENT_INFO'
@@ -146,9 +148,9 @@ class CustomConversion(
 
     def api_update(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
+            'name': 'string',
             'default_conversion_value': 'float',
             'description': 'string',
-            'name': 'string',
         }
         enums = {
         }
@@ -175,17 +177,14 @@ class CustomConversion(
             return request.execute()
 
     def get_activities(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.customconversionactivities import CustomConversionActivities
         param_types = {
+            'start_time': 'Object',
             'end_time': 'Object',
             'event_type': 'event_type_enum',
-            'start_time': 'Object',
         }
         enums = {
-            'event_type_enum': [
-                'conversion_create',
-                'conversion_delete',
-                'conversion_update',
-            ],
+            'event_type_enum': CustomConversionActivities.EventType.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -193,9 +192,9 @@ class CustomConversion(
             endpoint='/activities',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=CustomConversionActivities,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=CustomConversionActivities, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -238,6 +237,35 @@ class CustomConversion(
             self.assure_call()
             return request.execute()
 
+    def get_ad_accounts(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adaccount import AdAccount
+        param_types = {
+            'business': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/adaccounts',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdAccount,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdAccount, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def create_ad_account(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
             'account_id': 'string',
@@ -267,68 +295,12 @@ class CustomConversion(
             self.assure_call()
             return request.execute()
 
-    def delete_shared_agencies(self, fields=None, params=None, batch=None, pending=False):
-        param_types = {
-            'business': 'string',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='DELETE',
-            endpoint='/shared_agencies',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_shared_agency(self, fields=None, params=None, batch=None, pending=False):
-        param_types = {
-            'business': 'string',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/shared_agencies',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=CustomConversion,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=CustomConversion, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def get_stats(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.customconversionstatsresult import CustomConversionStatsResult
         param_types = {
-            'aggregation': 'aggregation_enum',
-            'end_time': 'datetime',
             'start_time': 'datetime',
+            'end_time': 'datetime',
+            'aggregation': 'aggregation_enum',
         }
         enums = {
             'aggregation_enum': CustomConversionStatsResult.Aggregation.__dict__.values(),
@@ -358,6 +330,7 @@ class CustomConversion(
     _field_types = {
         'account_id': 'string',
         'aggregation_rule': 'string',
+        'business': 'Business',
         'creation_time': 'datetime',
         'custom_event_type': 'CustomEventType',
         'data_sources': 'list<ExternalEventSource>',
@@ -373,12 +346,14 @@ class CustomConversion(
         'pixel': 'AdsPixel',
         'retention_days': 'unsigned int',
         'rule': 'string',
-        'advanced_rule': 'string',
         'event_source_id': 'string',
+        'advanced_rule': 'string',
+        'custom_conversion_id': 'string',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['CustomEventType'] = CustomConversion.CustomEventType.__dict__.values()
         return field_enum_info
+
+
