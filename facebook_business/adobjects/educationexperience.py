@@ -47,7 +47,7 @@ class EducationExperience(
         id = 'id'
         school = 'school'
         type = 'type'
-        with = 'with'
+        field_with = 'with'
         year = 'year'
 
     def api_get(self, fields=None, params=None, batch=None, pending=False):

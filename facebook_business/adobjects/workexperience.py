@@ -50,7 +50,7 @@ class WorkExperience(
         position = 'position'
         projects = 'projects'
         start_date = 'start_date'
-        with = 'with'
+        field_with = 'with'
 
     def api_get(self, fields=None, params=None, batch=None, pending=False):
         param_types = {

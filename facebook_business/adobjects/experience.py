@@ -45,7 +45,7 @@ class Experience(
         field_from = 'from'
         id = 'id'
         name = 'name'
-        with = 'with'
+        field_with = 'with'
 
     def api_get(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
