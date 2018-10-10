@@ -55,6 +55,7 @@ class OfflineConversionDataSet(
         id = 'id'
         is_restricted_use = 'is_restricted_use'
         last_upload_app = 'last_upload_app'
+        last_upload_app_changed_time = 'last_upload_app_changed_time'
         match_rate_approx = 'match_rate_approx'
         matched_entries = 'matched_entries'
         matched_unique_users = 'matched_unique_users'
@@ -772,6 +773,7 @@ class OfflineConversionDataSet(
         'id': 'string',
         'is_restricted_use': 'bool',
         'last_upload_app': 'string',
+        'last_upload_app_changed_time': 'int',
         'match_rate_approx': 'int',
         'matched_entries': 'int',
         'matched_unique_users': 'int',

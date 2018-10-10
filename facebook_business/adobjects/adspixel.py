@@ -47,6 +47,8 @@ class AdsPixel(
         code = 'code'
         creation_time = 'creation_time'
         creator = 'creator'
+        data_use_setting = 'data_use_setting'
+        first_party_cookie_status = 'first_party_cookie_status'
         id = 'id'
         is_created_by_business = 'is_created_by_business'
         last_fired_time = 'last_fired_time'
@@ -57,6 +59,16 @@ class AdsPixel(
     class SortBy:
         last_fired_time = 'LAST_FIRED_TIME'
         name = 'NAME'
+
+    class DataUseSetting:
+        empty = 'EMPTY'
+        advertising_and_analytics = 'ADVERTISING_AND_ANALYTICS'
+        analytics_only = 'ANALYTICS_ONLY'
+
+    class FirstPartyCookieStatus:
+        empty = 'EMPTY'
+        first_party_cookie_enabled = 'FIRST_PARTY_COOKIE_ENABLED'
+        first_party_cookie_disabled = 'FIRST_PARTY_COOKIE_DISABLED'
 
     class Tasks:
         edit = 'EDIT'
@@ -111,8 +123,12 @@ class AdsPixel(
     def api_update(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
             'name': 'string',
+            'first_party_cookie_status': 'first_party_cookie_status_enum',
+            'data_use_setting': 'data_use_setting_enum',
         }
         enums = {
+            'first_party_cookie_status_enum': AdsPixel.FirstPartyCookieStatus.__dict__.values(),
+            'data_use_setting_enum': AdsPixel.DataUseSetting.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -644,6 +660,8 @@ class AdsPixel(
         'code': 'string',
         'creation_time': 'datetime',
         'creator': 'User',
+        'data_use_setting': 'string',
+        'first_party_cookie_status': 'string',
         'id': 'string',
         'is_created_by_business': 'bool',
         'last_fired_time': 'datetime',
@@ -655,6 +673,8 @@ class AdsPixel(
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['SortBy'] = AdsPixel.SortBy.__dict__.values()
+        field_enum_info['DataUseSetting'] = AdsPixel.DataUseSetting.__dict__.values()
+        field_enum_info['FirstPartyCookieStatus'] = AdsPixel.FirstPartyCookieStatus.__dict__.values()
         field_enum_info['Tasks'] = AdsPixel.Tasks.__dict__.values()
         field_enum_info['Type'] = AdsPixel.Type.__dict__.values()
         field_enum_info['RelationshipType'] = AdsPixel.RelationshipType.__dict__.values()

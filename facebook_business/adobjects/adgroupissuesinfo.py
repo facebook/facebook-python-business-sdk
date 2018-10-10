@@ -32,19 +32,18 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class MessagingSuggestedGroup(
+class AdgroupIssuesInfo(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isMessagingSuggestedGroup = True
-        super(MessagingSuggestedGroup, self).__init__(fbid, parent_id, api)
+        self._isAdgroupIssuesInfo = True
+        super(AdgroupIssuesInfo, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        score = 'score'
-        source = 'source'
-        suggested_name = 'suggested_name'
-        users = 'users'
+        error_code = 'error_code'
+        error_message = 'error_message'
+        error_summary = 'error_summary'
         id = 'id'
 
     def api_get(self, fields=None, params=None, batch=None, pending=False):
@@ -58,7 +57,7 @@ class MessagingSuggestedGroup(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=MessagingSuggestedGroup,
+            target_class=AdgroupIssuesInfo,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -75,10 +74,9 @@ class MessagingSuggestedGroup(
             return request.execute()
 
     _field_types = {
-        'score': 'float',
-        'source': 'string',
-        'suggested_name': 'string',
-        'users': 'list<string>',
+        'error_code': 'int',
+        'error_message': 'string',
+        'error_summary': 'string',
         'id': 'string',
     }
     @classmethod

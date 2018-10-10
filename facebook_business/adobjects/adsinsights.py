@@ -50,11 +50,9 @@ class AdsInsights(
         actions = 'actions'
         activity_recency = 'activity_recency'
         ad_click_actions = 'ad_click_actions'
-        ad_click_value = 'ad_click_value'
         ad_format_asset = 'ad_format_asset'
         ad_id = 'ad_id'
         ad_impression_actions = 'ad_impression_actions'
-        ad_impression_value = 'ad_impression_value'
         ad_name = 'ad_name'
         adset_id = 'adset_id'
         adset_name = 'adset_name'
@@ -74,11 +72,11 @@ class AdsInsights(
         cost_per_2_sec_continuous_video_view = 'cost_per_2_sec_continuous_video_view'
         cost_per_action_type = 'cost_per_action_type'
         cost_per_ad_click = 'cost_per_ad_click'
-        cost_per_ad_impression = 'cost_per_ad_impression'
         cost_per_dda_countby_convs = 'cost_per_dda_countby_convs'
         cost_per_estimated_ad_recallers = 'cost_per_estimated_ad_recallers'
         cost_per_inline_link_click = 'cost_per_inline_link_click'
         cost_per_inline_post_engagement = 'cost_per_inline_post_engagement'
+        cost_per_one_thousand_ad_impression = 'cost_per_one_thousand_ad_impression'
         cost_per_outbound_click = 'cost_per_outbound_click'
         cost_per_unique_action_type = 'cost_per_unique_action_type'
         cost_per_unique_click = 'cost_per_unique_click'
@@ -299,11 +297,9 @@ class AdsInsights(
         'actions': 'list<AdsActionStats>',
         'activity_recency': 'string',
         'ad_click_actions': 'list<AdsActionStats>',
-        'ad_click_value': 'list<AdsActionStats>',
         'ad_format_asset': 'string',
         'ad_id': 'string',
         'ad_impression_actions': 'list<AdsActionStats>',
-        'ad_impression_value': 'list<AdsActionStats>',
         'ad_name': 'string',
         'adset_id': 'string',
         'adset_name': 'string',
@@ -323,11 +319,11 @@ class AdsInsights(
         'cost_per_2_sec_continuous_video_view': 'list<AdsActionStats>',
         'cost_per_action_type': 'list<AdsActionStats>',
         'cost_per_ad_click': 'list<AdsActionStats>',
-        'cost_per_ad_impression': 'list<AdsActionStats>',
         'cost_per_dda_countby_convs': 'string',
         'cost_per_estimated_ad_recallers': 'string',
         'cost_per_inline_link_click': 'string',
         'cost_per_inline_post_engagement': 'string',
+        'cost_per_one_thousand_ad_impression': 'list<AdsActionStats>',
         'cost_per_outbound_click': 'list<AdsActionStats>',
         'cost_per_unique_action_type': 'list<AdsActionStats>',
         'cost_per_unique_click': 'string',

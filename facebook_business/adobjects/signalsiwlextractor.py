@@ -68,6 +68,7 @@ class SignalsIWLExtractor(
         viewcontent = 'ViewContent'
 
     class ExtractorType:
+        constant_value = 'CONSTANT_VALUE'
         css = 'CSS'
         global_variable = 'GLOBAL_VARIABLE'
         gtm = 'GTM'

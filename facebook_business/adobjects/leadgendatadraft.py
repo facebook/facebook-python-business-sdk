@@ -41,18 +41,13 @@ class LeadGenDataDraft(
         super(LeadGenDataDraft, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        allow_organic_lead = 'allow_organic_lead'
         block_display_for_non_targeted_viewer = 'block_display_for_non_targeted_viewer'
         context_card = 'context_card'
-        continued_flow_request_method = 'continued_flow_request_method'
         created_time = 'created_time'
         creator_id = 'creator_id'
-        expired_leads_count = 'expired_leads_count'
         follow_up_action_url = 'follow_up_action_url'
         id = 'id'
-        is_continued_flow = 'is_continued_flow'
         is_optimized_for_quality = 'is_optimized_for_quality'
-        leadgen_export_csv_url = 'leadgen_export_csv_url'
         legal_content = 'legal_content'
         locale = 'locale'
         name = 'name'
@@ -133,7 +128,6 @@ class LeadGenDataDraft(
         param_types = {
             'name': 'string',
             'locale': 'locale_enum',
-            'allow_organic_lead_retrieval': 'bool',
             'block_display_for_non_targeted_viewer': 'bool',
             'follow_up_action_url': 'string',
             'legal_content_id': 'string',
@@ -176,18 +170,13 @@ class LeadGenDataDraft(
             return request.execute()
 
     _field_types = {
-        'allow_organic_lead': 'bool',
         'block_display_for_non_targeted_viewer': 'bool',
         'context_card': 'Object',
-        'continued_flow_request_method': 'string',
         'created_time': 'datetime',
         'creator_id': 'string',
-        'expired_leads_count': 'unsigned int',
         'follow_up_action_url': 'string',
         'id': 'string',
-        'is_continued_flow': 'bool',
         'is_optimized_for_quality': 'bool',
-        'leadgen_export_csv_url': 'string',
         'legal_content': 'Object',
         'locale': 'string',
         'name': 'string',

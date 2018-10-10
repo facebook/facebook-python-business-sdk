@@ -129,6 +129,7 @@ class AdAssetFeed(
         brand = 'BRAND'
         asset_customization = 'ASSET_CUSTOMIZATION'
         dco_parity = 'DCO_PARITY'
+        preview_dynamic_rendering = 'PREVIEW_DYNAMIC_RENDERING'
 
     class CallToActionType:
         open_link = 'OPEN_LINK'
