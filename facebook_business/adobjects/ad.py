@@ -64,6 +64,7 @@ class Ad(
         failed_delivery_checks = 'failed_delivery_checks'
         id = 'id'
         impression_control_map = 'impression_control_map'
+        issues_info = 'issues_info'
         last_updated_by_app_id = 'last_updated_by_app_id'
         locations = 'locations'
         name = 'name'
@@ -86,7 +87,6 @@ class Ad(
         adset_spec = 'adset_spec'
         draft_adgroup_id = 'draft_adgroup_id'
         execution_options = 'execution_options'
-        redownload = 'redownload'
         filename = 'filename'
 
     class BidType:
@@ -260,7 +260,6 @@ class Ad(
             'execution_options': 'list<execution_options_enum>',
             'adlabels': 'list<Object>',
             'bid_amount': 'int',
-            'redownload': 'bool',
         }
         enums = {
             'status_enum': Ad.Status.__dict__.values(),
@@ -795,6 +794,7 @@ class Ad(
         'failed_delivery_checks': 'list<DeliveryCheck>',
         'id': 'string',
         'impression_control_map': 'list<string>',
+        'issues_info': 'list<AdgroupIssuesInfo>',
         'last_updated_by_app_id': 'string',
         'locations': 'list<int>',
         'name': 'string',
@@ -817,7 +817,6 @@ class Ad(
         'adset_spec': 'AdSet',
         'draft_adgroup_id': 'string',
         'execution_options': 'list<ExecutionOptions>',
-        'redownload': 'bool',
         'filename': 'file'
     }
     @classmethod

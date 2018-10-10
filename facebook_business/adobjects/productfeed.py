@@ -381,7 +381,6 @@ class ProductFeed(
             return request.execute()
 
     def get_rules(self, fields=None, params=None, batch=None, pending=False):
-        from facebook_business.adobjects.productfeedrule import ProductFeedRule
         param_types = {
         }
         enums = {
@@ -392,9 +391,9 @@ class ProductFeed(
             endpoint='/rules',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=ProductFeedRule,
+            target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ProductFeedRule, api=self._api),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -409,14 +408,19 @@ class ProductFeed(
             return request.execute()
 
     def create_rule(self, fields=None, params=None, batch=None, pending=False):
-        from facebook_business.adobjects.productfeedrule import ProductFeedRule
         param_types = {
             'attribute': 'string',
             'params': 'map',
             'rule_type': 'rule_type_enum',
         }
         enums = {
-            'rule_type_enum': ProductFeedRule.RuleType.__dict__.values(),
+            'rule_type_enum': [
+                'mapping_rule',
+                'value_mapping_rule',
+                'letter_case_rule',
+                'fallback_rule',
+                'regex_replace_rule',
+            ],
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -424,9 +428,9 @@ class ProductFeed(
             endpoint='/rules',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=ProductFeedRule,
+            target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ProductFeedRule, api=self._api),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

@@ -110,7 +110,6 @@ class AdSet(
         execution_options = 'execution_options'
         line_number = 'line_number'
         rb_prediction_id = 'rb_prediction_id'
-        redownload = 'redownload'
         time_start = 'time_start'
         time_stop = 'time_stop'
         topline_id = 'topline_id'
@@ -316,7 +315,7 @@ class AdSet(
     def api_update(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
             'account_id': 'string',
-            'ad_keywords': 'map',
+            'ad_keywords': 'Object',
             'adlabels': 'list<Object>',
             'bid_amount': 'int',
             'bid_adjustments': 'Object',
@@ -348,7 +347,6 @@ class AdSet(
             'pacing_type': 'list<string>',
             'promoted_object': 'Object',
             'rb_prediction_id': 'string',
-            'redownload': 'bool',
             'rf_prediction_id': 'string',
             'start_time': 'datetime',
             'targeting': 'Targeting',
@@ -489,7 +487,9 @@ class AdSet(
             'execution_options': 'list<execution_options_enum>',
         }
         enums = {
-            'execution_options_enum': AdSet.ExecutionOptions.__dict__.values(),
+            'execution_options_enum': [
+                'validate_only',
+            ],
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -519,7 +519,9 @@ class AdSet(
             'execution_options': 'list<execution_options_enum>',
         }
         enums = {
-            'execution_options_enum': AdSet.ExecutionOptions.__dict__.values(),
+            'execution_options_enum': [
+                'validate_only',
+            ],
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -917,7 +919,6 @@ class AdSet(
         'execution_options': 'list<ExecutionOptions>',
         'line_number': 'unsigned int',
         'rb_prediction_id': 'string',
-        'redownload': 'bool',
         'time_start': 'datetime',
         'time_stop': 'datetime',
         'topline_id': 'string',

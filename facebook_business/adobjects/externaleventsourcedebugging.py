@@ -41,7 +41,9 @@ class ExternalEventSourceDebugging(
         super(ExternalEventSourceDebugging, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        app_version = 'app_version'
         content_url = 'content_url'
+        device_os = 'device_os'
         diagnostic = 'diagnostic'
         event_name = 'event_name'
         event_time = 'event_time'
@@ -77,7 +79,9 @@ class ExternalEventSourceDebugging(
             return request.execute()
 
     _field_types = {
+        'app_version': 'string',
         'content_url': 'string',
+        'device_os': 'string',
         'diagnostic': 'string',
         'event_name': 'string',
         'event_time': 'int',

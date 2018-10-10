@@ -1164,6 +1164,7 @@ class User(
         param_types = {
             'tags': 'list<string>',
             'folder': 'string',
+            'psid': 'Object',
         }
         enums = {
         }
@@ -1670,7 +1671,6 @@ class User(
             return request.execute()
 
     def create_game_item(self, fields=None, params=None, batch=None, pending=False):
-        from facebook_business.adobjects.gameitem import GameItem
         param_types = {
             'action': 'action_enum',
             'item_id': 'Object',
@@ -1680,7 +1680,11 @@ class User(
             'app_id': 'Object',
         }
         enums = {
-            'action_enum': GameItem.Action.__dict__.values(),
+            'action_enum': [
+                'MARK',
+                'CONSUME',
+                'DROP',
+            ],
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -1688,9 +1692,9 @@ class User(
             endpoint='/game_items',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=GameItem,
+            target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=GameItem, api=self._api),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1705,12 +1709,15 @@ class User(
             return request.execute()
 
     def create_game_time(self, fields=None, params=None, batch=None, pending=False):
-        from facebook_business.adobjects.gametime import GameTime
         param_types = {
             'action': 'action_enum',
         }
         enums = {
-            'action_enum': GameTime.Action.__dict__.values(),
+            'action_enum': [
+                'START',
+                'HEARTBEAT',
+                'END',
+            ],
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -1718,9 +1725,9 @@ class User(
             endpoint='/game_times',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=GameTime,
+            target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=GameTime, api=self._api),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1764,7 +1771,6 @@ class User(
             return request.execute()
 
     def create_games_stat(self, fields=None, params=None, batch=None, pending=False):
-        from facebook_business.adobjects.gamesstat import GamesStat
         param_types = {
             'stat_name': 'string',
             'set': 'unsigned int',
@@ -1778,9 +1784,9 @@ class User(
             endpoint='/games_stats',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=GamesStat,
+            target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=GamesStat, api=self._api),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2217,7 +2223,6 @@ class User(
             return request.execute()
 
     def create_live_encoder(self, fields=None, params=None, batch=None, pending=False):
-        from facebook_business.adobjects.liveencoder import LiveEncoder
         param_types = {
             'device_id': 'string',
             'name': 'string',
@@ -2233,9 +2238,9 @@ class User(
             endpoint='/live_encoders',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=LiveEncoder,
+            target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=LiveEncoder, api=self._api),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2838,6 +2843,7 @@ class User(
                 'NMOR_PPGF_DONATION',
                 'NMOR_ADVERTISER_SUBSCRIPTION',
                 'NMOR_WHATSAPP_P2M',
+                'NMOR_MOVIE_TICKETING',
                 'IG_NMOR_P2B',
                 'NMOR_INSTAGRAM_P2B',
             ],
@@ -2937,6 +2943,7 @@ class User(
                 'NMOR_PPGF_DONATION',
                 'NMOR_ADVERTISER_SUBSCRIPTION',
                 'NMOR_WHATSAPP_P2M',
+                'NMOR_MOVIE_TICKETING',
                 'IG_NMOR_P2B',
                 'NMOR_INSTAGRAM_P2B',
             ],
@@ -3630,6 +3637,7 @@ class User(
         param_types = {
             'tags': 'list<string>',
             'folder': 'string',
+            'psid': 'Object',
         }
         enums = {
         }

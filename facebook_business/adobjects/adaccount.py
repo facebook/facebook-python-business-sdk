@@ -251,7 +251,6 @@ class AdAccount(
             'agency_client_declaration': 'map',
             'business_info': 'map',
             'tos_accepted': 'map',
-            'redownload': 'bool',
             'currency': 'currency_enum',
             'timezone_id': 'unsigned int',
             'end_advertiser': 'string',
@@ -1406,7 +1405,6 @@ class AdAccount(
             'execution_options': 'list<execution_options_enum>',
             'adlabels': 'list<Object>',
             'bid_amount': 'int',
-            'redownload': 'bool',
             'source_ad_id': 'string',
         }
         enums = {
@@ -1541,7 +1539,7 @@ class AdAccount(
     def create_ad_set(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.adset import AdSet
         param_types = {
-            'ad_keywords': 'map',
+            'ad_keywords': 'Object',
             'adlabels': 'list<Object>',
             'bid_amount': 'int',
             'bid_adjustments': 'Object',
@@ -1578,7 +1576,6 @@ class AdAccount(
             'pacing_type': 'list<string>',
             'promoted_object': 'Object',
             'rb_prediction_id': 'string',
-            'redownload': 'bool',
             'rf_prediction_id': 'string',
             'source_adset_id': 'string',
             'start_time': 'datetime',
@@ -3765,34 +3762,6 @@ class AdAccount(
             target_class=PublisherBlockList,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=PublisherBlockList, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def get_rate_card(self, fields=None, params=None, batch=None, pending=False):
-        from facebook_business.adobjects.ratecard import RateCard
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/ratecard',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=RateCard,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=RateCard, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

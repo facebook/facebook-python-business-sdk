@@ -415,17 +415,6 @@ class Page(
         add = 'ADD'
         remove = 'REMOVE'
 
-    class SettingType:
-        account_linking = 'ACCOUNT_LINKING'
-        call_to_actions = 'CALL_TO_ACTIONS'
-        greeting = 'GREETING'
-        domain_whitelisting = 'DOMAIN_WHITELISTING'
-        payment = 'PAYMENT'
-
-    class ThreadState:
-        new_thread = 'NEW_THREAD'
-        existing_thread = 'EXISTING_THREAD'
-
     # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
@@ -631,7 +620,7 @@ class Page(
             self.assure_call()
             return request.execute()
 
-    def create_ad_m_in_setting(self, fields=None, params=None, batch=None, pending=False):
+    def create_admin_setting(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
             'setting': 'setting_enum',
             'value': 'bool',
@@ -722,7 +711,7 @@ class Page(
             self.assure_call()
             return request.execute()
 
-    def create_ad_m_in_sticky_setting(self, fields=None, params=None, batch=None, pending=False):
+    def create_admin_sticky_setting(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
             'budget': 'unsigned int',
             'currency': 'string',
@@ -1615,6 +1604,7 @@ class Page(
         param_types = {
             'tags': 'list<string>',
             'folder': 'string',
+            'psid': 'Object',
         }
         enums = {
         }
@@ -1641,7 +1631,6 @@ class Page(
             return request.execute()
 
     def create_copyright_manual_claim(self, fields=None, params=None, batch=None, pending=False):
-        from facebook_business.adobjects.videocopyrightmatch import VideoCopyrightMatch
         param_types = {
             'reference_asset_id': 'string',
             'matched_asset_id': 'string',
@@ -1650,8 +1639,18 @@ class Page(
             'countries': 'Object',
         }
         enums = {
-            'match_content_type_enum': VideoCopyrightMatch.MatchContentType.__dict__.values(),
-            'action_enum': VideoCopyrightMatch.Action.__dict__.values(),
+            'match_content_type_enum': [
+                'VIDEO_AND_AUDIO',
+                'VIDEO_ONLY',
+                'AUDIO_ONLY',
+            ],
+            'action_enum': [
+                'MANUAL_REVIEW',
+                'MONITOR',
+                'BLOCK',
+                'CLAIM_AD_EARNINGS',
+                'REQUEST_TAKEDOWN',
+            ],
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -1659,9 +1658,9 @@ class Page(
             endpoint='/copyright_manual_claims',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=VideoCopyrightMatch,
+            target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=VideoCopyrightMatch, api=self._api),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2749,7 +2748,7 @@ class Page(
             self.assure_call()
             return request.execute()
 
-    def get_lead_gen_draft_for_ms(self, fields=None, params=None, batch=None, pending=False):
+    def get_lead_gen_draft_forms(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.leadgendatadraft import LeadGenDataDraft
         param_types = {
         }
@@ -2777,12 +2776,11 @@ class Page(
             self.assure_call()
             return request.execute()
 
-    def create_lead_gen_draft_for_m(self, fields=None, params=None, batch=None, pending=False):
+    def create_lead_gen_draft_form(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.leadgendatadraft import LeadGenDataDraft
         param_types = {
             'name': 'string',
             'locale': 'locale_enum',
-            'allow_organic_lead_retrieval': 'bool',
             'block_display_for_non_targeted_viewer': 'bool',
             'follow_up_action_url': 'string',
             'legal_content_id': 'string',
@@ -4012,7 +4010,6 @@ class Page(
             return request.execute()
 
     def create_page_backed_instagram_account(self, fields=None, params=None, batch=None, pending=False):
-        from facebook_business.adobjects.instagramuser import InstagramUser
         param_types = {
         }
         enums = {
@@ -4023,9 +4020,9 @@ class Page(
             endpoint='/page_backed_instagram_accounts',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=InstagramUser,
+            target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=InstagramUser, api=self._api),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -5313,8 +5310,17 @@ class Page(
             'thread_state': 'thread_state_enum',
         }
         enums = {
-            'setting_type_enum': Page.SettingType.__dict__.values(),
-            'thread_state_enum': Page.ThreadState.__dict__.values(),
+            'setting_type_enum': [
+                'ACCOUNT_LINKING',
+                'CALL_TO_ACTIONS',
+                'GREETING',
+                'DOMAIN_WHITELISTING',
+                'PAYMENT',
+            ],
+            'thread_state_enum': [
+                'NEW_THREAD',
+                'EXISTING_THREAD',
+            ],
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -5381,8 +5387,17 @@ class Page(
             'payment_testers': 'list<string>',
         }
         enums = {
-            'setting_type_enum': Page.SettingType.__dict__.values(),
-            'thread_state_enum': Page.ThreadState.__dict__.values(),
+            'setting_type_enum': [
+                'ACCOUNT_LINKING',
+                'CALL_TO_ACTIONS',
+                'GREETING',
+                'DOMAIN_WHITELISTING',
+                'PAYMENT',
+            ],
+            'thread_state_enum': [
+                'NEW_THREAD',
+                'EXISTING_THREAD',
+            ],
             'domain_action_type_enum': Page.DomainActionType.__dict__.values(),
             'payment_dev_mode_action_enum': Page.PaymentDevModeAction.__dict__.values(),
         }
@@ -5413,6 +5428,7 @@ class Page(
         param_types = {
             'tags': 'list<string>',
             'folder': 'string',
+            'psid': 'Object',
         }
         enums = {
         }
@@ -6240,8 +6256,6 @@ class Page(
         field_enum_info['SubscribedFields'] = Page.SubscribedFields.__dict__.values()
         field_enum_info['DomainActionType'] = Page.DomainActionType.__dict__.values()
         field_enum_info['PaymentDevModeAction'] = Page.PaymentDevModeAction.__dict__.values()
-        field_enum_info['SettingType'] = Page.SettingType.__dict__.values()
-        field_enum_info['ThreadState'] = Page.ThreadState.__dict__.values()
         return field_enum_info
 
 

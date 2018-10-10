@@ -89,7 +89,7 @@ class AudienceInsightsRule(
         'language': 'string',
         'name': 'string',
         'rule_components': 'list<Object>',
-        'studies': 'list<AudienceStudy>',
+        'studies': 'list<Object>',
     }
     @classmethod
     def _get_field_enum_info(cls):
