@@ -108,11 +108,11 @@ class Canvas(
 
     def api_update(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
-            'background_color': 'string',
-            'body_element_ids': 'list<string>',
-            'is_hidden': 'bool',
-            'is_published': 'bool',
             'name': 'string',
+            'body_element_ids': 'list<string>',
+            'background_color': 'string',
+            'is_published': 'bool',
+            'is_hidden': 'bool',
         }
         enums = {
         }
@@ -177,9 +177,9 @@ class Canvas(
             endpoint='/preview_notifications',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=Canvas,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=Canvas, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -205,8 +205,9 @@ class Canvas(
         'owner': 'Page',
         'update_time': 'int',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         return field_enum_info
+
+

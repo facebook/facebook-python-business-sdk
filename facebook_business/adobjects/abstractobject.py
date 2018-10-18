@@ -55,7 +55,7 @@ class AbstractObject(collections.MutableMapping):
         return self
 
     def __eq__(self, other):
-        return other is not None and hasattr(targeting, 'export_all_data') and \
+        return other is not None and hasattr(other, 'export_all_data') and \
             self.export_all_data() == other.export_all_data()
 
     def __delitem__(self, key):

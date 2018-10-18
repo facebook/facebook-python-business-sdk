@@ -19,6 +19,10 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
+from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
+from facebook_business.adobjects.objectparser import ObjectParser
+from facebook_business.api import FacebookRequest
+from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -29,13 +33,12 @@ pull request for this class.
 """
 
 class TargetingGeoLocation(
-    AbstractObject,
+    AbstractCrudObject,
 ):
 
-    def __init__(self, api=None):
-        super(TargetingGeoLocation, self).__init__()
+    def __init__(self, fbid=None, parent_id=None, api=None):
         self._isTargetingGeoLocation = True
-        self._api = api
+        super(TargetingGeoLocation, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
         cities = 'cities'
@@ -44,12 +47,48 @@ class TargetingGeoLocation(
         custom_locations = 'custom_locations'
         electoral_districts = 'electoral_districts'
         geo_markets = 'geo_markets'
+        large_geo_areas = 'large_geo_areas'
+        location_cluster_ids = 'location_cluster_ids'
         location_set_ids = 'location_set_ids'
         location_types = 'location_types'
+        medium_geo_areas = 'medium_geo_areas'
+        metro_areas = 'metro_areas'
+        neighborhoods = 'neighborhoods'
         places = 'places'
         political_districts = 'political_districts'
         regions = 'regions'
+        small_geo_areas = 'small_geo_areas'
+        subcities = 'subcities'
+        subneighborhoods = 'subneighborhoods'
         zips = 'zips'
+        id = 'id'
+
+    def api_get(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=TargetingGeoLocation,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     _field_types = {
         'cities': 'list<TargetingGeoLocationCity>',
@@ -58,15 +97,25 @@ class TargetingGeoLocation(
         'custom_locations': 'list<TargetingGeoLocationCustomLocation>',
         'electoral_districts': 'list<TargetingGeoLocationElectoralDistrict>',
         'geo_markets': 'list<TargetingGeoLocationMarket>',
+        'large_geo_areas': 'list<TargetingGeoLocationGeoEntities>',
+        'location_cluster_ids': 'list<TargetingGeoLocationLocationCluster>',
         'location_set_ids': 'list<string>',
         'location_types': 'list<string>',
+        'medium_geo_areas': 'list<TargetingGeoLocationGeoEntities>',
+        'metro_areas': 'list<TargetingGeoLocationGeoEntities>',
+        'neighborhoods': 'list<TargetingGeoLocationGeoEntities>',
         'places': 'list<TargetingGeoLocationPlace>',
         'political_districts': 'list<TargetingGeoLocationPoliticalDistrict>',
         'regions': 'list<TargetingGeoLocationRegion>',
+        'small_geo_areas': 'list<TargetingGeoLocationGeoEntities>',
+        'subcities': 'list<TargetingGeoLocationGeoEntities>',
+        'subneighborhoods': 'list<TargetingGeoLocationGeoEntities>',
         'zips': 'list<TargetingGeoLocationZip>',
+        'id': 'string',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         return field_enum_info
+
+

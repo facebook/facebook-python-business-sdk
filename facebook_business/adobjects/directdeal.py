@@ -100,6 +100,34 @@ class DirectDeal(
             self.assure_call()
             return request.execute()
 
+    def get_applications(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.application import Application
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/applications',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Application,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Application, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     _field_types = {
         'adbreaks_enabled': 'bool',
         'adset': 'AdSet',
@@ -124,9 +152,10 @@ class DirectDeal(
         'status': 'string',
         'targeting': 'Targeting',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['Status'] = DirectDeal.Status.__dict__.values()
         return field_enum_info
+
+

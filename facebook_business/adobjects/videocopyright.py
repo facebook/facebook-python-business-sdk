@@ -123,21 +123,21 @@ class VideoCopyright(
 
     def api_update(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
-            'append_excluded_ownership_segments': 'bool',
-            'attribution_id': 'string',
-            'content_category': 'content_category_enum',
-            'excluded_ownership_countries': 'list<string>',
-            'excluded_ownership_segments': 'list<Object>',
-            'is_reference_disabled': 'bool',
             'monitoring_type': 'monitoring_type_enum',
-            'ownership_countries': 'list<string>',
             'rule_id': 'string',
             'whitelisted_ids': 'list<string>',
             'whitelisted_ig_user_ids': 'list<string>',
+            'ownership_countries': 'list<string>',
+            'excluded_ownership_countries': 'list<string>',
+            'excluded_ownership_segments': 'list<Object>',
+            'is_reference_disabled': 'bool',
+            'content_category': 'content_category_enum',
+            'attribution_id': 'string',
+            'append_excluded_ownership_segments': 'bool',
         }
         enums = {
-            'content_category_enum': VideoCopyright.ContentCategory.__dict__.values(),
             'monitoring_type_enum': VideoCopyright.MonitoringType.__dict__.values(),
+            'content_category_enum': VideoCopyright.ContentCategory.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -169,8 +169,8 @@ class VideoCopyright(
         'in_conflict': 'bool',
         'monitoring_status': 'string',
         'monitoring_type': 'string',
-        'ownership_countries': 'Object',
-        'reference_file': 'Object',
+        'ownership_countries': 'VideoCopyrightGeoGate',
+        'reference_file': 'CopyrightReferenceContainer',
         'reference_file_disabled': 'bool',
         'reference_file_disabled_by_ops': 'bool',
         'reference_file_expired': 'bool',
@@ -178,10 +178,11 @@ class VideoCopyright(
         'rule_ids': 'list<VideoCopyrightRule>',
         'whitelisted_ids': 'list<string>',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['ContentCategory'] = VideoCopyright.ContentCategory.__dict__.values()
         field_enum_info['MonitoringType'] = VideoCopyright.MonitoringType.__dict__.values()
         return field_enum_info
+
+

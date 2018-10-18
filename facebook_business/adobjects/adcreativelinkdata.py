@@ -19,6 +19,10 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
+from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
+from facebook_business.adobjects.objectparser import ObjectParser
+from facebook_business.api import FacebookRequest
+from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -29,13 +33,12 @@ pull request for this class.
 """
 
 class AdCreativeLinkData(
-    AbstractObject,
+    AbstractCrudObject,
 ):
 
-    def __init__(self, api=None):
-        super(AdCreativeLinkData, self).__init__()
+    def __init__(self, fbid=None, parent_id=None, api=None):
         self._isAdCreativeLinkData = True
-        self._api = api
+        super(AdCreativeLinkData, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
         additional_image_index = 'additional_image_index'
@@ -69,7 +72,9 @@ class AdCreativeLinkData(
         preferred_image_tags = 'preferred_image_tags'
         retailer_item_ids = 'retailer_item_ids'
         show_multiple_images = 'show_multiple_images'
+        sponsorship_info = 'sponsorship_info'
         static_fallback_spec = 'static_fallback_spec'
+        id = 'id'
 
     class AttachmentStyle:
         link = 'link'
@@ -80,6 +85,33 @@ class AdCreativeLinkData(
         carousel_images_single_item = 'carousel_images_single_item'
         carousel_slideshows = 'carousel_slideshows'
         single_image = 'single_image'
+
+    def api_get(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdCreativeLinkData,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     _field_types = {
         'additional_image_index': 'int',
@@ -93,7 +125,7 @@ class AdCreativeLinkData(
         'child_attachments': 'list<AdCreativeLinkDataChildAttachment>',
         'collection_thumbnails': 'list<AdCreativeCollectionThumbnailInfo>',
         'custom_overlay_spec': 'AdCreativeLinkDataCustomOverlaySpec',
-        'customization_rules_spec': 'list<Object>',
+        'customization_rules_spec': 'list<AdCustomizationRuleSpec>',
         'description': 'string',
         'event_id': 'string',
         'force_single_link': 'bool',
@@ -113,12 +145,15 @@ class AdCreativeLinkData(
         'preferred_image_tags': 'list<string>',
         'retailer_item_ids': 'list<string>',
         'show_multiple_images': 'bool',
-        'static_fallback_spec': 'Object',
+        'sponsorship_info': 'AdCreativeLinkDataSponsorshipInfoSpec',
+        'static_fallback_spec': 'AdCreativeStaticFallbackSpec',
+        'id': 'string',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['AttachmentStyle'] = AdCreativeLinkData.AttachmentStyle.__dict__.values()
         field_enum_info['FormatOption'] = AdCreativeLinkData.FormatOption.__dict__.values()
         return field_enum_info
+
+

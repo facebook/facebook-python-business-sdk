@@ -19,6 +19,10 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
+from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
+from facebook_business.adobjects.objectparser import ObjectParser
+from facebook_business.api import FacebookRequest
+from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -29,18 +33,18 @@ pull request for this class.
 """
 
 class CustomAudienceDataSource(
-    AbstractObject,
+    AbstractCrudObject,
 ):
 
-    def __init__(self, api=None):
-        super(CustomAudienceDataSource, self).__init__()
+    def __init__(self, fbid=None, parent_id=None, api=None):
         self._isCustomAudienceDataSource = True
-        self._api = api
+        super(CustomAudienceDataSource, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
         creation_params = 'creation_params'
         sub_type = 'sub_type'
         type = 'type'
+        id = 'id'
 
     class SubType:
         anything = 'ANYTHING'
@@ -89,6 +93,7 @@ class CustomAudienceDataSource(
         platform_users = 'PLATFORM_USERS'
         multi_event_source = 'MULTI_EVENT_SOURCE'
         smart_audience = 'SMART_AUDIENCE'
+        lookalike_platform = 'LOOKALIKE_PLATFORM'
         mail_chimp_email_hashes = 'MAIL_CHIMP_EMAIL_HASHES'
         constant_contacts_email_hashes = 'CONSTANT_CONTACTS_EMAIL_HASHES'
         copy_paste_email_hashes = 'COPY_PASTE_EMAIL_HASHES'
@@ -105,15 +110,44 @@ class CustomAudienceDataSource(
         contact_importer = 'CONTACT_IMPORTER'
         household_audience = 'HOUSEHOLD_AUDIENCE'
 
+    def api_get(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=CustomAudienceDataSource,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     _field_types = {
         'creation_params': 'string',
         'sub_type': 'SubType',
         'type': 'Type',
+        'id': 'string',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['SubType'] = CustomAudienceDataSource.SubType.__dict__.values()
         field_enum_info['Type'] = CustomAudienceDataSource.Type.__dict__.values()
         return field_enum_info
+
+
