@@ -11,7 +11,6 @@ shared: &shared
       - run: virtualenv venv
       - run: venv/bin/python setup.py install
       - run: venv/bin/python -m facebook_business.test.unit
-      - run: venv/bin/python -m facebook_business.test.integration
 
 jobs:
   # Note: no 3.3 image from CCi readily available – not that we care about that version anyway.
