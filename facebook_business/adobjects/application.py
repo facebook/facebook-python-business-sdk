@@ -182,6 +182,7 @@ class Application(
         platform = 'PLATFORM'
         property = 'PROPERTY'
         clicked_view_tag = 'CLICKED_VIEW_TAG'
+        no_fill_reason = 'NO_FILL_REASON'
 
     class Metrics:
         fb_ad_network_bidding_request = 'FB_AD_NETWORK_BIDDING_REQUEST'
@@ -215,6 +216,7 @@ class Application(
         fb_ad_network_fast_return_denominator = 'FB_AD_NETWORK_FAST_RETURN_DENOMINATOR'
         fb_ad_network_click_value_score_numerator = 'FB_AD_NETWORK_CLICK_VALUE_SCORE_NUMERATOR'
         fb_ad_network_click_value_score_denominator = 'FB_AD_NETWORK_CLICK_VALUE_SCORE_DENOMINATOR'
+        fb_ad_network_no_fill = 'FB_AD_NETWORK_NO_FILL'
 
     class OrderingColumn:
         time = 'TIME'

@@ -63,6 +63,7 @@ class DirectDeal(
         start_time = 'start_time'
         status = 'status'
         targeting = 'targeting'
+        third_party_integrated_deal = 'third_party_integrated_deal'
 
     class Status:
         value_0 = '0'
@@ -151,6 +152,7 @@ class DirectDeal(
         'start_time': 'int',
         'status': 'string',
         'targeting': 'Targeting',
+        'third_party_integrated_deal': 'bool',
     }
     @classmethod
     def _get_field_enum_info(cls):

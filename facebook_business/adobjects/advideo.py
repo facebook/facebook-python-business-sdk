@@ -231,6 +231,8 @@ class AdVideo(
         candidate_videos = 'CANDIDATE_VIDEOS'
         fundraiser_cover_video = 'FUNDRAISER_COVER_VIDEO'
         proton = 'PROTON'
+        bell_poll = 'BELL_POLL'
+        civic_proposal_cover_video = 'CIVIC_PROPOSAL_COVER_VIDEO'
 
     class ContentCategory:
         beauty_fashion = 'BEAUTY_FASHION'

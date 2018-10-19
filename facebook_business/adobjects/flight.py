@@ -57,6 +57,15 @@ class Flight(
         sanitized_images = 'sanitized_images'
         url = 'url'
 
+    # @deprecated get_endpoint function is deprecated
+    @classmethod
+    def get_endpoint(cls):
+        return 'flights'
+
+    def api_create(self, parent_id, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.productcatalog import ProductCatalog
+        return ProductCatalog(api=self._api, fbid=parent_id).create_flight(fields, params, batch, pending)
+
     def api_get(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
         }

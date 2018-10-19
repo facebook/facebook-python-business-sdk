@@ -69,6 +69,7 @@ class AdsInsights(
         canvas_component_avg_pct_view = 'canvas_component_avg_pct_view'
         clicks = 'clicks'
         cost_per_10_sec_video_view = 'cost_per_10_sec_video_view'
+        cost_per_15_sec_video_view = 'cost_per_15_sec_video_view'
         cost_per_2_sec_continuous_video_view = 'cost_per_2_sec_continuous_video_view'
         cost_per_action_type = 'cost_per_action_type'
         cost_per_ad_click = 'cost_per_ad_click'
@@ -78,6 +79,7 @@ class AdsInsights(
         cost_per_inline_post_engagement = 'cost_per_inline_post_engagement'
         cost_per_one_thousand_ad_impression = 'cost_per_one_thousand_ad_impression'
         cost_per_outbound_click = 'cost_per_outbound_click'
+        cost_per_thruplay = 'cost_per_thruplay'
         cost_per_unique_action_type = 'cost_per_unique_action_type'
         cost_per_unique_click = 'cost_per_unique_click'
         cost_per_unique_inline_link_click = 'cost_per_unique_inline_link_click'
@@ -117,6 +119,7 @@ class AdsInsights(
         labels = 'labels'
         link_url_asset = 'link_url_asset'
         location = 'location'
+        media_asset = 'media_asset'
         mobile_app_purchase_roas = 'mobile_app_purchase_roas'
         objective = 'objective'
         outbound_clicks = 'outbound_clicks'
@@ -146,8 +149,10 @@ class AdsInsights(
         unique_outbound_clicks_ctr = 'unique_outbound_clicks_ctr'
         unique_video_continuous_2_sec_watched_actions = 'unique_video_continuous_2_sec_watched_actions'
         unique_video_view_10_sec = 'unique_video_view_10_sec'
+        unique_video_view_15_sec = 'unique_video_view_15_sec'
         updated_time = 'updated_time'
         video_10_sec_watched_actions = 'video_10_sec_watched_actions'
+        video_15_sec_watched_actions = 'video_15_sec_watched_actions'
         video_30_sec_watched_actions = 'video_30_sec_watched_actions'
         video_asset = 'video_asset'
         video_avg_percent_watched_actions = 'video_avg_percent_watched_actions'
@@ -162,6 +167,7 @@ class AdsInsights(
         video_play_retention_0_to_15s_actions = 'video_play_retention_0_to_15s_actions'
         video_play_retention_20_to_60s_actions = 'video_play_retention_20_to_60s_actions'
         video_play_retention_graph_actions = 'video_play_retention_graph_actions'
+        video_thruplay_watched_actions = 'video_thruplay_watched_actions'
         video_time_watched_actions = 'video_time_watched_actions'
         website_ctr = 'website_ctr'
         website_purchase_roas = 'website_purchase_roas'
@@ -316,6 +322,7 @@ class AdsInsights(
         'canvas_component_avg_pct_view': 'list<AdsActionStats>',
         'clicks': 'string',
         'cost_per_10_sec_video_view': 'list<AdsActionStats>',
+        'cost_per_15_sec_video_view': 'list<AdsActionStats>',
         'cost_per_2_sec_continuous_video_view': 'list<AdsActionStats>',
         'cost_per_action_type': 'list<AdsActionStats>',
         'cost_per_ad_click': 'list<AdsActionStats>',
@@ -325,6 +332,7 @@ class AdsInsights(
         'cost_per_inline_post_engagement': 'string',
         'cost_per_one_thousand_ad_impression': 'list<AdsActionStats>',
         'cost_per_outbound_click': 'list<AdsActionStats>',
+        'cost_per_thruplay': 'list<AdsActionStats>',
         'cost_per_unique_action_type': 'list<AdsActionStats>',
         'cost_per_unique_click': 'string',
         'cost_per_unique_inline_link_click': 'string',
@@ -364,6 +372,7 @@ class AdsInsights(
         'labels': 'string',
         'link_url_asset': 'Object',
         'location': 'string',
+        'media_asset': 'Object',
         'mobile_app_purchase_roas': 'list<AdsActionStats>',
         'objective': 'string',
         'outbound_clicks': 'list<AdsActionStats>',
@@ -393,8 +402,10 @@ class AdsInsights(
         'unique_outbound_clicks_ctr': 'list<AdsActionStats>',
         'unique_video_continuous_2_sec_watched_actions': 'list<AdsActionStats>',
         'unique_video_view_10_sec': 'list<AdsActionStats>',
+        'unique_video_view_15_sec': 'list<AdsActionStats>',
         'updated_time': 'string',
         'video_10_sec_watched_actions': 'list<AdsActionStats>',
+        'video_15_sec_watched_actions': 'list<AdsActionStats>',
         'video_30_sec_watched_actions': 'list<AdsActionStats>',
         'video_asset': 'Object',
         'video_avg_percent_watched_actions': 'list<AdsActionStats>',
@@ -409,6 +420,7 @@ class AdsInsights(
         'video_play_retention_0_to_15s_actions': 'list<Object>',
         'video_play_retention_20_to_60s_actions': 'list<Object>',
         'video_play_retention_graph_actions': 'list<Object>',
+        'video_thruplay_watched_actions': 'list<AdsActionStats>',
         'video_time_watched_actions': 'list<AdsActionStats>',
         'website_ctr': 'list<AdsActionStats>',
         'website_purchase_roas': 'list<AdsActionStats>',
