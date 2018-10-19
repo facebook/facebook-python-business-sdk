@@ -121,8 +121,8 @@ class MeasurementReport(
 
     def api_update(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
-            'is_last_batch': 'bool',
             'payload': 'file',
+            'is_last_batch': 'bool',
             'url': 'string',
         }
         enums = {
@@ -157,9 +157,10 @@ class MeasurementReport(
         'status': 'string',
         'upload_urls': 'list<string>',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['ReportType'] = MeasurementReport.ReportType.__dict__.values()
         return field_enum_info
+
+

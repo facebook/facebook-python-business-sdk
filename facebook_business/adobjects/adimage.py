@@ -59,6 +59,7 @@ class AdImage(
         url = 'url'
         url_128 = 'url_128'
         width = 'width'
+        zipbytes = 'zipbytes'
         bytes = 'bytes'
         copy_from = 'copy_from'
         filename = 'filename'
@@ -120,13 +121,15 @@ class AdImage(
         'url': 'string',
         'url_128': 'string',
         'width': 'unsigned int',
+        'zipbytes': 'Object',
         'bytes': 'Object',
         'copy_from': 'Object',
         'filename': 'file'
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['Status'] = AdImage.Status.__dict__.values()
         return field_enum_info
+
+

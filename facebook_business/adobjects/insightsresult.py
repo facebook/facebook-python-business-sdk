@@ -49,6 +49,9 @@ class InsightsResult(
         title = 'title'
         values = 'values'
 
+    class Metric:
+        messages_sent = 'messages_sent'
+
     class DatePreset:
         today = 'today'
         yesterday = 'yesterday'
@@ -76,7 +79,33 @@ class InsightsResult(
         days_28 = 'days_28'
         month = 'month'
         lifetime = 'lifetime'
-        total_over_range = 'total_over_range'
+
+    def api_get(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=InsightsResult,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     _field_types = {
         'description': 'string',
@@ -87,10 +116,12 @@ class InsightsResult(
         'title': 'string',
         'values': 'list<Object>',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['Metric'] = InsightsResult.Metric.__dict__.values()
         field_enum_info['DatePreset'] = InsightsResult.DatePreset.__dict__.values()
         field_enum_info['Period'] = InsightsResult.Period.__dict__.values()
         return field_enum_info
+
+

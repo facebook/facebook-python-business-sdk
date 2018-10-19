@@ -44,6 +44,10 @@ class OwnedDomain(
         domain_name = 'domain_name'
         id = 'id'
 
+    class PermittedRoles:
+        admin = 'ADMIN'
+        webmaster_developer = 'WEBMASTER_DEVELOPER'
+
     # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
@@ -80,12 +84,44 @@ class OwnedDomain(
             self.assure_call()
             return request.execute()
 
+    def create_Agency(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'business': 'string',
+            'permitted_roles': 'list<permitted_roles_enum>',
+        }
+        enums = {
+            'permitted_roles_enum': OwnedDomain.PermittedRoles.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/Agencies',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=OwnedDomain,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=OwnedDomain, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     _field_types = {
         'domain_name': 'string',
         'id': 'string',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['PermittedRoles'] = OwnedDomain.PermittedRoles.__dict__.values()
         return field_enum_info
+
+

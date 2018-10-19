@@ -44,16 +44,11 @@ class ExternalEventSource(
         id = 'id'
         name = 'name'
         source_type = 'source_type'
-        external_event_sources = 'external_event_sources'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'external_event_sources'
-
-    def api_create(self, parent_id, fields=None, params=None, batch=None, pending=False):
-        from facebook_business.adobjects.productcatalog import ProductCatalog
-        return ProductCatalog(api=self._api, fbid=parent_id).create_external_event_source(fields, params, batch, pending)
 
     def api_get(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
@@ -86,10 +81,10 @@ class ExternalEventSource(
         'id': 'string',
         'name': 'string',
         'source_type': 'string',
-        'external_event_sources': 'list<string>',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         return field_enum_info
+
+

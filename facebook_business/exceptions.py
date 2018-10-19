@@ -67,6 +67,9 @@ class FacebookRequestError(FacebookError):
 
         if self._body and 'error' in self._body:
             self._error = self._body['error']
+            error_data = self._error.get('error_data', str({}))
+            if not isinstance(error_data, dict):
+                error_data = json.loads(error_data)
             if 'message' in self._error:
                 self._api_error_message = self._error['message']
             if 'code' in self._error:
@@ -77,7 +80,7 @@ class FacebookRequestError(FacebookError):
                 self._api_error_subcode = self._error['error_subcode']
             if 'type' in self._error:
                 self._api_error_type = self._error['type']
-            if self._error.get('error_data', {}).get('blame_field_specs'):
+            if error_data.get('blame_field_specs'):
                 self._api_blame_field_specs = \
                     self._error['error_data']['blame_field_specs']
         else:

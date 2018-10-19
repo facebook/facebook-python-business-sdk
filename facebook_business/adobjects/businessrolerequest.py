@@ -45,6 +45,7 @@ class BusinessRoleRequest(
         created_time = 'created_time'
         email = 'email'
         expiration_time = 'expiration_time'
+        expiry_time = 'expiry_time'
         finance_role = 'finance_role'
         id = 'id'
         invite_link = 'invite_link'
@@ -157,6 +158,7 @@ class BusinessRoleRequest(
         'created_time': 'datetime',
         'email': 'string',
         'expiration_time': 'datetime',
+        'expiry_time': 'datetime',
         'finance_role': 'string',
         'id': 'string',
         'invite_link': 'string',
@@ -167,10 +169,11 @@ class BusinessRoleRequest(
         'updated_by': 'Object',
         'updated_time': 'datetime',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['Role'] = BusinessRoleRequest.Role.__dict__.values()
         field_enum_info['Status'] = BusinessRoleRequest.Status.__dict__.values()
         return field_enum_info
+
+

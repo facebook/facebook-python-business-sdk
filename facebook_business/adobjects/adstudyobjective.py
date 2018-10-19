@@ -49,12 +49,6 @@ class AdStudyObjective(
         results = 'results'
         type = 'type'
 
-    class Breakdowns:
-        age = 'age'
-        cell_id = 'cell_id'
-        gender = 'gender'
-        country = 'country'
-
     class Type:
         sales = 'SALES'
         nonsales = 'NONSALES'
@@ -98,7 +92,12 @@ class AdStudyObjective(
             'breakdowns': 'list<breakdowns_enum>',
         }
         enums = {
-            'breakdowns_enum': AdStudyObjective.Breakdowns.__dict__.values(),
+            'breakdowns_enum': [
+                'age',
+                'cell_id',
+                'gender',
+                'country',
+            ],
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -124,14 +123,14 @@ class AdStudyObjective(
 
     def api_update(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
-            'adspixels': 'list<Object>',
-            'applications': 'list<Object>',
-            'customconversions': 'list<Object>',
             'is_primary': 'bool',
             'name': 'string',
-            'offline_conversion_data_sets': 'list<Object>',
-            'offsitepixels': 'list<Object>',
             'type': 'type_enum',
+            'adspixels': 'list<Object>',
+            'customconversions': 'list<Object>',
+            'applications': 'list<Object>',
+            'offsitepixels': 'list<Object>',
+            'offline_conversion_data_sets': 'list<Object>',
         }
         enums = {
             'type_enum': AdStudyObjective.Type.__dict__.values(),
@@ -167,10 +166,10 @@ class AdStudyObjective(
         'results': 'list<string>',
         'type': 'string',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['Breakdowns'] = AdStudyObjective.Breakdowns.__dict__.values()
         field_enum_info['Type'] = AdStudyObjective.Type.__dict__.values()
         return field_enum_info
+
+

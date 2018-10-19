@@ -96,12 +96,12 @@ class AdStudyCell(
 
     def api_update(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
+            'description': 'string',
+            'name': 'string',
+            'creation_template': 'creation_template_enum',
             'adaccounts': 'list<unsigned int>',
             'adsets': 'list<string>',
             'campaigns': 'list<string>',
-            'creation_template': 'creation_template_enum',
-            'description': 'string',
-            'name': 'string',
         }
         enums = {
             'creation_template_enum': AdStudyCell.CreationTemplate.__dict__.values(),
@@ -128,6 +128,90 @@ class AdStudyCell(
             self.assure_call()
             return request.execute()
 
+    def get_ad_accounts(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adaccount import AdAccount
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/adaccounts',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdAccount,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdAccount, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_ad_sets(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adset import AdSet
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/adsets',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdSet,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdSet, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_campaigns(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.campaign import Campaign
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/campaigns',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Campaign,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Campaign, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     _field_types = {
         'ad_entities_count': 'unsigned int',
         'control_percentage': 'float',
@@ -135,9 +219,10 @@ class AdStudyCell(
         'name': 'string',
         'treatment_percentage': 'float',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['CreationTemplate'] = AdStudyCell.CreationTemplate.__dict__.values()
         return field_enum_info
+
+

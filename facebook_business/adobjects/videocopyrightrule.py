@@ -109,7 +109,7 @@ class VideoCopyrightRule(
             return request.execute()
 
     _field_types = {
-        'condition_groups': 'list<Object>',
+        'condition_groups': 'list<VideoCopyrightConditionGroup>',
         'copyrights': 'list<string>',
         'created_date': 'datetime',
         'creator': 'User',
@@ -117,9 +117,10 @@ class VideoCopyrightRule(
         'is_in_migration': 'bool',
         'name': 'string',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['Source'] = VideoCopyrightRule.Source.__dict__.values()
         return field_enum_info
+
+

@@ -104,8 +104,8 @@ class ExtendedCreditInvoiceGroup(
 
     def api_update(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
-            'emails': 'list<string>',
             'name': 'string',
+            'emails': 'list<string>',
         }
         enums = {
         }
@@ -195,8 +195,9 @@ class ExtendedCreditInvoiceGroup(
         'id': 'string',
         'name': 'string',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         return field_enum_info
+
+
