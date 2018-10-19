@@ -32,23 +32,16 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdsPixelRealTimeEventLogResult(
+class AdAccountMaxBid(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isAdsPixelRealTimeEventLogResult = True
-        super(AdsPixelRealTimeEventLogResult, self).__init__(fbid, parent_id, api)
+        self._isAdAccountMaxBid = True
+        super(AdAccountMaxBid, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        data_json = 'data_json'
-        device_type = 'device_type'
-        event = 'event'
-        event_detection_method = 'event_detection_method'
-        matched_rule_conditions = 'matched_rule_conditions'
-        source_rule_condition = 'source_rule_condition'
-        timestamp = 'timestamp'
-        url = 'url'
+        max_bid = 'max_bid'
         id = 'id'
 
     def api_get(self, fields=None, params=None, batch=None, pending=False):
@@ -62,7 +55,7 @@ class AdsPixelRealTimeEventLogResult(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AdsPixelRealTimeEventLogResult,
+            target_class=AdAccountMaxBid,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -79,14 +72,7 @@ class AdsPixelRealTimeEventLogResult(
             return request.execute()
 
     _field_types = {
-        'data_json': 'string',
-        'device_type': 'string',
-        'event': 'string',
-        'event_detection_method': 'string',
-        'matched_rule_conditions': 'string',
-        'source_rule_condition': 'string',
-        'timestamp': 'string',
-        'url': 'string',
+        'max_bid': 'int',
         'id': 'string',
     }
     @classmethod

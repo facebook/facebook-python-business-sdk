@@ -42,8 +42,10 @@ class MerchantReport(
 
     class Field(AbstractObject.Field):
         add_to_cart = 'add_to_cart'
+        brand = 'brand'
         catalog_segment_id = 'catalog_segment_id'
         catalog_segment_purchase_value = 'catalog_segment_purchase_value'
+        category = 'category'
         date = 'date'
         link_clicks = 'link_clicks'
         page_id = 'page_id'
@@ -83,8 +85,10 @@ class MerchantReport(
 
     _field_types = {
         'add_to_cart': 'int',
+        'brand': 'string',
         'catalog_segment_id': 'string',
         'catalog_segment_purchase_value': 'float',
+        'category': 'string',
         'date': 'string',
         'link_clicks': 'int',
         'page_id': 'string',

@@ -31,7 +31,7 @@ FacebookAdsApi.init(access_token=access_token)
 fields = [
 ]
 params = {
-  'name': 'Dynamic Event Value-Based lookalike',
+  'name': 'Test Value-Based lookalike from Pixel',
   'subtype': 'LOOKALIKE',
   'lookalike_spec': {'origin_event_sources':[{'id':'<sourceID>','event_names':['AddToCart']}],'type':'custom_ratio','ratio':0.01,'country':'US'},
 }

@@ -63,6 +63,7 @@ class Vehicle(
         id = 'id'
         images = 'images'
         interior_color = 'interior_color'
+        legal_disclosure_impressum_url = 'legal_disclosure_impressum_url'
         make = 'make'
         mileage = 'mileage'
         model = 'model'
@@ -134,6 +135,7 @@ class Vehicle(
         'id': 'string',
         'images': 'list<string>',
         'interior_color': 'string',
+        'legal_disclosure_impressum_url': 'string',
         'make': 'string',
         'mileage': 'Object',
         'model': 'string',

@@ -206,7 +206,6 @@ class AdAccount(
         video = 'VIDEO'
         lookalike = 'LOOKALIKE'
         engagement = 'ENGAGEMENT'
-        data_set = 'DATA_SET'
         bag_of_accounts = 'BAG_OF_ACCOUNTS'
         study_rule_audience = 'STUDY_RULE_AUDIENCE'
         fox = 'FOX'
@@ -3371,6 +3370,34 @@ class AdAccount(
             target_class=AdAccountMatchedSearchApplicationsEdgeData,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=AdAccountMatchedSearchApplicationsEdgeData, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_max_bid(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adaccountmaxbid import AdAccountMaxBid
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/max_bid',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdAccountMaxBid,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdAccountMaxBid, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

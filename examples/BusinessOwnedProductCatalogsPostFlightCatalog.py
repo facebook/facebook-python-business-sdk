@@ -18,8 +18,8 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebookads.adobjects.adaccount import AdAccount
-from facebookads.adobjects.customaudience import CustomAudience
+from facebookads.adobjects.business import Business
+from facebookads.adobjects.productcatalog import ProductCatalog
 from facebookads.api import FacebookAdsApi
 
 access_token = '<ACCESS_TOKEN>'
@@ -31,11 +31,10 @@ FacebookAdsApi.init(access_token=access_token)
 fields = [
 ]
 params = {
-  'name': 'Test Value-Based lookalike from Pixel',
-  'subtype': 'LOOKALIKE',
-  'lookalike_spec': {'origin_event_sources':[{'id':'<sourceID>'}],'type':'custom_ratio','ratio':0.01,'country':'US'},
+  'name': 'Test Flight Catalog',
+  'vertical': 'flights',
 }
-print AdAccount(id).create_custom_audience(
+print Business(id).create_owned_product_catalog(
   fields=fields,
   params=params,
 )

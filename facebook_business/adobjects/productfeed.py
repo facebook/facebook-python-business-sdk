@@ -85,7 +85,6 @@ class ProductFeed(
 
     class FeedType:
         auto = 'AUTO'
-        auto_offer = 'AUTO_OFFER'
         destination = 'DESTINATION'
         flight = 'FLIGHT'
         home_listing = 'HOME_LISTING'

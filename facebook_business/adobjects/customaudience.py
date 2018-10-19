@@ -144,7 +144,6 @@ class CustomAudience(
         video = 'VIDEO'
         lookalike = 'LOOKALIKE'
         engagement = 'ENGAGEMENT'
-        data_set = 'DATA_SET'
         bag_of_accounts = 'BAG_OF_ACCOUNTS'
         study_rule_audience = 'STUDY_RULE_AUDIENCE'
         fox = 'FOX'
