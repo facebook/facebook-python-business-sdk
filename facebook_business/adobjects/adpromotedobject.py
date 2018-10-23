@@ -85,6 +85,8 @@ class AdPromotedObject(
         level_achieved = 'LEVEL_ACHIEVED'
         achievement_unlocked = 'ACHIEVEMENT_UNLOCKED'
         spent_credits = 'SPENT_CREDITS'
+        d2_retention = 'D2_RETENTION'
+        d7_retention = 'D7_RETENTION'
         other = 'OTHER'
 
     def api_get(self, fields=None, params=None, batch=None, pending=False):

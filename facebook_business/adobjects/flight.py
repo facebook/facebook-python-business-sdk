@@ -97,6 +97,9 @@ class Flight(
         param_types = {
             'destination_airport': 'string',
             'origin_airport': 'string',
+            'description': 'string',
+            'url': 'Object',
+            'images': 'list<Object>',
         }
         enums = {
         }

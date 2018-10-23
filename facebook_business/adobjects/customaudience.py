@@ -48,6 +48,7 @@ class CustomAudience(
         customer_file_source = 'customer_file_source'
         data_source = 'data_source'
         data_source_types = 'data_source_types'
+        datafile_custom_audience_uploading_status = 'datafile_custom_audience_uploading_status'
         delivery_status = 'delivery_status'
         description = 'description'
         excluded_custom_audiences = 'excluded_custom_audiences'
@@ -717,6 +718,7 @@ class CustomAudience(
         'customer_file_source': 'string',
         'data_source': 'CustomAudienceDataSource',
         'data_source_types': 'string',
+        'datafile_custom_audience_uploading_status': 'string',
         'delivery_status': 'CustomAudienceStatus',
         'description': 'string',
         'excluded_custom_audiences': 'list<CustomAudience>',

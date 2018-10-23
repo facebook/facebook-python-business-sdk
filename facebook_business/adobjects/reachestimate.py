@@ -69,6 +69,7 @@ class ReachEstimate(
         landing_page_views = 'LANDING_PAGE_VIEWS'
         value = 'VALUE'
         replies = 'REPLIES'
+        derived_events = 'DERIVED_EVENTS'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod

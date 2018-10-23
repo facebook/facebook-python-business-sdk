@@ -63,6 +63,7 @@ class DirectDeal(
         start_time = 'start_time'
         status = 'status'
         targeting = 'targeting'
+        third_party_ids = 'third_party_ids'
         third_party_integrated_deal = 'third_party_integrated_deal'
 
     class Status:
@@ -152,6 +153,7 @@ class DirectDeal(
         'start_time': 'int',
         'status': 'string',
         'targeting': 'Targeting',
+        'third_party_ids': 'list<string>',
         'third_party_integrated_deal': 'bool',
     }
     @classmethod

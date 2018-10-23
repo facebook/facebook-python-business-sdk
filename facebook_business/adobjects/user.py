@@ -1126,39 +1126,6 @@ class User(
             self.assure_call()
             return request.execute()
 
-    def create_contacts_photo(self, fields=None, params=None, batch=None, pending=False):
-        param_types = {
-            'published': 'bool',
-            'target_id': 'int',
-            'url': 'string',
-            'full_res_is_coming_later': 'bool',
-            'manual_privacy': 'bool',
-            'audience_exp': 'bool',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/contacts_photos',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def get_conversations(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.unifiedthread import UnifiedThread
         param_types = {
@@ -2313,6 +2280,39 @@ class User(
             self.assure_call()
             return request.execute()
 
+    def create_locationupdate(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'locations': 'list<Object>',
+            'deviceid': 'string',
+            'trace_ids': 'list<string>',
+            'dynamic_collection_checksum': 'string',
+            'android_config_checksum': 'string',
+            'skip_pvd': 'bool',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/locationupdates',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=User,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=User, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def create_logged_out_push_set_nonce(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
             'device_id': 'string',
@@ -2757,6 +2757,7 @@ class User(
                 'IAP_FAN_FUNDING',
                 'IAP_GROUP_SUBSCRIPTION',
                 'MOR_NONE',
+                'MOR_ADS_CONSENT',
                 'MOR_ADS_INVOICE',
                 'MOR_DONATIONS',
                 'MOR_DONATIONS_MATCHING_CONFIRMATION',
@@ -2857,6 +2858,7 @@ class User(
                 'IAP_FAN_FUNDING',
                 'IAP_GROUP_SUBSCRIPTION',
                 'MOR_NONE',
+                'MOR_ADS_CONSENT',
                 'MOR_ADS_INVOICE',
                 'MOR_DONATIONS',
                 'MOR_DONATIONS_MATCHING_CONFIRMATION',

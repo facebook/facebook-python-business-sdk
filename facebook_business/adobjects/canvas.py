@@ -113,6 +113,7 @@ class Canvas(
             'background_color': 'string',
             'is_published': 'bool',
             'is_hidden': 'bool',
+            'enable_swipe_to_open': 'bool',
         }
         enums = {
         }

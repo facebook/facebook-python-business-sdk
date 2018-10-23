@@ -66,6 +66,7 @@ class UserPaymentModulesOptions(
                 'IAP_FAN_FUNDING',
                 'IAP_GROUP_SUBSCRIPTION',
                 'MOR_NONE',
+                'MOR_ADS_CONSENT',
                 'MOR_ADS_INVOICE',
                 'MOR_DONATIONS',
                 'MOR_DONATIONS_MATCHING_CONFIRMATION',

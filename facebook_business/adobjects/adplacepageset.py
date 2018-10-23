@@ -47,10 +47,16 @@ class AdPlacePageSet(
         name = 'name'
         pages_count = 'pages_count'
         parent_page = 'parent_page'
+        targeted_area_type = 'targeted_area_type'
 
     class LocationTypes:
         recent = 'recent'
         home = 'home'
+
+    class TargetedAreaType:
+        custom_radius = 'CUSTOM_RADIUS'
+        marketing_area = 'MARKETING_AREA'
+        none = 'NONE'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
@@ -123,11 +129,13 @@ class AdPlacePageSet(
         'name': 'string',
         'pages_count': 'int',
         'parent_page': 'Page',
+        'targeted_area_type': 'TargetedAreaType',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['LocationTypes'] = AdPlacePageSet.LocationTypes.__dict__.values()
+        field_enum_info['TargetedAreaType'] = AdPlacePageSet.TargetedAreaType.__dict__.values()
         return field_enum_info
 
 

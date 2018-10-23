@@ -138,7 +138,6 @@ class PageSavedFilter(
         news_subscriptions_publisher_test_users = 'NEWS_SUBSCRIPTIONS_PUBLISHER_TEST_USERS'
         qr_code = 'QR_CODE'
         organic_pixel = 'ORGANIC_PIXEL'
-        credibility_indicators = 'CREDIBILITY_INDICATORS'
         attributions = 'ATTRIBUTIONS'
         broadcasted_messages = 'BROADCASTED_MESSAGES'
         branded_content = 'BRANDED_CONTENT'

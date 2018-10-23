@@ -153,6 +153,7 @@ class AdCampaignActivity(
         landing_page_views = 'LANDING_PAGE_VIEWS'
         value = 'VALUE'
         replies = 'REPLIES'
+        derived_events = 'DERIVED_EVENTS'
 
     class OptimizationGoalOld:
         none = 'NONE'
@@ -177,6 +178,7 @@ class AdCampaignActivity(
         landing_page_views = 'LANDING_PAGE_VIEWS'
         value = 'VALUE'
         replies = 'REPLIES'
+        derived_events = 'DERIVED_EVENTS'
 
     def api_get(self, fields=None, params=None, batch=None, pending=False):
         param_types = {

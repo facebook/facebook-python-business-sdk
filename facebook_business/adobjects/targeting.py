@@ -108,7 +108,6 @@ class Targeting(
         moms = 'moms'
         net_worth = 'net_worth'
         office_type = 'office_type'
-        page_types = 'page_types'
         place_page_set_ids = 'place_page_set_ids'
         political_views = 'political_views'
         politics = 'politics'
@@ -237,7 +236,6 @@ class Targeting(
         'moms': 'list<IDName>',
         'net_worth': 'list<IDName>',
         'office_type': 'list<IDName>',
-        'page_types': 'list<string>',
         'place_page_set_ids': 'list<string>',
         'political_views': 'list<unsigned int>',
         'politics': 'list<IDName>',

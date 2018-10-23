@@ -32,25 +32,16 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class CalibratorExistingRule(
+class NullNode(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isCalibratorExistingRule = True
-        super(CalibratorExistingRule, self).__init__(fbid, parent_id, api)
+        self._isNullNode = True
+        super(NullNode, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        field_7d_volume = '7d_volume'
-        creation_source = 'creation_source'
-        creation_time = 'creation_time'
-        creator = 'creator'
-        event_type = 'event_type'
         id = 'id'
-        rule = 'rule'
-        rule_type = 'rule_type'
-        sample_urls = 'sample_urls'
-        status = 'status'
 
     def api_get(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
@@ -63,7 +54,7 @@ class CalibratorExistingRule(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=CalibratorExistingRule,
+            target_class=NullNode,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -79,52 +70,8 @@ class CalibratorExistingRule(
             self.assure_call()
             return request.execute()
 
-    def get_activities(self, fields=None, params=None, batch=None, pending=False):
-        param_types = {
-            'start_time': 'Object',
-            'end_time': 'Object',
-            'event_type': 'event_type_enum',
-        }
-        enums = {
-            'event_type_enum': [
-                'RULE_CREATE',
-                'RULE_EVENT_REMAPPING',
-                'RULE_STATUS_UPDATE',
-            ],
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/activities',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     _field_types = {
-        '7d_volume': 'int',
-        'creation_source': 'string',
-        'creation_time': 'datetime',
-        'creator': 'string',
-        'event_type': 'string',
         'id': 'string',
-        'rule': 'string',
-        'rule_type': 'string',
-        'sample_urls': 'list<string>',
-        'status': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

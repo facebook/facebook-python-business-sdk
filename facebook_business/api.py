@@ -38,7 +38,6 @@ import json
 import six
 import collections
 import re
-import curlify
 
 from facebook_business.adobjects.objectparser import ObjectParser
 from facebook_business.typechecker import TypeChecker
@@ -320,6 +319,7 @@ class FacebookAdsApi(object):
                 timeout=self._session.timeout
             )
         if self._enable_debug_logger:
+            import curlify
             print(curlify.to_curl(response.request))
         fb_response = FacebookResponse(
             body=response.text,
