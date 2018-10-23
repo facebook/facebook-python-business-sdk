@@ -565,6 +565,8 @@ class ProductCatalog(
             'images': 'list<Object>',
             'origin_airport': 'string',
             'destination_airport': 'string',
+            'description': 'string',
+            'url': 'Object',
         }
         enums = {
         }

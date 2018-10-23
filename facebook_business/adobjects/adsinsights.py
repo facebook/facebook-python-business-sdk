@@ -58,6 +58,9 @@ class AdsInsights(
         adset_name = 'adset_name'
         age = 'age'
         age_targeting = 'age_targeting'
+        auction_bid = 'auction_bid'
+        auction_competitiveness = 'auction_competitiveness'
+        auction_max_competitor_bid = 'auction_max_competitor_bid'
         bid_type = 'bid_type'
         body_asset = 'body_asset'
         buying_type = 'buying_type'
@@ -135,10 +138,10 @@ class AdsInsights(
         reach = 'reach'
         region = 'region'
         relevance_score = 'relevance_score'
+        rule_asset = 'rule_asset'
         social_spend = 'social_spend'
         spend = 'spend'
         title_asset = 'title_asset'
-        total_action_value = 'total_action_value'
         unique_actions = 'unique_actions'
         unique_clicks = 'unique_clicks'
         unique_ctr = 'unique_ctr'
@@ -171,6 +174,7 @@ class AdsInsights(
         video_time_watched_actions = 'video_time_watched_actions'
         website_ctr = 'website_ctr'
         website_purchase_roas = 'website_purchase_roas'
+        wish_bid = 'wish_bid'
         id = 'id'
 
     class ActionAttributionWindows:
@@ -311,6 +315,9 @@ class AdsInsights(
         'adset_name': 'string',
         'age': 'string',
         'age_targeting': 'string',
+        'auction_bid': 'string',
+        'auction_competitiveness': 'string',
+        'auction_max_competitor_bid': 'string',
         'bid_type': 'string',
         'body_asset': 'Object',
         'buying_type': 'string',
@@ -388,10 +395,10 @@ class AdsInsights(
         'reach': 'string',
         'region': 'string',
         'relevance_score': 'AdgroupRelevanceScore',
+        'rule_asset': 'Object',
         'social_spend': 'string',
         'spend': 'string',
         'title_asset': 'Object',
-        'total_action_value': 'string',
         'unique_actions': 'list<AdsActionStats>',
         'unique_clicks': 'string',
         'unique_ctr': 'string',
@@ -424,6 +431,7 @@ class AdsInsights(
         'video_time_watched_actions': 'list<AdsActionStats>',
         'website_ctr': 'list<AdsActionStats>',
         'website_purchase_roas': 'list<AdsActionStats>',
+        'wish_bid': 'string',
         'id': 'string',
     }
     @classmethod

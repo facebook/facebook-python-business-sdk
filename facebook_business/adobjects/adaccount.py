@@ -356,9 +356,11 @@ class AdAccount(
             'name': 'string',
             'location_types': 'list<location_types_enum>',
             'parent_page': 'string',
+            'targeted_area_type': 'targeted_area_type_enum',
         }
         enums = {
             'location_types_enum': AdPlacePageSet.LocationTypes.__dict__.values(),
+            'targeted_area_type_enum': AdPlacePageSet.TargetedAreaType.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -1395,10 +1397,8 @@ class AdAccount(
             'status': 'status_enum',
             'priority': 'unsigned int',
             'tracking_specs': 'Object',
-            'social_prefs': 'list<string>',
             'display_sequence': 'unsigned int',
             'engagement_audience': 'bool',
-            'social_required': 'bool',
             'adset_spec': 'AdSet',
             'draft_adgroup_id': 'string',
             'execution_options': 'list<execution_options_enum>',

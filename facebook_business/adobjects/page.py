@@ -1543,6 +1543,7 @@ class Page(
         param_types = {
             'body_element_ids': 'list<string>',
             'background_color': 'string',
+            'enable_swipe_to_open': 'bool',
             'is_published': 'bool',
             'is_hidden': 'bool',
             'name': 'string',

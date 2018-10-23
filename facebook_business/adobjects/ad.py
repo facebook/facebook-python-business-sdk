@@ -63,15 +63,12 @@ class Ad(
         engagement_audience = 'engagement_audience'
         failed_delivery_checks = 'failed_delivery_checks'
         id = 'id'
-        impression_control_map = 'impression_control_map'
         issues_info = 'issues_info'
         last_updated_by_app_id = 'last_updated_by_app_id'
-        locations = 'locations'
         name = 'name'
         objective_source = 'objective_source'
         priority = 'priority'
         recommendations = 'recommendations'
-        social_prefs = 'social_prefs'
         source_ad = 'source_ad'
         source_ad_id = 'source_ad_id'
         status = 'status'
@@ -79,11 +76,9 @@ class Ad(
         tracking_and_conversion_with_defaults = 'tracking_and_conversion_with_defaults'
         tracking_specs = 'tracking_specs'
         updated_time = 'updated_time'
-        url_override = 'url_override'
         audience_id = 'audience_id'
         date_format = 'date_format'
         include_demolink_hashes = 'include_demolink_hashes'
-        social_required = 'social_required'
         adset_spec = 'adset_spec'
         draft_adgroup_id = 'draft_adgroup_id'
         execution_options = 'execution_options'
@@ -254,7 +249,6 @@ class Ad(
             'tracking_specs': 'Object',
             'display_sequence': 'unsigned int',
             'engagement_audience': 'bool',
-            'social_required': 'bool',
             'adset_spec': 'AdSet',
             'draft_adgroup_id': 'string',
             'execution_options': 'list<execution_options_enum>',
@@ -321,7 +315,9 @@ class Ad(
             'execution_options': 'list<execution_options_enum>',
         }
         enums = {
-            'execution_options_enum': Ad.ExecutionOptions.__dict__.values(),
+            'execution_options_enum': [
+                'validate_only',
+            ],
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -351,7 +347,9 @@ class Ad(
             'execution_options': 'list<execution_options_enum>',
         }
         enums = {
-            'execution_options_enum': Ad.ExecutionOptions.__dict__.values(),
+            'execution_options_enum': [
+                'validate_only',
+            ],
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -789,15 +787,12 @@ class Ad(
         'engagement_audience': 'bool',
         'failed_delivery_checks': 'list<DeliveryCheck>',
         'id': 'string',
-        'impression_control_map': 'list<string>',
         'issues_info': 'list<AdgroupIssuesInfo>',
         'last_updated_by_app_id': 'string',
-        'locations': 'list<int>',
         'name': 'string',
         'objective_source': 'string',
         'priority': 'unsigned int',
         'recommendations': 'list<AdRecommendation>',
-        'social_prefs': 'list<string>',
         'source_ad': 'Ad',
         'source_ad_id': 'string',
         'status': 'Status',
@@ -805,11 +800,9 @@ class Ad(
         'tracking_and_conversion_with_defaults': 'TrackingAndConversionWithDefaults',
         'tracking_specs': 'list<ConversionActionQuery>',
         'updated_time': 'datetime',
-        'url_override': 'string',
         'audience_id': 'string',
         'date_format': 'string',
         'include_demolink_hashes': 'bool',
-        'social_required': 'bool',
         'adset_spec': 'AdSet',
         'draft_adgroup_id': 'string',
         'execution_options': 'list<ExecutionOptions>',

@@ -42,6 +42,7 @@ class HomeListing(
 
     class Field(AbstractObject.Field):
         ac_type = 'ac_type'
+        additional_fees_description = 'additional_fees_description'
         address = 'address'
         agent_company = 'agent_company'
         agent_email = 'agent_email'
@@ -189,6 +190,7 @@ class HomeListing(
 
     _field_types = {
         'ac_type': 'string',
+        'additional_fees_description': 'string',
         'address': 'Object',
         'agent_company': 'string',
         'agent_email': 'string',

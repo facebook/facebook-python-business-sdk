@@ -72,7 +72,7 @@ class TargetingProspectingAudience(
             return request.execute()
 
     _field_types = {
-        'sources': 'string',
+        'sources': 'list<Object>',
         'id': 'string',
     }
     @classmethod

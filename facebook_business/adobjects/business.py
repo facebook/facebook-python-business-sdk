@@ -101,18 +101,18 @@ class Business(
         advertise = 'ADVERTISE'
         analyze = 'ANALYZE'
 
+    class SurveyBusinessType:
+        agency = 'AGENCY'
+        advertiser = 'ADVERTISER'
+        app_developer = 'APP_DEVELOPER'
+        publisher = 'PUBLISHER'
+
     class PagePermittedRoles:
         manager = 'MANAGER'
         content_creator = 'CONTENT_CREATOR'
         moderator = 'MODERATOR'
         advertiser = 'ADVERTISER'
         insights_analyst = 'INSIGHTS_ANALYST'
-
-    class SurveyBusinessType:
-        agency = 'AGENCY'
-        advertiser = 'ADVERTISER'
-        app_developer = 'APP_DEVELOPER'
-        publisher = 'PUBLISHER'
 
     class PermittedRoles:
         manager = 'MANAGER'
@@ -1661,6 +1661,43 @@ class Business(
             self.assure_call()
             return request.execute()
 
+    def create_managed_business(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'name': 'string',
+            'vertical': 'vertical_enum',
+            'timezone_id': 'unsigned int',
+            'survey_business_type': 'survey_business_type_enum',
+            'survey_num_people': 'unsigned int',
+            'survey_num_assets': 'unsigned int',
+            'sales_rep_email': 'string',
+            'existing_client_business_id': 'Object',
+        }
+        enums = {
+            'vertical_enum': Business.Vertical.__dict__.values(),
+            'survey_business_type_enum': Business.SurveyBusinessType.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/managed_businesses',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Business,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Business, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_matched_search_applications(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.businessmatchedsearchapplicationsedgedata import BusinessMatchedSearchApplicationsEdgeData
         param_types = {
@@ -1791,6 +1828,7 @@ class Business(
             'description': 'string',
             'data_origin': 'data_origin_enum',
             'enable_auto_assign_to_accounts': 'bool',
+            'is_mta_use': 'bool',
             'auto_assign_to_new_accounts_only': 'bool',
         }
         enums = {
@@ -3175,8 +3213,8 @@ class Business(
         field_enum_info['Vertical'] = Business.Vertical.__dict__.values()
         field_enum_info['AccessType'] = Business.AccessType.__dict__.values()
         field_enum_info['PermittedTasks'] = Business.PermittedTasks.__dict__.values()
-        field_enum_info['PagePermittedRoles'] = Business.PagePermittedRoles.__dict__.values()
         field_enum_info['SurveyBusinessType'] = Business.SurveyBusinessType.__dict__.values()
+        field_enum_info['PagePermittedRoles'] = Business.PagePermittedRoles.__dict__.values()
         field_enum_info['PermittedRoles'] = Business.PermittedRoles.__dict__.values()
         field_enum_info['Role'] = Business.Role.__dict__.values()
         return field_enum_info

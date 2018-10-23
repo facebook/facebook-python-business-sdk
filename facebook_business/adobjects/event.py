@@ -246,7 +246,7 @@ class Event(
             return request.execute()
 
     def get_comments(self, fields=None, params=None, batch=None, pending=False):
-        from facebook_business.adobjects.null import Null
+        from facebook_business.adobjects.nullnode import NullNode
         param_types = {
         }
         enums = {
@@ -257,9 +257,9 @@ class Event(
             endpoint='/comments',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=Null,
+            target_class=NullNode,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=Null, api=self._api),
+            response_parser=ObjectParser(target_class=NullNode, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -345,7 +345,7 @@ class Event(
             return request.execute()
 
     def get_feed(self, fields=None, params=None, batch=None, pending=False):
-        from facebook_business.adobjects.null import Null
+        from facebook_business.adobjects.nullnode import NullNode
         param_types = {
         }
         enums = {
@@ -356,9 +356,9 @@ class Event(
             endpoint='/feed',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=Null,
+            target_class=NullNode,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=Null, api=self._api),
+            response_parser=ObjectParser(target_class=NullNode, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -585,7 +585,7 @@ class Event(
             return request.execute()
 
     def get_live_videos(self, fields=None, params=None, batch=None, pending=False):
-        from facebook_business.adobjects.null import Null
+        from facebook_business.adobjects.nullnode import NullNode
         param_types = {
         }
         enums = {
@@ -596,9 +596,9 @@ class Event(
             endpoint='/live_videos',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=Null,
+            target_class=NullNode,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=Null, api=self._api),
+            response_parser=ObjectParser(target_class=NullNode, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -744,7 +744,7 @@ class Event(
             return request.execute()
 
     def get_photos(self, fields=None, params=None, batch=None, pending=False):
-        from facebook_business.adobjects.null import Null
+        from facebook_business.adobjects.nullnode import NullNode
         param_types = {
         }
         enums = {
@@ -755,9 +755,9 @@ class Event(
             endpoint='/photos',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=Null,
+            target_class=NullNode,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=Null, api=self._api),
+            response_parser=ObjectParser(target_class=NullNode, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -853,7 +853,7 @@ class Event(
             return request.execute()
 
     def get_picture(self, fields=None, params=None, batch=None, pending=False):
-        from facebook_business.adobjects.null import Null
+        from facebook_business.adobjects.nullnode import NullNode
         param_types = {
         }
         enums = {
@@ -864,9 +864,9 @@ class Event(
             endpoint='/picture',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=Null,
+            target_class=NullNode,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=Null, api=self._api),
+            response_parser=ObjectParser(target_class=NullNode, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -881,7 +881,7 @@ class Event(
             return request.execute()
 
     def get_posts(self, fields=None, params=None, batch=None, pending=False):
-        from facebook_business.adobjects.null import Null
+        from facebook_business.adobjects.nullnode import NullNode
         param_types = {
         }
         enums = {
@@ -892,9 +892,9 @@ class Event(
             endpoint='/posts',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=Null,
+            target_class=NullNode,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=Null, api=self._api),
+            response_parser=ObjectParser(target_class=NullNode, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -937,7 +937,7 @@ class Event(
             return request.execute()
 
     def get_videos(self, fields=None, params=None, batch=None, pending=False):
-        from facebook_business.adobjects.null import Null
+        from facebook_business.adobjects.nullnode import NullNode
         param_types = {
         }
         enums = {
@@ -948,9 +948,9 @@ class Event(
             endpoint='/videos',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=Null,
+            target_class=NullNode,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=Null, api=self._api),
+            response_parser=ObjectParser(target_class=NullNode, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

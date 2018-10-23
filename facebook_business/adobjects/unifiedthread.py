@@ -158,7 +158,6 @@ class UnifiedThread(
             'prng': 'Object',
             'proxied_app_id': 'string',
             'recipients': 'Object',
-            'replace_message_id': 'string',
             'replied_to_message_id': 'string',
             'selected_cta_token': 'string',
             'shareable_attachment': 'Object',

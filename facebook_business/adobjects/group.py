@@ -97,6 +97,7 @@ class Group(
         casual = 'CASUAL'
         game = 'GAME'
         high_school_forum = 'HIGH_SCHOOL_FORUM'
+        jobs = 'JOBS'
         real_world_at_work = 'REAL_WORLD_AT_WORK'
         for_work = 'FOR_WORK'
         mentorship = 'MENTORSHIP'

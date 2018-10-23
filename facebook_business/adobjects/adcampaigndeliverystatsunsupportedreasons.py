@@ -32,15 +32,17 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class Null(
+class AdCampaignDeliveryStatsUnsupportedReasons(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isNull = True
-        super(Null, self).__init__(fbid, parent_id, api)
+        self._isAdCampaignDeliveryStatsUnsupportedReasons = True
+        super(AdCampaignDeliveryStatsUnsupportedReasons, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        reason_data = 'reason_data'
+        reason_type = 'reason_type'
         id = 'id'
 
     def api_get(self, fields=None, params=None, batch=None, pending=False):
@@ -54,7 +56,7 @@ class Null(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=Null,
+            target_class=AdCampaignDeliveryStatsUnsupportedReasons,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -71,6 +73,8 @@ class Null(
             return request.execute()
 
     _field_types = {
+        'reason_data': 'list<Object>',
+        'reason_type': 'string',
         'id': 'string',
     }
     @classmethod
