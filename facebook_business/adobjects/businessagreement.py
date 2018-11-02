@@ -80,6 +80,7 @@ class BusinessAgreement(
     def api_update(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
             'request_status': 'request_status_enum',
+            'asset_id': 'unsigned int',
         }
         enums = {
             'request_status_enum': BusinessAgreement.RequestStatus.__dict__.values(),

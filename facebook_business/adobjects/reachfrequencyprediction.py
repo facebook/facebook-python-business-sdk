@@ -168,6 +168,7 @@ class ReachFrequencyPrediction(
         beauty = 'BEAUTY'
         regular_animals_pets = 'REGULAR_ANIMALS_PETS'
         regular_food = 'REGULAR_FOOD'
+        regular_games = 'REGULAR_GAMES'
         regular_politics = 'REGULAR_POLITICS'
         regular_sports = 'REGULAR_SPORTS'
         regular_style = 'REGULAR_STYLE'

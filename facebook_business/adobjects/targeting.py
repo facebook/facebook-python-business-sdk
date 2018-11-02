@@ -48,6 +48,7 @@ class Targeting(
         app_install_state = 'app_install_state'
         audience_network_positions = 'audience_network_positions'
         behaviors = 'behaviors'
+        brand_safety_content_severity_levels = 'brand_safety_content_severity_levels'
         cities = 'cities'
         college_years = 'college_years'
         connections = 'connections'
@@ -141,33 +142,6 @@ class Targeting(
         desktop = 'desktop'
         connected_tv = 'connected_tv'
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=Targeting,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     _field_types = {
         'adgroup_id': 'string',
         'age_max': 'unsigned int',
@@ -176,6 +150,7 @@ class Targeting(
         'app_install_state': 'string',
         'audience_network_positions': 'list<string>',
         'behaviors': 'list<IDName>',
+        'brand_safety_content_severity_levels': 'list<string>',
         'cities': 'list<IDName>',
         'college_years': 'list<unsigned int>',
         'connections': 'list<IDName>',

@@ -51,16 +51,6 @@ class LeadGenContextCard(
         style = 'style'
         title = 'title'
 
-    class Status:
-        active = 'ACTIVE'
-        archived = 'ARCHIVED'
-        deleted = 'DELETED'
-        draft = 'DRAFT'
-
-    class Style:
-        list_style = 'LIST_STYLE'
-        paragraph_style = 'PARAGRAPH_STYLE'
-
     def api_get(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
         }
@@ -102,8 +92,6 @@ class LeadGenContextCard(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['Status'] = LeadGenContextCard.Status.__dict__.values()
-        field_enum_info['Style'] = LeadGenContextCard.Style.__dict__.values()
         return field_enum_info
 
 

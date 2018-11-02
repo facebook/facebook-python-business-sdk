@@ -65,49 +65,6 @@ class AdAccountAdRulesHistory(
         paused = 'PAUSED'
         unpaused = 'UNPAUSED'
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
-        param_types = {
-            'action': 'action_enum',
-            'hide_no_changes': 'bool',
-            'object_id': 'string',
-        }
-        enums = {
-            'action_enum': [
-                'BUDGET_NOT_REDISTRIBUTED',
-                'CHANGED_BID',
-                'CHANGED_BUDGET',
-                'EMAIL',
-                'ENDPOINT_PINGED',
-                'ERROR',
-                'FACEBOOK_NOTIFICATION_SENT',
-                'MESSAGE_SENT',
-                'NOT_CHANGED',
-                'PAUSED',
-                'UNPAUSED',
-            ],
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AdAccountAdRulesHistory,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     _field_types = {
         'evaluation_spec': 'AdRuleEvaluationSpec',
         'exception_code': 'int',

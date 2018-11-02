@@ -43,11 +43,13 @@ class AdsPixel(
         super(AdsPixel, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        automatic_matching_fields = 'automatic_matching_fields'
         can_proxy = 'can_proxy'
         code = 'code'
         creation_time = 'creation_time'
         creator = 'creator'
         data_use_setting = 'data_use_setting'
+        enable_automatic_matching = 'enable_automatic_matching'
         first_party_cookie_status = 'first_party_cookie_status'
         id = 'id'
         is_created_by_business = 'is_created_by_business'
@@ -59,6 +61,16 @@ class AdsPixel(
     class SortBy:
         last_fired_time = 'LAST_FIRED_TIME'
         name = 'NAME'
+
+    class AutomaticMatchingFields:
+        em = 'em'
+        fn = 'fn'
+        ln = 'ln'
+        ph = 'ph'
+        ge = 'ge'
+        zp = 'zp'
+        ct = 'ct'
+        st = 'st'
 
     class DataUseSetting:
         empty = 'EMPTY'
@@ -123,10 +135,13 @@ class AdsPixel(
     def api_update(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
             'name': 'string',
+            'enable_automatic_matching': 'bool',
+            'automatic_matching_fields': 'list<automatic_matching_fields_enum>',
             'first_party_cookie_status': 'first_party_cookie_status_enum',
             'data_use_setting': 'data_use_setting_enum',
         }
         enums = {
+            'automatic_matching_fields_enum': AdsPixel.AutomaticMatchingFields.__dict__.values(),
             'first_party_cookie_status_enum': AdsPixel.FirstPartyCookieStatus.__dict__.values(),
             'data_use_setting_enum': AdsPixel.DataUseSetting.__dict__.values(),
         }
@@ -656,11 +671,13 @@ class AdsPixel(
             return request.execute()
 
     _field_types = {
+        'automatic_matching_fields': 'list<string>',
         'can_proxy': 'bool',
         'code': 'string',
         'creation_time': 'datetime',
         'creator': 'User',
         'data_use_setting': 'string',
+        'enable_automatic_matching': 'bool',
         'first_party_cookie_status': 'string',
         'id': 'string',
         'is_created_by_business': 'bool',
@@ -673,6 +690,7 @@ class AdsPixel(
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['SortBy'] = AdsPixel.SortBy.__dict__.values()
+        field_enum_info['AutomaticMatchingFields'] = AdsPixel.AutomaticMatchingFields.__dict__.values()
         field_enum_info['DataUseSetting'] = AdsPixel.DataUseSetting.__dict__.values()
         field_enum_info['FirstPartyCookieStatus'] = AdsPixel.FirstPartyCookieStatus.__dict__.values()
         field_enum_info['Tasks'] = AdsPixel.Tasks.__dict__.values()

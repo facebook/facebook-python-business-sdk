@@ -113,6 +113,7 @@ class CustomAudience(
     class ClaimObjective:
         automotive_model = 'AUTOMOTIVE_MODEL'
         home_listing = 'HOME_LISTING'
+        media_title = 'MEDIA_TITLE'
         product = 'PRODUCT'
         travel = 'TRAVEL'
         vehicle = 'VEHICLE'

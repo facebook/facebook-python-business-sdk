@@ -143,6 +143,7 @@ class RTBDynamicPost(
             return request.execute()
 
     def get_instagram_comments(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.instagramcomment import InstagramComment
         param_types = {
         }
         enums = {
@@ -153,9 +154,9 @@ class RTBDynamicPost(
             endpoint='/instagram_comments',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=InstagramComment,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=InstagramComment, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

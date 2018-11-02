@@ -245,6 +245,38 @@ class Event(
             self.assure_call()
             return request.execute()
 
+    def create_attending(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'eid': 'string',
+            'action_context': 'Object',
+            'app_context': 'Object',
+            'tracking': 'string',
+            'uid': 'int',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/attending',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Event,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Event, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_comments(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.nullnode import NullNode
         param_types = {
@@ -331,6 +363,38 @@ class Event(
             target_class=User,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=User, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_declined(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'eid': 'string',
+            'action_context': 'Object',
+            'app_context': 'Object',
+            'tracking': 'string',
+            'uid': 'int',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/declined',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Event,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Event, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -701,6 +765,38 @@ class Event(
             target_class=User,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=User, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_maybe(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'eid': 'string',
+            'action_context': 'Object',
+            'app_context': 'Object',
+            'tracking': 'string',
+            'uid': 'int',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/maybe',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Event,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Event, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

@@ -233,6 +233,7 @@ class AdVideo(
         proton = 'PROTON'
         bell_poll = 'BELL_POLL'
         civic_proposal_cover_video = 'CIVIC_PROPOSAL_COVER_VIDEO'
+        heuristic_cluster_video = 'HEURISTIC_CLUSTER_VIDEO'
 
     class ContentCategory:
         beauty_fashion = 'BEAUTY_FASHION'
