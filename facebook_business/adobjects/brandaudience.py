@@ -51,6 +51,16 @@ class BrandAudience(
         targeting = 'targeting'
         time_created = 'time_created'
         time_updated = 'time_updated'
+        target_size = 'target_size'
+
+    # @deprecated get_endpoint function is deprecated
+    @classmethod
+    def get_endpoint(cls):
+        return 'brand_audiences'
+
+    def api_create(self, parent_id, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adaccount import AdAccount
+        return AdAccount(api=self._api, fbid=parent_id).create_brand_audience(fields, params, batch, pending)
 
     def api_get(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
@@ -90,6 +100,7 @@ class BrandAudience(
         'targeting': 'Targeting',
         'time_created': 'datetime',
         'time_updated': 'datetime',
+        'target_size': 'int',
     }
     @classmethod
     def _get_field_enum_info(cls):

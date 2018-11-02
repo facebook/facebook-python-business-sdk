@@ -55,6 +55,7 @@ class AdSet(
         best_creative = 'best_creative'
         bid_adjustments = 'bid_adjustments'
         bid_amount = 'bid_amount'
+        bid_constraints = 'bid_constraints'
         bid_info = 'bid_info'
         bid_strategy = 'bid_strategy'
         billing_event = 'billing_event'
@@ -80,6 +81,7 @@ class AdSet(
         is_average_price_pacing = 'is_average_price_pacing'
         is_dynamic_creative = 'is_dynamic_creative'
         is_dynamic_creative_optimization = 'is_dynamic_creative_optimization'
+        issues_info = 'issues_info'
         lifetime_budget = 'lifetime_budget'
         lifetime_frequency_cap = 'lifetime_frequency_cap'
         lifetime_imps = 'lifetime_imps'
@@ -488,9 +490,7 @@ class AdSet(
             'execution_options': 'list<execution_options_enum>',
         }
         enums = {
-            'execution_options_enum': [
-                'validate_only',
-            ],
+            'execution_options_enum': AdSet.ExecutionOptions.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -520,9 +520,7 @@ class AdSet(
             'execution_options': 'list<execution_options_enum>',
         }
         enums = {
-            'execution_options_enum': [
-                'validate_only',
-            ],
+            'execution_options_enum': AdSet.ExecutionOptions.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -533,6 +531,35 @@ class AdSet(
             target_class=AdSet,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=AdSet, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_ad_rules_governed(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adrule import AdRule
+        param_types = {
+            'pass_evaluation': 'bool',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/adrules_governed',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdRule,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdRule, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -865,6 +892,7 @@ class AdSet(
         'best_creative': 'AdDynamicCreative',
         'bid_adjustments': 'AdBidAdjustments',
         'bid_amount': 'unsigned int',
+        'bid_constraints': 'AdCampaignBidConstraint',
         'bid_info': 'map<string, unsigned int>',
         'bid_strategy': 'BidStrategy',
         'billing_event': 'BillingEvent',
@@ -890,6 +918,7 @@ class AdSet(
         'is_average_price_pacing': 'bool',
         'is_dynamic_creative': 'bool',
         'is_dynamic_creative_optimization': 'bool',
+        'issues_info': 'list<AdCampaignIssuesInfo>',
         'lifetime_budget': 'string',
         'lifetime_frequency_cap': 'unsigned int',
         'lifetime_imps': 'int',

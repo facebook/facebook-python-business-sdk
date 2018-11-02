@@ -66,10 +66,12 @@ class User(
         installed = 'installed'
         interested_in = 'interested_in'
         is_famedeeplinkinguser = 'is_famedeeplinkinguser'
+        is_payment_enabled = 'is_payment_enabled'
         is_shared_login = 'is_shared_login'
         is_verified = 'is_verified'
         labels = 'labels'
         languages = 'languages'
+        last_ad_referral = 'last_ad_referral'
         last_name = 'last_name'
         link = 'link'
         local_news_megaphone_dismiss_status = 'local_news_megaphone_dismiss_status'
@@ -549,6 +551,47 @@ class User(
             self.assure_call()
             return request.execute()
 
+    def create_ad_study(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adstudy import AdStudy
+        param_types = {
+            'cells': 'list<Object>',
+            'objectives': 'list<Object>',
+            'end_time': 'int',
+            'description': 'string',
+            'name': 'string',
+            'start_time': 'int',
+            'viewers': 'list<int>',
+            'cooldown_start_time': 'int',
+            'observation_end_time': 'int',
+            'confidence_level': 'float',
+            'client_business': 'string',
+            'type': 'type_enum',
+        }
+        enums = {
+            'type_enum': AdStudy.Type.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/ad_studies',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdStudy,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdStudy, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_ad_accounts(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.adaccount import AdAccount
         param_types = {
@@ -765,6 +808,38 @@ class User(
         request = FacebookRequest(
             node_id=self['id'],
             method='GET',
+            endpoint='/asset3ds',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=WithAsset3D,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=WithAsset3D, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_asset3_d(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.withasset3d import WithAsset3D
+        param_types = {
+            'file': 'file',
+            'file_url': 'Object',
+            'fallback_image': 'file',
+            'fallback_image_url': 'Object',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
             endpoint='/asset3ds',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
@@ -2159,7 +2234,36 @@ class User(
             self.assure_call()
             return request.execute()
 
+    def get_live_encoders(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.liveencoder import LiveEncoder
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/live_encoders',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=LiveEncoder,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=LiveEncoder, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def create_live_encoder(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.liveencoder import LiveEncoder
         param_types = {
             'device_id': 'string',
             'name': 'string',
@@ -2175,9 +2279,9 @@ class User(
             endpoint='/live_encoders',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=LiveEncoder,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=LiveEncoder, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2267,39 +2371,6 @@ class User(
             target_class=LiveVideo,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=LiveVideo, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_locationupdate(self, fields=None, params=None, batch=None, pending=False):
-        param_types = {
-            'locations': 'list<Object>',
-            'deviceid': 'string',
-            'trace_ids': 'list<string>',
-            'dynamic_collection_checksum': 'string',
-            'android_config_checksum': 'string',
-            'skip_pvd': 'bool',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/locationupdates',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=User,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=User, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -3829,10 +3900,12 @@ class User(
         'installed': 'bool',
         'interested_in': 'list<string>',
         'is_famedeeplinkinguser': 'bool',
+        'is_payment_enabled': 'bool',
         'is_shared_login': 'bool',
         'is_verified': 'bool',
         'labels': 'list<PageLabel>',
         'languages': 'list<Experience>',
+        'last_ad_referral': 'MessengerPlatformReferral',
         'last_name': 'string',
         'link': 'string',
         'local_news_megaphone_dismiss_status': 'bool',

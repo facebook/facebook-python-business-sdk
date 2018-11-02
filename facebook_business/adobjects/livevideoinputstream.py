@@ -45,6 +45,7 @@ class LiveVideoInputStream(
         dash_preview_url = 'dash_preview_url'
         id = 'id'
         is_master = 'is_master'
+        live_encoder = 'live_encoder'
         secure_stream_url = 'secure_stream_url'
         stream_id = 'stream_id'
         stream_url = 'stream_url'
@@ -81,6 +82,7 @@ class LiveVideoInputStream(
         'dash_preview_url': 'string',
         'id': 'string',
         'is_master': 'bool',
+        'live_encoder': 'LiveEncoder',
         'secure_stream_url': 'string',
         'stream_id': 'string',
         'stream_url': 'string',

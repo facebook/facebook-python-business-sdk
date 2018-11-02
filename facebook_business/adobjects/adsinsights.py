@@ -77,6 +77,10 @@ class AdsInsights(
         cost_per_action_type = 'cost_per_action_type'
         cost_per_ad_click = 'cost_per_ad_click'
         cost_per_dda_countby_convs = 'cost_per_dda_countby_convs'
+        cost_per_dwell = 'cost_per_dwell'
+        cost_per_dwell_3_sec = 'cost_per_dwell_3_sec'
+        cost_per_dwell_5_sec = 'cost_per_dwell_5_sec'
+        cost_per_dwell_7_sec = 'cost_per_dwell_7_sec'
         cost_per_estimated_ad_recallers = 'cost_per_estimated_ad_recallers'
         cost_per_inline_link_click = 'cost_per_inline_link_click'
         cost_per_inline_post_engagement = 'cost_per_inline_post_engagement'
@@ -100,6 +104,10 @@ class AdsInsights(
         description_asset = 'description_asset'
         device_platform = 'device_platform'
         dma = 'dma'
+        dwell_3_sec = 'dwell_3_sec'
+        dwell_5_sec = 'dwell_5_sec'
+        dwell_7_sec = 'dwell_7_sec'
+        dwell_rate = 'dwell_rate'
         estimated_ad_recall_rate = 'estimated_ad_recall_rate'
         estimated_ad_recall_rate_lower_bound = 'estimated_ad_recall_rate_lower_bound'
         estimated_ad_recall_rate_upper_bound = 'estimated_ad_recall_rate_upper_bound'
@@ -141,6 +149,7 @@ class AdsInsights(
         rule_asset = 'rule_asset'
         social_spend = 'social_spend'
         spend = 'spend'
+        thumb_stops = 'thumb_stops'
         title_asset = 'title_asset'
         unique_actions = 'unique_actions'
         unique_clicks = 'unique_clicks'
@@ -272,33 +281,6 @@ class AdsInsights(
     def get_endpoint(cls):
         return 'insights'
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AdsInsights,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     _field_types = {
         'account_currency': 'string',
         'account_id': 'string',
@@ -334,6 +316,10 @@ class AdsInsights(
         'cost_per_action_type': 'list<AdsActionStats>',
         'cost_per_ad_click': 'list<AdsActionStats>',
         'cost_per_dda_countby_convs': 'string',
+        'cost_per_dwell': 'string',
+        'cost_per_dwell_3_sec': 'string',
+        'cost_per_dwell_5_sec': 'string',
+        'cost_per_dwell_7_sec': 'string',
         'cost_per_estimated_ad_recallers': 'string',
         'cost_per_inline_link_click': 'string',
         'cost_per_inline_post_engagement': 'string',
@@ -357,6 +343,10 @@ class AdsInsights(
         'description_asset': 'Object',
         'device_platform': 'string',
         'dma': 'string',
+        'dwell_3_sec': 'string',
+        'dwell_5_sec': 'string',
+        'dwell_7_sec': 'string',
+        'dwell_rate': 'string',
         'estimated_ad_recall_rate': 'string',
         'estimated_ad_recall_rate_lower_bound': 'string',
         'estimated_ad_recall_rate_upper_bound': 'string',
@@ -398,6 +388,7 @@ class AdsInsights(
         'rule_asset': 'Object',
         'social_spend': 'string',
         'spend': 'string',
+        'thumb_stops': 'string',
         'title_asset': 'Object',
         'unique_actions': 'list<AdsActionStats>',
         'unique_clicks': 'string',

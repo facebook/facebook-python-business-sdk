@@ -77,6 +77,28 @@ class ProductCatalog(
     class Standard:
         google = 'google'
 
+    class ProductType:
+        auto = 'AUTO'
+        auto_market = 'AUTO_MARKET'
+        auto_offer = 'AUTO_OFFER'
+        automotive_model = 'AUTOMOTIVE_MODEL'
+        destination = 'DESTINATION'
+        flight = 'FLIGHT'
+        geo_based_item = 'GEO_BASED_ITEM'
+        home_listing = 'HOME_LISTING'
+        home_service_provider = 'HOME_SERVICE_PROVIDER'
+        home_service_review = 'HOME_SERVICE_REVIEW'
+        hotel = 'HOTEL'
+        hotel_room = 'HOTEL_ROOM'
+        media_title = 'MEDIA_TITLE'
+        other_test_dynamic_item = 'OTHER_TEST_DYNAMIC_ITEM'
+        product_group = 'PRODUCT_GROUP'
+        product_item = 'PRODUCT_ITEM'
+        store_product_item = 'STORE_PRODUCT_ITEM'
+        test_dynamic_item = 'TEST_DYNAMIC_ITEM'
+        vehicle = 'VEHICLE'
+        vehicle_offer = 'VEHICLE_OFFER'
+
     class Role:
         admin = 'ADMIN'
         advertiser = 'ADVERTISER'
@@ -310,6 +332,186 @@ class ProductCatalog(
             target_class=ProductCatalog,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=ProductCatalog, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_bundle_folders(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.dynamicitemdisplaybundlefolder import DynamicItemDisplayBundleFolder
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/bundle_folders',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=DynamicItemDisplayBundleFolder,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=DynamicItemDisplayBundleFolder, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_bundle_folder(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.dynamicitemdisplaybundlefolder import DynamicItemDisplayBundleFolder
+        param_types = {
+            'bundles': 'list<string>',
+            'name': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/bundle_folders',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=DynamicItemDisplayBundleFolder,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=DynamicItemDisplayBundleFolder, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_bundles(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.dynamicitemdisplaybundle import DynamicItemDisplayBundle
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/bundles',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=DynamicItemDisplayBundle,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=DynamicItemDisplayBundle, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_bundle(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.dynamicitemdisplaybundle import DynamicItemDisplayBundle
+        param_types = {
+            'additional_urls': 'map',
+            'description': 'string',
+            'name': 'string',
+            'product_set': 'string',
+            'text_tokens': 'map',
+            'url': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/bundles',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=DynamicItemDisplayBundle,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=DynamicItemDisplayBundle, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_categories(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.productcatalogcategory import ProductCatalogCategory
+        param_types = {
+            'categorization_criteria': 'categorization_criteria_enum',
+            'filter': 'Object',
+        }
+        enums = {
+            'categorization_criteria_enum': ProductCatalogCategory.CategorizationCriteria.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/categories',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ProductCatalogCategory,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ProductCatalogCategory, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_category(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.productcatalogcategory import ProductCatalogCategory
+        param_types = {
+            'data': 'list<map>',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/categories',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ProductCatalogCategory,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ProductCatalogCategory, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -567,6 +769,8 @@ class ProductCatalog(
             'destination_airport': 'string',
             'description': 'string',
             'url': 'Object',
+            'currency': 'string',
+            'price': 'unsigned int',
         }
         enums = {
         }
@@ -1162,6 +1366,7 @@ class ProductCatalog(
             'name': 'string',
             'price': 'unsigned int',
             'product_type': 'string',
+            'url': 'Object',
             'visibility': 'visibility_enum',
             'additional_image_urls': 'list<string>',
             'additional_variant_attributes': 'Object',
@@ -1193,7 +1398,6 @@ class ProductCatalog(
             'short_description': 'string',
             'size': 'string',
             'start_date': 'string',
-            'url': 'Object',
             'ios_url': 'string',
             'ios_app_store_id': 'unsigned int',
             'ios_app_name': 'string',
@@ -1226,6 +1430,36 @@ class ProductCatalog(
             target_class=ProductItem,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=ProductItem, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_products_batch(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'requests': 'map',
+            'product_type': 'product_type_enum',
+        }
+        enums = {
+            'product_type_enum': ProductCatalog.ProductType.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/products_batch',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ProductCatalog,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ProductCatalog, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1490,6 +1724,7 @@ class ProductCatalog(
         field_enum_info['PermittedRoles'] = ProductCatalog.PermittedRoles.__dict__.values()
         field_enum_info['PermittedTasks'] = ProductCatalog.PermittedTasks.__dict__.values()
         field_enum_info['Standard'] = ProductCatalog.Standard.__dict__.values()
+        field_enum_info['ProductType'] = ProductCatalog.ProductType.__dict__.values()
         field_enum_info['Role'] = ProductCatalog.Role.__dict__.values()
         return field_enum_info
 

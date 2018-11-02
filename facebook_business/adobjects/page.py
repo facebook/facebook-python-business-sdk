@@ -150,6 +150,7 @@ class Page(
         preferred_audience = 'preferred_audience'
         press_contact = 'press_contact'
         price_range = 'price_range'
+        privacy_info_url = 'privacy_info_url'
         produced_by = 'produced_by'
         products = 'products'
         promotion_eligible = 'promotion_eligible'
@@ -415,6 +416,17 @@ class Page(
         add = 'ADD'
         remove = 'REMOVE'
 
+    class SettingType:
+        account_linking = 'ACCOUNT_LINKING'
+        call_to_actions = 'CALL_TO_ACTIONS'
+        greeting = 'GREETING'
+        domain_whitelisting = 'DOMAIN_WHITELISTING'
+        payment = 'PAYMENT'
+
+    class ThreadState:
+        new_thread = 'NEW_THREAD'
+        existing_thread = 'EXISTING_THREAD'
+
     # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
@@ -499,6 +511,7 @@ class Page(
             'crossposting_pages': 'list<Object>',
             'begin_crossposting_handshake': 'list<map>',
             'accept_crossposting_handshake': 'list<map>',
+            'tag_id': 'string',
             'displayed_message_response_time': 'string',
             'store_location_descriptor': 'string',
             'service_details': 'string',
@@ -1600,6 +1613,62 @@ class Page(
             self.assure_call()
             return request.execute()
 
+    def get_claimed_urls(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.url import URL
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/claimed_urls',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=URL,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=URL, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_claimed_url(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'url': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/claimed_urls',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Page,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Page, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_conversations(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.unifiedthread import UnifiedThread
         param_types = {
@@ -1637,6 +1706,7 @@ class Page(
             'matched_asset_id': 'string',
             'match_content_type': 'match_content_type_enum',
             'action': 'action_enum',
+            'action_reason': 'action_reason_enum',
             'countries': 'Object',
         }
         enums = {
@@ -1651,6 +1721,15 @@ class Page(
                 'BLOCK',
                 'CLAIM_AD_EARNINGS',
                 'REQUEST_TAKEDOWN',
+            ],
+            'action_reason_enum': [
+                'UNAUTHORIZED_COMMERCIAL_USE',
+                'RESTRICTED_CONTENT',
+                'OBJECTIONABLE_CONTENT',
+                'ARTIST_OBJECTION',
+                'PRERELEASE_CONTENT',
+                'PRODUCT_PARAMETERS',
+                'PREMIUM_MUSIC_VIDEO',
             ],
         }
         request = FacebookRequest(
@@ -2444,6 +2523,34 @@ class Page(
             self.assure_call()
             return request.execute()
 
+    def get_instagram_accounts(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.instagramuser import InstagramUser
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/instagram_accounts',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=InstagramUser,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=InstagramUser, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_instant_articles(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.instantarticle import InstantArticle
         param_types = {
@@ -2693,43 +2800,6 @@ class Page(
         request = FacebookRequest(
             node_id=self['id'],
             method='GET',
-            endpoint='/leadgen_context_cards',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=LeadGenContextCard,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=LeadGenContextCard, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_lead_gen_context_card(self, fields=None, params=None, batch=None, pending=False):
-        from facebook_business.adobjects.leadgencontextcard import LeadGenContextCard
-        param_types = {
-            'title': 'string',
-            'style': 'style_enum',
-            'content': 'list<string>',
-            'button_text': 'string',
-            'cover_photo': 'file',
-            'cover_photo_id': 'string',
-            'status': 'status_enum',
-        }
-        enums = {
-            'style_enum': LeadGenContextCard.Style.__dict__.values(),
-            'status_enum': LeadGenContextCard.Status.__dict__.values(),
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
             endpoint='/leadgen_context_cards',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
@@ -3164,6 +3234,67 @@ class Page(
             target_class=Link,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=Link, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_live_encoders(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.liveencoder import LiveEncoder
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/live_encoders',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=LiveEncoder,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=LiveEncoder, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_live_encoder(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.liveencoder import LiveEncoder
+        param_types = {
+            'device_id': 'string',
+            'name': 'string',
+            'brand': 'string',
+            'model': 'string',
+            'version': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/live_encoders',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=LiveEncoder,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=LiveEncoder, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -4010,7 +4141,36 @@ class Page(
             self.assure_call()
             return request.execute()
 
+    def get_page_backed_instagram_accounts(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.instagramuser import InstagramUser
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/page_backed_instagram_accounts',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=InstagramUser,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=InstagramUser, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def create_page_backed_instagram_account(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.instagramuser import InstagramUser
         param_types = {
         }
         enums = {
@@ -4021,9 +4181,9 @@ class Page(
             endpoint='/page_backed_instagram_accounts',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=InstagramUser,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=InstagramUser, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -5311,17 +5471,8 @@ class Page(
             'thread_state': 'thread_state_enum',
         }
         enums = {
-            'setting_type_enum': [
-                'ACCOUNT_LINKING',
-                'CALL_TO_ACTIONS',
-                'GREETING',
-                'DOMAIN_WHITELISTING',
-                'PAYMENT',
-            ],
-            'thread_state_enum': [
-                'NEW_THREAD',
-                'EXISTING_THREAD',
-            ],
+            'setting_type_enum': Page.SettingType.__dict__.values(),
+            'thread_state_enum': Page.ThreadState.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -5388,17 +5539,8 @@ class Page(
             'payment_testers': 'list<string>',
         }
         enums = {
-            'setting_type_enum': [
-                'ACCOUNT_LINKING',
-                'CALL_TO_ACTIONS',
-                'GREETING',
-                'DOMAIN_WHITELISTING',
-                'PAYMENT',
-            ],
-            'thread_state_enum': [
-                'NEW_THREAD',
-                'EXISTING_THREAD',
-            ],
+            'setting_type_enum': Page.SettingType.__dict__.values(),
+            'thread_state_enum': Page.ThreadState.__dict__.values(),
             'domain_action_type_enum': Page.DomainActionType.__dict__.values(),
             'payment_dev_mode_action_enum': Page.PaymentDevModeAction.__dict__.values(),
         }
@@ -5665,7 +5807,6 @@ class Page(
     def get_video_copyrights(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.videocopyright import VideoCopyright
         param_types = {
-            'use_fallback': 'bool',
         }
         enums = {
         }
@@ -6203,6 +6344,7 @@ class Page(
         'preferred_audience': 'Targeting',
         'press_contact': 'string',
         'price_range': 'string',
+        'privacy_info_url': 'string',
         'produced_by': 'string',
         'products': 'string',
         'promotion_eligible': 'bool',
@@ -6257,6 +6399,8 @@ class Page(
         field_enum_info['SubscribedFields'] = Page.SubscribedFields.__dict__.values()
         field_enum_info['DomainActionType'] = Page.DomainActionType.__dict__.values()
         field_enum_info['PaymentDevModeAction'] = Page.PaymentDevModeAction.__dict__.values()
+        field_enum_info['SettingType'] = Page.SettingType.__dict__.values()
+        field_enum_info['ThreadState'] = Page.ThreadState.__dict__.values()
         return field_enum_info
 
 

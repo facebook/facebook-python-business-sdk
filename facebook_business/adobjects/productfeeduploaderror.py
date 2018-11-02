@@ -120,6 +120,34 @@ class ProductFeedUploadError(
             self.assure_call()
             return request.execute()
 
+    def get_suggested_rules(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.productfeedrulesuggestion import ProductFeedRuleSuggestion
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/suggested_rules',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ProductFeedRuleSuggestion,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ProductFeedRuleSuggestion, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     _field_types = {
         'affected_surfaces': 'list<AffectedSurfaces>',
         'column_number': 'unsigned int',

@@ -51,6 +51,7 @@ class AdsActionStats(
         action_canvas_component_name = 'action_canvas_component_name'
         action_carousel_card_id = 'action_carousel_card_id'
         action_carousel_card_name = 'action_carousel_card_name'
+        action_converted_product_id = 'action_converted_product_id'
         action_destination = 'action_destination'
         action_device = 'action_device'
         action_event_channel = 'action_event_channel'
@@ -66,33 +67,6 @@ class AdsActionStats(
         value = 'value'
         id = 'id'
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AdsActionStats,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     _field_types = {
         '1d_click': 'string',
         '1d_view': 'string',
@@ -104,6 +78,7 @@ class AdsActionStats(
         'action_canvas_component_name': 'string',
         'action_carousel_card_id': 'string',
         'action_carousel_card_name': 'string',
+        'action_converted_product_id': 'string',
         'action_destination': 'string',
         'action_device': 'string',
         'action_event_channel': 'string',

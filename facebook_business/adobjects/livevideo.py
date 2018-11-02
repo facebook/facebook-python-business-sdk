@@ -578,7 +578,7 @@ class LiveVideo(
         'ingest_streams': 'list<LiveVideoInputStream>',
         'is_manual_mode': 'bool',
         'is_reference_only': 'bool',
-        'live_encoders': 'list<Object>',
+        'live_encoders': 'list<LiveEncoder>',
         'live_views': 'unsigned int',
         'permalink_url': 'string',
         'planned_start_time': 'datetime',

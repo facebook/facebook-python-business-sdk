@@ -66,6 +66,7 @@ class Campaign(
         kpi_type = 'kpi_type'
         last_budget_toggling_time = 'last_budget_toggling_time'
         lifetime_budget = 'lifetime_budget'
+        metrics_metadata = 'metrics_metadata'
         name = 'name'
         objective = 'objective'
         pacing_type = 'pacing_type'
@@ -387,6 +388,35 @@ class Campaign(
             self.assure_call()
             return request.execute()
 
+    def get_ad_rules_governed(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.adrule import AdRule
+        param_types = {
+            'pass_evaluation': 'bool',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/adrules_governed',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdRule,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdRule, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_ads(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.ad import Ad
         param_types = {
@@ -660,6 +690,7 @@ class Campaign(
         'kpi_type': 'string',
         'last_budget_toggling_time': 'datetime',
         'lifetime_budget': 'string',
+        'metrics_metadata': 'AdCampaignGroupMetricsMetadata',
         'name': 'string',
         'objective': 'string',
         'pacing_type': 'list<string>',
