@@ -50,7 +50,7 @@ class AdKpiShift(
         id = 'id'
 
     _field_types = {
-        'ad_set': 'AdCampaign',
+        'ad_set': 'AdSet',
         'cost_per_result_shift': 'float',
         'enough_effective_days': 'bool',
         'result_indicator': 'string',
