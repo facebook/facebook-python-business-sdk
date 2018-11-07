@@ -70,8 +70,8 @@ class FlexibleTargeting(
     _field_types = {
         'behaviors': 'list<IDName>',
         'college_years': 'list<unsigned int>',
-        'connections': 'list<IDName>',
-        'custom_audiences': 'list<IDName>',
+        'connections': 'list',
+        'custom_audiences': 'list',
         'education_majors': 'list<IDName>',
         'education_schools': 'list<IDName>',
         'education_statuses': 'list<unsigned int>',
