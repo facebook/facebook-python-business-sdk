@@ -18,9 +18,8 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebook_business.adobjects.page import Page
-from facebook_business.adobjects.user import User
-from facebook_business.api import FacebookAdsApi
+from facebookads.adobjects.customaudience import CustomAudience
+from facebookads.api import FacebookAdsApi
 
 access_token = '<ACCESS_TOKEN>'
 app_secret = '<APP_SECRET>'
@@ -32,7 +31,7 @@ fields = [
 ]
 params = {
 }
-print Page(id).get_roles(
+print CustomAudience(id).get(
   fields=fields,
   params=params,
 )
