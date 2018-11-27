@@ -370,9 +370,8 @@ class AioEdgeIterator(facebook_business.api.Cursor):
         self.set_last_error(exception_type)
         self.last_error = exc
         self._request_failed = True
-        logger.error("Fatal facebook error while loading url: {}, method GET with params: {}. "
-                     "Caught an error: {}".format(
-            str(self._path), str(self.params), str(exc)))
+        logger.warning("Fatal facebook error while loading url: {}, method GET with params: {}. "
+                       "Caught an error: {}".format(str(self._path), str(self.params), str(exc)))
 
     def set_non_fatal_error(self, exc, exception_type="temporary error"):
         self.set_last_error(exception_type)
