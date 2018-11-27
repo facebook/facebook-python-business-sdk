@@ -32,22 +32,20 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdgroupMetadata(
+class CatalogBasedTargeting(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isAdgroupMetadata = True
-        super(AdgroupMetadata, self).__init__(fbid, parent_id, api)
+        self._isCatalogBasedTargeting = True
+        super(CatalogBasedTargeting, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        carousel_style = 'carousel_style'
-        carousel_with_static_card_style = 'carousel_with_static_card_style'
+        geo_targeting_type = 'geo_targeting_type'
         id = 'id'
 
     _field_types = {
-        'carousel_style': 'string',
-        'carousel_with_static_card_style': 'string',
+        'geo_targeting_type': 'string',
         'id': 'string',
     }
     @classmethod

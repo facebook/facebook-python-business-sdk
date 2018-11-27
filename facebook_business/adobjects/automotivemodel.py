@@ -50,6 +50,8 @@ class AutomotiveModel(
         description = 'description'
         drivetrain = 'drivetrain'
         exterior_color = 'exterior_color'
+        finance_description = 'finance_description'
+        finance_type = 'finance_type'
         fuel_type = 'fuel_type'
         generation = 'generation'
         id = 'id'
@@ -103,6 +105,8 @@ class AutomotiveModel(
         'description': 'string',
         'drivetrain': 'string',
         'exterior_color': 'string',
+        'finance_description': 'string',
+        'finance_type': 'string',
         'fuel_type': 'string',
         'generation': 'string',
         'id': 'string',

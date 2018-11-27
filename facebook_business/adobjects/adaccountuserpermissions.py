@@ -42,7 +42,6 @@ class AdAccountUserPermissions(
 
     class Field(AbstractObject.Field):
         business = 'business'
-        business_persona = 'business_persona'
         created_by = 'created_by'
         created_time = 'created_time'
         email = 'email'
@@ -55,7 +54,6 @@ class AdAccountUserPermissions(
 
     _field_types = {
         'business': 'Business',
-        'business_persona': 'Object',
         'created_by': 'User',
         'created_time': 'datetime',
         'email': 'string',

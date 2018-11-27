@@ -42,11 +42,9 @@ class ProductFeedUploadError(
 
     class Field(AbstractObject.Field):
         affected_surfaces = 'affected_surfaces'
-        column_number = 'column_number'
         description = 'description'
         error_type = 'error_type'
         id = 'id'
-        row_number = 'row_number'
         severity = 'severity'
         summary = 'summary'
         total_count = 'total_count'
@@ -150,11 +148,9 @@ class ProductFeedUploadError(
 
     _field_types = {
         'affected_surfaces': 'list<AffectedSurfaces>',
-        'column_number': 'unsigned int',
         'description': 'string',
         'error_type': 'string',
         'id': 'string',
-        'row_number': 'unsigned int',
         'severity': 'Severity',
         'summary': 'string',
         'total_count': 'unsigned int',

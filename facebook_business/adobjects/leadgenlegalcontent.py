@@ -45,12 +45,6 @@ class LeadGenLegalContent(
         id = 'id'
         privacy_policy = 'privacy_policy'
 
-    class Status:
-        active = 'ACTIVE'
-        archived = 'ARCHIVED'
-        deleted = 'DELETED'
-        draft = 'DRAFT'
-
     def api_get(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
         }
@@ -86,7 +80,6 @@ class LeadGenLegalContent(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['Status'] = LeadGenLegalContent.Status.__dict__.values()
         return field_enum_info
 
 

@@ -32,50 +32,29 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class PublisherSpace(
+class MerchantCompliance(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isPublisherSpace = True
-        super(PublisherSpace, self).__init__(fbid, parent_id, api)
+        self._isMerchantCompliance = True
+        super(MerchantCompliance, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        a2c_p_disc = 'a2c_p_disc'
+        base_compliance_status = 'base_compliance_status'
+        non_null_id = 'non_null_id'
+        non_null_quantity = 'non_null_quantity'
+        vc_a2c_disc = 'vc_a2c_disc'
         id = 'id'
-        page = 'page'
-        sections = 'sections'
-
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=PublisherSpace,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
 
     _field_types = {
+        'a2c_p_disc': 'float',
+        'base_compliance_status': 'bool',
+        'non_null_id': 'float',
+        'non_null_quantity': 'float',
+        'vc_a2c_disc': 'float',
         'id': 'string',
-        'page': 'Page',
-        'sections': 'list<Object>',
     }
     @classmethod
     def _get_field_enum_info(cls):

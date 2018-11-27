@@ -174,6 +174,7 @@ class AdAccountTargetingUnified(
         instream_video_sponsorship_placements = 'instream_video_sponsorship_placements'
         prospecting_audience = 'prospecting_audience'
         brand_safety_content_severity_levels = 'brand_safety_content_severity_levels'
+        catalog_based_targeting = 'catalog_based_targeting'
 
     class WhitelistedTypes:
         adgroup_id = 'adgroup_id'
@@ -285,6 +286,7 @@ class AdAccountTargetingUnified(
         instream_video_sponsorship_placements = 'instream_video_sponsorship_placements'
         prospecting_audience = 'prospecting_audience'
         brand_safety_content_severity_levels = 'brand_safety_content_severity_levels'
+        catalog_based_targeting = 'catalog_based_targeting'
 
     class Mode:
         best_performing = 'best_performing'

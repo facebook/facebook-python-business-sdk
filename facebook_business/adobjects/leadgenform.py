@@ -72,6 +72,12 @@ class LeadgenForm(
         thank_you_page = 'thank_you_page'
         tracking_parameters = 'tracking_parameters'
 
+    class Status:
+        active = 'ACTIVE'
+        archived = 'ARCHIVED'
+        deleted = 'DELETED'
+        draft = 'DRAFT'
+
     class Locale:
         en_us = 'EN_US'
         it_it = 'IT_IT'
@@ -104,12 +110,6 @@ class LeadgenForm(
         th_th = 'TH_TH'
         vi_vn = 'VI_VN'
         zh_cn = 'ZH_CN'
-
-    class Status:
-        active = 'ACTIVE'
-        archived = 'ARCHIVED'
-        deleted = 'DELETED'
-        draft = 'DRAFT'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
@@ -172,16 +172,9 @@ class LeadgenForm(
 
     def api_update(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
-            'context_card_id': 'string',
-            'legal_content_id': 'string',
-            'locale': 'locale_enum',
-            'name': 'string',
-            'questions': 'list<Object>',
             'status': 'status_enum',
-            'thank_you_page_id': 'string',
         }
         enums = {
-            'locale_enum': LeadgenForm.Locale.__dict__.values(),
             'status_enum': LeadgenForm.Status.__dict__.values(),
         }
         request = FacebookRequest(
@@ -358,8 +351,8 @@ class LeadgenForm(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['Locale'] = LeadgenForm.Locale.__dict__.values()
         field_enum_info['Status'] = LeadgenForm.Status.__dict__.values()
+        field_enum_info['Locale'] = LeadgenForm.Locale.__dict__.values()
         return field_enum_info
 
 

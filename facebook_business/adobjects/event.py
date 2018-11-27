@@ -43,7 +43,6 @@ class Event(
     class Field(AbstractObject.Field):
         attending_count = 'attending_count'
         can_guests_invite = 'can_guests_invite'
-        can_viewer_post = 'can_viewer_post'
         category = 'category'
         cover = 'cover'
         declined_count = 'declined_count'
@@ -54,19 +53,15 @@ class Event(
         guest_list_enabled = 'guest_list_enabled'
         id = 'id'
         interested_count = 'interested_count'
-        invited_count = 'invited_count'
         is_canceled = 'is_canceled'
-        is_date_only = 'is_date_only'
         is_draft = 'is_draft'
         is_page_owned = 'is_page_owned'
-        location = 'location'
         maybe_count = 'maybe_count'
         name = 'name'
         noreply_count = 'noreply_count'
         owner = 'owner'
         parent_group = 'parent_group'
         place = 'place'
-        privacy = 'privacy'
         scheduled_publish_time = 'scheduled_publish_time'
         start_time = 'start_time'
         ticket_uri = 'ticket_uri'
@@ -76,13 +71,36 @@ class Event(
         timezone = 'timezone'
         type = 'type'
         updated_time = 'updated_time'
-        venue = 'venue'
 
     class Type:
         private = 'private'
         public = 'public'
         group = 'group'
         community = 'community'
+
+    class Projection:
+        equirectangular = 'EQUIRECTANGULAR'
+        cubemap = 'CUBEMAP'
+        half_equirectangular = 'HALF_EQUIRECTANGULAR'
+
+    class SpatialAudioFormat:
+        ambix_4 = 'ambiX_4'
+
+    class Status:
+        unpublished = 'UNPUBLISHED'
+        live_now = 'LIVE_NOW'
+        scheduled_unpublished = 'SCHEDULED_UNPUBLISHED'
+        scheduled_live = 'SCHEDULED_LIVE'
+        scheduled_canceled = 'SCHEDULED_CANCELED'
+
+    class StereoscopicMode:
+        mono = 'MONO'
+        left_right = 'LEFT_RIGHT'
+        top_bottom = 'TOP_BOTTOM'
+
+    class StreamType:
+        regular = 'REGULAR'
+        ambient = 'AMBIENT'
 
     class EventStateFilter:
         canceled = 'canceled'
@@ -702,30 +720,11 @@ class Event(
             'stereoscopic_mode': 'stereoscopic_mode_enum',
         }
         enums = {
-            'status_enum': [
-                'UNPUBLISHED',
-                'LIVE_NOW',
-                'SCHEDULED_UNPUBLISHED',
-                'SCHEDULED_LIVE',
-                'SCHEDULED_CANCELED',
-            ],
-            'stream_type_enum': [
-                'REGULAR',
-                'AMBIENT',
-            ],
-            'projection_enum': [
-                'EQUIRECTANGULAR',
-                'CUBEMAP',
-                'HALF_EQUIRECTANGULAR',
-            ],
-            'spatial_audio_format_enum': [
-                'ambiX_4',
-            ],
-            'stereoscopic_mode_enum': [
-                'MONO',
-                'LEFT_RIGHT',
-                'TOP_BOTTOM',
-            ],
+            'status_enum': Event.Status.__dict__.values(),
+            'stream_type_enum': Event.StreamType.__dict__.values(),
+            'projection_enum': Event.Projection.__dict__.values(),
+            'spatial_audio_format_enum': Event.SpatialAudioFormat.__dict__.values(),
+            'stereoscopic_mode_enum': Event.StereoscopicMode.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -733,9 +732,9 @@ class Event(
             endpoint='/live_videos',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=Event,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=Event, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1169,7 +1168,6 @@ class Event(
     _field_types = {
         'attending_count': 'int',
         'can_guests_invite': 'bool',
-        'can_viewer_post': 'bool',
         'category': 'string',
         'cover': 'CoverPhoto',
         'declined_count': 'int',
@@ -1180,19 +1178,15 @@ class Event(
         'guest_list_enabled': 'bool',
         'id': 'string',
         'interested_count': 'int',
-        'invited_count': 'int',
         'is_canceled': 'bool',
-        'is_date_only': 'bool',
         'is_draft': 'bool',
         'is_page_owned': 'bool',
-        'location': 'string',
         'maybe_count': 'int',
         'name': 'string',
         'noreply_count': 'int',
         'owner': 'Object',
         'parent_group': 'Group',
         'place': 'Place',
-        'privacy': 'string',
         'scheduled_publish_time': 'string',
         'start_time': 'string',
         'ticket_uri': 'string',
@@ -1202,12 +1196,16 @@ class Event(
         'timezone': 'string',
         'type': 'Type',
         'updated_time': 'datetime',
-        'venue': 'Location',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['Type'] = Event.Type.__dict__.values()
+        field_enum_info['Projection'] = Event.Projection.__dict__.values()
+        field_enum_info['SpatialAudioFormat'] = Event.SpatialAudioFormat.__dict__.values()
+        field_enum_info['Status'] = Event.Status.__dict__.values()
+        field_enum_info['StereoscopicMode'] = Event.StereoscopicMode.__dict__.values()
+        field_enum_info['StreamType'] = Event.StreamType.__dict__.values()
         field_enum_info['EventStateFilter'] = Event.EventStateFilter.__dict__.values()
         field_enum_info['TimeFilter'] = Event.TimeFilter.__dict__.values()
         field_enum_info['PromotableEventTypes'] = Event.PromotableEventTypes.__dict__.values()

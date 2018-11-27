@@ -66,7 +66,6 @@ class AdAccount(
         capabilities = 'capabilities'
         created_time = 'created_time'
         currency = 'currency'
-        daily_spend_limit = 'daily_spend_limit'
         direct_deals_tos_accepted = 'direct_deals_tos_accepted'
         disable_reason = 'disable_reason'
         end_advertiser = 'end_advertiser'
@@ -95,7 +94,6 @@ class AdAccount(
         offsite_pixels_tos_accepted = 'offsite_pixels_tos_accepted'
         owner = 'owner'
         partner = 'partner'
-        rate_limit_reset_time = 'rate_limit_reset_time'
         rf_spec = 'rf_spec'
         show_checkout_experience = 'show_checkout_experience'
         spend_cap = 'spend_cap'
@@ -351,36 +349,7 @@ class AdAccount(
             self.assure_call()
             return request.execute()
 
-    def get_ad_asset_feeds(self, fields=None, params=None, batch=None, pending=False):
-        from facebook_business.adobjects.adassetfeed import AdAssetFeed
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/adasset_feeds',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AdAssetFeed,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdAssetFeed, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def create_ad_asset_feed(self, fields=None, params=None, batch=None, pending=False):
-        from facebook_business.adobjects.adassetfeed import AdAssetFeed
         param_types = {
             'images': 'list<Object>',
             'videos': 'list<Object>',
@@ -400,9 +369,74 @@ class AdAccount(
             'additional_data': 'map',
         }
         enums = {
-            'call_to_action_types_enum': AdAssetFeed.CallToActionTypes.__dict__.values(),
-            'ad_formats_enum': AdAssetFeed.AdFormats.__dict__.values(),
-            'optimization_type_enum': AdAssetFeed.OptimizationType.__dict__.values(),
+            'call_to_action_types_enum': [
+                'OPEN_LINK',
+                'LIKE_PAGE',
+                'SHOP_NOW',
+                'PLAY_GAME',
+                'INSTALL_APP',
+                'USE_APP',
+                'CALL',
+                'CALL_ME',
+                'INSTALL_MOBILE_APP',
+                'USE_MOBILE_APP',
+                'MOBILE_DOWNLOAD',
+                'BOOK_TRAVEL',
+                'LISTEN_MUSIC',
+                'WATCH_VIDEO',
+                'LEARN_MORE',
+                'SIGN_UP',
+                'DOWNLOAD',
+                'WATCH_MORE',
+                'NO_BUTTON',
+                'VISIT_PAGES_FEED',
+                'APPLY_NOW',
+                'BUY_NOW',
+                'GET_OFFER',
+                'GET_OFFER_VIEW',
+                'BUY_TICKETS',
+                'UPDATE_APP',
+                'GET_DIRECTIONS',
+                'BUY',
+                'MESSAGE_PAGE',
+                'DONATE',
+                'SUBSCRIBE',
+                'SAY_THANKS',
+                'SELL_NOW',
+                'SHARE',
+                'DONATE_NOW',
+                'GET_QUOTE',
+                'CONTACT_US',
+                'ORDER_NOW',
+                'ADD_TO_CART',
+                'VIDEO_ANNOTATION',
+                'MOMENTS',
+                'RECORD_NOW',
+                'GET_SHOWTIMES',
+                'LISTEN_NOW',
+                'WOODHENGE_SUPPORT',
+                'EVENT_RSVP',
+                'WHATSAPP_MESSAGE',
+                'FOLLOW_NEWS_STORYLINE',
+                'SEE_MORE',
+            ],
+            'ad_formats_enum': [
+                'AUTOMATIC_FORMAT',
+                'CAROUSEL_IMAGE',
+                'CAROUSEL_VIDEO',
+                'SINGLE_IMAGE',
+                'SINGLE_VIDEO',
+            ],
+            'optimization_type_enum': [
+                'REGULAR',
+                'LANGUAGE',
+                'PLACEMENT',
+                'VIDEO_BANDWIDTH',
+                'BRAND',
+                'ASSET_CUSTOMIZATION',
+                'DCO_PARITY',
+                'PREVIEW_DYNAMIC_RENDERING',
+            ],
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -410,9 +444,9 @@ class AdAccount(
             endpoint='/adasset_feeds',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AdAssetFeed,
+            target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdAssetFeed, api=self._api),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -770,36 +804,7 @@ class AdAccount(
             self.assure_call()
             return request.execute()
 
-    def get_ad_language_assets(self, fields=None, params=None, batch=None, pending=False):
-        from facebook_business.adobjects.adassetfeed import AdAssetFeed
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/adlanguage_assets',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AdAssetFeed,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdAssetFeed, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def create_ad_language_asset(self, fields=None, params=None, batch=None, pending=False):
-        from facebook_business.adobjects.adassetfeed import AdAssetFeed
         param_types = {
             'image': 'Object',
             'video': 'Object',
@@ -811,7 +816,57 @@ class AdAccount(
             'default_language': 'string',
         }
         enums = {
-            'call_to_action_type_enum': AdAssetFeed.CallToActionType.__dict__.values(),
+            'call_to_action_type_enum': [
+                'OPEN_LINK',
+                'LIKE_PAGE',
+                'SHOP_NOW',
+                'PLAY_GAME',
+                'INSTALL_APP',
+                'USE_APP',
+                'CALL',
+                'CALL_ME',
+                'INSTALL_MOBILE_APP',
+                'USE_MOBILE_APP',
+                'MOBILE_DOWNLOAD',
+                'BOOK_TRAVEL',
+                'LISTEN_MUSIC',
+                'WATCH_VIDEO',
+                'LEARN_MORE',
+                'SIGN_UP',
+                'DOWNLOAD',
+                'WATCH_MORE',
+                'NO_BUTTON',
+                'VISIT_PAGES_FEED',
+                'APPLY_NOW',
+                'BUY_NOW',
+                'GET_OFFER',
+                'GET_OFFER_VIEW',
+                'BUY_TICKETS',
+                'UPDATE_APP',
+                'GET_DIRECTIONS',
+                'BUY',
+                'MESSAGE_PAGE',
+                'DONATE',
+                'SUBSCRIBE',
+                'SAY_THANKS',
+                'SELL_NOW',
+                'SHARE',
+                'DONATE_NOW',
+                'GET_QUOTE',
+                'CONTACT_US',
+                'ORDER_NOW',
+                'ADD_TO_CART',
+                'VIDEO_ANNOTATION',
+                'MOMENTS',
+                'RECORD_NOW',
+                'GET_SHOWTIMES',
+                'LISTEN_NOW',
+                'WOODHENGE_SUPPORT',
+                'EVENT_RSVP',
+                'WHATSAPP_MESSAGE',
+                'FOLLOW_NEWS_STORYLINE',
+                'SEE_MORE',
+            ],
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -819,9 +874,9 @@ class AdAccount(
             endpoint='/adlanguage_assets',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AdAssetFeed,
+            target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdAssetFeed, api=self._api),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1484,6 +1539,7 @@ class AdAccount(
             'adlabels': 'list<Object>',
             'bid_amount': 'int',
             'bid_adjustments': 'Object',
+            'bid_constraints': 'Object',
             'bid_strategy': 'bid_strategy_enum',
             'billing_event': 'billing_event_enum',
             'campaign_id': 'string',
@@ -1505,7 +1561,6 @@ class AdAccount(
             'is_autobid': 'bool',
             'is_average_price_pacing': 'bool',
             'is_dynamic_creative': 'bool',
-            'is_dynamic_creative_optimization': 'bool',
             'lifetime_budget': 'unsigned int',
             'lifetime_frequency_cap': 'unsigned int',
             'lifetime_imps': 'unsigned int',
@@ -2495,6 +2550,34 @@ class AdAccount(
             self.assure_call()
             return request.execute()
 
+    def get_business_setting_logs(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.businesssettinglogsdata import BusinessSettingLogsData
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/businesssettinglogs',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=BusinessSettingLogsData,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=BusinessSettingLogsData, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def delete_campaigns(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
             'delete_strategy': 'delete_strategy_enum',
@@ -2691,34 +2774,6 @@ class AdAccount(
             target_class=AdAccount,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=AdAccount, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def get_custom_audience_limits(self, fields=None, params=None, batch=None, pending=False):
-        from facebook_business.adobjects.adaccountcustomaudiencelimits import AdAccountCustomAudienceLimits
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/custom_audience_limits',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AdAccountCustomAudienceLimits,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdAccountCustomAudienceLimits, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -3114,6 +3169,7 @@ class AdAccount(
         param_types = {
             'ad_format': 'ad_format_enum',
             'dynamic_creative_spec': 'Object',
+            'dynamic_asset_label': 'string',
             'interactive': 'bool',
             'post': 'Object',
             'height': 'unsigned int',
@@ -4569,7 +4625,7 @@ class AdAccount(
         request = FacebookRequest(
             node_id=self['id'],
             method='DELETE',
-            endpoint='/user_match',
+            endpoint='/usermatch',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
@@ -4601,7 +4657,7 @@ class AdAccount(
         request = FacebookRequest(
             node_id=self['id'],
             method='POST',
-            endpoint='/user_match',
+            endpoint='/usermatch',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
@@ -4637,36 +4693,6 @@ class AdAccount(
             target_class=AbstractCrudObject,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def get_user_permissions(self, fields=None, params=None, batch=None, pending=False):
-        from facebook_business.adobjects.adaccountuserpermissions import AdAccountUserPermissions
-        param_types = {
-            'business': 'Object',
-            'user': 'Object',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/userpermissions',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AdAccountUserPermissions,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdAccountUserPermissions, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -4851,7 +4877,6 @@ class AdAccount(
         'capabilities': 'list<string>',
         'created_time': 'datetime',
         'currency': 'string',
-        'daily_spend_limit': 'string',
         'direct_deals_tos_accepted': 'bool',
         'disable_reason': 'unsigned int',
         'end_advertiser': 'string',
@@ -4880,7 +4905,6 @@ class AdAccount(
         'offsite_pixels_tos_accepted': 'bool',
         'owner': 'string',
         'partner': 'string',
-        'rate_limit_reset_time': 'string',
         'rf_spec': 'ReachFrequencySpec',
         'show_checkout_experience': 'bool',
         'spend_cap': 'string',

@@ -45,7 +45,6 @@ class User(
         address = 'address'
         admin_notes = 'admin_notes'
         age_range = 'age_range'
-        bio = 'bio'
         birthday = 'birthday'
         can_review_measurement_request = 'can_review_measurement_request'
         context = 'context'
@@ -66,12 +65,10 @@ class User(
         installed = 'installed'
         interested_in = 'interested_in'
         is_famedeeplinkinguser = 'is_famedeeplinkinguser'
-        is_payment_enabled = 'is_payment_enabled'
         is_shared_login = 'is_shared_login'
         is_verified = 'is_verified'
         labels = 'labels'
         languages = 'languages'
-        last_ad_referral = 'last_ad_referral'
         last_name = 'last_name'
         link = 'link'
         local_news_megaphone_dismiss_status = 'local_news_megaphone_dismiss_status'
@@ -99,7 +96,6 @@ class User(
         timezone = 'timezone'
         token_for_business = 'token_for_business'
         updated_time = 'updated_time'
-        username = 'username'
         verified = 'verified'
         video_upload_limits = 'video_upload_limits'
         viewer_can_send_gift = 'viewer_can_send_gift'
@@ -1206,7 +1202,7 @@ class User(
         param_types = {
             'tags': 'list<string>',
             'folder': 'string',
-            'psid': 'Object',
+            'user_id': 'string',
         }
         enums = {
         }
@@ -3680,7 +3676,7 @@ class User(
         param_types = {
             'tags': 'list<string>',
             'folder': 'string',
-            'psid': 'Object',
+            'user_id': 'string',
         }
         enums = {
         }
@@ -3879,7 +3875,6 @@ class User(
         'address': 'Location',
         'admin_notes': 'list<PageAdminNote>',
         'age_range': 'AgeRange',
-        'bio': 'string',
         'birthday': 'string',
         'can_review_measurement_request': 'bool',
         'context': 'UserContext',
@@ -3900,12 +3895,10 @@ class User(
         'installed': 'bool',
         'interested_in': 'list<string>',
         'is_famedeeplinkinguser': 'bool',
-        'is_payment_enabled': 'bool',
         'is_shared_login': 'bool',
         'is_verified': 'bool',
         'labels': 'list<PageLabel>',
         'languages': 'list<Experience>',
-        'last_ad_referral': 'MessengerPlatformReferral',
         'last_name': 'string',
         'link': 'string',
         'local_news_megaphone_dismiss_status': 'bool',
@@ -3933,7 +3926,6 @@ class User(
         'timezone': 'float',
         'token_for_business': 'string',
         'updated_time': 'datetime',
-        'username': 'string',
         'verified': 'bool',
         'video_upload_limits': 'VideoUploadLimits',
         'viewer_can_send_gift': 'bool',

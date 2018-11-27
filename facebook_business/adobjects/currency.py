@@ -41,8 +41,6 @@ class Currency(
         super(Currency, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        currency_exchange = 'currency_exchange'
-        currency_exchange_inverse = 'currency_exchange_inverse'
         currency_offset = 'currency_offset'
         usd_exchange = 'usd_exchange'
         usd_exchange_inverse = 'usd_exchange_inverse'
@@ -50,8 +48,6 @@ class Currency(
         id = 'id'
 
     _field_types = {
-        'currency_exchange': 'float',
-        'currency_exchange_inverse': 'float',
         'currency_offset': 'unsigned int',
         'usd_exchange': 'float',
         'usd_exchange_inverse': 'float',

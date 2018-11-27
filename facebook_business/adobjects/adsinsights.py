@@ -69,18 +69,16 @@ class AdsInsights(
         campaign_name = 'campaign_name'
         canvas_avg_view_percent = 'canvas_avg_view_percent'
         canvas_avg_view_time = 'canvas_avg_view_time'
-        canvas_component_avg_pct_view = 'canvas_component_avg_pct_view'
         clicks = 'clicks'
+        conversion_values = 'conversion_values'
+        conversions = 'conversions'
         cost_per_10_sec_video_view = 'cost_per_10_sec_video_view'
         cost_per_15_sec_video_view = 'cost_per_15_sec_video_view'
         cost_per_2_sec_continuous_video_view = 'cost_per_2_sec_continuous_video_view'
         cost_per_action_type = 'cost_per_action_type'
         cost_per_ad_click = 'cost_per_ad_click'
+        cost_per_conversion = 'cost_per_conversion'
         cost_per_dda_countby_convs = 'cost_per_dda_countby_convs'
-        cost_per_dwell = 'cost_per_dwell'
-        cost_per_dwell_3_sec = 'cost_per_dwell_3_sec'
-        cost_per_dwell_5_sec = 'cost_per_dwell_5_sec'
-        cost_per_dwell_7_sec = 'cost_per_dwell_7_sec'
         cost_per_estimated_ad_recallers = 'cost_per_estimated_ad_recallers'
         cost_per_inline_link_click = 'cost_per_inline_link_click'
         cost_per_inline_post_engagement = 'cost_per_inline_post_engagement'
@@ -89,6 +87,7 @@ class AdsInsights(
         cost_per_thruplay = 'cost_per_thruplay'
         cost_per_unique_action_type = 'cost_per_unique_action_type'
         cost_per_unique_click = 'cost_per_unique_click'
+        cost_per_unique_conversion = 'cost_per_unique_conversion'
         cost_per_unique_inline_link_click = 'cost_per_unique_inline_link_click'
         cost_per_unique_outbound_click = 'cost_per_unique_outbound_click'
         country = 'country'
@@ -104,10 +103,6 @@ class AdsInsights(
         description_asset = 'description_asset'
         device_platform = 'device_platform'
         dma = 'dma'
-        dwell_3_sec = 'dwell_3_sec'
-        dwell_5_sec = 'dwell_5_sec'
-        dwell_7_sec = 'dwell_7_sec'
-        dwell_rate = 'dwell_rate'
         estimated_ad_recall_rate = 'estimated_ad_recall_rate'
         estimated_ad_recall_rate_lower_bound = 'estimated_ad_recall_rate_lower_bound'
         estimated_ad_recall_rate_upper_bound = 'estimated_ad_recall_rate_upper_bound'
@@ -142,6 +137,7 @@ class AdsInsights(
         product_format = 'product_format'
         product_id = 'product_id'
         publisher_platform = 'publisher_platform'
+        purchase_roas = 'purchase_roas'
         purchasing_interface = 'purchasing_interface'
         reach = 'reach'
         region = 'region'
@@ -149,10 +145,10 @@ class AdsInsights(
         rule_asset = 'rule_asset'
         social_spend = 'social_spend'
         spend = 'spend'
-        thumb_stops = 'thumb_stops'
         title_asset = 'title_asset'
         unique_actions = 'unique_actions'
         unique_clicks = 'unique_clicks'
+        unique_conversions = 'unique_conversions'
         unique_ctr = 'unique_ctr'
         unique_inline_link_click_ctr = 'unique_inline_link_click_ctr'
         unique_inline_link_clicks = 'unique_inline_link_clicks'
@@ -308,18 +304,16 @@ class AdsInsights(
         'campaign_name': 'string',
         'canvas_avg_view_percent': 'string',
         'canvas_avg_view_time': 'string',
-        'canvas_component_avg_pct_view': 'list<AdsActionStats>',
         'clicks': 'string',
+        'conversion_values': 'list<AdsActionStats>',
+        'conversions': 'list<AdsActionStats>',
         'cost_per_10_sec_video_view': 'list<AdsActionStats>',
         'cost_per_15_sec_video_view': 'list<AdsActionStats>',
         'cost_per_2_sec_continuous_video_view': 'list<AdsActionStats>',
         'cost_per_action_type': 'list<AdsActionStats>',
         'cost_per_ad_click': 'list<AdsActionStats>',
+        'cost_per_conversion': 'list<AdsActionStats>',
         'cost_per_dda_countby_convs': 'string',
-        'cost_per_dwell': 'string',
-        'cost_per_dwell_3_sec': 'string',
-        'cost_per_dwell_5_sec': 'string',
-        'cost_per_dwell_7_sec': 'string',
         'cost_per_estimated_ad_recallers': 'string',
         'cost_per_inline_link_click': 'string',
         'cost_per_inline_post_engagement': 'string',
@@ -328,6 +322,7 @@ class AdsInsights(
         'cost_per_thruplay': 'list<AdsActionStats>',
         'cost_per_unique_action_type': 'list<AdsActionStats>',
         'cost_per_unique_click': 'string',
+        'cost_per_unique_conversion': 'list<AdsActionStats>',
         'cost_per_unique_inline_link_click': 'string',
         'cost_per_unique_outbound_click': 'list<AdsActionStats>',
         'country': 'string',
@@ -343,10 +338,6 @@ class AdsInsights(
         'description_asset': 'Object',
         'device_platform': 'string',
         'dma': 'string',
-        'dwell_3_sec': 'string',
-        'dwell_5_sec': 'string',
-        'dwell_7_sec': 'string',
-        'dwell_rate': 'string',
         'estimated_ad_recall_rate': 'string',
         'estimated_ad_recall_rate_lower_bound': 'string',
         'estimated_ad_recall_rate_upper_bound': 'string',
@@ -381,6 +372,7 @@ class AdsInsights(
         'product_format': 'string',
         'product_id': 'string',
         'publisher_platform': 'string',
+        'purchase_roas': 'list<AdsActionStats>',
         'purchasing_interface': 'string',
         'reach': 'string',
         'region': 'string',
@@ -388,10 +380,10 @@ class AdsInsights(
         'rule_asset': 'Object',
         'social_spend': 'string',
         'spend': 'string',
-        'thumb_stops': 'string',
         'title_asset': 'Object',
         'unique_actions': 'list<AdsActionStats>',
         'unique_clicks': 'string',
+        'unique_conversions': 'list<AdsActionStats>',
         'unique_ctr': 'string',
         'unique_inline_link_click_ctr': 'string',
         'unique_inline_link_clicks': 'string',

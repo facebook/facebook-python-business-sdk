@@ -48,7 +48,6 @@ class URL(
         instant_article = 'instant_article'
         og_object = 'og_object'
         ownership_permissions = 'ownership_permissions'
-        share = 'share'
 
     def api_get(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
@@ -115,7 +114,6 @@ class URL(
         'instant_article': 'InstantArticle',
         'og_object': 'Object',
         'ownership_permissions': 'Object',
-        'share': 'Object',
     }
     @classmethod
     def _get_field_enum_info(cls):
