@@ -41,7 +41,6 @@ class OfflineConversionDataSet(
         super(OfflineConversionDataSet, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        attribute_stats = 'attribute_stats'
         business = 'business'
         config = 'config'
         creation_time = 'creation_time'
@@ -59,7 +58,6 @@ class OfflineConversionDataSet(
         last_upload_app_changed_time = 'last_upload_app_changed_time'
         match_rate_approx = 'match_rate_approx'
         matched_entries = 'matched_entries'
-        matched_unique_users = 'matched_unique_users'
         name = 'name'
         usage = 'usage'
         valid_entries = 'valid_entries'
@@ -730,6 +728,62 @@ class OfflineConversionDataSet(
             self.assure_call()
             return request.execute()
 
+    def delete_users(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'data': 'list<Object>',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='DELETE',
+            endpoint='/users',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_user(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'data': 'list<Object>',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/users',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=OfflineConversionDataSet,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=OfflineConversionDataSet, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def create_validate(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
             'data': 'list<string>',
@@ -760,7 +814,6 @@ class OfflineConversionDataSet(
             return request.execute()
 
     _field_types = {
-        'attribute_stats': 'string',
         'business': 'Business',
         'config': 'string',
         'creation_time': 'datetime',
@@ -778,7 +831,6 @@ class OfflineConversionDataSet(
         'last_upload_app_changed_time': 'int',
         'match_rate_approx': 'int',
         'matched_entries': 'int',
-        'matched_unique_users': 'int',
         'name': 'string',
         'usage': 'Object',
         'valid_entries': 'int',

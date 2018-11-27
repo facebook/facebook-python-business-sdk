@@ -47,7 +47,6 @@ class AdCreative(
         actor_id = 'actor_id'
         adlabels = 'adlabels'
         applink_treatment = 'applink_treatment'
-        asset_feed_id = 'asset_feed_id'
         asset_feed_spec = 'asset_feed_spec'
         authorization_category = 'authorization_category'
         auto_update = 'auto_update'
@@ -85,6 +84,7 @@ class AdCreative(
         place_page_set_id = 'place_page_set_id'
         platform_customizations = 'platform_customizations'
         playable_asset_id = 'playable_asset_id'
+        portrait_customizations = 'portrait_customizations'
         product_set_id = 'product_set_id'
         recommender_settings = 'recommender_settings'
         status = 'status'
@@ -95,6 +95,7 @@ class AdCreative(
         url_tags = 'url_tags'
         use_page_actor_override = 'use_page_actor_override'
         video_id = 'video_id'
+        asset_feed_id = 'asset_feed_id'
         is_dco_internal = 'is_dco_internal'
         call_to_action = 'call_to_action'
         image_file = 'image_file'
@@ -155,6 +156,7 @@ class AdCreative(
         event_rsvp = 'EVENT_RSVP'
         whatsapp_message = 'WHATSAPP_MESSAGE'
         follow_news_storyline = 'FOLLOW_NEWS_STORYLINE'
+        see_more = 'SEE_MORE'
 
     class ObjectType:
         application = 'APPLICATION'
@@ -359,6 +361,7 @@ class AdCreative(
         param_types = {
             'ad_format': 'ad_format_enum',
             'dynamic_creative_spec': 'Object',
+            'dynamic_asset_label': 'string',
             'interactive': 'bool',
             'post': 'Object',
             'height': 'unsigned int',
@@ -401,7 +404,6 @@ class AdCreative(
         'actor_id': 'string',
         'adlabels': 'list<AdLabel>',
         'applink_treatment': 'ApplinkTreatment',
-        'asset_feed_id': 'string',
         'asset_feed_spec': 'AdAssetFeedSpec',
         'authorization_category': 'string',
         'auto_update': 'bool',
@@ -439,6 +441,7 @@ class AdCreative(
         'place_page_set_id': 'string',
         'platform_customizations': 'AdCreativePlatformCustomization',
         'playable_asset_id': 'string',
+        'portrait_customizations': 'AdCreativePortraitCustomizations',
         'product_set_id': 'string',
         'recommender_settings': 'AdCreativeRecommenderSettings',
         'status': 'Status',
@@ -449,6 +452,7 @@ class AdCreative(
         'url_tags': 'string',
         'use_page_actor_override': 'bool',
         'video_id': 'string',
+        'asset_feed_id': 'string',
         'is_dco_internal': 'bool',
         'call_to_action': 'Object',
         'image_file': 'string',

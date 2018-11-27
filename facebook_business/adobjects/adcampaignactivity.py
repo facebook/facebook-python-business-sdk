@@ -118,6 +118,7 @@ class AdCampaignActivity(
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
         video_views = 'VIDEO_VIEWS'
+        thruplay = 'THRUPLAY'
 
     class BillingEventOld:
         app_installs = 'APP_INSTALLS'
@@ -129,6 +130,7 @@ class AdCampaignActivity(
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
         video_views = 'VIDEO_VIEWS'
+        thruplay = 'THRUPLAY'
 
     class OptimizationGoalNew:
         none = 'NONE'
@@ -152,6 +154,7 @@ class AdCampaignActivity(
         app_downloads = 'APP_DOWNLOADS'
         landing_page_views = 'LANDING_PAGE_VIEWS'
         value = 'VALUE'
+        thruplay = 'THRUPLAY'
         replies = 'REPLIES'
         derived_events = 'DERIVED_EVENTS'
 
@@ -177,6 +180,7 @@ class AdCampaignActivity(
         app_downloads = 'APP_DOWNLOADS'
         landing_page_views = 'LANDING_PAGE_VIEWS'
         value = 'VALUE'
+        thruplay = 'THRUPLAY'
         replies = 'REPLIES'
         derived_events = 'DERIVED_EVENTS'
 

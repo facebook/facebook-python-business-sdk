@@ -32,37 +32,19 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class Destination(
+class LiveWithGuestSession(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isDestination = True
-        super(Destination, self).__init__(fbid, parent_id, api)
+        self._isLiveWithGuestSession = True
+        super(LiveWithGuestSession, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        address = 'address'
-        applinks = 'applinks'
-        currency = 'currency'
-        description = 'description'
-        destination_id = 'destination_id'
+        conference_name = 'conference_name'
         id = 'id'
-        images = 'images'
-        name = 'name'
-        price = 'price'
-        price_change = 'price_change'
-        sanitized_images = 'sanitized_images'
-        types = 'types'
-        url = 'url'
-
-    # @deprecated get_endpoint function is deprecated
-    @classmethod
-    def get_endpoint(cls):
-        return 'destinations'
-
-    def api_create(self, parent_id, fields=None, params=None, batch=None, pending=False):
-        from facebook_business.adobjects.productcatalog import ProductCatalog
-        return ProductCatalog(api=self._api, fbid=parent_id).create_destination(fields, params, batch, pending)
+        participant_call_states = 'participant_call_states'
+        server_sdp = 'server_sdp'
 
     def api_get(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
@@ -75,7 +57,7 @@ class Destination(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=Destination,
+            target_class=LiveWithGuestSession,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -91,28 +73,76 @@ class Destination(
             self.assure_call()
             return request.execute()
 
-    def api_update(self, fields=None, params=None, batch=None, pending=False):
+    def create_hangup(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
-            'description': 'string',
-            'url': 'Object',
-            'images': 'list<Object>',
-            'currency': 'string',
-            'price': 'unsigned int',
-            'name': 'string',
-            'types': 'string',
-            'address': 'Object',
         }
         enums = {
         }
         request = FacebookRequest(
             node_id=self['id'],
             method='POST',
-            endpoint='/',
+            endpoint='/hangup',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=Destination,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
+            target_class=LiveWithGuestSession,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=LiveWithGuestSession, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_join(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'offer_sdp': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/join',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=LiveWithGuestSession,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=LiveWithGuestSession, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_ring_user(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'user_ids': 'list<unsigned int>',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/ring_users',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=LiveWithGuestSession,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=LiveWithGuestSession, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -127,19 +157,10 @@ class Destination(
             return request.execute()
 
     _field_types = {
-        'address': 'string',
-        'applinks': 'AppLinks',
-        'currency': 'string',
-        'description': 'string',
-        'destination_id': 'string',
+        'conference_name': 'string',
         'id': 'string',
-        'images': 'list<string>',
-        'name': 'string',
-        'price': 'string',
-        'price_change': 'string',
-        'sanitized_images': 'list<string>',
-        'types': 'list<string>',
-        'url': 'string',
+        'participant_call_states': 'list<Object>',
+        'server_sdp': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

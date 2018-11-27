@@ -47,11 +47,13 @@ class CopyrightReferenceContainer(
         duration_in_sec = 'duration_in_sec'
         fingerprint_validity = 'fingerprint_validity'
         id = 'id'
+        iswc = 'iswc'
         metadata = 'metadata'
         published_time = 'published_time'
         thumbnail_url = 'thumbnail_url'
         title = 'title'
         universal_content_id = 'universal_content_id'
+        writer_names = 'writer_names'
 
     _field_types = {
         'content_type': 'string',
@@ -60,11 +62,13 @@ class CopyrightReferenceContainer(
         'duration_in_sec': 'float',
         'fingerprint_validity': 'string',
         'id': 'string',
+        'iswc': 'string',
         'metadata': 'Object',
         'published_time': 'datetime',
         'thumbnail_url': 'string',
         'title': 'string',
         'universal_content_id': 'string',
+        'writer_names': 'list<string>',
     }
     @classmethod
     def _get_field_enum_info(cls):

@@ -59,7 +59,6 @@ class LiveVideo(
         live_views = 'live_views'
         permalink_url = 'permalink_url'
         planned_start_time = 'planned_start_time'
-        preview_url = 'preview_url'
         seconds_left = 'seconds_left'
         secure_stream_url = 'secure_stream_url'
         status = 'status'
@@ -147,6 +146,7 @@ class LiveVideo(
 
     def api_get(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
+            'target_token': 'string',
         }
         enums = {
         }
@@ -415,6 +415,62 @@ class LiveVideo(
             self.assure_call()
             return request.execute()
 
+    def get_guest_sessions(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.livewithguestsession import LiveWithGuestSession
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/guest_sessions',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=LiveWithGuestSession,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=LiveWithGuestSession, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_guest_session(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.livewithguestsession import LiveWithGuestSession
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/guest_sessions',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=LiveWithGuestSession,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=LiveWithGuestSession, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def create_input_stream(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
         }
@@ -582,7 +638,6 @@ class LiveVideo(
         'live_views': 'unsigned int',
         'permalink_url': 'string',
         'planned_start_time': 'datetime',
-        'preview_url': 'string',
         'seconds_left': 'int',
         'secure_stream_url': 'string',
         'status': 'string',

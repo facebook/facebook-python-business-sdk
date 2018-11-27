@@ -66,7 +66,6 @@ class Ad(
         issues_info = 'issues_info'
         last_updated_by_app_id = 'last_updated_by_app_id'
         name = 'name'
-        objective_source = 'objective_source'
         priority = 'priority'
         recommendations = 'recommendations'
         source_ad = 'source_ad'
@@ -188,6 +187,7 @@ class Ad(
 
     def api_get(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
+            'am_call_tags': 'Object',
             'date_preset': 'date_preset_enum',
             'from_adtable': 'bool',
             'review_feedback_breakdown': 'bool',
@@ -315,7 +315,9 @@ class Ad(
             'execution_options': 'list<execution_options_enum>',
         }
         enums = {
-            'execution_options_enum': Ad.ExecutionOptions.__dict__.values(),
+            'execution_options_enum': [
+                'validate_only',
+            ],
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -345,7 +347,9 @@ class Ad(
             'execution_options': 'list<execution_options_enum>',
         }
         enums = {
-            'execution_options_enum': Ad.ExecutionOptions.__dict__.values(),
+            'execution_options_enum': [
+                'validate_only',
+            ],
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -670,6 +674,7 @@ class Ad(
         param_types = {
             'ad_format': 'ad_format_enum',
             'dynamic_creative_spec': 'Object',
+            'dynamic_asset_label': 'string',
             'interactive': 'bool',
             'post': 'Object',
             'height': 'unsigned int',
@@ -815,7 +820,6 @@ class Ad(
         'issues_info': 'list<AdgroupIssuesInfo>',
         'last_updated_by_app_id': 'string',
         'name': 'string',
-        'objective_source': 'string',
         'priority': 'unsigned int',
         'recommendations': 'list<AdRecommendation>',
         'source_ad': 'Ad',

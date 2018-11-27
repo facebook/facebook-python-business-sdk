@@ -49,6 +49,7 @@ class Targeting(
         audience_network_positions = 'audience_network_positions'
         behaviors = 'behaviors'
         brand_safety_content_severity_levels = 'brand_safety_content_severity_levels'
+        catalog_based_targeting = 'catalog_based_targeting'
         cities = 'cities'
         college_years = 'college_years'
         connections = 'connections'
@@ -119,7 +120,6 @@ class Targeting(
         radius = 'radius'
         regions = 'regions'
         relationship_statuses = 'relationship_statuses'
-        rtb_flag = 'rtb_flag'
         site_category = 'site_category'
         targeting_optimization = 'targeting_optimization'
         user_adclusters = 'user_adclusters'
@@ -151,6 +151,7 @@ class Targeting(
         'audience_network_positions': 'list<string>',
         'behaviors': 'list<IDName>',
         'brand_safety_content_severity_levels': 'list<string>',
+        'catalog_based_targeting': 'CatalogBasedTargeting',
         'cities': 'list<IDName>',
         'college_years': 'list<unsigned int>',
         'connections': 'list<IDName>',
@@ -221,7 +222,6 @@ class Targeting(
         'radius': 'string',
         'regions': 'list<IDName>',
         'relationship_statuses': 'list<unsigned int>',
-        'rtb_flag': 'bool',
         'site_category': 'list<string>',
         'targeting_optimization': 'string',
         'user_adclusters': 'list<IDName>',

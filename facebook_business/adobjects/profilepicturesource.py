@@ -48,7 +48,6 @@ class ProfilePictureSource(
         left = 'left'
         right = 'right'
         top = 'top'
-        uri = 'uri'
         url = 'url'
         width = 'width'
         id = 'id'
@@ -66,7 +65,6 @@ class ProfilePictureSource(
         'left': 'unsigned int',
         'right': 'unsigned int',
         'top': 'unsigned int',
-        'uri': 'string',
         'url': 'string',
         'width': 'unsigned int',
         'id': 'string',

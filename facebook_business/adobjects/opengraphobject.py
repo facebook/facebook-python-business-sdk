@@ -62,7 +62,6 @@ class OpenGraphObject(
         title = 'title'
         type = 'type'
         updated_time = 'updated_time'
-        url = 'url'
         video = 'video'
 
     def api_get(self, fields=None, params=None, batch=None, pending=False):
@@ -422,7 +421,6 @@ class OpenGraphObject(
         'title': 'string',
         'type': 'string',
         'updated_time': 'datetime',
-        'url': 'string',
         'video': 'list<Object>',
     }
     @classmethod

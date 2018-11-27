@@ -50,8 +50,6 @@ class ProductCatalog(
         feed_count = 'feed_count'
         flight_catalog_settings = 'flight_catalog_settings'
         id = 'id'
-        image_padding_landscape = 'image_padding_landscape'
-        image_padding_square = 'image_padding_square'
         name = 'name'
         product_count = 'product_count'
         qualified_product_count = 'qualified_product_count'
@@ -77,10 +75,9 @@ class ProductCatalog(
     class Standard:
         google = 'google'
 
-    class ProductType:
+    class ItemType:
         auto = 'AUTO'
         auto_market = 'AUTO_MARKET'
-        auto_offer = 'AUTO_OFFER'
         automotive_model = 'AUTOMOTIVE_MODEL'
         destination = 'DESTINATION'
         flight = 'FLIGHT'
@@ -617,6 +614,43 @@ class ProductCatalog(
             self.assure_call()
             return request.execute()
 
+    def create_destination(self, fields=None, params=None, batch=None, pending=False):
+        from facebook_business.adobjects.destination import Destination
+        param_types = {
+            'destination_id': 'string',
+            'images': 'list<Object>',
+            'types': 'string',
+            'url': 'Object',
+            'name': 'string',
+            'address': 'Object',
+            'currency': 'string',
+            'price': 'unsigned int',
+            'description': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/destinations',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Destination,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Destination, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_event_stats(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.producteventstat import ProductEventStat
         param_types = {
@@ -990,6 +1024,36 @@ class ProductCatalog(
             target_class=Hotel,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=Hotel, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_items_batch(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'requests': 'map',
+            'item_type': 'item_type_enum',
+        }
+        enums = {
+            'item_type_enum': ProductCatalog.ItemType.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/items_batch',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ProductCatalog,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ProductCatalog, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1443,36 +1507,6 @@ class ProductCatalog(
             self.assure_call()
             return request.execute()
 
-    def create_products_batch(self, fields=None, params=None, batch=None, pending=False):
-        param_types = {
-            'requests': 'map',
-            'product_type': 'product_type_enum',
-        }
-        enums = {
-            'product_type_enum': ProductCatalog.ProductType.__dict__.values(),
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/products_batch',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=ProductCatalog,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=ProductCatalog, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def delete_user_permissions(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
             'user': 'int',
@@ -1709,8 +1743,6 @@ class ProductCatalog(
         'feed_count': 'int',
         'flight_catalog_settings': 'FlightCatalogSettings',
         'id': 'string',
-        'image_padding_landscape': 'bool',
-        'image_padding_square': 'bool',
         'name': 'string',
         'product_count': 'int',
         'qualified_product_count': 'unsigned int',
@@ -1724,7 +1756,7 @@ class ProductCatalog(
         field_enum_info['PermittedRoles'] = ProductCatalog.PermittedRoles.__dict__.values()
         field_enum_info['PermittedTasks'] = ProductCatalog.PermittedTasks.__dict__.values()
         field_enum_info['Standard'] = ProductCatalog.Standard.__dict__.values()
-        field_enum_info['ProductType'] = ProductCatalog.ProductType.__dict__.values()
+        field_enum_info['ItemType'] = ProductCatalog.ItemType.__dict__.values()
         field_enum_info['Role'] = ProductCatalog.Role.__dict__.values()
         return field_enum_info
 

@@ -53,8 +53,6 @@ class UnifiedThread(
         senders = 'senders'
         snippet = 'snippet'
         subject = 'subject'
-        tags = 'tags'
-        thread_key = 'thread_key'
         unread_count = 'unread_count'
         updated_time = 'updated_time'
         wallpaper = 'wallpaper'
@@ -235,8 +233,6 @@ class UnifiedThread(
         'senders': 'Object',
         'snippet': 'string',
         'subject': 'string',
-        'tags': 'Object',
-        'thread_key': 'string',
         'unread_count': 'int',
         'updated_time': 'datetime',
         'wallpaper': 'string',

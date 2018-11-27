@@ -89,7 +89,6 @@ class Page(
         general_manager = 'general_manager'
         genre = 'genre'
         global_brand_page_name = 'global_brand_page_name'
-        global_brand_parent_page = 'global_brand_parent_page'
         global_brand_root_id = 'global_brand_root_id'
         has_added_app = 'has_added_app'
         has_whatsapp_business_number = 'has_whatsapp_business_number'
@@ -156,7 +155,6 @@ class Page(
         promotion_eligible = 'promotion_eligible'
         promotion_ineligible_reason = 'promotion_ineligible_reason'
         public_transit = 'public_transit'
-        publisher_space = 'publisher_space'
         rating_count = 'rating_count'
         recipient = 'recipient'
         record_label = 'record_label'
@@ -271,6 +269,7 @@ class Page(
         auto_lookalike = 'AUTO_LOOKALIKE'
         mult_custom_audiences = 'MULT_CUSTOM_AUDIENCES'
         event_custom_audiences = 'EVENT_CUSTOM_AUDIENCES'
+        auto_page_lookalike = 'AUTO_PAGE_LOOKALIKE'
 
     class PermittedTasks:
         manage = 'MANAGE'
@@ -508,6 +507,7 @@ class Page(
             'instant_articles_submit_for_review': 'bool',
             'is_permanently_closed': 'bool',
             'ignore_coordinate_warnings': 'bool',
+            'livechat_wit_validate': 'bool',
             'crossposting_pages': 'list<Object>',
             'begin_crossposting_handshake': 'list<map>',
             'accept_crossposting_handshake': 'list<map>',
@@ -1674,7 +1674,7 @@ class Page(
         param_types = {
             'tags': 'list<string>',
             'folder': 'string',
-            'psid': 'Object',
+            'user_id': 'string',
         }
         enums = {
         }
@@ -2993,38 +2993,6 @@ class Page(
             self.assure_call()
             return request.execute()
 
-    def create_lead_gen_legal_content(self, fields=None, params=None, batch=None, pending=False):
-        from facebook_business.adobjects.leadgenlegalcontent import LeadGenLegalContent
-        param_types = {
-            'privacy_policy': 'Object',
-            'custom_disclaimer': 'Object',
-            'status': 'status_enum',
-        }
-        enums = {
-            'status_enum': LeadGenLegalContent.Status.__dict__.values(),
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/leadgen_legal_content',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=LeadGenLegalContent,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=LeadGenLegalContent, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def get_lead_gen_qualifiers(self, fields=None, params=None, batch=None, pending=False):
         from facebook_business.adobjects.leadgenqualifier import LeadGenQualifier
         param_types = {
@@ -3040,47 +3008,6 @@ class Page(
             target_class=LeadGenQualifier,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=LeadGenQualifier, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_lead_gen_thank_you_page(self, fields=None, params=None, batch=None, pending=False):
-        param_types = {
-            'body': 'string',
-            'business_phone_number': 'string',
-            'button_text': 'string',
-            'button_type': 'button_type_enum',
-            'country_code': 'string',
-            'enable_messenger': 'bool',
-            'title': 'string',
-            'website_url': 'string',
-        }
-        enums = {
-            'button_type_enum': [
-                'VIEW_WEBSITE',
-                'CALL_BUSINESS',
-                'MESSAGE_BUSINESS',
-                'DOWNLOAD',
-            ],
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/leadgen_thank_you_page',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -5571,7 +5498,7 @@ class Page(
         param_types = {
             'tags': 'list<string>',
             'folder': 'string',
-            'psid': 'Object',
+            'user_id': 'string',
         }
         enums = {
         }
@@ -6283,7 +6210,6 @@ class Page(
         'general_manager': 'string',
         'genre': 'string',
         'global_brand_page_name': 'string',
-        'global_brand_parent_page': 'Page',
         'global_brand_root_id': 'string',
         'has_added_app': 'bool',
         'has_whatsapp_business_number': 'bool',
@@ -6350,7 +6276,6 @@ class Page(
         'promotion_eligible': 'bool',
         'promotion_ineligible_reason': 'string',
         'public_transit': 'string',
-        'publisher_space': 'PublisherSpace',
         'rating_count': 'unsigned int',
         'recipient': 'string',
         'record_label': 'string',

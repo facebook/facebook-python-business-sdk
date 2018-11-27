@@ -41,7 +41,6 @@ class AdAccountDeliveryEstimate(
         super(AdAccountDeliveryEstimate, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        bid_estimate = 'bid_estimate'
         daily_outcomes_curve = 'daily_outcomes_curve'
         estimate_dau = 'estimate_dau'
         estimate_mau = 'estimate_mau'
@@ -70,11 +69,11 @@ class AdAccountDeliveryEstimate(
         app_downloads = 'APP_DOWNLOADS'
         landing_page_views = 'LANDING_PAGE_VIEWS'
         value = 'VALUE'
+        thruplay = 'THRUPLAY'
         replies = 'REPLIES'
         derived_events = 'DERIVED_EVENTS'
 
     _field_types = {
-        'bid_estimate': 'Object',
         'daily_outcomes_curve': 'list<OutcomePredictionPoint>',
         'estimate_dau': 'int',
         'estimate_mau': 'int',

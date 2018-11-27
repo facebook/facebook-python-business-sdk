@@ -64,10 +64,10 @@ class AdVideo(
         length = 'length'
         live_audience_count = 'live_audience_count'
         live_status = 'live_status'
-        name = 'name'
         permalink_url = 'permalink_url'
         picture = 'picture'
         place = 'place'
+        premiere_living_room_status = 'premiere_living_room_status'
         privacy = 'privacy'
         published = 'published'
         scheduled_publish_time = 'scheduled_publish_time'
@@ -143,6 +143,7 @@ class AdVideo(
         referenced_sticker_id = 'referenced_sticker_id'
         replace_video_id = 'replace_video_id'
         swap_mode = 'swap_mode'
+        name = 'name'
         chunk_session_id = 'chunk_session_id'
         filename = 'filename'
         filepath = 'filepath'
@@ -234,6 +235,7 @@ class AdVideo(
         bell_poll = 'BELL_POLL'
         civic_proposal_cover_video = 'CIVIC_PROPOSAL_COVER_VIDEO'
         heuristic_cluster_video = 'HEURISTIC_CLUSTER_VIDEO'
+        dco_autogen_video = 'DCO_AUTOGEN_VIDEO'
 
     class ContentCategory:
         beauty_fashion = 'BEAUTY_FASHION'
@@ -1129,10 +1131,10 @@ class AdVideo(
         'length': 'float',
         'live_audience_count': 'unsigned int',
         'live_status': 'string',
-        'name': 'string',
         'permalink_url': 'string',
         'picture': 'string',
         'place': 'Place',
+        'premiere_living_room_status': 'string',
         'privacy': 'Privacy',
         'published': 'bool',
         'scheduled_publish_time': 'datetime',
@@ -1208,6 +1210,7 @@ class AdVideo(
         'referenced_sticker_id': 'string',
         'replace_video_id': 'string',
         'swap_mode': 'SwapMode',
+        'name': 'string',
         'chunk_session_id': 'string',
         'filename': 'file'
     }

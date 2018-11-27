@@ -47,7 +47,6 @@ class AdSet(
     class Field(AbstractObject.Field):
         account_id = 'account_id'
         ad_keywords = 'ad_keywords'
-        adasset_feed = 'adasset_feed'
         adlabels = 'adlabels'
         adset_schedule = 'adset_schedule'
         asset_feed_id = 'asset_feed_id'
@@ -71,19 +70,13 @@ class AdSet(
         destination_type = 'destination_type'
         effective_status = 'effective_status'
         end_time = 'end_time'
-        frequency_cap = 'frequency_cap'
-        frequency_cap_reset_period = 'frequency_cap_reset_period'
         frequency_control_specs = 'frequency_control_specs'
         full_funnel_exploration_mode = 'full_funnel_exploration_mode'
         id = 'id'
         instagram_actor_id = 'instagram_actor_id'
-        is_autobid = 'is_autobid'
-        is_average_price_pacing = 'is_average_price_pacing'
         is_dynamic_creative = 'is_dynamic_creative'
-        is_dynamic_creative_optimization = 'is_dynamic_creative_optimization'
         issues_info = 'issues_info'
         lifetime_budget = 'lifetime_budget'
-        lifetime_frequency_cap = 'lifetime_frequency_cap'
         lifetime_imps = 'lifetime_imps'
         lifetime_min_spend_target = 'lifetime_min_spend_target'
         lifetime_spend_cap = 'lifetime_spend_cap'
@@ -95,7 +88,6 @@ class AdSet(
         recurring_budget_semantics = 'recurring_budget_semantics'
         review_feedback = 'review_feedback'
         rf_prediction_id = 'rf_prediction_id'
-        rtb_flag = 'rtb_flag'
         source_adset = 'source_adset'
         source_adset_id = 'source_adset_id'
         start_time = 'start_time'
@@ -103,13 +95,17 @@ class AdSet(
         targeting = 'targeting'
         time_based_ad_rotation_id_blocks = 'time_based_ad_rotation_id_blocks'
         time_based_ad_rotation_intervals = 'time_based_ad_rotation_intervals'
-        tracking_specs = 'tracking_specs'
         updated_time = 'updated_time'
         use_new_app_click = 'use_new_app_click'
         campaign_spec = 'campaign_spec'
         daily_imps = 'daily_imps'
         date_format = 'date_format'
         execution_options = 'execution_options'
+        frequency_cap = 'frequency_cap'
+        frequency_cap_reset_period = 'frequency_cap_reset_period'
+        is_autobid = 'is_autobid'
+        is_average_price_pacing = 'is_average_price_pacing'
+        lifetime_frequency_cap = 'lifetime_frequency_cap'
         line_number = 'line_number'
         rb_prediction_id = 'rb_prediction_id'
         time_start = 'time_start'
@@ -132,6 +128,7 @@ class AdSet(
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
         video_views = 'VIDEO_VIEWS'
+        thruplay = 'THRUPLAY'
 
     class ConfiguredStatus:
         active = 'ACTIVE'
@@ -173,6 +170,7 @@ class AdSet(
         app_downloads = 'APP_DOWNLOADS'
         landing_page_views = 'LANDING_PAGE_VIEWS'
         value = 'VALUE'
+        thruplay = 'THRUPLAY'
         replies = 'REPLIES'
         derived_events = 'DERIVED_EVENTS'
 
@@ -266,6 +264,7 @@ class AdSet(
 
     def api_get(self, fields=None, params=None, batch=None, pending=False):
         param_types = {
+            'am_call_tags': 'Object',
             'date_preset': 'date_preset_enum',
             'from_adtable': 'bool',
             'time_range': 'Object',
@@ -322,6 +321,7 @@ class AdSet(
             'adlabels': 'list<Object>',
             'bid_amount': 'int',
             'bid_adjustments': 'Object',
+            'bid_constraints': 'Object',
             'bid_strategy': 'bid_strategy_enum',
             'billing_event': 'billing_event_enum',
             'campaign_spec': 'Object',
@@ -490,7 +490,9 @@ class AdSet(
             'execution_options': 'list<execution_options_enum>',
         }
         enums = {
-            'execution_options_enum': AdSet.ExecutionOptions.__dict__.values(),
+            'execution_options_enum': [
+                'validate_only',
+            ],
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -520,7 +522,9 @@ class AdSet(
             'execution_options': 'list<execution_options_enum>',
         }
         enums = {
-            'execution_options_enum': AdSet.ExecutionOptions.__dict__.values(),
+            'execution_options_enum': [
+                'validate_only',
+            ],
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -884,7 +888,6 @@ class AdSet(
     _field_types = {
         'account_id': 'string',
         'ad_keywords': 'string',
-        'adasset_feed': 'AdAssetFeed',
         'adlabels': 'list<AdLabel>',
         'adset_schedule': 'list<DayPart>',
         'asset_feed_id': 'string',
@@ -908,19 +911,13 @@ class AdSet(
         'destination_type': 'string',
         'effective_status': 'EffectiveStatus',
         'end_time': 'datetime',
-        'frequency_cap': 'unsigned int',
-        'frequency_cap_reset_period': 'unsigned int',
         'frequency_control_specs': 'list<AdCampaignFrequencyControlSpecs>',
         'full_funnel_exploration_mode': 'string',
         'id': 'string',
         'instagram_actor_id': 'string',
-        'is_autobid': 'bool',
-        'is_average_price_pacing': 'bool',
         'is_dynamic_creative': 'bool',
-        'is_dynamic_creative_optimization': 'bool',
         'issues_info': 'list<AdCampaignIssuesInfo>',
         'lifetime_budget': 'string',
-        'lifetime_frequency_cap': 'unsigned int',
         'lifetime_imps': 'int',
         'lifetime_min_spend_target': 'string',
         'lifetime_spend_cap': 'string',
@@ -932,7 +929,6 @@ class AdSet(
         'recurring_budget_semantics': 'bool',
         'review_feedback': 'string',
         'rf_prediction_id': 'string',
-        'rtb_flag': 'bool',
         'source_adset': 'AdSet',
         'source_adset_id': 'string',
         'start_time': 'datetime',
@@ -940,13 +936,17 @@ class AdSet(
         'targeting': 'Targeting',
         'time_based_ad_rotation_id_blocks': 'list<list<int>>',
         'time_based_ad_rotation_intervals': 'list<unsigned int>',
-        'tracking_specs': 'string',
         'updated_time': 'datetime',
         'use_new_app_click': 'bool',
         'campaign_spec': 'Object',
         'daily_imps': 'unsigned int',
         'date_format': 'string',
         'execution_options': 'list<ExecutionOptions>',
+        'frequency_cap': 'unsigned int',
+        'frequency_cap_reset_period': 'unsigned int',
+        'is_autobid': 'bool',
+        'is_average_price_pacing': 'bool',
+        'lifetime_frequency_cap': 'unsigned int',
         'line_number': 'unsigned int',
         'rb_prediction_id': 'string',
         'time_start': 'datetime',
