@@ -1,16 +1,21 @@
+from typing import List
 from facebook_business.adobjects.asyncsession import AsyncSession
 from facebook_business.api import FacebookAdsApiBatch, FacebookResponse
 
 
 class FacebookAdsAsyncApiBatch(FacebookAdsApiBatch):
+    def __init__(self, api, success=None, failure=None):
+        super().__init__(api, success, failure)
+        self.names = []
+
     """
     https://developers.facebook.com/docs/graph-api/asynchronous-batch-requests
     """
     def add(
             self,
             method,
-            name,
             relative_path,
+            name=None,
             depends_on=None,
             params=None,
             headers=None,
@@ -44,11 +49,15 @@ class FacebookAdsAsyncApiBatch(FacebookAdsApiBatch):
         Returns:
             A dictionary describing the call.
 
-        TODO: enforce unique batch-names
         """
 
         if name is None or len(name) == 0:
-            raise Exception("Providing a name is required for async batch API!")
+            raise TypeError("Providing a name is required for async batch API!")
+
+        # enforce unique batch-names
+        if name in self.names:
+            raise ValueError("You must provide unique batch names!")
+        self.names.append(name)
 
         call = super(FacebookAdsAsyncApiBatch, self).add(
             method,
@@ -64,13 +73,14 @@ class FacebookAdsAsyncApiBatch(FacebookAdsApiBatch):
         call['name'] = name
 
         # register tasks this batch depends on in order
-        # todo: make sure name is known!
-        if isinstance(depends_on, str) and len(depends_on) != 0:
+        if isinstance(depends_on, str):
+            if depends_on not in self.names:
+                raise ValueError("Register dependent task first when using depends_on!")
             call['depends_on'] = depends_on
 
         return call
 
-    def execute(self) -> dict:
+    def execute(self) -> List[AsyncSession]:
         """Makes a batch call to the async api associated with this batch object.
         For each individual call response, calls the success or failure callback
         function if they were specified.
@@ -79,11 +89,10 @@ class FacebookAdsAsyncApiBatch(FacebookAdsApiBatch):
         functions corresponding to a call should handle its success or failure.
 
         :raises Exception If facebook api call itself was not successful
-        :returns dict Example: "{'async_sessions': [{'id': '1178814898933210', 'name': 'my_batch_name_is_awesome'}]}"
+        :raises ValueError If one of the arguments invalidates method invariants about unique and in order batch-names
+        :returns List[AsyncSession]
 
-        TODO: implement retry logic
         TODO: implement success/error callbacks
-        TODO: return list of failed batch requests (after n-retries)
         """
         if not self._batch:
             return None
@@ -105,4 +114,6 @@ class FacebookAdsAsyncApiBatch(FacebookAdsApiBatch):
         if fb_async_session_response.is_failure():
             raise fb_async_session_response.error()
 
-        return fb_async_session_response.json()
+        async_sessions = fb_async_session_response.json().get('async_sessions', [])
+
+        return [AsyncSession(fbid=session.get('id')) for session in async_sessions]
