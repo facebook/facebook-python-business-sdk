@@ -503,6 +503,7 @@ class FacebookAdsApiBatch(object):
         responses = fb_response.json()
         retry_indices = []
 
+        success_results = []
         for index, response in enumerate(responses):
             if response:
                 body = response.get('body')
@@ -517,6 +518,7 @@ class FacebookAdsApiBatch(object):
                 )
 
                 if inner_fb_response.is_success():
+                    success_results.append(inner_fb_response)
                     if self._success_callbacks[index]:
                         self._success_callbacks[index](inner_fb_response)
                 elif self._failure_callbacks[index]:
@@ -532,9 +534,9 @@ class FacebookAdsApiBatch(object):
                                             for index in retry_indices]
             new_batch._failure_callbacks = [self._failure_callbacks[index]
                                             for index in retry_indices]
-            return new_batch
+            return success_results, new_batch
         else:
-            return None
+            return success_results, None
 
 
 class FacebookRequest:
