@@ -243,6 +243,7 @@ directory.
 ```python
 campaign[adobjects.Campaign.Field.name] = "Potato Campain" # sic
 campaign[adobjects.Campaign.Field.configured_status] = adobjects.Campaign.Status.paused
+campaign[adobjects.Campaign.Field.objective] = adobjects.Campaign.Objective.link_clicks
 ```
 
 Finally, we make the create request by calling the ``remote_create`` method.
