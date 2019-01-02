@@ -15,3 +15,10 @@ class FacebookErrorCodes(object):
 
 class FacebookErrorSubCodes(object):
     already_archived = 1487862
+    invalid_objective_for_targeting = 1815290
+    not_allowed_use_view_tags = 1487283
+    incompatible_instagram_placement = 1772119
+    product_set_invalid = 1487831
+    promoted_post_invalid = 1885180
+    publisher_category_not_valid = 1815298
+    no_custom_audience_ownership = 1487301
