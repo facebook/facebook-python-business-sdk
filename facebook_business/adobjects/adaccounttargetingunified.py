@@ -175,6 +175,7 @@ class AdAccountTargetingUnified(
         prospecting_audience = 'prospecting_audience'
         brand_safety_content_severity_levels = 'brand_safety_content_severity_levels'
         catalog_based_targeting = 'catalog_based_targeting'
+        brand_safety_content_filter_levels = 'brand_safety_content_filter_levels'
 
     class WhitelistedTypes:
         adgroup_id = 'adgroup_id'
@@ -287,6 +288,7 @@ class AdAccountTargetingUnified(
         prospecting_audience = 'prospecting_audience'
         brand_safety_content_severity_levels = 'brand_safety_content_severity_levels'
         catalog_based_targeting = 'catalog_based_targeting'
+        brand_safety_content_filter_levels = 'brand_safety_content_filter_levels'
 
     class Mode:
         best_performing = 'best_performing'

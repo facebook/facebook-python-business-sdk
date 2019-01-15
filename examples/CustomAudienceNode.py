@@ -18,13 +18,13 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebookads.adobjects.customaudience import CustomAudience
-from facebookads.api import FacebookAdsApi
+from facebook_business.adobjects.customaudience import CustomAudience
+from facebook_business.api import FacebookAdsApi
 
 access_token = '<ACCESS_TOKEN>'
 app_secret = '<APP_SECRET>'
 app_id = '<APP_ID>'
-id = '<ID>'
+id = '<CUSTOM_AUDIENCE_ID>'
 FacebookAdsApi.init(access_token=access_token)
 
 fields = [

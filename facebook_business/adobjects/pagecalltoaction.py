@@ -108,6 +108,7 @@ class PageCallToAction(
         shop_on_facebook = 'SHOP_ON_FACEBOOK'
         local_dev_platform = 'LOCAL_DEV_PLATFORM'
         interested = 'INTERESTED'
+        woodhenge_support = 'WOODHENGE_SUPPORT'
 
     class WebDestinationType:
         email = 'EMAIL'
@@ -115,8 +116,12 @@ class PageCallToAction(
         none = 'NONE'
         website = 'WEBSITE'
         shop_on_facebook = 'SHOP_ON_FACEBOOK'
+        become_supporter = 'BECOME_SUPPORTER'
 
-    def api_delete(self, fields=None, params=None, batch=None, pending=False):
+    def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -135,7 +140,7 @@ class PageCallToAction(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -143,7 +148,10 @@ class PageCallToAction(
             self.assure_call()
             return request.execute()
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -162,7 +170,7 @@ class PageCallToAction(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -170,7 +178,10 @@ class PageCallToAction(
             self.assure_call()
             return request.execute()
 
-    def api_update(self, fields=None, params=None, batch=None, pending=False):
+    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'type': 'type_enum',
             'intl_number_with_plus': 'string',
@@ -207,7 +218,7 @@ class PageCallToAction(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request

@@ -44,6 +44,7 @@ class CheckBatchRequestStatus(
         errors = 'errors'
         errors_total_count = 'errors_total_count'
         handle = 'handle'
+        invalid_item_ids = 'invalid_item_ids'
         status = 'status'
         id = 'id'
 
@@ -51,6 +52,7 @@ class CheckBatchRequestStatus(
         'errors': 'list<Object>',
         'errors_total_count': 'int',
         'handle': 'string',
+        'invalid_item_ids': 'list<string>',
         'status': 'string',
         'id': 'string',
     }

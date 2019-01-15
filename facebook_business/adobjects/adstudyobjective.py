@@ -60,7 +60,10 @@ class AdStudyObjective(
         brandlift = 'BRANDLIFT'
         brand = 'BRAND'
 
-    def api_delete(self, fields=None, params=None, batch=None, pending=False):
+    def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -79,7 +82,7 @@ class AdStudyObjective(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -87,7 +90,10 @@ class AdStudyObjective(
             self.assure_call()
             return request.execute()
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'breakdowns': 'list<breakdowns_enum>',
         }
@@ -113,7 +119,7 @@ class AdStudyObjective(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -121,7 +127,10 @@ class AdStudyObjective(
             self.assure_call()
             return request.execute()
 
-    def api_update(self, fields=None, params=None, batch=None, pending=False):
+    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'is_primary': 'bool',
             'name': 'string',
@@ -149,7 +158,7 @@ class AdStudyObjective(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -157,7 +166,41 @@ class AdStudyObjective(
             self.assure_call()
             return request.execute()
 
-    def get_ads_pixels(self, fields=None, params=None, batch=None, pending=False):
+    def get_ad_place_page_sets(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.adplacepageset import AdPlacePageSet
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/ad_place_page_sets',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdPlacePageSet,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdPlacePageSet, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_ads_pixels(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.adspixel import AdsPixel
         param_types = {
         }
@@ -177,7 +220,7 @@ class AdStudyObjective(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -185,7 +228,10 @@ class AdStudyObjective(
             self.assure_call()
             return request.execute()
 
-    def get_applications(self, fields=None, params=None, batch=None, pending=False):
+    def get_applications(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.application import Application
         param_types = {
         }
@@ -205,7 +251,7 @@ class AdStudyObjective(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -213,7 +259,10 @@ class AdStudyObjective(
             self.assure_call()
             return request.execute()
 
-    def get_custom_conversions(self, fields=None, params=None, batch=None, pending=False):
+    def get_custom_conversions(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.customconversion import CustomConversion
         param_types = {
         }
@@ -233,7 +282,7 @@ class AdStudyObjective(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -241,7 +290,10 @@ class AdStudyObjective(
             self.assure_call()
             return request.execute()
 
-    def get_offline_conversion_data_sets(self, fields=None, params=None, batch=None, pending=False):
+    def get_offline_conversion_data_sets(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.offlineconversiondataset import OfflineConversionDataSet
         param_types = {
         }
@@ -261,7 +313,7 @@ class AdStudyObjective(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -269,7 +321,10 @@ class AdStudyObjective(
             self.assure_call()
             return request.execute()
 
-    def get_offsite_pixels(self, fields=None, params=None, batch=None, pending=False):
+    def get_offsite_pixels(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.offsitepixel import OffsitePixel
         param_types = {
         }
@@ -289,7 +344,7 @@ class AdStudyObjective(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request

@@ -18,14 +18,14 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebookads.adobjects.adaccount import AdAccount
-from facebookads.adobjects.adset import AdSet
-from facebookads.api import FacebookAdsApi
+from facebook_business.adobjects.adaccount import AdAccount
+from facebook_business.adobjects.adset import AdSet
+from facebook_business.api import FacebookAdsApi
 
 access_token = '<ACCESS_TOKEN>'
 app_secret = '<APP_SECRET>'
 app_id = '<APP_ID>'
-id = '<ID>'
+id = '<AD_ACCOUNT_ID>'
 FacebookAdsApi.init(access_token=access_token)
 
 fields = [
@@ -33,8 +33,8 @@ fields = [
 params = {
   'name': 'My Offer Claim AdSet',
   'lifetime_budget': '56000',
-  'start_time': '2018-09-20T12:14:33-0700',
-  'end_time': '2018-09-27T12:14:33-0700',
+  'start_time': '2019-01-02T21:34:39-0800',
+  'end_time': '2019-01-09T21:34:39-0800',
   'campaign_id': '<adCampaignLinkClicksID>',
   'billing_event': 'LINK_CLICKS',
   'optimization_goal': 'LINK_CLICKS',
