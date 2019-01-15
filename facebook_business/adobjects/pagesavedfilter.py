@@ -79,6 +79,7 @@ class PageSavedFilter(
         lead_ads_forms = 'LEAD_ADS_FORMS'
         lead_ads_crm_setup = 'LEAD_ADS_CRM_SETUP'
         lead_ads_custom_crm_setup = 'LEAD_ADS_CUSTOM_CRM_SETUP'
+        story_archive = 'STORY_ARCHIVE'
         post_ideas = 'POST_IDEAS'
         published_posts = 'PUBLISHED_POSTS'
         scheduled_posts = 'SCHEDULED_POSTS'
@@ -136,7 +137,6 @@ class PageSavedFilter(
         news_subscriptions_publisher_insights = 'NEWS_SUBSCRIPTIONS_PUBLISHER_INSIGHTS'
         news_subscriptions_publisher_test_users = 'NEWS_SUBSCRIPTIONS_PUBLISHER_TEST_USERS'
         qr_code = 'QR_CODE'
-        organic_pixel = 'ORGANIC_PIXEL'
         attributions = 'ATTRIBUTIONS'
         broadcasted_messages = 'BROADCASTED_MESSAGES'
         branded_content = 'BRANDED_CONTENT'
@@ -150,8 +150,23 @@ class PageSavedFilter(
         news_storylines = 'NEWS_STORYLINES'
         registrations = 'REGISTRATIONS'
         ia_regiwall_settings = 'IA_REGIWALL_SETTINGS'
+        creator_studio_tracked = 'CREATOR_STUDIO_TRACKED'
+        creator_studio_blocked = 'CREATOR_STUDIO_BLOCKED'
+        creator_studio_takedowns = 'CREATOR_STUDIO_TAKEDOWNS'
+        creator_studio_disputes = 'CREATOR_STUDIO_DISPUTES'
+        creator_studio_all_reference_files = 'CREATOR_STUDIO_ALL_REFERENCE_FILES'
+        creator_studio_reference_conflicts = 'CREATOR_STUDIO_REFERENCE_CONFLICTS'
+        creator_studio_reference_resolutions = 'CREATOR_STUDIO_REFERENCE_RESOLUTIONS'
+        creator_studio_reference_possible_conflicts = 'CREATOR_STUDIO_REFERENCE_POSSIBLE_CONFLICTS'
+        creator_studio_published_tracked = 'CREATOR_STUDIO_PUBLISHED_TRACKED'
+        creator_studio_published_blocked = 'CREATOR_STUDIO_PUBLISHED_BLOCKED'
+        creator_studio_published_disputes = 'CREATOR_STUDIO_PUBLISHED_DISPUTES'
+        creator_studio_published_all_reference_files = 'CREATOR_STUDIO_PUBLISHED_ALL_REFERENCE_FILES'
 
-    def api_delete(self, fields=None, params=None, batch=None, pending=False):
+    def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -170,7 +185,7 @@ class PageSavedFilter(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -178,7 +193,10 @@ class PageSavedFilter(
             self.assure_call()
             return request.execute()
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -197,7 +215,7 @@ class PageSavedFilter(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request

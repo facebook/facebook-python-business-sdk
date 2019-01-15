@@ -186,11 +186,14 @@ class ReachFrequencyPrediction(
     def get_endpoint(cls):
         return 'reachfrequencypredictions'
 
-    def api_create(self, parent_id, fields=None, params=None, batch=None, pending=False):
+    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.adobjects.adaccount import AdAccount
-        return AdAccount(api=self._api, fbid=parent_id).create_reach_frequency_prediction(fields, params, batch, pending)
+        return AdAccount(api=self._api, fbid=parent_id).create_reach_frequency_prediction(fields, params, batch, success, failure, pending)
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -209,7 +212,7 @@ class ReachFrequencyPrediction(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request

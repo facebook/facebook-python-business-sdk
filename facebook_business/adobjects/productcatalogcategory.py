@@ -61,9 +61,9 @@ class ProductCatalogCategory(
     def get_endpoint(cls):
         return 'categories'
 
-    def api_create(self, parent_id, fields=None, params=None, batch=None, pending=False):
+    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.adobjects.productcatalog import ProductCatalog
-        return ProductCatalog(api=self._api, fbid=parent_id).create_category(fields, params, batch, pending)
+        return ProductCatalog(api=self._api, fbid=parent_id).create_category(fields, params, batch, success, failure, pending)
 
     _field_types = {
         'criteria_value': 'string',

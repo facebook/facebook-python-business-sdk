@@ -18,14 +18,14 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebookads.adobjects.productcatalog import ProductCatalog
-from facebookads.adobjects.productset import ProductSet
-from facebookads.api import FacebookAdsApi
+from facebook_business.adobjects.productcatalog import ProductCatalog
+from facebook_business.adobjects.productset import ProductSet
+from facebook_business.api import FacebookAdsApi
 
 access_token = '<ACCESS_TOKEN>'
 app_secret = '<APP_SECRET>'
 app_id = '<APP_ID>'
-id = '<ID>'
+id = '<PRODUCT_CATALOG_ID>'
 FacebookAdsApi.init(access_token=access_token)
 
 fields = [

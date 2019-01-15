@@ -25,7 +25,7 @@ from facebook_business.api import FacebookAdsApi
 access_token = '<ACCESS_TOKEN>'
 app_secret = '<APP_SECRET>'
 app_id = '<APP_ID>'
-id = '<ID>'
+id = '<BUSINESS_ID>'
 FacebookAdsApi.init(access_token=access_token)
 
 fields = [
@@ -33,7 +33,6 @@ fields = [
 params = {
   'name': 'offline_event_set',
   'description': 'conversion data used for superbowl campaign',
-  'data_origin': 'DIRECTLY_FROM_PEOPLE',
 }
 print Business(id).create_offline_conversion_data_set(
   fields=fields,

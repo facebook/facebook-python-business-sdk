@@ -42,10 +42,12 @@ class AdCampaignGroupMetricsMetadata(
 
     class Field(AbstractObject.Field):
         budget_optimization = 'budget_optimization'
+        duplication_flow_tips = 'duplication_flow_tips'
         id = 'id'
 
     _field_types = {
         'budget_optimization': 'list<string>',
+        'duplication_flow_tips': 'list<string>',
         'id': 'string',
     }
     @classmethod

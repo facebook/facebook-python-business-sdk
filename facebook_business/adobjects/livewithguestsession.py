@@ -46,7 +46,10 @@ class LiveWithGuestSession(
         participant_call_states = 'participant_call_states'
         server_sdp = 'server_sdp'
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -65,7 +68,7 @@ class LiveWithGuestSession(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -73,7 +76,10 @@ class LiveWithGuestSession(
             self.assure_call()
             return request.execute()
 
-    def create_hangup(self, fields=None, params=None, batch=None, pending=False):
+    def create_hangup(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -92,7 +98,7 @@ class LiveWithGuestSession(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -100,7 +106,10 @@ class LiveWithGuestSession(
             self.assure_call()
             return request.execute()
 
-    def create_join(self, fields=None, params=None, batch=None, pending=False):
+    def create_join(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'offer_sdp': 'string',
         }
@@ -120,7 +129,7 @@ class LiveWithGuestSession(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -128,7 +137,10 @@ class LiveWithGuestSession(
             self.assure_call()
             return request.execute()
 
-    def create_ring_user(self, fields=None, params=None, batch=None, pending=False):
+    def create_ring_user(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'user_ids': 'list<unsigned int>',
         }
@@ -148,7 +160,7 @@ class LiveWithGuestSession(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
