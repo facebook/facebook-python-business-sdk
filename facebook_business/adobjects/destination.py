@@ -100,7 +100,7 @@ class Destination(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'description': 'string',
-            'url': 'Object',
+            'url': 'string',
             'images': 'list<Object>',
             'currency': 'string',
             'price': 'unsigned int',

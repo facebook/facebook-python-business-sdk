@@ -117,40 +117,6 @@ class Event(
         onsite_ticket = 'ONSITE_TICKET'
         rsvp = 'RSVP'
 
-    def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'eid': 'string',
-            'cancel_message': 'string',
-            'action_context': 'Object',
-            'app_context': 'Object',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='DELETE',
-            endpoint='/',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -162,40 +128,6 @@ class Event(
         request = FacebookRequest(
             node_id=self['id'],
             method='GET',
-            endpoint='/',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=Event,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'eid': 'string',
-            'event_info': 'Object',
-            'action_context': 'Object',
-            'app_context': 'Object',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
@@ -511,7 +443,7 @@ class Event(
             'call_to_action': 'Object',
             'time_since_original_post': 'unsigned int',
             'client_mutation_id': 'string',
-            'privacy': 'Object',
+            'privacy': 'string',
             'composer_session_id': 'string',
             'content_attachment': 'string',
             'actions': 'Object',
@@ -573,7 +505,7 @@ class Event(
             'text_format_preset_id': 'string',
             'cta_link': 'string',
             'cta_type': 'string',
-            'place_list_data': 'Object',
+            'place_list_data': 'list',
             'formatting': 'formatting_enum',
             'target_surface': 'target_surface_enum',
             'adaptive_type': 'string',
@@ -746,7 +678,7 @@ class Event(
             'save_vod': 'bool',
             'published': 'bool',
             'status': 'status_enum',
-            'privacy': 'Object',
+            'privacy': 'string',
             'stop_on_delete_stream': 'bool',
             'stream_type': 'stream_type_enum',
             'content_tags': 'list<string>',
@@ -935,7 +867,6 @@ class Event(
             'uid': 'int',
             'profile_id': 'int',
             'target_id': 'int',
-            'checkin_id': 'Object',
             'vault_image_id': 'string',
             'tags': 'list<Object>',
             'place': 'Object',
@@ -947,7 +878,7 @@ class Event(
             'og_icon_id': 'string',
             'og_suggestion_mechanism': 'string',
             'og_set_profile_badge': 'bool',
-            'privacy': 'Object',
+            'privacy': 'string',
             'targeting': 'Object',
             'feed_targeting': 'Object',
             'no_story': 'bool',

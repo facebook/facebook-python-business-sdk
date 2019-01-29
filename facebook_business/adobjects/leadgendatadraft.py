@@ -143,7 +143,7 @@ class LeadGenDataDraft(
             'custom_disclaimer': 'Object',
             'context_card': 'Object',
             'thank_you_page': 'map',
-            'tracking_parameters': 'Object',
+            'tracking_parameters': 'map',
             'question_page_custom_headline': 'string',
             'is_optimized_for_quality': 'bool',
             'status': 'status_enum',

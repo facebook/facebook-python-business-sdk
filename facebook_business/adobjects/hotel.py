@@ -55,6 +55,7 @@ class Hotel(
         margin_level = 'margin_level'
         name = 'name'
         phone = 'phone'
+        sale_price = 'sale_price'
         sanitized_images = 'sanitized_images'
         star_rating = 'star_rating'
         url = 'url'
@@ -259,6 +260,7 @@ class Hotel(
         'margin_level': 'unsigned int',
         'name': 'string',
         'phone': 'string',
+        'sale_price': 'string',
         'sanitized_images': 'list<string>',
         'star_rating': 'float',
         'url': 'string',

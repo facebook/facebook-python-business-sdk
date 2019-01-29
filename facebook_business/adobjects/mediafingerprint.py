@@ -129,7 +129,7 @@ class MediaFingerprint(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'title': 'string',
-            'metadata': 'Object',
+            'metadata': 'list',
             'universal_content_id': 'string',
         }
         enums = {

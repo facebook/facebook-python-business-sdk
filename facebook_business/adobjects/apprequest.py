@@ -118,7 +118,7 @@ class AppRequest(
         'created_time': 'datetime',
         'data': 'string',
         'from': 'User',
-        'id': 'Object',
+        'id': 'string',
         'message': 'string',
         'object': 'Object',
         'to': 'User',

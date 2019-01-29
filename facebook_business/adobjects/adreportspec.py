@@ -186,7 +186,7 @@ class AdReportSpec(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'time_ranges': 'Object',
+            'time_ranges': 'list',
             'data_columns': 'list<string>',
             'actions_group_by': 'list<actions_group_by_enum>',
             'filters': 'list<Object>',

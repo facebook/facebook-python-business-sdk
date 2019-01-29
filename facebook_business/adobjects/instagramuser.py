@@ -183,7 +183,7 @@ class InstagramUser(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'business': 'Object',
+            'business': 'string',
             'user': 'Object',
         }
         enums = {
@@ -216,7 +216,7 @@ class InstagramUser(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.assigneduser import AssignedUser
         param_types = {
-            'business': 'Object',
+            'business': 'string',
         }
         enums = {
         }
@@ -247,7 +247,7 @@ class InstagramUser(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'business': 'Object',
+            'business': 'string',
             'user': 'Object',
             'role': 'role_enum',
         }
@@ -377,7 +377,7 @@ class InstagramUser(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'business': 'Object',
+            'business': 'string',
             'user': 'Object',
             'role': 'role_enum',
         }

@@ -341,6 +341,7 @@ class ProductCatalog(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'requests': 'list<map>',
+            'allow_upsert': 'bool',
         }
         enums = {
         }
@@ -675,7 +676,7 @@ class ProductCatalog(
             'destination_id': 'string',
             'images': 'list<Object>',
             'types': 'string',
-            'url': 'Object',
+            'url': 'string',
             'name': 'string',
             'address': 'Object',
             'currency': 'string',
@@ -875,7 +876,7 @@ class ProductCatalog(
             'origin_airport': 'string',
             'destination_airport': 'string',
             'description': 'string',
-            'url': 'Object',
+            'url': 'string',
             'currency': 'string',
             'price': 'unsigned int',
         }
@@ -1135,6 +1136,7 @@ class ProductCatalog(
         param_types = {
             'requests': 'map',
             'item_type': 'item_type_enum',
+            'allow_upsert': 'bool',
         }
         enums = {
             'item_type_enum': ProductCatalog.ItemType.__dict__.values(),
@@ -1278,7 +1280,6 @@ class ProductCatalog(
             'deletion_enabled': 'bool',
             'feed_type': 'feed_type_enum',
             'file_name': 'string',
-            'quoted_fields': 'bool',
             'rules': 'list<string>',
         }
         enums = {
@@ -1556,14 +1557,14 @@ class ProductCatalog(
             'currency': 'string',
             'condition': 'condition_enum',
             'description': 'string',
-            'image_url': 'Object',
+            'image_url': 'string',
             'name': 'string',
             'price': 'unsigned int',
             'product_type': 'string',
-            'url': 'Object',
+            'url': 'string',
             'visibility': 'visibility_enum',
             'additional_image_urls': 'list<string>',
-            'additional_variant_attributes': 'Object',
+            'additional_variant_attributes': 'map',
             'brand': 'string',
             'category': 'string',
             'checkout_url': 'string',
@@ -1579,11 +1580,11 @@ class ProductCatalog(
             'gtin': 'string',
             'inventory': 'unsigned int',
             'manufacturer_part_number': 'string',
-            'mobile_link': 'Object',
+            'mobile_link': 'string',
             'material': 'string',
             'offer_price_amount': 'unsigned int',
-            'offer_price_end_date': 'Object',
-            'offer_price_start_date': 'Object',
+            'offer_price_end_date': 'datetime',
+            'offer_price_start_date': 'datetime',
             'ordering_index': 'unsigned int',
             'pattern': 'string',
             'sale_price': 'unsigned int',
@@ -1676,7 +1677,7 @@ class ProductCatalog(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.productcataloguserpermissions import ProductCatalogUserPermissions
         param_types = {
-            'business': 'Object',
+            'business': 'string',
             'user': 'Object',
         }
         enums = {

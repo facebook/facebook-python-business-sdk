@@ -46,7 +46,7 @@ class CustomAudienceSharingStatus(
         id = 'id'
 
     _field_types = {
-        'sharing_relationship_id': 'Object',
+        'sharing_relationship_id': 'unsigned int',
         'status': 'string',
         'id': 'string',
     }

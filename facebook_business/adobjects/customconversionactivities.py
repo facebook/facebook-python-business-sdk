@@ -53,7 +53,7 @@ class CustomConversionActivities(
         conversion_update = 'conversion_update'
 
     _field_types = {
-        'app_id': 'Object',
+        'app_id': 'unsigned int',
         'data': 'string',
         'event_type': 'string',
         'timestamp': 'datetime',

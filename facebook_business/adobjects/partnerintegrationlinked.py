@@ -61,22 +61,26 @@ class PartnerIntegrationLinked(
         appsflyer = 'appsflyer'
         avana = 'avana'
         backer_founder = 'backer_founder'
+        bandzoogle = 'bandzoogle'
         big_commerce = 'big_commerce'
         cart_3d = 'cart_3d'
         value_default = 'default'
         drupal = 'drupal'
         ec_cube3 = 'ec_cube3'
+        ecwid = 'ecwid'
         eventbrite = 'eventbrite'
         feedonomics = 'feedonomics'
         foodkit = 'foodkit'
         google_tag_manager = 'google_tag_manager'
         haravan = 'haravan'
+        hubspot = 'hubspot'
         infusionsoft_zap = 'infusionsoft_zap'
         intern = 'intern'
         invoca = 'invoca'
         jimdo = 'jimdo'
         joomla = 'joomla'
         jumpseller = 'jumpseller'
+        kajabi = 'kajabi'
         kraftly = 'kraftly'
         magento = 'magento'
         magento_2 = 'magento_2'
@@ -89,6 +93,7 @@ class PartnerIntegrationLinked(
         productsup = 'productsup'
         ruby_on_rails = 'ruby_on_rails'
         riversoft = 'riversoft'
+        salesforce = 'salesforce'
         salesforce_zap = 'salesforce_zap'
         segment = 'segment'
         shopify = 'shopify'
@@ -101,6 +106,7 @@ class PartnerIntegrationLinked(
         test = 'test'
         verifone = 'verifone'
         waca = 'waca'
+        webflow = 'webflow'
         weebly = 'weebly'
         wix = 'wix'
         woocommerce = 'woocommerce'
@@ -199,13 +205,13 @@ class PartnerIntegrationLinked(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'ads_pixel_id': 'Object',
-            'application_id': 'Object',
+            'ads_pixel_id': 'string',
+            'application_id': 'string',
             'completed_integration_types': 'list<completed_integration_types_enum>',
             'name': 'string',
-            'oauth_partner_integration_id': 'Object',
-            'offline_conversion_data_set_id': 'Object',
-            'product_catalog_id': 'Object',
+            'oauth_partner_integration_id': 'string',
+            'offline_conversion_data_set_id': 'string',
+            'product_catalog_id': 'string',
             'setup_status': 'setup_status_enum',
         }
         enums = {

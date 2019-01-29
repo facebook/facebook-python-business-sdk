@@ -101,11 +101,6 @@ class AdSet(
         daily_imps = 'daily_imps'
         date_format = 'date_format'
         execution_options = 'execution_options'
-        frequency_cap = 'frequency_cap'
-        frequency_cap_reset_period = 'frequency_cap_reset_period'
-        is_autobid = 'is_autobid'
-        is_average_price_pacing = 'is_average_price_pacing'
-        lifetime_frequency_cap = 'lifetime_frequency_cap'
         line_number = 'line_number'
         rb_prediction_id = 'rb_prediction_id'
         time_start = 'time_start'
@@ -272,7 +267,7 @@ class AdSet(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'am_call_tags': 'Object',
+            'am_call_tags': 'map',
             'date_preset': 'date_preset_enum',
             'from_adtable': 'bool',
             'time_range': 'Object',
@@ -332,7 +327,7 @@ class AdSet(
             'adlabels': 'list<Object>',
             'bid_amount': 'int',
             'bid_adjustments': 'Object',
-            'bid_constraints': 'Object',
+            'bid_constraints': 'map<string, Object>',
             'bid_strategy': 'bid_strategy_enum',
             'billing_event': 'billing_event_enum',
             'campaign_spec': 'Object',
@@ -347,12 +342,7 @@ class AdSet(
             'destination_type': 'destination_type_enum',
             'end_time': 'datetime',
             'execution_options': 'list<execution_options_enum>',
-            'frequency_cap': 'unsigned int',
-            'frequency_cap_reset_period': 'unsigned int',
-            'is_autobid': 'bool',
-            'is_average_price_pacing': 'bool',
             'lifetime_budget': 'unsigned int',
-            'lifetime_frequency_cap': 'unsigned int',
             'lifetime_imps': 'unsigned int',
             'lifetime_min_spend_target': 'unsigned int',
             'lifetime_spend_cap': 'unsigned int',
@@ -513,7 +503,9 @@ class AdSet(
             'execution_options': 'list<execution_options_enum>',
         }
         enums = {
-            'execution_options_enum': AdSet.ExecutionOptions.__dict__.values(),
+            'execution_options_enum': [
+                'validate_only',
+            ],
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -546,7 +538,9 @@ class AdSet(
             'execution_options': 'list<execution_options_enum>',
         }
         enums = {
-            'execution_options_enum': AdSet.ExecutionOptions.__dict__.values(),
+            'execution_options_enum': [
+                'validate_only',
+            ],
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -936,7 +930,7 @@ class AdSet(
 
     _field_types = {
         'account_id': 'string',
-        'ad_keywords': 'string',
+        'ad_keywords': 'AdKeywords',
         'adlabels': 'list<AdLabel>',
         'adset_schedule': 'list<DayPart>',
         'asset_feed_id': 'string',
@@ -991,11 +985,6 @@ class AdSet(
         'daily_imps': 'unsigned int',
         'date_format': 'string',
         'execution_options': 'list<ExecutionOptions>',
-        'frequency_cap': 'unsigned int',
-        'frequency_cap_reset_period': 'unsigned int',
-        'is_autobid': 'bool',
-        'is_average_price_pacing': 'bool',
-        'lifetime_frequency_cap': 'unsigned int',
         'line_number': 'unsigned int',
         'rb_prediction_id': 'string',
         'time_start': 'datetime',

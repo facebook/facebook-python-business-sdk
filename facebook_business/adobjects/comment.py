@@ -357,7 +357,7 @@ class Comment(
         'comment_count': 'unsigned int',
         'created_time': 'datetime',
         'from': 'Object',
-        'id': 'Object',
+        'id': 'string',
         'is_hidden': 'bool',
         'is_private': 'bool',
         'like_count': 'unsigned int',

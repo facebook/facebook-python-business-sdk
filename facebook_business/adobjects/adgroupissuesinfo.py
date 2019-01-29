@@ -44,12 +44,14 @@ class AdgroupIssuesInfo(
         error_code = 'error_code'
         error_message = 'error_message'
         error_summary = 'error_summary'
+        level = 'level'
         id = 'id'
 
     _field_types = {
         'error_code': 'int',
         'error_message': 'string',
         'error_summary': 'string',
+        'level': 'string',
         'id': 'string',
     }
     @classmethod

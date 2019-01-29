@@ -223,7 +223,7 @@ class PagePost(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'privacy': 'Object',
+            'privacy': 'string',
             'composer_session_id': 'string',
             'message': 'string',
             'is_hidden': 'bool',
@@ -465,7 +465,6 @@ class PagePost(
             'until': 'datetime',
             'metric': 'list<Object>',
             'period': 'period_enum',
-            'show_permission_error': 'bool',
             'date_preset': 'date_preset_enum',
         }
         enums = {
