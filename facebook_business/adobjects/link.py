@@ -55,13 +55,6 @@ class Link(
         privacy = 'privacy'
         via = 'via'
 
-    class UnpublishedContentType:
-        scheduled = 'SCHEDULED'
-        draft = 'DRAFT'
-        ads_post = 'ADS_POST'
-        inline_created = 'INLINE_CREATED'
-        published = 'PUBLISHED'
-
     def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -386,7 +379,6 @@ class Link(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['UnpublishedContentType'] = Link.UnpublishedContentType.__dict__.values()
         return field_enum_info
 
 

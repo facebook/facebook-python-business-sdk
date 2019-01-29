@@ -112,6 +112,7 @@ class CustomAudience(
 
     class ClaimObjective:
         automotive_model = 'AUTOMOTIVE_MODEL'
+        collaborative_ads = 'COLLABORATIVE_ADS'
         home_listing = 'HOME_LISTING'
         media_title = 'MEDIA_TITLE'
         product = 'PRODUCT'
@@ -259,7 +260,7 @@ class CustomAudience(
             'event_source_group': 'string',
             'product_set_id': 'string',
             'event_sources': 'list<map>',
-            'study_spec': 'Object',
+            'study_spec': 'map',
         }
         enums = {
             'customer_file_source_enum': CustomAudience.CustomerFileSource.__dict__.values(),

@@ -63,6 +63,7 @@ class AdAccountCreationRequest(
         is_test = 'is_test'
         is_under_authorization = 'is_under_authorization'
         legal_entity_name_in_local_language = 'legal_entity_name_in_local_language'
+        oe_request_id = 'oe_request_id'
         official_website_url = 'official_website_url'
         planning_agency_business = 'planning_agency_business'
         planning_agency_business_id = 'planning_agency_business_id'
@@ -320,14 +321,14 @@ class AdAccountCreationRequest(
             'chinese_legal_entity_name': 'string',
             'address_in_chinese': 'string',
             'address_in_english': 'Object',
-            'official_website_url': 'Object',
+            'official_website_url': 'string',
             'business_registration_id': 'string',
             'vertical': 'vertical_enum',
             'subvertical': 'subvertical_enum',
-            'promotable_page_urls': 'list<Object>',
+            'promotable_page_urls': 'list<string>',
             'promotable_page_ids': 'list<string>',
             'promotable_app_ids': 'list<string>',
-            'promotable_urls': 'list<Object>',
+            'promotable_urls': 'list<string>',
             'contact': 'Object',
             'additional_comment': 'string',
             'is_smb': 'bool',
@@ -398,20 +399,20 @@ class AdAccountCreationRequest(
         param_types = {
             'ad_accounts_info': 'list<Object>',
             'business_registration': 'file',
-            'planning_agency_business_id': 'Object',
+            'planning_agency_business_id': 'string',
             'english_legal_entity_name': 'string',
             'address_in_english': 'Object',
-            'official_website_url': 'Object',
+            'official_website_url': 'string',
             'business_registration_id': 'string',
             'vertical': 'vertical_enum',
             'subvertical': 'subvertical_enum',
-            'promotable_page_urls': 'list<Object>',
+            'promotable_page_urls': 'list<string>',
             'promotable_page_ids': 'list<int>',
-            'promotable_app_ids': 'list<Object>',
-            'promotable_urls': 'list<Object>',
+            'promotable_app_ids': 'list<string>',
+            'promotable_urls': 'list<string>',
             'contact': 'Object',
             'additional_comment': 'string',
-            'advertiser_business_id': 'Object',
+            'advertiser_business_id': 'string',
             'address_in_local_language': 'string',
             'legal_entity_name_in_local_language': 'string',
         }
@@ -464,6 +465,7 @@ class AdAccountCreationRequest(
         'is_test': 'bool',
         'is_under_authorization': 'bool',
         'legal_entity_name_in_local_language': 'string',
+        'oe_request_id': 'string',
         'official_website_url': 'string',
         'planning_agency_business': 'Business',
         'planning_agency_business_id': 'string',
@@ -476,7 +478,7 @@ class AdAccountCreationRequest(
         'time_created': 'datetime',
         'vertical': 'string',
         'business_registration': 'file',
-        'promotable_page_urls': 'list<Object>',
+        'promotable_page_urls': 'list<string>',
         'advertiser_business_id': 'string',
     }
     @classmethod

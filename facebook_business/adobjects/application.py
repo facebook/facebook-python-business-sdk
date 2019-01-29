@@ -480,7 +480,7 @@ class Application(
             'uid': 'int',
             'owner_access_token': 'string',
             'installed': 'bool',
-            'permissions': 'Object',
+            'permissions': 'list<Permission>',
             'name': 'string',
             'minor': 'bool',
             'type': 'type_enum',
@@ -623,8 +623,8 @@ class Application(
             'metrics': 'list<metrics_enum>',
             'ordering_column': 'ordering_column_enum',
             'ordering_type': 'ordering_type_enum',
-            'since': 'Object',
-            'until': 'Object',
+            'since': 'datetime',
+            'until': 'datetime',
         }
         enums = {
             'aggregation_period_enum': Application.AggregationPeriod.__dict__.values(),
@@ -667,8 +667,8 @@ class Application(
             'limit': 'int',
             'ordering_column': 'ordering_column_enum',
             'ordering_type': 'ordering_type_enum',
-            'since': 'Object',
-            'until': 'Object',
+            'since': 'datetime',
+            'until': 'datetime',
         }
         enums = {
             'aggregation_period_enum': Application.AggregationPeriod.__dict__.values(),
@@ -987,7 +987,7 @@ class Application(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.group import Group
         param_types = {
-            'group_id': 'Object',
+            'group_id': 'string',
         }
         enums = {
         }
@@ -1000,45 +1000,6 @@ class Application(
             target_class=Group,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=Group, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_app_link_host(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'android': 'Object',
-            'ios': 'Object',
-            'ipad': 'Object',
-            'iphone': 'Object',
-            'web': 'Object',
-            'windows_phone': 'Object',
-            'windows': 'Object',
-            'windows_universal': 'Object',
-            'name': 'string',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/app_link_hosts',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1911,7 +1872,7 @@ class Application(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'name': 'string',
-            'player_id': 'Object',
+            'player_id': 'string',
         }
         enums = {
         }
@@ -1943,7 +1904,7 @@ class Application(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'name': 'string',
-            'reset_time': 'Object',
+            'reset_time': 'datetime',
         }
         enums = {
         }
@@ -1976,7 +1937,7 @@ class Application(
         param_types = {
             'name': 'string',
             'score': 'unsigned int',
-            'player_id': 'Object',
+            'player_id': 'string',
             'extra_data': 'string',
         }
         enums = {
@@ -2038,7 +1999,7 @@ class Application(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'base_url': 'Object',
+            'base_url': 'string',
         }
         enums = {
         }
@@ -2556,7 +2517,7 @@ class Application(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'permission': 'Object',
+            'permission': 'list<Permission>',
             'status': 'list<status_enum>',
             'android_key_hash': 'string',
             'ios_bundle_id': 'string',
@@ -2602,7 +2563,6 @@ class Application(
             'uid': 'int',
             'profile_id': 'int',
             'target_id': 'int',
-            'checkin_id': 'Object',
             'vault_image_id': 'string',
             'tags': 'list<Object>',
             'place': 'Object',
@@ -2614,7 +2574,7 @@ class Application(
             'og_icon_id': 'string',
             'og_suggestion_mechanism': 'string',
             'og_set_profile_badge': 'bool',
-            'privacy': 'Object',
+            'privacy': 'string',
             'targeting': 'Object',
             'feed_targeting': 'Object',
             'no_story': 'bool',
@@ -3058,7 +3018,7 @@ class Application(
         param_types = {
             'object': 'string',
             'fields': 'list<string>',
-            'callback_url': 'Object',
+            'callback_url': 'string',
             'verify_token': 'string',
             'include_values': 'bool',
         }

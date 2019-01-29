@@ -44,7 +44,6 @@ class OfflineConversionDataSet(
         business = 'business'
         config = 'config'
         creation_time = 'creation_time'
-        data_origin = 'data_origin'
         description = 'description'
         duplicate_entries = 'duplicate_entries'
         enable_auto_assign_to_accounts = 'enable_auto_assign_to_accounts'
@@ -62,12 +61,6 @@ class OfflineConversionDataSet(
         usage = 'usage'
         valid_entries = 'valid_entries'
         auto_assign_to_new_accounts_only = 'auto_assign_to_new_accounts_only'
-
-    class DataOrigin:
-        directly_from_people = 'DIRECTLY_FROM_PEOPLE'
-        people_and_partners = 'PEOPLE_AND_PARTNERS'
-        directly_from_partners = 'DIRECTLY_FROM_PARTNERS'
-        none = 'NONE'
 
     class PermittedRoles:
         admin = 'ADMIN'
@@ -161,12 +154,10 @@ class OfflineConversionDataSet(
         param_types = {
             'name': 'string',
             'description': 'string',
-            'data_origin': 'data_origin_enum',
             'enable_auto_assign_to_accounts': 'bool',
             'auto_assign_to_new_accounts_only': 'bool',
         }
         enums = {
-            'data_origin_enum': OfflineConversionDataSet.DataOrigin.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -617,8 +608,8 @@ class OfflineConversionDataSet(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'upload_tag': 'string',
-            'start_time': 'Object',
-            'end_time': 'Object',
+            'start_time': 'datetime',
+            'end_time': 'datetime',
             'sort_by': 'sort_by_enum',
             'order': 'order_enum',
         }
@@ -697,7 +688,7 @@ class OfflineConversionDataSet(
         param_types = {
             'user': 'int',
             'email': 'string',
-            'business': 'Object',
+            'business': 'string',
         }
         enums = {
         }
@@ -728,7 +719,7 @@ class OfflineConversionDataSet(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'business': 'Object',
+            'business': 'string',
         }
         enums = {
         }
@@ -761,7 +752,7 @@ class OfflineConversionDataSet(
         param_types = {
             'user': 'int',
             'role': 'role_enum',
-            'business': 'Object',
+            'business': 'string',
         }
         enums = {
             'role_enum': OfflineConversionDataSet.Role.__dict__.values(),
@@ -886,7 +877,6 @@ class OfflineConversionDataSet(
         'business': 'Business',
         'config': 'string',
         'creation_time': 'datetime',
-        'data_origin': 'string',
         'description': 'string',
         'duplicate_entries': 'int',
         'enable_auto_assign_to_accounts': 'bool',
@@ -908,7 +898,6 @@ class OfflineConversionDataSet(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['DataOrigin'] = OfflineConversionDataSet.DataOrigin.__dict__.values()
         field_enum_info['PermittedRoles'] = OfflineConversionDataSet.PermittedRoles.__dict__.values()
         field_enum_info['RelationshipType'] = OfflineConversionDataSet.RelationshipType.__dict__.values()
         field_enum_info['Role'] = OfflineConversionDataSet.Role.__dict__.values()

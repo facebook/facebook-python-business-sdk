@@ -107,10 +107,6 @@ class LiveVideo(
         regular = 'REGULAR'
         ambient = 'AMBIENT'
 
-    class Type:
-        tagged = 'tagged'
-        uploaded = 'uploaded'
-
     class LiveCommentModerationSetting:
         follower = 'FOLLOWER'
         slow = 'SLOW'
@@ -186,7 +182,7 @@ class LiveVideo(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'content_tags': 'list<string>',
-            'privacy': 'Object',
+            'privacy': 'string',
             'title': 'string',
             'description': 'string',
             'embeddable': 'bool',
@@ -707,7 +703,6 @@ class LiveVideo(
         field_enum_info['Status'] = LiveVideo.Status.__dict__.values()
         field_enum_info['StereoscopicMode'] = LiveVideo.StereoscopicMode.__dict__.values()
         field_enum_info['StreamType'] = LiveVideo.StreamType.__dict__.values()
-        field_enum_info['Type'] = LiveVideo.Type.__dict__.values()
         field_enum_info['LiveCommentModerationSetting'] = LiveVideo.LiveCommentModerationSetting.__dict__.values()
         return field_enum_info
 

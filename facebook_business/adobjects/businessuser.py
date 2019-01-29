@@ -61,7 +61,6 @@ class BusinessUser(
         ads_rights_reviewer = 'ADS_RIGHTS_REVIEWER'
         admin = 'ADMIN'
         employee = 'EMPLOYEE'
-        fb_employee_sales_rep = 'FB_EMPLOYEE_SALES_REP'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod

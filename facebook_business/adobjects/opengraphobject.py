@@ -99,7 +99,7 @@ class OpenGraphObject(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'locale': 'Object',
+            'locale': 'list',
             'object': 'Object',
             'action_properties': 'Object',
         }
@@ -287,7 +287,6 @@ class OpenGraphObject(
             'uid': 'int',
             'profile_id': 'int',
             'target_id': 'int',
-            'checkin_id': 'Object',
             'vault_image_id': 'string',
             'tags': 'list<Object>',
             'place': 'Object',
@@ -299,7 +298,7 @@ class OpenGraphObject(
             'og_icon_id': 'string',
             'og_suggestion_mechanism': 'string',
             'og_set_profile_badge': 'bool',
-            'privacy': 'Object',
+            'privacy': 'string',
             'targeting': 'Object',
             'feed_targeting': 'Object',
             'no_story': 'bool',

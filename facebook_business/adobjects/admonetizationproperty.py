@@ -151,8 +151,8 @@ class AdMonetizationProperty(
             'metrics': 'list<metrics_enum>',
             'ordering_column': 'ordering_column_enum',
             'ordering_type': 'ordering_type_enum',
-            'since': 'Object',
-            'until': 'Object',
+            'since': 'datetime',
+            'until': 'datetime',
         }
         enums = {
             'aggregation_period_enum': AdMonetizationProperty.AggregationPeriod.__dict__.values(),
@@ -195,8 +195,8 @@ class AdMonetizationProperty(
             'limit': 'int',
             'ordering_column': 'ordering_column_enum',
             'ordering_type': 'ordering_type_enum',
-            'since': 'Object',
-            'until': 'Object',
+            'since': 'datetime',
+            'until': 'datetime',
         }
         enums = {
             'aggregation_period_enum': AdMonetizationProperty.AggregationPeriod.__dict__.values(),

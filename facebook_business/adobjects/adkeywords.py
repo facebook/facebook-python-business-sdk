@@ -32,22 +32,26 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdCampaignGroupMetricsMetadata(
+class AdKeywords(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isAdCampaignGroupMetricsMetadata = True
-        super(AdCampaignGroupMetricsMetadata, self).__init__(fbid, parent_id, api)
+        self._isAdKeywords = True
+        super(AdKeywords, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        budget_optimization = 'budget_optimization'
-        duplication_flow_tips = 'duplication_flow_tips'
+        brands = 'brands'
+        product_categories = 'product_categories'
+        product_names = 'product_names'
+        search_terms = 'search_terms'
         id = 'id'
 
     _field_types = {
-        'budget_optimization': 'list<string>',
-        'duplication_flow_tips': 'list<string>',
+        'brands': 'list<string>',
+        'product_categories': 'list<string>',
+        'product_names': 'list<string>',
+        'search_terms': 'list<string>',
         'id': 'string',
     }
     @classmethod

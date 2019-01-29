@@ -52,7 +52,7 @@ class CanvasAdSettings(
 
     _field_types = {
         'is_canvas_collection_eligible': 'bool',
-        'lead_form_created_time': 'Object',
+        'lead_form_created_time': 'unsigned int',
         'lead_form_name': 'string',
         'lead_gen_form_id': 'string',
         'leads_count': 'int',

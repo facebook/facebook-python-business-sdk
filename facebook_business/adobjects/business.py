@@ -179,20 +179,12 @@ class Business(
         advertiser = 'ADVERTISER'
         insights_analyst = 'INSIGHTS_ANALYST'
 
-    class PermittedRoles:
-        manager = 'MANAGER'
-        content_creator = 'CONTENT_CREATOR'
-        moderator = 'MODERATOR'
-        advertiser = 'ADVERTISER'
-        insights_analyst = 'INSIGHTS_ANALYST'
-
     class Role:
         finance_editor = 'FINANCE_EDITOR'
         finance_analyst = 'FINANCE_ANALYST'
         ads_rights_reviewer = 'ADS_RIGHTS_REVIEWER'
         admin = 'ADMIN'
         employee = 'EMPLOYEE'
-        fb_employee_sales_rep = 'FB_EMPLOYEE_SALES_REP'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -266,8 +258,8 @@ class Business(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'app_id': 'Object',
-            'scope': 'Object',
+            'app_id': 'string',
+            'scope': 'list<Permission>',
         }
         enums = {
         }
@@ -385,10 +377,10 @@ class Business(
             'po_number': 'string',
             'invoicing_emails': 'list<string>',
             'io': 'bool',
-            'billing_address_id': 'Object',
-            'sold_to_address_id': 'Object',
-            'liable_address_id': 'Object',
-            'invoice_group_id': 'Object',
+            'billing_address_id': 'string',
+            'sold_to_address_id': 'string',
+            'liable_address_id': 'string',
+            'invoice_group_id': 'string',
         }
         enums = {
         }
@@ -453,7 +445,7 @@ class Business(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.adaccountcreationrequest import AdAccountCreationRequest
         param_types = {
-            'extended_credit_id': 'Object',
+            'extended_credit_id': 'string',
             'ad_accounts_info': 'list<Object>',
             'business_registration': 'file',
             'planning_agency_business_id': 'string',
@@ -463,14 +455,14 @@ class Business(
             'address_in_chinese': 'string',
             'address_in_local_language': 'string',
             'address_in_english': 'Object',
-            'official_website_url': 'Object',
+            'official_website_url': 'string',
             'business_registration_id': 'string',
             'vertical': 'vertical_enum',
             'subvertical': 'subvertical_enum',
-            'promotable_page_urls': 'list<Object>',
+            'promotable_page_urls': 'list<string>',
             'promotable_page_ids': 'list<string>',
             'promotable_app_ids': 'list<string>',
-            'promotable_urls': 'list<Object>',
+            'promotable_urls': 'list<string>',
             'contact': 'Object',
             'additional_comment': 'string',
             'is_smb': 'bool',
@@ -547,8 +539,8 @@ class Business(
             'metrics': 'list<metrics_enum>',
             'ordering_column': 'ordering_column_enum',
             'ordering_type': 'ordering_type_enum',
-            'since': 'Object',
-            'until': 'Object',
+            'since': 'datetime',
+            'until': 'datetime',
         }
         enums = {
             'aggregation_period_enum': Business.AggregationPeriod.__dict__.values(),
@@ -591,8 +583,8 @@ class Business(
             'limit': 'int',
             'ordering_column': 'ordering_column_enum',
             'ordering_type': 'ordering_type_enum',
-            'since': 'Object',
-            'until': 'Object',
+            'since': 'datetime',
+            'until': 'datetime',
         }
         enums = {
             'aggregation_period_enum': Business.AggregationPeriod.__dict__.values(),
@@ -1947,7 +1939,7 @@ class Business(
             'survey_num_people': 'unsigned int',
             'survey_num_assets': 'unsigned int',
             'sales_rep_email': 'string',
-            'existing_client_business_id': 'Object',
+            'existing_client_business_id': 'string',
         }
         enums = {
             'vertical_enum': Business.Vertical.__dict__.values(),
@@ -2118,13 +2110,11 @@ class Business(
         param_types = {
             'name': 'string',
             'description': 'string',
-            'data_origin': 'data_origin_enum',
             'enable_auto_assign_to_accounts': 'bool',
             'is_mta_use': 'bool',
             'auto_assign_to_new_accounts_only': 'bool',
         }
         enums = {
-            'data_origin_enum': OfflineConversionDataSet.DataOrigin.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -2148,7 +2138,7 @@ class Business(
             self.assure_call()
             return request.execute()
 
-    def get_of_f_line_terms_of_service(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def get_offline_terms_of_service(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
@@ -2308,7 +2298,7 @@ class Business(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'client_id': 'Object',
+            'client_id': 'string',
         }
         enums = {
         }
@@ -2377,7 +2367,7 @@ class Business(
             'survey_num_people': 'unsigned int',
             'survey_num_assets': 'unsigned int',
             'sales_rep_email': 'string',
-            'shared_page_id': 'Object',
+            'shared_page_id': 'string',
             'page_permitted_roles': 'list<page_permitted_roles_enum>',
         }
         enums = {
@@ -2725,41 +2715,6 @@ class Business(
             self.assure_call()
             return request.execute()
 
-    def create_page(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'page_id': 'int',
-            'access_type': 'access_type_enum',
-            'permitted_roles': 'list<permitted_roles_enum>',
-        }
-        enums = {
-            'access_type_enum': Business.AccessType.__dict__.values(),
-            'permitted_roles_enum': Business.PermittedRoles.__dict__.values(),
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/pages',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=Business,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=Business, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def get_partner_integrations(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -2844,10 +2799,10 @@ class Business(
             'po_number': 'string',
             'invoicing_emails': 'list<string>',
             'io': 'bool',
-            'billing_address_id': 'Object',
-            'sold_to_address_id': 'Object',
-            'liable_address_id': 'Object',
-            'invoice_group_id': 'Object',
+            'billing_address_id': 'string',
+            'sold_to_address_id': 'string',
+            'liable_address_id': 'string',
+            'invoice_group_id': 'string',
         }
         enums = {
         }
@@ -3188,43 +3143,6 @@ class Business(
             self.assure_call()
             return request.execute()
 
-    def create_product_catalog(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.productcatalog import ProductCatalog
-        param_types = {
-            'name': 'string',
-            'vertical': 'vertical_enum',
-            'flight_catalog_settings': 'map',
-            'destination_catalog_settings': 'map',
-            'da_display_settings': 'Object',
-        }
-        enums = {
-            'vertical_enum': ProductCatalog.Vertical.__dict__.values(),
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/product_catalogs',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=ProductCatalog,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=ProductCatalog, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def get_received_audience_permissions(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -3457,7 +3375,7 @@ class Business(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'spaco_data_collections': 'list<Object>',
+            'spaco_data_collections': 'list<string>',
         }
         enums = {
         }
@@ -3587,8 +3505,8 @@ class Business(
         from facebook_business.adobjects.measurementuploadevent import MeasurementUploadEvent
         param_types = {
             'group': 'group_enum',
-            'upload_end_time': 'Object',
-            'upload_start_time': 'Object',
+            'upload_end_time': 'datetime',
+            'upload_start_time': 'datetime',
             'upload_tag': 'string',
             'version': 'version_enum',
         }
@@ -3757,27 +3675,27 @@ class Business(
         param_types = {
             'address_in_local_language': 'string',
             'ad_accounts_currency': 'string',
-            'credit_card_id': 'Object',
-            'extended_credit_id': 'Object',
+            'credit_card_id': 'string',
+            'extended_credit_id': 'string',
             'legal_entity_name_in_local_language': 'string',
             'ad_accounts_info': 'list<Object>',
             'business_registration': 'file',
-            'planning_agency_business_id': 'Object',
+            'planning_agency_business_id': 'string',
             'english_legal_entity_name': 'string',
             'address_in_english': 'Object',
-            'official_website_url': 'Object',
+            'official_website_url': 'string',
             'business_registration_id': 'string',
             'vertical': 'vertical_enum',
             'subvertical': 'subvertical_enum',
-            'promotable_page_urls': 'list<Object>',
+            'promotable_page_urls': 'list<string>',
             'promotable_page_ids': 'list<int>',
-            'promotable_app_ids': 'list<Object>',
-            'promotable_urls': 'list<Object>',
+            'promotable_app_ids': 'list<string>',
+            'promotable_urls': 'list<string>',
             'contact': 'Object',
             'additional_comment': 'string',
             'is_smb': 'bool',
             'is_test': 'bool',
-            'advertiser_business_id': 'Object',
+            'advertiser_business_id': 'string',
         }
         enums = {
             'vertical_enum': AdAccountCreationRequest.Vertical.__dict__.values(),
@@ -3840,7 +3758,6 @@ class Business(
         field_enum_info['PermittedTasks'] = Business.PermittedTasks.__dict__.values()
         field_enum_info['SurveyBusinessType'] = Business.SurveyBusinessType.__dict__.values()
         field_enum_info['PagePermittedRoles'] = Business.PagePermittedRoles.__dict__.values()
-        field_enum_info['PermittedRoles'] = Business.PermittedRoles.__dict__.values()
         field_enum_info['Role'] = Business.Role.__dict__.values()
         return field_enum_info
 

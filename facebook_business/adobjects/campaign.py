@@ -60,9 +60,9 @@ class Campaign(
         daily_budget = 'daily_budget'
         effective_status = 'effective_status'
         id = 'id'
+        issues_info = 'issues_info'
         last_budget_toggling_time = 'last_budget_toggling_time'
         lifetime_budget = 'lifetime_budget'
-        metrics_metadata = 'metrics_metadata'
         name = 'name'
         objective = 'objective'
         pacing_type = 'pacing_type'
@@ -80,10 +80,6 @@ class Campaign(
         execution_options = 'execution_options'
         upstream_events = 'upstream_events'
         iterative_split_test_configs = 'iterative_split_test_configs'
-        kpi_custom_conversion_id = 'kpi_custom_conversion_id'
-        kpi_type = 'kpi_type'
-        is_autobid = 'is_autobid'
-        is_average_price_pacing = 'is_average_price_pacing'
 
     class BidStrategy:
         lowest_cost_without_cap = 'LOWEST_COST_WITHOUT_CAP'
@@ -209,7 +205,7 @@ class Campaign(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'am_call_tags': 'Object',
+            'am_call_tags': 'map',
             'date_preset': 'date_preset_enum',
             'from_adtable': 'bool',
             'time_range': 'Object',
@@ -278,11 +274,7 @@ class Campaign(
             'upstream_events': 'map',
             'adlabels': 'list<Object>',
             'iterative_split_test_configs': 'list<Object>',
-            'kpi_custom_conversion_id': 'string',
-            'kpi_type': 'Object',
-            'is_autobid': 'bool',
-            'is_average_price_pacing': 'bool',
-            'adset_bid_amounts': 'Object',
+            'adset_bid_amounts': 'map',
             'adset_budgets': 'list<map>',
         }
         enums = {
@@ -353,7 +345,9 @@ class Campaign(
             'execution_options': 'list<execution_options_enum>',
         }
         enums = {
-            'execution_options_enum': Campaign.ExecutionOptions.__dict__.values(),
+            'execution_options_enum': [
+                'validate_only',
+            ],
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -386,7 +380,9 @@ class Campaign(
             'execution_options': 'list<execution_options_enum>',
         }
         enums = {
-            'execution_options_enum': Campaign.ExecutionOptions.__dict__.values(),
+            'execution_options_enum': [
+                'validate_only',
+            ],
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -727,9 +723,9 @@ class Campaign(
         'daily_budget': 'string',
         'effective_status': 'EffectiveStatus',
         'id': 'string',
+        'issues_info': 'list<AdCampaignIssuesInfo>',
         'last_budget_toggling_time': 'datetime',
         'lifetime_budget': 'string',
-        'metrics_metadata': 'AdCampaignGroupMetricsMetadata',
         'name': 'string',
         'objective': 'string',
         'pacing_type': 'list<string>',
@@ -747,10 +743,6 @@ class Campaign(
         'execution_options': 'list<ExecutionOptions>',
         'upstream_events': 'map',
         'iterative_split_test_configs': 'list<Object>',
-        'kpi_custom_conversion_id': 'string',
-        'kpi_type': 'Object',
-        'is_autobid': 'bool',
-        'is_average_price_pacing': 'bool',
     }
     @classmethod
     def _get_field_enum_info(cls):

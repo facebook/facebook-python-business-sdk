@@ -81,6 +81,7 @@ class CustomConversion(
         start_trial = 'START_TRIAL'
         submit_application = 'SUBMIT_APPLICATION'
         subscribe = 'SUBSCRIBE'
+        listing_interaction = 'LISTING_INTERACTION'
         other = 'OTHER'
 
     # @deprecated get_endpoint function is deprecated
@@ -191,8 +192,8 @@ class CustomConversion(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.customconversionactivities import CustomConversionActivities
         param_types = {
-            'start_time': 'Object',
-            'end_time': 'Object',
+            'start_time': 'datetime',
+            'end_time': 'datetime',
             'event_type': 'event_type_enum',
         }
         enums = {

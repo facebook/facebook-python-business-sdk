@@ -224,7 +224,6 @@ class AdVideo(
         premiere_source = 'PREMIERE_SOURCE'
         private_gallery_video = 'PRIVATE_GALLERY_VIDEO'
         fistbump = 'FISTBUMP'
-        story_highlight_video = 'STORY_HIGHLIGHT_VIDEO'
         profile_to_page_uploaded_video = 'PROFILE_TO_PAGE_UPLOADED_VIDEO'
         kototoro = 'KOTOTORO'
         dynamic_template_video = 'DYNAMIC_TEMPLATE_VIDEO'
@@ -238,6 +237,7 @@ class AdVideo(
         dco_autogen_video = 'DCO_AUTOGEN_VIDEO'
         sotto_content = 'SOTTO_CONTENT'
         oculus_venues_broadcast = 'OCULUS_VENUES_BROADCAST'
+        age_up = 'AGE_UP'
 
     class ContentCategory:
         beauty_fashion = 'BEAUTY_FASHION'
@@ -371,16 +371,15 @@ class AdVideo(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'privacy': 'Object',
+            'privacy': 'string',
             'published': 'bool',
             'target': 'string',
             'scheduled_publish_time': 'unsigned int',
             'name': 'string',
             'description': 'string',
             'tags': 'list<string>',
-            'place': 'Object',
             'preferred_thumbnail_id': 'string',
-            'ad_breaks': 'Object',
+            'ad_breaks': 'list',
             'backdated_time': 'datetime',
             'backdated_time_granularity': 'backdated_time_granularity_enum',
             'call_to_action': 'Object',
@@ -1159,8 +1158,8 @@ class AdVideo(
         param_types = {
             'metric': 'list<Object>',
             'period': 'period_enum',
-            'since': 'Object',
-            'until': 'Object',
+            'since': 'datetime',
+            'until': 'datetime',
         }
         enums = {
             'period_enum': InsightsResult.Period.__dict__.values(),

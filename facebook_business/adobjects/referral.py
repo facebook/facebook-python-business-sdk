@@ -135,7 +135,7 @@ class Referral(
             'offer_origin': 'string',
             'promotion_text': 'string',
             'receiver_benefits_text': 'string',
-            'referral_link_uri': 'Object',
+            'referral_link_uri': 'string',
             'sender_benefits_text': 'string',
         }
         enums = {

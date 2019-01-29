@@ -95,10 +95,10 @@ class AdCreative(
         url_tags = 'url_tags'
         use_page_actor_override = 'use_page_actor_override'
         video_id = 'video_id'
-        asset_feed_id = 'asset_feed_id'
         is_dco_internal = 'is_dco_internal'
         call_to_action = 'call_to_action'
         image_file = 'image_file'
+        interactive_components_spec = 'interactive_components_spec'
         mockup_id = 'mockup_id'
         page_id = 'page_id'
 
@@ -379,6 +379,7 @@ class AdCreative(
         param_types = {
             'ad_format': 'ad_format_enum',
             'dynamic_creative_spec': 'Object',
+            'dynamic_customization': 'Object',
             'dynamic_asset_label': 'string',
             'interactive': 'bool',
             'post': 'Object',
@@ -470,10 +471,10 @@ class AdCreative(
         'url_tags': 'string',
         'use_page_actor_override': 'bool',
         'video_id': 'string',
-        'asset_feed_id': 'string',
         'is_dco_internal': 'bool',
         'call_to_action': 'Object',
         'image_file': 'string',
+        'interactive_components_spec': 'map',
         'mockup_id': 'string',
         'page_id': 'string',
     }

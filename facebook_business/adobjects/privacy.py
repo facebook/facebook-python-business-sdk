@@ -50,8 +50,8 @@ class Privacy(
         id = 'id'
 
     _field_types = {
-        'allow': 'Object',
-        'deny': 'Object',
+        'allow': 'string',
+        'deny': 'string',
         'description': 'string',
         'friends': 'string',
         'networks': 'string',

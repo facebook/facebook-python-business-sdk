@@ -58,7 +58,6 @@ class ProductFeed(
         schedule = 'schedule'
         update_schedule = 'update_schedule'
         feed_type = 'feed_type'
-        quoted_fields = 'quoted_fields'
         rules = 'rules'
 
     class Delimiter:
@@ -178,7 +177,6 @@ class ProductFeed(
             'quoted_fields_mode': 'quoted_fields_mode_enum',
             'schedule': 'string',
             'update_schedule': 'string',
-            'quoted_fields': 'bool',
             'deletion_enabled': 'bool',
         }
         enums = {
@@ -590,7 +588,6 @@ class ProductFeed(
         'schedule': 'ProductFeedSchedule',
         'update_schedule': 'ProductFeedSchedule',
         'feed_type': 'FeedType',
-        'quoted_fields': 'bool',
         'rules': 'list<string>',
     }
     @classmethod
