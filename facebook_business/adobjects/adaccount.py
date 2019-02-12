@@ -843,6 +843,7 @@ class AdAccount(
             'source': 'file',
             'source_url': 'string',
             'source_zip': 'file',
+            'app_id': 'string',
         }
         enums = {
         }
@@ -1059,6 +1060,8 @@ class AdAccount(
                 'action_video_sound',
                 'action_video_type',
                 'action_converted_product_id',
+                'interactive_component_sticker_id',
+                'interactive_component_sticker_response',
             ],
             'schedule_frequency_enum': [
                 'daily',
@@ -1828,8 +1831,6 @@ class AdAccount(
             'og_phrase': 'string',
             'og_icon_id': 'string',
             'og_suggestion_mechanism': 'string',
-            'manual_privacy': 'bool',
-            'is_explicit_share': 'bool',
             'thumb': 'file',
             'spherical': 'bool',
             'original_projection_type': 'original_projection_type_enum',

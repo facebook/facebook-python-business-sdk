@@ -31,8 +31,8 @@ FacebookAdsApi.init(access_token=access_token)
 fields = [
 ]
 params = {
-  'name': 'My First Campaign',
-  'objective': 'PAGE_LIKES',
+  'name': 'My campaign',
+  'objective': 'LINK_CLICKS',
   'status': 'PAUSED',
 }
 print AdAccount(id).create_campaign(

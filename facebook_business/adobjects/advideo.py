@@ -88,8 +88,6 @@ class AdVideo(
         og_phrase = 'og_phrase'
         og_icon_id = 'og_icon_id'
         og_suggestion_mechanism = 'og_suggestion_mechanism'
-        manual_privacy = 'manual_privacy'
-        is_explicit_share = 'is_explicit_share'
         thumb = 'thumb'
         original_projection_type = 'original_projection_type'
         initial_heading = 'initial_heading'
@@ -145,6 +143,8 @@ class AdVideo(
         swap_mode = 'swap_mode'
         name = 'name'
         chunk_session_id = 'chunk_session_id'
+        manual_privacy = 'manual_privacy'
+        is_explicit_share = 'is_explicit_share'
         filename = 'filename'
         filepath = 'filepath'
 
@@ -1234,8 +1234,6 @@ class AdVideo(
         'og_phrase': 'string',
         'og_icon_id': 'string',
         'og_suggestion_mechanism': 'string',
-        'manual_privacy': 'bool',
-        'is_explicit_share': 'bool',
         'thumb': 'file',
         'original_projection_type': 'OriginalProjectionType',
         'initial_heading': 'unsigned int',
@@ -1291,6 +1289,8 @@ class AdVideo(
         'swap_mode': 'SwapMode',
         'name': 'string',
         'chunk_session_id': 'string',
+        'manual_privacy': 'bool',
+        'is_explicit_share': 'bool',
         'filename': 'file'
     }
     @classmethod

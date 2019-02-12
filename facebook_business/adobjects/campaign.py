@@ -345,9 +345,7 @@ class Campaign(
             'execution_options': 'list<execution_options_enum>',
         }
         enums = {
-            'execution_options_enum': [
-                'validate_only',
-            ],
+            'execution_options_enum': Campaign.ExecutionOptions.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -380,9 +378,7 @@ class Campaign(
             'execution_options': 'list<execution_options_enum>',
         }
         enums = {
-            'execution_options_enum': [
-                'validate_only',
-            ],
+            'execution_options_enum': Campaign.ExecutionOptions.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],

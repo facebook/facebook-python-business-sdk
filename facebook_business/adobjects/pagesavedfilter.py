@@ -147,7 +147,6 @@ class PageSavedFilter(
         gem_producer_dashboard = 'GEM_PRODUCER_DASHBOARD'
         monetized_videos = 'MONETIZED_VIDEOS'
         audio_releases = 'AUDIO_RELEASES'
-        news_storylines = 'NEWS_STORYLINES'
         registrations = 'REGISTRATIONS'
         ia_regiwall_settings = 'IA_REGIWALL_SETTINGS'
         creator_studio_tracked = 'CREATOR_STUDIO_TRACKED'

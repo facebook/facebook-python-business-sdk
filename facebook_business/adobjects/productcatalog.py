@@ -44,6 +44,7 @@ class ProductCatalog(
 
     class Field(AbstractObject.Field):
         business = 'business'
+        cpas_parent_catalog_settings = 'cpas_parent_catalog_settings'
         da_display_settings = 'da_display_settings'
         default_image_url = 'default_image_url'
         fallback_image_url = 'fallback_image_url'
@@ -572,7 +573,7 @@ class ProductCatalog(
         from facebook_business.adobjects.checkbatchrequeststatus import CheckBatchRequestStatus
         param_types = {
             'handle': 'string',
-            'load_all_errors': 'bool',
+            'load_ids_of_invalid_requests': 'bool',
         }
         enums = {
         }
@@ -1678,7 +1679,7 @@ class ProductCatalog(
         from facebook_business.adobjects.productcataloguserpermissions import ProductCatalogUserPermissions
         param_types = {
             'business': 'string',
-            'user': 'Object',
+            'user': 'unsigned int',
         }
         enums = {
         }
@@ -1790,8 +1791,6 @@ class ProductCatalog(
             'og_phrase': 'string',
             'og_icon_id': 'string',
             'og_suggestion_mechanism': 'string',
-            'manual_privacy': 'bool',
-            'is_explicit_share': 'bool',
             'thumb': 'file',
             'spherical': 'bool',
             'original_projection_type': 'original_projection_type_enum',
@@ -1804,6 +1803,8 @@ class ProductCatalog(
             'guide_enabled': 'bool',
             'guide': 'list<list<unsigned int>>',
             'audio_story_wave_animation_handle': 'string',
+            'manual_privacy': 'bool',
+            'is_explicit_share': 'bool',
             'adaptive_type': 'string',
             'animated_effect_id': 'unsigned int',
             'asked_fun_fact_prompt_id': 'unsigned int',
@@ -1883,6 +1884,7 @@ class ProductCatalog(
 
     _field_types = {
         'business': 'Business',
+        'cpas_parent_catalog_settings': 'CPASParentCatalogSettings',
         'da_display_settings': 'ProductCatalogImageSettings',
         'default_image_url': 'string',
         'fallback_image_url': 'list<string>',
