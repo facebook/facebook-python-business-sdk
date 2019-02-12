@@ -83,6 +83,7 @@ class AdCreativeLinkDataImageOverlaySpec(
         percentage_off = 'percentage_off'
         custom = 'custom'
         from_price = 'from_price'
+        disclaimer = 'disclaimer'
 
     class ThemeColor:
         background_e50900_text_ffffff = 'background_e50900_text_ffffff'

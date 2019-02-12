@@ -420,17 +420,6 @@ class Page(
         add = 'ADD'
         remove = 'REMOVE'
 
-    class SettingType:
-        account_linking = 'ACCOUNT_LINKING'
-        call_to_actions = 'CALL_TO_ACTIONS'
-        greeting = 'GREETING'
-        domain_whitelisting = 'DOMAIN_WHITELISTING'
-        payment = 'PAYMENT'
-
-    class ThreadState:
-        new_thread = 'NEW_THREAD'
-        existing_thread = 'EXISTING_THREAD'
-
     # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
@@ -5650,8 +5639,17 @@ class Page(
             'thread_state': 'thread_state_enum',
         }
         enums = {
-            'setting_type_enum': Page.SettingType.__dict__.values(),
-            'thread_state_enum': Page.ThreadState.__dict__.values(),
+            'setting_type_enum': [
+                'ACCOUNT_LINKING',
+                'CALL_TO_ACTIONS',
+                'GREETING',
+                'DOMAIN_WHITELISTING',
+                'PAYMENT',
+            ],
+            'thread_state_enum': [
+                'NEW_THREAD',
+                'EXISTING_THREAD',
+            ],
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -5724,8 +5722,17 @@ class Page(
             'payment_testers': 'list<string>',
         }
         enums = {
-            'setting_type_enum': Page.SettingType.__dict__.values(),
-            'thread_state_enum': Page.ThreadState.__dict__.values(),
+            'setting_type_enum': [
+                'ACCOUNT_LINKING',
+                'CALL_TO_ACTIONS',
+                'GREETING',
+                'DOMAIN_WHITELISTING',
+                'PAYMENT',
+            ],
+            'thread_state_enum': [
+                'NEW_THREAD',
+                'EXISTING_THREAD',
+            ],
             'domain_action_type_enum': Page.DomainActionType.__dict__.values(),
             'payment_dev_mode_action_enum': Page.PaymentDevModeAction.__dict__.values(),
         }
@@ -6198,8 +6205,6 @@ class Page(
             'og_phrase': 'string',
             'og_icon_id': 'string',
             'og_suggestion_mechanism': 'string',
-            'manual_privacy': 'bool',
-            'is_explicit_share': 'bool',
             'thumb': 'file',
             'spherical': 'bool',
             'original_projection_type': 'original_projection_type_enum',
@@ -6212,6 +6217,8 @@ class Page(
             'guide_enabled': 'bool',
             'guide': 'list<list<unsigned int>>',
             'audio_story_wave_animation_handle': 'string',
+            'manual_privacy': 'bool',
+            'is_explicit_share': 'bool',
             'adaptive_type': 'string',
             'animated_effect_id': 'unsigned int',
             'asked_fun_fact_prompt_id': 'unsigned int',
@@ -6538,8 +6545,6 @@ class Page(
         field_enum_info['SubscribedFields'] = Page.SubscribedFields.__dict__.values()
         field_enum_info['DomainActionType'] = Page.DomainActionType.__dict__.values()
         field_enum_info['PaymentDevModeAction'] = Page.PaymentDevModeAction.__dict__.values()
-        field_enum_info['SettingType'] = Page.SettingType.__dict__.values()
-        field_enum_info['ThreadState'] = Page.ThreadState.__dict__.values()
         return field_enum_info
 
 
