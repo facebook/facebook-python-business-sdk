@@ -5,7 +5,7 @@ from datetime import datetime
 from six import string_types
 from requests.exceptions import ConnectionError
 
-from facebook_business.asyncobjects.aioedgeiterator import AioEdgeIterator
+from facebook_business.asyncobjects.aioedgeiterator import AioEdgeIterator, rate_limiting_timeout
 from facebook_business.asyncobjects.asyncaiojob import AsyncAioJob
 from facebook_business.exceptions import FacebookRequestError, JobFailedException
 from facebook_business.utils.fberrcodes import FacebookErrorCodes
@@ -75,7 +75,7 @@ class AsyncAioJobIterator(AioEdgeIterator):
                     time.sleep(15 + i * 15)
                 elif i < 4 and exc.api_error_code() in (FacebookErrorCodes.rate_limit,
                                                         FacebookErrorCodes.too_many_requests):
-                    time.sleep(60 + i * 60)
+                    time.sleep(rate_limiting_timeout(i + 1))
                 else:
                     raise exc
             except ConnectionError as exc:

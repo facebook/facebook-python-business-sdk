@@ -427,7 +427,7 @@ class AioEdgeIterator(facebook_business.api.Cursor):
     def recover_rate_limit_error(self, exc):
         err_type = "rate limit error"
         self.set_non_fatal_error(exc, err_type)
-        self.delay_next_call_for = random.randint(30, 60) + 30 * self.errors_streak
+        self.delay_next_call_for = rate_limiting_timeout(self.errors_streak)
 
     # error helpers
 
@@ -455,3 +455,12 @@ class AioEdgeIterator(facebook_business.api.Cursor):
         else:
             self.errors_streak = 1
             self.last_error_type = err_type
+
+
+def rate_limiting_timeout(attempt):
+    upper_limit = 20 ** attempt
+    if upper_limit >= 600:
+        timeout = random.uniform(300, 900)
+    else:
+        timeout = random.uniform((60 + upper_limit) // 2, 60 + upper_limit)
+    return timeout
