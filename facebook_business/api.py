@@ -519,8 +519,10 @@ class FacebookAdsApiBatch(object):
                 if inner_fb_response.is_success():
                     if self._success_callbacks[index]:
                         self._success_callbacks[index](inner_fb_response)
-                elif self._failure_callbacks[index]:
-                    self._failure_callbacks[index](inner_fb_response)
+                else:
+                    retry_indices.append(index)
+                    if self._failure_callbacks[index]:
+                        self._failure_callbacks[index](inner_fb_response)
             else:
                 retry_indices.append(index)
 
