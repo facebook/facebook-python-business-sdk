@@ -52,16 +52,16 @@ class MediaFingerprint(
         universal_content_id = 'universal_content_id'
 
     class FingerprintContentType:
-        songtrack = 'SONGTRACK'
-        episode = 'EPISODE'
-        other = 'OTHER'
-        movie = 'MOVIE'
         am_songtrack = 'AM_SONGTRACK'
+        episode = 'EPISODE'
+        movie = 'MOVIE'
+        other = 'OTHER'
+        songtrack = 'SONGTRACK'
 
     class FingerprintValidity:
-        valid = 'VALID'
-        expiring = 'EXPIRING'
         expired = 'EXPIRED'
+        expiring = 'EXPIRING'
+        valid = 'VALID'
 
     def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils

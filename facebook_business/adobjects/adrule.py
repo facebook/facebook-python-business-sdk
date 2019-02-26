@@ -53,9 +53,9 @@ class AdRule(
         updated_time = 'updated_time'
 
     class Status:
-        enabled = 'ENABLED'
-        disabled = 'DISABLED'
         deleted = 'DELETED'
+        disabled = 'DISABLED'
+        enabled = 'ENABLED'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod

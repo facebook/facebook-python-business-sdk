@@ -79,8 +79,8 @@ class AdCreativeLinkData(
         id = 'id'
 
     class AttachmentStyle:
-        link = 'link'
         value_default = 'default'
+        link = 'link'
 
     class FormatOption:
         carousel_images_multi_items = 'carousel_images_multi_items'

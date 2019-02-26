@@ -64,9 +64,9 @@ class Business(
         vertical_id = 'vertical_id'
 
     class TwoFactorType:
-        none = 'none'
         admin_required = 'admin_required'
         all_required = 'all_required'
+        none = 'none'
 
     class Vertical:
         advertising = 'ADVERTISING'
@@ -79,47 +79,113 @@ class Business(
         financial_services = 'FINANCIAL_SERVICES'
         gaming = 'GAMING'
         government_and_politics = 'GOVERNMENT_AND_POLITICS'
+        health = 'HEALTH'
+        luxury = 'LUXURY'
         marketing = 'MARKETING'
+        non_profit = 'NON_PROFIT'
         organizations_and_associations = 'ORGANIZATIONS_AND_ASSOCIATIONS'
+        other = 'OTHER'
         professional_services = 'PROFESSIONAL_SERVICES'
+        restaurant = 'RESTAURANT'
         retail = 'RETAIL'
         technology = 'TECHNOLOGY'
         telecom = 'TELECOM'
         travel = 'TRAVEL'
-        non_profit = 'NON_PROFIT'
-        restaurant = 'RESTAURANT'
-        health = 'HEALTH'
-        luxury = 'LUXURY'
-        other = 'OTHER'
+
+    class AggregationPeriod:
+        day = 'DAY'
+        hour = 'HOUR'
+        total = 'TOTAL'
+
+    class Breakdowns:
+        age = 'AGE'
+        app = 'APP'
+        clicked_view_tag = 'CLICKED_VIEW_TAG'
+        country = 'COUNTRY'
+        deal = 'DEAL'
+        deal_ad = 'DEAL_AD'
+        deal_page = 'DEAL_PAGE'
+        delivery_method = 'DELIVERY_METHOD'
+        display_format = 'DISPLAY_FORMAT'
+        fail_reason = 'FAIL_REASON'
+        gender = 'GENDER'
+        placement = 'PLACEMENT'
+        platform = 'PLATFORM'
+        property = 'PROPERTY'
+        sdk_version = 'SDK_VERSION'
+
+    class Metrics:
+        fb_ad_network_bidding_bid_rate = 'FB_AD_NETWORK_BIDDING_BID_RATE'
+        fb_ad_network_bidding_request = 'FB_AD_NETWORK_BIDDING_REQUEST'
+        fb_ad_network_bidding_response = 'FB_AD_NETWORK_BIDDING_RESPONSE'
+        fb_ad_network_bidding_revenue = 'FB_AD_NETWORK_BIDDING_REVENUE'
+        fb_ad_network_bidding_win_rate = 'FB_AD_NETWORK_BIDDING_WIN_RATE'
+        fb_ad_network_click = 'FB_AD_NETWORK_CLICK'
+        fb_ad_network_click_value_score = 'FB_AD_NETWORK_CLICK_VALUE_SCORE'
+        fb_ad_network_click_value_score_denominator = 'FB_AD_NETWORK_CLICK_VALUE_SCORE_DENOMINATOR'
+        fb_ad_network_click_value_score_numerator = 'FB_AD_NETWORK_CLICK_VALUE_SCORE_NUMERATOR'
+        fb_ad_network_cpm = 'FB_AD_NETWORK_CPM'
+        fb_ad_network_ctr = 'FB_AD_NETWORK_CTR'
+        fb_ad_network_direct_publisher_bill = 'FB_AD_NETWORK_DIRECT_PUBLISHER_BILL'
+        fb_ad_network_direct_total_revenue = 'FB_AD_NETWORK_DIRECT_TOTAL_REVENUE'
+        fb_ad_network_fast_click_denominator = 'FB_AD_NETWORK_FAST_CLICK_DENOMINATOR'
+        fb_ad_network_fast_click_numerator = 'FB_AD_NETWORK_FAST_CLICK_NUMERATOR'
+        fb_ad_network_fast_click_rate = 'FB_AD_NETWORK_FAST_CLICK_RATE'
+        fb_ad_network_fast_return_denominator = 'FB_AD_NETWORK_FAST_RETURN_DENOMINATOR'
+        fb_ad_network_fast_return_numerator = 'FB_AD_NETWORK_FAST_RETURN_NUMERATOR'
+        fb_ad_network_fast_return_rate = 'FB_AD_NETWORK_FAST_RETURN_RATE'
+        fb_ad_network_filled_request = 'FB_AD_NETWORK_FILLED_REQUEST'
+        fb_ad_network_fill_rate = 'FB_AD_NETWORK_FILL_RATE'
+        fb_ad_network_imp = 'FB_AD_NETWORK_IMP'
+        fb_ad_network_no_bid = 'FB_AD_NETWORK_NO_BID'
+        fb_ad_network_no_fill = 'FB_AD_NETWORK_NO_FILL'
+        fb_ad_network_request = 'FB_AD_NETWORK_REQUEST'
+        fb_ad_network_revenue = 'FB_AD_NETWORK_REVENUE'
+        fb_ad_network_show_rate = 'FB_AD_NETWORK_SHOW_RATE'
+        fb_ad_network_video_guarantee_revenue = 'FB_AD_NETWORK_VIDEO_GUARANTEE_REVENUE'
+        fb_ad_network_video_mrc = 'FB_AD_NETWORK_VIDEO_MRC'
+        fb_ad_network_video_mrc_rate = 'FB_AD_NETWORK_VIDEO_MRC_RATE'
+        fb_ad_network_video_view = 'FB_AD_NETWORK_VIDEO_VIEW'
+        fb_ad_network_video_view_rate = 'FB_AD_NETWORK_VIDEO_VIEW_RATE'
+        fb_ad_network_win_rate = 'FB_AD_NETWORK_WIN_RATE'
+
+    class OrderingColumn:
+        metric = 'METRIC'
+        time = 'TIME'
+        value = 'VALUE'
+
+    class OrderingType:
+        ascending = 'ASCENDING'
+        descending = 'DESCENDING'
 
     class AccessType:
-        owner = 'OWNER'
         agency = 'AGENCY'
+        owner = 'OWNER'
 
     class PermittedTasks:
-        manage = 'MANAGE'
         advertise = 'ADVERTISE'
         analyze = 'ANALYZE'
+        manage = 'MANAGE'
 
     class SurveyBusinessType:
-        agency = 'AGENCY'
         advertiser = 'ADVERTISER'
+        agency = 'AGENCY'
         app_developer = 'APP_DEVELOPER'
         publisher = 'PUBLISHER'
 
     class PagePermittedRoles:
-        manager = 'MANAGER'
-        content_creator = 'CONTENT_CREATOR'
-        moderator = 'MODERATOR'
         advertiser = 'ADVERTISER'
+        content_creator = 'CONTENT_CREATOR'
         insights_analyst = 'INSIGHTS_ANALYST'
+        manager = 'MANAGER'
+        moderator = 'MODERATOR'
 
     class Role:
-        finance_editor = 'FINANCE_EDITOR'
-        finance_analyst = 'FINANCE_ANALYST'
-        ads_rights_reviewer = 'ADS_RIGHTS_REVIEWER'
         admin = 'ADMIN'
+        ads_rights_reviewer = 'ADS_RIGHTS_REVIEWER'
         employee = 'EMPLOYEE'
+        finance_analyst = 'FINANCE_ANALYST'
+        finance_editor = 'FINANCE_EDITOR'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -348,6 +414,7 @@ class Business(
         from facebook_business.adobjects.adaccountcreationrequest import AdAccountCreationRequest
         param_types = {
             'status': 'list<status_enum>',
+            'ad_account_creation_request_id': 'string',
         }
         enums = {
             'status_enum': AdAccountCreationRequest.Status.__dict__.values(),
@@ -478,11 +545,11 @@ class Business(
             'until': 'datetime',
         }
         enums = {
-            'aggregation_period_enum': AdNetworkAnalyticsSyncQueryResult.AggregationPeriod.__dict__.values(),
-            'breakdowns_enum': AdNetworkAnalyticsSyncQueryResult.Breakdowns.__dict__.values(),
-            'metrics_enum': AdNetworkAnalyticsSyncQueryResult.Metrics.__dict__.values(),
-            'ordering_column_enum': AdNetworkAnalyticsSyncQueryResult.OrderingColumn.__dict__.values(),
-            'ordering_type_enum': AdNetworkAnalyticsSyncQueryResult.OrderingType.__dict__.values(),
+            'aggregation_period_enum': Business.AggregationPeriod.__dict__.values(),
+            'breakdowns_enum': Business.Breakdowns.__dict__.values(),
+            'metrics_enum': Business.Metrics.__dict__.values(),
+            'ordering_column_enum': Business.OrderingColumn.__dict__.values(),
+            'ordering_type_enum': Business.OrderingType.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -510,7 +577,6 @@ class Business(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.adnetworkanalyticssyncqueryresult import AdNetworkAnalyticsSyncQueryResult
         param_types = {
             'aggregation_period': 'aggregation_period_enum',
             'breakdowns': 'list<breakdowns_enum>',
@@ -523,11 +589,11 @@ class Business(
             'until': 'datetime',
         }
         enums = {
-            'aggregation_period_enum': AdNetworkAnalyticsSyncQueryResult.AggregationPeriod.__dict__.values(),
-            'breakdowns_enum': AdNetworkAnalyticsSyncQueryResult.Breakdowns.__dict__.values(),
-            'metrics_enum': AdNetworkAnalyticsSyncQueryResult.Metrics.__dict__.values(),
-            'ordering_column_enum': AdNetworkAnalyticsSyncQueryResult.OrderingColumn.__dict__.values(),
-            'ordering_type_enum': AdNetworkAnalyticsSyncQueryResult.OrderingType.__dict__.values(),
+            'aggregation_period_enum': Business.AggregationPeriod.__dict__.values(),
+            'breakdowns_enum': Business.Breakdowns.__dict__.values(),
+            'metrics_enum': Business.Metrics.__dict__.values(),
+            'ordering_column_enum': Business.OrderingColumn.__dict__.values(),
+            'ordering_type_enum': Business.OrderingType.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -3440,14 +3506,24 @@ class Business(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.measurementuploadevent import MeasurementUploadEvent
         param_types = {
+            'aggregation_level': 'aggregation_level_enum',
+            'conversion_end_date': 'string',
+            'conversion_start_date': 'string',
+            'event_status': 'event_status_enum',
             'group': 'group_enum',
+            'lookback_window': 'lookback_window_enum',
+            'match_universe': 'match_universe_enum',
             'upload_end_time': 'datetime',
             'upload_start_time': 'datetime',
             'upload_tag': 'string',
             'version': 'version_enum',
         }
         enums = {
+            'aggregation_level_enum': MeasurementUploadEvent.AggregationLevel.__dict__.values(),
+            'event_status_enum': MeasurementUploadEvent.EventStatus.__dict__.values(),
             'group_enum': MeasurementUploadEvent.Group.__dict__.values(),
+            'lookback_window_enum': MeasurementUploadEvent.LookbackWindow.__dict__.values(),
+            'match_universe_enum': MeasurementUploadEvent.MatchUniverse.__dict__.values(),
             'version_enum': MeasurementUploadEvent.Version.__dict__.values(),
         }
         request = FacebookRequest(
@@ -3685,6 +3761,11 @@ class Business(
         field_enum_info = {}
         field_enum_info['TwoFactorType'] = Business.TwoFactorType.__dict__.values()
         field_enum_info['Vertical'] = Business.Vertical.__dict__.values()
+        field_enum_info['AggregationPeriod'] = Business.AggregationPeriod.__dict__.values()
+        field_enum_info['Breakdowns'] = Business.Breakdowns.__dict__.values()
+        field_enum_info['Metrics'] = Business.Metrics.__dict__.values()
+        field_enum_info['OrderingColumn'] = Business.OrderingColumn.__dict__.values()
+        field_enum_info['OrderingType'] = Business.OrderingType.__dict__.values()
         field_enum_info['AccessType'] = Business.AccessType.__dict__.values()
         field_enum_info['PermittedTasks'] = Business.PermittedTasks.__dict__.values()
         field_enum_info['SurveyBusinessType'] = Business.SurveyBusinessType.__dict__.values()

@@ -62,124 +62,124 @@ class Group(
         venue = 'venue'
 
     class GroupType:
-        family = 'FAMILY'
-        close_friends = 'CLOSE_FRIENDS'
-        neighbors = 'NEIGHBORS'
-        teammates = 'TEAMMATES'
-        for_sale = 'FOR_SALE'
-        event_planning = 'EVENT_PLANNING'
-        support = 'SUPPORT'
-        club = 'CLUB'
-        project = 'PROJECT'
-        sorority = 'SORORITY'
-        fraternity = 'FRATERNITY'
-        study_group = 'STUDY_GROUP'
-        school_class = 'SCHOOL_CLASS'
-        learning = 'LEARNING'
-        meme = 'MEME'
-        travel_planning = 'TRAVEL_PLANNING'
-        couple = 'COUPLE'
-        parents = 'PARENTS'
-        custom = 'CUSTOM'
-        none = 'NONE'
-        work_team = 'WORK_TEAM'
-        work_teamwork = 'WORK_TEAMWORK'
-        work_feedback = 'WORK_FEEDBACK'
-        work_announcement = 'WORK_ANNOUNCEMENT'
-        work_demo_group = 'WORK_DEMO_GROUP'
-        work_social = 'WORK_SOCIAL'
-        work_discussion = 'WORK_DISCUSSION'
-        work_multi_company = 'WORK_MULTI_COMPANY'
-        work_for_sale = 'WORK_FOR_SALE'
-        work_learning = 'WORK_LEARNING'
-        fitness = 'FITNESS'
-        real_world = 'REAL_WORLD'
         casual = 'CASUAL'
+        close_friends = 'CLOSE_FRIENDS'
+        club = 'CLUB'
+        couple = 'COUPLE'
+        custom = 'CUSTOM'
+        ephemeral = 'EPHEMERAL'
+        event_planning = 'EVENT_PLANNING'
+        family = 'FAMILY'
+        fitness = 'FITNESS'
+        for_sale = 'FOR_SALE'
+        for_work = 'FOR_WORK'
+        fraternity = 'FRATERNITY'
         game = 'GAME'
         high_school_forum = 'HIGH_SCHOOL_FORUM'
         jobs = 'JOBS'
-        real_world_at_work = 'REAL_WORLD_AT_WORK'
-        for_work = 'FOR_WORK'
+        learning = 'LEARNING'
+        meme = 'MEME'
         mentorship = 'MENTORSHIP'
-        work_mentorship = 'WORK_MENTORSHIP'
-        ephemeral = 'EPHEMERAL'
+        neighbors = 'NEIGHBORS'
+        none = 'NONE'
+        parents = 'PARENTS'
+        project = 'PROJECT'
+        real_world = 'REAL_WORLD'
+        real_world_at_work = 'REAL_WORLD_AT_WORK'
+        school_class = 'SCHOOL_CLASS'
+        sorority = 'SORORITY'
+        study_group = 'STUDY_GROUP'
+        support = 'SUPPORT'
+        teammates = 'TEAMMATES'
+        travel_planning = 'TRAVEL_PLANNING'
+        work_announcement = 'WORK_ANNOUNCEMENT'
+        work_demo_group = 'WORK_DEMO_GROUP'
+        work_discussion = 'WORK_DISCUSSION'
         work_ephemeral = 'WORK_EPHEMERAL'
+        work_feedback = 'WORK_FEEDBACK'
+        work_for_sale = 'WORK_FOR_SALE'
+        work_learning = 'WORK_LEARNING'
+        work_mentorship = 'WORK_MENTORSHIP'
+        work_multi_company = 'WORK_MULTI_COMPANY'
+        work_social = 'WORK_SOCIAL'
+        work_team = 'WORK_TEAM'
+        work_teamwork = 'WORK_TEAMWORK'
 
     class JoinSetting:
-        none = 'NONE'
-        anyone = 'ANYONE'
         admin_only = 'ADMIN_ONLY'
+        anyone = 'ANYONE'
+        none = 'NONE'
 
     class PostPermissions:
-        none = 'NONE'
         admin_only = 'ADMIN_ONLY'
         anyone = 'ANYONE'
+        none = 'NONE'
 
     class Purpose:
-        family = 'FAMILY'
-        close_friends = 'CLOSE_FRIENDS'
-        neighbors = 'NEIGHBORS'
-        teammates = 'TEAMMATES'
-        for_sale = 'FOR_SALE'
-        event_planning = 'EVENT_PLANNING'
-        support = 'SUPPORT'
-        club = 'CLUB'
-        project = 'PROJECT'
-        sorority = 'SORORITY'
-        fraternity = 'FRATERNITY'
-        study_group = 'STUDY_GROUP'
-        school_class = 'SCHOOL_CLASS'
-        learning = 'LEARNING'
-        meme = 'MEME'
-        travel_planning = 'TRAVEL_PLANNING'
-        couple = 'COUPLE'
-        parents = 'PARENTS'
-        custom = 'CUSTOM'
-        none = 'NONE'
-        work_team = 'WORK_TEAM'
-        work_teamwork = 'WORK_TEAMWORK'
-        work_feedback = 'WORK_FEEDBACK'
-        work_announcement = 'WORK_ANNOUNCEMENT'
-        work_demo_group = 'WORK_DEMO_GROUP'
-        work_social = 'WORK_SOCIAL'
-        work_discussion = 'WORK_DISCUSSION'
-        work_multi_company = 'WORK_MULTI_COMPANY'
-        work_for_sale = 'WORK_FOR_SALE'
-        work_learning = 'WORK_LEARNING'
-        fitness = 'FITNESS'
-        real_world = 'REAL_WORLD'
         casual = 'CASUAL'
+        close_friends = 'CLOSE_FRIENDS'
+        club = 'CLUB'
+        couple = 'COUPLE'
+        custom = 'CUSTOM'
+        ephemeral = 'EPHEMERAL'
+        event_planning = 'EVENT_PLANNING'
+        family = 'FAMILY'
+        fitness = 'FITNESS'
+        for_sale = 'FOR_SALE'
+        for_work = 'FOR_WORK'
+        fraternity = 'FRATERNITY'
         game = 'GAME'
         high_school_forum = 'HIGH_SCHOOL_FORUM'
         jobs = 'JOBS'
-        real_world_at_work = 'REAL_WORLD_AT_WORK'
-        for_work = 'FOR_WORK'
+        learning = 'LEARNING'
+        meme = 'MEME'
         mentorship = 'MENTORSHIP'
-        work_mentorship = 'WORK_MENTORSHIP'
-        ephemeral = 'EPHEMERAL'
+        neighbors = 'NEIGHBORS'
+        none = 'NONE'
+        parents = 'PARENTS'
+        project = 'PROJECT'
+        real_world = 'REAL_WORLD'
+        real_world_at_work = 'REAL_WORLD_AT_WORK'
+        school_class = 'SCHOOL_CLASS'
+        sorority = 'SORORITY'
+        study_group = 'STUDY_GROUP'
+        support = 'SUPPORT'
+        teammates = 'TEAMMATES'
+        travel_planning = 'TRAVEL_PLANNING'
+        work_announcement = 'WORK_ANNOUNCEMENT'
+        work_demo_group = 'WORK_DEMO_GROUP'
+        work_discussion = 'WORK_DISCUSSION'
         work_ephemeral = 'WORK_EPHEMERAL'
+        work_feedback = 'WORK_FEEDBACK'
+        work_for_sale = 'WORK_FOR_SALE'
+        work_learning = 'WORK_LEARNING'
+        work_mentorship = 'WORK_MENTORSHIP'
+        work_multi_company = 'WORK_MULTI_COMPANY'
+        work_social = 'WORK_SOCIAL'
+        work_team = 'WORK_TEAM'
+        work_teamwork = 'WORK_TEAMWORK'
 
     class SuggestionCategory:
-        family = 'FAMILY'
-        life_event = 'LIFE_EVENT'
-        top_page = 'TOP_PAGE'
-        work = 'WORK'
-        work_generic = 'WORK_GENERIC'
-        school = 'SCHOOL'
-        school_generic = 'SCHOOL_GENERIC'
-        messenger = 'MESSENGER'
-        messenger_thread = 'MESSENGER_THREAD'
-        page_admin = 'PAGE_ADMIN'
-        friend_list = 'FRIEND_LIST'
-        games = 'GAMES'
-        event = 'EVENT'
         close_friends = 'CLOSE_FRIENDS'
         close_friends_generic = 'CLOSE_FRIENDS_GENERIC'
-        nearby_friends = 'NEARBY_FRIENDS'
         current_city = 'CURRENT_CITY'
+        event = 'EVENT'
+        family = 'FAMILY'
+        friend_list = 'FRIEND_LIST'
+        games = 'GAMES'
+        life_event = 'LIFE_EVENT'
+        messenger = 'MESSENGER'
+        messenger_thread = 'MESSENGER_THREAD'
+        nearby_friends = 'NEARBY_FRIENDS'
+        page_admin = 'PAGE_ADMIN'
+        school = 'SCHOOL'
+        school_generic = 'SCHOOL_GENERIC'
+        top_page = 'TOP_PAGE'
+        work = 'WORK'
+        workplace = 'WORKPLACE'
         workplace_1_1 = 'WORKPLACE_1_1'
         workplace_manager = 'WORKPLACE_MANAGER'
-        workplace = 'WORKPLACE'
+        work_generic = 'WORK_GENERIC'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -596,7 +596,7 @@ class Group(
             'composer_session_events_log': 'string',
             'composer_source_surface': 'string',
             'composer_type': 'string',
-            'fun_fact_prompt_id': 'string',
+            'fun_fact_prompt_id': 'unsigned int',
             'fun_fact_toastee_id': 'unsigned int',
             'is_group_linking_post': 'bool',
             'has_nickname': 'bool',
@@ -605,7 +605,7 @@ class Group(
             'is_boost_intended': 'bool',
             'location_source_id': 'string',
             'message': 'string',
-            'offer_like_post_id': 'string',
+            'offer_like_post_id': 'unsigned int',
             'page_recommendation': 'string',
             'place_list': 'string',
             'publish_event_id': 'unsigned int',
@@ -617,23 +617,23 @@ class Group(
         }
         enums = {
             'backdated_time_granularity_enum': [
-                'year',
-                'month',
                 'day',
                 'hour',
                 'min',
+                'month',
                 'none',
+                'year',
             ],
             'unpublished_content_type_enum': [
-                'SCHEDULED',
-                'DRAFT',
                 'ADS_POST',
+                'DRAFT',
                 'INLINE_CREATED',
                 'PUBLISHED',
+                'SCHEDULED',
             ],
             'posting_to_redspace_enum': [
-                'enabled',
                 'disabled',
+                'enabled',
             ],
             'place_attachment_setting_enum': [
                 '1',
@@ -641,9 +641,9 @@ class Group(
             ],
             'checkin_entry_point_enum': [
                 'BRANDING_CHECKIN',
-                'BRANDING_STATUS',
-                'BRANDING_PHOTO',
                 'BRANDING_OTHER',
+                'BRANDING_PHOTO',
+                'BRANDING_STATUS',
             ],
             'post_surfaces_blacklist_enum': [
                 '1',
@@ -653,8 +653,8 @@ class Group(
                 '5',
             ],
             'formatting_enum': [
-                'PLAINTEXT',
                 'MARKDOWN',
+                'PLAINTEXT',
             ],
             'target_surface_enum': [
                 'STORY',
@@ -1300,7 +1300,7 @@ class Group(
             'composer_source_surface': 'string',
             'composer_type': 'string',
             'formatting': 'formatting_enum',
-            'fun_fact_prompt_id': 'string',
+            'fun_fact_prompt_id': 'unsigned int',
             'fun_fact_toastee_id': 'unsigned int',
             'is_group_linking_post': 'bool',
             'has_nickname': 'bool',
@@ -1309,7 +1309,7 @@ class Group(
             'is_boost_intended': 'bool',
             'location_source_id': 'string',
             'description': 'string',
-            'offer_like_post_id': 'string',
+            'offer_like_post_id': 'unsigned int',
             'publish_event_id': 'unsigned int',
             'react_mode_metadata': 'string',
             'sales_promo_id': 'unsigned int',

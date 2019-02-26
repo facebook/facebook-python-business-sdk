@@ -102,21 +102,21 @@ class Post(
         width = 'width'
 
     class BackdatedTimeGranularity:
-        year = 'year'
-        month = 'month'
         day = 'day'
         hour = 'hour'
         min = 'min'
+        month = 'month'
         none = 'none'
+        year = 'year'
 
     class FeedStoryVisibility:
         hidden = 'hidden'
         visible = 'visible'
 
     class TimelineVisibility:
+        forced_allow = 'forced_allow'
         hidden = 'hidden'
         normal = 'normal'
-        forced_allow = 'forced_allow'
 
     def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -654,74 +654,74 @@ class Post(
         }
         enums = {
             'audience_enum': [
-                'GROUPER',
-                'NCPP',
-                'CUSTOM_AUDIENCE',
-                'LOOKALIKE',
-                'FANS',
-                'LOCAL',
-                'IG_PROMOTED_POST_AUTO',
-                'SAVED_AUDIENCE',
-                'EVENT_ENGAGEMENT',
-                'DISTRICT',
-                'SMART_AUDIENCE',
-                'CREATE_NEW',
                 'AUTO_LOOKALIKE',
-                'MULT_CUSTOM_AUDIENCES',
-                'EVENT_CUSTOM_AUDIENCES',
                 'AUTO_PAGE_LOOKALIKE',
                 'AUTO_TARGETING',
+                'CREATE_NEW',
+                'CUSTOM_AUDIENCE',
+                'DISTRICT',
+                'EVENT_CUSTOM_AUDIENCES',
+                'EVENT_ENGAGEMENT',
+                'FANS',
+                'GROUPER',
+                'IG_PROMOTED_POST_AUTO',
+                'LOCAL',
+                'LOOKALIKE',
+                'MULT_CUSTOM_AUDIENCES',
+                'NCPP',
+                'SAVED_AUDIENCE',
+                'SMART_AUDIENCE',
             ],
             'cta_type_enum': [
-                'OPEN_LINK',
-                'LIKE_PAGE',
-                'SHOP_NOW',
-                'PLAY_GAME',
-                'INSTALL_APP',
-                'USE_APP',
+                'ADD_TO_CART',
+                'APPLY_NOW',
+                'BOOK_TRAVEL',
+                'BUY',
+                'BUY_NOW',
+                'BUY_TICKETS',
                 'CALL',
                 'CALL_ME',
-                'INSTALL_MOBILE_APP',
-                'USE_MOBILE_APP',
-                'MOBILE_DOWNLOAD',
-                'BOOK_TRAVEL',
-                'LISTEN_MUSIC',
-                'WATCH_VIDEO',
-                'LEARN_MORE',
-                'SIGN_UP',
+                'CONTACT_US',
+                'DONATE',
+                'DONATE_NOW',
                 'DOWNLOAD',
-                'WATCH_MORE',
-                'NO_BUTTON',
-                'VISIT_PAGES_FEED',
-                'APPLY_NOW',
-                'BUY_NOW',
+                'EVENT_RSVP',
+                'FOLLOW_NEWS_STORYLINE',
+                'GET_DIRECTIONS',
                 'GET_OFFER',
                 'GET_OFFER_VIEW',
-                'BUY_TICKETS',
-                'UPDATE_APP',
-                'GET_DIRECTIONS',
-                'BUY',
+                'GET_QUOTE',
+                'GET_SHOWTIMES',
+                'INSTALL_APP',
+                'INSTALL_MOBILE_APP',
+                'LEARN_MORE',
+                'LIKE_PAGE',
+                'LISTEN_MUSIC',
+                'LISTEN_NOW',
                 'MESSAGE_PAGE',
-                'DONATE',
-                'SUBSCRIBE',
+                'MOBILE_DOWNLOAD',
+                'MOMENTS',
+                'NO_BUTTON',
+                'OPEN_LINK',
+                'ORDER_NOW',
+                'PLAY_GAME',
+                'RECORD_NOW',
                 'SAY_THANKS',
+                'SEE_MORE',
                 'SELL_NOW',
                 'SHARE',
-                'DONATE_NOW',
-                'GET_QUOTE',
-                'CONTACT_US',
-                'ORDER_NOW',
-                'ADD_TO_CART',
+                'SHOP_NOW',
+                'SIGN_UP',
+                'SUBSCRIBE',
+                'UPDATE_APP',
+                'USE_APP',
+                'USE_MOBILE_APP',
                 'VIDEO_ANNOTATION',
-                'MOMENTS',
-                'RECORD_NOW',
-                'GET_SHOWTIMES',
-                'LISTEN_NOW',
-                'WOODHENGE_SUPPORT',
-                'EVENT_RSVP',
+                'VISIT_PAGES_FEED',
+                'WATCH_MORE',
+                'WATCH_VIDEO',
                 'WHATSAPP_MESSAGE',
-                'FOLLOW_NEWS_STORYLINE',
-                'SEE_MORE',
+                'WOODHENGE_SUPPORT',
             ],
         }
         request = FacebookRequest(

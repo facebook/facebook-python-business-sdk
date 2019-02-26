@@ -47,11 +47,11 @@ class ProductFeedRule(
         rule_type = 'rule_type'
 
     class RuleType:
-        mapping_rule = 'mapping_rule'
-        value_mapping_rule = 'value_mapping_rule'
-        letter_case_rule = 'letter_case_rule'
         fallback_rule = 'fallback_rule'
+        letter_case_rule = 'letter_case_rule'
+        mapping_rule = 'mapping_rule'
         regex_replace_rule = 'regex_replace_rule'
+        value_mapping_rule = 'value_mapping_rule'
 
     def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils

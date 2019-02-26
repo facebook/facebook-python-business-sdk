@@ -50,8 +50,8 @@ class AdPlacePageSet(
         targeted_area_type = 'targeted_area_type'
 
     class LocationTypes:
-        recent = 'recent'
         home = 'home'
+        recent = 'recent'
 
     class TargetedAreaType:
         custom_radius = 'CUSTOM_RADIUS'

@@ -46,6 +46,8 @@ class CheckBatchRequestStatus(
         handle = 'handle'
         invalid_item_ids = 'invalid_item_ids'
         status = 'status'
+        warnings = 'warnings'
+        warnings_total_count = 'warnings_total_count'
         id = 'id'
 
     _field_types = {
@@ -54,6 +56,8 @@ class CheckBatchRequestStatus(
         'handle': 'string',
         'invalid_item_ids': 'list<string>',
         'status': 'string',
+        'warnings': 'list<Object>',
+        'warnings_total_count': 'int',
         'id': 'string',
     }
     @classmethod

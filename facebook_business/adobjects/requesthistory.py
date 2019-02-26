@@ -51,9 +51,9 @@ class RequestHistory(
         id = 'id'
 
     class HttpMethod:
+        delete = 'DELETE'
         get = 'GET'
         post = 'POST'
-        delete = 'DELETE'
 
     _field_types = {
         'api_version': 'string',

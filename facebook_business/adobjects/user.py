@@ -103,83 +103,83 @@ class User(
         work = 'work'
 
     class Tasks:
-        manage = 'MANAGE'
-        create_content = 'CREATE_CONTENT'
-        moderate = 'MODERATE'
-        moderate_community = 'MODERATE_COMMUNITY'
-        manage_jobs = 'MANAGE_JOBS'
         advertise = 'ADVERTISE'
         analyze = 'ANALYZE'
+        create_content = 'CREATE_CONTENT'
+        manage = 'MANAGE'
+        manage_jobs = 'MANAGE_JOBS'
+        moderate = 'MODERATE'
+        moderate_community = 'MODERATE_COMMUNITY'
 
     class LocalNewsMegaphoneDismissStatus:
-        yes = 'YES'
         no = 'NO'
+        yes = 'YES'
 
     class LocalNewsSubscriptionStatus:
-        status_on = 'STATUS_ON'
         status_off = 'STATUS_OFF'
+        status_on = 'STATUS_ON'
 
     class ResumeType:
         bot_action = 'BOT_ACTION'
         native = 'NATIVE'
 
     class Filtering:
+        ema = 'ema'
         groups = 'groups'
         groups_social = 'groups_social'
-        ema = 'ema'
 
     class Type:
-        generic = 'generic'
         content_update = 'content_update'
+        generic = 'generic'
 
     class ServiceType:
         aim = 'AIM'
-        gadu = 'GADU'
-        icq = 'ICQ'
-        gtalk = 'GTALK'
-        msn = 'MSN'
-        skype = 'SKYPE'
-        yahoo = 'YAHOO'
-        yahoo_jp = 'YAHOO_JP'
-        qq = 'QQ'
-        nateon = 'NATEON'
-        twitter = 'TWITTER'
-        hyves = 'HYVES'
-        orkut = 'ORKUT'
-        myspace = 'MYSPACE'
-        groupwise = 'GROUPWISE'
-        cyworld = 'CYWORLD'
-        mixi = 'MIXI'
-        qip = 'QIP'
-        rediff_bol = 'REDIFF_BOL'
-        vkontakte = 'VKONTAKTE'
-        ebuddy = 'EBUDDY'
-        mailru = 'MAILRU'
-        jabber = 'JABBER'
-        icloud = 'ICLOUD'
+        ask_fm = 'ASK_FM'
         bbm = 'BBM'
         bbm_ppid = 'BBM_PPID'
-        instagram = 'INSTAGRAM'
-        line = 'LINE'
-        wechat = 'WECHAT'
-        kakaotalk = 'KAKAOTALK'
-        others = 'OTHERS'
-        snapchat = 'SNAPCHAT'
-        tumblr = 'TUMBLR'
-        sound_cloud = 'SOUND_CLOUD'
-        linked_in = 'LINKED_IN'
-        pinterest = 'PINTEREST'
-        you_tube = 'YOU_TUBE'
-        medium = 'MEDIUM'
+        cyworld = 'CYWORLD'
+        ebuddy = 'EBUDDY'
         foursquare = 'FOURSQUARE'
-        spotify = 'SPOTIFY'
-        vimeo = 'VIMEO'
-        kik = 'KIK'
-        ask_fm = 'ASK_FM'
-        ok = 'OK'
+        gadu = 'GADU'
         github = 'GITHUB'
+        groupwise = 'GROUPWISE'
+        gtalk = 'GTALK'
+        hyves = 'HYVES'
+        icloud = 'ICLOUD'
+        icq = 'ICQ'
+        instagram = 'INSTAGRAM'
+        jabber = 'JABBER'
+        kakaotalk = 'KAKAOTALK'
+        kik = 'KIK'
+        line = 'LINE'
+        linked_in = 'LINKED_IN'
+        mailru = 'MAILRU'
+        medium = 'MEDIUM'
+        mixi = 'MIXI'
+        msn = 'MSN'
+        myspace = 'MYSPACE'
+        nateon = 'NATEON'
+        ok = 'OK'
+        orkut = 'ORKUT'
+        others = 'OTHERS'
+        pinterest = 'PINTEREST'
+        qip = 'QIP'
+        qq = 'QQ'
+        rediff_bol = 'REDIFF_BOL'
+        skype = 'SKYPE'
+        snapchat = 'SNAPCHAT'
+        sound_cloud = 'SOUND_CLOUD'
+        spotify = 'SPOTIFY'
+        tumblr = 'TUMBLR'
         twitch = 'TWITCH'
+        twitter = 'TWITTER'
+        vimeo = 'VIMEO'
+        vkontakte = 'VKONTAKTE'
+        wechat = 'WECHAT'
         whatsapp = 'WHATSAPP'
+        yahoo = 'YAHOO'
+        yahoo_jp = 'YAHOO_JP'
+        you_tube = 'YOU_TUBE'
 
     def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -1084,11 +1084,11 @@ class User(
         }
         enums = {
             'contact_surface_enum': [
-                'ORIGINAL',
-                'MESSENGER',
                 'CONNECTIONS',
-                'GROWTH_CONTACT_IMPORTER',
                 'CONTACTSAPP',
+                'GROWTH_CONTACT_IMPORTER',
+                'MESSENGER',
+                'ORIGINAL',
             ],
         }
         request = FacebookRequest(
@@ -1567,7 +1567,7 @@ class User(
             'composer_session_events_log': 'string',
             'composer_source_surface': 'string',
             'composer_type': 'string',
-            'fun_fact_prompt_id': 'string',
+            'fun_fact_prompt_id': 'unsigned int',
             'fun_fact_toastee_id': 'unsigned int',
             'is_group_linking_post': 'bool',
             'has_nickname': 'bool',
@@ -1576,7 +1576,7 @@ class User(
             'is_boost_intended': 'bool',
             'location_source_id': 'string',
             'message': 'string',
-            'offer_like_post_id': 'string',
+            'offer_like_post_id': 'unsigned int',
             'page_recommendation': 'string',
             'place_list': 'string',
             'publish_event_id': 'unsigned int',
@@ -1588,23 +1588,23 @@ class User(
         }
         enums = {
             'backdated_time_granularity_enum': [
-                'year',
-                'month',
                 'day',
                 'hour',
                 'min',
+                'month',
                 'none',
+                'year',
             ],
             'unpublished_content_type_enum': [
-                'SCHEDULED',
-                'DRAFT',
                 'ADS_POST',
+                'DRAFT',
                 'INLINE_CREATED',
                 'PUBLISHED',
+                'SCHEDULED',
             ],
             'posting_to_redspace_enum': [
-                'enabled',
                 'disabled',
+                'enabled',
             ],
             'place_attachment_setting_enum': [
                 '1',
@@ -1612,9 +1612,9 @@ class User(
             ],
             'checkin_entry_point_enum': [
                 'BRANDING_CHECKIN',
-                'BRANDING_STATUS',
-                'BRANDING_PHOTO',
                 'BRANDING_OTHER',
+                'BRANDING_PHOTO',
+                'BRANDING_STATUS',
             ],
             'post_surfaces_blacklist_enum': [
                 '1',
@@ -1624,8 +1624,8 @@ class User(
                 '5',
             ],
             'formatting_enum': [
-                'PLAINTEXT',
                 'MARKDOWN',
+                'PLAINTEXT',
             ],
             'target_surface_enum': [
                 'STORY',
@@ -1730,9 +1730,9 @@ class User(
         }
         enums = {
             'action_enum': [
-                'MARK',
                 'CONSUME',
                 'DROP',
+                'MARK',
             ],
         }
         request = FacebookRequest(
@@ -1766,9 +1766,9 @@ class User(
         }
         enums = {
             'action_enum': [
-                'START',
-                'HEARTBEAT',
                 'END',
+                'HEARTBEAT',
+                'START',
             ],
         }
         request = FacebookRequest(
@@ -2833,221 +2833,6 @@ class User(
             self.assure_call()
             return request.execute()
 
-    def create_payment_account_email(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'user_input_email': 'string',
-            'default': 'bool',
-            'payment_type': 'payment_type_enum',
-        }
-        enums = {
-            'payment_type_enum': [
-                'PAYMENT_SETTINGS',
-                'IG_PAYMENT_SETTINGS',
-                'UNKNOWN',
-                'MP_PAYMENT_SETTINGS',
-                'IAP_INSTANT_GAME',
-                'IAP_FAN_FUNDING',
-                'IAP_GROUP_SUBSCRIPTION',
-                'IAP_SOTTO',
-                'FB_BROWSER_PAYMENT',
-                'MOR_NONE',
-                'MOR_ADS_CONSENT',
-                'MOR_ADS_INVOICE',
-                'MOR_DONATIONS',
-                'MOR_DONATIONS_MATCHING_CONFIRMATION',
-                'MOR_DONATIONS_MATCHING_PLEDGE',
-                'MOR_OCULUS_CV1',
-                'MOR_OCULUS_LAUNCH_V1',
-                'MOR_OCULUS_LAUNCH_V2',
-                'MOR_OZONE',
-                'MOR_OPEN_GRAPH_PRODUCT',
-                'MOR_MESSENGER_COMMERCE',
-                'MOR_P2P_TRANSFER',
-                'MOR_DUMMY_FIRST_PARTY',
-                'MOR_DUMMY_THIRD_PARTY',
-                'MOR_GIFTS',
-                'MOR_BILL',
-                'MOR_AIRMAIL',
-                'MOR_EVENT_TICKETING',
-                'MOR_PAYMENT_LITE',
-                'MOR_MESSENGER_API_FEE',
-                'MOR_WORKPLACE_USAGE',
-                'MOR_FACEBOOK_SHOP',
-                'MOR_FAN_FUNDING',
-                'MOR_GAME_TIPPING_TOKEN',
-                'MOR_INSTANT_GAMES',
-                'MOR_BLUEBIRD',
-                'MOR_GROUP_SUBSCRIPTION',
-                'MOR_SOTTO',
-                'NMOR_UNKNOWN',
-                'NMOR_NONE',
-                'NMOR_PAGES_COMMERCE',
-                'NMOR_COMPONENT_FLOW',
-                'NMOR_BUSINESS_PLATFORM_COMMERCE',
-                'NMOR_SYNCHRONOUS_COMPONENT_FLOW',
-                'NMOR_EVENT_TICKETING',
-                'NMOR_PLATFORM_SELF_SERVE',
-                'NMOR_MESSENGER_PLATFORM',
-                'NMOR_MESSENGER_OMNIM',
-                'NMOR_TIP_JAR',
-                'NMOR_INSTANT_EXPERIENCES',
-                'NMOR_CHECKOUT_EXPERIENCES',
-                'NMOR_C2C_CHECKOUT_EXPERIENCES',
-                'NMOR_BUY_ON_FACEBOOK',
-                'NMOR_DONATION_P4P',
-                'NMOR_WHATSAPP_P2P',
-                'NMOR_P2P',
-                'NMOR_MOBILE_TOP_UP',
-                'NMOR_MFS',
-                'NMOR_SHIPPING_LABEL',
-                'NMOR_MARKETPLACE_DROPOFF',
-                'NMOR_PAGES_SOLUTION',
-                'NMOR_BLACKBAUD_RWR_DONATION',
-                'NMOR_MARKETPLACE_SHIPPING',
-                'NMOR_DUMMY',
-                'NMOR_PPGF_DONATION',
-                'NMOR_ADVERTISER_SUBSCRIPTION',
-                'NMOR_WHATSAPP_P2M',
-                'NMOR_MOVIE_TICKETING',
-                'IG_NMOR_P2B',
-                'IG_NMOR_SHOPPING',
-                'IG_MOR_DONATIONS',
-                'NMOR_INSTAGRAM_P2B',
-            ],
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/payment_account_emails',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_payment_account_phone(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'raw_input': 'string',
-            'country_code': 'string',
-            'default': 'bool',
-            'payment_type': 'payment_type_enum',
-        }
-        enums = {
-            'payment_type_enum': [
-                'PAYMENT_SETTINGS',
-                'IG_PAYMENT_SETTINGS',
-                'UNKNOWN',
-                'MP_PAYMENT_SETTINGS',
-                'IAP_INSTANT_GAME',
-                'IAP_FAN_FUNDING',
-                'IAP_GROUP_SUBSCRIPTION',
-                'IAP_SOTTO',
-                'FB_BROWSER_PAYMENT',
-                'MOR_NONE',
-                'MOR_ADS_CONSENT',
-                'MOR_ADS_INVOICE',
-                'MOR_DONATIONS',
-                'MOR_DONATIONS_MATCHING_CONFIRMATION',
-                'MOR_DONATIONS_MATCHING_PLEDGE',
-                'MOR_OCULUS_CV1',
-                'MOR_OCULUS_LAUNCH_V1',
-                'MOR_OCULUS_LAUNCH_V2',
-                'MOR_OZONE',
-                'MOR_OPEN_GRAPH_PRODUCT',
-                'MOR_MESSENGER_COMMERCE',
-                'MOR_P2P_TRANSFER',
-                'MOR_DUMMY_FIRST_PARTY',
-                'MOR_DUMMY_THIRD_PARTY',
-                'MOR_GIFTS',
-                'MOR_BILL',
-                'MOR_AIRMAIL',
-                'MOR_EVENT_TICKETING',
-                'MOR_PAYMENT_LITE',
-                'MOR_MESSENGER_API_FEE',
-                'MOR_WORKPLACE_USAGE',
-                'MOR_FACEBOOK_SHOP',
-                'MOR_FAN_FUNDING',
-                'MOR_GAME_TIPPING_TOKEN',
-                'MOR_INSTANT_GAMES',
-                'MOR_BLUEBIRD',
-                'MOR_GROUP_SUBSCRIPTION',
-                'MOR_SOTTO',
-                'NMOR_UNKNOWN',
-                'NMOR_NONE',
-                'NMOR_PAGES_COMMERCE',
-                'NMOR_COMPONENT_FLOW',
-                'NMOR_BUSINESS_PLATFORM_COMMERCE',
-                'NMOR_SYNCHRONOUS_COMPONENT_FLOW',
-                'NMOR_EVENT_TICKETING',
-                'NMOR_PLATFORM_SELF_SERVE',
-                'NMOR_MESSENGER_PLATFORM',
-                'NMOR_MESSENGER_OMNIM',
-                'NMOR_TIP_JAR',
-                'NMOR_INSTANT_EXPERIENCES',
-                'NMOR_CHECKOUT_EXPERIENCES',
-                'NMOR_C2C_CHECKOUT_EXPERIENCES',
-                'NMOR_BUY_ON_FACEBOOK',
-                'NMOR_DONATION_P4P',
-                'NMOR_WHATSAPP_P2P',
-                'NMOR_P2P',
-                'NMOR_MOBILE_TOP_UP',
-                'NMOR_MFS',
-                'NMOR_SHIPPING_LABEL',
-                'NMOR_MARKETPLACE_DROPOFF',
-                'NMOR_PAGES_SOLUTION',
-                'NMOR_BLACKBAUD_RWR_DONATION',
-                'NMOR_MARKETPLACE_SHIPPING',
-                'NMOR_DUMMY',
-                'NMOR_PPGF_DONATION',
-                'NMOR_ADVERTISER_SUBSCRIPTION',
-                'NMOR_WHATSAPP_P2M',
-                'NMOR_MOVIE_TICKETING',
-                'IG_NMOR_P2B',
-                'IG_NMOR_SHOPPING',
-                'IG_MOR_DONATIONS',
-                'NMOR_INSTAGRAM_P2B',
-            ],
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/payment_account_phones',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def delete_permissions(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -3320,12 +3105,12 @@ class User(
         }
         enums = {
             'type_enum': [
-                'PLACE',
                 'CITY',
-                'STATE_PROVINCE',
                 'COUNTRY',
                 'EVENT',
+                'PLACE',
                 'RESIDENCE',
+                'STATE_PROVINCE',
                 'TEXT',
             ],
         }
@@ -3909,7 +3694,7 @@ class User(
             'composer_source_surface': 'string',
             'composer_type': 'string',
             'formatting': 'formatting_enum',
-            'fun_fact_prompt_id': 'string',
+            'fun_fact_prompt_id': 'unsigned int',
             'fun_fact_toastee_id': 'unsigned int',
             'is_group_linking_post': 'bool',
             'has_nickname': 'bool',
@@ -3918,7 +3703,7 @@ class User(
             'is_boost_intended': 'bool',
             'location_source_id': 'string',
             'description': 'string',
-            'offer_like_post_id': 'string',
+            'offer_like_post_id': 'unsigned int',
             'publish_event_id': 'unsigned int',
             'react_mode_metadata': 'string',
             'sales_promo_id': 'unsigned int',

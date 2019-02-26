@@ -64,23 +64,23 @@ class ProductFeed(
         autodetect = 'AUTODETECT'
         bar = 'BAR'
         comma = 'COMMA'
+        semicolon = 'SEMICOLON'
         tab = 'TAB'
         tilde = 'TILDE'
-        semicolon = 'SEMICOLON'
 
     class QuotedFieldsMode:
         autodetect = 'AUTODETECT'
-        on = 'ON'
         off = 'OFF'
+        on = 'ON'
 
     class Encoding:
         autodetect = 'AUTODETECT'
         latin1 = 'LATIN1'
-        utf8 = 'UTF8'
-        utf16le = 'UTF16LE'
         utf16be = 'UTF16BE'
-        utf32le = 'UTF32LE'
+        utf16le = 'UTF16LE'
         utf32be = 'UTF32BE'
+        utf32le = 'UTF32LE'
+        utf8 = 'UTF8'
 
     class FeedType:
         auto = 'AUTO'
@@ -93,8 +93,8 @@ class ProductFeed(
         market = 'MARKET'
         media_title = 'MEDIA_TITLE'
         products = 'PRODUCTS'
-        vehicle_offer = 'VEHICLE_OFFER'
         vehicles = 'VEHICLES'
+        vehicle_offer = 'VEHICLE_OFFER'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod

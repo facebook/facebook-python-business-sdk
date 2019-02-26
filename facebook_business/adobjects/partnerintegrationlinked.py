@@ -82,28 +82,29 @@ class PartnerIntegrationLinked(
         jumpseller = 'jumpseller'
         kajabi = 'kajabi'
         kraftly = 'kraftly'
+        m_particle = 'm_particle'
         magento = 'magento'
         magento_2 = 'magento_2'
         marketo = 'marketo'
         meesho = 'meesho'
-        m_particle = 'm_particle'
         now_floats = 'now_floats'
         opencart = 'opencart'
         prestashop = 'prestashop'
         productsup = 'productsup'
-        ruby_on_rails = 'ruby_on_rails'
         riversoft = 'riversoft'
+        ruby_on_rails = 'ruby_on_rails'
         salesforce = 'salesforce'
         salesforce_zap = 'salesforce_zap'
         segment = 'segment'
+        shop_up = 'shop_up'
         shopify = 'shopify'
         shopify_online = 'shopify_online'
         shopline = 'shopline'
-        shop_up = 'shop_up'
         sirclo = 'sirclo'
         squarespace = 'squarespace'
         storeden = 'storeden'
         test = 'test'
+        ticketmaster = 'ticketmaster'
         verifone = 'verifone'
         waca = 'waca'
         webflow = 'webflow'
@@ -112,7 +113,6 @@ class PartnerIntegrationLinked(
         woocommerce = 'woocommerce'
         wordpress = 'wordpress'
         zoho_zap = 'zoho_zap'
-        ticketmaster = 'ticketmaster'
 
     class CompletedIntegrationTypes:
         value_0 = '0'
@@ -121,8 +121,8 @@ class PartnerIntegrationLinked(
         value_3 = '3'
 
     class SetupStatus:
-        start = 'START'
         complete = 'COMPLETE'
+        start = 'START'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod

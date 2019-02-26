@@ -52,7 +52,6 @@ class InstagramUser(
         username = 'username'
 
     class Role:
-        manager = 'MANAGER'
         analyst = 'ANALYST'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):

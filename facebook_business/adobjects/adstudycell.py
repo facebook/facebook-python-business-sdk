@@ -55,17 +55,17 @@ class AdStudyCell(
         facebook_instagram = 'FACEBOOK_INSTAGRAM'
         facebook_news_feed = 'FACEBOOK_NEWS_FEED'
         facebook_news_feed_in_stream_video = 'FACEBOOK_NEWS_FEED_IN_STREAM_VIDEO'
-        in_stream_video = 'IN_STREAM_VIDEO'
+        high_frequency = 'HIGH_FREQUENCY'
         instagram = 'INSTAGRAM'
+        in_stream_video = 'IN_STREAM_VIDEO'
+        low_frequency = 'LOW_FREQUENCY'
+        medium_frequency = 'MEDIUM_FREQUENCY'
         mobile_optimized_video = 'MOBILE_OPTIMIZED_VIDEO'
         page_post_engagement = 'PAGE_POST_ENGAGEMENT'
         reach = 'REACH'
         tv_commercial = 'TV_COMMERCIAL'
         tv_facebook = 'TV_FACEBOOK'
         video_view_optimization = 'VIDEO_VIEW_OPTIMIZATION'
-        low_frequency = 'LOW_FREQUENCY'
-        medium_frequency = 'MEDIUM_FREQUENCY'
-        high_frequency = 'HIGH_FREQUENCY'
 
     def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils

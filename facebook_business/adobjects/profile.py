@@ -54,22 +54,22 @@ class Profile(
         username = 'username'
 
     class ProfileType:
-        user = 'user'
-        page = 'page'
+        application = 'application'
         event = 'event'
         group = 'group'
-        application = 'application'
+        page = 'page'
+        user = 'user'
 
     class Type:
-        none = 'NONE'
+        angry = 'ANGRY'
+        haha = 'HAHA'
         like = 'LIKE'
         love = 'LOVE'
-        wow = 'WOW'
-        haha = 'HAHA'
-        sad = 'SAD'
-        angry = 'ANGRY'
-        thankful = 'THANKFUL'
+        none = 'NONE'
         pride = 'PRIDE'
+        sad = 'SAD'
+        thankful = 'THANKFUL'
+        wow = 'WOW'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils

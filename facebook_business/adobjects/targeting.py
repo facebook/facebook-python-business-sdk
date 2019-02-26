@@ -134,14 +134,14 @@ class Targeting(
         id = 'id'
 
     class DevicePlatforms:
-        mobile = 'mobile'
-        desktop = 'desktop'
         connected_tv = 'connected_tv'
+        desktop = 'desktop'
+        mobile = 'mobile'
 
     class EffectiveDevicePlatforms:
-        mobile = 'mobile'
-        desktop = 'desktop'
         connected_tv = 'connected_tv'
+        desktop = 'desktop'
+        mobile = 'mobile'
 
     _field_types = {
         'adgroup_id': 'string',

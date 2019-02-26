@@ -67,13 +67,13 @@ class ProductEventStat(
         unknown = 'unknown'
 
     class Event:
-        viewcontent = 'ViewContent'
         addtocart = 'AddToCart'
-        purchase = 'Purchase'
-        initiatecheckout = 'InitiateCheckout'
-        search = 'Search'
-        lead = 'Lead'
         addtowishlist = 'AddToWishlist'
+        initiatecheckout = 'InitiateCheckout'
+        lead = 'Lead'
+        purchase = 'Purchase'
+        search = 'Search'
+        viewcontent = 'ViewContent'
 
     class Breakdowns:
         device_type = 'DEVICE_TYPE'

@@ -202,9 +202,9 @@ class UnifiedThread(
             ],
             'video_type_enum': [
                 'FILE_ATTACHMENT',
+                'RECORDED_STICKER',
                 'RECORDED_VIDEO',
                 'SPEAKING_STICKER',
-                'RECORDED_STICKER',
                 'VIDEO_MAIL',
             ],
         }

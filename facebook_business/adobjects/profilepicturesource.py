@@ -53,9 +53,9 @@ class ProfilePictureSource(
         id = 'id'
 
     class Type:
-        thumbnail = 'thumbnail'
-        small = 'small'
         album = 'album'
+        small = 'small'
+        thumbnail = 'thumbnail'
 
     _field_types = {
         'bottom': 'unsigned int',

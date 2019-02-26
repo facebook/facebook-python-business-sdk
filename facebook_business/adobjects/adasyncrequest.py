@@ -52,26 +52,26 @@ class AdAsyncRequest(
         updated_time = 'updated_time'
 
     class Status:
+        canceled = 'CANCELED'
+        canceled_dependency = 'CANCELED_DEPENDENCY'
+        error = 'ERROR'
+        error_conflicts = 'ERROR_CONFLICTS'
+        error_dependency = 'ERROR_DEPENDENCY'
         initial = 'INITIAL'
         in_progress = 'IN_PROGRESS'
-        success = 'SUCCESS'
-        error = 'ERROR'
-        canceled = 'CANCELED'
         pending_dependency = 'PENDING_DEPENDENCY'
-        canceled_dependency = 'CANCELED_DEPENDENCY'
-        error_dependency = 'ERROR_DEPENDENCY'
-        error_conflicts = 'ERROR_CONFLICTS'
+        success = 'SUCCESS'
 
     class Statuses:
+        canceled = 'CANCELED'
+        canceled_dependency = 'CANCELED_DEPENDENCY'
+        error = 'ERROR'
+        error_conflicts = 'ERROR_CONFLICTS'
+        error_dependency = 'ERROR_DEPENDENCY'
         initial = 'INITIAL'
         in_progress = 'IN_PROGRESS'
-        success = 'SUCCESS'
-        error = 'ERROR'
-        canceled = 'CANCELED'
         pending_dependency = 'PENDING_DEPENDENCY'
-        canceled_dependency = 'CANCELED_DEPENDENCY'
-        error_dependency = 'ERROR_DEPENDENCY'
-        error_conflicts = 'ERROR_CONFLICTS'
+        success = 'SUCCESS'
 
     def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils

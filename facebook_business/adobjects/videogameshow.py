@@ -48,8 +48,8 @@ class VideoGameShow(
         start_time = 'start_time'
 
     class Action:
-        start_game = 'START_GAME'
         end_game = 'END_GAME'
+        start_game = 'START_GAME'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils

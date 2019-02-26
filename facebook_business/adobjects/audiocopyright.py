@@ -55,8 +55,8 @@ class AudioCopyright(
         whitelisted_ig_users = 'whitelisted_ig_users'
 
     class UpdateSource:
-        edit_reference_dialog = 'edit_reference_dialog'
         ddex = 'ddex'
+        edit_reference_dialog = 'edit_reference_dialog'
         reference_conflict_dialog = 'reference_conflict_dialog'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):

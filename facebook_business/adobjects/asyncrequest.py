@@ -47,15 +47,15 @@ class AsyncRequest(
         type = 'type'
 
     class Status:
-        initialized = 'INITIALIZED'
+        error = 'ERROR'
         executing = 'EXECUTING'
         finished = 'FINISHED'
-        error = 'ERROR'
+        initialized = 'INITIALIZED'
 
     class Type:
-        drafts = 'DRAFTS'
-        batch_api = 'BATCH_API'
         async_adgroup_creation = 'ASYNC_ADGROUP_CREATION'
+        batch_api = 'BATCH_API'
+        drafts = 'DRAFTS'
 
     _field_types = {
         'id': 'int',

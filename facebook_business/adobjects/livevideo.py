@@ -69,50 +69,50 @@ class LiveVideo(
         video = 'video'
 
     class BroadcastStatus:
-        unpublished = 'UNPUBLISHED'
         live = 'LIVE'
         live_stopped = 'LIVE_STOPPED'
         processing = 'PROCESSING'
-        vod = 'VOD'
-        scheduled_unpublished = 'SCHEDULED_UNPUBLISHED'
-        scheduled_live = 'SCHEDULED_LIVE'
-        scheduled_expired = 'SCHEDULED_EXPIRED'
         scheduled_canceled = 'SCHEDULED_CANCELED'
+        scheduled_expired = 'SCHEDULED_EXPIRED'
+        scheduled_live = 'SCHEDULED_LIVE'
+        scheduled_unpublished = 'SCHEDULED_UNPUBLISHED'
+        unpublished = 'UNPUBLISHED'
+        vod = 'VOD'
 
     class Projection:
-        equirectangular = 'EQUIRECTANGULAR'
         cubemap = 'CUBEMAP'
+        equirectangular = 'EQUIRECTANGULAR'
         half_equirectangular = 'HALF_EQUIRECTANGULAR'
 
     class Source:
-        target = 'target'
         owner = 'owner'
+        target = 'target'
 
     class SpatialAudioFormat:
         ambix_4 = 'ambiX_4'
 
     class Status:
-        unpublished = 'UNPUBLISHED'
         live_now = 'LIVE_NOW'
-        scheduled_unpublished = 'SCHEDULED_UNPUBLISHED'
-        scheduled_live = 'SCHEDULED_LIVE'
         scheduled_canceled = 'SCHEDULED_CANCELED'
+        scheduled_live = 'SCHEDULED_LIVE'
+        scheduled_unpublished = 'SCHEDULED_UNPUBLISHED'
+        unpublished = 'UNPUBLISHED'
 
     class StereoscopicMode:
-        mono = 'MONO'
         left_right = 'LEFT_RIGHT'
+        mono = 'MONO'
         top_bottom = 'TOP_BOTTOM'
 
     class StreamType:
-        regular = 'REGULAR'
         ambient = 'AMBIENT'
+        regular = 'REGULAR'
 
     class LiveCommentModerationSetting:
-        follower = 'FOLLOWER'
-        slow = 'SLOW'
         discussion = 'DISCUSSION'
-        restricted = 'RESTRICTED'
+        follower = 'FOLLOWER'
         protected_mode = 'PROTECTED_MODE'
+        restricted = 'RESTRICTED'
+        slow = 'SLOW'
         supporter = 'SUPPORTER'
 
     def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):

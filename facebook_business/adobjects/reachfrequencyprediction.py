@@ -147,25 +147,25 @@ class ReachFrequencyPrediction(
         exceptions = 'exceptions'
 
     class Action:
+        cancel = 'cancel'
         quote = 'quote'
         reserve = 'reserve'
-        cancel = 'cancel'
 
     class BuyingType:
         auction = 'AUCTION'
-        fixed_cpm = 'FIXED_CPM'
-        reserved = 'RESERVED'
-        reachblock = 'REACHBLOCK'
         deprecated_reach_block = 'DEPRECATED_REACH_BLOCK'
-        research_poll = 'RESEARCH_POLL'
+        fixed_cpm = 'FIXED_CPM'
         mixed = 'MIXED'
+        reachblock = 'REACHBLOCK'
+        research_poll = 'RESEARCH_POLL'
+        reserved = 'RESERVED'
 
     class InstreamPackages:
+        beauty = 'BEAUTY'
+        entertainment = 'ENTERTAINMENT'
+        food = 'FOOD'
         normal = 'NORMAL'
         premium = 'PREMIUM'
-        sports = 'SPORTS'
-        entertainment = 'ENTERTAINMENT'
-        beauty = 'BEAUTY'
         regular_animals_pets = 'REGULAR_ANIMALS_PETS'
         regular_food = 'REGULAR_FOOD'
         regular_games = 'REGULAR_GAMES'
@@ -173,13 +173,14 @@ class ReachFrequencyPrediction(
         regular_sports = 'REGULAR_SPORTS'
         regular_style = 'REGULAR_STYLE'
         regular_tv_movies = 'REGULAR_TV_MOVIES'
+        sports = 'SPORTS'
 
     class Status:
-        expired = 'EXPIRED'
-        draft = 'DRAFT'
-        pending = 'PENDING'
         active = 'ACTIVE'
         completed = 'COMPLETED'
+        draft = 'DRAFT'
+        expired = 'EXPIRED'
+        pending = 'PENDING'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod

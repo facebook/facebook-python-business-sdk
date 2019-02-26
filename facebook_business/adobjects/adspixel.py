@@ -61,28 +61,28 @@ class AdsPixel(
         name = 'NAME'
 
     class AutomaticMatchingFields:
+        ct = 'ct'
         em = 'em'
         fn = 'fn'
+        ge = 'ge'
         ln = 'ln'
         ph = 'ph'
-        ge = 'ge'
-        zp = 'zp'
-        ct = 'ct'
         st = 'st'
+        zp = 'zp'
 
     class DataUseSetting:
-        empty = 'EMPTY'
         advertising_and_analytics = 'ADVERTISING_AND_ANALYTICS'
         analytics_only = 'ANALYTICS_ONLY'
+        empty = 'EMPTY'
 
     class FirstPartyCookieStatus:
         empty = 'EMPTY'
-        first_party_cookie_enabled = 'FIRST_PARTY_COOKIE_ENABLED'
         first_party_cookie_disabled = 'FIRST_PARTY_COOKIE_DISABLED'
+        first_party_cookie_enabled = 'FIRST_PARTY_COOKIE_ENABLED'
 
     class Tasks:
-        edit = 'EDIT'
         analyze = 'ANALYZE'
+        edit = 'EDIT'
 
     class Type:
         primary = 'PRIMARY'

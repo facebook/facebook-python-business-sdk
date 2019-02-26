@@ -50,15 +50,15 @@ class AdStudyObjective(
         type = 'type'
 
     class Type:
-        sales = 'SALES'
-        nonsales = 'NONSALES'
-        mae = 'MAE'
-        telco = 'TELCO'
-        ftl = 'FTL'
-        mai = 'MAI'
-        partner = 'PARTNER'
-        brandlift = 'BRANDLIFT'
         brand = 'BRAND'
+        brandlift = 'BRANDLIFT'
+        ftl = 'FTL'
+        mae = 'MAE'
+        mai = 'MAI'
+        nonsales = 'NONSALES'
+        partner = 'PARTNER'
+        sales = 'SALES'
+        telco = 'TELCO'
 
     def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -101,8 +101,8 @@ class AdStudyObjective(
             'breakdowns_enum': [
                 'age',
                 'cell_id',
-                'gender',
                 'country',
+                'gender',
             ],
         }
         request = FacebookRequest(

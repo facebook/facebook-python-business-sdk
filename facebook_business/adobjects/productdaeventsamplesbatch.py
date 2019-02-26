@@ -51,13 +51,13 @@ class ProductDaEventSamplesBatch(
         content_url = 'CONTENT_URL'
 
     class Event:
-        viewcontent = 'ViewContent'
         addtocart = 'AddToCart'
-        purchase = 'Purchase'
-        initiatecheckout = 'InitiateCheckout'
-        search = 'Search'
-        lead = 'Lead'
         addtowishlist = 'AddToWishlist'
+        initiatecheckout = 'InitiateCheckout'
+        lead = 'Lead'
+        purchase = 'Purchase'
+        search = 'Search'
+        viewcontent = 'ViewContent'
 
     _field_types = {
         'samples': 'list<Object>',

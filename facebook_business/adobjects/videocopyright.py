@@ -63,9 +63,9 @@ class VideoCopyright(
         web = 'web'
 
     class MonitoringType:
+        audio_only = 'AUDIO_ONLY'
         video_and_audio = 'VIDEO_AND_AUDIO'
         video_only = 'VIDEO_ONLY'
-        audio_only = 'AUDIO_ONLY'
 
     def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils

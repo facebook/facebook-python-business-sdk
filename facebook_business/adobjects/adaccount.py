@@ -164,14 +164,14 @@ class AdAccount(
         zar = 'ZAR'
 
     class PermittedTasks:
-        manage = 'MANAGE'
         advertise = 'ADVERTISE'
         analyze = 'ANALYZE'
+        manage = 'MANAGE'
 
     class Tasks:
-        manage = 'MANAGE'
         advertise = 'ADVERTISE'
         analyze = 'ANALYZE'
+        manage = 'MANAGE'
 
     class ClaimObjective:
         automotive_model = 'AUTOMOTIVE_MODEL'
@@ -195,19 +195,19 @@ class AdAccount(
         vehicle_offer = 'VEHICLE_OFFER'
 
     class Subtype:
-        custom = 'CUSTOM'
-        website = 'WEBSITE'
         app = 'APP'
-        offline_conversion = 'OFFLINE_CONVERSION'
-        claim = 'CLAIM'
-        partner = 'PARTNER'
-        managed = 'MANAGED'
-        video = 'VIDEO'
-        lookalike = 'LOOKALIKE'
-        engagement = 'ENGAGEMENT'
         bag_of_accounts = 'BAG_OF_ACCOUNTS'
-        study_rule_audience = 'STUDY_RULE_AUDIENCE'
+        claim = 'CLAIM'
+        custom = 'CUSTOM'
+        engagement = 'ENGAGEMENT'
         fox = 'FOX'
+        lookalike = 'LOOKALIKE'
+        managed = 'MANAGED'
+        offline_conversion = 'OFFLINE_CONVERSION'
+        partner = 'PARTNER'
+        study_rule_audience = 'STUDY_RULE_AUDIENCE'
+        video = 'VIDEO'
+        website = 'WEBSITE'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
@@ -1010,48 +1010,49 @@ class AdAccount(
                 'PERFORMANCE',
                 'PERFORMANCE_LEGACY',
                 'TARGETING_AND_CREATIVE',
-                'VIDEO_ENGAGEMENT',
                 'VALIDATION_VIEW',
+                'VIDEO_ENGAGEMENT',
             ],
             'level_enum': [
-                'politicalad',
+                'account',
                 'ad',
                 'adgroup',
                 'campaign',
                 'campaign_group',
-                'account',
+                'politicalad',
             ],
             'date_preset_enum': [
-                'today',
-                'yesterday',
-                'this_month',
-                'last_month',
-                'this_quarter',
-                'lifetime',
-                'last_3d',
-                'last_7d',
                 'last_14d',
                 'last_28d',
                 'last_30d',
+                'last_3d',
+                'last_7d',
                 'last_90d',
+                'last_month',
+                'last_quarter',
                 'last_week_mon_sun',
                 'last_week_sun_sat',
-                'last_quarter',
                 'last_year',
+                'lifetime',
+                'this_month',
+                'this_quarter',
                 'this_week_mon_today',
                 'this_week_sun_today',
                 'this_year',
+                'today',
+                'yesterday',
             ],
             'creation_source_enum': [
+                'adsExcelAddin',
                 'adsManagerReporting',
                 'newAdsManager',
-                'adsExcelAddin',
             ],
             'actions_group_by_enum': [
                 'action_canvas_component_id',
                 'action_canvas_component_name',
                 'action_carousel_card_id',
                 'action_carousel_card_name',
+                'action_converted_product_id',
                 'action_destination',
                 'action_device',
                 'action_event_channel',
@@ -1059,19 +1060,18 @@ class AdAccount(
                 'action_type',
                 'action_video_sound',
                 'action_video_type',
-                'action_converted_product_id',
                 'interactive_component_sticker_id',
                 'interactive_component_sticker_response',
             ],
             'schedule_frequency_enum': [
                 'daily',
-                'weekly',
                 'monthly',
+                'weekly',
             ],
             'status_enum': [
                 'Active',
-                'Paused',
                 'Deleted',
+                'Paused',
             ],
         }
         request = FacebookRequest(
@@ -1271,8 +1271,8 @@ class AdAccount(
         enums = {
             'delete_strategy_enum': [
                 'DELETE_ANY',
-                'DELETE_OLDEST',
                 'DELETE_ARCHIVED_BEFORE',
+                'DELETE_OLDEST',
             ],
         }
         request = FacebookRequest(
@@ -1433,8 +1433,8 @@ class AdAccount(
         enums = {
             'delete_strategy_enum': [
                 'DELETE_ANY',
-                'DELETE_OLDEST',
                 'DELETE_ARCHIVED_BEFORE',
+                'DELETE_OLDEST',
             ],
         }
         request = FacebookRequest(
@@ -1853,7 +1853,7 @@ class AdAccount(
             'composer_source_surface': 'string',
             'composer_type': 'string',
             'formatting': 'formatting_enum',
-            'fun_fact_prompt_id': 'string',
+            'fun_fact_prompt_id': 'unsigned int',
             'fun_fact_toastee_id': 'unsigned int',
             'is_group_linking_post': 'bool',
             'has_nickname': 'bool',
@@ -1862,7 +1862,7 @@ class AdAccount(
             'is_boost_intended': 'bool',
             'location_source_id': 'string',
             'description': 'string',
-            'offer_like_post_id': 'string',
+            'offer_like_post_id': 'unsigned int',
             'publish_event_id': 'unsigned int',
             'react_mode_metadata': 'string',
             'sales_promo_id': 'unsigned int',
@@ -2067,6 +2067,37 @@ class AdAccount(
             target_class=Application,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=Application, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def delete_assigned_users(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'user': 'int',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='DELETE',
+            endpoint='/assigned_users',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2612,8 +2643,8 @@ class AdAccount(
         enums = {
             'delete_strategy_enum': [
                 'DELETE_ANY',
-                'DELETE_OLDEST',
                 'DELETE_ARCHIVED_BEFORE',
+                'DELETE_OLDEST',
             ],
         }
         request = FacebookRequest(

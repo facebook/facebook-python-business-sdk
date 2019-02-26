@@ -124,19 +124,19 @@ class ProductItem(
         toddler = 'toddler'
 
     class Availability:
-        in_stock = 'in stock'
-        out_of_stock = 'out of stock'
-        preorder = 'preorder'
         available_for_order = 'available for order'
         discontinued = 'discontinued'
+        in_stock = 'in stock'
+        out_of_stock = 'out of stock'
         pending = 'pending'
+        preorder = 'preorder'
 
     class Condition:
+        cpo = 'cpo'
         new = 'new'
+        open_box_new = 'open_box_new'
         refurbished = 'refurbished'
         used = 'used'
-        cpo = 'cpo'
-        open_box_new = 'open_box_new'
 
     class Gender:
         female = 'female'
@@ -144,20 +144,20 @@ class ProductItem(
         unisex = 'unisex'
 
     class ReviewStatus:
-        pending = 'pending'
-        rejected = 'rejected'
         approved = 'approved'
         outdated = 'outdated'
+        pending = 'pending'
+        rejected = 'rejected'
 
     class ShippingWeightUnit:
         value_g = 'g'
         kg = 'kg'
-        oz = 'oz'
         lb = 'lb'
+        oz = 'oz'
 
     class Visibility:
-        staging = 'staging'
         published = 'published'
+        staging = 'staging'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod

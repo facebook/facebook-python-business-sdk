@@ -53,19 +53,19 @@ class ProductFeedSchedule(
         id = 'id'
 
     class DayOfWeek:
-        sunday = 'SUNDAY'
+        friday = 'FRIDAY'
         monday = 'MONDAY'
+        saturday = 'SATURDAY'
+        sunday = 'SUNDAY'
+        thursday = 'THURSDAY'
         tuesday = 'TUESDAY'
         wednesday = 'WEDNESDAY'
-        thursday = 'THURSDAY'
-        friday = 'FRIDAY'
-        saturday = 'SATURDAY'
 
     class Interval:
-        hourly = 'HOURLY'
         daily = 'DAILY'
-        weekly = 'WEEKLY'
+        hourly = 'HOURLY'
         monthly = 'MONTHLY'
+        weekly = 'WEEKLY'
 
     _field_types = {
         'day_of_month': 'unsigned int',

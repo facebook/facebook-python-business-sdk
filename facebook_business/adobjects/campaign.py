@@ -88,53 +88,53 @@ class Campaign(
 
     class ConfiguredStatus:
         active = 'ACTIVE'
-        paused = 'PAUSED'
-        deleted = 'DELETED'
         archived = 'ARCHIVED'
+        deleted = 'DELETED'
+        paused = 'PAUSED'
 
     class EffectiveStatus:
         active = 'ACTIVE'
-        paused = 'PAUSED'
-        deleted = 'DELETED'
-        pending_review = 'PENDING_REVIEW'
-        disapproved = 'DISAPPROVED'
-        preapproved = 'PREAPPROVED'
-        pending_billing_info = 'PENDING_BILLING_INFO'
-        campaign_paused = 'CAMPAIGN_PAUSED'
-        archived = 'ARCHIVED'
         adset_paused = 'ADSET_PAUSED'
+        archived = 'ARCHIVED'
+        campaign_paused = 'CAMPAIGN_PAUSED'
+        deleted = 'DELETED'
+        disapproved = 'DISAPPROVED'
+        paused = 'PAUSED'
+        pending_billing_info = 'PENDING_BILLING_INFO'
+        pending_review = 'PENDING_REVIEW'
+        preapproved = 'PREAPPROVED'
         with_issues = 'WITH_ISSUES'
 
     class Status:
         active = 'ACTIVE'
-        paused = 'PAUSED'
-        deleted = 'DELETED'
         archived = 'ARCHIVED'
+        deleted = 'DELETED'
+        paused = 'PAUSED'
 
     class DatePreset:
-        today = 'today'
-        yesterday = 'yesterday'
-        this_month = 'this_month'
-        last_month = 'last_month'
-        this_quarter = 'this_quarter'
-        lifetime = 'lifetime'
-        last_3d = 'last_3d'
-        last_7d = 'last_7d'
         last_14d = 'last_14d'
         last_28d = 'last_28d'
         last_30d = 'last_30d'
+        last_3d = 'last_3d'
+        last_7d = 'last_7d'
         last_90d = 'last_90d'
+        last_month = 'last_month'
+        last_quarter = 'last_quarter'
         last_week_mon_sun = 'last_week_mon_sun'
         last_week_sun_sat = 'last_week_sun_sat'
-        last_quarter = 'last_quarter'
         last_year = 'last_year'
+        lifetime = 'lifetime'
+        this_month = 'this_month'
+        this_quarter = 'this_quarter'
         this_week_mon_today = 'this_week_mon_today'
         this_week_sun_today = 'this_week_sun_today'
         this_year = 'this_year'
+        today = 'today'
+        yesterday = 'yesterday'
 
     class ExecutionOptions:
-        validate_only = 'validate_only'
         include_recommendations = 'include_recommendations'
+        validate_only = 'validate_only'
 
     class Objective:
         app_installs = 'APP_INSTALLS'
@@ -158,8 +158,8 @@ class Campaign(
 
     class StatusOption:
         active = 'ACTIVE'
-        paused = 'PAUSED'
         inherited_from_source = 'INHERITED_FROM_SOURCE'
+        paused = 'PAUSED'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
@@ -212,25 +212,25 @@ class Campaign(
         }
         enums = {
             'date_preset_enum': [
-                'today',
-                'yesterday',
-                'this_month',
-                'last_month',
-                'this_quarter',
-                'lifetime',
-                'last_3d',
-                'last_7d',
                 'last_14d',
                 'last_28d',
                 'last_30d',
+                'last_3d',
+                'last_7d',
                 'last_90d',
+                'last_month',
+                'last_quarter',
                 'last_week_mon_sun',
                 'last_week_sun_sat',
-                'last_quarter',
                 'last_year',
+                'lifetime',
+                'this_month',
+                'this_quarter',
                 'this_week_mon_today',
                 'this_week_sun_today',
                 'this_year',
+                'today',
+                'yesterday',
             ],
         }
         request = FacebookRequest(

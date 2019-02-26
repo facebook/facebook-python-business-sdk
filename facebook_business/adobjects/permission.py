@@ -46,8 +46,8 @@ class Permission(
         id = 'id'
 
     class Status:
-        granted = 'granted'
         declined = 'declined'
+        granted = 'granted'
 
     _field_types = {
         'permission': 'string',

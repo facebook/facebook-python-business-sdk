@@ -132,24 +132,24 @@ class CustomAudience(
         vehicle_offer = 'VEHICLE_OFFER'
 
     class CustomerFileSource:
-        user_provided_only = 'USER_PROVIDED_ONLY'
-        partner_provided_only = 'PARTNER_PROVIDED_ONLY'
         both_user_and_partner_provided = 'BOTH_USER_AND_PARTNER_PROVIDED'
+        partner_provided_only = 'PARTNER_PROVIDED_ONLY'
+        user_provided_only = 'USER_PROVIDED_ONLY'
 
     class Subtype:
-        custom = 'CUSTOM'
-        website = 'WEBSITE'
         app = 'APP'
-        offline_conversion = 'OFFLINE_CONVERSION'
-        claim = 'CLAIM'
-        partner = 'PARTNER'
-        managed = 'MANAGED'
-        video = 'VIDEO'
-        lookalike = 'LOOKALIKE'
-        engagement = 'ENGAGEMENT'
         bag_of_accounts = 'BAG_OF_ACCOUNTS'
-        study_rule_audience = 'STUDY_RULE_AUDIENCE'
+        claim = 'CLAIM'
+        custom = 'CUSTOM'
+        engagement = 'ENGAGEMENT'
         fox = 'FOX'
+        lookalike = 'LOOKALIKE'
+        managed = 'MANAGED'
+        offline_conversion = 'OFFLINE_CONVERSION'
+        partner = 'PARTNER'
+        study_rule_audience = 'STUDY_RULE_AUDIENCE'
+        video = 'VIDEO'
+        website = 'WEBSITE'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
@@ -498,14 +498,14 @@ class CustomAudience(
         enums = {
             'action_type_enum': [
                 'add',
-                'remove',
                 'match',
                 'optout',
+                'remove',
             ],
             'encoding_enum': [
                 'md5',
-                'sha256',
                 'plain',
+                'sha256',
             ],
             'entry_type_enum': [
                 '0',
