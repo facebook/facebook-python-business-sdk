@@ -49,20 +49,20 @@ class SavedMessageResponse(
         title = 'title'
 
     class Category:
-        standard = 'STANDARD'
-        instant_reply = 'INSTANT_REPLY'
+        appointment_reminder = 'APPOINTMENT_REMINDER'
         away_message = 'AWAY_MESSAGE'
-        welcome_message = 'WELCOME_MESSAGE'
         follow_up = 'FOLLOW_UP'
+        instant_reply = 'INSTANT_REPLY'
+        job_application = 'JOB_APPLICATION'
         messenger_code = 'MESSENGER_CODE'
         referral = 'REFERRAL'
-        appointment_reminder = 'APPOINTMENT_REMINDER'
         smart_reply_contact = 'SMART_REPLY_CONTACT'
         smart_reply_hours = 'SMART_REPLY_HOURS'
         smart_reply_location = 'SMART_REPLY_LOCATION'
         smart_reply_negative_feedback = 'SMART_REPLY_NEGATIVE_FEEDBACK'
         smart_reply_positive_feedback = 'SMART_REPLY_POSITIVE_FEEDBACK'
-        job_application = 'JOB_APPLICATION'
+        standard = 'STANDARD'
+        welcome_message = 'WELCOME_MESSAGE'
 
     def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils

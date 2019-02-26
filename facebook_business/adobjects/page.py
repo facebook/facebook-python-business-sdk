@@ -186,9 +186,9 @@ class Page(
         written_by = 'written_by'
 
     class Attire:
-        unspecified = 'Unspecified'
         casual = 'Casual'
         dressy = 'Dressy'
+        unspecified = 'Unspecified'
 
     class FoodStyles:
         afghani = 'Afghani'
@@ -250,56 +250,56 @@ class Page(
         vietnamese = 'Vietnamese'
 
     class Setting:
-        post_as_self = 'POST_AS_SELF'
         email_notif = 'EMAIL_NOTIF'
         mobile_notif = 'MOBILE_NOTIF'
+        post_as_self = 'POST_AS_SELF'
 
     class Audience:
-        grouper = 'GROUPER'
-        ncpp = 'NCPP'
-        custom_audience = 'CUSTOM_AUDIENCE'
-        lookalike = 'LOOKALIKE'
-        fans = 'FANS'
-        local = 'LOCAL'
-        ig_promoted_post_auto = 'IG_PROMOTED_POST_AUTO'
-        saved_audience = 'SAVED_AUDIENCE'
-        event_engagement = 'EVENT_ENGAGEMENT'
-        district = 'DISTRICT'
-        smart_audience = 'SMART_AUDIENCE'
-        create_new = 'CREATE_NEW'
         auto_lookalike = 'AUTO_LOOKALIKE'
-        mult_custom_audiences = 'MULT_CUSTOM_AUDIENCES'
-        event_custom_audiences = 'EVENT_CUSTOM_AUDIENCES'
         auto_page_lookalike = 'AUTO_PAGE_LOOKALIKE'
         auto_targeting = 'AUTO_TARGETING'
+        create_new = 'CREATE_NEW'
+        custom_audience = 'CUSTOM_AUDIENCE'
+        district = 'DISTRICT'
+        event_custom_audiences = 'EVENT_CUSTOM_AUDIENCES'
+        event_engagement = 'EVENT_ENGAGEMENT'
+        fans = 'FANS'
+        grouper = 'GROUPER'
+        ig_promoted_post_auto = 'IG_PROMOTED_POST_AUTO'
+        local = 'LOCAL'
+        lookalike = 'LOOKALIKE'
+        mult_custom_audiences = 'MULT_CUSTOM_AUDIENCES'
+        ncpp = 'NCPP'
+        saved_audience = 'SAVED_AUDIENCE'
+        smart_audience = 'SMART_AUDIENCE'
 
     class PermittedTasks:
-        manage = 'MANAGE'
-        create_content = 'CREATE_CONTENT'
-        moderate = 'MODERATE'
-        moderate_community = 'MODERATE_COMMUNITY'
-        manage_jobs = 'MANAGE_JOBS'
         advertise = 'ADVERTISE'
         analyze = 'ANALYZE'
+        create_content = 'CREATE_CONTENT'
+        manage = 'MANAGE'
+        manage_jobs = 'MANAGE_JOBS'
+        moderate = 'MODERATE'
+        moderate_community = 'MODERATE_COMMUNITY'
 
     class Tasks:
-        manage = 'MANAGE'
-        create_content = 'CREATE_CONTENT'
-        moderate = 'MODERATE'
-        moderate_community = 'MODERATE_COMMUNITY'
-        manage_jobs = 'MANAGE_JOBS'
         advertise = 'ADVERTISE'
         analyze = 'ANALYZE'
+        create_content = 'CREATE_CONTENT'
+        manage = 'MANAGE'
+        manage_jobs = 'MANAGE_JOBS'
+        moderate = 'MODERATE'
+        moderate_community = 'MODERATE_COMMUNITY'
 
     class MessagingType:
+        message_tag = 'MESSAGE_TAG'
         response = 'RESPONSE'
         update = 'UPDATE'
-        message_tag = 'MESSAGE_TAG'
 
     class NotificationType:
+        no_push = 'NO_PUSH'
         regular = 'REGULAR'
         silent_push = 'SILENT_PUSH'
-        no_push = 'NO_PUSH'
 
     class PublishStatus:
         draft = 'DRAFT'
@@ -307,12 +307,12 @@ class Page(
 
     class SenderAction:
         mark_seen = 'MARK_SEEN'
-        typing_on = 'TYPING_ON'
         typing_off = 'TYPING_OFF'
+        typing_on = 'TYPING_ON'
 
     class Type:
-        standard = 'STANDARD'
         ref = 'REF'
+        standard = 'STANDARD'
 
     class Model:
         arabic = 'ARABIC'
@@ -340,77 +340,77 @@ class Page(
         vietnamese = 'VIETNAMESE'
 
     class Filtering:
+        ema = 'ema'
         groups = 'groups'
         groups_social = 'groups_social'
-        ema = 'ema'
 
     class SubscribedFields:
-        feed = 'feed'
-        mention = 'mention'
-        name = 'name'
-        picture = 'picture'
-        category = 'category'
-        description = 'description'
-        conversations = 'conversations'
+        affiliation = 'affiliation'
+        attire = 'attire'
+        awards = 'awards'
+        bio = 'bio'
+        birthday = 'birthday'
         branded_camera = 'branded_camera'
-        feature_access_list = 'feature_access_list'
-        standby = 'standby'
-        messages = 'messages'
-        messaging_account_linking = 'messaging_account_linking'
-        messaging_checkout_updates = 'messaging_checkout_updates'
-        message_echoes = 'message_echoes'
-        message_deliveries = 'message_deliveries'
-        messaging_game_plays = 'messaging_game_plays'
-        messaging_optins = 'messaging_optins'
-        messaging_optouts = 'messaging_optouts'
-        messaging_payments = 'messaging_payments'
-        messaging_postbacks = 'messaging_postbacks'
-        messaging_pre_checkouts = 'messaging_pre_checkouts'
-        message_reads = 'message_reads'
-        messaging_referrals = 'messaging_referrals'
-        messaging_handovers = 'messaging_handovers'
-        messaging_policy_enforcement = 'messaging_policy_enforcement'
-        messaging_page_feedback = 'messaging_page_feedback'
-        messaging_appointments = 'messaging_appointments'
-        founded = 'founded'
+        category = 'category'
+        checkins = 'checkins'
         company_overview = 'company_overview'
-        mission = 'mission'
-        products = 'products'
+        conversations = 'conversations'
+        culinary_team = 'culinary_team'
+        current_location = 'current_location'
+        description = 'description'
+        email = 'email'
+        feature_access_list = 'feature_access_list'
+        feed = 'feed'
+        founded = 'founded'
         general_info = 'general_info'
+        general_manager = 'general_manager'
+        hometown = 'hometown'
+        hours = 'hours'
         leadgen = 'leadgen'
         leadgen_fat = 'leadgen_fat'
+        live_videos = 'live_videos'
         location = 'location'
-        hours = 'hours'
-        parking = 'parking'
-        public_transit = 'public_transit'
+        members = 'members'
+        mention = 'mention'
+        merchant_review = 'merchant_review'
+        message_deliveries = 'message_deliveries'
+        message_echoes = 'message_echoes'
+        message_reads = 'message_reads'
+        messages = 'messages'
+        messaging_account_linking = 'messaging_account_linking'
+        messaging_appointments = 'messaging_appointments'
+        messaging_checkout_updates = 'messaging_checkout_updates'
+        messaging_game_plays = 'messaging_game_plays'
+        messaging_handovers = 'messaging_handovers'
+        messaging_optins = 'messaging_optins'
+        messaging_optouts = 'messaging_optouts'
+        messaging_page_feedback = 'messaging_page_feedback'
+        messaging_payments = 'messaging_payments'
+        messaging_policy_enforcement = 'messaging_policy_enforcement'
+        messaging_postbacks = 'messaging_postbacks'
+        messaging_pre_checkouts = 'messaging_pre_checkouts'
+        messaging_referrals = 'messaging_referrals'
+        mission = 'mission'
+        name = 'name'
         page_about_story = 'page_about_story'
-        phone = 'phone'
-        email = 'email'
-        website = 'website'
-        ratings = 'ratings'
-        attire = 'attire'
+        page_change_proposal = 'page_change_proposal'
+        page_upcoming_change = 'page_upcoming_change'
+        parking = 'parking'
         payment_options = 'payment_options'
-        culinary_team = 'culinary_team'
-        general_manager = 'general_manager'
-        price_range = 'price_range'
-        awards = 'awards'
-        hometown = 'hometown'
-        current_location = 'current_location'
-        bio = 'bio'
-        affiliation = 'affiliation'
-        birthday = 'birthday'
         personal_info = 'personal_info'
         personal_interests = 'personal_interests'
-        publisher_subscriptions = 'publisher_subscriptions'
-        members = 'members'
-        checkins = 'checkins'
-        page_upcoming_change = 'page_upcoming_change'
-        page_change_proposal = 'page_change_proposal'
-        merchant_review = 'merchant_review'
+        phone = 'phone'
+        picture = 'picture'
+        price_range = 'price_range'
         product_review = 'product_review'
-        videos = 'videos'
-        live_videos = 'live_videos'
+        products = 'products'
+        public_transit = 'public_transit'
+        publisher_subscriptions = 'publisher_subscriptions'
+        ratings = 'ratings'
         registration = 'registration'
+        standby = 'standby'
+        videos = 'videos'
+        website = 'website'
 
     class DomainActionType:
         add = 'ADD'
@@ -419,6 +419,17 @@ class Page(
     class PaymentDevModeAction:
         add = 'ADD'
         remove = 'REMOVE'
+
+    class SettingType:
+        account_linking = 'ACCOUNT_LINKING'
+        call_to_actions = 'CALL_TO_ACTIONS'
+        domain_whitelisting = 'DOMAIN_WHITELISTING'
+        greeting = 'GREETING'
+        payment = 'PAYMENT'
+
+    class ThreadState:
+        existing_thread = 'EXISTING_THREAD'
+        new_thread = 'NEW_THREAD'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
@@ -962,6 +973,37 @@ class Page(
             target_class=WithAsset3D,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=WithAsset3D, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def delete_assigned_users(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'user': 'int',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='DELETE',
+            endpoint='/assigned_users',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1763,25 +1805,25 @@ class Page(
         }
         enums = {
             'match_content_type_enum': [
+                'AUDIO_ONLY',
                 'VIDEO_AND_AUDIO',
                 'VIDEO_ONLY',
-                'AUDIO_ONLY',
             ],
             'action_enum': [
-                'MANUAL_REVIEW',
-                'MONITOR',
                 'BLOCK',
                 'CLAIM_AD_EARNINGS',
+                'MANUAL_REVIEW',
+                'MONITOR',
                 'REQUEST_TAKEDOWN',
             ],
             'action_reason_enum': [
-                'UNAUTHORIZED_COMMERCIAL_USE',
-                'RESTRICTED_CONTENT',
-                'OBJECTIONABLE_CONTENT',
                 'ARTIST_OBJECTION',
+                'OBJECTIONABLE_CONTENT',
+                'PREMIUM_MUSIC_VIDEO',
                 'PRERELEASE_CONTENT',
                 'PRODUCT_PARAMETERS',
-                'PREMIUM_MUSIC_VIDEO',
+                'RESTRICTED_CONTENT',
+                'UNAUTHORIZED_COMMERCIAL_USE',
             ],
         }
         request = FacebookRequest(
@@ -2352,7 +2394,7 @@ class Page(
             'composer_session_events_log': 'string',
             'composer_source_surface': 'string',
             'composer_type': 'string',
-            'fun_fact_prompt_id': 'string',
+            'fun_fact_prompt_id': 'unsigned int',
             'fun_fact_toastee_id': 'unsigned int',
             'is_group_linking_post': 'bool',
             'has_nickname': 'bool',
@@ -2361,7 +2403,7 @@ class Page(
             'is_boost_intended': 'bool',
             'location_source_id': 'string',
             'message': 'string',
-            'offer_like_post_id': 'string',
+            'offer_like_post_id': 'unsigned int',
             'page_recommendation': 'string',
             'place_list': 'string',
             'publish_event_id': 'unsigned int',
@@ -3828,14 +3870,14 @@ class Page(
         }
         enums = {
             'fields_enum': [
+                'ACCOUNT_LINKING_URL',
                 'GET_STARTED',
+                'GREETING',
+                'HOME_URL',
+                'PAYMENT_SETTINGS',
                 'PERSISTENT_MENU',
                 'TARGET_AUDIENCE',
                 'WHITELISTED_DOMAINS',
-                'GREETING',
-                'ACCOUNT_LINKING_URL',
-                'PAYMENT_SETTINGS',
-                'HOME_URL',
             ],
         }
         request = FacebookRequest(
@@ -5639,17 +5681,8 @@ class Page(
             'thread_state': 'thread_state_enum',
         }
         enums = {
-            'setting_type_enum': [
-                'ACCOUNT_LINKING',
-                'CALL_TO_ACTIONS',
-                'GREETING',
-                'DOMAIN_WHITELISTING',
-                'PAYMENT',
-            ],
-            'thread_state_enum': [
-                'NEW_THREAD',
-                'EXISTING_THREAD',
-            ],
+            'setting_type_enum': Page.SettingType.__dict__.values(),
+            'thread_state_enum': Page.ThreadState.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -5722,17 +5755,8 @@ class Page(
             'payment_testers': 'list<string>',
         }
         enums = {
-            'setting_type_enum': [
-                'ACCOUNT_LINKING',
-                'CALL_TO_ACTIONS',
-                'GREETING',
-                'DOMAIN_WHITELISTING',
-                'PAYMENT',
-            ],
-            'thread_state_enum': [
-                'NEW_THREAD',
-                'EXISTING_THREAD',
-            ],
+            'setting_type_enum': Page.SettingType.__dict__.values(),
+            'thread_state_enum': Page.ThreadState.__dict__.values(),
             'domain_action_type_enum': Page.DomainActionType.__dict__.values(),
             'payment_dev_mode_action_enum': Page.PaymentDevModeAction.__dict__.values(),
         }
@@ -6229,7 +6253,7 @@ class Page(
             'composer_source_surface': 'string',
             'composer_type': 'string',
             'formatting': 'formatting_enum',
-            'fun_fact_prompt_id': 'string',
+            'fun_fact_prompt_id': 'unsigned int',
             'fun_fact_toastee_id': 'unsigned int',
             'is_group_linking_post': 'bool',
             'has_nickname': 'bool',
@@ -6238,7 +6262,7 @@ class Page(
             'is_boost_intended': 'bool',
             'location_source_id': 'string',
             'description': 'string',
-            'offer_like_post_id': 'string',
+            'offer_like_post_id': 'unsigned int',
             'publish_event_id': 'unsigned int',
             'react_mode_metadata': 'string',
             'sales_promo_id': 'unsigned int',
@@ -6545,6 +6569,8 @@ class Page(
         field_enum_info['SubscribedFields'] = Page.SubscribedFields.__dict__.values()
         field_enum_info['DomainActionType'] = Page.DomainActionType.__dict__.values()
         field_enum_info['PaymentDevModeAction'] = Page.PaymentDevModeAction.__dict__.values()
+        field_enum_info['SettingType'] = Page.SettingType.__dict__.values()
+        field_enum_info['ThreadState'] = Page.ThreadState.__dict__.values()
         return field_enum_info
 
 

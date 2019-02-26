@@ -52,9 +52,9 @@ class VideoPoll(
     class Action:
         attach_to_video = 'ATTACH_TO_VIDEO'
         close = 'CLOSE'
-        show_voting = 'SHOW_VOTING'
-        show_results = 'SHOW_RESULTS'
         delete_poll = 'DELETE_POLL'
+        show_results = 'SHOW_RESULTS'
+        show_voting = 'SHOW_VOTING'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils

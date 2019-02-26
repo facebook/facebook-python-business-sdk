@@ -47,19 +47,19 @@ class AdRuleFilters(
         id = 'id'
 
     class Operator:
-        greater_than = 'GREATER_THAN'
-        less_than = 'LESS_THAN'
-        equal = 'EQUAL'
-        not_equal = 'NOT_EQUAL'
-        in_range = 'IN_RANGE'
-        not_in_range = 'NOT_IN_RANGE'
-        value_in = 'IN'
-        not_in = 'NOT_IN'
-        contain = 'CONTAIN'
-        not_contain = 'NOT_CONTAIN'
-        any = 'ANY'
         all = 'ALL'
+        any = 'ANY'
+        contain = 'CONTAIN'
+        equal = 'EQUAL'
+        greater_than = 'GREATER_THAN'
+        value_in = 'IN'
+        in_range = 'IN_RANGE'
+        less_than = 'LESS_THAN'
         none = 'NONE'
+        not_contain = 'NOT_CONTAIN'
+        not_equal = 'NOT_EQUAL'
+        not_in = 'NOT_IN'
+        not_in_range = 'NOT_IN_RANGE'
 
     _field_types = {
         'field': 'string',

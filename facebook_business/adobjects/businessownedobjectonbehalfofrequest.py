@@ -50,8 +50,8 @@ class BusinessOwnedObjectOnBehalfOfRequest(
     class Status:
         approve = 'APPROVE'
         decline = 'DECLINE'
-        in_progress = 'IN_PROGRESS'
         expired = 'EXPIRED'
+        in_progress = 'IN_PROGRESS'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod

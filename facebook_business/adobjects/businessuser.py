@@ -56,11 +56,11 @@ class BusinessUser(
         two_fac_status = 'two_fac_status'
 
     class Role:
-        finance_editor = 'FINANCE_EDITOR'
-        finance_analyst = 'FINANCE_ANALYST'
-        ads_rights_reviewer = 'ADS_RIGHTS_REVIEWER'
         admin = 'ADMIN'
+        ads_rights_reviewer = 'ADS_RIGHTS_REVIEWER'
         employee = 'EMPLOYEE'
+        finance_analyst = 'FINANCE_ANALYST'
+        finance_editor = 'FINANCE_EDITOR'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod

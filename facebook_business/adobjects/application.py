@@ -141,86 +141,87 @@ class Application(
         weekly_active_users = 'weekly_active_users'
 
     class SupportedPlatforms:
-        web = 'WEB'
-        canvas = 'CANVAS'
-        mobile_web = 'MOBILE_WEB'
-        iphone = 'IPHONE'
-        ipad = 'IPAD'
-        android = 'ANDROID'
-        windows = 'WINDOWS'
         amazon = 'AMAZON'
-        supplementary_images = 'SUPPLEMENTARY_IMAGES'
+        android = 'ANDROID'
+        canvas = 'CANVAS'
         gameroom = 'GAMEROOM'
         instant_game = 'INSTANT_GAME'
+        ipad = 'IPAD'
+        iphone = 'IPHONE'
+        mobile_web = 'MOBILE_WEB'
+        supplementary_images = 'SUPPLEMENTARY_IMAGES'
+        web = 'WEB'
+        windows = 'WINDOWS'
 
     class AnPlatforms:
-        ios = 'IOS'
         android = 'ANDROID'
-        mobile_web = 'MOBILE_WEB'
         desktop = 'DESKTOP'
         instant_articles = 'INSTANT_ARTICLES'
+        ios = 'IOS'
+        mobile_web = 'MOBILE_WEB'
         unknown = 'UNKNOWN'
 
     class AggregationPeriod:
-        hour = 'HOUR'
         day = 'DAY'
+        hour = 'HOUR'
         total = 'TOTAL'
 
     class Breakdowns:
         age = 'AGE'
         app = 'APP'
+        clicked_view_tag = 'CLICKED_VIEW_TAG'
         country = 'COUNTRY'
-        delivery_method = 'DELIVERY_METHOD'
-        display_format = 'DISPLAY_FORMAT'
         deal = 'DEAL'
         deal_ad = 'DEAL_AD'
         deal_page = 'DEAL_PAGE'
+        delivery_method = 'DELIVERY_METHOD'
+        display_format = 'DISPLAY_FORMAT'
+        fail_reason = 'FAIL_REASON'
         gender = 'GENDER'
         placement = 'PLACEMENT'
         platform = 'PLATFORM'
         property = 'PROPERTY'
-        clicked_view_tag = 'CLICKED_VIEW_TAG'
-        fail_reason = 'FAIL_REASON'
+        sdk_version = 'SDK_VERSION'
 
     class Metrics:
+        fb_ad_network_bidding_bid_rate = 'FB_AD_NETWORK_BIDDING_BID_RATE'
         fb_ad_network_bidding_request = 'FB_AD_NETWORK_BIDDING_REQUEST'
         fb_ad_network_bidding_response = 'FB_AD_NETWORK_BIDDING_RESPONSE'
-        fb_ad_network_bidding_bid_rate = 'FB_AD_NETWORK_BIDDING_BID_RATE'
+        fb_ad_network_bidding_revenue = 'FB_AD_NETWORK_BIDDING_REVENUE'
         fb_ad_network_bidding_win_rate = 'FB_AD_NETWORK_BIDDING_WIN_RATE'
-        fb_ad_network_request = 'FB_AD_NETWORK_REQUEST'
+        fb_ad_network_click = 'FB_AD_NETWORK_CLICK'
+        fb_ad_network_click_value_score = 'FB_AD_NETWORK_CLICK_VALUE_SCORE'
+        fb_ad_network_click_value_score_denominator = 'FB_AD_NETWORK_CLICK_VALUE_SCORE_DENOMINATOR'
+        fb_ad_network_click_value_score_numerator = 'FB_AD_NETWORK_CLICK_VALUE_SCORE_NUMERATOR'
+        fb_ad_network_cpm = 'FB_AD_NETWORK_CPM'
+        fb_ad_network_ctr = 'FB_AD_NETWORK_CTR'
+        fb_ad_network_direct_publisher_bill = 'FB_AD_NETWORK_DIRECT_PUBLISHER_BILL'
+        fb_ad_network_direct_total_revenue = 'FB_AD_NETWORK_DIRECT_TOTAL_REVENUE'
+        fb_ad_network_fast_click_denominator = 'FB_AD_NETWORK_FAST_CLICK_DENOMINATOR'
+        fb_ad_network_fast_click_numerator = 'FB_AD_NETWORK_FAST_CLICK_NUMERATOR'
+        fb_ad_network_fast_click_rate = 'FB_AD_NETWORK_FAST_CLICK_RATE'
+        fb_ad_network_fast_return_denominator = 'FB_AD_NETWORK_FAST_RETURN_DENOMINATOR'
+        fb_ad_network_fast_return_numerator = 'FB_AD_NETWORK_FAST_RETURN_NUMERATOR'
+        fb_ad_network_fast_return_rate = 'FB_AD_NETWORK_FAST_RETURN_RATE'
         fb_ad_network_filled_request = 'FB_AD_NETWORK_FILLED_REQUEST'
         fb_ad_network_fill_rate = 'FB_AD_NETWORK_FILL_RATE'
         fb_ad_network_imp = 'FB_AD_NETWORK_IMP'
-        fb_ad_network_show_rate = 'FB_AD_NETWORK_SHOW_RATE'
-        fb_ad_network_click = 'FB_AD_NETWORK_CLICK'
-        fb_ad_network_ctr = 'FB_AD_NETWORK_CTR'
-        fb_ad_network_bidding_revenue = 'FB_AD_NETWORK_BIDDING_REVENUE'
+        fb_ad_network_no_bid = 'FB_AD_NETWORK_NO_BID'
+        fb_ad_network_no_fill = 'FB_AD_NETWORK_NO_FILL'
+        fb_ad_network_request = 'FB_AD_NETWORK_REQUEST'
         fb_ad_network_revenue = 'FB_AD_NETWORK_REVENUE'
-        fb_ad_network_cpm = 'FB_AD_NETWORK_CPM'
+        fb_ad_network_show_rate = 'FB_AD_NETWORK_SHOW_RATE'
         fb_ad_network_video_guarantee_revenue = 'FB_AD_NETWORK_VIDEO_GUARANTEE_REVENUE'
-        fb_ad_network_video_view = 'FB_AD_NETWORK_VIDEO_VIEW'
-        fb_ad_network_video_view_rate = 'FB_AD_NETWORK_VIDEO_VIEW_RATE'
         fb_ad_network_video_mrc = 'FB_AD_NETWORK_VIDEO_MRC'
         fb_ad_network_video_mrc_rate = 'FB_AD_NETWORK_VIDEO_MRC_RATE'
+        fb_ad_network_video_view = 'FB_AD_NETWORK_VIDEO_VIEW'
+        fb_ad_network_video_view_rate = 'FB_AD_NETWORK_VIDEO_VIEW_RATE'
         fb_ad_network_win_rate = 'FB_AD_NETWORK_WIN_RATE'
-        fb_ad_network_direct_total_revenue = 'FB_AD_NETWORK_DIRECT_TOTAL_REVENUE'
-        fb_ad_network_direct_publisher_bill = 'FB_AD_NETWORK_DIRECT_PUBLISHER_BILL'
-        fb_ad_network_fast_click_rate = 'FB_AD_NETWORK_FAST_CLICK_RATE'
-        fb_ad_network_fast_return_rate = 'FB_AD_NETWORK_FAST_RETURN_RATE'
-        fb_ad_network_click_value_score = 'FB_AD_NETWORK_CLICK_VALUE_SCORE'
-        fb_ad_network_fast_click_numerator = 'FB_AD_NETWORK_FAST_CLICK_NUMERATOR'
-        fb_ad_network_fast_click_denominator = 'FB_AD_NETWORK_FAST_CLICK_DENOMINATOR'
-        fb_ad_network_fast_return_numerator = 'FB_AD_NETWORK_FAST_RETURN_NUMERATOR'
-        fb_ad_network_fast_return_denominator = 'FB_AD_NETWORK_FAST_RETURN_DENOMINATOR'
-        fb_ad_network_click_value_score_numerator = 'FB_AD_NETWORK_CLICK_VALUE_SCORE_NUMERATOR'
-        fb_ad_network_click_value_score_denominator = 'FB_AD_NETWORK_CLICK_VALUE_SCORE_DENOMINATOR'
-        fb_ad_network_no_fill = 'FB_AD_NETWORK_NO_FILL'
-        fb_ad_network_no_bid = 'FB_AD_NETWORK_NO_BID'
 
     class OrderingColumn:
+        metric = 'METRIC'
         time = 'TIME'
         value = 'VALUE'
-        metric = 'METRIC'
 
     class OrderingType:
         ascending = 'ASCENDING'
@@ -232,17 +233,17 @@ class Application(
 
     class RequestType:
         app_indexing = 'APP_INDEXING'
-        plugin = 'PLUGIN'
         button_sampling = 'BUTTON_SAMPLING'
+        plugin = 'PLUGIN'
 
     class MutationMethod:
-        replace = 'REPLACE'
         add = 'ADD'
         delete = 'DELETE'
+        replace = 'REPLACE'
 
     class PostMethod:
-        eymt = 'EYMT'
         codeless = 'CODELESS'
+        eymt = 'EYMT'
 
     class ScoreType:
         custom = 'CUSTOM'
@@ -256,8 +257,8 @@ class Application(
     class Role:
         administrators = 'administrators'
         developers = 'developers'
-        testers = 'testers'
         insights_users = 'insights users'
+        testers = 'testers'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -580,9 +581,9 @@ class Application(
         }
         enums = {
             'event_enum': [
-                'MOBILE_APP_INSTALL',
                 'CUSTOM_APP_EVENTS',
                 'DEFERRED_APP_LINK',
+                'MOBILE_APP_INSTALL',
             ],
             'user_id_type_enum': [
                 'INSTANT_GAMES_PLAYER_ID',
@@ -909,50 +910,50 @@ class Application(
         }
         enums = {
             'period_enum': [
-                'mins_15',
-                'hourly',
                 'daily',
-                'weekly',
-                'monthly',
-                'lifetime',
                 'days_28',
+                'hourly',
+                'lifetime',
+                'mins_15',
+                'monthly',
                 'range',
+                'weekly',
             ],
             'aggregateBy_enum': [
+                'AVERAGE_JOURNEY_LENGTH',
+                'CONVERTED_JOURNEY_PERCENT',
                 'COUNT',
                 'COUNT_IDENTIFIED_USERS',
-                'USERS',
-                'TOPK',
-                'SUM',
-                'SUM_PER_EVENT',
-                'SUM_IDENTIFIED_USERS',
-                'USD_SUM',
-                'USD_SUM_PER_EVENT',
-                'USD_SUM_IDENTIFIED_USERS',
-                'USD_SUM_PER_USER',
-                'UNKNOWN_USERS',
-                'SCORE',
+                'COUNT_PER_USER',
+                'DAU',
+                'EVENT_SOURCE_IDS',
+                'JOURNEY_CHANNEL_INCLUSION',
+                'JOURNEY_INCLUSION',
+                'MAU',
+                'MEDIAN_JOURNEY_LENGTH',
                 'MEDIAN_VALUE',
                 'MEDIAN_VALUE_PER_USER',
-                'DAU',
-                'WAU',
-                'MAU',
-                'PERCENTILES_COUNT',
-                'PERCENTILES_VALUE',
-                'PERCENTILES_USD_VALUE',
                 'OVERLAP',
-                'COUNT_PER_USER',
-                'VALUE_PER_USER',
-                'USD_VALUE_PER_USER',
+                'PERCENTILES_COUNT',
+                'PERCENTILES_USD_VALUE',
+                'PERCENTILES_VALUE',
+                'SCORE',
                 'SESSIONS_PER_JOURNEY',
-                'CONVERTED_JOURNEY_PERCENT',
-                'MEDIAN_JOURNEY_LENGTH',
-                'AVERAGE_JOURNEY_LENGTH',
-                'JOURNEY_CHANNEL_INCLUSION',
-                'EVENT_SOURCE_IDS',
                 'SESSION_BOUNCE_RATE',
-                'JOURNEY_INCLUSION',
+                'SUM',
+                'SUM_IDENTIFIED_USERS',
+                'SUM_PER_EVENT',
+                'TOPK',
+                'UNKNOWN_USERS',
+                'USD_SUM',
+                'USD_SUM_IDENTIFIED_USERS',
+                'USD_SUM_PER_EVENT',
+                'USD_SUM_PER_USER',
+                'USD_VALUE_PER_USER',
+                'USERS',
                 'USER_PROPERTY_USER_COUNT',
+                'VALUE_PER_USER',
+                'WAU',
             ],
             'ecosystem_enum': [
                 'GAME',
@@ -1670,12 +1671,12 @@ class Application(
         }
         enums = {
             'status_enum': [
-                'CREATED',
-                'CONFIRMED',
                 'CANCELLED',
+                'CONFIRMED',
+                'CREATED',
                 'DELIVERED',
-                'READY_FOR_PICKUP',
                 'OUT_FOR_DELIVERY',
+                'READY_FOR_PICKUP',
             ],
         }
         request = FacebookRequest(

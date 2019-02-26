@@ -41,21 +41,51 @@ class MeasurementUploadEvent(
         super(MeasurementUploadEvent, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        aggregation_level = 'aggregation_level'
+        conversion_end_date = 'conversion_end_date'
+        conversion_start_date = 'conversion_start_date'
+        event_status = 'event_status'
         group = 'group'
         id = 'id'
+        lookback_window = 'lookback_window'
+        match_universe = 'match_universe'
         partner = 'partner'
         upload_end_time = 'upload_end_time'
         upload_start_time = 'upload_start_time'
         upload_tag = 'upload_tag'
         version = 'version'
 
+    class AggregationLevel:
+        daily = 'DAILY'
+        none = 'NONE'
+        weekly = 'WEEKLY'
+
+    class EventStatus:
+        cancelcompleted = 'CANCELCOMPLETED'
+        canceled = 'CANCELED'
+        completed = 'COMPLETED'
+        failed = 'FAILED'
+        started = 'STARTED'
+        uploaded = 'UPLOADED'
+
     class Group:
-        sunday = 'SUNDAY'
         monday = 'MONDAY'
+        sunday = 'SUNDAY'
+
+    class LookbackWindow:
+        days30 = 'DAYS30'
+        days45 = 'DAYS45'
+        days60 = 'DAYS60'
+        days90 = 'DAYS90'
+
+    class MatchUniverse:
+        full = 'FULL'
+        pii = 'PII'
+        pixel = 'PIXEL'
 
     class Version:
-        weekly = 'WEEKLY'
         evaluation = 'EVALUATION'
+        weekly = 'WEEKLY'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
@@ -97,8 +127,14 @@ class MeasurementUploadEvent(
             return request.execute()
 
     _field_types = {
+        'aggregation_level': 'string',
+        'conversion_end_date': 'string',
+        'conversion_start_date': 'string',
+        'event_status': 'string',
         'group': 'string',
         'id': 'string',
+        'lookback_window': 'string',
+        'match_universe': 'string',
         'partner': 'Business',
         'upload_end_time': 'datetime',
         'upload_start_time': 'datetime',
@@ -108,7 +144,11 @@ class MeasurementUploadEvent(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['AggregationLevel'] = MeasurementUploadEvent.AggregationLevel.__dict__.values()
+        field_enum_info['EventStatus'] = MeasurementUploadEvent.EventStatus.__dict__.values()
         field_enum_info['Group'] = MeasurementUploadEvent.Group.__dict__.values()
+        field_enum_info['LookbackWindow'] = MeasurementUploadEvent.LookbackWindow.__dict__.values()
+        field_enum_info['MatchUniverse'] = MeasurementUploadEvent.MatchUniverse.__dict__.values()
         field_enum_info['Version'] = MeasurementUploadEvent.Version.__dict__.values()
         return field_enum_info
 

@@ -49,12 +49,12 @@ class MeasurementReport(
         upload_urls = 'upload_urls'
 
     class ReportType:
-        multi_channel_report = 'multi_channel_report'
-        video_metrics_report = 'video_metrics_report'
         fruit_rollup_report = 'fruit_rollup_report'
-        third_party_mta_report = 'third_party_mta_report'
-        partner_lift_study_report = 'partner_lift_study_report'
         mmm_report = 'mmm_report'
+        multi_channel_report = 'multi_channel_report'
+        partner_lift_study_report = 'partner_lift_study_report'
+        third_party_mta_report = 'third_party_mta_report'
+        video_metrics_report = 'video_metrics_report'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod

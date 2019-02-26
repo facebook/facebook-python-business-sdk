@@ -57,17 +57,17 @@ class BusinessRoleRequest(
         updated_time = 'updated_time'
 
     class Role:
-        finance_editor = 'FINANCE_EDITOR'
-        finance_analyst = 'FINANCE_ANALYST'
-        ads_rights_reviewer = 'ADS_RIGHTS_REVIEWER'
         admin = 'ADMIN'
+        ads_rights_reviewer = 'ADS_RIGHTS_REVIEWER'
         employee = 'EMPLOYEE'
+        finance_analyst = 'FINANCE_ANALYST'
+        finance_editor = 'FINANCE_EDITOR'
 
     class Status:
-        pending = 'PENDING'
         accepted = 'ACCEPTED'
         declined = 'DECLINED'
         expired = 'EXPIRED'
+        pending = 'PENDING'
 
     def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils

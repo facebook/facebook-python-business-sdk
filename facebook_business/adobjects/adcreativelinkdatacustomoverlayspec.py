@@ -52,57 +52,57 @@ class AdCreativeLinkDataCustomOverlaySpec(
         id = 'id'
 
     class BackgroundColor:
-        background_ffffff = 'background_ffffff'
-        background_e50900 = 'background_e50900'
-        background_f78400 = 'background_f78400'
-        background_00af4c = 'background_00af4c'
-        background_0090ff = 'background_0090ff'
-        background_755dde = 'background_755dde'
-        background_f23474 = 'background_f23474'
-        background_595959 = 'background_595959'
         background_000000 = 'background_000000'
+        background_0090ff = 'background_0090ff'
+        background_00af4c = 'background_00af4c'
+        background_595959 = 'background_595959'
+        background_755dde = 'background_755dde'
+        background_e50900 = 'background_e50900'
+        background_f23474 = 'background_f23474'
+        background_f78400 = 'background_f78400'
+        background_ffffff = 'background_ffffff'
 
     class Font:
         droid_serif_regular = 'droid_serif_regular'
         lato_regular = 'lato_regular'
+        noto_sans_regular = 'noto_sans_regular'
         nunito_sans_bold = 'nunito_sans_bold'
         open_sans_bold = 'open_sans_bold'
         pt_serif_bold = 'pt_serif_bold'
-        roboto_medium = 'roboto_medium'
         roboto_condensed_regular = 'roboto_condensed_regular'
-        noto_sans_regular = 'noto_sans_regular'
+        roboto_medium = 'roboto_medium'
 
     class Option:
         bank_transfer = 'bank_transfer'
         boleto = 'boleto'
-        discount_with_boleto = 'discount_with_boleto'
         cash_on_delivery = 'cash_on_delivery'
-        home_delivery = 'home_delivery'
-        free_shipping = 'free_shipping'
-        inventory = 'inventory'
-        pay_on_arrival = 'pay_on_arrival'
-        pay_at_hotel = 'pay_at_hotel'
+        discount_with_boleto = 'discount_with_boleto'
         fast_delivery = 'fast_delivery'
+        free_shipping = 'free_shipping'
+        home_delivery = 'home_delivery'
+        inventory = 'inventory'
+        pay_at_hotel = 'pay_at_hotel'
+        pay_on_arrival = 'pay_on_arrival'
 
     class Position:
-        top_left = 'top_left'
-        top_right = 'top_right'
         bottom_left = 'bottom_left'
         bottom_right = 'bottom_right'
+        top_left = 'top_left'
+        top_right = 'top_right'
 
     class Template:
         pill_with_text = 'pill_with_text'
 
     class TextColor:
-        text_ffffff = 'text_ffffff'
-        text_c91b00 = 'text_c91b00'
-        text_f78400 = 'text_f78400'
-        text_009c2a = 'text_009c2a'
-        text_007ad0 = 'text_007ad0'
-        text_755dde = 'text_755dde'
-        text_f23474 = 'text_f23474'
-        text_646464 = 'text_646464'
         text_000000 = 'text_000000'
+        text_007ad0 = 'text_007ad0'
+        text_009c2a = 'text_009c2a'
+        text_646464 = 'text_646464'
+        text_755dde = 'text_755dde'
+        text_c91b00 = 'text_c91b00'
+        text_f23474 = 'text_f23474'
+        text_f78400 = 'text_f78400'
+        text_ffffff = 'text_ffffff'
 
     _field_types = {
         'background_color': 'BackgroundColor',

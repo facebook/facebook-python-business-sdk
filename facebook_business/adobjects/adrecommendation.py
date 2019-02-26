@@ -52,13 +52,13 @@ class AdRecommendation(
 
     class Confidence:
         high = 'HIGH'
-        medium = 'MEDIUM'
         low = 'LOW'
+        medium = 'MEDIUM'
 
     class Importance:
         high = 'HIGH'
-        medium = 'MEDIUM'
         low = 'LOW'
+        medium = 'MEDIUM'
 
     _field_types = {
         'blame_field': 'string',

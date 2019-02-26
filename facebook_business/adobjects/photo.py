@@ -68,19 +68,19 @@ class Photo(
         width = 'width'
 
     class BackdatedTimeGranularity:
-        year = 'year'
-        month = 'month'
         day = 'day'
         hour = 'hour'
         min = 'min'
+        month = 'month'
         none = 'none'
+        year = 'year'
 
     class UnpublishedContentType:
-        scheduled = 'SCHEDULED'
-        draft = 'DRAFT'
         ads_post = 'ADS_POST'
+        draft = 'DRAFT'
         inline_created = 'INLINE_CREATED'
         published = 'PUBLISHED'
+        scheduled = 'SCHEDULED'
 
     class Type:
         profile = 'profile'
@@ -89,13 +89,13 @@ class Photo(
 
     class CheckinEntryPoint:
         branding_checkin = 'BRANDING_CHECKIN'
-        branding_status = 'BRANDING_STATUS'
-        branding_photo = 'BRANDING_PHOTO'
         branding_other = 'BRANDING_OTHER'
+        branding_photo = 'BRANDING_PHOTO'
+        branding_status = 'BRANDING_STATUS'
 
     class Formatting:
-        plaintext = 'PLAINTEXT'
         markdown = 'MARKDOWN'
+        plaintext = 'PLAINTEXT'
 
     class PostSurfacesBlacklist:
         value_1 = '1'
@@ -229,7 +229,7 @@ class Photo(
             'composer_source_surface': 'string',
             'composer_type': 'string',
             'formatting': 'formatting_enum',
-            'fun_fact_prompt_id': 'string',
+            'fun_fact_prompt_id': 'unsigned int',
             'fun_fact_toastee_id': 'unsigned int',
             'is_group_linking_post': 'bool',
             'has_nickname': 'bool',
@@ -237,7 +237,7 @@ class Photo(
             'instant_game_entry_point_data': 'string',
             'is_boost_intended': 'bool',
             'location_source_id': 'string',
-            'offer_like_post_id': 'string',
+            'offer_like_post_id': 'unsigned int',
             'page_recommendation': 'string',
             'place_list': 'string',
             'publish_event_id': 'unsigned int',

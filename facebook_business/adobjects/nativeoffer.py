@@ -69,13 +69,13 @@ class NativeOffer(
         unique_codes_file_upload_status = 'unique_codes_file_upload_status'
 
     class UniqueCodesFileCodeType:
-        discount_codes = 'discount_codes'
         barcodes = 'barcodes'
-        online_discount_codes = 'online_discount_codes'
-        instore_discount_codes = 'instore_discount_codes'
-        instore_barcodes = 'instore_barcodes'
         discount_and_barcodes = 'discount_and_barcodes'
         discount_and_discount = 'discount_and_discount'
+        discount_codes = 'discount_codes'
+        instore_barcodes = 'instore_barcodes'
+        instore_discount_codes = 'instore_discount_codes'
+        online_discount_codes = 'online_discount_codes'
 
     class BarcodeType:
         code128 = 'CODE128'
@@ -93,9 +93,9 @@ class NativeOffer(
         upc_e = 'UPC_E'
 
     class LocationType:
-        online = 'online'
-        offline = 'offline'
         both = 'both'
+        offline = 'offline'
+        online = 'online'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils

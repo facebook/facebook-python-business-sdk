@@ -53,17 +53,17 @@ class ExtendedCreditAllocationConfig(
         send_bill_to = 'send_bill_to'
 
     class LiabilityType:
+        msa = 'MSA'
         normal = 'Normal'
         sequential = 'Sequential'
-        msa = 'MSA'
 
     class PartitionType:
-        fixed = 'FIXED'
         auth = 'AUTH'
+        fixed = 'FIXED'
 
     class SendBillTo:
-        agency = 'Agency'
         advertiser = 'Advertiser'
+        agency = 'Agency'
 
     def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils

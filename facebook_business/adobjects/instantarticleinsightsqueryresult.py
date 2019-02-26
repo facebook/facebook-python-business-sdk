@@ -48,22 +48,22 @@ class InstantArticleInsightsQueryResult(
         id = 'id'
 
     class Breakdown:
-        no_breakdown = 'no_breakdown'
-        platform = 'platform'
         age = 'age'
-        region = 'region'
         country = 'country'
-        is_shared_by_ia_owner = 'is_shared_by_ia_owner'
         gender = 'gender'
         gender_and_age = 'gender_and_age'
         is_organic = 'is_organic'
+        is_shared_by_ia_owner = 'is_shared_by_ia_owner'
+        no_breakdown = 'no_breakdown'
+        platform = 'platform'
+        region = 'region'
 
     class Period:
         day = 'day'
-        week = 'week'
         days_28 = 'days_28'
-        month = 'month'
         lifetime = 'lifetime'
+        month = 'month'
+        week = 'week'
 
     _field_types = {
         'breakdowns': 'map<string, string>',

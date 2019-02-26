@@ -46,15 +46,15 @@ class StreamingReaction(
         id = 'id'
 
     class ReactionType:
-        none = 'NONE'
+        angry = 'ANGRY'
+        haha = 'HAHA'
         like = 'LIKE'
         love = 'LOVE'
-        wow = 'WOW'
-        haha = 'HAHA'
-        sad = 'SAD'
-        angry = 'ANGRY'
-        thankful = 'THANKFUL'
+        none = 'NONE'
         pride = 'PRIDE'
+        sad = 'SAD'
+        thankful = 'THANKFUL'
+        wow = 'WOW'
 
     _field_types = {
         'count': 'unsigned int',

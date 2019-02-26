@@ -47,9 +47,9 @@ class AdRuleHistoryResult(
         id = 'id'
 
     class ObjectType:
-        campaign = 'CAMPAIGN'
-        adset = 'ADSET'
         ad = 'AD'
+        adset = 'ADSET'
+        campaign = 'CAMPAIGN'
 
     _field_types = {
         'actions': 'list<AdRuleHistoryResultAction>',

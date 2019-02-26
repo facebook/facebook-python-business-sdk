@@ -64,19 +64,19 @@ class OfflineConversionDataSet(
 
     class PermittedRoles:
         admin = 'ADMIN'
-        uploader = 'UPLOADER'
         advertiser = 'ADVERTISER'
+        uploader = 'UPLOADER'
 
     class RelationshipType:
         ad_manager = 'AD_MANAGER'
-        audience_manager = 'AUDIENCE_MANAGER'
         agency = 'AGENCY'
+        audience_manager = 'AUDIENCE_MANAGER'
         other = 'OTHER'
 
     class Role:
         admin = 'ADMIN'
-        uploader = 'UPLOADER'
         advertiser = 'ADVERTISER'
+        uploader = 'UPLOADER'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
@@ -193,19 +193,19 @@ class OfflineConversionDataSet(
         }
         enums = {
             'event_type_enum': [
+                'add_dataset_to_business',
+                'add_user_to_dataset',
+                'create_custom_audience',
+                'create_custom_conversion',
                 'dataset_assign_to_adacct',
                 'dataset_autotrack_on_adacct',
                 'dataset_disable_autotrack_on_adacct',
                 'dataset_unassign_from_adacct',
-                'add_dataset_to_business',
-                'add_user_to_dataset',
                 'remove_user_from_dataset',
-                'update_user_role_on_dataset',
-                'create_custom_conversion',
-                'update_custom_conversion',
-                'create_custom_audience',
                 'share_custom_audience',
                 'unshare_custom_audience',
+                'update_custom_conversion',
+                'update_user_role_on_dataset',
             ],
         }
         request = FacebookRequest(
@@ -571,8 +571,8 @@ class OfflineConversionDataSet(
         }
         enums = {
             'aggr_time_enum': [
-                'upload_time',
                 'event_time',
+                'upload_time',
             ],
             'granularity_enum': [
                 'daily',
@@ -615,13 +615,13 @@ class OfflineConversionDataSet(
         }
         enums = {
             'sort_by_enum': [
-                'CREATION_TIME',
-                'FIRST_UPLOAD_TIME',
-                'LAST_UPLOAD_TIME',
                 'API_CALLS',
-                'EVENT_TIME_MIN',
+                'CREATION_TIME',
                 'EVENT_TIME_MAX',
+                'EVENT_TIME_MIN',
+                'FIRST_UPLOAD_TIME',
                 'IS_EXCLUDED_FOR_LIFT',
+                'LAST_UPLOAD_TIME',
             ],
             'order_enum': [
                 'ASCENDING',

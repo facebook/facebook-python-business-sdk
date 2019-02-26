@@ -54,28 +54,28 @@ class AdCreativeVideoDataCustomOverlaySpec(
         id = 'id'
 
     class BackgroundOpacity:
-        solid = 'solid'
         half = 'half'
+        solid = 'solid'
 
     class Option:
         bank_transfer = 'bank_transfer'
         boleto = 'boleto'
-        discount_with_boleto = 'discount_with_boleto'
         cash_on_delivery = 'cash_on_delivery'
-        home_delivery = 'home_delivery'
-        free_shipping = 'free_shipping'
-        inventory = 'inventory'
-        pay_on_arrival = 'pay_on_arrival'
-        pay_at_hotel = 'pay_at_hotel'
+        discount_with_boleto = 'discount_with_boleto'
         fast_delivery = 'fast_delivery'
+        free_shipping = 'free_shipping'
+        home_delivery = 'home_delivery'
+        inventory = 'inventory'
+        pay_at_hotel = 'pay_at_hotel'
+        pay_on_arrival = 'pay_on_arrival'
 
     class Position:
-        top_left = 'top_left'
-        top_center = 'top_center'
-        top_right = 'top_right'
-        middle_left = 'middle_left'
         middle_center = 'middle_center'
+        middle_left = 'middle_left'
         middle_right = 'middle_right'
+        top_center = 'top_center'
+        top_left = 'top_left'
+        top_right = 'top_right'
 
     class Template:
         rectangle_with_text = 'rectangle_with_text'

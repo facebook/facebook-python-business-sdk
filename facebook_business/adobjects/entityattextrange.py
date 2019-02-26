@@ -49,11 +49,11 @@ class EntityAtTextRange(
         type = 'type'
 
     class Type:
-        user = 'user'
-        page = 'page'
+        application = 'application'
         event = 'event'
         group = 'group'
-        application = 'application'
+        page = 'page'
+        user = 'user'
 
     _field_types = {
         'id': 'string',

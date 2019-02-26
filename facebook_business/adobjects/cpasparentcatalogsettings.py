@@ -46,13 +46,13 @@ class CPASParentCatalogSettings(
         id = 'id'
 
     class AttributionWindows:
-        x1d_view = 'X1D_VIEW'
-        x7d_view = 'X7D_VIEW'
-        x28d_view = 'X28D_VIEW'
-        x1d_click = 'X1D_CLICK'
-        x7d_click = 'X7D_CLICK'
-        x28d_click = 'X28D_CLICK'
         value_default = 'DEFAULT'
+        x1d_click = 'X1D_CLICK'
+        x1d_view = 'X1D_VIEW'
+        x28d_click = 'X28D_CLICK'
+        x28d_view = 'X28D_VIEW'
+        x7d_click = 'X7D_CLICK'
+        x7d_view = 'X7D_VIEW'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
