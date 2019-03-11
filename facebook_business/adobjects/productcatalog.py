@@ -82,7 +82,6 @@ class ProductCatalog(
         auto_market = 'AUTO_MARKET'
         destination = 'DESTINATION'
         flight = 'FLIGHT'
-        geo_based_item = 'GEO_BASED_ITEM'
         home_listing = 'HOME_LISTING'
         home_service_provider = 'HOME_SERVICE_PROVIDER'
         home_service_review = 'HOME_SERVICE_REVIEW'
@@ -1779,7 +1778,7 @@ class ProductCatalog(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.vehicle import Vehicle
         param_types = {
-            'applinks': 'Object',
+            'vehicle_id': 'string',
             'body_style': 'body_style_enum',
             'description': 'string',
             'exterior_color': 'string',
@@ -1789,13 +1788,13 @@ class ProductCatalog(
             'state_of_vehicle': 'state_of_vehicle_enum',
             'vin': 'string',
             'url': 'string',
-            'vehicle_id': 'string',
             'year': 'unsigned int',
             'images': 'list<Object>',
             'address': 'map',
             'currency': 'string',
             'price': 'unsigned int',
             'title': 'string',
+            'applinks': 'Object',
             'transmission': 'transmission_enum',
             'drivetrain': 'drivetrain_enum',
             'fuel_type': 'fuel_type_enum',

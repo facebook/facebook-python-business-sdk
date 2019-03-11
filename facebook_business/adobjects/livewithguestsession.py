@@ -171,7 +171,7 @@ class LiveWithGuestSession(
     _field_types = {
         'conference_name': 'string',
         'id': 'string',
-        'participant_call_states': 'list<Object>',
+        'participant_call_states': 'map<string, string>',
         'server_sdp': 'string',
     }
     @classmethod

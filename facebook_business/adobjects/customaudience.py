@@ -145,6 +145,7 @@ class CustomAudience(
         fox = 'FOX'
         lookalike = 'LOOKALIKE'
         managed = 'MANAGED'
+        measurement = 'MEASUREMENT'
         offline_conversion = 'OFFLINE_CONVERSION'
         partner = 'PARTNER'
         study_rule_audience = 'STUDY_RULE_AUDIENCE'

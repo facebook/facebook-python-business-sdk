@@ -249,7 +249,7 @@ class DynamicItemDisplayBundleFolder(
         'name': 'string',
         'product_catalog': 'ProductCatalog',
         'product_set': 'ProductSet',
-        'valid_labels': 'list<Object>',
+        'valid_labels': 'map<string, list<string>>',
         'bundles': 'list<string>',
     }
     @classmethod

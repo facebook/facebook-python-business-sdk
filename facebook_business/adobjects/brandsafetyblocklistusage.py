@@ -32,24 +32,28 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class ProductFeedRuleSuggestion(
+class BrandSafetyBlockListUsage(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isProductFeedRuleSuggestion = True
-        super(ProductFeedRuleSuggestion, self).__init__(fbid, parent_id, api)
+        self._isBrandSafetyBlockListUsage = True
+        super(BrandSafetyBlockListUsage, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        attribute = 'attribute'
-        params = 'params'
-        type = 'type'
+        current_usage = 'current_usage'
+        new_usage = 'new_usage'
+        platform = 'platform'
+        position = 'position'
+        threshold = 'threshold'
         id = 'id'
 
     _field_types = {
-        'attribute': 'string',
-        'params': 'map<string, string>',
-        'type': 'string',
+        'current_usage': 'int',
+        'new_usage': 'int',
+        'platform': 'string',
+        'position': 'string',
+        'threshold': 'int',
         'id': 'string',
     }
     @classmethod

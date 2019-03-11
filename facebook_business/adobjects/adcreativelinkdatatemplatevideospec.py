@@ -48,7 +48,7 @@ class AdCreativeLinkDataTemplateVideoSpec(
 
     _field_types = {
         'categorization_criteria': 'string',
-        'customization': 'list<Object>',
+        'customization': 'map<string, string>',
         'template_id': 'string',
         'id': 'string',
     }
