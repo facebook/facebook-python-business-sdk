@@ -46,7 +46,7 @@ class AdCampaignDeliveryStatsUnsupportedReasons(
         id = 'id'
 
     _field_types = {
-        'reason_data': 'list<Object>',
+        'reason_data': 'map<string, string>',
         'reason_type': 'string',
         'id': 'string',
     }

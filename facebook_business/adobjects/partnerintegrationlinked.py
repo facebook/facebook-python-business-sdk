@@ -213,6 +213,8 @@ class PartnerIntegrationLinked(
             'offline_conversion_data_set_id': 'string',
             'product_catalog_id': 'string',
             'setup_status': 'setup_status_enum',
+            'install_name': 'string',
+            'workspace_name': 'string',
         }
         enums = {
             'completed_integration_types_enum': PartnerIntegrationLinked.CompletedIntegrationTypes.__dict__.values(),

@@ -110,6 +110,9 @@ class User(
         manage_jobs = 'MANAGE_JOBS'
         moderate = 'MODERATE'
         moderate_community = 'MODERATE_COMMUNITY'
+        pages_messaging = 'PAGES_MESSAGING'
+        pages_messaging_subscriptions = 'PAGES_MESSAGING_SUBSCRIPTIONS'
+        read_page_mailboxes = 'READ_PAGE_MAILBOXES'
 
     class LocalNewsMegaphoneDismissStatus:
         no = 'NO'

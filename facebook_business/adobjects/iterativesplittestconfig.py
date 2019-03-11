@@ -87,7 +87,7 @@ class IterativeSplitTestConfig(
         'guidance': 'Object',
         'id': 'string',
         'iterative_split_test_original_variant_id': 'string',
-        'iterative_split_test_variant_to_split_mapping': 'list<Object>',
+        'iterative_split_test_variant_to_split_mapping': 'map<string, int>',
         'results_window': 'Object',
         'splits': 'list<int>',
         'start_time': 'datetime',

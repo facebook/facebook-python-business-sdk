@@ -72,6 +72,7 @@ class AdAccount(
         end_advertiser_name = 'end_advertiser_name'
         extended_credit_invoice_group = 'extended_credit_invoice_group'
         failed_delivery_checks = 'failed_delivery_checks'
+        fb_entity = 'fb_entity'
         funding_source = 'funding_source'
         funding_source_details = 'funding_source_details'
         has_migrated_permissions = 'has_migrated_permissions'
@@ -203,6 +204,7 @@ class AdAccount(
         fox = 'FOX'
         lookalike = 'LOOKALIKE'
         managed = 'MANAGED'
+        measurement = 'MEASUREMENT'
         offline_conversion = 'OFFLINE_CONVERSION'
         partner = 'PARTNER'
         study_rule_audience = 'STUDY_RULE_AUDIENCE'
@@ -4251,6 +4253,7 @@ class AdAccount(
             'is_bonus_media': 'bool',
             'is_conversion_goal': 'bool',
             'is_full_view': 'bool',
+            'is_higher_average_frequency': 'bool',
             'is_reach_and_frequency_io_buying': 'bool',
             'is_reserved_buying': 'bool',
             'expiration_time': 'unsigned int',
@@ -5002,6 +5005,7 @@ class AdAccount(
         'end_advertiser_name': 'string',
         'extended_credit_invoice_group': 'ExtendedCreditInvoiceGroup',
         'failed_delivery_checks': 'list<DeliveryCheck>',
+        'fb_entity': 'unsigned int',
         'funding_source': 'string',
         'funding_source_details': 'FundingSourceDetails',
         'has_migrated_permissions': 'bool',

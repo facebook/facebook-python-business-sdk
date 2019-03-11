@@ -71,6 +71,7 @@ class AdStudy(
         analyst = 'ANALYST'
 
     class Type:
+        continuous_lift_config = 'CONTINUOUS_LIFT_CONFIG'
         lift = 'LIFT'
         split_test = 'SPLIT_TEST'
 

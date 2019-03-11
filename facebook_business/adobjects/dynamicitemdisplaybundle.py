@@ -185,12 +185,12 @@ class DynamicItemDisplayBundle(
             return request.execute()
 
     _field_types = {
-        'additional_urls': 'list<Object>',
+        'additional_urls': 'map<string, string>',
         'description': 'string',
         'id': 'string',
         'name': 'string',
         'product_set': 'ProductSet',
-        'text_tokens': 'list<Object>',
+        'text_tokens': 'map<string, string>',
         'url': 'string',
     }
     @classmethod

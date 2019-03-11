@@ -76,7 +76,7 @@ class BusinessActivityLogEvent(
         'acting_user_name': 'string',
         'event_time': 'unsigned int',
         'event_type': 'string',
-        'extra_data': 'list<Object>',
+        'extra_data': 'map<string, string>',
         'target_business_id': 'string',
         'target_business_name': 'string',
         'target_business_object_id': 'string',

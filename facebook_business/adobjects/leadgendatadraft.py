@@ -191,7 +191,7 @@ class LeadGenDataDraft(
         'questions': 'list<LeadGenDraftQuestion>',
         'status': 'string',
         'thank_you_page': 'Object',
-        'tracking_parameters': 'list<Object>',
+        'tracking_parameters': 'map<string, string>',
     }
     @classmethod
     def _get_field_enum_info(cls):

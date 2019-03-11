@@ -47,7 +47,7 @@ class AdsOptimalDeliveryGrowthOpportunity(
         id = 'id'
 
     _field_types = {
-        'child_metadata': 'list<Object>',
+        'child_metadata': 'map<string, Object>',
         'metadata': 'Object',
         'optimization_type': 'string',
         'id': 'string',

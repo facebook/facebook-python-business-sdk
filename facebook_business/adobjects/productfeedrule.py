@@ -147,7 +147,7 @@ class ProductFeedRule(
     _field_types = {
         'attribute': 'string',
         'id': 'string',
-        'params': 'list<Object>',
+        'params': 'map<string, string>',
         'rule_type': 'string',
     }
     @classmethod

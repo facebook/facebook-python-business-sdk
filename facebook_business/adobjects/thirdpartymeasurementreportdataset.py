@@ -32,65 +32,37 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdAsyncRequest(
+class ThirdPartyMeasurementReportDataset(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isAdAsyncRequest = True
-        super(AdAsyncRequest, self).__init__(fbid, parent_id, api)
+        self._isThirdPartyMeasurementReportDataset = True
+        super(ThirdPartyMeasurementReportDataset, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        async_request_set = 'async_request_set'
-        created_time = 'created_time'
+        category = 'category'
         id = 'id'
-        input = 'input'
-        result = 'result'
-        scope_object_id = 'scope_object_id'
-        status = 'status'
-        type = 'type'
-        updated_time = 'updated_time'
+        partner = 'partner'
+        product = 'product'
+        schema = 'schema'
 
-    class Statuses:
-        canceled = 'CANCELED'
-        canceled_dependency = 'CANCELED_DEPENDENCY'
-        error = 'ERROR'
-        error_conflicts = 'ERROR_CONFLICTS'
-        error_dependency = 'ERROR_DEPENDENCY'
-        initial = 'INITIAL'
-        in_progress = 'IN_PROGRESS'
-        pending_dependency = 'PENDING_DEPENDENCY'
-        success = 'SUCCESS'
+    class Category:
+        mta = 'MTA'
 
-    def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='DELETE',
-            endpoint='/',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
+    class Product:
+        custom = 'CUSTOM'
+        mta = 'MTA'
+        viewability = 'VIEWABILITY'
 
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
+    # @deprecated get_endpoint function is deprecated
+    @classmethod
+    def get_endpoint(cls):
+        return 'third_party_measurement_report_dataset'
+
+    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.adobjects.business import Business
+        return Business(api=self._api, fbid=parent_id).create_third_party_measurement_report_dataset(fields, params, batch, success, failure, pending)
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -106,7 +78,7 @@ class AdAsyncRequest(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AdAsyncRequest,
+            target_class=ThirdPartyMeasurementReportDataset,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -123,20 +95,17 @@ class AdAsyncRequest(
             return request.execute()
 
     _field_types = {
-        'async_request_set': 'AdAsyncRequestSet',
-        'created_time': 'datetime',
+        'category': 'string',
         'id': 'string',
-        'input': 'map',
-        'result': 'map',
-        'scope_object_id': 'string',
-        'status': 'string',
-        'type': 'string',
-        'updated_time': 'datetime',
+        'partner': 'Business',
+        'product': 'string',
+        'schema': 'list<Object>',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['Statuses'] = AdAsyncRequest.Statuses.__dict__.values()
+        field_enum_info['Category'] = ThirdPartyMeasurementReportDataset.Category.__dict__.values()
+        field_enum_info['Product'] = ThirdPartyMeasurementReportDataset.Product.__dict__.values()
         return field_enum_info
 
 
