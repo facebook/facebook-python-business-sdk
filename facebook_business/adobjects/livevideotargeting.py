@@ -19,10 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
-from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
-from facebook_business.adobjects.objectparser import ObjectParser
-from facebook_business.api import FacebookRequest
-from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -33,26 +29,25 @@ pull request for this class.
 """
 
 class LiveVideoTargeting(
-    AbstractCrudObject,
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
+    def __init__(self, api=None):
+        super(LiveVideoTargeting, self).__init__()
         self._isLiveVideoTargeting = True
-        super(LiveVideoTargeting, self).__init__(fbid, parent_id, api)
+        self._api = api
 
     class Field(AbstractObject.Field):
         age_max = 'age_max'
         age_min = 'age_min'
         excluded_countries = 'excluded_countries'
         geo_locations = 'geo_locations'
-        id = 'id'
 
     _field_types = {
         'age_max': 'unsigned int',
         'age_min': 'unsigned int',
         'excluded_countries': 'list<string>',
         'geo_locations': 'TargetingGeoLocation',
-        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

@@ -19,10 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
-from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
-from facebook_business.adobjects.objectparser import ObjectParser
-from facebook_business.api import FacebookRequest
-from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -33,12 +29,13 @@ pull request for this class.
 """
 
 class AdAssetFeedSpec(
-    AbstractCrudObject,
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
+    def __init__(self, api=None):
+        super(AdAssetFeedSpec, self).__init__()
         self._isAdAssetFeedSpec = True
-        super(AdAssetFeedSpec, self).__init__(fbid, parent_id, api)
+        self._api = api
 
     class Field(AbstractObject.Field):
         ad_formats = 'ad_formats'
@@ -55,7 +52,6 @@ class AdAssetFeedSpec(
         optimization_type = 'optimization_type'
         titles = 'titles'
         videos = 'videos'
-        id = 'id'
 
     class CallToActionTypes:
         add_to_cart = 'ADD_TO_CART'
@@ -123,7 +119,6 @@ class AdAssetFeedSpec(
         'optimization_type': 'string',
         'titles': 'list<AdAssetFeedSpecTitle>',
         'videos': 'list<AdAssetFeedSpecVideo>',
-        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

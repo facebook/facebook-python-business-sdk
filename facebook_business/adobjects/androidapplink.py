@@ -19,10 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
-from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
-from facebook_business.adobjects.objectparser import ObjectParser
-from facebook_business.api import FacebookRequest
-from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -33,26 +29,25 @@ pull request for this class.
 """
 
 class AndroidAppLink(
-    AbstractCrudObject,
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
+    def __init__(self, api=None):
+        super(AndroidAppLink, self).__init__()
         self._isAndroidAppLink = True
-        super(AndroidAppLink, self).__init__(fbid, parent_id, api)
+        self._api = api
 
     class Field(AbstractObject.Field):
         app_name = 'app_name'
         field_class = 'class'
         package = 'package'
         url = 'url'
-        id = 'id'
 
     _field_types = {
         'app_name': 'string',
         'class': 'string',
         'package': 'string',
         'url': 'string',
-        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

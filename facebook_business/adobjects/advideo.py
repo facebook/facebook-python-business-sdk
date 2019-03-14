@@ -204,6 +204,7 @@ class AdVideo(
         learn = 'LEARN'
         legacy = 'LEGACY'
         live_creative_kit_video = 'LIVE_CREATIVE_KIT_VIDEO'
+        live_linear_video_channel_internal_broadcast = 'LIVE_LINEAR_VIDEO_CHANNEL_INTERNAL_BROADCAST'
         live_photo = 'LIVE_PHOTO'
         look_now_deprecated = 'LOOK_NOW_DEPRECATED'
         moments_video = 'MOMENTS_VIDEO'

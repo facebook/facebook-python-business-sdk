@@ -48,7 +48,6 @@ class ProductCatalogCategory(
         name = 'name'
         num_items = 'num_items'
         tokens = 'tokens'
-        id = 'id'
         data = 'data'
 
     class CategorizationCriteria:
@@ -73,7 +72,6 @@ class ProductCatalogCategory(
         'name': 'string',
         'num_items': 'int',
         'tokens': 'map<string, string>',
-        'id': 'string',
         'data': 'list<map>',
     }
     @classmethod

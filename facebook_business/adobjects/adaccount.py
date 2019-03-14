@@ -2939,6 +2939,7 @@ class AdAccount(
             'event_source_group': 'string',
             'product_set_id': 'string',
             'event_sources': 'list<map>',
+            'enable_fetch_or_create': 'bool',
             'video_group_ids': 'list<string>',
             'study_spec': 'map',
             'list_of_accounts': 'list<unsigned int>',
@@ -4025,6 +4026,7 @@ class AdAccount(
             'product_set_id': 'string',
             'rev_share_policy_id': 'unsigned int',
             'event_sources': 'list<map>',
+            'enable_fetch_or_create': 'bool',
             'inclusions': 'list<Object>',
             'exclusions': 'list<Object>',
         }

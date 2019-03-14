@@ -19,10 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
-from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
-from facebook_business.adobjects.objectparser import ObjectParser
-from facebook_business.api import FacebookRequest
-from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -33,12 +29,13 @@ pull request for this class.
 """
 
 class TargetingDynamicRule(
-    AbstractCrudObject,
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
+    def __init__(self, api=None):
+        super(TargetingDynamicRule, self).__init__()
         self._isTargetingDynamicRule = True
-        super(TargetingDynamicRule, self).__init__(fbid, parent_id, api)
+        self._api = api
 
     class Field(AbstractObject.Field):
         field_action_type = 'action.type'
@@ -49,7 +46,6 @@ class TargetingDynamicRule(
         page_id = 'page_id'
         post = 'post'
         retention_seconds = 'retention_seconds'
-        id = 'id'
 
     _field_types = {
         'action.type': 'string',
@@ -60,7 +56,6 @@ class TargetingDynamicRule(
         'page_id': 'string',
         'post': 'string',
         'retention_seconds': 'string',
-        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

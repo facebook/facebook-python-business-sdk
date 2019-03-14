@@ -19,10 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
-from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
-from facebook_business.adobjects.objectparser import ObjectParser
-from facebook_business.api import FacebookRequest
-from facebook_business.typechecker import TypeChecker
 from facebook_business.adobjects.helpers.adsinsightsmixin import AdsInsightsMixin
 
 """
@@ -35,12 +31,13 @@ pull request for this class.
 
 class AdsInsights(
     AdsInsightsMixin,
-    AbstractCrudObject,
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
+    def __init__(self, api=None):
+        super(AdsInsights, self).__init__()
         self._isAdsInsights = True
-        super(AdsInsights, self).__init__(fbid, parent_id, api)
+        self._api = api
 
     class Field(AbstractObject.Field):
         account_currency = 'account_currency'
@@ -180,7 +177,6 @@ class AdsInsights(
         website_ctr = 'website_ctr'
         website_purchase_roas = 'website_purchase_roas'
         wish_bid = 'wish_bid'
-        id = 'id'
 
     class ActionAttributionWindows:
         value_1d_click = '1d_click'
@@ -413,7 +409,6 @@ class AdsInsights(
         'website_ctr': 'list<AdsActionStats>',
         'website_purchase_roas': 'list<AdsActionStats>',
         'wish_bid': 'string',
-        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

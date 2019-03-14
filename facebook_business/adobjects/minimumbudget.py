@@ -19,10 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
-from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
-from facebook_business.adobjects.objectparser import ObjectParser
-from facebook_business.api import FacebookRequest
-from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -33,12 +29,13 @@ pull request for this class.
 """
 
 class MinimumBudget(
-    AbstractCrudObject,
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
+    def __init__(self, api=None):
+        super(MinimumBudget, self).__init__()
         self._isMinimumBudget = True
-        super(MinimumBudget, self).__init__(fbid, parent_id, api)
+        self._api = api
 
     class Field(AbstractObject.Field):
         currency = 'currency'
@@ -46,7 +43,6 @@ class MinimumBudget(
         min_daily_budget_imp = 'min_daily_budget_imp'
         min_daily_budget_low_freq = 'min_daily_budget_low_freq'
         min_daily_budget_video_views = 'min_daily_budget_video_views'
-        id = 'id'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
@@ -59,7 +55,6 @@ class MinimumBudget(
         'min_daily_budget_imp': 'int',
         'min_daily_budget_low_freq': 'int',
         'min_daily_budget_video_views': 'int',
-        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

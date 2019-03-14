@@ -19,10 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
-from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
-from facebook_business.adobjects.objectparser import ObjectParser
-from facebook_business.api import FacebookRequest
-from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -33,12 +29,13 @@ pull request for this class.
 """
 
 class AdEntityTargetSpend(
-    AbstractCrudObject,
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
+    def __init__(self, api=None):
+        super(AdEntityTargetSpend, self).__init__()
         self._isAdEntityTargetSpend = True
-        super(AdEntityTargetSpend, self).__init__(fbid, parent_id, api)
+        self._api = api
 
     class Field(AbstractObject.Field):
         amount = 'amount'
@@ -46,7 +43,6 @@ class AdEntityTargetSpend(
         is_accurate = 'is_accurate'
         is_prorated = 'is_prorated'
         is_updating = 'is_updating'
-        id = 'id'
 
     _field_types = {
         'amount': 'string',
@@ -54,7 +50,6 @@ class AdEntityTargetSpend(
         'is_accurate': 'bool',
         'is_prorated': 'bool',
         'is_updating': 'bool',
-        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

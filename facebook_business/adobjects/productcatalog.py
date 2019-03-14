@@ -76,26 +76,6 @@ class ProductCatalog(
     class Standard:
         google = 'google'
 
-    class ItemType:
-        auto = 'AUTO'
-        automotive_model = 'AUTOMOTIVE_MODEL'
-        auto_market = 'AUTO_MARKET'
-        destination = 'DESTINATION'
-        flight = 'FLIGHT'
-        home_listing = 'HOME_LISTING'
-        home_service_provider = 'HOME_SERVICE_PROVIDER'
-        home_service_review = 'HOME_SERVICE_REVIEW'
-        hotel = 'HOTEL'
-        hotel_room = 'HOTEL_ROOM'
-        media_title = 'MEDIA_TITLE'
-        other_test_dynamic_item = 'OTHER_TEST_DYNAMIC_ITEM'
-        product_group = 'PRODUCT_GROUP'
-        product_item = 'PRODUCT_ITEM'
-        store_product_item = 'STORE_PRODUCT_ITEM'
-        test_dynamic_item = 'TEST_DYNAMIC_ITEM'
-        vehicle = 'VEHICLE'
-        vehicle_offer = 'VEHICLE_OFFER'
-
     class Role:
         admin = 'ADMIN'
         advertiser = 'ADVERTISER'
@@ -1135,11 +1115,10 @@ class ProductCatalog(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'requests': 'map',
-            'item_type': 'item_type_enum',
+            'item_type': 'string',
             'allow_upsert': 'bool',
         }
         enums = {
-            'item_type_enum': ProductCatalog.ItemType.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -1971,7 +1950,6 @@ class ProductCatalog(
         field_enum_info['PermittedRoles'] = ProductCatalog.PermittedRoles.__dict__.values()
         field_enum_info['PermittedTasks'] = ProductCatalog.PermittedTasks.__dict__.values()
         field_enum_info['Standard'] = ProductCatalog.Standard.__dict__.values()
-        field_enum_info['ItemType'] = ProductCatalog.ItemType.__dict__.values()
         field_enum_info['Role'] = ProductCatalog.Role.__dict__.values()
         return field_enum_info
 

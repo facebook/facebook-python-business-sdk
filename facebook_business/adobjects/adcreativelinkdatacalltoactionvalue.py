@@ -19,10 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
-from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
-from facebook_business.adobjects.objectparser import ObjectParser
-from facebook_business.api import FacebookRequest
-from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -33,12 +29,13 @@ pull request for this class.
 """
 
 class AdCreativeLinkDataCallToActionValue(
-    AbstractCrudObject,
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
+    def __init__(self, api=None):
+        super(AdCreativeLinkDataCallToActionValue, self).__init__()
         self._isAdCreativeLinkDataCallToActionValue = True
-        super(AdCreativeLinkDataCallToActionValue, self).__init__(fbid, parent_id, api)
+        self._api = api
 
     class Field(AbstractObject.Field):
         app_destination = 'app_destination'
@@ -52,7 +49,6 @@ class AdCreativeLinkDataCallToActionValue(
         page = 'page'
         product_link = 'product_link'
         whatsapp_number = 'whatsapp_number'
-        id = 'id'
 
     _field_types = {
         'app_destination': 'string',
@@ -66,7 +62,6 @@ class AdCreativeLinkDataCallToActionValue(
         'page': 'string',
         'product_link': 'string',
         'whatsapp_number': 'string',
-        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

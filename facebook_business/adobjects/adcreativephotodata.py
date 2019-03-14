@@ -19,10 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
-from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
-from facebook_business.adobjects.objectparser import ObjectParser
-from facebook_business.api import FacebookRequest
-from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -33,12 +29,13 @@ pull request for this class.
 """
 
 class AdCreativePhotoData(
-    AbstractCrudObject,
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
+    def __init__(self, api=None):
+        super(AdCreativePhotoData, self).__init__()
         self._isAdCreativePhotoData = True
-        super(AdCreativePhotoData, self).__init__(fbid, parent_id, api)
+        self._api = api
 
     class Field(AbstractObject.Field):
         branded_content_shared_to_sponsor_status = 'branded_content_shared_to_sponsor_status'
@@ -48,7 +45,6 @@ class AdCreativePhotoData(
         image_hash = 'image_hash'
         page_welcome_message = 'page_welcome_message'
         url = 'url'
-        id = 'id'
 
     _field_types = {
         'branded_content_shared_to_sponsor_status': 'string',
@@ -58,7 +54,6 @@ class AdCreativePhotoData(
         'image_hash': 'string',
         'page_welcome_message': 'string',
         'url': 'string',
-        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

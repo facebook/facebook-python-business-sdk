@@ -19,10 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
-from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
-from facebook_business.adobjects.objectparser import ObjectParser
-from facebook_business.api import FacebookRequest
-from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -33,12 +29,13 @@ pull request for this class.
 """
 
 class AdCreativeLinkDataChildAttachment(
-    AbstractCrudObject,
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
+    def __init__(self, api=None):
+        super(AdCreativeLinkDataChildAttachment, self).__init__()
         self._isAdCreativeLinkDataChildAttachment = True
-        super(AdCreativeLinkDataChildAttachment, self).__init__(fbid, parent_id, api)
+        self._api = api
 
     class Field(AbstractObject.Field):
         call_to_action = 'call_to_action'
@@ -53,7 +50,6 @@ class AdCreativeLinkDataChildAttachment(
         referral_id = 'referral_id'
         static_card = 'static_card'
         video_id = 'video_id'
-        id = 'id'
 
     _field_types = {
         'call_to_action': 'AdCreativeLinkDataCallToAction',
@@ -68,7 +64,6 @@ class AdCreativeLinkDataChildAttachment(
         'referral_id': 'string',
         'static_card': 'bool',
         'video_id': 'string',
-        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

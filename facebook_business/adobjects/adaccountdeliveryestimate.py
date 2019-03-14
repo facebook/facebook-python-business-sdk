@@ -19,10 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
-from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
-from facebook_business.adobjects.objectparser import ObjectParser
-from facebook_business.api import FacebookRequest
-from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -33,19 +29,19 @@ pull request for this class.
 """
 
 class AdAccountDeliveryEstimate(
-    AbstractCrudObject,
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
+    def __init__(self, api=None):
+        super(AdAccountDeliveryEstimate, self).__init__()
         self._isAdAccountDeliveryEstimate = True
-        super(AdAccountDeliveryEstimate, self).__init__(fbid, parent_id, api)
+        self._api = api
 
     class Field(AbstractObject.Field):
         daily_outcomes_curve = 'daily_outcomes_curve'
         estimate_dau = 'estimate_dau'
         estimate_mau = 'estimate_mau'
         estimate_ready = 'estimate_ready'
-        id = 'id'
 
     class OptimizationGoal:
         ad_recall_lift = 'AD_RECALL_LIFT'
@@ -79,7 +75,6 @@ class AdAccountDeliveryEstimate(
         'estimate_dau': 'int',
         'estimate_mau': 'int',
         'estimate_ready': 'bool',
-        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

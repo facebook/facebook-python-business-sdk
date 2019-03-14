@@ -19,10 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
-from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
-from facebook_business.adobjects.objectparser import ObjectParser
-from facebook_business.api import FacebookRequest
-from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -33,12 +29,13 @@ pull request for this class.
 """
 
 class AdsImageCrops(
-    AbstractCrudObject,
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
+    def __init__(self, api=None):
+        super(AdsImageCrops, self).__init__()
         self._isAdsImageCrops = True
-        super(AdsImageCrops, self).__init__(fbid, parent_id, api)
+        self._api = api
 
     class Field(AbstractObject.Field):
         field_100x100 = '100x100'
@@ -48,7 +45,6 @@ class AdsImageCrops(
         field_400x500 = '400x500'
         field_600x360 = '600x360'
         field_90x160 = '90x160'
-        id = 'id'
 
     _field_types = {
         '100x100': 'list<list>',
@@ -58,7 +54,6 @@ class AdsImageCrops(
         '400x500': 'list<list>',
         '600x360': 'list<list>',
         '90x160': 'list<list>',
-        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

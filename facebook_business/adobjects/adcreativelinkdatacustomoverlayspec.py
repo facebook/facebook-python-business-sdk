@@ -19,10 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
-from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
-from facebook_business.adobjects.objectparser import ObjectParser
-from facebook_business.api import FacebookRequest
-from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -33,12 +29,13 @@ pull request for this class.
 """
 
 class AdCreativeLinkDataCustomOverlaySpec(
-    AbstractCrudObject,
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
+    def __init__(self, api=None):
+        super(AdCreativeLinkDataCustomOverlaySpec, self).__init__()
         self._isAdCreativeLinkDataCustomOverlaySpec = True
-        super(AdCreativeLinkDataCustomOverlaySpec, self).__init__(fbid, parent_id, api)
+        self._api = api
 
     class Field(AbstractObject.Field):
         background_color = 'background_color'
@@ -49,7 +46,6 @@ class AdCreativeLinkDataCustomOverlaySpec(
         render_with_icon = 'render_with_icon'
         template = 'template'
         text_color = 'text_color'
-        id = 'id'
 
     class BackgroundColor:
         background_000000 = 'background_000000'
@@ -113,7 +109,6 @@ class AdCreativeLinkDataCustomOverlaySpec(
         'render_with_icon': 'bool',
         'template': 'Template',
         'text_color': 'TextColor',
-        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):
