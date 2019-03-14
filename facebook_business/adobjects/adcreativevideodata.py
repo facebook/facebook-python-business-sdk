@@ -19,10 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
-from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
-from facebook_business.adobjects.objectparser import ObjectParser
-from facebook_business.api import FacebookRequest
-from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -33,12 +29,13 @@ pull request for this class.
 """
 
 class AdCreativeVideoData(
-    AbstractCrudObject,
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
+    def __init__(self, api=None):
+        super(AdCreativeVideoData, self).__init__()
         self._isAdCreativeVideoData = True
-        super(AdCreativeVideoData, self).__init__(fbid, parent_id, api)
+        self._api = api
 
     class Field(AbstractObject.Field):
         additional_image_index = 'additional_image_index'
@@ -59,7 +56,6 @@ class AdCreativeVideoData(
         targeting = 'targeting'
         title = 'title'
         video_id = 'video_id'
-        id = 'id'
 
     _field_types = {
         'additional_image_index': 'int',
@@ -80,7 +76,6 @@ class AdCreativeVideoData(
         'targeting': 'Targeting',
         'title': 'string',
         'video_id': 'string',
-        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

@@ -19,10 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
-from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
-from facebook_business.adobjects.objectparser import ObjectParser
-from facebook_business.api import FacebookRequest
-from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -33,26 +29,25 @@ pull request for this class.
 """
 
 class ClientTransparencyStatus(
-    AbstractCrudObject,
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
+    def __init__(self, api=None):
+        super(ClientTransparencyStatus, self).__init__()
         self._isClientTransparencyStatus = True
-        super(ClientTransparencyStatus, self).__init__(fbid, parent_id, api)
+        self._api = api
 
     class Field(AbstractObject.Field):
         grace_period_expiration_date = 'grace_period_expiration_date'
         has_owning_business = 'has_owning_business'
         is_satisfied = 'is_satisfied'
         owning_business_requirements = 'owning_business_requirements'
-        id = 'id'
 
     _field_types = {
         'grace_period_expiration_date': 'datetime',
         'has_owning_business': 'bool',
         'is_satisfied': 'bool',
         'owning_business_requirements': 'Object',
-        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

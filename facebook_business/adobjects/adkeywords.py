@@ -19,10 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
-from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
-from facebook_business.adobjects.objectparser import ObjectParser
-from facebook_business.api import FacebookRequest
-from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -33,26 +29,25 @@ pull request for this class.
 """
 
 class AdKeywords(
-    AbstractCrudObject,
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
+    def __init__(self, api=None):
+        super(AdKeywords, self).__init__()
         self._isAdKeywords = True
-        super(AdKeywords, self).__init__(fbid, parent_id, api)
+        self._api = api
 
     class Field(AbstractObject.Field):
         brands = 'brands'
         product_categories = 'product_categories'
         product_names = 'product_names'
         search_terms = 'search_terms'
-        id = 'id'
 
     _field_types = {
         'brands': 'list<string>',
         'product_categories': 'list<string>',
         'product_names': 'list<string>',
         'search_terms': 'list<string>',
-        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

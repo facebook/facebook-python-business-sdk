@@ -19,10 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
-from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
-from facebook_business.adobjects.objectparser import ObjectParser
-from facebook_business.api import FacebookRequest
-from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -33,26 +29,25 @@ pull request for this class.
 """
 
 class TargetingGeoLocationElectoralDistrict(
-    AbstractCrudObject,
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
+    def __init__(self, api=None):
+        super(TargetingGeoLocationElectoralDistrict, self).__init__()
         self._isTargetingGeoLocationElectoralDistrict = True
-        super(TargetingGeoLocationElectoralDistrict, self).__init__(fbid, parent_id, api)
+        self._api = api
 
     class Field(AbstractObject.Field):
         country = 'country'
         electoral_district = 'electoral_district'
         key = 'key'
         name = 'name'
-        id = 'id'
 
     _field_types = {
         'country': 'string',
         'electoral_district': 'string',
         'key': 'string',
         'name': 'string',
-        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

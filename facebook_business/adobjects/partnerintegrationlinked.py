@@ -100,6 +100,7 @@ class PartnerIntegrationLinked(
         shopify = 'shopify'
         shopify_online = 'shopify_online'
         shopline = 'shopline'
+        singular = 'singular'
         sirclo = 'sirclo'
         squarespace = 'squarespace'
         storeden = 'storeden'

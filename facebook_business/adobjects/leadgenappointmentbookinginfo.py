@@ -19,10 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
-from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
-from facebook_business.adobjects.objectparser import ObjectParser
-from facebook_business.api import FacebookRequest
-from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -33,24 +29,23 @@ pull request for this class.
 """
 
 class LeadGenAppointmentBookingInfo(
-    AbstractCrudObject,
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
+    def __init__(self, api=None):
+        super(LeadGenAppointmentBookingInfo, self).__init__()
         self._isLeadGenAppointmentBookingInfo = True
-        super(LeadGenAppointmentBookingInfo, self).__init__(fbid, parent_id, api)
+        self._api = api
 
     class Field(AbstractObject.Field):
         advertiser_timezone_offset = 'advertiser_timezone_offset'
         appointment_durations = 'appointment_durations'
         appointment_slots_by_day = 'appointment_slots_by_day'
-        id = 'id'
 
     _field_types = {
         'advertiser_timezone_offset': 'string',
         'appointment_durations': 'list<string>',
         'appointment_slots_by_day': 'list<Object>',
-        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

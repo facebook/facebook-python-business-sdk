@@ -19,10 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
-from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
-from facebook_business.adobjects.objectparser import ObjectParser
-from facebook_business.api import FacebookRequest
-from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -33,12 +29,13 @@ pull request for this class.
 """
 
 class AdsActionStats(
-    AbstractCrudObject,
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
+    def __init__(self, api=None):
+        super(AdsActionStats, self).__init__()
         self._isAdsActionStats = True
-        super(AdsActionStats, self).__init__(fbid, parent_id, api)
+        self._api = api
 
     class Field(AbstractObject.Field):
         field_1d_click = '1d_click'
@@ -67,7 +64,6 @@ class AdsActionStats(
         interactive_component_sticker_id = 'interactive_component_sticker_id'
         interactive_component_sticker_response = 'interactive_component_sticker_response'
         value = 'value'
-        id = 'id'
 
     _field_types = {
         '1d_click': 'string',
@@ -96,7 +92,6 @@ class AdsActionStats(
         'interactive_component_sticker_id': 'string',
         'interactive_component_sticker_response': 'string',
         'value': 'string',
-        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

@@ -19,10 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
-from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
-from facebook_business.adobjects.objectparser import ObjectParser
-from facebook_business.api import FacebookRequest
-from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -33,12 +29,13 @@ pull request for this class.
 """
 
 class CheckBatchRequestStatus(
-    AbstractCrudObject,
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
+    def __init__(self, api=None):
+        super(CheckBatchRequestStatus, self).__init__()
         self._isCheckBatchRequestStatus = True
-        super(CheckBatchRequestStatus, self).__init__(fbid, parent_id, api)
+        self._api = api
 
     class Field(AbstractObject.Field):
         errors = 'errors'
@@ -48,7 +45,6 @@ class CheckBatchRequestStatus(
         status = 'status'
         warnings = 'warnings'
         warnings_total_count = 'warnings_total_count'
-        id = 'id'
 
     _field_types = {
         'errors': 'list<Object>',
@@ -58,7 +54,6 @@ class CheckBatchRequestStatus(
         'status': 'string',
         'warnings': 'list<Object>',
         'warnings_total_count': 'int',
-        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

@@ -2009,6 +2009,7 @@ class Application(
             'view_attr_window': 'unsigned int',
             'decline_reason': 'string',
             'auditing_token': 'string',
+            'custom_events': 'list<Object>',
         }
         enums = {
         }

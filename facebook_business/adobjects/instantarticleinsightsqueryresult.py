@@ -19,10 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
-from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
-from facebook_business.adobjects.objectparser import ObjectParser
-from facebook_business.api import FacebookRequest
-from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -33,19 +29,19 @@ pull request for this class.
 """
 
 class InstantArticleInsightsQueryResult(
-    AbstractCrudObject,
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
+    def __init__(self, api=None):
+        super(InstantArticleInsightsQueryResult, self).__init__()
         self._isInstantArticleInsightsQueryResult = True
-        super(InstantArticleInsightsQueryResult, self).__init__(fbid, parent_id, api)
+        self._api = api
 
     class Field(AbstractObject.Field):
         breakdowns = 'breakdowns'
         name = 'name'
         time = 'time'
         value = 'value'
-        id = 'id'
 
     class Breakdown:
         age = 'age'
@@ -70,7 +66,6 @@ class InstantArticleInsightsQueryResult(
         'name': 'string',
         'time': 'datetime',
         'value': 'string',
-        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

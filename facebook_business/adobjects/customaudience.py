@@ -107,6 +107,7 @@ class CustomAudience(
         event_source_group = 'event_source_group'
         product_set_id = 'product_set_id'
         event_sources = 'event_sources'
+        enable_fetch_or_create = 'enable_fetch_or_create'
         video_group_ids = 'video_group_ids'
         dataset_id = 'dataset_id'
 
@@ -261,6 +262,7 @@ class CustomAudience(
             'event_source_group': 'string',
             'product_set_id': 'string',
             'event_sources': 'list<map>',
+            'enable_fetch_or_create': 'bool',
             'study_spec': 'map',
         }
         enums = {
@@ -831,6 +833,7 @@ class CustomAudience(
         'event_source_group': 'string',
         'product_set_id': 'string',
         'event_sources': 'list<map>',
+        'enable_fetch_or_create': 'bool',
         'video_group_ids': 'list<string>',
         'dataset_id': 'string',
     }

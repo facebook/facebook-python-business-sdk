@@ -19,10 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
-from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
-from facebook_business.adobjects.objectparser import ObjectParser
-from facebook_business.api import FacebookRequest
-from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -33,12 +29,13 @@ pull request for this class.
 """
 
 class CanvasAdSettings(
-    AbstractCrudObject,
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
+    def __init__(self, api=None):
+        super(CanvasAdSettings, self).__init__()
         self._isCanvasAdSettings = True
-        super(CanvasAdSettings, self).__init__(fbid, parent_id, api)
+        self._api = api
 
     class Field(AbstractObject.Field):
         is_canvas_collection_eligible = 'is_canvas_collection_eligible'
@@ -48,7 +45,6 @@ class CanvasAdSettings(
         leads_count = 'leads_count'
         product_set_id = 'product_set_id'
         use_retailer_item_ids = 'use_retailer_item_ids'
-        id = 'id'
 
     _field_types = {
         'is_canvas_collection_eligible': 'bool',
@@ -58,7 +54,6 @@ class CanvasAdSettings(
         'leads_count': 'int',
         'product_set_id': 'string',
         'use_retailer_item_ids': 'bool',
-        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

@@ -19,10 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
-from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
-from facebook_business.adobjects.objectparser import ObjectParser
-from facebook_business.api import FacebookRequest
-from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -33,18 +29,18 @@ pull request for this class.
 """
 
 class AdRuleHistoryResult(
-    AbstractCrudObject,
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
+    def __init__(self, api=None):
+        super(AdRuleHistoryResult, self).__init__()
         self._isAdRuleHistoryResult = True
-        super(AdRuleHistoryResult, self).__init__(fbid, parent_id, api)
+        self._api = api
 
     class Field(AbstractObject.Field):
         actions = 'actions'
         object_id = 'object_id'
         object_type = 'object_type'
-        id = 'id'
 
     class ObjectType:
         ad = 'AD'
@@ -55,7 +51,6 @@ class AdRuleHistoryResult(
         'actions': 'list<AdRuleHistoryResultAction>',
         'object_id': 'string',
         'object_type': 'ObjectType',
-        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

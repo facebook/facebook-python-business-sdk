@@ -19,10 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
-from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
-from facebook_business.adobjects.objectparser import ObjectParser
-from facebook_business.api import FacebookRequest
-from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -33,26 +29,25 @@ pull request for this class.
 """
 
 class TrackingAndConversionWithDefaults(
-    AbstractCrudObject,
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
+    def __init__(self, api=None):
+        super(TrackingAndConversionWithDefaults, self).__init__()
         self._isTrackingAndConversionWithDefaults = True
-        super(TrackingAndConversionWithDefaults, self).__init__(fbid, parent_id, api)
+        self._api = api
 
     class Field(AbstractObject.Field):
         custom_conversion = 'custom_conversion'
         custom_tracking = 'custom_tracking'
         default_conversion = 'default_conversion'
         default_tracking = 'default_tracking'
-        id = 'id'
 
     _field_types = {
         'custom_conversion': 'list<Object>',
         'custom_tracking': 'list<Object>',
         'default_conversion': 'list<Object>',
         'default_tracking': 'list<Object>',
-        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

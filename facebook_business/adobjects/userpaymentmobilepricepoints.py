@@ -19,10 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
-from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
-from facebook_business.adobjects.objectparser import ObjectParser
-from facebook_business.api import FacebookRequest
-from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -33,26 +29,25 @@ pull request for this class.
 """
 
 class UserPaymentMobilePricepoints(
-    AbstractCrudObject,
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
+    def __init__(self, api=None):
+        super(UserPaymentMobilePricepoints, self).__init__()
         self._isUserPaymentMobilePricepoints = True
-        super(UserPaymentMobilePricepoints, self).__init__(fbid, parent_id, api)
+        self._api = api
 
     class Field(AbstractObject.Field):
         mobile_country = 'mobile_country'
         phone_number_last4 = 'phone_number_last4'
         pricepoints = 'pricepoints'
         user_currency = 'user_currency'
-        id = 'id'
 
     _field_types = {
         'mobile_country': 'string',
         'phone_number_last4': 'string',
         'pricepoints': 'list<Object>',
         'user_currency': 'string',
-        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

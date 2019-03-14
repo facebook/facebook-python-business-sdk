@@ -19,10 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
-from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
-from facebook_business.adobjects.objectparser import ObjectParser
-from facebook_business.api import FacebookRequest
-from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -33,12 +29,13 @@ pull request for this class.
 """
 
 class BusinessSettingLogsData(
-    AbstractCrudObject,
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
+    def __init__(self, api=None):
+        super(BusinessSettingLogsData, self).__init__()
         self._isBusinessSettingLogsData = True
-        super(BusinessSettingLogsData, self).__init__(fbid, parent_id, api)
+        self._api = api
 
     class Field(AbstractObject.Field):
         actor = 'actor'
@@ -46,7 +43,6 @@ class BusinessSettingLogsData(
         event_time = 'event_time'
         event_type = 'event_type'
         extra_data = 'extra_data'
-        id = 'id'
 
     _field_types = {
         'actor': 'Object',
@@ -54,7 +50,6 @@ class BusinessSettingLogsData(
         'event_time': 'string',
         'event_type': 'string',
         'extra_data': 'Object',
-        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

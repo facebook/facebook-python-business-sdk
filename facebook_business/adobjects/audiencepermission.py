@@ -19,10 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
-from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
-from facebook_business.adobjects.objectparser import ObjectParser
-from facebook_business.api import FacebookRequest
-from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -33,24 +29,23 @@ pull request for this class.
 """
 
 class AudiencePermission(
-    AbstractCrudObject,
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
+    def __init__(self, api=None):
+        super(AudiencePermission, self).__init__()
         self._isAudiencePermission = True
-        super(AudiencePermission, self).__init__(fbid, parent_id, api)
+        self._api = api
 
     class Field(AbstractObject.Field):
         audience = 'audience'
         share_account_id = 'share_account_id'
         share_account_name = 'share_account_name'
-        id = 'id'
 
     _field_types = {
         'audience': 'CustomAudience',
         'share_account_id': 'string',
         'share_account_name': 'string',
-        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

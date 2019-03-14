@@ -19,10 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
-from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
-from facebook_business.adobjects.objectparser import ObjectParser
-from facebook_business.api import FacebookRequest
-from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -33,24 +29,23 @@ pull request for this class.
 """
 
 class AdCampaignOptimizationEvent(
-    AbstractCrudObject,
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
+    def __init__(self, api=None):
+        super(AdCampaignOptimizationEvent, self).__init__()
         self._isAdCampaignOptimizationEvent = True
-        super(AdCampaignOptimizationEvent, self).__init__(fbid, parent_id, api)
+        self._api = api
 
     class Field(AbstractObject.Field):
         custom_conversion_id = 'custom_conversion_id'
         event_sequence = 'event_sequence'
         event_type = 'event_type'
-        id = 'id'
 
     _field_types = {
         'custom_conversion_id': 'string',
         'event_sequence': 'unsigned int',
         'event_type': 'string',
-        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):
