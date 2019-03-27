@@ -446,6 +446,7 @@ class Campaign(
             'time_range': 'Object',
             'updated_since': 'int',
             'ad_draft_id': 'string',
+            'include_drafts': 'bool',
         }
         enums = {
             'date_preset_enum': Ad.DatePreset.__dict__.values(),
@@ -483,6 +484,7 @@ class Campaign(
             'is_completed': 'bool',
             'time_range': 'Object',
             'ad_draft_id': 'string',
+            'include_drafts': 'bool',
         }
         enums = {
             'effective_status_enum': AdSet.EffectiveStatus.__dict__.values(),
@@ -727,7 +729,7 @@ class Campaign(
         'pacing_type': 'list<string>',
         'promoted_object': 'AdPromotedObject',
         'recommendations': 'list<AdRecommendation>',
-        'source_campaign': 'Campaign',
+        'source_campaign': 'Object',
         'source_campaign_id': 'string',
         'spend_cap': 'string',
         'start_time': 'datetime',

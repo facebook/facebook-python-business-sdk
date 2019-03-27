@@ -32,13 +32,13 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class ShadowIGComment(
+class IGComment(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isShadowIGComment = True
-        super(ShadowIGComment, self).__init__(fbid, parent_id, api)
+        self._isIGComment = True
+        super(IGComment, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
         hidden = 'hidden'
@@ -94,7 +94,7 @@ class ShadowIGComment(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=ShadowIGComment,
+            target_class=IGComment,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -125,7 +125,7 @@ class ShadowIGComment(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=ShadowIGComment,
+            target_class=IGComment,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -155,9 +155,9 @@ class ShadowIGComment(
             endpoint='/replies',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=ShadowIGComment,
+            target_class=IGComment,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ShadowIGComment, api=self._api),
+            response_parser=ObjectParser(target_class=IGComment, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -186,9 +186,9 @@ class ShadowIGComment(
             endpoint='/replies',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=ShadowIGComment,
+            target_class=IGComment,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ShadowIGComment, api=self._api),
+            response_parser=ObjectParser(target_class=IGComment, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -206,10 +206,10 @@ class ShadowIGComment(
         'hidden': 'bool',
         'id': 'string',
         'like_count': 'int',
-        'media': 'ShadowIGMedia',
+        'media': 'IGMedia',
         'text': 'string',
         'timestamp': 'datetime',
-        'user': 'ShadowIGUser',
+        'user': 'Object',
         'username': 'string',
     }
     @classmethod

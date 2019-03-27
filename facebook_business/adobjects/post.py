@@ -557,6 +557,7 @@ class Post(
         from facebook_business.adobjects.photo import Photo
         param_types = {
             'aid': 'string',
+            'alt_text_custom': 'string',
             'caption': 'string',
             'url': 'string',
             'uid': 'int',

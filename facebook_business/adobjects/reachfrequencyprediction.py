@@ -135,6 +135,7 @@ class ReachFrequencyPrediction(
         reach = 'reach'
         impression = 'impression'
         budget = 'budget'
+        deal_id = 'deal_id'
         destination_ids = 'destination_ids'
         rf_prediction_id = 'rf_prediction_id'
         rf_prediction_id_to_release = 'rf_prediction_id_to_release'
@@ -314,6 +315,7 @@ class ReachFrequencyPrediction(
         'reach': 'unsigned int',
         'impression': 'unsigned int',
         'budget': 'unsigned int',
+        'deal_id': 'string',
         'destination_ids': 'list<string>',
         'rf_prediction_id': 'string',
         'rf_prediction_id_to_release': 'string',

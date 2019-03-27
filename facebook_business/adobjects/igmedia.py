@@ -32,13 +32,13 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class ShadowIGMedia(
+class IGMedia(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isShadowIGMedia = True
-        super(ShadowIGMedia, self).__init__(fbid, parent_id, api)
+        self._isIGMedia = True
+        super(IGMedia, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
         caption = 'caption'
@@ -70,7 +70,7 @@ class ShadowIGMedia(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=ShadowIGMedia,
+            target_class=IGMedia,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -101,7 +101,7 @@ class ShadowIGMedia(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=ShadowIGMedia,
+            target_class=IGMedia,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -131,9 +131,9 @@ class ShadowIGMedia(
             endpoint='/children',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=ShadowIGMedia,
+            target_class=IGMedia,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ShadowIGMedia, api=self._api),
+            response_parser=ObjectParser(target_class=IGMedia, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -151,7 +151,7 @@ class ShadowIGMedia(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.shadowigcomment import ShadowIGComment
+        from facebook_business.adobjects.igcomment import IGComment
         param_types = {
         }
         enums = {
@@ -162,9 +162,9 @@ class ShadowIGMedia(
             endpoint='/comments',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=ShadowIGComment,
+            target_class=IGComment,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ShadowIGComment, api=self._api),
+            response_parser=ObjectParser(target_class=IGComment, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -182,7 +182,7 @@ class ShadowIGMedia(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.shadowigcomment import ShadowIGComment
+        from facebook_business.adobjects.igcomment import IGComment
         param_types = {
             'message': 'string',
         }
@@ -194,9 +194,9 @@ class ShadowIGMedia(
             endpoint='/comments',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=ShadowIGComment,
+            target_class=IGComment,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ShadowIGComment, api=self._api),
+            response_parser=ObjectParser(target_class=IGComment, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -257,7 +257,7 @@ class ShadowIGMedia(
         'like_count': 'int',
         'media_type': 'string',
         'media_url': 'string',
-        'owner': 'ShadowIGUser',
+        'owner': 'Object',
         'permalink': 'string',
         'shortcode': 'string',
         'thumbnail_url': 'string',

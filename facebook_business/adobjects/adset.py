@@ -604,6 +604,7 @@ class AdSet(
             'time_range': 'Object',
             'updated_since': 'int',
             'ad_draft_id': 'string',
+            'include_drafts': 'bool',
         }
         enums = {
             'date_preset_enum': Ad.DatePreset.__dict__.values(),
@@ -939,7 +940,7 @@ class AdSet(
         'bid_strategy': 'BidStrategy',
         'billing_event': 'BillingEvent',
         'budget_remaining': 'string',
-        'campaign': 'Campaign',
+        'campaign': 'Object',
         'campaign_id': 'string',
         'configured_status': 'ConfiguredStatus',
         'created_time': 'datetime',
@@ -968,7 +969,7 @@ class AdSet(
         'recurring_budget_semantics': 'bool',
         'review_feedback': 'string',
         'rf_prediction_id': 'string',
-        'source_adset': 'AdSet',
+        'source_adset': 'Object',
         'source_adset_id': 'string',
         'start_time': 'datetime',
         'status': 'Status',

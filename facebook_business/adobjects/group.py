@@ -76,6 +76,7 @@ class Group(
         for_work = 'FOR_WORK'
         fraternity = 'FRATERNITY'
         game = 'GAME'
+        health = 'HEALTH'
         high_school_forum = 'HIGH_SCHOOL_FORUM'
         jobs = 'JOBS'
         learning = 'LEARNING'
@@ -131,6 +132,7 @@ class Group(
         for_work = 'FOR_WORK'
         fraternity = 'FRATERNITY'
         game = 'GAME'
+        health = 'HEALTH'
         high_school_forum = 'HIGH_SCHOOL_FORUM'
         jobs = 'JOBS'
         learning = 'LEARNING'
@@ -1115,6 +1117,7 @@ class Group(
         from facebook_business.adobjects.photo import Photo
         param_types = {
             'aid': 'string',
+            'alt_text_custom': 'string',
             'caption': 'string',
             'url': 'string',
             'uid': 'int',
