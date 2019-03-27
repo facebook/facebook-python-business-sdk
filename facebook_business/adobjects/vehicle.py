@@ -99,6 +99,7 @@ class Vehicle(
         none = 'NONE'
         other = 'OTHER'
         sedan = 'SEDAN'
+        small_car = 'SMALL_CAR'
         suv = 'SUV'
         truck = 'TRUCK'
         van = 'VAN'

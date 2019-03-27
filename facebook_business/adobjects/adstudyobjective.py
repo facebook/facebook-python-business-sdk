@@ -140,6 +140,7 @@ class AdStudyObjective(
             'applications': 'list<Object>',
             'offsitepixels': 'list<Object>',
             'offline_conversion_data_sets': 'list<Object>',
+            'product_sets': 'list<Object>',
         }
         enums = {
             'type_enum': AdStudyObjective.Type.__dict__.values(),

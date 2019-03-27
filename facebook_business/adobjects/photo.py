@@ -42,6 +42,8 @@ class Photo(
 
     class Field(AbstractObject.Field):
         album = 'album'
+        alt_text = 'alt_text'
+        alt_text_custom = 'alt_text_custom'
         backdated_time = 'backdated_time'
         backdated_time_granularity = 'backdated_time_granularity'
         can_backdate = 'can_backdate'
@@ -218,6 +220,7 @@ class Photo(
             'prompt_id': 'string',
             'prompt_tracking_string': 'string',
             'referenced_sticker_id': 'string',
+            'alt_text_custom': 'string',
             'adaptive_type': 'string',
             'animated_effect_id': 'unsigned int',
             'asked_fun_fact_prompt_id': 'unsigned int',
@@ -538,6 +541,7 @@ class Photo(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'aid': 'string',
+            'alt_text_custom': 'string',
             'caption': 'string',
             'url': 'string',
             'uid': 'int',
@@ -779,6 +783,8 @@ class Photo(
 
     _field_types = {
         'album': 'Album',
+        'alt_text': 'string',
+        'alt_text_custom': 'string',
         'backdated_time': 'datetime',
         'backdated_time_granularity': 'string',
         'can_backdate': 'bool',

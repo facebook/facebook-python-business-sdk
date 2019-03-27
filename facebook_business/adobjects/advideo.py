@@ -209,6 +209,7 @@ class AdVideo(
         look_now_deprecated = 'LOOK_NOW_DEPRECATED'
         moments_video = 'MOMENTS_VIDEO'
         no_story = 'NO_STORY'
+        oculus_creator_portal = 'OCULUS_CREATOR_PORTAL'
         oculus_venues_broadcast = 'OCULUS_VENUES_BROADCAST'
         offers_video = 'OFFERS_VIDEO'
         pages_cover_video = 'PAGES_COVER_VIDEO'

@@ -1311,6 +1311,7 @@ class AdAccount(
             'time_range': 'Object',
             'updated_since': 'int',
             'ad_draft_id': 'string',
+            'include_drafts': 'bool',
         }
         enums = {
             'date_preset_enum': Ad.DatePreset.__dict__.values(),
@@ -1473,6 +1474,7 @@ class AdAccount(
             'is_completed': 'bool',
             'time_range': 'Object',
             'ad_draft_id': 'string',
+            'include_drafts': 'bool',
         }
         enums = {
             'effective_status_enum': AdSet.EffectiveStatus.__dict__.values(),
@@ -4237,6 +4239,7 @@ class AdAccount(
             'frequency_cap': 'unsigned int',
             'budget': 'unsigned int',
             'prediction_mode': 'unsigned int',
+            'deal_id': 'string',
             'destination_id': 'unsigned int',
             'destination_ids': 'list<string>',
             'story_event_type': 'unsigned int',

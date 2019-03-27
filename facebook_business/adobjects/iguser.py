@@ -32,13 +32,13 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class ShadowIGUser(
+class IGUser(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isShadowIGUser = True
-        super(ShadowIGUser, self).__init__(fbid, parent_id, api)
+        self._isIGUser = True
+        super(IGUser, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
         biography = 'biography'
@@ -69,7 +69,7 @@ class ShadowIGUser(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=ShadowIGUser,
+            target_class=IGUser,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -162,7 +162,7 @@ class ShadowIGUser(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.shadowigmedia import ShadowIGMedia
+        from facebook_business.adobjects.igmedia import IGMedia
         param_types = {
         }
         enums = {
@@ -173,9 +173,9 @@ class ShadowIGUser(
             endpoint='/media',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=ShadowIGMedia,
+            target_class=IGMedia,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ShadowIGMedia, api=self._api),
+            response_parser=ObjectParser(target_class=IGMedia, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -193,7 +193,7 @@ class ShadowIGUser(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.shadowigmedia import ShadowIGMedia
+        from facebook_business.adobjects.igmedia import IGMedia
         param_types = {
             'media_type': 'string',
             'caption': 'string',
@@ -208,9 +208,9 @@ class ShadowIGUser(
             endpoint='/media',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=ShadowIGMedia,
+            target_class=IGMedia,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ShadowIGMedia, api=self._api),
+            response_parser=ObjectParser(target_class=IGMedia, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -228,7 +228,7 @@ class ShadowIGUser(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.shadowigmedia import ShadowIGMedia
+        from facebook_business.adobjects.igmedia import IGMedia
         param_types = {
             'creation_id': 'unsigned int',
         }
@@ -240,9 +240,9 @@ class ShadowIGUser(
             endpoint='/media_publish',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=ShadowIGMedia,
+            target_class=IGMedia,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ShadowIGMedia, api=self._api),
+            response_parser=ObjectParser(target_class=IGMedia, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -290,7 +290,7 @@ class ShadowIGUser(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.shadowigmedia import ShadowIGMedia
+        from facebook_business.adobjects.igmedia import IGMedia
         param_types = {
         }
         enums = {
@@ -301,9 +301,9 @@ class ShadowIGUser(
             endpoint='/stories',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=ShadowIGMedia,
+            target_class=IGMedia,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ShadowIGMedia, api=self._api),
+            response_parser=ObjectParser(target_class=IGMedia, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -321,7 +321,7 @@ class ShadowIGUser(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.shadowigmedia import ShadowIGMedia
+        from facebook_business.adobjects.igmedia import IGMedia
         param_types = {
         }
         enums = {
@@ -332,9 +332,9 @@ class ShadowIGUser(
             endpoint='/tags',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=ShadowIGMedia,
+            target_class=IGMedia,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ShadowIGMedia, api=self._api),
+            response_parser=ObjectParser(target_class=IGMedia, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -350,14 +350,14 @@ class ShadowIGUser(
 
     _field_types = {
         'biography': 'string',
-        'business_discovery': 'ShadowIGUser',
+        'business_discovery': 'Object',
         'followers_count': 'int',
         'follows_count': 'int',
         'id': 'string',
         'ig_id': 'int',
         'media_count': 'int',
-        'mentioned_comment': 'ShadowIGComment',
-        'mentioned_media': 'ShadowIGMedia',
+        'mentioned_comment': 'IGComment',
+        'mentioned_media': 'IGMedia',
         'name': 'string',
         'profile_picture_url': 'string',
         'username': 'string',

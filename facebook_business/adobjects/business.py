@@ -114,6 +114,18 @@ class Business(
         manager = 'MANAGER'
         moderator = 'MODERATOR'
 
+    class PagePermittedTasks:
+        advertise = 'ADVERTISE'
+        analyze = 'ANALYZE'
+        create_content = 'CREATE_CONTENT'
+        manage = 'MANAGE'
+        manage_jobs = 'MANAGE_JOBS'
+        moderate = 'MODERATE'
+        moderate_community = 'MODERATE_COMMUNITY'
+        pages_messaging = 'PAGES_MESSAGING'
+        pages_messaging_subscriptions = 'PAGES_MESSAGING_SUBSCRIPTIONS'
+        read_page_mailboxes = 'READ_PAGE_MAILBOXES'
+
     class Role:
         admin = 'ADMIN'
         ads_rights_reviewer = 'ADS_RIGHTS_REVIEWER'
@@ -1936,42 +1948,6 @@ class Business(
             self.assure_call()
             return request.execute()
 
-    def get_matched_search_applications(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.businessmatchedsearchapplicationsedgedata import BusinessMatchedSearchApplicationsEdgeData
-        param_types = {
-            'app_store': 'app_store_enum',
-            'app_store_country': 'string',
-            'query_term': 'string',
-            'allow_incomplete_app': 'bool',
-        }
-        enums = {
-            'app_store_enum': BusinessMatchedSearchApplicationsEdgeData.AppStore.__dict__.values(),
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/matched_search_applications',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=BusinessMatchedSearchApplicationsEdgeData,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=BusinessMatchedSearchApplicationsEdgeData, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def get_measurement_reports(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -2338,11 +2314,13 @@ class Business(
             'sales_rep_email': 'string',
             'shared_page_id': 'string',
             'page_permitted_roles': 'list<page_permitted_roles_enum>',
+            'page_permitted_tasks': 'list<page_permitted_tasks_enum>',
         }
         enums = {
             'vertical_enum': Business.Vertical.__dict__.values(),
             'survey_business_type_enum': Business.SurveyBusinessType.__dict__.values(),
             'page_permitted_roles_enum': Business.PagePermittedRoles.__dict__.values(),
+            'page_permitted_tasks_enum': Business.PagePermittedTasks.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -3544,21 +3522,17 @@ class Business(
             'conversion_end_date': 'string',
             'conversion_start_date': 'string',
             'event_status': 'event_status_enum',
-            'group': 'group_enum',
             'lookback_window': 'lookback_window_enum',
             'match_universe': 'match_universe_enum',
-            'upload_end_time': 'datetime',
-            'upload_start_time': 'datetime',
+            'timezone': 'timezone_enum',
             'upload_tag': 'string',
-            'version': 'version_enum',
         }
         enums = {
             'aggregation_level_enum': MeasurementUploadEvent.AggregationLevel.__dict__.values(),
             'event_status_enum': MeasurementUploadEvent.EventStatus.__dict__.values(),
-            'group_enum': MeasurementUploadEvent.Group.__dict__.values(),
             'lookback_window_enum': MeasurementUploadEvent.LookbackWindow.__dict__.values(),
             'match_universe_enum': MeasurementUploadEvent.MatchUniverse.__dict__.values(),
-            'version_enum': MeasurementUploadEvent.Version.__dict__.values(),
+            'timezone_enum': MeasurementUploadEvent.Timezone.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -3799,6 +3773,7 @@ class Business(
         field_enum_info['PermittedTasks'] = Business.PermittedTasks.__dict__.values()
         field_enum_info['SurveyBusinessType'] = Business.SurveyBusinessType.__dict__.values()
         field_enum_info['PagePermittedRoles'] = Business.PagePermittedRoles.__dict__.values()
+        field_enum_info['PagePermittedTasks'] = Business.PagePermittedTasks.__dict__.values()
         field_enum_info['Role'] = Business.Role.__dict__.values()
         return field_enum_info
 

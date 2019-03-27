@@ -63,6 +63,7 @@ class PartnerIntegrationLinked(
         backer_founder = 'backer_founder'
         bandzoogle = 'bandzoogle'
         big_commerce = 'big_commerce'
+        branch = 'branch'
         cart_3d = 'cart_3d'
         value_default = 'default'
         drupal = 'drupal'

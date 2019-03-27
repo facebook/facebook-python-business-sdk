@@ -793,6 +793,38 @@ class Page(
             self.assure_call()
             return request.execute()
 
+    def get_ads_posts(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.adspost import AdsPost
+        param_types = {
+            'include_inline_create': 'bool',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/ads_posts',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdsPost,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdsPost, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def delete_agencies(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -3946,6 +3978,38 @@ class Page(
             self.assure_call()
             return request.execute()
 
+    def create_messenger_thread_setting(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'psid': 'string',
+            'thread_banner': 'Object',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/messenger_thread_settings',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Page,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Page, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_milestones(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -4439,6 +4503,7 @@ class Page(
         from facebook_business.adobjects.photo import Photo
         param_types = {
             'aid': 'string',
+            'alt_text_custom': 'string',
             'caption': 'string',
             'url': 'string',
             'uid': 'int',
@@ -6383,7 +6448,7 @@ class Page(
     _field_types = {
         'about': 'string',
         'access_token': 'string',
-        'ad_campaign': 'AdSet',
+        'ad_campaign': 'Object',
         'affiliation': 'string',
         'app_id': 'string',
         'app_links': 'AppLinks',
@@ -6404,7 +6469,7 @@ class Page(
         'category_list': 'list<PageCategory>',
         'checkins': 'unsigned int',
         'company_overview': 'string',
-        'connected_instagram_account': 'ShadowIGUser',
+        'connected_instagram_account': 'Object',
         'contact_address': 'MailingAddress',
         'context': 'OpenGraphContext',
         'copyright_attribution_insights': 'CopyrightAttributionInsights',
@@ -6438,7 +6503,7 @@ class Page(
         'id': 'string',
         'impressum': 'string',
         'influences': 'string',
-        'instagram_business_account': 'ShadowIGUser',
+        'instagram_business_account': 'Object',
         'instant_articles_review_status': 'string',
         'is_always_open': 'bool',
         'is_chain': 'bool',

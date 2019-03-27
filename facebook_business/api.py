@@ -752,7 +752,6 @@ class Cursor(object):
             self._endpoint,
         )
         self._queue = []
-        self._headers = []
         self._finished_iteration = False
         self._total_count = None
         self._summary = None
@@ -784,9 +783,6 @@ class Cursor(object):
 
     def __getitem__(self, index):
         return self._queue[index]
-
-    def headers(self):
-        return self._headers
 
     def total(self):
         if self._total_count is None:
@@ -826,13 +822,11 @@ class Cursor(object):
         ):
             self.params['summary'] = True
 
-        response_obj = self._api.call(
+        response = self._api.call(
             'GET',
             self._path,
             params=self.params,
-        )
-        response = response_obj.json()
-        self._headers = response_obj.headers()
+        ).json()
 
         if 'paging' in response and 'next' in response['paging']:
             self._path = response['paging']['next']

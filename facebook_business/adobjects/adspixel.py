@@ -137,6 +137,7 @@ class AdsPixel(
             'automatic_matching_fields': 'list<automatic_matching_fields_enum>',
             'first_party_cookie_status': 'first_party_cookie_status_enum',
             'data_use_setting': 'data_use_setting_enum',
+            'server_events_business_id': 'string',
         }
         enums = {
             'automatic_matching_fields_enum': AdsPixel.AutomaticMatchingFields.__dict__.values(),
