@@ -204,11 +204,18 @@ class AioEdgeIterator(facebook_business.api.Cursor):
         if not isinstance(response, string_types) and 'data' in response and \
                 isinstance(response['data'], list):
             new_cnt = len(response['data'])
-            self._queue += response['data']
-
             if new_cnt <= 0:
                 # API may return paging.next even for the last page
                 self._finished_iteration = True
+
+            elif new_cnt == 1 and (isinstance(response['data'][0], dict) and
+                                   response['data'][0].get('category') == 'no_match'):
+                # API may return [{'category': 'no_match'}] or something like that for the last page
+                self._finished_iteration = True
+
+            else:
+                self._queue += response['data']
+
         else:
             self._finished_iteration = True
             if not isinstance(response, string_types) and 'data' in response:
@@ -217,6 +224,7 @@ class AioEdgeIterator(facebook_business.api.Cursor):
                 data = response
             self._queue.append(data)
             new_cnt = 1
+
         del self._response
         self._response = None
 
