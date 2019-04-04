@@ -2,16 +2,16 @@ language: python
 matrix:
   include:
     - python: 2.7
+    env:
+       - TOX_ENV=py27
     - python: 3.4
+    env:
+       - TOX_ENV=py34
     - python: 3.5
     - python: 3.6
     - python: 3.7
       dist: xenial
       sudo: true
-env:
-  - TOX_ENV=py34
-  - TOX_ENV=py33
-  - TOX_ENV=py27
 install:
   - pip install tox 
 script:
