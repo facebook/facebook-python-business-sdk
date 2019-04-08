@@ -23,3 +23,5 @@ class FacebookErrorSubCodes(object):
     promoted_post_unavailable = 1885557
     publisher_category_not_valid = 1815298
     no_custom_audience_ownership = 1487301
+    invalid_locales = 1487121
+    cant_modify_scheduled_ad_set = 1487007
