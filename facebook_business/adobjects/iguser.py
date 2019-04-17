@@ -90,8 +90,8 @@ class IGUser(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'media_id': 'string',
             'comment_id': 'string',
+            'media_id': 'string',
             'message': 'string',
         }
         enums = {
@@ -126,10 +126,10 @@ class IGUser(
         if is_async:
           return self.get_insights_async(fields, params, batch, success, failure, pending)
         param_types = {
-            'since': 'datetime',
-            'until': 'datetime',
             'metric': 'list<metric_enum>',
             'period': 'list<period_enum>',
+            'since': 'datetime',
+            'until': 'datetime',
         }
         enums = {
             'metric_enum': InstagramInsightsResult.Metric.__dict__.values(),
@@ -195,10 +195,10 @@ class IGUser(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.igmedia import IGMedia
         param_types = {
-            'media_type': 'string',
             'caption': 'string',
-            'image_url': 'string',
             'children': 'list<unsigned int>',
+            'image_url': 'string',
+            'media_type': 'string',
         }
         enums = {
         }
@@ -350,7 +350,7 @@ class IGUser(
 
     _field_types = {
         'biography': 'string',
-        'business_discovery': 'Object',
+        'business_discovery': 'IGUser',
         'followers_count': 'int',
         'follows_count': 'int',
         'id': 'string',

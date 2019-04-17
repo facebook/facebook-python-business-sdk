@@ -160,18 +160,18 @@ class HomeListing(
         param_types = {
             'address': 'Object',
             'availability': 'string',
-            'images': 'list<Object>',
-            'name': 'string',
             'currency': 'string',
-            'price': 'float',
-            'url': 'string',
-            'year_built': 'unsigned int',
             'description': 'string',
+            'images': 'list<Object>',
             'listing_type': 'string',
+            'name': 'string',
             'num_baths': 'float',
             'num_beds': 'float',
             'num_units': 'float',
+            'price': 'float',
             'property_type': 'string',
+            'url': 'string',
+            'year_built': 'unsigned int',
         }
         enums = {
         }

@@ -44,7 +44,6 @@ class SplitTestConfig(
         budget = 'budget'
         early_winner_declaration_enabled = 'early_winner_declaration_enabled'
         end_time = 'end_time'
-        extend_winner_enabled = 'extend_winner_enabled'
         splits = 'splits'
         start_time = 'start_time'
         test_variable = 'test_variable'
@@ -84,7 +83,6 @@ class SplitTestConfig(
         'budget': 'int',
         'early_winner_declaration_enabled': 'bool',
         'end_time': 'datetime',
-        'extend_winner_enabled': 'bool',
         'splits': 'list<int>',
         'start_time': 'datetime',
         'test_variable': 'string',

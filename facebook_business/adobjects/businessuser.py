@@ -136,13 +136,13 @@ class BusinessUser(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'role': 'role_enum',
+            'clear_pending_email': 'bool',
+            'email': 'string',
             'first_name': 'string',
             'last_name': 'string',
-            'title': 'string',
-            'email': 'string',
             'pending_email': 'string',
-            'clear_pending_email': 'bool',
+            'role': 'role_enum',
+            'title': 'string',
         }
         enums = {
             'role_enum': BusinessUser.Role.__dict__.values(),

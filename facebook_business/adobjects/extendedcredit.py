@@ -156,8 +156,8 @@ class ExtendedCredit(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.extendedcreditinvoicegroup import ExtendedCreditInvoiceGroup
         param_types = {
-            'name': 'string',
             'emails': 'list<string>',
+            'name': 'string',
         }
         enums = {
         }
@@ -221,16 +221,16 @@ class ExtendedCredit(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.extendedcreditallocationconfig import ExtendedCreditAllocationConfig
         param_types = {
-            'receiving_business_id': 'string',
             'amount': 'Object',
             'liability_type': 'liability_type_enum',
-            'send_bill_to': 'send_bill_to_enum',
             'partition_type': 'partition_type_enum',
+            'receiving_business_id': 'string',
+            'send_bill_to': 'send_bill_to_enum',
         }
         enums = {
             'liability_type_enum': ExtendedCreditAllocationConfig.LiabilityType.__dict__.values(),
-            'send_bill_to_enum': ExtendedCreditAllocationConfig.SendBillTo.__dict__.values(),
             'partition_type_enum': ExtendedCreditAllocationConfig.PartitionType.__dict__.values(),
+            'send_bill_to_enum': ExtendedCreditAllocationConfig.SendBillTo.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],

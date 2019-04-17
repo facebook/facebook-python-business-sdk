@@ -87,17 +87,17 @@ class VideoList(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.comment import Comment
         param_types = {
+            'attachment_id': 'string',
+            'attachment_share_url': 'string',
+            'attachment_url': 'string',
+            'comment_privacy_value': 'comment_privacy_value_enum',
+            'facepile_mentioned_ids': 'list<string>',
+            'feedback_source': 'string',
+            'is_offline': 'bool',
+            'message': 'string',
+            'nectar_module': 'string',
             'object_id': 'string',
             'parent_comment_id': 'Object',
-            'nectar_module': 'string',
-            'attachment_id': 'string',
-            'attachment_url': 'string',
-            'attachment_share_url': 'string',
-            'feedback_source': 'string',
-            'facepile_mentioned_ids': 'list<string>',
-            'is_offline': 'bool',
-            'comment_privacy_value': 'comment_privacy_value_enum',
-            'message': 'string',
             'text': 'string',
             'tracking': 'string',
         }

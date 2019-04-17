@@ -209,7 +209,7 @@ class IGComment(
         'media': 'IGMedia',
         'text': 'string',
         'timestamp': 'datetime',
-        'user': 'Object',
+        'user': 'IGUser',
         'username': 'string',
     }
     @classmethod

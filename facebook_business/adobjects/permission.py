@@ -43,7 +43,6 @@ class Permission(
 
     class Status:
         declined = 'declined'
-        expired = 'expired'
         granted = 'granted'
 
     _field_types = {

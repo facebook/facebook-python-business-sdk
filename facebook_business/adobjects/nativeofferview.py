@@ -80,9 +80,9 @@ class NativeOfferView(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'published_ads': 'bool',
-            'published': 'bool',
             'message': 'string',
+            'published': 'bool',
+            'published_ads': 'bool',
         }
         enums = {
         }
@@ -144,12 +144,12 @@ class NativeOfferView(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'urls': 'list<string>',
-            'photos': 'list<string>',
             'ad_account': 'string',
             'ad_image_hashes': 'list<string>',
-            'image_crops': 'list<map>',
             'file': 'file',
+            'image_crops': 'list<map>',
+            'photos': 'list<string>',
+            'urls': 'list<string>',
         }
         enums = {
         }

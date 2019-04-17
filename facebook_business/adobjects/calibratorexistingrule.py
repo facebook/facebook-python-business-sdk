@@ -87,9 +87,9 @@ class CalibratorExistingRule(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'start_time': 'datetime',
             'end_time': 'datetime',
             'event_type': 'event_type_enum',
+            'start_time': 'datetime',
         }
         enums = {
             'event_type_enum': [

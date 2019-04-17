@@ -183,26 +183,26 @@ class PageCallToAction(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'type': 'type_enum',
-            'intl_number_with_plus': 'string',
-            'email_address': 'string',
-            'web_destination_type': 'web_destination_type_enum',
-            'web_url': 'string',
-            'android_destination_type': 'android_destination_type_enum',
+            'android_app_id': 'int',
             'android_deeplink': 'string',
+            'android_destination_type': 'android_destination_type_enum',
             'android_package_name': 'string',
             'android_url': 'string',
-            'android_app_id': 'int',
-            'iphone_destination_type': 'iphone_destination_type_enum',
-            'iphone_deeplink': 'string',
-            'iphone_url': 'string',
+            'email_address': 'string',
+            'intl_number_with_plus': 'string',
             'iphone_app_id': 'int',
+            'iphone_deeplink': 'string',
+            'iphone_destination_type': 'iphone_destination_type_enum',
+            'iphone_url': 'string',
+            'type': 'type_enum',
+            'web_destination_type': 'web_destination_type_enum',
+            'web_url': 'string',
         }
         enums = {
-            'type_enum': PageCallToAction.Type.__dict__.values(),
-            'web_destination_type_enum': PageCallToAction.WebDestinationType.__dict__.values(),
             'android_destination_type_enum': PageCallToAction.AndroidDestinationType.__dict__.values(),
             'iphone_destination_type_enum': PageCallToAction.IphoneDestinationType.__dict__.values(),
+            'type_enum': PageCallToAction.Type.__dict__.values(),
+            'web_destination_type_enum': PageCallToAction.WebDestinationType.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],

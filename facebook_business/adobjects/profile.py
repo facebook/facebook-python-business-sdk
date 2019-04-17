@@ -108,9 +108,9 @@ class Profile(
         from facebook_business.adobjects.profilepicturesource import ProfilePictureSource
         param_types = {
             'height': 'int',
-            'width': 'int',
-            'type': 'type_enum',
             'redirect': 'bool',
+            'type': 'type_enum',
+            'width': 'int',
         }
         enums = {
             'type_enum': ProfilePictureSource.Type.__dict__.values(),

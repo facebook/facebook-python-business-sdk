@@ -19,10 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
-from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
-from facebook_business.adobjects.objectparser import ObjectParser
-from facebook_business.api import FacebookRequest
-from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -32,23 +28,24 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class LegacyBusinessAdAccountRequest(
-    AbstractCrudObject,
+class AdCreativeOptimizationSpec(
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isLegacyBusinessAdAccountRequest = True
-        super(LegacyBusinessAdAccountRequest, self).__init__(fbid, parent_id, api)
+    def __init__(self, api=None):
+        super(AdCreativeOptimizationSpec, self).__init__()
+        self._isAdCreativeOptimizationSpec = True
+        self._api = api
 
     class Field(AbstractObject.Field):
-        ad_account = 'ad_account'
-        id = 'id'
-        permitted_roles = 'permitted_roles'
+        bodies = 'bodies'
+        descriptions = 'descriptions'
+        titles = 'titles'
 
     _field_types = {
-        'ad_account': 'AdAccount',
-        'id': 'string',
-        'permitted_roles': 'list<string>',
+        'bodies': 'list<string>',
+        'descriptions': 'list<string>',
+        'titles': 'list<string>',
     }
     @classmethod
     def _get_field_enum_info(cls):

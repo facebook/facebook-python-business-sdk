@@ -58,7 +58,6 @@ class AdsInsights(
         auction_bid = 'auction_bid'
         auction_competitiveness = 'auction_competitiveness'
         auction_max_competitor_bid = 'auction_max_competitor_bid'
-        bid_type = 'bid_type'
         body_asset = 'body_asset'
         buying_type = 'buying_type'
         call_to_action_asset = 'call_to_action_asset'
@@ -131,11 +130,9 @@ class AdsInsights(
         place_page_name = 'place_page_name'
         placement = 'placement'
         platform_position = 'platform_position'
-        product_format = 'product_format'
         product_id = 'product_id'
         publisher_platform = 'publisher_platform'
         purchase_roas = 'purchase_roas'
-        purchasing_interface = 'purchasing_interface'
         reach = 'reach'
         region = 'region'
         relevance_score = 'relevance_score'
@@ -290,7 +287,6 @@ class AdsInsights(
         'auction_bid': 'string',
         'auction_competitiveness': 'string',
         'auction_max_competitor_bid': 'string',
-        'bid_type': 'string',
         'body_asset': 'Object',
         'buying_type': 'string',
         'call_to_action_asset': 'Object',
@@ -363,11 +359,9 @@ class AdsInsights(
         'place_page_name': 'string',
         'placement': 'string',
         'platform_position': 'string',
-        'product_format': 'string',
         'product_id': 'string',
         'publisher_platform': 'string',
         'purchase_roas': 'list<AdsActionStats>',
-        'purchasing_interface': 'string',
         'reach': 'string',
         'region': 'string',
         'relevance_score': 'AdgroupRelevanceScore',

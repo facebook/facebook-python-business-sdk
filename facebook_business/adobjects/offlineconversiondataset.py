@@ -152,10 +152,10 @@ class OfflineConversionDataSet(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'name': 'string',
+            'auto_assign_to_new_accounts_only': 'bool',
             'description': 'string',
             'enable_auto_assign_to_accounts': 'bool',
-            'auto_assign_to_new_accounts_only': 'bool',
+            'name': 'string',
         }
         enums = {
         }
@@ -187,9 +187,9 @@ class OfflineConversionDataSet(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'business_id': 'string',
-            'start_time': 'datetime',
             'end_time': 'datetime',
             'event_type': 'event_type_enum',
+            'start_time': 'datetime',
         }
         enums = {
             'event_type_enum': [
@@ -300,8 +300,8 @@ class OfflineConversionDataSet(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'account_id': 'string',
-            'business': 'string',
             'auto_track_for_ads': 'bool',
+            'business': 'string',
         }
         enums = {
         }
@@ -395,9 +395,9 @@ class OfflineConversionDataSet(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'business': 'string',
+            'other_relationship': 'string',
             'permitted_roles': 'list<permitted_roles_enum>',
             'relationship_type': 'list<relationship_type_enum>',
-            'other_relationship': 'string',
         }
         enums = {
             'permitted_roles_enum': OfflineConversionDataSet.PermittedRoles.__dict__.values(),
@@ -526,12 +526,12 @@ class OfflineConversionDataSet(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'upload_tag': 'string',
-            'upload_id': 'string',
-            'upload_source': 'string',
             'data': 'list<string>',
             'namespace_id': 'string',
             'progress': 'Object',
+            'upload_id': 'string',
+            'upload_source': 'string',
+            'upload_tag': 'string',
         }
         enums = {
         }
@@ -562,12 +562,12 @@ class OfflineConversionDataSet(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'start': 'int',
-            'end': 'int',
-            'skip_empty_values': 'bool',
             'aggr_time': 'aggr_time_enum',
-            'user_timezone_id': 'unsigned int',
+            'end': 'int',
             'granularity': 'granularity_enum',
+            'skip_empty_values': 'bool',
+            'start': 'int',
+            'user_timezone_id': 'unsigned int',
         }
         enums = {
             'aggr_time_enum': [
@@ -607,13 +607,17 @@ class OfflineConversionDataSet(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'upload_tag': 'string',
-            'start_time': 'datetime',
             'end_time': 'datetime',
-            'sort_by': 'sort_by_enum',
             'order': 'order_enum',
+            'sort_by': 'sort_by_enum',
+            'start_time': 'datetime',
+            'upload_tag': 'string',
         }
         enums = {
+            'order_enum': [
+                'ASCENDING',
+                'DESCENDING',
+            ],
             'sort_by_enum': [
                 'API_CALLS',
                 'CREATION_TIME',
@@ -622,10 +626,6 @@ class OfflineConversionDataSet(
                 'FIRST_UPLOAD_TIME',
                 'IS_EXCLUDED_FOR_LIFT',
                 'LAST_UPLOAD_TIME',
-            ],
-            'order_enum': [
-                'ASCENDING',
-                'DESCENDING',
             ],
         }
         request = FacebookRequest(
@@ -686,9 +686,9 @@ class OfflineConversionDataSet(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'user': 'int',
-            'email': 'string',
             'business': 'string',
+            'email': 'string',
+            'user': 'int',
         }
         enums = {
         }
@@ -750,9 +750,9 @@ class OfflineConversionDataSet(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'user': 'int',
-            'role': 'role_enum',
             'business': 'string',
+            'role': 'role_enum',
+            'user': 'int',
         }
         enums = {
             'role_enum': OfflineConversionDataSet.Role.__dict__.values(),

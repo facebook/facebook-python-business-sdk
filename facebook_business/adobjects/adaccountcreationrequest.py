@@ -75,9 +75,9 @@ class AdAccountCreationRequest(
         subvertical = 'subvertical'
         time_created = 'time_created'
         vertical = 'vertical'
+        advertiser_business_id = 'advertiser_business_id'
         business_registration = 'business_registration'
         promotable_page_urls = 'promotable_page_urls'
-        advertiser_business_id = 'advertiser_business_id'
 
     class Subvertical:
         accounting_and_taxes_and_legal = 'ACCOUNTING_AND_TAXES_AND_LEGAL'
@@ -311,33 +311,33 @@ class AdAccountCreationRequest(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'extended_credit_id': 'string',
             'ad_accounts_info': 'list<Object>',
-            'business_registration': 'file',
-            'planning_agency_business_id': 'string',
-            'english_legal_entity_name': 'string',
-            'legal_entity_name_in_local_language': 'string',
-            'address_in_local_language': 'string',
-            'chinese_legal_entity_name': 'string',
+            'additional_comment': 'string',
             'address_in_chinese': 'string',
             'address_in_english': 'Object',
-            'official_website_url': 'string',
-            'business_registration_id': 'string',
-            'vertical': 'vertical_enum',
-            'subvertical': 'subvertical_enum',
-            'promotable_page_urls': 'list<string>',
-            'promotable_page_ids': 'list<string>',
-            'promotable_app_ids': 'list<string>',
-            'promotable_urls': 'list<string>',
-            'contact': 'Object',
-            'additional_comment': 'string',
-            'is_smb': 'bool',
+            'address_in_local_language': 'string',
             'advertiser_business_id': 'string',
+            'business_registration': 'file',
+            'business_registration_id': 'string',
+            'chinese_legal_entity_name': 'string',
+            'contact': 'Object',
             'disapprove_appeal_comment': 'string',
+            'english_legal_entity_name': 'string',
+            'extended_credit_id': 'string',
+            'is_smb': 'bool',
+            'legal_entity_name_in_local_language': 'string',
+            'official_website_url': 'string',
+            'planning_agency_business_id': 'string',
+            'promotable_app_ids': 'list<string>',
+            'promotable_page_ids': 'list<string>',
+            'promotable_page_urls': 'list<string>',
+            'promotable_urls': 'list<string>',
+            'subvertical': 'subvertical_enum',
+            'vertical': 'vertical_enum',
         }
         enums = {
-            'vertical_enum': AdAccountCreationRequest.Vertical.__dict__.values(),
             'subvertical_enum': AdAccountCreationRequest.Subvertical.__dict__.values(),
+            'vertical_enum': AdAccountCreationRequest.Vertical.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -398,27 +398,27 @@ class AdAccountCreationRequest(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'ad_accounts_info': 'list<Object>',
-            'business_registration': 'file',
-            'planning_agency_business_id': 'string',
-            'english_legal_entity_name': 'string',
-            'address_in_english': 'Object',
-            'official_website_url': 'string',
-            'business_registration_id': 'string',
-            'vertical': 'vertical_enum',
-            'subvertical': 'subvertical_enum',
-            'promotable_page_urls': 'list<string>',
-            'promotable_page_ids': 'list<int>',
-            'promotable_app_ids': 'list<string>',
-            'promotable_urls': 'list<string>',
-            'contact': 'Object',
             'additional_comment': 'string',
-            'advertiser_business_id': 'string',
+            'address_in_english': 'Object',
             'address_in_local_language': 'string',
+            'advertiser_business_id': 'string',
+            'business_registration': 'file',
+            'business_registration_id': 'string',
+            'contact': 'Object',
+            'english_legal_entity_name': 'string',
             'legal_entity_name_in_local_language': 'string',
+            'official_website_url': 'string',
+            'planning_agency_business_id': 'string',
+            'promotable_app_ids': 'list<string>',
+            'promotable_page_ids': 'list<int>',
+            'promotable_page_urls': 'list<string>',
+            'promotable_urls': 'list<string>',
+            'subvertical': 'subvertical_enum',
+            'vertical': 'vertical_enum',
         }
         enums = {
-            'vertical_enum': AdAccountCreationRequest.Vertical.__dict__.values(),
             'subvertical_enum': AdAccountCreationRequest.Subvertical.__dict__.values(),
+            'vertical_enum': AdAccountCreationRequest.Vertical.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -477,9 +477,9 @@ class AdAccountCreationRequest(
         'subvertical': 'string',
         'time_created': 'datetime',
         'vertical': 'string',
+        'advertiser_business_id': 'string',
         'business_registration': 'file',
         'promotable_page_urls': 'list<string>',
-        'advertiser_business_id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

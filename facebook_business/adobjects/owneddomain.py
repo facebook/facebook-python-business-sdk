@@ -46,7 +46,6 @@ class OwnedDomain(
 
     class PermittedRoles:
         admin = 'ADMIN'
-        webmaster_developer = 'WEBMASTER_DEVELOPER'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod

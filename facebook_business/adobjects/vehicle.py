@@ -112,6 +112,7 @@ class Vehicle(
         none = 'NONE'
         other = 'OTHER'
         poor = 'POOR'
+        very_good = 'VERY_GOOD'
 
     class Drivetrain:
         awd = 'AWD'
@@ -198,44 +199,44 @@ class Vehicle(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'address': 'map',
             'applinks': 'Object',
-            'transmission': 'transmission_enum',
-            'drivetrain': 'drivetrain_enum',
-            'fuel_type': 'fuel_type_enum',
-            'trim': 'string',
-            'interior_color': 'string',
-            'condition': 'condition_enum',
-            'date_first_on_lot': 'string',
             'availability': 'availability_enum',
+            'body_style': 'body_style_enum',
+            'condition': 'condition_enum',
+            'currency': 'string',
+            'date_first_on_lot': 'string',
             'dealer_id': 'string',
             'dealer_name': 'string',
             'dealer_phone': 'string',
-            'vehicle_type': 'vehicle_type_enum',
-            'body_style': 'body_style_enum',
             'description': 'string',
+            'drivetrain': 'drivetrain_enum',
             'exterior_color': 'string',
+            'fuel_type': 'fuel_type_enum',
+            'images': 'list<Object>',
+            'interior_color': 'string',
             'make': 'string',
             'mileage': 'map',
             'model': 'string',
-            'state_of_vehicle': 'state_of_vehicle_enum',
-            'vin': 'string',
-            'url': 'string',
-            'year': 'unsigned int',
-            'images': 'list<Object>',
-            'address': 'map',
-            'currency': 'string',
             'price': 'unsigned int',
+            'state_of_vehicle': 'state_of_vehicle_enum',
             'title': 'string',
+            'transmission': 'transmission_enum',
+            'trim': 'string',
+            'url': 'string',
+            'vehicle_type': 'vehicle_type_enum',
+            'vin': 'string',
+            'year': 'unsigned int',
         }
         enums = {
-            'transmission_enum': Vehicle.Transmission.__dict__.values(),
+            'availability_enum': Vehicle.Availability.__dict__.values(),
+            'body_style_enum': Vehicle.BodyStyle.__dict__.values(),
+            'condition_enum': Vehicle.Condition.__dict__.values(),
             'drivetrain_enum': Vehicle.Drivetrain.__dict__.values(),
             'fuel_type_enum': Vehicle.FuelType.__dict__.values(),
-            'condition_enum': Vehicle.Condition.__dict__.values(),
-            'availability_enum': Vehicle.Availability.__dict__.values(),
-            'vehicle_type_enum': Vehicle.VehicleType.__dict__.values(),
-            'body_style_enum': Vehicle.BodyStyle.__dict__.values(),
             'state_of_vehicle_enum': Vehicle.StateOfVehicle.__dict__.values(),
+            'transmission_enum': Vehicle.Transmission.__dict__.values(),
+            'vehicle_type_enum': Vehicle.VehicleType.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],

@@ -126,9 +126,9 @@ class AdMonetizationProperty(
         param_types = {
             'aggregation_period': 'aggregation_period_enum',
             'breakdowns': 'list<breakdowns_enum>',
-            'metrics': 'list<metrics_enum>',
             'filters': 'list<Object>',
             'limit': 'int',
+            'metrics': 'list<metrics_enum>',
             'ordering_column': 'ordering_column_enum',
             'ordering_type': 'ordering_type_enum',
             'since': 'datetime',

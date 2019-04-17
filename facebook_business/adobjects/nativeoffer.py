@@ -132,8 +132,8 @@ class NativeOffer(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'unique_codes_file_code_type': 'unique_codes_file_code_type_enum',
             'file': 'file',
+            'unique_codes_file_code_type': 'unique_codes_file_code_type_enum',
         }
         enums = {
             'unique_codes_file_code_type_enum': NativeOffer.UniqueCodesFileCodeType.__dict__.values(),
@@ -165,19 +165,19 @@ class NativeOffer(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'urls': 'list<string>',
-            'photos': 'list<string>',
             'ad_account': 'string',
             'ad_image_hashes': 'list<string>',
-            'image_crops': 'list<map>',
-            'published_ads': 'bool',
-            'published': 'bool',
-            'message': 'string',
-            'place_data': 'Object',
-            'deeplinks': 'list<string>',
             'carousel_captions': 'list<string>',
-            'carousel_links': 'list<string>',
             'carousel_data': 'list<Object>',
+            'carousel_links': 'list<string>',
+            'deeplinks': 'list<string>',
+            'image_crops': 'list<map>',
+            'message': 'string',
+            'photos': 'list<string>',
+            'place_data': 'Object',
+            'published': 'bool',
+            'published_ads': 'bool',
+            'urls': 'list<string>',
             'videos': 'list<string>',
         }
         enums = {

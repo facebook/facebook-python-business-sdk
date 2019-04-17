@@ -132,17 +132,17 @@ class AdsPixel(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'name': 'string',
-            'enable_automatic_matching': 'bool',
             'automatic_matching_fields': 'list<automatic_matching_fields_enum>',
-            'first_party_cookie_status': 'first_party_cookie_status_enum',
             'data_use_setting': 'data_use_setting_enum',
+            'enable_automatic_matching': 'bool',
+            'first_party_cookie_status': 'first_party_cookie_status_enum',
+            'name': 'string',
             'server_events_business_id': 'string',
         }
         enums = {
             'automatic_matching_fields_enum': AdsPixel.AutomaticMatchingFields.__dict__.values(),
-            'first_party_cookie_status_enum': AdsPixel.FirstPartyCookieStatus.__dict__.values(),
             'data_use_setting_enum': AdsPixel.DataUseSetting.__dict__.values(),
+            'first_party_cookie_status_enum': AdsPixel.FirstPartyCookieStatus.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -171,8 +171,8 @@ class AdsPixel(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'user': 'int',
             'business': 'string',
+            'user': 'int',
         }
         enums = {
         }
@@ -235,9 +235,9 @@ class AdsPixel(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'user': 'int',
-            'tasks': 'list<tasks_enum>',
             'business': 'string',
+            'tasks': 'list<tasks_enum>',
+            'user': 'int',
         }
         enums = {
             'tasks_enum': AdsPixel.Tasks.__dict__.values(),
@@ -586,11 +586,11 @@ class AdsPixel(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.adspixelstatsresult import AdsPixelStatsResult
         param_types = {
-            'start_time': 'datetime',
-            'end_time': 'datetime',
             'aggregation': 'aggregation_enum',
+            'end_time': 'datetime',
             'event': 'string',
             'event_source': 'string',
+            'start_time': 'datetime',
         }
         enums = {
             'aggregation_enum': AdsPixelStatsResult.Aggregation.__dict__.values(),

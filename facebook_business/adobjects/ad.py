@@ -75,12 +75,12 @@ class Ad(
         tracking_and_conversion_with_defaults = 'tracking_and_conversion_with_defaults'
         tracking_specs = 'tracking_specs'
         updated_time = 'updated_time'
+        adset_spec = 'adset_spec'
         audience_id = 'audience_id'
         date_format = 'date_format'
-        include_demolink_hashes = 'include_demolink_hashes'
-        adset_spec = 'adset_spec'
         draft_adgroup_id = 'draft_adgroup_id'
         execution_options = 'execution_options'
+        include_demolink_hashes = 'include_demolink_hashes'
         filename = 'filename'
 
     class BidType:
@@ -250,24 +250,24 @@ class Ad(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'audience_id': 'string',
-            'include_demolink_hashes': 'bool',
-            'creative': 'AdCreative',
-            'name': 'string',
-            'status': 'status_enum',
-            'priority': 'unsigned int',
-            'tracking_specs': 'Object',
-            'display_sequence': 'unsigned int',
-            'engagement_audience': 'bool',
-            'adset_spec': 'AdSet',
-            'draft_adgroup_id': 'string',
-            'execution_options': 'list<execution_options_enum>',
             'adlabels': 'list<Object>',
+            'adset_spec': 'AdSet',
+            'audience_id': 'string',
             'bid_amount': 'int',
+            'creative': 'AdCreative',
+            'display_sequence': 'unsigned int',
+            'draft_adgroup_id': 'string',
+            'engagement_audience': 'bool',
+            'execution_options': 'list<execution_options_enum>',
+            'include_demolink_hashes': 'bool',
+            'name': 'string',
+            'priority': 'unsigned int',
+            'status': 'status_enum',
+            'tracking_specs': 'Object',
         }
         enums = {
-            'status_enum': Ad.Status.__dict__.values(),
             'execution_options_enum': Ad.ExecutionOptions.__dict__.values(),
+            'status_enum': Ad.Status.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -425,9 +425,9 @@ class Ad(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'include_deleted': 'bool',
-            'effective_status': 'list<string>',
             'date_preset': 'date_preset_enum',
+            'effective_status': 'list<string>',
+            'include_deleted': 'bool',
             'time_range': 'Object',
             'updated_since': 'int',
         }
@@ -498,21 +498,21 @@ class Ad(
         if is_async:
           return self.get_insights_async(fields, params, batch, success, failure, pending)
         param_types = {
-            'default_summary': 'bool',
-            'fields': 'list<string>',
-            'filtering': 'list<Object>',
-            'summary': 'list<string>',
-            'sort': 'list<string>',
             'action_attribution_windows': 'list<action_attribution_windows_enum>',
             'action_breakdowns': 'list<action_breakdowns_enum>',
             'action_report_time': 'action_report_time_enum',
             'breakdowns': 'list<breakdowns_enum>',
             'date_preset': 'date_preset_enum',
+            'default_summary': 'bool',
             'export_columns': 'list<string>',
             'export_format': 'string',
             'export_name': 'string',
+            'fields': 'list<string>',
+            'filtering': 'list<Object>',
             'level': 'level_enum',
             'product_id_limit': 'int',
+            'sort': 'list<string>',
+            'summary': 'list<string>',
             'summary_action_breakdowns': 'list<summary_action_breakdowns_enum>',
             'time_increment': 'string',
             'time_range': 'Object',
@@ -558,21 +558,21 @@ class Ad(
         from facebook_business.adobjects.adreportrun import AdReportRun
         from facebook_business.adobjects.adsinsights import AdsInsights
         param_types = {
-            'default_summary': 'bool',
-            'fields': 'list<string>',
-            'filtering': 'list<Object>',
-            'summary': 'list<string>',
-            'sort': 'list<string>',
             'action_attribution_windows': 'list<action_attribution_windows_enum>',
             'action_breakdowns': 'list<action_breakdowns_enum>',
             'action_report_time': 'action_report_time_enum',
             'breakdowns': 'list<breakdowns_enum>',
             'date_preset': 'date_preset_enum',
+            'default_summary': 'bool',
             'export_columns': 'list<string>',
             'export_format': 'string',
             'export_name': 'string',
+            'fields': 'list<string>',
+            'filtering': 'list<Object>',
             'level': 'level_enum',
             'product_id_limit': 'int',
+            'sort': 'list<string>',
+            'summary': 'list<string>',
             'summary_action_breakdowns': 'list<summary_action_breakdowns_enum>',
             'time_increment': 'string',
             'time_range': 'Object',
@@ -680,9 +680,9 @@ class Ad(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.lead import Lead
         param_types = {
-            'start_time': 'datetime',
             'end_time': 'datetime',
             'session_id': 'string',
+            'start_time': 'datetime',
         }
         enums = {
         }
@@ -715,19 +715,19 @@ class Ad(
         from facebook_business.adobjects.adpreview import AdPreview
         param_types = {
             'ad_format': 'ad_format_enum',
+            'dynamic_asset_label': 'string',
             'dynamic_creative_spec': 'Object',
             'dynamic_customization': 'Object',
-            'dynamic_asset_label': 'string',
-            'interactive': 'bool',
-            'post': 'Object',
-            'height': 'unsigned int',
-            'width': 'unsigned int',
-            'place_page_id': 'int',
-            'product_item_ids': 'list<string>',
-            'start_date': 'datetime',
             'end_date': 'datetime',
+            'height': 'unsigned int',
+            'interactive': 'bool',
             'locale': 'string',
+            'place_page_id': 'int',
+            'post': 'Object',
+            'product_item_ids': 'list<string>',
             'render_type': 'render_type_enum',
+            'start_date': 'datetime',
+            'width': 'unsigned int',
         }
         enums = {
             'ad_format_enum': AdPreview.AdFormat.__dict__.values(),
@@ -821,8 +821,8 @@ class Ad(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'url': 'string',
             'add_template_param': 'bool',
+            'url': 'string',
         }
         enums = {
         }
@@ -852,12 +852,12 @@ class Ad(
         'account_id': 'string',
         'ad_review_feedback': 'AdgroupReviewFeedback',
         'adlabels': 'list<AdLabel>',
-        'adset': 'Object',
+        'adset': 'AdSet',
         'adset_id': 'string',
         'bid_amount': 'int',
         'bid_info': 'map<string, unsigned int>',
         'bid_type': 'BidType',
-        'campaign': 'Object',
+        'campaign': 'Campaign',
         'campaign_id': 'string',
         'configured_status': 'ConfiguredStatus',
         'conversion_specs': 'list<ConversionActionQuery>',
@@ -874,19 +874,19 @@ class Ad(
         'name': 'string',
         'priority': 'unsigned int',
         'recommendations': 'list<AdRecommendation>',
-        'source_ad': 'Object',
+        'source_ad': 'Ad',
         'source_ad_id': 'string',
         'status': 'Status',
         'targeting': 'Targeting',
         'tracking_and_conversion_with_defaults': 'TrackingAndConversionWithDefaults',
         'tracking_specs': 'list<ConversionActionQuery>',
         'updated_time': 'datetime',
+        'adset_spec': 'AdSet',
         'audience_id': 'string',
         'date_format': 'string',
-        'include_demolink_hashes': 'bool',
-        'adset_spec': 'AdSet',
         'draft_adgroup_id': 'string',
         'execution_options': 'list<ExecutionOptions>',
+        'include_demolink_hashes': 'bool',
         'filename': 'file'
     }
     @classmethod

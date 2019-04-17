@@ -325,14 +325,14 @@ class AdSet(
             'account_id': 'string',
             'ad_keywords': 'Object',
             'adlabels': 'list<Object>',
-            'bid_amount': 'int',
+            'adset_schedule': 'list<Object>',
+            'attribution_spec': 'list<map>',
             'bid_adjustments': 'Object',
+            'bid_amount': 'int',
             'bid_constraints': 'map<string, Object>',
             'bid_strategy': 'bid_strategy_enum',
             'billing_event': 'billing_event_enum',
             'campaign_spec': 'Object',
-            'adset_schedule': 'list<Object>',
-            'status': 'status_enum',
             'creative_sequence': 'list<string>',
             'daily_budget': 'unsigned int',
             'daily_imps': 'unsigned int',
@@ -342,6 +342,7 @@ class AdSet(
             'destination_type': 'destination_type_enum',
             'end_time': 'datetime',
             'execution_options': 'list<execution_options_enum>',
+            'full_funnel_exploration_mode': 'full_funnel_exploration_mode_enum',
             'lifetime_budget': 'unsigned int',
             'lifetime_imps': 'unsigned int',
             'lifetime_min_spend_target': 'unsigned int',
@@ -353,23 +354,22 @@ class AdSet(
             'rb_prediction_id': 'string',
             'rf_prediction_id': 'string',
             'start_time': 'datetime',
+            'status': 'status_enum',
             'targeting': 'Targeting',
             'time_based_ad_rotation_id_blocks': 'list<list<unsigned int>>',
             'time_based_ad_rotation_intervals': 'list<unsigned int>',
             'time_start': 'datetime',
             'time_stop': 'datetime',
             'upstream_events': 'map',
-            'full_funnel_exploration_mode': 'full_funnel_exploration_mode_enum',
-            'attribution_spec': 'list<map>',
         }
         enums = {
             'bid_strategy_enum': AdSet.BidStrategy.__dict__.values(),
             'billing_event_enum': AdSet.BillingEvent.__dict__.values(),
-            'status_enum': AdSet.Status.__dict__.values(),
             'destination_type_enum': AdSet.DestinationType.__dict__.values(),
             'execution_options_enum': AdSet.ExecutionOptions.__dict__.values(),
-            'optimization_goal_enum': AdSet.OptimizationGoal.__dict__.values(),
             'full_funnel_exploration_mode_enum': AdSet.FullFunnelExplorationMode.__dict__.values(),
+            'optimization_goal_enum': AdSet.OptimizationGoal.__dict__.values(),
+            'status_enum': AdSet.Status.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -400,12 +400,12 @@ class AdSet(
         from facebook_business.adobjects.adactivity import AdActivity
         param_types = {
             'after': 'string',
+            'business_id': 'string',
+            'category': 'category_enum',
             'limit': 'int',
             'since': 'datetime',
-            'category': 'category_enum',
-            'until': 'datetime',
             'uid': 'int',
-            'business_id': 'string',
+            'until': 'datetime',
         }
         enums = {
             'category_enum': AdActivity.Category.__dict__.values(),
@@ -598,13 +598,13 @@ class AdSet(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.ad import Ad
         param_types = {
-            'include_deleted': 'bool',
-            'effective_status': 'list<string>',
+            'ad_draft_id': 'string',
             'date_preset': 'date_preset_enum',
+            'effective_status': 'list<string>',
+            'include_deleted': 'bool',
+            'include_drafts': 'bool',
             'time_range': 'Object',
             'updated_since': 'int',
-            'ad_draft_id': 'string',
-            'include_drafts': 'bool',
         }
         enums = {
             'date_preset_enum': Ad.DatePreset.__dict__.values(),
@@ -669,14 +669,14 @@ class AdSet(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'effective_status': 'list<effective_status_enum>',
             'date_preset': 'date_preset_enum',
+            'effective_status': 'list<effective_status_enum>',
             'is_completed': 'bool',
             'time_range': 'Object',
         }
         enums = {
-            'effective_status_enum': AdSet.EffectiveStatus.__dict__.values(),
             'date_preset_enum': AdSet.DatePreset.__dict__.values(),
+            'effective_status_enum': AdSet.EffectiveStatus.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -705,13 +705,13 @@ class AdSet(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'deep_copy': 'bool',
             'campaign_id': 'string',
-            'rename_options': 'Object',
-            'status_option': 'status_option_enum',
-            'start_time': 'datetime',
-            'end_time': 'datetime',
             'create_dco_adset': 'bool',
+            'deep_copy': 'bool',
+            'end_time': 'datetime',
+            'rename_options': 'Object',
+            'start_time': 'datetime',
+            'status_option': 'status_option_enum',
         }
         enums = {
             'status_option_enum': AdSet.StatusOption.__dict__.values(),
@@ -744,9 +744,9 @@ class AdSet(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.adcampaigndeliveryestimate import AdCampaignDeliveryEstimate
         param_types = {
-            'targeting_spec': 'Targeting',
             'optimization_goal': 'optimization_goal_enum',
             'promoted_object': 'Object',
+            'targeting_spec': 'Targeting',
         }
         enums = {
             'optimization_goal_enum': AdCampaignDeliveryEstimate.OptimizationGoal.__dict__.values(),
@@ -781,21 +781,21 @@ class AdSet(
         if is_async:
           return self.get_insights_async(fields, params, batch, success, failure, pending)
         param_types = {
-            'default_summary': 'bool',
-            'fields': 'list<string>',
-            'filtering': 'list<Object>',
-            'summary': 'list<string>',
-            'sort': 'list<string>',
             'action_attribution_windows': 'list<action_attribution_windows_enum>',
             'action_breakdowns': 'list<action_breakdowns_enum>',
             'action_report_time': 'action_report_time_enum',
             'breakdowns': 'list<breakdowns_enum>',
             'date_preset': 'date_preset_enum',
+            'default_summary': 'bool',
             'export_columns': 'list<string>',
             'export_format': 'string',
             'export_name': 'string',
+            'fields': 'list<string>',
+            'filtering': 'list<Object>',
             'level': 'level_enum',
             'product_id_limit': 'int',
+            'sort': 'list<string>',
+            'summary': 'list<string>',
             'summary_action_breakdowns': 'list<summary_action_breakdowns_enum>',
             'time_increment': 'string',
             'time_range': 'Object',
@@ -841,21 +841,21 @@ class AdSet(
         from facebook_business.adobjects.adreportrun import AdReportRun
         from facebook_business.adobjects.adsinsights import AdsInsights
         param_types = {
-            'default_summary': 'bool',
-            'fields': 'list<string>',
-            'filtering': 'list<Object>',
-            'summary': 'list<string>',
-            'sort': 'list<string>',
             'action_attribution_windows': 'list<action_attribution_windows_enum>',
             'action_breakdowns': 'list<action_breakdowns_enum>',
             'action_report_time': 'action_report_time_enum',
             'breakdowns': 'list<breakdowns_enum>',
             'date_preset': 'date_preset_enum',
+            'default_summary': 'bool',
             'export_columns': 'list<string>',
             'export_format': 'string',
             'export_name': 'string',
+            'fields': 'list<string>',
+            'filtering': 'list<Object>',
             'level': 'level_enum',
             'product_id_limit': 'int',
+            'sort': 'list<string>',
+            'summary': 'list<string>',
             'summary_action_breakdowns': 'list<summary_action_breakdowns_enum>',
             'time_increment': 'string',
             'time_range': 'Object',
@@ -940,7 +940,7 @@ class AdSet(
         'bid_strategy': 'BidStrategy',
         'billing_event': 'BillingEvent',
         'budget_remaining': 'string',
-        'campaign': 'Object',
+        'campaign': 'Campaign',
         'campaign_id': 'string',
         'configured_status': 'ConfiguredStatus',
         'created_time': 'datetime',
@@ -969,7 +969,7 @@ class AdSet(
         'recurring_budget_semantics': 'bool',
         'review_feedback': 'string',
         'rf_prediction_id': 'string',
-        'source_adset': 'Object',
+        'source_adset': 'AdSet',
         'source_adset_id': 'string',
         'start_time': 'datetime',
         'status': 'Status',

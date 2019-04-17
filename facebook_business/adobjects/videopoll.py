@@ -92,10 +92,10 @@ class VideoPoll(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'action': 'action_enum',
-            'default_open': 'bool',
-            'show_results': 'bool',
-            'show_gradient': 'bool',
             'close_after_voting': 'bool',
+            'default_open': 'bool',
+            'show_gradient': 'bool',
+            'show_results': 'bool',
         }
         enums = {
             'action_enum': VideoPoll.Action.__dict__.values(),

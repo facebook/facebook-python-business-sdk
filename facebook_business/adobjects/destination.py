@@ -99,14 +99,14 @@ class Destination(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'description': 'string',
-            'url': 'string',
-            'images': 'list<Object>',
-            'currency': 'string',
-            'price': 'unsigned int',
-            'name': 'string',
-            'types': 'string',
             'address': 'Object',
+            'currency': 'string',
+            'description': 'string',
+            'images': 'list<Object>',
+            'name': 'string',
+            'price': 'unsigned int',
+            'types': 'string',
+            'url': 'string',
         }
         enums = {
         }

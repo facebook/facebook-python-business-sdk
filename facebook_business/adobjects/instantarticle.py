@@ -119,15 +119,15 @@ class InstantArticle(
         if is_async:
           return self.get_insights_async(fields, params, batch, success, failure, pending)
         param_types = {
+            'breakdown': 'breakdown_enum',
             'metric': 'list<Object>',
             'period': 'period_enum',
             'since': 'datetime',
             'until': 'datetime',
-            'breakdown': 'breakdown_enum',
         }
         enums = {
-            'period_enum': InstantArticleInsightsQueryResult.Period.__dict__.values(),
             'breakdown_enum': InstantArticleInsightsQueryResult.Breakdown.__dict__.values(),
+            'period_enum': InstantArticleInsightsQueryResult.Period.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],

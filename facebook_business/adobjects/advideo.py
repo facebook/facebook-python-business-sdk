@@ -78,73 +78,73 @@ class AdVideo(
         tv_banner_ad = 'tv_banner_ad'
         universal_video_id = 'universal_video_id'
         updated_time = 'updated_time'
-        unpublished_content_type = 'unpublished_content_type'
-        time_since_original_post = 'time_since_original_post'
-        file_url = 'file_url'
-        composer_session_id = 'composer_session_id'
-        waterfall_id = 'waterfall_id'
-        og_action_type_id = 'og_action_type_id'
-        og_object_id = 'og_object_id'
-        og_phrase = 'og_phrase'
-        og_icon_id = 'og_icon_id'
-        og_suggestion_mechanism = 'og_suggestion_mechanism'
-        thumb = 'thumb'
-        original_projection_type = 'original_projection_type'
-        initial_heading = 'initial_heading'
-        initial_pitch = 'initial_pitch'
-        fov = 'fov'
-        original_fov = 'original_fov'
-        fisheye_video_cropped = 'fisheye_video_cropped'
-        front_z_rotation = 'front_z_rotation'
-        guide_enabled = 'guide_enabled'
-        guide = 'guide'
-        audio_story_wave_animation_handle = 'audio_story_wave_animation_handle'
         adaptive_type = 'adaptive_type'
         animated_effect_id = 'animated_effect_id'
+        application_id = 'application_id'
         asked_fun_fact_prompt_id = 'asked_fun_fact_prompt_id'
+        attribution_app_id = 'attribution_app_id'
+        audio_story_wave_animation_handle = 'audio_story_wave_animation_handle'
+        chunk_session_id = 'chunk_session_id'
         composer_entry_picker = 'composer_entry_picker'
         composer_entry_point = 'composer_entry_point'
         composer_entry_time = 'composer_entry_time'
         composer_session_events_log = 'composer_session_events_log'
+        composer_session_id = 'composer_session_id'
         composer_source_surface = 'composer_source_surface'
         composer_type = 'composer_type'
+        container_type = 'container_type'
+        end_offset = 'end_offset'
+        fbuploader_video_file_chunk = 'fbuploader_video_file_chunk'
+        file_size = 'file_size'
+        file_url = 'file_url'
+        fisheye_video_cropped = 'fisheye_video_cropped'
         formatting = 'formatting'
+        fov = 'fov'
+        front_z_rotation = 'front_z_rotation'
         fun_fact_prompt_id = 'fun_fact_prompt_id'
         fun_fact_toastee_id = 'fun_fact_toastee_id'
-        is_group_linking_post = 'is_group_linking_post'
+        guide = 'guide'
+        guide_enabled = 'guide_enabled'
         has_nickname = 'has_nickname'
         holiday_card = 'holiday_card'
+        initial_heading = 'initial_heading'
+        initial_pitch = 'initial_pitch'
         instant_game_entry_point_data = 'instant_game_entry_point_data'
         is_boost_intended = 'is_boost_intended'
+        is_group_linking_post = 'is_group_linking_post'
+        is_voice_clip = 'is_voice_clip'
         location_source_id = 'location_source_id'
+        name = 'name'
         offer_like_post_id = 'offer_like_post_id'
+        og_action_type_id = 'og_action_type_id'
+        og_icon_id = 'og_icon_id'
+        og_object_id = 'og_object_id'
+        og_phrase = 'og_phrase'
+        og_suggestion_mechanism = 'og_suggestion_mechanism'
+        original_fov = 'original_fov'
+        original_projection_type = 'original_projection_type'
         publish_event_id = 'publish_event_id'
         react_mode_metadata = 'react_mode_metadata'
-        sales_promo_id = 'sales_promo_id'
-        text_format_metadata = 'text_format_metadata'
-        throwback_camera_roll_media = 'throwback_camera_roll_media'
-        video_start_time_ms = 'video_start_time_ms'
-        application_id = 'application_id'
-        upload_phase = 'upload_phase'
-        file_size = 'file_size'
-        start_offset = 'start_offset'
-        end_offset = 'end_offset'
-        video_file_chunk = 'video_file_chunk'
-        fbuploader_video_file_chunk = 'fbuploader_video_file_chunk'
-        upload_session_id = 'upload_session_id'
-        is_voice_clip = 'is_voice_clip'
-        attribution_app_id = 'attribution_app_id'
-        slideshow_spec = 'slideshow_spec'
-        upload_setting_properties = 'upload_setting_properties'
-        transcode_setting_properties = 'transcode_setting_properties'
-        container_type = 'container_type'
         referenced_sticker_id = 'referenced_sticker_id'
         replace_video_id = 'replace_video_id'
+        sales_promo_id = 'sales_promo_id'
+        slideshow_spec = 'slideshow_spec'
+        start_offset = 'start_offset'
         swap_mode = 'swap_mode'
-        name = 'name'
-        chunk_session_id = 'chunk_session_id'
-        manual_privacy = 'manual_privacy'
+        text_format_metadata = 'text_format_metadata'
+        throwback_camera_roll_media = 'throwback_camera_roll_media'
+        thumb = 'thumb'
+        time_since_original_post = 'time_since_original_post'
+        transcode_setting_properties = 'transcode_setting_properties'
+        unpublished_content_type = 'unpublished_content_type'
+        upload_phase = 'upload_phase'
+        upload_session_id = 'upload_session_id'
+        upload_setting_properties = 'upload_setting_properties'
+        video_file_chunk = 'video_file_chunk'
+        video_start_time_ms = 'video_start_time_ms'
+        waterfall_id = 'waterfall_id'
         is_explicit_share = 'is_explicit_share'
+        manual_privacy = 'manual_privacy'
         filename = 'filename'
         filepath = 'filepath'
 
@@ -163,6 +163,7 @@ class AdVideo(
         broadcast = 'BROADCAST'
         candidate_videos = 'CANDIDATE_VIDEOS'
         canvas = 'CANVAS'
+        cfc_video = 'CFC_VIDEO'
         civic_proposal_cover_video = 'CIVIC_PROPOSAL_COVER_VIDEO'
         contained_post_attachment = 'CONTAINED_POST_ATTACHMENT'
         contained_post_audio_broadcast = 'CONTAINED_POST_AUDIO_BROADCAST'
@@ -226,6 +227,7 @@ class AdVideo(
         proton = 'PROTON'
         quick_promotion = 'QUICK_PROMOTION'
         replace_video = 'REPLACE_VIDEO'
+        sales_client_interaction = 'SALES_CLIENT_INTERACTION'
         say_thanks_deprecated = 'SAY_THANKS_DEPRECATED'
         slideshow_animoto = 'SLIDESHOW_ANIMOTO'
         slideshow_shakr = 'SLIDESHOW_SHAKR'
@@ -233,6 +235,7 @@ class AdVideo(
         storyline = 'STORYLINE'
         storyline_with_external_music = 'STORYLINE_WITH_EXTERNAL_MUSIC'
         story_archive_video = 'STORY_ARCHIVE_VIDEO'
+        story_card_template = 'STORY_CARD_TEMPLATE'
         tarot_digest = 'TAROT_DIGEST'
         temp_multimedia_post = 'TEMP_MULTIMEDIA_POST'
         unlisted = 'UNLISTED'
@@ -372,34 +375,34 @@ class AdVideo(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'privacy': 'string',
-            'published': 'bool',
-            'target': 'string',
-            'scheduled_publish_time': 'unsigned int',
-            'name': 'string',
-            'description': 'string',
-            'tags': 'list<string>',
-            'preferred_thumbnail_id': 'string',
             'ad_breaks': 'list',
+            'allow_bm_crossposting': 'bool',
+            'allow_crossposting_for_pages': 'list<Object>',
             'backdated_time': 'datetime',
             'backdated_time_granularity': 'backdated_time_granularity_enum',
             'call_to_action': 'Object',
+            'content_category': 'content_category_enum',
+            'content_tags': 'list<string>',
             'custom_labels': 'list<string>',
+            'description': 'string',
+            'direct_share_status': 'unsigned int',
+            'embeddable': 'bool',
             'expiration': 'Object',
             'expire_now': 'bool',
-            'embeddable': 'bool',
-            'allow_bm_crossposting': 'bool',
-            'allow_crossposting_for_pages': 'list<Object>',
-            'social_actions': 'bool',
-            'content_category': 'content_category_enum',
-            'publish_to_videos_tab': 'bool',
-            'publish_to_news_feed': 'bool',
-            'universal_video_id': 'string',
-            'content_tags': 'list<string>',
-            'sponsor_id': 'string',
-            'direct_share_status': 'unsigned int',
-            'sponsor_relationship': 'unsigned int',
             'increment_play_count': 'bool',
+            'name': 'string',
+            'preferred_thumbnail_id': 'string',
+            'privacy': 'string',
+            'publish_to_news_feed': 'bool',
+            'publish_to_videos_tab': 'bool',
+            'published': 'bool',
+            'scheduled_publish_time': 'unsigned int',
+            'social_actions': 'bool',
+            'sponsor_id': 'string',
+            'sponsor_relationship': 'unsigned int',
+            'tags': 'list<string>',
+            'target': 'string',
+            'universal_video_id': 'string',
         }
         enums = {
             'backdated_time_granularity_enum': AdVideo.BackdatedTimeGranularity.__dict__.values(),
@@ -462,8 +465,8 @@ class AdVideo(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'target_id': 'unsigned int',
             'auto_trim_type': 'string',
+            'target_id': 'unsigned int',
         }
         enums = {
         }
@@ -494,8 +497,8 @@ class AdVideo(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'uid': 'Object',
             'remove_block': 'bool',
+            'uid': 'Object',
         }
         enums = {
         }
@@ -587,8 +590,8 @@ class AdVideo(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'default_locale': 'string',
             'captions_file': 'file',
+            'default_locale': 'string',
             'locales_to_delete': 'list<string>',
         }
         enums = {
@@ -622,14 +625,14 @@ class AdVideo(
         from facebook_business.adobjects.comment import Comment
         param_types = {
             'filter': 'filter_enum',
-            'order': 'order_enum',
             'live_filter': 'live_filter_enum',
+            'order': 'order_enum',
             'since': 'datetime',
         }
         enums = {
             'filter_enum': Comment.Filter.__dict__.values(),
-            'order_enum': Comment.Order.__dict__.values(),
             'live_filter_enum': Comment.LiveFilter.__dict__.values(),
+            'order_enum': Comment.Order.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -659,17 +662,17 @@ class AdVideo(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.comment import Comment
         param_types = {
+            'attachment_id': 'string',
+            'attachment_share_url': 'string',
+            'attachment_url': 'string',
+            'comment_privacy_value': 'comment_privacy_value_enum',
+            'facepile_mentioned_ids': 'list<string>',
+            'feedback_source': 'string',
+            'is_offline': 'bool',
+            'message': 'string',
+            'nectar_module': 'string',
             'object_id': 'string',
             'parent_comment_id': 'Object',
-            'nectar_module': 'string',
-            'attachment_id': 'string',
-            'attachment_url': 'string',
-            'attachment_share_url': 'string',
-            'feedback_source': 'string',
-            'facepile_mentioned_ids': 'list<string>',
-            'is_offline': 'bool',
-            'comment_privacy_value': 'comment_privacy_value_enum',
-            'message': 'string',
             'text': 'string',
             'tracking': 'string',
         }
@@ -734,10 +737,10 @@ class AdVideo(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'tracking': 'string',
+            'feedback_source': 'string',
             'nectar_module': 'string',
             'notify': 'bool',
-            'feedback_source': 'string',
+            'tracking': 'string',
         }
         enums = {
         }
@@ -799,10 +802,10 @@ class AdVideo(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'tracking': 'string',
+            'feedback_source': 'string',
             'nectar_module': 'string',
             'notify': 'bool',
-            'feedback_source': 'string',
+            'tracking': 'string',
         }
         enums = {
         }
@@ -865,13 +868,13 @@ class AdVideo(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.videopoll import VideoPoll
         param_types = {
-            'question': 'string',
-            'options': 'list<string>',
+            'close_after_voting': 'bool',
             'correct_option': 'unsigned int',
             'default_open': 'bool',
-            'show_results': 'bool',
+            'options': 'list<string>',
+            'question': 'string',
             'show_gradient': 'bool',
-            'close_after_voting': 'bool',
+            'show_results': 'bool',
         }
         enums = {
         }
@@ -997,8 +1000,8 @@ class AdVideo(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'target_id': 'unsigned int',
             'summarization_type': 'string',
+            'target_id': 'unsigned int',
         }
         enums = {
         }
@@ -1060,9 +1063,9 @@ class AdVideo(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'tag_uid': 'int',
             'uid': 'int',
             'vid': 'string',
-            'tag_uid': 'int',
         }
         enums = {
         }
@@ -1124,8 +1127,8 @@ class AdVideo(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'source': 'file',
             'is_preferred': 'bool',
+            'source': 'file',
         }
         enums = {
         }
@@ -1225,73 +1228,73 @@ class AdVideo(
         'tv_banner_ad': 'Object',
         'universal_video_id': 'string',
         'updated_time': 'datetime',
-        'unpublished_content_type': 'UnpublishedContentType',
-        'time_since_original_post': 'unsigned int',
-        'file_url': 'string',
-        'composer_session_id': 'string',
-        'waterfall_id': 'string',
-        'og_action_type_id': 'string',
-        'og_object_id': 'string',
-        'og_phrase': 'string',
-        'og_icon_id': 'string',
-        'og_suggestion_mechanism': 'string',
-        'thumb': 'file',
-        'original_projection_type': 'OriginalProjectionType',
-        'initial_heading': 'unsigned int',
-        'initial_pitch': 'unsigned int',
-        'fov': 'unsigned int',
-        'original_fov': 'unsigned int',
-        'fisheye_video_cropped': 'bool',
-        'front_z_rotation': 'float',
-        'guide_enabled': 'bool',
-        'guide': 'list<list<unsigned int>>',
-        'audio_story_wave_animation_handle': 'string',
         'adaptive_type': 'string',
         'animated_effect_id': 'unsigned int',
+        'application_id': 'string',
         'asked_fun_fact_prompt_id': 'unsigned int',
+        'attribution_app_id': 'string',
+        'audio_story_wave_animation_handle': 'string',
+        'chunk_session_id': 'string',
         'composer_entry_picker': 'string',
         'composer_entry_point': 'string',
         'composer_entry_time': 'unsigned int',
         'composer_session_events_log': 'string',
+        'composer_session_id': 'string',
         'composer_source_surface': 'string',
         'composer_type': 'string',
+        'container_type': 'ContainerType',
+        'end_offset': 'unsigned int',
+        'fbuploader_video_file_chunk': 'string',
+        'file_size': 'unsigned int',
+        'file_url': 'string',
+        'fisheye_video_cropped': 'bool',
         'formatting': 'Formatting',
+        'fov': 'unsigned int',
+        'front_z_rotation': 'float',
         'fun_fact_prompt_id': 'unsigned int',
         'fun_fact_toastee_id': 'unsigned int',
-        'is_group_linking_post': 'bool',
+        'guide': 'list<list<unsigned int>>',
+        'guide_enabled': 'bool',
         'has_nickname': 'bool',
         'holiday_card': 'string',
+        'initial_heading': 'unsigned int',
+        'initial_pitch': 'unsigned int',
         'instant_game_entry_point_data': 'string',
         'is_boost_intended': 'bool',
+        'is_group_linking_post': 'bool',
+        'is_voice_clip': 'bool',
         'location_source_id': 'string',
+        'name': 'string',
         'offer_like_post_id': 'unsigned int',
+        'og_action_type_id': 'string',
+        'og_icon_id': 'string',
+        'og_object_id': 'string',
+        'og_phrase': 'string',
+        'og_suggestion_mechanism': 'string',
+        'original_fov': 'unsigned int',
+        'original_projection_type': 'OriginalProjectionType',
         'publish_event_id': 'unsigned int',
         'react_mode_metadata': 'string',
-        'sales_promo_id': 'unsigned int',
-        'text_format_metadata': 'string',
-        'throwback_camera_roll_media': 'string',
-        'video_start_time_ms': 'unsigned int',
-        'application_id': 'string',
-        'upload_phase': 'UploadPhase',
-        'file_size': 'unsigned int',
-        'start_offset': 'unsigned int',
-        'end_offset': 'unsigned int',
-        'video_file_chunk': 'string',
-        'fbuploader_video_file_chunk': 'string',
-        'upload_session_id': 'string',
-        'is_voice_clip': 'bool',
-        'attribution_app_id': 'string',
-        'slideshow_spec': 'map',
-        'upload_setting_properties': 'string',
-        'transcode_setting_properties': 'string',
-        'container_type': 'ContainerType',
         'referenced_sticker_id': 'string',
         'replace_video_id': 'string',
+        'sales_promo_id': 'unsigned int',
+        'slideshow_spec': 'map',
+        'start_offset': 'unsigned int',
         'swap_mode': 'SwapMode',
-        'name': 'string',
-        'chunk_session_id': 'string',
-        'manual_privacy': 'bool',
+        'text_format_metadata': 'string',
+        'throwback_camera_roll_media': 'string',
+        'thumb': 'file',
+        'time_since_original_post': 'unsigned int',
+        'transcode_setting_properties': 'string',
+        'unpublished_content_type': 'UnpublishedContentType',
+        'upload_phase': 'UploadPhase',
+        'upload_session_id': 'string',
+        'upload_setting_properties': 'string',
+        'video_file_chunk': 'string',
+        'video_start_time_ms': 'unsigned int',
+        'waterfall_id': 'string',
         'is_explicit_share': 'bool',
+        'manual_privacy': 'bool',
         'filename': 'file'
     }
     @classmethod

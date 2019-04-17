@@ -117,12 +117,12 @@ class Canvas(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'name': 'string',
-            'body_element_ids': 'list<string>',
             'background_color': 'string',
-            'is_published': 'bool',
-            'is_hidden': 'bool',
+            'body_element_ids': 'list<string>',
             'enable_swipe_to_open': 'bool',
+            'is_hidden': 'bool',
+            'is_published': 'bool',
+            'name': 'string',
         }
         enums = {
         }

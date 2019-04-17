@@ -132,21 +132,21 @@ class VideoCopyright(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'monitoring_type': 'monitoring_type_enum',
-            'rule_id': 'string',
-            'whitelisted_ids': 'list<string>',
-            'whitelisted_ig_user_ids': 'list<string>',
-            'ownership_countries': 'list<string>',
+            'append_excluded_ownership_segments': 'bool',
+            'attribution_id': 'string',
+            'content_category': 'content_category_enum',
             'excluded_ownership_countries': 'list<string>',
             'excluded_ownership_segments': 'list<Object>',
             'is_reference_disabled': 'bool',
-            'content_category': 'content_category_enum',
-            'attribution_id': 'string',
-            'append_excluded_ownership_segments': 'bool',
+            'monitoring_type': 'monitoring_type_enum',
+            'ownership_countries': 'list<string>',
+            'rule_id': 'string',
+            'whitelisted_ids': 'list<string>',
+            'whitelisted_ig_user_ids': 'list<string>',
         }
         enums = {
-            'monitoring_type_enum': VideoCopyright.MonitoringType.__dict__.values(),
             'content_category_enum': VideoCopyright.ContentCategory.__dict__.values(),
+            'monitoring_type_enum': VideoCopyright.MonitoringType.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],

@@ -79,7 +79,6 @@ class ReachFrequencyPrediction(
         frequency_distribution = 'frequency_distribution'
         frequency_distribution_map = 'frequency_distribution_map'
         frequency_distribution_map_agg = 'frequency_distribution_map_agg'
-        full_view_ratio_00 = 'full_view_ratio_00'
         grp_audience_size = 'grp_audience_size'
         grp_avg_probability_map = 'grp_avg_probability_map'
         grp_country_audience_size = 'grp_country_audience_size'
@@ -131,21 +130,21 @@ class ReachFrequencyPrediction(
         video_view_length_constraint = 'video_view_length_constraint'
         viewtag = 'viewtag'
         action = 'action'
-        stop_time = 'stop_time'
-        reach = 'reach'
-        impression = 'impression'
         budget = 'budget'
         deal_id = 'deal_id'
         destination_ids = 'destination_ids'
+        exceptions = 'exceptions'
+        existing_campaign_id = 'existing_campaign_id'
+        grp_buying = 'grp_buying'
+        impression = 'impression'
+        is_full_view = 'is_full_view'
+        is_reach_and_frequency_io_buying = 'is_reach_and_frequency_io_buying'
+        num_curve_points = 'num_curve_points'
+        reach = 'reach'
         rf_prediction_id = 'rf_prediction_id'
         rf_prediction_id_to_release = 'rf_prediction_id_to_release'
         rf_prediction_id_to_share = 'rf_prediction_id_to_share'
-        num_curve_points = 'num_curve_points'
-        grp_buying = 'grp_buying'
-        is_full_view = 'is_full_view'
-        is_reach_and_frequency_io_buying = 'is_reach_and_frequency_io_buying'
-        existing_campaign_id = 'existing_campaign_id'
-        exceptions = 'exceptions'
+        stop_time = 'stop_time'
 
     class Action:
         cancel = 'cancel'
@@ -259,7 +258,6 @@ class ReachFrequencyPrediction(
         'frequency_distribution': 'list<float>',
         'frequency_distribution_map': 'map<unsigned int, list<float>>',
         'frequency_distribution_map_agg': 'map<unsigned int, list<unsigned int>>',
-        'full_view_ratio_00': 'unsigned int',
         'grp_audience_size': 'float',
         'grp_avg_probability_map': 'string',
         'grp_country_audience_size': 'float',
@@ -311,21 +309,21 @@ class ReachFrequencyPrediction(
         'video_view_length_constraint': 'unsigned int',
         'viewtag': 'string',
         'action': 'Action',
-        'stop_time': 'unsigned int',
-        'reach': 'unsigned int',
-        'impression': 'unsigned int',
         'budget': 'unsigned int',
         'deal_id': 'string',
         'destination_ids': 'list<string>',
+        'exceptions': 'bool',
+        'existing_campaign_id': 'string',
+        'grp_buying': 'bool',
+        'impression': 'unsigned int',
+        'is_full_view': 'bool',
+        'is_reach_and_frequency_io_buying': 'bool',
+        'num_curve_points': 'unsigned int',
+        'reach': 'unsigned int',
         'rf_prediction_id': 'string',
         'rf_prediction_id_to_release': 'string',
         'rf_prediction_id_to_share': 'string',
-        'num_curve_points': 'unsigned int',
-        'grp_buying': 'bool',
-        'is_full_view': 'bool',
-        'is_reach_and_frequency_io_buying': 'bool',
-        'existing_campaign_id': 'string',
-        'exceptions': 'bool',
+        'stop_time': 'unsigned int',
     }
     @classmethod
     def _get_field_enum_info(cls):

@@ -132,15 +132,15 @@ class AdStudyObjective(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'adspixels': 'list<Object>',
+            'applications': 'list<Object>',
+            'customconversions': 'list<Object>',
             'is_primary': 'bool',
             'name': 'string',
-            'type': 'type_enum',
-            'adspixels': 'list<Object>',
-            'customconversions': 'list<Object>',
-            'applications': 'list<Object>',
-            'offsitepixels': 'list<Object>',
             'offline_conversion_data_sets': 'list<Object>',
+            'offsitepixels': 'list<Object>',
             'product_sets': 'list<Object>',
+            'type': 'type_enum',
         }
         enums = {
             'type_enum': AdStudyObjective.Type.__dict__.values(),
