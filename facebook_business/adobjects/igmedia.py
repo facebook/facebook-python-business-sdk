@@ -257,7 +257,7 @@ class IGMedia(
         'like_count': 'int',
         'media_type': 'string',
         'media_url': 'string',
-        'owner': 'Object',
+        'owner': 'IGUser',
         'permalink': 'string',
         'shortcode': 'string',
         'thumbnail_url': 'string',

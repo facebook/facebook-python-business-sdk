@@ -20,12 +20,12 @@
 
 class AdReportRunMixin:
 
-    def get_result(self, params=None):
+    def get_result(self, fields=None, params=None):
         """
         Gets the final result from an async job
         Accepts params such as limit
         """
-        return self.get_insights(params=params)
+        return self.get_insights(fields=fields, params=params)
 
     def __nonzero__(self):
         return self[self.Field.async_percent_completion] == 100

@@ -56,21 +56,21 @@ class AdReportRun(
         schedule_id = 'schedule_id'
         time_completed = 'time_completed'
         time_ref = 'time_ref'
-        default_summary = 'default_summary'
-        fields = 'fields'
-        filtering = 'filtering'
-        summary = 'summary'
-        sort = 'sort'
         action_attribution_windows = 'action_attribution_windows'
         action_breakdowns = 'action_breakdowns'
         action_report_time = 'action_report_time'
         breakdowns = 'breakdowns'
         date_preset = 'date_preset'
+        default_summary = 'default_summary'
         export_columns = 'export_columns'
         export_format = 'export_format'
         export_name = 'export_name'
+        fields = 'fields'
+        filtering = 'filtering'
         level = 'level'
         product_id_limit = 'product_id_limit'
+        sort = 'sort'
+        summary = 'summary'
         summary_action_breakdowns = 'summary_action_breakdowns'
         time_increment = 'time_increment'
         time_range = 'time_range'
@@ -256,21 +256,21 @@ class AdReportRun(
         'schedule_id': 'string',
         'time_completed': 'unsigned int',
         'time_ref': 'unsigned int',
-        'default_summary': 'bool',
-        'fields': 'list<string>',
-        'filtering': 'list<Object>',
-        'summary': 'list<string>',
-        'sort': 'list<string>',
         'action_attribution_windows': 'list<ActionAttributionWindows>',
         'action_breakdowns': 'list<ActionBreakdowns>',
         'action_report_time': 'ActionReportTime',
         'breakdowns': 'list<Breakdowns>',
         'date_preset': 'DatePreset',
+        'default_summary': 'bool',
         'export_columns': 'list<string>',
         'export_format': 'string',
         'export_name': 'string',
+        'fields': 'list<string>',
+        'filtering': 'list<Object>',
         'level': 'Level',
         'product_id_limit': 'int',
+        'sort': 'list<string>',
+        'summary': 'list<string>',
         'summary_action_breakdowns': 'list<SummaryActionBreakdowns>',
         'time_increment': 'string',
         'time_range': 'Object',

@@ -133,8 +133,8 @@ class AdRule(
         param_types = {
             'evaluation_spec': 'Object',
             'execution_spec': 'Object',
-            'schedule_spec': 'Object',
             'name': 'string',
+            'schedule_spec': 'Object',
             'status': 'status_enum',
         }
         enums = {
@@ -198,9 +198,9 @@ class AdRule(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.adrulehistory import AdRuleHistory
         param_types = {
-            'object_id': 'string',
             'action': 'action_enum',
             'hide_no_changes': 'bool',
+            'object_id': 'string',
         }
         enums = {
             'action_enum': AdRuleHistory.Action.__dict__.values(),

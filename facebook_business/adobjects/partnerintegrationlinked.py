@@ -82,6 +82,7 @@ class PartnerIntegrationLinked(
         joomla = 'joomla'
         jumpseller = 'jumpseller'
         kajabi = 'kajabi'
+        kochava = 'kochava'
         kraftly = 'kraftly'
         m_particle = 'm_particle'
         magento = 'magento'
@@ -210,12 +211,13 @@ class PartnerIntegrationLinked(
             'ads_pixel_id': 'string',
             'application_id': 'string',
             'completed_integration_types': 'list<completed_integration_types_enum>',
+            'install_name': 'string',
             'name': 'string',
             'oauth_partner_integration_id': 'string',
             'offline_conversion_data_set_id': 'string',
             'product_catalog_id': 'string',
+            'salesforce_instance_url': 'string',
             'setup_status': 'setup_status_enum',
-            'install_name': 'string',
             'workspace_name': 'string',
         }
         enums = {

@@ -136,17 +136,17 @@ class Hotel(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'address': 'Object',
-            'brand': 'string',
-            'description': 'string',
-            'name': 'string',
-            'url': 'string',
-            'images': 'list<Object>',
-            'currency': 'string',
-            'base_price': 'unsigned int',
             'applinks': 'Object',
+            'base_price': 'unsigned int',
+            'brand': 'string',
+            'currency': 'string',
+            'description': 'string',
+            'guest_ratings': 'list<Object>',
+            'images': 'list<Object>',
+            'name': 'string',
             'phone': 'string',
             'star_rating': 'float',
-            'guest_ratings': 'list<Object>',
+            'url': 'string',
         }
         enums = {
         }
@@ -209,17 +209,17 @@ class Hotel(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.hotelroom import HotelRoom
         param_types = {
-            'room_id': 'string',
-            'description': 'string',
-            'name': 'string',
-            'url': 'string',
-            'currency': 'string',
-            'base_price': 'float',
             'applinks': 'Object',
+            'base_price': 'float',
+            'currency': 'string',
+            'description': 'string',
             'images': 'list<Object>',
             'margin_level': 'unsigned int',
+            'name': 'string',
             'pricing_variables': 'list<Object>',
+            'room_id': 'string',
             'sale_price': 'float',
+            'url': 'string',
         }
         enums = {
         }

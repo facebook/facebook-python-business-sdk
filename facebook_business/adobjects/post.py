@@ -64,6 +64,7 @@ class Post(
         id = 'id'
         instagram_eligibility = 'instagram_eligibility'
         is_app_share = 'is_app_share'
+        is_eligible_for_promotion = 'is_eligible_for_promotion'
         is_expired = 'is_expired'
         is_hidden = 'is_hidden'
         is_instagram_eligible = 'is_instagram_eligible'
@@ -183,41 +184,41 @@ class Post(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'privacy': 'string',
-            'composer_session_id': 'string',
-            'message': 'string',
-            'is_hidden': 'bool',
-            'is_published': 'bool',
-            'scheduled_publish_time': 'unsigned int',
-            'is_pinned': 'bool',
-            'timeline_visibility': 'timeline_visibility_enum',
-            'feed_story_visibility': 'feed_story_visibility_enum',
+            'attached_media': 'list<Object>',
             'backdated_time': 'datetime',
             'backdated_time_granularity': 'backdated_time_granularity_enum',
-            'tracking': 'string',
-            'source_type': 'string',
-            'attached_media': 'list<Object>',
+            'composer_session_id': 'string',
+            'direct_share_status': 'unsigned int',
+            'feed_story_visibility': 'feed_story_visibility_enum',
+            'is_explicit_location': 'bool',
+            'is_hidden': 'bool',
+            'is_pinned': 'bool',
+            'is_published': 'bool',
+            'message': 'string',
             'og_action_type_id': 'string',
+            'og_hide_object_attachment': 'bool',
+            'og_icon_id': 'string',
             'og_object_id': 'string',
             'og_phrase': 'string',
-            'og_icon_id': 'string',
-            'og_suggestion_mechanism': 'string',
-            'og_hide_object_attachment': 'bool',
-            'tags': 'list<int>',
             'og_set_profile_badge': 'bool',
+            'og_suggestion_mechanism': 'string',
             'place': 'Object',
-            'is_explicit_location': 'bool',
+            'privacy': 'string',
             'product_item': 'Object',
+            'scheduled_publish_time': 'unsigned int',
             'should_sync_product_edit': 'bool',
+            'source_type': 'string',
             'sponsor_id': 'string',
-            'direct_share_status': 'unsigned int',
             'sponsor_relationship': 'unsigned int',
+            'tags': 'list<int>',
             'text_format_preset_id': 'string',
+            'timeline_visibility': 'timeline_visibility_enum',
+            'tracking': 'string',
         }
         enums = {
-            'timeline_visibility_enum': Post.TimelineVisibility.__dict__.values(),
-            'feed_story_visibility_enum': Post.FeedStoryVisibility.__dict__.values(),
             'backdated_time_granularity_enum': Post.BackdatedTimeGranularity.__dict__.values(),
+            'feed_story_visibility_enum': Post.FeedStoryVisibility.__dict__.values(),
+            'timeline_visibility_enum': Post.TimelineVisibility.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -278,14 +279,14 @@ class Post(
         from facebook_business.adobjects.comment import Comment
         param_types = {
             'filter': 'filter_enum',
-            'order': 'order_enum',
             'live_filter': 'live_filter_enum',
+            'order': 'order_enum',
             'since': 'datetime',
         }
         enums = {
             'filter_enum': Comment.Filter.__dict__.values(),
-            'order_enum': Comment.Order.__dict__.values(),
             'live_filter_enum': Comment.LiveFilter.__dict__.values(),
+            'order_enum': Comment.Order.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -315,17 +316,17 @@ class Post(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.comment import Comment
         param_types = {
-            'message': 'string',
-            'tracking': 'string',
-            'nectar_module': 'string',
             'attachment_id': 'string',
-            'attachment_url': 'string',
             'attachment_share_url': 'string',
-            'post_id': 'string',
-            'parent_comment_id': 'Object',
+            'attachment_url': 'string',
             'comment': 'string',
-            'feedback_source': 'string',
             'comment_privacy_value': 'comment_privacy_value_enum',
+            'feedback_source': 'string',
+            'message': 'string',
+            'nectar_module': 'string',
+            'parent_comment_id': 'Object',
+            'post_id': 'string',
+            'tracking': 'string',
         }
         enums = {
             'comment_privacy_value_enum': Comment.CommentPrivacyValue.__dict__.values(),
@@ -421,15 +422,15 @@ class Post(
         if is_async:
           return self.get_insights_async(fields, params, batch, success, failure, pending)
         param_types = {
-            'since': 'datetime',
-            'until': 'datetime',
+            'date_preset': 'date_preset_enum',
             'metric': 'list<Object>',
             'period': 'period_enum',
-            'date_preset': 'date_preset_enum',
+            'since': 'datetime',
+            'until': 'datetime',
         }
         enums = {
-            'period_enum': InsightsResult.Period.__dict__.values(),
             'date_preset_enum': InsightsResult.DatePreset.__dict__.values(),
+            'period_enum': InsightsResult.Period.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -459,8 +460,8 @@ class Post(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'tracking': 'string',
             'nectar_module': 'string',
+            'tracking': 'string',
         }
         enums = {
         }
@@ -522,9 +523,9 @@ class Post(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'tracking': 'string',
-            'nectar_module': 'string',
             'feedback_source': 'string',
+            'nectar_module': 'string',
+            'tracking': 'string',
         }
         enums = {
         }
@@ -557,56 +558,56 @@ class Post(
         from facebook_business.adobjects.photo import Photo
         param_types = {
             'aid': 'string',
+            'allow_spherical_photo': 'bool',
             'alt_text_custom': 'string',
-            'caption': 'string',
-            'url': 'string',
-            'uid': 'int',
-            'profile_id': 'int',
-            'target_id': 'int',
-            'vault_image_id': 'string',
-            'tags': 'list<Object>',
-            'place': 'Object',
-            'is_explicit_place': 'bool',
-            'is_explicit_location': 'bool',
-            'og_action_type_id': 'string',
-            'og_object_id': 'string',
-            'og_phrase': 'string',
-            'og_icon_id': 'string',
-            'og_suggestion_mechanism': 'string',
-            'og_set_profile_badge': 'bool',
-            'privacy': 'string',
-            'targeting': 'Object',
-            'feed_targeting': 'Object',
-            'no_story': 'bool',
-            'published': 'bool',
-            'offline_id': 'unsigned int',
+            'android_key_hash': 'string',
+            'application_id': 'string',
             'attempt': 'unsigned int',
+            'audience_exp': 'bool',
             'backdated_time': 'datetime',
             'backdated_time_granularity': 'backdated_time_granularity_enum',
-            'time_since_original_post': 'unsigned int',
-            'filter_type': 'unsigned int',
-            'scheduled_publish_time': 'unsigned int',
-            'unpublished_content_type': 'unpublished_content_type_enum',
-            'full_res_is_coming_later': 'bool',
+            'caption': 'string',
             'composer_session_id': 'string',
-            'qn': 'string',
-            'manual_privacy': 'bool',
-            'audience_exp': 'bool',
-            'proxied_app_id': 'string',
-            'ios_bundle_id': 'string',
-            'android_key_hash': 'string',
-            'user_selected_tags': 'bool',
-            'allow_spherical_photo': 'bool',
-            'spherical_metadata': 'map',
+            'direct_share_status': 'unsigned int',
+            'feed_targeting': 'Object',
+            'filter_type': 'unsigned int',
+            'full_res_is_coming_later': 'bool',
             'initial_view_heading_override_degrees': 'unsigned int',
             'initial_view_pitch_override_degrees': 'unsigned int',
             'initial_view_vertical_fov_override_degrees': 'unsigned int',
-            'sponsor_id': 'string',
-            'direct_share_status': 'unsigned int',
-            'sponsor_relationship': 'unsigned int',
-            'application_id': 'string',
-            'name': 'string',
+            'ios_bundle_id': 'string',
+            'is_explicit_location': 'bool',
+            'is_explicit_place': 'bool',
+            'manual_privacy': 'bool',
             'message': 'string',
+            'name': 'string',
+            'no_story': 'bool',
+            'offline_id': 'unsigned int',
+            'og_action_type_id': 'string',
+            'og_icon_id': 'string',
+            'og_object_id': 'string',
+            'og_phrase': 'string',
+            'og_set_profile_badge': 'bool',
+            'og_suggestion_mechanism': 'string',
+            'place': 'Object',
+            'privacy': 'string',
+            'profile_id': 'int',
+            'proxied_app_id': 'string',
+            'published': 'bool',
+            'qn': 'string',
+            'scheduled_publish_time': 'unsigned int',
+            'spherical_metadata': 'map',
+            'sponsor_id': 'string',
+            'sponsor_relationship': 'unsigned int',
+            'tags': 'list<Object>',
+            'target_id': 'int',
+            'targeting': 'Object',
+            'time_since_original_post': 'unsigned int',
+            'uid': 'int',
+            'unpublished_content_type': 'unpublished_content_type_enum',
+            'url': 'string',
+            'user_selected_tags': 'bool',
+            'vault_image_id': 'string',
         }
         enums = {
             'backdated_time_granularity_enum': Photo.BackdatedTimeGranularity.__dict__.values(),
@@ -639,19 +640,19 @@ class Post(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'budget': 'unsigned int',
-            'currency': 'string',
             'ad_account_id': 'string',
-            'audience': 'audience_enum',
-            'targeting': 'Targeting',
-            'start_time': 'unsigned int',
-            'stop_time': 'unsigned int',
             'ad_conversion_pixel_id': 'unsigned int',
-            'placement': 'string',
-            'flow_id': 'string',
+            'audience': 'audience_enum',
             'audience_id': 'string',
             'bid_amount': 'unsigned int',
+            'budget': 'unsigned int',
             'cta_type': 'cta_type_enum',
+            'currency': 'string',
+            'flow_id': 'string',
+            'placement': 'string',
+            'start_time': 'unsigned int',
+            'stop_time': 'unsigned int',
+            'targeting': 'Targeting',
         }
         enums = {
             'audience_enum': [
@@ -682,11 +683,13 @@ class Post(
                 'BUY_TICKETS',
                 'CALL',
                 'CALL_ME',
+                'CONTACT',
                 'CONTACT_US',
                 'DONATE',
                 'DONATE_NOW',
                 'DOWNLOAD',
                 'EVENT_RSVP',
+                'FIND_A_GROUP',
                 'FOLLOW_NEWS_STORYLINE',
                 'GET_DIRECTIONS',
                 'GET_OFFER',
@@ -958,6 +961,7 @@ class Post(
         'id': 'string',
         'instagram_eligibility': 'string',
         'is_app_share': 'bool',
+        'is_eligible_for_promotion': 'bool',
         'is_expired': 'bool',
         'is_hidden': 'bool',
         'is_instagram_eligible': 'bool',

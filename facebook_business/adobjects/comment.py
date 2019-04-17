@@ -149,11 +149,11 @@ class Comment(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'message': 'string',
             'attachment_id': 'string',
-            'attachment_url': 'string',
             'attachment_share_url': 'string',
+            'attachment_url': 'string',
             'is_hidden': 'bool',
+            'message': 'string',
         }
         enums = {
         }
@@ -185,14 +185,14 @@ class Comment(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'filter': 'filter_enum',
-            'order': 'order_enum',
             'live_filter': 'live_filter_enum',
+            'order': 'order_enum',
             'since': 'datetime',
         }
         enums = {
             'filter_enum': Comment.Filter.__dict__.values(),
-            'order_enum': Comment.Order.__dict__.values(),
             'live_filter_enum': Comment.LiveFilter.__dict__.values(),
+            'order_enum': Comment.Order.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -221,9 +221,9 @@ class Comment(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'tracking': 'string',
-            'nectar_module': 'string',
             'feedback_source': 'string',
+            'nectar_module': 'string',
+            'tracking': 'string',
         }
         enums = {
         }
@@ -285,9 +285,9 @@ class Comment(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'tracking': 'string',
-            'nectar_module': 'string',
             'feedback_source': 'string',
+            'nectar_module': 'string',
+            'tracking': 'string',
         }
         enums = {
         }

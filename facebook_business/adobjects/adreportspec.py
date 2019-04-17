@@ -59,12 +59,12 @@ class AdReportSpec(
         time_increment = 'time_increment'
         time_interval = 'time_interval'
         time_ranges = 'time_ranges'
+        business_id = 'business_id'
+        bypass_async = 'bypass_async'
         format = 'format'
+        limit = 'limit'
         report_run_id = 'report_run_id'
         user_report = 'user_report'
-        business_id = 'business_id'
-        limit = 'limit'
-        bypass_async = 'bypass_async'
 
     class ActionsGroupBy:
         action_canvas_component_id = 'action_canvas_component_id'
@@ -188,33 +188,33 @@ class AdReportSpec(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'time_ranges': 'list',
-            'data_columns': 'list<string>',
             'actions_group_by': 'list<actions_group_by_enum>',
+            'business_id': 'string',
+            'bypass_async': 'bool',
+            'creation_source': 'creation_source_enum',
+            'data_columns': 'list<string>',
+            'date_preset': 'date_preset_enum',
+            'export_columns': 'Object',
             'filters': 'list<Object>',
+            'format': 'format_enum',
+            'format_version': 'unsigned int',
+            'insights_section': 'Object',
+            'limit': 'int',
+            'name': 'string',
+            'report_run_id': 'string',
+            'report_schedule_id': 'string',
             'sort_by': 'string',
             'sort_dir': 'string',
             'time_increment': 'string',
             'time_interval': 'Object',
-            'date_preset': 'date_preset_enum',
-            'format': 'format_enum',
-            'export_columns': 'Object',
-            'report_run_id': 'string',
-            'name': 'string',
+            'time_ranges': 'list',
             'user_report': 'bool',
-            'business_id': 'string',
-            'limit': 'int',
-            'bypass_async': 'bool',
-            'report_schedule_id': 'string',
-            'insights_section': 'Object',
-            'creation_source': 'creation_source_enum',
-            'format_version': 'unsigned int',
         }
         enums = {
             'actions_group_by_enum': AdReportSpec.ActionsGroupBy.__dict__.values(),
+            'creation_source_enum': AdReportSpec.CreationSource.__dict__.values(),
             'date_preset_enum': AdReportSpec.DatePreset.__dict__.values(),
             'format_enum': AdReportSpec.Format.__dict__.values(),
-            'creation_source_enum': AdReportSpec.CreationSource.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -257,12 +257,12 @@ class AdReportSpec(
         'time_increment': 'string',
         'time_interval': 'Object',
         'time_ranges': 'list<Object>',
+        'business_id': 'string',
+        'bypass_async': 'bool',
         'format': 'Format',
+        'limit': 'int',
         'report_run_id': 'string',
         'user_report': 'bool',
-        'business_id': 'string',
-        'limit': 'int',
-        'bypass_async': 'bool',
     }
     @classmethod
     def _get_field_enum_info(cls):

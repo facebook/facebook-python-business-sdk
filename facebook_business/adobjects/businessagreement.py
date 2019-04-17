@@ -85,8 +85,8 @@ class BusinessAgreement(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'request_status': 'request_status_enum',
             'asset_id': 'unsigned int',
+            'request_status': 'request_status_enum',
         }
         enums = {
             'request_status_enum': BusinessAgreement.RequestStatus.__dict__.values(),

@@ -171,13 +171,13 @@ class ProductFeed(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'default_currency': 'string',
+            'deletion_enabled': 'bool',
             'delimiter': 'delimiter_enum',
             'encoding': 'encoding_enum',
             'name': 'string',
             'quoted_fields_mode': 'quoted_fields_mode_enum',
             'schedule': 'string',
             'update_schedule': 'string',
-            'deletion_enabled': 'bool',
         }
         enums = {
             'delimiter_enum': ProductFeed.Delimiter.__dict__.values(),

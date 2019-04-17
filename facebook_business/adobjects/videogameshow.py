@@ -148,9 +148,9 @@ class VideoGameShow(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'question': 'string',
-            'options': 'list<string>',
             'correct_option': 'unsigned int',
+            'options': 'list<string>',
+            'question': 'string',
         }
         enums = {
         }

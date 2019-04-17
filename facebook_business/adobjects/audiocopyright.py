@@ -94,13 +94,13 @@ class AudioCopyright(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'update_source': 'update_source_enum',
-            'match_rule': 'string',
-            'ownership_countries': 'list<string>',
-            'whitelisted_fb_users': 'list<string>',
-            'whitelisted_ig_users': 'list<string>',
             'append_excluded_ownership_segments': 'bool',
             'excluded_ownership_segments': 'list<Object>',
+            'match_rule': 'string',
+            'ownership_countries': 'list<string>',
+            'update_source': 'update_source_enum',
+            'whitelisted_fb_users': 'list<string>',
+            'whitelisted_ig_users': 'list<string>',
         }
         enums = {
             'update_source_enum': AudioCopyright.UpdateSource.__dict__.values(),

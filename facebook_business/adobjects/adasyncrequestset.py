@@ -143,8 +143,8 @@ class AdAsyncRequestSet(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'name': 'string',
-            'notification_uri': 'string',
             'notification_mode': 'notification_mode_enum',
+            'notification_uri': 'string',
         }
         enums = {
             'notification_mode_enum': AdAsyncRequestSet.NotificationMode.__dict__.values(),

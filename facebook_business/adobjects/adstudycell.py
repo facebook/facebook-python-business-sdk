@@ -132,12 +132,12 @@ class AdStudyCell(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'description': 'string',
-            'name': 'string',
-            'creation_template': 'creation_template_enum',
             'adaccounts': 'list<unsigned int>',
             'adsets': 'list<string>',
             'campaigns': 'list<string>',
+            'creation_template': 'creation_template_enum',
+            'description': 'string',
+            'name': 'string',
         }
         enums = {
             'creation_template_enum': AdStudyCell.CreationTemplate.__dict__.values(),

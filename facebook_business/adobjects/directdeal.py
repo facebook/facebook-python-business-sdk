@@ -138,7 +138,7 @@ class DirectDeal(
 
     _field_types = {
         'adbreaks_enabled': 'bool',
-        'adset': 'Object',
+        'adset': 'AdSet',
         'advertiser': 'Object',
         'advertiser_lead_email': 'string',
         'advertiser_page': 'string',

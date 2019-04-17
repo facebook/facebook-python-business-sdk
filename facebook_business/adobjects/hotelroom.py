@@ -128,16 +128,16 @@ class HotelRoom(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'description': 'string',
-            'name': 'string',
-            'url': 'string',
-            'currency': 'string',
-            'base_price': 'float',
             'applinks': 'Object',
+            'base_price': 'float',
+            'currency': 'string',
+            'description': 'string',
             'images': 'list<Object>',
             'margin_level': 'unsigned int',
+            'name': 'string',
             'pricing_variables': 'list<Object>',
             'sale_price': 'float',
+            'url': 'string',
         }
         enums = {
         }

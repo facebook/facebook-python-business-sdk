@@ -125,6 +125,7 @@ class Business(
         pages_messaging = 'PAGES_MESSAGING'
         pages_messaging_subscriptions = 'PAGES_MESSAGING_SUBSCRIPTIONS'
         read_page_mailboxes = 'READ_PAGE_MAILBOXES'
+        view_monetization_insights = 'VIEW_MONETIZATION_INSIGHTS'
 
     class Role:
         admin = 'ADMIN'
@@ -169,14 +170,14 @@ class Business(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'name': 'string',
-            'vertical': 'vertical_enum',
-            'timezone_id': 'unsigned int',
             'primary_page': 'string',
+            'timezone_id': 'unsigned int',
             'two_factor_type': 'two_factor_type_enum',
+            'vertical': 'vertical_enum',
         }
         enums = {
-            'vertical_enum': Business.Vertical.__dict__.values(),
             'two_factor_type_enum': Business.TwoFactorType.__dict__.values(),
+            'vertical_enum': Business.Vertical.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -270,17 +271,17 @@ class Business(
         from facebook_business.adobjects.adstudy import AdStudy
         param_types = {
             'cells': 'list<Object>',
-            'objectives': 'list<Object>',
-            'end_time': 'int',
-            'description': 'string',
-            'name': 'string',
-            'start_time': 'int',
-            'viewers': 'list<int>',
-            'cooldown_start_time': 'int',
-            'observation_end_time': 'int',
-            'confidence_level': 'float',
             'client_business': 'string',
+            'confidence_level': 'float',
+            'cooldown_start_time': 'int',
+            'description': 'string',
+            'end_time': 'int',
+            'name': 'string',
+            'objectives': 'list<Object>',
+            'observation_end_time': 'int',
+            'start_time': 'int',
             'type': 'type_enum',
+            'viewers': 'list<int>',
         }
         enums = {
             'type_enum': AdStudy.Type.__dict__.values(),
@@ -313,21 +314,21 @@ class Business(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.adaccount import AdAccount
         param_types = {
-            'name': 'string',
+            'billing_address_id': 'string',
             'currency': 'string',
-            'timezone_id': 'unsigned int',
             'end_advertiser': 'Object',
             'funding_id': 'string',
-            'media_agency': 'string',
-            'partner': 'string',
             'invoice': 'bool',
-            'po_number': 'string',
+            'invoice_group_id': 'string',
             'invoicing_emails': 'list<string>',
             'io': 'bool',
-            'billing_address_id': 'string',
-            'sold_to_address_id': 'string',
             'liable_address_id': 'string',
-            'invoice_group_id': 'string',
+            'media_agency': 'string',
+            'name': 'string',
+            'partner': 'string',
+            'po_number': 'string',
+            'sold_to_address_id': 'string',
+            'timezone_id': 'unsigned int',
         }
         enums = {
         }
@@ -359,8 +360,8 @@ class Business(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.adaccountcreationrequest import AdAccountCreationRequest
         param_types = {
-            'status': 'list<status_enum>',
             'ad_account_creation_request_id': 'string',
+            'status': 'list<status_enum>',
         }
         enums = {
             'status_enum': AdAccountCreationRequest.Status.__dict__.values(),
@@ -393,33 +394,33 @@ class Business(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.adaccountcreationrequest import AdAccountCreationRequest
         param_types = {
-            'extended_credit_id': 'string',
             'ad_accounts_info': 'list<Object>',
-            'business_registration': 'file',
-            'planning_agency_business_id': 'string',
-            'english_legal_entity_name': 'string',
-            'legal_entity_name_in_local_language': 'string',
-            'chinese_legal_entity_name': 'string',
-            'address_in_chinese': 'string',
-            'address_in_local_language': 'string',
-            'address_in_english': 'Object',
-            'official_website_url': 'string',
-            'business_registration_id': 'string',
-            'vertical': 'vertical_enum',
-            'subvertical': 'subvertical_enum',
-            'promotable_page_urls': 'list<string>',
-            'promotable_page_ids': 'list<string>',
-            'promotable_app_ids': 'list<string>',
-            'promotable_urls': 'list<string>',
-            'contact': 'Object',
             'additional_comment': 'string',
+            'address_in_chinese': 'string',
+            'address_in_english': 'Object',
+            'address_in_local_language': 'string',
+            'advertiser_business_id': 'string',
+            'business_registration': 'file',
+            'business_registration_id': 'string',
+            'chinese_legal_entity_name': 'string',
+            'contact': 'Object',
+            'english_legal_entity_name': 'string',
+            'extended_credit_id': 'string',
             'is_smb': 'bool',
             'is_test': 'bool',
-            'advertiser_business_id': 'string',
+            'legal_entity_name_in_local_language': 'string',
+            'official_website_url': 'string',
+            'planning_agency_business_id': 'string',
+            'promotable_app_ids': 'list<string>',
+            'promotable_page_ids': 'list<string>',
+            'promotable_page_urls': 'list<string>',
+            'promotable_urls': 'list<string>',
+            'subvertical': 'subvertical_enum',
+            'vertical': 'vertical_enum',
         }
         enums = {
-            'vertical_enum': AdAccountCreationRequest.Vertical.__dict__.values(),
             'subvertical_enum': AdAccountCreationRequest.Subvertical.__dict__.values(),
+            'vertical_enum': AdAccountCreationRequest.Vertical.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -527,9 +528,9 @@ class Business(
         param_types = {
             'aggregation_period': 'aggregation_period_enum',
             'breakdowns': 'list<breakdowns_enum>',
-            'metrics': 'list<metrics_enum>',
             'filters': 'list<Object>',
             'limit': 'int',
+            'metrics': 'list<metrics_enum>',
             'ordering_column': 'ordering_column_enum',
             'ordering_type': 'ordering_type_enum',
             'since': 'datetime',
@@ -602,8 +603,8 @@ class Business(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.adspixel import AdsPixel
         param_types = {
-            'name_filter': 'string',
             'id_filter': 'string',
+            'name_filter': 'string',
             'sort_by': 'sort_by_enum',
         }
         enums = {
@@ -825,8 +826,8 @@ class Business(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'app_id': 'Object',
             'access_type': 'access_type_enum',
+            'app_id': 'Object',
         }
         enums = {
             'access_type_enum': Business.AccessType.__dict__.values(),
@@ -890,8 +891,8 @@ class Business(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.oracletransaction import OracleTransaction
         param_types = {
-            'start_date': 'string',
             'end_date': 'string',
+            'start_date': 'string',
         }
         enums = {
         }
@@ -1553,13 +1554,13 @@ class Business(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.customconversion import CustomConversion
         param_types = {
-            'name': 'string',
+            'advanced_rule': 'string',
+            'custom_event_type': 'custom_event_type_enum',
+            'default_conversion_value': 'float',
             'description': 'string',
             'event_source_id': 'string',
+            'name': 'string',
             'rule': 'string',
-            'default_conversion_value': 'float',
-            'custom_event_type': 'custom_event_type_enum',
-            'advanced_rule': 'string',
         }
         enums = {
             'custom_event_type_enum': CustomConversion.CustomEventType.__dict__.values(),
@@ -1913,18 +1914,18 @@ class Business(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'name': 'string',
-            'vertical': 'vertical_enum',
-            'timezone_id': 'unsigned int',
-            'survey_business_type': 'survey_business_type_enum',
-            'survey_num_people': 'unsigned int',
-            'survey_num_assets': 'unsigned int',
-            'sales_rep_email': 'string',
             'existing_client_business_id': 'string',
+            'name': 'string',
+            'sales_rep_email': 'string',
+            'survey_business_type': 'survey_business_type_enum',
+            'survey_num_assets': 'unsigned int',
+            'survey_num_people': 'unsigned int',
+            'timezone_id': 'unsigned int',
+            'vertical': 'vertical_enum',
         }
         enums = {
-            'vertical_enum': Business.Vertical.__dict__.values(),
             'survey_business_type_enum': Business.SurveyBusinessType.__dict__.values(),
+            'vertical_enum': Business.Vertical.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -1954,8 +1955,8 @@ class Business(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.measurementreport import MeasurementReport
         param_types = {
-            'report_type': 'report_type_enum',
             'filters': 'list<Object>',
+            'report_type': 'report_type_enum',
         }
         enums = {
             'report_type_enum': MeasurementReport.ReportType.__dict__.values(),
@@ -1988,8 +1989,8 @@ class Business(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.measurementreport import MeasurementReport
         param_types = {
-            'report_type': 'report_type_enum',
             'metadata': 'string',
+            'report_type': 'report_type_enum',
         }
         enums = {
             'report_type_enum': MeasurementReport.ReportType.__dict__.values(),
@@ -2053,11 +2054,11 @@ class Business(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.offlineconversiondataset import OfflineConversionDataSet
         param_types = {
-            'name': 'string',
+            'auto_assign_to_new_accounts_only': 'bool',
             'description': 'string',
             'enable_auto_assign_to_accounts': 'bool',
             'is_mta_use': 'bool',
-            'auto_assign_to_new_accounts_only': 'bool',
+            'name': 'string',
         }
         enums = {
         }
@@ -2306,21 +2307,21 @@ class Business(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'name': 'string',
-            'vertical': 'vertical_enum',
-            'timezone_id': 'unsigned int',
-            'survey_business_type': 'survey_business_type_enum',
-            'survey_num_people': 'unsigned int',
-            'survey_num_assets': 'unsigned int',
-            'sales_rep_email': 'string',
-            'shared_page_id': 'string',
             'page_permitted_roles': 'list<page_permitted_roles_enum>',
             'page_permitted_tasks': 'list<page_permitted_tasks_enum>',
+            'sales_rep_email': 'string',
+            'shared_page_id': 'string',
+            'survey_business_type': 'survey_business_type_enum',
+            'survey_num_assets': 'unsigned int',
+            'survey_num_people': 'unsigned int',
+            'timezone_id': 'unsigned int',
+            'vertical': 'vertical_enum',
         }
         enums = {
-            'vertical_enum': Business.Vertical.__dict__.values(),
-            'survey_business_type_enum': Business.SurveyBusinessType.__dict__.values(),
             'page_permitted_roles_enum': Business.PagePermittedRoles.__dict__.values(),
             'page_permitted_tasks_enum': Business.PagePermittedTasks.__dict__.values(),
+            'survey_business_type_enum': Business.SurveyBusinessType.__dict__.values(),
+            'vertical_enum': Business.Vertical.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -2505,8 +2506,8 @@ class Business(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'page_id': 'int',
             'ig_password': 'string',
+            'page_id': 'int',
         }
         enums = {
         }
@@ -2600,11 +2601,11 @@ class Business(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.productcatalog import ProductCatalog
         param_types = {
+            'da_display_settings': 'Object',
+            'destination_catalog_settings': 'map',
+            'flight_catalog_settings': 'map',
             'name': 'string',
             'vertical': 'vertical_enum',
-            'flight_catalog_settings': 'map',
-            'destination_catalog_settings': 'map',
-            'da_display_settings': 'Object',
         }
         enums = {
             'vertical_enum': ProductCatalog.Vertical.__dict__.values(),
@@ -2735,21 +2736,21 @@ class Business(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'name': 'string',
+            'billing_address_id': 'string',
             'currency': 'string',
-            'timezone_id': 'unsigned int',
             'end_advertiser': 'Object',
             'funding_id': 'string',
-            'media_agency': 'string',
-            'partner': 'string',
             'invoice': 'bool',
-            'po_number': 'string',
+            'invoice_group_id': 'string',
             'invoicing_emails': 'list<string>',
             'io': 'bool',
-            'billing_address_id': 'string',
-            'sold_to_address_id': 'string',
             'liable_address_id': 'string',
-            'invoice_group_id': 'string',
+            'media_agency': 'string',
+            'name': 'string',
+            'partner': 'string',
+            'po_number': 'string',
+            'sold_to_address_id': 'string',
+            'timezone_id': 'unsigned int',
         }
         enums = {
         }
@@ -2933,7 +2934,7 @@ class Business(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.legacybusinessadaccountrequest import LegacyBusinessAdAccountRequest
+        from facebook_business.adobjects.businessadaccountrequest import BusinessAdAccountRequest
         param_types = {
         }
         enums = {
@@ -2944,9 +2945,9 @@ class Business(
             endpoint='/pending_owned_ad_accounts',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=LegacyBusinessAdAccountRequest,
+            target_class=BusinessAdAccountRequest,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=LegacyBusinessAdAccountRequest, api=self._api),
+            response_parser=ObjectParser(target_class=BusinessAdAccountRequest, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -3061,9 +3062,9 @@ class Business(
         from facebook_business.adobjects.profilepicturesource import ProfilePictureSource
         param_types = {
             'height': 'int',
-            'width': 'int',
-            'type': 'type_enum',
             'redirect': 'bool',
+            'type': 'type_enum',
+            'width': 'int',
         }
         enums = {
             'type_enum': ProfilePictureSource.Type.__dict__.values(),
@@ -3193,8 +3194,8 @@ class Business(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.businessagreement import BusinessAgreement
         param_types = {
-            'requesting_business_id': 'string',
             'request_status': 'request_status_enum',
+            'requesting_business_id': 'string',
         }
         enums = {
             'request_status_enum': BusinessAgreement.RequestStatus.__dict__.values(),
@@ -3258,8 +3259,8 @@ class Business(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.businessownedobjectonbehalfofrequest import BusinessOwnedObjectOnBehalfOfRequest
         param_types = {
-            'receiving_business': 'string',
             'business_owned_object': 'string',
+            'receiving_business': 'string',
         }
         enums = {
         }
@@ -3385,8 +3386,8 @@ class Business(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.systemuser import SystemUser
         param_types = {
-            'role': 'role_enum',
             'name': 'string',
+            'role': 'role_enum',
             'system_user_id': 'int',
         }
         enums = {
@@ -3593,8 +3594,8 @@ class Business(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.businessrolerequest import BusinessRoleRequest
         param_types = {
-            'status': 'status_enum',
             'email': 'string',
+            'status': 'status_enum',
         }
         enums = {
             'status_enum': BusinessRoleRequest.Status.__dict__.values(),
@@ -3626,8 +3627,8 @@ class Business(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'user': 'int',
             'email': 'string',
+            'user': 'int',
         }
         enums = {
         }
@@ -3658,9 +3659,9 @@ class Business(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'user': 'int',
             'email': 'string',
             'role': 'role_enum',
+            'user': 'int',
         }
         enums = {
             'role_enum': Business.Role.__dict__.values(),
@@ -3693,33 +3694,33 @@ class Business(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.adaccountcreationrequest import AdAccountCreationRequest
         param_types = {
-            'address_in_local_language': 'string',
             'ad_accounts_currency': 'string',
-            'credit_card_id': 'string',
-            'extended_credit_id': 'string',
-            'legal_entity_name_in_local_language': 'string',
             'ad_accounts_info': 'list<Object>',
-            'business_registration': 'file',
-            'planning_agency_business_id': 'string',
-            'english_legal_entity_name': 'string',
-            'address_in_english': 'Object',
-            'official_website_url': 'string',
-            'business_registration_id': 'string',
-            'vertical': 'vertical_enum',
-            'subvertical': 'subvertical_enum',
-            'promotable_page_urls': 'list<string>',
-            'promotable_page_ids': 'list<int>',
-            'promotable_app_ids': 'list<string>',
-            'promotable_urls': 'list<string>',
-            'contact': 'Object',
             'additional_comment': 'string',
+            'address_in_english': 'Object',
+            'address_in_local_language': 'string',
+            'advertiser_business_id': 'string',
+            'business_registration': 'file',
+            'business_registration_id': 'string',
+            'contact': 'Object',
+            'credit_card_id': 'string',
+            'english_legal_entity_name': 'string',
+            'extended_credit_id': 'string',
             'is_smb': 'bool',
             'is_test': 'bool',
-            'advertiser_business_id': 'string',
+            'legal_entity_name_in_local_language': 'string',
+            'official_website_url': 'string',
+            'planning_agency_business_id': 'string',
+            'promotable_app_ids': 'list<string>',
+            'promotable_page_ids': 'list<int>',
+            'promotable_page_urls': 'list<string>',
+            'promotable_urls': 'list<string>',
+            'subvertical': 'subvertical_enum',
+            'vertical': 'vertical_enum',
         }
         enums = {
-            'vertical_enum': AdAccountCreationRequest.Vertical.__dict__.values(),
             'subvertical_enum': AdAccountCreationRequest.Subvertical.__dict__.values(),
+            'vertical_enum': AdAccountCreationRequest.Vertical.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],

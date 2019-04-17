@@ -128,8 +128,8 @@ class MediaFingerprint(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'title': 'string',
             'metadata': 'list',
+            'title': 'string',
             'universal_content_id': 'string',
         }
         enums = {

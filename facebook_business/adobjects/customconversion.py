@@ -60,8 +60,8 @@ class CustomConversion(
         pixel = 'pixel'
         retention_days = 'retention_days'
         rule = 'rule'
-        event_source_id = 'event_source_id'
         advanced_rule = 'advanced_rule'
+        event_source_id = 'event_source_id'
         custom_conversion_id = 'custom_conversion_id'
 
     class CustomEventType:
@@ -159,9 +159,9 @@ class CustomConversion(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'name': 'string',
             'default_conversion_value': 'float',
             'description': 'string',
+            'name': 'string',
         }
         enums = {
         }
@@ -193,9 +193,9 @@ class CustomConversion(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.customconversionactivities import CustomConversionActivities
         param_types = {
-            'start_time': 'datetime',
             'end_time': 'datetime',
             'event_type': 'event_type_enum',
+            'start_time': 'datetime',
         }
         enums = {
             'event_type_enum': CustomConversionActivities.EventType.__dict__.values(),
@@ -324,9 +324,9 @@ class CustomConversion(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.customconversionstatsresult import CustomConversionStatsResult
         param_types = {
-            'start_time': 'datetime',
-            'end_time': 'datetime',
             'aggregation': 'aggregation_enum',
+            'end_time': 'datetime',
+            'start_time': 'datetime',
         }
         enums = {
             'aggregation_enum': CustomConversionStatsResult.Aggregation.__dict__.values(),
@@ -373,8 +373,8 @@ class CustomConversion(
         'pixel': 'AdsPixel',
         'retention_days': 'unsigned int',
         'rule': 'string',
-        'event_source_id': 'string',
         'advanced_rule': 'string',
+        'event_source_id': 'string',
         'custom_conversion_id': 'string',
     }
     @classmethod

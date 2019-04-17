@@ -84,8 +84,8 @@ class URL(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'locale': 'list',
             'hmac': 'string',
+            'locale': 'list',
             'ts': 'datetime',
         }
         enums = {

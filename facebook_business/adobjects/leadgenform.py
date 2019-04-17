@@ -245,9 +245,9 @@ class LeadgenForm(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.lead import Lead
         param_types = {
-            'start_time': 'datetime',
             'end_time': 'datetime',
             'session_id': 'string',
+            'start_time': 'datetime',
         }
         enums = {
         }
@@ -310,8 +310,8 @@ class LeadgenForm(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.lead import Lead
         param_types = {
-            'field_data': 'list<Object>',
             'custom_disclaimer_responses': 'list<Object>',
+            'field_data': 'list<Object>',
         }
         enums = {
         }

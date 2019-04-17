@@ -78,8 +78,8 @@ class Campaign(
         updated_time = 'updated_time'
         adbatch = 'adbatch'
         execution_options = 'execution_options'
-        upstream_events = 'upstream_events'
         iterative_split_test_configs = 'iterative_split_test_configs'
+        upstream_events = 'upstream_events'
 
     class BidStrategy:
         lowest_cost_without_cap = 'LOWEST_COST_WITHOUT_CAP'
@@ -260,28 +260,28 @@ class Campaign(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'name': 'string',
-            'objective': 'objective_enum',
-            'status': 'status_enum',
+            'adlabels': 'list<Object>',
+            'adset_bid_amounts': 'map',
+            'adset_budgets': 'list<map>',
             'bid_strategy': 'bid_strategy_enum',
             'budget_rebalance_flag': 'bool',
             'daily_budget': 'unsigned int',
+            'execution_options': 'list<execution_options_enum>',
+            'iterative_split_test_configs': 'list<Object>',
             'lifetime_budget': 'unsigned int',
+            'name': 'string',
+            'objective': 'objective_enum',
             'pacing_type': 'list<string>',
             'promoted_object': 'Object',
             'spend_cap': 'unsigned int',
-            'execution_options': 'list<execution_options_enum>',
+            'status': 'status_enum',
             'upstream_events': 'map',
-            'adlabels': 'list<Object>',
-            'iterative_split_test_configs': 'list<Object>',
-            'adset_bid_amounts': 'map',
-            'adset_budgets': 'list<map>',
         }
         enums = {
-            'objective_enum': Campaign.Objective.__dict__.values(),
-            'status_enum': Campaign.Status.__dict__.values(),
             'bid_strategy_enum': Campaign.BidStrategy.__dict__.values(),
             'execution_options_enum': Campaign.ExecutionOptions.__dict__.values(),
+            'objective_enum': Campaign.Objective.__dict__.values(),
+            'status_enum': Campaign.Status.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -440,13 +440,13 @@ class Campaign(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.ad import Ad
         param_types = {
-            'effective_status': 'list<string>',
+            'ad_draft_id': 'string',
             'date_preset': 'date_preset_enum',
+            'effective_status': 'list<string>',
             'include_deleted': 'bool',
+            'include_drafts': 'bool',
             'time_range': 'Object',
             'updated_since': 'int',
-            'ad_draft_id': 'string',
-            'include_drafts': 'bool',
         }
         enums = {
             'date_preset_enum': Ad.DatePreset.__dict__.values(),
@@ -479,16 +479,16 @@ class Campaign(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.adset import AdSet
         param_types = {
-            'effective_status': 'list<effective_status_enum>',
+            'ad_draft_id': 'string',
             'date_preset': 'date_preset_enum',
+            'effective_status': 'list<effective_status_enum>',
+            'include_drafts': 'bool',
             'is_completed': 'bool',
             'time_range': 'Object',
-            'ad_draft_id': 'string',
-            'include_drafts': 'bool',
         }
         enums = {
-            'effective_status_enum': AdSet.EffectiveStatus.__dict__.values(),
             'date_preset_enum': AdSet.DatePreset.__dict__.values(),
+            'effective_status_enum': AdSet.EffectiveStatus.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -517,14 +517,14 @@ class Campaign(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'effective_status': 'list<effective_status_enum>',
             'date_preset': 'date_preset_enum',
+            'effective_status': 'list<effective_status_enum>',
             'is_completed': 'bool',
             'time_range': 'Object',
         }
         enums = {
-            'effective_status_enum': Campaign.EffectiveStatus.__dict__.values(),
             'date_preset_enum': Campaign.DatePreset.__dict__.values(),
+            'effective_status_enum': Campaign.EffectiveStatus.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -554,10 +554,10 @@ class Campaign(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'deep_copy': 'bool',
-            'rename_options': 'Object',
-            'status_option': 'status_option_enum',
-            'start_time': 'datetime',
             'end_time': 'datetime',
+            'rename_options': 'Object',
+            'start_time': 'datetime',
+            'status_option': 'status_option_enum',
         }
         enums = {
             'status_option_enum': Campaign.StatusOption.__dict__.values(),
@@ -592,21 +592,21 @@ class Campaign(
         if is_async:
           return self.get_insights_async(fields, params, batch, success, failure, pending)
         param_types = {
-            'default_summary': 'bool',
-            'fields': 'list<string>',
-            'filtering': 'list<Object>',
-            'summary': 'list<string>',
-            'sort': 'list<string>',
             'action_attribution_windows': 'list<action_attribution_windows_enum>',
             'action_breakdowns': 'list<action_breakdowns_enum>',
             'action_report_time': 'action_report_time_enum',
             'breakdowns': 'list<breakdowns_enum>',
             'date_preset': 'date_preset_enum',
+            'default_summary': 'bool',
             'export_columns': 'list<string>',
             'export_format': 'string',
             'export_name': 'string',
+            'fields': 'list<string>',
+            'filtering': 'list<Object>',
             'level': 'level_enum',
             'product_id_limit': 'int',
+            'sort': 'list<string>',
+            'summary': 'list<string>',
             'summary_action_breakdowns': 'list<summary_action_breakdowns_enum>',
             'time_increment': 'string',
             'time_range': 'Object',
@@ -652,21 +652,21 @@ class Campaign(
         from facebook_business.adobjects.adreportrun import AdReportRun
         from facebook_business.adobjects.adsinsights import AdsInsights
         param_types = {
-            'default_summary': 'bool',
-            'fields': 'list<string>',
-            'filtering': 'list<Object>',
-            'summary': 'list<string>',
-            'sort': 'list<string>',
             'action_attribution_windows': 'list<action_attribution_windows_enum>',
             'action_breakdowns': 'list<action_breakdowns_enum>',
             'action_report_time': 'action_report_time_enum',
             'breakdowns': 'list<breakdowns_enum>',
             'date_preset': 'date_preset_enum',
+            'default_summary': 'bool',
             'export_columns': 'list<string>',
             'export_format': 'string',
             'export_name': 'string',
+            'fields': 'list<string>',
+            'filtering': 'list<Object>',
             'level': 'level_enum',
             'product_id_limit': 'int',
+            'sort': 'list<string>',
+            'summary': 'list<string>',
             'summary_action_breakdowns': 'list<summary_action_breakdowns_enum>',
             'time_increment': 'string',
             'time_range': 'Object',
@@ -729,7 +729,7 @@ class Campaign(
         'pacing_type': 'list<string>',
         'promoted_object': 'AdPromotedObject',
         'recommendations': 'list<AdRecommendation>',
-        'source_campaign': 'Object',
+        'source_campaign': 'Campaign',
         'source_campaign_id': 'string',
         'spend_cap': 'string',
         'start_time': 'datetime',
@@ -739,8 +739,8 @@ class Campaign(
         'updated_time': 'datetime',
         'adbatch': 'list<Object>',
         'execution_options': 'list<ExecutionOptions>',
-        'upstream_events': 'map',
         'iterative_split_test_configs': 'list<Object>',
+        'upstream_events': 'map',
     }
     @classmethod
     def _get_field_enum_info(cls):

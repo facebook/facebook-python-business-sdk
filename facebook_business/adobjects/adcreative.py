@@ -70,6 +70,7 @@ class AdCreative(
         instagram_actor_id = 'instagram_actor_id'
         instagram_permalink_url = 'instagram_permalink_url'
         instagram_story_id = 'instagram_story_id'
+        interactive_components_spec = 'interactive_components_spec'
         link_deep_link_url = 'link_deep_link_url'
         link_og_id = 'link_og_id'
         link_url = 'link_url'
@@ -95,10 +96,9 @@ class AdCreative(
         url_tags = 'url_tags'
         use_page_actor_override = 'use_page_actor_override'
         video_id = 'video_id'
-        is_dco_internal = 'is_dco_internal'
         call_to_action = 'call_to_action'
         image_file = 'image_file'
-        interactive_components_spec = 'interactive_components_spec'
+        is_dco_internal = 'is_dco_internal'
         mockup_id = 'mockup_id'
         page_id = 'page_id'
 
@@ -116,11 +116,13 @@ class AdCreative(
         buy_tickets = 'BUY_TICKETS'
         call = 'CALL'
         call_me = 'CALL_ME'
+        contact = 'CONTACT'
         contact_us = 'CONTACT_US'
         donate = 'DONATE'
         donate_now = 'DONATE_NOW'
         download = 'DOWNLOAD'
         event_rsvp = 'EVENT_RSVP'
+        find_a_group = 'FIND_A_GROUP'
         follow_news_storyline = 'FOLLOW_NEWS_STORYLINE'
         get_directions = 'GET_DIRECTIONS'
         get_offer = 'GET_OFFER'
@@ -213,8 +215,8 @@ class AdCreative(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'account_id': 'string',
-            'name': 'string',
             'adlabels': 'list<Object>',
+            'name': 'string',
             'status': 'status_enum',
         }
         enums = {
@@ -280,8 +282,8 @@ class AdCreative(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'account_id': 'string',
-            'name': 'string',
             'adlabels': 'list<Object>',
+            'name': 'string',
             'status': 'status_enum',
         }
         enums = {
@@ -378,19 +380,19 @@ class AdCreative(
         from facebook_business.adobjects.adpreview import AdPreview
         param_types = {
             'ad_format': 'ad_format_enum',
+            'dynamic_asset_label': 'string',
             'dynamic_creative_spec': 'Object',
             'dynamic_customization': 'Object',
-            'dynamic_asset_label': 'string',
-            'interactive': 'bool',
-            'post': 'Object',
-            'height': 'unsigned int',
-            'width': 'unsigned int',
-            'place_page_id': 'int',
-            'product_item_ids': 'list<string>',
-            'start_date': 'datetime',
             'end_date': 'datetime',
+            'height': 'unsigned int',
+            'interactive': 'bool',
             'locale': 'string',
+            'place_page_id': 'int',
+            'post': 'Object',
+            'product_item_ids': 'list<string>',
             'render_type': 'render_type_enum',
+            'start_date': 'datetime',
+            'width': 'unsigned int',
         }
         enums = {
             'ad_format_enum': AdPreview.AdFormat.__dict__.values(),
@@ -446,6 +448,7 @@ class AdCreative(
         'instagram_actor_id': 'string',
         'instagram_permalink_url': 'string',
         'instagram_story_id': 'string',
+        'interactive_components_spec': 'AdCreativeInteractiveComponentsSpec',
         'link_deep_link_url': 'string',
         'link_og_id': 'string',
         'link_url': 'string',
@@ -471,10 +474,9 @@ class AdCreative(
         'url_tags': 'string',
         'use_page_actor_override': 'bool',
         'video_id': 'string',
-        'is_dco_internal': 'bool',
         'call_to_action': 'Object',
         'image_file': 'string',
-        'interactive_components_spec': 'map',
+        'is_dco_internal': 'bool',
         'mockup_id': 'string',
         'page_id': 'string',
     }

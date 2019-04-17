@@ -247,8 +247,8 @@ class InstagramUser(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'business': 'string',
-            'user': 'Object',
             'role': 'role_enum',
+            'user': 'Object',
         }
         enums = {
             'role_enum': InstagramUser.Role.__dict__.values(),
@@ -377,8 +377,8 @@ class InstagramUser(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'business': 'string',
-            'user': 'Object',
             'role': 'role_enum',
+            'user': 'Object',
         }
         enums = {
             'role_enum': InstagramUser.Role.__dict__.values(),
