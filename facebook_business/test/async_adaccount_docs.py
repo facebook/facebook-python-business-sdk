@@ -2,13 +2,13 @@
 Unit tests for the Python Facebook Ads API SDK.
 
 How to run:
-    python -m facebook_business.test.async_adaccount_docs
+    python -m facebookads.test.async_adaccount_docs
 '''
 
 import sys
 
-from facebook_business.utils.httpretries import retry_policy
-from facebook_business.test.async_docs_utils import *
+from facebookads.utils.httpretries import retry_policy
+from facebookads.test.async_docs_utils import *
 
 
 class AdAccountAsyncDocsTestCase(AsyncDocsTestCase):
