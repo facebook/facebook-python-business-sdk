@@ -32,39 +32,23 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class BusinessCreditCardLegacy(
+class ValueBasedEligibleSource(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isBusinessCreditCardLegacy = True
-        super(BusinessCreditCardLegacy, self).__init__(fbid, parent_id, api)
+        self._isValueBasedEligibleSource = True
+        super(ValueBasedEligibleSource, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        address = 'address'
-        business_id = 'business_id'
-        credit_card_suffix = 'credit_card_suffix'
-        credit_card_type = 'credit_card_type'
-        expiration_month = 'expiration_month'
-        expiration_year = 'expiration_year'
-        first_name = 'first_name'
-        fraud_status = 'fraud_status'
         id = 'id'
-        last_name = 'last_name'
-        middle_name = 'middle_name'
+        title = 'title'
+        type = 'type'
 
     _field_types = {
-        'address': 'Object',
-        'business_id': 'string',
-        'credit_card_suffix': 'string',
-        'credit_card_type': 'string',
-        'expiration_month': 'int',
-        'expiration_year': 'int',
-        'first_name': 'string',
-        'fraud_status': 'string',
         'id': 'string',
-        'last_name': 'string',
-        'middle_name': 'string',
+        'title': 'string',
+        'type': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

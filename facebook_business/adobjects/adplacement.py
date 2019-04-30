@@ -32,33 +32,63 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdAccountContextualTargeting(
+class AdPlacement(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isAdAccountContextualTargeting = True
-        super(AdAccountContextualTargeting, self).__init__(fbid, parent_id, api)
+        self._isAdPlacement = True
+        super(AdPlacement, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        description = 'description'
-        enabled_in_ui = 'enabled_in_ui'
+        bundle_id = 'bundle_id'
+        display_format = 'display_format'
+        external_placement_id = 'external_placement_id'
+        google_display_format = 'google_display_format'
         id = 'id'
-        key = 'key'
         name = 'name'
-        parent = 'parent'
-        path = 'path'
-        type = 'type'
+        platform = 'platform'
+        status = 'status'
+
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdPlacement,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     _field_types = {
-        'description': 'string',
-        'enabled_in_ui': 'bool',
+        'bundle_id': 'string',
+        'display_format': 'string',
+        'external_placement_id': 'string',
+        'google_display_format': 'string',
         'id': 'string',
-        'key': 'string',
         'name': 'string',
-        'parent': 'string',
-        'path': 'list<string>',
-        'type': 'string',
+        'platform': 'string',
+        'status': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

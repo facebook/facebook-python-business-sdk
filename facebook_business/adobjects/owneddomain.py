@@ -44,14 +44,12 @@ class OwnedDomain(
         domain_name = 'domain_name'
         id = 'id'
 
-    class PermittedRoles:
-        admin = 'ADMIN'
-
     # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'owned_domains'
 
+    # @deprecated api_create is being deprecated
     def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.adobjects.business import Business
         return Business(api=self._api, fbid=parent_id).create_owned_domain(fields, params, batch, success, failure, pending)
@@ -86,21 +84,19 @@ class OwnedDomain(
             self.assure_call()
             return request.execute()
 
-    def create_Agency(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def create_agency(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'business': 'string',
-            'permitted_roles': 'list<permitted_roles_enum>',
         }
         enums = {
-            'permitted_roles_enum': OwnedDomain.PermittedRoles.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
             method='POST',
-            endpoint='/Agencies',
+            endpoint='/agencies',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
             target_class=OwnedDomain,
@@ -126,7 +122,6 @@ class OwnedDomain(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['PermittedRoles'] = OwnedDomain.PermittedRoles.__dict__.values()
         return field_enum_info
 
 

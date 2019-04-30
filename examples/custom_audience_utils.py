@@ -25,11 +25,8 @@ https://github.com/facebook/facebook-python-ads-sdk
 """
 
 from facebook_business import FacebookAdsApi
-from facebook_business.objects import (
-    AdAccount,
-    CustomAudience,
-)
-
+from facebook_business.adobjects.adaccount import AdAccount
+from facebook_business.adobjects.customaudience import CustomAudience
 import argparse
 import json
 import os
@@ -73,22 +70,24 @@ def ListCustomAudiences(**kwargs):
 def DeleteCustomAudience(audience_id):
     audience = CustomAudience(audience_id)
     print('Deleting audience id ' + audience[CustomAudience.Field.id])
-    return audience.remote_delete()
+    return audience.api_delete()
 
 
 def CreateCustomAudience(name, description=None, f=None, datatype='email'):
-    audience = CustomAudience(parent_id=my_account.get_id_assured())
-    audience.update({
+    params = {
         CustomAudience.Field.name: name,
         CustomAudience.Field.subtype: CustomAudience.Subtype.custom,
-    })
+        CustomAudience.Field.customer_file_source: CustomAudience.CustomerFileSource.user_provided_only,
+    }
+    audience = my_account.create_custom_audience(fields=[], params=params)
+    print('Created custom audience id ' + audience.get_id_assured())
 
     if description:
-        audience.update({CustomAudience.Field.description: description})
-    audience.remote_create()
-    print('Created custom audience id ' + audience[CustomAudience.Field.id])
+        audience = audience.api_update(fields=[], params={CustomAudience.Field.description: description})
+        print("Update description to : " + audience.api_get(fields=[CustomAudience.Field.description])[CustomAudience.Field.description])
     if f and datatype:
         LoadCustomAudience(audience, f, datatype)
+
 
 
 def LoadCustomAudience(audience, f, datatype, schema=None, app_ids=None):

@@ -82,6 +82,7 @@ class AdSet(
         lifetime_spend_cap = 'lifetime_spend_cap'
         name = 'name'
         optimization_goal = 'optimization_goal'
+        optimization_sub_event = 'optimization_sub_event'
         pacing_type = 'pacing_type'
         promoted_object = 'promoted_object'
         recommendations = 'recommendations'
@@ -214,6 +215,18 @@ class AdSet(
         limited_exploration = 'LIMITED_EXPLORATION'
         none_exploration = 'NONE_EXPLORATION'
 
+    class OptimizationSubEvent:
+        none = 'NONE'
+        travel_intent = 'TRAVEL_INTENT'
+        travel_intent_bucket_01 = 'TRAVEL_INTENT_BUCKET_01'
+        travel_intent_bucket_02 = 'TRAVEL_INTENT_BUCKET_02'
+        travel_intent_bucket_03 = 'TRAVEL_INTENT_BUCKET_03'
+        travel_intent_bucket_04 = 'TRAVEL_INTENT_BUCKET_04'
+        travel_intent_bucket_05 = 'TRAVEL_INTENT_BUCKET_05'
+        travel_intent_no_destination_intent = 'TRAVEL_INTENT_NO_DESTINATION_INTENT'
+        trip_consideration = 'TRIP_CONSIDERATION'
+        video_sound_on = 'VIDEO_SOUND_ON'
+
     class Operator:
         all = 'ALL'
         any = 'ANY'
@@ -228,6 +241,7 @@ class AdSet(
     def get_endpoint(cls):
         return 'adsets'
 
+    # @deprecated api_create is being deprecated
     def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.adobjects.adaccount import AdAccount
         return AdAccount(api=self._api, fbid=parent_id).create_ad_set(fields, params, batch, success, failure, pending)
@@ -349,6 +363,7 @@ class AdSet(
             'lifetime_spend_cap': 'unsigned int',
             'name': 'string',
             'optimization_goal': 'optimization_goal_enum',
+            'optimization_sub_event': 'optimization_sub_event_enum',
             'pacing_type': 'list<string>',
             'promoted_object': 'Object',
             'rb_prediction_id': 'string',
@@ -369,6 +384,7 @@ class AdSet(
             'execution_options_enum': AdSet.ExecutionOptions.__dict__.values(),
             'full_funnel_exploration_mode_enum': AdSet.FullFunnelExplorationMode.__dict__.values(),
             'optimization_goal_enum': AdSet.OptimizationGoal.__dict__.values(),
+            'optimization_sub_event_enum': AdSet.OptimizationSubEvent.__dict__.values(),
             'status_enum': AdSet.Status.__dict__.values(),
         }
         request = FacebookRequest(
@@ -963,6 +979,7 @@ class AdSet(
         'lifetime_spend_cap': 'string',
         'name': 'string',
         'optimization_goal': 'OptimizationGoal',
+        'optimization_sub_event': 'string',
         'pacing_type': 'list<string>',
         'promoted_object': 'AdPromotedObject',
         'recommendations': 'list<AdRecommendation>',
@@ -1002,6 +1019,7 @@ class AdSet(
         field_enum_info['DestinationType'] = AdSet.DestinationType.__dict__.values()
         field_enum_info['ExecutionOptions'] = AdSet.ExecutionOptions.__dict__.values()
         field_enum_info['FullFunnelExplorationMode'] = AdSet.FullFunnelExplorationMode.__dict__.values()
+        field_enum_info['OptimizationSubEvent'] = AdSet.OptimizationSubEvent.__dict__.values()
         field_enum_info['Operator'] = AdSet.Operator.__dict__.values()
         field_enum_info['StatusOption'] = AdSet.StatusOption.__dict__.values()
         return field_enum_info

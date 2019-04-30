@@ -132,6 +132,7 @@ class PartnerIntegrationLinked(
     def get_endpoint(cls):
         return 'partner_integrations'
 
+    # @deprecated api_create is being deprecated
     def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.adobjects.adaccount import AdAccount
         return AdAccount(api=self._api, fbid=parent_id).create_partner_integration(fields, params, batch, success, failure, pending)

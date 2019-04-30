@@ -188,6 +188,14 @@ class Application(
         higher_is_better = 'HIGHER_IS_BETTER'
         lower_is_better = 'LOWER_IS_BETTER'
 
+    class LoggingSource:
+        messenger_bot = 'MESSENGER_BOT'
+
+    class LoggingTarget:
+        app = 'APP'
+        app_and_page = 'APP_AND_PAGE'
+        page = 'PAGE'
+
     class Role:
         administrators = 'administrators'
         developers = 'developers'
@@ -1875,6 +1883,7 @@ class Application(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'device_id': 'string',
+            'extinfo': 'Object',
             'platform': 'platform_enum',
             'sdk_version': 'string',
         }
@@ -2128,6 +2137,45 @@ class Application(
             self.assure_call()
             return request.execute()
 
+    def create_page_activity(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'advertiser_tracking_enabled': 'bool',
+            'application_tracking_enabled': 'bool',
+            'custom_events': 'list<Object>',
+            'logging_source': 'logging_source_enum',
+            'logging_target': 'logging_target_enum',
+            'page_id': 'unsigned int',
+            'page_scoped_user_id': 'unsigned int',
+        }
+        enums = {
+            'logging_source_enum': Application.LoggingSource.__dict__.values(),
+            'logging_target_enum': Application.LoggingTarget.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/page_activities',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Application,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Application, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def delete_payment_currencies(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -2172,99 +2220,6 @@ class Application(
             node_id=self['id'],
             method='POST',
             endpoint='/payment_currencies',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=Application,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=Application, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def delete_payments_test_users(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'uids': 'list<int>',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='DELETE',
-            endpoint='/payments_test_users',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def get_payments_test_users(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.user import User
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/payments_test_users',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=User,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=User, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_payments_test_user(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'uids': 'list<int>',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/payments_test_users',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
             target_class=Application,
@@ -2608,7 +2563,7 @@ class Application(
         request = FacebookRequest(
             node_id=self['id'],
             method='POST',
-            endpoint='/stagingresources',
+            endpoint='/staging_resources',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
             target_class=Application,
@@ -3032,6 +2987,8 @@ class Application(
         field_enum_info['PostMethod'] = Application.PostMethod.__dict__.values()
         field_enum_info['ScoreType'] = Application.ScoreType.__dict__.values()
         field_enum_info['SortOrder'] = Application.SortOrder.__dict__.values()
+        field_enum_info['LoggingSource'] = Application.LoggingSource.__dict__.values()
+        field_enum_info['LoggingTarget'] = Application.LoggingTarget.__dict__.values()
         field_enum_info['Role'] = Application.Role.__dict__.values()
         return field_enum_info
 

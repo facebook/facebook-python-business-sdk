@@ -48,12 +48,10 @@ class PagePost(
         backdated_time = 'backdated_time'
         call_to_action = 'call_to_action'
         can_reply_privately = 'can_reply_privately'
-        caption = 'caption'
         child_attachments = 'child_attachments'
         comments_mirroring_domain = 'comments_mirroring_domain'
         coordinates = 'coordinates'
         created_time = 'created_time'
-        description = 'description'
         event = 'event'
         expanded_height = 'expanded_height'
         expanded_width = 'expanded_width'
@@ -72,13 +70,10 @@ class PagePost(
         is_popular = 'is_popular'
         is_published = 'is_published'
         is_spherical = 'is_spherical'
-        link = 'link'
         message = 'message'
         message_tags = 'message_tags'
         multi_share_end_card = 'multi_share_end_card'
         multi_share_optimized = 'multi_share_optimized'
-        name = 'name'
-        object_id = 'object_id'
         parent_id = 'parent_id'
         permalink_url = 'permalink_url'
         picture = 'picture'
@@ -89,7 +84,6 @@ class PagePost(
         properties = 'properties'
         scheduled_publish_time = 'scheduled_publish_time'
         shares = 'shares'
-        source = 'source'
         status_type = 'status_type'
         story = 'story'
         story_tags = 'story_tags'
@@ -97,7 +91,6 @@ class PagePost(
         target = 'target'
         targeting = 'targeting'
         timeline_visibility = 'timeline_visibility'
-        type = 'type'
         updated_time = 'updated_time'
         via = 'via'
         video_buying_eligibility = 'video_buying_eligibility'
@@ -646,6 +639,7 @@ class PagePost(
                 'DOWNLOAD',
                 'EVENT_RSVP',
                 'FIND_A_GROUP',
+                'FIND_YOUR_GROUPS',
                 'FOLLOW_NEWS_STORYLINE',
                 'GET_DIRECTIONS',
                 'GET_OFFER',
@@ -672,6 +666,7 @@ class PagePost(
                 'SHARE',
                 'SHOP_NOW',
                 'SIGN_UP',
+                'SOTTO_SUBSCRIBE',
                 'SUBSCRIBE',
                 'UPDATE_APP',
                 'USE_APP',
@@ -902,12 +897,10 @@ class PagePost(
         'backdated_time': 'datetime',
         'call_to_action': 'Object',
         'can_reply_privately': 'bool',
-        'caption': 'string',
         'child_attachments': 'list',
         'comments_mirroring_domain': 'string',
         'coordinates': 'Object',
         'created_time': 'datetime',
-        'description': 'string',
         'event': 'Event',
         'expanded_height': 'unsigned int',
         'expanded_width': 'unsigned int',
@@ -926,13 +919,10 @@ class PagePost(
         'is_popular': 'bool',
         'is_published': 'bool',
         'is_spherical': 'bool',
-        'link': 'string',
         'message': 'string',
         'message_tags': 'list',
         'multi_share_end_card': 'bool',
         'multi_share_optimized': 'bool',
-        'name': 'string',
-        'object_id': 'string',
         'parent_id': 'string',
         'permalink_url': 'Object',
         'picture': 'string',
@@ -943,7 +933,6 @@ class PagePost(
         'properties': 'list',
         'scheduled_publish_time': 'float',
         'shares': 'Object',
-        'source': 'string',
         'status_type': 'string',
         'story': 'string',
         'story_tags': 'list',
@@ -951,7 +940,6 @@ class PagePost(
         'target': 'Profile',
         'targeting': 'Object',
         'timeline_visibility': 'string',
-        'type': 'string',
         'updated_time': 'datetime',
         'via': 'Object',
         'video_buying_eligibility': 'list<string>',

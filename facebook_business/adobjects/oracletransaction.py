@@ -59,6 +59,10 @@ class OracleTransaction(
         payment_term = 'payment_term'
         type = 'type'
 
+    class Type:
+        cm = 'CM'
+        inv = 'INV'
+
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -174,6 +178,7 @@ class OracleTransaction(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['Type'] = OracleTransaction.Type.__dict__.values()
         return field_enum_info
 
 

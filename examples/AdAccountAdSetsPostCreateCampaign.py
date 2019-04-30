@@ -18,12 +18,24 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebook_business.session import FacebookSession
+from facebook_business.adobjects.adaccount import AdAccount
+from facebook_business.adobjects.campaign import Campaign
 from facebook_business.api import FacebookAdsApi
 
-__version__ = '3.3.1'
-__all__ = [
-    'session',
-    'objects',
-    'api',
+access_token = '<ACCESS_TOKEN>'
+app_secret = '<APP_SECRET>'
+app_id = '<APP_ID>'
+id = '<AD_ACCOUNT_ID>'
+FacebookAdsApi.init(access_token=access_token)
+
+fields = [
 ]
+params = {
+  'name': 'My campaign',
+  'objective': 'LINK_CLICKS',
+  'status': 'PAUSED',
+}
+print AdAccount(id).create_campaign(
+  fields=fields,
+  params=params,
+)

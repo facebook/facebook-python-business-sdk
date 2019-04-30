@@ -61,7 +61,17 @@ class Group(
         updated_time = 'updated_time'
         venue = 'venue'
 
-    class GroupType:
+    class JoinSetting:
+        admin_only = 'ADMIN_ONLY'
+        anyone = 'ANYONE'
+        none = 'NONE'
+
+    class PostPermissions:
+        admin_only = 'ADMIN_ONLY'
+        anyone = 'ANYONE'
+        none = 'NONE'
+
+    class Purpose:
         casual = 'CASUAL'
         close_friends = 'CLOSE_FRIENDS'
         club = 'CLUB'
@@ -107,17 +117,7 @@ class Group(
         work_team = 'WORK_TEAM'
         work_teamwork = 'WORK_TEAMWORK'
 
-    class JoinSetting:
-        admin_only = 'ADMIN_ONLY'
-        anyone = 'ANYONE'
-        none = 'NONE'
-
-    class PostPermissions:
-        admin_only = 'ADMIN_ONLY'
-        anyone = 'ANYONE'
-        none = 'NONE'
-
-    class Purpose:
+    class GroupType:
         casual = 'CASUAL'
         close_friends = 'CLOSE_FRIENDS'
         club = 'CLUB'
@@ -234,7 +234,6 @@ class Group(
             'focus_x': 'float',
             'focus_y': 'float',
             'group_icon': 'string',
-            'group_type': 'group_type_enum',
             'join_setting': 'join_setting_enum',
             'name': 'string',
             'no_feed_story': 'bool',
@@ -246,7 +245,6 @@ class Group(
             'update_view_time': 'bool',
         }
         enums = {
-            'group_type_enum': Group.GroupType.__dict__.values(),
             'join_setting_enum': Group.JoinSetting.__dict__.values(),
             'post_permissions_enum': Group.PostPermissions.__dict__.values(),
             'purpose_enum': Group.Purpose.__dict__.values(),
@@ -1397,10 +1395,10 @@ class Group(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['GroupType'] = Group.GroupType.__dict__.values()
         field_enum_info['JoinSetting'] = Group.JoinSetting.__dict__.values()
         field_enum_info['PostPermissions'] = Group.PostPermissions.__dict__.values()
         field_enum_info['Purpose'] = Group.Purpose.__dict__.values()
+        field_enum_info['GroupType'] = Group.GroupType.__dict__.values()
         field_enum_info['SuggestionCategory'] = Group.SuggestionCategory.__dict__.values()
         return field_enum_info
 

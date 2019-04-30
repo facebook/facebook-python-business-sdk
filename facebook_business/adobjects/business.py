@@ -107,13 +107,6 @@ class Business(
         app_developer = 'APP_DEVELOPER'
         publisher = 'PUBLISHER'
 
-    class PagePermittedRoles:
-        advertiser = 'ADVERTISER'
-        content_creator = 'CONTENT_CREATOR'
-        insights_analyst = 'INSIGHTS_ANALYST'
-        manager = 'MANAGER'
-        moderator = 'MODERATOR'
-
     class PagePermittedTasks:
         advertise = 'ADVERTISE'
         analyze = 'ANALYZE'
@@ -790,6 +783,37 @@ class Business(
             self.assure_call()
             return request.execute()
 
+    def get_an_placements(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.adplacement import AdPlacement
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/an_placements',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdPlacement,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdPlacement, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def delete_apps(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -892,9 +916,13 @@ class Business(
         from facebook_business.adobjects.oracletransaction import OracleTransaction
         param_types = {
             'end_date': 'string',
+            'issue_end_date': 'string',
+            'issue_start_date': 'string',
             'start_date': 'string',
+            'type': 'type_enum',
         }
         enums = {
+            'type_enum': OracleTransaction.Type.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -1472,37 +1500,6 @@ class Business(
             target_class=Business,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=Business, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def get_credit_cards(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.businesscreditcardlegacy import BusinessCreditCardLegacy
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/creditcards',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=BusinessCreditCardLegacy,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=BusinessCreditCardLegacy, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2307,7 +2304,6 @@ class Business(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'name': 'string',
-            'page_permitted_roles': 'list<page_permitted_roles_enum>',
             'page_permitted_tasks': 'list<page_permitted_tasks_enum>',
             'sales_rep_email': 'string',
             'shared_page_id': 'string',
@@ -2318,7 +2314,6 @@ class Business(
             'vertical': 'vertical_enum',
         }
         enums = {
-            'page_permitted_roles_enum': Business.PagePermittedRoles.__dict__.values(),
             'page_permitted_tasks_enum': Business.PagePermittedTasks.__dict__.values(),
             'survey_business_type_enum': Business.SurveyBusinessType.__dict__.values(),
             'vertical_enum': Business.Vertical.__dict__.values(),
@@ -3773,7 +3768,6 @@ class Business(
         field_enum_info['AccessType'] = Business.AccessType.__dict__.values()
         field_enum_info['PermittedTasks'] = Business.PermittedTasks.__dict__.values()
         field_enum_info['SurveyBusinessType'] = Business.SurveyBusinessType.__dict__.values()
-        field_enum_info['PagePermittedRoles'] = Business.PagePermittedRoles.__dict__.values()
         field_enum_info['PagePermittedTasks'] = Business.PagePermittedTasks.__dict__.values()
         field_enum_info['Role'] = Business.Role.__dict__.values()
         return field_enum_info

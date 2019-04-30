@@ -83,6 +83,7 @@ class OfflineConversionDataSet(
     def get_endpoint(cls):
         return 'offline_conversion_data_sets'
 
+    # @deprecated api_create is being deprecated
     def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.adobjects.business import Business
         return Business(api=self._api, fbid=parent_id).create_offline_conversion_data_set(fields, params, batch, success, failure, pending)

@@ -55,6 +55,7 @@ class EventSourceGroup(
     def get_endpoint(cls):
         return 'event_source_groups'
 
+    # @deprecated api_create is being deprecated
     def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.adobjects.business import Business
         return Business(api=self._api, fbid=parent_id).create_event_source_group(fields, params, batch, success, failure, pending)

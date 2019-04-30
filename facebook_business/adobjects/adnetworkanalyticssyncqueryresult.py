@@ -58,6 +58,7 @@ class AdNetworkAnalyticsSyncQueryResult(
         fail_reason = 'FAIL_REASON'
         gender = 'GENDER'
         placement = 'PLACEMENT'
+        placement_name = 'PLACEMENT_NAME'
         platform = 'PLATFORM'
         property = 'PROPERTY'
         sdk_version = 'SDK_VERSION'

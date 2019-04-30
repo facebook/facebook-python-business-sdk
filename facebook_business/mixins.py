@@ -24,7 +24,7 @@ mixins contains attributes that objects share
 
 from facebook_business.exceptions import FacebookBadObjectError
 
-
+# @deprecated CanValidate is being deprecated
 class CanValidate(object):
     """
     An instance of CanValidate will allow the ad objects
@@ -41,6 +41,7 @@ class CanValidate(object):
         return self
 
 
+# @deprecated CanArchive is being deprecated
 class CanArchive(object):
 
     """
@@ -83,6 +84,7 @@ class CanArchive(object):
         )
 
 
+# @deprecated CannotCreate is being deprecated
 class CannotCreate(object):
 
     """
@@ -94,7 +96,7 @@ class CannotCreate(object):
     def remote_create(cls, *args, **kwargs):
         raise TypeError('Cannot create object of type %s.' % cls.__name__)
 
-
+# @deprecated CannotDelete is being deprecated
 class CannotDelete(object):
 
     """
@@ -106,7 +108,7 @@ class CannotDelete(object):
     def remote_delete(cls, *args, **kwargs):
         raise TypeError('Cannot delete object of type %s.' % cls.__name__)
 
-
+# @deprecated CannotUpdate is being deprecated
 class CannotUpdate(object):
 
     """
@@ -118,7 +120,7 @@ class CannotUpdate(object):
     def remote_update(cls, *args, **kwargs):
         raise TypeError('Cannot update object of type %s.' % cls.__name__)
 
-
+# @deprecated HasObjective is being deprecated
 class HasObjective(object):
 
     """
@@ -143,7 +145,7 @@ class HasObjective(object):
         video_views = 'VIDEO_VIEWS'
         product_catalog_sales = 'PRODUCT_CATALOG_SALES'
 
-
+# @deprecated HasStatus is being deprecated
 class HasStatus(object):
 
     """
@@ -156,7 +158,7 @@ class HasStatus(object):
         deleted = 'DELETED'
         paused = 'PAUSED'
 
-
+# @deprecated HasBidInfo is being deprecated
 class HasBidInfo(object):
 
     """
@@ -169,7 +171,6 @@ class HasBidInfo(object):
         impressions = 'IMPRESSIONS'
         reach = 'REACH'
         social = 'SOCIAL'
-
 
 class HasAdLabels(object):
 
@@ -198,7 +199,6 @@ class HasAdLabels(object):
             (self.get_id_assured(), 'adlabels'),
             params={'adlabels': [{'id': label} for label in labels]},
         )
-
 
 class ValidatesFields(object):
     def __setitem__(self, key, value):

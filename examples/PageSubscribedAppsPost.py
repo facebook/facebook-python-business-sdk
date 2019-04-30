@@ -18,12 +18,21 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebook_business.session import FacebookSession
+from facebook_business.adobjects.page import Page
 from facebook_business.api import FacebookAdsApi
 
-__version__ = '3.3.1'
-__all__ = [
-    'session',
-    'objects',
-    'api',
+access_token = '<ACCESS_TOKEN>'
+app_secret = '<APP_SECRET>'
+app_id = '<APP_ID>'
+id = '<PAGE_ID>'
+FacebookAdsApi.init(access_token=access_token)
+
+fields = [
 ]
+params = {
+  'subscribed_fields': 'leadgen',
+}
+print Page(id).create_subscribed_app(
+  fields=fields,
+  params=params,
+)
