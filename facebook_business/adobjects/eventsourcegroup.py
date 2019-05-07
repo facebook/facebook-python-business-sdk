@@ -46,9 +46,9 @@ class EventSourceGroup(
         id = 'id'
         name = 'name'
 
-    class Role:
-        analyst = 'ANALYST'
-        limited_analyst = 'LIMITED_ANALYST'
+    class Tasks:
+        analyze = 'ANALYZE'
+        analyze_with_limitations = 'ANALYZE_WITH_LIMITATIONS'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
@@ -251,11 +251,11 @@ class EventSourceGroup(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'role': 'role_enum',
+            'tasks': 'list<tasks_enum>',
             'user': 'int',
         }
         enums = {
-            'role_enum': EventSourceGroup.Role.__dict__.values(),
+            'tasks_enum': EventSourceGroup.Tasks.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -288,7 +288,7 @@ class EventSourceGroup(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['Role'] = EventSourceGroup.Role.__dict__.values()
+        field_enum_info['Tasks'] = EventSourceGroup.Tasks.__dict__.values()
         return field_enum_info
 
 

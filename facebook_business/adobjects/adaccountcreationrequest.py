@@ -223,20 +223,6 @@ class AdAccountCreationRequest(
         telecom = 'TELECOM'
         travel = 'TRAVEL'
 
-    class Status:
-        appeal_approved = 'APPEAL_APPROVED'
-        appeal_disapproved = 'APPEAL_DISAPPROVED'
-        appeal_pending = 'APPEAL_PENDING'
-        appeal_under_review = 'APPEAL_UNDER_REVIEW'
-        approved = 'APPROVED'
-        auto_approved = 'AUTO_APPROVED'
-        auto_disapproved = 'AUTO_DISAPPROVED'
-        cancelled = 'CANCELLED'
-        disapproved = 'DISAPPROVED'
-        pending = 'PENDING'
-        requested_change = 'REQUESTED_CHANGE'
-        under_review = 'UNDER_REVIEW'
-
     # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
@@ -246,36 +232,6 @@ class AdAccountCreationRequest(
     def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.adobjects.business import Business
         return Business(api=self._api, fbid=parent_id).create_ad_account_creation_request(fields, params, batch, success, failure, pending)
-
-    def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='DELETE',
-            endpoint='/',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -393,56 +349,6 @@ class AdAccountCreationRequest(
             self.assure_call()
             return request.execute()
 
-    def create_vietnam(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'ad_accounts_info': 'list<Object>',
-            'additional_comment': 'string',
-            'address_in_english': 'Object',
-            'address_in_local_language': 'string',
-            'advertiser_business_id': 'string',
-            'business_registration': 'file',
-            'business_registration_id': 'string',
-            'contact': 'Object',
-            'english_legal_entity_name': 'string',
-            'legal_entity_name_in_local_language': 'string',
-            'official_website_url': 'string',
-            'planning_agency_business_id': 'string',
-            'promotable_app_ids': 'list<string>',
-            'promotable_page_ids': 'list<int>',
-            'promotable_page_urls': 'list<string>',
-            'promotable_urls': 'list<string>',
-            'subvertical': 'subvertical_enum',
-            'vertical': 'vertical_enum',
-        }
-        enums = {
-            'subvertical_enum': AdAccountCreationRequest.Subvertical.__dict__.values(),
-            'vertical_enum': AdAccountCreationRequest.Vertical.__dict__.values(),
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/vietnam',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AdAccountCreationRequest,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdAccountCreationRequest, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     _field_types = {
         'ad_accounts_currency': 'string',
         'ad_accounts_info': 'list<Object>',
@@ -487,7 +393,6 @@ class AdAccountCreationRequest(
         field_enum_info = {}
         field_enum_info['Subvertical'] = AdAccountCreationRequest.Subvertical.__dict__.values()
         field_enum_info['Vertical'] = AdAccountCreationRequest.Vertical.__dict__.values()
-        field_enum_info['Status'] = AdAccountCreationRequest.Status.__dict__.values()
         return field_enum_info
 
 

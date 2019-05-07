@@ -43,7 +43,6 @@ class LeadgenForm(
     class Field(AbstractObject.Field):
         allow_organic_lead = 'allow_organic_lead'
         block_display_for_non_targeted_viewer = 'block_display_for_non_targeted_viewer'
-        context_card = 'context_card'
         created_time = 'created_time'
         creator = 'creator'
         creator_id = 'creator_id'
@@ -56,7 +55,6 @@ class LeadgenForm(
         is_optimized_for_quality = 'is_optimized_for_quality'
         leadgen_export_csv_url = 'leadgen_export_csv_url'
         leads_count = 'leads_count'
-        legal_content = 'legal_content'
         locale = 'locale'
         messenger_welcome_message = 'messenger_welcome_message'
         name = 'name'
@@ -69,7 +67,6 @@ class LeadgenForm(
         questions = 'questions'
         status = 'status'
         tcpa_compliance = 'tcpa_compliance'
-        thank_you_page = 'thank_you_page'
         tracking_parameters = 'tracking_parameters'
 
     class Status:
@@ -239,40 +236,6 @@ class LeadgenForm(
             self.assure_call()
             return request.execute()
 
-    def create_lead(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.lead import Lead
-        param_types = {
-            'end_time': 'datetime',
-            'session_id': 'string',
-            'start_time': 'datetime',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/leads',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=Lead,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=Lead, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def get_test_leads(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -340,7 +303,6 @@ class LeadgenForm(
     _field_types = {
         'allow_organic_lead': 'bool',
         'block_display_for_non_targeted_viewer': 'bool',
-        'context_card': 'LeadGenContextCard',
         'created_time': 'datetime',
         'creator': 'User',
         'creator_id': 'int',
@@ -353,7 +315,6 @@ class LeadgenForm(
         'is_optimized_for_quality': 'bool',
         'leadgen_export_csv_url': 'string',
         'leads_count': 'unsigned int',
-        'legal_content': 'LeadGenLegalContent',
         'locale': 'string',
         'messenger_welcome_message': 'string',
         'name': 'string',
@@ -366,7 +327,6 @@ class LeadgenForm(
         'questions': 'list<LeadGenQuestion>',
         'status': 'string',
         'tcpa_compliance': 'bool',
-        'thank_you_page': 'Object',
         'tracking_parameters': 'map<string, string>',
     }
     @classmethod

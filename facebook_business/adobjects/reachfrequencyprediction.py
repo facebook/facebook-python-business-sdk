@@ -175,13 +175,6 @@ class ReachFrequencyPrediction(
         regular_tv_movies = 'REGULAR_TV_MOVIES'
         sports = 'SPORTS'
 
-    class Status:
-        active = 'ACTIVE'
-        completed = 'COMPLETED'
-        draft = 'DRAFT'
-        expired = 'EXPIRED'
-        pending = 'PENDING'
-
     # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
@@ -332,7 +325,6 @@ class ReachFrequencyPrediction(
         field_enum_info['Action'] = ReachFrequencyPrediction.Action.__dict__.values()
         field_enum_info['BuyingType'] = ReachFrequencyPrediction.BuyingType.__dict__.values()
         field_enum_info['InstreamPackages'] = ReachFrequencyPrediction.InstreamPackages.__dict__.values()
-        field_enum_info['Status'] = ReachFrequencyPrediction.Status.__dict__.values()
         return field_enum_info
 
 
