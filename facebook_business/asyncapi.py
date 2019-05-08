@@ -1,8 +1,7 @@
-from __future__ import unicode_literals, absolute_import, print_function
 import re
 import six
 import time
-import ujson
+import json
 import logging
 import collections
 import concurrent.futures
@@ -11,6 +10,7 @@ import threading
 from facebook_business.exceptions import FacebookCallFailedError, FacebookBadObjectError
 from facebook_business.api import FacebookSession, FacebookResponse, \
     FacebookAdsApi, _top_level_param_json_encode
+from six.moves import http_client
 
 __author__ = 'pasha-r'
 
@@ -29,7 +29,7 @@ class FacebookAsyncResponse(FacebookResponse):
             return self._json_body
 
         try:
-            self._json_body = ujson.loads(self._body)
+            self._json_body = json.loads(self._body)
             return self._json_body
         except (TypeError, ValueError):
             self._json_body = None
