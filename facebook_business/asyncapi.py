@@ -102,7 +102,7 @@ class FacebookAdsAsyncApi(FacebookAdsApi):
              timeout=None,
              debug=False,
              pool_maxsize=10,
-             max_retries=0):
+             max_retries=None):
         # connection pool size is +1 because there also is the main thread
         #  that can also issue a request
         session = FacebookSession(app_id, app_secret, access_token,
