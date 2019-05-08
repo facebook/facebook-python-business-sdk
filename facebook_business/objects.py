@@ -156,12 +156,14 @@ class AdAccount(adaccount.AdAccount):
 
 
 class Campaign(campaign.Campaign):
+    # fixme: not used anywhere
     class BuyingType(object):
         auction = 'AUCTION'
         fixed_price = 'FIXED_PRICE'
         reserved = 'RESERVED'
 
 class AdSet(adset.AdSet):
+    # fixme: not used anywhere
     class PacingType(object):
         day_parting = 'day_parting'
         standard = 'standard'
@@ -319,6 +321,7 @@ class TargetingDescription(targetingsentenceline.TargetingSentenceLine):
 
 class TargetingSearch(targetingsearch.TargetingSearch):
     pass
+
 
 class TargetingSpecsField(targeting.Targeting.Field):
     pass

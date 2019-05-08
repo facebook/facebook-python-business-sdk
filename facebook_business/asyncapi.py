@@ -7,11 +7,9 @@ import logging
 import collections
 import concurrent.futures
 import threading
-# noinspection PyUnresolvedReferences
-from six.moves import http_client
 
-from facebookads.exceptions import FacebookCallFailedError, FacebookBadObjectError
-from facebookads.api import FacebookSession, FacebookResponse, \
+from facebook_business.exceptions import FacebookCallFailedError, FacebookBadObjectError
+from facebook_business.api import FacebookSession, FacebookResponse, \
     FacebookAdsApi, _top_level_param_json_encode
 
 __author__ = 'pasha-r'
@@ -89,17 +87,27 @@ class FacebookAdsAsyncApi(FacebookAdsApi):
         self._thread_lock = threading.Lock()
         self._thread_pool = concurrent.futures.ThreadPoolExecutor(threadpool_size)
         self._futures = {}
-        """:type: dict[int, facebookads.asyncobjects.AioEdgeIterator]"""
+        """:type: dict[int, facebook_business.asyncobjects.AioEdgeIterator]"""
         self._futures_ordered = []
-        """:type: list[facebookads.asyncobjects.AioEdgeIterator]"""
+        """:type: list[facebook_business.asyncobjects.AioEdgeIterator]"""
 
     @classmethod
-    def init(cls, app_id=None, app_secret=None, access_token=None,
-             account_id=None, api_version=None, pool_maxsize=10, max_retries=0):
+    def init(cls,
+             app_id=None,
+             app_secret=None,
+             access_token=None,
+             account_id=None,
+             api_version=None,
+             proxies=None,
+             timeout=None,
+             debug=False,
+             pool_maxsize=10,
+             max_retries=0):
         # connection pool size is +1 because there also is the main thread
         #  that can also issue a request
         session = FacebookSession(app_id, app_secret, access_token,
-                                  pool_maxsize+1, max_retries)
+                                  proxies=proxies, timeout=timeout, debug=debug,
+                                  pool_maxsize=pool_maxsize+1, max_retries=max_retries)
         api = cls(session, api_version=api_version, threadpool_size=pool_maxsize)
         cls.set_default_api(api)
         # TODO: how to avoid this hack?
@@ -107,6 +115,13 @@ class FacebookAdsAsyncApi(FacebookAdsApi):
 
         if account_id:
             cls.set_default_account_id(account_id)
+
+    @classmethod
+    def get_default_api(cls):
+        """
+        :rtype: FacebookAdsAsyncApi
+        """
+        return cls._default_api
 
     def prepare_request_params(self, path, params, headers, files,
                                url_override, api_version):
@@ -189,7 +204,7 @@ class FacebookAdsAsyncApi(FacebookAdsApi):
         """Adds an async API call task to a futures queue.
         Returns a future holder object.
 
-        :param facebookads.asyncobjects.AioEdgeIterator edge_iter:
+        :param facebook_business.asyncobjects.AioEdgeIterator edge_iter:
             edge iterator issuing this call
         :param method: The HTTP method name (e.g. 'GET').
         :param path: A tuple of path tokens or a full URL string. A tuple will
@@ -206,6 +221,7 @@ class FacebookAdsAsyncApi(FacebookAdsApi):
             file objects. These files will be attached to the request.
         :param url_override:
         :param api_version:
+        :type delay_next_call_for: int
         :rtype: FacebookAsyncResponse
         """
         path, params, headers, files = self.prepare_request_params(
@@ -222,6 +238,7 @@ class FacebookAdsAsyncApi(FacebookAdsApi):
     def put_in_futures(self, edge_iter):
         """
         Adds iterator to a queue of futures self._futures_ordered and to dictionary self._futures
+        :type edge_iter: facebook_business.asyncobjects.AioEdgeIterator
         """
         with self._thread_lock:
             edge_iter_id = id(edge_iter)
@@ -242,6 +259,11 @@ class FacebookAdsAsyncApi(FacebookAdsApi):
                 pass
 
     def pop_one_from_futures(self):
+        """
+        Pops one job from the futures list
+
+        :rtype: facebook_business.asyncobjects.AioEdgeIterator
+        """
         with self._thread_lock:
             try:
                 edge_iter_id = self._futures_ordered.pop(0)
@@ -291,7 +313,7 @@ class FacebookAdsAsyncApi(FacebookAdsApi):
 
         If iterator is done or failed, returns the iterator, otherwise puts it in the features.
 
-        :rtype: list[facebookads.asyncobjects.AioEdgeIterator]
+        :rtype: list[facebook_business.asyncobjects.AioEdgeIterator]
         """
         time.sleep(0.02)
         cnt = 0
@@ -325,7 +347,7 @@ class FacebookAdsAsyncApi(FacebookAdsApi):
 
     def get_typed_async_results(self, target_objects_class):
         """
-        :rtype: list[facebookads.asyncobjects.AioEdgeIterator]
+        :rtype: list[facebook_business.asyncobjects.AioEdgeIterator]
         """
         time.sleep(0.02)
         cnt, required_type_cnt = 0, 0
@@ -370,3 +392,13 @@ class FacebookAdsAsyncApi(FacebookAdsApi):
                 cnt = 0
                 required_type_cnt = 0
                 time.sleep(0.5)
+
+    def __del__(self):
+        if self._thread_pool:
+            try:
+                if not self._thread_pool._shutdown:
+                    self._thread_pool.shutdown(False)
+            except Exception:
+                pass
+            del self._thread_pool
+        return

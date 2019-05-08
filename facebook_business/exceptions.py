@@ -26,8 +26,6 @@ raised by the sdk.
 import json
 import re
 
-from facebookads.utils.fberrcodes import FacebookErrorCodes
-
 
 class FacebookError(Exception):
     """

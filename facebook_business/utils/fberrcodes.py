@@ -1,3 +1,4 @@
+# See https://developers.facebook.com/docs/marketing-api/error-reference
 class FacebookErrorCodes(object):
     unknown = 1
     temporary = 2
