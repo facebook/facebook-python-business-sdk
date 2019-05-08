@@ -65,8 +65,9 @@ class AgencyClientDeclaration(
         'has_written_mandate_from_advertiser': 'unsigned int',
         'is_client_paying_invoices': 'unsigned int',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         return field_enum_info
+
+

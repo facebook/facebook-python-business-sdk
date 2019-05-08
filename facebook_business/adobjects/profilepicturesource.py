@@ -49,11 +49,9 @@ class ProfilePictureSource(
         width = 'width'
 
     class Type:
-        small = 'small'
-        normal = 'normal'
         album = 'album'
-        large = 'large'
-        square = 'square'
+        small = 'small'
+        thumbnail = 'thumbnail'
 
     _field_types = {
         'bottom': 'unsigned int',
@@ -66,9 +64,10 @@ class ProfilePictureSource(
         'url': 'string',
         'width': 'unsigned int',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['Type'] = ProfilePictureSource.Type.__dict__.values()
         return field_enum_info
+
+

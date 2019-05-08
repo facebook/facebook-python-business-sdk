@@ -47,8 +47,9 @@ class AudiencePermission(
         'share_account_id': 'string',
         'share_account_name': 'string',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         return field_enum_info
+
+

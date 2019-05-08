@@ -63,13 +63,13 @@ class ProductEventStat(
         unknown = 'unknown'
 
     class Event:
-        viewcontent = 'ViewContent'
         addtocart = 'AddToCart'
-        purchase = 'Purchase'
-        initiatecheckout = 'InitiateCheckout'
-        search = 'Search'
-        lead = 'Lead'
         addtowishlist = 'AddToWishlist'
+        initiatecheckout = 'InitiateCheckout'
+        lead = 'Lead'
+        purchase = 'Purchase'
+        search = 'Search'
+        viewcontent = 'ViewContent'
 
     class Breakdowns:
         device_type = 'DEVICE_TYPE'
@@ -87,7 +87,6 @@ class ProductEventStat(
         'unique_matched_content_ids': 'int',
         'unique_unmatched_content_ids': 'int',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
@@ -95,3 +94,5 @@ class ProductEventStat(
         field_enum_info['Event'] = ProductEventStat.Event.__dict__.values()
         field_enum_info['Breakdowns'] = ProductEventStat.Breakdowns.__dict__.values()
         return field_enum_info
+
+

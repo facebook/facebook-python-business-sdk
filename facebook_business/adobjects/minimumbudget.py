@@ -56,8 +56,9 @@ class MinimumBudget(
         'min_daily_budget_low_freq': 'int',
         'min_daily_budget_video_views': 'int',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         return field_enum_info
+
+

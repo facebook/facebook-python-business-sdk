@@ -55,8 +55,9 @@ class AdsImageCrops(
         '600x360': 'list<list>',
         '90x160': 'list<list>',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         return field_enum_info
+
+

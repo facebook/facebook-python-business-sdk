@@ -54,13 +54,27 @@ class Profile(
         username = 'username'
 
     class ProfileType:
-        user = 'user'
-        page = 'page'
+        application = 'application'
         event = 'event'
         group = 'group'
-        application = 'application'
+        page = 'page'
+        user = 'user'
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    class Type:
+        angry = 'ANGRY'
+        haha = 'HAHA'
+        like = 'LIKE'
+        love = 'LOVE'
+        none = 'NONE'
+        pride = 'PRIDE'
+        sad = 'SAD'
+        thankful = 'THANKFUL'
+        wow = 'WOW'
+
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -79,7 +93,7 @@ class Profile(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -87,7 +101,10 @@ class Profile(
             self.assure_call()
             return request.execute()
 
-    def get_picture(self, fields=None, params=None, batch=None, pending=False):
+    def get_picture(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.profilepicturesource import ProfilePictureSource
         param_types = {
             'height': 'int',
@@ -112,7 +129,7 @@ class Profile(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -133,9 +150,11 @@ class Profile(
         'profile_type': 'ProfileType',
         'username': 'string',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['ProfileType'] = Profile.ProfileType.__dict__.values()
+        field_enum_info['Type'] = Profile.Type.__dict__.values()
         return field_enum_info
+
+

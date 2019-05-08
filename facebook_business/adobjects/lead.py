@@ -54,6 +54,7 @@ class Lead(
         id = 'id'
         is_organic = 'is_organic'
         partner_name = 'partner_name'
+        platform = 'platform'
         post = 'post'
         retailer_item_id = 'retailer_item_id'
 
@@ -62,7 +63,10 @@ class Lead(
     def get_endpoint(cls):
         return 'leads'
 
-    def api_delete(self, fields=None, params=None, batch=None, pending=False):
+    def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -81,7 +85,7 @@ class Lead(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -89,7 +93,10 @@ class Lead(
             self.assure_call()
             return request.execute()
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -108,7 +115,7 @@ class Lead(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -130,11 +137,13 @@ class Lead(
         'id': 'string',
         'is_organic': 'bool',
         'partner_name': 'string',
-        'post': 'Object',
+        'platform': 'string',
+        'post': 'Link',
         'retailer_item_id': 'string',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         return field_enum_info
+
+

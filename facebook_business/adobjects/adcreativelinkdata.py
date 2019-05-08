@@ -56,6 +56,7 @@ class AdCreativeLinkData(
         format_option = 'format_option'
         image_crops = 'image_crops'
         image_hash = 'image_hash'
+        image_layer_specs = 'image_layer_specs'
         image_overlay_spec = 'image_overlay_spec'
         link = 'link'
         message = 'message'
@@ -69,11 +70,13 @@ class AdCreativeLinkData(
         preferred_image_tags = 'preferred_image_tags'
         retailer_item_ids = 'retailer_item_ids'
         show_multiple_images = 'show_multiple_images'
+        sponsorship_info = 'sponsorship_info'
         static_fallback_spec = 'static_fallback_spec'
+        use_flexible_image_aspect_ratio = 'use_flexible_image_aspect_ratio'
 
     class AttachmentStyle:
-        link = 'link'
         value_default = 'default'
+        link = 'link'
 
     class FormatOption:
         carousel_images_multi_items = 'carousel_images_multi_items'
@@ -93,13 +96,14 @@ class AdCreativeLinkData(
         'child_attachments': 'list<AdCreativeLinkDataChildAttachment>',
         'collection_thumbnails': 'list<AdCreativeCollectionThumbnailInfo>',
         'custom_overlay_spec': 'AdCreativeLinkDataCustomOverlaySpec',
-        'customization_rules_spec': 'list<Object>',
+        'customization_rules_spec': 'list<AdCustomizationRuleSpec>',
         'description': 'string',
         'event_id': 'string',
         'force_single_link': 'bool',
         'format_option': 'FormatOption',
         'image_crops': 'AdsImageCrops',
         'image_hash': 'string',
+        'image_layer_specs': 'list<AdCreativeLinkDataImageLayerSpec>',
         'image_overlay_spec': 'AdCreativeLinkDataImageOverlaySpec',
         'link': 'string',
         'message': 'string',
@@ -113,12 +117,15 @@ class AdCreativeLinkData(
         'preferred_image_tags': 'list<string>',
         'retailer_item_ids': 'list<string>',
         'show_multiple_images': 'bool',
-        'static_fallback_spec': 'Object',
+        'sponsorship_info': 'AdCreativeLinkDataSponsorshipInfoSpec',
+        'static_fallback_spec': 'AdCreativeStaticFallbackSpec',
+        'use_flexible_image_aspect_ratio': 'bool',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['AttachmentStyle'] = AdCreativeLinkData.AttachmentStyle.__dict__.values()
         field_enum_info['FormatOption'] = AdCreativeLinkData.FormatOption.__dict__.values()
         return field_enum_info
+
+

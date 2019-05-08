@@ -57,9 +57,10 @@ class CustomConversionStatsResult(
         'data': 'list<Object>',
         'timestamp': 'datetime',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['Aggregation'] = CustomConversionStatsResult.Aggregation.__dict__.values()
         return field_enum_info
+
+

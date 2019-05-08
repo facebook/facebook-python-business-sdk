@@ -49,23 +49,26 @@ class MeasurementReport(
         upload_urls = 'upload_urls'
 
     class ReportType:
-        multi_channel_report = 'multi_channel_report'
-        video_metrics_report = 'video_metrics_report'
         fruit_rollup_report = 'fruit_rollup_report'
-        third_party_mta_report = 'third_party_mta_report'
-        partner_lift_study_report = 'partner_lift_study_report'
         mmm_report = 'mmm_report'
+        multi_channel_report = 'multi_channel_report'
+        partner_lift_study_report = 'partner_lift_study_report'
+        third_party_mta_report = 'third_party_mta_report'
+        video_metrics_report = 'video_metrics_report'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'measurement_reports'
 
-    def api_create(self, parent_id, fields=None, params=None, batch=None, pending=False):
+    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.adobjects.business import Business
-        return Business(api=self._api, fbid=parent_id).create_measurement_report(fields, params, batch, pending)
+        return Business(api=self._api, fbid=parent_id).create_measurement_report(fields, params, batch, success, failure, pending)
 
-    def api_delete(self, fields=None, params=None, batch=None, pending=False):
+    def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -84,7 +87,7 @@ class MeasurementReport(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -92,7 +95,10 @@ class MeasurementReport(
             self.assure_call()
             return request.execute()
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -111,7 +117,7 @@ class MeasurementReport(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -119,7 +125,10 @@ class MeasurementReport(
             self.assure_call()
             return request.execute()
 
-    def api_update(self, fields=None, params=None, batch=None, pending=False):
+    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'is_last_batch': 'bool',
             'payload': 'file',
@@ -141,7 +150,7 @@ class MeasurementReport(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -157,9 +166,10 @@ class MeasurementReport(
         'status': 'string',
         'upload_urls': 'list<string>',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['ReportType'] = MeasurementReport.ReportType.__dict__.values()
         return field_enum_info
+
+

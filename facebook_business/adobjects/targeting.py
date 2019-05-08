@@ -45,6 +45,9 @@ class Targeting(
         app_install_state = 'app_install_state'
         audience_network_positions = 'audience_network_positions'
         behaviors = 'behaviors'
+        brand_safety_content_filter_levels = 'brand_safety_content_filter_levels'
+        brand_safety_content_severity_levels = 'brand_safety_content_severity_levels'
+        catalog_based_targeting = 'catalog_based_targeting'
         cities = 'cities'
         college_years = 'college_years'
         connections = 'connections'
@@ -109,12 +112,12 @@ class Targeting(
         political_views = 'political_views'
         politics = 'politics'
         product_audience_specs = 'product_audience_specs'
+        prospecting_audience = 'prospecting_audience'
         publisher_platforms = 'publisher_platforms'
         publisher_visibility_categories = 'publisher_visibility_categories'
         radius = 'radius'
         regions = 'regions'
         relationship_statuses = 'relationship_statuses'
-        rtb_flag = 'rtb_flag'
         site_category = 'site_category'
         targeting_optimization = 'targeting_optimization'
         user_adclusters = 'user_adclusters'
@@ -127,14 +130,14 @@ class Targeting(
         zips = 'zips'
 
     class DevicePlatforms:
-        mobile = 'mobile'
-        desktop = 'desktop'
         connected_tv = 'connected_tv'
+        desktop = 'desktop'
+        mobile = 'mobile'
 
     class EffectiveDevicePlatforms:
-        mobile = 'mobile'
-        desktop = 'desktop'
         connected_tv = 'connected_tv'
+        desktop = 'desktop'
+        mobile = 'mobile'
 
     _field_types = {
         'adgroup_id': 'string',
@@ -144,6 +147,9 @@ class Targeting(
         'app_install_state': 'string',
         'audience_network_positions': 'list<string>',
         'behaviors': 'list<IDName>',
+        'brand_safety_content_filter_levels': 'list<string>',
+        'brand_safety_content_severity_levels': 'list<string>',
+        'catalog_based_targeting': 'CatalogBasedTargeting',
         'cities': 'list<IDName>',
         'college_years': 'list<unsigned int>',
         'connections': 'list<IDName>',
@@ -208,12 +214,12 @@ class Targeting(
         'political_views': 'list<unsigned int>',
         'politics': 'list<IDName>',
         'product_audience_specs': 'list<TargetingProductAudienceSpec>',
+        'prospecting_audience': 'TargetingProspectingAudience',
         'publisher_platforms': 'list<string>',
         'publisher_visibility_categories': 'list<string>',
         'radius': 'string',
         'regions': 'list<IDName>',
         'relationship_statuses': 'list<unsigned int>',
-        'rtb_flag': 'bool',
         'site_category': 'list<string>',
         'targeting_optimization': 'string',
         'user_adclusters': 'list<IDName>',
@@ -225,10 +231,11 @@ class Targeting(
         'work_positions': 'list<IDName>',
         'zips': 'list<string>',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['DevicePlatforms'] = Targeting.DevicePlatforms.__dict__.values()
         field_enum_info['EffectiveDevicePlatforms'] = Targeting.EffectiveDevicePlatforms.__dict__.values()
         return field_enum_info
+
+

@@ -49,7 +49,10 @@ class URL(
         og_object = 'og_object'
         ownership_permissions = 'ownership_permissions'
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -68,7 +71,40 @@ class URL(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'hmac': 'string',
+            'locale': 'list',
+            'ts': 'datetime',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=URL,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -85,8 +121,9 @@ class URL(
         'og_object': 'Object',
         'ownership_permissions': 'Object',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         return field_enum_info
+
+

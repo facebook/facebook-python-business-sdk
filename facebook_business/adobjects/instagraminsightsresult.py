@@ -49,28 +49,27 @@ class InstagramInsightsResult(
         values = 'values'
 
     class Metric:
-        impressions = 'impressions'
-        reach = 'reach'
+        carousel_album_engagement = 'carousel_album_engagement'
         carousel_album_impressions = 'carousel_album_impressions'
         carousel_album_reach = 'carousel_album_reach'
-        carousel_album_engagement = 'carousel_album_engagement'
         carousel_album_saved = 'carousel_album_saved'
         carousel_album_video_views = 'carousel_album_video_views'
-        taps_forward = 'taps_forward'
-        taps_back = 'taps_back'
-        exits = 'exits'
-        replies = 'replies'
         engagement = 'engagement'
+        exits = 'exits'
+        impressions = 'impressions'
+        reach = 'reach'
+        replies = 'replies'
         saved = 'saved'
+        taps_back = 'taps_back'
+        taps_forward = 'taps_forward'
         video_views = 'video_views'
 
     class Period:
         day = 'day'
-        week = 'week'
         days_28 = 'days_28'
-        month = 'month'
         lifetime = 'lifetime'
-        total_over_range = 'total_over_range'
+        month = 'month'
+        week = 'week'
 
     _field_types = {
         'description': 'string',
@@ -80,10 +79,11 @@ class InstagramInsightsResult(
         'title': 'string',
         'values': 'list<InstagramInsightsValue>',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['Metric'] = InstagramInsightsResult.Metric.__dict__.values()
         field_enum_info['Period'] = InstagramInsightsResult.Period.__dict__.values()
         return field_enum_info
+
+

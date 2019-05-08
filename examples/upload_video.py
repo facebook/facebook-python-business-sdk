@@ -4,11 +4,14 @@ Upload a video to adaccount
 
 import sys
 import os
+import json
 
 sdk_path = os.path.abspath(os.path.join(__file__, os.pardir, os.pardir))
 sys.path.insert(1, sdk_path)
 
-from facebook_business.objects import *
+from facebook_business.session import FacebookSession
+from facebook_business.api import FacebookAdsApi
+from facebook_business.adobjects.advideo import AdVideo
 
 config_filename = os.path.join(sdk_path, './config.json')
 

@@ -162,7 +162,7 @@ class FacebookAdsApi(object):
     _default_api = None
     _default_account_id = None
 
-    def __init__(self, session, api_version=None):
+    def __init__(self, session, api_version=None, enable_debug_logger=False):
         """Initializes the api instance.
         Args:
             session: FacebookSession object that contains a requests interface
@@ -173,6 +173,7 @@ class FacebookAdsApi(object):
         self._num_requests_succeeded = 0
         self._num_requests_attempted = 0
         self._api_version = api_version or self.API_VERSION
+        self._enable_debug_logger = enable_debug_logger
 
     def get_num_requests_attempted(self):
         """Returns the number of calls attempted."""
@@ -192,13 +193,13 @@ class FacebookAdsApi(object):
         api_version=None,
         proxies=None,
         timeout=None,
+        debug=False,
         pool_maxsize=10,
         max_retries=0
     ):
-        # session = FacebookSession(app_id, app_secret, access_token,
-        #                           pool_maxsize, max_retries)
-        session = FacebookSession(app_id, app_secret, access_token, proxies, timeout, pool_maxsize, max_retries)
-        api = cls(session, api_version)
+        session = FacebookSession(app_id, app_secret, access_token, proxies,
+                                  timeout, debug, pool_maxsize, max_retries)
+        api = cls(session, api_version, enable_debug_logger=debug)
         cls.set_default_api(api)
 
         if account_id:
@@ -307,6 +308,7 @@ class FacebookAdsApi(object):
                 files=files,
                 timeout=self._session.timeout
             )
+
         else:
             response = self._session.requests.request(
                 method,
@@ -316,6 +318,9 @@ class FacebookAdsApi(object):
                 files=files,
                 timeout=self._session.timeout
             )
+        if self._enable_debug_logger:
+            import curlify
+            print(curlify.to_curl(response.request))
         fb_response = FacebookResponse(
             body=response.text,
             headers=response.headers,
@@ -747,9 +752,11 @@ class Cursor(object):
             self._endpoint,
         )
         self._queue = []
+        self._headers = []
         self._finished_iteration = False
         self._total_count = None
-        self._include_summary = include_summary
+        self._summary = None
+        self._include_summary = include_summary or 'default_summary' in self.params
         self._object_parser = object_parser or ObjectParser(
             api=self._api,
             target_class=self._target_objects_class,
@@ -778,6 +785,9 @@ class Cursor(object):
     def __getitem__(self, index):
         return self._queue[index]
 
+    def headers(self):
+        return self._headers
+
     def total(self):
         if self._total_count is None:
             raise FacebookUnavailablePropertyException(
@@ -785,6 +795,21 @@ class Cursor(object):
                 "of request.",
             )
         return self._total_count
+
+    def summary(self):
+        if self._summary is None or not isinstance(self._summary, dict):
+            raise FacebookUnavailablePropertyException(
+                "Couldn't retrieve the object summary for that type "
+                "of request.",
+            )
+        return "<Summary> %s" % (
+            json.dumps(
+                self._summary,
+                sort_keys=True,
+                indent=4,
+                separators=(',', ': '),
+            ),
+        )
 
     def load_next_page(self):
         """Queries server for more nodes and loads them into the internal queue.
@@ -794,15 +819,20 @@ class Cursor(object):
         if self._finished_iteration:
             return False
 
-        if self._include_summary:
-            if 'summary' not in self.params:
-                self.params['summary'] = True
+        if (
+            self._include_summary and
+            'default_summary' not in self.params and
+            'summary' not in self.params
+        ):
+            self.params['summary'] = True
 
-        response = self._api.call(
+        response_obj = self._api.call(
             'GET',
             self._path,
             params=self.params,
-        ).json()
+        )
+        response = response_obj.json()
+        self._headers = response_obj.headers()
 
         if 'paging' in response and 'next' in response['paging']:
             self._path = response['paging']['next']
@@ -816,6 +846,9 @@ class Cursor(object):
             'total_count' in response['summary']
         ):
             self._total_count = response['summary']['total_count']
+
+        if self._include_summary and 'summary' in response:
+            self._summary = response['summary']
 
         self._queue = self.build_objects_from_response(response)
         return len(self._queue) > 0

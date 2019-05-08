@@ -44,28 +44,31 @@ class AdCampaignDeliveryEstimate(
         estimate_ready = 'estimate_ready'
 
     class OptimizationGoal:
-        none = 'NONE'
+        ad_recall_lift = 'AD_RECALL_LIFT'
+        app_downloads = 'APP_DOWNLOADS'
         app_installs = 'APP_INSTALLS'
         brand_awareness = 'BRAND_AWARENESS'
-        ad_recall_lift = 'AD_RECALL_LIFT'
         clicks = 'CLICKS'
+        derived_events = 'DERIVED_EVENTS'
         engaged_users = 'ENGAGED_USERS'
         event_responses = 'EVENT_RESPONSES'
         impressions = 'IMPRESSIONS'
+        landing_page_views = 'LANDING_PAGE_VIEWS'
         lead_generation = 'LEAD_GENERATION'
         link_clicks = 'LINK_CLICKS'
+        none = 'NONE'
         offer_claims = 'OFFER_CLAIMS'
         offsite_conversions = 'OFFSITE_CONVERSIONS'
         page_engagement = 'PAGE_ENGAGEMENT'
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
         reach = 'REACH'
-        social_impressions = 'SOCIAL_IMPRESSIONS'
-        video_views = 'VIDEO_VIEWS'
-        app_downloads = 'APP_DOWNLOADS'
-        landing_page_views = 'LANDING_PAGE_VIEWS'
-        value = 'VALUE'
         replies = 'REPLIES'
+        social_impressions = 'SOCIAL_IMPRESSIONS'
+        thruplay = 'THRUPLAY'
+        two_second_continuous_video_views = 'TWO_SECOND_CONTINUOUS_VIDEO_VIEWS'
+        value = 'VALUE'
+        video_views = 'VIDEO_VIEWS'
 
     _field_types = {
         'daily_outcomes_curve': 'list<OutcomePredictionPoint>',
@@ -73,9 +76,10 @@ class AdCampaignDeliveryEstimate(
         'estimate_mau': 'int',
         'estimate_ready': 'bool',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['OptimizationGoal'] = AdCampaignDeliveryEstimate.OptimizationGoal.__dict__.values()
         return field_enum_info
+
+

@@ -46,6 +46,7 @@ class ExtendedCredit(
         credit_available = 'credit_available'
         credit_type = 'credit_type'
         id = 'id'
+        is_access_revoked = 'is_access_revoked'
         is_automated_experience = 'is_automated_experience'
         last_payment_time = 'last_payment_time'
         legal_entity_name = 'legal_entity_name'
@@ -58,7 +59,10 @@ class ExtendedCredit(
         receiving_credit_allocation_config = 'receiving_credit_allocation_config'
         send_bill_to_biz_name = 'send_bill_to_biz_name'
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -77,7 +81,7 @@ class ExtendedCredit(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -85,7 +89,40 @@ class ExtendedCredit(
             self.assure_call()
             return request.execute()
 
-    def get_extended_credit_invoice_groups(self, fields=None, params=None, batch=None, pending=False):
+    def get_extended_credit_emails(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/extended_credit_emails',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_extended_credit_invoice_groups(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.extendedcreditinvoicegroup import ExtendedCreditInvoiceGroup
         param_types = {
         }
@@ -105,7 +142,7 @@ class ExtendedCredit(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -113,7 +150,11 @@ class ExtendedCredit(
             self.assure_call()
             return request.execute()
 
-    def create_extended_credit_invoice_group(self, fields=None, params=None, batch=None, pending=False):
+    def create_extended_credit_invoice_group(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.extendedcreditinvoicegroup import ExtendedCreditInvoiceGroup
         param_types = {
             'emails': 'list<string>',
             'name': 'string',
@@ -126,15 +167,15 @@ class ExtendedCredit(
             endpoint='/extended_credit_invoice_groups',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=ExtendedCredit,
+            target_class=ExtendedCreditInvoiceGroup,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ExtendedCredit, api=self._api),
+            response_parser=ObjectParser(target_class=ExtendedCreditInvoiceGroup, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -142,7 +183,10 @@ class ExtendedCredit(
             self.assure_call()
             return request.execute()
 
-    def get_owning_credit_allocation_configs(self, fields=None, params=None, batch=None, pending=False):
+    def get_owning_credit_allocation_configs(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.extendedcreditallocationconfig import ExtendedCreditAllocationConfig
         param_types = {
             'receiving_business_id': 'string',
@@ -163,7 +207,7 @@ class ExtendedCredit(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -171,7 +215,10 @@ class ExtendedCredit(
             self.assure_call()
             return request.execute()
 
-    def create_owning_credit_allocation_config(self, fields=None, params=None, batch=None, pending=False):
+    def create_owning_credit_allocation_config(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.extendedcreditallocationconfig import ExtendedCreditAllocationConfig
         param_types = {
             'amount': 'Object',
@@ -199,7 +246,7 @@ class ExtendedCredit(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -208,25 +255,27 @@ class ExtendedCredit(
             return request.execute()
 
     _field_types = {
-        'allocated_amount': 'Object',
-        'balance': 'Object',
-        'credit_available': 'Object',
+        'allocated_amount': 'CurrencyAmount',
+        'balance': 'CurrencyAmount',
+        'credit_available': 'CurrencyAmount',
         'credit_type': 'string',
         'id': 'string',
+        'is_access_revoked': 'bool',
         'is_automated_experience': 'bool',
         'last_payment_time': 'datetime',
         'legal_entity_name': 'string',
         'liable_biz_name': 'string',
-        'max_balance': 'Object',
-        'online_max_balance': 'Object',
+        'max_balance': 'CurrencyAmount',
+        'online_max_balance': 'CurrencyAmount',
         'owner_business': 'Business',
         'owner_business_name': 'string',
         'partition_from': 'string',
         'receiving_credit_allocation_config': 'ExtendedCreditAllocationConfig',
         'send_bill_to_biz_name': 'string',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         return field_enum_info
+
+

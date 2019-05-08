@@ -63,8 +63,9 @@ class LeadGenFormPreviewDetails(
         'slide_to_submit_text': 'string',
         'submit_button_text': 'string',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         return field_enum_info
+
+

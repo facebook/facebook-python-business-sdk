@@ -48,6 +48,7 @@ class AdCreativeLinkDataCallToActionValue(
         link_format = 'link_format'
         page = 'page'
         product_link = 'product_link'
+        whatsapp_number = 'whatsapp_number'
 
     _field_types = {
         'app_destination': 'string',
@@ -60,9 +61,11 @@ class AdCreativeLinkDataCallToActionValue(
         'link_format': 'string',
         'page': 'string',
         'product_link': 'string',
+        'whatsapp_number': 'string',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         return field_enum_info
+
+

@@ -47,23 +47,24 @@ class ProductDaEventSamplesBatch(
         content_url = 'CONTENT_URL'
 
     class Event:
-        viewcontent = 'ViewContent'
         addtocart = 'AddToCart'
-        purchase = 'Purchase'
-        initiatecheckout = 'InitiateCheckout'
-        search = 'Search'
-        lead = 'Lead'
         addtowishlist = 'AddToWishlist'
+        initiatecheckout = 'InitiateCheckout'
+        lead = 'Lead'
+        purchase = 'Purchase'
+        search = 'Search'
+        viewcontent = 'ViewContent'
 
     _field_types = {
         'samples': 'list<Object>',
         'time_start': 'unsigned int',
         'time_stop': 'unsigned int',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['AggregationType'] = ProductDaEventSamplesBatch.AggregationType.__dict__.values()
         field_enum_info['Event'] = ProductDaEventSamplesBatch.Event.__dict__.values()
         return field_enum_info
+
+

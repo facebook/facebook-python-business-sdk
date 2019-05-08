@@ -19,10 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
-from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
-from facebook_business.adobjects.objectparser import ObjectParser
-from facebook_business.api import FacebookRequest
-from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -33,52 +29,29 @@ pull request for this class.
 """
 
 class ProductCatalogPricingVariablesBatch(
-    AbstractCrudObject,
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
+    def __init__(self, api=None):
+        super(ProductCatalogPricingVariablesBatch, self).__init__()
         self._isProductCatalogPricingVariablesBatch = True
-        super(ProductCatalogPricingVariablesBatch, self).__init__(fbid, parent_id, api)
+        self._api = api
 
     class Field(AbstractObject.Field):
         errors = 'errors'
         errors_total_count = 'errors_total_count'
         handle = 'handle'
         status = 'status'
-        file = 'file'
-        password = 'password'
-        standard = 'standard'
-        update_only = 'update_only'
-        url = 'url'
-        username = 'username'
-
-    class Standard:
-        google = 'google'
-
-    # @deprecated get_endpoint function is deprecated
-    @classmethod
-    def get_endpoint(cls):
-        return 'pricing_variables_batch'
-
-    def api_create(self, parent_id, fields=None, params=None, batch=None, pending=False):
-        from facebook_business.adobjects.productcatalog import ProductCatalog
-        return ProductCatalog(api=self._api, fbid=parent_id).create_pricing_variables_batch(fields, params, batch, pending)
 
     _field_types = {
         'errors': 'list<Object>',
         'errors_total_count': 'int',
         'handle': 'string',
         'status': 'string',
-        'file': 'file',
-        'password': 'string',
-        'standard': 'Standard',
-        'update_only': 'bool',
-        'url': 'string',
-        'username': 'string',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['Standard'] = ProductCatalogPricingVariablesBatch.Standard.__dict__.values()
         return field_enum_info
+
+

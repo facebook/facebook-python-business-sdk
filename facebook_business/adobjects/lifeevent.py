@@ -51,7 +51,41 @@ class LifeEvent(
         title = 'title'
         updated_time = 'updated_time'
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'ref': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='DELETE',
+            endpoint='/',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -70,7 +104,7 @@ class LifeEvent(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -78,16 +112,99 @@ class LifeEvent(
             self.assure_call()
             return request.execute()
 
-    def create_comment(self, fields=None, params=None, batch=None, pending=False):
+    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'description': 'string',
+            'start_time': 'datetime',
+            'title': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=LifeEvent,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_comments(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.comment import Comment
+        param_types = {
+            'filter': 'filter_enum',
+            'live_filter': 'live_filter_enum',
+            'order': 'order_enum',
+            'since': 'datetime',
+        }
+        enums = {
+            'filter_enum': Comment.Filter.__dict__.values(),
+            'live_filter_enum': Comment.LiveFilter.__dict__.values(),
+            'order_enum': Comment.Order.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/comments',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Comment,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Comment, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_comment(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.comment import Comment
         param_types = {
             'attachment_id': 'string',
             'attachment_share_url': 'string',
             'attachment_url': 'string',
+            'comment_privacy_value': 'comment_privacy_value_enum',
+            'facepile_mentioned_ids': 'list<string>',
+            'feedback_source': 'string',
             'is_offline': 'bool',
             'message': 'string',
+            'nectar_module': 'string',
+            'object_id': 'string',
+            'parent_comment_id': 'Object',
             'text': 'string',
+            'tracking': 'string',
         }
         enums = {
+            'comment_privacy_value_enum': Comment.CommentPrivacyValue.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -95,15 +212,108 @@ class LifeEvent(
             endpoint='/comments',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=Comment,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=Comment, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_likes(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.profile import Profile
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/likes',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Profile,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Profile, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_photos(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.photo import Photo
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/photos',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Photo,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Photo, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_shared_posts(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.post import Post
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/sharedposts',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Post,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Post, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -122,8 +332,9 @@ class LifeEvent(
         'title': 'string',
         'updated_time': 'datetime',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         return field_enum_info
+
+

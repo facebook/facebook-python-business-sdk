@@ -47,8 +47,11 @@ class FacebookSession(object):
     """
     GRAPH = 'https://graph.facebook.com'
 
-    def __init__(self, app_id=None, app_secret=None, access_token=None, proxies=None, timeout=None,
+    def __init__(self, app_id=None, app_secret=None, access_token=None,
+                 proxies=None, timeout=None, debug=False,
                  pool_maxsize=10, max_retries=0, pool_block=True):
+
+
         """
         Initializes and populates the instance attributes with app_id,
         app_secret, access_token, appsecret_proof, proxies, timeout and requests
@@ -64,20 +67,20 @@ class FacebookSession(object):
         self.access_token = access_token
         self.proxies = proxies
         self.timeout = timeout
+        self.debug = debug
+        self.requests = requests.Session()
+        self.requests.verify = os.path.join(
+            os.path.dirname(__file__),
+            'fb_ca_chain_bundle.crt',
+        )
 
         self.pool_maxsize = pool_maxsize
         self.max_retries = max_retries
-
-        self.requests = requests.Session()
         self.requests.mount(
             'https://',
             HTTPAdapter(pool_maxsize=self.pool_maxsize,
                         max_retries=self.max_retries,
                         pool_block=pool_block))
-        self.requests.verify = os.path.join(
-            os.path.dirname(__file__),
-            'fb_ca_chain_bundle.crt',
-        )
         params = {
             'access_token': self.access_token
         }

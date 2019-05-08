@@ -44,13 +44,25 @@ class ReachFrequencyPrediction(
 
     class Field(AbstractObject.Field):
         account_id = 'account_id'
+        activity_status = 'activity_status'
+        ad_formats = 'ad_formats'
+        auction_entry_option_index = 'auction_entry_option_index'
+        business_id = 'business_id'
+        buying_type = 'buying_type'
         campaign_group_id = 'campaign_group_id'
         campaign_id = 'campaign_id'
         campaign_time_start = 'campaign_time_start'
         campaign_time_stop = 'campaign_time_stop'
+        currency = 'currency'
         curve_budget_reach = 'curve_budget_reach'
+        curve_reach = 'curve_reach'
+        daily_grp_curve = 'daily_grp_curve'
         daily_impression_curve = 'daily_impression_curve'
+        daily_impression_curve_map = 'daily_impression_curve_map'
+        day_parting_schedule = 'day_parting_schedule'
+        demo_breakdown = 'demo_breakdown'
         destination_id = 'destination_id'
+        end_time = 'end_time'
         expiration_time = 'expiration_time'
         external_budget = 'external_budget'
         external_impression = 'external_impression'
@@ -61,64 +73,128 @@ class ReachFrequencyPrediction(
         external_minimum_impression = 'external_minimum_impression'
         external_minimum_reach = 'external_minimum_reach'
         external_reach = 'external_reach'
+        external_values_breakdown = 'external_values_breakdown'
+        feed_ratio_0000 = 'feed_ratio_0000'
         frequency_cap = 'frequency_cap'
         frequency_distribution = 'frequency_distribution'
         frequency_distribution_map = 'frequency_distribution_map'
         frequency_distribution_map_agg = 'frequency_distribution_map_agg'
+        grp_audience_size = 'grp_audience_size'
+        grp_avg_probability_map = 'grp_avg_probability_map'
+        grp_country_audience_size = 'grp_country_audience_size'
+        grp_curve = 'grp_curve'
         grp_dmas_audience_size = 'grp_dmas_audience_size'
+        grp_filtering_threshold_00 = 'grp_filtering_threshold_00'
+        grp_points = 'grp_points'
+        grp_ratio = 'grp_ratio'
+        grp_reach_ratio = 'grp_reach_ratio'
+        grp_status = 'grp_status'
         holdout_percentage = 'holdout_percentage'
         id = 'id'
+        impression_curve = 'impression_curve'
         instagram_destination_id = 'instagram_destination_id'
+        instream_packages = 'instream_packages'
         interval_frequency_cap = 'interval_frequency_cap'
         interval_frequency_cap_reset_period = 'interval_frequency_cap_reset_period'
+        is_bonus_media = 'is_bonus_media'
+        is_conversion_goal = 'is_conversion_goal'
+        is_higher_average_frequency = 'is_higher_average_frequency'
+        is_io = 'is_io'
+        is_reserved_buying = 'is_reserved_buying'
+        is_trp = 'is_trp'
         name = 'name'
+        objective = 'objective'
+        objective_name = 'objective_name'
         pause_periods = 'pause_periods'
         placement_breakdown = 'placement_breakdown'
+        placement_breakdown_map = 'placement_breakdown_map'
+        plan_name = 'plan_name'
+        plan_type = 'plan_type'
         prediction_mode = 'prediction_mode'
         prediction_progress = 'prediction_progress'
+        reference_id = 'reference_id'
         reservation_status = 'reservation_status'
+        start_time = 'start_time'
         status = 'status'
         story_event_type = 'story_event_type'
         target_audience_size = 'target_audience_size'
+        target_cpm = 'target_cpm'
         target_spec = 'target_spec'
         time_created = 'time_created'
         time_updated = 'time_updated'
+        timezone_id = 'timezone_id'
+        timezone_name = 'timezone_name'
+        topline_id = 'topline_id'
+        tv_viewer_cluster_map = 'tv_viewer_cluster_map'
+        video_view_benchmark_map = 'video_view_benchmark_map'
+        video_view_length_constraint = 'video_view_length_constraint'
+        viewtag = 'viewtag'
+        action = 'action'
         budget = 'budget'
-        day_parting_schedule = 'day_parting_schedule'
+        deal_id = 'deal_id'
         destination_ids = 'destination_ids'
-        end_time = 'end_time'
-        instream_packages = 'instream_packages'
+        exceptions = 'exceptions'
+        existing_campaign_id = 'existing_campaign_id'
+        grp_buying = 'grp_buying'
+        impression = 'impression'
+        is_full_view = 'is_full_view'
+        is_reach_and_frequency_io_buying = 'is_reach_and_frequency_io_buying'
         num_curve_points = 'num_curve_points'
-        objective = 'objective'
         reach = 'reach'
+        rf_prediction_id = 'rf_prediction_id'
+        rf_prediction_id_to_release = 'rf_prediction_id_to_release'
         rf_prediction_id_to_share = 'rf_prediction_id_to_share'
-        start_time = 'start_time'
         stop_time = 'stop_time'
 
+    class Action:
+        cancel = 'cancel'
+        quote = 'quote'
+        reserve = 'reserve'
+
+    class BuyingType:
+        auction = 'AUCTION'
+        deprecated_reach_block = 'DEPRECATED_REACH_BLOCK'
+        fixed_cpm = 'FIXED_CPM'
+        mixed = 'MIXED'
+        reachblock = 'REACHBLOCK'
+        research_poll = 'RESEARCH_POLL'
+        reserved = 'RESERVED'
+
     class InstreamPackages:
+        beauty = 'BEAUTY'
+        entertainment = 'ENTERTAINMENT'
+        food = 'FOOD'
         normal = 'NORMAL'
         premium = 'PREMIUM'
+        regular_animals_pets = 'REGULAR_ANIMALS_PETS'
+        regular_food = 'REGULAR_FOOD'
+        regular_games = 'REGULAR_GAMES'
+        regular_politics = 'REGULAR_POLITICS'
+        regular_sports = 'REGULAR_SPORTS'
+        regular_style = 'REGULAR_STYLE'
+        regular_tv_movies = 'REGULAR_TV_MOVIES'
         sports = 'SPORTS'
-        entertainment = 'ENTERTAINMENT'
-        beauty = 'BEAUTY'
 
     class Status:
-        expired = 'EXPIRED'
-        draft = 'DRAFT'
-        pending = 'PENDING'
         active = 'ACTIVE'
         completed = 'COMPLETED'
+        draft = 'DRAFT'
+        expired = 'EXPIRED'
+        pending = 'PENDING'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'reachfrequencypredictions'
 
-    def api_create(self, parent_id, fields=None, params=None, batch=None, pending=False):
+    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.adobjects.adaccount import AdAccount
-        return AdAccount(api=self._api, fbid=parent_id).create_reach_frequency_prediction(fields, params, batch, pending)
+        return AdAccount(api=self._api, fbid=parent_id).create_reach_frequency_prediction(fields, params, batch, success, failure, pending)
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -137,7 +213,7 @@ class ReachFrequencyPrediction(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -147,13 +223,25 @@ class ReachFrequencyPrediction(
 
     _field_types = {
         'account_id': 'int',
+        'activity_status': 'ReachFrequencyActivity',
+        'ad_formats': 'list<ReachFrequencyAdFormat>',
+        'auction_entry_option_index': 'int',
+        'business_id': 'int',
+        'buying_type': 'string',
         'campaign_group_id': 'int',
         'campaign_id': 'string',
         'campaign_time_start': 'datetime',
         'campaign_time_stop': 'datetime',
-        'curve_budget_reach': 'Object',
+        'currency': 'string',
+        'curve_budget_reach': 'ReachFrequencyEstimatesCurve',
+        'curve_reach': 'list<unsigned int>',
+        'daily_grp_curve': 'list<float>',
         'daily_impression_curve': 'list<float>',
+        'daily_impression_curve_map': 'map<unsigned int, list<float>>',
+        'day_parting_schedule': 'list<ReachFrequencyDayPart>',
+        'demo_breakdown': 'ReachFrequencyEstimatesDemoBreakdown',
         'destination_id': 'string',
+        'end_time': 'datetime',
         'expiration_time': 'datetime',
         'external_budget': 'int',
         'external_impression': 'unsigned int',
@@ -164,44 +252,86 @@ class ReachFrequencyPrediction(
         'external_minimum_impression': 'unsigned int',
         'external_minimum_reach': 'unsigned int',
         'external_reach': 'unsigned int',
+        'external_values_breakdown': 'string',
+        'feed_ratio_0000': 'unsigned int',
         'frequency_cap': 'unsigned int',
         'frequency_distribution': 'list<float>',
-        'frequency_distribution_map': 'list<Object>',
-        'frequency_distribution_map_agg': 'list<Object>',
+        'frequency_distribution_map': 'map<unsigned int, list<float>>',
+        'frequency_distribution_map_agg': 'map<unsigned int, list<unsigned int>>',
+        'grp_audience_size': 'float',
+        'grp_avg_probability_map': 'string',
+        'grp_country_audience_size': 'float',
+        'grp_curve': 'list<float>',
         'grp_dmas_audience_size': 'float',
+        'grp_filtering_threshold_00': 'unsigned int',
+        'grp_points': 'float',
+        'grp_ratio': 'float',
+        'grp_reach_ratio': 'float',
+        'grp_status': 'string',
         'holdout_percentage': 'unsigned int',
         'id': 'string',
+        'impression_curve': 'list<unsigned int>',
         'instagram_destination_id': 'string',
+        'instream_packages': 'list<string>',
         'interval_frequency_cap': 'unsigned int',
         'interval_frequency_cap_reset_period': 'unsigned int',
+        'is_bonus_media': 'unsigned int',
+        'is_conversion_goal': 'unsigned int',
+        'is_higher_average_frequency': 'bool',
+        'is_io': 'bool',
+        'is_reserved_buying': 'unsigned int',
+        'is_trp': 'bool',
         'name': 'string',
+        'objective': 'unsigned int',
+        'objective_name': 'string',
         'pause_periods': 'list<Object>',
-        'placement_breakdown': 'Object',
+        'placement_breakdown': 'ReachFrequencyEstimatesPlacementBreakdown',
+        'placement_breakdown_map': 'map<unsigned int, ReachFrequencyEstimatesPlacementBreakdown>',
+        'plan_name': 'string',
+        'plan_type': 'string',
         'prediction_mode': 'unsigned int',
         'prediction_progress': 'unsigned int',
+        'reference_id': 'string',
         'reservation_status': 'unsigned int',
+        'start_time': 'datetime',
         'status': 'unsigned int',
         'story_event_type': 'unsigned int',
         'target_audience_size': 'unsigned int',
+        'target_cpm': 'unsigned int',
         'target_spec': 'Targeting',
         'time_created': 'datetime',
         'time_updated': 'datetime',
+        'timezone_id': 'unsigned int',
+        'timezone_name': 'string',
+        'topline_id': 'unsigned int',
+        'tv_viewer_cluster_map': 'map<unsigned int, Object>',
+        'video_view_benchmark_map': 'map<string, ReachFrequencyEstimatesCurve>',
+        'video_view_length_constraint': 'unsigned int',
+        'viewtag': 'string',
+        'action': 'Action',
         'budget': 'unsigned int',
-        'day_parting_schedule': 'list<Object>',
+        'deal_id': 'string',
         'destination_ids': 'list<string>',
-        'end_time': 'unsigned int',
-        'instream_packages': 'list<InstreamPackages>',
+        'exceptions': 'bool',
+        'existing_campaign_id': 'string',
+        'grp_buying': 'bool',
+        'impression': 'unsigned int',
+        'is_full_view': 'bool',
+        'is_reach_and_frequency_io_buying': 'bool',
         'num_curve_points': 'unsigned int',
-        'objective': 'string',
         'reach': 'unsigned int',
+        'rf_prediction_id': 'string',
+        'rf_prediction_id_to_release': 'string',
         'rf_prediction_id_to_share': 'string',
-        'start_time': 'unsigned int',
         'stop_time': 'unsigned int',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['Action'] = ReachFrequencyPrediction.Action.__dict__.values()
+        field_enum_info['BuyingType'] = ReachFrequencyPrediction.BuyingType.__dict__.values()
         field_enum_info['InstreamPackages'] = ReachFrequencyPrediction.InstreamPackages.__dict__.values()
         field_enum_info['Status'] = ReachFrequencyPrediction.Status.__dict__.values()
         return field_enum_info
+
+

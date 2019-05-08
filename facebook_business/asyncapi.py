@@ -1,4 +1,3 @@
-from __future__ import unicode_literals, absolute_import
 import re
 import six
 import time
@@ -11,6 +10,9 @@ import threading
 from facebook_business.exceptions import FacebookCallFailedError, FacebookBadObjectError
 from facebook_business.api import FacebookSession, FacebookResponse, \
     FacebookAdsApi, _top_level_param_json_encode
+from six.moves import http_client
+
+__author__ = 'pasha-r'
 
 logger = logging.getLogger("facebookclient")
 
@@ -29,8 +31,7 @@ class FacebookAsyncResponse(FacebookResponse):
         try:
             self._json_body = json.loads(self._body)
             return self._json_body
-        except (TypeError, ValueError) as exc:
-            logger.warning("Facebook response, conversion to JSON failed: {}".format(str(exc)))
+        except (TypeError, ValueError):
             self._json_body = None
             return self._body
 
@@ -40,22 +41,22 @@ class FacebookAsyncResponse(FacebookResponse):
         if isinstance(self._json_body, collections.Mapping) and 'error' in self._json_body:
             # Is a dictionary, has error in it
             return False
-        elif self._http_status not in (304, 200):
-            # successful statuses are only NOT MODIFIED and OK
+        elif self._http_status not in (http_client.NOT_MODIFIED, http_client.OK):
             return False
         elif bool(self._json_body):
             # Has body and no error
             if 'success' in self._json_body:
                 return not bool(self._error) and self._json_body['success']
             return not bool(self._error)
-        elif self._http_status == 304:
+        elif self._http_status == http_client.NOT_MODIFIED:
             # ETAG Hit
             return not bool(self._error)
-        elif self._http_status == 200:
+        elif self._http_status == http_client.OK:
             # HTTP Okay
             return not bool(self._error)
-        # Something else
-        return False
+        else:
+            # Something else
+            return False
 
     def error(self):
         """
@@ -88,7 +89,7 @@ class FacebookAdsAsyncApi(FacebookAdsApi):
         self._futures = {}
         """:type: dict[int, facebook_business.asyncobjects.AioEdgeIterator]"""
         self._futures_ordered = []
-        """:type: list[int]"""
+        """:type: list[facebook_business.asyncobjects.AioEdgeIterator]"""
 
     @classmethod
     def init(cls,
@@ -99,12 +100,13 @@ class FacebookAdsAsyncApi(FacebookAdsApi):
              api_version=None,
              proxies=None,
              timeout=None,
+             debug=False,
              pool_maxsize=10,
-             max_retries=0):
+             max_retries=None):
         # connection pool size is +1 because there also is the main thread
         #  that can also issue a request
         session = FacebookSession(app_id, app_secret, access_token,
-                                  proxies=proxies, timeout=timeout,
+                                  proxies=proxies, timeout=timeout, debug=debug,
                                   pool_maxsize=pool_maxsize+1, max_retries=max_retries)
         api = cls(session, api_version=api_version, threadpool_size=pool_maxsize)
         cls.set_default_api(api)
@@ -266,13 +268,22 @@ class FacebookAdsAsyncApi(FacebookAdsApi):
             try:
                 edge_iter_id = self._futures_ordered.pop(0)
 
-                if edge_iter_id not in self._futures:
+                if not edge_iter_id in self._futures:
                     return "next"
 
                 edge_iter = self._futures.pop(edge_iter_id)
             except IndexError:
                 return None
         return edge_iter
+
+    def __del__(self):
+        if self._thread_pool:
+            try:
+                if not self._thread_pool._shutdown:
+                    self._thread_pool.shutdown(False)
+            except Exception:
+                pass
+            del self._thread_pool
 
     # helper results iterator
 
@@ -284,17 +295,16 @@ class FacebookAdsAsyncApi(FacebookAdsApi):
             elif isinstance(edge_iter, six.string_types) and edge_iter == "next":
                 continue
 
-            if edge_iter.future:
+            if edge_iter._future:
                 try:
-                    if edge_iter.future.done():
-                        result = edge_iter.future.result()
+                    if edge_iter._future.done():
+                        result = edge_iter._future.result()
                         del result
-                    elif edge_iter.future.running():
-                        edge_iter.future.cancel()
+                    elif edge_iter._future.running():
+                        edge_iter._future.cancel()
                 except Exception as exc:
-                    logger.warning("Future stop failed: {}".format(exc))
-                edge_iter.clear_future()
-        return
+                    logger.warn("Future stop failed: {}".format(exc))
+                del edge_iter._future
 
     def get_all_async_results(self):
         """
@@ -319,11 +329,11 @@ class FacebookAdsAsyncApi(FacebookAdsApi):
 
             edge_iter = edge_iter.extract_results()
 
-            if edge_iter.page_ready and edge_iter.finished_iteration:
+            if edge_iter._page_ready and edge_iter._finished_iteration:
                 # loaded all the data
                 yield edge_iter
             else:
-                if edge_iter.request_failed:
+                if edge_iter._request_failed:
                     # request failed unrecoverably
                     yield edge_iter
                 else:
@@ -351,24 +361,24 @@ class FacebookAdsAsyncApi(FacebookAdsApi):
 
             edge_iter = edge_iter.extract_results()
 
-            if edge_iter.page_ready and edge_iter.finished_iteration:
+            if edge_iter._page_ready and edge_iter._finished_iteration:
                 # loaded all the data
-                if edge_iter.target_objects_class == target_objects_class:
+                if edge_iter._target_objects_class == target_objects_class:
                     required_type_cnt += 1
                     yield edge_iter
                 else:
                     self.put_in_futures(edge_iter)
 
             else:
-                if edge_iter.request_failed:
+                if edge_iter._request_failed:
                     # request failed unrecoverably
-                    if edge_iter.target_objects_class == target_objects_class:
+                    if edge_iter._target_objects_class == target_objects_class:
                         required_type_cnt += 1
                         yield edge_iter
                     else:
                         self.put_in_futures(edge_iter)
                 else:
-                    if edge_iter.target_objects_class == target_objects_class:
+                    if edge_iter._target_objects_class == target_objects_class:
                         required_type_cnt += 1
                     # some more loading needs to be done
                     edge_iter.submit_next_page_aio()

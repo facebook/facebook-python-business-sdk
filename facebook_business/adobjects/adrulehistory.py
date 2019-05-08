@@ -70,9 +70,10 @@ class AdRuleHistory(
         'schedule_spec': 'AdRuleScheduleSpec',
         'timestamp': 'datetime',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['Action'] = AdRuleHistory.Action.__dict__.values()
         return field_enum_info
+
+

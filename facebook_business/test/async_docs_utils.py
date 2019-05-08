@@ -1,6 +1,6 @@
 import unittest
 import inspect
-from facebook_business.asyncobjects import *
+from ..asyncobjects import *
 from ..specs import *
 from ..exceptions import *
 
@@ -106,7 +106,7 @@ class AsyncDocsTestCase(unittest.TestCase):
 
     def create_image(self):
         image = AdImage(parent_id=AsyncDocsDataStore.get('adaccount_id'))
-        image['filename'] = './facebook_business.test/misc/image.png'
+        image['filename'] = './facebookads/test/misc/image.png'
         image.remote_create()
         return image
 

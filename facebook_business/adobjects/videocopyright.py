@@ -63,11 +63,14 @@ class VideoCopyright(
         web = 'web'
 
     class MonitoringType:
+        audio_only = 'AUDIO_ONLY'
         video_and_audio = 'VIDEO_AND_AUDIO'
         video_only = 'VIDEO_ONLY'
-        audio_only = 'AUDIO_ONLY'
 
-    def api_delete(self, fields=None, params=None, batch=None, pending=False):
+    def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -86,7 +89,7 @@ class VideoCopyright(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -94,7 +97,10 @@ class VideoCopyright(
             self.assure_call()
             return request.execute()
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -113,7 +119,7 @@ class VideoCopyright(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -121,7 +127,10 @@ class VideoCopyright(
             self.assure_call()
             return request.execute()
 
-    def api_update(self, fields=None, params=None, batch=None, pending=False):
+    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'append_excluded_ownership_segments': 'bool',
             'attribution_id': 'string',
@@ -153,7 +162,7 @@ class VideoCopyright(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -169,8 +178,8 @@ class VideoCopyright(
         'in_conflict': 'bool',
         'monitoring_status': 'string',
         'monitoring_type': 'string',
-        'ownership_countries': 'Object',
-        'reference_file': 'Object',
+        'ownership_countries': 'VideoCopyrightGeoGate',
+        'reference_file': 'CopyrightReferenceContainer',
         'reference_file_disabled': 'bool',
         'reference_file_disabled_by_ops': 'bool',
         'reference_file_expired': 'bool',
@@ -178,10 +187,11 @@ class VideoCopyright(
         'rule_ids': 'list<VideoCopyrightRule>',
         'whitelisted_ids': 'list<string>',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['ContentCategory'] = VideoCopyright.ContentCategory.__dict__.values()
         field_enum_info['MonitoringType'] = VideoCopyright.MonitoringType.__dict__.values()
         return field_enum_info
+
+

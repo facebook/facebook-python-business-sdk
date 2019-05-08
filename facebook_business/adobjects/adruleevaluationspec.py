@@ -51,9 +51,10 @@ class AdRuleEvaluationSpec(
         'filters': 'list<AdRuleFilters>',
         'trigger': 'AdRuleTrigger',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['EvaluationType'] = AdRuleEvaluationSpec.EvaluationType.__dict__.values()
         return field_enum_info
+
+

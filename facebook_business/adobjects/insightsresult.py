@@ -49,34 +49,36 @@ class InsightsResult(
         title = 'title'
         values = 'values'
 
+    class Metric:
+        messages_sent = 'messages_sent'
+
     class DatePreset:
-        today = 'today'
-        yesterday = 'yesterday'
-        this_month = 'this_month'
-        last_month = 'last_month'
-        this_quarter = 'this_quarter'
-        lifetime = 'lifetime'
-        last_3d = 'last_3d'
-        last_7d = 'last_7d'
         last_14d = 'last_14d'
         last_28d = 'last_28d'
         last_30d = 'last_30d'
+        last_3d = 'last_3d'
+        last_7d = 'last_7d'
         last_90d = 'last_90d'
+        last_month = 'last_month'
+        last_quarter = 'last_quarter'
         last_week_mon_sun = 'last_week_mon_sun'
         last_week_sun_sat = 'last_week_sun_sat'
-        last_quarter = 'last_quarter'
         last_year = 'last_year'
+        lifetime = 'lifetime'
+        this_month = 'this_month'
+        this_quarter = 'this_quarter'
         this_week_mon_today = 'this_week_mon_today'
         this_week_sun_today = 'this_week_sun_today'
         this_year = 'this_year'
+        today = 'today'
+        yesterday = 'yesterday'
 
     class Period:
         day = 'day'
-        week = 'week'
         days_28 = 'days_28'
-        month = 'month'
         lifetime = 'lifetime'
-        total_over_range = 'total_over_range'
+        month = 'month'
+        week = 'week'
 
     _field_types = {
         'description': 'string',
@@ -87,10 +89,12 @@ class InsightsResult(
         'title': 'string',
         'values': 'list<Object>',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['Metric'] = InsightsResult.Metric.__dict__.values()
         field_enum_info['DatePreset'] = InsightsResult.DatePreset.__dict__.values()
         field_enum_info['Period'] = InsightsResult.Period.__dict__.values()
         return field_enum_info
+
+

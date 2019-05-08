@@ -75,9 +75,10 @@ class PartnerCategory(
         'status': 'string',
         'targeting_type': 'string',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['PrivateOrPublic'] = PartnerCategory.PrivateOrPublic.__dict__.values()
         return field_enum_info
+
+

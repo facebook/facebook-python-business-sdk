@@ -50,18 +50,20 @@ class PlaceTopic(
         plural_name = 'plural_name'
         top_subtopic_names = 'top_subtopic_names'
 
-    class IconSize:
-        value_24 = '24'
-        value_36 = '36'
-        value_48 = '48'
-        value_72 = '72'
-
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'icon_size': 'icon_size_enum',
         }
         enums = {
-            'icon_size_enum': PlaceTopic.IconSize.__dict__.values(),
+            'icon_size_enum': [
+                '24',
+                '36',
+                '48',
+                '72',
+            ],
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -77,7 +79,7 @@ class PlaceTopic(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -95,9 +97,9 @@ class PlaceTopic(
         'plural_name': 'string',
         'top_subtopic_names': 'list<string>',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['IconSize'] = PlaceTopic.IconSize.__dict__.values()
         return field_enum_info
+
+

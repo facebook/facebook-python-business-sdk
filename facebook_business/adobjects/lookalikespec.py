@@ -41,22 +41,33 @@ class LookalikeSpec(
         country = 'country'
         is_financial_service = 'is_financial_service'
         origin = 'origin'
+        origin_event_name = 'origin_event_name'
+        origin_event_source_name = 'origin_event_source_name'
+        origin_event_source_type = 'origin_event_source_type'
+        product_set_name = 'product_set_name'
         ratio = 'ratio'
         starting_ratio = 'starting_ratio'
         target_countries = 'target_countries'
+        target_country_names = 'target_country_names'
         type = 'type'
 
     _field_types = {
         'country': 'string',
         'is_financial_service': 'bool',
         'origin': 'list<Object>',
+        'origin_event_name': 'string',
+        'origin_event_source_name': 'string',
+        'origin_event_source_type': 'string',
+        'product_set_name': 'string',
         'ratio': 'float',
         'starting_ratio': 'float',
         'target_countries': 'list<string>',
+        'target_country_names': 'list',
         'type': 'string',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         return field_enum_info
+
+

@@ -44,14 +44,17 @@ class BusinessAdvertisableApplicationsResult(
         has_insight_permission = 'has_insight_permission'
         id = 'id'
         name = 'name'
+        photo_url = 'photo_url'
 
     _field_types = {
         'has_insight_permission': 'bool',
         'id': 'string',
         'name': 'string',
+        'photo_url': 'string',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         return field_enum_info
+
+

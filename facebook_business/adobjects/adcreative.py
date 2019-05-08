@@ -48,11 +48,21 @@ class AdCreative(
         adlabels = 'adlabels'
         applink_treatment = 'applink_treatment'
         asset_feed_spec = 'asset_feed_spec'
+        authorization_category = 'authorization_category'
+        auto_update = 'auto_update'
         body = 'body'
         branded_content_sponsor_page_id = 'branded_content_sponsor_page_id'
+        bundle_folder_id = 'bundle_folder_id'
         call_to_action_type = 'call_to_action_type'
+        categorization_criteria = 'categorization_criteria'
+        category_media_source = 'category_media_source'
+        destination_set_id = 'destination_set_id'
+        dynamic_ad_voice = 'dynamic_ad_voice'
+        effective_authorization_category = 'effective_authorization_category'
         effective_instagram_story_id = 'effective_instagram_story_id'
         effective_object_story_id = 'effective_object_story_id'
+        enable_direct_install = 'enable_direct_install'
+        enable_launch_instant_app = 'enable_launch_instant_app'
         id = 'id'
         image_crops = 'image_crops'
         image_hash = 'image_hash'
@@ -60,16 +70,22 @@ class AdCreative(
         instagram_actor_id = 'instagram_actor_id'
         instagram_permalink_url = 'instagram_permalink_url'
         instagram_story_id = 'instagram_story_id'
+        interactive_components_spec = 'interactive_components_spec'
+        link_deep_link_url = 'link_deep_link_url'
         link_og_id = 'link_og_id'
         link_url = 'link_url'
         messenger_sponsored_message = 'messenger_sponsored_message'
         name = 'name'
         object_id = 'object_id'
+        object_store_url = 'object_store_url'
         object_story_id = 'object_story_id'
         object_story_spec = 'object_story_spec'
         object_type = 'object_type'
         object_url = 'object_url'
+        place_page_set_id = 'place_page_set_id'
         platform_customizations = 'platform_customizations'
+        playable_asset_id = 'playable_asset_id'
+        portrait_customizations = 'portrait_customizations'
         product_set_id = 'product_set_id'
         recommender_settings = 'recommender_settings'
         status = 'status'
@@ -80,68 +96,75 @@ class AdCreative(
         url_tags = 'url_tags'
         use_page_actor_override = 'use_page_actor_override'
         video_id = 'video_id'
-        authorization_category = 'authorization_category'
-        dynamic_ad_voice = 'dynamic_ad_voice'
+        call_to_action = 'call_to_action'
         image_file = 'image_file'
+        is_dco_internal = 'is_dco_internal'
+        mockup_id = 'mockup_id'
+        page_id = 'page_id'
 
     class ApplinkTreatment:
-        deeplink_with_web_fallback = 'deeplink_with_web_fallback'
         deeplink_with_appstore_fallback = 'deeplink_with_appstore_fallback'
+        deeplink_with_web_fallback = 'deeplink_with_web_fallback'
         web_only = 'web_only'
 
     class CallToActionType:
-        open_link = 'OPEN_LINK'
-        like_page = 'LIKE_PAGE'
-        shop_now = 'SHOP_NOW'
-        play_game = 'PLAY_GAME'
-        install_app = 'INSTALL_APP'
-        use_app = 'USE_APP'
+        add_to_cart = 'ADD_TO_CART'
+        apply_now = 'APPLY_NOW'
+        book_travel = 'BOOK_TRAVEL'
+        buy = 'BUY'
+        buy_now = 'BUY_NOW'
+        buy_tickets = 'BUY_TICKETS'
         call = 'CALL'
         call_me = 'CALL_ME'
-        install_mobile_app = 'INSTALL_MOBILE_APP'
-        use_mobile_app = 'USE_MOBILE_APP'
-        mobile_download = 'MOBILE_DOWNLOAD'
-        book_travel = 'BOOK_TRAVEL'
-        listen_music = 'LISTEN_MUSIC'
-        watch_video = 'WATCH_VIDEO'
-        learn_more = 'LEARN_MORE'
-        sign_up = 'SIGN_UP'
+        contact = 'CONTACT'
+        contact_us = 'CONTACT_US'
+        donate = 'DONATE'
+        donate_now = 'DONATE_NOW'
         download = 'DOWNLOAD'
-        watch_more = 'WATCH_MORE'
-        no_button = 'NO_BUTTON'
-        visit_pages_feed = 'VISIT_PAGES_FEED'
-        apply_now = 'APPLY_NOW'
-        buy_now = 'BUY_NOW'
+        event_rsvp = 'EVENT_RSVP'
+        find_a_group = 'FIND_A_GROUP'
+        follow_news_storyline = 'FOLLOW_NEWS_STORYLINE'
+        get_directions = 'GET_DIRECTIONS'
         get_offer = 'GET_OFFER'
         get_offer_view = 'GET_OFFER_VIEW'
-        buy_tickets = 'BUY_TICKETS'
-        update_app = 'UPDATE_APP'
-        get_directions = 'GET_DIRECTIONS'
-        buy = 'BUY'
+        get_quote = 'GET_QUOTE'
+        get_showtimes = 'GET_SHOWTIMES'
+        install_app = 'INSTALL_APP'
+        install_mobile_app = 'INSTALL_MOBILE_APP'
+        learn_more = 'LEARN_MORE'
+        like_page = 'LIKE_PAGE'
+        listen_music = 'LISTEN_MUSIC'
+        listen_now = 'LISTEN_NOW'
         message_page = 'MESSAGE_PAGE'
-        donate = 'DONATE'
-        subscribe = 'SUBSCRIBE'
+        mobile_download = 'MOBILE_DOWNLOAD'
+        moments = 'MOMENTS'
+        no_button = 'NO_BUTTON'
+        open_link = 'OPEN_LINK'
+        order_now = 'ORDER_NOW'
+        play_game = 'PLAY_GAME'
+        record_now = 'RECORD_NOW'
         say_thanks = 'SAY_THANKS'
+        see_more = 'SEE_MORE'
         sell_now = 'SELL_NOW'
         share = 'SHARE'
-        donate_now = 'DONATE_NOW'
-        get_quote = 'GET_QUOTE'
-        contact_us = 'CONTACT_US'
-        order_now = 'ORDER_NOW'
-        add_to_cart = 'ADD_TO_CART'
+        shop_now = 'SHOP_NOW'
+        sign_up = 'SIGN_UP'
+        subscribe = 'SUBSCRIBE'
+        update_app = 'UPDATE_APP'
+        use_app = 'USE_APP'
+        use_mobile_app = 'USE_MOBILE_APP'
         video_annotation = 'VIDEO_ANNOTATION'
-        moments = 'MOMENTS'
-        record_now = 'RECORD_NOW'
-        get_showtimes = 'GET_SHOWTIMES'
-        listen_now = 'LISTEN_NOW'
-        event_rsvp = 'EVENT_RSVP'
+        visit_pages_feed = 'VISIT_PAGES_FEED'
+        watch_more = 'WATCH_MORE'
+        watch_video = 'WATCH_VIDEO'
         whatsapp_message = 'WHATSAPP_MESSAGE'
-        follow_news_storyline = 'FOLLOW_NEWS_STORYLINE'
+        woodhenge_support = 'WOODHENGE_SUPPORT'
 
     class ObjectType:
         application = 'APPLICATION'
         domain = 'DOMAIN'
         event = 'EVENT'
+        invalid = 'INVALID'
         offer = 'OFFER'
         page = 'PAGE'
         photo = 'PHOTO'
@@ -149,7 +172,6 @@ class AdCreative(
         status = 'STATUS'
         store_item = 'STORE_ITEM'
         video = 'VIDEO'
-        invalid = 'INVALID'
 
     class Status:
         active = 'ACTIVE'
@@ -158,6 +180,17 @@ class AdCreative(
     class AuthorizationCategory:
         none = 'NONE'
         political = 'POLITICAL'
+
+    class CategorizationCriteria:
+        brand = 'brand'
+        category = 'category'
+        product_type = 'product_type'
+
+    class CategoryMediaSource:
+        category = 'CATEGORY'
+        mixed = 'MIXED'
+        products_collage = 'PRODUCTS_COLLAGE'
+        products_slideshow = 'PRODUCTS_SLIDESHOW'
 
     class DynamicAdVoice:
         dynamic = 'DYNAMIC'
@@ -172,11 +205,14 @@ class AdCreative(
     def get_endpoint(cls):
         return 'adcreatives'
 
-    def api_create(self, parent_id, fields=None, params=None, batch=None, pending=False):
+    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.adobjects.adaccount import AdAccount
-        return AdAccount(api=self._api, fbid=parent_id).create_ad_creative(fields, params, batch, pending)
+        return AdAccount(api=self._api, fbid=parent_id).create_ad_creative(fields, params, batch, success, failure, pending)
 
-    def api_delete(self, fields=None, params=None, batch=None, pending=False):
+    def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'account_id': 'string',
             'adlabels': 'list<Object>',
@@ -200,7 +236,7 @@ class AdCreative(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -208,7 +244,10 @@ class AdCreative(
             self.assure_call()
             return request.execute()
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'thumbnail_height': 'unsigned int',
             'thumbnail_width': 'unsigned int',
@@ -229,7 +268,7 @@ class AdCreative(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -237,7 +276,10 @@ class AdCreative(
             self.assure_call()
             return request.execute()
 
-    def api_update(self, fields=None, params=None, batch=None, pending=False):
+    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'account_id': 'string',
             'adlabels': 'list<Object>',
@@ -261,7 +303,7 @@ class AdCreative(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -269,7 +311,10 @@ class AdCreative(
             self.assure_call()
             return request.execute()
 
-    def delete_ad_labels(self, fields=None, params=None, batch=None, pending=False):
+    def delete_ad_labels(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'adlabels': 'list<Object>',
         }
@@ -289,7 +334,7 @@ class AdCreative(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -297,8 +342,10 @@ class AdCreative(
             self.assure_call()
             return request.execute()
 
-    def create_ad_label(self, fields=None, params=None, batch=None, pending=False):
-        from facebook_business.adobjects.adlabel import AdLabel
+    def create_ad_label(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'adlabels': 'list<Object>',
         }
@@ -310,15 +357,15 @@ class AdCreative(
             endpoint='/adlabels',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AdLabel,
+            target_class=AdCreative,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdLabel, api=self._api),
+            response_parser=ObjectParser(target_class=AdCreative, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -326,21 +373,30 @@ class AdCreative(
             self.assure_call()
             return request.execute()
 
-    def get_previews(self, fields=None, params=None, batch=None, pending=False):
+    def get_previews(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.adpreview import AdPreview
         param_types = {
             'ad_format': 'ad_format_enum',
+            'dynamic_asset_label': 'string',
             'dynamic_creative_spec': 'Object',
+            'dynamic_customization': 'Object',
             'end_date': 'datetime',
             'height': 'unsigned int',
+            'interactive': 'bool',
+            'locale': 'string',
             'place_page_id': 'int',
             'post': 'Object',
             'product_item_ids': 'list<string>',
+            'render_type': 'render_type_enum',
             'start_date': 'datetime',
             'width': 'unsigned int',
         }
         enums = {
             'ad_format_enum': AdPreview.AdFormat.__dict__.values(),
+            'render_type_enum': AdPreview.RenderType.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -356,7 +412,7 @@ class AdCreative(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -370,11 +426,21 @@ class AdCreative(
         'adlabels': 'list<AdLabel>',
         'applink_treatment': 'ApplinkTreatment',
         'asset_feed_spec': 'AdAssetFeedSpec',
+        'authorization_category': 'string',
+        'auto_update': 'bool',
         'body': 'string',
         'branded_content_sponsor_page_id': 'string',
+        'bundle_folder_id': 'string',
         'call_to_action_type': 'CallToActionType',
+        'categorization_criteria': 'string',
+        'category_media_source': 'string',
+        'destination_set_id': 'string',
+        'dynamic_ad_voice': 'string',
+        'effective_authorization_category': 'string',
         'effective_instagram_story_id': 'string',
         'effective_object_story_id': 'string',
+        'enable_direct_install': 'bool',
+        'enable_launch_instant_app': 'bool',
         'id': 'string',
         'image_crops': 'AdsImageCrops',
         'image_hash': 'string',
@@ -382,35 +448,38 @@ class AdCreative(
         'instagram_actor_id': 'string',
         'instagram_permalink_url': 'string',
         'instagram_story_id': 'string',
+        'interactive_components_spec': 'AdCreativeInteractiveComponentsSpec',
+        'link_deep_link_url': 'string',
         'link_og_id': 'string',
         'link_url': 'string',
         'messenger_sponsored_message': 'string',
         'name': 'string',
         'object_id': 'string',
+        'object_store_url': 'string',
         'object_story_id': 'string',
         'object_story_spec': 'AdCreativeObjectStorySpec',
         'object_type': 'ObjectType',
         'object_url': 'string',
-        'platform_customizations': 'Object',
+        'place_page_set_id': 'string',
+        'platform_customizations': 'AdCreativePlatformCustomization',
+        'playable_asset_id': 'string',
+        'portrait_customizations': 'AdCreativePortraitCustomizations',
         'product_set_id': 'string',
-        'recommender_settings': 'Object',
+        'recommender_settings': 'AdCreativeRecommenderSettings',
         'status': 'Status',
         'template_url': 'string',
-        'template_url_spec': 'Object',
+        'template_url_spec': 'AdCreativeTemplateURLSpec',
         'thumbnail_url': 'string',
         'title': 'string',
         'url_tags': 'string',
         'use_page_actor_override': 'bool',
         'video_id': 'string',
-        'authorization_category': 'AuthorizationCategory',
-        'dynamic_ad_voice': 'DynamicAdVoice',
+        'call_to_action': 'Object',
         'image_file': 'string',
+        'is_dco_internal': 'bool',
+        'mockup_id': 'string',
+        'page_id': 'string',
     }
-
-    def _setitem_trigger(self, key, value):
-        if key == 'id':
-            self._data['creative_id'] = self['id']
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
@@ -419,6 +488,13 @@ class AdCreative(
         field_enum_info['ObjectType'] = AdCreative.ObjectType.__dict__.values()
         field_enum_info['Status'] = AdCreative.Status.__dict__.values()
         field_enum_info['AuthorizationCategory'] = AdCreative.AuthorizationCategory.__dict__.values()
+        field_enum_info['CategorizationCriteria'] = AdCreative.CategorizationCriteria.__dict__.values()
+        field_enum_info['CategoryMediaSource'] = AdCreative.CategoryMediaSource.__dict__.values()
         field_enum_info['DynamicAdVoice'] = AdCreative.DynamicAdVoice.__dict__.values()
         field_enum_info['Operator'] = AdCreative.Operator.__dict__.values()
         return field_enum_info
+
+
+def _setitem_trigger(self, key, value):
+    if key == 'id':
+        self._data['creative_id'] = self['id']

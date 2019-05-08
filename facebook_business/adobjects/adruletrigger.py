@@ -44,26 +44,26 @@ class AdRuleTrigger(
         value = 'value'
 
     class Operator:
-        greater_than = 'GREATER_THAN'
-        less_than = 'LESS_THAN'
-        equal = 'EQUAL'
-        not_equal = 'NOT_EQUAL'
-        in_range = 'IN_RANGE'
-        not_in_range = 'NOT_IN_RANGE'
-        value_in = 'IN'
-        not_in = 'NOT_IN'
-        contain = 'CONTAIN'
-        not_contain = 'NOT_CONTAIN'
-        any = 'ANY'
         all = 'ALL'
+        any = 'ANY'
+        contain = 'CONTAIN'
+        equal = 'EQUAL'
+        greater_than = 'GREATER_THAN'
+        value_in = 'IN'
+        in_range = 'IN_RANGE'
+        less_than = 'LESS_THAN'
         none = 'NONE'
+        not_contain = 'NOT_CONTAIN'
+        not_equal = 'NOT_EQUAL'
+        not_in = 'NOT_IN'
+        not_in_range = 'NOT_IN_RANGE'
 
     class Type:
+        delivery_insights_change = 'DELIVERY_INSIGHTS_CHANGE'
         metadata_creation = 'METADATA_CREATION'
         metadata_update = 'METADATA_UPDATE'
-        stats_milestone = 'STATS_MILESTONE'
         stats_change = 'STATS_CHANGE'
-        delivery_insights_change = 'DELIVERY_INSIGHTS_CHANGE'
+        stats_milestone = 'STATS_MILESTONE'
 
     _field_types = {
         'field': 'string',
@@ -71,10 +71,11 @@ class AdRuleTrigger(
         'type': 'Type',
         'value': 'Object',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['Operator'] = AdRuleTrigger.Operator.__dict__.values()
         field_enum_info['Type'] = AdRuleTrigger.Type.__dict__.values()
         return field_enum_info
+
+

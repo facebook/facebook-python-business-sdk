@@ -45,19 +45,28 @@ class MediaFingerprint(
         expiration_time = 'expiration_time'
         fingerprint_content_type = 'fingerprint_content_type'
         fingerprint_type = 'fingerprint_type'
+        fingerprint_validity = 'fingerprint_validity'
         id = 'id'
         metadata = 'metadata'
         title = 'title'
         universal_content_id = 'universal_content_id'
 
     class FingerprintContentType:
-        songtrack = 'SONGTRACK'
-        episode = 'EPISODE'
-        other = 'OTHER'
-        movie = 'MOVIE'
         am_songtrack = 'AM_SONGTRACK'
+        episode = 'EPISODE'
+        movie = 'MOVIE'
+        other = 'OTHER'
+        songtrack = 'SONGTRACK'
 
-    def api_delete(self, fields=None, params=None, batch=None, pending=False):
+    class FingerprintValidity:
+        expired = 'EXPIRED'
+        expiring = 'EXPIRING'
+        valid = 'VALID'
+
+    def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -76,7 +85,7 @@ class MediaFingerprint(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -84,7 +93,10 @@ class MediaFingerprint(
             self.assure_call()
             return request.execute()
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -103,7 +115,7 @@ class MediaFingerprint(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -111,9 +123,12 @@ class MediaFingerprint(
             self.assure_call()
             return request.execute()
 
-    def api_update(self, fields=None, params=None, batch=None, pending=False):
+    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'metadata': 'Object',
+            'metadata': 'list',
             'title': 'string',
             'universal_content_id': 'string',
         }
@@ -133,7 +148,7 @@ class MediaFingerprint(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -146,14 +161,17 @@ class MediaFingerprint(
         'expiration_time': 'datetime',
         'fingerprint_content_type': 'string',
         'fingerprint_type': 'string',
+        'fingerprint_validity': 'string',
         'id': 'string',
         'metadata': 'Object',
         'title': 'string',
         'universal_content_id': 'string',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['FingerprintContentType'] = MediaFingerprint.FingerprintContentType.__dict__.values()
+        field_enum_info['FingerprintValidity'] = MediaFingerprint.FingerprintValidity.__dict__.values()
         return field_enum_info
+
+

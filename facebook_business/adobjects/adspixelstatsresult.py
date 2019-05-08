@@ -48,10 +48,18 @@ class AdsPixelStatsResult(
         device_os = 'device_os'
         device_type = 'device_type'
         event = 'event'
+        event_detection_method = 'event_detection_method'
+        event_processing_results = 'event_processing_results'
+        event_source = 'event_source'
+        event_total_counts = 'event_total_counts'
+        event_value_count = 'event_value_count'
         host = 'host'
+        people_reached = 'people_reached'
+        pii_keys = 'pii_keys'
+        pii_lift = 'pii_lift'
         pixel_fire = 'pixel_fire'
         url = 'url'
-        event_total_counts = 'event_total_counts'
+        url_by_rule = 'url_by_rule'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
@@ -59,13 +67,14 @@ class AdsPixelStatsResult(
         return 'stats'
 
     _field_types = {
-        'aggregation': 'Aggregation',
+        'aggregation': 'string',
         'data': 'list<AdsPixelStats>',
         'start_time': 'datetime',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['Aggregation'] = AdsPixelStatsResult.Aggregation.__dict__.values()
         return field_enum_info
+
+

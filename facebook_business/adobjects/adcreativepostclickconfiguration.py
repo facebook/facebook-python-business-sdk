@@ -45,8 +45,9 @@ class AdCreativePostClickConfiguration(
         'post_click_item_description': 'string',
         'post_click_item_headline': 'string',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         return field_enum_info
+
+

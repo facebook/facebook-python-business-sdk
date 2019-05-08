@@ -44,7 +44,6 @@ class OfflineConversionDataSet(
         business = 'business'
         config = 'config'
         creation_time = 'creation_time'
-        data_origin = 'data_origin'
         description = 'description'
         duplicate_entries = 'duplicate_entries'
         enable_auto_assign_to_accounts = 'enable_auto_assign_to_accounts'
@@ -52,8 +51,10 @@ class OfflineConversionDataSet(
         event_time_max = 'event_time_max'
         event_time_min = 'event_time_min'
         id = 'id'
+        is_mta_use = 'is_mta_use'
         is_restricted_use = 'is_restricted_use'
         last_upload_app = 'last_upload_app'
+        last_upload_app_changed_time = 'last_upload_app_changed_time'
         match_rate_approx = 'match_rate_approx'
         matched_entries = 'matched_entries'
         name = 'name'
@@ -61,22 +62,35 @@ class OfflineConversionDataSet(
         valid_entries = 'valid_entries'
         auto_assign_to_new_accounts_only = 'auto_assign_to_new_accounts_only'
 
-    class DataOrigin:
-        directly_from_people = 'DIRECTLY_FROM_PEOPLE'
-        people_and_partners = 'PEOPLE_AND_PARTNERS'
-        directly_from_partners = 'DIRECTLY_FROM_PARTNERS'
-        none = 'NONE'
+    class PermittedRoles:
+        admin = 'ADMIN'
+        advertiser = 'ADVERTISER'
+        uploader = 'UPLOADER'
+
+    class RelationshipType:
+        ad_manager = 'AD_MANAGER'
+        agency = 'AGENCY'
+        audience_manager = 'AUDIENCE_MANAGER'
+        other = 'OTHER'
+
+    class Role:
+        admin = 'ADMIN'
+        advertiser = 'ADVERTISER'
+        uploader = 'UPLOADER'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'offline_conversion_data_sets'
 
-    def api_create(self, parent_id, fields=None, params=None, batch=None, pending=False):
+    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.adobjects.business import Business
-        return Business(api=self._api, fbid=parent_id).create_offline_conversion_data_set(fields, params, batch, pending)
+        return Business(api=self._api, fbid=parent_id).create_offline_conversion_data_set(fields, params, batch, success, failure, pending)
 
-    def api_delete(self, fields=None, params=None, batch=None, pending=False):
+    def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -95,7 +109,7 @@ class OfflineConversionDataSet(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -103,7 +117,10 @@ class OfflineConversionDataSet(
             self.assure_call()
             return request.execute()
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -122,7 +139,7 @@ class OfflineConversionDataSet(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -130,16 +147,17 @@ class OfflineConversionDataSet(
             self.assure_call()
             return request.execute()
 
-    def api_update(self, fields=None, params=None, batch=None, pending=False):
+    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'auto_assign_to_new_accounts_only': 'bool',
-            'data_origin': 'data_origin_enum',
             'description': 'string',
             'enable_auto_assign_to_accounts': 'bool',
             'name': 'string',
         }
         enums = {
-            'data_origin_enum': OfflineConversionDataSet.DataOrigin.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -155,7 +173,7 @@ class OfflineConversionDataSet(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -163,7 +181,10 @@ class OfflineConversionDataSet(
             self.assure_call()
             return request.execute()
 
-    def get_activities(self, fields=None, params=None, batch=None, pending=False):
+    def get_activities(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'business_id': 'string',
             'end_time': 'datetime',
@@ -172,19 +193,19 @@ class OfflineConversionDataSet(
         }
         enums = {
             'event_type_enum': [
+                'add_dataset_to_business',
+                'add_user_to_dataset',
+                'create_custom_audience',
+                'create_custom_conversion',
                 'dataset_assign_to_adacct',
                 'dataset_autotrack_on_adacct',
                 'dataset_disable_autotrack_on_adacct',
                 'dataset_unassign_from_adacct',
-                'add_dataset_to_business',
-                'add_user_to_dataset',
                 'remove_user_from_dataset',
-                'update_user_role_on_dataset',
-                'create_custom_conversion',
-                'update_custom_conversion',
-                'create_custom_audience',
                 'share_custom_audience',
                 'unshare_custom_audience',
+                'update_custom_conversion',
+                'update_user_role_on_dataset',
             ],
         }
         request = FacebookRequest(
@@ -201,7 +222,7 @@ class OfflineConversionDataSet(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -209,7 +230,10 @@ class OfflineConversionDataSet(
             self.assure_call()
             return request.execute()
 
-    def delete_ad_accounts(self, fields=None, params=None, batch=None, pending=False):
+    def delete_ad_accounts(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'account_id': 'string',
             'business': 'string',
@@ -230,7 +254,7 @@ class OfflineConversionDataSet(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -238,7 +262,10 @@ class OfflineConversionDataSet(
             self.assure_call()
             return request.execute()
 
-    def get_ad_accounts(self, fields=None, params=None, batch=None, pending=False):
+    def get_ad_accounts(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.adaccount import AdAccount
         param_types = {
             'business': 'string',
@@ -259,7 +286,7 @@ class OfflineConversionDataSet(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -267,7 +294,10 @@ class OfflineConversionDataSet(
             self.assure_call()
             return request.execute()
 
-    def create_ad_account(self, fields=None, params=None, batch=None, pending=False):
+    def create_ad_account(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'account_id': 'string',
             'auto_track_for_ads': 'bool',
@@ -281,15 +311,15 @@ class OfflineConversionDataSet(
             endpoint='/adaccounts',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=OfflineConversionDataSet,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=OfflineConversionDataSet, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -297,7 +327,10 @@ class OfflineConversionDataSet(
             self.assure_call()
             return request.execute()
 
-    def delete_agencies(self, fields=None, params=None, batch=None, pending=False):
+    def delete_agencies(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'business': 'string',
         }
@@ -317,7 +350,7 @@ class OfflineConversionDataSet(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -325,18 +358,18 @@ class OfflineConversionDataSet(
             self.assure_call()
             return request.execute()
 
-    def create_agency(self, fields=None, params=None, batch=None, pending=False):
+    def get_agencies(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.business import Business
         param_types = {
-            'business': 'string',
-            'permitted_roles': 'list<permitted_roles_enum>',
         }
         enums = {
-            'permitted_roles_enum': Business.PermittedRoles.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
-            method='POST',
+            method='GET',
             endpoint='/agencies',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
@@ -348,7 +381,7 @@ class OfflineConversionDataSet(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -356,12 +389,148 @@ class OfflineConversionDataSet(
             self.assure_call()
             return request.execute()
 
-    def create_event(self, fields=None, params=None, batch=None, pending=False):
+    def create_agency(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'business': 'string',
+            'other_relationship': 'string',
+            'permitted_roles': 'list<permitted_roles_enum>',
+            'relationship_type': 'list<relationship_type_enum>',
+        }
+        enums = {
+            'permitted_roles_enum': OfflineConversionDataSet.PermittedRoles.__dict__.values(),
+            'relationship_type_enum': OfflineConversionDataSet.RelationshipType.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/agencies',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=OfflineConversionDataSet,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=OfflineConversionDataSet, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_audiences(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.customaudience import CustomAudience
+        param_types = {
+            'ad_account': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/audiences',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=CustomAudience,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=CustomAudience, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_custom_conversions(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.customconversion import CustomConversion
+        param_types = {
+            'ad_account': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/customconversions',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=CustomConversion,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=CustomConversion, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_da_checks(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.dacheck import DACheck
+        param_types = {
+            'checks': 'list<string>',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/da_checks',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=DACheck,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=DACheck, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_event(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'data': 'list<string>',
             'namespace_id': 'string',
             'progress': 'Object',
             'upload_id': 'string',
+            'upload_source': 'string',
             'upload_tag': 'string',
         }
         enums = {
@@ -380,7 +549,7 @@ class OfflineConversionDataSet(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -388,7 +557,10 @@ class OfflineConversionDataSet(
             self.assure_call()
             return request.execute()
 
-    def get_stats(self, fields=None, params=None, batch=None, pending=False):
+    def get_stats(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'aggr_time': 'aggr_time_enum',
             'end': 'int',
@@ -399,12 +571,13 @@ class OfflineConversionDataSet(
         }
         enums = {
             'aggr_time_enum': [
-                'upload_time',
                 'event_time',
+                'upload_time',
             ],
             'granularity_enum': [
                 'daily',
                 'hourly',
+                'six_hourly',
             ],
         }
         request = FacebookRequest(
@@ -421,7 +594,7 @@ class OfflineConversionDataSet(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -429,12 +602,15 @@ class OfflineConversionDataSet(
             self.assure_call()
             return request.execute()
 
-    def get_uploads(self, fields=None, params=None, batch=None, pending=False):
+    def get_uploads(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'end_time': 'Object',
+            'end_time': 'datetime',
             'order': 'order_enum',
             'sort_by': 'sort_by_enum',
-            'start_time': 'Object',
+            'start_time': 'datetime',
             'upload_tag': 'string',
         }
         enums = {
@@ -443,13 +619,13 @@ class OfflineConversionDataSet(
                 'DESCENDING',
             ],
             'sort_by_enum': [
-                'CREATION_TIME',
-                'FIRST_UPLOAD_TIME',
-                'LAST_UPLOAD_TIME',
                 'API_CALLS',
-                'EVENT_TIME_MIN',
+                'CREATION_TIME',
                 'EVENT_TIME_MAX',
+                'EVENT_TIME_MIN',
+                'FIRST_UPLOAD_TIME',
                 'IS_EXCLUDED_FOR_LIFT',
+                'LAST_UPLOAD_TIME',
             ],
         }
         request = FacebookRequest(
@@ -466,7 +642,7 @@ class OfflineConversionDataSet(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -474,7 +650,10 @@ class OfflineConversionDataSet(
             self.assure_call()
             return request.execute()
 
-    def create_upload(self, fields=None, params=None, batch=None, pending=False):
+    def create_upload(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'upload_tag': 'string',
         }
@@ -494,7 +673,7 @@ class OfflineConversionDataSet(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -502,9 +681,12 @@ class OfflineConversionDataSet(
             self.assure_call()
             return request.execute()
 
-    def delete_user_permissions(self, fields=None, params=None, batch=None, pending=False):
+    def delete_user_permissions(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'business': 'Object',
+            'business': 'string',
             'email': 'string',
             'user': 'int',
         }
@@ -524,7 +706,7 @@ class OfflineConversionDataSet(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -532,22 +714,18 @@ class OfflineConversionDataSet(
             self.assure_call()
             return request.execute()
 
-    def create_user_permission(self, fields=None, params=None, batch=None, pending=False):
+    def get_user_permissions(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'business': 'Object',
-            'role': 'role_enum',
-            'user': 'int',
+            'business': 'string',
         }
         enums = {
-            'role_enum': [
-                'ADMIN',
-                'UPLOADER',
-                'ADVERTISER',
-            ],
         }
         request = FacebookRequest(
             node_id=self['id'],
-            method='POST',
+            method='GET',
             endpoint='/userpermissions',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
@@ -559,7 +737,7 @@ class OfflineConversionDataSet(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -567,7 +745,106 @@ class OfflineConversionDataSet(
             self.assure_call()
             return request.execute()
 
-    def create_validate(self, fields=None, params=None, batch=None, pending=False):
+    def create_user_permission(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'business': 'string',
+            'role': 'role_enum',
+            'user': 'int',
+        }
+        enums = {
+            'role_enum': OfflineConversionDataSet.Role.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/userpermissions',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=OfflineConversionDataSet,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=OfflineConversionDataSet, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def delete_users(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'data': 'list<Object>',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='DELETE',
+            endpoint='/users',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_user(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'data': 'list<Object>',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/users',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=OfflineConversionDataSet,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=OfflineConversionDataSet, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_validate(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'data': 'list<string>',
             'namespace_id': 'string',
@@ -588,7 +865,7 @@ class OfflineConversionDataSet(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -600,7 +877,6 @@ class OfflineConversionDataSet(
         'business': 'Business',
         'config': 'string',
         'creation_time': 'datetime',
-        'data_origin': 'string',
         'description': 'string',
         'duplicate_entries': 'int',
         'enable_auto_assign_to_accounts': 'bool',
@@ -608,8 +884,10 @@ class OfflineConversionDataSet(
         'event_time_max': 'int',
         'event_time_min': 'int',
         'id': 'string',
+        'is_mta_use': 'bool',
         'is_restricted_use': 'bool',
         'last_upload_app': 'string',
+        'last_upload_app_changed_time': 'int',
         'match_rate_approx': 'int',
         'matched_entries': 'int',
         'name': 'string',
@@ -617,9 +895,12 @@ class OfflineConversionDataSet(
         'valid_entries': 'int',
         'auto_assign_to_new_accounts_only': 'bool',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['DataOrigin'] = OfflineConversionDataSet.DataOrigin.__dict__.values()
+        field_enum_info['PermittedRoles'] = OfflineConversionDataSet.PermittedRoles.__dict__.values()
+        field_enum_info['RelationshipType'] = OfflineConversionDataSet.RelationshipType.__dict__.values()
+        field_enum_info['Role'] = OfflineConversionDataSet.Role.__dict__.values()
         return field_enum_info
+
+

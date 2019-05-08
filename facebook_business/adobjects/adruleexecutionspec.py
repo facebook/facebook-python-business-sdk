@@ -42,12 +42,12 @@ class AdRuleExecutionSpec(
         execution_type = 'execution_type'
 
     class ExecutionType:
-        ping_endpoint = 'PING_ENDPOINT'
+        change_bid = 'CHANGE_BID'
+        change_budget = 'CHANGE_BUDGET'
         notification = 'NOTIFICATION'
         pause = 'PAUSE'
+        ping_endpoint = 'PING_ENDPOINT'
         rebalance_budget = 'REBALANCE_BUDGET'
-        change_budget = 'CHANGE_BUDGET'
-        change_bid = 'CHANGE_BID'
         rotate = 'ROTATE'
         unpause = 'UNPAUSE'
 
@@ -55,9 +55,10 @@ class AdRuleExecutionSpec(
         'execution_options': 'list<AdRuleExecutionOptions>',
         'execution_type': 'ExecutionType',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['ExecutionType'] = AdRuleExecutionSpec.ExecutionType.__dict__.values()
         return field_enum_info
+
+

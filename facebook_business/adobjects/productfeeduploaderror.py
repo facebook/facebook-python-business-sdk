@@ -63,7 +63,10 @@ class ProductFeedUploadError(
     def get_endpoint(cls):
         return 'errors'
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -82,7 +85,7 @@ class ProductFeedUploadError(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -90,7 +93,11 @@ class ProductFeedUploadError(
             self.assure_call()
             return request.execute()
 
-    def get_samples(self, fields=None, params=None, batch=None, pending=False):
+    def get_samples(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.productfeeduploaderrorsample import ProductFeedUploadErrorSample
         param_types = {
         }
         enums = {
@@ -101,15 +108,46 @@ class ProductFeedUploadError(
             endpoint='/samples',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=ProductFeedUploadErrorSample,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=ProductFeedUploadErrorSample, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_suggested_rules(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.productfeedrulesuggestion import ProductFeedRuleSuggestion
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/suggested_rules',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ProductFeedRuleSuggestion,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ProductFeedRuleSuggestion, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -126,10 +164,11 @@ class ProductFeedUploadError(
         'summary': 'string',
         'total_count': 'unsigned int',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['AffectedSurfaces'] = ProductFeedUploadError.AffectedSurfaces.__dict__.values()
         field_enum_info['Severity'] = ProductFeedUploadError.Severity.__dict__.values()
         return field_enum_info
+
+

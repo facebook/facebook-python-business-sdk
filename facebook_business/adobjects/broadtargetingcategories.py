@@ -71,8 +71,9 @@ class BroadTargetingCategories(
         'untranslated_name': 'string',
         'untranslated_parent_name': 'string',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         return field_enum_info
+
+

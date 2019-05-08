@@ -44,11 +44,19 @@ class TargetingGeoLocation(
         custom_locations = 'custom_locations'
         electoral_districts = 'electoral_districts'
         geo_markets = 'geo_markets'
+        large_geo_areas = 'large_geo_areas'
+        location_cluster_ids = 'location_cluster_ids'
         location_set_ids = 'location_set_ids'
         location_types = 'location_types'
+        medium_geo_areas = 'medium_geo_areas'
+        metro_areas = 'metro_areas'
+        neighborhoods = 'neighborhoods'
         places = 'places'
         political_districts = 'political_districts'
         regions = 'regions'
+        small_geo_areas = 'small_geo_areas'
+        subcities = 'subcities'
+        subneighborhoods = 'subneighborhoods'
         zips = 'zips'
 
     _field_types = {
@@ -58,15 +66,24 @@ class TargetingGeoLocation(
         'custom_locations': 'list<TargetingGeoLocationCustomLocation>',
         'electoral_districts': 'list<TargetingGeoLocationElectoralDistrict>',
         'geo_markets': 'list<TargetingGeoLocationMarket>',
+        'large_geo_areas': 'list<TargetingGeoLocationGeoEntities>',
+        'location_cluster_ids': 'list<TargetingGeoLocationLocationCluster>',
         'location_set_ids': 'list<string>',
         'location_types': 'list<string>',
+        'medium_geo_areas': 'list<TargetingGeoLocationGeoEntities>',
+        'metro_areas': 'list<TargetingGeoLocationGeoEntities>',
+        'neighborhoods': 'list<TargetingGeoLocationGeoEntities>',
         'places': 'list<TargetingGeoLocationPlace>',
         'political_districts': 'list<TargetingGeoLocationPoliticalDistrict>',
         'regions': 'list<TargetingGeoLocationRegion>',
+        'small_geo_areas': 'list<TargetingGeoLocationGeoEntities>',
+        'subcities': 'list<TargetingGeoLocationGeoEntities>',
+        'subneighborhoods': 'list<TargetingGeoLocationGeoEntities>',
         'zips': 'list<TargetingGeoLocationZip>',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         return field_enum_info
+
+

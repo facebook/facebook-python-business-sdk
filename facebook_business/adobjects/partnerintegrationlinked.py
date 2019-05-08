@@ -43,6 +43,7 @@ class PartnerIntegrationLinked(
     class Field(AbstractObject.Field):
         ads_pixel = 'ads_pixel'
         application = 'application'
+        completed_integration_types = 'completed_integration_types'
         external_id = 'external_id'
         has_oauth_token = 'has_oauth_token'
         id = 'id'
@@ -52,8 +53,130 @@ class PartnerIntegrationLinked(
         partner_profile = 'partner_profile'
         product_catalog = 'product_catalog'
         setup_status = 'setup_status'
+        gtm_account_id = 'gtm_account_id'
+        gtm_container_id = 'gtm_container_id'
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    class Partner:
+        adjust = 'adjust'
+        appsflyer = 'appsflyer'
+        avana = 'avana'
+        backer_founder = 'backer_founder'
+        bandzoogle = 'bandzoogle'
+        big_commerce = 'big_commerce'
+        branch = 'branch'
+        cart_3d = 'cart_3d'
+        value_default = 'default'
+        drupal = 'drupal'
+        ec_cube3 = 'ec_cube3'
+        ecwid = 'ecwid'
+        eventbrite = 'eventbrite'
+        feedonomics = 'feedonomics'
+        foodkit = 'foodkit'
+        google_tag_manager = 'google_tag_manager'
+        haravan = 'haravan'
+        hubspot = 'hubspot'
+        infusionsoft_zap = 'infusionsoft_zap'
+        intern = 'intern'
+        invoca = 'invoca'
+        jimdo = 'jimdo'
+        joomla = 'joomla'
+        jumpseller = 'jumpseller'
+        kajabi = 'kajabi'
+        kochava = 'kochava'
+        kraftly = 'kraftly'
+        m_particle = 'm_particle'
+        magento = 'magento'
+        magento_2 = 'magento_2'
+        marketo = 'marketo'
+        meesho = 'meesho'
+        now_floats = 'now_floats'
+        opencart = 'opencart'
+        prestashop = 'prestashop'
+        productsup = 'productsup'
+        riversoft = 'riversoft'
+        ruby_on_rails = 'ruby_on_rails'
+        salesforce = 'salesforce'
+        salesforce_zap = 'salesforce_zap'
+        segment = 'segment'
+        shop_up = 'shop_up'
+        shopify = 'shopify'
+        shopify_online = 'shopify_online'
+        shopline = 'shopline'
+        singular = 'singular'
+        sirclo = 'sirclo'
+        squarespace = 'squarespace'
+        storeden = 'storeden'
+        test = 'test'
+        ticketmaster = 'ticketmaster'
+        verifone = 'verifone'
+        waca = 'waca'
+        webflow = 'webflow'
+        weebly = 'weebly'
+        wix = 'wix'
+        woocommerce = 'woocommerce'
+        wordpress = 'wordpress'
+        zoho_zap = 'zoho_zap'
+
+    class CompletedIntegrationTypes:
+        value_0 = '0'
+        value_1 = '1'
+        value_2 = '2'
+        value_3 = '3'
+
+    class SetupStatus:
+        complete = 'COMPLETE'
+        start = 'START'
+
+    # @deprecated get_endpoint function is deprecated
+    @classmethod
+    def get_endpoint(cls):
+        return 'partner_integrations'
+
+    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.adobjects.adaccount import AdAccount
+        return AdAccount(api=self._api, fbid=parent_id).create_partner_integration(fields, params, batch, success, failure, pending)
+
+    def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'asset_type': 'asset_type_enum',
+        }
+        enums = {
+            'asset_type_enum': [
+                '0',
+                '1',
+                '2',
+                '3',
+            ],
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='DELETE',
+            endpoint='/',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -72,7 +195,50 @@ class PartnerIntegrationLinked(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'ads_pixel_id': 'string',
+            'application_id': 'string',
+            'completed_integration_types': 'list<completed_integration_types_enum>',
+            'install_name': 'string',
+            'name': 'string',
+            'oauth_partner_integration_id': 'string',
+            'offline_conversion_data_set_id': 'string',
+            'product_catalog_id': 'string',
+            'salesforce_instance_url': 'string',
+            'setup_status': 'setup_status_enum',
+            'workspace_name': 'string',
+        }
+        enums = {
+            'completed_integration_types_enum': PartnerIntegrationLinked.CompletedIntegrationTypes.__dict__.values(),
+            'setup_status_enum': PartnerIntegrationLinked.SetupStatus.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=PartnerIntegrationLinked,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -82,7 +248,8 @@ class PartnerIntegrationLinked(
 
     _field_types = {
         'ads_pixel': 'AdsPixel',
-        'application': 'Object',
+        'application': 'Application',
+        'completed_integration_types': 'list<string>',
         'external_id': 'string',
         'has_oauth_token': 'bool',
         'id': 'string',
@@ -92,9 +259,15 @@ class PartnerIntegrationLinked(
         'partner_profile': 'Object',
         'product_catalog': 'ProductCatalog',
         'setup_status': 'string',
+        'gtm_account_id': 'string',
+        'gtm_container_id': 'string',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['Partner'] = PartnerIntegrationLinked.Partner.__dict__.values()
+        field_enum_info['CompletedIntegrationTypes'] = PartnerIntegrationLinked.CompletedIntegrationTypes.__dict__.values()
+        field_enum_info['SetupStatus'] = PartnerIntegrationLinked.SetupStatus.__dict__.values()
         return field_enum_info
+
+

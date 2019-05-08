@@ -48,6 +48,7 @@ class ProductItem(
         applinks = 'applinks'
         availability = 'availability'
         brand = 'brand'
+        capability_to_review_status = 'capability_to_review_status'
         category = 'category'
         color = 'color'
         commerce_insights = 'commerce_insights'
@@ -92,7 +93,6 @@ class ProductItem(
         start_date = 'start_date'
         url = 'url'
         visibility = 'visibility'
-        requests = 'requests'
         android_app_name = 'android_app_name'
         android_class = 'android_class'
         android_package = 'android_package'
@@ -124,18 +124,19 @@ class ProductItem(
         toddler = 'toddler'
 
     class Availability:
-        in_stock = 'in stock'
-        out_of_stock = 'out of stock'
-        preorder = 'preorder'
         available_for_order = 'available for order'
         discontinued = 'discontinued'
+        in_stock = 'in stock'
+        out_of_stock = 'out of stock'
         pending = 'pending'
+        preorder = 'preorder'
 
     class Condition:
+        cpo = 'cpo'
         new = 'new'
+        open_box_new = 'open_box_new'
         refurbished = 'refurbished'
         used = 'used'
-        cpo = 'cpo'
 
     class Gender:
         female = 'female'
@@ -143,31 +144,34 @@ class ProductItem(
         unisex = 'unisex'
 
     class ReviewStatus:
-        pending = 'pending'
-        rejected = 'rejected'
         approved = 'approved'
         outdated = 'outdated'
+        pending = 'pending'
+        rejected = 'rejected'
 
     class ShippingWeightUnit:
         value_g = 'g'
         kg = 'kg'
-        oz = 'oz'
         lb = 'lb'
+        oz = 'oz'
 
     class Visibility:
-        staging = 'staging'
         published = 'published'
+        staging = 'staging'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'products'
 
-    def api_create(self, parent_id, fields=None, params=None, batch=None, pending=False):
+    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.adobjects.productcatalog import ProductCatalog
-        return ProductCatalog(api=self._api, fbid=parent_id).create_product(fields, params, batch, pending)
+        return ProductCatalog(api=self._api, fbid=parent_id).create_product(fields, params, batch, success, failure, pending)
 
-    def api_delete(self, fields=None, params=None, batch=None, pending=False):
+    def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -186,7 +190,7 @@ class ProductItem(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -194,7 +198,10 @@ class ProductItem(
             self.assure_call()
             return request.execute()
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'image_height': 'unsigned int',
             'image_width': 'unsigned int',
@@ -215,7 +222,7 @@ class ProductItem(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -223,10 +230,13 @@ class ProductItem(
             self.assure_call()
             return request.execute()
 
-    def api_update(self, fields=None, params=None, batch=None, pending=False):
+    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'additional_image_urls': 'list<string>',
-            'additional_variant_attributes': 'Object',
+            'additional_variant_attributes': 'map',
             'android_app_name': 'string',
             'android_class': 'string',
             'android_package': 'string',
@@ -248,7 +258,7 @@ class ProductItem(
             'expiration_date': 'string',
             'gender': 'gender_enum',
             'gtin': 'string',
-            'image_url': 'Object',
+            'image_url': 'string',
             'inventory': 'unsigned int',
             'ios_app_name': 'string',
             'ios_app_store_id': 'unsigned int',
@@ -261,11 +271,11 @@ class ProductItem(
             'iphone_url': 'string',
             'manufacturer_part_number': 'string',
             'material': 'string',
-            'mobile_link': 'Object',
+            'mobile_link': 'string',
             'name': 'string',
             'offer_price_amount': 'unsigned int',
-            'offer_price_end_date': 'Object',
-            'offer_price_start_date': 'Object',
+            'offer_price_end_date': 'datetime',
+            'offer_price_start_date': 'datetime',
             'ordering_index': 'unsigned int',
             'pattern': 'string',
             'price': 'unsigned int',
@@ -277,7 +287,7 @@ class ProductItem(
             'short_description': 'string',
             'size': 'string',
             'start_date': 'string',
-            'url': 'Object',
+            'url': 'string',
             'visibility': 'visibility_enum',
             'windows_phone_app_id': 'string',
             'windows_phone_app_name': 'string',
@@ -303,7 +313,7 @@ class ProductItem(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -311,7 +321,55 @@ class ProductItem(
             self.assure_call()
             return request.execute()
 
-    def get_product_sets(self, fields=None, params=None, batch=None, pending=False):
+    def create_comment(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.comment import Comment
+        param_types = {
+            'attachment_id': 'string',
+            'attachment_share_url': 'string',
+            'attachment_url': 'string',
+            'comment_privacy_value': 'comment_privacy_value_enum',
+            'facepile_mentioned_ids': 'list<string>',
+            'feedback_source': 'string',
+            'is_offline': 'bool',
+            'message': 'string',
+            'nectar_module': 'string',
+            'object_id': 'string',
+            'parent_comment_id': 'Object',
+            'text': 'string',
+            'tracking': 'string',
+        }
+        enums = {
+            'comment_privacy_value_enum': Comment.CommentPrivacyValue.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/comments',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Comment,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Comment, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_product_sets(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.productset import ProductSet
         param_types = {
         }
@@ -331,7 +389,7 @@ class ProductItem(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -340,19 +398,20 @@ class ProductItem(
             return request.execute()
 
     _field_types = {
-        'additional_image_cdn_urls': 'list<list<Object>>',
+        'additional_image_cdn_urls': 'list<map<string, string>>',
         'additional_image_urls': 'list<string>',
-        'additional_variant_attributes': 'list<Object>',
+        'additional_variant_attributes': 'map<string, string>',
         'age_group': 'AgeGroup',
         'applinks': 'AppLinks',
         'availability': 'Availability',
         'brand': 'string',
+        'capability_to_review_status': 'map<Object, Object>',
         'category': 'string',
         'color': 'string',
         'commerce_insights': 'ProductItemCommerceInsights',
         'condition': 'Condition',
         'currency': 'string',
-        'custom_data': 'list<Object>',
+        'custom_data': 'map<string, string>',
         'custom_label_0': 'string',
         'custom_label_1': 'string',
         'custom_label_2': 'string',
@@ -363,7 +422,7 @@ class ProductItem(
         'gender': 'Gender',
         'gtin': 'string',
         'id': 'string',
-        'image_cdn_urls': 'list<Object>',
+        'image_cdn_urls': 'map<string, string>',
         'image_url': 'string',
         'inventory': 'int',
         'manufacturer_part_number': 'string',
@@ -391,7 +450,6 @@ class ProductItem(
         'start_date': 'string',
         'url': 'string',
         'visibility': 'Visibility',
-        'requests': 'list<map>',
         'android_app_name': 'string',
         'android_class': 'string',
         'android_package': 'string',
@@ -407,13 +465,12 @@ class ProductItem(
         'iphone_app_store_id': 'unsigned int',
         'iphone_url': 'string',
         'offer_price_amount': 'unsigned int',
-        'offer_price_end_date': 'Object',
-        'offer_price_start_date': 'Object',
+        'offer_price_end_date': 'datetime',
+        'offer_price_start_date': 'datetime',
         'windows_phone_app_id': 'string',
         'windows_phone_app_name': 'string',
         'windows_phone_url': 'string',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
@@ -425,3 +482,5 @@ class ProductItem(
         field_enum_info['ShippingWeightUnit'] = ProductItem.ShippingWeightUnit.__dict__.values()
         field_enum_info['Visibility'] = ProductItem.Visibility.__dict__.values()
         return field_enum_info
+
+

@@ -48,13 +48,13 @@ class AdRecommendation(
 
     class Confidence:
         high = 'HIGH'
-        medium = 'MEDIUM'
         low = 'LOW'
+        medium = 'MEDIUM'
 
     class Importance:
         high = 'HIGH'
-        medium = 'MEDIUM'
         low = 'LOW'
+        medium = 'MEDIUM'
 
     _field_types = {
         'blame_field': 'string',
@@ -65,10 +65,11 @@ class AdRecommendation(
         'recommendation_data': 'AdRecommendationData',
         'title': 'string',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['Confidence'] = AdRecommendation.Confidence.__dict__.values()
         field_enum_info['Importance'] = AdRecommendation.Importance.__dict__.values()
         return field_enum_info
+
+

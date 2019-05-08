@@ -18,42 +18,45 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebook_business.objects import (
-    AdCampaign,
-    AdSet,
-    AdGroup,
-    AdImage,
-    AdCreative,
-    TargetingSpecsField,
-)
+# @fixme: official facebook-sdk example file is wrong
+
+from facebook_business.adobjects.campaign import Campaign as AdCampaign
+from facebook_business.adobjects.ad import Ad
+from facebook_business.adobjects.adset import AdSet
+from facebook_business.adobjects.adimage import AdImage
+from facebook_business.adobjects.adcreative import AdCreative
+from facebook_business.adobjects.targeting import Targeting
+
 import itertools
-from batch_utils import generate_batches
+from .batch_utils import generate_batches
+
+TargetingSpecsField = Targeting.Field
 
 
 def create_multiple_website_clicks_ads(
-    account,
+        account,
 
-    name,
-    country,
+        name,
+        country,
 
-    titles,
-    bodies,
-    urls,
-    image_paths,
+        titles,
+        bodies,
+        urls,
+        image_paths,
 
-    bid_type,
-    bid_info,
-    daily_budget=None,
-    lifetime_budget=None,
-    start_time=None,
-    end_time=None,
+        bid_type,
+        bid_info,
+        daily_budget=None,
+        lifetime_budget=None,
+        start_time=None,
+        end_time=None,
 
-    age_min=None,
-    age_max=None,
-    genders=None,
+        age_min=None,
+        age_max=None,
+        genders=None,
 
-    campaign=None,
-    paused=False,
+        campaign=None,
+        paused=False,
 ):
     # Check for bad specs
     if daily_budget is None:
@@ -74,7 +77,7 @@ def create_multiple_website_clicks_ads(
             AdCampaign.Objective.website_clicks
         campaign[AdCampaign.Field.status] = \
             AdCampaign.Status.active if not paused \
-            else AdCampaign.Status.paused
+                else AdCampaign.Status.paused
         campaign.remote_create()
 
     # Create ad set
@@ -120,17 +123,17 @@ def create_multiple_website_clicks_ads(
 
     # For each creative permutation
     for creative_info_batch in generate_batches(
-        itertools.product(titles, bodies, urls, image_hashes),
-        ADGROUP_BATCH_CREATE_LIMIT
+            itertools.product(titles, bodies, urls, image_hashes),
+            ADGROUP_BATCH_CREATE_LIMIT
     ):
         api_batch = account.get_api_assured().new_batch()
 
         for title, body, url, image_hash in creative_info_batch:
             # Create the ad
-            ad = AdGroup(parent_id=account.get_id_assured())
-            ad[AdGroup.Field.name] = name + ' Ad'
-            ad[AdGroup.Field.campaign_id] = ad_set.get_id_assured()
-            ad[AdGroup.Field.creative] = {
+            ad = Ad(parent_id=account.get_id_assured())
+            ad[Ad.Field.name] = name + ' Ad'
+            ad[Ad.Field.campaign_id] = ad_set.get_id_assured()
+            ad[Ad.Field.creative] = {
                 AdCreative.Field.title: title,
                 AdCreative.Field.body: body,
                 AdCreative.Field.object_url: url,
@@ -146,53 +149,53 @@ def create_multiple_website_clicks_ads(
 
 
 def create_website_clicks_ad(
-    account,
+        account,
 
-    name,
-    country,
+        name,
+        country,
 
-    title,
-    body,
-    url,
-    image_path,
+        title,
+        body,
+        url,
+        image_path,
 
-    bid_type,
-    bid_info,
-    daily_budget=None,
-    lifetime_budget=None,
-    start_time=None,
-    end_time=None,
+        bid_type,
+        bid_info,
+        daily_budget=None,
+        lifetime_budget=None,
+        start_time=None,
+        end_time=None,
 
-    age_min=None,
-    age_max=None,
-    genders=None,
+        age_min=None,
+        age_max=None,
+        genders=None,
 
-    campaign=None,
-    paused=False,
+        campaign=None,
+        paused=False,
 ):
     for ad in create_multiple_website_clicks_ads(
-        account=account,
+            account=account,
 
-        name=name,
-        country=country,
+            name=name,
+            country=country,
 
-        titles=[title],
-        bodies=[body],
-        urls=[url],
-        image_paths=[image_path],
+            titles=[title],
+            bodies=[body],
+            urls=[url],
+            image_paths=[image_path],
 
-        bid_type=bid_type,
-        bid_info=bid_info,
-        daily_budget=daily_budget,
-        lifetime_budget=lifetime_budget,
-        start_time=start_time,
-        end_time=end_time,
+            bid_type=bid_type,
+            bid_info=bid_info,
+            daily_budget=daily_budget,
+            lifetime_budget=lifetime_budget,
+            start_time=start_time,
+            end_time=end_time,
 
-        age_min=age_min,
-        age_max=age_max,
-        genders=genders,
+            age_min=age_min,
+            age_max=age_max,
+            genders=genders,
 
-        campaign=campaign,
-        paused=paused,
+            campaign=campaign,
+            paused=paused,
     ):
         return ad

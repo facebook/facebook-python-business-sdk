@@ -40,23 +40,28 @@ class ReachFrequencySpec(
     class Field(AbstractObject.Field):
         countries = 'countries'
         default_creation_data = 'default_creation_data'
+        global_io_max_campaign_duration = 'global_io_max_campaign_duration'
         max_campaign_duration = 'max_campaign_duration'
         max_days_to_finish = 'max_days_to_finish'
         max_pause_without_prediction_rerun = 'max_pause_without_prediction_rerun'
         min_campaign_duration = 'min_campaign_duration'
         min_reach_limits = 'min_reach_limits'
+        supports_video_view_benchmark_per_country = 'supports_video_view_benchmark_per_country'
 
     _field_types = {
         'countries': 'list<string>',
         'default_creation_data': 'Object',
+        'global_io_max_campaign_duration': 'unsigned int',
         'max_campaign_duration': 'Object',
         'max_days_to_finish': 'Object',
         'max_pause_without_prediction_rerun': 'Object',
         'min_campaign_duration': 'Object',
         'min_reach_limits': 'Object',
+        'supports_video_view_benchmark_per_country': 'Object',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         return field_enum_info
+
+

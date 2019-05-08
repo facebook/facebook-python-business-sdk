@@ -98,7 +98,7 @@ my_app_id = 'your-app-id'
 my_app_secret = 'your-appsecret'
 my_access_token = 'your-page-access-token'
 FacebookAdsApi.init(my_app_id, my_app_secret, my_access_token)
-my_account = AdAccount('your-adaccount-id')
+my_account = AdAccount('act_<your-adaccount-id>')
 campaigns = my_account.get_campaigns()
 print(campaigns)
 ```
@@ -448,22 +448,35 @@ On other distributions you can
 `sudo make altinstall` to avoid conflicts with your system-installed
 version.
 
-### Integration tests
-
-The integration tests require an access token with ads_management scope.
-You can obtain a short-lived token from the
-[Graph API Explorer](https://developers.facebook.com/tools/explorer/).
-These tests access the live Facebook API but shouldn't actually
-launch an ad or spend any money.
-
-Copy the `config.json.example` to `config.json` and fill in the appropriate
-details.
-
-```
-python -m facebook_business.test.integration <ACCESS_TOKEN>
-# Access token not required if it's defined in config.json
-```
-
 ## Examples
 
 Examples of usage are located in the ``examples/`` folder.
+
+
+## Debug
+
+If this SDK is not working as expected, it may be either a SDK issue or API issue.
+
+This can be identified by constructing a raw cURL request and seeing if the response is as expected
+
+for example:
+
+```python
+from facebook_business.adobjects.page import Page
+from facebook_business.api import FacebookAdsApi
+
+FacebookAdsApi.init(access_token=access_token, debug=True)
+page = Page(page_id).api_get(fields=fields,params=params)
+```
+
+When running this code, this cURL request will be printed to the console as:
+```
+curl -X 'GET' -H 'Accept: */*' -H 'Accept-Encoding: gzip, deflate' -H 'Connection: keep-alive' -H 'User-Agent: fbbizsdk-python-v3.1.1' 'https://graph.facebook.com/v3.1/<pageid>/?access_token=<access_token>&fields=name%2Cbirthday%2Cphone'
+```
+
+## Issue
+Since we want to handle bugs more efficiently, we've decided to close issue reporting in Github and move to our dedicated bug reporting channel.
+If you encounter a bug with Business SDK (Python), please report the issue at [our developer bug reporting channel](https://developers.facebook.com/support/bugs/).
+
+## License
+Facebook Business SDK for Python is licensed under the LICENSE file in the root directory of this source tree.

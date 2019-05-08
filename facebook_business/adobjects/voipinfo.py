@@ -55,8 +55,9 @@ class VoipInfo(
         'reason_code': 'unsigned int',
         'reason_description': 'string',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         return field_enum_info
+
+

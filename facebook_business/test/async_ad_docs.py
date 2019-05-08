@@ -27,8 +27,10 @@ How to run:
 
 import sys
 
-from facebook_business.utils.httpretries import retry_policy
+from facebook_business.asyncapi import FacebookAdsAsyncApi
+from facebook_business.objects import Insights
 from facebook_business.test.async_docs_utils import *
+from facebook_business.utils.httpretries import retry_policy
 
 
 class AdDocsTestCase(AsyncDocsTestCase):

@@ -41,16 +41,23 @@ class CheckBatchRequestStatus(
         errors = 'errors'
         errors_total_count = 'errors_total_count'
         handle = 'handle'
+        invalid_item_ids = 'invalid_item_ids'
         status = 'status'
+        warnings = 'warnings'
+        warnings_total_count = 'warnings_total_count'
 
     _field_types = {
         'errors': 'list<Object>',
         'errors_total_count': 'int',
         'handle': 'string',
+        'invalid_item_ids': 'list<string>',
         'status': 'string',
+        'warnings': 'list<Object>',
+        'warnings_total_count': 'int',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         return field_enum_info
+
+

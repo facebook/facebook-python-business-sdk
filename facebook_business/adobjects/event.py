@@ -73,27 +73,30 @@ class Event(
         updated_time = 'updated_time'
 
     class Type:
+        community = 'community'
+        group = 'group'
         private = 'private'
         public = 'public'
-        group = 'group'
-        community = 'community'
 
     class EventStateFilter:
         canceled = 'canceled'
         draft = 'draft'
-        scheduled_draft_for_publication = 'scheduled_draft_for_publication'
         published = 'published'
+        scheduled_draft_for_publication = 'scheduled_draft_for_publication'
 
     class TimeFilter:
-        upcoming = 'upcoming'
         past = 'past'
+        upcoming = 'upcoming'
 
     class PromotableEventTypes:
         offsite_ticket = 'OFFSITE_TICKET'
         onsite_ticket = 'ONSITE_TICKET'
         rsvp = 'RSVP'
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -112,7 +115,7 @@ class Event(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -120,7 +123,462 @@ class Event(
             self.assure_call()
             return request.execute()
 
-    def create_live_video(self, fields=None, params=None, batch=None, pending=False):
+    def get_admins(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.profile import Profile
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/admins',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Profile,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Profile, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_attending(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.user import User
+        param_types = {
+            'user': 'int',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/attending',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=User,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=User, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_comments(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.nullnode import NullNode
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/comments',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=NullNode,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=NullNode, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_comment(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.comment import Comment
+        param_types = {
+            'attachment_id': 'string',
+            'attachment_share_url': 'string',
+            'attachment_url': 'string',
+            'comment_privacy_value': 'comment_privacy_value_enum',
+            'facepile_mentioned_ids': 'list<string>',
+            'feedback_source': 'string',
+            'is_offline': 'bool',
+            'message': 'string',
+            'nectar_module': 'string',
+            'object_id': 'string',
+            'parent_comment_id': 'Object',
+            'text': 'string',
+            'tracking': 'string',
+        }
+        enums = {
+            'comment_privacy_value_enum': Comment.CommentPrivacyValue.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/comments',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Comment,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Comment, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_declined(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.user import User
+        param_types = {
+            'user': 'int',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/declined',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=User,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=User, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_feed(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.nullnode import NullNode
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/feed',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=NullNode,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=NullNode, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_feed(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'actions': 'Object',
+            'adaptive_type': 'string',
+            'album_id': 'string',
+            'android_key_hash': 'string',
+            'animated_effect_id': 'unsigned int',
+            'application_id': 'string',
+            'asked_fun_fact_prompt_id': 'unsigned int',
+            'asset3d_id': 'unsigned int',
+            'associated_id': 'string',
+            'attach_place_suggestion': 'bool',
+            'attached_media': 'list<Object>',
+            'audience_exp': 'bool',
+            'backdated_time': 'datetime',
+            'backdated_time_granularity': 'backdated_time_granularity_enum',
+            'call_to_action': 'Object',
+            'caption': 'string',
+            'checkin_entry_point': 'checkin_entry_point_enum',
+            'child_attachments': 'list<Object>',
+            'client_mutation_id': 'string',
+            'composer_entry_picker': 'string',
+            'composer_entry_point': 'string',
+            'composer_entry_time': 'unsigned int',
+            'composer_session_events_log': 'string',
+            'composer_session_id': 'string',
+            'composer_source_surface': 'string',
+            'composer_type': 'string',
+            'connection_class': 'string',
+            'content_attachment': 'string',
+            'coordinates': 'Object',
+            'cta_link': 'string',
+            'cta_type': 'string',
+            'description': 'string',
+            'direct_share_status': 'unsigned int',
+            'expanded_height': 'unsigned int',
+            'expanded_width': 'unsigned int',
+            'feed_targeting': 'Object',
+            'formatting': 'formatting_enum',
+            'fun_fact_prompt_id': 'unsigned int',
+            'fun_fact_toastee_id': 'unsigned int',
+            'has_nickname': 'bool',
+            'height': 'unsigned int',
+            'holiday_card': 'string',
+            'home_checkin_city_id': 'Object',
+            'image_crops': 'map',
+            'implicit_with_tags': 'list<int>',
+            'instant_game_entry_point_data': 'string',
+            'ios_bundle_id': 'string',
+            'is_backout_draft': 'bool',
+            'is_boost_intended': 'bool',
+            'is_explicit_location': 'bool',
+            'is_explicit_share': 'bool',
+            'is_group_linking_post': 'bool',
+            'is_photo_container': 'bool',
+            'link': 'string',
+            'location_source_id': 'string',
+            'manual_privacy': 'bool',
+            'message': 'string',
+            'multi_share_end_card': 'bool',
+            'multi_share_optimized': 'bool',
+            'name': 'string',
+            'nectar_module': 'string',
+            'object_attachment': 'string',
+            'offer_like_post_id': 'unsigned int',
+            'og_action_type_id': 'string',
+            'og_hide_object_attachment': 'bool',
+            'og_icon_id': 'string',
+            'og_object_id': 'string',
+            'og_phrase': 'string',
+            'og_set_profile_badge': 'bool',
+            'og_suggestion_mechanism': 'string',
+            'page_recommendation': 'string',
+            'picture': 'string',
+            'place': 'Object',
+            'place_attachment_setting': 'place_attachment_setting_enum',
+            'place_list': 'string',
+            'place_list_data': 'list',
+            'post_surfaces_blacklist': 'list<post_surfaces_blacklist_enum>',
+            'posting_to_redspace': 'posting_to_redspace_enum',
+            'privacy': 'string',
+            'prompt_id': 'string',
+            'prompt_tracking_string': 'string',
+            'properties': 'Object',
+            'proxied_app_id': 'string',
+            'publish_event_id': 'unsigned int',
+            'published': 'bool',
+            'quote': 'string',
+            'react_mode_metadata': 'string',
+            'ref': 'list<string>',
+            'referenceable_image_ids': 'list<string>',
+            'referral_id': 'string',
+            'sales_promo_id': 'unsigned int',
+            'scheduled_publish_time': 'datetime',
+            'source': 'string',
+            'sponsor_id': 'string',
+            'sponsor_relationship': 'unsigned int',
+            'suggested_place_id': 'Object',
+            'tags': 'list<int>',
+            'target_surface': 'target_surface_enum',
+            'targeting': 'Object',
+            'text_format_metadata': 'string',
+            'text_format_preset_id': 'string',
+            'text_only_place': 'string',
+            'throwback_camera_roll_media': 'string',
+            'thumbnail': 'file',
+            'time_since_original_post': 'unsigned int',
+            'title': 'string',
+            'tracking_info': 'string',
+            'unpublished_content_type': 'unpublished_content_type_enum',
+            'user_selected_tags': 'bool',
+            'video_start_time_ms': 'unsigned int',
+            'viewer_coordinates': 'Object',
+            'width': 'unsigned int',
+        }
+        enums = {
+            'backdated_time_granularity_enum': [
+                'day',
+                'hour',
+                'min',
+                'month',
+                'none',
+                'year',
+            ],
+            'checkin_entry_point_enum': [
+                'BRANDING_CHECKIN',
+                'BRANDING_OTHER',
+                'BRANDING_PHOTO',
+                'BRANDING_STATUS',
+            ],
+            'formatting_enum': [
+                'MARKDOWN',
+                'PLAINTEXT',
+            ],
+            'place_attachment_setting_enum': [
+                '1',
+                '2',
+            ],
+            'post_surfaces_blacklist_enum': [
+                '1',
+                '2',
+                '3',
+                '4',
+                '5',
+            ],
+            'posting_to_redspace_enum': [
+                'disabled',
+                'enabled',
+            ],
+            'target_surface_enum': [
+                'STORY',
+                'TIMELINE',
+            ],
+            'unpublished_content_type_enum': [
+                'ADS_POST',
+                'DRAFT',
+                'INLINE_CREATED',
+                'PUBLISHED',
+                'SCHEDULED',
+            ],
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/feed',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_interested(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.user import User
+        param_types = {
+            'user': 'int',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/interested',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=User,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=User, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_live_videos(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.nullnode import NullNode
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/live_videos',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=NullNode,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=NullNode, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_live_video(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.livevideo import LiveVideo
         param_types = {
             'attribution_app_id': 'string',
             'content_tags': 'list<string>',
@@ -128,11 +586,12 @@ class Event(
             'encoding_settings': 'string',
             'fisheye_video_cropped': 'bool',
             'front_z_rotation': 'float',
+            'is_audio_only': 'bool',
             'is_spherical': 'bool',
             'live_encoders': 'list<string>',
             'original_fov': 'unsigned int',
             'planned_start_time': 'int',
-            'privacy': 'Object',
+            'privacy': 'string',
             'projection': 'projection_enum',
             'published': 'bool',
             'save_vod': 'bool',
@@ -145,29 +604,11 @@ class Event(
             'title': 'string',
         }
         enums = {
-            'projection_enum': [
-                'EQUIRECTANGULAR',
-                'CUBEMAP',
-            ],
-            'spatial_audio_format_enum': [
-                'ambiX_4',
-            ],
-            'status_enum': [
-                'UNPUBLISHED',
-                'LIVE_NOW',
-                'SCHEDULED_UNPUBLISHED',
-                'SCHEDULED_LIVE',
-                'SCHEDULED_CANCELED',
-            ],
-            'stereoscopic_mode_enum': [
-                'MONO',
-                'LEFT_RIGHT',
-                'TOP_BOTTOM',
-            ],
-            'stream_type_enum': [
-                'REGULAR',
-                'AMBIENT',
-            ],
+            'projection_enum': LiveVideo.Projection.__dict__.values(),
+            'spatial_audio_format_enum': LiveVideo.SpatialAudioFormat.__dict__.values(),
+            'status_enum': LiveVideo.Status.__dict__.values(),
+            'stereoscopic_mode_enum': LiveVideo.StereoscopicMode.__dict__.values(),
+            'stream_type_enum': LiveVideo.StreamType.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -175,15 +616,15 @@ class Event(
             endpoint='/live_videos',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=LiveVideo,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=LiveVideo, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -191,12 +632,113 @@ class Event(
             self.assure_call()
             return request.execute()
 
-    def create_photo(self, fields=None, params=None, batch=None, pending=False):
+    def get_maybe(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.user import User
+        param_types = {
+            'user': 'int',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/maybe',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=User,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=User, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_noreply(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.user import User
+        param_types = {
+            'user': 'int',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/noreply',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=User,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=User, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_photos(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.nullnode import NullNode
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/photos',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=NullNode,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=NullNode, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_photo(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.photo import Photo
         param_types = {
             'aid': 'string',
             'allow_spherical_photo': 'bool',
+            'alt_text_custom': 'string',
+            'android_key_hash': 'string',
             'application_id': 'string',
+            'attempt': 'unsigned int',
             'audience_exp': 'bool',
             'backdated_time': 'datetime',
             'backdated_time_granularity': 'backdated_time_granularity_enum',
@@ -204,10 +746,12 @@ class Event(
             'composer_session_id': 'string',
             'direct_share_status': 'unsigned int',
             'feed_targeting': 'Object',
+            'filter_type': 'unsigned int',
             'full_res_is_coming_later': 'bool',
             'initial_view_heading_override_degrees': 'unsigned int',
             'initial_view_pitch_override_degrees': 'unsigned int',
             'initial_view_vertical_fov_override_degrees': 'unsigned int',
+            'ios_bundle_id': 'string',
             'is_explicit_location': 'bool',
             'is_explicit_place': 'bool',
             'manual_privacy': 'bool',
@@ -222,8 +766,9 @@ class Event(
             'og_set_profile_badge': 'bool',
             'og_suggestion_mechanism': 'string',
             'place': 'Object',
-            'privacy': 'Object',
+            'privacy': 'string',
             'profile_id': 'int',
+            'proxied_app_id': 'string',
             'published': 'bool',
             'qn': 'string',
             'scheduled_publish_time': 'unsigned int',
@@ -233,10 +778,16 @@ class Event(
             'tags': 'list<Object>',
             'target_id': 'int',
             'targeting': 'Object',
+            'time_since_original_post': 'unsigned int',
+            'uid': 'int',
+            'unpublished_content_type': 'unpublished_content_type_enum',
             'url': 'string',
+            'user_selected_tags': 'bool',
+            'vault_image_id': 'string',
         }
         enums = {
             'backdated_time_granularity_enum': Photo.BackdatedTimeGranularity.__dict__.values(),
+            'unpublished_content_type_enum': Photo.UnpublishedContentType.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -252,7 +803,7 @@ class Event(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -260,82 +811,216 @@ class Event(
             self.assure_call()
             return request.execute()
 
-    def create_video(self, fields=None, params=None, batch=None, pending=False):
+    def get_picture(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.nullnode import NullNode
         param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/picture',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=NullNode,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=NullNode, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_posts(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.nullnode import NullNode
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/posts',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=NullNode,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=NullNode, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_roles(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.profile import Profile
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/roles',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Profile,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Profile, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_videos(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.nullnode import NullNode
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/videos',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=NullNode,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=NullNode, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_video(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.advideo import AdVideo
+        param_types = {
+            'adaptive_type': 'string',
+            'animated_effect_id': 'unsigned int',
+            'application_id': 'string',
+            'asked_fun_fact_prompt_id': 'unsigned int',
+            'attribution_app_id': 'string',
             'audio_story_wave_animation_handle': 'string',
+            'composer_entry_picker': 'string',
+            'composer_entry_point': 'string',
+            'composer_entry_time': 'unsigned int',
+            'composer_session_events_log': 'string',
+            'composer_session_id': 'string',
+            'composer_source_surface': 'string',
+            'composer_type': 'string',
+            'container_type': 'container_type_enum',
             'content_category': 'content_category_enum',
             'description': 'string',
             'embeddable': 'bool',
             'end_offset': 'unsigned int',
+            'fbuploader_video_file_chunk': 'string',
             'file_size': 'unsigned int',
             'file_url': 'string',
             'fisheye_video_cropped': 'bool',
+            'formatting': 'formatting_enum',
             'fov': 'unsigned int',
             'front_z_rotation': 'float',
+            'fun_fact_prompt_id': 'unsigned int',
+            'fun_fact_toastee_id': 'unsigned int',
             'guide': 'list<list<unsigned int>>',
             'guide_enabled': 'bool',
+            'has_nickname': 'bool',
+            'holiday_card': 'string',
             'initial_heading': 'unsigned int',
             'initial_pitch': 'unsigned int',
+            'instant_game_entry_point_data': 'string',
+            'is_boost_intended': 'bool',
+            'is_explicit_share': 'bool',
+            'is_group_linking_post': 'bool',
+            'is_voice_clip': 'bool',
+            'location_source_id': 'string',
+            'manual_privacy': 'bool',
+            'offer_like_post_id': 'unsigned int',
+            'og_action_type_id': 'string',
+            'og_icon_id': 'string',
+            'og_object_id': 'string',
+            'og_phrase': 'string',
+            'og_suggestion_mechanism': 'string',
             'original_fov': 'unsigned int',
             'original_projection_type': 'original_projection_type_enum',
+            'publish_event_id': 'unsigned int',
             'react_mode_metadata': 'string',
             'referenced_sticker_id': 'string',
             'replace_video_id': 'string',
+            'sales_promo_id': 'unsigned int',
             'slideshow_spec': 'map',
             'source': 'string',
             'spherical': 'bool',
             'start_offset': 'unsigned int',
             'swap_mode': 'swap_mode_enum',
+            'text_format_metadata': 'string',
+            'throwback_camera_roll_media': 'string',
             'thumb': 'file',
+            'time_since_original_post': 'unsigned int',
             'title': 'string',
+            'transcode_setting_properties': 'string',
             'unpublished_content_type': 'unpublished_content_type_enum',
             'upload_phase': 'upload_phase_enum',
             'upload_session_id': 'string',
+            'upload_setting_properties': 'string',
             'video_file_chunk': 'string',
+            'video_start_time_ms': 'unsigned int',
+            'waterfall_id': 'string',
         }
         enums = {
-            'content_category_enum': [
-                'BEAUTY_FASHION',
-                'BUSINESS',
-                'CARS_TRUCKS',
-                'COMEDY',
-                'CUTE_ANIMALS',
-                'ENTERTAINMENT',
-                'FAMILY',
-                'FOOD_HEALTH',
-                'HOME',
-                'LIFESTYLE',
-                'MUSIC',
-                'NEWS',
-                'POLITICS',
-                'SCIENCE',
-                'SPORTS',
-                'TECHNOLOGY',
-                'VIDEO_GAMING',
-                'OTHER',
-            ],
-            'original_projection_type_enum': [
-                'equirectangular',
-                'cubemap',
-                'equiangular_cubemap',
-                'half_equirectangular',
-            ],
-            'swap_mode_enum': [
-                'replace',
-            ],
-            'unpublished_content_type_enum': [
-                'SCHEDULED',
-                'DRAFT',
-                'ADS_POST',
-                'INLINE_CREATED',
-                'PUBLISHED',
-            ],
-            'upload_phase_enum': [
-                'start',
-                'transfer',
-                'finish',
-                'cancel',
-            ],
+            'container_type_enum': AdVideo.ContainerType.__dict__.values(),
+            'content_category_enum': AdVideo.ContentCategory.__dict__.values(),
+            'formatting_enum': AdVideo.Formatting.__dict__.values(),
+            'original_projection_type_enum': AdVideo.OriginalProjectionType.__dict__.values(),
+            'swap_mode_enum': AdVideo.SwapMode.__dict__.values(),
+            'unpublished_content_type_enum': AdVideo.UnpublishedContentType.__dict__.values(),
+            'upload_phase_enum': AdVideo.UploadPhase.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -343,15 +1028,15 @@ class Event(
             endpoint='/videos',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=AdVideo,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=AdVideo, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -368,7 +1053,7 @@ class Event(
         'description': 'string',
         'discount_code_enabled': 'bool',
         'end_time': 'string',
-        'event_times': 'list<Object>',
+        'event_times': 'list<ChildEvent>',
         'guest_list_enabled': 'bool',
         'id': 'string',
         'interested_count': 'int',
@@ -379,8 +1064,8 @@ class Event(
         'name': 'string',
         'noreply_count': 'int',
         'owner': 'Object',
-        'parent_group': 'Object',
-        'place': 'Object',
+        'parent_group': 'Group',
+        'place': 'Place',
         'scheduled_publish_time': 'string',
         'start_time': 'string',
         'ticket_uri': 'string',
@@ -391,7 +1076,6 @@ class Event(
         'type': 'Type',
         'updated_time': 'datetime',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
@@ -400,3 +1084,5 @@ class Event(
         field_enum_info['TimeFilter'] = Event.TimeFilter.__dict__.values()
         field_enum_info['PromotableEventTypes'] = Event.PromotableEventTypes.__dict__.values()
         return field_enum_info
+
+

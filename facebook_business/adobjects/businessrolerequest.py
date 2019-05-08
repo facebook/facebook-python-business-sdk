@@ -45,6 +45,7 @@ class BusinessRoleRequest(
         created_time = 'created_time'
         email = 'email'
         expiration_time = 'expiration_time'
+        expiry_time = 'expiry_time'
         finance_role = 'finance_role'
         id = 'id'
         invite_link = 'invite_link'
@@ -56,20 +57,22 @@ class BusinessRoleRequest(
         updated_time = 'updated_time'
 
     class Role:
-        finance_editor = 'FINANCE_EDITOR'
-        finance_analyst = 'FINANCE_ANALYST'
-        ads_rights_reviewer = 'ADS_RIGHTS_REVIEWER'
         admin = 'ADMIN'
+        ads_rights_reviewer = 'ADS_RIGHTS_REVIEWER'
         employee = 'EMPLOYEE'
-        fb_employee_sales_rep = 'FB_EMPLOYEE_SALES_REP'
+        finance_analyst = 'FINANCE_ANALYST'
+        finance_editor = 'FINANCE_EDITOR'
 
     class Status:
-        pending = 'PENDING'
         accepted = 'ACCEPTED'
         declined = 'DECLINED'
         expired = 'EXPIRED'
+        pending = 'PENDING'
 
-    def api_delete(self, fields=None, params=None, batch=None, pending=False):
+    def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -88,7 +91,7 @@ class BusinessRoleRequest(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -96,7 +99,10 @@ class BusinessRoleRequest(
             self.assure_call()
             return request.execute()
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -115,7 +121,7 @@ class BusinessRoleRequest(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -123,7 +129,10 @@ class BusinessRoleRequest(
             self.assure_call()
             return request.execute()
 
-    def api_update(self, fields=None, params=None, batch=None, pending=False):
+    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'role': 'role_enum',
         }
@@ -144,7 +153,7 @@ class BusinessRoleRequest(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -157,6 +166,7 @@ class BusinessRoleRequest(
         'created_time': 'datetime',
         'email': 'string',
         'expiration_time': 'datetime',
+        'expiry_time': 'datetime',
         'finance_role': 'string',
         'id': 'string',
         'invite_link': 'string',
@@ -167,10 +177,11 @@ class BusinessRoleRequest(
         'updated_by': 'Object',
         'updated_time': 'datetime',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['Role'] = BusinessRoleRequest.Role.__dict__.values()
         field_enum_info['Status'] = BusinessRoleRequest.Status.__dict__.values()
         return field_enum_info
+
+

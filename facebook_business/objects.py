@@ -156,12 +156,14 @@ class AdAccount(adaccount.AdAccount):
 
 
 class Campaign(campaign.Campaign):
+    # fixme: not used anywhere
     class BuyingType(object):
         auction = 'AUCTION'
         fixed_price = 'FIXED_PRICE'
         reserved = 'RESERVED'
 
 class AdSet(adset.AdSet):
+    # fixme: not used anywhere
     class PacingType(object):
         day_parting = 'day_parting'
         standard = 'standard'
@@ -320,6 +322,7 @@ class TargetingDescription(targetingsentenceline.TargetingSentenceLine):
 class TargetingSearch(targetingsearch.TargetingSearch):
     pass
 
+
 class TargetingSpecsField(targeting.Targeting.Field):
     pass
 
@@ -392,7 +395,8 @@ class ProductAudience(customaudience.CustomAudience):
 class Insights(adsinsights.AdsInsights):
 
     class Preset(adsinsights.AdsInsights.DatePreset):
-        pass
+        # last_week has been removed from facebook sdk, assume mon-sun represents a week in europe
+        last_week = adsinsights.AdsInsights.DatePreset.last_week_mon_sun
 
     class Breakdown(adsinsights.AdsInsights.Breakdowns):
         pass

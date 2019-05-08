@@ -51,8 +51,9 @@ class CopyrightAttributionInsights(
         'l7_attribution_video_view_delta': 'float',
         'metrics_ending_date': 'string',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         return field_enum_info
+
+

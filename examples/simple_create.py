@@ -22,8 +22,8 @@
 Creates an ad through a utility function.
 """
 
-from facebook_business import FacebookSession
-from facebook_business import FacebookAdsApi
+from facebook_business.session import FacebookSession
+from facebook_business.api import FacebookAdsApi
 from facebook_business.objects import (
     AdAccount,
     AdPreview,

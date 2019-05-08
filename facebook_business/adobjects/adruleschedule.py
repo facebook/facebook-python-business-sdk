@@ -47,8 +47,9 @@ class AdRuleSchedule(
         'end_minute': 'int',
         'start_minute': 'int',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         return field_enum_info
+
+

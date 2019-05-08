@@ -61,6 +61,10 @@ class AdAccountAdRulesHistory(
         paused = 'PAUSED'
         unpaused = 'UNPAUSED'
 
+    class EvaluationType:
+        schedule = 'SCHEDULE'
+        trigger = 'TRIGGER'
+
     _field_types = {
         'evaluation_spec': 'AdRuleEvaluationSpec',
         'exception_code': 'int',
@@ -72,9 +76,11 @@ class AdAccountAdRulesHistory(
         'schedule_spec': 'AdRuleScheduleSpec',
         'timestamp': 'datetime',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['Action'] = AdAccountAdRulesHistory.Action.__dict__.values()
+        field_enum_info['EvaluationType'] = AdAccountAdRulesHistory.EvaluationType.__dict__.values()
         return field_enum_info
+
+

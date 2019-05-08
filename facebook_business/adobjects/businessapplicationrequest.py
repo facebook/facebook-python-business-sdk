@@ -45,11 +45,12 @@ class BusinessApplicationRequest(
         id = 'id'
 
     _field_types = {
-        'application': 'Object',
+        'application': 'Application',
         'id': 'string',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         return field_enum_info
+
+

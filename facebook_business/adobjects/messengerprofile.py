@@ -47,16 +47,6 @@ class MessengerProfile(
         target_audience = 'target_audience'
         whitelisted_domains = 'whitelisted_domains'
 
-    class Fields:
-        get_started = 'GET_STARTED'
-        persistent_menu = 'PERSISTENT_MENU'
-        target_audience = 'TARGET_AUDIENCE'
-        whitelisted_domains = 'WHITELISTED_DOMAINS'
-        greeting = 'GREETING'
-        account_linking_url = 'ACCOUNT_LINKING_URL'
-        payment_settings = 'PAYMENT_SETTINGS'
-        home_url = 'HOME_URL'
-
     _field_types = {
         'account_linking_url': 'string',
         'get_started': 'Object',
@@ -67,9 +57,9 @@ class MessengerProfile(
         'target_audience': 'Object',
         'whitelisted_domains': 'list<string>',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['Fields'] = MessengerProfile.Fields.__dict__.values()
         return field_enum_info
+
+

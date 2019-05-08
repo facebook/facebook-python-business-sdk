@@ -53,7 +53,7 @@ class Tab(
         position = 'position'
 
     _field_types = {
-        'application': 'Object',
+        'application': 'Application',
         'custom_image_url': 'string',
         'custom_name': 'string',
         'id': 'string',
@@ -64,8 +64,9 @@ class Tab(
         'name': 'string',
         'position': 'unsigned int',
     }
-
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         return field_enum_info
+
+
