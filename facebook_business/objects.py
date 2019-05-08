@@ -395,7 +395,8 @@ class ProductAudience(customaudience.CustomAudience):
 class Insights(adsinsights.AdsInsights):
 
     class Preset(adsinsights.AdsInsights.DatePreset):
-        pass
+        # last_week has been removed from facebook sdk, assume mon-sun represents a week in europe
+        last_week = adsinsights.AdsInsights.DatePreset.last_week_mon_sun
 
     class Breakdown(adsinsights.AdsInsights.Breakdowns):
         pass
