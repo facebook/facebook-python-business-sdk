@@ -59,7 +59,10 @@ class OracleTransaction(
         payment_term = 'payment_term'
         type = 'type'
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -78,7 +81,7 @@ class OracleTransaction(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -86,7 +89,10 @@ class OracleTransaction(
             self.assure_call()
             return request.execute()
 
-    def get_campaigns(self, fields=None, params=None, batch=None, pending=False):
+    def get_campaigns(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.invoicecampaign import InvoiceCampaign
         param_types = {
         }
@@ -106,7 +112,7 @@ class OracleTransaction(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -114,7 +120,10 @@ class OracleTransaction(
             self.assure_call()
             return request.execute()
 
-    def get_data(self, fields=None, params=None, batch=None, pending=False):
+    def get_data(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.atlasurl import AtlasURL
         param_types = {
             'redirect': 'bool',
@@ -135,7 +144,7 @@ class OracleTransaction(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request

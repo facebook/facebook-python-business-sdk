@@ -47,38 +47,13 @@ class CopyrightReferenceContainer(
         duration_in_sec = 'duration_in_sec'
         fingerprint_validity = 'fingerprint_validity'
         id = 'id'
+        iswc = 'iswc'
         metadata = 'metadata'
         published_time = 'published_time'
         thumbnail_url = 'thumbnail_url'
         title = 'title'
         universal_content_id = 'universal_content_id'
-
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=CopyrightReferenceContainer,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
+        writer_names = 'writer_names'
 
     _field_types = {
         'content_type': 'string',
@@ -87,11 +62,13 @@ class CopyrightReferenceContainer(
         'duration_in_sec': 'float',
         'fingerprint_validity': 'string',
         'id': 'string',
+        'iswc': 'string',
         'metadata': 'Object',
         'published_time': 'datetime',
         'thumbnail_url': 'string',
         'title': 'string',
         'universal_content_id': 'string',
+        'writer_names': 'list<string>',
     }
     @classmethod
     def _get_field_enum_info(cls):

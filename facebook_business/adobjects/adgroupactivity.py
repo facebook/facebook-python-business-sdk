@@ -95,46 +95,49 @@ class AdgroupActivity(
         view_tags_old = 'view_tags_old'
 
     class ObjectiveNew:
+        app_installs = 'APP_INSTALLS'
+        brand_awareness = 'BRAND_AWARENESS'
+        canvas_app_engagement = 'CANVAS_APP_ENGAGEMENT'
+        canvas_app_installs = 'CANVAS_APP_INSTALLS'
+        event_responses = 'EVENT_RESPONSES'
+        lead_generation = 'LEAD_GENERATION'
+        link_clicks = 'LINK_CLICKS'
+        local_awareness = 'LOCAL_AWARENESS'
+        messages = 'MESSAGES'
+        mobile_app_engagement = 'MOBILE_APP_ENGAGEMENT'
+        mobile_app_installs = 'MOBILE_APP_INSTALLS'
         none = 'NONE'
         offer_claims = 'OFFER_CLAIMS'
         page_likes = 'PAGE_LIKES'
-        canvas_app_installs = 'CANVAS_APP_INSTALLS'
-        event_responses = 'EVENT_RESPONSES'
-        canvas_app_engagement = 'CANVAS_APP_ENGAGEMENT'
         post_engagement = 'POST_ENGAGEMENT'
-        website_conversions = 'WEBSITE_CONVERSIONS'
-        mobile_app_installs = 'MOBILE_APP_INSTALLS'
-        link_clicks = 'LINK_CLICKS'
-        mobile_app_engagement = 'MOBILE_APP_ENGAGEMENT'
-        video_views = 'VIDEO_VIEWS'
-        local_awareness = 'LOCAL_AWARENESS'
         product_catalog_sales = 'PRODUCT_CATALOG_SALES'
-        lead_generation = 'LEAD_GENERATION'
-        brand_awareness = 'BRAND_AWARENESS'
-        app_installs = 'APP_INSTALLS'
-        messages = 'MESSAGES'
+        video_views = 'VIDEO_VIEWS'
+        website_conversions = 'WEBSITE_CONVERSIONS'
 
     class ObjectiveOld:
+        app_installs = 'APP_INSTALLS'
+        brand_awareness = 'BRAND_AWARENESS'
+        canvas_app_engagement = 'CANVAS_APP_ENGAGEMENT'
+        canvas_app_installs = 'CANVAS_APP_INSTALLS'
+        event_responses = 'EVENT_RESPONSES'
+        lead_generation = 'LEAD_GENERATION'
+        link_clicks = 'LINK_CLICKS'
+        local_awareness = 'LOCAL_AWARENESS'
+        messages = 'MESSAGES'
+        mobile_app_engagement = 'MOBILE_APP_ENGAGEMENT'
+        mobile_app_installs = 'MOBILE_APP_INSTALLS'
         none = 'NONE'
         offer_claims = 'OFFER_CLAIMS'
         page_likes = 'PAGE_LIKES'
-        canvas_app_installs = 'CANVAS_APP_INSTALLS'
-        event_responses = 'EVENT_RESPONSES'
-        canvas_app_engagement = 'CANVAS_APP_ENGAGEMENT'
         post_engagement = 'POST_ENGAGEMENT'
-        website_conversions = 'WEBSITE_CONVERSIONS'
-        mobile_app_installs = 'MOBILE_APP_INSTALLS'
-        link_clicks = 'LINK_CLICKS'
-        mobile_app_engagement = 'MOBILE_APP_ENGAGEMENT'
-        video_views = 'VIDEO_VIEWS'
-        local_awareness = 'LOCAL_AWARENESS'
         product_catalog_sales = 'PRODUCT_CATALOG_SALES'
-        lead_generation = 'LEAD_GENERATION'
-        brand_awareness = 'BRAND_AWARENESS'
-        app_installs = 'APP_INSTALLS'
-        messages = 'MESSAGES'
+        video_views = 'VIDEO_VIEWS'
+        website_conversions = 'WEBSITE_CONVERSIONS'
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -153,7 +156,7 @@ class AdgroupActivity(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -168,8 +171,8 @@ class AdgroupActivity(
         'asset_feed_id_old': 'string',
         'bid_amount_new': 'int',
         'bid_amount_old': 'int',
-        'bid_info_new': 'list<Object>',
-        'bid_info_old': 'list<Object>',
+        'bid_info_new': 'map<string, int>',
+        'bid_info_old': 'map<string, int>',
         'bid_type_new': 'string',
         'bid_type_old': 'string',
         'conversion_specs_new': 'list<Object>',

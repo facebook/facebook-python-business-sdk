@@ -57,11 +57,14 @@ class PublisherBlockList(
     def get_endpoint(cls):
         return 'publisher_block_lists'
 
-    def api_create(self, parent_id, fields=None, params=None, batch=None, pending=False):
+    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.adobjects.adaccount import AdAccount
-        return AdAccount(api=self._api, fbid=parent_id).create_publisher_block_list(fields, params, batch, pending)
+        return AdAccount(api=self._api, fbid=parent_id).create_publisher_block_list(fields, params, batch, success, failure, pending)
 
-    def api_delete(self, fields=None, params=None, batch=None, pending=False):
+    def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -80,7 +83,7 @@ class PublisherBlockList(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -88,7 +91,10 @@ class PublisherBlockList(
             self.assure_call()
             return request.execute()
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'account_id': 'unsigned int',
             'business_id': 'string',
@@ -110,7 +116,7 @@ class PublisherBlockList(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -118,7 +124,10 @@ class PublisherBlockList(
             self.assure_call()
             return request.execute()
 
-    def api_update(self, fields=None, params=None, batch=None, pending=False):
+    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'spec': 'Object',
         }
@@ -138,7 +147,7 @@ class PublisherBlockList(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -146,8 +155,10 @@ class PublisherBlockList(
             self.assure_call()
             return request.execute()
 
-    def get_page_d_app_publishers(self, fields=None, params=None, batch=None, pending=False):
-        from facebook_business.adobjects.apppublisher import AppPublisher
+    def get_page_d_app_publishers(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'draft_id': 'string',
         }
@@ -159,15 +170,15 @@ class PublisherBlockList(
             endpoint='/paged_app_publishers',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AppPublisher,
+            target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AppPublisher, api=self._api),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -175,8 +186,10 @@ class PublisherBlockList(
             self.assure_call()
             return request.execute()
 
-    def get_page_d_web_publishers(self, fields=None, params=None, batch=None, pending=False):
-        from facebook_business.adobjects.webpublisher import WebPublisher
+    def get_page_d_web_publishers(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'draft_id': 'string',
         }
@@ -188,15 +201,15 @@ class PublisherBlockList(
             endpoint='/paged_web_publishers',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=WebPublisher,
+            target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=WebPublisher, api=self._api),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -205,7 +218,7 @@ class PublisherBlockList(
             return request.execute()
 
     _field_types = {
-        'app_publishers': 'list<AppPublisher>',
+        'app_publishers': 'list<Object>',
         'business_owner_id': 'string',
         'id': 'string',
         'is_auto_blocking_on': 'bool',
@@ -214,7 +227,7 @@ class PublisherBlockList(
         'last_update_user': 'string',
         'name': 'string',
         'owner_ad_account_id': 'string',
-        'web_publishers': 'list<WebPublisher>',
+        'web_publishers': 'list<Object>',
     }
     @classmethod
     def _get_field_enum_info(cls):

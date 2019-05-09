@@ -19,10 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
-from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
-from facebook_business.adobjects.objectparser import ObjectParser
-from facebook_business.api import FacebookRequest
-from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -33,12 +29,13 @@ pull request for this class.
 """
 
 class AdsImageCrops(
-    AbstractCrudObject,
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
+    def __init__(self, api=None):
+        super(AdsImageCrops, self).__init__()
         self._isAdsImageCrops = True
-        super(AdsImageCrops, self).__init__(fbid, parent_id, api)
+        self._api = api
 
     class Field(AbstractObject.Field):
         field_100x100 = '100x100'
@@ -48,34 +45,6 @@ class AdsImageCrops(
         field_400x500 = '400x500'
         field_600x360 = '600x360'
         field_90x160 = '90x160'
-        id = 'id'
-
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AdsImageCrops,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
 
     _field_types = {
         '100x100': 'list<list>',
@@ -85,7 +54,6 @@ class AdsImageCrops(
         '400x500': 'list<list>',
         '600x360': 'list<list>',
         '90x160': 'list<list>',
-        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

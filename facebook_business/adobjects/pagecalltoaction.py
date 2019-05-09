@@ -62,61 +62,66 @@ class PageCallToAction(
         web_url = 'web_url'
 
     class AndroidDestinationType:
-        website = 'WEBSITE'
         app_deeplink = 'APP_DEEPLINK'
-        facebook_app = 'FACEBOOK_APP'
-        phone_call = 'PHONE_CALL'
-        messenger = 'MESSENGER'
         email = 'EMAIL'
-        shop_on_facebook = 'SHOP_ON_FACEBOOK'
+        facebook_app = 'FACEBOOK_APP'
+        messenger = 'MESSENGER'
         none = 'NONE'
+        phone_call = 'PHONE_CALL'
+        shop_on_facebook = 'SHOP_ON_FACEBOOK'
+        website = 'WEBSITE'
 
     class IphoneDestinationType:
-        website = 'WEBSITE'
         app_deeplink = 'APP_DEEPLINK'
-        facebook_app = 'FACEBOOK_APP'
-        phone_call = 'PHONE_CALL'
-        messenger = 'MESSENGER'
         email = 'EMAIL'
-        shop_on_facebook = 'SHOP_ON_FACEBOOK'
+        facebook_app = 'FACEBOOK_APP'
+        messenger = 'MESSENGER'
         none = 'NONE'
+        phone_call = 'PHONE_CALL'
+        shop_on_facebook = 'SHOP_ON_FACEBOOK'
+        website = 'WEBSITE'
 
     class Type:
+        book_appointment = 'BOOK_APPOINTMENT'
         book_now = 'BOOK_NOW'
+        buy_tickets = 'BUY_TICKETS'
         call_now = 'CALL_NOW'
         charity_donate = 'CHARITY_DONATE'
         contact_us = 'CONTACT_US'
         donate_now = 'DONATE_NOW'
-        message = 'MESSAGE'
-        open_app = 'OPEN_APP'
-        play_now = 'PLAY_NOW'
-        shop_now = 'SHOP_NOW'
-        sign_up = 'SIGN_UP'
-        watch_now = 'WATCH_NOW'
+        email = 'EMAIL'
+        get_directions = 'GET_DIRECTIONS'
         get_offer = 'GET_OFFER'
         get_offer_view = 'GET_OFFER_VIEW'
-        request_quote = 'REQUEST_QUOTE'
-        book_appointment = 'BOOK_APPOINTMENT'
-        listen = 'LISTEN'
-        email = 'EMAIL'
-        learn_more = 'LEARN_MORE'
-        request_appointment = 'REQUEST_APPOINTMENT'
-        get_directions = 'GET_DIRECTIONS'
-        buy_tickets = 'BUY_TICKETS'
-        play_music = 'PLAY_MUSIC'
-        visit_group = 'VISIT_GROUP'
-        shop_on_facebook = 'SHOP_ON_FACEBOOK'
-        local_dev_platform = 'LOCAL_DEV_PLATFORM'
         interested = 'INTERESTED'
+        learn_more = 'LEARN_MORE'
+        listen = 'LISTEN'
+        local_dev_platform = 'LOCAL_DEV_PLATFORM'
+        message = 'MESSAGE'
+        open_app = 'OPEN_APP'
+        play_music = 'PLAY_MUSIC'
+        play_now = 'PLAY_NOW'
+        request_appointment = 'REQUEST_APPOINTMENT'
+        request_quote = 'REQUEST_QUOTE'
+        shop_now = 'SHOP_NOW'
+        shop_on_facebook = 'SHOP_ON_FACEBOOK'
+        sign_up = 'SIGN_UP'
+        visit_group = 'VISIT_GROUP'
+        watch_now = 'WATCH_NOW'
+        woodhenge_support = 'WOODHENGE_SUPPORT'
 
     class WebDestinationType:
+        become_supporter = 'BECOME_SUPPORTER'
         email = 'EMAIL'
         messenger = 'MESSENGER'
         none = 'NONE'
-        website = 'WEBSITE'
         shop_on_facebook = 'SHOP_ON_FACEBOOK'
+        website = 'WEBSITE'
 
-    def api_delete(self, fields=None, params=None, batch=None, pending=False):
+    def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -135,7 +140,7 @@ class PageCallToAction(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -143,7 +148,10 @@ class PageCallToAction(
             self.assure_call()
             return request.execute()
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -162,7 +170,7 @@ class PageCallToAction(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -170,28 +178,31 @@ class PageCallToAction(
             self.assure_call()
             return request.execute()
 
-    def api_update(self, fields=None, params=None, batch=None, pending=False):
+    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'type': 'type_enum',
-            'intl_number_with_plus': 'string',
-            'email_address': 'string',
-            'web_destination_type': 'web_destination_type_enum',
-            'web_url': 'string',
-            'android_destination_type': 'android_destination_type_enum',
+            'android_app_id': 'int',
             'android_deeplink': 'string',
+            'android_destination_type': 'android_destination_type_enum',
             'android_package_name': 'string',
             'android_url': 'string',
-            'android_app_id': 'int',
-            'iphone_destination_type': 'iphone_destination_type_enum',
-            'iphone_deeplink': 'string',
-            'iphone_url': 'string',
+            'email_address': 'string',
+            'intl_number_with_plus': 'string',
             'iphone_app_id': 'int',
+            'iphone_deeplink': 'string',
+            'iphone_destination_type': 'iphone_destination_type_enum',
+            'iphone_url': 'string',
+            'type': 'type_enum',
+            'web_destination_type': 'web_destination_type_enum',
+            'web_url': 'string',
         }
         enums = {
-            'type_enum': PageCallToAction.Type.__dict__.values(),
-            'web_destination_type_enum': PageCallToAction.WebDestinationType.__dict__.values(),
             'android_destination_type_enum': PageCallToAction.AndroidDestinationType.__dict__.values(),
             'iphone_destination_type_enum': PageCallToAction.IphoneDestinationType.__dict__.values(),
+            'type_enum': PageCallToAction.Type.__dict__.values(),
+            'web_destination_type_enum': PageCallToAction.WebDestinationType.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -207,7 +218,7 @@ class PageCallToAction(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request

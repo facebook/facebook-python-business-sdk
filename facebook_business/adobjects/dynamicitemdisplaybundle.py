@@ -49,7 +49,49 @@ class DynamicItemDisplayBundle(
         text_tokens = 'text_tokens'
         url = 'url'
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    # @deprecated get_endpoint function is deprecated
+    @classmethod
+    def get_endpoint(cls):
+        return 'bundles'
+
+    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.adobjects.productcatalog import ProductCatalog
+        return ProductCatalog(api=self._api, fbid=parent_id).create_bundle(fields, params, batch, success, failure, pending)
+
+    def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='DELETE',
+            endpoint='/',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -68,7 +110,73 @@ class DynamicItemDisplayBundle(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'additional_urls': 'map',
+            'description': 'string',
+            'name': 'string',
+            'text_tokens': 'map',
+            'url': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=DynamicItemDisplayBundle,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_bundle_folders(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.dynamicitemdisplaybundlefolder import DynamicItemDisplayBundleFolder
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/bundle_folders',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=DynamicItemDisplayBundleFolder,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=DynamicItemDisplayBundleFolder, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -77,12 +185,12 @@ class DynamicItemDisplayBundle(
             return request.execute()
 
     _field_types = {
-        'additional_urls': 'list<Object>',
+        'additional_urls': 'map<string, string>',
         'description': 'string',
         'id': 'string',
         'name': 'string',
         'product_set': 'ProductSet',
-        'text_tokens': 'list<Object>',
+        'text_tokens': 'map<string, string>',
         'url': 'string',
     }
     @classmethod

@@ -117,6 +117,7 @@ class AdCampaignActivity(
         offer_claims = 'OFFER_CLAIMS'
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
+        thruplay = 'THRUPLAY'
         video_views = 'VIDEO_VIEWS'
 
     class BillingEventOld:
@@ -128,57 +129,67 @@ class AdCampaignActivity(
         offer_claims = 'OFFER_CLAIMS'
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
+        thruplay = 'THRUPLAY'
         video_views = 'VIDEO_VIEWS'
 
     class OptimizationGoalNew:
-        none = 'NONE'
+        ad_recall_lift = 'AD_RECALL_LIFT'
+        app_downloads = 'APP_DOWNLOADS'
         app_installs = 'APP_INSTALLS'
         brand_awareness = 'BRAND_AWARENESS'
-        ad_recall_lift = 'AD_RECALL_LIFT'
         clicks = 'CLICKS'
+        derived_events = 'DERIVED_EVENTS'
         engaged_users = 'ENGAGED_USERS'
         event_responses = 'EVENT_RESPONSES'
         impressions = 'IMPRESSIONS'
+        landing_page_views = 'LANDING_PAGE_VIEWS'
         lead_generation = 'LEAD_GENERATION'
         link_clicks = 'LINK_CLICKS'
+        none = 'NONE'
         offer_claims = 'OFFER_CLAIMS'
         offsite_conversions = 'OFFSITE_CONVERSIONS'
         page_engagement = 'PAGE_ENGAGEMENT'
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
         reach = 'REACH'
-        social_impressions = 'SOCIAL_IMPRESSIONS'
-        video_views = 'VIDEO_VIEWS'
-        app_downloads = 'APP_DOWNLOADS'
-        landing_page_views = 'LANDING_PAGE_VIEWS'
-        value = 'VALUE'
         replies = 'REPLIES'
+        social_impressions = 'SOCIAL_IMPRESSIONS'
+        thruplay = 'THRUPLAY'
+        two_second_continuous_video_views = 'TWO_SECOND_CONTINUOUS_VIDEO_VIEWS'
+        value = 'VALUE'
+        video_views = 'VIDEO_VIEWS'
 
     class OptimizationGoalOld:
-        none = 'NONE'
+        ad_recall_lift = 'AD_RECALL_LIFT'
+        app_downloads = 'APP_DOWNLOADS'
         app_installs = 'APP_INSTALLS'
         brand_awareness = 'BRAND_AWARENESS'
-        ad_recall_lift = 'AD_RECALL_LIFT'
         clicks = 'CLICKS'
+        derived_events = 'DERIVED_EVENTS'
         engaged_users = 'ENGAGED_USERS'
         event_responses = 'EVENT_RESPONSES'
         impressions = 'IMPRESSIONS'
+        landing_page_views = 'LANDING_PAGE_VIEWS'
         lead_generation = 'LEAD_GENERATION'
         link_clicks = 'LINK_CLICKS'
+        none = 'NONE'
         offer_claims = 'OFFER_CLAIMS'
         offsite_conversions = 'OFFSITE_CONVERSIONS'
         page_engagement = 'PAGE_ENGAGEMENT'
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
         reach = 'REACH'
-        social_impressions = 'SOCIAL_IMPRESSIONS'
-        video_views = 'VIDEO_VIEWS'
-        app_downloads = 'APP_DOWNLOADS'
-        landing_page_views = 'LANDING_PAGE_VIEWS'
-        value = 'VALUE'
         replies = 'REPLIES'
+        social_impressions = 'SOCIAL_IMPRESSIONS'
+        thruplay = 'THRUPLAY'
+        two_second_continuous_video_views = 'TWO_SECOND_CONTINUOUS_VIDEO_VIEWS'
+        value = 'VALUE'
+        video_views = 'VIDEO_VIEWS'
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -197,7 +208,7 @@ class AdCampaignActivity(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -214,8 +225,8 @@ class AdCampaignActivity(
         'bid_amount_old': 'int',
         'bid_constraints_new': 'Object',
         'bid_constraints_old': 'Object',
-        'bid_info_new': 'list<Object>',
-        'bid_info_old': 'list<Object>',
+        'bid_info_new': 'map<string, int>',
+        'bid_info_old': 'map<string, int>',
         'bid_strategy_new': 'BidStrategyNew',
         'bid_strategy_old': 'BidStrategyOld',
         'bid_type_new': 'string',

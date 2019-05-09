@@ -65,6 +65,7 @@ class PagePost(
         id = 'id'
         instagram_eligibility = 'instagram_eligibility'
         is_app_share = 'is_app_share'
+        is_eligible_for_promotion = 'is_eligible_for_promotion'
         is_expired = 'is_expired'
         is_hidden = 'is_hidden'
         is_instagram_eligible = 'is_instagram_eligible'
@@ -103,22 +104,22 @@ class PagePost(
         width = 'width'
 
     class BackdatedTimeGranularity:
-        year = 'year'
-        month = 'month'
         day = 'day'
         hour = 'hour'
         min = 'min'
+        month = 'month'
         none = 'none'
+        year = 'year'
 
     class CheckinEntryPoint:
         branding_checkin = 'BRANDING_CHECKIN'
-        branding_status = 'BRANDING_STATUS'
-        branding_photo = 'BRANDING_PHOTO'
         branding_other = 'BRANDING_OTHER'
+        branding_photo = 'BRANDING_PHOTO'
+        branding_status = 'BRANDING_STATUS'
 
     class Formatting:
-        plaintext = 'PLAINTEXT'
         markdown = 'MARKDOWN'
+        plaintext = 'PLAINTEXT'
 
     class PlaceAttachmentSetting:
         value_1 = '1'
@@ -132,19 +133,19 @@ class PagePost(
         value_5 = '5'
 
     class PostingToRedspace:
-        enabled = 'enabled'
         disabled = 'disabled'
+        enabled = 'enabled'
 
     class TargetSurface:
         story = 'STORY'
         timeline = 'TIMELINE'
 
     class UnpublishedContentType:
-        scheduled = 'SCHEDULED'
-        draft = 'DRAFT'
         ads_post = 'ADS_POST'
+        draft = 'DRAFT'
         inline_created = 'INLINE_CREATED'
         published = 'PUBLISHED'
+        scheduled = 'SCHEDULED'
 
     class With:
         location = 'LOCATION'
@@ -154,11 +155,14 @@ class PagePost(
         visible = 'visible'
 
     class TimelineVisibility:
+        forced_allow = 'forced_allow'
         hidden = 'hidden'
         normal = 'normal'
-        forced_allow = 'forced_allow'
 
-    def api_delete(self, fields=None, params=None, batch=None, pending=False):
+    def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -177,7 +181,7 @@ class PagePost(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -185,7 +189,10 @@ class PagePost(
             self.assure_call()
             return request.execute()
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -204,7 +211,7 @@ class PagePost(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -212,43 +219,46 @@ class PagePost(
             self.assure_call()
             return request.execute()
 
-    def api_update(self, fields=None, params=None, batch=None, pending=False):
+    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'privacy': 'Object',
-            'composer_session_id': 'string',
-            'message': 'string',
-            'is_hidden': 'bool',
-            'is_published': 'bool',
-            'scheduled_publish_time': 'unsigned int',
-            'is_pinned': 'bool',
-            'timeline_visibility': 'timeline_visibility_enum',
-            'feed_story_visibility': 'feed_story_visibility_enum',
+            'attached_media': 'list<Object>',
             'backdated_time': 'datetime',
             'backdated_time_granularity': 'backdated_time_granularity_enum',
-            'tracking': 'string',
-            'source_type': 'string',
-            'attached_media': 'list<Object>',
+            'composer_session_id': 'string',
+            'direct_share_status': 'unsigned int',
+            'feed_story_visibility': 'feed_story_visibility_enum',
+            'is_explicit_location': 'bool',
+            'is_hidden': 'bool',
+            'is_pinned': 'bool',
+            'is_published': 'bool',
+            'message': 'string',
             'og_action_type_id': 'string',
+            'og_hide_object_attachment': 'bool',
+            'og_icon_id': 'string',
             'og_object_id': 'string',
             'og_phrase': 'string',
-            'og_icon_id': 'string',
-            'og_suggestion_mechanism': 'string',
-            'og_hide_object_attachment': 'bool',
-            'tags': 'list<int>',
             'og_set_profile_badge': 'bool',
+            'og_suggestion_mechanism': 'string',
             'place': 'Object',
-            'is_explicit_location': 'bool',
+            'privacy': 'string',
             'product_item': 'Object',
+            'scheduled_publish_time': 'unsigned int',
             'should_sync_product_edit': 'bool',
+            'source_type': 'string',
             'sponsor_id': 'string',
-            'direct_share_status': 'unsigned int',
             'sponsor_relationship': 'unsigned int',
+            'tags': 'list<int>',
             'text_format_preset_id': 'string',
+            'timeline_visibility': 'timeline_visibility_enum',
+            'tracking': 'string',
         }
         enums = {
-            'timeline_visibility_enum': PagePost.TimelineVisibility.__dict__.values(),
-            'feed_story_visibility_enum': PagePost.FeedStoryVisibility.__dict__.values(),
             'backdated_time_granularity_enum': PagePost.BackdatedTimeGranularity.__dict__.values(),
+            'feed_story_visibility_enum': PagePost.FeedStoryVisibility.__dict__.values(),
+            'timeline_visibility_enum': PagePost.TimelineVisibility.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -264,7 +274,7 @@ class PagePost(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -272,7 +282,10 @@ class PagePost(
             self.assure_call()
             return request.execute()
 
-    def get_attachments(self, fields=None, params=None, batch=None, pending=False):
+    def get_attachments(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -291,7 +304,7 @@ class PagePost(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -299,18 +312,21 @@ class PagePost(
             self.assure_call()
             return request.execute()
 
-    def get_comments(self, fields=None, params=None, batch=None, pending=False):
+    def get_comments(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.comment import Comment
         param_types = {
             'filter': 'filter_enum',
-            'order': 'order_enum',
             'live_filter': 'live_filter_enum',
+            'order': 'order_enum',
             'since': 'datetime',
         }
         enums = {
             'filter_enum': Comment.Filter.__dict__.values(),
-            'order_enum': Comment.Order.__dict__.values(),
             'live_filter_enum': Comment.LiveFilter.__dict__.values(),
+            'order_enum': Comment.Order.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -326,7 +342,7 @@ class PagePost(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -334,20 +350,23 @@ class PagePost(
             self.assure_call()
             return request.execute()
 
-    def create_comment(self, fields=None, params=None, batch=None, pending=False):
+    def create_comment(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.comment import Comment
         param_types = {
-            'message': 'string',
-            'tracking': 'string',
-            'nectar_module': 'string',
             'attachment_id': 'string',
-            'attachment_url': 'string',
             'attachment_share_url': 'string',
-            'post_id': 'string',
-            'parent_comment_id': 'Object',
+            'attachment_url': 'string',
             'comment': 'string',
-            'feedback_source': 'string',
             'comment_privacy_value': 'comment_privacy_value_enum',
+            'feedback_source': 'string',
+            'message': 'string',
+            'nectar_module': 'string',
+            'parent_comment_id': 'Object',
+            'post_id': 'string',
+            'tracking': 'string',
         }
         enums = {
             'comment_privacy_value_enum': Comment.CommentPrivacyValue.__dict__.values(),
@@ -366,7 +385,7 @@ class PagePost(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -374,7 +393,10 @@ class PagePost(
             self.assure_call()
             return request.execute()
 
-    def get_dynamic_posts(self, fields=None, params=None, batch=None, pending=False):
+    def get_dynamic_posts(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.rtbdynamicpost import RTBDynamicPost
         param_types = {
         }
@@ -394,7 +416,7 @@ class PagePost(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -402,7 +424,10 @@ class PagePost(
             self.assure_call()
             return request.execute()
 
-    def get_edit_actions(self, fields=None, params=None, batch=None, pending=False):
+    def get_edit_actions(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -421,7 +446,7 @@ class PagePost(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -429,21 +454,23 @@ class PagePost(
             self.assure_call()
             return request.execute()
 
-    def get_insights(self, fields=None, params=None, is_async=False, batch=None, pending=False):
+    def get_insights(self, fields=None, params=None, is_async=False, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.insightsresult import InsightsResult
         if is_async:
-          return self.get_insights_async(fields, params, batch, pending)
+          return self.get_insights_async(fields, params, batch, success, failure, pending)
         param_types = {
-            'since': 'datetime',
-            'until': 'datetime',
+            'date_preset': 'date_preset_enum',
             'metric': 'list<Object>',
             'period': 'period_enum',
-            'show_permission_error': 'bool',
-            'date_preset': 'date_preset_enum',
+            'since': 'datetime',
+            'until': 'datetime',
         }
         enums = {
-            'period_enum': InsightsResult.Period.__dict__.values(),
             'date_preset_enum': InsightsResult.DatePreset.__dict__.values(),
+            'period_enum': InsightsResult.Period.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -460,7 +487,7 @@ class PagePost(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -468,10 +495,13 @@ class PagePost(
             self.assure_call()
             return request.execute()
 
-    def delete_likes(self, fields=None, params=None, batch=None, pending=False):
+    def delete_likes(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'tracking': 'string',
             'nectar_module': 'string',
+            'tracking': 'string',
         }
         enums = {
         }
@@ -489,7 +519,7 @@ class PagePost(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -497,7 +527,10 @@ class PagePost(
             self.assure_call()
             return request.execute()
 
-    def get_likes(self, fields=None, params=None, batch=None, pending=False):
+    def get_likes(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.profile import Profile
         param_types = {
         }
@@ -517,7 +550,7 @@ class PagePost(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -525,11 +558,14 @@ class PagePost(
             self.assure_call()
             return request.execute()
 
-    def create_like(self, fields=None, params=None, batch=None, pending=False):
+    def create_like(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'tracking': 'string',
-            'nectar_module': 'string',
             'feedback_source': 'string',
+            'nectar_module': 'string',
+            'tracking': 'string',
         }
         enums = {
         }
@@ -547,7 +583,7 @@ class PagePost(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -555,89 +591,97 @@ class PagePost(
             self.assure_call()
             return request.execute()
 
-    def create_promotion(self, fields=None, params=None, batch=None, pending=False):
+    def create_promotion(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'budget': 'unsigned int',
-            'currency': 'string',
             'ad_account_id': 'string',
-            'audience': 'audience_enum',
-            'targeting': 'Targeting',
-            'start_time': 'unsigned int',
-            'stop_time': 'unsigned int',
             'ad_conversion_pixel_id': 'unsigned int',
-            'placement': 'string',
-            'flow_id': 'string',
+            'audience': 'audience_enum',
             'audience_id': 'string',
             'bid_amount': 'unsigned int',
+            'budget': 'unsigned int',
             'cta_type': 'cta_type_enum',
+            'currency': 'string',
+            'flow_id': 'string',
+            'placement': 'string',
+            'start_time': 'unsigned int',
+            'stop_time': 'unsigned int',
+            'targeting': 'Targeting',
         }
         enums = {
             'audience_enum': [
-                'GROUPER',
-                'NCPP',
-                'CUSTOM_AUDIENCE',
-                'LOOKALIKE',
-                'FANS',
-                'LOCAL',
-                'IG_PROMOTED_POST_AUTO',
-                'SAVED_AUDIENCE',
-                'EVENT_ENGAGEMENT',
-                'DISTRICT',
-                'SMART_AUDIENCE',
-                'CREATE_NEW',
                 'AUTO_LOOKALIKE',
-                'MULT_CUSTOM_AUDIENCES',
+                'AUTO_PAGE_LOOKALIKE',
+                'AUTO_TARGETING',
+                'CREATE_NEW',
+                'CUSTOM_AUDIENCE',
+                'DISTRICT',
                 'EVENT_CUSTOM_AUDIENCES',
+                'EVENT_ENGAGEMENT',
+                'FANS',
+                'GROUPER',
+                'IG_PROMOTED_POST_AUTO',
+                'LOCAL',
+                'LOOKALIKE',
+                'MULT_CUSTOM_AUDIENCES',
+                'NCPP',
+                'SAVED_AUDIENCE',
+                'SMART_AUDIENCE',
             ],
             'cta_type_enum': [
-                'OPEN_LINK',
-                'LIKE_PAGE',
-                'SHOP_NOW',
-                'PLAY_GAME',
-                'INSTALL_APP',
-                'USE_APP',
+                'ADD_TO_CART',
+                'APPLY_NOW',
+                'BOOK_TRAVEL',
+                'BUY',
+                'BUY_NOW',
+                'BUY_TICKETS',
                 'CALL',
                 'CALL_ME',
-                'INSTALL_MOBILE_APP',
-                'USE_MOBILE_APP',
-                'MOBILE_DOWNLOAD',
-                'BOOK_TRAVEL',
-                'LISTEN_MUSIC',
-                'WATCH_VIDEO',
-                'LEARN_MORE',
-                'SIGN_UP',
+                'CONTACT',
+                'CONTACT_US',
+                'DONATE',
+                'DONATE_NOW',
                 'DOWNLOAD',
-                'WATCH_MORE',
-                'NO_BUTTON',
-                'VISIT_PAGES_FEED',
-                'APPLY_NOW',
-                'BUY_NOW',
+                'EVENT_RSVP',
+                'FIND_A_GROUP',
+                'FOLLOW_NEWS_STORYLINE',
+                'GET_DIRECTIONS',
                 'GET_OFFER',
                 'GET_OFFER_VIEW',
-                'BUY_TICKETS',
-                'UPDATE_APP',
-                'GET_DIRECTIONS',
-                'BUY',
+                'GET_QUOTE',
+                'GET_SHOWTIMES',
+                'INSTALL_APP',
+                'INSTALL_MOBILE_APP',
+                'LEARN_MORE',
+                'LIKE_PAGE',
+                'LISTEN_MUSIC',
+                'LISTEN_NOW',
                 'MESSAGE_PAGE',
-                'DONATE',
-                'SUBSCRIBE',
+                'MOBILE_DOWNLOAD',
+                'MOMENTS',
+                'NO_BUTTON',
+                'OPEN_LINK',
+                'ORDER_NOW',
+                'PLAY_GAME',
+                'RECORD_NOW',
                 'SAY_THANKS',
+                'SEE_MORE',
                 'SELL_NOW',
                 'SHARE',
-                'DONATE_NOW',
-                'GET_QUOTE',
-                'CONTACT_US',
-                'ORDER_NOW',
-                'ADD_TO_CART',
+                'SHOP_NOW',
+                'SIGN_UP',
+                'SUBSCRIBE',
+                'UPDATE_APP',
+                'USE_APP',
+                'USE_MOBILE_APP',
                 'VIDEO_ANNOTATION',
-                'MOMENTS',
-                'RECORD_NOW',
-                'GET_SHOWTIMES',
-                'LISTEN_NOW',
-                'WOODHENGE_SUPPORT',
-                'EVENT_RSVP',
+                'VISIT_PAGES_FEED',
+                'WATCH_MORE',
+                'WATCH_VIDEO',
                 'WHATSAPP_MESSAGE',
-                'FOLLOW_NEWS_STORYLINE',
+                'WOODHENGE_SUPPORT',
             ],
         }
         request = FacebookRequest(
@@ -654,7 +698,7 @@ class PagePost(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -662,7 +706,10 @@ class PagePost(
             self.assure_call()
             return request.execute()
 
-    def get_reactions(self, fields=None, params=None, batch=None, pending=False):
+    def get_reactions(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.profile import Profile
         param_types = {
             'type': 'type_enum',
@@ -684,7 +731,7 @@ class PagePost(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -692,7 +739,10 @@ class PagePost(
             self.assure_call()
             return request.execute()
 
-    def get_seen(self, fields=None, params=None, batch=None, pending=False):
+    def get_seen(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.user import User
         param_types = {
         }
@@ -712,7 +762,7 @@ class PagePost(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -720,7 +770,10 @@ class PagePost(
             self.assure_call()
             return request.execute()
 
-    def get_share_d_posts(self, fields=None, params=None, batch=None, pending=False):
+    def get_shared_posts(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.post import Post
         param_types = {
         }
@@ -740,7 +793,7 @@ class PagePost(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -748,7 +801,10 @@ class PagePost(
             self.assure_call()
             return request.execute()
 
-    def get_sponsor_tags(self, fields=None, params=None, batch=None, pending=False):
+    def get_sponsor_tags(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.page import Page
         param_types = {
         }
@@ -768,7 +824,7 @@ class PagePost(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -776,7 +832,10 @@ class PagePost(
             self.assure_call()
             return request.execute()
 
-    def get_to(self, fields=None, params=None, batch=None, pending=False):
+    def get_to(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.profile import Profile
         param_types = {
         }
@@ -796,7 +855,7 @@ class PagePost(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -804,7 +863,10 @@ class PagePost(
             self.assure_call()
             return request.execute()
 
-    def get_with_tags(self, fields=None, params=None, batch=None, pending=False):
+    def get_with_tags(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.profile import Profile
         param_types = {
         }
@@ -824,7 +886,7 @@ class PagePost(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -857,6 +919,7 @@ class PagePost(
         'id': 'string',
         'instagram_eligibility': 'string',
         'is_app_share': 'bool',
+        'is_eligible_for_promotion': 'bool',
         'is_expired': 'bool',
         'is_hidden': 'bool',
         'is_instagram_eligible': 'bool',

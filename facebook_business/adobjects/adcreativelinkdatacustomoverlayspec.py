@@ -19,10 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
-from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
-from facebook_business.adobjects.objectparser import ObjectParser
-from facebook_business.api import FacebookRequest
-from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -33,12 +29,13 @@ pull request for this class.
 """
 
 class AdCreativeLinkDataCustomOverlaySpec(
-    AbstractCrudObject,
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
+    def __init__(self, api=None):
+        super(AdCreativeLinkDataCustomOverlaySpec, self).__init__()
         self._isAdCreativeLinkDataCustomOverlaySpec = True
-        super(AdCreativeLinkDataCustomOverlaySpec, self).__init__(fbid, parent_id, api)
+        self._api = api
 
     class Field(AbstractObject.Field):
         background_color = 'background_color'
@@ -49,87 +46,59 @@ class AdCreativeLinkDataCustomOverlaySpec(
         render_with_icon = 'render_with_icon'
         template = 'template'
         text_color = 'text_color'
-        id = 'id'
 
     class BackgroundColor:
-        background_ffffff = 'background_ffffff'
-        background_e50900 = 'background_e50900'
-        background_f78400 = 'background_f78400'
-        background_00af4c = 'background_00af4c'
-        background_0090ff = 'background_0090ff'
-        background_755dde = 'background_755dde'
-        background_f23474 = 'background_f23474'
-        background_595959 = 'background_595959'
         background_000000 = 'background_000000'
+        background_0090ff = 'background_0090ff'
+        background_00af4c = 'background_00af4c'
+        background_595959 = 'background_595959'
+        background_755dde = 'background_755dde'
+        background_e50900 = 'background_e50900'
+        background_f23474 = 'background_f23474'
+        background_f78400 = 'background_f78400'
+        background_ffffff = 'background_ffffff'
 
     class Font:
         droid_serif_regular = 'droid_serif_regular'
         lato_regular = 'lato_regular'
+        noto_sans_regular = 'noto_sans_regular'
         nunito_sans_bold = 'nunito_sans_bold'
         open_sans_bold = 'open_sans_bold'
         pt_serif_bold = 'pt_serif_bold'
-        roboto_medium = 'roboto_medium'
         roboto_condensed_regular = 'roboto_condensed_regular'
-        noto_sans_regular = 'noto_sans_regular'
+        roboto_medium = 'roboto_medium'
 
     class Option:
         bank_transfer = 'bank_transfer'
         boleto = 'boleto'
-        discount_with_boleto = 'discount_with_boleto'
         cash_on_delivery = 'cash_on_delivery'
-        home_delivery = 'home_delivery'
-        free_shipping = 'free_shipping'
-        inventory = 'inventory'
-        pay_on_arrival = 'pay_on_arrival'
-        pay_at_hotel = 'pay_at_hotel'
+        discount_with_boleto = 'discount_with_boleto'
         fast_delivery = 'fast_delivery'
+        free_shipping = 'free_shipping'
+        home_delivery = 'home_delivery'
+        inventory = 'inventory'
+        pay_at_hotel = 'pay_at_hotel'
+        pay_on_arrival = 'pay_on_arrival'
 
     class Position:
-        top_left = 'top_left'
-        top_right = 'top_right'
         bottom_left = 'bottom_left'
         bottom_right = 'bottom_right'
+        top_left = 'top_left'
+        top_right = 'top_right'
 
     class Template:
         pill_with_text = 'pill_with_text'
 
     class TextColor:
-        text_ffffff = 'text_ffffff'
-        text_c91b00 = 'text_c91b00'
-        text_f78400 = 'text_f78400'
-        text_009c2a = 'text_009c2a'
-        text_007ad0 = 'text_007ad0'
-        text_755dde = 'text_755dde'
-        text_f23474 = 'text_f23474'
-        text_646464 = 'text_646464'
         text_000000 = 'text_000000'
-
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AdCreativeLinkDataCustomOverlaySpec,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
+        text_007ad0 = 'text_007ad0'
+        text_009c2a = 'text_009c2a'
+        text_646464 = 'text_646464'
+        text_755dde = 'text_755dde'
+        text_c91b00 = 'text_c91b00'
+        text_f23474 = 'text_f23474'
+        text_f78400 = 'text_f78400'
+        text_ffffff = 'text_ffffff'
 
     _field_types = {
         'background_color': 'BackgroundColor',
@@ -140,7 +109,6 @@ class AdCreativeLinkDataCustomOverlaySpec(
         'render_with_icon': 'bool',
         'template': 'Template',
         'text_color': 'TextColor',
-        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

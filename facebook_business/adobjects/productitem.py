@@ -93,26 +93,26 @@ class ProductItem(
         start_date = 'start_date'
         url = 'url'
         visibility = 'visibility'
+        android_app_name = 'android_app_name'
+        android_class = 'android_class'
+        android_package = 'android_package'
+        android_url = 'android_url'
         checkout_url = 'checkout_url'
+        ios_app_name = 'ios_app_name'
+        ios_app_store_id = 'ios_app_store_id'
+        ios_url = 'ios_url'
+        ipad_app_name = 'ipad_app_name'
+        ipad_app_store_id = 'ipad_app_store_id'
+        ipad_url = 'ipad_url'
+        iphone_app_name = 'iphone_app_name'
+        iphone_app_store_id = 'iphone_app_store_id'
+        iphone_url = 'iphone_url'
         offer_price_amount = 'offer_price_amount'
         offer_price_end_date = 'offer_price_end_date'
         offer_price_start_date = 'offer_price_start_date'
-        ios_url = 'ios_url'
-        ios_app_store_id = 'ios_app_store_id'
-        ios_app_name = 'ios_app_name'
-        iphone_url = 'iphone_url'
-        iphone_app_store_id = 'iphone_app_store_id'
-        iphone_app_name = 'iphone_app_name'
-        ipad_url = 'ipad_url'
-        ipad_app_store_id = 'ipad_app_store_id'
-        ipad_app_name = 'ipad_app_name'
-        android_url = 'android_url'
-        android_package = 'android_package'
-        android_class = 'android_class'
-        android_app_name = 'android_app_name'
-        windows_phone_url = 'windows_phone_url'
         windows_phone_app_id = 'windows_phone_app_id'
         windows_phone_app_name = 'windows_phone_app_name'
+        windows_phone_url = 'windows_phone_url'
 
     class AgeGroup:
         adult = 'adult'
@@ -124,18 +124,19 @@ class ProductItem(
         toddler = 'toddler'
 
     class Availability:
-        in_stock = 'in stock'
-        out_of_stock = 'out of stock'
-        preorder = 'preorder'
         available_for_order = 'available for order'
         discontinued = 'discontinued'
+        in_stock = 'in stock'
+        out_of_stock = 'out of stock'
         pending = 'pending'
+        preorder = 'preorder'
 
     class Condition:
+        cpo = 'cpo'
         new = 'new'
+        open_box_new = 'open_box_new'
         refurbished = 'refurbished'
         used = 'used'
-        cpo = 'cpo'
 
     class Gender:
         female = 'female'
@@ -143,31 +144,34 @@ class ProductItem(
         unisex = 'unisex'
 
     class ReviewStatus:
-        pending = 'pending'
-        rejected = 'rejected'
         approved = 'approved'
         outdated = 'outdated'
+        pending = 'pending'
+        rejected = 'rejected'
 
     class ShippingWeightUnit:
         value_g = 'g'
         kg = 'kg'
-        oz = 'oz'
         lb = 'lb'
+        oz = 'oz'
 
     class Visibility:
-        staging = 'staging'
         published = 'published'
+        staging = 'staging'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'products'
 
-    def api_create(self, parent_id, fields=None, params=None, batch=None, pending=False):
+    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.adobjects.productcatalog import ProductCatalog
-        return ProductCatalog(api=self._api, fbid=parent_id).create_product(fields, params, batch, pending)
+        return ProductCatalog(api=self._api, fbid=parent_id).create_product(fields, params, batch, success, failure, pending)
 
-    def api_delete(self, fields=None, params=None, batch=None, pending=False):
+    def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -186,7 +190,7 @@ class ProductItem(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -194,7 +198,10 @@ class ProductItem(
             self.assure_call()
             return request.execute()
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'image_height': 'unsigned int',
             'image_width': 'unsigned int',
@@ -215,7 +222,7 @@ class ProductItem(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -223,71 +230,74 @@ class ProductItem(
             self.assure_call()
             return request.execute()
 
-    def api_update(self, fields=None, params=None, batch=None, pending=False):
+    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'additional_image_urls': 'list<string>',
+            'additional_variant_attributes': 'map',
+            'android_app_name': 'string',
+            'android_class': 'string',
+            'android_package': 'string',
+            'android_url': 'string',
             'availability': 'availability_enum',
             'brand': 'string',
             'category': 'string',
-            'currency': 'string',
-            'condition': 'condition_enum',
-            'description': 'string',
-            'image_url': 'Object',
-            'name': 'string',
-            'price': 'unsigned int',
-            'product_type': 'string',
-            'url': 'Object',
-            'visibility': 'visibility_enum',
-            'additional_image_urls': 'list<string>',
-            'additional_variant_attributes': 'Object',
             'checkout_url': 'string',
             'color': 'string',
+            'condition': 'condition_enum',
+            'currency': 'string',
             'custom_data': 'map',
             'custom_label_0': 'string',
             'custom_label_1': 'string',
             'custom_label_2': 'string',
             'custom_label_3': 'string',
             'custom_label_4': 'string',
+            'description': 'string',
             'expiration_date': 'string',
             'gender': 'gender_enum',
             'gtin': 'string',
+            'image_url': 'string',
             'inventory': 'unsigned int',
+            'ios_app_name': 'string',
+            'ios_app_store_id': 'unsigned int',
+            'ios_url': 'string',
+            'ipad_app_name': 'string',
+            'ipad_app_store_id': 'unsigned int',
+            'ipad_url': 'string',
+            'iphone_app_name': 'string',
+            'iphone_app_store_id': 'unsigned int',
+            'iphone_url': 'string',
             'manufacturer_part_number': 'string',
-            'mobile_link': 'Object',
             'material': 'string',
+            'mobile_link': 'string',
+            'name': 'string',
             'offer_price_amount': 'unsigned int',
-            'offer_price_end_date': 'Object',
-            'offer_price_start_date': 'Object',
+            'offer_price_end_date': 'datetime',
+            'offer_price_start_date': 'datetime',
             'ordering_index': 'unsigned int',
             'pattern': 'string',
+            'price': 'unsigned int',
+            'product_type': 'string',
+            'retailer_id': 'string',
             'sale_price': 'unsigned int',
             'sale_price_end_date': 'datetime',
             'sale_price_start_date': 'datetime',
             'short_description': 'string',
             'size': 'string',
             'start_date': 'string',
-            'ios_url': 'string',
-            'ios_app_store_id': 'unsigned int',
-            'ios_app_name': 'string',
-            'iphone_url': 'string',
-            'iphone_app_store_id': 'unsigned int',
-            'iphone_app_name': 'string',
-            'ipad_url': 'string',
-            'ipad_app_store_id': 'unsigned int',
-            'ipad_app_name': 'string',
-            'android_url': 'string',
-            'android_package': 'string',
-            'android_class': 'string',
-            'android_app_name': 'string',
-            'windows_phone_url': 'string',
+            'url': 'string',
+            'visibility': 'visibility_enum',
             'windows_phone_app_id': 'string',
             'windows_phone_app_name': 'string',
-            'retailer_id': 'string',
+            'windows_phone_url': 'string',
         }
         enums = {
             'availability_enum': ProductItem.Availability.__dict__.values(),
             'condition_enum': ProductItem.Condition.__dict__.values(),
-            'visibility_enum': ProductItem.Visibility.__dict__.values(),
             'gender_enum': ProductItem.Gender.__dict__.values(),
+            'visibility_enum': ProductItem.Visibility.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -303,7 +313,7 @@ class ProductItem(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -311,20 +321,23 @@ class ProductItem(
             self.assure_call()
             return request.execute()
 
-    def create_comment(self, fields=None, params=None, batch=None, pending=False):
+    def create_comment(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.comment import Comment
         param_types = {
+            'attachment_id': 'string',
+            'attachment_share_url': 'string',
+            'attachment_url': 'string',
+            'comment_privacy_value': 'comment_privacy_value_enum',
+            'facepile_mentioned_ids': 'list<string>',
+            'feedback_source': 'string',
+            'is_offline': 'bool',
+            'message': 'string',
+            'nectar_module': 'string',
             'object_id': 'string',
             'parent_comment_id': 'Object',
-            'nectar_module': 'string',
-            'attachment_id': 'string',
-            'attachment_url': 'string',
-            'attachment_share_url': 'string',
-            'feedback_source': 'string',
-            'facepile_mentioned_ids': 'list<string>',
-            'is_offline': 'bool',
-            'comment_privacy_value': 'comment_privacy_value_enum',
-            'message': 'string',
             'text': 'string',
             'tracking': 'string',
         }
@@ -345,7 +358,7 @@ class ProductItem(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -353,7 +366,10 @@ class ProductItem(
             self.assure_call()
             return request.execute()
 
-    def get_product_sets(self, fields=None, params=None, batch=None, pending=False):
+    def get_product_sets(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.productset import ProductSet
         param_types = {
         }
@@ -373,7 +389,7 @@ class ProductItem(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -382,20 +398,20 @@ class ProductItem(
             return request.execute()
 
     _field_types = {
-        'additional_image_cdn_urls': 'list<list<Object>>',
+        'additional_image_cdn_urls': 'list<map<string, string>>',
         'additional_image_urls': 'list<string>',
-        'additional_variant_attributes': 'list<Object>',
+        'additional_variant_attributes': 'map<string, string>',
         'age_group': 'AgeGroup',
         'applinks': 'AppLinks',
         'availability': 'Availability',
         'brand': 'string',
-        'capability_to_review_status': 'list<Object>',
+        'capability_to_review_status': 'map<Object, Object>',
         'category': 'string',
         'color': 'string',
         'commerce_insights': 'ProductItemCommerceInsights',
         'condition': 'Condition',
         'currency': 'string',
-        'custom_data': 'list<Object>',
+        'custom_data': 'map<string, string>',
         'custom_label_0': 'string',
         'custom_label_1': 'string',
         'custom_label_2': 'string',
@@ -406,7 +422,7 @@ class ProductItem(
         'gender': 'Gender',
         'gtin': 'string',
         'id': 'string',
-        'image_cdn_urls': 'list<Object>',
+        'image_cdn_urls': 'map<string, string>',
         'image_url': 'string',
         'inventory': 'int',
         'manufacturer_part_number': 'string',
@@ -434,26 +450,26 @@ class ProductItem(
         'start_date': 'string',
         'url': 'string',
         'visibility': 'Visibility',
-        'checkout_url': 'string',
-        'offer_price_amount': 'unsigned int',
-        'offer_price_end_date': 'Object',
-        'offer_price_start_date': 'Object',
-        'ios_url': 'string',
-        'ios_app_store_id': 'unsigned int',
-        'ios_app_name': 'string',
-        'iphone_url': 'string',
-        'iphone_app_store_id': 'unsigned int',
-        'iphone_app_name': 'string',
-        'ipad_url': 'string',
-        'ipad_app_store_id': 'unsigned int',
-        'ipad_app_name': 'string',
-        'android_url': 'string',
-        'android_package': 'string',
-        'android_class': 'string',
         'android_app_name': 'string',
-        'windows_phone_url': 'string',
+        'android_class': 'string',
+        'android_package': 'string',
+        'android_url': 'string',
+        'checkout_url': 'string',
+        'ios_app_name': 'string',
+        'ios_app_store_id': 'unsigned int',
+        'ios_url': 'string',
+        'ipad_app_name': 'string',
+        'ipad_app_store_id': 'unsigned int',
+        'ipad_url': 'string',
+        'iphone_app_name': 'string',
+        'iphone_app_store_id': 'unsigned int',
+        'iphone_url': 'string',
+        'offer_price_amount': 'unsigned int',
+        'offer_price_end_date': 'datetime',
+        'offer_price_start_date': 'datetime',
         'windows_phone_app_id': 'string',
         'windows_phone_app_name': 'string',
+        'windows_phone_url': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

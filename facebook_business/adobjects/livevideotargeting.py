@@ -19,10 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
-from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
-from facebook_business.adobjects.objectparser import ObjectParser
-from facebook_business.api import FacebookRequest
-from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -33,53 +29,25 @@ pull request for this class.
 """
 
 class LiveVideoTargeting(
-    AbstractCrudObject,
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
+    def __init__(self, api=None):
+        super(LiveVideoTargeting, self).__init__()
         self._isLiveVideoTargeting = True
-        super(LiveVideoTargeting, self).__init__(fbid, parent_id, api)
+        self._api = api
 
     class Field(AbstractObject.Field):
         age_max = 'age_max'
         age_min = 'age_min'
         excluded_countries = 'excluded_countries'
         geo_locations = 'geo_locations'
-        id = 'id'
-
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=LiveVideoTargeting,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
 
     _field_types = {
         'age_max': 'unsigned int',
         'age_min': 'unsigned int',
         'excluded_countries': 'list<string>',
         'geo_locations': 'TargetingGeoLocation',
-        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

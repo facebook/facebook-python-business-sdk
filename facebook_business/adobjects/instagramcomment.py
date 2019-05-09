@@ -45,10 +45,14 @@ class InstagramComment(
         created_at = 'created_at'
         id = 'id'
         instagram_comment_id = 'instagram_comment_id'
+        instagram_user = 'instagram_user'
         mentioned_instagram_users = 'mentioned_instagram_users'
         message = 'message'
 
-    def api_delete(self, fields=None, params=None, batch=None, pending=False):
+    def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'ad_id': 'Object',
         }
@@ -68,7 +72,7 @@ class InstagramComment(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -76,7 +80,10 @@ class InstagramComment(
             self.assure_call()
             return request.execute()
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -95,7 +102,7 @@ class InstagramComment(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -103,7 +110,10 @@ class InstagramComment(
             self.assure_call()
             return request.execute()
 
-    def api_update(self, fields=None, params=None, batch=None, pending=False):
+    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'ad_id': 'Object',
             'hide': 'bool',
@@ -124,7 +134,7 @@ class InstagramComment(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -137,6 +147,7 @@ class InstagramComment(
         'created_at': 'datetime',
         'id': 'string',
         'instagram_comment_id': 'string',
+        'instagram_user': 'InstagramUser',
         'mentioned_instagram_users': 'list<InstagramUser>',
         'message': 'string',
     }

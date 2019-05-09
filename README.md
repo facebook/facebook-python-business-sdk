@@ -477,3 +477,6 @@ curl -X 'GET' -H 'Accept: */*' -H 'Accept-Encoding: gzip, deflate' -H 'Connectio
 ## Issue
 Since we want to handle bugs more efficiently, we've decided to close issue reporting in Github and move to our dedicated bug reporting channel.
 If you encounter a bug with Business SDK (Python), please report the issue at [our developer bug reporting channel](https://developers.facebook.com/support/bugs/).
+
+## License
+Facebook Business SDK for Python is licensed under the LICENSE file in the root directory of this source tree.

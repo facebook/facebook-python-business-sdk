@@ -55,14 +55,10 @@ class Link(
         privacy = 'privacy'
         via = 'via'
 
-    class UnpublishedContentType:
-        scheduled = 'SCHEDULED'
-        draft = 'DRAFT'
-        ads_post = 'ADS_POST'
-        inline_created = 'INLINE_CREATED'
-        published = 'PUBLISHED'
-
-    def api_delete(self, fields=None, params=None, batch=None, pending=False):
+    def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -81,7 +77,7 @@ class Link(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -89,7 +85,10 @@ class Link(
             self.assure_call()
             return request.execute()
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -108,7 +107,7 @@ class Link(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -116,18 +115,21 @@ class Link(
             self.assure_call()
             return request.execute()
 
-    def get_comments(self, fields=None, params=None, batch=None, pending=False):
+    def get_comments(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.comment import Comment
         param_types = {
             'filter': 'filter_enum',
-            'order': 'order_enum',
             'live_filter': 'live_filter_enum',
+            'order': 'order_enum',
             'since': 'datetime',
         }
         enums = {
             'filter_enum': Comment.Filter.__dict__.values(),
-            'order_enum': Comment.Order.__dict__.values(),
             'live_filter_enum': Comment.LiveFilter.__dict__.values(),
+            'order_enum': Comment.Order.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -143,7 +145,7 @@ class Link(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -151,20 +153,23 @@ class Link(
             self.assure_call()
             return request.execute()
 
-    def create_comment(self, fields=None, params=None, batch=None, pending=False):
+    def create_comment(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.comment import Comment
         param_types = {
+            'attachment_id': 'string',
+            'attachment_share_url': 'string',
+            'attachment_url': 'string',
+            'comment_privacy_value': 'comment_privacy_value_enum',
+            'facepile_mentioned_ids': 'list<string>',
+            'feedback_source': 'string',
+            'is_offline': 'bool',
+            'message': 'string',
+            'nectar_module': 'string',
             'object_id': 'string',
             'parent_comment_id': 'Object',
-            'nectar_module': 'string',
-            'attachment_id': 'string',
-            'attachment_url': 'string',
-            'attachment_share_url': 'string',
-            'feedback_source': 'string',
-            'facepile_mentioned_ids': 'list<string>',
-            'is_offline': 'bool',
-            'comment_privacy_value': 'comment_privacy_value_enum',
-            'message': 'string',
             'text': 'string',
             'tracking': 'string',
         }
@@ -185,7 +190,7 @@ class Link(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -193,40 +198,15 @@ class Link(
             self.assure_call()
             return request.execute()
 
-    def get_leads(self, fields=None, params=None, batch=None, pending=False):
-        from facebook_business.adobjects.lead import Lead
+    def delete_likes(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/leads',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=Lead,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=Lead, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def delete_likes(self, fields=None, params=None, batch=None, pending=False):
-        param_types = {
-            'tracking': 'string',
+            'feedback_source': 'string',
             'nectar_module': 'string',
             'notify': 'bool',
-            'feedback_source': 'string',
+            'tracking': 'string',
         }
         enums = {
         }
@@ -244,7 +224,7 @@ class Link(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -252,7 +232,10 @@ class Link(
             self.assure_call()
             return request.execute()
 
-    def get_likes(self, fields=None, params=None, batch=None, pending=False):
+    def get_likes(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.profile import Profile
         param_types = {
         }
@@ -272,7 +255,7 @@ class Link(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -280,12 +263,15 @@ class Link(
             self.assure_call()
             return request.execute()
 
-    def create_like(self, fields=None, params=None, batch=None, pending=False):
+    def create_like(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'tracking': 'string',
+            'feedback_source': 'string',
             'nectar_module': 'string',
             'notify': 'bool',
-            'feedback_source': 'string',
+            'tracking': 'string',
         }
         enums = {
         }
@@ -303,7 +289,7 @@ class Link(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -311,7 +297,10 @@ class Link(
             self.assure_call()
             return request.execute()
 
-    def get_reactions(self, fields=None, params=None, batch=None, pending=False):
+    def get_reactions(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.profile import Profile
         param_types = {
             'type': 'type_enum',
@@ -333,7 +322,7 @@ class Link(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -341,7 +330,10 @@ class Link(
             self.assure_call()
             return request.execute()
 
-    def get_share_d_posts(self, fields=None, params=None, batch=None, pending=False):
+    def get_shared_posts(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.post import Post
         param_types = {
         }
@@ -361,7 +353,7 @@ class Link(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -387,7 +379,6 @@ class Link(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['UnpublishedContentType'] = Link.UnpublishedContentType.__dict__.values()
         return field_enum_info
 
 

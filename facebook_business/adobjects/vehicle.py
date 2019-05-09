@@ -50,6 +50,7 @@ class Vehicle(
         custom_label_0 = 'custom_label_0'
         date_first_on_lot = 'date_first_on_lot'
         dealer_communication_channel = 'dealer_communication_channel'
+        dealer_email = 'dealer_email'
         dealer_id = 'dealer_id'
         dealer_name = 'dealer_name'
         dealer_phone = 'dealer_phone'
@@ -63,6 +64,7 @@ class Vehicle(
         id = 'id'
         images = 'images'
         interior_color = 'interior_color'
+        legal_disclosure_impressum_url = 'legal_disclosure_impressum_url'
         make = 'make'
         mileage = 'mileage'
         model = 'model'
@@ -84,7 +86,88 @@ class Vehicle(
         vin = 'vin'
         year = 'year'
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    class Availability:
+        available = 'AVAILABLE'
+        not_available = 'NOT_AVAILABLE'
+
+    class BodyStyle:
+        convertible = 'CONVERTIBLE'
+        coupe = 'COUPE'
+        crossover = 'CROSSOVER'
+        hatchback = 'HATCHBACK'
+        minivan = 'MINIVAN'
+        none = 'NONE'
+        other = 'OTHER'
+        sedan = 'SEDAN'
+        small_car = 'SMALL_CAR'
+        suv = 'SUV'
+        truck = 'TRUCK'
+        van = 'VAN'
+        wagon = 'WAGON'
+
+    class Condition:
+        excellent = 'EXCELLENT'
+        fair = 'FAIR'
+        good = 'GOOD'
+        none = 'NONE'
+        other = 'OTHER'
+        poor = 'POOR'
+        very_good = 'VERY_GOOD'
+
+    class Drivetrain:
+        awd = 'AWD'
+        four_wd = 'FOUR_WD'
+        fwd = 'FWD'
+        none = 'NONE'
+        other = 'OTHER'
+        rwd = 'RWD'
+        two_wd = 'TWO_WD'
+
+    class FuelType:
+        diesel = 'DIESEL'
+        electric = 'ELECTRIC'
+        flex = 'FLEX'
+        gasoline = 'GASOLINE'
+        hybrid = 'HYBRID'
+        none = 'NONE'
+        other = 'OTHER'
+        petrol = 'PETROL'
+        plugin_hybrid = 'PLUGIN_HYBRID'
+
+    class StateOfVehicle:
+        cpo = 'CPO'
+        new = 'NEW'
+        used = 'USED'
+
+    class Transmission:
+        automatic = 'AUTOMATIC'
+        manual = 'MANUAL'
+        none = 'NONE'
+        other = 'OTHER'
+
+    class VehicleType:
+        boat = 'BOAT'
+        car_truck = 'CAR_TRUCK'
+        commercial = 'COMMERCIAL'
+        motorcycle = 'MOTORCYCLE'
+        other = 'OTHER'
+        powersport = 'POWERSPORT'
+        rv_camper = 'RV_CAMPER'
+        trailer = 'TRAILER'
+
+    # @deprecated get_endpoint function is deprecated
+    @classmethod
+    def get_endpoint(cls):
+        return 'vehicles'
+
+    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.adobjects.productcatalog import ProductCatalog
+        return ProductCatalog(api=self._api, fbid=parent_id).create_vehicle(fields, params, batch, success, failure, pending)
+
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -103,7 +186,73 @@ class Vehicle(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'address': 'map',
+            'applinks': 'Object',
+            'availability': 'availability_enum',
+            'body_style': 'body_style_enum',
+            'condition': 'condition_enum',
+            'currency': 'string',
+            'date_first_on_lot': 'string',
+            'dealer_id': 'string',
+            'dealer_name': 'string',
+            'dealer_phone': 'string',
+            'description': 'string',
+            'drivetrain': 'drivetrain_enum',
+            'exterior_color': 'string',
+            'fuel_type': 'fuel_type_enum',
+            'images': 'list<Object>',
+            'interior_color': 'string',
+            'make': 'string',
+            'mileage': 'map',
+            'model': 'string',
+            'price': 'unsigned int',
+            'state_of_vehicle': 'state_of_vehicle_enum',
+            'title': 'string',
+            'transmission': 'transmission_enum',
+            'trim': 'string',
+            'url': 'string',
+            'vehicle_type': 'vehicle_type_enum',
+            'vin': 'string',
+            'year': 'unsigned int',
+        }
+        enums = {
+            'availability_enum': Vehicle.Availability.__dict__.values(),
+            'body_style_enum': Vehicle.BodyStyle.__dict__.values(),
+            'condition_enum': Vehicle.Condition.__dict__.values(),
+            'drivetrain_enum': Vehicle.Drivetrain.__dict__.values(),
+            'fuel_type_enum': Vehicle.FuelType.__dict__.values(),
+            'state_of_vehicle_enum': Vehicle.StateOfVehicle.__dict__.values(),
+            'transmission_enum': Vehicle.Transmission.__dict__.values(),
+            'vehicle_type_enum': Vehicle.VehicleType.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Vehicle,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -121,6 +270,7 @@ class Vehicle(
         'custom_label_0': 'string',
         'date_first_on_lot': 'string',
         'dealer_communication_channel': 'string',
+        'dealer_email': 'string',
         'dealer_id': 'string',
         'dealer_name': 'string',
         'dealer_phone': 'string',
@@ -134,6 +284,7 @@ class Vehicle(
         'id': 'string',
         'images': 'list<string>',
         'interior_color': 'string',
+        'legal_disclosure_impressum_url': 'string',
         'make': 'string',
         'mileage': 'Object',
         'model': 'string',
@@ -158,6 +309,14 @@ class Vehicle(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['Availability'] = Vehicle.Availability.__dict__.values()
+        field_enum_info['BodyStyle'] = Vehicle.BodyStyle.__dict__.values()
+        field_enum_info['Condition'] = Vehicle.Condition.__dict__.values()
+        field_enum_info['Drivetrain'] = Vehicle.Drivetrain.__dict__.values()
+        field_enum_info['FuelType'] = Vehicle.FuelType.__dict__.values()
+        field_enum_info['StateOfVehicle'] = Vehicle.StateOfVehicle.__dict__.values()
+        field_enum_info['Transmission'] = Vehicle.Transmission.__dict__.values()
+        field_enum_info['VehicleType'] = Vehicle.VehicleType.__dict__.values()
         return field_enum_info
 
 

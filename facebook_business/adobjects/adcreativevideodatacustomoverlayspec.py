@@ -19,10 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
-from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
-from facebook_business.adobjects.objectparser import ObjectParser
-from facebook_business.api import FacebookRequest
-from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -33,12 +29,13 @@ pull request for this class.
 """
 
 class AdCreativeVideoDataCustomOverlaySpec(
-    AbstractCrudObject,
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
+    def __init__(self, api=None):
+        super(AdCreativeVideoDataCustomOverlaySpec, self).__init__()
         self._isAdCreativeVideoDataCustomOverlaySpec = True
-        super(AdCreativeVideoDataCustomOverlaySpec, self).__init__(fbid, parent_id, api)
+        self._api = api
 
     class Field(AbstractObject.Field):
         background_color = 'background_color'
@@ -51,61 +48,33 @@ class AdCreativeVideoDataCustomOverlaySpec(
         start = 'start'
         template = 'template'
         text_color = 'text_color'
-        id = 'id'
 
     class BackgroundOpacity:
-        solid = 'solid'
         half = 'half'
+        solid = 'solid'
 
     class Option:
         bank_transfer = 'bank_transfer'
         boleto = 'boleto'
-        discount_with_boleto = 'discount_with_boleto'
         cash_on_delivery = 'cash_on_delivery'
-        home_delivery = 'home_delivery'
-        free_shipping = 'free_shipping'
-        inventory = 'inventory'
-        pay_on_arrival = 'pay_on_arrival'
-        pay_at_hotel = 'pay_at_hotel'
+        discount_with_boleto = 'discount_with_boleto'
         fast_delivery = 'fast_delivery'
+        free_shipping = 'free_shipping'
+        home_delivery = 'home_delivery'
+        inventory = 'inventory'
+        pay_at_hotel = 'pay_at_hotel'
+        pay_on_arrival = 'pay_on_arrival'
 
     class Position:
-        top_left = 'top_left'
-        top_center = 'top_center'
-        top_right = 'top_right'
-        middle_left = 'middle_left'
         middle_center = 'middle_center'
+        middle_left = 'middle_left'
         middle_right = 'middle_right'
+        top_center = 'top_center'
+        top_left = 'top_left'
+        top_right = 'top_right'
 
     class Template:
         rectangle_with_text = 'rectangle_with_text'
-
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AdCreativeVideoDataCustomOverlaySpec,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
 
     _field_types = {
         'background_color': 'string',
@@ -118,7 +87,6 @@ class AdCreativeVideoDataCustomOverlaySpec(
         'start': 'int',
         'template': 'Template',
         'text_color': 'string',
-        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

@@ -59,7 +59,6 @@ class LiveVideo(
         live_views = 'live_views'
         permalink_url = 'permalink_url'
         planned_start_time = 'planned_start_time'
-        preview_url = 'preview_url'
         seconds_left = 'seconds_left'
         secure_stream_url = 'secure_stream_url'
         status = 'status'
@@ -69,56 +68,57 @@ class LiveVideo(
         total_views = 'total_views'
         video = 'video'
 
-    class BroadcastStatus:
-        unpublished = 'UNPUBLISHED'
-        live = 'LIVE'
-        live_stopped = 'LIVE_STOPPED'
-        processing = 'PROCESSING'
-        vod = 'VOD'
-        scheduled_unpublished = 'SCHEDULED_UNPUBLISHED'
-        scheduled_live = 'SCHEDULED_LIVE'
-        scheduled_expired = 'SCHEDULED_EXPIRED'
-        scheduled_canceled = 'SCHEDULED_CANCELED'
-
     class Projection:
-        equirectangular = 'EQUIRECTANGULAR'
         cubemap = 'CUBEMAP'
+        equirectangular = 'EQUIRECTANGULAR'
         half_equirectangular = 'HALF_EQUIRECTANGULAR'
-
-    class Source:
-        target = 'target'
-        owner = 'owner'
 
     class SpatialAudioFormat:
         ambix_4 = 'ambiX_4'
 
     class Status:
-        unpublished = 'UNPUBLISHED'
         live_now = 'LIVE_NOW'
-        scheduled_unpublished = 'SCHEDULED_UNPUBLISHED'
-        scheduled_live = 'SCHEDULED_LIVE'
         scheduled_canceled = 'SCHEDULED_CANCELED'
+        scheduled_live = 'SCHEDULED_LIVE'
+        scheduled_unpublished = 'SCHEDULED_UNPUBLISHED'
+        unpublished = 'UNPUBLISHED'
 
     class StereoscopicMode:
-        mono = 'MONO'
         left_right = 'LEFT_RIGHT'
+        mono = 'MONO'
         top_bottom = 'TOP_BOTTOM'
 
     class StreamType:
-        regular = 'REGULAR'
         ambient = 'AMBIENT'
+        regular = 'REGULAR'
 
-    class Type:
-        tagged = 'tagged'
-        uploaded = 'uploaded'
+    class BroadcastStatus:
+        live = 'LIVE'
+        live_stopped = 'LIVE_STOPPED'
+        processing = 'PROCESSING'
+        scheduled_canceled = 'SCHEDULED_CANCELED'
+        scheduled_expired = 'SCHEDULED_EXPIRED'
+        scheduled_live = 'SCHEDULED_LIVE'
+        scheduled_unpublished = 'SCHEDULED_UNPUBLISHED'
+        unpublished = 'UNPUBLISHED'
+        vod = 'VOD'
+
+    class Source:
+        owner = 'owner'
+        target = 'target'
 
     class LiveCommentModerationSetting:
-        follower = 'FOLLOWER'
-        slow = 'SLOW'
         discussion = 'DISCUSSION'
+        follower = 'FOLLOWER'
+        protected_mode = 'PROTECTED_MODE'
         restricted = 'RESTRICTED'
+        slow = 'SLOW'
+        supporter = 'SUPPORTER'
 
-    def api_delete(self, fields=None, params=None, batch=None, pending=False):
+    def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -137,7 +137,7 @@ class LiveVideo(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -145,8 +145,12 @@ class LiveVideo(
             self.assure_call()
             return request.execute()
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'target_token': 'string',
         }
         enums = {
         }
@@ -164,7 +168,7 @@ class LiveVideo(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -172,51 +176,54 @@ class LiveVideo(
             self.assure_call()
             return request.execute()
 
-    def api_update(self, fields=None, params=None, batch=None, pending=False):
+    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'content_tags': 'list<string>',
-            'privacy': 'Object',
-            'title': 'string',
-            'description': 'string',
-            'embeddable': 'bool',
-            'disturbing': 'bool',
-            'place': 'Object',
-            'published': 'bool',
-            'status': 'status_enum',
-            'end_live_video': 'bool',
-            'targeting': 'Object',
-            'tags': 'list<int>',
-            'og_phrase': 'string',
-            'og_icon_id': 'string',
-            'sponsor_id': 'string',
-            'direct_share_status': 'unsigned int',
-            'sponsor_relationship': 'unsigned int',
-            'planned_start_time': 'int',
-            'stream_type': 'stream_type_enum',
-            'attribution_app_id': 'string',
-            'attribution_app_metadata': 'string',
-            'custom_labels': 'list<string>',
-            'commercial_break_durations': 'list<unsigned int>',
-            'is_audio_only': 'bool',
-            'is_manual_mode': 'bool',
-            'schedule_custom_profile_image': 'file',
-            'schedule_feed_background_image': 'file',
-            'product_items': 'list<string>',
+            'ad_break_drop_live_stream': 'bool',
+            'ad_break_duration': 'unsigned int',
+            'ad_break_encoder_drops_live_stream': 'bool',
             'ad_break_intent': 'bool',
             'ad_break_start_now': 'bool',
-            'ad_break_drop_live_stream': 'bool',
             'ad_break_time_offset': 'float',
-            'ad_break_encoder_drops_live_stream': 'bool',
-            'ad_break_duration': 'unsigned int',
-            'live_encoders': 'list<string>',
-            'live_comment_moderation_setting': 'list<live_comment_moderation_setting_enum>',
-            'crossposting_actions': 'list<map>',
             'allow_bm_crossposting': 'bool',
+            'attribution_app_id': 'string',
+            'attribution_app_metadata': 'string',
+            'commercial_break_durations': 'list<unsigned int>',
+            'content_tags': 'list<string>',
+            'crossposting_actions': 'list<map>',
+            'custom_labels': 'list<string>',
+            'description': 'string',
+            'direct_share_status': 'unsigned int',
+            'disturbing': 'bool',
+            'embeddable': 'bool',
+            'end_live_video': 'bool',
+            'is_audio_only': 'bool',
+            'is_manual_mode': 'bool',
+            'live_comment_moderation_setting': 'list<live_comment_moderation_setting_enum>',
+            'live_encoders': 'list<string>',
+            'og_icon_id': 'string',
+            'og_phrase': 'string',
+            'place': 'Object',
+            'planned_start_time': 'int',
+            'privacy': 'string',
+            'product_items': 'list<string>',
+            'published': 'bool',
+            'schedule_custom_profile_image': 'file',
+            'schedule_feed_background_image': 'file',
+            'sponsor_id': 'string',
+            'sponsor_relationship': 'unsigned int',
+            'status': 'status_enum',
+            'stream_type': 'stream_type_enum',
+            'tags': 'list<int>',
+            'targeting': 'Object',
+            'title': 'string',
         }
         enums = {
+            'live_comment_moderation_setting_enum': LiveVideo.LiveCommentModerationSetting.__dict__.values(),
             'status_enum': LiveVideo.Status.__dict__.values(),
             'stream_type_enum': LiveVideo.StreamType.__dict__.values(),
-            'live_comment_moderation_setting_enum': LiveVideo.LiveCommentModerationSetting.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -232,7 +239,7 @@ class LiveVideo(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -240,7 +247,10 @@ class LiveVideo(
             self.assure_call()
             return request.execute()
 
-    def get_blocked_users(self, fields=None, params=None, batch=None, pending=False):
+    def get_blocked_users(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.user import User
         param_types = {
             'uid': 'Object',
@@ -261,7 +271,7 @@ class LiveVideo(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -269,18 +279,21 @@ class LiveVideo(
             self.assure_call()
             return request.execute()
 
-    def get_comments(self, fields=None, params=None, batch=None, pending=False):
+    def get_comments(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.comment import Comment
         param_types = {
             'filter': 'filter_enum',
-            'order': 'order_enum',
             'live_filter': 'live_filter_enum',
+            'order': 'order_enum',
             'since': 'datetime',
         }
         enums = {
             'filter_enum': Comment.Filter.__dict__.values(),
-            'order_enum': Comment.Order.__dict__.values(),
             'live_filter_enum': Comment.LiveFilter.__dict__.values(),
+            'order_enum': Comment.Order.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -296,7 +309,7 @@ class LiveVideo(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -304,7 +317,10 @@ class LiveVideo(
             self.assure_call()
             return request.execute()
 
-    def get_crosspost_share_d_pages(self, fields=None, params=None, batch=None, pending=False):
+    def get_crosspost_shared_pages(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.page import Page
         param_types = {
         }
@@ -324,7 +340,7 @@ class LiveVideo(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -332,7 +348,10 @@ class LiveVideo(
             self.assure_call()
             return request.execute()
 
-    def get_crossposted_broadcasts(self, fields=None, params=None, batch=None, pending=False):
+    def get_crossposted_broadcasts(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -351,7 +370,7 @@ class LiveVideo(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -359,7 +378,10 @@ class LiveVideo(
             self.assure_call()
             return request.execute()
 
-    def get_errors(self, fields=None, params=None, batch=None, pending=False):
+    def get_errors(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.livevideoerror import LiveVideoError
         param_types = {
         }
@@ -379,7 +401,7 @@ class LiveVideo(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -387,7 +409,10 @@ class LiveVideo(
             self.assure_call()
             return request.execute()
 
-    def get_game_shows(self, fields=None, params=None, batch=None, pending=False):
+    def get_game_shows(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.videogameshow import VideoGameShow
         param_types = {
         }
@@ -407,7 +432,7 @@ class LiveVideo(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -415,7 +440,72 @@ class LiveVideo(
             self.assure_call()
             return request.execute()
 
-    def create_input_stream(self, fields=None, params=None, batch=None, pending=False):
+    def get_guest_sessions(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.livewithguestsession import LiveWithGuestSession
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/guest_sessions',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=LiveWithGuestSession,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=LiveWithGuestSession, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_guest_session(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.livewithguestsession import LiveWithGuestSession
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/guest_sessions',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=LiveWithGuestSession,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=LiveWithGuestSession, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_input_stream(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -434,7 +524,7 @@ class LiveVideo(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -442,7 +532,10 @@ class LiveVideo(
             self.assure_call()
             return request.execute()
 
-    def get_likes(self, fields=None, params=None, batch=None, pending=False):
+    def get_likes(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.profile import Profile
         param_types = {
         }
@@ -462,7 +555,7 @@ class LiveVideo(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -470,7 +563,10 @@ class LiveVideo(
             self.assure_call()
             return request.execute()
 
-    def get_polls(self, fields=None, params=None, batch=None, pending=False):
+    def get_polls(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.videopoll import VideoPoll
         param_types = {
         }
@@ -490,7 +586,7 @@ class LiveVideo(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -498,16 +594,19 @@ class LiveVideo(
             self.assure_call()
             return request.execute()
 
-    def create_poll(self, fields=None, params=None, batch=None, pending=False):
+    def create_poll(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.videopoll import VideoPoll
         param_types = {
-            'question': 'string',
-            'options': 'list<string>',
+            'close_after_voting': 'bool',
             'correct_option': 'unsigned int',
             'default_open': 'bool',
-            'show_results': 'bool',
+            'options': 'list<string>',
+            'question': 'string',
             'show_gradient': 'bool',
-            'close_after_voting': 'bool',
+            'show_results': 'bool',
         }
         enums = {
         }
@@ -525,7 +624,7 @@ class LiveVideo(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -533,7 +632,10 @@ class LiveVideo(
             self.assure_call()
             return request.execute()
 
-    def get_reactions(self, fields=None, params=None, batch=None, pending=False):
+    def get_reactions(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.profile import Profile
         param_types = {
             'type': 'type_enum',
@@ -555,7 +657,7 @@ class LiveVideo(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -582,7 +684,6 @@ class LiveVideo(
         'live_views': 'unsigned int',
         'permalink_url': 'string',
         'planned_start_time': 'datetime',
-        'preview_url': 'string',
         'seconds_left': 'int',
         'secure_stream_url': 'string',
         'status': 'string',
@@ -595,14 +696,13 @@ class LiveVideo(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['BroadcastStatus'] = LiveVideo.BroadcastStatus.__dict__.values()
         field_enum_info['Projection'] = LiveVideo.Projection.__dict__.values()
-        field_enum_info['Source'] = LiveVideo.Source.__dict__.values()
         field_enum_info['SpatialAudioFormat'] = LiveVideo.SpatialAudioFormat.__dict__.values()
         field_enum_info['Status'] = LiveVideo.Status.__dict__.values()
         field_enum_info['StereoscopicMode'] = LiveVideo.StereoscopicMode.__dict__.values()
         field_enum_info['StreamType'] = LiveVideo.StreamType.__dict__.values()
-        field_enum_info['Type'] = LiveVideo.Type.__dict__.values()
+        field_enum_info['BroadcastStatus'] = LiveVideo.BroadcastStatus.__dict__.values()
+        field_enum_info['Source'] = LiveVideo.Source.__dict__.values()
         field_enum_info['LiveCommentModerationSetting'] = LiveVideo.LiveCommentModerationSetting.__dict__.values()
         return field_enum_info
 

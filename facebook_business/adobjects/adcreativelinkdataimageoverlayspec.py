@@ -19,10 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
-from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
-from facebook_business.adobjects.objectparser import ObjectParser
-from facebook_business.api import FacebookRequest
-from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -33,12 +29,13 @@ pull request for this class.
 """
 
 class AdCreativeLinkDataImageOverlaySpec(
-    AbstractCrudObject,
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
+    def __init__(self, api=None):
+        super(AdCreativeLinkDataImageOverlaySpec, self).__init__()
         self._isAdCreativeLinkDataImageOverlaySpec = True
-        super(AdCreativeLinkDataImageOverlaySpec, self).__init__(fbid, parent_id, api)
+        self._api = api
 
     class Field(AbstractObject.Field):
         custom_text_type = 'custom_text_type'
@@ -49,85 +46,58 @@ class AdCreativeLinkDataImageOverlaySpec(
         text_template_tags = 'text_template_tags'
         text_type = 'text_type'
         theme_color = 'theme_color'
-        id = 'id'
 
     class CustomTextType:
         free_shipping = 'free_shipping'
 
     class OverlayTemplate:
-        pill_with_text = 'pill_with_text'
         circle_with_text = 'circle_with_text'
+        pill_with_text = 'pill_with_text'
         triangle_with_text = 'triangle_with_text'
 
     class Position:
-        top_left = 'top_left'
-        top_right = 'top_right'
         bottom_left = 'bottom_left'
         bottom_right = 'bottom_right'
+        top_left = 'top_left'
+        top_right = 'top_right'
 
     class TextFont:
         droid_serif_regular = 'droid_serif_regular'
+        dynads_hybrid_bold = 'dynads_hybrid_bold'
         lato_regular = 'lato_regular'
+        noto_sans_regular = 'noto_sans_regular'
         nunito_sans_bold = 'nunito_sans_bold'
         open_sans_bold = 'open_sans_bold'
         open_sans_condensed_bold = 'open_sans_condensed_bold'
         pt_serif_bold = 'pt_serif_bold'
-        roboto_medium = 'roboto_medium'
         roboto_condensed_regular = 'roboto_condensed_regular'
-        noto_sans_regular = 'noto_sans_regular'
-        dynads_hybrid_bold = 'dynads_hybrid_bold'
+        roboto_medium = 'roboto_medium'
 
     class TextType:
+        custom = 'custom'
+        disclaimer = 'disclaimer'
+        from_price = 'from_price'
+        percentage_off = 'percentage_off'
         price = 'price'
         strikethrough_price = 'strikethrough_price'
-        percentage_off = 'percentage_off'
-        custom = 'custom'
-        from_price = 'from_price'
 
     class ThemeColor:
-        background_e50900_text_ffffff = 'background_e50900_text_ffffff'
-        background_f78400_text_ffffff = 'background_f78400_text_ffffff'
-        background_00af4c_text_ffffff = 'background_00af4c_text_ffffff'
-        background_0090ff_text_ffffff = 'background_0090ff_text_ffffff'
-        background_755dde_text_ffffff = 'background_755dde_text_ffffff'
-        background_f23474_text_ffffff = 'background_f23474_text_ffffff'
-        background_595959_text_ffffff = 'background_595959_text_ffffff'
         background_000000_text_ffffff = 'background_000000_text_ffffff'
-        background_ffffff_text_c91b00 = 'background_ffffff_text_c91b00'
-        background_ffffff_text_f78400 = 'background_ffffff_text_f78400'
-        background_ffffff_text_009c2a = 'background_ffffff_text_009c2a'
-        background_ffffff_text_007ad0 = 'background_ffffff_text_007ad0'
-        background_ffffff_text_755dde = 'background_ffffff_text_755dde'
-        background_ffffff_text_f23474 = 'background_ffffff_text_f23474'
-        background_ffffff_text_646464 = 'background_ffffff_text_646464'
+        background_0090ff_text_ffffff = 'background_0090ff_text_ffffff'
+        background_00af4c_text_ffffff = 'background_00af4c_text_ffffff'
+        background_595959_text_ffffff = 'background_595959_text_ffffff'
+        background_755dde_text_ffffff = 'background_755dde_text_ffffff'
+        background_e50900_text_ffffff = 'background_e50900_text_ffffff'
+        background_f23474_text_ffffff = 'background_f23474_text_ffffff'
+        background_f78400_text_ffffff = 'background_f78400_text_ffffff'
         background_ffffff_text_000000 = 'background_ffffff_text_000000'
-
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AdCreativeLinkDataImageOverlaySpec,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
+        background_ffffff_text_007ad0 = 'background_ffffff_text_007ad0'
+        background_ffffff_text_009c2a = 'background_ffffff_text_009c2a'
+        background_ffffff_text_646464 = 'background_ffffff_text_646464'
+        background_ffffff_text_755dde = 'background_ffffff_text_755dde'
+        background_ffffff_text_c91b00 = 'background_ffffff_text_c91b00'
+        background_ffffff_text_f23474 = 'background_ffffff_text_f23474'
+        background_ffffff_text_f78400 = 'background_ffffff_text_f78400'
 
     _field_types = {
         'custom_text_type': 'CustomTextType',
@@ -138,7 +108,6 @@ class AdCreativeLinkDataImageOverlaySpec(
         'text_template_tags': 'list<string>',
         'text_type': 'TextType',
         'theme_color': 'ThemeColor',
-        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

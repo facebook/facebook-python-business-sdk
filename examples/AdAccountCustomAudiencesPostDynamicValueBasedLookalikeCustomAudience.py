@@ -18,9 +18,9 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebookads.adobjects.adaccount import AdAccount
-from facebookads.adobjects.customaudience import CustomAudience
-from facebookads.api import FacebookAdsApi
+from facebook_business.adobjects.adaccount import AdAccount
+from facebook_business.adobjects.customaudience import CustomAudience
+from facebook_business.api import FacebookAdsApi
 
 access_token = '<ACCESS_TOKEN>'
 app_secret = '<APP_SECRET>'
@@ -31,7 +31,7 @@ FacebookAdsApi.init(access_token=access_token)
 fields = [
 ]
 params = {
-  'name': 'Dynamic Value-Based lookalike',
+  'name': 'Test Value-Based lookalike from Pixel',
   'subtype': 'LOOKALIKE',
   'lookalike_spec': {'origin_event_sources':[{'id':'<sourceID>'}],'type':'custom_ratio','ratio':0.01,'country':'US'},
 }

@@ -50,6 +50,8 @@ class AutomotiveModel(
         description = 'description'
         drivetrain = 'drivetrain'
         exterior_color = 'exterior_color'
+        finance_description = 'finance_description'
+        finance_type = 'finance_type'
         fuel_type = 'fuel_type'
         generation = 'generation'
         id = 'id'
@@ -66,7 +68,10 @@ class AutomotiveModel(
         url = 'url'
         year = 'year'
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -85,7 +90,7 @@ class AutomotiveModel(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -103,6 +108,8 @@ class AutomotiveModel(
         'description': 'string',
         'drivetrain': 'string',
         'exterior_color': 'string',
+        'finance_description': 'string',
+        'finance_type': 'string',
         'fuel_type': 'string',
         'generation': 'string',
         'id': 'string',

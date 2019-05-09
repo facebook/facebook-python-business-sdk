@@ -19,10 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
-from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
-from facebook_business.adobjects.objectparser import ObjectParser
-from facebook_business.api import FacebookRequest
-from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -33,18 +29,18 @@ pull request for this class.
 """
 
 class AdsPixelStatsResult(
-    AbstractCrudObject,
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
+    def __init__(self, api=None):
+        super(AdsPixelStatsResult, self).__init__()
         self._isAdsPixelStatsResult = True
-        super(AdsPixelStatsResult, self).__init__(fbid, parent_id, api)
+        self._api = api
 
     class Field(AbstractObject.Field):
         aggregation = 'aggregation'
         data = 'data'
         start_time = 'start_time'
-        id = 'id'
 
     class Aggregation:
         browser_type = 'browser_type'
@@ -52,48 +48,28 @@ class AdsPixelStatsResult(
         device_os = 'device_os'
         device_type = 'device_type'
         event = 'event'
+        event_detection_method = 'event_detection_method'
+        event_processing_results = 'event_processing_results'
+        event_source = 'event_source'
+        event_total_counts = 'event_total_counts'
+        event_value_count = 'event_value_count'
         host = 'host'
+        people_reached = 'people_reached'
+        pii_keys = 'pii_keys'
+        pii_lift = 'pii_lift'
         pixel_fire = 'pixel_fire'
         url = 'url'
-        event_total_counts = 'event_total_counts'
+        url_by_rule = 'url_by_rule'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'stats'
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AdsPixelStatsResult,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     _field_types = {
-        'aggregation': 'Aggregation',
+        'aggregation': 'string',
         'data': 'list<AdsPixelStats>',
         'start_time': 'datetime',
-        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

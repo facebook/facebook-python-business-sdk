@@ -56,21 +56,21 @@ class AdReportRun(
         schedule_id = 'schedule_id'
         time_completed = 'time_completed'
         time_ref = 'time_ref'
-        default_summary = 'default_summary'
-        fields = 'fields'
-        filtering = 'filtering'
-        summary = 'summary'
-        sort = 'sort'
         action_attribution_windows = 'action_attribution_windows'
         action_breakdowns = 'action_breakdowns'
         action_report_time = 'action_report_time'
         breakdowns = 'breakdowns'
         date_preset = 'date_preset'
+        default_summary = 'default_summary'
         export_columns = 'export_columns'
         export_format = 'export_format'
         export_name = 'export_name'
+        fields = 'fields'
+        filtering = 'filtering'
         level = 'level'
         product_id_limit = 'product_id_limit'
+        sort = 'sort'
+        summary = 'summary'
         summary_action_breakdowns = 'summary_action_breakdowns'
         time_increment = 'time_increment'
         time_range = 'time_range'
@@ -82,11 +82,14 @@ class AdReportRun(
     def get_endpoint(cls):
         return 'insights'
 
-    def api_create(self, parent_id, fields=None, params=None, batch=None, pending=False):
+    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.adobjects.adaccount import AdAccount
-        return AdAccount(api=self._api, fbid=parent_id).get_insights_async(fields, params, batch, pending)
+        return AdAccount(api=self._api, fbid=parent_id).get_insights_async(fields, params, batch, success, failure, pending)
 
-    def api_delete(self, fields=None, params=None, batch=None, pending=False):
+    def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -105,7 +108,7 @@ class AdReportRun(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -113,7 +116,10 @@ class AdReportRun(
             self.assure_call()
             return request.execute()
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -132,7 +138,7 @@ class AdReportRun(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -140,7 +146,10 @@ class AdReportRun(
             self.assure_call()
             return request.execute()
 
-    def api_update(self, fields=None, params=None, batch=None, pending=False):
+    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'emails': 'list<string>',
             'is_bookmarked': 'bool',
@@ -161,7 +170,7 @@ class AdReportRun(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -169,10 +178,13 @@ class AdReportRun(
             self.assure_call()
             return request.execute()
 
-    def get_insights(self, fields=None, params=None, is_async=False, batch=None, pending=False):
+    def get_insights(self, fields=None, params=None, is_async=False, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.adsinsights import AdsInsights
         if is_async:
-          return self.get_insights_async(fields, params, batch, pending)
+          return self.get_insights_async(fields, params, batch, success, failure, pending)
         param_types = {
         }
         enums = {
@@ -192,7 +204,7 @@ class AdReportRun(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -200,7 +212,10 @@ class AdReportRun(
             self.assure_call()
             return request.execute()
 
-    def create_retry(self, fields=None, params=None, batch=None, pending=False):
+    def create_retry(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -219,7 +234,7 @@ class AdReportRun(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -241,21 +256,21 @@ class AdReportRun(
         'schedule_id': 'string',
         'time_completed': 'unsigned int',
         'time_ref': 'unsigned int',
-        'default_summary': 'bool',
-        'fields': 'list<string>',
-        'filtering': 'list<Object>',
-        'summary': 'list<string>',
-        'sort': 'list<string>',
         'action_attribution_windows': 'list<ActionAttributionWindows>',
         'action_breakdowns': 'list<ActionBreakdowns>',
         'action_report_time': 'ActionReportTime',
         'breakdowns': 'list<Breakdowns>',
         'date_preset': 'DatePreset',
+        'default_summary': 'bool',
         'export_columns': 'list<string>',
         'export_format': 'string',
         'export_name': 'string',
+        'fields': 'list<string>',
+        'filtering': 'list<Object>',
         'level': 'Level',
         'product_id_limit': 'int',
+        'sort': 'list<string>',
+        'summary': 'list<string>',
         'summary_action_breakdowns': 'list<SummaryActionBreakdowns>',
         'time_increment': 'string',
         'time_range': 'Object',

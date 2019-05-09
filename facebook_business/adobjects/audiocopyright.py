@@ -55,11 +55,14 @@ class AudioCopyright(
         whitelisted_ig_users = 'whitelisted_ig_users'
 
     class UpdateSource:
-        edit_reference_dialog = 'edit_reference_dialog'
         ddex = 'ddex'
+        edit_reference_dialog = 'edit_reference_dialog'
         reference_conflict_dialog = 'reference_conflict_dialog'
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -78,7 +81,7 @@ class AudioCopyright(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -86,15 +89,18 @@ class AudioCopyright(
             self.assure_call()
             return request.execute()
 
-    def api_update(self, fields=None, params=None, batch=None, pending=False):
+    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'update_source': 'update_source_enum',
-            'match_rule': 'string',
-            'ownership_countries': 'list<string>',
-            'whitelisted_fb_users': 'list<string>',
-            'whitelisted_ig_users': 'list<string>',
             'append_excluded_ownership_segments': 'bool',
             'excluded_ownership_segments': 'list<Object>',
+            'match_rule': 'string',
+            'ownership_countries': 'list<string>',
+            'update_source': 'update_source_enum',
+            'whitelisted_fb_users': 'list<string>',
+            'whitelisted_ig_users': 'list<string>',
         }
         enums = {
             'update_source_enum': AudioCopyright.UpdateSource.__dict__.values(),
@@ -113,7 +119,7 @@ class AudioCopyright(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request

@@ -49,54 +49,27 @@ class InstagramInsightsResult(
         values = 'values'
 
     class Metric:
-        impressions = 'impressions'
-        reach = 'reach'
+        carousel_album_engagement = 'carousel_album_engagement'
         carousel_album_impressions = 'carousel_album_impressions'
         carousel_album_reach = 'carousel_album_reach'
-        carousel_album_engagement = 'carousel_album_engagement'
         carousel_album_saved = 'carousel_album_saved'
         carousel_album_video_views = 'carousel_album_video_views'
-        taps_forward = 'taps_forward'
-        taps_back = 'taps_back'
-        exits = 'exits'
-        replies = 'replies'
         engagement = 'engagement'
+        exits = 'exits'
+        impressions = 'impressions'
+        reach = 'reach'
+        replies = 'replies'
         saved = 'saved'
+        taps_back = 'taps_back'
+        taps_forward = 'taps_forward'
         video_views = 'video_views'
 
     class Period:
         day = 'day'
-        week = 'week'
         days_28 = 'days_28'
-        month = 'month'
         lifetime = 'lifetime'
-
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=InstagramInsightsResult,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
+        month = 'month'
+        week = 'week'
 
     _field_types = {
         'description': 'string',

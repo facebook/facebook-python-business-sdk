@@ -47,7 +47,55 @@ class BusinessOwnedObjectOnBehalfOfRequest(
         requesting_business = 'requesting_business'
         status = 'status'
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    class Status:
+        approve = 'APPROVE'
+        decline = 'DECLINE'
+        expired = 'EXPIRED'
+        in_progress = 'IN_PROGRESS'
+
+    # @deprecated get_endpoint function is deprecated
+    @classmethod
+    def get_endpoint(cls):
+        return 'sent_inprogress_onbehalf_requests'
+
+    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.adobjects.business import Business
+        return Business(api=self._api, fbid=parent_id).create_sent_inprogress_on_behalf_request(fields, params, batch, success, failure, pending)
+
+    def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='DELETE',
+            endpoint='/',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -66,7 +114,7 @@ class BusinessOwnedObjectOnBehalfOfRequest(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -84,6 +132,7 @@ class BusinessOwnedObjectOnBehalfOfRequest(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['Status'] = BusinessOwnedObjectOnBehalfOfRequest.Status.__dict__.values()
         return field_enum_info
 
 

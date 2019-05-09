@@ -55,19 +55,52 @@ class AdStudyCell(
         facebook_instagram = 'FACEBOOK_INSTAGRAM'
         facebook_news_feed = 'FACEBOOK_NEWS_FEED'
         facebook_news_feed_in_stream_video = 'FACEBOOK_NEWS_FEED_IN_STREAM_VIDEO'
-        in_stream_video = 'IN_STREAM_VIDEO'
+        high_frequency = 'HIGH_FREQUENCY'
         instagram = 'INSTAGRAM'
+        in_stream_video = 'IN_STREAM_VIDEO'
+        low_frequency = 'LOW_FREQUENCY'
+        medium_frequency = 'MEDIUM_FREQUENCY'
         mobile_optimized_video = 'MOBILE_OPTIMIZED_VIDEO'
         page_post_engagement = 'PAGE_POST_ENGAGEMENT'
         reach = 'REACH'
         tv_commercial = 'TV_COMMERCIAL'
         tv_facebook = 'TV_FACEBOOK'
         video_view_optimization = 'VIDEO_VIEW_OPTIMIZATION'
-        low_frequency = 'LOW_FREQUENCY'
-        medium_frequency = 'MEDIUM_FREQUENCY'
-        high_frequency = 'HIGH_FREQUENCY'
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='DELETE',
+            endpoint='/',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -86,7 +119,7 @@ class AdStudyCell(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -94,14 +127,17 @@ class AdStudyCell(
             self.assure_call()
             return request.execute()
 
-    def api_update(self, fields=None, params=None, batch=None, pending=False):
+    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'description': 'string',
-            'name': 'string',
-            'creation_template': 'creation_template_enum',
             'adaccounts': 'list<unsigned int>',
             'adsets': 'list<string>',
             'campaigns': 'list<string>',
+            'creation_template': 'creation_template_enum',
+            'description': 'string',
+            'name': 'string',
         }
         enums = {
             'creation_template_enum': AdStudyCell.CreationTemplate.__dict__.values(),
@@ -120,7 +156,7 @@ class AdStudyCell(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -128,7 +164,10 @@ class AdStudyCell(
             self.assure_call()
             return request.execute()
 
-    def get_ad_accounts(self, fields=None, params=None, batch=None, pending=False):
+    def get_ad_accounts(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.adaccount import AdAccount
         param_types = {
         }
@@ -148,7 +187,7 @@ class AdStudyCell(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -156,7 +195,10 @@ class AdStudyCell(
             self.assure_call()
             return request.execute()
 
-    def get_ad_sets(self, fields=None, params=None, batch=None, pending=False):
+    def get_ad_sets(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.adset import AdSet
         param_types = {
         }
@@ -176,7 +218,7 @@ class AdStudyCell(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -184,7 +226,10 @@ class AdStudyCell(
             self.assure_call()
             return request.execute()
 
-    def get_campaigns(self, fields=None, params=None, batch=None, pending=False):
+    def get_campaigns(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.campaign import Campaign
         param_types = {
         }
@@ -204,7 +249,7 @@ class AdStudyCell(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request

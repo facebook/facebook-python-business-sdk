@@ -44,13 +44,15 @@ class SplitTestConfig(
         budget = 'budget'
         early_winner_declaration_enabled = 'early_winner_declaration_enabled'
         end_time = 'end_time'
-        extend_winner_enabled = 'extend_winner_enabled'
         splits = 'splits'
         start_time = 'start_time'
         test_variable = 'test_variable'
         id = 'id'
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -69,7 +71,7 @@ class SplitTestConfig(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -81,7 +83,6 @@ class SplitTestConfig(
         'budget': 'int',
         'early_winner_declaration_enabled': 'bool',
         'end_time': 'datetime',
-        'extend_winner_enabled': 'bool',
         'splits': 'list<int>',
         'start_time': 'datetime',
         'test_variable': 'string',

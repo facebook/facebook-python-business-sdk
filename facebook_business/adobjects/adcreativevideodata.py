@@ -19,10 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
-from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
-from facebook_business.adobjects.objectparser import ObjectParser
-from facebook_business.api import FacebookRequest
-from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -33,12 +29,13 @@ pull request for this class.
 """
 
 class AdCreativeVideoData(
-    AbstractCrudObject,
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
+    def __init__(self, api=None):
+        super(AdCreativeVideoData, self).__init__()
         self._isAdCreativeVideoData = True
-        super(AdCreativeVideoData, self).__init__(fbid, parent_id, api)
+        self._api = api
 
     class Field(AbstractObject.Field):
         additional_image_index = 'additional_image_index'
@@ -48,7 +45,6 @@ class AdCreativeVideoData(
         call_to_action = 'call_to_action'
         collection_thumbnails = 'collection_thumbnails'
         custom_overlay_spec = 'custom_overlay_spec'
-        description = 'description'
         image_hash = 'image_hash'
         image_url = 'image_url'
         link_description = 'link_description'
@@ -60,34 +56,6 @@ class AdCreativeVideoData(
         targeting = 'targeting'
         title = 'title'
         video_id = 'video_id'
-        id = 'id'
-
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AdCreativeVideoData,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
 
     _field_types = {
         'additional_image_index': 'int',
@@ -97,7 +65,6 @@ class AdCreativeVideoData(
         'call_to_action': 'AdCreativeLinkDataCallToAction',
         'collection_thumbnails': 'list<AdCreativeCollectionThumbnailInfo>',
         'custom_overlay_spec': 'list<AdCreativeVideoDataCustomOverlaySpec>',
-        'description': 'string',
         'image_hash': 'string',
         'image_url': 'string',
         'link_description': 'string',
@@ -109,7 +76,6 @@ class AdCreativeVideoData(
         'targeting': 'Targeting',
         'title': 'string',
         'video_id': 'string',
-        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

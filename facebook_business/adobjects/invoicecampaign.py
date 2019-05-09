@@ -19,10 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
-from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
-from facebook_business.adobjects.objectparser import ObjectParser
-from facebook_business.api import FacebookRequest
-from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -33,12 +29,13 @@ pull request for this class.
 """
 
 class InvoiceCampaign(
-    AbstractCrudObject,
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
+    def __init__(self, api=None):
+        super(InvoiceCampaign, self).__init__()
         self._isInvoiceCampaign = True
-        super(InvoiceCampaign, self).__init__(fbid, parent_id, api)
+        self._api = api
 
     class Field(AbstractObject.Field):
         ad_account_id = 'ad_account_id'
@@ -49,34 +46,6 @@ class InvoiceCampaign(
         conversions = 'conversions'
         impressions = 'impressions'
         tags = 'tags'
-        id = 'id'
-
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=InvoiceCampaign,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
 
     _field_types = {
         'ad_account_id': 'string',
@@ -87,7 +56,6 @@ class InvoiceCampaign(
         'conversions': 'unsigned int',
         'impressions': 'unsigned int',
         'tags': 'list<string>',
-        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

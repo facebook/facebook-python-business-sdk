@@ -64,10 +64,10 @@ class AdVideo(
         length = 'length'
         live_audience_count = 'live_audience_count'
         live_status = 'live_status'
-        name = 'name'
         permalink_url = 'permalink_url'
         picture = 'picture'
         place = 'place'
+        premiere_living_room_status = 'premiere_living_room_status'
         privacy = 'privacy'
         published = 'published'
         scheduled_publish_time = 'scheduled_publish_time'
@@ -78,159 +78,170 @@ class AdVideo(
         tv_banner_ad = 'tv_banner_ad'
         universal_video_id = 'universal_video_id'
         updated_time = 'updated_time'
-        unpublished_content_type = 'unpublished_content_type'
-        time_since_original_post = 'time_since_original_post'
-        file_url = 'file_url'
-        composer_session_id = 'composer_session_id'
-        waterfall_id = 'waterfall_id'
-        og_action_type_id = 'og_action_type_id'
-        og_object_id = 'og_object_id'
-        og_phrase = 'og_phrase'
-        og_icon_id = 'og_icon_id'
-        og_suggestion_mechanism = 'og_suggestion_mechanism'
-        manual_privacy = 'manual_privacy'
-        is_explicit_share = 'is_explicit_share'
-        thumb = 'thumb'
-        original_projection_type = 'original_projection_type'
-        initial_heading = 'initial_heading'
-        initial_pitch = 'initial_pitch'
-        fov = 'fov'
-        original_fov = 'original_fov'
-        fisheye_video_cropped = 'fisheye_video_cropped'
-        front_z_rotation = 'front_z_rotation'
-        guide_enabled = 'guide_enabled'
-        guide = 'guide'
-        audio_story_wave_animation_handle = 'audio_story_wave_animation_handle'
         adaptive_type = 'adaptive_type'
         animated_effect_id = 'animated_effect_id'
+        application_id = 'application_id'
         asked_fun_fact_prompt_id = 'asked_fun_fact_prompt_id'
+        attribution_app_id = 'attribution_app_id'
+        audio_story_wave_animation_handle = 'audio_story_wave_animation_handle'
+        chunk_session_id = 'chunk_session_id'
         composer_entry_picker = 'composer_entry_picker'
         composer_entry_point = 'composer_entry_point'
         composer_entry_time = 'composer_entry_time'
         composer_session_events_log = 'composer_session_events_log'
+        composer_session_id = 'composer_session_id'
         composer_source_surface = 'composer_source_surface'
         composer_type = 'composer_type'
+        container_type = 'container_type'
+        end_offset = 'end_offset'
+        fbuploader_video_file_chunk = 'fbuploader_video_file_chunk'
+        file_size = 'file_size'
+        file_url = 'file_url'
+        fisheye_video_cropped = 'fisheye_video_cropped'
         formatting = 'formatting'
+        fov = 'fov'
+        front_z_rotation = 'front_z_rotation'
         fun_fact_prompt_id = 'fun_fact_prompt_id'
         fun_fact_toastee_id = 'fun_fact_toastee_id'
-        is_group_linking_post = 'is_group_linking_post'
+        guide = 'guide'
+        guide_enabled = 'guide_enabled'
         has_nickname = 'has_nickname'
         holiday_card = 'holiday_card'
+        initial_heading = 'initial_heading'
+        initial_pitch = 'initial_pitch'
         instant_game_entry_point_data = 'instant_game_entry_point_data'
         is_boost_intended = 'is_boost_intended'
+        is_group_linking_post = 'is_group_linking_post'
+        is_voice_clip = 'is_voice_clip'
         location_source_id = 'location_source_id'
+        name = 'name'
         offer_like_post_id = 'offer_like_post_id'
+        og_action_type_id = 'og_action_type_id'
+        og_icon_id = 'og_icon_id'
+        og_object_id = 'og_object_id'
+        og_phrase = 'og_phrase'
+        og_suggestion_mechanism = 'og_suggestion_mechanism'
+        original_fov = 'original_fov'
+        original_projection_type = 'original_projection_type'
         publish_event_id = 'publish_event_id'
         react_mode_metadata = 'react_mode_metadata'
-        sales_promo_id = 'sales_promo_id'
-        text_format_metadata = 'text_format_metadata'
-        throwback_camera_roll_media = 'throwback_camera_roll_media'
-        video_start_time_ms = 'video_start_time_ms'
-        application_id = 'application_id'
-        upload_phase = 'upload_phase'
-        file_size = 'file_size'
-        start_offset = 'start_offset'
-        end_offset = 'end_offset'
-        video_file_chunk = 'video_file_chunk'
-        fbuploader_video_file_chunk = 'fbuploader_video_file_chunk'
-        upload_session_id = 'upload_session_id'
-        is_voice_clip = 'is_voice_clip'
-        attribution_app_id = 'attribution_app_id'
-        slideshow_spec = 'slideshow_spec'
-        upload_setting_properties = 'upload_setting_properties'
-        transcode_setting_properties = 'transcode_setting_properties'
-        container_type = 'container_type'
         referenced_sticker_id = 'referenced_sticker_id'
         replace_video_id = 'replace_video_id'
+        sales_promo_id = 'sales_promo_id'
+        slideshow_spec = 'slideshow_spec'
+        start_offset = 'start_offset'
         swap_mode = 'swap_mode'
-        chunk_session_id = 'chunk_session_id'
+        text_format_metadata = 'text_format_metadata'
+        throwback_camera_roll_media = 'throwback_camera_roll_media'
+        thumb = 'thumb'
+        time_since_original_post = 'time_since_original_post'
+        transcode_setting_properties = 'transcode_setting_properties'
+        unpublished_content_type = 'unpublished_content_type'
+        upload_phase = 'upload_phase'
+        upload_session_id = 'upload_session_id'
+        upload_setting_properties = 'upload_setting_properties'
+        video_file_chunk = 'video_file_chunk'
+        video_start_time_ms = 'video_start_time_ms'
+        waterfall_id = 'waterfall_id'
+        is_explicit_share = 'is_explicit_share'
+        manual_privacy = 'manual_privacy'
         filename = 'filename'
         filepath = 'filepath'
 
     class ContainerType:
-        legacy = 'LEGACY'
-        contained_post_attachment = 'CONTAINED_POST_ATTACHMENT'
-        say_thanks_deprecated = 'SAY_THANKS_DEPRECATED'
-        look_now_deprecated = 'LOOK_NOW_DEPRECATED'
-        broadcast = 'BROADCAST'
+        ad_break_preview = 'AD_BREAK_PREVIEW'
+        ad_derivative = 'AD_DERIVATIVE'
+        age_up = 'AGE_UP'
         album_multimedia_post = 'ALBUM_MULTIMEDIA_POST'
-        unlisted = 'UNLISTED'
-        no_story = 'NO_STORY'
-        goodwill_anniversary_deprecated = 'GOODWILL_ANNIVERSARY_DEPRECATED'
-        profile_video = 'PROFILE_VIDEO'
+        aloha_call_video = 'ALOHA_CALL_VIDEO'
+        aloha_superframe = 'ALOHA_SUPERFRAME'
+        app_review_screencast = 'APP_REVIEW_SCREENCAST'
+        atlas_video = 'ATLAS_VIDEO'
+        audio_broadcast = 'AUDIO_BROADCAST'
+        bell_poll = 'BELL_POLL'
+        brand_equity_poll_video = 'BRAND_EQUITY_POLL_VIDEO'
+        broadcast = 'BROADCAST'
+        candidate_videos = 'CANDIDATE_VIDEOS'
+        canvas = 'CANVAS'
+        cfc_video = 'CFC_VIDEO'
+        civic_proposal_cover_video = 'CIVIC_PROPOSAL_COVER_VIDEO'
+        contained_post_attachment = 'CONTAINED_POST_ATTACHMENT'
+        contained_post_audio_broadcast = 'CONTAINED_POST_AUDIO_BROADCAST'
+        contained_post_broadcast = 'CONTAINED_POST_BROADCAST'
+        copyright_reference_broadcast = 'COPYRIGHT_REFERENCE_BROADCAST'
+        copyright_reference_video = 'COPYRIGHT_REFERENCE_VIDEO'
+        cultural_moment_deprecated = 'CULTURAL_MOMENT_DEPRECATED'
+        dco_ad_asset_feed = 'DCO_AD_ASSET_FEED'
+        dco_autogen_video = 'DCO_AUTOGEN_VIDEO'
+        directed_post_attachment = 'DIRECTED_POST_ATTACHMENT'
         direct_inbox = 'DIRECT_INBOX'
         direct_inbox_reaction = 'DIRECT_INBOX_REACTION'
-        storyline = 'STORYLINE'
-        group_post = 'GROUP_POST'
-        atlas_video = 'ATLAS_VIDEO'
-        live_photo = 'LIVE_PHOTO'
-        temp_multimedia_post = 'TEMP_MULTIMEDIA_POST'
-        goodwill_anniversary_promotion_deprecated = 'GOODWILL_ANNIVERSARY_PROMOTION_DEPRECATED'
-        goodwill_video_share = 'GOODWILL_VIDEO_SHARE'
-        goodwill_video_promotion = 'GOODWILL_VIDEO_PROMOTION'
-        copyright_reference_video = 'COPYRIGHT_REFERENCE_VIDEO'
-        canvas = 'CANVAS'
-        moments_video = 'MOMENTS_VIDEO'
-        app_review_screencast = 'APP_REVIEW_SCREENCAST'
-        video_comment = 'VIDEO_COMMENT'
-        copyright_reference_broadcast = 'COPYRIGHT_REFERENCE_BROADCAST'
-        offers_video = 'OFFERS_VIDEO'
-        job_application_video = 'JOB_APPLICATION_VIDEO'
-        storyline_with_external_music = 'STORYLINE_WITH_EXTERNAL_MUSIC'
-        job_opening_video = 'JOB_OPENING_VIDEO'
-        page_slideshow_video = 'PAGE_SLIDESHOW_VIDEO'
-        instant_article = 'INSTANT_ARTICLE'
-        product_video = 'PRODUCT_VIDEO'
-        directed_post_attachment = 'DIRECTED_POST_ATTACHMENT'
-        profile_intro_card = 'PROFILE_INTRO_CARD'
-        issue_module = 'ISSUE_MODULE'
-        goodwill_video_token_required = 'GOODWILL_VIDEO_TOKEN_REQUIRED'
-        instant_application_preview = 'INSTANT_APPLICATION_PREVIEW'
-        replace_video = 'REPLACE_VIDEO'
-        facecast_dvr = 'FACECAST_DVR'
-        pixelcloud = 'PIXELCLOUD'
-        slideshow_shakr = 'SLIDESHOW_SHAKR'
-        inspiration_video = 'INSPIRATION_VIDEO'
-        tarot_digest = 'TAROT_DIGEST'
-        slideshow_animoto = 'SLIDESHOW_ANIMOTO'
-        audio_broadcast = 'AUDIO_BROADCAST'
-        learn = 'LEARN'
-        cultural_moment_deprecated = 'CULTURAL_MOMENT_DEPRECATED'
-        your_day = 'YOUR_DAY'
-        pages_cover_video = 'PAGES_COVER_VIDEO'
-        goodwill_video_contained_share = 'GOODWILL_VIDEO_CONTAINED_SHARE'
-        dco_ad_asset_feed = 'DCO_AD_ASSET_FEED'
-        contained_post_broadcast = 'CONTAINED_POST_BROADCAST'
-        quick_promotion = 'QUICK_PROMOTION'
         dynamic_item_display_bundle = 'DYNAMIC_ITEM_DISPLAY_BUNDLE'
-        event_tour = 'EVENT_TOUR'
-        event_cover_video = 'EVENT_COVER_VIDEO'
-        ad_derivative = 'AD_DERIVATIVE'
-        contained_post_audio_broadcast = 'CONTAINED_POST_AUDIO_BROADCAST'
-        live_creative_kit_video = 'LIVE_CREATIVE_KIT_VIDEO'
-        aloha_superframe = 'ALOHA_SUPERFRAME'
-        instagram_video_copy = 'INSTAGRAM_VIDEO_COPY'
-        ad_break_preview = 'AD_BREAK_PREVIEW'
-        aloha_call_video = 'ALOHA_CALL_VIDEO'
-        story_archive_video = 'STORY_ARCHIVE_VIDEO'
-        brand_equity_poll_video = 'BRAND_EQUITY_POLL_VIDEO'
-        profile_cover_video = 'PROFILE_COVER_VIDEO'
         dynamic_item_video = 'DYNAMIC_ITEM_VIDEO'
-        page_review_screencast = 'PAGE_REVIEW_SCREENCAST'
-        heuristic_preview = 'HEURISTIC_PREVIEW'
+        dynamic_template_video = 'DYNAMIC_TEMPLATE_VIDEO'
+        event_cover_video = 'EVENT_COVER_VIDEO'
+        event_tour = 'EVENT_TOUR'
+        facecast_dvr = 'FACECAST_DVR'
+        fundraiser_cover_video = 'FUNDRAISER_COVER_VIDEO'
         game_clip = 'GAME_CLIP'
-        woodhenge = 'WOODHENGE'
+        goodwill_anniversary_deprecated = 'GOODWILL_ANNIVERSARY_DEPRECATED'
+        goodwill_anniversary_promotion_deprecated = 'GOODWILL_ANNIVERSARY_PROMOTION_DEPRECATED'
+        goodwill_video_contained_share = 'GOODWILL_VIDEO_CONTAINED_SHARE'
+        goodwill_video_promotion = 'GOODWILL_VIDEO_PROMOTION'
+        goodwill_video_share = 'GOODWILL_VIDEO_SHARE'
+        goodwill_video_token_required = 'GOODWILL_VIDEO_TOKEN_REQUIRED'
+        group_post = 'GROUP_POST'
+        heuristic_cluster_video = 'HEURISTIC_CLUSTER_VIDEO'
+        heuristic_preview = 'HEURISTIC_PREVIEW'
+        inspiration_video = 'INSPIRATION_VIDEO'
+        instagram_video_copy = 'INSTAGRAM_VIDEO_COPY'
+        instant_application_preview = 'INSTANT_APPLICATION_PREVIEW'
+        instant_article = 'INSTANT_ARTICLE'
+        instant_game_clip = 'INSTANT_GAME_CLIP'
+        issue_module = 'ISSUE_MODULE'
+        job_application_video = 'JOB_APPLICATION_VIDEO'
+        job_opening_video = 'JOB_OPENING_VIDEO'
+        kototoro = 'KOTOTORO'
+        learn = 'LEARN'
+        legacy = 'LEGACY'
+        live_creative_kit_video = 'LIVE_CREATIVE_KIT_VIDEO'
+        live_linear_video_channel_internal_broadcast = 'LIVE_LINEAR_VIDEO_CHANNEL_INTERNAL_BROADCAST'
+        live_photo = 'LIVE_PHOTO'
+        look_now_deprecated = 'LOOK_NOW_DEPRECATED'
+        moments_video = 'MOMENTS_VIDEO'
+        no_story = 'NO_STORY'
+        oculus_creator_portal = 'OCULUS_CREATOR_PORTAL'
+        oculus_venues_broadcast = 'OCULUS_VENUES_BROADCAST'
+        offers_video = 'OFFERS_VIDEO'
+        pages_cover_video = 'PAGES_COVER_VIDEO'
+        page_review_screencast = 'PAGE_REVIEW_SCREENCAST'
+        page_slideshow_video = 'PAGE_SLIDESHOW_VIDEO'
+        pixelcloud = 'PIXELCLOUD'
         premiere_source = 'PREMIERE_SOURCE'
         private_gallery_video = 'PRIVATE_GALLERY_VIDEO'
-        fistbump = 'FISTBUMP'
-        story_highlight_video = 'STORY_HIGHLIGHT_VIDEO'
+        product_video = 'PRODUCT_VIDEO'
+        profile_cover_video = 'PROFILE_COVER_VIDEO'
+        profile_intro_card = 'PROFILE_INTRO_CARD'
         profile_to_page_uploaded_video = 'PROFILE_TO_PAGE_UPLOADED_VIDEO'
-        kototoro = 'KOTOTORO'
-        dynamic_template_video = 'DYNAMIC_TEMPLATE_VIDEO'
-        instant_game_clip = 'INSTANT_GAME_CLIP'
-        candidate_videos = 'CANDIDATE_VIDEOS'
-        fundraiser_cover_video = 'FUNDRAISER_COVER_VIDEO'
+        profile_video = 'PROFILE_VIDEO'
         proton = 'PROTON'
+        quick_promotion = 'QUICK_PROMOTION'
+        replace_video = 'REPLACE_VIDEO'
+        sales_client_interaction = 'SALES_CLIENT_INTERACTION'
+        say_thanks_deprecated = 'SAY_THANKS_DEPRECATED'
+        slideshow_animoto = 'SLIDESHOW_ANIMOTO'
+        slideshow_shakr = 'SLIDESHOW_SHAKR'
+        sotto_content = 'SOTTO_CONTENT'
+        storyline = 'STORYLINE'
+        storyline_with_external_music = 'STORYLINE_WITH_EXTERNAL_MUSIC'
+        story_archive_video = 'STORY_ARCHIVE_VIDEO'
+        story_card_template = 'STORY_CARD_TEMPLATE'
+        tarot_digest = 'TAROT_DIGEST'
+        temp_multimedia_post = 'TEMP_MULTIMEDIA_POST'
+        unlisted = 'UNLISTED'
+        video_comment = 'VIDEO_COMMENT'
+        woodhenge = 'WOODHENGE'
+        your_day = 'YOUR_DAY'
 
     class ContentCategory:
         beauty_fashion = 'BEAUTY_FASHION'
@@ -245,61 +256,64 @@ class AdVideo(
         lifestyle = 'LIFESTYLE'
         music = 'MUSIC'
         news = 'NEWS'
+        other = 'OTHER'
         politics = 'POLITICS'
         science = 'SCIENCE'
         sports = 'SPORTS'
         technology = 'TECHNOLOGY'
         video_gaming = 'VIDEO_GAMING'
-        other = 'OTHER'
 
     class Formatting:
-        plaintext = 'PLAINTEXT'
         markdown = 'MARKDOWN'
+        plaintext = 'PLAINTEXT'
 
     class OriginalProjectionType:
-        equirectangular = 'equirectangular'
         cubemap = 'cubemap'
         equiangular_cubemap = 'equiangular_cubemap'
+        equirectangular = 'equirectangular'
         half_equirectangular = 'half_equirectangular'
 
     class SwapMode:
         replace = 'replace'
 
     class UnpublishedContentType:
-        scheduled = 'SCHEDULED'
-        draft = 'DRAFT'
         ads_post = 'ADS_POST'
+        draft = 'DRAFT'
         inline_created = 'INLINE_CREATED'
         published = 'PUBLISHED'
+        scheduled = 'SCHEDULED'
 
     class UploadPhase:
+        cancel = 'cancel'
+        finish = 'finish'
         start = 'start'
         transfer = 'transfer'
-        finish = 'finish'
-        cancel = 'cancel'
 
     class Type:
         tagged = 'tagged'
         uploaded = 'uploaded'
 
     class BackdatedTimeGranularity:
-        year = 'year'
-        month = 'month'
         day = 'day'
         hour = 'hour'
         min = 'min'
+        month = 'month'
         none = 'none'
+        year = 'year'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'advideos'
 
-    def api_create(self, parent_id, fields=None, params=None, batch=None, pending=False):
+    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.adobjects.adaccount import AdAccount
-        return AdAccount(api=self._api, fbid=parent_id).create_ad_video(fields, params, batch, pending)
+        return AdAccount(api=self._api, fbid=parent_id).create_ad_video(fields, params, batch, success, failure, pending)
 
-    def api_delete(self, fields=None, params=None, batch=None, pending=False):
+    def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -318,7 +332,7 @@ class AdVideo(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -326,7 +340,10 @@ class AdVideo(
             self.assure_call()
             return request.execute()
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -345,7 +362,7 @@ class AdVideo(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -353,37 +370,39 @@ class AdVideo(
             self.assure_call()
             return request.execute()
 
-    def api_update(self, fields=None, params=None, batch=None, pending=False):
+    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'privacy': 'Object',
-            'published': 'bool',
-            'target': 'string',
-            'scheduled_publish_time': 'unsigned int',
-            'name': 'string',
-            'description': 'string',
-            'tags': 'list<string>',
-            'place': 'Object',
-            'preferred_thumbnail_id': 'string',
-            'ad_breaks': 'Object',
+            'ad_breaks': 'list',
+            'allow_bm_crossposting': 'bool',
+            'allow_crossposting_for_pages': 'list<Object>',
             'backdated_time': 'datetime',
             'backdated_time_granularity': 'backdated_time_granularity_enum',
             'call_to_action': 'Object',
+            'content_category': 'content_category_enum',
+            'content_tags': 'list<string>',
             'custom_labels': 'list<string>',
+            'description': 'string',
+            'direct_share_status': 'unsigned int',
+            'embeddable': 'bool',
             'expiration': 'Object',
             'expire_now': 'bool',
-            'embeddable': 'bool',
-            'allow_bm_crossposting': 'bool',
-            'allow_crossposting_for_pages': 'list<Object>',
-            'social_actions': 'bool',
-            'content_category': 'content_category_enum',
-            'publish_to_videos_tab': 'bool',
-            'publish_to_news_feed': 'bool',
-            'universal_video_id': 'string',
-            'content_tags': 'list<string>',
-            'sponsor_id': 'string',
-            'direct_share_status': 'unsigned int',
-            'sponsor_relationship': 'unsigned int',
             'increment_play_count': 'bool',
+            'name': 'string',
+            'preferred_thumbnail_id': 'string',
+            'privacy': 'string',
+            'publish_to_news_feed': 'bool',
+            'publish_to_videos_tab': 'bool',
+            'published': 'bool',
+            'scheduled_publish_time': 'unsigned int',
+            'social_actions': 'bool',
+            'sponsor_id': 'string',
+            'sponsor_relationship': 'unsigned int',
+            'tags': 'list<string>',
+            'target': 'string',
+            'universal_video_id': 'string',
         }
         enums = {
             'backdated_time_granularity_enum': AdVideo.BackdatedTimeGranularity.__dict__.values(),
@@ -403,7 +422,7 @@ class AdVideo(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -411,7 +430,10 @@ class AdVideo(
             self.assure_call()
             return request.execute()
 
-    def get_auto_generated_captions(self, fields=None, params=None, batch=None, pending=False):
+    def get_auto_generated_captions(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -430,7 +452,7 @@ class AdVideo(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -438,10 +460,13 @@ class AdVideo(
             self.assure_call()
             return request.execute()
 
-    def create_auto_trim(self, fields=None, params=None, batch=None, pending=False):
+    def create_auto_trim(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'target_id': 'unsigned int',
             'auto_trim_type': 'string',
+            'target_id': 'unsigned int',
         }
         enums = {
         }
@@ -459,7 +484,7 @@ class AdVideo(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -467,10 +492,13 @@ class AdVideo(
             self.assure_call()
             return request.execute()
 
-    def create_blocked_user(self, fields=None, params=None, batch=None, pending=False):
+    def create_blocked_user(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'uid': 'Object',
             'remove_block': 'bool',
+            'uid': 'Object',
         }
         enums = {
         }
@@ -488,7 +516,7 @@ class AdVideo(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -496,7 +524,10 @@ class AdVideo(
             self.assure_call()
             return request.execute()
 
-    def delete_captions(self, fields=None, params=None, batch=None, pending=False):
+    def delete_captions(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'locale': 'string',
         }
@@ -516,7 +547,7 @@ class AdVideo(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -524,7 +555,10 @@ class AdVideo(
             self.assure_call()
             return request.execute()
 
-    def get_captions(self, fields=None, params=None, batch=None, pending=False):
+    def get_captions(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -543,7 +577,7 @@ class AdVideo(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -551,10 +585,13 @@ class AdVideo(
             self.assure_call()
             return request.execute()
 
-    def create_caption(self, fields=None, params=None, batch=None, pending=False):
+    def create_caption(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'default_locale': 'string',
             'captions_file': 'file',
+            'default_locale': 'string',
             'locales_to_delete': 'list<string>',
         }
         enums = {
@@ -573,7 +610,7 @@ class AdVideo(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -581,18 +618,21 @@ class AdVideo(
             self.assure_call()
             return request.execute()
 
-    def get_comments(self, fields=None, params=None, batch=None, pending=False):
+    def get_comments(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.comment import Comment
         param_types = {
             'filter': 'filter_enum',
-            'order': 'order_enum',
             'live_filter': 'live_filter_enum',
+            'order': 'order_enum',
             'since': 'datetime',
         }
         enums = {
             'filter_enum': Comment.Filter.__dict__.values(),
-            'order_enum': Comment.Order.__dict__.values(),
             'live_filter_enum': Comment.LiveFilter.__dict__.values(),
+            'order_enum': Comment.Order.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -608,7 +648,7 @@ class AdVideo(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -616,20 +656,23 @@ class AdVideo(
             self.assure_call()
             return request.execute()
 
-    def create_comment(self, fields=None, params=None, batch=None, pending=False):
+    def create_comment(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.comment import Comment
         param_types = {
+            'attachment_id': 'string',
+            'attachment_share_url': 'string',
+            'attachment_url': 'string',
+            'comment_privacy_value': 'comment_privacy_value_enum',
+            'facepile_mentioned_ids': 'list<string>',
+            'feedback_source': 'string',
+            'is_offline': 'bool',
+            'message': 'string',
+            'nectar_module': 'string',
             'object_id': 'string',
             'parent_comment_id': 'Object',
-            'nectar_module': 'string',
-            'attachment_id': 'string',
-            'attachment_url': 'string',
-            'attachment_share_url': 'string',
-            'feedback_source': 'string',
-            'facepile_mentioned_ids': 'list<string>',
-            'is_offline': 'bool',
-            'comment_privacy_value': 'comment_privacy_value_enum',
-            'message': 'string',
             'text': 'string',
             'tracking': 'string',
         }
@@ -650,7 +693,7 @@ class AdVideo(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -658,7 +701,10 @@ class AdVideo(
             self.assure_call()
             return request.execute()
 
-    def get_crosspost_share_d_pages(self, fields=None, params=None, batch=None, pending=False):
+    def get_crosspost_shared_pages(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.page import Page
         param_types = {
         }
@@ -678,7 +724,7 @@ class AdVideo(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -686,12 +732,15 @@ class AdVideo(
             self.assure_call()
             return request.execute()
 
-    def delete_likes(self, fields=None, params=None, batch=None, pending=False):
+    def delete_likes(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'tracking': 'string',
+            'feedback_source': 'string',
             'nectar_module': 'string',
             'notify': 'bool',
-            'feedback_source': 'string',
+            'tracking': 'string',
         }
         enums = {
         }
@@ -709,7 +758,7 @@ class AdVideo(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -717,7 +766,10 @@ class AdVideo(
             self.assure_call()
             return request.execute()
 
-    def get_likes(self, fields=None, params=None, batch=None, pending=False):
+    def get_likes(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.profile import Profile
         param_types = {
         }
@@ -737,7 +789,7 @@ class AdVideo(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -745,12 +797,15 @@ class AdVideo(
             self.assure_call()
             return request.execute()
 
-    def create_like(self, fields=None, params=None, batch=None, pending=False):
+    def create_like(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'tracking': 'string',
+            'feedback_source': 'string',
             'nectar_module': 'string',
             'notify': 'bool',
-            'feedback_source': 'string',
+            'tracking': 'string',
         }
         enums = {
         }
@@ -768,7 +823,7 @@ class AdVideo(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -776,7 +831,10 @@ class AdVideo(
             self.assure_call()
             return request.execute()
 
-    def get_polls(self, fields=None, params=None, batch=None, pending=False):
+    def get_polls(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.videopoll import VideoPoll
         param_types = {
         }
@@ -796,7 +854,7 @@ class AdVideo(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -804,16 +862,19 @@ class AdVideo(
             self.assure_call()
             return request.execute()
 
-    def create_poll(self, fields=None, params=None, batch=None, pending=False):
+    def create_poll(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.videopoll import VideoPoll
         param_types = {
-            'question': 'string',
-            'options': 'list<string>',
+            'close_after_voting': 'bool',
             'correct_option': 'unsigned int',
             'default_open': 'bool',
-            'show_results': 'bool',
+            'options': 'list<string>',
+            'question': 'string',
             'show_gradient': 'bool',
-            'close_after_voting': 'bool',
+            'show_results': 'bool',
         }
         enums = {
         }
@@ -831,7 +892,7 @@ class AdVideo(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -839,7 +900,10 @@ class AdVideo(
             self.assure_call()
             return request.execute()
 
-    def get_reactions(self, fields=None, params=None, batch=None, pending=False):
+    def get_reactions(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.profile import Profile
         param_types = {
             'type': 'type_enum',
@@ -861,7 +925,7 @@ class AdVideo(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -869,7 +933,10 @@ class AdVideo(
             self.assure_call()
             return request.execute()
 
-    def get_share_d_posts(self, fields=None, params=None, batch=None, pending=False):
+    def get_shared_posts(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.post import Post
         param_types = {
         }
@@ -889,7 +956,7 @@ class AdVideo(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -897,7 +964,10 @@ class AdVideo(
             self.assure_call()
             return request.execute()
 
-    def get_sponsor_tags(self, fields=None, params=None, batch=None, pending=False):
+    def get_sponsor_tags(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.page import Page
         param_types = {
         }
@@ -917,7 +987,7 @@ class AdVideo(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -925,10 +995,13 @@ class AdVideo(
             self.assure_call()
             return request.execute()
 
-    def create_summarization(self, fields=None, params=None, batch=None, pending=False):
+    def create_summarization(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'target_id': 'unsigned int',
             'summarization_type': 'string',
+            'target_id': 'unsigned int',
         }
         enums = {
         }
@@ -946,7 +1019,7 @@ class AdVideo(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -954,7 +1027,10 @@ class AdVideo(
             self.assure_call()
             return request.execute()
 
-    def get_tags(self, fields=None, params=None, batch=None, pending=False):
+    def get_tags(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.taggablesubject import TaggableSubject
         param_types = {
         }
@@ -974,7 +1050,7 @@ class AdVideo(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -982,11 +1058,14 @@ class AdVideo(
             self.assure_call()
             return request.execute()
 
-    def create_tag(self, fields=None, params=None, batch=None, pending=False):
+    def create_tag(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'tag_uid': 'int',
             'uid': 'int',
             'vid': 'string',
-            'tag_uid': 'int',
         }
         enums = {
         }
@@ -1004,7 +1083,7 @@ class AdVideo(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -1012,7 +1091,10 @@ class AdVideo(
             self.assure_call()
             return request.execute()
 
-    def get_thumbnails(self, fields=None, params=None, batch=None, pending=False):
+    def get_thumbnails(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.videothumbnail import VideoThumbnail
         param_types = {
         }
@@ -1032,7 +1114,7 @@ class AdVideo(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -1040,10 +1122,13 @@ class AdVideo(
             self.assure_call()
             return request.execute()
 
-    def create_thumbnail(self, fields=None, params=None, batch=None, pending=False):
+    def create_thumbnail(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'source': 'file',
             'is_preferred': 'bool',
+            'source': 'file',
         }
         enums = {
         }
@@ -1061,7 +1146,7 @@ class AdVideo(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -1069,13 +1154,16 @@ class AdVideo(
             self.assure_call()
             return request.execute()
 
-    def get_video_insights(self, fields=None, params=None, batch=None, pending=False):
+    def get_video_insights(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.insightsresult import InsightsResult
         param_types = {
             'metric': 'list<Object>',
             'period': 'period_enum',
-            'since': 'Object',
-            'until': 'Object',
+            'since': 'datetime',
+            'until': 'datetime',
         }
         enums = {
             'period_enum': InsightsResult.Period.__dict__.values(),
@@ -1094,7 +1182,7 @@ class AdVideo(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -1126,10 +1214,10 @@ class AdVideo(
         'length': 'float',
         'live_audience_count': 'unsigned int',
         'live_status': 'string',
-        'name': 'string',
         'permalink_url': 'string',
         'picture': 'string',
         'place': 'Place',
+        'premiere_living_room_status': 'string',
         'privacy': 'Privacy',
         'published': 'bool',
         'scheduled_publish_time': 'datetime',
@@ -1140,72 +1228,73 @@ class AdVideo(
         'tv_banner_ad': 'Object',
         'universal_video_id': 'string',
         'updated_time': 'datetime',
-        'unpublished_content_type': 'UnpublishedContentType',
-        'time_since_original_post': 'unsigned int',
-        'file_url': 'string',
-        'composer_session_id': 'string',
-        'waterfall_id': 'string',
-        'og_action_type_id': 'string',
-        'og_object_id': 'string',
-        'og_phrase': 'string',
-        'og_icon_id': 'string',
-        'og_suggestion_mechanism': 'string',
-        'manual_privacy': 'bool',
-        'is_explicit_share': 'bool',
-        'thumb': 'file',
-        'original_projection_type': 'OriginalProjectionType',
-        'initial_heading': 'unsigned int',
-        'initial_pitch': 'unsigned int',
-        'fov': 'unsigned int',
-        'original_fov': 'unsigned int',
-        'fisheye_video_cropped': 'bool',
-        'front_z_rotation': 'float',
-        'guide_enabled': 'bool',
-        'guide': 'list<list<unsigned int>>',
-        'audio_story_wave_animation_handle': 'string',
         'adaptive_type': 'string',
         'animated_effect_id': 'unsigned int',
+        'application_id': 'string',
         'asked_fun_fact_prompt_id': 'unsigned int',
+        'attribution_app_id': 'string',
+        'audio_story_wave_animation_handle': 'string',
+        'chunk_session_id': 'string',
         'composer_entry_picker': 'string',
         'composer_entry_point': 'string',
         'composer_entry_time': 'unsigned int',
         'composer_session_events_log': 'string',
+        'composer_session_id': 'string',
         'composer_source_surface': 'string',
         'composer_type': 'string',
+        'container_type': 'ContainerType',
+        'end_offset': 'unsigned int',
+        'fbuploader_video_file_chunk': 'string',
+        'file_size': 'unsigned int',
+        'file_url': 'string',
+        'fisheye_video_cropped': 'bool',
         'formatting': 'Formatting',
-        'fun_fact_prompt_id': 'string',
+        'fov': 'unsigned int',
+        'front_z_rotation': 'float',
+        'fun_fact_prompt_id': 'unsigned int',
         'fun_fact_toastee_id': 'unsigned int',
-        'is_group_linking_post': 'bool',
+        'guide': 'list<list<unsigned int>>',
+        'guide_enabled': 'bool',
         'has_nickname': 'bool',
         'holiday_card': 'string',
+        'initial_heading': 'unsigned int',
+        'initial_pitch': 'unsigned int',
         'instant_game_entry_point_data': 'string',
         'is_boost_intended': 'bool',
+        'is_group_linking_post': 'bool',
+        'is_voice_clip': 'bool',
         'location_source_id': 'string',
-        'offer_like_post_id': 'string',
+        'name': 'string',
+        'offer_like_post_id': 'unsigned int',
+        'og_action_type_id': 'string',
+        'og_icon_id': 'string',
+        'og_object_id': 'string',
+        'og_phrase': 'string',
+        'og_suggestion_mechanism': 'string',
+        'original_fov': 'unsigned int',
+        'original_projection_type': 'OriginalProjectionType',
         'publish_event_id': 'unsigned int',
         'react_mode_metadata': 'string',
-        'sales_promo_id': 'unsigned int',
-        'text_format_metadata': 'string',
-        'throwback_camera_roll_media': 'string',
-        'video_start_time_ms': 'unsigned int',
-        'application_id': 'string',
-        'upload_phase': 'UploadPhase',
-        'file_size': 'unsigned int',
-        'start_offset': 'unsigned int',
-        'end_offset': 'unsigned int',
-        'video_file_chunk': 'string',
-        'fbuploader_video_file_chunk': 'string',
-        'upload_session_id': 'string',
-        'is_voice_clip': 'bool',
-        'attribution_app_id': 'string',
-        'slideshow_spec': 'map',
-        'upload_setting_properties': 'string',
-        'transcode_setting_properties': 'string',
-        'container_type': 'ContainerType',
         'referenced_sticker_id': 'string',
         'replace_video_id': 'string',
+        'sales_promo_id': 'unsigned int',
+        'slideshow_spec': 'map',
+        'start_offset': 'unsigned int',
         'swap_mode': 'SwapMode',
-        'chunk_session_id': 'string',
+        'text_format_metadata': 'string',
+        'throwback_camera_roll_media': 'string',
+        'thumb': 'file',
+        'time_since_original_post': 'unsigned int',
+        'transcode_setting_properties': 'string',
+        'unpublished_content_type': 'UnpublishedContentType',
+        'upload_phase': 'UploadPhase',
+        'upload_session_id': 'string',
+        'upload_setting_properties': 'string',
+        'video_file_chunk': 'string',
+        'video_start_time_ms': 'unsigned int',
+        'waterfall_id': 'string',
+        'is_explicit_share': 'bool',
+        'manual_privacy': 'bool',
         'filename': 'file'
     }
     @classmethod

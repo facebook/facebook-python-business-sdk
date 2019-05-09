@@ -41,18 +41,13 @@ class LeadGenDataDraft(
         super(LeadGenDataDraft, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        allow_organic_lead = 'allow_organic_lead'
         block_display_for_non_targeted_viewer = 'block_display_for_non_targeted_viewer'
         context_card = 'context_card'
-        continued_flow_request_method = 'continued_flow_request_method'
         created_time = 'created_time'
         creator_id = 'creator_id'
-        expired_leads_count = 'expired_leads_count'
         follow_up_action_url = 'follow_up_action_url'
         id = 'id'
-        is_continued_flow = 'is_continued_flow'
         is_optimized_for_quality = 'is_optimized_for_quality'
-        leadgen_export_csv_url = 'leadgen_export_csv_url'
         legal_content = 'legal_content'
         locale = 'locale'
         name = 'name'
@@ -64,37 +59,37 @@ class LeadGenDataDraft(
         tracking_parameters = 'tracking_parameters'
 
     class Locale:
-        en_us = 'EN_US'
-        it_it = 'IT_IT'
-        fr_fr = 'FR_FR'
-        es_es = 'ES_ES'
-        es_la = 'ES_LA'
-        de_de = 'DE_DE'
-        en_gb = 'EN_GB'
-        pt_br = 'PT_BR'
-        zh_tw = 'ZH_TW'
-        zh_hk = 'ZH_HK'
-        tr_tr = 'TR_TR'
         ar_ar = 'AR_AR'
         cs_cz = 'CS_CZ'
         da_dk = 'DA_DK'
+        de_de = 'DE_DE'
+        en_gb = 'EN_GB'
+        en_us = 'EN_US'
+        es_es = 'ES_ES'
+        es_la = 'ES_LA'
         fi_fi = 'FI_FI'
+        fr_fr = 'FR_FR'
         he_il = 'HE_IL'
         hi_in = 'HI_IN'
         hu_hu = 'HU_HU'
         id_id = 'ID_ID'
+        it_it = 'IT_IT'
         ja_jp = 'JA_JP'
         ko_kr = 'KO_KR'
         nb_no = 'NB_NO'
         nl_nl = 'NL_NL'
         pl_pl = 'PL_PL'
+        pt_br = 'PT_BR'
         pt_pt = 'PT_PT'
         ro_ro = 'RO_RO'
         ru_ru = 'RU_RU'
         sv_se = 'SV_SE'
         th_th = 'TH_TH'
+        tr_tr = 'TR_TR'
         vi_vn = 'VI_VN'
         zh_cn = 'ZH_CN'
+        zh_hk = 'ZH_HK'
+        zh_tw = 'ZH_TW'
 
     class Status:
         active = 'ACTIVE'
@@ -102,7 +97,10 @@ class LeadGenDataDraft(
         deleted = 'DELETED'
         draft = 'DRAFT'
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -121,7 +119,7 @@ class LeadGenDataDraft(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -129,25 +127,27 @@ class LeadGenDataDraft(
             self.assure_call()
             return request.execute()
 
-    def api_update(self, fields=None, params=None, batch=None, pending=False):
+    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'name': 'string',
-            'locale': 'locale_enum',
-            'allow_organic_lead_retrieval': 'bool',
             'block_display_for_non_targeted_viewer': 'bool',
-            'follow_up_action_url': 'string',
-            'legal_content_id': 'string',
-            'context_card_id': 'string',
-            'questions': 'list<Object>',
-            'privacy_policy': 'map',
-            'custom_disclaimer': 'Object',
             'context_card': 'Object',
-            'thank_you_page': 'map',
-            'tracking_parameters': 'Object',
-            'question_page_custom_headline': 'string',
-            'is_optimized_for_quality': 'bool',
-            'status': 'status_enum',
+            'context_card_id': 'string',
+            'custom_disclaimer': 'Object',
             'delete_missing_parameters': 'bool',
+            'follow_up_action_url': 'string',
+            'is_optimized_for_quality': 'bool',
+            'legal_content_id': 'string',
+            'locale': 'locale_enum',
+            'name': 'string',
+            'privacy_policy': 'map',
+            'question_page_custom_headline': 'string',
+            'questions': 'list<Object>',
+            'status': 'status_enum',
+            'thank_you_page': 'map',
+            'tracking_parameters': 'map',
         }
         enums = {
             'locale_enum': LeadGenDataDraft.Locale.__dict__.values(),
@@ -167,7 +167,7 @@ class LeadGenDataDraft(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -176,18 +176,13 @@ class LeadGenDataDraft(
             return request.execute()
 
     _field_types = {
-        'allow_organic_lead': 'bool',
         'block_display_for_non_targeted_viewer': 'bool',
         'context_card': 'Object',
-        'continued_flow_request_method': 'string',
         'created_time': 'datetime',
         'creator_id': 'string',
-        'expired_leads_count': 'unsigned int',
         'follow_up_action_url': 'string',
         'id': 'string',
-        'is_continued_flow': 'bool',
         'is_optimized_for_quality': 'bool',
-        'leadgen_export_csv_url': 'string',
         'legal_content': 'Object',
         'locale': 'string',
         'name': 'string',
@@ -196,7 +191,7 @@ class LeadGenDataDraft(
         'questions': 'list<LeadGenDraftQuestion>',
         'status': 'string',
         'thank_you_page': 'Object',
-        'tracking_parameters': 'list<Object>',
+        'tracking_parameters': 'map<string, string>',
     }
     @classmethod
     def _get_field_enum_info(cls):

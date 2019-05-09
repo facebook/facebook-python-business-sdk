@@ -56,23 +56,25 @@ class BusinessUser(
         two_fac_status = 'two_fac_status'
 
     class Role:
-        finance_editor = 'FINANCE_EDITOR'
-        finance_analyst = 'FINANCE_ANALYST'
-        ads_rights_reviewer = 'ADS_RIGHTS_REVIEWER'
         admin = 'ADMIN'
+        ads_rights_reviewer = 'ADS_RIGHTS_REVIEWER'
         employee = 'EMPLOYEE'
-        fb_employee_sales_rep = 'FB_EMPLOYEE_SALES_REP'
+        finance_analyst = 'FINANCE_ANALYST'
+        finance_editor = 'FINANCE_EDITOR'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'business_users'
 
-    def api_create(self, parent_id, fields=None, params=None, batch=None, pending=False):
+    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.adobjects.business import Business
-        return Business(api=self._api, fbid=parent_id).create_business_user(fields, params, batch, pending)
+        return Business(api=self._api, fbid=parent_id).create_business_user(fields, params, batch, success, failure, pending)
 
-    def api_delete(self, fields=None, params=None, batch=None, pending=False):
+    def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -91,7 +93,7 @@ class BusinessUser(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -99,7 +101,10 @@ class BusinessUser(
             self.assure_call()
             return request.execute()
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -118,7 +123,7 @@ class BusinessUser(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -126,15 +131,18 @@ class BusinessUser(
             self.assure_call()
             return request.execute()
 
-    def api_update(self, fields=None, params=None, batch=None, pending=False):
+    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'role': 'role_enum',
+            'clear_pending_email': 'bool',
+            'email': 'string',
             'first_name': 'string',
             'last_name': 'string',
-            'title': 'string',
-            'email': 'string',
             'pending_email': 'string',
-            'clear_pending_email': 'bool',
+            'role': 'role_enum',
+            'title': 'string',
         }
         enums = {
             'role_enum': BusinessUser.Role.__dict__.values(),
@@ -153,7 +161,7 @@ class BusinessUser(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -161,7 +169,10 @@ class BusinessUser(
             self.assure_call()
             return request.execute()
 
-    def get_assigned_ad_accounts(self, fields=None, params=None, batch=None, pending=False):
+    def get_assigned_ad_accounts(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.adaccount import AdAccount
         param_types = {
         }
@@ -181,7 +192,7 @@ class BusinessUser(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -189,7 +200,10 @@ class BusinessUser(
             self.assure_call()
             return request.execute()
 
-    def get_assigned_monetization_properties(self, fields=None, params=None, batch=None, pending=False):
+    def get_assigned_monetization_properties(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.admonetizationproperty import AdMonetizationProperty
         param_types = {
         }
@@ -209,7 +223,7 @@ class BusinessUser(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -217,7 +231,10 @@ class BusinessUser(
             self.assure_call()
             return request.execute()
 
-    def get_assigned_pages(self, fields=None, params=None, batch=None, pending=False):
+    def get_assigned_pages(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.page import Page
         param_types = {
         }
@@ -237,7 +254,7 @@ class BusinessUser(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -245,7 +262,10 @@ class BusinessUser(
             self.assure_call()
             return request.execute()
 
-    def get_assigned_product_catalogs(self, fields=None, params=None, batch=None, pending=False):
+    def get_assigned_product_catalogs(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.productcatalog import ProductCatalog
         param_types = {
         }
@@ -265,7 +285,7 @@ class BusinessUser(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -273,7 +293,10 @@ class BusinessUser(
             self.assure_call()
             return request.execute()
 
-    def get_business_setting_logs(self, fields=None, params=None, batch=None, pending=False):
+    def get_business_setting_logs(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.businesssettinglogsdata import BusinessSettingLogsData
         param_types = {
         }
@@ -293,7 +316,7 @@ class BusinessUser(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request

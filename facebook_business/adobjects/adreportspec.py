@@ -59,18 +59,19 @@ class AdReportSpec(
         time_increment = 'time_increment'
         time_interval = 'time_interval'
         time_ranges = 'time_ranges'
+        business_id = 'business_id'
+        bypass_async = 'bypass_async'
         format = 'format'
+        limit = 'limit'
         report_run_id = 'report_run_id'
         user_report = 'user_report'
-        business_id = 'business_id'
-        limit = 'limit'
-        bypass_async = 'bypass_async'
 
     class ActionsGroupBy:
         action_canvas_component_id = 'action_canvas_component_id'
         action_canvas_component_name = 'action_canvas_component_name'
         action_carousel_card_id = 'action_carousel_card_id'
         action_carousel_card_name = 'action_carousel_card_name'
+        action_converted_product_id = 'action_converted_product_id'
         action_destination = 'action_destination'
         action_device = 'action_device'
         action_event_channel = 'action_event_channel'
@@ -78,36 +79,38 @@ class AdReportSpec(
         action_type = 'action_type'
         action_video_sound = 'action_video_sound'
         action_video_type = 'action_video_type'
+        interactive_component_sticker_id = 'interactive_component_sticker_id'
+        interactive_component_sticker_response = 'interactive_component_sticker_response'
 
     class CreationSource:
+        adsexceladdin = 'adsExcelAddin'
         adsmanagerreporting = 'adsManagerReporting'
         newadsmanager = 'newAdsManager'
-        adsexceladdin = 'adsExcelAddin'
 
     class DatePreset:
-        today = 'today'
-        yesterday = 'yesterday'
-        this_month = 'this_month'
-        last_month = 'last_month'
-        this_quarter = 'this_quarter'
-        lifetime = 'lifetime'
-        last_3d = 'last_3d'
-        last_7d = 'last_7d'
         last_14d = 'last_14d'
         last_28d = 'last_28d'
         last_30d = 'last_30d'
+        last_3d = 'last_3d'
+        last_7d = 'last_7d'
         last_90d = 'last_90d'
+        last_month = 'last_month'
+        last_quarter = 'last_quarter'
         last_week_mon_sun = 'last_week_mon_sun'
         last_week_sun_sat = 'last_week_sun_sat'
-        last_quarter = 'last_quarter'
         last_year = 'last_year'
+        lifetime = 'lifetime'
+        this_month = 'this_month'
+        this_quarter = 'this_quarter'
         this_week_mon_today = 'this_week_mon_today'
         this_week_sun_today = 'this_week_sun_today'
         this_year = 'this_year'
+        today = 'today'
+        yesterday = 'yesterday'
 
     class Format:
-        json = 'JSON'
         csv = 'CSV'
+        json = 'JSON'
         xls = 'XLS'
         xlsx = 'XLSX'
 
@@ -116,11 +119,14 @@ class AdReportSpec(
     def get_endpoint(cls):
         return 'adreportspecs'
 
-    def api_create(self, parent_id, fields=None, params=None, batch=None, pending=False):
+    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.adobjects.adaccount import AdAccount
-        return AdAccount(api=self._api, fbid=parent_id).create_ad_report_spec(fields, params, batch, pending)
+        return AdAccount(api=self._api, fbid=parent_id).create_ad_report_spec(fields, params, batch, success, failure, pending)
 
-    def api_delete(self, fields=None, params=None, batch=None, pending=False):
+    def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -139,7 +145,7 @@ class AdReportSpec(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -147,7 +153,10 @@ class AdReportSpec(
             self.assure_call()
             return request.execute()
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -166,7 +175,7 @@ class AdReportSpec(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -174,35 +183,38 @@ class AdReportSpec(
             self.assure_call()
             return request.execute()
 
-    def api_update(self, fields=None, params=None, batch=None, pending=False):
+    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'time_ranges': 'Object',
-            'data_columns': 'list<string>',
             'actions_group_by': 'list<actions_group_by_enum>',
+            'business_id': 'string',
+            'bypass_async': 'bool',
+            'creation_source': 'creation_source_enum',
+            'data_columns': 'list<string>',
+            'date_preset': 'date_preset_enum',
+            'export_columns': 'Object',
             'filters': 'list<Object>',
+            'format': 'format_enum',
+            'format_version': 'unsigned int',
+            'insights_section': 'Object',
+            'limit': 'int',
+            'name': 'string',
+            'report_run_id': 'string',
+            'report_schedule_id': 'string',
             'sort_by': 'string',
             'sort_dir': 'string',
             'time_increment': 'string',
             'time_interval': 'Object',
-            'date_preset': 'date_preset_enum',
-            'format': 'format_enum',
-            'export_columns': 'Object',
-            'report_run_id': 'string',
-            'name': 'string',
+            'time_ranges': 'list',
             'user_report': 'bool',
-            'business_id': 'string',
-            'limit': 'int',
-            'bypass_async': 'bool',
-            'report_schedule_id': 'string',
-            'insights_section': 'Object',
-            'creation_source': 'creation_source_enum',
-            'format_version': 'unsigned int',
         }
         enums = {
             'actions_group_by_enum': AdReportSpec.ActionsGroupBy.__dict__.values(),
+            'creation_source_enum': AdReportSpec.CreationSource.__dict__.values(),
             'date_preset_enum': AdReportSpec.DatePreset.__dict__.values(),
             'format_enum': AdReportSpec.Format.__dict__.values(),
-            'creation_source_enum': AdReportSpec.CreationSource.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -218,7 +230,7 @@ class AdReportSpec(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -245,12 +257,12 @@ class AdReportSpec(
         'time_increment': 'string',
         'time_interval': 'Object',
         'time_ranges': 'list<Object>',
+        'business_id': 'string',
+        'bypass_async': 'bool',
         'format': 'Format',
+        'limit': 'int',
         'report_run_id': 'string',
         'user_report': 'bool',
-        'business_id': 'string',
-        'limit': 'int',
-        'bypass_async': 'bool',
     }
     @classmethod
     def _get_field_enum_info(cls):
