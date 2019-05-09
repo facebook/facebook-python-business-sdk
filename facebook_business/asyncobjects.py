@@ -3,14 +3,14 @@ import random
 import logging
 from datetime import datetime
 
-import facebookads.objects as baseobjects
-from facebookads.adobjects import ad
-from facebookads.adobjects import adaccount
-from facebookads.adobjects import business
-from facebookads.asyncapi import FacebookAdsAsyncApi
-from facebookads.exceptions import FacebookRequestError, FacebookApiTimeout, \
+import facebook_business.objects as baseobjects
+from facebook_business.adobjects import ad
+from facebook_business.adobjects import adaccount
+from facebook_business.adobjects import business
+from facebook_business.asyncapi import FacebookAdsAsyncApi
+from facebook_business.exceptions import FacebookRequestError, FacebookApiTimeout, \
     FacebookUnavailablePropertyException, JobFailedException
-from facebookads.utils.fberrcodes import FacebookErrorCodes
+from facebook_business.utils.fberrcodes import FacebookErrorCodes
 
 from six import string_types, text_type, binary_type
 try:
@@ -70,7 +70,7 @@ class AioEdgeIterator(baseobjects.EdgeIterator):
         self._future = None
         # last loaded response
         self._response = None
-        """:type: facebookads.asyncapi.FacebookAsyncResponse"""
+        """:type: facebook_business.asyncapi.FacebookAsyncResponse"""
 
         # iterator's state is:
         # self._finished_iteration - True or False
@@ -150,7 +150,7 @@ class AioEdgeIterator(baseobjects.EdgeIterator):
         Parses and returns the data in response.
         Gets the url of the next page in response and sets it as self._path attribute.
 
-        :type response: facebookads.asyncapi.FacebookAsyncResponse
+        :type response: facebook_business.asyncapi.FacebookAsyncResponse
         :return:
         """
         jresp = response.json()
@@ -291,7 +291,7 @@ class AioEdgeIterator(baseobjects.EdgeIterator):
         If success streak >= 10 and self.limit < starting limit, changes the limit of facebook result data.
         """
         self._response = response
-        """:type: facebookads.asyncapi.FacebookAsyncResponse"""
+        """:type: facebook_business.asyncapi.FacebookAsyncResponse"""
         self.success_streak += 1
         self.success_cnt += 1
         self.read_next_page_aio(self._response)
