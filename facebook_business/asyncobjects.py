@@ -705,9 +705,9 @@ class AdAccount(AbstractCrudAioObject, adaccount.AdAccount):
     def get_insights_aio(self, fields=None, params=None, limit=1000, is_async=False,
                          has_action=None, needs_action_device=None, has_filters=False, for_date=None):
         """
-        If async is False, returns EdgeIterator.
+        If 'is_async' is False, returns EdgeIterator.
 
-        If async is True, creates a job and job iterator for it and
+        If 'is_async' is True, creates a job and job iterator for it and
         returns the job iterator (AsyncAioJobIterator class, subclass of EdgeIterator).
 
         Regardless the async parameter, it puts the iterator to the queue so that
@@ -748,9 +748,9 @@ class Campaign(AbstractCrudAioObject, baseobjects.Campaign):
     def get_insights_aio(self, fields=None, params=None, limit=1000, is_async=False,
                          has_action=None, needs_action_device=None, for_date=None):
         """
-        If async is False, returns EdgeIterator.
+        If 'is_async' is False, returns EdgeIterator.
 
-        If async is True, creates a job and job iterator for it and
+        If 'is_async' is True, creates a job and job iterator for it and
         returns the job iterator (AsyncAioJobIterator class, subclass of EdgeIterator).
 
         Regardless the async parameter, it puts the iterator to the queue so that
@@ -783,9 +783,9 @@ class AdSet(AbstractCrudAioObject, baseobjects.AdSet):
     def get_insights_aio(self, fields=None, params=None, limit=1000, is_async=False,
                          has_action=None, needs_action_device=None):
         """
-        If async is False, returns EdgeIterator.
+        If 'is_async' is False, returns EdgeIterator.
 
-        If async is True, creates a job and job iterator for it and
+        If 'is_async' is True, creates a job and job iterator for it and
         returns the job iterator (AsyncAioJobIterator class, subclass of EdgeIterator).
 
         Regardless the async parameter, it puts the iterator to the queue so that
@@ -894,9 +894,9 @@ class Ad(AbstractCrudAioObject, ad.Ad):
     def get_insights_aio(self, fields=None, params=None, limit=1000, is_async=False,
                          has_action=None, needs_action_device=None):
         """
-        If async is False, returns EdgeIterator.
+        If 'is_async' is False, returns EdgeIterator.
 
-        If async is True, creates a job and job iterator for it and
+        If 'is_async' is True, creates a job and job iterator for it and
         returns the job iterator (AsyncAioJobIterator class, subclass of EdgeIterator).
 
         Regardless the async parameter, it puts the iterator to the queue so that
