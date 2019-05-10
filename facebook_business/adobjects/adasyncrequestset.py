@@ -73,11 +73,14 @@ class AdAsyncRequestSet(
     def get_endpoint(cls):
         return 'asyncadrequestsets'
 
-    def api_create(self, parent_id, fields=None, params=None, batch=None, pending=False):
+    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.adobjects.adaccount import AdAccount
-        return AdAccount(api=self._api, fbid=parent_id).create_async_ad_request_set(fields, params, batch, pending)
+        return AdAccount(api=self._api, fbid=parent_id).create_async_ad_request_set(fields, params, batch, success, failure, pending)
 
-    def api_delete(self, fields=None, params=None, batch=None, pending=False):
+    def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -96,7 +99,7 @@ class AdAsyncRequestSet(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -104,7 +107,10 @@ class AdAsyncRequestSet(
             self.assure_call()
             return request.execute()
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -123,7 +129,7 @@ class AdAsyncRequestSet(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -131,11 +137,14 @@ class AdAsyncRequestSet(
             self.assure_call()
             return request.execute()
 
-    def api_update(self, fields=None, params=None, batch=None, pending=False):
+    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'name': 'string',
-            'notification_uri': 'string',
             'notification_mode': 'notification_mode_enum',
+            'notification_uri': 'string',
         }
         enums = {
             'notification_mode_enum': AdAsyncRequestSet.NotificationMode.__dict__.values(),
@@ -154,7 +163,7 @@ class AdAsyncRequestSet(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -162,7 +171,10 @@ class AdAsyncRequestSet(
             self.assure_call()
             return request.execute()
 
-    def get_requests(self, fields=None, params=None, batch=None, pending=False):
+    def get_requests(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.adasyncrequest import AdAsyncRequest
         param_types = {
             'statuses': 'list<statuses_enum>',
@@ -184,7 +196,7 @@ class AdAsyncRequestSet(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request

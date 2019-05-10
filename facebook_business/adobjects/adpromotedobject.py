@@ -19,10 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
-from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
-from facebook_business.adobjects.objectparser import ObjectParser
-from facebook_business.api import FacebookRequest
-from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -33,12 +29,13 @@ pull request for this class.
 """
 
 class AdPromotedObject(
-    AbstractCrudObject,
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
+    def __init__(self, api=None):
+        super(AdPromotedObject, self).__init__()
         self._isAdPromotedObject = True
-        super(AdPromotedObject, self).__init__(fbid, parent_id, api)
+        self._api = api
 
     class Field(AbstractObject.Field):
         application_id = 'application_id'
@@ -58,61 +55,36 @@ class AdPromotedObject(
         product_item_id = 'product_item_id'
         product_set_id = 'product_set_id'
         retention_days = 'retention_days'
-        id = 'id'
 
     class CustomEventType:
-        rate = 'RATE'
-        tutorial_completion = 'TUTORIAL_COMPLETION'
+        achievement_unlocked = 'ACHIEVEMENT_UNLOCKED'
+        add_payment_info = 'ADD_PAYMENT_INFO'
+        add_to_cart = 'ADD_TO_CART'
+        add_to_wishlist = 'ADD_TO_WISHLIST'
+        complete_registration = 'COMPLETE_REGISTRATION'
         contact = 'CONTACT'
+        content_view = 'CONTENT_VIEW'
         customize_product = 'CUSTOMIZE_PRODUCT'
+        d2_retention = 'D2_RETENTION'
+        d7_retention = 'D7_RETENTION'
         donate = 'DONATE'
         find_location = 'FIND_LOCATION'
+        initiated_checkout = 'INITIATED_CHECKOUT'
+        lead = 'LEAD'
+        level_achieved = 'LEVEL_ACHIEVED'
+        listing_interaction = 'LISTING_INTERACTION'
+        messaging_conversation_started_7d = 'MESSAGING_CONVERSATION_STARTED_7D'
+        other = 'OTHER'
+        purchase = 'PURCHASE'
+        rate = 'RATE'
         schedule = 'SCHEDULE'
+        search = 'SEARCH'
+        service_booking_request = 'SERVICE_BOOKING_REQUEST'
+        spent_credits = 'SPENT_CREDITS'
         start_trial = 'START_TRIAL'
         submit_application = 'SUBMIT_APPLICATION'
         subscribe = 'SUBSCRIBE'
-        add_to_cart = 'ADD_TO_CART'
-        add_to_wishlist = 'ADD_TO_WISHLIST'
-        initiated_checkout = 'INITIATED_CHECKOUT'
-        add_payment_info = 'ADD_PAYMENT_INFO'
-        purchase = 'PURCHASE'
-        lead = 'LEAD'
-        complete_registration = 'COMPLETE_REGISTRATION'
-        content_view = 'CONTENT_VIEW'
-        search = 'SEARCH'
-        service_booking_request = 'SERVICE_BOOKING_REQUEST'
-        messaging_conversation_started_7d = 'MESSAGING_CONVERSATION_STARTED_7D'
-        level_achieved = 'LEVEL_ACHIEVED'
-        achievement_unlocked = 'ACHIEVEMENT_UNLOCKED'
-        spent_credits = 'SPENT_CREDITS'
-        other = 'OTHER'
-
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AdPromotedObject,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
+        tutorial_completion = 'TUTORIAL_COMPLETION'
 
     _field_types = {
         'application_id': 'string',
@@ -132,7 +104,6 @@ class AdPromotedObject(
         'product_item_id': 'string',
         'product_set_id': 'string',
         'retention_days': 'string',
-        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

@@ -53,13 +53,14 @@ class UnifiedThread(
         senders = 'senders'
         snippet = 'snippet'
         subject = 'subject'
-        tags = 'tags'
-        thread_key = 'thread_key'
         unread_count = 'unread_count'
         updated_time = 'updated_time'
         wallpaper = 'wallpaper'
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -78,7 +79,7 @@ class UnifiedThread(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -86,7 +87,10 @@ class UnifiedThread(
             self.assure_call()
             return request.execute()
 
-    def get_messages(self, fields=None, params=None, batch=None, pending=False):
+    def get_messages(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'user': 'int',
         }
@@ -106,7 +110,7 @@ class UnifiedThread(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -114,7 +118,10 @@ class UnifiedThread(
             self.assure_call()
             return request.execute()
 
-    def create_message(self, fields=None, params=None, batch=None, pending=False):
+    def create_message(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'aloha_action': 'string',
             'android_key_hash': 'string',
@@ -135,6 +142,7 @@ class UnifiedThread(
             'external_attachment_url': 'string',
             'image_type': 'image_type_enum',
             'ios_bundle_id': 'string',
+            'is_admin_model_v2_enabled': 'bool',
             'is_broadcast': 'bool',
             'is_montage': 'bool',
             'is_voicemail': 'bool',
@@ -142,23 +150,24 @@ class UnifiedThread(
             'link': 'string',
             'live_location_attachment': 'Object',
             'location_attachment': 'Object',
-            'log_info': 'Object',
+            'log_info': 'map',
             'mark_read_watermark_timestamp': 'int',
             'media': 'list<string>',
+            'message_attempt_id': 'string',
             'message_source_data': 'Object',
-            'montage_frame_style': 'montage_frame_style_enum',
             'montage_business_platform_data': 'map',
-            'montage_overlays': 'list<map>',
-            'montage_supported_features': 'list<montage_supported_features_enum>',
+            'montage_frame_style': 'montage_frame_style_enum',
             'montage_mentions': 'map',
+            'montage_overlays': 'list<map>',
             'montage_reply_data': 'Object',
+            'montage_supported_features': 'list<montage_supported_features_enum>',
+            'montage_targets': 'list<string>',
             'object_attachment': 'string',
             'offline_threading_id': 'string',
             'platform_xmd': 'string',
-            'prng': 'Object',
+            'prng': 'list',
             'proxied_app_id': 'string',
-            'recipients': 'Object',
-            'replace_message_id': 'string',
+            'recipients': 'list<Object>',
             'replied_to_message_id': 'string',
             'selected_cta_token': 'string',
             'shareable_attachment': 'Object',
@@ -172,8 +181,6 @@ class UnifiedThread(
             'use_existing_group': 'bool',
             'video_thumbnail': 'file',
             'video_type': 'video_type_enum',
-            'message_attempt_id': 'string',
-            'is_admin_model_v2_enabled': 'bool',
         }
         enums = {
             'audio_type_enum': [
@@ -195,9 +202,9 @@ class UnifiedThread(
             ],
             'video_type_enum': [
                 'FILE_ATTACHMENT',
+                'RECORDED_STICKER',
                 'RECORDED_VIDEO',
                 'SPEAKING_STICKER',
-                'RECORDED_STICKER',
                 'VIDEO_MAIL',
             ],
         }
@@ -215,7 +222,7 @@ class UnifiedThread(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -236,8 +243,6 @@ class UnifiedThread(
         'senders': 'Object',
         'snippet': 'string',
         'subject': 'string',
-        'tags': 'Object',
-        'thread_key': 'string',
         'unread_count': 'int',
         'updated_time': 'datetime',
         'wallpaper': 'string',

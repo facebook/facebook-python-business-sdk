@@ -44,6 +44,7 @@ class LiveEncoder(
         brand = 'brand'
         creation_time = 'creation_time'
         current_broadcast = 'current_broadcast'
+        current_input_stream = 'current_input_stream'
         device_id = 'device_id'
         id = 'id'
         last_heartbeat_time = 'last_heartbeat_time'
@@ -52,7 +53,48 @@ class LiveEncoder(
         status = 'status'
         version = 'version'
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    class Status:
+        capture = 'CAPTURE'
+        live = 'LIVE'
+        none = 'NONE'
+        preview = 'PREVIEW'
+        ready = 'READY'
+        register = 'REGISTER'
+
+    def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='DELETE',
+            endpoint='/',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -71,7 +113,115 @@ class LiveEncoder(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'broadcast_id': 'string',
+            'cap_audio_codecs': 'Object',
+            'cap_streaming_protocols': 'Object',
+            'cap_video_codecs': 'Object',
+            'error_code': 'unsigned int',
+            'error_msg': 'string',
+            'input_audio_channels': 'unsigned int',
+            'input_audio_samplerate': 'unsigned int',
+            'input_video_framerate': 'string',
+            'input_video_gop_num_b_frames': 'unsigned int',
+            'input_video_gop_size': 'unsigned int',
+            'input_video_height': 'unsigned int',
+            'input_video_interlace_mode': 'string',
+            'input_video_width': 'unsigned int',
+            'name': 'string',
+            'status': 'status_enum',
+            'version': 'string',
+        }
+        enums = {
+            'status_enum': LiveEncoder.Status.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=LiveEncoder,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_telemetry(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'bitrate': 'unsigned int',
+            'broadcast_id': 'string',
+            'cpu_load_15m': 'float',
+            'cpu_load_1m': 'float',
+            'cpu_load_5m': 'float',
+            'cpu_temperature': 'unsigned int',
+            'cpu_usage': 'float',
+            'framerate': 'float',
+            'frames_dropped': 'float',
+            'gpu_temperature': 'unsigned int',
+            'gpu_usage': 'float',
+            'last_audio_timecode': 'unsigned int',
+            'last_video_keyframe_timecode': 'unsigned int',
+            'last_video_timecode': 'unsigned int',
+            'memory_usage': 'float',
+            'network_latency': 'float',
+            'network_rx_bandwidth': 'unsigned int',
+            'network_rx_packets_dropped': 'float',
+            'network_rx_packets_errors': 'float',
+            'network_tx_bandwidth': 'unsigned int',
+            'network_tx_packets_dropped': 'float',
+            'network_tx_packets_errors': 'float',
+            'process_uptime': 'unsigned int',
+            'status': 'status_enum',
+            'timestamp': 'unsigned int',
+            'total_audio_frames_sent': 'unsigned int',
+            'total_video_frames_sent': 'unsigned int',
+            'total_video_keyframes_sent': 'unsigned int',
+            'uptime': 'unsigned int',
+        }
+        enums = {
+            'status_enum': LiveEncoder.Status.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/telemetry',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=LiveEncoder,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=LiveEncoder, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -83,6 +233,7 @@ class LiveEncoder(
         'brand': 'string',
         'creation_time': 'datetime',
         'current_broadcast': 'LiveVideo',
+        'current_input_stream': 'LiveVideoInputStream',
         'device_id': 'string',
         'id': 'string',
         'last_heartbeat_time': 'datetime',
@@ -94,6 +245,7 @@ class LiveEncoder(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['Status'] = LiveEncoder.Status.__dict__.values()
         return field_enum_info
 
 

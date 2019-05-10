@@ -60,7 +60,7 @@ class ObjectParser:
         data = response
         if 'data' in response and isinstance(response['data'], dict):
             data = response['data']
-        elif 'images' in response:
+        elif 'images' in response and not isinstance(data['images'], list):
             _, data = data['images'].popitem()
         if 'campaigns' in data:
             _, data = data['campaigns'].popitem()

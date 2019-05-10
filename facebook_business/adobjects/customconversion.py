@@ -53,14 +53,15 @@ class CustomConversion(
         first_fired_time = 'first_fired_time'
         id = 'id'
         is_archived = 'is_archived'
+        is_unavailable = 'is_unavailable'
         last_fired_time = 'last_fired_time'
         name = 'name'
         offline_conversion_data_set = 'offline_conversion_data_set'
         pixel = 'pixel'
         retention_days = 'retention_days'
         rule = 'rule'
-        event_source_id = 'event_source_id'
         advanced_rule = 'advanced_rule'
+        event_source_id = 'event_source_id'
         custom_conversion_id = 'custom_conversion_id'
 
     class CustomEventType:
@@ -68,31 +69,35 @@ class CustomConversion(
         add_to_cart = 'ADD_TO_CART'
         add_to_wishlist = 'ADD_TO_WISHLIST'
         complete_registration = 'COMPLETE_REGISTRATION'
-        content_view = 'CONTENT_VIEW'
-        initiated_checkout = 'INITIATED_CHECKOUT'
-        lead = 'LEAD'
-        purchase = 'PURCHASE'
-        search = 'SEARCH'
         contact = 'CONTACT'
+        content_view = 'CONTENT_VIEW'
         customize_product = 'CUSTOMIZE_PRODUCT'
         donate = 'DONATE'
         find_location = 'FIND_LOCATION'
+        initiated_checkout = 'INITIATED_CHECKOUT'
+        lead = 'LEAD'
+        listing_interaction = 'LISTING_INTERACTION'
+        other = 'OTHER'
+        purchase = 'PURCHASE'
         schedule = 'SCHEDULE'
+        search = 'SEARCH'
         start_trial = 'START_TRIAL'
         submit_application = 'SUBMIT_APPLICATION'
         subscribe = 'SUBSCRIBE'
-        other = 'OTHER'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'customconversions'
 
-    def api_create(self, parent_id, fields=None, params=None, batch=None, pending=False):
+    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.adobjects.adaccount import AdAccount
-        return AdAccount(api=self._api, fbid=parent_id).create_custom_conversion(fields, params, batch, pending)
+        return AdAccount(api=self._api, fbid=parent_id).create_custom_conversion(fields, params, batch, success, failure, pending)
 
-    def api_delete(self, fields=None, params=None, batch=None, pending=False):
+    def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -111,7 +116,7 @@ class CustomConversion(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -119,7 +124,10 @@ class CustomConversion(
             self.assure_call()
             return request.execute()
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -138,7 +146,7 @@ class CustomConversion(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -146,11 +154,14 @@ class CustomConversion(
             self.assure_call()
             return request.execute()
 
-    def api_update(self, fields=None, params=None, batch=None, pending=False):
+    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'name': 'string',
             'default_conversion_value': 'float',
             'description': 'string',
+            'name': 'string',
         }
         enums = {
         }
@@ -168,7 +179,7 @@ class CustomConversion(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -176,12 +187,15 @@ class CustomConversion(
             self.assure_call()
             return request.execute()
 
-    def get_activities(self, fields=None, params=None, batch=None, pending=False):
+    def get_activities(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.customconversionactivities import CustomConversionActivities
         param_types = {
-            'start_time': 'Object',
-            'end_time': 'Object',
+            'end_time': 'datetime',
             'event_type': 'event_type_enum',
+            'start_time': 'datetime',
         }
         enums = {
             'event_type_enum': CustomConversionActivities.EventType.__dict__.values(),
@@ -200,7 +214,7 @@ class CustomConversion(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -208,7 +222,10 @@ class CustomConversion(
             self.assure_call()
             return request.execute()
 
-    def delete_ad_accounts(self, fields=None, params=None, batch=None, pending=False):
+    def delete_ad_accounts(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'account_id': 'string',
             'business': 'string',
@@ -229,7 +246,7 @@ class CustomConversion(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -237,7 +254,10 @@ class CustomConversion(
             self.assure_call()
             return request.execute()
 
-    def get_ad_accounts(self, fields=None, params=None, batch=None, pending=False):
+    def get_ad_accounts(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.adaccount import AdAccount
         param_types = {
             'business': 'string',
@@ -258,7 +278,7 @@ class CustomConversion(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -266,7 +286,10 @@ class CustomConversion(
             self.assure_call()
             return request.execute()
 
-    def create_ad_account(self, fields=None, params=None, batch=None, pending=False):
+    def create_ad_account(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'account_id': 'string',
             'business': 'string',
@@ -287,7 +310,7 @@ class CustomConversion(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -295,12 +318,15 @@ class CustomConversion(
             self.assure_call()
             return request.execute()
 
-    def get_stats(self, fields=None, params=None, batch=None, pending=False):
+    def get_stats(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.customconversionstatsresult import CustomConversionStatsResult
         param_types = {
-            'start_time': 'datetime',
-            'end_time': 'datetime',
             'aggregation': 'aggregation_enum',
+            'end_time': 'datetime',
+            'start_time': 'datetime',
         }
         enums = {
             'aggregation_enum': CustomConversionStatsResult.Aggregation.__dict__.values(),
@@ -319,7 +345,7 @@ class CustomConversion(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -340,14 +366,15 @@ class CustomConversion(
         'first_fired_time': 'datetime',
         'id': 'string',
         'is_archived': 'bool',
+        'is_unavailable': 'bool',
         'last_fired_time': 'datetime',
         'name': 'string',
         'offline_conversion_data_set': 'OfflineConversionDataSet',
         'pixel': 'AdsPixel',
         'retention_days': 'unsigned int',
         'rule': 'string',
-        'event_source_id': 'string',
         'advanced_rule': 'string',
+        'event_source_id': 'string',
         'custom_conversion_id': 'string',
     }
     @classmethod

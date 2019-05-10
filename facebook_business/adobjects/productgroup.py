@@ -51,11 +51,14 @@ class ProductGroup(
     def get_endpoint(cls):
         return 'product_groups'
 
-    def api_create(self, parent_id, fields=None, params=None, batch=None, pending=False):
+    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.adobjects.productcatalog import ProductCatalog
-        return ProductCatalog(api=self._api, fbid=parent_id).create_product_group(fields, params, batch, pending)
+        return ProductCatalog(api=self._api, fbid=parent_id).create_product_group(fields, params, batch, success, failure, pending)
 
-    def api_delete(self, fields=None, params=None, batch=None, pending=False):
+    def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -74,7 +77,7 @@ class ProductGroup(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -82,7 +85,10 @@ class ProductGroup(
             self.assure_call()
             return request.execute()
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -101,7 +107,7 @@ class ProductGroup(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -109,10 +115,13 @@ class ProductGroup(
             self.assure_call()
             return request.execute()
 
-    def api_update(self, fields=None, params=None, batch=None, pending=False):
+    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'variants': 'list<Object>',
             'default_product_id': 'string',
+            'variants': 'list<Object>',
         }
         enums = {
         }
@@ -130,7 +139,7 @@ class ProductGroup(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -138,20 +147,23 @@ class ProductGroup(
             self.assure_call()
             return request.execute()
 
-    def create_comment(self, fields=None, params=None, batch=None, pending=False):
+    def create_comment(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.comment import Comment
         param_types = {
+            'attachment_id': 'string',
+            'attachment_share_url': 'string',
+            'attachment_url': 'string',
+            'comment_privacy_value': 'comment_privacy_value_enum',
+            'facepile_mentioned_ids': 'list<string>',
+            'feedback_source': 'string',
+            'is_offline': 'bool',
+            'message': 'string',
+            'nectar_module': 'string',
             'object_id': 'string',
             'parent_comment_id': 'Object',
-            'nectar_module': 'string',
-            'attachment_id': 'string',
-            'attachment_url': 'string',
-            'attachment_share_url': 'string',
-            'feedback_source': 'string',
-            'facepile_mentioned_ids': 'list<string>',
-            'is_offline': 'bool',
-            'comment_privacy_value': 'comment_privacy_value_enum',
-            'message': 'string',
             'text': 'string',
             'tracking': 'string',
         }
@@ -172,7 +184,7 @@ class ProductGroup(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -180,7 +192,10 @@ class ProductGroup(
             self.assure_call()
             return request.execute()
 
-    def get_products(self, fields=None, params=None, batch=None, pending=False):
+    def get_products(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.productitem import ProductItem
         param_types = {
         }
@@ -200,7 +215,7 @@ class ProductGroup(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -208,72 +223,75 @@ class ProductGroup(
             self.assure_call()
             return request.execute()
 
-    def create_product(self, fields=None, params=None, batch=None, pending=False):
+    def create_product(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.productitem import ProductItem
         param_types = {
-            'retailer_id': 'string',
-            'availability': 'availability_enum',
-            'currency': 'string',
-            'condition': 'condition_enum',
-            'description': 'string',
-            'image_url': 'Object',
-            'name': 'string',
-            'price': 'unsigned int',
-            'product_type': 'string',
-            'visibility': 'visibility_enum',
             'additional_image_urls': 'list<string>',
-            'additional_variant_attributes': 'Object',
+            'additional_variant_attributes': 'map',
+            'android_app_name': 'string',
+            'android_class': 'string',
+            'android_package': 'string',
+            'android_url': 'string',
+            'availability': 'availability_enum',
             'brand': 'string',
             'category': 'string',
             'checkout_url': 'string',
             'color': 'string',
+            'condition': 'condition_enum',
+            'currency': 'string',
             'custom_data': 'map',
             'custom_label_0': 'string',
             'custom_label_1': 'string',
             'custom_label_2': 'string',
             'custom_label_3': 'string',
             'custom_label_4': 'string',
+            'description': 'string',
             'expiration_date': 'string',
             'gender': 'gender_enum',
             'gtin': 'string',
+            'image_url': 'string',
             'inventory': 'unsigned int',
+            'ios_app_name': 'string',
+            'ios_app_store_id': 'unsigned int',
+            'ios_url': 'string',
+            'ipad_app_name': 'string',
+            'ipad_app_store_id': 'unsigned int',
+            'ipad_url': 'string',
+            'iphone_app_name': 'string',
+            'iphone_app_store_id': 'unsigned int',
+            'iphone_url': 'string',
             'manufacturer_part_number': 'string',
-            'mobile_link': 'Object',
             'material': 'string',
+            'mobile_link': 'string',
+            'name': 'string',
             'offer_price_amount': 'unsigned int',
-            'offer_price_end_date': 'Object',
-            'offer_price_start_date': 'Object',
+            'offer_price_end_date': 'datetime',
+            'offer_price_start_date': 'datetime',
             'ordering_index': 'unsigned int',
             'pattern': 'string',
+            'price': 'unsigned int',
+            'product_type': 'string',
+            'retailer_id': 'string',
             'sale_price': 'unsigned int',
             'sale_price_end_date': 'datetime',
             'sale_price_start_date': 'datetime',
             'short_description': 'string',
             'size': 'string',
             'start_date': 'string',
-            'url': 'Object',
-            'ios_url': 'string',
-            'ios_app_store_id': 'unsigned int',
-            'ios_app_name': 'string',
-            'iphone_url': 'string',
-            'iphone_app_store_id': 'unsigned int',
-            'iphone_app_name': 'string',
-            'ipad_url': 'string',
-            'ipad_app_store_id': 'unsigned int',
-            'ipad_app_name': 'string',
-            'android_url': 'string',
-            'android_package': 'string',
-            'android_class': 'string',
-            'android_app_name': 'string',
-            'windows_phone_url': 'string',
+            'url': 'string',
+            'visibility': 'visibility_enum',
             'windows_phone_app_id': 'string',
             'windows_phone_app_name': 'string',
+            'windows_phone_url': 'string',
         }
         enums = {
             'availability_enum': ProductItem.Availability.__dict__.values(),
             'condition_enum': ProductItem.Condition.__dict__.values(),
-            'visibility_enum': ProductItem.Visibility.__dict__.values(),
             'gender_enum': ProductItem.Gender.__dict__.values(),
+            'visibility_enum': ProductItem.Visibility.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -289,7 +307,7 @@ class ProductGroup(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request

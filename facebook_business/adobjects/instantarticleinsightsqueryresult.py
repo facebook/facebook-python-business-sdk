@@ -19,10 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
-from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
-from facebook_business.adobjects.objectparser import ObjectParser
-from facebook_business.api import FacebookRequest
-from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -33,71 +29,43 @@ pull request for this class.
 """
 
 class InstantArticleInsightsQueryResult(
-    AbstractCrudObject,
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
+    def __init__(self, api=None):
+        super(InstantArticleInsightsQueryResult, self).__init__()
         self._isInstantArticleInsightsQueryResult = True
-        super(InstantArticleInsightsQueryResult, self).__init__(fbid, parent_id, api)
+        self._api = api
 
     class Field(AbstractObject.Field):
         breakdowns = 'breakdowns'
         name = 'name'
         time = 'time'
         value = 'value'
-        id = 'id'
 
     class Breakdown:
-        no_breakdown = 'no_breakdown'
-        platform = 'platform'
         age = 'age'
-        region = 'region'
         country = 'country'
-        is_shared_by_ia_owner = 'is_shared_by_ia_owner'
         gender = 'gender'
         gender_and_age = 'gender_and_age'
         is_organic = 'is_organic'
+        is_shared_by_ia_owner = 'is_shared_by_ia_owner'
+        no_breakdown = 'no_breakdown'
+        platform = 'platform'
+        region = 'region'
 
     class Period:
         day = 'day'
-        week = 'week'
         days_28 = 'days_28'
-        month = 'month'
         lifetime = 'lifetime'
-
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=InstantArticleInsightsQueryResult,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
+        month = 'month'
+        week = 'week'
 
     _field_types = {
         'breakdowns': 'map<string, string>',
         'name': 'string',
         'time': 'datetime',
         'value': 'string',
-        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

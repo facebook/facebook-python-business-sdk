@@ -72,51 +72,54 @@ class LeadgenForm(
         thank_you_page = 'thank_you_page'
         tracking_parameters = 'tracking_parameters'
 
-    class Locale:
-        en_us = 'EN_US'
-        it_it = 'IT_IT'
-        fr_fr = 'FR_FR'
-        es_es = 'ES_ES'
-        es_la = 'ES_LA'
-        de_de = 'DE_DE'
-        en_gb = 'EN_GB'
-        pt_br = 'PT_BR'
-        zh_tw = 'ZH_TW'
-        zh_hk = 'ZH_HK'
-        tr_tr = 'TR_TR'
-        ar_ar = 'AR_AR'
-        cs_cz = 'CS_CZ'
-        da_dk = 'DA_DK'
-        fi_fi = 'FI_FI'
-        he_il = 'HE_IL'
-        hi_in = 'HI_IN'
-        hu_hu = 'HU_HU'
-        id_id = 'ID_ID'
-        ja_jp = 'JA_JP'
-        ko_kr = 'KO_KR'
-        nb_no = 'NB_NO'
-        nl_nl = 'NL_NL'
-        pl_pl = 'PL_PL'
-        pt_pt = 'PT_PT'
-        ro_ro = 'RO_RO'
-        ru_ru = 'RU_RU'
-        sv_se = 'SV_SE'
-        th_th = 'TH_TH'
-        vi_vn = 'VI_VN'
-        zh_cn = 'ZH_CN'
-
     class Status:
         active = 'ACTIVE'
         archived = 'ARCHIVED'
         deleted = 'DELETED'
         draft = 'DRAFT'
 
+    class Locale:
+        ar_ar = 'AR_AR'
+        cs_cz = 'CS_CZ'
+        da_dk = 'DA_DK'
+        de_de = 'DE_DE'
+        en_gb = 'EN_GB'
+        en_us = 'EN_US'
+        es_es = 'ES_ES'
+        es_la = 'ES_LA'
+        fi_fi = 'FI_FI'
+        fr_fr = 'FR_FR'
+        he_il = 'HE_IL'
+        hi_in = 'HI_IN'
+        hu_hu = 'HU_HU'
+        id_id = 'ID_ID'
+        it_it = 'IT_IT'
+        ja_jp = 'JA_JP'
+        ko_kr = 'KO_KR'
+        nb_no = 'NB_NO'
+        nl_nl = 'NL_NL'
+        pl_pl = 'PL_PL'
+        pt_br = 'PT_BR'
+        pt_pt = 'PT_PT'
+        ro_ro = 'RO_RO'
+        ru_ru = 'RU_RU'
+        sv_se = 'SV_SE'
+        th_th = 'TH_TH'
+        tr_tr = 'TR_TR'
+        vi_vn = 'VI_VN'
+        zh_cn = 'ZH_CN'
+        zh_hk = 'ZH_HK'
+        zh_tw = 'ZH_TW'
+
     # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'leadgen_forms'
 
-    def api_delete(self, fields=None, params=None, batch=None, pending=False):
+    def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -135,7 +138,7 @@ class LeadgenForm(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -143,7 +146,10 @@ class LeadgenForm(
             self.assure_call()
             return request.execute()
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -162,7 +168,7 @@ class LeadgenForm(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -170,18 +176,14 @@ class LeadgenForm(
             self.assure_call()
             return request.execute()
 
-    def api_update(self, fields=None, params=None, batch=None, pending=False):
+    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'context_card_id': 'string',
-            'legal_content_id': 'string',
-            'locale': 'locale_enum',
-            'name': 'string',
-            'questions': 'list<Object>',
             'status': 'status_enum',
-            'thank_you_page_id': 'string',
         }
         enums = {
-            'locale_enum': LeadgenForm.Locale.__dict__.values(),
             'status_enum': LeadgenForm.Status.__dict__.values(),
         }
         request = FacebookRequest(
@@ -198,7 +200,7 @@ class LeadgenForm(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -206,7 +208,10 @@ class LeadgenForm(
             self.assure_call()
             return request.execute()
 
-    def get_leads(self, fields=None, params=None, batch=None, pending=False):
+    def get_leads(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.lead import Lead
         param_types = {
         }
@@ -226,7 +231,7 @@ class LeadgenForm(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -234,12 +239,15 @@ class LeadgenForm(
             self.assure_call()
             return request.execute()
 
-    def create_lead(self, fields=None, params=None, batch=None, pending=False):
+    def create_lead(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.lead import Lead
         param_types = {
-            'start_time': 'datetime',
             'end_time': 'datetime',
             'session_id': 'string',
+            'start_time': 'datetime',
         }
         enums = {
         }
@@ -257,7 +265,7 @@ class LeadgenForm(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -265,7 +273,10 @@ class LeadgenForm(
             self.assure_call()
             return request.execute()
 
-    def get_test_leads(self, fields=None, params=None, batch=None, pending=False):
+    def get_test_leads(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.lead import Lead
         param_types = {
         }
@@ -285,7 +296,7 @@ class LeadgenForm(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -293,11 +304,14 @@ class LeadgenForm(
             self.assure_call()
             return request.execute()
 
-    def create_test_lead(self, fields=None, params=None, batch=None, pending=False):
+    def create_test_lead(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.lead import Lead
         param_types = {
-            'field_data': 'list<Object>',
             'custom_disclaimer_responses': 'list<Object>',
+            'field_data': 'list<Object>',
         }
         enums = {
         }
@@ -315,7 +329,7 @@ class LeadgenForm(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -347,19 +361,19 @@ class LeadgenForm(
         'page': 'Page',
         'page_id': 'string',
         'privacy_policy_url': 'string',
-        'qualifiers': 'list<LeadGenQualifier>',
+        'qualifiers': 'list<Object>',
         'question_page_custom_headline': 'string',
         'questions': 'list<LeadGenQuestion>',
         'status': 'string',
         'tcpa_compliance': 'bool',
         'thank_you_page': 'Object',
-        'tracking_parameters': 'list<Object>',
+        'tracking_parameters': 'map<string, string>',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['Locale'] = LeadgenForm.Locale.__dict__.values()
         field_enum_info['Status'] = LeadgenForm.Status.__dict__.values()
+        field_enum_info['Locale'] = LeadgenForm.Locale.__dict__.values()
         return field_enum_info
 
 

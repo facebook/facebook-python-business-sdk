@@ -18,9 +18,9 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebookads.adobjects.pagepost import PagePost
-from facebookads.adobjects.abstractobject import AbstractObject
-from facebookads.api import FacebookAdsApi
+from facebook_business.adobjects.pagepost import PagePost
+from facebook_business.adobjects.abstractobject import AbstractObject
+from facebook_business.api import FacebookAdsApi
 
 access_token = '<ACCESS_TOKEN>'
 app_secret = '<APP_SECRET>'

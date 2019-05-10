@@ -19,10 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
-from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
-from facebook_business.adobjects.objectparser import ObjectParser
-from facebook_business.api import FacebookRequest
-from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -33,12 +29,13 @@ pull request for this class.
 """
 
 class AdAssetFeedSpec(
-    AbstractCrudObject,
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
+    def __init__(self, api=None):
+        super(AdAssetFeedSpec, self).__init__()
         self._isAdAssetFeedSpec = True
-        super(AdAssetFeedSpec, self).__init__(fbid, parent_id, api)
+        self._api = api
 
     class Field(AbstractObject.Field):
         ad_formats = 'ad_formats'
@@ -55,84 +52,59 @@ class AdAssetFeedSpec(
         optimization_type = 'optimization_type'
         titles = 'titles'
         videos = 'videos'
-        id = 'id'
 
     class CallToActionTypes:
-        open_link = 'OPEN_LINK'
-        like_page = 'LIKE_PAGE'
-        shop_now = 'SHOP_NOW'
-        play_game = 'PLAY_GAME'
-        install_app = 'INSTALL_APP'
-        use_app = 'USE_APP'
+        add_to_cart = 'ADD_TO_CART'
+        apply_now = 'APPLY_NOW'
+        book_travel = 'BOOK_TRAVEL'
+        buy = 'BUY'
+        buy_now = 'BUY_NOW'
+        buy_tickets = 'BUY_TICKETS'
         call = 'CALL'
         call_me = 'CALL_ME'
-        install_mobile_app = 'INSTALL_MOBILE_APP'
-        use_mobile_app = 'USE_MOBILE_APP'
-        mobile_download = 'MOBILE_DOWNLOAD'
-        book_travel = 'BOOK_TRAVEL'
-        listen_music = 'LISTEN_MUSIC'
-        watch_video = 'WATCH_VIDEO'
-        learn_more = 'LEARN_MORE'
-        sign_up = 'SIGN_UP'
+        contact = 'CONTACT'
+        contact_us = 'CONTACT_US'
+        donate = 'DONATE'
+        donate_now = 'DONATE_NOW'
         download = 'DOWNLOAD'
-        watch_more = 'WATCH_MORE'
-        no_button = 'NO_BUTTON'
-        visit_pages_feed = 'VISIT_PAGES_FEED'
-        apply_now = 'APPLY_NOW'
-        buy_now = 'BUY_NOW'
+        event_rsvp = 'EVENT_RSVP'
+        find_a_group = 'FIND_A_GROUP'
+        follow_news_storyline = 'FOLLOW_NEWS_STORYLINE'
+        get_directions = 'GET_DIRECTIONS'
         get_offer = 'GET_OFFER'
         get_offer_view = 'GET_OFFER_VIEW'
-        buy_tickets = 'BUY_TICKETS'
-        update_app = 'UPDATE_APP'
-        get_directions = 'GET_DIRECTIONS'
-        buy = 'BUY'
+        get_quote = 'GET_QUOTE'
+        get_showtimes = 'GET_SHOWTIMES'
+        install_app = 'INSTALL_APP'
+        install_mobile_app = 'INSTALL_MOBILE_APP'
+        learn_more = 'LEARN_MORE'
+        like_page = 'LIKE_PAGE'
+        listen_music = 'LISTEN_MUSIC'
+        listen_now = 'LISTEN_NOW'
         message_page = 'MESSAGE_PAGE'
-        donate = 'DONATE'
-        subscribe = 'SUBSCRIBE'
+        mobile_download = 'MOBILE_DOWNLOAD'
+        moments = 'MOMENTS'
+        no_button = 'NO_BUTTON'
+        open_link = 'OPEN_LINK'
+        order_now = 'ORDER_NOW'
+        play_game = 'PLAY_GAME'
+        record_now = 'RECORD_NOW'
         say_thanks = 'SAY_THANKS'
+        see_more = 'SEE_MORE'
         sell_now = 'SELL_NOW'
         share = 'SHARE'
-        donate_now = 'DONATE_NOW'
-        get_quote = 'GET_QUOTE'
-        contact_us = 'CONTACT_US'
-        order_now = 'ORDER_NOW'
-        add_to_cart = 'ADD_TO_CART'
+        shop_now = 'SHOP_NOW'
+        sign_up = 'SIGN_UP'
+        subscribe = 'SUBSCRIBE'
+        update_app = 'UPDATE_APP'
+        use_app = 'USE_APP'
+        use_mobile_app = 'USE_MOBILE_APP'
         video_annotation = 'VIDEO_ANNOTATION'
-        moments = 'MOMENTS'
-        record_now = 'RECORD_NOW'
-        get_showtimes = 'GET_SHOWTIMES'
-        listen_now = 'LISTEN_NOW'
-        woodhenge_support = 'WOODHENGE_SUPPORT'
-        event_rsvp = 'EVENT_RSVP'
+        visit_pages_feed = 'VISIT_PAGES_FEED'
+        watch_more = 'WATCH_MORE'
+        watch_video = 'WATCH_VIDEO'
         whatsapp_message = 'WHATSAPP_MESSAGE'
-        follow_news_storyline = 'FOLLOW_NEWS_STORYLINE'
-
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AdAssetFeedSpec,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
+        woodhenge_support = 'WOODHENGE_SUPPORT'
 
     _field_types = {
         'ad_formats': 'list<string>',
@@ -149,7 +121,6 @@ class AdAssetFeedSpec(
         'optimization_type': 'string',
         'titles': 'list<AdAssetFeedSpecTitle>',
         'videos': 'list<AdAssetFeedSpecVideo>',
-        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

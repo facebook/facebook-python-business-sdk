@@ -19,10 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
-from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
-from facebook_business.adobjects.objectparser import ObjectParser
-from facebook_business.api import FacebookRequest
-from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -33,92 +29,61 @@ pull request for this class.
 """
 
 class AdAccountDefaultObjective(
-    AbstractCrudObject,
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
+    def __init__(self, api=None):
+        super(AdAccountDefaultObjective, self).__init__()
         self._isAdAccountDefaultObjective = True
-        super(AdAccountDefaultObjective, self).__init__(fbid, parent_id, api)
+        self._api = api
 
     class Field(AbstractObject.Field):
         default_objective_for_user = 'default_objective_for_user'
         objective_for_level = 'objective_for_level'
-        id = 'id'
 
     class DefaultObjectiveForUser:
+        app_installs = 'APP_INSTALLS'
+        brand_awareness = 'BRAND_AWARENESS'
+        canvas_app_engagement = 'CANVAS_APP_ENGAGEMENT'
+        canvas_app_installs = 'CANVAS_APP_INSTALLS'
+        event_responses = 'EVENT_RESPONSES'
+        lead_generation = 'LEAD_GENERATION'
+        link_clicks = 'LINK_CLICKS'
+        local_awareness = 'LOCAL_AWARENESS'
+        messages = 'MESSAGES'
+        mobile_app_engagement = 'MOBILE_APP_ENGAGEMENT'
+        mobile_app_installs = 'MOBILE_APP_INSTALLS'
         none = 'NONE'
         offer_claims = 'OFFER_CLAIMS'
         page_likes = 'PAGE_LIKES'
-        canvas_app_installs = 'CANVAS_APP_INSTALLS'
-        event_responses = 'EVENT_RESPONSES'
-        canvas_app_engagement = 'CANVAS_APP_ENGAGEMENT'
         post_engagement = 'POST_ENGAGEMENT'
-        website_conversions = 'WEBSITE_CONVERSIONS'
-        mobile_app_installs = 'MOBILE_APP_INSTALLS'
-        link_clicks = 'LINK_CLICKS'
-        mobile_app_engagement = 'MOBILE_APP_ENGAGEMENT'
-        video_views = 'VIDEO_VIEWS'
-        local_awareness = 'LOCAL_AWARENESS'
         product_catalog_sales = 'PRODUCT_CATALOG_SALES'
-        lead_generation = 'LEAD_GENERATION'
-        brand_awareness = 'BRAND_AWARENESS'
-        app_installs = 'APP_INSTALLS'
-        messages = 'MESSAGES'
+        video_views = 'VIDEO_VIEWS'
+        website_conversions = 'WEBSITE_CONVERSIONS'
 
     class ObjectiveForLevel:
+        app_installs = 'APP_INSTALLS'
+        brand_awareness = 'BRAND_AWARENESS'
+        canvas_app_engagement = 'CANVAS_APP_ENGAGEMENT'
+        canvas_app_installs = 'CANVAS_APP_INSTALLS'
+        event_responses = 'EVENT_RESPONSES'
+        lead_generation = 'LEAD_GENERATION'
+        link_clicks = 'LINK_CLICKS'
+        local_awareness = 'LOCAL_AWARENESS'
+        messages = 'MESSAGES'
+        mobile_app_engagement = 'MOBILE_APP_ENGAGEMENT'
+        mobile_app_installs = 'MOBILE_APP_INSTALLS'
         none = 'NONE'
         offer_claims = 'OFFER_CLAIMS'
         page_likes = 'PAGE_LIKES'
-        canvas_app_installs = 'CANVAS_APP_INSTALLS'
-        event_responses = 'EVENT_RESPONSES'
-        canvas_app_engagement = 'CANVAS_APP_ENGAGEMENT'
         post_engagement = 'POST_ENGAGEMENT'
-        website_conversions = 'WEBSITE_CONVERSIONS'
-        mobile_app_installs = 'MOBILE_APP_INSTALLS'
-        link_clicks = 'LINK_CLICKS'
-        mobile_app_engagement = 'MOBILE_APP_ENGAGEMENT'
-        video_views = 'VIDEO_VIEWS'
-        local_awareness = 'LOCAL_AWARENESS'
         product_catalog_sales = 'PRODUCT_CATALOG_SALES'
-        lead_generation = 'LEAD_GENERATION'
-        brand_awareness = 'BRAND_AWARENESS'
-        app_installs = 'APP_INSTALLS'
-        messages = 'MESSAGES'
-
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
-        param_types = {
-            'adgroup_id': 'string',
-            'campaign_group_id': 'string',
-            'campaign_id': 'string',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AdAccountDefaultObjective,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
+        video_views = 'VIDEO_VIEWS'
+        website_conversions = 'WEBSITE_CONVERSIONS'
 
     _field_types = {
         'default_objective_for_user': 'DefaultObjectiveForUser',
         'objective_for_level': 'ObjectiveForLevel',
-        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

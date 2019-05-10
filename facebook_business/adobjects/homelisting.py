@@ -42,6 +42,7 @@ class HomeListing(
 
     class Field(AbstractObject.Field):
         ac_type = 'ac_type'
+        additional_fees_description = 'additional_fees_description'
         address = 'address'
         agent_company = 'agent_company'
         agent_email = 'agent_email'
@@ -88,11 +89,14 @@ class HomeListing(
     def get_endpoint(cls):
         return 'home_listings'
 
-    def api_create(self, parent_id, fields=None, params=None, batch=None, pending=False):
+    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.adobjects.productcatalog import ProductCatalog
-        return ProductCatalog(api=self._api, fbid=parent_id).create_home_listing(fields, params, batch, pending)
+        return ProductCatalog(api=self._api, fbid=parent_id).create_home_listing(fields, params, batch, success, failure, pending)
 
-    def api_delete(self, fields=None, params=None, batch=None, pending=False):
+    def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -111,7 +115,7 @@ class HomeListing(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -119,7 +123,10 @@ class HomeListing(
             self.assure_call()
             return request.execute()
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -138,7 +145,7 @@ class HomeListing(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -146,22 +153,25 @@ class HomeListing(
             self.assure_call()
             return request.execute()
 
-    def api_update(self, fields=None, params=None, batch=None, pending=False):
+    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'address': 'Object',
             'availability': 'string',
-            'images': 'list<Object>',
-            'name': 'string',
             'currency': 'string',
-            'price': 'float',
-            'url': 'string',
-            'year_built': 'unsigned int',
             'description': 'string',
+            'images': 'list<Object>',
             'listing_type': 'string',
+            'name': 'string',
             'num_baths': 'float',
             'num_beds': 'float',
             'num_units': 'float',
+            'price': 'float',
             'property_type': 'string',
+            'url': 'string',
+            'year_built': 'unsigned int',
         }
         enums = {
         }
@@ -179,7 +189,7 @@ class HomeListing(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -189,6 +199,7 @@ class HomeListing(
 
     _field_types = {
         'ac_type': 'string',
+        'additional_fees_description': 'string',
         'address': 'Object',
         'agent_company': 'string',
         'agent_email': 'string',
@@ -196,12 +207,12 @@ class HomeListing(
         'agent_name': 'string',
         'agent_phone': 'string',
         'applinks': 'AppLinks',
-        'area_size': 'Object',
+        'area_size': 'unsigned int',
         'area_unit': 'string',
         'availability': 'string',
         'co_2_emission_rating_eu': 'Object',
         'currency': 'string',
-        'days_on_market': 'Object',
+        'days_on_market': 'unsigned int',
         'description': 'string',
         'energy_rating_eu': 'Object',
         'furnish_type': 'string',
@@ -220,7 +231,7 @@ class HomeListing(
         'num_baths': 'float',
         'num_beds': 'float',
         'num_rooms': 'float',
-        'num_units': 'Object',
+        'num_units': 'unsigned int',
         'parking_type': 'string',
         'partner_verification': 'string',
         'pet_policy': 'string',

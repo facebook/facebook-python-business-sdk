@@ -54,24 +54,27 @@ class Profile(
         username = 'username'
 
     class ProfileType:
-        user = 'user'
-        page = 'page'
+        application = 'application'
         event = 'event'
         group = 'group'
-        application = 'application'
+        page = 'page'
+        user = 'user'
 
     class Type:
-        none = 'NONE'
+        angry = 'ANGRY'
+        haha = 'HAHA'
         like = 'LIKE'
         love = 'LOVE'
-        wow = 'WOW'
-        haha = 'HAHA'
-        sad = 'SAD'
-        angry = 'ANGRY'
-        thankful = 'THANKFUL'
+        none = 'NONE'
         pride = 'PRIDE'
+        sad = 'SAD'
+        thankful = 'THANKFUL'
+        wow = 'WOW'
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -90,7 +93,7 @@ class Profile(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -98,13 +101,16 @@ class Profile(
             self.assure_call()
             return request.execute()
 
-    def get_picture(self, fields=None, params=None, batch=None, pending=False):
+    def get_picture(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.profilepicturesource import ProfilePictureSource
         param_types = {
             'height': 'int',
-            'width': 'int',
-            'type': 'type_enum',
             'redirect': 'bool',
+            'type': 'type_enum',
+            'width': 'int',
         }
         enums = {
             'type_enum': ProfilePictureSource.Type.__dict__.values(),
@@ -123,7 +129,7 @@ class Profile(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request

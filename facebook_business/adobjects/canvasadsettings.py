@@ -19,10 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
-from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
-from facebook_business.adobjects.objectparser import ObjectParser
-from facebook_business.api import FacebookRequest
-from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -33,12 +29,13 @@ pull request for this class.
 """
 
 class CanvasAdSettings(
-    AbstractCrudObject,
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
+    def __init__(self, api=None):
+        super(CanvasAdSettings, self).__init__()
         self._isCanvasAdSettings = True
-        super(CanvasAdSettings, self).__init__(fbid, parent_id, api)
+        self._api = api
 
     class Field(AbstractObject.Field):
         is_canvas_collection_eligible = 'is_canvas_collection_eligible'
@@ -48,44 +45,15 @@ class CanvasAdSettings(
         leads_count = 'leads_count'
         product_set_id = 'product_set_id'
         use_retailer_item_ids = 'use_retailer_item_ids'
-        id = 'id'
-
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=CanvasAdSettings,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
 
     _field_types = {
         'is_canvas_collection_eligible': 'bool',
-        'lead_form_created_time': 'Object',
+        'lead_form_created_time': 'unsigned int',
         'lead_form_name': 'string',
         'lead_gen_form_id': 'string',
         'leads_count': 'int',
         'product_set_id': 'string',
         'use_retailer_item_ids': 'bool',
-        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

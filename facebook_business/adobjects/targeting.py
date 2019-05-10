@@ -19,10 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
-from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
-from facebook_business.adobjects.objectparser import ObjectParser
-from facebook_business.api import FacebookRequest
-from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -33,12 +29,13 @@ pull request for this class.
 """
 
 class Targeting(
-    AbstractCrudObject,
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
+    def __init__(self, api=None):
+        super(Targeting, self).__init__()
         self._isTargeting = True
-        super(Targeting, self).__init__(fbid, parent_id, api)
+        self._api = api
 
     class Field(AbstractObject.Field):
         adgroup_id = 'adgroup_id'
@@ -48,6 +45,9 @@ class Targeting(
         app_install_state = 'app_install_state'
         audience_network_positions = 'audience_network_positions'
         behaviors = 'behaviors'
+        brand_safety_content_filter_levels = 'brand_safety_content_filter_levels'
+        brand_safety_content_severity_levels = 'brand_safety_content_severity_levels'
+        catalog_based_targeting = 'catalog_based_targeting'
         cities = 'cities'
         college_years = 'college_years'
         connections = 'connections'
@@ -108,7 +108,6 @@ class Targeting(
         moms = 'moms'
         net_worth = 'net_worth'
         office_type = 'office_type'
-        page_types = 'page_types'
         place_page_set_ids = 'place_page_set_ids'
         political_views = 'political_views'
         politics = 'politics'
@@ -119,7 +118,6 @@ class Targeting(
         radius = 'radius'
         regions = 'regions'
         relationship_statuses = 'relationship_statuses'
-        rtb_flag = 'rtb_flag'
         site_category = 'site_category'
         targeting_optimization = 'targeting_optimization'
         user_adclusters = 'user_adclusters'
@@ -130,44 +128,16 @@ class Targeting(
         work_employers = 'work_employers'
         work_positions = 'work_positions'
         zips = 'zips'
-        id = 'id'
 
     class DevicePlatforms:
-        mobile = 'mobile'
-        desktop = 'desktop'
         connected_tv = 'connected_tv'
+        desktop = 'desktop'
+        mobile = 'mobile'
 
     class EffectiveDevicePlatforms:
-        mobile = 'mobile'
-        desktop = 'desktop'
         connected_tv = 'connected_tv'
-
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=Targeting,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
+        desktop = 'desktop'
+        mobile = 'mobile'
 
     _field_types = {
         'adgroup_id': 'string',
@@ -177,6 +147,9 @@ class Targeting(
         'app_install_state': 'string',
         'audience_network_positions': 'list<string>',
         'behaviors': 'list<IDName>',
+        'brand_safety_content_filter_levels': 'list<string>',
+        'brand_safety_content_severity_levels': 'list<string>',
+        'catalog_based_targeting': 'CatalogBasedTargeting',
         'cities': 'list<IDName>',
         'college_years': 'list<unsigned int>',
         'connections': 'list<IDName>',
@@ -237,7 +210,6 @@ class Targeting(
         'moms': 'list<IDName>',
         'net_worth': 'list<IDName>',
         'office_type': 'list<IDName>',
-        'page_types': 'list<string>',
         'place_page_set_ids': 'list<string>',
         'political_views': 'list<unsigned int>',
         'politics': 'list<IDName>',
@@ -248,7 +220,6 @@ class Targeting(
         'radius': 'string',
         'regions': 'list<IDName>',
         'relationship_statuses': 'list<unsigned int>',
-        'rtb_flag': 'bool',
         'site_category': 'list<string>',
         'targeting_optimization': 'string',
         'user_adclusters': 'list<IDName>',
@@ -259,7 +230,6 @@ class Targeting(
         'work_employers': 'list<IDName>',
         'work_positions': 'list<IDName>',
         'zips': 'list<string>',
-        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

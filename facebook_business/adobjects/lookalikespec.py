@@ -19,10 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
-from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
-from facebook_business.adobjects.objectparser import ObjectParser
-from facebook_business.api import FacebookRequest
-from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -33,61 +29,41 @@ pull request for this class.
 """
 
 class LookalikeSpec(
-    AbstractCrudObject,
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
+    def __init__(self, api=None):
+        super(LookalikeSpec, self).__init__()
         self._isLookalikeSpec = True
-        super(LookalikeSpec, self).__init__(fbid, parent_id, api)
+        self._api = api
 
     class Field(AbstractObject.Field):
         country = 'country'
         is_financial_service = 'is_financial_service'
         origin = 'origin'
+        origin_event_name = 'origin_event_name'
+        origin_event_source_name = 'origin_event_source_name'
         origin_event_source_type = 'origin_event_source_type'
+        product_set_name = 'product_set_name'
         ratio = 'ratio'
         starting_ratio = 'starting_ratio'
         target_countries = 'target_countries'
+        target_country_names = 'target_country_names'
         type = 'type'
-        id = 'id'
-
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=LookalikeSpec,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
 
     _field_types = {
         'country': 'string',
         'is_financial_service': 'bool',
         'origin': 'list<Object>',
+        'origin_event_name': 'string',
+        'origin_event_source_name': 'string',
         'origin_event_source_type': 'string',
+        'product_set_name': 'string',
         'ratio': 'float',
         'starting_ratio': 'float',
         'target_countries': 'list<string>',
+        'target_country_names': 'list',
         'type': 'string',
-        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

@@ -19,10 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
-from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
-from facebook_business.adobjects.objectparser import ObjectParser
-from facebook_business.api import FacebookRequest
-from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -33,12 +29,13 @@ pull request for this class.
 """
 
 class AdAccountMatchedSearchApplicationsEdgeData(
-    AbstractCrudObject,
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
+    def __init__(self, api=None):
+        super(AdAccountMatchedSearchApplicationsEdgeData, self).__init__()
         self._isAdAccountMatchedSearchApplicationsEdgeData = True
-        super(AdAccountMatchedSearchApplicationsEdgeData, self).__init__(fbid, parent_id, api)
+        self._api = api
 
     class Field(AbstractObject.Field):
         app_id = 'app_id'
@@ -48,48 +45,20 @@ class AdAccountMatchedSearchApplicationsEdgeData(
         store = 'store'
         unique_id = 'unique_id'
         url = 'url'
-        id = 'id'
 
     class AppStore:
         amazon_app_store = 'AMAZON_APP_STORE'
-        google_play = 'GOOGLE_PLAY'
-        itunes = 'ITUNES'
-        itunes_ipad = 'ITUNES_IPAD'
+        does_not_exist = 'DOES_NOT_EXIST'
+        fb_android_store = 'FB_ANDROID_STORE'
         fb_canvas = 'FB_CANVAS'
         fb_gameroom = 'FB_GAMEROOM'
-        windows_store = 'WINDOWS_STORE'
-        fb_android_store = 'FB_ANDROID_STORE'
-        windows_10_store = 'WINDOWS_10_STORE'
-        roku_store = 'ROKU_STORE'
+        google_play = 'GOOGLE_PLAY'
         instant_game = 'INSTANT_GAME'
-        does_not_exist = 'DOES_NOT_EXIST'
-
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AdAccountMatchedSearchApplicationsEdgeData,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
+        itunes = 'ITUNES'
+        itunes_ipad = 'ITUNES_IPAD'
+        roku_store = 'ROKU_STORE'
+        windows_10_store = 'WINDOWS_10_STORE'
+        windows_store = 'WINDOWS_STORE'
 
     _field_types = {
         'app_id': 'string',
@@ -99,7 +68,6 @@ class AdAccountMatchedSearchApplicationsEdgeData(
         'store': 'string',
         'unique_id': 'string',
         'url': 'string',
-        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

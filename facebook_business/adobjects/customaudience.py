@@ -48,6 +48,7 @@ class CustomAudience(
         customer_file_source = 'customer_file_source'
         data_source = 'data_source'
         data_source_types = 'data_source_types'
+        datafile_custom_audience_uploading_status = 'datafile_custom_audience_uploading_status'
         delivery_status = 'delivery_status'
         description = 'description'
         excluded_custom_audiences = 'excluded_custom_audiences'
@@ -79,39 +80,42 @@ class CustomAudience(
         time_content_updated = 'time_content_updated'
         time_created = 'time_created'
         time_updated = 'time_updated'
-        creation_params = 'creation_params'
-        parent_audience_id = 'parent_audience_id'
-        tags = 'tags'
-        associated_audience_id = 'associated_audience_id'
-        is_household_exclusion = 'is_household_exclusion'
-        allowed_domains = 'allowed_domains'
-        partner_reference_key = 'partner_reference_key'
-        prefill = 'prefill'
-        inclusions = 'inclusions'
-        exclusions = 'exclusions'
-        countries = 'countries'
-        origin_audience_id = 'origin_audience_id'
-        details = 'details'
-        source = 'source'
-        isprivate = 'isPrivate'
-        additionalmetadata = 'additionalMetadata'
-        minage = 'minAge'
-        maxage = 'maxAge'
-        expectedsize = 'expectedSize'
-        gender = 'gender'
-        partnerid = 'partnerID'
         accountid = 'accountID'
+        additionalmetadata = 'additionalMetadata'
+        allowed_domains = 'allowed_domains'
+        associated_audience_id = 'associated_audience_id'
         claim_objective = 'claim_objective'
         content_type = 'content_type'
-        event_source_group = 'event_source_group'
-        product_set_id = 'product_set_id'
-        event_sources = 'event_sources'
-        video_group_ids = 'video_group_ids'
+        countries = 'countries'
+        creation_params = 'creation_params'
         dataset_id = 'dataset_id'
+        details = 'details'
+        enable_fetch_or_create = 'enable_fetch_or_create'
+        event_source_group = 'event_source_group'
+        event_sources = 'event_sources'
+        exclusions = 'exclusions'
+        expectedsize = 'expectedSize'
+        gender = 'gender'
+        inclusions = 'inclusions'
+        isprivate = 'isPrivate'
+        is_household_exclusion = 'is_household_exclusion'
+        maxage = 'maxAge'
+        minage = 'minAge'
+        origin_audience_id = 'origin_audience_id'
+        parent_audience_id = 'parent_audience_id'
+        partnerid = 'partnerID'
+        partner_reference_key = 'partner_reference_key'
+        prefill = 'prefill'
+        product_set_id = 'product_set_id'
+        source = 'source'
+        tags = 'tags'
+        video_group_ids = 'video_group_ids'
 
     class ClaimObjective:
         automotive_model = 'AUTOMOTIVE_MODEL'
+        collaborative_ads = 'COLLABORATIVE_ADS'
         home_listing = 'HOME_LISTING'
+        media_title = 'MEDIA_TITLE'
         product = 'PRODUCT'
         travel = 'TRAVEL'
         vehicle = 'VEHICLE'
@@ -129,36 +133,39 @@ class CustomAudience(
         vehicle_offer = 'VEHICLE_OFFER'
 
     class CustomerFileSource:
-        user_provided_only = 'USER_PROVIDED_ONLY'
-        partner_provided_only = 'PARTNER_PROVIDED_ONLY'
         both_user_and_partner_provided = 'BOTH_USER_AND_PARTNER_PROVIDED'
+        partner_provided_only = 'PARTNER_PROVIDED_ONLY'
+        user_provided_only = 'USER_PROVIDED_ONLY'
 
     class Subtype:
-        custom = 'CUSTOM'
-        website = 'WEBSITE'
         app = 'APP'
-        offline_conversion = 'OFFLINE_CONVERSION'
-        claim = 'CLAIM'
-        partner = 'PARTNER'
-        managed = 'MANAGED'
-        video = 'VIDEO'
-        lookalike = 'LOOKALIKE'
-        engagement = 'ENGAGEMENT'
-        data_set = 'DATA_SET'
         bag_of_accounts = 'BAG_OF_ACCOUNTS'
-        study_rule_audience = 'STUDY_RULE_AUDIENCE'
+        claim = 'CLAIM'
+        custom = 'CUSTOM'
+        engagement = 'ENGAGEMENT'
         fox = 'FOX'
+        lookalike = 'LOOKALIKE'
+        managed = 'MANAGED'
+        measurement = 'MEASUREMENT'
+        offline_conversion = 'OFFLINE_CONVERSION'
+        partner = 'PARTNER'
+        study_rule_audience = 'STUDY_RULE_AUDIENCE'
+        video = 'VIDEO'
+        website = 'WEBSITE'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'customaudiences'
 
-    def api_create(self, parent_id, fields=None, params=None, batch=None, pending=False):
+    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.adobjects.adaccount import AdAccount
-        return AdAccount(api=self._api, fbid=parent_id).create_custom_audience(fields, params, batch, pending)
+        return AdAccount(api=self._api, fbid=parent_id).create_custom_audience(fields, params, batch, success, failure, pending)
 
-    def api_delete(self, fields=None, params=None, batch=None, pending=False):
+    def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -177,7 +184,7 @@ class CustomAudience(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -185,7 +192,10 @@ class CustomAudience(
             self.assure_call()
             return request.execute()
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'ad_account_id': 'string',
         }
@@ -205,7 +215,7 @@ class CustomAudience(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -213,48 +223,52 @@ class CustomAudience(
             self.assure_call()
             return request.execute()
 
-    def api_update(self, fields=None, params=None, batch=None, pending=False):
+    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'accountID': 'string',
+            'additionalMetadata': 'string',
+            'allowed_domains': 'list<string>',
+            'claim_objective': 'claim_objective_enum',
+            'content_type': 'content_type_enum',
+            'countries': 'string',
+            'customer_file_source': 'customer_file_source_enum',
             'description': 'string',
+            'details': 'string',
+            'enable_fetch_or_create': 'bool',
+            'event_source_group': 'string',
+            'event_sources': 'list<map>',
+            'exclusions': 'list<Object>',
+            'expectedSize': 'unsigned int',
+            'gender': 'string',
+            'inclusions': 'list<Object>',
+            'isPrivate': 'bool',
+            'is_household': 'bool',
+            'is_household_exclusion': 'bool',
+            'lookalike_spec': 'string',
+            'maxAge': 'unsigned int',
+            'minAge': 'unsigned int',
             'name': 'string',
             'opt_out_link': 'string',
             'parent_audience_id': 'unsigned int',
-            'seed_audience': 'unsigned int',
-            'tags': 'list<string>',
-            'is_household': 'bool',
-            'is_household_exclusion': 'bool',
-            'allowed_domains': 'list<string>',
-            'lookalike_spec': 'string',
+            'partnerID': 'string',
+            'partner_reference_key': 'string',
+            'product_set_id': 'string',
             'retention_days': 'unsigned int',
-            'customer_file_source': 'customer_file_source_enum',
+            'rev_share_policy_id': 'unsigned int',
             'rule': 'string',
             'rule_aggregation': 'string',
-            'inclusions': 'list<Object>',
-            'exclusions': 'list<Object>',
-            'countries': 'string',
-            'details': 'string',
+            'seed_audience': 'unsigned int',
             'source': 'string',
-            'isPrivate': 'bool',
-            'additionalMetadata': 'string',
-            'minAge': 'unsigned int',
-            'maxAge': 'unsigned int',
-            'expectedSize': 'unsigned int',
-            'gender': 'string',
-            'partnerID': 'string',
-            'accountID': 'string',
-            'rev_share_policy_id': 'unsigned int',
-            'partner_reference_key': 'string',
-            'claim_objective': 'claim_objective_enum',
-            'content_type': 'content_type_enum',
-            'event_source_group': 'string',
-            'product_set_id': 'string',
-            'event_sources': 'list<map>',
-            'study_spec': 'Object',
+            'study_spec': 'map',
+            'tags': 'list<string>',
         }
         enums = {
-            'customer_file_source_enum': CustomAudience.CustomerFileSource.__dict__.values(),
             'claim_objective_enum': CustomAudience.ClaimObjective.__dict__.values(),
             'content_type_enum': CustomAudience.ContentType.__dict__.values(),
+            'customer_file_source_enum': CustomAudience.CustomerFileSource.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -270,7 +284,7 @@ class CustomAudience(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -278,7 +292,10 @@ class CustomAudience(
             self.assure_call()
             return request.execute()
 
-    def delete_ad_accounts(self, fields=None, params=None, batch=None, pending=False):
+    def delete_ad_accounts(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'adaccounts': 'list<string>',
         }
@@ -298,7 +315,7 @@ class CustomAudience(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -306,7 +323,10 @@ class CustomAudience(
             self.assure_call()
             return request.execute()
 
-    def get_ad_accounts(self, fields=None, params=None, batch=None, pending=False):
+    def get_ad_accounts(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.adaccount import AdAccount
         param_types = {
             'permissions': 'string',
@@ -327,7 +347,7 @@ class CustomAudience(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -335,12 +355,15 @@ class CustomAudience(
             self.assure_call()
             return request.execute()
 
-    def create_ad_account(self, fields=None, params=None, batch=None, pending=False):
+    def create_ad_account(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'adaccounts': 'list<string>',
             'permissions': 'string',
-            'replace': 'bool',
             'relationship_type': 'list<string>',
+            'replace': 'bool',
         }
         enums = {
         }
@@ -358,7 +381,7 @@ class CustomAudience(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -366,7 +389,10 @@ class CustomAudience(
             self.assure_call()
             return request.execute()
 
-    def get_ads(self, fields=None, params=None, batch=None, pending=False):
+    def get_ads(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.ad import Ad
         param_types = {
             'effective_status': 'list<string>',
@@ -388,7 +414,7 @@ class CustomAudience(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -396,7 +422,10 @@ class CustomAudience(
             self.assure_call()
             return request.execute()
 
-    def delete_capabilities(self, fields=None, params=None, batch=None, pending=False):
+    def delete_capabilities(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'adaccounts': 'list<string>',
         }
@@ -416,7 +445,7 @@ class CustomAudience(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -424,7 +453,10 @@ class CustomAudience(
             self.assure_call()
             return request.execute()
 
-    def create_capability(self, fields=None, params=None, batch=None, pending=False):
+    def create_capability(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'accounts_capabilities': 'string',
             'relationship_type': 'list<string>',
@@ -445,7 +477,7 @@ class CustomAudience(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -453,27 +485,30 @@ class CustomAudience(
             self.assure_call()
             return request.execute()
 
-    def create_datum(self, fields=None, params=None, batch=None, pending=False):
+    def create_datum(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'action_type': 'action_type_enum',
-            'encoding': 'encoding_enum',
-            'entry_type': 'entry_type_enum',
-            'entries': 'list<string>',
-            'session_id': 'unsigned int',
             'batch_seq': 'unsigned int',
+            'encoding': 'encoding_enum',
+            'entries': 'list<string>',
+            'entry_type': 'entry_type_enum',
             'last_batch_flag': 'bool',
+            'session_id': 'unsigned int',
         }
         enums = {
             'action_type_enum': [
                 'add',
-                'remove',
                 'match',
                 'optout',
+                'remove',
             ],
             'encoding_enum': [
                 'md5',
-                'sha256',
                 'plain',
+                'sha256',
             ],
             'entry_type_enum': [
                 '0',
@@ -499,7 +534,7 @@ class CustomAudience(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -507,7 +542,10 @@ class CustomAudience(
             self.assure_call()
             return request.execute()
 
-    def get_prefills(self, fields=None, params=None, batch=None, pending=False):
+    def get_prefills(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.customaudienceprefillstate import CustomAudiencePrefillState
         param_types = {
         }
@@ -527,7 +565,7 @@ class CustomAudience(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -535,7 +573,10 @@ class CustomAudience(
             self.assure_call()
             return request.execute()
 
-    def get_sessions(self, fields=None, params=None, batch=None, pending=False):
+    def get_sessions(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.customaudiencesession import CustomAudienceSession
         param_types = {
             'session_id': 'unsigned int',
@@ -556,7 +597,7 @@ class CustomAudience(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -564,7 +605,10 @@ class CustomAudience(
             self.assure_call()
             return request.execute()
 
-    def get_share_d_account_info(self, fields=None, params=None, batch=None, pending=False):
+    def get_shared_account_info(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.customaudiencesharedaccountinfo import CustomAudiencesharedAccountInfo
         param_types = {
         }
@@ -584,7 +628,7 @@ class CustomAudience(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -592,11 +636,14 @@ class CustomAudience(
             self.assure_call()
             return request.execute()
 
-    def delete_upload(self, fields=None, params=None, batch=None, pending=False):
+    def delete_upload(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'session': 'Object',
-            'payload': 'Object',
             'namespace': 'string',
+            'payload': 'Object',
+            'session': 'Object',
         }
         enums = {
         }
@@ -614,7 +661,7 @@ class CustomAudience(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -622,11 +669,14 @@ class CustomAudience(
             self.assure_call()
             return request.execute()
 
-    def create_upload(self, fields=None, params=None, batch=None, pending=False):
+    def create_upload(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'session': 'Object',
-            'payload': 'Object',
             'namespace': 'string',
+            'payload': 'Object',
+            'session': 'Object',
         }
         enums = {
         }
@@ -644,7 +694,7 @@ class CustomAudience(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -652,11 +702,14 @@ class CustomAudience(
             self.assure_call()
             return request.execute()
 
-    def delete_users(self, fields=None, params=None, batch=None, pending=False):
+    def delete_users(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'session': 'Object',
-            'payload': 'Object',
             'namespace': 'string',
+            'payload': 'Object',
+            'session': 'Object',
         }
         enums = {
         }
@@ -674,7 +727,7 @@ class CustomAudience(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -682,11 +735,14 @@ class CustomAudience(
             self.assure_call()
             return request.execute()
 
-    def create_user(self, fields=None, params=None, batch=None, pending=False):
+    def create_user(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'session': 'Object',
-            'payload': 'Object',
             'namespace': 'string',
+            'payload': 'Object',
+            'session': 'Object',
         }
         enums = {
         }
@@ -704,7 +760,7 @@ class CustomAudience(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -718,6 +774,7 @@ class CustomAudience(
         'customer_file_source': 'string',
         'data_source': 'CustomAudienceDataSource',
         'data_source_types': 'string',
+        'datafile_custom_audience_uploading_status': 'string',
         'delivery_status': 'CustomAudienceStatus',
         'description': 'string',
         'excluded_custom_audiences': 'list<CustomAudience>',
@@ -749,35 +806,36 @@ class CustomAudience(
         'time_content_updated': 'unsigned int',
         'time_created': 'unsigned int',
         'time_updated': 'unsigned int',
-        'creation_params': 'map',
-        'parent_audience_id': 'unsigned int',
-        'tags': 'list<string>',
-        'associated_audience_id': 'unsigned int',
-        'is_household_exclusion': 'bool',
-        'allowed_domains': 'list<string>',
-        'partner_reference_key': 'string',
-        'prefill': 'bool',
-        'inclusions': 'list<Object>',
-        'exclusions': 'list<Object>',
-        'countries': 'string',
-        'origin_audience_id': 'string',
-        'details': 'string',
-        'source': 'string',
-        'isPrivate': 'bool',
-        'additionalMetadata': 'string',
-        'minAge': 'unsigned int',
-        'maxAge': 'unsigned int',
-        'expectedSize': 'unsigned int',
-        'gender': 'string',
-        'partnerID': 'string',
         'accountID': 'string',
+        'additionalMetadata': 'string',
+        'allowed_domains': 'list<string>',
+        'associated_audience_id': 'unsigned int',
         'claim_objective': 'ClaimObjective',
         'content_type': 'ContentType',
-        'event_source_group': 'string',
-        'product_set_id': 'string',
-        'event_sources': 'list<map>',
-        'video_group_ids': 'list<string>',
+        'countries': 'string',
+        'creation_params': 'map',
         'dataset_id': 'string',
+        'details': 'string',
+        'enable_fetch_or_create': 'bool',
+        'event_source_group': 'string',
+        'event_sources': 'list<map>',
+        'exclusions': 'list<Object>',
+        'expectedSize': 'unsigned int',
+        'gender': 'string',
+        'inclusions': 'list<Object>',
+        'isPrivate': 'bool',
+        'is_household_exclusion': 'bool',
+        'maxAge': 'unsigned int',
+        'minAge': 'unsigned int',
+        'origin_audience_id': 'string',
+        'parent_audience_id': 'unsigned int',
+        'partnerID': 'string',
+        'partner_reference_key': 'string',
+        'prefill': 'bool',
+        'product_set_id': 'string',
+        'source': 'string',
+        'tags': 'list<string>',
+        'video_group_ids': 'list<string>',
     }
     @classmethod
     def _get_field_enum_info(cls):

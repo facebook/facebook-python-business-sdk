@@ -19,10 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
-from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
-from facebook_business.adobjects.objectparser import ObjectParser
-from facebook_business.api import FacebookRequest
-from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -33,66 +29,38 @@ pull request for this class.
 """
 
 class AdRuleFilters(
-    AbstractCrudObject,
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
+    def __init__(self, api=None):
+        super(AdRuleFilters, self).__init__()
         self._isAdRuleFilters = True
-        super(AdRuleFilters, self).__init__(fbid, parent_id, api)
+        self._api = api
 
     class Field(AbstractObject.Field):
         field = 'field'
         operator = 'operator'
         value = 'value'
-        id = 'id'
 
     class Operator:
-        greater_than = 'GREATER_THAN'
-        less_than = 'LESS_THAN'
-        equal = 'EQUAL'
-        not_equal = 'NOT_EQUAL'
-        in_range = 'IN_RANGE'
-        not_in_range = 'NOT_IN_RANGE'
-        value_in = 'IN'
-        not_in = 'NOT_IN'
-        contain = 'CONTAIN'
-        not_contain = 'NOT_CONTAIN'
-        any = 'ANY'
         all = 'ALL'
+        any = 'ANY'
+        contain = 'CONTAIN'
+        equal = 'EQUAL'
+        greater_than = 'GREATER_THAN'
+        value_in = 'IN'
+        in_range = 'IN_RANGE'
+        less_than = 'LESS_THAN'
         none = 'NONE'
-
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AdRuleFilters,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
+        not_contain = 'NOT_CONTAIN'
+        not_equal = 'NOT_EQUAL'
+        not_in = 'NOT_IN'
+        not_in_range = 'NOT_IN_RANGE'
 
     _field_types = {
         'field': 'string',
         'operator': 'Operator',
         'value': 'Object',
-        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

@@ -61,52 +61,61 @@ class PartnerIntegrationLinked(
         appsflyer = 'appsflyer'
         avana = 'avana'
         backer_founder = 'backer_founder'
+        bandzoogle = 'bandzoogle'
         big_commerce = 'big_commerce'
+        branch = 'branch'
         cart_3d = 'cart_3d'
         value_default = 'default'
         drupal = 'drupal'
         ec_cube3 = 'ec_cube3'
+        ecwid = 'ecwid'
         eventbrite = 'eventbrite'
         feedonomics = 'feedonomics'
         foodkit = 'foodkit'
         google_tag_manager = 'google_tag_manager'
         haravan = 'haravan'
+        hubspot = 'hubspot'
         infusionsoft_zap = 'infusionsoft_zap'
         intern = 'intern'
         invoca = 'invoca'
         jimdo = 'jimdo'
         joomla = 'joomla'
         jumpseller = 'jumpseller'
+        kajabi = 'kajabi'
+        kochava = 'kochava'
         kraftly = 'kraftly'
+        m_particle = 'm_particle'
         magento = 'magento'
         magento_2 = 'magento_2'
         marketo = 'marketo'
         meesho = 'meesho'
-        m_particle = 'm_particle'
         now_floats = 'now_floats'
         opencart = 'opencart'
         prestashop = 'prestashop'
         productsup = 'productsup'
-        ruby_on_rails = 'ruby_on_rails'
         riversoft = 'riversoft'
+        ruby_on_rails = 'ruby_on_rails'
+        salesforce = 'salesforce'
         salesforce_zap = 'salesforce_zap'
         segment = 'segment'
+        shop_up = 'shop_up'
         shopify = 'shopify'
         shopify_online = 'shopify_online'
         shopline = 'shopline'
-        shop_up = 'shop_up'
+        singular = 'singular'
         sirclo = 'sirclo'
         squarespace = 'squarespace'
         storeden = 'storeden'
         test = 'test'
+        ticketmaster = 'ticketmaster'
         verifone = 'verifone'
         waca = 'waca'
+        webflow = 'webflow'
         weebly = 'weebly'
         wix = 'wix'
         woocommerce = 'woocommerce'
         wordpress = 'wordpress'
         zoho_zap = 'zoho_zap'
-        ticketmaster = 'ticketmaster'
 
     class CompletedIntegrationTypes:
         value_0 = '0'
@@ -115,19 +124,22 @@ class PartnerIntegrationLinked(
         value_3 = '3'
 
     class SetupStatus:
-        start = 'START'
         complete = 'COMPLETE'
+        start = 'START'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'partner_integrations'
 
-    def api_create(self, parent_id, fields=None, params=None, batch=None, pending=False):
+    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.adobjects.adaccount import AdAccount
-        return AdAccount(api=self._api, fbid=parent_id).create_partner_integration(fields, params, batch, pending)
+        return AdAccount(api=self._api, fbid=parent_id).create_partner_integration(fields, params, batch, success, failure, pending)
 
-    def api_delete(self, fields=None, params=None, batch=None, pending=False):
+    def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'asset_type': 'asset_type_enum',
         }
@@ -153,7 +165,7 @@ class PartnerIntegrationLinked(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -161,7 +173,10 @@ class PartnerIntegrationLinked(
             self.assure_call()
             return request.execute()
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -180,7 +195,7 @@ class PartnerIntegrationLinked(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -188,16 +203,22 @@ class PartnerIntegrationLinked(
             self.assure_call()
             return request.execute()
 
-    def api_update(self, fields=None, params=None, batch=None, pending=False):
+    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'ads_pixel_id': 'Object',
-            'application_id': 'Object',
+            'ads_pixel_id': 'string',
+            'application_id': 'string',
             'completed_integration_types': 'list<completed_integration_types_enum>',
+            'install_name': 'string',
             'name': 'string',
-            'oauth_partner_integration_id': 'Object',
-            'offline_conversion_data_set_id': 'Object',
-            'product_catalog_id': 'Object',
+            'oauth_partner_integration_id': 'string',
+            'offline_conversion_data_set_id': 'string',
+            'product_catalog_id': 'string',
+            'salesforce_instance_url': 'string',
             'setup_status': 'setup_status_enum',
+            'workspace_name': 'string',
         }
         enums = {
             'completed_integration_types_enum': PartnerIntegrationLinked.CompletedIntegrationTypes.__dict__.values(),
@@ -217,7 +238,7 @@ class PartnerIntegrationLinked(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request

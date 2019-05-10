@@ -63,6 +63,7 @@ class AdAccountCreationRequest(
         is_test = 'is_test'
         is_under_authorization = 'is_under_authorization'
         legal_entity_name_in_local_language = 'legal_entity_name_in_local_language'
+        oe_request_id = 'oe_request_id'
         official_website_url = 'official_website_url'
         planning_agency_business = 'planning_agency_business'
         planning_agency_business_id = 'planning_agency_business_id'
@@ -74,29 +75,28 @@ class AdAccountCreationRequest(
         subvertical = 'subvertical'
         time_created = 'time_created'
         vertical = 'vertical'
+        advertiser_business_id = 'advertiser_business_id'
         business_registration = 'business_registration'
         promotable_page_urls = 'promotable_page_urls'
-        advertiser_business_id = 'advertiser_business_id'
 
     class Subvertical:
         accounting_and_taxes_and_legal = 'ACCOUNTING_AND_TAXES_AND_LEGAL'
         agriculture_and_farming = 'AGRICULTURE_AND_FARMING'
-        ecommerce_agriculture_and_farming = 'ECOMMERCE_AGRICULTURE_AND_FARMING'
         air = 'AIR'
         air_freight_or_package = 'AIR_FREIGHT_OR_PACKAGE'
         apparel_and_accessories = 'APPAREL_AND_ACCESSORIES'
         arts = 'ARTS'
         auctions = 'AUCTIONS'
+        automotive_manufacturer = 'AUTOMOTIVE_MANUFACTURER'
         auto_agency = 'AUTO_AGENCY'
         auto_rental = 'AUTO_RENTAL'
-        automotive_manufacturer = 'AUTOMOTIVE_MANUFACTURER'
         b2b = 'B2B'
         b2b_manufacturing = 'B2B_MANUFACTURING'
         beauty_and_personal_care = 'BEAUTY_AND_PERSONAL_CARE'
         beer_and_wine_and_liquor = 'BEER_AND_WINE_AND_LIQUOR'
         bookstores = 'BOOKSTORES'
-        bus_and_taxi_and_auto_retal = 'BUS_AND_TAXI_AND_AUTO_RETAL'
         business_support_services = 'BUSINESS_SUPPORT_SERVICES'
+        bus_and_taxi_and_auto_retal = 'BUS_AND_TAXI_AND_AUTO_RETAL'
         cable_and_satellite = 'CABLE_AND_SATELLITE'
         career = 'CAREER'
         computing_and_peripherals = 'COMPUTING_AND_PERIPHERALS'
@@ -116,8 +116,9 @@ class AdAccountCreationRequest(
         desktop_software = 'DESKTOP_SOFTWARE'
         digital_advertising_and_marketing_or_untagged_agencies = 'DIGITAL_ADVERTISING_AND_MARKETING_OR_UNTAGGED_AGENCIES'
         ecatalog = 'ECATALOG'
-        ed_tech = 'ED_TECH'
+        ecommerce_agriculture_and_farming = 'ECOMMERCE_AGRICULTURE_AND_FARMING'
         education_resources = 'EDUCATION_RESOURCES'
+        ed_tech = 'ED_TECH'
         elearning_and_massive_online_open_courses = 'ELEARNING_AND_MASSIVE_ONLINE_OPEN_COURSES'
         engineering_and_design = 'ENGINEERING_AND_DESIGN'
         events = 'EVENTS'
@@ -150,6 +151,7 @@ class AdAccountCreationRequest(
         office = 'OFFICE'
         oil_and_gas_and_consumable_fuel = 'OIL_AND_GAS_AND_CONSUMABLE_FUEL'
         online_or_software = 'ONLINE_OR_SOFTWARE'
+        other_wireline_services = 'OTHER_WIRELINE_SERVICES'
         parts_and_service = 'PARTS_AND_SERVICE'
         pet = 'PET'
         pet_retail = 'PET_RETAIL'
@@ -159,9 +161,9 @@ class AdAccountCreationRequest(
         pr = 'PR'
         publishing_internet = 'PUBLISHING_INTERNET'
         railroads = 'RAILROADS'
-        recreational = 'RECREATIONAL'
         real_estate = 'REAL_ESTATE'
         real_money_or_skilled_gaming = 'REAL_MONEY_OR_SKILLED_GAMING'
+        recreational = 'RECREATIONAL'
         religious = 'RELIGIOUS'
         restaurant = 'RESTAURANT'
         retail_and_credit_union_and_commercial_bank = 'RETAIL_AND_CREDIT_UNION_AND_COMMERCIAL_BANK'
@@ -184,7 +186,6 @@ class AdAccountCreationRequest(
         smb_religious = 'SMB_RELIGIOUS'
         smb_rentals = 'SMB_RENTALS'
         smb_repair_and_maintenance = 'SMB_REPAIR_AND_MAINTENANCE'
-        other_wireline_services = 'OTHER_WIRELINE_SERVICES'
         software = 'SOFTWARE'
         sporting = 'SPORTING'
         sports = 'SPORTS'
@@ -202,8 +203,8 @@ class AdAccountCreationRequest(
 
     class Vertical:
         advertising_and_marketing = 'ADVERTISING_AND_MARKETING'
-        auto_agency = 'AUTO_AGENCY'
         automotive = 'AUTOMOTIVE'
+        auto_agency = 'AUTO_AGENCY'
         consumer_packaged_goods = 'CONSUMER_PACKAGED_GOODS'
         cpg_and_beverage = 'CPG_AND_BEVERAGE'
         ecommerce = 'ECOMMERCE'
@@ -223,29 +224,32 @@ class AdAccountCreationRequest(
         travel = 'TRAVEL'
 
     class Status:
-        pending = 'PENDING'
-        under_review = 'UNDER_REVIEW'
-        approved = 'APPROVED'
-        disapproved = 'DISAPPROVED'
-        requested_change = 'REQUESTED_CHANGE'
-        cancelled = 'CANCELLED'
-        auto_approved = 'AUTO_APPROVED'
-        auto_disapproved = 'AUTO_DISAPPROVED'
-        appeal_pending = 'APPEAL_PENDING'
-        appeal_under_review = 'APPEAL_UNDER_REVIEW'
         appeal_approved = 'APPEAL_APPROVED'
         appeal_disapproved = 'APPEAL_DISAPPROVED'
+        appeal_pending = 'APPEAL_PENDING'
+        appeal_under_review = 'APPEAL_UNDER_REVIEW'
+        approved = 'APPROVED'
+        auto_approved = 'AUTO_APPROVED'
+        auto_disapproved = 'AUTO_DISAPPROVED'
+        cancelled = 'CANCELLED'
+        disapproved = 'DISAPPROVED'
+        pending = 'PENDING'
+        requested_change = 'REQUESTED_CHANGE'
+        under_review = 'UNDER_REVIEW'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'adaccountcreationrequests'
 
-    def api_create(self, parent_id, fields=None, params=None, batch=None, pending=False):
+    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.adobjects.business import Business
-        return Business(api=self._api, fbid=parent_id).create_ad_account_creation_request(fields, params, batch, pending)
+        return Business(api=self._api, fbid=parent_id).create_ad_account_creation_request(fields, params, batch, success, failure, pending)
 
-    def api_delete(self, fields=None, params=None, batch=None, pending=False):
+    def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -264,7 +268,7 @@ class AdAccountCreationRequest(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -272,7 +276,10 @@ class AdAccountCreationRequest(
             self.assure_call()
             return request.execute()
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -291,7 +298,7 @@ class AdAccountCreationRequest(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -299,35 +306,38 @@ class AdAccountCreationRequest(
             self.assure_call()
             return request.execute()
 
-    def api_update(self, fields=None, params=None, batch=None, pending=False):
+    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'extended_credit_id': 'string',
             'ad_accounts_info': 'list<Object>',
-            'business_registration': 'file',
-            'planning_agency_business_id': 'string',
-            'english_legal_entity_name': 'string',
-            'legal_entity_name_in_local_language': 'string',
-            'address_in_local_language': 'string',
-            'chinese_legal_entity_name': 'string',
+            'additional_comment': 'string',
             'address_in_chinese': 'string',
             'address_in_english': 'Object',
-            'official_website_url': 'Object',
-            'business_registration_id': 'string',
-            'vertical': 'vertical_enum',
-            'subvertical': 'subvertical_enum',
-            'promotable_page_urls': 'list<Object>',
-            'promotable_page_ids': 'list<string>',
-            'promotable_app_ids': 'list<string>',
-            'promotable_urls': 'list<Object>',
-            'contact': 'Object',
-            'additional_comment': 'string',
-            'is_smb': 'bool',
+            'address_in_local_language': 'string',
             'advertiser_business_id': 'string',
+            'business_registration': 'file',
+            'business_registration_id': 'string',
+            'chinese_legal_entity_name': 'string',
+            'contact': 'Object',
             'disapprove_appeal_comment': 'string',
+            'english_legal_entity_name': 'string',
+            'extended_credit_id': 'string',
+            'is_smb': 'bool',
+            'legal_entity_name_in_local_language': 'string',
+            'official_website_url': 'string',
+            'planning_agency_business_id': 'string',
+            'promotable_app_ids': 'list<string>',
+            'promotable_page_ids': 'list<string>',
+            'promotable_page_urls': 'list<string>',
+            'promotable_urls': 'list<string>',
+            'subvertical': 'subvertical_enum',
+            'vertical': 'vertical_enum',
         }
         enums = {
-            'vertical_enum': AdAccountCreationRequest.Vertical.__dict__.values(),
             'subvertical_enum': AdAccountCreationRequest.Subvertical.__dict__.values(),
+            'vertical_enum': AdAccountCreationRequest.Vertical.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -343,7 +353,7 @@ class AdAccountCreationRequest(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -351,7 +361,10 @@ class AdAccountCreationRequest(
             self.assure_call()
             return request.execute()
 
-    def get_ad_accounts(self, fields=None, params=None, batch=None, pending=False):
+    def get_ad_accounts(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.adaccount import AdAccount
         param_types = {
         }
@@ -371,7 +384,7 @@ class AdAccountCreationRequest(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -379,30 +392,33 @@ class AdAccountCreationRequest(
             self.assure_call()
             return request.execute()
 
-    def create_vietnam(self, fields=None, params=None, batch=None, pending=False):
+    def create_vietnam(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'ad_accounts_info': 'list<Object>',
-            'business_registration': 'file',
-            'planning_agency_business_id': 'Object',
-            'english_legal_entity_name': 'string',
-            'address_in_english': 'Object',
-            'official_website_url': 'Object',
-            'business_registration_id': 'string',
-            'vertical': 'vertical_enum',
-            'subvertical': 'subvertical_enum',
-            'promotable_page_urls': 'list<Object>',
-            'promotable_page_ids': 'list<int>',
-            'promotable_app_ids': 'list<Object>',
-            'promotable_urls': 'list<Object>',
-            'contact': 'Object',
             'additional_comment': 'string',
-            'advertiser_business_id': 'Object',
+            'address_in_english': 'Object',
             'address_in_local_language': 'string',
+            'advertiser_business_id': 'string',
+            'business_registration': 'file',
+            'business_registration_id': 'string',
+            'contact': 'Object',
+            'english_legal_entity_name': 'string',
             'legal_entity_name_in_local_language': 'string',
+            'official_website_url': 'string',
+            'planning_agency_business_id': 'string',
+            'promotable_app_ids': 'list<string>',
+            'promotable_page_ids': 'list<int>',
+            'promotable_page_urls': 'list<string>',
+            'promotable_urls': 'list<string>',
+            'subvertical': 'subvertical_enum',
+            'vertical': 'vertical_enum',
         }
         enums = {
-            'vertical_enum': AdAccountCreationRequest.Vertical.__dict__.values(),
             'subvertical_enum': AdAccountCreationRequest.Subvertical.__dict__.values(),
+            'vertical_enum': AdAccountCreationRequest.Vertical.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -418,7 +434,7 @@ class AdAccountCreationRequest(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -449,6 +465,7 @@ class AdAccountCreationRequest(
         'is_test': 'bool',
         'is_under_authorization': 'bool',
         'legal_entity_name_in_local_language': 'string',
+        'oe_request_id': 'string',
         'official_website_url': 'string',
         'planning_agency_business': 'Business',
         'planning_agency_business_id': 'string',
@@ -460,9 +477,9 @@ class AdAccountCreationRequest(
         'subvertical': 'string',
         'time_created': 'datetime',
         'vertical': 'string',
-        'business_registration': 'file',
-        'promotable_page_urls': 'list<Object>',
         'advertiser_business_id': 'string',
+        'business_registration': 'file',
+        'promotable_page_urls': 'list<string>',
     }
     @classmethod
     def _get_field_enum_info(cls):

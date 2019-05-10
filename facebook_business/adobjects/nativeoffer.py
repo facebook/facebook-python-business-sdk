@@ -69,13 +69,13 @@ class NativeOffer(
         unique_codes_file_upload_status = 'unique_codes_file_upload_status'
 
     class UniqueCodesFileCodeType:
-        discount_codes = 'discount_codes'
         barcodes = 'barcodes'
-        online_discount_codes = 'online_discount_codes'
-        instore_discount_codes = 'instore_discount_codes'
-        instore_barcodes = 'instore_barcodes'
         discount_and_barcodes = 'discount_and_barcodes'
         discount_and_discount = 'discount_and_discount'
+        discount_codes = 'discount_codes'
+        instore_barcodes = 'instore_barcodes'
+        instore_discount_codes = 'instore_discount_codes'
+        online_discount_codes = 'online_discount_codes'
 
     class BarcodeType:
         code128 = 'CODE128'
@@ -93,11 +93,14 @@ class NativeOffer(
         upc_e = 'UPC_E'
 
     class LocationType:
-        online = 'online'
-        offline = 'offline'
         both = 'both'
+        offline = 'offline'
+        online = 'online'
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -116,7 +119,7 @@ class NativeOffer(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -124,10 +127,13 @@ class NativeOffer(
             self.assure_call()
             return request.execute()
 
-    def create_code(self, fields=None, params=None, batch=None, pending=False):
+    def create_code(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'unique_codes_file_code_type': 'unique_codes_file_code_type_enum',
             'file': 'file',
+            'unique_codes_file_code_type': 'unique_codes_file_code_type_enum',
         }
         enums = {
             'unique_codes_file_code_type_enum': NativeOffer.UniqueCodesFileCodeType.__dict__.values(),
@@ -146,7 +152,7 @@ class NativeOffer(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -154,21 +160,24 @@ class NativeOffer(
             self.assure_call()
             return request.execute()
 
-    def create_native_offer_view(self, fields=None, params=None, batch=None, pending=False):
+    def create_native_offer_view(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'urls': 'list<string>',
-            'photos': 'list<string>',
             'ad_account': 'string',
             'ad_image_hashes': 'list<string>',
-            'image_crops': 'list<map>',
-            'published_ads': 'bool',
-            'published': 'bool',
-            'message': 'string',
-            'place_data': 'Object',
-            'deeplinks': 'list<string>',
             'carousel_captions': 'list<string>',
-            'carousel_links': 'list<string>',
             'carousel_data': 'list<Object>',
+            'carousel_links': 'list<string>',
+            'deeplinks': 'list<string>',
+            'image_crops': 'list<map>',
+            'message': 'string',
+            'photos': 'list<string>',
+            'place_data': 'Object',
+            'published': 'bool',
+            'published_ads': 'bool',
+            'urls': 'list<string>',
             'videos': 'list<string>',
         }
         enums = {
@@ -187,7 +196,7 @@ class NativeOffer(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -195,7 +204,10 @@ class NativeOffer(
             self.assure_call()
             return request.execute()
 
-    def get_views(self, fields=None, params=None, batch=None, pending=False):
+    def get_views(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.nativeofferview import NativeOfferView
         param_types = {
         }
@@ -215,7 +227,7 @@ class NativeOffer(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request

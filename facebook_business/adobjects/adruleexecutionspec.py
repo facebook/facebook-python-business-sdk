@@ -19,10 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
-from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
-from facebook_business.adobjects.objectparser import ObjectParser
-from facebook_business.api import FacebookRequest
-from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -33,59 +29,31 @@ pull request for this class.
 """
 
 class AdRuleExecutionSpec(
-    AbstractCrudObject,
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
+    def __init__(self, api=None):
+        super(AdRuleExecutionSpec, self).__init__()
         self._isAdRuleExecutionSpec = True
-        super(AdRuleExecutionSpec, self).__init__(fbid, parent_id, api)
+        self._api = api
 
     class Field(AbstractObject.Field):
         execution_options = 'execution_options'
         execution_type = 'execution_type'
-        id = 'id'
 
     class ExecutionType:
-        ping_endpoint = 'PING_ENDPOINT'
+        change_bid = 'CHANGE_BID'
+        change_budget = 'CHANGE_BUDGET'
         notification = 'NOTIFICATION'
         pause = 'PAUSE'
+        ping_endpoint = 'PING_ENDPOINT'
         rebalance_budget = 'REBALANCE_BUDGET'
-        change_budget = 'CHANGE_BUDGET'
-        change_bid = 'CHANGE_BID'
         rotate = 'ROTATE'
         unpause = 'UNPAUSE'
-
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AdRuleExecutionSpec,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
 
     _field_types = {
         'execution_options': 'list<AdRuleExecutionOptions>',
         'execution_type': 'ExecutionType',
-        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

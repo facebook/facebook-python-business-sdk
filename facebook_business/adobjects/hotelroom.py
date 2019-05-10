@@ -59,11 +59,14 @@ class HotelRoom(
     def get_endpoint(cls):
         return 'hotel_rooms'
 
-    def api_create(self, parent_id, fields=None, params=None, batch=None, pending=False):
+    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.adobjects.hotel import Hotel
-        return Hotel(api=self._api, fbid=parent_id).create_hotel_room(fields, params, batch, pending)
+        return Hotel(api=self._api, fbid=parent_id).create_hotel_room(fields, params, batch, success, failure, pending)
 
-    def api_delete(self, fields=None, params=None, batch=None, pending=False):
+    def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -82,7 +85,7 @@ class HotelRoom(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -90,7 +93,10 @@ class HotelRoom(
             self.assure_call()
             return request.execute()
 
-    def api_get(self, fields=None, params=None, batch=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
         }
         enums = {
@@ -109,7 +115,7 @@ class HotelRoom(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -117,18 +123,21 @@ class HotelRoom(
             self.assure_call()
             return request.execute()
 
-    def api_update(self, fields=None, params=None, batch=None, pending=False):
+    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'description': 'string',
-            'name': 'string',
-            'url': 'string',
-            'currency': 'string',
-            'base_price': 'float',
             'applinks': 'Object',
+            'base_price': 'float',
+            'currency': 'string',
+            'description': 'string',
             'images': 'list<Object>',
             'margin_level': 'unsigned int',
+            'name': 'string',
             'pricing_variables': 'list<Object>',
             'sale_price': 'float',
+            'url': 'string',
         }
         enums = {
         }
@@ -146,7 +155,7 @@ class HotelRoom(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
@@ -154,7 +163,10 @@ class HotelRoom(
             self.assure_call()
             return request.execute()
 
-    def get_pricing_variables(self, fields=None, params=None, batch=None, pending=False):
+    def get_pricing_variables(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.dynamicpriceconfigbydate import DynamicPriceConfigByDate
         param_types = {
         }
@@ -174,7 +186,7 @@ class HotelRoom(
         request.add_fields(fields)
 
         if batch is not None:
-            request.add_to_batch(batch)
+            request.add_to_batch(batch, success=success, failure=failure)
             return request
         elif pending:
             return request
