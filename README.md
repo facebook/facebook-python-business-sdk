@@ -455,7 +455,7 @@ page = Page(page_id).api_get(fields=fields,params=params)
 
 When running this code, this cURL request will be printed to the console as:
 ```
-curl -X 'GET' -H 'Accept: */*' -H 'Accept-Encoding: gzip, deflate' -H 'Connection: keep-alive' -H 'User-Agent: fbbizsdk-python-v3.1.1' 'https://graph.facebook.com/v3.1/<pageid>/?access_token=<access_token>&fields=name%2Cbirthday%2Cphone'
+curl -X 'GET' -H 'Accept: */*' -H 'Accept-Encoding: gzip, deflate' -H 'Connection: keep-alive' -H 'User-Agent: fbbizsdk-python-v3.3.1' 'https://graph.facebook.com/v3.3/<pageid>/?access_token=<access_token>&fields=name%2Cbirthday%2Cphone'
 ```
 
 ## SDK Codegen

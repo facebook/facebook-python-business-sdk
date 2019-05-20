@@ -94,16 +94,9 @@ class Campaign(
 
     class EffectiveStatus:
         active = 'ACTIVE'
-        adset_paused = 'ADSET_PAUSED'
         archived = 'ARCHIVED'
-        campaign_paused = 'CAMPAIGN_PAUSED'
         deleted = 'DELETED'
-        disapproved = 'DISAPPROVED'
         paused = 'PAUSED'
-        pending_billing_info = 'PENDING_BILLING_INFO'
-        pending_review = 'PENDING_REVIEW'
-        preapproved = 'PREAPPROVED'
-        with_issues = 'WITH_ISSUES'
 
     class Status:
         active = 'ACTIVE'

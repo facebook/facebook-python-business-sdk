@@ -1178,6 +1178,7 @@ class ProductCatalog(
             'feed_type': 'feed_type_enum',
             'file_name': 'string',
             'name': 'string',
+            'override_type': 'override_type_enum',
             'quoted_fields_mode': 'quoted_fields_mode_enum',
             'rules': 'list<string>',
             'schedule': 'string',
@@ -1187,6 +1188,7 @@ class ProductCatalog(
             'delimiter_enum': ProductFeed.Delimiter.__dict__.values(),
             'encoding_enum': ProductFeed.Encoding.__dict__.values(),
             'feed_type_enum': ProductFeed.FeedType.__dict__.values(),
+            'override_type_enum': ProductFeed.OverrideType.__dict__.values(),
             'quoted_fields_mode_enum': ProductFeed.QuotedFieldsMode.__dict__.values(),
         }
         request = FacebookRequest(

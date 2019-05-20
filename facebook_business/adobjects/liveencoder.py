@@ -127,9 +127,9 @@ class LiveEncoder(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'broadcast_id': 'string',
-            'cap_audio_codecs': 'Object',
-            'cap_streaming_protocols': 'Object',
-            'cap_video_codecs': 'Object',
+            'cap_audio_codecs': 'list<string>',
+            'cap_streaming_protocols': 'list<string>',
+            'cap_video_codecs': 'list<string>',
             'error_code': 'unsigned int',
             'error_msg': 'string',
             'input_audio_channels': 'unsigned int',

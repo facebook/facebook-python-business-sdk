@@ -96,6 +96,10 @@ class ProductFeed(
         vehicles = 'VEHICLES'
         vehicle_offer = 'VEHICLE_OFFER'
 
+    class OverrideType:
+        country = 'COUNTRY'
+        language = 'LANGUAGE'
+
     # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
@@ -598,6 +602,7 @@ class ProductFeed(
         field_enum_info['QuotedFieldsMode'] = ProductFeed.QuotedFieldsMode.__dict__.values()
         field_enum_info['Encoding'] = ProductFeed.Encoding.__dict__.values()
         field_enum_info['FeedType'] = ProductFeed.FeedType.__dict__.values()
+        field_enum_info['OverrideType'] = ProductFeed.OverrideType.__dict__.values()
         return field_enum_info
 
 
