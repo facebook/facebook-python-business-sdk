@@ -171,27 +171,6 @@ class AdSet(
         deleted = 'DELETED'
         paused = 'PAUSED'
 
-    class DatePreset:
-        last_14d = 'last_14d'
-        last_28d = 'last_28d'
-        last_30d = 'last_30d'
-        last_3d = 'last_3d'
-        last_7d = 'last_7d'
-        last_90d = 'last_90d'
-        last_month = 'last_month'
-        last_quarter = 'last_quarter'
-        last_week_mon_sun = 'last_week_mon_sun'
-        last_week_sun_sat = 'last_week_sun_sat'
-        last_year = 'last_year'
-        lifetime = 'lifetime'
-        this_month = 'this_month'
-        this_quarter = 'this_quarter'
-        this_week_mon_today = 'this_week_mon_today'
-        this_week_sun_today = 'this_week_sun_today'
-        this_year = 'this_year'
-        today = 'today'
-        yesterday = 'yesterday'
-
     class DestinationType:
         app = 'APP'
         applinks_automatic = 'APPLINKS_AUTOMATIC'
@@ -220,6 +199,27 @@ class AdSet(
         trip_consideration = 'TRIP_CONSIDERATION'
         video_sound_on = 'VIDEO_SOUND_ON'
 
+    class DatePreset:
+        last_14d = 'LAST_14D'
+        last_28d = 'LAST_28D'
+        last_30d = 'LAST_30D'
+        last_3d = 'LAST_3D'
+        last_7d = 'LAST_7D'
+        last_90d = 'LAST_90D'
+        last_month = 'LAST_MONTH'
+        last_quarter = 'LAST_QUARTER'
+        last_week_mon_sun = 'LAST_WEEK_MON_SUN'
+        last_week_sun_sat = 'LAST_WEEK_SUN_SAT'
+        last_year = 'LAST_YEAR'
+        lifetime = 'LIFETIME'
+        this_month = 'THIS_MONTH'
+        this_quarter = 'THIS_QUARTER'
+        this_week_mon_today = 'THIS_WEEK_MON_TODAY'
+        this_week_sun_today = 'THIS_WEEK_SUN_TODAY'
+        this_year = 'THIS_YEAR'
+        today = 'TODAY'
+        yesterday = 'YESTERDAY'
+
     class Operator:
         all = 'ALL'
         any = 'ANY'
@@ -232,7 +232,7 @@ class AdSet(
     # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
-        return 'adsets'
+        return 'ad_sets'
 
     # @deprecated api_create is being deprecated
     def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
@@ -939,11 +939,11 @@ class AdSet(
         field_enum_info['EffectiveStatus'] = AdSet.EffectiveStatus.__dict__.values()
         field_enum_info['OptimizationGoal'] = AdSet.OptimizationGoal.__dict__.values()
         field_enum_info['Status'] = AdSet.Status.__dict__.values()
-        field_enum_info['DatePreset'] = AdSet.DatePreset.__dict__.values()
         field_enum_info['DestinationType'] = AdSet.DestinationType.__dict__.values()
         field_enum_info['ExecutionOptions'] = AdSet.ExecutionOptions.__dict__.values()
         field_enum_info['FullFunnelExplorationMode'] = AdSet.FullFunnelExplorationMode.__dict__.values()
         field_enum_info['OptimizationSubEvent'] = AdSet.OptimizationSubEvent.__dict__.values()
+        field_enum_info['DatePreset'] = AdSet.DatePreset.__dict__.values()
         field_enum_info['Operator'] = AdSet.Operator.__dict__.values()
         field_enum_info['StatusOption'] = AdSet.StatusOption.__dict__.values()
         return field_enum_info

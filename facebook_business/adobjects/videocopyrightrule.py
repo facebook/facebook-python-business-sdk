@@ -49,11 +49,6 @@ class VideoCopyrightRule(
         is_in_migration = 'is_in_migration'
         name = 'name'
 
-    class Source:
-        match_settings_dialog = 'MATCH_SETTINGS_DIALOG'
-        rules_selector = 'RULES_SELECTOR'
-        rules_tab = 'RULES_TAB'
-
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -96,7 +91,6 @@ class VideoCopyrightRule(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['Source'] = VideoCopyrightRule.Source.__dict__.values()
         return field_enum_info
 
 

@@ -44,7 +44,6 @@ class OpenGraphObject(
         admins = 'admins'
         application = 'application'
         audio = 'audio'
-        context = 'context'
         created_time = 'created_time'
         description = 'description'
         determiner = 'determiner'
@@ -132,7 +131,6 @@ class OpenGraphObject(
         'admins': 'list<Object>',
         'application': 'Object',
         'audio': 'list<Object>',
-        'context': 'OpenGraphContext',
         'created_time': 'datetime',
         'description': 'string',
         'determiner': 'string',

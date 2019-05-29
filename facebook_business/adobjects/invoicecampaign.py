@@ -28,34 +28,34 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class Recommendation(
+class InvoiceCampaign(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(Recommendation, self).__init__()
-        self._isRecommendation = True
+        super(InvoiceCampaign, self).__init__()
+        self._isInvoiceCampaign = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        created_time = 'created_time'
-        has_rating = 'has_rating'
-        has_review = 'has_review'
-        open_graph_story = 'open_graph_story'
-        rating = 'rating'
-        recommendation_type = 'recommendation_type'
-        review_text = 'review_text'
-        reviewer = 'reviewer'
+        ad_account_id = 'ad_account_id'
+        billed_amount_details = 'billed_amount_details'
+        campaign_id = 'campaign_id'
+        campaign_name = 'campaign_name'
+        clicks = 'clicks'
+        conversions = 'conversions'
+        impressions = 'impressions'
+        tags = 'tags'
 
     _field_types = {
-        'created_time': 'datetime',
-        'has_rating': 'bool',
-        'has_review': 'bool',
-        'open_graph_story': 'Object',
-        'rating': 'int',
-        'recommendation_type': 'string',
-        'review_text': 'string',
-        'reviewer': 'User',
+        'ad_account_id': 'string',
+        'billed_amount_details': 'BilledAmountDetails',
+        'campaign_id': 'string',
+        'campaign_name': 'string',
+        'clicks': 'unsigned int',
+        'conversions': 'unsigned int',
+        'impressions': 'unsigned int',
+        'tags': 'list<string>',
     }
     @classmethod
     def _get_field_enum_info(cls):

@@ -46,7 +46,6 @@ class ReachFrequencySpec(
         max_pause_without_prediction_rerun = 'max_pause_without_prediction_rerun'
         min_campaign_duration = 'min_campaign_duration'
         min_reach_limits = 'min_reach_limits'
-        supports_video_view_benchmark_per_country = 'supports_video_view_benchmark_per_country'
 
     _field_types = {
         'countries': 'list<string>',
@@ -57,7 +56,6 @@ class ReachFrequencySpec(
         'max_pause_without_prediction_rerun': 'Object',
         'min_campaign_duration': 'Object',
         'min_reach_limits': 'Object',
-        'supports_video_view_benchmark_per_country': 'Object',
     }
     @classmethod
     def _get_field_enum_info(cls):

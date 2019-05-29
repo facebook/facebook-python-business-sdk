@@ -62,14 +62,14 @@ class AdStudy(
         objectives = 'objectives'
         viewers = 'viewers'
 
-    class AudienceType:
-        most_responsive = 'MOST_RESPONSIVE'
-        not_most_responsive = 'NOT_MOST_RESPONSIVE'
-
     class Type:
         continuous_lift_config = 'CONTINUOUS_LIFT_CONFIG'
         lift = 'LIFT'
         split_test = 'SPLIT_TEST'
+
+    class AudienceType:
+        most_responsive = 'MOST_RESPONSIVE'
+        not_most_responsive = 'NOT_MOST_RESPONSIVE'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
@@ -156,9 +156,11 @@ class AdStudy(
             'objectives': 'list<Object>',
             'observation_end_time': 'int',
             'start_time': 'int',
+            'type': 'type_enum',
             'viewers': 'list<int>',
         }
         enums = {
+            'type_enum': AdStudy.Type.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -408,8 +410,8 @@ class AdStudy(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['AudienceType'] = AdStudy.AudienceType.__dict__.values()
         field_enum_info['Type'] = AdStudy.Type.__dict__.values()
+        field_enum_info['AudienceType'] = AdStudy.AudienceType.__dict__.values()
         return field_enum_info
 
 
