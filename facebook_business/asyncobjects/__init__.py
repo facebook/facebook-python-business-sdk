@@ -142,7 +142,7 @@ class AdAccount(AbstractCrudAioObject, adaccount.AdAccount):
         """
         return self.iterate_edge_aio(baseobjects.CustomConversion, fields, params, limit=limit)
 
-    def get_insights_aio(self, fields=None, params=None, limit=1000, async=False,
+    def get_insights_aio(self, fields=None, params=None, limit=1000, is_async=False,
                          has_action=None, needs_action_device=None,
                          has_filters=False, for_date=None, needs_carousel_name=False):
         """
@@ -155,7 +155,7 @@ class AdAccount(AbstractCrudAioObject, adaccount.AdAccount):
         the results of execution are later available  through
         FacebookAdsAsyncApi.get_default_api().get_all_async_results() call.
         """
-        if async:
+        if is_async:
             return self.iterate_edge_async_aio(
                 Insights, fields, params, has_action,
                 needs_action_device, limit=limit,
@@ -179,7 +179,7 @@ class Campaign(AbstractCrudAioObject, campaign.Campaign):
         """Returns iterator over Ad's associated with this campaign."""
         return self.iterate_edge_aio(Ad, fields, params, limit=limit)
 
-    def get_insights_aio(self, fields=None, params=None, limit=1000, async=False,
+    def get_insights_aio(self, fields=None, params=None, limit=1000, is_async=False,
                          has_action=None, needs_action_device=None,
                          has_filters=False, for_date=None, needs_carousel_name=False):
         """
@@ -192,7 +192,7 @@ class Campaign(AbstractCrudAioObject, campaign.Campaign):
         the results of execution are later available  through
         FacebookAdsAsyncApi.get_default_api().get_all_async_results() call.
         """
-        if async:
+        if is_async:
             return self.iterate_edge_async_aio(
                 Insights, fields, params, has_action,
                 needs_action_device, limit=limit,
@@ -216,7 +216,7 @@ class AdSet(AbstractCrudAioObject, adset.AdSet):
         """Returns iterator over AdCreative's associated with this set."""
         return self.iterate_edge_aio(AdCreative, fields, params, limit=limit)
 
-    def get_insights_aio(self, fields=None, params=None, limit=1000, async=False,
+    def get_insights_aio(self, fields=None, params=None, limit=1000, is_async=False,
                          has_action=None, needs_action_device=None,
                          has_filters=False, for_date=None, needs_carousel_name=False):
         """
@@ -229,7 +229,7 @@ class AdSet(AbstractCrudAioObject, adset.AdSet):
         the results of execution are later available  through
         FacebookAdsAsyncApi.get_default_api().get_all_async_results() call.
         """
-        if async:
+        if is_async:
             return self.iterate_edge_async_aio(
                 Insights, fields, params, has_action,
                 needs_action_device, limit=limit,
@@ -338,7 +338,7 @@ class Ad(AbstractCrudAioObject, ad.Ad):
         """
         return self.iterate_edge_aio(Lead, fields, params, limit=limit)
 
-    def get_insights_aio(self, fields=None, params=None, limit=1000, async=False,
+    def get_insights_aio(self, fields=None, params=None, limit=1000, is_async=False,
                          has_action=None, needs_action_device=None,
                          has_filters=False, for_date=None, needs_carousel_name=False):
         """
@@ -351,7 +351,7 @@ class Ad(AbstractCrudAioObject, ad.Ad):
         the results of execution are later available  through
         FacebookAdsAsyncApi.get_default_api().get_all_async_results() call.
         """
-        if async:
+        if is_async:
             return self.iterate_edge_async_aio(
                 Insights, fields, params, has_action,
                 needs_action_device, limit=limit,
@@ -413,8 +413,8 @@ class Business(AbstractCrudAioObject, business.Business):
     def get_product_catalogs_aio(self, fields=None, params=None):
         return self.iterate_edge_aio(ProductCatalog, fields, params)
 
-    def get_insights_aio(self, fields=None, params=None, limit=500, async=False):
-        if async:
+    def get_insights_aio(self, fields=None, params=None, limit=500, is_async=False):
+        if is_async:
             return self.iterate_edge_async_aio(
                 Insights,
                 fields,
@@ -427,8 +427,8 @@ class Business(AbstractCrudAioObject, business.Business):
             include_summary=False, limit=limit
         )
 
-    def get_order_id_attributions_aio(self, fields=None, params=None, limit=100, async=False):
-        if async:
+    def get_order_id_attributions_aio(self, fields=None, params=None, limit=100, is_async=False):
+        if is_async:
             return self.iterate_edge_async_aio(
                 OrderIdAttributions,
                 fields,
