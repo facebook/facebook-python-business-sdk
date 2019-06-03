@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 
 ## Unreleased
+### Fix
+[PR543](https://github.com/facebook/facebook-python-business-sdk/pull/543)
+
+## v3.3.4
 
 ## v3.3.3
 ### Fix
