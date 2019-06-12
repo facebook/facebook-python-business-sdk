@@ -3172,9 +3172,9 @@ class AdAccount(
             endpoint='/insights',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AdReportRun,
+            target_class=AdsInsights,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdReportRun, api=self._api),
+            response_parser=ObjectParser(target_class=AdsInsights, api=self._api),
             include_summary=False,
         )
         request.add_params(params)
