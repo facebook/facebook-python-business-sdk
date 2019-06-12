@@ -718,7 +718,7 @@ class Cursor(object):
         object_parser=None
     ):
         """
-        Initializes an cursor over the objects to which there is an edge from
+        Initializes a cursor over the objects to which there is an edge from
         source_object.
         To initialize, you'll need to provide either (source_object and
         target_objects_class) or (api, node_id, endpoint, and object_parser)
