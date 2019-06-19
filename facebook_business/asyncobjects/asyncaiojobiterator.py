@@ -16,8 +16,8 @@ logger = logging.getLogger("facebookclient")
 class AsyncAioJobIterator(AioEdgeIterator):
     def __init__(self, source_object, target_objects_class,
                  fields=None, params=None, include_summary=False,
-                 limit=500, stage='async_get_job',
-                 no_progress_timeout=1400, not_started_timeout=600,
+                 limit=400, stage='async_get_job',
+                 no_progress_timeout=1800, not_started_timeout=1200,
                  has_action=None, needs_action_device=None, has_filters=False,
                  for_date=None, needs_carousel_name=False):
 
@@ -172,12 +172,12 @@ class AsyncAioJobIterator(AioEdgeIterator):
                 current_job_completion_value = 0
             else:
                 raise JobFailedException(
-                    "job id {} recieved unsupported request error, attempts failed "
-                    "with the error {}, job requested at {}, report params: {}, "
+                    "job id {} recieved unsupported request error, attempt failed "
+                    "with the error {}, job requested at {}, source object {}, report params: {}, "
                     "response: '{}'".format(
                         self.job_id, self.failed_with_unsupported_request,
                         datetime.fromtimestamp(self.job_started_at),
-                        self.params, str(self.job)))
+                        self._source_object.get_id_assured(), self.params, str(self.job)))
 
         except TypeError:
             if self.failed_with_unknown_error < 4:
@@ -214,9 +214,9 @@ class AsyncAioJobIterator(AioEdgeIterator):
 
             elif self.attempt >= 3:
                 raise JobFailedException(
-                    "job id {} failed for {}, reason unknown, response: {}, "
+                    "job id {} failed for {}, source object {}, reason unknown, response: {}, "
                     "report params: {}".format(
-                        self.job_id, self, str(self.job), self.params))
+                        self.job_id, self, self._source_object.get_id_assured(), str(self.job), self.params))
 
             # create new job and wait for it to complete
             time.sleep(10 + 10 * self.failed_attempt)
@@ -231,15 +231,14 @@ class AsyncAioJobIterator(AioEdgeIterator):
                         datetime.fromtimestamp(self.job_started_at), self.attempt,
                         self.params, str(self.job)))
 
-                if ('filtering' in self.params and self.params['filtering'] and self.attempt >= 1)\
+                if ('filtering' in self.params and self.params['filtering'] and self.attempt >= 2)\
                         or self.attempt >= 3:
                     # we make 4 attempts to get the data and only then fail
                     self.last_error = JobFailedException(
                         "job id {} failed, failed attempts {}, job requested at {}, "
-                        "attempts made {}, report params: {}, response: '{}'".format(
-                            self.job_id, self.failed_attempt,
-                            datetime.fromtimestamp(self.job_started_at), self.attempt,
-                            self.params, str(self.job)))
+                        "attempts made {}, source object {}, report params: {}, response: '{}'".format(
+                            self.job_id, self.failed_attempt, datetime.fromtimestamp(self.job_started_at),
+                            self.attempt, self._source_object.get_id_assured(), self.params, str(self.job)))
                     self._request_failed = True
                     self.job_last_checked = time.time()
                     return self
@@ -262,12 +261,12 @@ class AsyncAioJobIterator(AioEdgeIterator):
                         self.job_id, datetime.fromtimestamp(self.job_started_at),
                         self.attempt, self.params, str(self.job)))
 
-                if self.attempt >= 2:
+                if self.attempt >= 3:
                     self.last_error = JobFailedException(
                         "job id {} is not started yet, job requested at {}, "
-                        "attempts made {}, report params: {}, response: '{}'".format(
-                            self.job_id, datetime.fromtimestamp(self.job_started_at),
-                            self.attempt, self.params, str(self.job)))
+                        "attempts made {}, source object {}, report params: {}, response: '{}'".format(
+                            self.job_id, datetime.fromtimestamp(self.job_started_at), self.attempt,
+                            self._source_object.get_id_assured(), self.params, str(self.job)))
                     self._request_failed = True
                     self.job_last_checked = time.time()
                     return self
@@ -287,10 +286,9 @@ class AsyncAioJobIterator(AioEdgeIterator):
                 if self.attempt >= 2:
                     self.last_error = JobFailedException(
                         "job id {} stuck, completion {}, job requested at {}, "
-                        "attempts made {}, report params: {}, response: '{}'".format(
-                            self.job_id, current_job_completion_value,
-                            datetime.fromtimestamp(self.job_started_at), self.attempt,
-                            self.params, str(self.job)))
+                        "attempts made {}, source object {}, report params: {}, response: '{}'".format(
+                            self.job_id, current_job_completion_value, datetime.fromtimestamp(self.job_started_at),
+                            self.attempt, self._source_object.get_id_assured(), self.params, str(self.job)))
                     self._request_failed = True
                     self.job_last_checked = time.time()
                     return self
