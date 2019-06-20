@@ -328,14 +328,6 @@ class AioEdgeIterator(facebook_business.api.Cursor):
             if self.success_streak >= 10 and self.last_error_type != "too much data error" \
                     and self.limit < self.starting_limit:
                 self.change_the_next_page_limit(self.starting_limit, 2)
-        else:
-            if 'filtering' in self.params or ('params' in self.params and 'filtering' in self.params['params']):
-                status = 'archived'
-            else:
-                status = 'active'
-            logger.info("finished FB paged load in {} with {} for {} - {}".
-                        format(self.success_cnt, self.success_streak,
-                               self._source_object.get_id_assured(), status))
 
     def on_error(self, response):
         """
