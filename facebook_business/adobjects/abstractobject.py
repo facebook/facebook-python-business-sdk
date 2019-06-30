@@ -23,10 +23,15 @@ from facebook_business.exceptions import (
 )
 from facebook_business.typechecker import TypeChecker
 
-import collections
 import json
 
-class AbstractObject(collections.abc.MutableMapping):
+# Allows backwards compatibility with Python 2.x
+try:
+    from collections.abc import MutableMapping
+except ImportError:
+    from collections import MutableMapping
+
+class AbstractObject(MutableMapping):
 
     """
     Represents an abstract object (may or may not have explicitly be a node of
