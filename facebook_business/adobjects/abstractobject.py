@@ -26,7 +26,7 @@ from facebook_business.typechecker import TypeChecker
 import collections
 import json
 
-class AbstractObject(collections.MutableMapping):
+class AbstractObject(collections.abc.MutableMapping):
 
     """
     Represents an abstract object (may or may not have explicitly be a node of
