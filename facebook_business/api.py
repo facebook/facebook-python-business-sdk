@@ -36,7 +36,7 @@ from six.moves import http_client
 import os
 import json
 import six
-import collections
+import collections.abc
 import re
 
 from facebook_business.adobjects.objectparser import ObjectParser
@@ -93,7 +93,7 @@ class FacebookResponse(object):
 
         json_body = self.json()
 
-        if isinstance(json_body, collections.Mapping) and 'error' in json_body:
+        if isinstance(json_body, collections.abc.Mapping) and 'error' in json_body:
             # Is a dictionary, has error in it
             return False
         elif bool(json_body):
@@ -877,8 +877,8 @@ def _top_level_param_json_encode(params):
 
     for param, value in params.items():
         if (
-            isinstance(value, (collections.Mapping, collections.Sequence,
-                               collections.Set, bool))
+            isinstance(value, (collections.abc.Mapping, collections.abc.Sequence,
+                               collections.abc.Set, bool))
             and not isinstance(value, six.string_types)
         ):
             params[param] = json.dumps(
