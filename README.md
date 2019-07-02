@@ -243,7 +243,7 @@ descriptions are listed in ``facebook_business.exceptions``.
 
 We can also read properties of an object from the api assuming that the object
 is already created and has a node path. Accessing properties of an object is
-simple since ``AbstractObject`` implements the ``collections.MutableMapping``.
+simple since ``AbstractObject`` implements the ``collections.abc.MutableMapping``.
 You can access them just like accessing a key of a dictionary:
 
 ```python
