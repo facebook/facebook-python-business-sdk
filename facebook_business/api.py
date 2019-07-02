@@ -42,10 +42,10 @@ from facebook_business.adobjects.objectparser import ObjectParser
 from facebook_business.typechecker import TypeChecker
 
 # Allows backwards compatibility with Python 2.x
- try:
-     from collections.abc import Mapping, Sequence
- except ImportError:
-     from collections import Mapping, Sequence
+try:
+    from collections.abc import Mapping, Sequence
+except ImportError:
+    from collections import Mapping, Sequence
 
 """
 api module contains classes that make http requests to Facebook's graph API.
