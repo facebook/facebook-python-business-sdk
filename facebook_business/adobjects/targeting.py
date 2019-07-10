@@ -70,6 +70,7 @@ class Targeting(
         engagement_specs = 'engagement_specs'
         ethnic_affinity = 'ethnic_affinity'
         exclude_reached_since = 'exclude_reached_since'
+        excluded_brand_safety_content_types = 'excluded_brand_safety_content_types'
         excluded_connections = 'excluded_connections'
         excluded_custom_audiences = 'excluded_custom_audiences'
         excluded_dynamic_audience_ids = 'excluded_dynamic_audience_ids'
@@ -171,6 +172,7 @@ class Targeting(
         'engagement_specs': 'list<TargetingDynamicRule>',
         'ethnic_affinity': 'list<IDName>',
         'exclude_reached_since': 'list<string>',
+        'excluded_brand_safety_content_types': 'list<string>',
         'excluded_connections': 'list<IDName>',
         'excluded_custom_audiences': 'list<IDName>',
         'excluded_dynamic_audience_ids': 'list<string>',

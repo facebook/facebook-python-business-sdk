@@ -143,6 +143,7 @@ class AdVideo(
         video_file_chunk = 'video_file_chunk'
         video_start_time_ms = 'video_start_time_ms'
         waterfall_id = 'waterfall_id'
+        creative_folder_id = 'creative_folder_id'
         filename = 'filename'
         filepath = 'filepath'
 
@@ -192,6 +193,7 @@ class AdVideo(
         group_post = 'GROUP_POST'
         heuristic_cluster_video = 'HEURISTIC_CLUSTER_VIDEO'
         heuristic_preview = 'HEURISTIC_PREVIEW'
+        highlight_clip_video = 'HIGHLIGHT_CLIP_VIDEO'
         inspiration_video = 'INSPIRATION_VIDEO'
         instagram_video_copy = 'INSTAGRAM_VIDEO_COPY'
         instant_application_preview = 'INSTANT_APPLICATION_PREVIEW'
@@ -1173,6 +1175,7 @@ class AdVideo(
         'video_file_chunk': 'string',
         'video_start_time_ms': 'unsigned int',
         'waterfall_id': 'string',
+        'creative_folder_id': 'string',
         'filename': 'file'
     }
     @classmethod

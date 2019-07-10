@@ -934,7 +934,7 @@ class Group(
         request = FacebookRequest(
             node_id=self['id'],
             method='POST',
-            endpoint='/opengraphactionfeed',
+            endpoint='/open_graph_action_feed',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,

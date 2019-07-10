@@ -18,43 +18,23 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebook_business.adobjects.abstractobject import AbstractObject
+from facebook_business.adobjects.adaccount import AdAccount
+from facebook_business.adobjects.adpreview import AdPreview
+from facebook_business.api import FacebookAdsApi
 
-"""
-This class is auto-generated.
+access_token = '<ACCESS_TOKEN>'
+app_secret = '<APP_SECRET>'
+app_id = '<APP_ID>'
+id = '<AD_ACCOUNT_ID>'
+FacebookAdsApi.init(access_token=access_token)
 
-For any issues or feature requests related to this class, please let us know on
-github and we'll fix in our codegen framework. We'll not be able to accept
-pull request for this class.
-"""
-
-class ReachEstimate(
-    AbstractObject,
-):
-
-    def __init__(self, api=None):
-        super(ReachEstimate, self).__init__()
-        self._isReachEstimate = True
-        self._api = api
-
-    class Field(AbstractObject.Field):
-        estimate_ready = 'estimate_ready'
-        unsupported = 'unsupported'
-        users = 'users'
-
-    # @deprecated get_endpoint function is deprecated
-    @classmethod
-    def get_endpoint(cls):
-        return 'reachestimate'
-
-    _field_types = {
-        'estimate_ready': 'bool',
-        'unsupported': 'bool',
-        'users': 'int',
-    }
-    @classmethod
-    def _get_field_enum_info(cls):
-        field_enum_info = {}
-        return field_enum_info
-
-
+fields = [
+]
+params = {
+  'creative': {'object_story_spec':{'link_data':{'call_to_action':{'type':'USE_APP','value':{'link':'<url>'}},'description':'Description','link':'<url>','message':'Message','name':'Name','picture':'<imageURL>'},'page_id':'<pageID>'}},
+  'ad_format': 'MOBILE_FEED_STANDARD',
+}
+print AdAccount(id).get_generate_previews(
+  fields=fields,
+  params=params,
+)

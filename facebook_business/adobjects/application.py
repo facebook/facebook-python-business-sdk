@@ -118,6 +118,7 @@ class Application(
         property_id = 'property_id'
         real_time_mode_devices = 'real_time_mode_devices'
         restrictions = 'restrictions'
+        restrictive_data_filter_params = 'restrictive_data_filter_params'
         restrictive_data_filter_rules = 'restrictive_data_filter_rules'
         sdk_update_message = 'sdk_update_message'
         seamless_login = 'seamless_login'
@@ -591,6 +592,37 @@ class Application(
             target_class=AdNetworkAnalyticsAsyncQueryResult,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=AdNetworkAnalyticsAsyncQueryResult, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_agencies(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.business import Business
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/agencies',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Business,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Business, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2208,6 +2240,7 @@ class Application(
         'property_id': 'string',
         'real_time_mode_devices': 'list<string>',
         'restrictions': 'Object',
+        'restrictive_data_filter_params': 'string',
         'restrictive_data_filter_rules': 'string',
         'sdk_update_message': 'string',
         'seamless_login': 'int',

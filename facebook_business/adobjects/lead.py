@@ -51,12 +51,14 @@ class Lead(
         custom_disclaimer_responses = 'custom_disclaimer_responses'
         field_data = 'field_data'
         form_id = 'form_id'
+        home_listing = 'home_listing'
         id = 'id'
         is_organic = 'is_organic'
         partner_name = 'partner_name'
         platform = 'platform'
         post = 'post'
         retailer_item_id = 'retailer_item_id'
+        vehicle = 'vehicle'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
@@ -104,12 +106,14 @@ class Lead(
         'custom_disclaimer_responses': 'list<UserLeadGenDisclaimerResponse>',
         'field_data': 'list<UserLeadGenFieldData>',
         'form_id': 'string',
+        'home_listing': 'HomeListing',
         'id': 'string',
         'is_organic': 'bool',
         'partner_name': 'string',
         'platform': 'string',
         'post': 'Link',
         'retailer_item_id': 'string',
+        'vehicle': 'Vehicle',
     }
     @classmethod
     def _get_field_enum_info(cls):
