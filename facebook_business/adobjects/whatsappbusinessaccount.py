@@ -100,6 +100,7 @@ class WhatsAppBusinessAccount(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.assigneduser import AssignedUser
         param_types = {
+            'business': 'string',
         }
         enums = {
         }

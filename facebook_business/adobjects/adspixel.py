@@ -51,6 +51,7 @@ class AdsPixel(
         first_party_cookie_status = 'first_party_cookie_status'
         id = 'id'
         is_created_by_business = 'is_created_by_business'
+        is_unavailable = 'is_unavailable'
         last_fired_time = 'last_fired_time'
         name = 'name'
         owner_ad_account = 'owner_ad_account'
@@ -168,7 +169,6 @@ class AdsPixel(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'business': 'string',
             'user': 'int',
         }
         enums = {
@@ -232,7 +232,6 @@ class AdsPixel(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'business': 'string',
             'tasks': 'list<tasks_enum>',
             'user': 'int',
         }
@@ -500,6 +499,7 @@ class AdsPixel(
         'first_party_cookie_status': 'string',
         'id': 'string',
         'is_created_by_business': 'bool',
+        'is_unavailable': 'bool',
         'last_fired_time': 'datetime',
         'name': 'string',
         'owner_ad_account': 'AdAccount',

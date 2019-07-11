@@ -135,6 +135,7 @@ class AdAccountTargetingUnified(
         ethnic_affinity = 'ethnic_affinity'
         exclude_previous_days = 'exclude_previous_days'
         exclude_reached_since = 'exclude_reached_since'
+        excluded_brand_safety_content_types = 'excluded_brand_safety_content_types'
         excluded_connections = 'excluded_connections'
         excluded_custom_audiences = 'excluded_custom_audiences'
         excluded_dynamic_audience_ids = 'excluded_dynamic_audience_ids'

@@ -53,6 +53,17 @@ class LiveEncoder(
         status = 'status'
         version = 'version'
 
+    class CapAudioCodecs:
+        aac = 'AAC'
+
+    class CapStreamingProtocols:
+        https_dash = 'HTTPS_DASH'
+        rtmps = 'RTMPS'
+        webrtc = 'WEBRTC'
+
+    class CapVideoCodecs:
+        h264 = 'H264'
+
     class Status:
         capture = 'CAPTURE'
         live = 'LIVE'
@@ -127,9 +138,9 @@ class LiveEncoder(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'broadcast_id': 'string',
-            'cap_audio_codecs': 'list<string>',
-            'cap_streaming_protocols': 'list<string>',
-            'cap_video_codecs': 'list<string>',
+            'cap_audio_codecs': 'list<cap_audio_codecs_enum>',
+            'cap_streaming_protocols': 'list<cap_streaming_protocols_enum>',
+            'cap_video_codecs': 'list<cap_video_codecs_enum>',
             'error_code': 'unsigned int',
             'error_msg': 'string',
             'input_audio_channels': 'unsigned int',
@@ -145,6 +156,9 @@ class LiveEncoder(
             'version': 'string',
         }
         enums = {
+            'cap_audio_codecs_enum': LiveEncoder.CapAudioCodecs.__dict__.values(),
+            'cap_streaming_protocols_enum': LiveEncoder.CapStreamingProtocols.__dict__.values(),
+            'cap_video_codecs_enum': LiveEncoder.CapVideoCodecs.__dict__.values(),
             'status_enum': LiveEncoder.Status.__dict__.values(),
         }
         request = FacebookRequest(
@@ -245,6 +259,9 @@ class LiveEncoder(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['CapAudioCodecs'] = LiveEncoder.CapAudioCodecs.__dict__.values()
+        field_enum_info['CapStreamingProtocols'] = LiveEncoder.CapStreamingProtocols.__dict__.values()
+        field_enum_info['CapVideoCodecs'] = LiveEncoder.CapVideoCodecs.__dict__.values()
         field_enum_info['Status'] = LiveEncoder.Status.__dict__.values()
         return field_enum_info
 

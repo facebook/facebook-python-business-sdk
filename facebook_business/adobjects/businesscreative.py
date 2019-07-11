@@ -32,35 +32,39 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class LeadGenQuestion(
+class BusinessCreative(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isLeadGenQuestion = True
-        super(LeadGenQuestion, self).__init__(fbid, parent_id, api)
+        self._isBusinessCreative = True
+        super(BusinessCreative, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        conditional_questions_choices = 'conditional_questions_choices'
-        conditional_questions_group_id = 'conditional_questions_group_id'
-        dependent_conditional_questions = 'dependent_conditional_questions'
+        creation_time = 'creation_time'
+        duration = 'duration'
+        hash = 'hash'
+        height = 'height'
         id = 'id'
-        inline_context = 'inline_context'
-        key = 'key'
-        label = 'label'
-        options = 'options'
+        name = 'name'
+        thumbnail = 'thumbnail'
         type = 'type'
+        url = 'url'
+        video_id = 'video_id'
+        width = 'width'
 
     _field_types = {
-        'conditional_questions_choices': 'list<LeadGenConditionalQuestionsGroupChoices>',
-        'conditional_questions_group_id': 'string',
-        'dependent_conditional_questions': 'list<LeadGenConditionalQuestionsGroupQuestions>',
+        'creation_time': 'datetime',
+        'duration': 'int',
+        'hash': 'string',
+        'height': 'int',
         'id': 'string',
-        'inline_context': 'string',
-        'key': 'string',
-        'label': 'string',
-        'options': 'list<LeadGenQuestionOption>',
+        'name': 'string',
+        'thumbnail': 'string',
         'type': 'string',
+        'url': 'string',
+        'video_id': 'string',
+        'width': 'int',
     }
     @classmethod
     def _get_field_enum_info(cls):

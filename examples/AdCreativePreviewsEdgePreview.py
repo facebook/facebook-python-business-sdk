@@ -18,21 +18,22 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebook_business.adobjects.customaudience import CustomAudience
-from facebook_business.adobjects.abstractobject import AbstractObject
+from facebook_business.adobjects.adcreative import AdCreative
+from facebook_business.adobjects.adpreview import AdPreview
 from facebook_business.api import FacebookAdsApi
 
 access_token = '<ACCESS_TOKEN>'
 app_secret = '<APP_SECRET>'
 app_id = '<APP_ID>'
-id = '<CUSTOM_AUDIENCE_ID>'
+id = '<AD_CREATIVE_ID>'
 FacebookAdsApi.init(access_token=access_token)
 
 fields = [
 ]
 params = {
+  'ad_format': 'DESKTOP_FEED_STANDARD',
 }
-print CustomAudience(id).delete(
+print AdCreative(id).get_previews(
   fields=fields,
   params=params,
 )
