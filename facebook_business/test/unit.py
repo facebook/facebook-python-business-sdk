@@ -44,7 +44,7 @@ from facebook_business.adobjects import (abstractcrudobject,
                                    adcreative,
                                    customaudience,
                                    productcatalog,
-                                   reachestimate)
+                                   adaccountreachestimate)
 from facebook_business.utils import version
 
 
