@@ -172,6 +172,7 @@ class ReachFrequencyPrediction(
         regular_sports = 'REGULAR_SPORTS'
         regular_style = 'REGULAR_STYLE'
         regular_tv_movies = 'REGULAR_TV_MOVIES'
+        spanish = 'SPANISH'
         sports = 'SPORTS'
 
     # @deprecated get_endpoint function is deprecated

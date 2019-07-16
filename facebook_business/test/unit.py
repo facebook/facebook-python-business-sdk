@@ -43,7 +43,8 @@ from facebook_business.adobjects import (abstractcrudobject,
                                    adaccount,
                                    adcreative,
                                    customaudience,
-                                   productcatalog)
+                                   productcatalog,
+                                   adaccountreachestimate)
 from facebook_business.utils import version
 
 
@@ -199,22 +200,33 @@ class EdgeIteratorTestCase(unittest.TestCase):
     def test_builds_from_object_with_data_key(self):
         """
         Sometimes the response returns a single JSON object - with a "data".
-        For instance with adcreative. This asserts that we successfully
+        For instance with adaccountreachestimate. This asserts that we successfully
         build the object that is in "data" key.
         """
         response = {
             "data": {
-                "name": "test name",
-                "status": "ACTIVE",
-                "account_id": 'act_345'
+                "estimate_ready": True,
+                "bid_estimations": [{
+                    "cpa_min": 63,
+                    "cpa_median": 116,
+                    "cpm_max": 331,
+                    "cpc_max": 48,
+                    "cpc_median": 35,
+                    "cpc_min": 17,
+                    "cpm_min": 39,
+                    "cpm_median": 212,
+                    "unsupported": False,
+                    "location": 3,
+                    "cpa_max": 163}],
+                "users": 7600000
             }
         }
         ei = api.Cursor(
             ad.Ad('123'),
-            adcreative.AdCreative,
+            adaccountreachestimate.AdAccountReachEstimate,
         )
         obj = ei.build_objects_from_response(response)
-        assert len(obj) == 1 and obj[0]['account_id'] == 'act_345'
+        assert len(obj) == 1 and obj[0]['users'] == 7600000
 
 class AbstractCrudObjectTestCase(unittest.TestCase):
     def test_all_aco_has_id_field(self):

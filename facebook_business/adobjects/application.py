@@ -96,7 +96,6 @@ class Application(
         ios_supports_system_auth = 'ios_supports_system_auth'
         ipad_app_store_id = 'ipad_app_store_id'
         iphone_app_store_id = 'iphone_app_store_id'
-        is_viewer_admin = 'is_viewer_admin'
         latest_sdk_version = 'latest_sdk_version'
         link = 'link'
         logging_token = 'logging_token'
@@ -2218,7 +2217,6 @@ class Application(
         'ios_supports_system_auth': 'bool',
         'ipad_app_store_id': 'string',
         'iphone_app_store_id': 'string',
-        'is_viewer_admin': 'bool',
         'latest_sdk_version': 'Object',
         'link': 'string',
         'logging_token': 'string',

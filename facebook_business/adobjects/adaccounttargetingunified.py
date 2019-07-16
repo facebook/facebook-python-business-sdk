@@ -93,8 +93,8 @@ class AdAccountTargetingUnified(
         work_positions = 'work_positions'
 
     class RegulatedCategories:
+        credit = 'CREDIT'
         employment = 'EMPLOYMENT'
-        financing = 'FINANCING'
         housing = 'HOUSING'
         none = 'NONE'
 

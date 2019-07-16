@@ -43,6 +43,7 @@ class LeadgenForm(
     class Field(AbstractObject.Field):
         allow_organic_lead = 'allow_organic_lead'
         block_display_for_non_targeted_viewer = 'block_display_for_non_targeted_viewer'
+        context_card = 'context_card'
         created_time = 'created_time'
         creator = 'creator'
         creator_id = 'creator_id'
@@ -68,6 +69,7 @@ class LeadgenForm(
         questions = 'questions'
         status = 'status'
         tcpa_compliance = 'tcpa_compliance'
+        thank_you_page = 'thank_you_page'
         tracking_parameters = 'tracking_parameters'
 
     class Status:
@@ -304,6 +306,7 @@ class LeadgenForm(
     _field_types = {
         'allow_organic_lead': 'bool',
         'block_display_for_non_targeted_viewer': 'bool',
+        'context_card': 'Object',
         'created_time': 'datetime',
         'creator': 'User',
         'creator_id': 'int',
@@ -329,6 +332,7 @@ class LeadgenForm(
         'questions': 'list<LeadGenQuestion>',
         'status': 'string',
         'tcpa_compliance': 'bool',
+        'thank_you_page': 'Object',
         'tracking_parameters': 'map<string, string>',
     }
     @classmethod

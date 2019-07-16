@@ -49,6 +49,7 @@ class WhatsAppBusinessAccount(
         message_template_namespace = 'message_template_namespace'
         name = 'name'
         on_behalf_of_business_info = 'on_behalf_of_business_info'
+        purchase_order_number = 'purchase_order_number'
         status = 'status'
         timezone_id = 'timezone_id'
 
@@ -275,6 +276,7 @@ class WhatsAppBusinessAccount(
         'message_template_namespace': 'string',
         'name': 'string',
         'on_behalf_of_business_info': 'Object',
+        'purchase_order_number': 'string',
         'status': 'string',
         'timezone_id': 'string',
     }

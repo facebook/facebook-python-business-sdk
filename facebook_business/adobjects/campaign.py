@@ -97,6 +97,7 @@ class Campaign(
         archived = 'ARCHIVED'
         deleted = 'DELETED'
         paused = 'PAUSED'
+        with_issues = 'WITH_ISSUES'
 
     class Status:
         active = 'ACTIVE'

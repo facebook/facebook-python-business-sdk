@@ -136,6 +136,7 @@ class AdSet(
         archived = 'ARCHIVED'
         deleted = 'DELETED'
         paused = 'PAUSED'
+        with_issues = 'WITH_ISSUES'
 
     class OptimizationGoal:
         ad_recall_lift = 'AD_RECALL_LIFT'

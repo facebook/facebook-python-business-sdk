@@ -165,7 +165,9 @@ class IGUser(
             'caption': 'string',
             'children': 'list<unsigned int>',
             'image_url': 'string',
+            'location_id': 'string',
             'media_type': 'string',
+            'user_tags': 'list<map>',
         }
         enums = {
         }

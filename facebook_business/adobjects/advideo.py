@@ -167,6 +167,7 @@ class AdVideo(
         contained_post_attachment = 'CONTAINED_POST_ATTACHMENT'
         contained_post_audio_broadcast = 'CONTAINED_POST_AUDIO_BROADCAST'
         contained_post_broadcast = 'CONTAINED_POST_BROADCAST'
+        contained_your_day = 'CONTAINED_YOUR_DAY'
         copyright_reference_broadcast = 'COPYRIGHT_REFERENCE_BROADCAST'
         copyright_reference_video = 'COPYRIGHT_REFERENCE_VIDEO'
         cultural_moment_deprecated = 'CULTURAL_MOMENT_DEPRECATED'

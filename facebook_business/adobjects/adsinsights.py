@@ -160,6 +160,7 @@ class AdsInsights(
         dwell_5_sec = 'dwell_5_sec'
         dwell_7_sec = 'dwell_7_sec'
         dwell_rate = 'dwell_rate'
+        earned_impression = 'earned_impression'
         estimated_ad_recall_rate = 'estimated_ad_recall_rate'
         estimated_ad_recall_rate_lower_bound = 'estimated_ad_recall_rate_lower_bound'
         estimated_ad_recall_rate_upper_bound = 'estimated_ad_recall_rate_upper_bound'
@@ -490,6 +491,7 @@ class AdsInsights(
         'dwell_5_sec': 'string',
         'dwell_7_sec': 'string',
         'dwell_rate': 'string',
+        'earned_impression': 'string',
         'estimated_ad_recall_rate': 'string',
         'estimated_ad_recall_rate_lower_bound': 'string',
         'estimated_ad_recall_rate_upper_bound': 'string',
