@@ -46,6 +46,8 @@ class AdVideo(
         backdated_time_granularity = 'backdated_time_granularity'
         content_category = 'content_category'
         content_tags = 'content_tags'
+        copyright = 'copyright'
+        copyright_monitoring_status = 'copyright_monitoring_status'
         created_time = 'created_time'
         custom_labels = 'custom_labels'
         description = 'description'
@@ -61,9 +63,11 @@ class AdVideo(
         is_crossposting_eligible = 'is_crossposting_eligible'
         is_episode = 'is_episode'
         is_instagram_eligible = 'is_instagram_eligible'
+        is_reference_only = 'is_reference_only'
         length = 'length'
         live_audience_count = 'live_audience_count'
         live_status = 'live_status'
+        music_video_copyright = 'music_video_copyright'
         permalink_url = 'permalink_url'
         picture = 'picture'
         place = 'place'
@@ -167,7 +171,6 @@ class AdVideo(
         contained_post_attachment = 'CONTAINED_POST_ATTACHMENT'
         contained_post_audio_broadcast = 'CONTAINED_POST_AUDIO_BROADCAST'
         contained_post_broadcast = 'CONTAINED_POST_BROADCAST'
-        contained_your_day = 'CONTAINED_YOUR_DAY'
         copyright_reference_broadcast = 'COPYRIGHT_REFERENCE_BROADCAST'
         copyright_reference_video = 'COPYRIGHT_REFERENCE_VIDEO'
         cultural_moment_deprecated = 'CULTURAL_MOMENT_DEPRECATED'
@@ -234,6 +237,7 @@ class AdVideo(
         slideshow_animoto = 'SLIDESHOW_ANIMOTO'
         slideshow_shakr = 'SLIDESHOW_SHAKR'
         sotto_content = 'SOTTO_CONTENT'
+        stories_video = 'STORIES_VIDEO'
         storyline = 'STORYLINE'
         storyline_with_external_music = 'STORYLINE_WITH_EXTERNAL_MUSIC'
         story_archive_video = 'STORY_ARCHIVE_VIDEO'
@@ -242,6 +246,7 @@ class AdVideo(
         temp_multimedia_post = 'TEMP_MULTIMEDIA_POST'
         unlisted = 'UNLISTED'
         video_comment = 'VIDEO_COMMENT'
+        video_creative_editor_autogen_ad_video = 'VIDEO_CREATIVE_EDITOR_AUTOGEN_AD_VIDEO'
         woodhenge = 'WOODHENGE'
         your_day = 'YOUR_DAY'
 
@@ -941,6 +946,37 @@ class AdVideo(
             self.assure_call()
             return request.execute()
 
+    def get_tags(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.taggablesubject import TaggableSubject
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/tags',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=TaggableSubject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=TaggableSubject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def create_tag(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -1079,6 +1115,8 @@ class AdVideo(
         'backdated_time_granularity': 'string',
         'content_category': 'string',
         'content_tags': 'list<string>',
+        'copyright': 'VideoCopyright',
+        'copyright_monitoring_status': 'string',
         'created_time': 'datetime',
         'custom_labels': 'list<string>',
         'description': 'string',
@@ -1094,9 +1132,11 @@ class AdVideo(
         'is_crossposting_eligible': 'bool',
         'is_episode': 'bool',
         'is_instagram_eligible': 'bool',
+        'is_reference_only': 'bool',
         'length': 'float',
         'live_audience_count': 'unsigned int',
         'live_status': 'string',
+        'music_video_copyright': 'MusicVideoCopyright',
         'permalink_url': 'string',
         'picture': 'string',
         'place': 'Place',

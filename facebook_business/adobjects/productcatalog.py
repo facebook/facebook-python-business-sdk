@@ -52,7 +52,6 @@ class ProductCatalog(
         id = 'id'
         name = 'name'
         product_count = 'product_count'
-        qualified_product_count = 'qualified_product_count'
         vertical = 'vertical'
         destination_catalog_settings = 'destination_catalog_settings'
         flight_catalog_settings = 'flight_catalog_settings'
@@ -1684,7 +1683,6 @@ class ProductCatalog(
         'id': 'string',
         'name': 'string',
         'product_count': 'int',
-        'qualified_product_count': 'unsigned int',
         'vertical': 'string',
         'destination_catalog_settings': 'map',
         'flight_catalog_settings': 'map',

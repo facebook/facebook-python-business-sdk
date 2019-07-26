@@ -101,6 +101,21 @@ class User(
         website = 'website'
         work = 'work'
 
+    class Tasks:
+        advertise = 'ADVERTISE'
+        analyze = 'ANALYZE'
+        create_content = 'CREATE_CONTENT'
+        manage = 'MANAGE'
+        manage_jobs = 'MANAGE_JOBS'
+        manage_leads = 'MANAGE_LEADS'
+        moderate = 'MODERATE'
+        moderate_community = 'MODERATE_COMMUNITY'
+        pages_messaging = 'PAGES_MESSAGING'
+        pages_messaging_subscriptions = 'PAGES_MESSAGING_SUBSCRIPTIONS'
+        platform_manage_pages = 'PLATFORM_MANAGE_PAGES'
+        read_page_mailboxes = 'READ_PAGE_MAILBOXES'
+        view_monetization_insights = 'VIEW_MONETIZATION_INSIGHTS'
+
     class LocalNewsMegaphoneDismissStatus:
         no = 'NO'
         yes = 'YES'
@@ -878,6 +893,40 @@ class User(
             self.assure_call()
             return request.execute()
 
+    def get_conversations(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.unifiedthread import UnifiedThread
+        param_types = {
+            'folder': 'string',
+            'tags': 'list<string>',
+            'user_id': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/conversations',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=UnifiedThread,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=UnifiedThread, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_custom_labels(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -960,6 +1009,36 @@ class User(
             target_class=User,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=User, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_favorite_requests(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/favorite_requests',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1796,7 +1875,6 @@ class User(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.livevideo import LiveVideo
         param_types = {
-            'attribution_app_id': 'string',
             'content_tags': 'list<string>',
             'description': 'string',
             'encoding_settings': 'string',
@@ -2796,6 +2874,7 @@ class User(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['Tasks'] = User.Tasks.__dict__.values()
         field_enum_info['LocalNewsMegaphoneDismissStatus'] = User.LocalNewsMegaphoneDismissStatus.__dict__.values()
         field_enum_info['LocalNewsSubscriptionStatus'] = User.LocalNewsSubscriptionStatus.__dict__.values()
         field_enum_info['ResumeType'] = User.ResumeType.__dict__.values()

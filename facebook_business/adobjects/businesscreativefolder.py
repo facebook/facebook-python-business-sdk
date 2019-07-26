@@ -45,6 +45,7 @@ class BusinessCreativeFolder(
         creation_time = 'creation_time'
         id = 'id'
         name = 'name'
+        description = 'description'
 
     class PermittedTasks:
         create_content = 'CREATE_CONTENT'
@@ -135,6 +136,7 @@ class BusinessCreativeFolder(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'description': 'string',
             'name': 'string',
         }
         enums = {
@@ -357,6 +359,7 @@ class BusinessCreativeFolder(
         'creation_time': 'datetime',
         'id': 'string',
         'name': 'string',
+        'description': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

@@ -72,6 +72,33 @@ class Event(
         type = 'type'
         updated_time = 'updated_time'
 
+    class Category:
+        art_event = 'ART_EVENT'
+        book_event = 'BOOK_EVENT'
+        class_event = 'CLASS_EVENT'
+        comedy_event = 'COMEDY_EVENT'
+        conference_event = 'CONFERENCE_EVENT'
+        dance_event = 'DANCE_EVENT'
+        dining_event = 'DINING_EVENT'
+        family_event = 'FAMILY_EVENT'
+        festival_event = 'FESTIVAL_EVENT'
+        fitness = 'FITNESS'
+        food_tasting = 'FOOD_TASTING'
+        fundraiser = 'FUNDRAISER'
+        lecture = 'LECTURE'
+        meetup = 'MEETUP'
+        movie_event = 'MOVIE_EVENT'
+        music_event = 'MUSIC_EVENT'
+        neighborhood = 'NEIGHBORHOOD'
+        nightlife = 'NIGHTLIFE'
+        other = 'OTHER'
+        religious_event = 'RELIGIOUS_EVENT'
+        shopping = 'SHOPPING'
+        sports_event = 'SPORTS_EVENT'
+        theater_event = 'THEATER_EVENT'
+        volunteering = 'VOLUNTEERING'
+        workshop = 'WORKSHOP'
+
     class Type:
         community = 'community'
         group = 'group'
@@ -346,7 +373,6 @@ class Event(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.livevideo import LiveVideo
         param_types = {
-            'attribution_app_id': 'string',
             'content_tags': 'list<string>',
             'description': 'string',
             'encoding_settings': 'string',
@@ -552,7 +578,7 @@ class Event(
     _field_types = {
         'attending_count': 'int',
         'can_guests_invite': 'bool',
-        'category': 'string',
+        'category': 'Category',
         'cover': 'CoverPhoto',
         'declined_count': 'int',
         'description': 'string',
@@ -584,6 +610,7 @@ class Event(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['Category'] = Event.Category.__dict__.values()
         field_enum_info['Type'] = Event.Type.__dict__.values()
         field_enum_info['EventStateFilter'] = Event.EventStateFilter.__dict__.values()
         field_enum_info['TimeFilter'] = Event.TimeFilter.__dict__.values()

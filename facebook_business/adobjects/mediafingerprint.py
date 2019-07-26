@@ -42,10 +42,8 @@ class MediaFingerprint(
 
     class Field(AbstractObject.Field):
         duration_in_sec = 'duration_in_sec'
-        expiration_time = 'expiration_time'
         fingerprint_content_type = 'fingerprint_content_type'
         fingerprint_type = 'fingerprint_type'
-        fingerprint_validity = 'fingerprint_validity'
         id = 'id'
         metadata = 'metadata'
         title = 'title'
@@ -123,10 +121,8 @@ class MediaFingerprint(
 
     _field_types = {
         'duration_in_sec': 'float',
-        'expiration_time': 'datetime',
         'fingerprint_content_type': 'string',
         'fingerprint_type': 'string',
-        'fingerprint_validity': 'string',
         'id': 'string',
         'metadata': 'Object',
         'title': 'string',

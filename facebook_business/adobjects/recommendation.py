@@ -28,28 +28,34 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class CopyrightAttributionInsights(
+class Recommendation(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(CopyrightAttributionInsights, self).__init__()
-        self._isCopyrightAttributionInsights = True
+        super(Recommendation, self).__init__()
+        self._isRecommendation = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        l7_attribution_page_view = 'l7_attribution_page_view'
-        l7_attribution_page_view_delta = 'l7_attribution_page_view_delta'
-        l7_attribution_video_view = 'l7_attribution_video_view'
-        l7_attribution_video_view_delta = 'l7_attribution_video_view_delta'
-        metrics_ending_date = 'metrics_ending_date'
+        created_time = 'created_time'
+        has_rating = 'has_rating'
+        has_review = 'has_review'
+        open_graph_story = 'open_graph_story'
+        rating = 'rating'
+        recommendation_type = 'recommendation_type'
+        review_text = 'review_text'
+        reviewer = 'reviewer'
 
     _field_types = {
-        'l7_attribution_page_view': 'int',
-        'l7_attribution_page_view_delta': 'float',
-        'l7_attribution_video_view': 'int',
-        'l7_attribution_video_view_delta': 'float',
-        'metrics_ending_date': 'string',
+        'created_time': 'datetime',
+        'has_rating': 'bool',
+        'has_review': 'bool',
+        'open_graph_story': 'Object',
+        'rating': 'int',
+        'recommendation_type': 'string',
+        'review_text': 'string',
+        'reviewer': 'User',
     }
     @classmethod
     def _get_field_enum_info(cls):

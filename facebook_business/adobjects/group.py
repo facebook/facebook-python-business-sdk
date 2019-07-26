@@ -773,7 +773,6 @@ class Group(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.livevideo import LiveVideo
         param_types = {
-            'attribution_app_id': 'string',
             'content_tags': 'list<string>',
             'description': 'string',
             'encoding_settings': 'string',

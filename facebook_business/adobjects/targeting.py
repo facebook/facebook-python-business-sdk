@@ -97,7 +97,6 @@ class Targeting(
         income = 'income'
         industries = 'industries'
         instagram_positions = 'instagram_positions'
-        instream_video_sponsorship_placements = 'instream_video_sponsorship_placements'
         interested_in = 'interested_in'
         interests = 'interests'
         is_whatsapp_destination_ad = 'is_whatsapp_destination_ad'
@@ -199,7 +198,6 @@ class Targeting(
         'income': 'list<IDName>',
         'industries': 'list<IDName>',
         'instagram_positions': 'list<string>',
-        'instream_video_sponsorship_placements': 'list<string>',
         'interested_in': 'list<unsigned int>',
         'interests': 'list<IDName>',
         'is_whatsapp_destination_ad': 'bool',

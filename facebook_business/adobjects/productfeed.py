@@ -53,7 +53,6 @@ class ProductFeed(
         name = 'name'
         override_type = 'override_type'
         product_count = 'product_count'
-        qualified_product_count = 'qualified_product_count'
         quoted_fields_mode = 'quoted_fields_mode'
         schedule = 'schedule'
         update_schedule = 'update_schedule'
@@ -588,7 +587,6 @@ class ProductFeed(
         'name': 'string',
         'override_type': 'string',
         'product_count': 'int',
-        'qualified_product_count': 'unsigned int',
         'quoted_fields_mode': 'QuotedFieldsMode',
         'schedule': 'ProductFeedSchedule',
         'update_schedule': 'ProductFeedSchedule',

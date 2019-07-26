@@ -46,7 +46,6 @@ class PageChangeProposal(
         current_value = 'current_value'
         id = 'id'
         proposed_value = 'proposed_value'
-        upcoming_change_info = 'upcoming_change_info'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -115,7 +114,6 @@ class PageChangeProposal(
         'current_value': 'string',
         'id': 'string',
         'proposed_value': 'string',
-        'upcoming_change_info': 'PageUpcomingChange',
     }
     @classmethod
     def _get_field_enum_info(cls):
