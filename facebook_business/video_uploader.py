@@ -61,7 +61,7 @@ class VideoUploader(object):
 
 class VideoUploadSession(object):
 
-    def __init__(self, video, wait_for_encoding=False):
+    def __init__(self, video, wait_for_encoding=False, interval=3, timeout=180):
         self._video = video
         self._api = video.get_api_assured()
         if (video.Field.filepath in video):
@@ -86,6 +86,8 @@ class VideoUploadSession(object):
         self._finish_request_manager = VideoUploadFinishRequestManager(
             self._api,
         )
+        self._timeout = timeout
+        self._interval = interval
 
     def start(self):
         # Run start request manager
@@ -108,7 +110,9 @@ class VideoUploadSession(object):
         )
 
         if self._wait_for_encoding:
-            VideoEncodingStatusChecker.waitUntilReady(self._api, video_id)
+            VideoEncodingStatusChecker.waitUntilReady(
+                self._api, video_id, interval=self._interval, timeout=self._timeout
+            )
 
         # Populate the video info
         body = response.json().copy()

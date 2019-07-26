@@ -63,6 +63,7 @@ class AdPlacePageSet(
     def get_endpoint(cls):
         return 'ad_place_page_sets'
 
+    # @deprecated api_create is being deprecated
     def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.adobjects.adaccount import AdAccount
         return AdAccount(api=self._api, fbid=parent_id).create_ad_place_page_set(fields, params, batch, success, failure, pending)

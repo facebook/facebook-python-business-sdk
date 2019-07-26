@@ -92,6 +92,12 @@ class AdAccountTargetingUnified(
         work_employers = 'work_employers'
         work_positions = 'work_positions'
 
+    class RegulatedCategories:
+        credit = 'CREDIT'
+        employment = 'EMPLOYMENT'
+        housing = 'HOUSING'
+        none = 'NONE'
+
     class WhitelistedTypes:
         adgroup_id = 'adgroup_id'
         age_max = 'age_max'
@@ -129,6 +135,7 @@ class AdAccountTargetingUnified(
         ethnic_affinity = 'ethnic_affinity'
         exclude_previous_days = 'exclude_previous_days'
         exclude_reached_since = 'exclude_reached_since'
+        excluded_brand_safety_content_types = 'excluded_brand_safety_content_types'
         excluded_connections = 'excluded_connections'
         excluded_custom_audiences = 'excluded_custom_audiences'
         excluded_dynamic_audience_ids = 'excluded_dynamic_audience_ids'
@@ -256,6 +263,7 @@ class AdAccountTargetingUnified(
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['LimitType'] = AdAccountTargetingUnified.LimitType.__dict__.values()
+        field_enum_info['RegulatedCategories'] = AdAccountTargetingUnified.RegulatedCategories.__dict__.values()
         field_enum_info['WhitelistedTypes'] = AdAccountTargetingUnified.WhitelistedTypes.__dict__.values()
         field_enum_info['Mode'] = AdAccountTargetingUnified.Mode.__dict__.values()
         field_enum_info['Objective'] = AdAccountTargetingUnified.Objective.__dict__.values()

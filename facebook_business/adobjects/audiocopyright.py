@@ -46,18 +46,12 @@ class AudioCopyright(
         id = 'id'
         in_conflict = 'in_conflict'
         isrc = 'isrc'
-        match_rule = 'match_rule'
         ownership_countries = 'ownership_countries'
         reference_file_status = 'reference_file_status'
         ridge_monitoring_status = 'ridge_monitoring_status'
         update_time = 'update_time'
         whitelisted_fb_users = 'whitelisted_fb_users'
         whitelisted_ig_users = 'whitelisted_ig_users'
-
-    class UpdateSource:
-        ddex = 'ddex'
-        edit_reference_dialog = 'edit_reference_dialog'
-        reference_conflict_dialog = 'reference_conflict_dialog'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -89,51 +83,12 @@ class AudioCopyright(
             self.assure_call()
             return request.execute()
 
-    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'append_excluded_ownership_segments': 'bool',
-            'excluded_ownership_segments': 'list<Object>',
-            'match_rule': 'string',
-            'ownership_countries': 'list<string>',
-            'update_source': 'update_source_enum',
-            'whitelisted_fb_users': 'list<string>',
-            'whitelisted_ig_users': 'list<string>',
-        }
-        enums = {
-            'update_source_enum': AudioCopyright.UpdateSource.__dict__.values(),
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AudioCopyright,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     _field_types = {
         'creation_time': 'datetime',
         'displayed_matches_count': 'int',
         'id': 'string',
         'in_conflict': 'bool',
         'isrc': 'string',
-        'match_rule': 'VideoCopyrightRule',
         'ownership_countries': 'list<string>',
         'reference_file_status': 'string',
         'ridge_monitoring_status': 'string',
@@ -144,7 +99,6 @@ class AudioCopyright(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['UpdateSource'] = AudioCopyright.UpdateSource.__dict__.values()
         return field_enum_info
 
 

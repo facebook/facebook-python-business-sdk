@@ -47,13 +47,13 @@ class DynamicItemDisplayBundleFolder(
         product_catalog = 'product_catalog'
         product_set = 'product_set'
         valid_labels = 'valid_labels'
-        bundles = 'bundles'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'bundle_folders'
 
+    # @deprecated api_create is being deprecated
     def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.adobjects.productcatalog import ProductCatalog
         return ProductCatalog(api=self._api, fbid=parent_id).create_bundle_folder(fields, params, batch, success, failure, pending)
@@ -123,7 +123,6 @@ class DynamicItemDisplayBundleFolder(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'bundles': 'list<string>',
             'name': 'string',
         }
         enums = {
@@ -181,37 +180,6 @@ class DynamicItemDisplayBundleFolder(
             self.assure_call()
             return request.execute()
 
-    def get_bundles(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.dynamicitemdisplaybundle import DynamicItemDisplayBundle
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/bundles',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=DynamicItemDisplayBundle,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=DynamicItemDisplayBundle, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def create_bundle(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -250,7 +218,6 @@ class DynamicItemDisplayBundleFolder(
         'product_catalog': 'ProductCatalog',
         'product_set': 'ProductSet',
         'valid_labels': 'map<string, list<string>>',
-        'bundles': 'list<string>',
     }
     @classmethod
     def _get_field_enum_info(cls):

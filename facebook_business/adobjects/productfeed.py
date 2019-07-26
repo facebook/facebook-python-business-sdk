@@ -96,11 +96,16 @@ class ProductFeed(
         vehicles = 'VEHICLES'
         vehicle_offer = 'VEHICLE_OFFER'
 
+    class OverrideType:
+        country = 'COUNTRY'
+        language = 'LANGUAGE'
+
     # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'product_feeds'
 
+    # @deprecated api_create is being deprecated
     def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.adobjects.productcatalog import ProductCatalog
         return ProductCatalog(api=self._api, fbid=parent_id).create_product_feed(fields, params, batch, success, failure, pending)
@@ -597,6 +602,7 @@ class ProductFeed(
         field_enum_info['QuotedFieldsMode'] = ProductFeed.QuotedFieldsMode.__dict__.values()
         field_enum_info['Encoding'] = ProductFeed.Encoding.__dict__.values()
         field_enum_info['FeedType'] = ProductFeed.FeedType.__dict__.values()
+        field_enum_info['OverrideType'] = ProductFeed.OverrideType.__dict__.values()
         return field_enum_info
 
 

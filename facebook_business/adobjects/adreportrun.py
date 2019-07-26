@@ -82,6 +82,7 @@ class AdReportRun(
     def get_endpoint(cls):
         return 'insights'
 
+    # @deprecated api_create is being deprecated
     def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.adobjects.adaccount import AdAccount
         return AdAccount(api=self._api, fbid=parent_id).get_insights_async(fields, params, batch, success, failure, pending)
@@ -199,36 +200,6 @@ class AdReportRun(
             api_type='EDGE',
             response_parser=ObjectParser(target_class=AdsInsights, api=self._api),
             include_summary=False,
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_retry(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/retry',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AdReportRun,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdReportRun, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

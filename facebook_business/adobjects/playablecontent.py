@@ -54,6 +54,7 @@ class PlayableContent(
     def get_endpoint(cls):
         return 'adplayables'
 
+    # @deprecated api_create is being deprecated
     def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.adobjects.adaccount import AdAccount
         return AdAccount(api=self._api, fbid=parent_id).create_ad_playable(fields, params, batch, success, failure, pending)

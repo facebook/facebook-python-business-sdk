@@ -45,7 +45,7 @@ from facebook_business.adobjects import (abstractcrudobject,
                                    adcreative,
                                    customaudience,
                                    productcatalog,
-                                   reachestimate)
+                                   adaccountreachestimate)
 from facebook_business.utils import version
 
 
@@ -201,7 +201,7 @@ class EdgeIteratorTestCase(unittest.TestCase):
     def test_builds_from_object_with_data_key(self):
         """
         Sometimes the response returns a single JSON object - with a "data".
-        For instance with reachestimate. This asserts that we successfully
+        For instance with adaccountreachestimate. This asserts that we successfully
         build the object that is in "data" key.
         """
         response = {
@@ -222,9 +222,12 @@ class EdgeIteratorTestCase(unittest.TestCase):
                 "users": 7600000
             }
         }
+        # get_endpoint is deprecated, and it's not automatically generated in AdAccountReachEstimate
+        # class, we pass a random endpoint to work around this.
         ei = api.Cursor(
             ad.Ad('123'),
-            reachestimate.ReachEstimate,
+            adaccountreachestimate.AdAccountReachEstimate,
+            endpoint='random_endpoint'
         )
         obj = ei.build_objects_from_response(response)
         assert len(obj) == 1 and obj[0]['users'] == 7600000

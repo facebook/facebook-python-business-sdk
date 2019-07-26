@@ -63,12 +63,6 @@ class BusinessRoleRequest(
         finance_analyst = 'FINANCE_ANALYST'
         finance_editor = 'FINANCE_EDITOR'
 
-    class Status:
-        accepted = 'ACCEPTED'
-        declined = 'DECLINED'
-        expired = 'EXPIRED'
-        pending = 'PENDING'
-
     def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -181,7 +175,6 @@ class BusinessRoleRequest(
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['Role'] = BusinessRoleRequest.Role.__dict__.values()
-        field_enum_info['Status'] = BusinessRoleRequest.Status.__dict__.values()
         return field_enum_info
 
 

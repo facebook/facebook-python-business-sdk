@@ -140,7 +140,8 @@ class CustomAudienceMixin:
 
         if(key_name == cls.Schema.MultiKeySchema.extern_id or
            key_name == cls.Schema.MultiKeySchema.email or
-           key_name == cls.Schema.MultiKeySchema.madid):
+           key_name == cls.Schema.MultiKeySchema.madid or
+           key_name == cls.Schema.MultiKeySchema.appuid):
             return key_value
 
         if(key_name == cls.Schema.MultiKeySchema.phone):

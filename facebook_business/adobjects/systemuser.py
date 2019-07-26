@@ -62,6 +62,7 @@ class SystemUser(
     def get_endpoint(cls):
         return 'system_users'
 
+    # @deprecated api_create is being deprecated
     def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.adobjects.business import Business
         return Business(api=self._api, fbid=parent_id).create_system_user(fields, params, batch, success, failure, pending)
@@ -114,37 +115,6 @@ class SystemUser(
             target_class=AdAccount,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=AdAccount, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def get_assigned_monetization_properties(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.admonetizationproperty import AdMonetizationProperty
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/assigned_monetization_properties',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AdMonetizationProperty,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdMonetizationProperty, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
