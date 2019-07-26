@@ -222,9 +222,12 @@ class EdgeIteratorTestCase(unittest.TestCase):
                 "users": 7600000
             }
         }
+        # get_endpoint is deprecated, and it's not automatically generated in AdAccountReachEstimate
+        # class, we pass a random endpoint to work around this.
         ei = api.Cursor(
             ad.Ad('123'),
             adaccountreachestimate.AdAccountReachEstimate,
+            endpoint='random_endpoint'
         )
         obj = ei.build_objects_from_response(response)
         assert len(obj) == 1 and obj[0]['users'] == 7600000
