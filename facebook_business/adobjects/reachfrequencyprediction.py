@@ -126,7 +126,6 @@ class ReachFrequencyPrediction(
         timezone_name = 'timezone_name'
         topline_id = 'topline_id'
         tv_viewer_cluster_map = 'tv_viewer_cluster_map'
-        video_view_benchmark_map = 'video_view_benchmark_map'
         video_view_length_constraint = 'video_view_length_constraint'
         viewtag = 'viewtag'
         action = 'action'
@@ -173,20 +172,15 @@ class ReachFrequencyPrediction(
         regular_sports = 'REGULAR_SPORTS'
         regular_style = 'REGULAR_STYLE'
         regular_tv_movies = 'REGULAR_TV_MOVIES'
+        spanish = 'SPANISH'
         sports = 'SPORTS'
-
-    class Status:
-        active = 'ACTIVE'
-        completed = 'COMPLETED'
-        draft = 'DRAFT'
-        expired = 'EXPIRED'
-        pending = 'PENDING'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'reachfrequencypredictions'
 
+    # @deprecated api_create is being deprecated
     def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.adobjects.adaccount import AdAccount
         return AdAccount(api=self._api, fbid=parent_id).create_reach_frequency_prediction(fields, params, batch, success, failure, pending)
@@ -305,7 +299,6 @@ class ReachFrequencyPrediction(
         'timezone_name': 'string',
         'topline_id': 'unsigned int',
         'tv_viewer_cluster_map': 'map<unsigned int, Object>',
-        'video_view_benchmark_map': 'map<string, ReachFrequencyEstimatesCurve>',
         'video_view_length_constraint': 'unsigned int',
         'viewtag': 'string',
         'action': 'Action',
@@ -331,7 +324,6 @@ class ReachFrequencyPrediction(
         field_enum_info['Action'] = ReachFrequencyPrediction.Action.__dict__.values()
         field_enum_info['BuyingType'] = ReachFrequencyPrediction.BuyingType.__dict__.values()
         field_enum_info['InstreamPackages'] = ReachFrequencyPrediction.InstreamPackages.__dict__.values()
-        field_enum_info['Status'] = ReachFrequencyPrediction.Status.__dict__.values()
         return field_enum_info
 
 

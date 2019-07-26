@@ -143,8 +143,7 @@ class AdVideo(
         video_file_chunk = 'video_file_chunk'
         video_start_time_ms = 'video_start_time_ms'
         waterfall_id = 'waterfall_id'
-        is_explicit_share = 'is_explicit_share'
-        manual_privacy = 'manual_privacy'
+        creative_folder_id = 'creative_folder_id'
         filename = 'filename'
         filepath = 'filepath'
 
@@ -168,11 +167,13 @@ class AdVideo(
         contained_post_attachment = 'CONTAINED_POST_ATTACHMENT'
         contained_post_audio_broadcast = 'CONTAINED_POST_AUDIO_BROADCAST'
         contained_post_broadcast = 'CONTAINED_POST_BROADCAST'
+        contained_your_day = 'CONTAINED_YOUR_DAY'
         copyright_reference_broadcast = 'COPYRIGHT_REFERENCE_BROADCAST'
         copyright_reference_video = 'COPYRIGHT_REFERENCE_VIDEO'
         cultural_moment_deprecated = 'CULTURAL_MOMENT_DEPRECATED'
         dco_ad_asset_feed = 'DCO_AD_ASSET_FEED'
         dco_autogen_video = 'DCO_AUTOGEN_VIDEO'
+        dco_trimmed_video = 'DCO_TRIMMED_VIDEO'
         directed_post_attachment = 'DIRECTED_POST_ATTACHMENT'
         direct_inbox = 'DIRECT_INBOX'
         direct_inbox_reaction = 'DIRECT_INBOX_REACTION'
@@ -193,6 +194,7 @@ class AdVideo(
         group_post = 'GROUP_POST'
         heuristic_cluster_video = 'HEURISTIC_CLUSTER_VIDEO'
         heuristic_preview = 'HEURISTIC_PREVIEW'
+        highlight_clip_video = 'HIGHLIGHT_CLIP_VIDEO'
         inspiration_video = 'INSPIRATION_VIDEO'
         instagram_video_copy = 'INSTAGRAM_VIDEO_COPY'
         instant_application_preview = 'INSTANT_APPLICATION_PREVIEW'
@@ -301,11 +303,18 @@ class AdVideo(
         none = 'none'
         year = 'year'
 
+    class VideoPollWwwPlacement:
+        bottom_left = 'BOTTOM_LEFT'
+        bottom_right = 'BOTTOM_RIGHT'
+        top_left = 'TOP_LEFT'
+        top_right = 'TOP_RIGHT'
+
     # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
         return 'advideos'
 
+    # @deprecated api_create is being deprecated
     def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.adobjects.adaccount import AdAccount
         return AdAccount(api=self._api, fbid=parent_id).create_ad_video(fields, params, batch, success, failure, pending)
@@ -430,36 +439,6 @@ class AdVideo(
             self.assure_call()
             return request.execute()
 
-    def get_auto_generated_captions(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/auto_generated_captions',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def create_auto_trim(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -479,69 +458,6 @@ class AdVideo(
             target_class=AdVideo,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=AdVideo, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_blocked_user(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'remove_block': 'bool',
-            'uid': 'Object',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/blocked_users',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AdVideo,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdVideo, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def delete_captions(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'locale': 'string',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='DELETE',
-            endpoint='/captions',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -732,40 +648,6 @@ class AdVideo(
             self.assure_call()
             return request.execute()
 
-    def delete_likes(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'feedback_source': 'string',
-            'nectar_module': 'string',
-            'notify': 'bool',
-            'tracking': 'string',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='DELETE',
-            endpoint='/likes',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def get_likes(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -813,6 +695,69 @@ class AdVideo(
             node_id=self['id'],
             method='POST',
             endpoint='/likes',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdVideo,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdVideo, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_poll_settings(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/poll_settings',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_poll_setting(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'enable_was_live_voting': 'bool',
+            'video_poll_www_placement': 'video_poll_www_placement_enum',
+        }
+        enums = {
+            'video_poll_www_placement_enum': AdVideo.VideoPollWwwPlacement.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/poll_settings',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
             target_class=AdVideo,
@@ -964,37 +909,6 @@ class AdVideo(
             self.assure_call()
             return request.execute()
 
-    def get_sponsor_tags(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.page import Page
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/sponsor_tags',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=Page,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=Page, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def create_summarization(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -1014,37 +928,6 @@ class AdVideo(
             target_class=AdVideo,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=AdVideo, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def get_tags(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.taggablesubject import TaggableSubject
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/tags',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=TaggableSubject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=TaggableSubject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1293,8 +1176,7 @@ class AdVideo(
         'video_file_chunk': 'string',
         'video_start_time_ms': 'unsigned int',
         'waterfall_id': 'string',
-        'is_explicit_share': 'bool',
-        'manual_privacy': 'bool',
+        'creative_folder_id': 'string',
         'filename': 'file'
     }
     @classmethod
@@ -1309,6 +1191,7 @@ class AdVideo(
         field_enum_info['UploadPhase'] = AdVideo.UploadPhase.__dict__.values()
         field_enum_info['Type'] = AdVideo.Type.__dict__.values()
         field_enum_info['BackdatedTimeGranularity'] = AdVideo.BackdatedTimeGranularity.__dict__.values()
+        field_enum_info['VideoPollWwwPlacement'] = AdVideo.VideoPollWwwPlacement.__dict__.values()
         return field_enum_info
 
 

@@ -71,6 +71,8 @@ class AdReportSpec(
         action_canvas_component_name = 'action_canvas_component_name'
         action_carousel_card_id = 'action_carousel_card_id'
         action_carousel_card_name = 'action_carousel_card_name'
+        action_converted_brand_tag_id = 'action_converted_brand_tag_id'
+        action_converted_category_tag_id = 'action_converted_category_tag_id'
         action_converted_product_id = 'action_converted_product_id'
         action_destination = 'action_destination'
         action_device = 'action_device'
@@ -79,6 +81,8 @@ class AdReportSpec(
         action_type = 'action_type'
         action_video_sound = 'action_video_sound'
         action_video_type = 'action_video_type'
+        brand = 'brand'
+        category = 'category'
         interactive_component_sticker_id = 'interactive_component_sticker_id'
         interactive_component_sticker_response = 'interactive_component_sticker_response'
 
@@ -119,6 +123,7 @@ class AdReportSpec(
     def get_endpoint(cls):
         return 'adreportspecs'
 
+    # @deprecated api_create is being deprecated
     def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.adobjects.adaccount import AdAccount
         return AdAccount(api=self._api, fbid=parent_id).create_ad_report_spec(fields, params, batch, success, failure, pending)

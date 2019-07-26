@@ -49,6 +49,11 @@ class VideoPoll(
         show_results = 'show_results'
         status = 'status'
 
+    class Status:
+        closed = 'closed'
+        results_open = 'results_open'
+        voting_open = 'voting_open'
+
     class Action:
         attach_to_video = 'ATTACH_TO_VIDEO'
         close = 'CLOSE'
@@ -159,11 +164,12 @@ class VideoPoll(
         'question': 'string',
         'show_gradient': 'bool',
         'show_results': 'bool',
-        'status': 'string',
+        'status': 'Status',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['Status'] = VideoPoll.Status.__dict__.values()
         field_enum_info['Action'] = VideoPoll.Action.__dict__.values()
         return field_enum_info
 

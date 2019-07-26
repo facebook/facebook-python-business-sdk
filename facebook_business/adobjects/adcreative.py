@@ -99,8 +99,6 @@ class AdCreative(
         call_to_action = 'call_to_action'
         image_file = 'image_file'
         is_dco_internal = 'is_dco_internal'
-        mockup_id = 'mockup_id'
-        page_id = 'page_id'
 
     class ApplinkTreatment:
         deeplink_with_appstore_fallback = 'deeplink_with_appstore_fallback'
@@ -123,6 +121,7 @@ class AdCreative(
         download = 'DOWNLOAD'
         event_rsvp = 'EVENT_RSVP'
         find_a_group = 'FIND_A_GROUP'
+        find_your_groups = 'FIND_YOUR_GROUPS'
         follow_news_storyline = 'FOLLOW_NEWS_STORYLINE'
         get_directions = 'GET_DIRECTIONS'
         get_offer = 'GET_OFFER'
@@ -149,6 +148,7 @@ class AdCreative(
         share = 'SHARE'
         shop_now = 'SHOP_NOW'
         sign_up = 'SIGN_UP'
+        sotto_subscribe = 'SOTTO_SUBSCRIBE'
         subscribe = 'SUBSCRIBE'
         update_app = 'UPDATE_APP'
         use_app = 'USE_APP'
@@ -205,6 +205,7 @@ class AdCreative(
     def get_endpoint(cls):
         return 'adcreatives'
 
+    # @deprecated api_create is being deprecated
     def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.adobjects.adaccount import AdAccount
         return AdAccount(api=self._api, fbid=parent_id).create_ad_creative(fields, params, batch, success, failure, pending)
@@ -477,8 +478,6 @@ class AdCreative(
         'call_to_action': 'Object',
         'image_file': 'string',
         'is_dco_internal': 'bool',
-        'mockup_id': 'string',
-        'page_id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

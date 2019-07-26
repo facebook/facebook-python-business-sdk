@@ -69,6 +69,7 @@ class ProductEventStat(
         lead = 'Lead'
         purchase = 'Purchase'
         search = 'Search'
+        subscribe = 'Subscribe'
         viewcontent = 'ViewContent'
 
     class Breakdowns:
