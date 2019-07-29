@@ -252,7 +252,6 @@ class AdsInsights(
         video_15_sec_watched_actions = 'video_15_sec_watched_actions'
         video_30_sec_watched_actions = 'video_30_sec_watched_actions'
         video_asset = 'video_asset'
-        video_avg_percent_watched_actions = 'video_avg_percent_watched_actions'
         video_avg_time_watched_actions = 'video_avg_time_watched_actions'
         video_complete_watched_actions = 'video_complete_watched_actions'
         video_completed_view_or_15s_passed_actions = 'video_completed_view_or_15s_passed_actions'
@@ -261,7 +260,6 @@ class AdsInsights(
         video_p25_watched_actions = 'video_p25_watched_actions'
         video_p50_watched_actions = 'video_p50_watched_actions'
         video_p75_watched_actions = 'video_p75_watched_actions'
-        video_p95_watched_actions = 'video_p95_watched_actions'
         video_play_actions = 'video_play_actions'
         video_play_curve_actions = 'video_play_curve_actions'
         video_play_retention_0_to_15s_actions = 'video_play_retention_0_to_15s_actions'
@@ -582,7 +580,6 @@ class AdsInsights(
         'video_15_sec_watched_actions': 'list<AdsActionStats>',
         'video_30_sec_watched_actions': 'list<AdsActionStats>',
         'video_asset': 'Object',
-        'video_avg_percent_watched_actions': 'list<AdsActionStats>',
         'video_avg_time_watched_actions': 'list<AdsActionStats>',
         'video_complete_watched_actions': 'list<AdsActionStats>',
         'video_completed_view_or_15s_passed_actions': 'list<AdsActionStats>',
@@ -591,7 +588,6 @@ class AdsInsights(
         'video_p25_watched_actions': 'list<AdsActionStats>',
         'video_p50_watched_actions': 'list<AdsActionStats>',
         'video_p75_watched_actions': 'list<AdsActionStats>',
-        'video_p95_watched_actions': 'list<AdsActionStats>',
         'video_play_actions': 'list<AdsActionStats>',
         'video_play_curve_actions': 'list<Object>',
         'video_play_retention_0_to_15s_actions': 'list<Object>',

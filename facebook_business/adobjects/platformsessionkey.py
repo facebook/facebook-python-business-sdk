@@ -18,12 +18,37 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebook_business.session import FacebookSession
-from facebook_business.api import FacebookAdsApi
+from facebook_business.adobjects.abstractobject import AbstractObject
+from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
+from facebook_business.adobjects.objectparser import ObjectParser
+from facebook_business.api import FacebookRequest
+from facebook_business.typechecker import TypeChecker
 
-__version__ = '4.0.0'
-__all__ = [
-    'session',
-    'objects',
-    'api',
-]
+"""
+This class is auto-generated.
+
+For any issues or feature requests related to this class, please let us know on
+github and we'll fix in our codegen framework. We'll not be able to accept
+pull request for this class.
+"""
+
+class PlatformSessionKey(
+    AbstractCrudObject,
+):
+
+    def __init__(self, fbid=None, parent_id=None, api=None):
+        self._isPlatformSessionKey = True
+        super(PlatformSessionKey, self).__init__(fbid, parent_id, api)
+
+    class Field(AbstractObject.Field):
+        id = 'id'
+
+    _field_types = {
+        'id': 'string',
+    }
+    @classmethod
+    def _get_field_enum_info(cls):
+        field_enum_info = {}
+        return field_enum_info
+
+

@@ -50,7 +50,6 @@ class AdSet(
         adset_schedule = 'adset_schedule'
         asset_feed_id = 'asset_feed_id'
         attribution_spec = 'attribution_spec'
-        best_creative = 'best_creative'
         bid_adjustments = 'bid_adjustments'
         bid_amount = 'bid_amount'
         bid_constraints = 'bid_constraints'
@@ -573,6 +572,39 @@ class AdSet(
             self.assure_call()
             return request.execute()
 
+    def get_async_ad_requests(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.adasyncrequest import AdAsyncRequest
+        param_types = {
+            'statuses': 'list<statuses_enum>',
+        }
+        enums = {
+            'statuses_enum': AdAsyncRequest.Statuses.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/asyncadrequests',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdAsyncRequest,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdAsyncRequest, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_copies(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -906,7 +938,6 @@ class AdSet(
         'adset_schedule': 'list<DayPart>',
         'asset_feed_id': 'string',
         'attribution_spec': 'list<AttributionSpec>',
-        'best_creative': 'AdDynamicCreative',
         'bid_adjustments': 'AdBidAdjustments',
         'bid_amount': 'unsigned int',
         'bid_constraints': 'AdCampaignBidConstraint',
