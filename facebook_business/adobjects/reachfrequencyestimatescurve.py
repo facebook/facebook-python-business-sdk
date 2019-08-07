@@ -39,7 +39,6 @@ class ReachFrequencyEstimatesCurve(
 
     class Field(AbstractObject.Field):
         budget = 'budget'
-        click = 'click'
         conversion = 'conversion'
         impression = 'impression'
         interpolated_reach = 'interpolated_reach'
@@ -50,7 +49,6 @@ class ReachFrequencyEstimatesCurve(
 
     _field_types = {
         'budget': 'list<int>',
-        'click': 'list<int>',
         'conversion': 'list<int>',
         'impression': 'list<int>',
         'interpolated_reach': 'float',

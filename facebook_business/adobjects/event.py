@@ -343,6 +343,7 @@ class Event(
                 'INLINE_CREATED',
                 'PUBLISHED',
                 'SCHEDULED',
+                'SCHEDULED_RECURRING',
             ],
         }
         request = FacebookRequest(

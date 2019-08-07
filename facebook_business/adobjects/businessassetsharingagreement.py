@@ -32,21 +32,27 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class PageChangeProposal(
+class BusinessAssetSharingAgreement(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isPageChangeProposal = True
-        super(PageChangeProposal, self).__init__(fbid, parent_id, api)
+        self._isBusinessAssetSharingAgreement = True
+        super(BusinessAssetSharingAgreement, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        acceptance_status = 'acceptance_status'
-        category = 'category'
-        current_value = 'current_value'
         id = 'id'
-        proposed_value = 'proposed_value'
-        upcoming_change_info = 'upcoming_change_info'
+        initiator = 'initiator'
+        recipient = 'recipient'
+        relationship_type = 'relationship_type'
+        request_status = 'request_status'
+        request_type = 'request_type'
+
+    class RequestStatus:
+        approve = 'APPROVE'
+        decline = 'DECLINE'
+        expired = 'EXPIRED'
+        in_progress = 'IN_PROGRESS'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -62,7 +68,7 @@ class PageChangeProposal(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=PageChangeProposal,
+            target_class=BusinessAssetSharingAgreement,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -83,7 +89,7 @@ class PageChangeProposal(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'accept': 'bool',
+            'request_response': 'string',
         }
         enums = {
         }
@@ -93,7 +99,7 @@ class PageChangeProposal(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=PageChangeProposal,
+            target_class=BusinessAssetSharingAgreement,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -110,16 +116,17 @@ class PageChangeProposal(
             return request.execute()
 
     _field_types = {
-        'acceptance_status': 'string',
-        'category': 'string',
-        'current_value': 'string',
         'id': 'string',
-        'proposed_value': 'string',
-        'upcoming_change_info': 'PageUpcomingChange',
+        'initiator': 'Business',
+        'recipient': 'Business',
+        'relationship_type': 'list<string>',
+        'request_status': 'string',
+        'request_type': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['RequestStatus'] = BusinessAssetSharingAgreement.RequestStatus.__dict__.values()
         return field_enum_info
 
 

@@ -96,6 +96,7 @@ class ProductFeed(
         vehicle_offer = 'VEHICLE_OFFER'
 
     class OverrideType:
+        catalog_segment_customize_default = 'CATALOG_SEGMENT_CUSTOMIZE_DEFAULT'
         country = 'COUNTRY'
         language = 'LANGUAGE'
 

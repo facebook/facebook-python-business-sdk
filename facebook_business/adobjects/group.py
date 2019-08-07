@@ -631,6 +631,7 @@ class Group(
                 'INLINE_CREATED',
                 'PUBLISHED',
                 'SCHEDULED',
+                'SCHEDULED_RECURRING',
             ],
         }
         request = FacebookRequest(

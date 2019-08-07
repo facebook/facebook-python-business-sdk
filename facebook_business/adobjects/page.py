@@ -967,6 +967,37 @@ class Page(
             self.assure_call()
             return request.execute()
 
+    def get_call_to_actions(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.pagecalltoaction import PageCallToAction
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/call_to_actions',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=PageCallToAction,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=PageCallToAction, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def create_call_to_action(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -3315,6 +3346,7 @@ class Page(
             'set_profile_photo_shield': 'string',
             'sticker_id': 'int',
             'sticker_source_object_id': 'int',
+            'suppress_stories': 'bool',
             'width': 'unsigned int',
             'x': 'unsigned int',
             'y': 'unsigned int',
@@ -3330,6 +3362,37 @@ class Page(
             target_class=ProfilePictureSource,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=ProfilePictureSource, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_place_topics(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.placetopic import PlaceTopic
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/place_topics',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=PlaceTopic,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=PlaceTopic, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -4206,6 +4269,38 @@ class Page(
             target_class=Page,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=Page, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_upcoming_changes(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.pageupcomingchange import PageUpcomingChange
+        param_types = {
+            'include_inactive': 'bool',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/upcoming_changes',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=PageUpcomingChange,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=PageUpcomingChange, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

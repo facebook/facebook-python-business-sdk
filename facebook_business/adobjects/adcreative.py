@@ -176,6 +176,8 @@ class AdCreative(
     class Status:
         active = 'ACTIVE'
         deleted = 'DELETED'
+        in_process = 'IN_PROCESS'
+        with_issues = 'WITH_ISSUES'
 
     class AuthorizationCategory:
         none = 'NONE'

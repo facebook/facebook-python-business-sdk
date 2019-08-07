@@ -139,6 +139,7 @@ class PagePost(
         inline_created = 'INLINE_CREATED'
         published = 'PUBLISHED'
         scheduled = 'SCHEDULED'
+        scheduled_recurring = 'SCHEDULED_RECURRING'
 
     class With:
         location = 'LOCATION'

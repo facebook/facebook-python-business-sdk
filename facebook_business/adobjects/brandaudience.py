@@ -32,21 +32,25 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class PageChangeProposal(
+class BrandAudience(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isPageChangeProposal = True
-        super(PageChangeProposal, self).__init__(fbid, parent_id, api)
+        self._isBrandAudience = True
+        super(BrandAudience, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        acceptance_status = 'acceptance_status'
-        category = 'category'
-        current_value = 'current_value'
+        account = 'account'
+        delivery_targeting = 'delivery_targeting'
+        description = 'description'
         id = 'id'
-        proposed_value = 'proposed_value'
-        upcoming_change_info = 'upcoming_change_info'
+        name = 'name'
+        sentence_lines = 'sentence_lines'
+        status = 'status'
+        targeting = 'targeting'
+        time_created = 'time_created'
+        time_updated = 'time_updated'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -62,38 +66,7 @@ class PageChangeProposal(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=PageChangeProposal,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'accept': 'bool',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=PageChangeProposal,
+            target_class=BrandAudience,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -110,12 +83,16 @@ class PageChangeProposal(
             return request.execute()
 
     _field_types = {
-        'acceptance_status': 'string',
-        'category': 'string',
-        'current_value': 'string',
+        'account': 'AdAccount',
+        'delivery_targeting': 'Targeting',
+        'description': 'string',
         'id': 'string',
-        'proposed_value': 'string',
-        'upcoming_change_info': 'PageUpcomingChange',
+        'name': 'string',
+        'sentence_lines': 'list',
+        'status': 'string',
+        'targeting': 'Targeting',
+        'time_created': 'datetime',
+        'time_updated': 'datetime',
     }
     @classmethod
     def _get_field_enum_info(cls):

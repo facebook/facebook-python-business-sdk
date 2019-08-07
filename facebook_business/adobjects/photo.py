@@ -83,6 +83,7 @@ class Photo(
         inline_created = 'INLINE_CREATED'
         published = 'PUBLISHED'
         scheduled = 'SCHEDULED'
+        scheduled_recurring = 'SCHEDULED_RECURRING'
 
     class Type:
         profile = 'profile'

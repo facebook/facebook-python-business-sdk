@@ -41,12 +41,16 @@ class BusinessAdvertisableApplicationsResult(
         super(BusinessAdvertisableApplicationsResult, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        are_app_events_unavailable = 'are_app_events_unavailable'
+        business = 'business'
         has_insight_permission = 'has_insight_permission'
         id = 'id'
         name = 'name'
         photo_url = 'photo_url'
 
     _field_types = {
+        'are_app_events_unavailable': 'bool',
+        'business': 'Business',
         'has_insight_permission': 'bool',
         'id': 'string',
         'name': 'string',
