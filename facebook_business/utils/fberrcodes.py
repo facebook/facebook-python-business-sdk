@@ -21,7 +21,7 @@ class FacebookErrorSubCodes(object):
     incompatible_instagram_placement = 1772119
     product_set_invalid = 1487831
     promoted_post_invalid = 1885180
-    promoted_post_unavailable = 1885557
+    promoted_post_unavailable = 2446036
     publisher_category_not_valid = 1815298
     no_custom_audience_ownership = 1487301
     invalid_locales = 1487121
