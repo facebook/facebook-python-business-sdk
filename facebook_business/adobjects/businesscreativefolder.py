@@ -43,9 +43,9 @@ class BusinessCreativeFolder(
     class Field(AbstractObject.Field):
         business = 'business'
         creation_time = 'creation_time'
+        description = 'description'
         id = 'id'
         name = 'name'
-        description = 'description'
 
     class PermittedTasks:
         create_content = 'CREATE_CONTENT'
@@ -357,9 +357,9 @@ class BusinessCreativeFolder(
     _field_types = {
         'business': 'Business',
         'creation_time': 'datetime',
+        'description': 'string',
         'id': 'string',
         'name': 'string',
-        'description': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

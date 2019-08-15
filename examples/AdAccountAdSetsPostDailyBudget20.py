@@ -33,8 +33,8 @@ fields = [
 params = {
   'name': 'My First Adset',
   'daily_budget': '2000',
-  'start_time': '2019-04-29T08:47:49-0700',
-  'end_time': '2019-05-06T08:47:49-0700',
+  'start_time': '2019-08-07T02:19:13-0700',
+  'end_time': '2019-08-14T02:19:13-0700',
   'campaign_id': '<adCampaignLinkClicksID>',
   'bid_amount': '100',
   'billing_event': 'LINK_CLICKS',

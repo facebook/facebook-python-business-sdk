@@ -33,8 +33,8 @@ fields = [
 params = {
   'name': 'My Offer Claim AdSet',
   'lifetime_budget': '56000',
-  'start_time': '2019-04-29T08:47:26-0700',
-  'end_time': '2019-05-06T08:47:26-0700',
+  'start_time': '2019-08-07T02:19:01-0700',
+  'end_time': '2019-08-14T02:19:01-0700',
   'campaign_id': '<adCampaignLinkClicksID>',
   'billing_event': 'LINK_CLICKS',
   'optimization_goal': 'LINK_CLICKS',

@@ -56,6 +56,11 @@ class MediaFingerprint(
         other = 'OTHER'
         songtrack = 'SONGTRACK'
 
+    class FingerprintValidity:
+        expired = 'EXPIRED'
+        expiring = 'EXPIRING'
+        valid = 'VALID'
+
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -132,6 +137,7 @@ class MediaFingerprint(
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['FingerprintContentType'] = MediaFingerprint.FingerprintContentType.__dict__.values()
+        field_enum_info['FingerprintValidity'] = MediaFingerprint.FingerprintValidity.__dict__.values()
         return field_enum_info
 
 

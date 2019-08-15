@@ -187,6 +187,7 @@ class AdVideo(
         facecast_dvr = 'FACECAST_DVR'
         fundraiser_cover_video = 'FUNDRAISER_COVER_VIDEO'
         game_clip = 'GAME_CLIP'
+        gemstone = 'GEMSTONE'
         goodwill_anniversary_deprecated = 'GOODWILL_ANNIVERSARY_DEPRECATED'
         goodwill_anniversary_promotion_deprecated = 'GOODWILL_ANNIVERSARY_PROMOTION_DEPRECATED'
         goodwill_video_contained_share = 'GOODWILL_VIDEO_CONTAINED_SHARE'
