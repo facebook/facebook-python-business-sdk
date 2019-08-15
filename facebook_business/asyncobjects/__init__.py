@@ -146,9 +146,9 @@ class AdAccount(AbstractCrudAioObject, adaccount.AdAccount):
                          has_action=None, needs_action_device=None,
                          has_filters=False, for_date=None, needs_carousel_name=False):
         """
-        If async is False, returns EdgeIterator.
+        If 'is_async' is False, returns EdgeIterator.
 
-        If async is True, creates a job and job iterator for it and
+        If 'is_async' is True, creates a job and job iterator for it and
         returns the job iterator (AsyncAioJobIterator class, subclass of EdgeIterator).
 
         Regardless the async parameter, it puts the iterator to the queue so that
@@ -183,9 +183,9 @@ class Campaign(AbstractCrudAioObject, campaign.Campaign):
                          has_action=None, needs_action_device=None,
                          has_filters=False, for_date=None, needs_carousel_name=False):
         """
-        If async is False, returns EdgeIterator.
+        If 'is_async' is False, returns EdgeIterator.
 
-        If async is True, creates a job and job iterator for it and
+        If 'is_async' is True, creates a job and job iterator for it and
         returns the job iterator (AsyncAioJobIterator class, subclass of EdgeIterator).
 
         Regardless the async parameter, it puts the iterator to the queue so that
@@ -220,9 +220,9 @@ class AdSet(AbstractCrudAioObject, adset.AdSet):
                          has_action=None, needs_action_device=None,
                          has_filters=False, for_date=None, needs_carousel_name=False):
         """
-        If async is False, returns EdgeIterator.
+        If 'is_async' is False, returns EdgeIterator.
 
-        If async is True, creates a job and job iterator for it and
+        If 'is_async' is True, creates a job and job iterator for it and
         returns the job iterator (AsyncAioJobIterator class, subclass of EdgeIterator).
 
         Regardless the async parameter, it puts the iterator to the queue so that
@@ -342,9 +342,9 @@ class Ad(AbstractCrudAioObject, ad.Ad):
                          has_action=None, needs_action_device=None,
                          has_filters=False, for_date=None, needs_carousel_name=False):
         """
-        If async is False, returns EdgeIterator.
+        If 'is_async' is False, returns EdgeIterator.
 
-        If async is True, creates a job and job iterator for it and
+        If 'is_async' is True, creates a job and job iterator for it and
         returns the job iterator (AsyncAioJobIterator class, subclass of EdgeIterator).
 
         Regardless the async parameter, it puts the iterator to the queue so that

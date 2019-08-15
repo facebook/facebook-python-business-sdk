@@ -28,7 +28,7 @@ class AdAccountAsyncDocsTestCase(AsyncDocsTestCase):
         ], params={
             'level': Insights.Level.campaign,
             'date_preset': Insights.Preset.last_week,
-        }, async=True)
+        }, is_async=True)
         while not job:
             time.sleep(0.3)
             job.remote_read()
