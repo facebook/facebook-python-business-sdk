@@ -6,8 +6,7 @@
   "ignore_all_errors": [
     ".tox/",
     "examples/",
-    "docs/",
-    "facebook_business/test/"
+    "docs/unchecked"
   ],
   "typeshed": "/usr/local/lib/pyre_check/typeshed/",
   "search_path": [
