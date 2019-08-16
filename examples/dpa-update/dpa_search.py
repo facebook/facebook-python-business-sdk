@@ -34,7 +34,8 @@ config = json.load(config_file)
 config_file.close()
 
 from facebook_business.api import FacebookAdsApi
-from facebook_business.objects import ProductCatalog, Product
+from facebook_business.adobjects.productcatalog import ProductCatalog
+from facebook_business.adobjects.productitem import ProductItem
 
 FacebookAdsApi.init(
     config['app_id'],
@@ -46,11 +47,11 @@ if __name__ == '__main__':
     catalog_id = '<INSERT_YOUR_CATALOG_ID_HERE>'
     catalog = ProductCatalog(catalog_id)
     fields = [
-        Product.Field.id,
-        Product.Field.name,
-        Product.Field.price,
-        Product.Field.url,
-        Product.Field.availability
+        ProductItem.Field.id,
+        ProductItem.Field.name,
+        ProductItem.Field.price,
+        ProductItem.Field.url,
+        ProductItem.Field.availability
     ]
     """
         get products cost more than $99.99.

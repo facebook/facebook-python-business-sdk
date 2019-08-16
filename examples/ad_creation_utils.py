@@ -18,16 +18,16 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebook_business.objects import (
+from facebook_business.adobjects import (
     AdCampaign,
     AdSet,
-    AdGroup,
+    Ad,
     AdImage,
     AdCreative,
     TargetingSpecsField,
 )
 import itertools
-from batch_utils import generate_batches
+from . import batch_utils
 
 
 def create_multiple_website_clicks_ads(
@@ -41,8 +41,7 @@ def create_multiple_website_clicks_ads(
     urls,
     image_paths,
 
-    bid_type,
-    bid_info,
+    bid_strategy,
     daily_budget=None,
     lifetime_budget=None,
     start_time=None,
@@ -82,7 +81,6 @@ def create_multiple_website_clicks_ads(
     ad_set[AdSet.Field.campaign_group_id] = campaign.get_id_assured()
     ad_set[AdSet.Field.name] = name + ' AdSet'
     ad_set[AdSet.Field.bid_type] = bid_type
-    ad_set[AdSet.Field.bid_info] = bid_info
     if daily_budget:
         ad_set[AdSet.Field.daily_budget] = daily_budget
     else:
@@ -127,10 +125,10 @@ def create_multiple_website_clicks_ads(
 
         for title, body, url, image_hash in creative_info_batch:
             # Create the ad
-            ad = AdGroup(parent_id=account.get_id_assured())
-            ad[AdGroup.Field.name] = name + ' Ad'
-            ad[AdGroup.Field.campaign_id] = ad_set.get_id_assured()
-            ad[AdGroup.Field.creative] = {
+            ad = Ad(parent_id=account.get_id_assured())
+            ad[Ad.Field.name] = name + ' Ad'
+            ad[Ad.Field.campaign_id] = ad_set.get_id_assured()
+            ad[Ad.Field.creative] = {
                 AdCreative.Field.title: title,
                 AdCreative.Field.body: body,
                 AdCreative.Field.object_url: url,
@@ -156,8 +154,7 @@ def create_website_clicks_ad(
     url,
     image_path,
 
-    bid_type,
-    bid_info,
+    bid_strategy,
     daily_budget=None,
     lifetime_budget=None,
     start_time=None,
@@ -181,8 +178,7 @@ def create_website_clicks_ad(
         urls=[url],
         image_paths=[image_path],
 
-        bid_type=bid_type,
-        bid_info=bid_info,
+        bid_strategy=bid_strategy,
         daily_budget=daily_budget,
         lifetime_budget=lifetime_budget,
         start_time=start_time,

@@ -24,12 +24,10 @@ Pauses all active ad campaigns using batch calls.
 
 from facebook_business import FacebookSession
 from facebook_business import FacebookAdsApi
-from facebook_business.objects import (
-    AdAccount,
-    AdCampaign,
-)
+from facebook_business.adobjects.adaccount import AdAccount
+from facebook_business.adobjects.campaign import Campaign
+from . import batch_utils
 
-import batch_utils
 import json
 import os
 from functools import partial
@@ -60,16 +58,16 @@ if __name__ == '__main__':
 
     active_campaigns_iterator = my_account.get_ad_campaigns(
         fields=[
-            AdCampaign.Field.status,
-            AdCampaign.Field.name,
+            Campaign.Field.status,
+            Campaign.Field.name,
         ],
         params={
-            AdCampaign.Field.status: [AdCampaign.Status.active],
+            Campaign.Field.status: [Campaign.Status.active],
         }
     )
     CAMPAIGN_UPDATE_BATCH_LIMIT = 25
 
-    # Iterate over batches of active AdCampaign's
+    # Iterate over batches of active Campaign's
     for campaigns in batch_utils.generate_batches(
         active_campaigns_iterator,
         CAMPAIGN_UPDATE_BATCH_LIMIT,
@@ -78,12 +76,12 @@ if __name__ == '__main__':
 
         # Update each campaign but put the remote_update call in api_batch
         for my_campaign in campaigns:
-            my_campaign[AdCampaign.Field.status] = AdCampaign.Status.paused
+            my_campaign[Campaign.Field.status] = Campaign.Status.paused
 
             def callback_success(response, my_campaign=None):
                 print(
                     "Paused %s successfully."
-                    % my_campaign[AdCampaign.Field.name]
+                    % my_campaign[Campaign.Field.name]
                 )
             callback_success = partial(
                 callback_success,
@@ -93,7 +91,7 @@ if __name__ == '__main__':
             def callback_failure(response, my_campaign=None):
                 print(
                     "FAILED to pause %s."
-                    % my_campaign[AdCampaign.Field.name]
+                    % my_campaign[Campaign.Field.name]
                 )
                 raise response.error()
             callback_failure = partial(

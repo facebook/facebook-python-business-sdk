@@ -24,13 +24,12 @@ Creates an ad through a utility function.
 
 from facebook_business import FacebookSession
 from facebook_business import FacebookAdsApi
-from facebook_business.objects import (
-    AdAccount,
-    AdPreview,
-    AdSet,
-)
+from facebook_business.adobjects.adaccount import AdAccount
+from facebook_business.adobjects.adpreview import AdPreview
+from facebook_business.adobjects.adset import AdSet
+from facebook_business.adobjects.ad import Ad
+from . import ad_creation_utils
 
-import ad_creation_utils
 import json
 import os
 
@@ -74,8 +73,7 @@ if __name__ == '__main__':
             'facebook_business/test/misc/image.png'
         ),
 
-        bid_type=AdSet.BidType.cpm,
-        bid_info={AdSet.Field.BidInfo.impressions: 53},  # $0.53 / thousand
+        bid_strategy=AdSet.BidStrategy.lowest_cost_without_cap,
         daily_budget=1000,  # $10.00 per day
 
         age_min=13,
@@ -86,8 +84,8 @@ if __name__ == '__main__':
     print('**** Done!')
 
     # Get the preview and write an html file
-    preview = my_ad.get_ad_preview(params={
-        AdPreview.Field.ad_format: AdPreview.AdFormat.right_column_standard
+    preview = my_ad.get_previews(params={
+        'ad_format': AdPreview.AdFormat.right_column_standard
     })
     preview_filename = os.path.join(this_dir, 'preview_ad.html')
     preview_file = open(preview_filename, 'w')
