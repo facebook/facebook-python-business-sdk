@@ -118,6 +118,7 @@ class BusinessImage(
         if is_async:
           return self.get_insights_async(fields, params, batch, success, failure, pending)
         param_types = {
+            'time_range': 'Object',
         }
         enums = {
         }

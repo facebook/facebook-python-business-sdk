@@ -48,6 +48,10 @@ class URL(
         instant_article = 'instant_article'
         og_object = 'og_object'
         ownership_permissions = 'ownership_permissions'
+        scopes = 'scopes'
+
+    class Scopes:
+        news_tab = 'NEWS_TAB'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -84,11 +88,14 @@ class URL(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'blacklist': 'bool',
             'hmac': 'string',
             'locale': 'list',
+            'scopes': 'list<scopes_enum>',
             'ts': 'datetime',
         }
         enums = {
+            'scopes_enum': URL.Scopes.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -120,10 +127,12 @@ class URL(
         'instant_article': 'InstantArticle',
         'og_object': 'Object',
         'ownership_permissions': 'Object',
+        'scopes': 'Object',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['Scopes'] = URL.Scopes.__dict__.values()
         return field_enum_info
 
 

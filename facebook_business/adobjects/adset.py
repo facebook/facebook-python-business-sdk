@@ -133,6 +133,7 @@ class AdSet(
     class EffectiveStatus:
         active = 'ACTIVE'
         archived = 'ARCHIVED'
+        campaign_paused = 'CAMPAIGN_PAUSED'
         deleted = 'DELETED'
         in_process = 'IN_PROCESS'
         paused = 'PAUSED'

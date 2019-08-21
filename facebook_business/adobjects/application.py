@@ -987,6 +987,37 @@ class Application(
             self.assure_call()
             return request.execute()
 
+    def delete_banned(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'uids': 'list<int>',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='DELETE',
+            endpoint='/banned',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_banned(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -1299,6 +1330,71 @@ class Application(
             node_id=self['id'],
             method='POST',
             endpoint='/full_app_indexing_infos',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_insights_push_schedule(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'ad_account_ids': 'list',
+            'breakdowns': 'list<string>',
+            'date_preset': 'string',
+            'level': 'level_enum',
+            'metrics': 'list<string>',
+            'object_id': 'string',
+            'owner_id': 'Object',
+            'schedule': 'schedule_enum',
+            'status': 'status_enum',
+            'time_created': 'datetime',
+            'time_increment': 'unsigned int',
+            'time_last_fail': 'datetime',
+            'time_last_run': 'datetime',
+            'time_last_success': 'datetime',
+            'time_start': 'datetime',
+            'time_stop': 'datetime',
+            'time_updated': 'datetime',
+        }
+        enums = {
+            'level_enum': [
+                'ACCOUNT',
+                'AD',
+                'ADSET',
+                'CAMPAIGN',
+            ],
+            'schedule_enum': [
+                'DAILY',
+                'FINE_15_MIN',
+                'FINE_5_MIN',
+                'MONTHLY',
+                'WEEKLY',
+            ],
+            'status_enum': [
+                'ACTIVE',
+                'DISABLED',
+                'ERROR',
+            ],
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/insights_push_schedule',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
