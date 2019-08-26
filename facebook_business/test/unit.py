@@ -645,6 +645,112 @@ class FacebookResponseTestCase(unittest.TestCase):
     def test_is_transient_by_message(self):
         messages = [
             'An unknown error occurred',
+            """
+            <html lang="en" id="facebook">
+            <head>
+                <title>Facebook | Error</title>
+                <meta charset="utf-8">
+                <meta http-equiv="cache-control" content="no-cache">
+                <meta http-equiv="cache-control" content="no-store">
+                <meta http-equiv="cache-control" content="max-age=0">
+                <meta http-equiv="expires" content="-1">
+                <meta http-equiv="pragma" content="no-cache">
+                <meta name="robots" content="noindex,nofollow">
+                <style>
+                html, body {
+                    color: #141823;
+                    background-color: #e9eaed;
+                    font-family: Helvetica, Lucida Grande, Arial,
+                                Tahoma, Verdana, sans-serif;
+                    margin: 0;
+                    padding: 0;
+                    text-align: center;
+                }
+
+                #header {
+                    height: 30px;
+                    padding-bottom: 10px;
+                    padding-top: 10px;
+                    text-align: center;
+                }
+
+                #icon {
+                    width: 30px;
+                }
+
+                h1 {
+                    font-size: 18px;
+                }
+
+                p {
+                    font-size: 13px;
+                }
+
+                #footer {
+                    border-top: 1px solid #ddd;
+                    color: #9197a3;
+                    font-size: 12px;
+                    padding: 5px 8px 6px 0;
+                }
+                </style>
+            </head>
+            <body>
+                <div id="header">
+                <a href="//www.facebook.com/">
+                    <img id="icon" src="//static.facebook.com/images/logos/facebook_2x.png" />
+                </a>
+                </div>
+                <div id="core">
+                <h1 id="sorry">Sorry, something went wrong.</h1>
+                <p id="promise">
+                    We're working on it and we'll get it fixed as soon as we can.
+                </p>
+                <p id="back-link">
+                    <a id="back" href="//www.facebook.com/">Go Back</a>
+                </p>
+                <div id="footer">
+                    Facebook
+                    <span id="copyright">
+                    &copy; 2019
+                    </span>
+                    <span id="help-link">
+                    &#183;
+                    <a id="help" href="//www.facebook.com/help/">Help Center</a>
+                    </span>
+                </div>
+                </div>
+                <script>
+                document.getElementById('back').onclick = function() {
+                    if (history.length > 1) {
+                    history.back();
+                    return false;
+                    }
+                };
+
+                // Adjust the display based on the window size
+                if (window.innerHeight < 80 || window.innerWidth < 80) {
+                    // Blank if window is too small
+                    document.body.style.display = 'none';
+                };
+                if (window.innerWidth < 200 || window.innerHeight < 150) {
+                    document.getElementById('back-link').style.display = 'none';
+                    document.getElementById('help-link').style.display = 'none';
+                };
+                if (window.innerWidth < 200) {
+                    document.getElementById('sorry').style.fontSize = '16px';
+                };
+                if (window.innerWidth < 150) {
+                    document.getElementById('promise').style.display = 'none';
+                };
+                if (window.innerHeight < 150) {
+                    document.getElementById('sorry').style.margin = '4px 0 0 0';
+                    document.getElementById('sorry').style.fontSize = '14px';
+                    document.getElementById('promise').style.display = 'none';
+                };
+                </script>
+            </body>
+            </html>
+            """,
             'This could happen if a dependent request failed or the entire request timed out.'
         ]
         for message in messages:
