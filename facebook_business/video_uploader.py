@@ -39,12 +39,13 @@ class VideoUploader(object):
     def __init__(self):
         self._session = None
 
-    def upload(self, video, wait_for_encoding=False):
+    def upload(self, video, wait_for_encoding=False, file_name=None):
         """
         Upload the given video file.
         Args:
             video(required): The AdVideo object that will be uploaded
             wait_for_encoding: Whether to wait until encoding is finished.
+            file_name: arbitrary file name
         """
         # Check there is no existing session
         if self._session:
@@ -53,7 +54,7 @@ class VideoUploader(object):
             )
 
         # Initiate an upload session
-        self._session = VideoUploadSession(video, wait_for_encoding)
+        self._session = VideoUploadSession(video, wait_for_encoding, file_name=file_name)
         result = self._session.start()
         self._session = None
         return result
@@ -61,7 +62,7 @@ class VideoUploader(object):
 
 class VideoUploadSession(object):
 
-    def __init__(self, video, wait_for_encoding=False, interval=3, timeout=180):
+    def __init__(self, video, wait_for_encoding=False, interval=3, timeout=180, file_name=None):
         self._video = video
         self._api = video.get_api_assured()
         if (video.Field.filepath in video):
@@ -88,6 +89,7 @@ class VideoUploadSession(object):
         )
         self._timeout = timeout
         self._interval = interval
+        self._file_name = file_name
 
     def start(self):
         # Run start request manager
@@ -144,7 +146,9 @@ class VideoUploadSession(object):
         context = VideoUploadRequestContext()
         context.session_id = self._session_id
         context.account_id = self._account_id
-        if (self._file_path):
+        if self._file_name:
+            context.file_name = self._file_name
+        elif self._file_path:
             context.file_name = ntpath.basename(self._file_path)
         return context
 
