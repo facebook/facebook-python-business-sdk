@@ -219,6 +219,7 @@ class ProductGroup(
             'iphone_app_name': 'string',
             'iphone_app_store_id': 'unsigned int',
             'iphone_url': 'string',
+            'launch_date': 'string',
             'manufacturer_part_number': 'string',
             'material': 'string',
             'mobile_link': 'string',

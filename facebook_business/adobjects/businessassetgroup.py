@@ -69,6 +69,7 @@ class BusinessAssetGroup(
         pages_messaging = 'PAGES_MESSAGING'
         pages_messaging_subscriptions = 'PAGES_MESSAGING_SUBSCRIPTIONS'
         platform_manage_pages = 'PLATFORM_MANAGE_PAGES'
+        platform_read_insights = 'PLATFORM_READ_INSIGHTS'
         read_page_mailboxes = 'READ_PAGE_MAILBOXES'
         view_monetization_insights = 'VIEW_MONETIZATION_INSIGHTS'
 

@@ -107,6 +107,7 @@ class ProductItem(
         iphone_app_name = 'iphone_app_name'
         iphone_app_store_id = 'iphone_app_store_id'
         iphone_url = 'iphone_url'
+        launch_date = 'launch_date'
         offer_price_amount = 'offer_price_amount'
         offer_price_end_date = 'offer_price_end_date'
         offer_price_start_date = 'offer_price_start_date'
@@ -270,6 +271,7 @@ class ProductItem(
             'iphone_app_name': 'string',
             'iphone_app_store_id': 'unsigned int',
             'iphone_url': 'string',
+            'launch_date': 'string',
             'manufacturer_part_number': 'string',
             'material': 'string',
             'mobile_link': 'string',
@@ -420,6 +422,7 @@ class ProductItem(
         'iphone_app_name': 'string',
         'iphone_app_store_id': 'unsigned int',
         'iphone_url': 'string',
+        'launch_date': 'string',
         'offer_price_amount': 'unsigned int',
         'offer_price_end_date': 'datetime',
         'offer_price_start_date': 'datetime',

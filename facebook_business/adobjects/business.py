@@ -118,6 +118,7 @@ class Business(
         pages_messaging = 'PAGES_MESSAGING'
         pages_messaging_subscriptions = 'PAGES_MESSAGING_SUBSCRIPTIONS'
         platform_manage_pages = 'PLATFORM_MANAGE_PAGES'
+        platform_read_insights = 'PLATFORM_READ_INSIGHTS'
         read_page_mailboxes = 'READ_PAGE_MAILBOXES'
         view_monetization_insights = 'VIEW_MONETIZATION_INSIGHTS'
 
@@ -1674,12 +1675,15 @@ class Business(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.businessimage import BusinessImage
         param_types = {
             'bytes': 'Object',
             'creative_folder_id': 'string',
             'name': 'string',
+            'validation_ad_placements': 'list<validation_ad_placements_enum>',
         }
         enums = {
+            'validation_ad_placements_enum': BusinessImage.ValidationAdPlacements.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -1687,9 +1691,9 @@ class Business(
             endpoint='/images',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=BusinessImage,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=BusinessImage, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1855,6 +1859,38 @@ class Business(
             node_id=self['id'],
             method='POST',
             endpoint='/managed_businesses',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Business,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Business, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_move_asset(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'asset_id': 'string',
+            'client_id': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/move_asset',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
             target_class=Business,
@@ -3212,6 +3248,7 @@ class Business(
             'upload_phase': 'upload_phase_enum',
             'upload_session_id': 'string',
             'upload_setting_properties': 'string',
+            'validation_ad_placement': 'validation_ad_placement_enum',
             'video_file_chunk': 'string',
             'video_start_time_ms': 'unsigned int',
             'waterfall_id': 'string',
@@ -3224,6 +3261,7 @@ class Business(
             'swap_mode_enum': AdVideo.SwapMode.__dict__.values(),
             'unpublished_content_type_enum': AdVideo.UnpublishedContentType.__dict__.values(),
             'upload_phase_enum': AdVideo.UploadPhase.__dict__.values(),
+            'validation_ad_placement_enum': AdVideo.ValidationAdPlacement.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
