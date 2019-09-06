@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 
 ## Unreleased
+
+## v4.0.0
+### Changed
+- Graph API call upgrade to [v4.0](https://developers.facebook.com/docs/graph-api/changelog/version4.0)
+
+## v3.3.5
 ### Fix
 [PR543](https://github.com/facebook/facebook-python-business-sdk/pull/543)
 
