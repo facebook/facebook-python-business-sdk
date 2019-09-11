@@ -50,6 +50,7 @@ class BusinessImage(
         url = 'url'
         url_128 = 'url_128'
         width = 'width'
+        ad_placements_validation_only = 'ad_placements_validation_only'
         bytes = 'bytes'
         creative_folder_id = 'creative_folder_id'
         validation_ad_placements = 'validation_ad_placements'
@@ -189,6 +190,7 @@ class BusinessImage(
         'url': 'string',
         'url_128': 'string',
         'width': 'int',
+        'ad_placements_validation_only': 'bool',
         'bytes': 'Object',
         'creative_folder_id': 'string',
         'validation_ad_placements': 'list<ValidationAdPlacements>',

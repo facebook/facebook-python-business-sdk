@@ -79,7 +79,6 @@ class AdVideo(
         spherical = 'spherical'
         status = 'status'
         title = 'title'
-        tv_banner_ad = 'tv_banner_ad'
         universal_video_id = 'universal_video_id'
         updated_time = 'updated_time'
         adaptive_type = 'adaptive_type'
@@ -147,8 +146,9 @@ class AdVideo(
         video_file_chunk = 'video_file_chunk'
         video_start_time_ms = 'video_start_time_ms'
         waterfall_id = 'waterfall_id'
+        ad_placements_validation_only = 'ad_placements_validation_only'
         creative_folder_id = 'creative_folder_id'
-        validation_ad_placement = 'validation_ad_placement'
+        validation_ad_placements = 'validation_ad_placements'
         filename = 'filename'
         filepath = 'filepath'
 
@@ -236,6 +236,7 @@ class AdVideo(
         replace_video = 'REPLACE_VIDEO'
         sales_client_interaction = 'SALES_CLIENT_INTERACTION'
         say_thanks_deprecated = 'SAY_THANKS_DEPRECATED'
+        showreel_native_dummy_video = 'SHOWREEL_NATIVE_DUMMY_VIDEO'
         slideshow_animoto = 'SLIDESHOW_ANIMOTO'
         slideshow_shakr = 'SLIDESHOW_SHAKR'
         sotto_content = 'SOTTO_CONTENT'
@@ -299,33 +300,26 @@ class AdVideo(
         start = 'start'
         transfer = 'transfer'
 
-    class ValidationAdPlacement:
+    class ValidationAdPlacements:
         audience_network_instream_video = 'AUDIENCE_NETWORK_INSTREAM_VIDEO'
         audience_network_instream_video_mobile = 'AUDIENCE_NETWORK_INSTREAM_VIDEO_MOBILE'
-        audience_network_outstream_video = 'AUDIENCE_NETWORK_OUTSTREAM_VIDEO'
         audience_network_rewarded_video = 'AUDIENCE_NETWORK_REWARDED_VIDEO'
         desktop_feed_standard = 'DESKTOP_FEED_STANDARD'
         facebook_story_mobile = 'FACEBOOK_STORY_MOBILE'
         instagram_standard = 'INSTAGRAM_STANDARD'
         instagram_story = 'INSTAGRAM_STORY'
-        instant_article_recirculation_ad = 'INSTANT_ARTICLE_RECIRCULATION_AD'
         instant_article_standard = 'INSTANT_ARTICLE_STANDARD'
         instream_video_desktop = 'INSTREAM_VIDEO_DESKTOP'
         instream_video_mobile = 'INSTREAM_VIDEO_MOBILE'
-        marketplace_mobile = 'MARKETPLACE_MOBILE'
         messenger_mobile_inbox_media = 'MESSENGER_MOBILE_INBOX_MEDIA'
         messenger_mobile_story_media = 'MESSENGER_MOBILE_STORY_MEDIA'
-        mobile_banner = 'MOBILE_BANNER'
-        mobile_feed_basic = 'MOBILE_FEED_BASIC'
         mobile_feed_standard = 'MOBILE_FEED_STANDARD'
         mobile_fullwidth = 'MOBILE_FULLWIDTH'
         mobile_interstitial = 'MOBILE_INTERSTITIAL'
         mobile_medium_rectangle = 'MOBILE_MEDIUM_RECTANGLE'
         mobile_native = 'MOBILE_NATIVE'
         right_column_standard = 'RIGHT_COLUMN_STANDARD'
-        suggested_video_desktop = 'SUGGESTED_VIDEO_DESKTOP'
         suggested_video_mobile = 'SUGGESTED_VIDEO_MOBILE'
-        watch_feed_mobile = 'WATCH_FEED_MOBILE'
 
     class Type:
         tagged = 'tagged'
@@ -1210,7 +1204,6 @@ class AdVideo(
         'spherical': 'bool',
         'status': 'Object',
         'title': 'string',
-        'tv_banner_ad': 'Object',
         'universal_video_id': 'string',
         'updated_time': 'datetime',
         'adaptive_type': 'string',
@@ -1278,8 +1271,9 @@ class AdVideo(
         'video_file_chunk': 'string',
         'video_start_time_ms': 'unsigned int',
         'waterfall_id': 'string',
+        'ad_placements_validation_only': 'bool',
         'creative_folder_id': 'string',
-        'validation_ad_placement': 'ValidationAdPlacement',
+        'validation_ad_placements': 'list<ValidationAdPlacements>',
         'filename': 'file'
     }
     @classmethod
@@ -1292,7 +1286,7 @@ class AdVideo(
         field_enum_info['SwapMode'] = AdVideo.SwapMode.__dict__.values()
         field_enum_info['UnpublishedContentType'] = AdVideo.UnpublishedContentType.__dict__.values()
         field_enum_info['UploadPhase'] = AdVideo.UploadPhase.__dict__.values()
-        field_enum_info['ValidationAdPlacement'] = AdVideo.ValidationAdPlacement.__dict__.values()
+        field_enum_info['ValidationAdPlacements'] = AdVideo.ValidationAdPlacements.__dict__.values()
         field_enum_info['Type'] = AdVideo.Type.__dict__.values()
         field_enum_info['BackdatedTimeGranularity'] = AdVideo.BackdatedTimeGranularity.__dict__.values()
         field_enum_info['VideoPollWwwPlacement'] = AdVideo.VideoPollWwwPlacement.__dict__.values()

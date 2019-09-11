@@ -118,6 +118,7 @@ class Business(
         pages_messaging = 'PAGES_MESSAGING'
         pages_messaging_subscriptions = 'PAGES_MESSAGING_SUBSCRIPTIONS'
         platform_manage_pages = 'PLATFORM_MANAGE_PAGES'
+        platform_pages_manage_instant_articles = 'PLATFORM_PAGES_MANAGE_INSTANT_ARTICLES'
         platform_read_insights = 'PLATFORM_READ_INSIGHTS'
         read_page_mailboxes = 'READ_PAGE_MAILBOXES'
         view_monetization_insights = 'VIEW_MONETIZATION_INSIGHTS'
@@ -1677,6 +1678,7 @@ class Business(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.businessimage import BusinessImage
         param_types = {
+            'ad_placements_validation_only': 'bool',
             'bytes': 'Object',
             'creative_folder_id': 'string',
             'name': 'string',
@@ -2432,6 +2434,7 @@ class Business(
             'destination_catalog_settings': 'map',
             'flight_catalog_settings': 'map',
             'name': 'string',
+            'store_catalog_settings': 'map',
             'vertical': 'vertical_enum',
         }
         enums = {
@@ -3180,6 +3183,7 @@ class Business(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.advideo import AdVideo
         param_types = {
+            'ad_placements_validation_only': 'bool',
             'adaptive_type': 'string',
             'animated_effect_id': 'unsigned int',
             'application_id': 'string',
@@ -3248,7 +3252,7 @@ class Business(
             'upload_phase': 'upload_phase_enum',
             'upload_session_id': 'string',
             'upload_setting_properties': 'string',
-            'validation_ad_placement': 'validation_ad_placement_enum',
+            'validation_ad_placements': 'list<validation_ad_placements_enum>',
             'video_file_chunk': 'string',
             'video_start_time_ms': 'unsigned int',
             'waterfall_id': 'string',
@@ -3261,7 +3265,7 @@ class Business(
             'swap_mode_enum': AdVideo.SwapMode.__dict__.values(),
             'unpublished_content_type_enum': AdVideo.UnpublishedContentType.__dict__.values(),
             'upload_phase_enum': AdVideo.UploadPhase.__dict__.values(),
-            'validation_ad_placement_enum': AdVideo.ValidationAdPlacement.__dict__.values(),
+            'validation_ad_placements_enum': AdVideo.ValidationAdPlacements.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],

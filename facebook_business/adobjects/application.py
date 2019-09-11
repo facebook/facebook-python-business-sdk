@@ -139,6 +139,7 @@ class Application(
         user_support_url = 'user_support_url'
         website_url = 'website_url'
         weekly_active_users = 'weekly_active_users'
+        app_id = 'app_id'
 
     class SupportedPlatforms:
         amazon = 'AMAZON'
@@ -195,6 +196,16 @@ class Application(
         app = 'APP'
         app_and_page = 'APP_AND_PAGE'
         page = 'PAGE'
+
+    # @deprecated get_endpoint function is deprecated
+    @classmethod
+    def get_endpoint(cls):
+        return 'subscribed_apps'
+
+    # @deprecated api_create is being deprecated
+    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.adobjects.adaccount import AdAccount
+        return AdAccount(api=self._api, fbid=parent_id).create_subscribed_app(fields, params, batch, success, failure, pending)
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -2409,6 +2420,7 @@ class Application(
         'user_support_url': 'string',
         'website_url': 'string',
         'weekly_active_users': 'string',
+        'app_id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

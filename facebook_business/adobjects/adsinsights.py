@@ -99,6 +99,7 @@ class AdsInsights(
         conditional_time_spent_ms_over_6s_actions = 'conditional_time_spent_ms_over_6s_actions'
         contact_actions = 'contact_actions'
         contact_value = 'contact_value'
+        conversion_rate_ranking = 'conversion_rate_ranking'
         conversion_values = 'conversion_values'
         conversions = 'conversions'
         cost_per_10_sec_video_view = 'cost_per_10_sec_video_view'
@@ -161,6 +162,7 @@ class AdsInsights(
         dwell_7_sec = 'dwell_7_sec'
         dwell_rate = 'dwell_rate'
         earned_impression = 'earned_impression'
+        engagement_rate_ranking = 'engagement_rate_ranking'
         estimated_ad_recall_rate = 'estimated_ad_recall_rate'
         estimated_ad_recall_rate_lower_bound = 'estimated_ad_recall_rate_lower_bound'
         estimated_ad_recall_rate_upper_bound = 'estimated_ad_recall_rate_upper_bound'
@@ -209,6 +211,7 @@ class AdsInsights(
         product_id = 'product_id'
         publisher_platform = 'publisher_platform'
         purchase_roas = 'purchase_roas'
+        quality_ranking = 'quality_ranking'
         quality_score_ectr = 'quality_score_ectr'
         quality_score_ecvr = 'quality_score_ecvr'
         quality_score_enfbr = 'quality_score_enfbr'
@@ -427,6 +430,7 @@ class AdsInsights(
         'conditional_time_spent_ms_over_6s_actions': 'list<AdsActionStats>',
         'contact_actions': 'list<AdsActionStats>',
         'contact_value': 'list<AdsActionStats>',
+        'conversion_rate_ranking': 'string',
         'conversion_values': 'list<AdsActionStats>',
         'conversions': 'list<AdsActionStats>',
         'cost_per_10_sec_video_view': 'list<AdsActionStats>',
@@ -489,6 +493,7 @@ class AdsInsights(
         'dwell_7_sec': 'string',
         'dwell_rate': 'string',
         'earned_impression': 'string',
+        'engagement_rate_ranking': 'string',
         'estimated_ad_recall_rate': 'string',
         'estimated_ad_recall_rate_lower_bound': 'string',
         'estimated_ad_recall_rate_upper_bound': 'string',
@@ -537,6 +542,7 @@ class AdsInsights(
         'product_id': 'string',
         'publisher_platform': 'string',
         'purchase_roas': 'list<AdsActionStats>',
+        'quality_ranking': 'string',
         'quality_score_ectr': 'string',
         'quality_score_ecvr': 'string',
         'quality_score_enfbr': 'string',

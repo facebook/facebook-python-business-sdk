@@ -53,6 +53,7 @@ class AdgroupPlacementSpecificReviewFeedback(
         marketplace_home_rentals = 'marketplace_home_rentals'
         marketplace_home_sales = 'marketplace_home_sales'
         marketplace_motors = 'marketplace_motors'
+        marketplace_shops = 'marketplace_shops'
         max_review_placements = 'max_review_placements'
         page_admin = 'page_admin'
         product = 'product'
@@ -79,6 +80,7 @@ class AdgroupPlacementSpecificReviewFeedback(
         'marketplace_home_rentals': 'map<string, string>',
         'marketplace_home_sales': 'map<string, string>',
         'marketplace_motors': 'map<string, string>',
+        'marketplace_shops': 'map<string, string>',
         'max_review_placements': 'map<string, string>',
         'page_admin': 'map<string, string>',
         'product': 'map<string, string>',

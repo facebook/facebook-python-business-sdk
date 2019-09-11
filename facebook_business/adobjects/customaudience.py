@@ -200,6 +200,7 @@ class CustomAudience(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'ad_account_id': 'string',
+            'target_countries': 'list<string>',
         }
         enums = {
         }
