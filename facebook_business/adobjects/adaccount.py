@@ -1838,6 +1838,7 @@ class AdAccount(
             'replace_video_id': 'string',
             'sales_promo_id': 'unsigned int',
             'slideshow_spec': 'map',
+            'source': 'file',
             'spherical': 'bool',
             'start_offset': 'unsigned int',
             'swap_mode': 'swap_mode_enum',
@@ -1851,7 +1852,7 @@ class AdAccount(
             'upload_phase': 'upload_phase_enum',
             'upload_session_id': 'string',
             'upload_setting_properties': 'string',
-            'video_file_chunk': 'string',
+            'video_file_chunk': 'file',
             'video_start_time_ms': 'unsigned int',
             'waterfall_id': 'string',
         }
