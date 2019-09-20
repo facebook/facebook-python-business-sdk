@@ -1488,6 +1488,7 @@ class ProductCatalog(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.productitem import ProductItem
         param_types = {
+            'additional_image_files': 'list<file>',
             'additional_image_urls': 'list<string>',
             'additional_variant_attributes': 'map',
             'android_app_name': 'string',
@@ -1499,6 +1500,7 @@ class ProductCatalog(
             'category': 'string',
             'checkout_url': 'string',
             'color': 'string',
+            'commerce_tax_category': 'commerce_tax_category_enum',
             'condition': 'condition_enum',
             'currency': 'string',
             'custom_data': 'map',
@@ -1536,6 +1538,7 @@ class ProductCatalog(
             'product_type': 'string',
             'retailer_id': 'string',
             'retailer_product_group_id': 'string',
+            'return_policy_days': 'unsigned int',
             'sale_price': 'unsigned int',
             'sale_price_end_date': 'datetime',
             'sale_price_start_date': 'datetime',
@@ -1550,6 +1553,7 @@ class ProductCatalog(
         }
         enums = {
             'availability_enum': ProductItem.Availability.__dict__.values(),
+            'commerce_tax_category_enum': ProductItem.CommerceTaxCategory.__dict__.values(),
             'condition_enum': ProductItem.Condition.__dict__.values(),
             'gender_enum': ProductItem.Gender.__dict__.values(),
             'visibility_enum': ProductItem.Visibility.__dict__.values(),

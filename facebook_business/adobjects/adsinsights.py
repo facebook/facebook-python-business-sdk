@@ -263,6 +263,7 @@ class AdsInsights(
         video_p25_watched_actions = 'video_p25_watched_actions'
         video_p50_watched_actions = 'video_p50_watched_actions'
         video_p75_watched_actions = 'video_p75_watched_actions'
+        video_p95_watched_actions = 'video_p95_watched_actions'
         video_play_actions = 'video_play_actions'
         video_play_curve_actions = 'video_play_curve_actions'
         video_play_retention_0_to_15s_actions = 'video_play_retention_0_to_15s_actions'
@@ -594,6 +595,7 @@ class AdsInsights(
         'video_p25_watched_actions': 'list<AdsActionStats>',
         'video_p50_watched_actions': 'list<AdsActionStats>',
         'video_p75_watched_actions': 'list<AdsActionStats>',
+        'video_p95_watched_actions': 'list<AdsActionStats>',
         'video_play_actions': 'list<AdsActionStats>',
         'video_play_curve_actions': 'list<Object>',
         'video_play_retention_0_to_15s_actions': 'list<Object>',

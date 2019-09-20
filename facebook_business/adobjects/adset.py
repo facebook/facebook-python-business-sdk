@@ -105,6 +105,7 @@ class AdSet(
         time_start = 'time_start'
         time_stop = 'time_stop'
         topline_id = 'topline_id'
+        tune_for_category = 'tune_for_category'
         upstream_events = 'upstream_events'
 
     class BidStrategy:
@@ -200,6 +201,12 @@ class AdSet(
         travel_intent_no_destination_intent = 'TRAVEL_INTENT_NO_DESTINATION_INTENT'
         trip_consideration = 'TRIP_CONSIDERATION'
         video_sound_on = 'VIDEO_SOUND_ON'
+
+    class TuneForCategory:
+        credit = 'CREDIT'
+        employment = 'EMPLOYMENT'
+        housing = 'HOUSING'
+        none = 'NONE'
 
     class DatePreset:
         last_14d = 'LAST_14D'
@@ -369,6 +376,7 @@ class AdSet(
             'time_based_ad_rotation_intervals': 'list<unsigned int>',
             'time_start': 'datetime',
             'time_stop': 'datetime',
+            'tune_for_category': 'tune_for_category_enum',
             'upstream_events': 'map',
         }
         enums = {
@@ -380,6 +388,7 @@ class AdSet(
             'optimization_goal_enum': AdSet.OptimizationGoal.__dict__.values(),
             'optimization_sub_event_enum': AdSet.OptimizationSubEvent.__dict__.values(),
             'status_enum': AdSet.Status.__dict__.values(),
+            'tune_for_category_enum': AdSet.TuneForCategory.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -996,6 +1005,7 @@ class AdSet(
         'time_start': 'datetime',
         'time_stop': 'datetime',
         'topline_id': 'string',
+        'tune_for_category': 'TuneForCategory',
         'upstream_events': 'map',
     }
     @classmethod
@@ -1011,6 +1021,7 @@ class AdSet(
         field_enum_info['ExecutionOptions'] = AdSet.ExecutionOptions.__dict__.values()
         field_enum_info['FullFunnelExplorationMode'] = AdSet.FullFunnelExplorationMode.__dict__.values()
         field_enum_info['OptimizationSubEvent'] = AdSet.OptimizationSubEvent.__dict__.values()
+        field_enum_info['TuneForCategory'] = AdSet.TuneForCategory.__dict__.values()
         field_enum_info['DatePreset'] = AdSet.DatePreset.__dict__.values()
         field_enum_info['Operator'] = AdSet.Operator.__dict__.values()
         field_enum_info['StatusOption'] = AdSet.StatusOption.__dict__.values()

@@ -239,6 +239,7 @@ class AdVideo(
         showreel_native_dummy_video = 'SHOWREEL_NATIVE_DUMMY_VIDEO'
         slideshow_animoto = 'SLIDESHOW_ANIMOTO'
         slideshow_shakr = 'SLIDESHOW_SHAKR'
+        slideshow_variation_video = 'SLIDESHOW_VARIATION_VIDEO'
         sotto_content = 'SOTTO_CONTENT'
         stories_video = 'STORIES_VIDEO'
         storyline = 'STORYLINE'
@@ -291,6 +292,7 @@ class AdVideo(
         draft = 'DRAFT'
         inline_created = 'INLINE_CREATED'
         published = 'PUBLISHED'
+        reviewable_branded_content = 'REVIEWABLE_BRANDED_CONTENT'
         scheduled = 'SCHEDULED'
         scheduled_recurring = 'SCHEDULED_RECURRING'
 

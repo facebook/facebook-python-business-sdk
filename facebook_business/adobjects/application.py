@@ -41,6 +41,7 @@ class Application(
         super(Application, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        aam_rules = 'aam_rules'
         an_ad_space_limit = 'an_ad_space_limit'
         an_platforms = 'an_platforms'
         android_key_hash = 'android_key_hash'
@@ -139,7 +140,6 @@ class Application(
         user_support_url = 'user_support_url'
         website_url = 'website_url'
         weekly_active_users = 'weekly_active_users'
-        app_id = 'app_id'
 
     class SupportedPlatforms:
         amazon = 'AMAZON'
@@ -196,16 +196,6 @@ class Application(
         app = 'APP'
         app_and_page = 'APP_AND_PAGE'
         page = 'PAGE'
-
-    # @deprecated get_endpoint function is deprecated
-    @classmethod
-    def get_endpoint(cls):
-        return 'subscribed_apps'
-
-    # @deprecated api_create is being deprecated
-    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.adobjects.adaccount import AdAccount
-        return AdAccount(api=self._api, fbid=parent_id).create_subscribed_app(fields, params, batch, success, failure, pending)
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -1359,6 +1349,36 @@ class Application(
             self.assure_call()
             return request.execute()
 
+    def get_insights_push_schedule(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/insights_push_schedule',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def create_insights_push_schedule(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -1373,14 +1393,9 @@ class Application(
             'owner_id': 'Object',
             'schedule': 'schedule_enum',
             'status': 'status_enum',
-            'time_created': 'datetime',
             'time_increment': 'unsigned int',
-            'time_last_fail': 'datetime',
-            'time_last_run': 'datetime',
-            'time_last_success': 'datetime',
             'time_start': 'datetime',
             'time_stop': 'datetime',
-            'time_updated': 'datetime',
         }
         enums = {
             'level_enum': [
@@ -2031,37 +2046,6 @@ class Application(
             self.assure_call()
             return request.execute()
 
-    def create_staging_resource(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'file': 'file',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/staging_resources',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=Application,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=Application, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def get_subscribed_domains(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -2322,6 +2306,7 @@ class Application(
             return request.execute()
 
     _field_types = {
+        'aam_rules': 'string',
         'an_ad_space_limit': 'unsigned int',
         'an_platforms': 'list<string>',
         'android_key_hash': 'list<string>',
@@ -2420,7 +2405,6 @@ class Application(
         'user_support_url': 'string',
         'website_url': 'string',
         'weekly_active_users': 'string',
-        'app_id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

@@ -531,6 +531,7 @@ class AdAccount(
             'time_start': 'datetime',
             'time_stop': 'datetime',
             'topline_id': 'string',
+            'tune_for_category': 'tune_for_category_enum',
             'upstream_events': 'map',
         }
         enums = {
@@ -542,6 +543,7 @@ class AdAccount(
             'optimization_goal_enum': AdSet.OptimizationGoal.__dict__.values(),
             'optimization_sub_event_enum': AdSet.OptimizationSubEvent.__dict__.values(),
             'status_enum': AdSet.Status.__dict__.values(),
+            'tune_for_category_enum': AdSet.TuneForCategory.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -989,36 +991,6 @@ class AdAccount(
             target_class=PlayableContent,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=PlayableContent, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def delete_ad_report_runs(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='DELETE',
-            endpoint='/adreportruns',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2594,6 +2566,7 @@ class AdAccount(
             'pacing_type': 'list<string>',
             'promoted_object': 'Object',
             'source_campaign_id': 'string',
+            'special_ad_category': 'special_ad_category_enum',
             'spend_cap': 'unsigned int',
             'status': 'status_enum',
             'topline_id': 'string',
@@ -2603,6 +2576,7 @@ class AdAccount(
             'bid_strategy_enum': Campaign.BidStrategy.__dict__.values(),
             'execution_options_enum': Campaign.ExecutionOptions.__dict__.values(),
             'objective_enum': Campaign.Objective.__dict__.values(),
+            'special_ad_category_enum': Campaign.SpecialAdCategory.__dict__.values(),
             'status_enum': Campaign.Status.__dict__.values(),
         }
         request = FacebookRequest(
@@ -3897,7 +3871,6 @@ class AdAccount(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.application import Application
         param_types = {
             'app_id': 'string',
         }
@@ -3909,9 +3882,9 @@ class AdAccount(
             endpoint='/subscribed_apps',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=Application,
+            target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=Application, api=self._api),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

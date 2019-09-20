@@ -100,6 +100,7 @@ class Group(
         real_world_at_work = 'REAL_WORLD_AT_WORK'
         school_class = 'SCHOOL_CLASS'
         sorority = 'SORORITY'
+        sports = 'SPORTS'
         study_group = 'STUDY_GROUP'
         support = 'SUPPORT'
         teammates = 'TEAMMATES'
@@ -147,6 +148,7 @@ class Group(
         real_world_at_work = 'REAL_WORLD_AT_WORK'
         school_class = 'SCHOOL_CLASS'
         sorority = 'SORORITY'
+        sports = 'SPORTS'
         study_group = 'STUDY_GROUP'
         support = 'SUPPORT'
         teammates = 'TEAMMATES'
@@ -630,6 +632,7 @@ class Group(
                 'DRAFT',
                 'INLINE_CREATED',
                 'PUBLISHED',
+                'REVIEWABLE_BRANDED_CONTENT',
                 'SCHEDULED',
                 'SCHEDULED_RECURRING',
             ],

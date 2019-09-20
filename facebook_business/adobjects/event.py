@@ -342,6 +342,7 @@ class Event(
                 'DRAFT',
                 'INLINE_CREATED',
                 'PUBLISHED',
+                'REVIEWABLE_BRANDED_CONTENT',
                 'SCHEDULED',
                 'SCHEDULED_RECURRING',
             ],
