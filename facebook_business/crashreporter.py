@@ -1,7 +1,19 @@
 import sys
+import traceback
+import inspect
+from enum import Enum
+import json
+
 from facebook_business.api import FacebookRequest
 from facebook_business.session import FacebookSession
 from facebook_business.api import FacebookAdsApi
+from facebook_business.exceptions import FacebookError
+from facebook_business.exceptions import FacebookRequestError
+
+
+class Reasons(Enum):
+    API = 'API'
+    SDK = 'SDK'
 
 class CrashReporter(object):
 
@@ -17,7 +29,7 @@ class CrashReporter(object):
             api = FacebookAdsApi.get_default_api()
             cls.reporter_instance = cls(api._session.app_id, sys.excepthook)
             sys.excepthook = cls.reporter_instance.__exception_handler
-            print('CrashReporter: Enabled\n')
+            print('CrashReporter: Enabled')
 
     @classmethod
     def disable(cls):
@@ -28,13 +40,58 @@ class CrashReporter(object):
             print('CrashReporter: Disabled')
 
     def __exception_handler(self, etype, evalue, tb):
-        if etype:
+        params = self.__build_param(etype, tb)
+        if params:
             print('CrashReporter: Crashes detected!')
-            # TODO :check if it is cause by SDK and send API request
+            self.__send_report(params)
         else:
             print('CrashReporter: No crashes detected.')
 
         self.__forward_exception(etype, evalue, tb)
 
+
     def __forward_exception(self, etype, evalue, tb):
         self.__excepthook(etype, evalue, tb)
+
+    def __build_param(self, etype, tb):
+        if not etype:
+            return None
+        fb_request_errors = [cls.__name__ for cls in FacebookError.__subclasses__()]
+        reason = None
+
+        if etype.__name__ == FacebookRequestError.__name__:
+            reason = Reasons.API
+        elif etype.__name__ in fb_request_errors:
+            reason = Reasons.SDK
+
+        if reason is None:
+            extracted_tb = traceback.extract_tb(tb, limit=100)
+            for ii, (filename, line, funcname, code) in enumerate(extracted_tb):
+                if filename.find('facebook_business') != -1:
+                    reason = Reasons.SDK
+
+        if reason is None:
+            return None
+
+        return {
+            'reason': "{} : {}".format(reason.value, etype.__name__),
+            'callstack': traceback.format_tb(tb),
+            'platform': sys.version
+        };
+
+
+    def __send_report(self, payload):
+        try:
+            anonymous = FacebookSession()
+            api = FacebookAdsApi(anonymous)
+            request = FacebookRequest(
+                node_id=self.__app_id,
+                method='POST',
+                endpoint='/instruments',
+                api=api,
+            )
+            request.add_params({'bizsdk_crash_report':payload})
+            request.execute()
+            print('Succeed to Send Crash Report.')
+        except Exception as e:
+            print('Fail to Send Crash Report.')
