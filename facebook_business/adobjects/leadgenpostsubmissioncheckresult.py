@@ -18,22 +18,38 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebook_business.adobjects.page import Page
-from facebook_business.adobjects.pagelabel import PageLabel
-from facebook_business.api import FacebookAdsApi
+from facebook_business.adobjects.abstractobject import AbstractObject
 
-access_token = '<ACCESS_TOKEN>'
-app_secret = '<APP_SECRET>'
-app_id = '<APP_ID>'
-id = '<ID>'
-FacebookAdsApi.init(access_token=access_token)
+"""
+This class is auto-generated.
 
-fields = [
-]
-params = {
-  'name': 'This is a test value',
-}
-print Page(id).create_label(
-  fields=fields,
-  params=params,
-)
+For any issues or feature requests related to this class, please let us know on
+github and we'll fix in our codegen framework. We'll not be able to accept
+pull request for this class.
+"""
+
+class LeadGenPostSubmissionCheckResult(
+    AbstractObject,
+):
+
+    def __init__(self, api=None):
+        super(LeadGenPostSubmissionCheckResult, self).__init__()
+        self._isLeadGenPostSubmissionCheckResult = True
+        self._api = api
+
+    class Field(AbstractObject.Field):
+        api_call_result = 'api_call_result'
+        api_error_message = 'api_error_message'
+        shown_thank_you_page = 'shown_thank_you_page'
+
+    _field_types = {
+        'api_call_result': 'string',
+        'api_error_message': 'string',
+        'shown_thank_you_page': 'string',
+    }
+    @classmethod
+    def _get_field_enum_info(cls):
+        field_enum_info = {}
+        return field_enum_info
+
+

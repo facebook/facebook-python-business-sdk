@@ -1217,6 +1217,7 @@ class ProductCatalog(
             'rules': 'list<string>',
             'schedule': 'string',
             'update_schedule': 'string',
+            'upload_schedule': 'string',
         }
         enums = {
             'delimiter_enum': ProductFeed.Delimiter.__dict__.values(),

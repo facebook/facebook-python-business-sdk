@@ -141,6 +141,9 @@ class ProductItem(
         open_box_new = 'open_box_new'
         refurbished = 'refurbished'
         used = 'used'
+        used_fair = 'used_fair'
+        used_good = 'used_good'
+        used_like_new = 'used_like_new'
 
     class Gender:
         female = 'female'

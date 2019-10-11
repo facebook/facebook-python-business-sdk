@@ -177,6 +177,7 @@ class AdVideo(
         dco_ad_asset_feed = 'DCO_AD_ASSET_FEED'
         dco_autogen_video = 'DCO_AUTOGEN_VIDEO'
         dco_trimmed_video = 'DCO_TRIMMED_VIDEO'
+        dim_sum = 'DIM_SUM'
         directed_post_attachment = 'DIRECTED_POST_ATTACHMENT'
         direct_inbox = 'DIRECT_INBOX'
         direct_inbox_reaction = 'DIRECT_INBOX_REACTION'

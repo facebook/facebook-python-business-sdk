@@ -105,6 +105,7 @@ class AdAccount(
         timezone_offset_hours_utc = 'timezone_offset_hours_utc'
         tos_accepted = 'tos_accepted'
         user_role = 'user_role'
+        user_tasks = 'user_tasks'
         user_tos_accepted = 'user_tos_accepted'
 
     class Currency:
@@ -469,91 +470,6 @@ class AdAccount(
             target_class=AbstractCrudObject,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_ad_set(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.adset import AdSet
-        param_types = {
-            'adlabels': 'list<Object>',
-            'adset_schedule': 'list<Object>',
-            'attribution_spec': 'list<map>',
-            'bid_adjustments': 'Object',
-            'bid_amount': 'int',
-            'bid_constraints': 'map<string, Object>',
-            'bid_strategy': 'bid_strategy_enum',
-            'billing_event': 'billing_event_enum',
-            'campaign_id': 'string',
-            'campaign_spec': 'Object',
-            'creative_sequence': 'list<string>',
-            'daily_budget': 'unsigned int',
-            'daily_imps': 'unsigned int',
-            'daily_min_spend_target': 'unsigned int',
-            'daily_spend_cap': 'unsigned int',
-            'date_format': 'string',
-            'destination_type': 'destination_type_enum',
-            'end_time': 'datetime',
-            'execution_options': 'list<execution_options_enum>',
-            'frequency_control_specs': 'list<Object>',
-            'full_funnel_exploration_mode': 'full_funnel_exploration_mode_enum',
-            'is_dynamic_creative': 'bool',
-            'lifetime_budget': 'unsigned int',
-            'lifetime_imps': 'unsigned int',
-            'lifetime_min_spend_target': 'unsigned int',
-            'lifetime_spend_cap': 'unsigned int',
-            'line_number': 'unsigned int',
-            'name': 'string',
-            'optimization_goal': 'optimization_goal_enum',
-            'optimization_sub_event': 'optimization_sub_event_enum',
-            'pacing_type': 'list<string>',
-            'promoted_object': 'Object',
-            'rb_prediction_id': 'string',
-            'rf_prediction_id': 'string',
-            'source_adset_id': 'string',
-            'start_time': 'datetime',
-            'status': 'status_enum',
-            'targeting': 'Targeting',
-            'time_based_ad_rotation_id_blocks': 'list<list<unsigned int>>',
-            'time_based_ad_rotation_intervals': 'list<unsigned int>',
-            'time_start': 'datetime',
-            'time_stop': 'datetime',
-            'topline_id': 'string',
-            'tune_for_category': 'tune_for_category_enum',
-            'upstream_events': 'map',
-        }
-        enums = {
-            'bid_strategy_enum': AdSet.BidStrategy.__dict__.values(),
-            'billing_event_enum': AdSet.BillingEvent.__dict__.values(),
-            'destination_type_enum': AdSet.DestinationType.__dict__.values(),
-            'execution_options_enum': AdSet.ExecutionOptions.__dict__.values(),
-            'full_funnel_exploration_mode_enum': AdSet.FullFunnelExplorationMode.__dict__.values(),
-            'optimization_goal_enum': AdSet.OptimizationGoal.__dict__.values(),
-            'optimization_sub_event_enum': AdSet.OptimizationSubEvent.__dict__.values(),
-            'status_enum': AdSet.Status.__dict__.values(),
-            'tune_for_category_enum': AdSet.TuneForCategory.__dict__.values(),
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/ad_sets',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AdSet,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdSet, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1085,6 +1001,7 @@ class AdAccount(
                 'action_type',
                 'action_video_sound',
                 'action_video_type',
+                'attribution_model_type',
                 'interactive_component_sticker_id',
                 'interactive_component_sticker_response',
             ],
@@ -1410,6 +1327,37 @@ class AdAccount(
             self.assure_call()
             return request.execute()
 
+    def get_ads_volume(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.adaccountadvolume import AdAccountAdVolume
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/ads_volume',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdAccountAdVolume,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdAccountAdVolume, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_ads_by_labels(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -1466,6 +1414,91 @@ class AdAccount(
         request = FacebookRequest(
             node_id=self['id'],
             method='GET',
+            endpoint='/adsets',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdSet,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdSet, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_ad_set(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.adset import AdSet
+        param_types = {
+            'adlabels': 'list<Object>',
+            'adset_schedule': 'list<Object>',
+            'attribution_spec': 'list<map>',
+            'bid_adjustments': 'Object',
+            'bid_amount': 'int',
+            'bid_constraints': 'map<string, Object>',
+            'bid_strategy': 'bid_strategy_enum',
+            'billing_event': 'billing_event_enum',
+            'campaign_id': 'string',
+            'campaign_spec': 'Object',
+            'creative_sequence': 'list<string>',
+            'daily_budget': 'unsigned int',
+            'daily_imps': 'unsigned int',
+            'daily_min_spend_target': 'unsigned int',
+            'daily_spend_cap': 'unsigned int',
+            'date_format': 'string',
+            'destination_type': 'destination_type_enum',
+            'end_time': 'datetime',
+            'execution_options': 'list<execution_options_enum>',
+            'frequency_control_specs': 'list<Object>',
+            'full_funnel_exploration_mode': 'full_funnel_exploration_mode_enum',
+            'is_dynamic_creative': 'bool',
+            'lifetime_budget': 'unsigned int',
+            'lifetime_imps': 'unsigned int',
+            'lifetime_min_spend_target': 'unsigned int',
+            'lifetime_spend_cap': 'unsigned int',
+            'line_number': 'unsigned int',
+            'name': 'string',
+            'optimization_goal': 'optimization_goal_enum',
+            'optimization_sub_event': 'optimization_sub_event_enum',
+            'pacing_type': 'list<string>',
+            'promoted_object': 'Object',
+            'rb_prediction_id': 'string',
+            'rf_prediction_id': 'string',
+            'source_adset_id': 'string',
+            'start_time': 'datetime',
+            'status': 'status_enum',
+            'targeting': 'Targeting',
+            'time_based_ad_rotation_id_blocks': 'list<list<unsigned int>>',
+            'time_based_ad_rotation_intervals': 'list<unsigned int>',
+            'time_start': 'datetime',
+            'time_stop': 'datetime',
+            'topline_id': 'string',
+            'tune_for_category': 'tune_for_category_enum',
+            'upstream_events': 'map',
+        }
+        enums = {
+            'bid_strategy_enum': AdSet.BidStrategy.__dict__.values(),
+            'billing_event_enum': AdSet.BillingEvent.__dict__.values(),
+            'destination_type_enum': AdSet.DestinationType.__dict__.values(),
+            'execution_options_enum': AdSet.ExecutionOptions.__dict__.values(),
+            'full_funnel_exploration_mode_enum': AdSet.FullFunnelExplorationMode.__dict__.values(),
+            'optimization_goal_enum': AdSet.OptimizationGoal.__dict__.values(),
+            'optimization_sub_event_enum': AdSet.OptimizationSubEvent.__dict__.values(),
+            'status_enum': AdSet.Status.__dict__.values(),
+            'tune_for_category_enum': AdSet.TuneForCategory.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
             endpoint='/adsets',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
@@ -2622,6 +2655,44 @@ class AdAccount(
             target_class=Campaign,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=Campaign, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_content_delivery_report(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.contentdeliveryreport import ContentDeliveryReport
+        param_types = {
+            'end_date': 'datetime',
+            'platform': 'platform_enum',
+            'position': 'position_enum',
+            'start_date': 'datetime',
+            'summary': 'bool',
+        }
+        enums = {
+            'platform_enum': ContentDeliveryReport.Platform.__dict__.values(),
+            'position_enum': ContentDeliveryReport.Position.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/content_delivery_report',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ContentDeliveryReport,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ContentDeliveryReport, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -4314,6 +4385,7 @@ class AdAccount(
         'timezone_offset_hours_utc': 'float',
         'tos_accepted': 'map<string, int>',
         'user_role': 'string',
+        'user_tasks': 'list<string>',
         'user_tos_accepted': 'map<string, int>',
     }
     @classmethod

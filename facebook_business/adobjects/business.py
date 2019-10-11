@@ -371,62 +371,6 @@ class Business(
             self.assure_call()
             return request.execute()
 
-    def create_ad_account_creation_request(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.adaccountcreationrequest import AdAccountCreationRequest
-        param_types = {
-            'ad_accounts_info': 'list<map>',
-            'additional_comment': 'string',
-            'address_in_chinese': 'string',
-            'address_in_english': 'map',
-            'address_in_local_language': 'string',
-            'advertiser_business_id': 'string',
-            'business_registration': 'file',
-            'business_registration_id': 'string',
-            'chinese_legal_entity_name': 'string',
-            'contact': 'map',
-            'english_legal_entity_name': 'string',
-            'extended_credit_id': 'string',
-            'is_smb': 'bool',
-            'is_test': 'bool',
-            'legal_entity_name_in_local_language': 'string',
-            'official_website_url': 'string',
-            'planning_agency_business_id': 'string',
-            'promotable_app_ids': 'list<string>',
-            'promotable_page_ids': 'list<int>',
-            'promotable_page_urls': 'list<string>',
-            'promotable_urls': 'list<string>',
-            'subvertical': 'subvertical_enum',
-            'vertical': 'vertical_enum',
-        }
-        enums = {
-            'subvertical_enum': AdAccountCreationRequest.Subvertical.__dict__.values(),
-            'vertical_enum': AdAccountCreationRequest.Vertical.__dict__.values(),
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/adaccountcreationrequests',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AdAccountCreationRequest,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdAccountCreationRequest, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def get_ad_network_analytics(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -603,39 +547,6 @@ class Business(
             target_class=AdsPixel,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=AdsPixel, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def get_advertisable_applications(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.businessadvertisableapplicationsresult import BusinessAdvertisableApplicationsResult
-        param_types = {
-            'adaccount_id': 'unsigned int',
-            'offset': 'unsigned int',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/advertisable_applications',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=BusinessAdvertisableApplicationsResult,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=BusinessAdvertisableApplicationsResult, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1333,6 +1244,44 @@ class Business(
             target_class=Business,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=Business, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_content_delivery_report(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.contentdeliveryreport import ContentDeliveryReport
+        param_types = {
+            'end_date': 'datetime',
+            'platform': 'platform_enum',
+            'position': 'position_enum',
+            'start_date': 'datetime',
+            'summary': 'bool',
+        }
+        enums = {
+            'platform_enum': ContentDeliveryReport.Platform.__dict__.values(),
+            'position_enum': ContentDeliveryReport.Position.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/content_delivery_report',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ContentDeliveryReport,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ContentDeliveryReport, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

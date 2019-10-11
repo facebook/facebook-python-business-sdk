@@ -56,6 +56,7 @@ class BusinessAssetGroup(
         advertise = 'ADVERTISE'
         manage = 'MANAGE'
         upload = 'UPLOAD'
+        view = 'VIEW'
 
     class PageTasks:
         advertise = 'ADVERTISE'

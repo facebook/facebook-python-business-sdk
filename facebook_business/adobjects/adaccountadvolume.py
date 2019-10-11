@@ -28,53 +28,34 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdAccountMatchedSearchApplicationsEdgeData(
+class AdAccountAdVolume(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(AdAccountMatchedSearchApplicationsEdgeData, self).__init__()
-        self._isAdAccountMatchedSearchApplicationsEdgeData = True
+        super(AdAccountAdVolume, self).__init__()
+        self._isAdAccountAdVolume = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        app_id = 'app_id'
-        are_app_events_unavailable = 'are_app_events_unavailable'
-        icon_url = 'icon_url'
-        name = 'name'
-        search_source_store = 'search_source_store'
-        store = 'store'
-        unique_id = 'unique_id'
-        url = 'url'
-
-    class AppStore:
-        amazon_app_store = 'AMAZON_APP_STORE'
-        does_not_exist = 'DOES_NOT_EXIST'
-        fb_android_store = 'FB_ANDROID_STORE'
-        fb_canvas = 'FB_CANVAS'
-        fb_gameroom = 'FB_GAMEROOM'
-        google_play = 'GOOGLE_PLAY'
-        instant_game = 'INSTANT_GAME'
-        itunes = 'ITUNES'
-        itunes_ipad = 'ITUNES_IPAD'
-        roku_store = 'ROKU_STORE'
-        windows_10_store = 'WINDOWS_10_STORE'
-        windows_store = 'WINDOWS_STORE'
+        actor_id = 'actor_id'
+        has_hit_total_live_ads_limit = 'has_hit_total_live_ads_limit'
+        live_ads_quota_left = 'live_ads_quota_left'
+        total_live_ads = 'total_live_ads'
+        total_live_ads_in_current_account = 'total_live_ads_in_current_account'
+        total_live_ads_limit = 'total_live_ads_limit'
 
     _field_types = {
-        'app_id': 'string',
-        'are_app_events_unavailable': 'bool',
-        'icon_url': 'string',
-        'name': 'string',
-        'search_source_store': 'string',
-        'store': 'string',
-        'unique_id': 'string',
-        'url': 'string',
+        'actor_id': 'string',
+        'has_hit_total_live_ads_limit': 'bool',
+        'live_ads_quota_left': 'int',
+        'total_live_ads': 'unsigned int',
+        'total_live_ads_in_current_account': 'unsigned int',
+        'total_live_ads_limit': 'unsigned int',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['AppStore'] = AdAccountMatchedSearchApplicationsEdgeData.AppStore.__dict__.values()
         return field_enum_info
 
 

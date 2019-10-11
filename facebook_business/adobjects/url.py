@@ -52,6 +52,7 @@ class URL(
 
     class Scopes:
         news_tab = 'NEWS_TAB'
+        news_tab_dev_env = 'NEWS_TAB_DEV_ENV'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
