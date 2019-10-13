@@ -1,8 +1,10 @@
 import sys
 import traceback
 import inspect
-from enum import Enum
 import json
+import logging
+
+from enum import Enum
 
 from facebook_business.api import FacebookRequest
 from facebook_business.session import FacebookSession
@@ -18,6 +20,7 @@ class Reasons(Enum):
 class CrashReporter(object):
 
     reporter_instance = None
+    logger = None
 
     def __init__(self, app_id, excepthook):
         self.__app_id = app_id
@@ -29,7 +32,7 @@ class CrashReporter(object):
             api = FacebookAdsApi.get_default_api()
             cls.reporter_instance = cls(api._session.app_id, sys.excepthook)
             sys.excepthook = cls.reporter_instance.__exception_handler
-            print('CrashReporter: Enabled')
+            cls.logging('Enabled')
 
     @classmethod
     def disable(cls):
@@ -37,15 +40,32 @@ class CrashReporter(object):
             # Restore the original excepthook
             sys.excepthook = cls.reporter_instance.__excepthook
             cls.reporter_instance = None
-            print('CrashReporter: Disabled')
+            cls.logging('Disabled')
+
+    @classmethod
+    def enableLogging(cls):
+        if cls.logger == None:
+            logging.basicConfig()
+            cls.logger = logging.getLogger(__name__)
+            cls.logger.setLevel(logging.INFO)
+
+    @classmethod
+    def disableLogging(cls):
+        if cls.logger != None:
+            cls.logger = None
+
+    @classmethod
+    def logging(cls, info):
+        if cls.logger != None:
+            cls.logger.info(info)
 
     def __exception_handler(self, etype, evalue, tb):
         params = self.__build_param(etype, tb)
         if params:
-            print('CrashReporter: Crashes detected!')
+            CrashReporter.logging('Crash detected!')
             self.__send_report(params)
         else:
-            print('CrashReporter: No crashes detected.')
+            CrashReporter.logging('No crash detected.')
 
         self.__forward_exception(etype, evalue, tb)
 
@@ -92,6 +112,6 @@ class CrashReporter(object):
             )
             request.add_params({'bizsdk_crash_report':payload})
             request.execute()
-            print('Succeed to Send Crash Report.')
+            CrashReporter.logging('Succeed to Send Crash Report.')
         except Exception as e:
-            print('Fail to Send Crash Report.')
+            CrashReporter.logging('Fail to Send Crash Report.')
