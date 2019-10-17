@@ -99,7 +99,6 @@ class CrashReporter(object):
             'platform': sys.version
         };
 
-
     def __send_report(self, payload):
         try:
             anonymous = FacebookSession()
