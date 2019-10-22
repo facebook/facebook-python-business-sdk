@@ -28,7 +28,9 @@ import os
 sdk_path = os.path.abspath(os.path.join(__file__, os.pardir, os.pardir))
 sys.path.insert(1, sdk_path)
 
-from facebook_business.objects import *
+from facebook_business import FacebookSession
+from facebook_business import FacebookAdsApi
+from facebook_business.adobjects.advideo import AdVideo
 
 config_filename = os.path.join(sdk_path, './config.json')
 

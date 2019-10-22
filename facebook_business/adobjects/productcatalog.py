@@ -52,7 +52,7 @@ class ProductCatalog(
         id = 'id'
         name = 'name'
         product_count = 'product_count'
-        qualified_product_count = 'qualified_product_count'
+        store_catalog_settings = 'store_catalog_settings'
         vertical = 'vertical'
         destination_catalog_settings = 'destination_catalog_settings'
         flight_catalog_settings = 'flight_catalog_settings'
@@ -64,6 +64,7 @@ class ProductCatalog(
         flights = 'flights'
         home_listings = 'home_listings'
         hotels = 'hotels'
+        offline_commerce = 'offline_commerce'
         ticketed_experiences = 'ticketed_experiences'
         transactable_items = 'transactable_items'
         vehicles = 'vehicles'
@@ -164,6 +165,7 @@ class ProductCatalog(
             'fallback_image_url': 'string',
             'flight_catalog_settings': 'map',
             'name': 'string',
+            'store_catalog_settings': 'map',
         }
         enums = {
         }
@@ -1215,6 +1217,7 @@ class ProductCatalog(
             'rules': 'list<string>',
             'schedule': 'string',
             'update_schedule': 'string',
+            'upload_schedule': 'string',
         }
         enums = {
             'delimiter_enum': ProductFeed.Delimiter.__dict__.values(),
@@ -1486,6 +1489,7 @@ class ProductCatalog(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.productitem import ProductItem
         param_types = {
+            'additional_image_files': 'list<file>',
             'additional_image_urls': 'list<string>',
             'additional_variant_attributes': 'map',
             'android_app_name': 'string',
@@ -1497,6 +1501,7 @@ class ProductCatalog(
             'category': 'string',
             'checkout_url': 'string',
             'color': 'string',
+            'commerce_tax_category': 'commerce_tax_category_enum',
             'condition': 'condition_enum',
             'currency': 'string',
             'custom_data': 'map',
@@ -1520,6 +1525,7 @@ class ProductCatalog(
             'iphone_app_name': 'string',
             'iphone_app_store_id': 'unsigned int',
             'iphone_url': 'string',
+            'launch_date': 'string',
             'manufacturer_part_number': 'string',
             'material': 'string',
             'mobile_link': 'string',
@@ -1533,6 +1539,7 @@ class ProductCatalog(
             'product_type': 'string',
             'retailer_id': 'string',
             'retailer_product_group_id': 'string',
+            'return_policy_days': 'unsigned int',
             'sale_price': 'unsigned int',
             'sale_price_end_date': 'datetime',
             'sale_price_start_date': 'datetime',
@@ -1547,6 +1554,7 @@ class ProductCatalog(
         }
         enums = {
             'availability_enum': ProductItem.Availability.__dict__.values(),
+            'commerce_tax_category_enum': ProductItem.CommerceTaxCategory.__dict__.values(),
             'condition_enum': ProductItem.Condition.__dict__.values(),
             'gender_enum': ProductItem.Gender.__dict__.values(),
             'visibility_enum': ProductItem.Visibility.__dict__.values(),
@@ -1560,6 +1568,38 @@ class ProductCatalog(
             target_class=ProductItem,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=ProductItem, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_store_product_items_batch(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'allow_upsert': 'bool',
+            'requests': 'list<map>',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/store_product_items_batch',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ProductCatalog,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ProductCatalog, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1684,7 +1724,7 @@ class ProductCatalog(
         'id': 'string',
         'name': 'string',
         'product_count': 'int',
-        'qualified_product_count': 'unsigned int',
+        'store_catalog_settings': 'StoreCatalogSettings',
         'vertical': 'string',
         'destination_catalog_settings': 'map',
         'flight_catalog_settings': 'map',

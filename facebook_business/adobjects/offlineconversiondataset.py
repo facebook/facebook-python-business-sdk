@@ -71,6 +71,7 @@ class OfflineConversionDataSet(
     class RelationshipType:
         ad_manager = 'AD_MANAGER'
         agency = 'AGENCY'
+        aggregator = 'AGGREGATOR'
         audience_manager = 'AUDIENCE_MANAGER'
         other = 'OTHER'
 

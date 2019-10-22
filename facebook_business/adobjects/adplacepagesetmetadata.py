@@ -39,11 +39,13 @@ class AdPlacePageSetMetadata(
 
     class Field(AbstractObject.Field):
         audience = 'audience'
+        custom = 'custom'
         extra_data = 'extra_data'
         fixed_radius = 'fixed_radius'
 
     _field_types = {
         'audience': 'Object',
+        'custom': 'Object',
         'extra_data': 'string',
         'fixed_radius': 'Object',
     }

@@ -70,6 +70,7 @@ class Campaign(
         recommendations = 'recommendations'
         source_campaign = 'source_campaign'
         source_campaign_id = 'source_campaign_id'
+        special_ad_category = 'special_ad_category'
         spend_cap = 'spend_cap'
         start_time = 'start_time'
         status = 'status'
@@ -96,6 +97,7 @@ class Campaign(
         active = 'ACTIVE'
         archived = 'ARCHIVED'
         deleted = 'DELETED'
+        in_process = 'IN_PROCESS'
         paused = 'PAUSED'
         with_issues = 'WITH_ISSUES'
 
@@ -145,6 +147,12 @@ class Campaign(
         product_catalog_sales = 'PRODUCT_CATALOG_SALES'
         reach = 'REACH'
         video_views = 'VIDEO_VIEWS'
+
+    class SpecialAdCategory:
+        credit = 'CREDIT'
+        employment = 'EMPLOYMENT'
+        housing = 'HOUSING'
+        none = 'NONE'
 
     class Operator:
         all = 'ALL'
@@ -268,6 +276,7 @@ class Campaign(
             'objective': 'objective_enum',
             'pacing_type': 'list<string>',
             'promoted_object': 'Object',
+            'special_ad_category': 'special_ad_category_enum',
             'spend_cap': 'unsigned int',
             'status': 'status_enum',
             'upstream_events': 'map',
@@ -276,6 +285,7 @@ class Campaign(
             'bid_strategy_enum': Campaign.BidStrategy.__dict__.values(),
             'execution_options_enum': Campaign.ExecutionOptions.__dict__.values(),
             'objective_enum': Campaign.Objective.__dict__.values(),
+            'special_ad_category_enum': Campaign.SpecialAdCategory.__dict__.values(),
             'status_enum': Campaign.Status.__dict__.values(),
         }
         request = FacebookRequest(
@@ -287,6 +297,37 @@ class Campaign(
             target_class=Campaign,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_ad_studies(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.adstudy import AdStudy
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/ad_studies',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdStudy,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdStudy, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -463,6 +504,44 @@ class Campaign(
             target_class=AdSet,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=AdSet, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_content_delivery_report(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.contentdeliveryreport import ContentDeliveryReport
+        param_types = {
+            'end_date': 'datetime',
+            'platform': 'platform_enum',
+            'position': 'position_enum',
+            'start_date': 'datetime',
+            'summary': 'bool',
+        }
+        enums = {
+            'platform_enum': ContentDeliveryReport.Platform.__dict__.values(),
+            'position_enum': ContentDeliveryReport.Position.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/content_delivery_report',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ContentDeliveryReport,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ContentDeliveryReport, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -695,6 +774,7 @@ class Campaign(
         'recommendations': 'list<AdRecommendation>',
         'source_campaign': 'Campaign',
         'source_campaign_id': 'string',
+        'special_ad_category': 'string',
         'spend_cap': 'string',
         'start_time': 'datetime',
         'status': 'Status',
@@ -716,6 +796,7 @@ class Campaign(
         field_enum_info['DatePreset'] = Campaign.DatePreset.__dict__.values()
         field_enum_info['ExecutionOptions'] = Campaign.ExecutionOptions.__dict__.values()
         field_enum_info['Objective'] = Campaign.Objective.__dict__.values()
+        field_enum_info['SpecialAdCategory'] = Campaign.SpecialAdCategory.__dict__.values()
         field_enum_info['Operator'] = Campaign.Operator.__dict__.values()
         field_enum_info['StatusOption'] = Campaign.StatusOption.__dict__.values()
         return field_enum_info

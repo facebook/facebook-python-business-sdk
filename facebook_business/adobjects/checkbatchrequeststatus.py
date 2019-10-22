@@ -41,7 +41,7 @@ class CheckBatchRequestStatus(
         errors = 'errors'
         errors_total_count = 'errors_total_count'
         handle = 'handle'
-        invalid_item_ids = 'invalid_item_ids'
+        ids_of_invalid_requests = 'ids_of_invalid_requests'
         status = 'status'
         warnings = 'warnings'
         warnings_total_count = 'warnings_total_count'
@@ -50,7 +50,7 @@ class CheckBatchRequestStatus(
         'errors': 'list<Object>',
         'errors_total_count': 'int',
         'handle': 'string',
-        'invalid_item_ids': 'list<string>',
+        'ids_of_invalid_requests': 'list<string>',
         'status': 'string',
         'warnings': 'list<Object>',
         'warnings_total_count': 'int',

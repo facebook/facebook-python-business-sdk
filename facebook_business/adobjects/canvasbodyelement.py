@@ -18,30 +18,34 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebook_business.adobjects.adaccount import AdAccount
-from facebook_business.adobjects.adset import AdSet
-from facebook_business.api import FacebookAdsApi
+from facebook_business.adobjects.abstractobject import AbstractObject
 
-access_token = '<ACCESS_TOKEN>'
-app_secret = '<APP_SECRET>'
-app_id = '<APP_ID>'
-id = '<AD_ACCOUNT_ID>'
-FacebookAdsApi.init(access_token=access_token)
+"""
+This class is auto-generated.
 
-fields = [
-]
-params = {
-  'name': 'My First AdSet',
-  'daily_budget': '10000',
-  'bid_amount': '300',
-  'billing_event': 'IMPRESSIONS',
-  'optimization_goal': 'REACH',
-  'campaign_id': '<adCampaignLinkClicksID>',
-  'promoted_object': {'page_id':'<pageID>'},
-  'targeting': {'geo_locations':{'countries':['US'],'regions':[{'key':'4081'}],'cities':[{'key':777934,'radius':10,'distance_unit':'mile'}]},'genders':[1],'age_max':24,'age_min':20,'publisher_platforms':['facebook','audience_network'],'device_platforms':['mobile'],'flexible_spec':[{'interests':[{'id':'<adsInterestID>','name':'<adsInterestName>'}]}]},
-  'status': 'PAUSED',
-}
-print AdAccount(id).create_ad_set(
-  fields=fields,
-  params=params,
-)
+For any issues or feature requests related to this class, please let us know on
+github and we'll fix in our codegen framework. We'll not be able to accept
+pull request for this class.
+"""
+
+class CanvasBodyElement(
+    AbstractObject,
+):
+
+    def __init__(self, api=None):
+        super(CanvasBodyElement, self).__init__()
+        self._isCanvasBodyElement = True
+        self._api = api
+
+    class Field(AbstractObject.Field):
+        element = 'element'
+
+    _field_types = {
+        'element': 'Object',
+    }
+    @classmethod
+    def _get_field_enum_info(cls):
+        field_enum_info = {}
+        return field_enum_info
+
+

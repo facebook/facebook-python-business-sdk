@@ -61,6 +61,8 @@ class AdAsyncRequest(
         in_progress = 'IN_PROGRESS'
         pending_dependency = 'PENDING_DEPENDENCY'
         success = 'SUCCESS'
+        user_canceled = 'USER_CANCELED'
+        user_canceled_dependency = 'USER_CANCELED_DEPENDENCY'
 
     def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils

@@ -53,12 +53,12 @@ class ProductFeed(
         name = 'name'
         override_type = 'override_type'
         product_count = 'product_count'
-        qualified_product_count = 'qualified_product_count'
         quoted_fields_mode = 'quoted_fields_mode'
         schedule = 'schedule'
         update_schedule = 'update_schedule'
         feed_type = 'feed_type'
         rules = 'rules'
+        upload_schedule = 'upload_schedule'
 
     class Delimiter:
         autodetect = 'AUTODETECT'
@@ -97,6 +97,7 @@ class ProductFeed(
         vehicle_offer = 'VEHICLE_OFFER'
 
     class OverrideType:
+        catalog_segment_customize_default = 'CATALOG_SEGMENT_CUSTOMIZE_DEFAULT'
         country = 'COUNTRY'
         language = 'LANGUAGE'
 
@@ -183,6 +184,7 @@ class ProductFeed(
             'quoted_fields_mode': 'quoted_fields_mode_enum',
             'schedule': 'string',
             'update_schedule': 'string',
+            'upload_schedule': 'string',
         }
         enums = {
             'delimiter_enum': ProductFeed.Delimiter.__dict__.values(),
@@ -588,12 +590,12 @@ class ProductFeed(
         'name': 'string',
         'override_type': 'string',
         'product_count': 'int',
-        'qualified_product_count': 'unsigned int',
         'quoted_fields_mode': 'QuotedFieldsMode',
         'schedule': 'ProductFeedSchedule',
         'update_schedule': 'ProductFeedSchedule',
         'feed_type': 'FeedType',
         'rules': 'list<string>',
+        'upload_schedule': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

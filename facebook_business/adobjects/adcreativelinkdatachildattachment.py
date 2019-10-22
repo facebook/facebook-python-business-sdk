@@ -47,7 +47,6 @@ class AdCreativeLinkDataChildAttachment(
         name = 'name'
         picture = 'picture'
         place_data = 'place_data'
-        referral_id = 'referral_id'
         static_card = 'static_card'
         video_id = 'video_id'
 
@@ -61,7 +60,6 @@ class AdCreativeLinkDataChildAttachment(
         'name': 'string',
         'picture': 'string',
         'place_data': 'AdCreativePlaceData',
-        'referral_id': 'string',
         'static_card': 'bool',
         'video_id': 'string',
     }

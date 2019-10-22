@@ -59,18 +59,14 @@ class AdReportSpec(
         time_increment = 'time_increment'
         time_interval = 'time_interval'
         time_ranges = 'time_ranges'
-        business_id = 'business_id'
-        bypass_async = 'bypass_async'
-        format = 'format'
-        limit = 'limit'
-        report_run_id = 'report_run_id'
-        user_report = 'user_report'
 
     class ActionsGroupBy:
+        action_brand = 'action_brand'
         action_canvas_component_id = 'action_canvas_component_id'
         action_canvas_component_name = 'action_canvas_component_name'
         action_carousel_card_id = 'action_carousel_card_id'
         action_carousel_card_name = 'action_carousel_card_name'
+        action_category = 'action_category'
         action_converted_brand_tag_id = 'action_converted_brand_tag_id'
         action_converted_category_tag_id = 'action_converted_category_tag_id'
         action_converted_product_id = 'action_converted_product_id'
@@ -81,8 +77,7 @@ class AdReportSpec(
         action_type = 'action_type'
         action_video_sound = 'action_video_sound'
         action_video_type = 'action_video_type'
-        brand = 'brand'
-        category = 'category'
+        attribution_model_type = 'attribution_model_type'
         interactive_component_sticker_id = 'interactive_component_sticker_id'
         interactive_component_sticker_response = 'interactive_component_sticker_response'
 
@@ -117,16 +112,6 @@ class AdReportSpec(
         json = 'JSON'
         xls = 'XLS'
         xlsx = 'XLSX'
-
-    # @deprecated get_endpoint function is deprecated
-    @classmethod
-    def get_endpoint(cls):
-        return 'adreportspecs'
-
-    # @deprecated api_create is being deprecated
-    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.adobjects.adaccount import AdAccount
-        return AdAccount(api=self._api, fbid=parent_id).create_ad_report_spec(fields, params, batch, success, failure, pending)
 
     def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -262,12 +247,6 @@ class AdReportSpec(
         'time_increment': 'string',
         'time_interval': 'Object',
         'time_ranges': 'list<Object>',
-        'business_id': 'string',
-        'bypass_async': 'bool',
-        'format': 'Format',
-        'limit': 'int',
-        'report_run_id': 'string',
-        'user_report': 'bool',
     }
     @classmethod
     def _get_field_enum_info(cls):

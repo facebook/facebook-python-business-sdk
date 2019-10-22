@@ -24,13 +24,10 @@ Creates several ads using batch calls.
 
 from facebook_business import FacebookSession
 from facebook_business import FacebookAdsApi
-from facebook_business.objects import (
-    AdAccount,
-    Ad,
-    AdSet,
-)
-
-import ad_creation_utils
+from facebook_business.adobjects.adaccount import AdAccount
+from facebook_business.adobjects.ad import Ad
+from facebook_business.adobjects.adset import AdSet
+from . import ad_creation_utils
 
 import json
 import os
@@ -89,8 +86,7 @@ if __name__ == '__main__':
             )
         ],
 
-        bid_type=AdSet.BidType.cpm,
-        bid_info={AdSet.Field.BidInfo.impressions: 53},  # $0.53 / thousand
+        bid_strategy=AdSet.BidStrategy.lowest_cost_without_cap,
         daily_budget=3000,  # $30.00 per day
 
         age_min=13,

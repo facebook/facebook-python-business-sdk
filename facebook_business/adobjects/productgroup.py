@@ -196,6 +196,7 @@ class ProductGroup(
             'category': 'string',
             'checkout_url': 'string',
             'color': 'string',
+            'commerce_tax_category': 'commerce_tax_category_enum',
             'condition': 'condition_enum',
             'currency': 'string',
             'custom_data': 'map',
@@ -219,6 +220,7 @@ class ProductGroup(
             'iphone_app_name': 'string',
             'iphone_app_store_id': 'unsigned int',
             'iphone_url': 'string',
+            'launch_date': 'string',
             'manufacturer_part_number': 'string',
             'material': 'string',
             'mobile_link': 'string',
@@ -231,6 +233,7 @@ class ProductGroup(
             'price': 'unsigned int',
             'product_type': 'string',
             'retailer_id': 'string',
+            'return_policy_days': 'unsigned int',
             'sale_price': 'unsigned int',
             'sale_price_end_date': 'datetime',
             'sale_price_start_date': 'datetime',
@@ -245,6 +248,7 @@ class ProductGroup(
         }
         enums = {
             'availability_enum': ProductItem.Availability.__dict__.values(),
+            'commerce_tax_category_enum': ProductItem.CommerceTaxCategory.__dict__.values(),
             'condition_enum': ProductItem.Condition.__dict__.values(),
             'gender_enum': ProductItem.Gender.__dict__.values(),
             'visibility_enum': ProductItem.Visibility.__dict__.values(),

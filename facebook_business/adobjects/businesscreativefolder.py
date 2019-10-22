@@ -43,6 +43,7 @@ class BusinessCreativeFolder(
     class Field(AbstractObject.Field):
         business = 'business'
         creation_time = 'creation_time'
+        description = 'description'
         id = 'id'
         name = 'name'
 
@@ -135,6 +136,7 @@ class BusinessCreativeFolder(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'description': 'string',
             'name': 'string',
         }
         enums = {
@@ -355,6 +357,7 @@ class BusinessCreativeFolder(
     _field_types = {
         'business': 'Business',
         'creation_time': 'datetime',
+        'description': 'string',
         'id': 'string',
         'name': 'string',
     }

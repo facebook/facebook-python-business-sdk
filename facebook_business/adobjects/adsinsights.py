@@ -99,6 +99,7 @@ class AdsInsights(
         conditional_time_spent_ms_over_6s_actions = 'conditional_time_spent_ms_over_6s_actions'
         contact_actions = 'contact_actions'
         contact_value = 'contact_value'
+        conversion_rate_ranking = 'conversion_rate_ranking'
         conversion_values = 'conversion_values'
         conversions = 'conversions'
         cost_per_10_sec_video_view = 'cost_per_10_sec_video_view'
@@ -161,6 +162,7 @@ class AdsInsights(
         dwell_7_sec = 'dwell_7_sec'
         dwell_rate = 'dwell_rate'
         earned_impression = 'earned_impression'
+        engagement_rate_ranking = 'engagement_rate_ranking'
         estimated_ad_recall_rate = 'estimated_ad_recall_rate'
         estimated_ad_recall_rate_lower_bound = 'estimated_ad_recall_rate_lower_bound'
         estimated_ad_recall_rate_upper_bound = 'estimated_ad_recall_rate_upper_bound'
@@ -181,7 +183,6 @@ class AdsInsights(
         impression_device = 'impression_device'
         impressions = 'impressions'
         impressions_auto_refresh = 'impressions_auto_refresh'
-        impressions_dummy = 'impressions_dummy'
         impressions_gross = 'impressions_gross'
         inline_link_click_ctr = 'inline_link_click_ctr'
         inline_link_clicks = 'inline_link_clicks'
@@ -210,6 +211,7 @@ class AdsInsights(
         product_id = 'product_id'
         publisher_platform = 'publisher_platform'
         purchase_roas = 'purchase_roas'
+        quality_ranking = 'quality_ranking'
         quality_score_ectr = 'quality_score_ectr'
         quality_score_ecvr = 'quality_score_ecvr'
         quality_score_enfbr = 'quality_score_enfbr'
@@ -253,7 +255,6 @@ class AdsInsights(
         video_15_sec_watched_actions = 'video_15_sec_watched_actions'
         video_30_sec_watched_actions = 'video_30_sec_watched_actions'
         video_asset = 'video_asset'
-        video_avg_percent_watched_actions = 'video_avg_percent_watched_actions'
         video_avg_time_watched_actions = 'video_avg_time_watched_actions'
         video_complete_watched_actions = 'video_complete_watched_actions'
         video_completed_view_or_15s_passed_actions = 'video_completed_view_or_15s_passed_actions'
@@ -430,6 +431,7 @@ class AdsInsights(
         'conditional_time_spent_ms_over_6s_actions': 'list<AdsActionStats>',
         'contact_actions': 'list<AdsActionStats>',
         'contact_value': 'list<AdsActionStats>',
+        'conversion_rate_ranking': 'string',
         'conversion_values': 'list<AdsActionStats>',
         'conversions': 'list<AdsActionStats>',
         'cost_per_10_sec_video_view': 'list<AdsActionStats>',
@@ -492,6 +494,7 @@ class AdsInsights(
         'dwell_7_sec': 'string',
         'dwell_rate': 'string',
         'earned_impression': 'string',
+        'engagement_rate_ranking': 'string',
         'estimated_ad_recall_rate': 'string',
         'estimated_ad_recall_rate_lower_bound': 'string',
         'estimated_ad_recall_rate_upper_bound': 'string',
@@ -512,7 +515,6 @@ class AdsInsights(
         'impression_device': 'string',
         'impressions': 'string',
         'impressions_auto_refresh': 'string',
-        'impressions_dummy': 'string',
         'impressions_gross': 'string',
         'inline_link_click_ctr': 'string',
         'inline_link_clicks': 'string',
@@ -541,6 +543,7 @@ class AdsInsights(
         'product_id': 'string',
         'publisher_platform': 'string',
         'purchase_roas': 'list<AdsActionStats>',
+        'quality_ranking': 'string',
         'quality_score_ectr': 'string',
         'quality_score_ecvr': 'string',
         'quality_score_enfbr': 'string',
@@ -584,7 +587,6 @@ class AdsInsights(
         'video_15_sec_watched_actions': 'list<AdsActionStats>',
         'video_30_sec_watched_actions': 'list<AdsActionStats>',
         'video_asset': 'Object',
-        'video_avg_percent_watched_actions': 'list<AdsActionStats>',
         'video_avg_time_watched_actions': 'list<AdsActionStats>',
         'video_complete_watched_actions': 'list<AdsActionStats>',
         'video_completed_view_or_15s_passed_actions': 'list<AdsActionStats>',

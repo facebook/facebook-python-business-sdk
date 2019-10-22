@@ -32,34 +32,17 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class FoodDrinkOrder(
+class StoreCatalogSettings(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isFoodDrinkOrder = True
-        super(FoodDrinkOrder, self).__init__(fbid, parent_id, api)
+        self._isStoreCatalogSettings = True
+        super(StoreCatalogSettings, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        admin_note = 'admin_note'
-        creation_time = 'creation_time'
-        customer_name = 'customer_name'
-        customer_phone_number = 'customer_phone_number'
         id = 'id'
-        note = 'note'
-        order_details = 'order_details'
-        state = 'state'
-        update_time = 'update_time'
-
-    class State:
-        cancelled = 'CANCELLED'
-        confirmed = 'CONFIRMED'
-        draft = 'DRAFT'
-        expired = 'EXPIRED'
-        on_delivery = 'ON_DELIVERY'
-        pending = 'PENDING'
-        ready_for_pickup = 'READY_FOR_PICKUP'
-        serving = 'SERVING'
+        page = 'page'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -75,7 +58,7 @@ class FoodDrinkOrder(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=FoodDrinkOrder,
+            target_class=StoreCatalogSettings,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -96,10 +79,9 @@ class FoodDrinkOrder(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'state': 'state_enum',
+            'page': 'int',
         }
         enums = {
-            'state_enum': FoodDrinkOrder.State.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -107,7 +89,7 @@ class FoodDrinkOrder(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=FoodDrinkOrder,
+            target_class=StoreCatalogSettings,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -124,20 +106,12 @@ class FoodDrinkOrder(
             return request.execute()
 
     _field_types = {
-        'admin_note': 'string',
-        'creation_time': 'datetime',
-        'customer_name': 'string',
-        'customer_phone_number': 'string',
         'id': 'string',
-        'note': 'string',
-        'order_details': 'list<Object>',
-        'state': 'string',
-        'update_time': 'datetime',
+        'page': 'Page',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['State'] = FoodDrinkOrder.State.__dict__.values()
         return field_enum_info
 
 
