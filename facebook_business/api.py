@@ -667,9 +667,7 @@ class FacebookRequest:
             self._file_params[file_key] = file_path
             self._file_counter += 1
         else:
-            raise FacebookBadParameterError(
-                'Cannot find file ' + file_path + '!',
-            )
+            raise FacebookBadParameterError('Cannot find file ' + file_path + '!')
         return self
 
     def add_files(self, files):
@@ -695,9 +693,11 @@ class FacebookRequest:
 
     def add_param(self, key, value):
         if not self._param_checker.is_valid_pair(key, value):
-            api_utils.warning('value of ' + key + ' might not be compatible. ' +
-                ' Expect ' + self._param_checker.get_type(key) + '; ' +
-                ' got ' + str(type(value)))
+            api_utils.warning(
+                'value of ' + key + ' might not be compatible. '
+                + ' Expect ' + self._param_checker.get_type(key) + '; '
+                + ' got ' + str(type(value))
+            )
         if self._param_checker.is_file_param(key):
             self._file_params[key] = value
         else:
@@ -757,8 +757,10 @@ class FacebookRequest:
         elif isinstance(value, list):
             return [self._extract_value(item) for item in value]
         elif isinstance(value, dict):
-            return dict((self._extract_value(k), self._extract_value(v))
-                for (k, v) in value.items())
+            return dict(
+                (self._extract_value(k), self._extract_value(v))
+                for (k, v) in value.items()
+            )
         else:
             return value
 

@@ -39,12 +39,14 @@ from .. import exceptions
 from .. import session
 from .. import utils
 from facebook_business import apiconfig
-from facebook_business.adobjects import (abstractcrudobject,
-                                   ad,
-                                   adaccount,
-                                   adcreative,
-                                   customaudience,
-                                   productcatalog)
+from facebook_business.adobjects import (
+    abstractcrudobject,
+    ad,
+    adaccount,
+    adcreative,
+    customaudience,
+    productcatalog
+)
 from facebook_business.utils import version
 
 
@@ -95,7 +97,7 @@ class CustomAudienceTestCase(unittest.TestCase):
             customaudience.CustomAudience.Schema.MultiKeySchema.ln,
         ]
         payload = customaudience.CustomAudience.format_params(
-            schema,[["abc123def", "  TEST ", "test", "..test.."]],
+            schema, [["abc123def", "  TEST ", "test", "..test.."]],
             is_raw=True,
         )
         # This is the value of ["  Test ", " test", "..test"] and
@@ -218,6 +220,7 @@ class EdgeIteratorTestCase(unittest.TestCase):
         )
         obj = ei.build_objects_from_response(response)
         assert len(obj) == 1 and obj[0]['account_id'] == 'act_345'
+
 
 class AbstractCrudObjectTestCase(unittest.TestCase):
     def test_all_aco_has_id_field(self):
@@ -512,6 +515,7 @@ class FacebookAdsApiBatchTestCase(unittest.TestCase):
         fake_api = self.FakeApi(body)
         batch = api.FacebookAdsApiBatch(fake_api)
         self.success_called = False
+
         def callback(resp):
             self.success_called = True
         batch.add("GET", "/endpoint", params={"key": "value"}, success=callback)
@@ -529,6 +533,7 @@ class FacebookAdsApiBatchTestCase(unittest.TestCase):
         fake_api = self.FakeApi(body)
         batch = api.FacebookAdsApiBatch(fake_api)
         self.failure_called = False
+
         def callback(resp):
             self.failure_called = True
         batch.add("GET", "/endpoint", params={"key": "value"}, failure=callback)
@@ -547,9 +552,11 @@ class FacebookAdsApiBatchTestCase(unittest.TestCase):
         fake_api = self.FakeApi(body)
         batch = api.FacebookAdsApiBatch(fake_api)
         self.failure_called = False
+
         def callback(resp):
             self.failure_called = True
         self.transient_called = False
+
         def transient_callback(resp):
             self.transient_called = True
         batch.add("GET", "/endpoint", params={"key": "value"}, failure=callback, transient_error=transient_callback)
@@ -572,6 +579,7 @@ class FacebookAdsApiBatchTestCase(unittest.TestCase):
         fake_api = self.FakeApi(body)
         batch = api.FacebookAdsApiBatch(fake_api)
         self.transient_resp = None
+
         def callback(resp):
             self.transient_resp = resp
         batch.add("GET", "/endpoint", params={"key": "value"}, transient_error=callback)
