@@ -25,11 +25,10 @@ this_dir = os.path.dirname(__file__)
 repo_dir = os.path.join(this_dir, os.pardir)
 sys.path.insert(1, repo_dir)
 
-import __main__ as main
 import json
 from facebook_business.session import FacebookSession
 from facebook_business.api import FacebookAdsApi
-from facebook_business.objects import *
+from facebook_business.adobjects import *
 from facebook_business.exceptions import FacebookError
 
 

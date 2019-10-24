@@ -90,16 +90,18 @@ class Group(
         high_school_forum = 'HIGH_SCHOOL_FORUM'
         jobs = 'JOBS'
         learning = 'LEARNING'
-        meme = 'MEME'
         mentorship = 'MENTORSHIP'
         neighbors = 'NEIGHBORS'
         none = 'NONE'
+        oculus = 'OCULUS'
+        parenting = 'PARENTING'
         parents = 'PARENTS'
         project = 'PROJECT'
         real_world = 'REAL_WORLD'
         real_world_at_work = 'REAL_WORLD_AT_WORK'
         school_class = 'SCHOOL_CLASS'
         sorority = 'SORORITY'
+        sports = 'SPORTS'
         study_group = 'STUDY_GROUP'
         support = 'SUPPORT'
         teammates = 'TEAMMATES'
@@ -137,16 +139,18 @@ class Group(
         high_school_forum = 'HIGH_SCHOOL_FORUM'
         jobs = 'JOBS'
         learning = 'LEARNING'
-        meme = 'MEME'
         mentorship = 'MENTORSHIP'
         neighbors = 'NEIGHBORS'
         none = 'NONE'
+        oculus = 'OCULUS'
+        parenting = 'PARENTING'
         parents = 'PARENTS'
         project = 'PROJECT'
         real_world = 'REAL_WORLD'
         real_world_at_work = 'REAL_WORLD_AT_WORK'
         school_class = 'SCHOOL_CLASS'
         sorority = 'SORORITY'
+        sports = 'SPORTS'
         study_group = 'STUDY_GROUP'
         support = 'SUPPORT'
         teammates = 'TEAMMATES'
@@ -630,7 +634,9 @@ class Group(
                 'DRAFT',
                 'INLINE_CREATED',
                 'PUBLISHED',
+                'REVIEWABLE_BRANDED_CONTENT',
                 'SCHEDULED',
+                'SCHEDULED_RECURRING',
             ],
         }
         request = FacebookRequest(
@@ -773,7 +779,6 @@ class Group(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.livevideo import LiveVideo
         param_types = {
-            'attribution_app_id': 'string',
             'content_tags': 'list<string>',
             'description': 'string',
             'encoding_settings': 'string',

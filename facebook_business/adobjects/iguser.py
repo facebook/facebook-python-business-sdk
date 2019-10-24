@@ -163,11 +163,12 @@ class IGUser(
         from facebook_business.adobjects.igmedia import IGMedia
         param_types = {
             'caption': 'string',
-            'children': 'list<unsigned int>',
             'image_url': 'string',
             'location_id': 'string',
             'media_type': 'string',
+            'thumb_offset': 'string',
             'user_tags': 'list<map>',
+            'video_url': 'string',
         }
         enums = {
         }

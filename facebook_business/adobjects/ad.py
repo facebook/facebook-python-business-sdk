@@ -105,6 +105,7 @@ class Ad(
         campaign_paused = 'CAMPAIGN_PAUSED'
         deleted = 'DELETED'
         disapproved = 'DISAPPROVED'
+        in_process = 'IN_PROCESS'
         paused = 'PAUSED'
         pending_billing_info = 'PENDING_BILLING_INFO'
         pending_review = 'PENDING_REVIEW'
@@ -689,7 +690,6 @@ class Ad(
             'dynamic_customization': 'Object',
             'end_date': 'datetime',
             'height': 'unsigned int',
-            'interactive': 'bool',
             'locale': 'string',
             'place_page_id': 'int',
             'post': 'Object',

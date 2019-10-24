@@ -46,6 +46,8 @@ class AdVideo(
         backdated_time_granularity = 'backdated_time_granularity'
         content_category = 'content_category'
         content_tags = 'content_tags'
+        copyright = 'copyright'
+        copyright_monitoring_status = 'copyright_monitoring_status'
         created_time = 'created_time'
         custom_labels = 'custom_labels'
         description = 'description'
@@ -61,9 +63,11 @@ class AdVideo(
         is_crossposting_eligible = 'is_crossposting_eligible'
         is_episode = 'is_episode'
         is_instagram_eligible = 'is_instagram_eligible'
+        is_reference_only = 'is_reference_only'
         length = 'length'
         live_audience_count = 'live_audience_count'
         live_status = 'live_status'
+        music_video_copyright = 'music_video_copyright'
         permalink_url = 'permalink_url'
         picture = 'picture'
         place = 'place'
@@ -75,7 +79,6 @@ class AdVideo(
         spherical = 'spherical'
         status = 'status'
         title = 'title'
-        tv_banner_ad = 'tv_banner_ad'
         universal_video_id = 'universal_video_id'
         updated_time = 'updated_time'
         adaptive_type = 'adaptive_type'
@@ -143,7 +146,9 @@ class AdVideo(
         video_file_chunk = 'video_file_chunk'
         video_start_time_ms = 'video_start_time_ms'
         waterfall_id = 'waterfall_id'
+        ad_placements_validation_only = 'ad_placements_validation_only'
         creative_folder_id = 'creative_folder_id'
+        validation_ad_placements = 'validation_ad_placements'
         filename = 'filename'
         filepath = 'filepath'
 
@@ -163,17 +168,16 @@ class AdVideo(
         candidate_videos = 'CANDIDATE_VIDEOS'
         canvas = 'CANVAS'
         cfc_video = 'CFC_VIDEO'
-        civic_proposal_cover_video = 'CIVIC_PROPOSAL_COVER_VIDEO'
         contained_post_attachment = 'CONTAINED_POST_ATTACHMENT'
         contained_post_audio_broadcast = 'CONTAINED_POST_AUDIO_BROADCAST'
         contained_post_broadcast = 'CONTAINED_POST_BROADCAST'
-        contained_your_day = 'CONTAINED_YOUR_DAY'
         copyright_reference_broadcast = 'COPYRIGHT_REFERENCE_BROADCAST'
         copyright_reference_video = 'COPYRIGHT_REFERENCE_VIDEO'
         cultural_moment_deprecated = 'CULTURAL_MOMENT_DEPRECATED'
         dco_ad_asset_feed = 'DCO_AD_ASSET_FEED'
         dco_autogen_video = 'DCO_AUTOGEN_VIDEO'
         dco_trimmed_video = 'DCO_TRIMMED_VIDEO'
+        dim_sum = 'DIM_SUM'
         directed_post_attachment = 'DIRECTED_POST_ATTACHMENT'
         direct_inbox = 'DIRECT_INBOX'
         direct_inbox_reaction = 'DIRECT_INBOX_REACTION'
@@ -185,6 +189,8 @@ class AdVideo(
         facecast_dvr = 'FACECAST_DVR'
         fundraiser_cover_video = 'FUNDRAISER_COVER_VIDEO'
         game_clip = 'GAME_CLIP'
+        gaming_update_video = 'GAMING_UPDATE_VIDEO'
+        gemstone = 'GEMSTONE'
         goodwill_anniversary_deprecated = 'GOODWILL_ANNIVERSARY_DEPRECATED'
         goodwill_anniversary_promotion_deprecated = 'GOODWILL_ANNIVERSARY_PROMOTION_DEPRECATED'
         goodwill_video_contained_share = 'GOODWILL_VIDEO_CONTAINED_SHARE'
@@ -231,9 +237,12 @@ class AdVideo(
         replace_video = 'REPLACE_VIDEO'
         sales_client_interaction = 'SALES_CLIENT_INTERACTION'
         say_thanks_deprecated = 'SAY_THANKS_DEPRECATED'
+        showreel_native_dummy_video = 'SHOWREEL_NATIVE_DUMMY_VIDEO'
         slideshow_animoto = 'SLIDESHOW_ANIMOTO'
         slideshow_shakr = 'SLIDESHOW_SHAKR'
+        slideshow_variation_video = 'SLIDESHOW_VARIATION_VIDEO'
         sotto_content = 'SOTTO_CONTENT'
+        stories_video = 'STORIES_VIDEO'
         storyline = 'STORYLINE'
         storyline_with_external_music = 'STORYLINE_WITH_EXTERNAL_MUSIC'
         story_archive_video = 'STORY_ARCHIVE_VIDEO'
@@ -242,6 +251,7 @@ class AdVideo(
         temp_multimedia_post = 'TEMP_MULTIMEDIA_POST'
         unlisted = 'UNLISTED'
         video_comment = 'VIDEO_COMMENT'
+        video_creative_editor_autogen_ad_video = 'VIDEO_CREATIVE_EDITOR_AUTOGEN_AD_VIDEO'
         woodhenge = 'WOODHENGE'
         your_day = 'YOUR_DAY'
 
@@ -283,13 +293,36 @@ class AdVideo(
         draft = 'DRAFT'
         inline_created = 'INLINE_CREATED'
         published = 'PUBLISHED'
+        reviewable_branded_content = 'REVIEWABLE_BRANDED_CONTENT'
         scheduled = 'SCHEDULED'
+        scheduled_recurring = 'SCHEDULED_RECURRING'
 
     class UploadPhase:
         cancel = 'cancel'
         finish = 'finish'
         start = 'start'
         transfer = 'transfer'
+
+    class ValidationAdPlacements:
+        audience_network_instream_video = 'AUDIENCE_NETWORK_INSTREAM_VIDEO'
+        audience_network_instream_video_mobile = 'AUDIENCE_NETWORK_INSTREAM_VIDEO_MOBILE'
+        audience_network_rewarded_video = 'AUDIENCE_NETWORK_REWARDED_VIDEO'
+        desktop_feed_standard = 'DESKTOP_FEED_STANDARD'
+        facebook_story_mobile = 'FACEBOOK_STORY_MOBILE'
+        instagram_standard = 'INSTAGRAM_STANDARD'
+        instagram_story = 'INSTAGRAM_STORY'
+        instant_article_standard = 'INSTANT_ARTICLE_STANDARD'
+        instream_video_desktop = 'INSTREAM_VIDEO_DESKTOP'
+        instream_video_mobile = 'INSTREAM_VIDEO_MOBILE'
+        messenger_mobile_inbox_media = 'MESSENGER_MOBILE_INBOX_MEDIA'
+        messenger_mobile_story_media = 'MESSENGER_MOBILE_STORY_MEDIA'
+        mobile_feed_standard = 'MOBILE_FEED_STANDARD'
+        mobile_fullwidth = 'MOBILE_FULLWIDTH'
+        mobile_interstitial = 'MOBILE_INTERSTITIAL'
+        mobile_medium_rectangle = 'MOBILE_MEDIUM_RECTANGLE'
+        mobile_native = 'MOBILE_NATIVE'
+        right_column_standard = 'RIGHT_COLUMN_STANDARD'
+        suggested_video_mobile = 'SUGGESTED_VIDEO_MOBILE'
 
     class Type:
         tagged = 'tagged'
@@ -909,6 +942,37 @@ class AdVideo(
             self.assure_call()
             return request.execute()
 
+    def get_sponsor_tags(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.page import Page
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/sponsor_tags',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Page,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Page, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def create_summarization(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -928,6 +992,37 @@ class AdVideo(
             target_class=AdVideo,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=AdVideo, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_tags(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.taggablesubject import TaggableSubject
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/tags',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=TaggableSubject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=TaggableSubject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1079,6 +1174,8 @@ class AdVideo(
         'backdated_time_granularity': 'string',
         'content_category': 'string',
         'content_tags': 'list<string>',
+        'copyright': 'VideoCopyright',
+        'copyright_monitoring_status': 'string',
         'created_time': 'datetime',
         'custom_labels': 'list<string>',
         'description': 'string',
@@ -1094,9 +1191,11 @@ class AdVideo(
         'is_crossposting_eligible': 'bool',
         'is_episode': 'bool',
         'is_instagram_eligible': 'bool',
+        'is_reference_only': 'bool',
         'length': 'float',
         'live_audience_count': 'unsigned int',
         'live_status': 'string',
+        'music_video_copyright': 'MusicVideoCopyright',
         'permalink_url': 'string',
         'picture': 'string',
         'place': 'Place',
@@ -1108,7 +1207,6 @@ class AdVideo(
         'spherical': 'bool',
         'status': 'Object',
         'title': 'string',
-        'tv_banner_ad': 'Object',
         'universal_video_id': 'string',
         'updated_time': 'datetime',
         'adaptive_type': 'string',
@@ -1176,7 +1274,9 @@ class AdVideo(
         'video_file_chunk': 'string',
         'video_start_time_ms': 'unsigned int',
         'waterfall_id': 'string',
+        'ad_placements_validation_only': 'bool',
         'creative_folder_id': 'string',
+        'validation_ad_placements': 'list<ValidationAdPlacements>',
         'filename': 'file'
     }
     @classmethod
@@ -1189,6 +1289,7 @@ class AdVideo(
         field_enum_info['SwapMode'] = AdVideo.SwapMode.__dict__.values()
         field_enum_info['UnpublishedContentType'] = AdVideo.UnpublishedContentType.__dict__.values()
         field_enum_info['UploadPhase'] = AdVideo.UploadPhase.__dict__.values()
+        field_enum_info['ValidationAdPlacements'] = AdVideo.ValidationAdPlacements.__dict__.values()
         field_enum_info['Type'] = AdVideo.Type.__dict__.values()
         field_enum_info['BackdatedTimeGranularity'] = AdVideo.BackdatedTimeGranularity.__dict__.values()
         field_enum_info['VideoPollWwwPlacement'] = AdVideo.VideoPollWwwPlacement.__dict__.values()

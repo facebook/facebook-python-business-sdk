@@ -39,13 +39,14 @@ from .. import exceptions
 from .. import session
 from .. import utils
 from facebook_business import apiconfig
-from facebook_business.adobjects import (abstractcrudobject,
-                                   ad,
-                                   adaccount,
-                                   adcreative,
-                                   customaudience,
-                                   productcatalog,
-                                   adaccountreachestimate)
+from facebook_business.adobjects import (
+    abstractcrudobject,
+    ad,
+    adaccount,
+    adcreative,
+    customaudience,
+    productcatalog
+)
 from facebook_business.utils import version
 
 
@@ -96,7 +97,7 @@ class CustomAudienceTestCase(unittest.TestCase):
             customaudience.CustomAudience.Schema.MultiKeySchema.ln,
         ]
         payload = customaudience.CustomAudience.format_params(
-            schema,[["abc123def", "  TEST ", "test", "..test.."]],
+            schema, [["abc123def", "  TEST ", "test", "..test.."]],
             is_raw=True,
         )
         # This is the value of ["  Test ", " test", "..test"] and
@@ -201,36 +202,25 @@ class EdgeIteratorTestCase(unittest.TestCase):
     def test_builds_from_object_with_data_key(self):
         """
         Sometimes the response returns a single JSON object - with a "data".
-        For instance with adaccountreachestimate. This asserts that we successfully
+        For instance with adcreative. This asserts that we successfully
         build the object that is in "data" key.
         """
         response = {
             "data": {
-                "estimate_ready": True,
-                "bid_estimations": [{
-                    "cpa_min": 63,
-                    "cpa_median": 116,
-                    "cpm_max": 331,
-                    "cpc_max": 48,
-                    "cpc_median": 35,
-                    "cpc_min": 17,
-                    "cpm_min": 39,
-                    "cpm_median": 212,
-                    "unsupported": False,
-                    "location": 3,
-                    "cpa_max": 163}],
-                "users": 7600000
+                "name": "test name",
+                "status": "ACTIVE",
+                "account_id": 'act_345'
             }
         }
         # get_endpoint is deprecated, and it's not automatically generated in AdAccountReachEstimate
         # class, we pass a random endpoint to work around this.
         ei = api.Cursor(
             ad.Ad('123'),
-            adaccountreachestimate.AdAccountReachEstimate,
-            endpoint='random_endpoint'
+            adcreative.AdCreative,
         )
         obj = ei.build_objects_from_response(response)
-        assert len(obj) == 1 and obj[0]['users'] == 7600000
+        assert len(obj) == 1 and obj[0]['account_id'] == 'act_345'
+
 
 class AbstractCrudObjectTestCase(unittest.TestCase):
     def test_all_aco_has_id_field(self):
@@ -525,6 +515,7 @@ class FacebookAdsApiBatchTestCase(unittest.TestCase):
         fake_api = self.FakeApi(body)
         batch = api.FacebookAdsApiBatch(fake_api)
         self.success_called = False
+
         def callback(resp):
             self.success_called = True
         batch.add("GET", "/endpoint", params={"key": "value"}, success=callback)
@@ -542,6 +533,7 @@ class FacebookAdsApiBatchTestCase(unittest.TestCase):
         fake_api = self.FakeApi(body)
         batch = api.FacebookAdsApiBatch(fake_api)
         self.failure_called = False
+
         def callback(resp):
             self.failure_called = True
         batch.add("GET", "/endpoint", params={"key": "value"}, failure=callback)
@@ -560,9 +552,11 @@ class FacebookAdsApiBatchTestCase(unittest.TestCase):
         fake_api = self.FakeApi(body)
         batch = api.FacebookAdsApiBatch(fake_api)
         self.failure_called = False
+
         def callback(resp):
             self.failure_called = True
         self.transient_called = False
+
         def transient_callback(resp):
             self.transient_called = True
         batch.add("GET", "/endpoint", params={"key": "value"}, failure=callback, transient_error=transient_callback)
@@ -585,6 +579,7 @@ class FacebookAdsApiBatchTestCase(unittest.TestCase):
         fake_api = self.FakeApi(body)
         batch = api.FacebookAdsApiBatch(fake_api)
         self.transient_resp = None
+
         def callback(resp):
             self.transient_resp = resp
         batch.add("GET", "/endpoint", params={"key": "value"}, transient_error=callback)

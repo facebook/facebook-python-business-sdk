@@ -48,6 +48,7 @@ class Comment(
         can_hide = 'can_hide'
         can_like = 'can_like'
         can_remove = 'can_remove'
+        can_reply_privately = 'can_reply_privately'
         comment_count = 'comment_count'
         created_time = 'created_time'
         field_from = 'from'
@@ -61,6 +62,7 @@ class Comment(
         object = 'object'
         parent = 'parent'
         permalink_url = 'permalink_url'
+        private_reply_conversation = 'private_reply_conversation'
         user_likes = 'user_likes'
 
     class CommentPrivacyValue:
@@ -216,6 +218,50 @@ class Comment(
             self.assure_call()
             return request.execute()
 
+    def create_comment(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'attachment_id': 'string',
+            'attachment_share_url': 'string',
+            'attachment_url': 'string',
+            'comment_privacy_value': 'comment_privacy_value_enum',
+            'facepile_mentioned_ids': 'list<string>',
+            'feedback_source': 'string',
+            'is_offline': 'bool',
+            'message': 'string',
+            'nectar_module': 'string',
+            'object_id': 'string',
+            'parent_comment_id': 'Object',
+            'text': 'string',
+            'tracking': 'string',
+        }
+        enums = {
+            'comment_privacy_value_enum': Comment.CommentPrivacyValue.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/comments',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Comment,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Comment, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def delete_likes(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -313,6 +359,37 @@ class Comment(
             self.assure_call()
             return request.execute()
 
+    def create_private_reply(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'message': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/private_replies',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_reactions(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -354,6 +431,7 @@ class Comment(
         'can_hide': 'bool',
         'can_like': 'bool',
         'can_remove': 'bool',
+        'can_reply_privately': 'bool',
         'comment_count': 'unsigned int',
         'created_time': 'datetime',
         'from': 'Object',
@@ -367,6 +445,7 @@ class Comment(
         'object': 'Object',
         'parent': 'Comment',
         'permalink_url': 'string',
+        'private_reply_conversation': 'Object',
         'user_likes': 'bool',
     }
     @classmethod

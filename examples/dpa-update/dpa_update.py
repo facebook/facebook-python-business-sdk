@@ -35,7 +35,8 @@ config = json.load(config_file)
 config_file.close()
 
 from facebook_business.api import FacebookAdsApi
-from facebook_business.objects import ProductCatalog, Product
+from facebook_business.adobjects.productcatalog import ProductCatalog
+from facebook_business.adobjects.productitem import ProductItem
 
 FacebookAdsApi.init(
     config['app_id'],
@@ -59,7 +60,7 @@ if __name__ == '__main__':
         if new_price == '-':
             response = catalog.update_product(
                 product_id,
-                availability=Product.Availability.out_of_stock
+                availability=ProductItem.Availability.out_of_stock
             )
             print('Product {} is now out of stock'.format(product_id))
         else:
@@ -68,6 +69,6 @@ if __name__ == '__main__':
             response = catalog.update_product(
                 product_id,
                 price=new_price_in_cents,
-                availability=Product.Availability.in_stock,
+                availability=ProductItem.Availability.in_stock,
             )
             print('Product {} is now costs R$ {}'.format(product_id, new_price))

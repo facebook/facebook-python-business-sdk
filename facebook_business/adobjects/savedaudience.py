@@ -44,6 +44,7 @@ class SavedAudience(
         account = 'account'
         approximate_count = 'approximate_count'
         description = 'description'
+        extra_info = 'extra_info'
         id = 'id'
         name = 'name'
         permission_for_actions = 'permission_for_actions'
@@ -148,6 +149,7 @@ class SavedAudience(
         'account': 'AdAccount',
         'approximate_count': 'int',
         'description': 'string',
+        'extra_info': 'string',
         'id': 'string',
         'name': 'string',
         'permission_for_actions': 'AudiencePermissionForActions',

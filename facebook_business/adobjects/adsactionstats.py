@@ -60,6 +60,7 @@ class AdsActionStats(
         action_video_asset_id = 'action_video_asset_id'
         action_video_sound = 'action_video_sound'
         action_video_type = 'action_video_type'
+        dda = 'dda'
         inline = 'inline'
         interactive_component_sticker_id = 'interactive_component_sticker_id'
         interactive_component_sticker_response = 'interactive_component_sticker_response'
@@ -88,6 +89,7 @@ class AdsActionStats(
         'action_video_asset_id': 'string',
         'action_video_sound': 'string',
         'action_video_type': 'string',
+        'dda': 'string',
         'inline': 'string',
         'interactive_component_sticker_id': 'string',
         'interactive_component_sticker_response': 'string',

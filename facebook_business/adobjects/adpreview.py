@@ -57,6 +57,7 @@ class AdPreview(
         instream_video_mobile = 'INSTREAM_VIDEO_MOBILE'
         marketplace_mobile = 'MARKETPLACE_MOBILE'
         messenger_mobile_inbox_media = 'MESSENGER_MOBILE_INBOX_MEDIA'
+        messenger_mobile_story_media = 'MESSENGER_MOBILE_STORY_MEDIA'
         mobile_banner = 'MOBILE_BANNER'
         mobile_feed_basic = 'MOBILE_FEED_BASIC'
         mobile_feed_standard = 'MOBILE_FEED_STANDARD'

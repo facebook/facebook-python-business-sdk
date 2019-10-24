@@ -41,7 +41,6 @@ class AdStudyObjective(
         super(AdStudyObjective, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        custom_attributes = 'custom_attributes'
         id = 'id'
         is_primary = 'is_primary'
         last_updated_results = 'last_updated_results'
@@ -385,7 +384,6 @@ class AdStudyObjective(
             return request.execute()
 
     _field_types = {
-        'custom_attributes': 'list<string>',
         'id': 'string',
         'is_primary': 'bool',
         'last_updated_results': 'string',

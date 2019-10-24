@@ -197,6 +197,7 @@ class UnifiedThread(
                 'no_border',
             ],
             'montage_supported_features_enum': [
+                'AUTHOR_IN_PRODUCER_QE_FOR_SMART_REPLIES',
                 'LIGHTWEIGHT_REPLY',
                 'SHOW_STORY_IN_MESSENGER_THREAD',
             ],

@@ -19,10 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
-from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
-from facebook_business.adobjects.objectparser import ObjectParser
-from facebook_business.api import FacebookRequest
-from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -32,25 +28,26 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class BusinessAdvertisableApplicationsResult(
-    AbstractCrudObject,
+class AdAccountContentFilterLevelsInheritance(
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isBusinessAdvertisableApplicationsResult = True
-        super(BusinessAdvertisableApplicationsResult, self).__init__(fbid, parent_id, api)
+    def __init__(self, api=None):
+        super(AdAccountContentFilterLevelsInheritance, self).__init__()
+        self._isAdAccountContentFilterLevelsInheritance = True
+        self._api = api
 
     class Field(AbstractObject.Field):
-        has_insight_permission = 'has_insight_permission'
-        id = 'id'
-        name = 'name'
-        photo_url = 'photo_url'
+        an_business_ids = 'an_business_ids'
+        an_level = 'an_level'
+        facebook_business_ids = 'facebook_business_ids'
+        facebook_level = 'facebook_level'
 
     _field_types = {
-        'has_insight_permission': 'bool',
-        'id': 'string',
-        'name': 'string',
-        'photo_url': 'string',
+        'an_business_ids': 'list<string>',
+        'an_level': 'string',
+        'facebook_business_ids': 'list<string>',
+        'facebook_level': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

@@ -200,6 +200,7 @@ class CustomAudience(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'ad_account_id': 'string',
+            'target_countries': 'list<string>',
         }
         enums = {
         }
@@ -424,19 +425,18 @@ class CustomAudience(
             self.assure_call()
             return request.execute()
 
-    def create_capability(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def delete_capabilities(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'accounts_capabilities': 'string',
-            'relationship_type': 'list<string>',
+            'adaccounts': 'list<string>',
         }
         enums = {
         }
         request = FacebookRequest(
             node_id=self['id'],
-            method='POST',
+            method='DELETE',
             endpoint='/capabilities',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
@@ -456,45 +456,20 @@ class CustomAudience(
             self.assure_call()
             return request.execute()
 
-    def create_datum(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def create_capability(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'action_type': 'action_type_enum',
-            'batch_seq': 'unsigned int',
-            'encoding': 'encoding_enum',
-            'entries': 'list<string>',
-            'entry_type': 'entry_type_enum',
-            'last_batch_flag': 'bool',
-            'session_id': 'unsigned int',
+            'accounts_capabilities': 'string',
+            'relationship_type': 'list<string>',
         }
         enums = {
-            'action_type_enum': [
-                'add',
-                'match',
-                'optout',
-                'remove',
-            ],
-            'encoding_enum': [
-                'md5',
-                'plain',
-                'sha256',
-            ],
-            'entry_type_enum': [
-                '0',
-                '1',
-                '2',
-                '3',
-                '4',
-                '5',
-                '6',
-            ],
         }
         request = FacebookRequest(
             node_id=self['id'],
             method='POST',
-            endpoint='/data',
+            endpoint='/capabilities',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,

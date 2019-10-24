@@ -41,7 +41,6 @@ class AdCreativeVideoData(
         additional_image_index = 'additional_image_index'
         branded_content_shared_to_sponsor_status = 'branded_content_shared_to_sponsor_status'
         branded_content_sponsor_page_id = 'branded_content_sponsor_page_id'
-        branded_content_sponsor_relationship = 'branded_content_sponsor_relationship'
         call_to_action = 'call_to_action'
         collection_thumbnails = 'collection_thumbnails'
         image_hash = 'image_hash'
@@ -60,7 +59,6 @@ class AdCreativeVideoData(
         'additional_image_index': 'int',
         'branded_content_shared_to_sponsor_status': 'string',
         'branded_content_sponsor_page_id': 'string',
-        'branded_content_sponsor_relationship': 'string',
         'call_to_action': 'AdCreativeLinkDataCallToAction',
         'collection_thumbnails': 'list<AdCreativeCollectionThumbnailInfo>',
         'image_hash': 'string',

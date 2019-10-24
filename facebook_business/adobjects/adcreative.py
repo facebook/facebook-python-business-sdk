@@ -176,6 +176,8 @@ class AdCreative(
     class Status:
         active = 'ACTIVE'
         deleted = 'DELETED'
+        in_process = 'IN_PROCESS'
+        with_issues = 'WITH_ISSUES'
 
     class AuthorizationCategory:
         none = 'NONE'
@@ -386,7 +388,6 @@ class AdCreative(
             'dynamic_customization': 'Object',
             'end_date': 'datetime',
             'height': 'unsigned int',
-            'interactive': 'bool',
             'locale': 'string',
             'place_page_id': 'int',
             'post': 'Object',

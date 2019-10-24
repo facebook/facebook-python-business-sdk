@@ -24,7 +24,8 @@ this_dir = os.path.dirname(__file__)
 repo_dir = os.path.join(this_dir, os.pardir)
 sys.path.insert(1, repo_dir)
 
-from facebook_business.objects import AdAccount, AsyncJob
+from facebook_business.adobjects.adaccount import AdAccount
+from facebook_business.adobjects.adreportrun import AdReportRun
 from facebook_business.api import FacebookAdsApi
 import time
 import os
@@ -46,8 +47,8 @@ i_async_job = account.get_insights(params={'level': 'ad'}, is_async=True)
 
 # Insights
 while True:
-    job = i_async_job.remote_read()
-    print("Percent done: " + str(job[AsyncJob.Field.async_percent_completion]))
+    job = i_async_job.api_get()
+    print("Percent done: " + str(job[AdReportRun.Field.async_percent_completion]))
     time.sleep(1)
     if job:
         print("Done!")

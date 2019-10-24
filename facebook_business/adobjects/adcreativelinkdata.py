@@ -43,7 +43,6 @@ class AdCreativeLinkData(
         attachment_style = 'attachment_style'
         branded_content_shared_to_sponsor_status = 'branded_content_shared_to_sponsor_status'
         branded_content_sponsor_page_id = 'branded_content_sponsor_page_id'
-        branded_content_sponsor_relationship = 'branded_content_sponsor_relationship'
         call_to_action = 'call_to_action'
         caption = 'caption'
         child_attachments = 'child_attachments'
@@ -88,7 +87,6 @@ class AdCreativeLinkData(
         'attachment_style': 'AttachmentStyle',
         'branded_content_shared_to_sponsor_status': 'string',
         'branded_content_sponsor_page_id': 'string',
-        'branded_content_sponsor_relationship': 'string',
         'call_to_action': 'AdCreativeLinkDataCallToAction',
         'caption': 'string',
         'child_attachments': 'list<AdCreativeLinkDataChildAttachment>',
