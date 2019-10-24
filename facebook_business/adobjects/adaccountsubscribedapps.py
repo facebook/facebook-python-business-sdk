@@ -32,57 +32,31 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class PageLabel(
+class AdAccountSubscribedApps(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isPageLabel = True
-        super(PageLabel, self).__init__(fbid, parent_id, api)
+        self._isAdAccountSubscribedApps = True
+        super(AdAccountSubscribedApps, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        creation_time = 'creation_time'
-        creator_id = 'creator_id'
-        field_from = 'from'
-        id = 'id'
-        name = 'name'
+        app_id = 'app_id'
+        app_name = 'app_name'
 
-    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=PageLabel,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
+    # @deprecated get_endpoint function is deprecated
+    @classmethod
+    def get_endpoint(cls):
+        return 'subscribed_apps'
 
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
+    # @deprecated api_create is being deprecated
+    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.adobjects.adaccount import AdAccount
+        return AdAccount(api=self._api, fbid=parent_id).create_subscribed_app(fields, params, batch, success, failure, pending)
 
     _field_types = {
-        'creation_time': 'datetime',
-        'creator_id': 'string',
-        'from': 'Page',
-        'id': 'string',
-        'name': 'string',
+        'app_id': 'string',
+        'app_name': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

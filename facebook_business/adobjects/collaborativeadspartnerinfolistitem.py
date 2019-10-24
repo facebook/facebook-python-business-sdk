@@ -18,12 +18,33 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebook_business.session import FacebookSession
-from facebook_business.api import FacebookAdsApi
+from facebook_business.adobjects.abstractobject import AbstractObject
 
-__version__ = '4.0.8'
-__all__ = [
-    'session',
-    'objects',
-    'api',
-]
+"""
+This class is auto-generated.
+
+For any issues or feature requests related to this class, please let us know on
+github and we'll fix in our codegen framework. We'll not be able to accept
+pull request for this class.
+"""
+
+class CollaborativeAdsPartnerInfoListItem(
+    AbstractObject,
+):
+
+    def __init__(self, api=None):
+        super(CollaborativeAdsPartnerInfoListItem, self).__init__()
+        self._isCollaborativeAdsPartnerInfoListItem = True
+        self._api = api
+
+    class Field(AbstractObject.Field):
+        pass
+
+    _field_types = {
+    }
+    @classmethod
+    def _get_field_enum_info(cls):
+        field_enum_info = {}
+        return field_enum_info
+
+

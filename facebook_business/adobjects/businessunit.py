@@ -43,8 +43,13 @@ class BusinessUnit(
     class Field(AbstractObject.Field):
         business = 'business'
         creation_time = 'creation_time'
+        currency = 'currency'
+        excluded_sources = 'excluded_sources'
         id = 'id'
+        is_enabled_for_measurement = 'is_enabled_for_measurement'
         name = 'name'
+        time_zone = 'time_zone'
+        visits_available_date = 'visits_available_date'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -141,8 +146,13 @@ class BusinessUnit(
     _field_types = {
         'business': 'Business',
         'creation_time': 'datetime',
+        'currency': 'string',
+        'excluded_sources': 'Object',
         'id': 'string',
+        'is_enabled_for_measurement': 'bool',
         'name': 'string',
+        'time_zone': 'string',
+        'visits_available_date': 'int',
     }
     @classmethod
     def _get_field_enum_info(cls):

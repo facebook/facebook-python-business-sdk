@@ -334,6 +334,7 @@ class Business(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.adaccount import AdAccount
         param_types = {
+            'ad_account_created_from_bm_flag': 'bool',
             'currency': 'string',
             'end_advertiser': 'Object',
             'funding_id': 'string',

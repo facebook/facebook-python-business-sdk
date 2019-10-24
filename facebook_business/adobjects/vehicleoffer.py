@@ -32,50 +32,46 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdTopline(
+class VehicleOffer(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isAdTopline = True
-        super(AdTopline, self).__init__(fbid, parent_id, api)
+        self._isVehicleOffer = True
+        super(VehicleOffer, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        account_id = 'account_id'
-        client_approval_date = 'client_approval_date'
-        created_by = 'created_by'
-        created_date = 'created_date'
-        description = 'description'
-        flight_end_date = 'flight_end_date'
-        flight_start_date = 'flight_start_date'
-        func_cap_amount = 'func_cap_amount'
-        func_cap_amount_with_offset = 'func_cap_amount_with_offset'
-        func_line_amount = 'func_line_amount'
-        func_line_amount_with_offset = 'func_line_amount_with_offset'
-        func_price = 'func_price'
-        func_price_with_offset = 'func_price_with_offset'
-        gender = 'gender'
+        amount_currency = 'amount_currency'
+        amount_percentage = 'amount_percentage'
+        amount_price = 'amount_price'
+        amount_qualifier = 'amount_qualifier'
+        applinks = 'applinks'
+        body_style = 'body_style'
+        cashback_currency = 'cashback_currency'
+        cashback_price = 'cashback_price'
+        currency = 'currency'
+        dma_codes = 'dma_codes'
+        downpayment_currency = 'downpayment_currency'
+        downpayment_price = 'downpayment_price'
+        downpayment_qualifier = 'downpayment_qualifier'
+        end_date = 'end_date'
+        end_time = 'end_time'
         id = 'id'
-        impressions = 'impressions'
-        io_number = 'io_number'
-        is_bonus_line = 'is_bonus_line'
-        keywords = 'keywords'
-        last_updated_by = 'last_updated_by'
-        last_updated_date = 'last_updated_date'
-        line_number = 'line_number'
-        line_position = 'line_position'
-        line_type = 'line_type'
-        location = 'location'
-        max_age = 'max_age'
-        max_budget = 'max_budget'
-        min_age = 'min_age'
-        price_per_trp = 'price_per_trp'
-        product_type = 'product_type'
-        rev_assurance_approval_date = 'rev_assurance_approval_date'
-        targets = 'targets'
-        trp_updated_time = 'trp_updated_time'
-        trp_value = 'trp_value'
-        uom = 'uom'
+        images = 'images'
+        offer_description = 'offer_description'
+        offer_disclaimer = 'offer_disclaimer'
+        offer_type = 'offer_type'
+        price = 'price'
+        sanitized_images = 'sanitized_images'
+        start_date = 'start_date'
+        start_time = 'start_time'
+        term_length = 'term_length'
+        term_qualifier = 'term_qualifier'
+        title = 'title'
+        trim = 'trim'
+        url = 'url'
+        vehicle_offer_id = 'vehicle_offer_id'
+        year = 'year'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -91,7 +87,7 @@ class AdTopline(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AdTopline,
+            target_class=VehicleOffer,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -108,41 +104,37 @@ class AdTopline(
             return request.execute()
 
     _field_types = {
-        'account_id': 'string',
-        'client_approval_date': 'datetime',
-        'created_by': 'string',
-        'created_date': 'datetime',
-        'description': 'string',
-        'flight_end_date': 'datetime',
-        'flight_start_date': 'datetime',
-        'func_cap_amount': 'string',
-        'func_cap_amount_with_offset': 'string',
-        'func_line_amount': 'string',
-        'func_line_amount_with_offset': 'string',
-        'func_price': 'string',
-        'func_price_with_offset': 'string',
-        'gender': 'string',
+        'amount_currency': 'string',
+        'amount_percentage': 'float',
+        'amount_price': 'string',
+        'amount_qualifier': 'string',
+        'applinks': 'AppLinks',
+        'body_style': 'string',
+        'cashback_currency': 'string',
+        'cashback_price': 'string',
+        'currency': 'string',
+        'dma_codes': 'list<string>',
+        'downpayment_currency': 'string',
+        'downpayment_price': 'string',
+        'downpayment_qualifier': 'string',
+        'end_date': 'string',
+        'end_time': 'int',
         'id': 'string',
-        'impressions': 'int',
-        'io_number': 'int',
-        'is_bonus_line': 'int',
-        'keywords': 'string',
-        'last_updated_by': 'string',
-        'last_updated_date': 'datetime',
-        'line_number': 'int',
-        'line_position': 'int',
-        'line_type': 'string',
-        'location': 'string',
-        'max_age': 'string',
-        'max_budget': 'string',
-        'min_age': 'string',
-        'price_per_trp': 'string',
-        'product_type': 'string',
-        'rev_assurance_approval_date': 'datetime',
-        'targets': 'string',
-        'trp_updated_time': 'int',
-        'trp_value': 'string',
-        'uom': 'string',
+        'images': 'list<string>',
+        'offer_description': 'string',
+        'offer_disclaimer': 'string',
+        'offer_type': 'string',
+        'price': 'string',
+        'sanitized_images': 'list<string>',
+        'start_date': 'string',
+        'start_time': 'int',
+        'term_length': 'unsigned int',
+        'term_qualifier': 'string',
+        'title': 'string',
+        'trim': 'string',
+        'url': 'string',
+        'vehicle_offer_id': 'string',
+        'year': 'int',
     }
     @classmethod
     def _get_field_enum_info(cls):

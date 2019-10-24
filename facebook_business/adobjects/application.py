@@ -759,6 +759,7 @@ class Application(
                 'COUNT_IDENTIFIED_USERS',
                 'COUNT_PER_USER',
                 'DAU',
+                'EVENT_LATEST_FIRE_TIME',
                 'EVENT_SOURCE_IDS',
                 'JOURNEY_CHANNEL_INCLUSION',
                 'JOURNEY_INCLUSION',
@@ -2213,8 +2214,8 @@ class Application(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'file_length': 'unsigned int',
-            'file_name': 'string',
-            'file_type': 'string',
+            'file_name': 'Object',
+            'file_type': 'Object',
             'session_type': 'session_type_enum',
         }
         enums = {

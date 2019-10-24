@@ -60,59 +60,6 @@ class AdReportSpec(
         time_interval = 'time_interval'
         time_ranges = 'time_ranges'
 
-    class ActionsGroupBy:
-        action_brand = 'action_brand'
-        action_canvas_component_id = 'action_canvas_component_id'
-        action_canvas_component_name = 'action_canvas_component_name'
-        action_carousel_card_id = 'action_carousel_card_id'
-        action_carousel_card_name = 'action_carousel_card_name'
-        action_category = 'action_category'
-        action_converted_brand_tag_id = 'action_converted_brand_tag_id'
-        action_converted_category_tag_id = 'action_converted_category_tag_id'
-        action_converted_product_id = 'action_converted_product_id'
-        action_destination = 'action_destination'
-        action_device = 'action_device'
-        action_event_channel = 'action_event_channel'
-        action_target_id = 'action_target_id'
-        action_type = 'action_type'
-        action_video_sound = 'action_video_sound'
-        action_video_type = 'action_video_type'
-        attribution_model_type = 'attribution_model_type'
-        interactive_component_sticker_id = 'interactive_component_sticker_id'
-        interactive_component_sticker_response = 'interactive_component_sticker_response'
-
-    class CreationSource:
-        adsexceladdin = 'adsExcelAddin'
-        adsmanagerreporting = 'adsManagerReporting'
-        newadsmanager = 'newAdsManager'
-
-    class DatePreset:
-        last_14d = 'last_14d'
-        last_28d = 'last_28d'
-        last_30d = 'last_30d'
-        last_3d = 'last_3d'
-        last_7d = 'last_7d'
-        last_90d = 'last_90d'
-        last_month = 'last_month'
-        last_quarter = 'last_quarter'
-        last_week_mon_sun = 'last_week_mon_sun'
-        last_week_sun_sat = 'last_week_sun_sat'
-        last_year = 'last_year'
-        lifetime = 'lifetime'
-        this_month = 'this_month'
-        this_quarter = 'this_quarter'
-        this_week_mon_today = 'this_week_mon_today'
-        this_week_sun_today = 'this_week_sun_today'
-        this_year = 'this_year'
-        today = 'today'
-        yesterday = 'yesterday'
-
-    class Format:
-        csv = 'CSV'
-        json = 'JSON'
-        xls = 'XLS'
-        xlsx = 'XLSX'
-
     def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -173,61 +120,6 @@ class AdReportSpec(
             self.assure_call()
             return request.execute()
 
-    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'actions_group_by': 'list<actions_group_by_enum>',
-            'business_id': 'string',
-            'bypass_async': 'bool',
-            'creation_source': 'creation_source_enum',
-            'data_columns': 'list<string>',
-            'date_preset': 'date_preset_enum',
-            'export_columns': 'Object',
-            'filters': 'list<Object>',
-            'format': 'format_enum',
-            'format_version': 'unsigned int',
-            'insights_section': 'Object',
-            'limit': 'int',
-            'name': 'string',
-            'report_run_id': 'string',
-            'report_schedule_id': 'string',
-            'sort_by': 'string',
-            'sort_dir': 'string',
-            'time_increment': 'string',
-            'time_interval': 'Object',
-            'time_ranges': 'list',
-            'user_report': 'bool',
-        }
-        enums = {
-            'actions_group_by_enum': AdReportSpec.ActionsGroupBy.__dict__.values(),
-            'creation_source_enum': AdReportSpec.CreationSource.__dict__.values(),
-            'date_preset_enum': AdReportSpec.DatePreset.__dict__.values(),
-            'format_enum': AdReportSpec.Format.__dict__.values(),
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AdReportSpec,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     _field_types = {
         'account_id': 'string',
         'actions_group_by': 'list<string>',
@@ -251,10 +143,6 @@ class AdReportSpec(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['ActionsGroupBy'] = AdReportSpec.ActionsGroupBy.__dict__.values()
-        field_enum_info['CreationSource'] = AdReportSpec.CreationSource.__dict__.values()
-        field_enum_info['DatePreset'] = AdReportSpec.DatePreset.__dict__.values()
-        field_enum_info['Format'] = AdReportSpec.Format.__dict__.values()
         return field_enum_info
 
 

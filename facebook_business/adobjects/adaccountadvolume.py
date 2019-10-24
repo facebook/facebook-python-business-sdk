@@ -39,17 +39,17 @@ class AdAccountAdVolume(
 
     class Field(AbstractObject.Field):
         actor_id = 'actor_id'
+        ads_running_or_in_review_count = 'ads_running_or_in_review_count'
         has_hit_total_live_ads_limit = 'has_hit_total_live_ads_limit'
         live_ads_quota_left = 'live_ads_quota_left'
-        total_live_ads = 'total_live_ads'
         total_live_ads_in_current_account = 'total_live_ads_in_current_account'
         total_live_ads_limit = 'total_live_ads_limit'
 
     _field_types = {
         'actor_id': 'string',
+        'ads_running_or_in_review_count': 'unsigned int',
         'has_hit_total_live_ads_limit': 'bool',
         'live_ads_quota_left': 'int',
-        'total_live_ads': 'unsigned int',
         'total_live_ads_in_current_account': 'unsigned int',
         'total_live_ads_limit': 'unsigned int',
     }

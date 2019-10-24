@@ -361,6 +361,7 @@ class Page(
         merchant_review = 'merchant_review'
         message_deliveries = 'message_deliveries'
         message_echoes = 'message_echoes'
+        message_mention = 'message_mention'
         message_reads = 'message_reads'
         messages = 'messages'
         messaging_account_linking = 'messaging_account_linking'
@@ -1360,68 +1361,6 @@ class Page(
             node_id=self['id'],
             method='POST',
             endpoint='/copyright_manual_claims',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def delete_copyright_whitelisted_ig_partners(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'usernames': 'list<string>',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='DELETE',
-            endpoint='/copyright_whitelisted_ig_partners',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_copyright_whitelisted_ig_partner(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'usernames': 'list<string>',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/copyright_whitelisted_ig_partners',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
@@ -2787,6 +2726,7 @@ class Page(
                 'GET_STARTED',
                 'GREETING',
                 'HOME_URL',
+                'ICE_BREAKERS',
                 'PAYMENT_SETTINGS',
                 'PERSISTENT_MENU',
                 'TARGET_AUDIENCE',
@@ -2855,6 +2795,7 @@ class Page(
             'get_started': 'Object',
             'greeting': 'list<Object>',
             'home_url': 'Object',
+            'ice_breakers': 'list<map>',
             'payment_settings': 'Object',
             'persistent_menu': 'list<Object>',
             'target_audience': 'Object',
@@ -3090,6 +3031,38 @@ class Page(
             target_class=InstagramUser,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=InstagramUser, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_page_whatsapp_number_verification(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'verification_code': 'string',
+            'whatsapp_number': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/page_whatsapp_number_verification',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Page,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Page, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

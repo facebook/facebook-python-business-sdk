@@ -57,6 +57,7 @@ class WhatsAppBusinessAccount(
         account_update = 'ACCOUNT_UPDATE'
         alert_update = 'ALERT_UPDATE'
         appointment_update = 'APPOINTMENT_UPDATE'
+        auto_reply = 'AUTO_REPLY'
         issue_resolution = 'ISSUE_RESOLUTION'
         payment_update = 'PAYMENT_UPDATE'
         personal_finance_update = 'PERSONAL_FINANCE_UPDATE'
@@ -175,6 +176,7 @@ class WhatsAppBusinessAccount(
             'status_enum': [
                 'APPROVED',
                 'DELETED',
+                'DISABLED',
                 'PENDING',
                 'PENDING_DELETION',
                 'REJECTED',

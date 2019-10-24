@@ -213,6 +213,7 @@ class Vehicle(
             'description': 'string',
             'drivetrain': 'drivetrain_enum',
             'exterior_color': 'string',
+            'fb_page_id': 'string',
             'fuel_type': 'fuel_type_enum',
             'images': 'list<Object>',
             'interior_color': 'string',
