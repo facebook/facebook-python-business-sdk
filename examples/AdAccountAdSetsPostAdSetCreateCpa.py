@@ -45,7 +45,7 @@ params = {
   'publisher_platforms': 'facebook',
   'device_platforms': 'mobile',
 }
-print AdAccount(id).create_ad_set(
+print(AdAccount(id).create_ad_set(
   fields=fields,
   params=params,
-)
+))

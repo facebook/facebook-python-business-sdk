@@ -33,7 +33,7 @@ fields = [
 params = {
   'business': '<businessID>',
 }
-print AdsPixel(id).get_shared_accounts(
+print(AdsPixel(id).get_shared_accounts(
   fields=fields,
   params=params,
-)
+))

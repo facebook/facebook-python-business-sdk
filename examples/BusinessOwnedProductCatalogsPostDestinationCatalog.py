@@ -34,7 +34,7 @@ params = {
   'name': 'Test Destination Catalog',
   'vertical': 'destinations',
 }
-print Business(id).create_owned_product_catalog(
+print(Business(id).create_owned_product_catalog(
   fields=fields,
   params=params,
-)
+))

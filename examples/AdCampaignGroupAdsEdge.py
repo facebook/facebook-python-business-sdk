@@ -33,7 +33,7 @@ fields = [
 ]
 params = {
 }
-print Campaign(id).get_ads(
+print(Campaign(id).get_ads(
   fields=fields,
   params=params,
-)
+))

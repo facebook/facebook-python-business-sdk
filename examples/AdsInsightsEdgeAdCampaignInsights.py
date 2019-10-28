@@ -34,7 +34,7 @@ fields = [
 params = {
   'breakdown': 'publisher_platform',
 }
-print AdSet(id).get_insights(
+print(AdSet(id).get_insights(
   fields=fields,
   params=params,
-)
+))

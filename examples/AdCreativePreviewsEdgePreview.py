@@ -33,7 +33,7 @@ fields = [
 params = {
   'ad_format': 'DESKTOP_FEED_STANDARD',
 }
-print AdCreative(id).get_previews(
+print(AdCreative(id).get_previews(
   fields=fields,
   params=params,
-)
+))

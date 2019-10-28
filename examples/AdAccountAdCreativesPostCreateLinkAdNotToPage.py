@@ -38,7 +38,7 @@ params = {
   'link_url': '<url>',
   'image_hash': '<imageHash>',
 }
-print AdAccount(id).create_ad_creative(
+print(AdAccount(id).create_ad_creative(
   fields=fields,
   params=params,
-)
+))

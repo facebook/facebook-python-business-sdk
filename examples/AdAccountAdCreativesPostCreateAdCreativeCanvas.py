@@ -34,7 +34,7 @@ params = {
   'image_hash': '<imageHash>',
   'object_story_spec': {'page_id':'<pageID>','link_data':{'image_hash':'<imageHash>','link':'<canvasURI>','name':'Creative message','call_to_action':{'type':'LEARN_MORE'}}},
 }
-print AdAccount(id).create_ad_creative(
+print(AdAccount(id).create_ad_creative(
   fields=fields,
   params=params,
-)
+))

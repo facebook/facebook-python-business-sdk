@@ -36,7 +36,7 @@ params = {
   'description': 'People who purchased on my website',
   'customer_file_source': 'USER_PROVIDED_ONLY',
 }
-print AdAccount(id).create_custom_audience(
+print(AdAccount(id).create_custom_audience(
   fields=fields,
   params=params,
-)
+))

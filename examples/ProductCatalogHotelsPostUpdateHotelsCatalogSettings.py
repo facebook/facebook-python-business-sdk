@@ -32,7 +32,7 @@ fields = [
 params = {
   'hotel_catalog_settings': {'pull_config_id':'<pullConfigID>'},
 }
-print ProductCatalog(id).update(
+print(ProductCatalog(id).update(
   fields=fields,
   params=params,
-)
+))

@@ -43,7 +43,7 @@ params = {
   'promoted_object': {'application_id':'<appID>','object_store_url':'<appLink>','custom_event_type':'PURCHASE'},
   'targeting': {'geo_locations':{'countries':['US']},'user_os':['iOS']},
 }
-print AdAccount(id).create_ad_set(
+print(AdAccount(id).create_ad_set(
   fields=fields,
   params=params,
-)
+))

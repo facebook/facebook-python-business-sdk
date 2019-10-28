@@ -32,7 +32,7 @@ fields = [
 ]
 params = {
 }
-print Campaign(id).get(
+print(Campaign(id).get(
   fields=fields,
   params=params,
-)
+))

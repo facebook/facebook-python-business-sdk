@@ -36,7 +36,7 @@ params = {
   'creative': {'object_story_spec':{'page_id':'<pageID>','link_data':{'offer_id':'<offerID>','link':'https:\/\/www.facebook.com\/','message':'Great Deal','name':'30% off','image_hash':'<imageHash>'}}},
   'status': 'PAUSED',
 }
-print AdAccount(id).create_ad(
+print(AdAccount(id).create_ad(
   fields=fields,
   params=params,
-)
+))

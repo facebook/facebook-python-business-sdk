@@ -34,7 +34,7 @@ params = {
   'creative': {'object_story_id':'<pageID>_<postID>'},
   'ad_format': 'DESKTOP_FEED_STANDARD',
 }
-print AdAccount(id).get_generate_previews(
+print(AdAccount(id).get_generate_previews(
   fields=fields,
   params=params,
-)
+))

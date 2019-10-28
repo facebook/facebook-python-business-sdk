@@ -34,7 +34,7 @@ params = {
   'creative': {'instagram_actor_id':'<instagramActorID>','object_story_spec':{'link_data':{'call_to_action':{'type':'LEARN_MORE','value':{'link':'<url>'}},'caption':'www.example.com','image_hash':'<imageHash>','link':'<url>','message':'Message'},'page_id':'<pageID>'}},
   'ad_format': 'INSTAGRAM_STANDARD',
 }
-print AdAccount(id).get_generate_previews(
+print(AdAccount(id).get_generate_previews(
   fields=fields,
   params=params,
-)
+))

@@ -24,7 +24,7 @@ DEPRECATED
 This file is kept for backward compatibility.
 Please use objects in adobjects folder instead.
 """
-
+# TODO: file seems to be gone in upstream imports need to be checked
 from facebook_business.adobjects import (
     adaccount,
     adlabel,
@@ -44,8 +44,6 @@ from facebook_business.adobjects import (
     productfeed,
     business,
     reachfrequencyprediction,
-    reachestimate,
-    partnercategory,
     productset,
     adspixel,
     customaudience,
@@ -301,14 +299,6 @@ class LookalikeAudience(customaudience.CustomAudience):
     @classmethod
     def get_endpoint(cls):
         return 'customaudiences'
-
-
-class PartnerCategory(partnercategory.PartnerCategory):
-    pass
-
-
-class ReachEstimate(reachestimate.ReachEstimate):
-    pass
 
 
 class ReachFrequencyPrediction(reachfrequencyprediction.ReachFrequencyPrediction):

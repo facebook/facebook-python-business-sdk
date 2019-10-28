@@ -36,7 +36,7 @@ params = {
   'origin_audience_id': '<valueBasedCustomAudienceID>',
   'lookalike_spec': {'type':'custom_ratio','ratio':0.01,'country':'US'},
 }
-print AdAccount(id).create_custom_audience(
+print(AdAccount(id).create_custom_audience(
   fields=fields,
   params=params,
-)
+))

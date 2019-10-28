@@ -35,7 +35,7 @@ fields = [
 params = {
   'effective_status': ['ACTIVE','PAUSED'],
 }
-print AdAccount(id).get_campaigns(
+print(AdAccount(id).get_campaigns(
   fields=fields,
   params=params,
-)
+))

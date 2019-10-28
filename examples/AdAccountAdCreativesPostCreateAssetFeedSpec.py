@@ -35,7 +35,7 @@ params = {
   'object_story_spec': {'page_id':'<pageID>'},
   'asset_feed_spec': {'images':[{'hash':'<imageHash>'}],'bodies':[{'text':'Begin Your Adventure'},{'text':'Once a Trainer, always a Trainer.'}],'titles':[{'text':'Level Up'},{'text':'Swipe to evolve'}],'descriptions':[{'text':'First Dynamic Ad Creative Sample'}],'ad_formats':['SINGLE_IMAGE'],'call_to_action_types':['SHOP_NOW'],'link_urls':[{'website_url':'https://www.example.com/'}],'videos':[]},
 }
-print AdAccount(id).create_ad_creative(
+print(AdAccount(id).create_ad_creative(
   fields=fields,
   params=params,
-)
+))

@@ -34,7 +34,7 @@ params = {
   'name': 'Sample Creative',
   'object_story_spec': {'page_id':'<pageID>','link_data':{'image_hash':'<imageHash>','link':'https:\/\/facebook.com\/<pageID>','message':'try it out'}},
 }
-print AdAccount(id).create_ad_creative(
+print(AdAccount(id).create_ad_creative(
   fields=fields,
   params=params,
-)
+))

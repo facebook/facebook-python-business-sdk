@@ -19,7 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.adaccount import AdAccount
-from facebook_business.adobjects.reachestimate import ReachEstimate
 from facebook_business.api import FacebookAdsApi
 
 access_token = '<ACCESS_TOKEN>'
@@ -31,9 +30,9 @@ FacebookAdsApi.init(access_token=access_token)
 fields = [
 ]
 params = {
-  'targeting_spec': {'geo_locations':{'countries':['US']},'age_min':20,'age_max':40},
+    'targeting_spec': {'geo_locations': {'countries': ['US']}, 'age_min': 20, 'age_max': 40},
 }
-print AdAccount(id).get_reach_estimate(
-  fields=fields,
-  params=params,
-)
+print(AdAccount(id).get_reach_estimate(
+    fields=fields,
+    params=params,
+))

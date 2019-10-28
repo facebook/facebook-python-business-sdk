@@ -32,7 +32,7 @@ fields = [
 ]
 params = {
 }
-print AdgroupActivity(id).get(
+print(AdgroupActivity(id).get(
   fields=fields,
   params=params,
-)
+))

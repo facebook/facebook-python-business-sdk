@@ -18,15 +18,15 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebookads.adobjects.user import User
-from facebookads.adobjects.page import Page
-from facebookads.adobjects.pagepost import PagePost
-from facebookads.adobjects.adaccount import AdAccount
-from facebookads.adobjects.campaign import Campaign
-from facebookads.adobjects.adset import AdSet
-from facebookads.adobjects.adcreative import AdCreative
-from facebookads.adobjects.ad import Ad
-from facebookads.api import FacebookAdsApi
+from facebook_business.adobjects.user import User
+from facebook_business.adobjects.page import Page
+from facebook_business.adobjects.pagepost import PagePost
+from facebook_business.adobjects.adaccount import AdAccount
+from facebook_business.adobjects.campaign import Campaign
+from facebook_business.adobjects.adset import AdSet
+from facebook_business.adobjects.adcreative import AdCreative
+from facebook_business.adobjects.ad import Ad
+from facebook_business.api import FacebookAdsApi
 
 access_token = '<ACCESS_TOKEN>'
 app_secret = '<APP_SECRET>'
@@ -43,9 +43,9 @@ user = User(id).get(
   fields=fields,
   params=params,
 )
-print 'user', user
+print('user', user)
 user_id = user.get_id()
-print 'user_id:', user_id, '\n'
+print('user_id:', user_id, '\n')
 
 # Get page access token and page_id
 fields = [
@@ -57,9 +57,9 @@ pages = User(id).get_accounts(
   fields=fields,
   params=params,
 )
-print 'pages', pages
+print('pages', pages)
 page_id = pages[0].get_id()
-print 'page_id:', page_id, '\n'
+print('page_id:', page_id, '\n')
 
 # Switch access token to page access token
 FacebookAdsApi.init(access_token=pages[0].access_token)
@@ -73,9 +73,9 @@ pagepost = Page(page_id).create_feed(
   fields=fields,
   params=params,
 )
-print 'pagepost', pagepost
+print('pagepost', pagepost)
 pagepost_id = pagepost.get_id()
-print 'pagepost_id:', pagepost_id, '\n'
+print('pagepost_id:', pagepost_id, '\n')
 
 # Switch access token back to user access token
 FacebookAdsApi.init(access_token=access_token)
@@ -88,9 +88,9 @@ adaccounts = User(user_id).get_ad_accounts(
   fields=fields,
   params=params,
 )
-print 'adaccounts', adaccounts
+print('adaccounts', adaccounts)
 adaccount_id = adaccounts[0].get_id()
-print 'adaccount_id:', adaccount_id, '\n'
+print('adaccount_id:', adaccount_id, '\n')
 
 # AdCampaign create
 fields = [
@@ -104,9 +104,9 @@ adcampaign = AdAccount(adaccount_id).create_campaign(
   fields=fields,
   params=params,
 )
-print 'adcampaign', adcampaign
+print('adcampaign', adcampaign)
 adcampaign_id = adcampaign.get_id()
-print 'adcampaign_id:', adcampaign_id, '\n'
+print('adcampaign_id:', adcampaign_id, '\n')
 
 # AdSet create
 fields = [
@@ -126,9 +126,9 @@ adset = AdAccount(adaccount_id).create_ad_set(
   fields=fields,
   params=params,
 )
-print 'adset', adset
+print('adset', adset)
 adset_id = adset.get_id()
-print 'adset_id:', adset_id, '\n'
+print('adset_id:', adset_id, '\n')
 
 # AdCreative create page post
 fields = [
@@ -141,9 +141,9 @@ adcreative = AdAccount(adaccount_id).create_ad_creative(
   fields=fields,
   params=params,
 )
-print 'adcreative', adcreative
+print('adcreative', adcreative)
 adcreative_id = adcreative.get_id()
-print 'adcreative_id:', adcreative_id, '\n'
+print('adcreative_id:', adcreative_id, '\n')
 
 # AdGroup create
 fields = [
@@ -154,7 +154,7 @@ params = {
   'creative': {'creative_id':adcreative_id},
   'status': 'PAUSED',
 }
-print AdAccount(adaccount_id).create_ad(
+print(AdAccount(adaccount_id).create_ad(
   fields=fields,
   params=params,
-)
+))

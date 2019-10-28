@@ -34,7 +34,7 @@ params = {
   'latitude': '51.5152253',
   'longitude': '-0.1423029',
 }
-print Page(id).get(
+print(Page(id).get(
   fields=fields,
   params=params,
-)
+))

@@ -18,16 +18,15 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebook_business.adobjects import (
-    AdCampaign,
-    AdSet,
-    Ad,
-    AdImage,
-    AdCreative,
-    TargetingSpecsField,
-)
+from facebook_business.adobjects.campaign import Campaign as AdCampaign
+from facebook_business.adobjects.ad import Ad
+from facebook_business.adobjects.adset import AdSet
+from facebook_business.adobjects.adimage import AdImage
+from facebook_business.adobjects.adcreative import AdCreative
+from facebook_business.objects import TargetingSpecsField
+
 import itertools
-from . import batch_utils
+from .batch_utils import generate_batches
 
 
 def create_multiple_website_clicks_ads(
@@ -41,7 +40,7 @@ def create_multiple_website_clicks_ads(
     urls,
     image_paths,
 
-    bid_strategy,
+    bid_type,
     daily_budget=None,
     lifetime_budget=None,
     start_time=None,

@@ -32,7 +32,7 @@ fields = [
 params = {
   'adgroup_status': 'PAUSED',
 }
-print Ad(id).update(
+print(Ad(id).update(
   fields=fields,
   params=params,
-)
+))

@@ -33,7 +33,7 @@ fields = [
 params = {
   'object_story_spec': {'page_id':'<pageID>','video_data':{'link_description':'try it out','image_url':'<imageURL>','video_id':'<videoID>','call_to_action':{'type':'SIGN_UP','value':{'link':'http:\/\/fb.me\/','lead_gen_form_id':'<formID>'}}}},
 }
-print AdAccount(id).create_ad_creative(
+print(AdAccount(id).create_ad_creative(
   fields=fields,
   params=params,
-)
+))

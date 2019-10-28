@@ -34,7 +34,7 @@ params = {
   'name': 'Sample Creative',
   'object_story_spec': {'page_id':'<pageID>','link_data':{'call_to_action':{'type':'INSTALL_MOBILE_APP','value':{'link':'<appLink>'}},'image_hash':'<imageHash>','link':'<appLink>','message':'Try it out'}},
 }
-print AdAccount(id).create_ad_creative(
+print(AdAccount(id).create_ad_creative(
   fields=fields,
   params=params,
-)
+))

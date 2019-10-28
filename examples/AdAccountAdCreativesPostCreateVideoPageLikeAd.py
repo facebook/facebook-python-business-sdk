@@ -34,7 +34,7 @@ params = {
   'name': 'Sample Creative',
   'object_story_spec': {'page_id':'<pageID>','video_data':{'image_url':'<imageURL>','video_id':'<videoID>','call_to_action':{'type':'LIKE_PAGE','value':{'page':'<pageID>'}}}},
 }
-print AdAccount(id).create_ad_creative(
+print(AdAccount(id).create_ad_creative(
   fields=fields,
   params=params,
-)
+))

@@ -35,7 +35,7 @@ params = {
   'product_item_ids': ['<productItemID>'],
   'dynamic_customization': {'language':'fr_XX','country':'FR'},
 }
-print AdCreative(id).get_previews(
+print(AdCreative(id).get_previews(
   fields=fields,
   params=params,
-)
+))

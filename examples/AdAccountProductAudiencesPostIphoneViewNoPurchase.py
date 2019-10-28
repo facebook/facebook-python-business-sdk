@@ -36,7 +36,7 @@ params = {
   'inclusions': [{'retention_seconds':86400,'rule':{'and':[{'event':{'eq':'AddToCart'}},{'userAgent':{'i_contains':'iPhone'}}]}}],
   'exclusions': [{'retention_seconds':172800,'rule':{'event':{'eq':'Purchase'}}}],
 }
-print AdAccount(id).create_product_audience(
+print(AdAccount(id).create_product_audience(
   fields=fields,
   params=params,
-)
+))

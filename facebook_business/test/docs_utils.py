@@ -226,7 +226,8 @@ class DocsTestCase(unittest.TestCase):
 
         if pixel is None:
             pixel = AdsPixel(parent_id=DocsDataStore.get('adaccount_id'))
-            pixel[AdsPixel.Field.name] = unique_name('Test Pixel')
+            # @fix.me upstream repository has a bug here no clue what this function is supposed to do
+            # pixel[AdsPixel.Field.name] = unique_name('Test Pixel')
             pixel.remote_create()
         return pixel
 

@@ -33,7 +33,7 @@ fields = [
 params = {
   'message': 'This is a test value',
 }
-print Page(id).create_feed(
+print(Page(id).create_feed(
   fields=fields,
   params=params,
-)
+))

@@ -34,7 +34,7 @@ params = {
   'url': 'https://www.facebook.com/images/fb_icon_325x325.png',
   'published': 'false',
 }
-print Page(id).create_photo(
+print(Page(id).create_photo(
   fields=fields,
   params=params,
-)
+))

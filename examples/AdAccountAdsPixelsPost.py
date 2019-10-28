@@ -33,7 +33,7 @@ fields = [
 params = {
   'name': 'My WCA Pixel',
 }
-print AdAccount(id).create_ads_pixel(
+print(AdAccount(id).create_ads_pixel(
   fields=fields,
   params=params,
-)
+))

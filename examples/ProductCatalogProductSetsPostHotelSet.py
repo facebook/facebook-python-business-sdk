@@ -34,7 +34,7 @@ params = {
   'name': 'Test Hotel Set',
   'filter': {'brand':{'i_contains':'sample brand'}},
 }
-print ProductCatalog(id).create_product_set(
+print(ProductCatalog(id).create_product_set(
   fields=fields,
   params=params,
-)
+))

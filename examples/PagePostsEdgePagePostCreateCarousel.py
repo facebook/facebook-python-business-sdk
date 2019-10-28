@@ -37,7 +37,7 @@ params = {
   'caption': 'WWW.EXAMPLE.COM',
   'link': 'http://www.example.com/products',
 }
-print Page(id).get_posts(
+print(Page(id).get_posts(
   fields=fields,
   params=params,
-)
+))

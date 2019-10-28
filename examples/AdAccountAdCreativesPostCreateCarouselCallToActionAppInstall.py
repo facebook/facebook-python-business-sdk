@@ -32,9 +32,9 @@ fields = [
 ]
 params = {
   'name': 'Carousel app ad',
-  'object_story_spec': {'page_id':'<pageID>','link_data':{'message':'My message','link':'http://www.example.com/appstoreurl','caption':'WWW.ITUNES.COM','name':'The link name','description':'The link description','child_attachments':[{'link':'http://www.example.com/appstoreurl','image_hash':'<imageHash>','call_to_action':{'type':'USE_MOBILE_APP','value':{'app_link':'<deepLink>'}}},{'link':'http://www.example.com/appstoreurl','image_hash':'<imageHash>','call_to_action':{'type':'USE_MOBILE_APP','value':{'app_link':'<deepLink>'}}},{'link':'http://www.example.com/appstoreurl','image_hash':'<imageHash>','call_to_action':{'type':'USE_MOBILE_APP','value':{'app_link':'<deepLink>'}}},{'link':'http://www.example.com/appstoreurl','image_hash':'<imageHash>','call_to_action':{'type':'USE_MOBILE_APP','value':{'app_link':'<deepLink>'}}}],'multi_share_optimized':true}},
+  'object_story_spec': {'page_id':'<pageID>','link_data':{'message':'My message','link':'http://www.example.com/appstoreurl','caption':'WWW.ITUNES.COM','name':'The link name','description':'The link description','child_attachments':[{'link':'http://www.example.com/appstoreurl','image_hash':'<imageHash>','call_to_action':{'type':'USE_MOBILE_APP','value':{'app_link':'<deepLink>'}}},{'link':'http://www.example.com/appstoreurl','image_hash':'<imageHash>','call_to_action':{'type':'USE_MOBILE_APP','value':{'app_link':'<deepLink>'}}},{'link':'http://www.example.com/appstoreurl','image_hash':'<imageHash>','call_to_action':{'type':'USE_MOBILE_APP','value':{'app_link':'<deepLink>'}}},{'link':'http://www.example.com/appstoreurl','image_hash':'<imageHash>','call_to_action':{'type':'USE_MOBILE_APP','value':{'app_link':'<deepLink>'}}}],'multi_share_optimized':True}},
 }
-print AdAccount(id).create_ad_creative(
+print(AdAccount(id).create_ad_creative(
   fields=fields,
   params=params,
-)
+))

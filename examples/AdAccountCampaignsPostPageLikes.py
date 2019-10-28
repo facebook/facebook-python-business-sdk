@@ -35,7 +35,7 @@ params = {
   'objective': 'PAGE_LIKES',
   'status': 'PAUSED',
 }
-print AdAccount(id).create_campaign(
+print(AdAccount(id).create_campaign(
   fields=fields,
   params=params,
-)
+))

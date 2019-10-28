@@ -39,7 +39,7 @@ params = {
   'campaign_id': '<adCampaignConversionsID>',
   'targeting': {'geo_locations':{'countries':['US']},'behaviors':[{'id':6007101597783,'name':'Business Travelers'},{'id':6004386044572,'name':'Android Owners (All)'}]},
 }
-print AdAccount(id).create_ad_set(
+print(AdAccount(id).create_ad_set(
   fields=fields,
   params=params,
-)
+))

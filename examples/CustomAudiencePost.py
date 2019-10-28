@@ -32,7 +32,7 @@ fields = [
 params = {
   'name': 'Updated Name for CA',
 }
-print CustomAudience(id).update(
+print(CustomAudience(id).update(
   fields=fields,
   params=params,
-)
+))

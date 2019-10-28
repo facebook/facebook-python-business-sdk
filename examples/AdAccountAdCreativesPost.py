@@ -34,7 +34,7 @@ params = {
   'name': 'Sample Promoted Post',
   'object_story_id': '<pageID>_<postID>',
 }
-print AdAccount(id).create_ad_creative(
+print(AdAccount(id).create_ad_creative(
   fields=fields,
   params=params,
-)
+))

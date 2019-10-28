@@ -34,7 +34,7 @@ fields = [
 params = {
   'effective_status': ['ARCHIVED'],
 }
-print Campaign(id).get_ads(
+print(Campaign(id).get_ads(
   fields=fields,
   params=params,
-)
+))

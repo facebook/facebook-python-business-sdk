@@ -34,7 +34,7 @@ params = {
   'name': 'Test Feed',
   'schedule': {'interval':'DAILY','url':'http://www.example.com/sample_feed.tsv','hour':'22'},
 }
-print ProductCatalog(id).create_product_feed(
+print(ProductCatalog(id).create_product_feed(
   fields=fields,
   params=params,
-)
+))

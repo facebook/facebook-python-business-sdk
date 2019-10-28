@@ -34,7 +34,7 @@ params = {
   'message': 'This is a test message',
   'call_to_action': {'type':'BUY_NOW','value':{'link':'<appLink>','app_link':'<deepLinkURL>'}},
 }
-print Page(id).create_feed(
+print(Page(id).create_feed(
   fields=fields,
   params=params,
-)
+))

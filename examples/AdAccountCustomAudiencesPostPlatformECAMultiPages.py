@@ -35,7 +35,7 @@ params = {
   'rule': {'inclusions':{'operator':'or','rules':[{'event_sources':[{'id':'<pageID>','type':'page'},{'id':'<pageID2>','type':'page'}],'retention_seconds':31536000,'filter':{'operator':'and','filters':[{'field':'event','operator':'eq','value':'page_engaged'}]}}]}},
   'prefill': '1',
 }
-print AdAccount(id).create_custom_audience(
+print(AdAccount(id).create_custom_audience(
   fields=fields,
   params=params,
-)
+))

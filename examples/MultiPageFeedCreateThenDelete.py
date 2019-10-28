@@ -18,11 +18,11 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebookads.adobjects.user import User
-from facebookads.adobjects.page import Page
-from facebookads.adobjects.pagepost import PagePost
-from facebookads.adobjects.abstractobject import AbstractObject
-from facebookads.api import FacebookAdsApi
+from facebook_business.adobjects.user import User
+from facebook_business.adobjects.page import Page
+from facebook_business.adobjects.pagepost import PagePost
+from facebook_business.adobjects.abstractobject import AbstractObject
+from facebook_business.api import FacebookAdsApi
 
 access_token = '<ACCESS_TOKEN>'
 app_secret = '<APP_SECRET>'
@@ -40,9 +40,9 @@ pages = User(id).get_accounts(
   fields=fields,
   params=params,
 )
-print 'pages', pages
+print('pages', pages)
 page_id = pages[0].get_id()
-print 'page_id:', page_id, '\n'
+print('page_id:', page_id, '\n')
 
 # Switch access token to page access token
 FacebookAdsApi.init(access_token=pages[0].access_token)
@@ -56,16 +56,16 @@ pagepost = Page(page_id).create_feed(
   fields=fields,
   params=params,
 )
-print 'pagepost', pagepost
+print('pagepost', pagepost)
 pagepost_id = pagepost.get_id()
-print 'pagepost_id:', pagepost_id, '\n'
+print('pagepost_id:', pagepost_id, '\n')
 
 # Pagepost delete
 fields = [
 ]
 params = {
 }
-print PagePost(pagepost_id).delete(
+print(PagePost(pagepost_id).delete(
   fields=fields,
   params=params,
-)
+))

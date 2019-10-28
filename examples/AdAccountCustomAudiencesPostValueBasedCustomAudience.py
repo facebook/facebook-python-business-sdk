@@ -36,7 +36,7 @@ params = {
   'is_value_based': '1',
   'customer_file_source': 'PARTNER_PROVIDED_ONLY',
 }
-print AdAccount(id).create_custom_audience(
+print(AdAccount(id).create_custom_audience(
   fields=fields,
   params=params,
-)
+))

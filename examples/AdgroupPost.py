@@ -32,7 +32,7 @@ fields = [
 params = {
   'name': 'My New Ad',
 }
-print Ad(id).update(
+print(Ad(id).update(
   fields=fields,
   params=params,
-)
+))

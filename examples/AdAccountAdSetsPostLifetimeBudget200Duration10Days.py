@@ -42,7 +42,7 @@ params = {
   'targeting': {'facebook_positions':['feed'],'geo_locations':{'countries':['US']},'publisher_platforms':['facebook','audience_network']},
   'status': 'PAUSED',
 }
-print AdAccount(id).create_ad_set(
+print(AdAccount(id).create_ad_set(
   fields=fields,
   params=params,
-)
+))

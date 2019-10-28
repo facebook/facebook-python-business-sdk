@@ -34,7 +34,7 @@ params = {
   'optimization_goal': 'LINK_CLICKS',
   'bid_amount': '200',
 }
-print AdSet(id).update(
+print(AdSet(id).update(
   fields=fields,
   params=params,
-)
+))

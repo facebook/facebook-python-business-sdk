@@ -105,7 +105,7 @@ print(campaigns)
 
 ### Test Your Install
 Test your install with the following command:
-```python
+```
 python test.py
 ```
 You should see the result in your terminal window. If it complains about an expired token, repeat the process for requesting a Page Access Token described in the prerequisites section above.
@@ -180,7 +180,7 @@ for which you have permission. Most of you probably have a personal account.
 Let's get all the ad accounts for the user with the given access token. I only
 have one account so the following is printed:
 
-```python
+```
 >>> me = adobjects.AdUser(fbid='me')
 >>> my_accounts = list(me.get_ad_accounts())
 >>> print(my_accounts)
@@ -201,13 +201,13 @@ having the iterator lazily loading accounts.
 For our purposes, we can just pick an account and do our experiments in its
 context:
 
-```python
+```
 >>> my_account = my_accounts[0]
 ```
 
 Or if you already know your account id:
 
-```python
+```
 >>> my_account = adobjects.AdAccount('act_17842443')
 ```
 
@@ -216,7 +216,7 @@ Or if you already know your account id:
 Let's create a campaign. It's in the context of the account, i.e. its parent
 should be the account.
 
-```python
+```
 
 fields = [
 ]
@@ -246,7 +246,7 @@ is already created and has a node path. Accessing properties of an object is
 simple since ``AbstractObject`` implements the ``collections.MutableMapping``.
 You can access them just like accessing a key of a dictionary:
 
-```python
+```
 >>> print(my_account)
 {'account_id': u'17842443', 'id': u'act_17842443'}
 >>> my_account = my_account.api_get(fields=[adobjects.AdAccount.Field.amount_spent])
@@ -260,7 +260,7 @@ To update an object, we can modify its properties and then call the
 ``api_update`` method to sync the object with the server. Let's correct the
 typo "Campain" to "Campaign":
 
-```python
+```
 >>> campaign.api_update(fields=[], params={adobjects.Campaign.Field.name:"Potato Campaign"})
 ```
 
@@ -270,7 +270,7 @@ You can see the results in ads manager.
 
 If we decide we don't want the campaign we created anymore:
 
-```python
+```
 campaign.api_delete()
 ```
 
@@ -287,7 +287,7 @@ access token, rather than using the same session for every one. Each session sho
 separate FacebookAdsApi object. See example below:
 
 
-```python
+```
 my_app_id = '<APP_ID>'
 my_app_secret = '<APP_SECRET>'
 my_access_token_1 = '<ACCESS_TOKEN_1>'
@@ -316,7 +316,7 @@ However, working with multiples access_tokens, require us to use multiples apis.
 api for a user, but, for the other users,  we shall use its the api object as a param. In the example below,
 we create two AdUsers, the first one using the default api and the second one using its api object:
 
-```python
+```
 FacebookAdsApi.set_default_api(api1)
 
 me1 = AdUser(fbid='me')
@@ -324,7 +324,7 @@ me2 = AdUser(fbid='me', api=api2)
 ```
 Another way to create the same objects from above would be:
 
-```python
+```
 me1 = AdUser(fbid='me', api=api1)
 me2 = AdUser(fbid='me', api=api2)
 ```
@@ -332,7 +332,7 @@ From here, all the following workflow for these objects remains the same. The on
 the classmethods calls, where we now should pass the api we want to use as the last parameter
 on every call. For instance, a call to the Aduser.get_by_ids method should be like this:
 
-```python
+```
 session = FacebookSession(
  my_app_id,
  my_app_secret,
@@ -378,19 +378,19 @@ The SDK makes this process simple. You can group together calls into an instance
 of ``FacebookAdsApiBatch`` (available in facebook_business.api). To easily get one
 for your api instance:
 
-```python
+```
 my_api_batch = api.new_batch()
 ```
 
 Calls can be added to the batch instead of being executed immediately:
 
-```python
+```
 campaign.api_delete(batch=my_api_batch)
 ```
 
 Once you're finished adding calls to the batch, you can send off the request:
 
-```python
+```
 my_api_batch.execute()
 ```
 
@@ -445,7 +445,7 @@ This can be identified by constructing a raw cURL request and seeing if the resp
 
 for example:
 
-```python
+```
 from facebook_business.adobjects.page import Page
 from facebook_business.api import FacebookAdsApi
 

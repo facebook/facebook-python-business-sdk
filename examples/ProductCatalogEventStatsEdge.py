@@ -32,7 +32,7 @@ fields = [
 ]
 params = {
 }
-print ProductCatalog(id).get_event_stats(
+print(ProductCatalog(id).get_event_stats(
   fields=fields,
   params=params,
-)
+))

@@ -32,7 +32,7 @@ fields = [
 ]
 params = {
 }
-print AdCreative(id).get(
+print(AdCreative(id).get(
   fields=fields,
   params=params,
-)
+))

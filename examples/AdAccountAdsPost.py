@@ -36,7 +36,7 @@ params = {
   'creative': {'creative_id':'<adCreativeID>'},
   'status': 'PAUSED',
 }
-print AdAccount(id).create_ad(
+print(AdAccount(id).create_ad(
   fields=fields,
   params=params,
-)
+))

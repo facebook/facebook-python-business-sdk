@@ -32,7 +32,7 @@ fields = [
 ]
 params = {
 }
-print AdSet(id).get(
+print(AdSet(id).get(
   fields=fields,
   params=params,
-)
+))

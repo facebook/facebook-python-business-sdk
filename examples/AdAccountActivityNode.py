@@ -31,7 +31,7 @@ fields = [
 ]
 params = {
 }
-print AdAccountActivity(id).get(
+print(AdAccountActivity(id).get(
   fields=fields,
   params=params,
-)
+))

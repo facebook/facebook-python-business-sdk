@@ -32,7 +32,7 @@ fields = [
 ]
 params = {
 }
-print AdsPixel(id).get(
+print(AdsPixel(id).get(
   fields=fields,
   params=params,
-)
+))

@@ -32,7 +32,7 @@ fields = [
 params = {
   'message': 'This is a test value',
 }
-print PagePost(id).update(
+print(PagePost(id).update(
   fields=fields,
   params=params,
-)
+))

@@ -33,7 +33,7 @@ fields = [
 params = {
   'message': 'This is a test value',
 }
-print PagePost(id).create_comment(
+print(PagePost(id).create_comment(
   fields=fields,
   params=params,
-)
+))

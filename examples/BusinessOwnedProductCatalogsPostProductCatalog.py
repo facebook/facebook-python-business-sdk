@@ -33,7 +33,7 @@ fields = [
 params = {
   'name': 'Test Catalog',
 }
-print Business(id).create_owned_product_catalog(
+print(Business(id).create_owned_product_catalog(
   fields=fields,
   params=params,
-)
+))

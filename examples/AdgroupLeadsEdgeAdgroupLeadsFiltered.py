@@ -33,7 +33,7 @@ fields = [
 params = {
   'filtering': [{'field':'time_created','operator':'GREATER_THAN','value':1546549613}],
 }
-print Ad(id).get_leads(
+print(Ad(id).get_leads(
   fields=fields,
   params=params,
-)
+))

@@ -34,7 +34,7 @@ fields = [
 ]
 params = {
 }
-print AdAccount(id).get_custom_audiences(
+print(AdAccount(id).get_custom_audiences(
   fields=fields,
   params=params,
-)
+))

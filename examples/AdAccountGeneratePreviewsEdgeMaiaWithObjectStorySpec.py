@@ -34,7 +34,7 @@ params = {
   'creative': {'object_story_spec':{'link_data':{'call_to_action':{'type':'USE_APP','value':{'link':'<url>'}},'description':'Description','link':'<url>','message':'Message','name':'Name','picture':'<imageURL>'},'page_id':'<pageID>'}},
   'ad_format': 'MOBILE_FEED_STANDARD',
 }
-print AdAccount(id).get_generate_previews(
+print(AdAccount(id).get_generate_previews(
   fields=fields,
   params=params,
-)
+))

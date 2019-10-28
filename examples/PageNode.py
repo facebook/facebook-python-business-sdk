@@ -35,7 +35,7 @@ fields = [
 params = {
   'limit': '30000',
 }
-print Page(id).get_locations(
+print(Page(id).get_locations(
   fields=fields,
   params=params,
-)
+))

@@ -35,7 +35,7 @@ params = {
   'rule': {'inclusions':{'operator':'or','rules':[{'event_sources':[{'id':'<appID>','type':'app'}],'retention_seconds':8400,'filter':{'operator':'and','filters':[{'field':'event','operator':'eq','value':'fb_mobile_purchase'}]}}]}},
   'prefill': '1',
 }
-print AdAccount(id).create_custom_audience(
+print(AdAccount(id).create_custom_audience(
   fields=fields,
   params=params,
-)
+))

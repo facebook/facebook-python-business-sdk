@@ -32,7 +32,7 @@ fields = [
 params = {
   'bid_adjustments': {'user_groups':{'user_bucket':{'event_sources':['<pixelID>','<appID>'],'1':0.01,'2':0.02,'3':0.03,'default':{'gender':{'male':0.9996,'female':0.0129}}}}},
 }
-print AdSet(id).update(
+print(AdSet(id).update(
   fields=fields,
   params=params,
-)
+))

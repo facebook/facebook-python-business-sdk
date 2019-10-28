@@ -33,7 +33,7 @@ params = {
   'account_id': '<adAccountID>',
   'business': '<businessID>',
 }
-print AdsPixel(id).create_share_d_account(
+print(AdsPixel(id).create_share_d_account(
   fields=fields,
   params=params,
-)
+))

@@ -33,7 +33,7 @@ fields = [
 params = {
   'redirect': '0',
 }
-print Page(id).get_picture(
+print(Page(id).get_picture(
   fields=fields,
   params=params,
-)
+))

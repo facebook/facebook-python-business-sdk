@@ -34,7 +34,7 @@ params = {
   'name': 'Test Set',
   'filter': {'product_type':{'i_contains':'shirt'}},
 }
-print ProductCatalog(id).create_product_set(
+print(ProductCatalog(id).create_product_set(
   fields=fields,
   params=params,
-)
+))

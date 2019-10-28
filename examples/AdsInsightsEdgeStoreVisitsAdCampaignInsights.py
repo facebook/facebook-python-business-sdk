@@ -34,7 +34,7 @@ fields = [
 ]
 params = {
 }
-print AdSet(id).get_insights(
+print(AdSet(id).get_insights(
   fields=fields,
   params=params,
-)
+))

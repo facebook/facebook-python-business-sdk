@@ -29,6 +29,7 @@ import os
 import sys
 import json
 from .docs_utils import *
+from facebook_business.api import FacebookAdsApi
 
 
 class AdConversionPixelDocsTestCase(DocsTestCase):

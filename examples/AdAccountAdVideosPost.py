@@ -33,7 +33,7 @@ fields = [
 params = {
   'source': '<videoPath>',
 }
-print AdAccount(id).create_ad_video(
+print(AdAccount(id).create_ad_video(
   fields=fields,
   params=params,
-)
+))

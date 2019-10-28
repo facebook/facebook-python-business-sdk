@@ -32,7 +32,7 @@ fields = [
 ]
 params = {
 }
-print Page(id).get_photos(
+print(Page(id).get_photos(
   fields=fields,
   params=params,
-)
+))

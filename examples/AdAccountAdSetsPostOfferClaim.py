@@ -42,7 +42,7 @@ params = {
   'promoted_object': {'page_id':'<pageID>','offer_id':'<offerID>'},
   'targeting': {'geo_locations':{'countries':['US']},'genders':[1],'age_min':'25','age_max':'55'},
 }
-print AdAccount(id).create_ad_set(
+print(AdAccount(id).create_ad_set(
   fields=fields,
   params=params,
-)
+))
