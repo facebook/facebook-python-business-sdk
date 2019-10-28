@@ -92,6 +92,12 @@ class AdAccountTargetingUnified(
         work_employers = 'work_employers'
         work_positions = 'work_positions'
 
+    class RegulatedCategories:
+        credit = 'CREDIT'
+        employment = 'EMPLOYMENT'
+        housing = 'HOUSING'
+        none = 'NONE'
+
     class WhitelistedTypes:
         adgroup_id = 'adgroup_id'
         age_max = 'age_max'
@@ -129,6 +135,7 @@ class AdAccountTargetingUnified(
         ethnic_affinity = 'ethnic_affinity'
         exclude_previous_days = 'exclude_previous_days'
         exclude_reached_since = 'exclude_reached_since'
+        excluded_brand_safety_content_types = 'excluded_brand_safety_content_types'
         excluded_connections = 'excluded_connections'
         excluded_custom_audiences = 'excluded_custom_audiences'
         excluded_dynamic_audience_ids = 'excluded_dynamic_audience_ids'
@@ -157,6 +164,7 @@ class AdAccountTargetingUnified(
         home_type = 'home_type'
         home_value = 'home_value'
         household_composition = 'household_composition'
+        id = 'id'
         income = 'income'
         industries = 'industries'
         instagram_positions = 'instagram_positions'
@@ -164,6 +172,7 @@ class AdAccountTargetingUnified(
         interest_defaults_source = 'interest_defaults_source'
         interested_in = 'interested_in'
         interests = 'interests'
+        is_instagram_destination_ad = 'is_instagram_destination_ad'
         is_whatsapp_destination_ad = 'is_whatsapp_destination_ad'
         keywords = 'keywords'
         life_events = 'life_events'
@@ -184,7 +193,6 @@ class AdAccountTargetingUnified(
         product_audience_specs = 'product_audience_specs'
         prospecting_audience = 'prospecting_audience'
         publisher_platforms = 'publisher_platforms'
-        publisher_visibility_categories = 'publisher_visibility_categories'
         radius = 'radius'
         regions = 'regions'
         relationship_statuses = 'relationship_statuses'
@@ -256,6 +264,7 @@ class AdAccountTargetingUnified(
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['LimitType'] = AdAccountTargetingUnified.LimitType.__dict__.values()
+        field_enum_info['RegulatedCategories'] = AdAccountTargetingUnified.RegulatedCategories.__dict__.values()
         field_enum_info['WhitelistedTypes'] = AdAccountTargetingUnified.WhitelistedTypes.__dict__.values()
         field_enum_info['Mode'] = AdAccountTargetingUnified.Mode.__dict__.values()
         field_enum_info['Objective'] = AdAccountTargetingUnified.Objective.__dict__.values()

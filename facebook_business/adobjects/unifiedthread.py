@@ -92,9 +92,14 @@ class UnifiedThread(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'source': 'source_enum',
             'user': 'int',
         }
         enums = {
+            'source_enum': [
+                'ALL',
+                'USER',
+            ],
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -197,6 +202,7 @@ class UnifiedThread(
                 'no_border',
             ],
             'montage_supported_features_enum': [
+                'AUTHOR_IN_PRODUCER_QE_FOR_SMART_REPLIES',
                 'LIGHTWEIGHT_REPLY',
                 'SHOW_STORY_IN_MESSENGER_THREAD',
             ],

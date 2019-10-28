@@ -73,6 +73,7 @@ class AdActivity(
         billing_event = 'billing_event'
         campaign_ended = 'campaign_ended'
         campaign_spending_limit_reached = 'campaign_spending_limit_reached'
+        conversion_event_updated = 'conversion_event_updated'
         create_ad = 'create_ad'
         create_ad_set = 'create_ad_set'
         create_audience = 'create_audience'
@@ -122,6 +123,7 @@ class AdActivity(
         update_campaign_group_spend_cap = 'update_campaign_group_spend_cap'
         update_campaign_name = 'update_campaign_name'
         update_campaign_run_status = 'update_campaign_run_status'
+        update_campaign_schedule = 'update_campaign_schedule'
 
     class Category:
         account = 'ACCOUNT'

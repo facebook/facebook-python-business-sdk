@@ -59,6 +59,7 @@ class AdCreative(
         destination_set_id = 'destination_set_id'
         dynamic_ad_voice = 'dynamic_ad_voice'
         effective_authorization_category = 'effective_authorization_category'
+        effective_instagram_media_id = 'effective_instagram_media_id'
         effective_instagram_story_id = 'effective_instagram_story_id'
         effective_object_story_id = 'effective_object_story_id'
         enable_direct_install = 'enable_direct_install'
@@ -99,8 +100,6 @@ class AdCreative(
         call_to_action = 'call_to_action'
         image_file = 'image_file'
         is_dco_internal = 'is_dco_internal'
-        mockup_id = 'mockup_id'
-        page_id = 'page_id'
 
     class ApplinkTreatment:
         deeplink_with_appstore_fallback = 'deeplink_with_appstore_fallback'
@@ -123,6 +122,7 @@ class AdCreative(
         download = 'DOWNLOAD'
         event_rsvp = 'EVENT_RSVP'
         find_a_group = 'FIND_A_GROUP'
+        find_your_groups = 'FIND_YOUR_GROUPS'
         follow_news_storyline = 'FOLLOW_NEWS_STORYLINE'
         get_directions = 'GET_DIRECTIONS'
         get_offer = 'GET_OFFER'
@@ -149,6 +149,7 @@ class AdCreative(
         share = 'SHARE'
         shop_now = 'SHOP_NOW'
         sign_up = 'SIGN_UP'
+        sotto_subscribe = 'SOTTO_SUBSCRIBE'
         subscribe = 'SUBSCRIBE'
         update_app = 'UPDATE_APP'
         use_app = 'USE_APP'
@@ -176,6 +177,8 @@ class AdCreative(
     class Status:
         active = 'ACTIVE'
         deleted = 'DELETED'
+        in_process = 'IN_PROCESS'
+        with_issues = 'WITH_ISSUES'
 
     class AuthorizationCategory:
         none = 'NONE'
@@ -205,6 +208,7 @@ class AdCreative(
     def get_endpoint(cls):
         return 'adcreatives'
 
+    # @deprecated api_create is being deprecated
     def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.adobjects.adaccount import AdAccount
         return AdAccount(api=self._api, fbid=parent_id).create_ad_creative(fields, params, batch, success, failure, pending)
@@ -373,6 +377,37 @@ class AdCreative(
             self.assure_call()
             return request.execute()
 
+    def get_creative_insights(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.adcreativeinsights import AdCreativeInsights
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/creative_insights',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdCreativeInsights,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdCreativeInsights, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_previews(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -385,7 +420,6 @@ class AdCreative(
             'dynamic_customization': 'Object',
             'end_date': 'datetime',
             'height': 'unsigned int',
-            'interactive': 'bool',
             'locale': 'string',
             'place_page_id': 'int',
             'post': 'Object',
@@ -437,6 +471,7 @@ class AdCreative(
         'destination_set_id': 'string',
         'dynamic_ad_voice': 'string',
         'effective_authorization_category': 'string',
+        'effective_instagram_media_id': 'string',
         'effective_instagram_story_id': 'string',
         'effective_object_story_id': 'string',
         'enable_direct_install': 'bool',
@@ -477,8 +512,6 @@ class AdCreative(
         'call_to_action': 'Object',
         'image_file': 'string',
         'is_dco_internal': 'bool',
-        'mockup_id': 'string',
-        'page_id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

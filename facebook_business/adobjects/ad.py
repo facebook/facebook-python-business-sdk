@@ -63,9 +63,11 @@ class Ad(
         engagement_audience = 'engagement_audience'
         failed_delivery_checks = 'failed_delivery_checks'
         id = 'id'
+        is_autobid = 'is_autobid'
         issues_info = 'issues_info'
         last_updated_by_app_id = 'last_updated_by_app_id'
         name = 'name'
+        preview_shareable_link = 'preview_shareable_link'
         priority = 'priority'
         recommendations = 'recommendations'
         source_ad = 'source_ad'
@@ -103,6 +105,7 @@ class Ad(
         campaign_paused = 'CAMPAIGN_PAUSED'
         deleted = 'DELETED'
         disapproved = 'DISAPPROVED'
+        in_process = 'IN_PROCESS'
         paused = 'PAUSED'
         pending_billing_info = 'PENDING_BILLING_INFO'
         pending_review = 'PENDING_REVIEW'
@@ -155,6 +158,7 @@ class Ad(
     def get_endpoint(cls):
         return 'ads'
 
+    # @deprecated api_create is being deprecated
     def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.adobjects.adaccount import AdAccount
         return AdAccount(api=self._api, fbid=parent_id).create_ad(fields, params, batch, success, failure, pending)
@@ -674,40 +678,6 @@ class Ad(
             self.assure_call()
             return request.execute()
 
-    def create_lead(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.lead import Lead
-        param_types = {
-            'end_time': 'datetime',
-            'session_id': 'string',
-            'start_time': 'datetime',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/leads',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=Lead,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=Lead, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def get_previews(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -720,7 +690,6 @@ class Ad(
             'dynamic_customization': 'Object',
             'end_date': 'datetime',
             'height': 'unsigned int',
-            'interactive': 'bool',
             'locale': 'string',
             'place_page_id': 'int',
             'post': 'Object',
@@ -773,36 +742,6 @@ class Ad(
             target_class=TargetingSentenceLine,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=TargetingSentenceLine, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def delete_tracking_tag(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='DELETE',
-            endpoint='/trackingtag',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -869,9 +808,11 @@ class Ad(
         'engagement_audience': 'bool',
         'failed_delivery_checks': 'list<DeliveryCheck>',
         'id': 'string',
+        'is_autobid': 'bool',
         'issues_info': 'list<AdgroupIssuesInfo>',
         'last_updated_by_app_id': 'string',
         'name': 'string',
+        'preview_shareable_link': 'string',
         'priority': 'unsigned int',
         'recommendations': 'list<AdRecommendation>',
         'source_ad': 'Ad',

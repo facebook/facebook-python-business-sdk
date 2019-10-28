@@ -42,10 +42,8 @@ class MediaFingerprint(
 
     class Field(AbstractObject.Field):
         duration_in_sec = 'duration_in_sec'
-        expiration_time = 'expiration_time'
         fingerprint_content_type = 'fingerprint_content_type'
         fingerprint_type = 'fingerprint_type'
-        fingerprint_validity = 'fingerprint_validity'
         id = 'id'
         metadata = 'metadata'
         title = 'title'
@@ -123,45 +121,10 @@ class MediaFingerprint(
             self.assure_call()
             return request.execute()
 
-    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'metadata': 'list',
-            'title': 'string',
-            'universal_content_id': 'string',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=MediaFingerprint,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     _field_types = {
         'duration_in_sec': 'float',
-        'expiration_time': 'datetime',
         'fingerprint_content_type': 'string',
         'fingerprint_type': 'string',
-        'fingerprint_validity': 'string',
         'id': 'string',
         'metadata': 'Object',
         'title': 'string',

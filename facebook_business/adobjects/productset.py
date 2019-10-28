@@ -53,6 +53,7 @@ class ProductSet(
     def get_endpoint(cls):
         return 'product_sets'
 
+    # @deprecated api_create is being deprecated
     def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.adobjects.productcatalog import ProductCatalog
         return ProductCatalog(api=self._api, fbid=parent_id).create_product_set(fields, params, batch, success, failure, pending)
@@ -169,38 +170,6 @@ class ProductSet(
             target_class=AutomotiveModel,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=AutomotiveModel, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def get_da_checks(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.dacheck import DACheck
-        param_types = {
-            'checks': 'list<string>',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/da_checks',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=DACheck,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=DACheck, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -379,6 +348,39 @@ class ProductSet(
             self.assure_call()
             return request.execute()
 
+    def get_vehicle_offers(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.vehicleoffer import VehicleOffer
+        param_types = {
+            'bulk_pagination': 'bool',
+            'filter': 'Object',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/vehicle_offers',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=VehicleOffer,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=VehicleOffer, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_vehicles(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -414,7 +416,7 @@ class ProductSet(
 
     _field_types = {
         'auto_creation_url': 'string',
-        'filter': 'Object',
+        'filter': 'string',
         'id': 'string',
         'name': 'string',
         'product_catalog': 'ProductCatalog',

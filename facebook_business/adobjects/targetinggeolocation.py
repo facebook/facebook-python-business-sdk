@@ -46,6 +46,7 @@ class TargetingGeoLocation(
         geo_markets = 'geo_markets'
         large_geo_areas = 'large_geo_areas'
         location_cluster_ids = 'location_cluster_ids'
+        location_expansion = 'location_expansion'
         location_set_ids = 'location_set_ids'
         location_types = 'location_types'
         medium_geo_areas = 'medium_geo_areas'
@@ -68,6 +69,7 @@ class TargetingGeoLocation(
         'geo_markets': 'list<TargetingGeoLocationMarket>',
         'large_geo_areas': 'list<TargetingGeoLocationGeoEntities>',
         'location_cluster_ids': 'list<TargetingGeoLocationLocationCluster>',
+        'location_expansion': 'TargetingGeoLocationLocationExpansion',
         'location_set_ids': 'list<string>',
         'location_types': 'list<string>',
         'medium_geo_areas': 'list<TargetingGeoLocationGeoEntities>',

@@ -117,7 +117,10 @@ class AbstractCrudObject(AbstractObject):
         """Returns the object's fbid if set. Else, it returns None."""
         return self[self.Field.id] if hasattr(self, 'Field') and hasattr(self.Field, 'Field') else self['id']
 
+    # @deprecated deprecate parent_id in AbstractCrudObject
     def get_parent_id(self):
+        warning_message = "parent_id is being deprecated."
+        logging.warning(warning_message)
         """Returns the object's parent's id."""
         return self._parent_id or FacebookAdsApi.get_default_account_id()
 
@@ -140,11 +143,14 @@ class AbstractCrudObject(AbstractObject):
 
         return self.get_id()
 
+    # @deprecated deprecate parent_id in AbstractCrudObject
     def get_parent_id_assured(self):
         """Returns the object's parent's fbid.
         Raises:
             FacebookBadObjectError if the object does not have a parent id.
         """
+        warning_message = "parent_id is being deprecated."
+        logging.warning(warning_message)
         if not self.get_parent_id():
             raise FacebookBadObjectError(
                 "%s object needs a parent_id for this operation."
@@ -219,7 +225,8 @@ class AbstractCrudObject(AbstractObject):
         return '/'.join(self.get_node_path())
 
     # CRUD
-
+    # @deprecated
+    # use Object(parent_id).create_xxx() instead
     def remote_create(
         self,
         batch=None,
@@ -246,6 +253,8 @@ class AbstractCrudObject(AbstractObject):
             self if not a batch call.
             the return value of batch.add if a batch call.
         """
+        warning_message = "`remote_create` is being deprecated, please update your code with new function."
+        logging.warning(warning_message)
         if self.get_id():
             raise FacebookBadObjectError(
                 "This %s object was already created."
@@ -299,6 +308,8 @@ class AbstractCrudObject(AbstractObject):
 
             return self
 
+    # @deprecated
+    # use Object(id).api_get() instead
     def remote_read(
         self,
         batch=None,
@@ -326,6 +337,8 @@ class AbstractCrudObject(AbstractObject):
             self if not a batch call.
             the return value of batch.add if a batch call.
         """
+        warning_message = "`remote_read` is being deprecated, please update your code with new function."
+        logging.warning(warning_message)
         params = dict(params or {})
         if hasattr(self, 'api_get'):
             request = self.api_get(pending=True)
@@ -364,6 +377,8 @@ class AbstractCrudObject(AbstractObject):
             self = request.execute()
             return self
 
+    # @deprecated
+    # use Object(id).api_update() instead
     def remote_update(
         self,
         batch=None,
@@ -390,6 +405,8 @@ class AbstractCrudObject(AbstractObject):
             self if not a batch call.
             the return value of batch.add if a batch call.
         """
+        warning_message = "`remote_update` is being deprecated, please update your code with new function."
+        logging.warning(warning_message)
         params = {} if not params else params.copy()
         params.update(self.export_changed_data())
         self._set_data(params)
@@ -432,6 +449,8 @@ class AbstractCrudObject(AbstractObject):
 
             return self
 
+    # @deprecated
+    # use Object(id).api_delete() instead
     def remote_delete(
         self,
         batch=None,
@@ -455,6 +474,8 @@ class AbstractCrudObject(AbstractObject):
             self if not a batch call.
             the return value of batch.add if a batch call.
         """
+        warning_message = "`remote_delete` is being deprecated, please update your code with new function."
+        logging.warning(warning_message)
         if hasattr(self, 'api_delete'):
             request = self.api_delete(pending=True)
         else:
@@ -490,11 +511,14 @@ class AbstractCrudObject(AbstractObject):
 
     # Helpers
 
+    # @deprecated
     def remote_save(self, *args, **kwargs):
         """
         Calls remote_create method if object has not been created. Else, calls
         the remote_update method.
         """
+        warning_message = "`remote_save` is being deprecated, please update your code with new function."
+        logging.warning(warning_message)
         if self.get_id():
             return self.remote_update(*args, **kwargs)
         else:
@@ -509,8 +533,7 @@ class AbstractCrudObject(AbstractObject):
         if 'Status' not in dir(self) or 'archived' not in dir(self.Status):
             raise TypeError('Cannot archive object of type %s.'
                             % self.__class__.__name__)
-
-        return self.remote_update(
+        return self.api_create(
             params={
                 'status': self.Status.archived,
             },
@@ -518,7 +541,8 @@ class AbstractCrudObject(AbstractObject):
             failure=failure,
             success=success,
         )
-    # To avoid breaking change. Will be deprecated
+
+    # @deprecated
     save = remote_save
 
     def iterate_edge(

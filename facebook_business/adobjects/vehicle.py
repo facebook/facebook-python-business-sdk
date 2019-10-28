@@ -160,6 +160,7 @@ class Vehicle(
     def get_endpoint(cls):
         return 'vehicles'
 
+    # @deprecated api_create is being deprecated
     def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.adobjects.productcatalog import ProductCatalog
         return ProductCatalog(api=self._api, fbid=parent_id).create_vehicle(fields, params, batch, success, failure, pending)
@@ -212,6 +213,7 @@ class Vehicle(
             'description': 'string',
             'drivetrain': 'drivetrain_enum',
             'exterior_color': 'string',
+            'fb_page_id': 'string',
             'fuel_type': 'fuel_type_enum',
             'images': 'list<Object>',
             'interior_color': 'string',

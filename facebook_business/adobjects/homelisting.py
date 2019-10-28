@@ -89,6 +89,7 @@ class HomeListing(
     def get_endpoint(cls):
         return 'home_listings'
 
+    # @deprecated api_create is being deprecated
     def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.adobjects.productcatalog import ProductCatalog
         return ProductCatalog(api=self._api, fbid=parent_id).create_home_listing(fields, params, batch, success, failure, pending)

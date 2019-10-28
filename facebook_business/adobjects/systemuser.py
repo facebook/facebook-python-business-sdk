@@ -62,6 +62,7 @@ class SystemUser(
     def get_endpoint(cls):
         return 'system_users'
 
+    # @deprecated api_create is being deprecated
     def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.adobjects.business import Business
         return Business(api=self._api, fbid=parent_id).create_system_user(fields, params, batch, success, failure, pending)
@@ -127,24 +128,25 @@ class SystemUser(
             self.assure_call()
             return request.execute()
 
-    def get_assigned_monetization_properties(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def get_assigned_business_asset_groups(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.admonetizationproperty import AdMonetizationProperty
+        from facebook_business.adobjects.businessassetgroup import BusinessAssetGroup
         param_types = {
+            'contained_asset_id': 'string',
         }
         enums = {
         }
         request = FacebookRequest(
             node_id=self['id'],
             method='GET',
-            endpoint='/assigned_monetization_properties',
+            endpoint='/assigned_business_asset_groups',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AdMonetizationProperty,
+            target_class=BusinessAssetGroup,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdMonetizationProperty, api=self._api),
+            response_parser=ObjectParser(target_class=BusinessAssetGroup, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

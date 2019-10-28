@@ -61,52 +61,6 @@ class Group(
         updated_time = 'updated_time'
         venue = 'venue'
 
-    class GroupType:
-        casual = 'CASUAL'
-        close_friends = 'CLOSE_FRIENDS'
-        club = 'CLUB'
-        couple = 'COUPLE'
-        coworkers = 'COWORKERS'
-        custom = 'CUSTOM'
-        ephemeral = 'EPHEMERAL'
-        event_planning = 'EVENT_PLANNING'
-        family = 'FAMILY'
-        fitness = 'FITNESS'
-        for_sale = 'FOR_SALE'
-        for_work = 'FOR_WORK'
-        fraternity = 'FRATERNITY'
-        game = 'GAME'
-        health_support = 'HEALTH_SUPPORT'
-        high_school_forum = 'HIGH_SCHOOL_FORUM'
-        jobs = 'JOBS'
-        learning = 'LEARNING'
-        meme = 'MEME'
-        mentorship = 'MENTORSHIP'
-        neighbors = 'NEIGHBORS'
-        none = 'NONE'
-        parents = 'PARENTS'
-        project = 'PROJECT'
-        real_world = 'REAL_WORLD'
-        real_world_at_work = 'REAL_WORLD_AT_WORK'
-        school_class = 'SCHOOL_CLASS'
-        sorority = 'SORORITY'
-        study_group = 'STUDY_GROUP'
-        support = 'SUPPORT'
-        teammates = 'TEAMMATES'
-        travel_planning = 'TRAVEL_PLANNING'
-        work_announcement = 'WORK_ANNOUNCEMENT'
-        work_demo_group = 'WORK_DEMO_GROUP'
-        work_discussion = 'WORK_DISCUSSION'
-        work_ephemeral = 'WORK_EPHEMERAL'
-        work_feedback = 'WORK_FEEDBACK'
-        work_for_sale = 'WORK_FOR_SALE'
-        work_learning = 'WORK_LEARNING'
-        work_mentorship = 'WORK_MENTORSHIP'
-        work_multi_company = 'WORK_MULTI_COMPANY'
-        work_social = 'WORK_SOCIAL'
-        work_team = 'WORK_TEAM'
-        work_teamwork = 'WORK_TEAMWORK'
-
     class JoinSetting:
         admin_only = 'ADMIN_ONLY'
         anyone = 'ANYONE'
@@ -136,16 +90,18 @@ class Group(
         high_school_forum = 'HIGH_SCHOOL_FORUM'
         jobs = 'JOBS'
         learning = 'LEARNING'
-        meme = 'MEME'
         mentorship = 'MENTORSHIP'
         neighbors = 'NEIGHBORS'
         none = 'NONE'
+        oculus = 'OCULUS'
+        parenting = 'PARENTING'
         parents = 'PARENTS'
         project = 'PROJECT'
         real_world = 'REAL_WORLD'
         real_world_at_work = 'REAL_WORLD_AT_WORK'
         school_class = 'SCHOOL_CLASS'
         sorority = 'SORORITY'
+        sports = 'SPORTS'
         study_group = 'STUDY_GROUP'
         support = 'SUPPORT'
         teammates = 'TEAMMATES'
@@ -159,6 +115,56 @@ class Group(
         work_learning = 'WORK_LEARNING'
         work_mentorship = 'WORK_MENTORSHIP'
         work_multi_company = 'WORK_MULTI_COMPANY'
+        work_recruiting = 'WORK_RECRUITING'
+        work_social = 'WORK_SOCIAL'
+        work_team = 'WORK_TEAM'
+        work_teamwork = 'WORK_TEAMWORK'
+
+    class GroupType:
+        casual = 'CASUAL'
+        close_friends = 'CLOSE_FRIENDS'
+        club = 'CLUB'
+        couple = 'COUPLE'
+        coworkers = 'COWORKERS'
+        custom = 'CUSTOM'
+        ephemeral = 'EPHEMERAL'
+        event_planning = 'EVENT_PLANNING'
+        family = 'FAMILY'
+        fitness = 'FITNESS'
+        for_sale = 'FOR_SALE'
+        for_work = 'FOR_WORK'
+        fraternity = 'FRATERNITY'
+        game = 'GAME'
+        health_support = 'HEALTH_SUPPORT'
+        high_school_forum = 'HIGH_SCHOOL_FORUM'
+        jobs = 'JOBS'
+        learning = 'LEARNING'
+        mentorship = 'MENTORSHIP'
+        neighbors = 'NEIGHBORS'
+        none = 'NONE'
+        oculus = 'OCULUS'
+        parenting = 'PARENTING'
+        parents = 'PARENTS'
+        project = 'PROJECT'
+        real_world = 'REAL_WORLD'
+        real_world_at_work = 'REAL_WORLD_AT_WORK'
+        school_class = 'SCHOOL_CLASS'
+        sorority = 'SORORITY'
+        sports = 'SPORTS'
+        study_group = 'STUDY_GROUP'
+        support = 'SUPPORT'
+        teammates = 'TEAMMATES'
+        travel_planning = 'TRAVEL_PLANNING'
+        work_announcement = 'WORK_ANNOUNCEMENT'
+        work_demo_group = 'WORK_DEMO_GROUP'
+        work_discussion = 'WORK_DISCUSSION'
+        work_ephemeral = 'WORK_EPHEMERAL'
+        work_feedback = 'WORK_FEEDBACK'
+        work_for_sale = 'WORK_FOR_SALE'
+        work_learning = 'WORK_LEARNING'
+        work_mentorship = 'WORK_MENTORSHIP'
+        work_multi_company = 'WORK_MULTI_COMPANY'
+        work_recruiting = 'WORK_RECRUITING'
         work_social = 'WORK_SOCIAL'
         work_team = 'WORK_TEAM'
         work_teamwork = 'WORK_TEAMWORK'
@@ -234,7 +240,6 @@ class Group(
             'focus_x': 'float',
             'focus_y': 'float',
             'group_icon': 'string',
-            'group_type': 'group_type_enum',
             'join_setting': 'join_setting_enum',
             'name': 'string',
             'no_feed_story': 'bool',
@@ -246,7 +251,6 @@ class Group(
             'update_view_time': 'bool',
         }
         enums = {
-            'group_type_enum': Group.GroupType.__dict__.values(),
             'join_setting_enum': Group.JoinSetting.__dict__.values(),
             'post_permissions_enum': Group.PostPermissions.__dict__.values(),
             'purpose_enum': Group.Purpose.__dict__.values(),
@@ -419,38 +423,6 @@ class Group(
         request = FacebookRequest(
             node_id=self['id'],
             method='GET',
-            endpoint='/docs',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_doc(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'body': 'string',
-            'title': 'string',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
             endpoint='/docs',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
@@ -662,45 +634,15 @@ class Group(
                 'DRAFT',
                 'INLINE_CREATED',
                 'PUBLISHED',
+                'REVIEWABLE_BRANDED_CONTENT',
                 'SCHEDULED',
+                'SCHEDULED_RECURRING',
             ],
         }
         request = FacebookRequest(
             node_id=self['id'],
             method='POST',
             endpoint='/feed',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_group_thread(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'joinable': 'bool',
-            'thread_id': 'Object',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/group_threads',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
@@ -837,7 +779,6 @@ class Group(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.livevideo import LiveVideo
         param_types = {
-            'attribution_app_id': 'string',
             'content_tags': 'list<string>',
             'description': 'string',
             'encoding_settings': 'string',
@@ -956,68 +897,6 @@ class Group(
             self.assure_call()
             return request.execute()
 
-    def delete_moderators(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'uid': 'int',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='DELETE',
-            endpoint='/moderators',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_moderator(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'uid': 'int',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/moderators',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=Group,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=Group, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def create_open_graph_action_feed(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -1060,7 +939,7 @@ class Group(
         request = FacebookRequest(
             node_id=self['id'],
             method='POST',
-            endpoint='/opengraphactionfeed',
+            endpoint='/open_graph_action_feed',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
@@ -1397,10 +1276,10 @@ class Group(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['GroupType'] = Group.GroupType.__dict__.values()
         field_enum_info['JoinSetting'] = Group.JoinSetting.__dict__.values()
         field_enum_info['PostPermissions'] = Group.PostPermissions.__dict__.values()
         field_enum_info['Purpose'] = Group.Purpose.__dict__.values()
+        field_enum_info['GroupType'] = Group.GroupType.__dict__.values()
         field_enum_info['SuggestionCategory'] = Group.SuggestionCategory.__dict__.values()
         return field_enum_info
 

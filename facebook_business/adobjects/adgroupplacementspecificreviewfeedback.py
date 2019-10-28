@@ -49,10 +49,12 @@ class AdgroupPlacementSpecificReviewFeedback(
         facebook = 'facebook'
         instagram = 'instagram'
         instagram_shop = 'instagram_shop'
+        lead_gen_honeypot = 'lead_gen_honeypot'
         marketplace = 'marketplace'
         marketplace_home_rentals = 'marketplace_home_rentals'
         marketplace_home_sales = 'marketplace_home_sales'
         marketplace_motors = 'marketplace_motors'
+        marketplace_shops = 'marketplace_shops'
         max_review_placements = 'max_review_placements'
         page_admin = 'page_admin'
         product = 'product'
@@ -60,6 +62,7 @@ class AdgroupPlacementSpecificReviewFeedback(
         profile = 'profile'
         seller = 'seller'
         shops = 'shops'
+        traffic_quality = 'traffic_quality'
         whatsapp = 'whatsapp'
 
     _field_types = {
@@ -74,10 +77,12 @@ class AdgroupPlacementSpecificReviewFeedback(
         'facebook': 'map<string, string>',
         'instagram': 'map<string, string>',
         'instagram_shop': 'map<string, string>',
+        'lead_gen_honeypot': 'map<string, string>',
         'marketplace': 'map<string, string>',
         'marketplace_home_rentals': 'map<string, string>',
         'marketplace_home_sales': 'map<string, string>',
         'marketplace_motors': 'map<string, string>',
+        'marketplace_shops': 'map<string, string>',
         'max_review_placements': 'map<string, string>',
         'page_admin': 'map<string, string>',
         'product': 'map<string, string>',
@@ -85,6 +90,7 @@ class AdgroupPlacementSpecificReviewFeedback(
         'profile': 'map<string, string>',
         'seller': 'map<string, string>',
         'shops': 'map<string, string>',
+        'traffic_quality': 'map<string, string>',
         'whatsapp': 'map<string, string>',
     }
     @classmethod

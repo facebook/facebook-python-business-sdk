@@ -43,12 +43,10 @@ class AdCreativeLinkData(
         attachment_style = 'attachment_style'
         branded_content_shared_to_sponsor_status = 'branded_content_shared_to_sponsor_status'
         branded_content_sponsor_page_id = 'branded_content_sponsor_page_id'
-        branded_content_sponsor_relationship = 'branded_content_sponsor_relationship'
         call_to_action = 'call_to_action'
         caption = 'caption'
         child_attachments = 'child_attachments'
         collection_thumbnails = 'collection_thumbnails'
-        custom_overlay_spec = 'custom_overlay_spec'
         customization_rules_spec = 'customization_rules_spec'
         description = 'description'
         event_id = 'event_id'
@@ -70,7 +68,6 @@ class AdCreativeLinkData(
         preferred_image_tags = 'preferred_image_tags'
         retailer_item_ids = 'retailer_item_ids'
         show_multiple_images = 'show_multiple_images'
-        sponsorship_info = 'sponsorship_info'
         static_fallback_spec = 'static_fallback_spec'
         use_flexible_image_aspect_ratio = 'use_flexible_image_aspect_ratio'
 
@@ -90,12 +87,10 @@ class AdCreativeLinkData(
         'attachment_style': 'AttachmentStyle',
         'branded_content_shared_to_sponsor_status': 'string',
         'branded_content_sponsor_page_id': 'string',
-        'branded_content_sponsor_relationship': 'string',
         'call_to_action': 'AdCreativeLinkDataCallToAction',
         'caption': 'string',
         'child_attachments': 'list<AdCreativeLinkDataChildAttachment>',
         'collection_thumbnails': 'list<AdCreativeCollectionThumbnailInfo>',
-        'custom_overlay_spec': 'AdCreativeLinkDataCustomOverlaySpec',
         'customization_rules_spec': 'list<AdCustomizationRuleSpec>',
         'description': 'string',
         'event_id': 'string',
@@ -117,7 +112,6 @@ class AdCreativeLinkData(
         'preferred_image_tags': 'list<string>',
         'retailer_item_ids': 'list<string>',
         'show_multiple_images': 'bool',
-        'sponsorship_info': 'AdCreativeLinkDataSponsorshipInfoSpec',
         'static_fallback_spec': 'AdCreativeStaticFallbackSpec',
         'use_flexible_image_aspect_ratio': 'bool',
     }

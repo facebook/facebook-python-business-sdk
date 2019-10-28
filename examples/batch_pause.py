@@ -24,12 +24,10 @@ Pauses all active ad campaigns using batch calls.
 
 from facebook_business import FacebookSession
 from facebook_business import FacebookAdsApi
-from facebook_business.objects import (
-    AdAccount,
-    Campaign,
-)
+from facebook_business.adobjects.adaccount import AdAccount
+from facebook_business.adobjects.campaign import Campaign
+from . import batch_utils
 
-import batch_utils
 import json
 import os
 from functools import partial

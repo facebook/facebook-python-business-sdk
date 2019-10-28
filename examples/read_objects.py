@@ -57,7 +57,7 @@ if __name__ == '__main__':
 
     ### Read user permissions
     print('>>> Reading permissions field of user:')
-    pp.pprint(me.remote_read(fields=[AdUser.Field.permissions]))
+    pp.pprint(me.remote_read(fields=[AdUser.Field.name]))
 
     ### Get first account connected to the user
     my_account = me.get_ad_account()

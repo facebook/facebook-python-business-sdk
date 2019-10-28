@@ -70,18 +70,25 @@ if __name__ == '__main__':
     items_to_update = random.sample(items, num_products_to_update)
 
     for item in items_to_update:
-        product_id = item.find('g:id', ns).text
-        price = float(item.find('g:price', ns).text.split(' ')[0])  # 9.99 BRL
+        gid = item.find('g:id', ns)
+        gprice = item.find('g:price', ns)
+        if gid is None or gprice is None :
+            continue
+        gprice = gprice.text
+        if gprice is None :
+            continue
+        product_id = gid.text
+        price = float(gprice.split(' ')[0])  # 9.99 BRL
 
         action = random.choice(actions)
 
+        new_price = '-'
         if action == 'new-price':
             # prices can go up or down up to 20%
             change = random.choice([.8, .9, 1.1, 1.2])
             new_price = '{:.2f}'.format(price * change)
-        elif action == 'out-of-stock':
-            # products without price are out of stock
-            new_price = '-'
 
         # print updates to stdout
+        if product_id is None :
+            continue
         print(','.join([product_id, new_price]))

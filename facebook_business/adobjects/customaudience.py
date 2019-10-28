@@ -52,7 +52,6 @@ class CustomAudience(
         delivery_status = 'delivery_status'
         description = 'description'
         excluded_custom_audiences = 'excluded_custom_audiences'
-        expiry_time = 'expiry_time'
         external_event_source = 'external_event_source'
         household_audience = 'household_audience'
         id = 'id'
@@ -60,7 +59,6 @@ class CustomAudience(
         is_household = 'is_household'
         is_snapshot = 'is_snapshot'
         is_value_based = 'is_value_based'
-        list_of_accounts = 'list_of_accounts'
         lookalike_audience_ids = 'lookalike_audience_ids'
         lookalike_spec = 'lookalike_spec'
         name = 'name'
@@ -68,6 +66,7 @@ class CustomAudience(
         opt_out_link = 'opt_out_link'
         permission_for_actions = 'permission_for_actions'
         pixel_id = 'pixel_id'
+        regulated_audience_spec = 'regulated_audience_spec'
         retention_days = 'retention_days'
         rev_share_policy_id = 'rev_share_policy_id'
         rule = 'rule'
@@ -75,7 +74,6 @@ class CustomAudience(
         rule_v2 = 'rule_v2'
         seed_audience = 'seed_audience'
         sharing_status = 'sharing_status'
-        study_spec = 'study_spec'
         subtype = 'subtype'
         time_content_updated = 'time_content_updated'
         time_created = 'time_created'
@@ -99,6 +97,7 @@ class CustomAudience(
         inclusions = 'inclusions'
         isprivate = 'isPrivate'
         is_household_exclusion = 'is_household_exclusion'
+        list_of_accounts = 'list_of_accounts'
         maxage = 'maxAge'
         minage = 'minAge'
         origin_audience_id = 'origin_audience_id'
@@ -108,6 +107,7 @@ class CustomAudience(
         prefill = 'prefill'
         product_set_id = 'product_set_id'
         source = 'source'
+        study_spec = 'study_spec'
         tags = 'tags'
         video_group_ids = 'video_group_ids'
 
@@ -149,6 +149,7 @@ class CustomAudience(
         measurement = 'MEASUREMENT'
         offline_conversion = 'OFFLINE_CONVERSION'
         partner = 'PARTNER'
+        regulated_categories_audience = 'REGULATED_CATEGORIES_AUDIENCE'
         study_rule_audience = 'STUDY_RULE_AUDIENCE'
         video = 'VIDEO'
         website = 'WEBSITE'
@@ -158,6 +159,7 @@ class CustomAudience(
     def get_endpoint(cls):
         return 'customaudiences'
 
+    # @deprecated api_create is being deprecated
     def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.adobjects.adaccount import AdAccount
         return AdAccount(api=self._api, fbid=parent_id).create_custom_audience(fields, params, batch, success, failure, pending)
@@ -198,6 +200,7 @@ class CustomAudience(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'ad_account_id': 'string',
+            'target_countries': 'list<string>',
         }
         enums = {
         }
@@ -485,63 +488,6 @@ class CustomAudience(
             self.assure_call()
             return request.execute()
 
-    def create_datum(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'action_type': 'action_type_enum',
-            'batch_seq': 'unsigned int',
-            'encoding': 'encoding_enum',
-            'entries': 'list<string>',
-            'entry_type': 'entry_type_enum',
-            'last_batch_flag': 'bool',
-            'session_id': 'unsigned int',
-        }
-        enums = {
-            'action_type_enum': [
-                'add',
-                'match',
-                'optout',
-                'remove',
-            ],
-            'encoding_enum': [
-                'md5',
-                'plain',
-                'sha256',
-            ],
-            'entry_type_enum': [
-                '0',
-                '1',
-                '2',
-                '3',
-                '4',
-                '5',
-                '6',
-            ],
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/data',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def get_prefills(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -778,7 +724,6 @@ class CustomAudience(
         'delivery_status': 'CustomAudienceStatus',
         'description': 'string',
         'excluded_custom_audiences': 'list<CustomAudience>',
-        'expiry_time': 'unsigned int',
         'external_event_source': 'AdsPixel',
         'household_audience': 'int',
         'id': 'string',
@@ -786,7 +731,6 @@ class CustomAudience(
         'is_household': 'bool',
         'is_snapshot': 'bool',
         'is_value_based': 'bool',
-        'list_of_accounts': 'list<string>',
         'lookalike_audience_ids': 'list<string>',
         'lookalike_spec': 'LookalikeSpec',
         'name': 'string',
@@ -794,6 +738,7 @@ class CustomAudience(
         'opt_out_link': 'string',
         'permission_for_actions': 'AudiencePermissionForActions',
         'pixel_id': 'string',
+        'regulated_audience_spec': 'LookalikeSpec',
         'retention_days': 'int',
         'rev_share_policy_id': 'unsigned int',
         'rule': 'string',
@@ -801,7 +746,6 @@ class CustomAudience(
         'rule_v2': 'string',
         'seed_audience': 'int',
         'sharing_status': 'CustomAudienceSharingStatus',
-        'study_spec': 'AudienceInsightsStudySpec',
         'subtype': 'string',
         'time_content_updated': 'unsigned int',
         'time_created': 'unsigned int',
@@ -825,6 +769,7 @@ class CustomAudience(
         'inclusions': 'list<Object>',
         'isPrivate': 'bool',
         'is_household_exclusion': 'bool',
+        'list_of_accounts': 'list<unsigned int>',
         'maxAge': 'unsigned int',
         'minAge': 'unsigned int',
         'origin_audience_id': 'string',
@@ -834,6 +779,7 @@ class CustomAudience(
         'prefill': 'bool',
         'product_set_id': 'string',
         'source': 'string',
+        'study_spec': 'map',
         'tags': 'list<string>',
         'video_group_ids': 'list<string>',
     }

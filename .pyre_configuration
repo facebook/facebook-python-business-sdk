@@ -1,0 +1,15 @@
+{
+  "binary": "/usr/local/bin/pyre.bin",
+  "source_directories": [
+    "."
+  ],
+  "ignore_all_errors": [
+    ".tox/",
+    "docs/unchecked",
+    "examples/[A-Z]*"
+  ],
+  "typeshed": "/usr/local/lib/pyre_check/typeshed/",
+  "search_path": [
+    "/usr/local/lib/python3.7/site-packages/"
+  ]
+}

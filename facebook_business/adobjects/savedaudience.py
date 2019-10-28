@@ -44,7 +44,7 @@ class SavedAudience(
         account = 'account'
         approximate_count = 'approximate_count'
         description = 'description'
-        expiry_time = 'expiry_time'
+        extra_info = 'extra_info'
         id = 'id'
         name = 'name'
         permission_for_actions = 'permission_for_actions'
@@ -149,7 +149,7 @@ class SavedAudience(
         'account': 'AdAccount',
         'approximate_count': 'int',
         'description': 'string',
-        'expiry_time': 'datetime',
+        'extra_info': 'string',
         'id': 'string',
         'name': 'string',
         'permission_for_actions': 'AudiencePermissionForActions',

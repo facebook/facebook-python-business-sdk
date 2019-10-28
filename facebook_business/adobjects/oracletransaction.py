@@ -46,6 +46,7 @@ class OracleTransaction(
         amount_due = 'amount_due'
         billed_amount_details = 'billed_amount_details'
         billing_period = 'billing_period'
+        cdn_download_uri = 'cdn_download_uri'
         currency = 'currency'
         download_uri = 'download_uri'
         due_date = 'due_date'
@@ -58,6 +59,10 @@ class OracleTransaction(
         payment_status = 'payment_status'
         payment_term = 'payment_term'
         type = 'type'
+
+    class Type:
+        cm = 'CM'
+        inv = 'INV'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -158,6 +163,7 @@ class OracleTransaction(
         'amount_due': 'CurrencyAmount',
         'billed_amount_details': 'BilledAmountDetails',
         'billing_period': 'string',
+        'cdn_download_uri': 'string',
         'currency': 'string',
         'download_uri': 'string',
         'due_date': 'datetime',
@@ -174,6 +180,7 @@ class OracleTransaction(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['Type'] = OracleTransaction.Type.__dict__.values()
         return field_enum_info
 
 

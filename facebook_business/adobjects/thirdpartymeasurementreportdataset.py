@@ -47,23 +47,6 @@ class ThirdPartyMeasurementReportDataset(
         product = 'product'
         schema = 'schema'
 
-    class Category:
-        mta = 'MTA'
-
-    class Product:
-        custom = 'CUSTOM'
-        mta = 'MTA'
-        viewability = 'VIEWABILITY'
-
-    # @deprecated get_endpoint function is deprecated
-    @classmethod
-    def get_endpoint(cls):
-        return 'third_party_measurement_report_dataset'
-
-    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.adobjects.business import Business
-        return Business(api=self._api, fbid=parent_id).create_third_party_measurement_report_dataset(fields, params, batch, success, failure, pending)
-
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -94,6 +77,37 @@ class ThirdPartyMeasurementReportDataset(
             self.assure_call()
             return request.execute()
 
+    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'data': 'list<map>',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ThirdPartyMeasurementReportDataset,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     _field_types = {
         'category': 'string',
         'id': 'string',
@@ -104,8 +118,6 @@ class ThirdPartyMeasurementReportDataset(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['Category'] = ThirdPartyMeasurementReportDataset.Category.__dict__.values()
-        field_enum_info['Product'] = ThirdPartyMeasurementReportDataset.Product.__dict__.values()
         return field_enum_info
 
 
