@@ -104,7 +104,6 @@ class AdAccount(
         timezone_name = 'timezone_name'
         timezone_offset_hours_utc = 'timezone_offset_hours_utc'
         tos_accepted = 'tos_accepted'
-        user_role = 'user_role'
         user_tasks = 'user_tasks'
         user_tos_accepted = 'user_tos_accepted'
 
@@ -3223,38 +3222,6 @@ class AdAccount(
             self.assure_call()
             return request.execute()
 
-    def get_lead_gen_forms(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.leadgenform import LeadgenForm
-        param_types = {
-            'query': 'string',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/leadgen_forms',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=LeadgenForm,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=LeadgenForm, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def get_matched_search_applications(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -4323,7 +4290,6 @@ class AdAccount(
         'timezone_name': 'string',
         'timezone_offset_hours_utc': 'float',
         'tos_accepted': 'map<string, int>',
-        'user_role': 'string',
         'user_tasks': 'list<string>',
         'user_tos_accepted': 'map<string, int>',
     }

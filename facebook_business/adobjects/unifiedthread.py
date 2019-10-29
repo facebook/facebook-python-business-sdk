@@ -98,7 +98,7 @@ class UnifiedThread(
         enums = {
             'source_enum': [
                 'ALL',
-                'USER',
+                'PARTICIPANTS',
             ],
         }
         request = FacebookRequest(

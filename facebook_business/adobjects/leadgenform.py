@@ -45,30 +45,22 @@ class LeadgenForm(
         block_display_for_non_targeted_viewer = 'block_display_for_non_targeted_viewer'
         context_card = 'context_card'
         created_time = 'created_time'
-        creator = 'creator'
-        creator_id = 'creator_id'
-        cusomized_tcpa_content = 'cusomized_tcpa_content'
         expired_leads_count = 'expired_leads_count'
-        extra_details = 'extra_details'
         follow_up_action_text = 'follow_up_action_text'
         follow_up_action_url = 'follow_up_action_url'
         id = 'id'
         is_optimized_for_quality = 'is_optimized_for_quality'
-        leadgen_export_csv_url = 'leadgen_export_csv_url'
         leads_count = 'leads_count'
         legal_content = 'legal_content'
         locale = 'locale'
-        messenger_welcome_message = 'messenger_welcome_message'
         name = 'name'
         organic_leads_count = 'organic_leads_count'
         page = 'page'
         page_id = 'page_id'
         privacy_policy_url = 'privacy_policy_url'
-        qualifiers = 'qualifiers'
         question_page_custom_headline = 'question_page_custom_headline'
         questions = 'questions'
         status = 'status'
-        tcpa_compliance = 'tcpa_compliance'
         thank_you_page = 'thank_you_page'
         tracking_parameters = 'tracking_parameters'
 
@@ -278,30 +270,22 @@ class LeadgenForm(
         'block_display_for_non_targeted_viewer': 'bool',
         'context_card': 'Object',
         'created_time': 'datetime',
-        'creator': 'User',
-        'creator_id': 'int',
-        'cusomized_tcpa_content': 'string',
         'expired_leads_count': 'unsigned int',
-        'extra_details': 'list<string>',
         'follow_up_action_text': 'string',
         'follow_up_action_url': 'string',
         'id': 'string',
         'is_optimized_for_quality': 'bool',
-        'leadgen_export_csv_url': 'string',
         'leads_count': 'unsigned int',
         'legal_content': 'Object',
         'locale': 'string',
-        'messenger_welcome_message': 'string',
         'name': 'string',
         'organic_leads_count': 'unsigned int',
         'page': 'Page',
         'page_id': 'string',
         'privacy_policy_url': 'string',
-        'qualifiers': 'list<Object>',
         'question_page_custom_headline': 'string',
         'questions': 'list<LeadGenQuestion>',
         'status': 'string',
-        'tcpa_compliance': 'bool',
         'thank_you_page': 'Object',
         'tracking_parameters': 'map<string, string>',
     }
