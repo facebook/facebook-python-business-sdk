@@ -533,7 +533,7 @@ class AbstractCrudObject(AbstractObject):
         if 'Status' not in dir(self) or 'archived' not in dir(self.Status):
             raise TypeError('Cannot archive object of type %s.'
                             % self.__class__.__name__)
-        return self.api_create(
+        return self.api_update(
             params={
                 'status': self.Status.archived,
             },
