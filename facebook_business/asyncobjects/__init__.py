@@ -77,12 +77,6 @@ class AdAccount(AbstractCrudAioObject, adaccount.AdAccount):
         """
         return self.iterate_edge_aio(CustomAudience, fields, params, limit=limit)
 
-    def get_partner_categories_aio(self, fields=None, params=None, limit=1000):
-        """
-        Returns iterator over PartnerCategory's associated with this account.
-        """
-        return self.iterate_edge_aio(PartnerCategory, fields, params, limit=limit)
-
     def get_reach_estimate_aio(self, fields=None, params=None, limit=1000):
         """
         Returns iterator over ReachEstimate's associated with this account.
@@ -395,10 +389,6 @@ class CustomAudience(AbstractCrudAioObject, baseobjects.CustomAudience):
 
 
 class LookalikeAudience(AbstractCrudAioObject, baseobjects.LookalikeAudience):
-    pass
-
-
-class PartnerCategory(AbstractCrudAioObject, baseobjects.PartnerCategory):
     pass
 
 
