@@ -193,7 +193,8 @@ class FacebookAdsApi(object):
         api_version=None,
         proxies=None,
         timeout=None,
-        debug=False
+        debug=False,
+        crash_log=True,
     ):
         session = FacebookSession(app_id, app_secret, access_token, proxies,
                                   timeout)
@@ -202,6 +203,13 @@ class FacebookAdsApi(object):
 
         if account_id:
             cls.set_default_account_id(account_id)
+
+        if crash_log:
+            from facebook_business.crashreporter import CrashReporter
+            if debug:
+                CrashReporter.enableLogging()
+            CrashReporter.enable()
+
         return api
 
     @classmethod
