@@ -190,7 +190,10 @@ class BusinessImage(
             'breakdowns_enum': [
                 'age',
                 'country',
+                'device_platform',
                 'gender',
+                'platform_position',
+                'publisher_platform',
             ],
         }
         request = FacebookRequest(

@@ -41,7 +41,6 @@ class LifeEvent(
         super(LifeEvent, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        created_time = 'created_time'
         description = 'description'
         end_time = 'end_time'
         field_from = 'from'
@@ -213,7 +212,6 @@ class LifeEvent(
             return request.execute()
 
     _field_types = {
-        'created_time': 'datetime',
         'description': 'string',
         'end_time': 'datetime',
         'from': 'Page',

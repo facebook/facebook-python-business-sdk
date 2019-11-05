@@ -354,6 +354,7 @@ class Page(
         leadgen_fat = 'leadgen_fat'
         live_videos = 'live_videos'
         location = 'location'
+        mcom_invoice_change = 'mcom_invoice_change'
         members = 'members'
         mention = 'mention'
         merchant_review = 'merchant_review'
@@ -844,9 +845,9 @@ class Page(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'asid': 'string',
-            'psid': 'Object',
-            'uid': 'Object',
-            'user': 'Object',
+            'psid': 'int',
+            'uid': 'int',
+            'user': 'int',
         }
         enums = {
         }
@@ -911,7 +912,7 @@ class Page(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'asid': 'list',
-            'psid': 'list<Object>',
+            'psid': 'list<int>',
             'uid': 'list<string>',
             'user': 'list<string>',
         }
@@ -3592,7 +3593,7 @@ class Page(
         from facebook_business.adobjects.user import User
         param_types = {
             'include_deactivated': 'bool',
-            'uid': 'Object',
+            'uid': 'int',
         }
         enums = {
         }
@@ -3667,37 +3668,6 @@ class Page(
             target_class=PagePost,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=PagePost, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def get_screen_names(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.screenname import ScreenName
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/screennames',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=ScreenName,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=ScreenName, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

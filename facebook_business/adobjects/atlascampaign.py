@@ -43,61 +43,49 @@ class AtlasCampaign(
     class Field(AbstractObject.Field):
         ad_platform = 'ad_platform'
         alias = 'alias'
-        clicks = 'clicks'
         cost_per_1k_impressions = 'cost_per_1k_impressions'
         cost_per_click = 'cost_per_click'
         cost_per_visit = 'cost_per_visit'
         created_by = 'created_by'
         created_date = 'created_date'
         data_driven_convs = 'data_driven_convs'
-        data_driven_convs_per_100_clicks = 'data_driven_convs_per_100_clicks'
         data_driven_convs_per_1k_impress = 'data_driven_convs_per_1k_impress'
         data_driven_convs_per_click = 'data_driven_convs_per_click'
         data_driven_convs_per_visit = 'data_driven_convs_per_visit'
         data_driven_cpa = 'data_driven_cpa'
         data_driven_nullable_convs = 'data_driven_nullable_convs'
-        data_driven_nullable_unattributed = 'data_driven_nullable_unattributed'
         data_driven_revenue = 'data_driven_revenue'
         data_driven_roas = 'data_driven_roas'
-        data_driven_unattributed = 'data_driven_unattributed'
         even_credit_convs = 'even_credit_convs'
-        even_credit_convs_per_100_clicks = 'even_credit_convs_per_100_clicks'
         even_credit_convs_per_1k_impress = 'even_credit_convs_per_1k_impress'
         even_credit_convs_per_click = 'even_credit_convs_per_click'
         even_credit_convs_per_visit = 'even_credit_convs_per_visit'
         even_credit_cpa = 'even_credit_cpa'
         even_credit_revenue = 'even_credit_revenue'
         even_credit_roas = 'even_credit_roas'
-        even_credit_unattributed = 'even_credit_unattributed'
         first_click_convs = 'first_click_convs'
-        first_click_convs_per_100_clicks = 'first_click_convs_per_100_clicks'
         first_click_convs_per_1k_impress = 'first_click_convs_per_1k_impress'
         first_click_convs_per_click = 'first_click_convs_per_click'
         first_click_convs_per_visit = 'first_click_convs_per_visit'
         first_click_cpa = 'first_click_cpa'
         first_click_revenue = 'first_click_revenue'
         first_click_roas = 'first_click_roas'
-        first_click_unattributed = 'first_click_unattributed'
         first_touch_convs = 'first_touch_convs'
-        first_touch_convs_per_100_clicks = 'first_touch_convs_per_100_clicks'
         first_touch_convs_per_1k_impress = 'first_touch_convs_per_1k_impress'
         first_touch_convs_per_click = 'first_touch_convs_per_click'
         first_touch_convs_per_visit = 'first_touch_convs_per_visit'
         first_touch_cpa = 'first_touch_cpa'
         first_touch_revenue = 'first_touch_revenue'
         first_touch_roas = 'first_touch_roas'
-        first_touch_unattributed = 'first_touch_unattributed'
         id = 'id'
         is_archived = 'is_archived'
         last_click_convs = 'last_click_convs'
-        last_click_convs_per_100_clicks = 'last_click_convs_per_100_clicks'
         last_click_convs_per_1k_impress = 'last_click_convs_per_1k_impress'
         last_click_convs_per_click = 'last_click_convs_per_click'
         last_click_convs_per_visit = 'last_click_convs_per_visit'
         last_click_cpa = 'last_click_cpa'
         last_click_revenue = 'last_click_revenue'
         last_click_roas = 'last_click_roas'
-        last_click_unattributed = 'last_click_unattributed'
         last_click_with_extrapolation_convs = 'last_click_with_extrapolation_convs'
         last_click_with_extrapolation_convs_per_100_clicks = 'last_click_with_extrapolation_convs_per_100_clicks'
         last_click_with_extrapolation_convs_per_1k_impress = 'last_click_with_extrapolation_convs_per_1k_impress'
@@ -110,57 +98,46 @@ class AtlasCampaign(
         last_modified_by = 'last_modified_by'
         last_modified_date = 'last_modified_date'
         last_touch_convs = 'last_touch_convs'
-        last_touch_convs_per_100_clicks = 'last_touch_convs_per_100_clicks'
         last_touch_convs_per_1k_impress = 'last_touch_convs_per_1k_impress'
         last_touch_convs_per_click = 'last_touch_convs_per_click'
         last_touch_convs_per_visit = 'last_touch_convs_per_visit'
         last_touch_cpa = 'last_touch_cpa'
         last_touch_revenue = 'last_touch_revenue'
         last_touch_roas = 'last_touch_roas'
-        last_touch_unattributed = 'last_touch_unattributed'
         name = 'name'
         net_media_cost = 'net_media_cost'
         positional_30fl_convs = 'positional_30fl_convs'
-        positional_30fl_convs_per_100_clicks = 'positional_30fl_convs_per_100_clicks'
         positional_30fl_convs_per_1k_impress = 'positional_30fl_convs_per_1k_impress'
         positional_30fl_convs_per_click = 'positional_30fl_convs_per_click'
         positional_30fl_convs_per_visit = 'positional_30fl_convs_per_visit'
         positional_30fl_cpa = 'positional_30fl_cpa'
         positional_30fl_revenue = 'positional_30fl_revenue'
         positional_30fl_roas = 'positional_30fl_roas'
-        positional_30fl_unattributed = 'positional_30fl_unattributed'
         positional_40fl_convs = 'positional_40fl_convs'
-        positional_40fl_convs_per_100_clicks = 'positional_40fl_convs_per_100_clicks'
         positional_40fl_convs_per_1k_impress = 'positional_40fl_convs_per_1k_impress'
         positional_40fl_convs_per_click = 'positional_40fl_convs_per_click'
         positional_40fl_convs_per_visit = 'positional_40fl_convs_per_visit'
         positional_40fl_cpa = 'positional_40fl_cpa'
         positional_40fl_revenue = 'positional_40fl_revenue'
         positional_40fl_roas = 'positional_40fl_roas'
-        positional_40fl_unattributed = 'positional_40fl_unattributed'
         report_click_through_rate = 'report_click_through_rate'
         report_clicks = 'report_clicks'
         report_impressions = 'report_impressions'
         report_visits = 'report_visits'
-        search_clicks = 'search_clicks'
         time_decay_1day_convs = 'time_decay_1day_convs'
-        time_decay_1day_convs_per_100_clicks = 'time_decay_1day_convs_per_100_clicks'
         time_decay_1day_convs_per_1k_impress = 'time_decay_1day_convs_per_1k_impress'
         time_decay_1day_convs_per_click = 'time_decay_1day_convs_per_click'
         time_decay_1day_convs_per_visit = 'time_decay_1day_convs_per_visit'
         time_decay_1day_cpa = 'time_decay_1day_cpa'
         time_decay_1day_revenue = 'time_decay_1day_revenue'
         time_decay_1day_roas = 'time_decay_1day_roas'
-        time_decay_1day_unattributed = 'time_decay_1day_unattributed'
         time_decay_7day_convs = 'time_decay_7day_convs'
-        time_decay_7day_convs_per_100_clicks = 'time_decay_7day_convs_per_100_clicks'
         time_decay_7day_convs_per_1k_impress = 'time_decay_7day_convs_per_1k_impress'
         time_decay_7day_convs_per_click = 'time_decay_7day_convs_per_click'
         time_decay_7day_convs_per_visit = 'time_decay_7day_convs_per_visit'
         time_decay_7day_cpa = 'time_decay_7day_cpa'
         time_decay_7day_revenue = 'time_decay_7day_revenue'
         time_decay_7day_roas = 'time_decay_7day_roas'
-        time_decay_7day_unattributed = 'time_decay_7day_unattributed'
         type = 'type'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
@@ -337,64 +314,85 @@ class AtlasCampaign(
             self.assure_call()
             return request.execute()
 
+    def get_sources(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'filter_by': 'string',
+            'metric_scope': 'map',
+            'order_by': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/sources',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     _field_types = {
         'ad_platform': 'Object',
         'alias': 'string',
-        'clicks': 'int',
         'cost_per_1k_impressions': 'float',
         'cost_per_click': 'float',
         'cost_per_visit': 'float',
         'created_by': 'Object',
         'created_date': 'datetime',
         'data_driven_convs': 'float',
-        'data_driven_convs_per_100_clicks': 'float',
         'data_driven_convs_per_1k_impress': 'float',
         'data_driven_convs_per_click': 'float',
         'data_driven_convs_per_visit': 'float',
         'data_driven_cpa': 'float',
         'data_driven_nullable_convs': 'float',
-        'data_driven_nullable_unattributed': 'float',
         'data_driven_revenue': 'float',
         'data_driven_roas': 'float',
-        'data_driven_unattributed': 'float',
         'even_credit_convs': 'float',
-        'even_credit_convs_per_100_clicks': 'float',
         'even_credit_convs_per_1k_impress': 'float',
         'even_credit_convs_per_click': 'float',
         'even_credit_convs_per_visit': 'float',
         'even_credit_cpa': 'float',
         'even_credit_revenue': 'float',
         'even_credit_roas': 'float',
-        'even_credit_unattributed': 'float',
         'first_click_convs': 'float',
-        'first_click_convs_per_100_clicks': 'float',
         'first_click_convs_per_1k_impress': 'float',
         'first_click_convs_per_click': 'float',
         'first_click_convs_per_visit': 'float',
         'first_click_cpa': 'float',
         'first_click_revenue': 'float',
         'first_click_roas': 'float',
-        'first_click_unattributed': 'float',
         'first_touch_convs': 'float',
-        'first_touch_convs_per_100_clicks': 'float',
         'first_touch_convs_per_1k_impress': 'float',
         'first_touch_convs_per_click': 'float',
         'first_touch_convs_per_visit': 'float',
         'first_touch_cpa': 'float',
         'first_touch_revenue': 'float',
         'first_touch_roas': 'float',
-        'first_touch_unattributed': 'float',
         'id': 'string',
         'is_archived': 'bool',
         'last_click_convs': 'float',
-        'last_click_convs_per_100_clicks': 'float',
         'last_click_convs_per_1k_impress': 'float',
         'last_click_convs_per_click': 'float',
         'last_click_convs_per_visit': 'float',
         'last_click_cpa': 'float',
         'last_click_revenue': 'float',
         'last_click_roas': 'float',
-        'last_click_unattributed': 'float',
         'last_click_with_extrapolation_convs': 'float',
         'last_click_with_extrapolation_convs_per_100_clicks': 'float',
         'last_click_with_extrapolation_convs_per_1k_impress': 'float',
@@ -407,57 +405,46 @@ class AtlasCampaign(
         'last_modified_by': 'Object',
         'last_modified_date': 'datetime',
         'last_touch_convs': 'float',
-        'last_touch_convs_per_100_clicks': 'float',
         'last_touch_convs_per_1k_impress': 'float',
         'last_touch_convs_per_click': 'float',
         'last_touch_convs_per_visit': 'float',
         'last_touch_cpa': 'float',
         'last_touch_revenue': 'float',
         'last_touch_roas': 'float',
-        'last_touch_unattributed': 'float',
         'name': 'string',
         'net_media_cost': 'float',
         'positional_30fl_convs': 'float',
-        'positional_30fl_convs_per_100_clicks': 'float',
         'positional_30fl_convs_per_1k_impress': 'float',
         'positional_30fl_convs_per_click': 'float',
         'positional_30fl_convs_per_visit': 'float',
         'positional_30fl_cpa': 'float',
         'positional_30fl_revenue': 'float',
         'positional_30fl_roas': 'float',
-        'positional_30fl_unattributed': 'float',
         'positional_40fl_convs': 'float',
-        'positional_40fl_convs_per_100_clicks': 'float',
         'positional_40fl_convs_per_1k_impress': 'float',
         'positional_40fl_convs_per_click': 'float',
         'positional_40fl_convs_per_visit': 'float',
         'positional_40fl_cpa': 'float',
         'positional_40fl_revenue': 'float',
         'positional_40fl_roas': 'float',
-        'positional_40fl_unattributed': 'float',
         'report_click_through_rate': 'float',
         'report_clicks': 'int',
         'report_impressions': 'int',
         'report_visits': 'int',
-        'search_clicks': 'int',
         'time_decay_1day_convs': 'float',
-        'time_decay_1day_convs_per_100_clicks': 'float',
         'time_decay_1day_convs_per_1k_impress': 'float',
         'time_decay_1day_convs_per_click': 'float',
         'time_decay_1day_convs_per_visit': 'float',
         'time_decay_1day_cpa': 'float',
         'time_decay_1day_revenue': 'float',
         'time_decay_1day_roas': 'float',
-        'time_decay_1day_unattributed': 'float',
         'time_decay_7day_convs': 'float',
-        'time_decay_7day_convs_per_100_clicks': 'float',
         'time_decay_7day_convs_per_1k_impress': 'float',
         'time_decay_7day_convs_per_click': 'float',
         'time_decay_7day_convs_per_visit': 'float',
         'time_decay_7day_cpa': 'float',
         'time_decay_7day_revenue': 'float',
         'time_decay_7day_roas': 'float',
-        'time_decay_7day_unattributed': 'float',
         'type': 'string',
     }
     @classmethod

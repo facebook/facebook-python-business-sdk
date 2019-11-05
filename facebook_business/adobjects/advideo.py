@@ -217,6 +217,7 @@ class AdVideo(
         live_photo = 'LIVE_PHOTO'
         look_now_deprecated = 'LOOK_NOW_DEPRECATED'
         moments_video = 'MOMENTS_VIDEO'
+        neo_async_game_video = 'NEO_ASYNC_GAME_VIDEO'
         no_story = 'NO_STORY'
         oculus_creator_portal = 'OCULUS_CREATOR_PORTAL'
         oculus_venues_broadcast = 'OCULUS_VENUES_BROADCAST'
@@ -252,6 +253,7 @@ class AdVideo(
         unlisted = 'UNLISTED'
         video_comment = 'VIDEO_COMMENT'
         video_creative_editor_autogen_ad_video = 'VIDEO_CREATIVE_EDITOR_AUTOGEN_AD_VIDEO'
+        video_superres = 'VIDEO_SUPERRES'
         woodhenge = 'WOODHENGE'
         your_day = 'YOUR_DAY'
 

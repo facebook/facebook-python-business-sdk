@@ -153,6 +153,7 @@ class LiveEncoder(
             'input_video_width': 'unsigned int',
             'name': 'string',
             'status': 'status_enum',
+            'target_token': 'string',
             'version': 'string',
         }
         enums = {

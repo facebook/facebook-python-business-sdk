@@ -1391,7 +1391,7 @@ class Application(
             'level': 'level_enum',
             'metrics': 'list<string>',
             'object_id': 'string',
-            'owner_id': 'Object',
+            'owner_id': 'int',
             'schedule': 'schedule_enum',
             'status': 'status_enum',
             'time_increment': 'unsigned int',

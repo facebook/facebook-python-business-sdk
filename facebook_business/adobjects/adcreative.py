@@ -169,6 +169,7 @@ class AdCreative(
         offer = 'OFFER'
         page = 'PAGE'
         photo = 'PHOTO'
+        post_deleted = 'POST_DELETED'
         share = 'SHARE'
         status = 'STATUS'
         store_item = 'STORE_ITEM'

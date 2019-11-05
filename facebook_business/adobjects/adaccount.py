@@ -196,6 +196,7 @@ class AdAccount(
         home_listing = 'HOME_LISTING'
         hotel = 'HOTEL'
         media_title = 'MEDIA_TITLE'
+        offline_product = 'OFFLINE_PRODUCT'
         product = 'PRODUCT'
         vehicle = 'VEHICLE'
         vehicle_offer = 'VEHICLE_OFFER'

@@ -66,7 +66,6 @@ class User(
         is_famedeeplinkinguser = 'is_famedeeplinkinguser'
         is_shared_login = 'is_shared_login'
         is_verified = 'is_verified'
-        labels = 'labels'
         languages = 'languages'
         last_name = 'last_name'
         link = 'link'
@@ -2908,7 +2907,6 @@ class User(
         'is_famedeeplinkinguser': 'bool',
         'is_shared_login': 'bool',
         'is_verified': 'bool',
-        'labels': 'list<PageLabel>',
         'languages': 'list<Experience>',
         'last_name': 'string',
         'link': 'string',

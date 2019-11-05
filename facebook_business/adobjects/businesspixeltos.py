@@ -44,6 +44,16 @@ class BusinessPixelTOS(
         accept_time = 'accept_time'
         id = 'id'
 
+    # @deprecated get_endpoint function is deprecated
+    @classmethod
+    def get_endpoint(cls):
+        return 'pixel_tos'
+
+    # @deprecated api_create is being deprecated
+    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.adobjects.business import Business
+        return Business(api=self._api, fbid=parent_id).create_pixel_to(fields, params, batch, success, failure, pending)
+
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
