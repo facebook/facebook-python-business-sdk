@@ -91,6 +91,10 @@ class FacebookResponse(object):
     def is_success(self):
         """Returns boolean indicating if the call was successful."""
 
+        if 400 <= self._http_status < 600:
+            # Any HTTP error
+            return False
+
         json_body = self.json()
 
         if isinstance(json_body, collections.Mapping) and 'error' in json_body:
