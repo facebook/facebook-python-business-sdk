@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 
 
 ## Unreleased
+  - Strongly typed Server-Side API support for python (https://developers.facebook.com/docs/marketing-api/facebook-pixel/server-side-api)
 
 ## v5.0.1
 
@@ -36,7 +37,7 @@ All notable changes to this project will be documented in this file.
 
 ## v3.3.2
 ### Changed
-- Remove list of API call from Business SDK, any [these APIs](https://developers.facebook.com/docs/graph-api/changelog/4-30-2019-endpoint-deprecations) included in Business SDK will be deprecated.   
+- Remove list of API call from Business SDK, any [these APIs](https://developers.facebook.com/docs/graph-api/changelog/4-30-2019-endpoint-deprecations) included in Business SDK will be deprecated.
 
 ## v3.3.0
 ### Changed
