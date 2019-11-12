@@ -243,6 +243,69 @@ class BusinessUnit(
             self.assure_call()
             return request.execute()
 
+    def get_conversion_paths(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'click_lookback_window': 'unsigned int',
+            'date_range': 'Object',
+            'fb_conversion_event_id': 'unsigned int',
+            'limit': 'unsigned int',
+            'metric_context': 'map',
+            'time_period': 'time_period_enum',
+            'view_lookback_window': 'unsigned int',
+        }
+        enums = {
+            'time_period_enum': [
+                'all_available',
+                'all_dates',
+                'custom',
+                'date_range',
+                'fifteen_days',
+                'last_fourteen_days',
+                'last_hundred_fourty_four_hours',
+                'last_month',
+                'last_ninety_days',
+                'last_quarter',
+                'last_seven_days',
+                'last_sixty_days',
+                'last_thirty_days',
+                'last_twenty_four_hours',
+                'last_year',
+                'month_to_date',
+                'quarter_to_date',
+                'seven_days',
+                'thirty_days',
+                'this_month_whole_days',
+                'today',
+                'week_to_date',
+                'year_to_date',
+                'yesterday',
+            ],
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/conversion_paths',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_custom_breakdowns(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):

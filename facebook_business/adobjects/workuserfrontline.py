@@ -38,9 +38,11 @@ class WorkUserFrontline(
         self._api = api
 
     class Field(AbstractObject.Field):
+        has_access = 'has_access'
         is_frontline = 'is_frontline'
 
     _field_types = {
+        'has_access': 'bool',
         'is_frontline': 'bool',
     }
     @classmethod

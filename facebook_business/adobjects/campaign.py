@@ -152,7 +152,6 @@ class Campaign(
         credit = 'CREDIT'
         employment = 'EMPLOYMENT'
         housing = 'HOUSING'
-        issues_elections_politics = 'ISSUES_ELECTIONS_POLITICS'
         none = 'NONE'
 
     class Operator:

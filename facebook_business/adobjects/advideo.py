@@ -153,6 +153,7 @@ class AdVideo(
         filepath = 'filepath'
 
     class ContainerType:
+        aco_video_variation = 'ACO_VIDEO_VARIATION'
         ad_break_preview = 'AD_BREAK_PREVIEW'
         ad_derivative = 'AD_DERIVATIVE'
         age_up = 'AGE_UP'

@@ -58,7 +58,6 @@ class ProductFeed(
         update_schedule = 'update_schedule'
         feed_type = 'feed_type'
         rules = 'rules'
-        upload_schedule = 'upload_schedule'
 
     class Delimiter:
         autodetect = 'AUTODETECT'
@@ -186,7 +185,6 @@ class ProductFeed(
             'quoted_fields_mode': 'quoted_fields_mode_enum',
             'schedule': 'string',
             'update_schedule': 'string',
-            'upload_schedule': 'string',
         }
         enums = {
             'delimiter_enum': ProductFeed.Delimiter.__dict__.values(),
@@ -630,7 +628,6 @@ class ProductFeed(
         'update_schedule': 'ProductFeedSchedule',
         'feed_type': 'FeedType',
         'rules': 'list<string>',
-        'upload_schedule': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

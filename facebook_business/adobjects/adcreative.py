@@ -73,6 +73,7 @@ class AdCreative(
         instagram_story_id = 'instagram_story_id'
         interactive_components_spec = 'interactive_components_spec'
         link_deep_link_url = 'link_deep_link_url'
+        link_destination_display_url = 'link_destination_display_url'
         link_og_id = 'link_og_id'
         link_url = 'link_url'
         messenger_sponsored_message = 'messenger_sponsored_message'
@@ -486,6 +487,7 @@ class AdCreative(
         'instagram_story_id': 'string',
         'interactive_components_spec': 'AdCreativeInteractiveComponentsSpec',
         'link_deep_link_url': 'string',
+        'link_destination_display_url': 'string',
         'link_og_id': 'string',
         'link_url': 'string',
         'messenger_sponsored_message': 'string',

@@ -129,6 +129,7 @@ class Application(
         smart_login_menu_icon_url = 'smart_login_menu_icon_url'
         social_discovery = 'social_discovery'
         subcategory = 'subcategory'
+        suggested_events_setting = 'suggested_events_setting'
         supported_platforms = 'supported_platforms'
         supports_apprequests_fast_app_switch = 'supports_apprequests_fast_app_switch'
         supports_attribution = 'supports_attribution'
@@ -2300,6 +2301,7 @@ class Application(
         'smart_login_menu_icon_url': 'string',
         'social_discovery': 'unsigned int',
         'subcategory': 'string',
+        'suggested_events_setting': 'string',
         'supported_platforms': 'list<SupportedPlatforms>',
         'supports_apprequests_fast_app_switch': 'Object',
         'supports_attribution': 'bool',
