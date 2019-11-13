@@ -107,7 +107,6 @@ class EventRequest(object):
         if self.test_event_code is not None:
             params['test_event_code'] = self.test_event_code
 
-        print(params)
         response = AdsPixel(self.__pixel_id).create_event(
             fields=[],
             params=params,
