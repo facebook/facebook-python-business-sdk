@@ -23,6 +23,7 @@ from typing import List
 
 import six
 from facebook_business.adobjects.serverside.content import Content
+from facebook_business.adobjects.serverside.normalize import Normalize
 
 
 class CustomData(object):
@@ -193,7 +194,7 @@ class CustomData(object):
         """Sets the content_ids.
 
         The content IDs associated with the event, such as product SKUs for items in an AddToCart event:
-         ['ABC123', 'XYZ789']. If content_type is a product, then your content IDs must be an array with 
+         ['ABC123', 'XYZ789']. If content_type is a product, then your content IDs must be an array with
          a single string value. Otherwise, this array can contain any number of string values.
 
         :param content_ids: The content_ids.
@@ -231,7 +232,7 @@ class CustomData(object):
     def content_type(self):
         """Gets the content type.
 
-        A String equal to either 'product' or 'product_group'. Set to product if the keys you send content_ids or 
+        A String equal to either 'product' or 'product_group'. Set to product if the keys you send content_ids or
         contents represent products. Set to product_group if the keys you send in content_ids represent product groups.
 
         :return: The content type.
@@ -243,7 +244,7 @@ class CustomData(object):
     def content_type(self, content_type: str):
         """Sets the content type.
 
-        A String equal to either 'product' or 'product_group'. Set to product if the keys you send content_ids or 
+        A String equal to either 'product' or 'product_group'. Set to product if the keys you send content_ids or
         contents represent products. Set to product_group if the keys you send in content_ids represent product groups.
 
         :param content_type: The content type.
@@ -348,7 +349,7 @@ class CustomData(object):
     def normalize(self):
         normalized_payload = {
             'value': self.value,
-            'currency': self.currency,
+            'currency': Normalize.normalize_field('currency', self.currency),
             'content_name': self.content_name,
             'content_category': self.content_category,
             'content_ids': self.content_ids,

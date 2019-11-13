@@ -23,6 +23,7 @@ import pprint
 
 import six
 from facebook_business.adobjects.serverside.gender import Gender
+from facebook_business.adobjects.serverside.normalize import Normalize
 
 
 class UserData(object):
@@ -489,15 +490,15 @@ class UserData(object):
         self._subscription_id = subscription_id
 
     def normalize(self):
-        normalized_payload = {'em': self.hash_sha_256(self.normalize_string(self.email)),
-                              'ph': self.hash_sha_256(self.normalize_string(self.phone)),
-                              'db': self.hash_sha_256(self.normalize_string(self.date_of_birth)),
-                              'ln': self.hash_sha_256(self.normalize_string(self.last_name)),
-                              'fn': self.hash_sha_256(self.normalize_string(self.first_name)),
-                              'ct': self.hash_sha_256(self.normalize_string(self.city)),
-                              'st': self.hash_sha_256(self.normalize_string(self.state)),
-                              'zp': self.hash_sha_256(self.normalize_string(self.zip_code)),
-                              'country': self.hash_sha_256(self.normalize_string(self.country_code)),
+        normalized_payload = {'em': self.hash_sha_256(Normalize.normalize_field('em', self.email)),
+                              'ph': self.hash_sha_256(Normalize.normalize_field('ph', self.phone)),
+                              'db': self.hash_sha_256(Normalize.normalize_field('db', self.date_of_birth)),
+                              'ln': self.hash_sha_256(Normalize.normalize_field('ln', self.last_name)),
+                              'fn': self.hash_sha_256(Normalize.normalize_field('fn', self.first_name)),
+                              'ct': self.hash_sha_256(Normalize.normalize_field('ct', self.city)),
+                              'st': self.hash_sha_256(Normalize.normalize_field('st', self.state)),
+                              'zp': self.hash_sha_256(Normalize.normalize_field('zp', self.zip_code)),
+                              'country': self.hash_sha_256(Normalize.normalize_field('country', self.country_code)),
                               'external_id': self.external_id,
                               'client_ip_address': self.client_ip_address,
                               'client_user_agent': self.client_user_agent,
@@ -506,7 +507,7 @@ class UserData(object):
                               'subscription_id': self.subscription_id,
                               }
         if self.gender is not None:
-            normalized_payload['ge'] = self.hash_sha_256(self.normalize_string(self.gender.value))
+            normalized_payload['ge'] = self.hash_sha_256(Normalize.normalize_field('ge', self.gender.value))
 
         normalized_payload: dict = {k: v for k, v in normalized_payload.items() if v is not None}
         return normalized_payload
@@ -516,11 +517,6 @@ class UserData(object):
             return None
         input = input.encode('utf-8')
         return hashlib.sha256(input).hexdigest()
-
-    def normalize_string(self, input):
-        if input is None:
-            return None
-        return input.lower()
 
     def to_dict(self):
         """Returns the model properties as a dict"""
