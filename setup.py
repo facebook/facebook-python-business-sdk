@@ -41,6 +41,7 @@ PACKAGES = [
     'facebook_business.utils',
     'facebook_business.adobjects',
     'facebook_business.adobjects.helpers',
+    'facebook_business.adobjects.serverside',
 ]
 PACKAGE_DATA = {
     'facebook_business': ['*.crt'],
