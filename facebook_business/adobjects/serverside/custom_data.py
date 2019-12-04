@@ -41,14 +41,15 @@ class CustomData(object):
         'order_id': 'str',
         'predicted_ltv': 'float',
         'num_items': 'int',
-        'status': 'str'
+        'status': 'str',
+        'search_string' : 'str'
     }
 
     def __init__(self, value: float = None, currency: str = None, content_name: str = None,
                  content_category: str = None, content_ids: List[str] = None,
                  contents: List[Content] = None, content_type: str = None, order_id: str = None,
                  predicted_ltv: float = None, num_items: int = None,
-                 status: str = None):
+                 status: str = None, search_string: str = None):
         self._value = None
         self._currency = None
         self._content_name = None
@@ -60,6 +61,7 @@ class CustomData(object):
         self._predicted_ltv = None
         self._num_items = None
         self._status = None
+        self._search_string = None
         if value is not None:
             self.value = value
         if currency is not None:
@@ -82,6 +84,8 @@ class CustomData(object):
             self.num_items = num_items
         if status is not None:
             self.status = status
+        if search_string is not None:
+            self.search_string = search_string
 
     @property
     def value(self):
@@ -346,6 +350,27 @@ class CustomData(object):
 
         self._status = status
 
+    @property
+    def search_string(self):
+        """Gets the search query made by a user.
+
+        :return: The search query.
+        :rtype: str
+        """
+        return self._search_string
+
+    @search_string.setter
+    def search_string(self, search_string: str):
+        """Sets the search query made by a user.
+
+        Use only with Search events. A search query made by a user.
+
+        :param search_string: The search query.
+        :type: str
+        """
+
+        self._search_string = search_string
+
     def normalize(self):
         normalized_payload = {
             'value': self.value,
@@ -358,6 +383,7 @@ class CustomData(object):
             'predicted_ltv': self.predicted_ltv,
             'num_items': self.num_items,
             'status': self.status,
+            'search_string': self.search_string,
         }
         if self.contents is not None:
             contents = []

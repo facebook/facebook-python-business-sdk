@@ -168,9 +168,9 @@ class Event(object):
     def event_id(self):
         """Gets the event_id of this Event.
 
-        An ID used by Facebook to deduplicate the same event sent from both server and browser.
-         The ID sent by server and browser for a given event should match.
-         IDs cannot be reused elsewhere in your application, even with a different event_name or event_time.
+        This ID can be any string chosen by the advertiser.
+        This is used with event_name to determine if events sent from
+        both server and browser are identical.
 
         :return: The event_id of this Event.
         :rtype: str
@@ -181,9 +181,9 @@ class Event(object):
     def event_id(self, event_id: str):
         """Sets the event_id of this Event.
 
-        An ID used by Facebook to deduplicate the same event sent from both server and browser.
-        The ID sent by server and browser for a given event should match.
-        IDs cannot be reused elsewhere in your application, even with a different event_name or event_time.
+        This ID can be any string chosen by the advertiser.
+        This is used with event_name to determine if events sent from
+        both server and browser are identical.
 
         :param event_id: The event_id of this Event.
         :type: str
