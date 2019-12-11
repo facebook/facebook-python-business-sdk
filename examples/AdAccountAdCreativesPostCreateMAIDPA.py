@@ -19,7 +19,7 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.adaccount import AdAccount
-from facebook_business.adobjects.adset import AdSet
+from facebook_business.adobjects.adcreative import AdCreative
 from facebook_business.api import FacebookAdsApi
 
 access_token = '<ACCESS_TOKEN>'
@@ -31,18 +31,11 @@ FacebookAdsApi.init(access_token=access_token)
 fields = [
 ]
 params = {
-  'name': 'My First Adset',
-  'lifetime_budget': '20000',
-  'start_time': '2019-12-05T23:43:17-0800',
-  'end_time': '2019-12-15T23:43:17-0800',
-  'campaign_id': '<adCampaignLinkClicksID>',
-  'bid_amount': '100',
-  'billing_event': 'LINK_CLICKS',
-  'optimization_goal': 'LINK_CLICKS',
-  'targeting': {'facebook_positions':['feed'],'geo_locations':{'countries':['US']},'publisher_platforms':['facebook','audience_network']},
-  'status': 'PAUSED',
+  'name': 'Dynamic Ad Template Creative Sample',
+  'object_story_spec': {'page_id':'<pageID>','template_data':{'call_to_action':{'type':'INSTALL_MOBILE_APP','value':{'link':'http://www.example.com/appstoreurl'}},'message':'Test {{product.name | titleize}}','link':'http://www.example.com/appstoreurl','name':'Headline {{product.price}}','description':'Description {{product.description}}'}},
+  'product_set_id': '<productSetID>',
 }
-print AdAccount(id).create_ad_set(
+print AdAccount(id).create_ad_creative(
   fields=fields,
   params=params,
 )

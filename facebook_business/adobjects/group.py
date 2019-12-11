@@ -67,9 +67,9 @@ class Group(
         none = 'NONE'
 
     class PostPermissions:
-        admin_only = 'ADMIN_ONLY'
-        anyone = 'ANYONE'
-        none = 'NONE'
+        value_0 = '0'
+        value_1 = '1'
+        value_2 = '2'
 
     class Purpose:
         casual = 'CASUAL'
@@ -1016,6 +1016,7 @@ class Group(
             'ios_bundle_id': 'string',
             'is_explicit_location': 'bool',
             'is_explicit_place': 'bool',
+            'is_visual_search': 'bool',
             'manual_privacy': 'bool',
             'message': 'string',
             'name': 'string',

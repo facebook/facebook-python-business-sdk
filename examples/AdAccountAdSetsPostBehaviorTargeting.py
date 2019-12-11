@@ -37,7 +37,7 @@ params = {
   'bid_amount': '2',
   'daily_budget': '1000',
   'campaign_id': '<adCampaignConversionsID>',
-  'targeting': {'geo_locations':{'countries':['US']},'behaviors':[{'id':6007101597783,'name':'Business Travelers'},{'id':6004386044572,'name':'Android Owners (All)'}]},
+  'targeting': {'facebook_positions':['feed'],'geo_locations':{'countries':['US']},'behaviors':[{'id':6007101597783,'name':'Business Travelers'},{'id':6004386044572,'name':'Android Owners (All)'}]},
 }
 print AdAccount(id).create_ad_set(
   fields=fields,

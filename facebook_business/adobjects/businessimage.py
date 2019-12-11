@@ -188,6 +188,7 @@ class BusinessImage(
         }
         enums = {
             'breakdowns_enum': [
+                'ad_id',
                 'age',
                 'country',
                 'device_platform',

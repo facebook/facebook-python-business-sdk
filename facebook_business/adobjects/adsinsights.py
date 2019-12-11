@@ -213,7 +213,6 @@ class AdsInsights(
         quality_ranking = 'quality_ranking'
         quality_score_ectr = 'quality_score_ectr'
         quality_score_ecvr = 'quality_score_ecvr'
-        quality_score_enfbr = 'quality_score_enfbr'
         quality_score_organic = 'quality_score_organic'
         reach = 'reach'
         recurring_subscription_payment_actions = 'recurring_subscription_payment_actions'
@@ -539,7 +538,6 @@ class AdsInsights(
         'quality_ranking': 'string',
         'quality_score_ectr': 'string',
         'quality_score_ecvr': 'string',
-        'quality_score_enfbr': 'string',
         'quality_score_organic': 'string',
         'reach': 'string',
         'recurring_subscription_payment_actions': 'list<AdsActionStats>',

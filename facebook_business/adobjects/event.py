@@ -181,6 +181,68 @@ class Event(
             self.assure_call()
             return request.execute()
 
+    def get_comments(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.nullnode import NullNode
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/comments',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=NullNode,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=NullNode, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_feed(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.nullnode import NullNode
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/feed',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=NullNode,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=NullNode, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def create_feed(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -369,6 +431,37 @@ class Event(
             self.assure_call()
             return request.execute()
 
+    def get_live_videos(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.nullnode import NullNode
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/live_videos',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=NullNode,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=NullNode, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def create_live_video(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -426,6 +519,37 @@ class Event(
             self.assure_call()
             return request.execute()
 
+    def get_photos(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.nullnode import NullNode
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/photos',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=NullNode,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=NullNode, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def create_photo(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -453,6 +577,7 @@ class Event(
             'ios_bundle_id': 'string',
             'is_explicit_location': 'bool',
             'is_explicit_place': 'bool',
+            'is_visual_search': 'bool',
             'manual_privacy': 'bool',
             'message': 'string',
             'name': 'string',
@@ -514,15 +639,10 @@ class Event(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.profilepicturesource import ProfilePictureSource
+        from facebook_business.adobjects.nullnode import NullNode
         param_types = {
-            'height': 'int',
-            'redirect': 'bool',
-            'type': 'type_enum',
-            'width': 'int',
         }
         enums = {
-            'type_enum': ProfilePictureSource.Type.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -530,9 +650,40 @@ class Event(
             endpoint='/picture',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=ProfilePictureSource,
+            target_class=NullNode,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ProfilePictureSource, api=self._api),
+            response_parser=ObjectParser(target_class=NullNode, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_posts(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.nullnode import NullNode
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/posts',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=NullNode,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=NullNode, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -564,6 +715,37 @@ class Event(
             target_class=Profile,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=Profile, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_videos(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.nullnode import NullNode
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/videos',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=NullNode,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=NullNode, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

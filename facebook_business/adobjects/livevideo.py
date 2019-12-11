@@ -57,6 +57,7 @@ class LiveVideo(
         is_reference_only = 'is_reference_only'
         live_encoders = 'live_encoders'
         live_views = 'live_views'
+        overlay_url = 'overlay_url'
         permalink_url = 'permalink_url'
         planned_start_time = 'planned_start_time'
         seconds_left = 'seconds_left'
@@ -587,6 +588,7 @@ class LiveVideo(
         'is_reference_only': 'bool',
         'live_encoders': 'list<LiveEncoder>',
         'live_views': 'unsigned int',
+        'overlay_url': 'string',
         'permalink_url': 'string',
         'planned_start_time': 'datetime',
         'seconds_left': 'int',

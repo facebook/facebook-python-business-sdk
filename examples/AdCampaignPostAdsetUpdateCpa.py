@@ -33,6 +33,7 @@ params = {
   'billing_event': 'IMPRESSIONS',
   'optimization_goal': 'LINK_CLICKS',
   'bid_amount': '200',
+  'targeting': {'geo_locations':{'countries':['US']},'facebook_positions':['feed']},
 }
 print AdSet(id).update(
   fields=fields,

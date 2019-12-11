@@ -423,6 +423,7 @@ class ProductCatalog(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'allow_upsert': 'bool',
+            'fbe_external_business_id': 'string',
             'requests': 'list<map>',
         }
         enums = {

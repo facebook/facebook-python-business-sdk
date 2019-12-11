@@ -64,6 +64,7 @@ class User(
         installed = 'installed'
         interested_in = 'interested_in'
         is_famedeeplinkinguser = 'is_famedeeplinkinguser'
+        is_guest_user = 'is_guest_user'
         is_shared_login = 'is_shared_login'
         is_verified = 'is_verified'
         languages = 'languages'
@@ -148,6 +149,7 @@ class User(
         msn = 'MSN'
         myspace = 'MYSPACE'
         nateon = 'NATEON'
+        oculus = 'OCULUS'
         ok = 'OK'
         orkut = 'ORKUT'
         others = 'OTHERS'
@@ -934,6 +936,48 @@ class User(
         request = FacebookRequest(
             node_id=self['id'],
             method='GET',
+            endpoint='/businesses',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Business,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Business, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_business(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.business import Business
+        param_types = {
+            'email': 'string',
+            'name': 'string',
+            'primary_page': 'string',
+            'sales_rep_email': 'string',
+            'survey_business_type': 'survey_business_type_enum',
+            'survey_num_assets': 'unsigned int',
+            'survey_num_people': 'unsigned int',
+            'timezone_id': 'unsigned int',
+            'vertical': 'vertical_enum',
+        }
+        enums = {
+            'survey_business_type_enum': Business.SurveyBusinessType.__dict__.values(),
+            'vertical_enum': Business.Vertical.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
             endpoint='/businesses',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
@@ -2285,6 +2329,7 @@ class User(
             'ios_bundle_id': 'string',
             'is_explicit_location': 'bool',
             'is_explicit_place': 'bool',
+            'is_visual_search': 'bool',
             'manual_privacy': 'bool',
             'message': 'string',
             'name': 'string',
@@ -2905,6 +2950,7 @@ class User(
         'installed': 'bool',
         'interested_in': 'list<string>',
         'is_famedeeplinkinguser': 'bool',
+        'is_guest_user': 'bool',
         'is_shared_login': 'bool',
         'is_verified': 'bool',
         'languages': 'list<Experience>',

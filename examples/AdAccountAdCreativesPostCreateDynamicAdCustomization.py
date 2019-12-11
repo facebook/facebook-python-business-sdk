@@ -19,7 +19,7 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.adaccount import AdAccount
-from facebook_business.adobjects.adset import AdSet
+from facebook_business.adobjects.adcreative import AdCreative
 from facebook_business.api import FacebookAdsApi
 
 access_token = '<ACCESS_TOKEN>'
@@ -31,18 +31,12 @@ FacebookAdsApi.init(access_token=access_token)
 fields = [
 ]
 params = {
-  'name': 'My First Adset',
-  'lifetime_budget': '20000',
-  'start_time': '2019-12-05T23:43:17-0800',
-  'end_time': '2019-12-15T23:43:17-0800',
-  'campaign_id': '<adCampaignLinkClicksID>',
-  'bid_amount': '100',
-  'billing_event': 'LINK_CLICKS',
-  'optimization_goal': 'LINK_CLICKS',
-  'targeting': {'facebook_positions':['feed'],'geo_locations':{'countries':['US']},'publisher_platforms':['facebook','audience_network']},
-  'status': 'PAUSED',
+  'name': 'Dynamic Ad Template Creative Sample',
+  'object_story_spec': {'page_id':'<pageID>','template_data':{'message':'English Test {{product.name | titleize}}','link':'http://www.example.com/englishurl','name':'English Headline {{product.price}}','description':'English Description {{product.description}}','customization_rules_spec':[{'customization_spec':{'language':'en_XX'}},{'customization_spec':{'language':'fr_XX'},'message':'French Test {{product.name | titleize}}','link':'http://www.example.com/frenchurl','name':'French Headline {{product.price}}','description':'French Description {{product.description}}','template_url_spec':{'web':{'url':'http://www.example.com/frenchdeeplink'}}}]}},
+  'product_set_id': '<productSetID>',
+  'template_url_spec': {'web':{'url':'http://www.example.com/englishdeeplink'}},
 }
-print AdAccount(id).create_ad_set(
+print AdAccount(id).create_ad_creative(
   fields=fields,
   params=params,
 )

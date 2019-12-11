@@ -18,31 +18,21 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebook_business.adobjects.adaccount import AdAccount
-from facebook_business.adobjects.adset import AdSet
+from facebook_business.adobjects.adspixel import AdsPixel
 from facebook_business.api import FacebookAdsApi
 
 access_token = '<ACCESS_TOKEN>'
 app_secret = '<APP_SECRET>'
 app_id = '<APP_ID>'
-id = '<AD_ACCOUNT_ID>'
+id = '<ADS_PIXEL_ID>'
 FacebookAdsApi.init(access_token=access_token)
 
 fields = [
+  'code',
 ]
 params = {
-  'name': 'My First Adset',
-  'lifetime_budget': '20000',
-  'start_time': '2019-12-05T23:43:17-0800',
-  'end_time': '2019-12-15T23:43:17-0800',
-  'campaign_id': '<adCampaignLinkClicksID>',
-  'bid_amount': '100',
-  'billing_event': 'LINK_CLICKS',
-  'optimization_goal': 'LINK_CLICKS',
-  'targeting': {'facebook_positions':['feed'],'geo_locations':{'countries':['US']},'publisher_platforms':['facebook','audience_network']},
-  'status': 'PAUSED',
 }
-print AdAccount(id).create_ad_set(
+print AdsPixel(id).get(
   fields=fields,
   params=params,
 )

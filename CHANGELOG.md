@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 
 ## Unreleased
+
+## v5.0.3
+
   - Strongly typed Server-Side API support for python (https://developers.facebook.com/docs/marketing-api/facebook-pixel/server-side-api)
   - Pull request 554 (`get_insights_async()`) resolved
 
@@ -46,4 +49,5 @@ All notable changes to this project will be documented in this file.
 ### Deprecated
 - `parent_id` in `AbstractCrudObject`.
 - Function `remote_create`, `remote_read`, `remote_update` and `remote_delete` for `AbstractCrudObject`. Check out our [recommended way](https://github.com/facebook/facebook-python-business-sdk#exploring-the-graph) to make API call with python SDK.
+
 
