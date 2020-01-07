@@ -107,7 +107,6 @@ class CustomAudience(
         prefill = 'prefill'
         product_set_id = 'product_set_id'
         source = 'source'
-        study_spec = 'study_spec'
         tags = 'tags'
         video_group_ids = 'video_group_ids'
 
@@ -266,7 +265,6 @@ class CustomAudience(
             'rule_aggregation': 'string',
             'seed_audience': 'unsigned int',
             'source': 'string',
-            'study_spec': 'map',
             'tags': 'list<string>',
         }
         enums = {
@@ -717,7 +715,6 @@ class CustomAudience(
         'prefill': 'bool',
         'product_set_id': 'string',
         'source': 'string',
-        'study_spec': 'map',
         'tags': 'list<string>',
         'video_group_ids': 'list<string>',
     }
