@@ -931,7 +931,7 @@ class AdSet(
 
         if fields is not None:
             params['fields'] = params.get('fields') if params.get('fields') is not None else list()
-            params['fields'].extend(fields)
+            params['fields'].extend(field for field in fields if field not in params['fields'])
 
         request = FacebookRequest(
             node_id=self['id'],
