@@ -19,6 +19,7 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
+import pycountry
 import re
 
 # defined regex for normalization of data
@@ -67,7 +68,7 @@ class Normalize(object):
         elif field == "country":
             # Remove any non-alpha characters from the data
             normalized_data = isocode_included_chars.sub("", normalized_data)
-            if len(normalized_data) != 2:
+            if not Normalize.is_valid_country_code(normalized_data):
                 raise TypeError("Invalid format for country:'" + data + "'.Please follow ISO 2-letter ISO 3166-1 standard for representing country. eg: us")
 
         elif field == "currency":
@@ -131,3 +132,13 @@ class Normalize(object):
 
         return internation_number_regex.match(phone_number).group()
 
+    """
+    Checks if the given country code is present in the ISO list
+    :param country code: The code that is being checked for presence.
+    :return: boolean indicating whether country code is valid.
+    :rtype: bool
+    """
+    @staticmethod
+    def is_valid_country_code(country_code):
+        country_data = pycountry.countries.get(alpha_2=country_code.upper())
+        return country_data is not None
