@@ -20,21 +20,27 @@
 
 
 import unittest
-from requests.models import Response
+from enum import Enum
 from mock import patch
+from requests.models import Response
 from facebook_business.api import FacebookAdsApi, FacebookResponse
 
 class IntegrationTestCase(unittest.TestCase):
     mock_response = None
+
     def __init__(self, *args, **kwargs):
         super(IntegrationTestCase, self).__init__(*args, **kwargs)
-        FacebookAdsApi.init(access_token = 'access_token', crash_log = False)
+        FacebookAdsApi.init(access_token='access_token', crash_log=False)
 
     def setUp(self):
-        self.patcher = patch('requests.request')
+        self.patcher = patch('requests.Session.request')
         self.mock_request = self.patcher.start()
         self.mock_response = Response()
 
     def tearDown(self):
         mock_response = None
         self.patcher.stop()
+
+class StatusCode(Enum):
+    SUCCESS = 200
+    ERROR = 400
