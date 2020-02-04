@@ -41,7 +41,6 @@ class HotelRoom(
         super(HotelRoom, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        applinks = 'applinks'
         base_price = 'base_price'
         currency = 'currency'
         description = 'description'
@@ -52,17 +51,6 @@ class HotelRoom(
         room_id = 'room_id'
         sale_price = 'sale_price'
         url = 'url'
-        pricing_variables = 'pricing_variables'
-
-    # @deprecated get_endpoint function is deprecated
-    @classmethod
-    def get_endpoint(cls):
-        return 'hotel_rooms'
-
-    # @deprecated api_create is being deprecated
-    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.adobjects.hotel import Hotel
-        return Hotel(api=self._api, fbid=parent_id).create_hotel_room(fields, params, batch, success, failure, pending)
 
     def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -196,7 +184,6 @@ class HotelRoom(
             return request.execute()
 
     _field_types = {
-        'applinks': 'AppLinks',
         'base_price': 'string',
         'currency': 'string',
         'description': 'string',
@@ -207,7 +194,6 @@ class HotelRoom(
         'room_id': 'string',
         'sale_price': 'string',
         'url': 'string',
-        'pricing_variables': 'list<Object>',
     }
     @classmethod
     def _get_field_enum_info(cls):

@@ -93,7 +93,6 @@ class UnifiedThread(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'source': 'source_enum',
-            'user': 'int',
         }
         enums = {
             'source_enum': [

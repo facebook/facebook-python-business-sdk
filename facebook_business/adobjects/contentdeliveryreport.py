@@ -55,7 +55,7 @@ class ContentDeliveryReport(
     class Position:
         all_placements = 'ALL_PLACEMENTS'
         an_classic = 'AN_CLASSIC'
-        facebook_groups = 'FACEBOOK_GROUPS'
+        facebook_groups_feed = 'FACEBOOK_GROUPS_FEED'
         facebook_stories = 'FACEBOOK_STORIES'
         feed = 'FEED'
         groups = 'GROUPS'

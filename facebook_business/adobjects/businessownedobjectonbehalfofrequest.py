@@ -53,16 +53,6 @@ class BusinessOwnedObjectOnBehalfOfRequest(
         expired = 'EXPIRED'
         in_progress = 'IN_PROGRESS'
 
-    # @deprecated get_endpoint function is deprecated
-    @classmethod
-    def get_endpoint(cls):
-        return 'sent_inprogress_onbehalf_requests'
-
-    # @deprecated api_create is being deprecated
-    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.adobjects.business import Business
-        return Business(api=self._api, fbid=parent_id).create_sent_inprogress_on_behalf_request(fields, params, batch, success, failure, pending)
-
     def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):

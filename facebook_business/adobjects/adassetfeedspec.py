@@ -45,6 +45,7 @@ class AdAssetFeedSpec(
         bodies = 'bodies'
         call_to_action_types = 'call_to_action_types'
         captions = 'captions'
+        carousels = 'carousels'
         descriptions = 'descriptions'
         groups = 'groups'
         images = 'images'
@@ -116,6 +117,7 @@ class AdAssetFeedSpec(
         'bodies': 'list<AdAssetFeedSpecBody>',
         'call_to_action_types': 'list<CallToActionTypes>',
         'captions': 'list<AdAssetFeedSpecCaption>',
+        'carousels': 'list<Object>',
         'descriptions': 'list<AdAssetFeedSpecDescription>',
         'groups': 'list<AdAssetFeedSpecGroupRule>',
         'images': 'list<AdAssetFeedSpecImage>',

@@ -123,7 +123,6 @@ class AdSet(
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
         thruplay = 'THRUPLAY'
-        video_views = 'VIDEO_VIEWS'
 
     class ConfiguredStatus:
         active = 'ACTIVE'
@@ -165,7 +164,6 @@ class AdSet(
         thruplay = 'THRUPLAY'
         two_second_continuous_video_views = 'TWO_SECOND_CONTINUOUS_VIDEO_VIEWS'
         value = 'VALUE'
-        video_views = 'VIDEO_VIEWS'
 
     class Status:
         active = 'ACTIVE'
@@ -620,7 +618,6 @@ class AdSet(
             'ad_draft_id': 'string',
             'date_preset': 'date_preset_enum',
             'effective_status': 'list<string>',
-            'include_deleted': 'bool',
             'include_drafts': 'bool',
             'time_range': 'Object',
             'updated_since': 'int',

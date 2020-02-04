@@ -101,8 +101,6 @@ class AdCreative(
         call_to_action = 'call_to_action'
         image_file = 'image_file'
         is_dco_internal = 'is_dco_internal'
-        mockup_id = 'mockup_id'
-        page_id = 'page_id'
 
     class ApplinkTreatment:
         deeplink_with_appstore_fallback = 'deeplink_with_appstore_fallback'
@@ -518,8 +516,6 @@ class AdCreative(
         'call_to_action': 'Object',
         'image_file': 'string',
         'is_dco_internal': 'bool',
-        'mockup_id': 'string',
-        'page_id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

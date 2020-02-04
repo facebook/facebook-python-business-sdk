@@ -42,8 +42,8 @@ class Hotel(
 
     class Field(AbstractObject.Field):
         address = 'address'
-        applinks = 'applinks'
         brand = 'brand'
+        category = 'category'
         currency = 'currency'
         description = 'description'
         guest_ratings = 'guest_ratings'
@@ -59,6 +59,7 @@ class Hotel(
         sanitized_images = 'sanitized_images'
         star_rating = 'star_rating'
         url = 'url'
+        applinks = 'applinks'
         base_price = 'base_price'
 
     # @deprecated get_endpoint function is deprecated
@@ -204,52 +205,10 @@ class Hotel(
             self.assure_call()
             return request.execute()
 
-    def create_hotel_room(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.hotelroom import HotelRoom
-        param_types = {
-            'applinks': 'Object',
-            'base_price': 'float',
-            'currency': 'string',
-            'description': 'string',
-            'images': 'list<Object>',
-            'margin_level': 'unsigned int',
-            'name': 'string',
-            'pricing_variables': 'list<Object>',
-            'room_id': 'string',
-            'sale_price': 'float',
-            'url': 'string',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/hotel_rooms',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=HotelRoom,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=HotelRoom, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     _field_types = {
         'address': 'string',
-        'applinks': 'AppLinks',
         'brand': 'string',
+        'category': 'string',
         'currency': 'string',
         'description': 'string',
         'guest_ratings': 'string',
@@ -265,6 +224,7 @@ class Hotel(
         'sanitized_images': 'list<string>',
         'star_rating': 'float',
         'url': 'string',
+        'applinks': 'Object',
         'base_price': 'unsigned int',
     }
     @classmethod

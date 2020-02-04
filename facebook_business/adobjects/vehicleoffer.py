@@ -45,7 +45,6 @@ class VehicleOffer(
         amount_percentage = 'amount_percentage'
         amount_price = 'amount_price'
         amount_qualifier = 'amount_qualifier'
-        applinks = 'applinks'
         body_style = 'body_style'
         cashback_currency = 'cashback_currency'
         cashback_price = 'cashback_price'
@@ -58,6 +57,8 @@ class VehicleOffer(
         end_time = 'end_time'
         id = 'id'
         images = 'images'
+        make = 'make'
+        model = 'model'
         offer_description = 'offer_description'
         offer_disclaimer = 'offer_disclaimer'
         offer_type = 'offer_type'
@@ -108,7 +109,6 @@ class VehicleOffer(
         'amount_percentage': 'float',
         'amount_price': 'string',
         'amount_qualifier': 'string',
-        'applinks': 'AppLinks',
         'body_style': 'string',
         'cashback_currency': 'string',
         'cashback_price': 'string',
@@ -121,6 +121,8 @@ class VehicleOffer(
         'end_time': 'int',
         'id': 'string',
         'images': 'list<string>',
+        'make': 'string',
+        'model': 'string',
         'offer_description': 'string',
         'offer_disclaimer': 'string',
         'offer_type': 'string',

@@ -49,7 +49,6 @@ class HomeListing(
         agent_fb_page_id = 'agent_fb_page_id'
         agent_name = 'agent_name'
         agent_phone = 'agent_phone'
-        applinks = 'applinks'
         area_size = 'area_size'
         area_unit = 'area_unit'
         availability = 'availability'
@@ -207,7 +206,6 @@ class HomeListing(
         'agent_fb_page_id': 'Page',
         'agent_name': 'string',
         'agent_phone': 'string',
-        'applinks': 'AppLinks',
         'area_size': 'unsigned int',
         'area_unit': 'string',
         'availability': 'string',

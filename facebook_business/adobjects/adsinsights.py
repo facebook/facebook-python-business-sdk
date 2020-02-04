@@ -125,6 +125,7 @@ class AdsInsights(
         cost_per_outbound_click = 'cost_per_outbound_click'
         cost_per_schedule = 'cost_per_schedule'
         cost_per_start_trial = 'cost_per_start_trial'
+        cost_per_store_visit_action = 'cost_per_store_visit_action'
         cost_per_submit_application = 'cost_per_submit_application'
         cost_per_subscribe = 'cost_per_subscribe'
         cost_per_thruplay = 'cost_per_thruplay'
@@ -224,6 +225,7 @@ class AdsInsights(
         spend = 'spend'
         start_trial_actions = 'start_trial_actions'
         start_trial_value = 'start_trial_value'
+        store_visit_actions = 'store_visit_actions'
         submit_application_actions = 'submit_application_actions'
         submit_application_value = 'submit_application_value'
         subscribe_actions = 'subscribe_actions'
@@ -450,6 +452,7 @@ class AdsInsights(
         'cost_per_outbound_click': 'list<AdsActionStats>',
         'cost_per_schedule': 'list<AdsActionStats>',
         'cost_per_start_trial': 'list<AdsActionStats>',
+        'cost_per_store_visit_action': 'list<AdsActionStats>',
         'cost_per_submit_application': 'list<AdsActionStats>',
         'cost_per_subscribe': 'list<AdsActionStats>',
         'cost_per_thruplay': 'list<AdsActionStats>',
@@ -549,6 +552,7 @@ class AdsInsights(
         'spend': 'string',
         'start_trial_actions': 'list<AdsActionStats>',
         'start_trial_value': 'list<AdsActionStats>',
+        'store_visit_actions': 'list<AdsActionStats>',
         'submit_application_actions': 'list<AdsActionStats>',
         'submit_application_value': 'list<AdsActionStats>',
         'subscribe_actions': 'list<AdsActionStats>',

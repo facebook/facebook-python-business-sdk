@@ -60,7 +60,6 @@ class ReachFrequencyPrediction(
         daily_impression_curve = 'daily_impression_curve'
         daily_impression_curve_map = 'daily_impression_curve_map'
         day_parting_schedule = 'day_parting_schedule'
-        demo_breakdown = 'demo_breakdown'
         destination_id = 'destination_id'
         end_time = 'end_time'
         expiration_time = 'expiration_time'
@@ -232,7 +231,6 @@ class ReachFrequencyPrediction(
         'daily_impression_curve': 'list<float>',
         'daily_impression_curve_map': 'map<unsigned int, list<float>>',
         'day_parting_schedule': 'list<ReachFrequencyDayPart>',
-        'demo_breakdown': 'ReachFrequencyEstimatesDemoBreakdown',
         'destination_id': 'string',
         'end_time': 'datetime',
         'expiration_time': 'datetime',

@@ -118,7 +118,6 @@ class AdCampaignActivity(
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
         thruplay = 'THRUPLAY'
-        video_views = 'VIDEO_VIEWS'
 
     class BillingEventOld:
         app_installs = 'APP_INSTALLS'
@@ -130,7 +129,6 @@ class AdCampaignActivity(
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
         thruplay = 'THRUPLAY'
-        video_views = 'VIDEO_VIEWS'
 
     class OptimizationGoalNew:
         ad_recall_lift = 'AD_RECALL_LIFT'
@@ -157,7 +155,6 @@ class AdCampaignActivity(
         thruplay = 'THRUPLAY'
         two_second_continuous_video_views = 'TWO_SECOND_CONTINUOUS_VIDEO_VIEWS'
         value = 'VALUE'
-        video_views = 'VIDEO_VIEWS'
 
     class OptimizationGoalOld:
         ad_recall_lift = 'AD_RECALL_LIFT'
@@ -184,7 +181,6 @@ class AdCampaignActivity(
         thruplay = 'THRUPLAY'
         two_second_continuous_video_views = 'TWO_SECOND_CONTINUOUS_VIDEO_VIEWS'
         value = 'VALUE'
-        video_views = 'VIDEO_VIEWS'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils

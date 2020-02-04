@@ -41,7 +41,6 @@ class URL(
         super(URL, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        app_links = 'app_links'
         development_instant_article = 'development_instant_article'
         engagement = 'engagement'
         id = 'id'
@@ -121,7 +120,6 @@ class URL(
             return request.execute()
 
     _field_types = {
-        'app_links': 'AppLinks',
         'development_instant_article': 'InstantArticle',
         'engagement': 'Object',
         'id': 'string',
