@@ -79,7 +79,6 @@ class CampaignTestCase(IntegrationTestCase):
 
             self.mock_request.return_value = self.mock_response
 
-            # reference : codegen/api_specs/specs/Campaign.json
             fields = [
                 FieldName.ACCOUNT_ID,
                 FieldName.ADLABELS,
@@ -119,42 +118,42 @@ class CampaignTestCase(IntegrationTestCase):
                 params=params,
             )
 
-            assert len(warning) == 0
-            assert isinstance(campaign, Campaign)
-            assert campaign[FieldName.ACCOUNT_ID] == TestValue.ACCOUNT_ID
-            assert campaign[FieldName.ADLABELS] == [json.loads(TestValue.AD_LABEL)]
-            assert campaign[FieldName.BID_STRATEGY] == TestValue.BID_STRATEGY
-            assert campaign[FieldName.BOOSTED_OBJECT_ID] == TestValue.BOOSTED_OBJECT_ID
-            assert campaign[FieldName.BRAND_LIFT_STUDIES] == [json.loads(TestValue.BRAND_LIFT_STUDIES)]
-            assert campaign[FieldName.BUDGET_REBALANCE_FLAG] == TestValue.BUDGET_REBALANCE_FLAG
-            assert campaign[FieldName.BUDGET_REMAINING] == TestValue.BUDGET_REMAINING
-            assert campaign[FieldName.BUYING_TYPE] == TestValue.BUYING_TYPE
-            assert campaign[FieldName.CAN_CREATE_BRAND_LIFT_STUDY] == TestValue.CAN_CREATE_BRAND_LIFT_STUDY
-            assert campaign[FieldName.CAN_USE_SPEND_CAP] == TestValue.CAN_USE_SPEND_CAP
-            assert campaign[FieldName.CONFIGURED_STATUS] == TestValue.CONFIGURED_STATUS
-            assert campaign[FieldName.CREATED_TIME] == TestValue.CREATED_TIME
-            assert campaign[FieldName.DAILY_BUDGET] == TestValue.DAILY_BUDGET
-            assert campaign[FieldName.EFFECTIVE_STATUS] == TestValue.EFFECTIVE_STATUS
-            assert campaign[FieldName.ID] == TestValue.CAMPAIGN_ID
-            assert campaign[FieldName.ISSUES_INFO] == [json.loads(TestValue.ISSUES_INFO)]
-            assert campaign[FieldName.LAST_BUDGET_TOGGLING_TIME] == TestValue.LAST_BUDGET_TOGGLING_TIME
-            assert campaign[FieldName.LIFETIME_BUDGET] == TestValue.LIFETIME_BUDGET
-            assert campaign[FieldName.NAME] == TestValue.NAME
-            assert campaign[FieldName.OBJECTIVE] == TestValue.OBJECTIVE
-            assert campaign[FieldName.PACING_TYPE] == [TestValue.PACING_TYPE]
-            assert isinstance(campaign[FieldName.PROMOTED_OBJECT], AdPromotedObject)
-            assert campaign[FieldName.RECOMMENDATIONS] == [json.loads(TestValue.RECOMMENDATIONS)]
-            assert campaign[FieldName.SPECIAL_AD_CATEGORY] == TestValue.SPECIAL_AD_CATEGORY
-            assert campaign[FieldName.SPEND_CAP] == TestValue.SPEND_CAP
-            assert campaign[FieldName.STATUS] == TestValue.STATUS
-            assert campaign[FieldName.START_TIME] == TestValue.START_TIME
-            assert campaign[FieldName.STOP_TIME] == TestValue.STOP_TIME
-            assert campaign[FieldName.TOPLINE_ID] == TestValue.TOPLINE_ID
-            assert campaign[FieldName.UPDATED_TIME] == TestValue.UPDATED_TIME
+            self.assertEqual(len(warning), 0)
+            self.assertTrue(isinstance(campaign, Campaign))
+            self.assertEqual(campaign[FieldName.ACCOUNT_ID],  TestValue.ACCOUNT_ID)
+            self.assertEqual(campaign[FieldName.ADLABELS], [json.loads(TestValue.AD_LABEL)])
+            self.assertEqual(campaign[FieldName.BID_STRATEGY], TestValue.BID_STRATEGY)
+            self.assertEqual(campaign[FieldName.BOOSTED_OBJECT_ID], TestValue.BOOSTED_OBJECT_ID)
+            self.assertEqual(campaign[FieldName.BRAND_LIFT_STUDIES], [json.loads(TestValue.BRAND_LIFT_STUDIES)])
+            self.assertEqual(campaign[FieldName.BUDGET_REBALANCE_FLAG], TestValue.BUDGET_REBALANCE_FLAG)
+            self.assertEqual(campaign[FieldName.BUDGET_REMAINING], TestValue.BUDGET_REMAINING)
+            self.assertEqual(campaign[FieldName.BUYING_TYPE],  TestValue.BUYING_TYPE)
+            self.assertEqual(campaign[FieldName.CAN_CREATE_BRAND_LIFT_STUDY], TestValue.CAN_CREATE_BRAND_LIFT_STUDY)
+            self.assertEqual(campaign[FieldName.CAN_USE_SPEND_CAP], TestValue.CAN_USE_SPEND_CAP)
+            self.assertEqual(campaign[FieldName.CONFIGURED_STATUS], TestValue.CONFIGURED_STATUS)
+            self.assertEqual(campaign[FieldName.CREATED_TIME], TestValue.CREATED_TIME)
+            self.assertEqual(campaign[FieldName.DAILY_BUDGET], TestValue.DAILY_BUDGET)
+            self.assertEqual(campaign[FieldName.EFFECTIVE_STATUS], TestValue.EFFECTIVE_STATUS)
+            self.assertEqual(campaign[FieldName.ID], TestValue.CAMPAIGN_ID)
+            self.assertEqual(campaign[FieldName.ISSUES_INFO], [json.loads(TestValue.ISSUES_INFO)])
+            self.assertEqual(campaign[FieldName.LAST_BUDGET_TOGGLING_TIME], TestValue.LAST_BUDGET_TOGGLING_TIME)
+            self.assertEqual(campaign[FieldName.LIFETIME_BUDGET], TestValue.LIFETIME_BUDGET)
+            self.assertEqual(campaign[FieldName.NAME], TestValue.NAME)
+            self.assertEqual(campaign[FieldName.OBJECTIVE], TestValue.OBJECTIVE)
+            self.assertEqual(campaign[FieldName.PACING_TYPE], [TestValue.PACING_TYPE])
+            self.assertTrue(isinstance(campaign[FieldName.PROMOTED_OBJECT], AdPromotedObject))
+            self.assertEqual(campaign[FieldName.RECOMMENDATIONS], [json.loads(TestValue.RECOMMENDATIONS)])
+            self.assertEqual(campaign[FieldName.SPECIAL_AD_CATEGORY], TestValue.SPECIAL_AD_CATEGORY)
+            self.assertEqual(campaign[FieldName.SPEND_CAP], TestValue.SPEND_CAP)
+            self.assertEqual(campaign[FieldName.STATUS], TestValue.STATUS)
+            self.assertEqual(campaign[FieldName.START_TIME], TestValue.START_TIME)
+            self.assertEqual(campaign[FieldName.STOP_TIME], TestValue.STOP_TIME)
+            self.assertEqual(campaign[FieldName.TOPLINE_ID], TestValue.TOPLINE_ID)
+            self.assertEqual(campaign[FieldName.UPDATED_TIME], TestValue.UPDATED_TIME)
 
 
     def test_get_campaign_with_wrong_fields(self):
-        with warnings.catch_warnings(record=True) as warning, self.assertRaises(FacebookRequestError):
+        with warnings.catch_warnings(record=True) as warning:
             self.mock_response.status_code = StatusCode.ERROR
             self.mock_request.return_value = self.mock_response
 
@@ -162,14 +161,14 @@ class CampaignTestCase(IntegrationTestCase):
                 'unexist_field',
             ]
             params = {}
+            with self.assertRaises(FacebookRequestError):
+                campaign = Campaign(TestValue.CAMPAIGN_ID).api_get(
+                    fields=fields,
+                    params=params,
+                )
 
-            campaign = Campaign(TestValue.CAMPAIGN_ID).api_get(
-                fields=fields,
-                params=params,
-            )
-
-            assert len(warning) == 1
-            assert issubclass(warning[0].category, UserWarning)
+            self.assertEqual(len(warning), 1)
+            self.assertTrue(issubclass(warning[0].category, UserWarning))
 
 
     def test_create_campaign(self):
@@ -179,7 +178,6 @@ class CampaignTestCase(IntegrationTestCase):
             self.mock_request.return_value = self.mock_response
 
             fields = []
-            # reference : codegen/api_specs/specs/Campaign.json
             params = {
                 FieldName.ADLABELS: [json.loads(TestValue.AD_LABEL)],
                 FieldName.BID_STRATEGY: TestValue.BID_STRATEGY,
@@ -206,13 +204,13 @@ class CampaignTestCase(IntegrationTestCase):
                 params,
             )
 
-            assert len(warning) == 0
-            assert isinstance(campaign, Campaign)
-            assert campaign[FieldName.ID] == TestValue.CAMPAIGN_ID
+            self.assertEqual(len(warning), 0)
+            self.assertTrue(isinstance(campaign, Campaign))
+            self.assertEqual(campaign[FieldName.ID], TestValue.CAMPAIGN_ID)
 
 
     def test_create_campaign_with_wrong_params(self):
-        with warnings.catch_warnings(record=True) as warning, self.assertRaises(FacebookRequestError):
+        with warnings.catch_warnings(record=True) as warning:
             self.mock_response.status_code = StatusCode.ERROR
             self.mock_request.return_value = self.mock_response
 
@@ -221,14 +219,14 @@ class CampaignTestCase(IntegrationTestCase):
                 'status': 3,
                 'special_ad_category': 'wrong_enum',
             }
+            with self.assertRaises(FacebookRequestError):
+                campaign = AdAccount(TestValue.ACCOUNT_ID).create_campaign(
+                    fields,
+                    params,
+                )
 
-            campaign = AdAccount(TestValue.ACCOUNT_ID).create_campaign(
-                fields,
-                params,
-            )
-
-            assert len(warning) == 2
-            assert issubclass(warning[-1].category, UserWarning)
+            self.assertEqual(len(warning), 2)
+            self.assertTrue(issubclass(warning[-1].category, UserWarning))
 
 
 if __name__ == '__main__':
