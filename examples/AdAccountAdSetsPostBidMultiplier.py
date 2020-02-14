@@ -39,7 +39,7 @@ params = {
   'bid_amount': '500',
   'bid_adjustments': {'user_groups':{'gender':{'male':0.8,'female':1}}},
   'promoted_object': {'product_set_id':'<productSetID>','custom_event_type':'ADD_TO_CART'},
-  'targeting': {'geo_locations':{'countries':['US']}},
+  'targeting': {'facebook_positions':['feed'],'geo_locations':{'countries':['US']}},
   'status': 'PAUSED',
 }
 print AdAccount(id).create_ad_set(

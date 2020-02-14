@@ -73,7 +73,6 @@ class ReachFrequencyPrediction(
         external_minimum_impression = 'external_minimum_impression'
         external_minimum_reach = 'external_minimum_reach'
         external_reach = 'external_reach'
-        external_values_breakdown = 'external_values_breakdown'
         feed_ratio_0000 = 'feed_ratio_0000'
         frequency_cap = 'frequency_cap'
         frequency_distribution = 'frequency_distribution'
@@ -246,7 +245,6 @@ class ReachFrequencyPrediction(
         'external_minimum_impression': 'unsigned int',
         'external_minimum_reach': 'unsigned int',
         'external_reach': 'unsigned int',
-        'external_values_breakdown': 'string',
         'feed_ratio_0000': 'unsigned int',
         'frequency_cap': 'unsigned int',
         'frequency_distribution': 'list<float>',

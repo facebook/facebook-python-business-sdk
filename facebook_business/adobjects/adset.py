@@ -174,25 +174,25 @@ class AdSet(
         paused = 'PAUSED'
 
     class DatePreset:
-        last_14d = 'LAST_14D'
-        last_28d = 'LAST_28D'
-        last_30d = 'LAST_30D'
-        last_3d = 'LAST_3D'
-        last_7d = 'LAST_7D'
-        last_90d = 'LAST_90D'
-        last_month = 'LAST_MONTH'
-        last_quarter = 'LAST_QUARTER'
-        last_week_mon_sun = 'LAST_WEEK_MON_SUN'
-        last_week_sun_sat = 'LAST_WEEK_SUN_SAT'
-        last_year = 'LAST_YEAR'
-        lifetime = 'LIFETIME'
-        this_month = 'THIS_MONTH'
-        this_quarter = 'THIS_QUARTER'
-        this_week_mon_today = 'THIS_WEEK_MON_TODAY'
-        this_week_sun_today = 'THIS_WEEK_SUN_TODAY'
-        this_year = 'THIS_YEAR'
-        today = 'TODAY'
-        yesterday = 'YESTERDAY'
+        last_14d = 'last_14d'
+        last_28d = 'last_28d'
+        last_30d = 'last_30d'
+        last_3d = 'last_3d'
+        last_7d = 'last_7d'
+        last_90d = 'last_90d'
+        last_month = 'last_month'
+        last_quarter = 'last_quarter'
+        last_week_mon_sun = 'last_week_mon_sun'
+        last_week_sun_sat = 'last_week_sun_sat'
+        last_year = 'last_year'
+        lifetime = 'lifetime'
+        this_month = 'this_month'
+        this_quarter = 'this_quarter'
+        this_week_mon_today = 'this_week_mon_today'
+        this_week_sun_today = 'this_week_sun_today'
+        this_year = 'this_year'
+        today = 'today'
+        yesterday = 'yesterday'
 
     class DestinationType:
         app = 'APP'
@@ -500,6 +500,72 @@ class AdSet(
             target_class=AdCreative,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=AdCreative, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def delete_ad_labels(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'adlabels': 'list<Object>',
+            'execution_options': 'list<execution_options_enum>',
+        }
+        enums = {
+            'execution_options_enum': AdSet.ExecutionOptions.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='DELETE',
+            endpoint='/adlabels',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_ad_label(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'adlabels': 'list<Object>',
+            'execution_options': 'list<execution_options_enum>',
+        }
+        enums = {
+            'execution_options_enum': AdSet.ExecutionOptions.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/adlabels',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdSet,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdSet, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -862,6 +928,11 @@ class AdSet(
             'level_enum': AdsInsights.Level.__dict__.values(),
             'summary_action_breakdowns_enum': AdsInsights.SummaryActionBreakdowns.__dict__.values(),
         }
+
+        if fields is not None:
+            params['fields'] = params.get('fields') if params.get('fields') is not None else list()
+            params['fields'].extend(fields)
+
         request = FacebookRequest(
             node_id=self['id'],
             method='POST',
@@ -874,73 +945,6 @@ class AdSet(
             include_summary=False,
         )
         request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def delete_labels(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'adlabels': 'list<Object>',
-            'execution_options': 'list<execution_options_enum>',
-        }
-        enums = {
-            'execution_options_enum': AdSet.ExecutionOptions.__dict__.values(),
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='DELETE',
-            endpoint='/labels',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_label(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'adlabels': 'list<Object>',
-            'execution_options': 'list<execution_options_enum>',
-        }
-        enums = {
-            'execution_options_enum': AdSet.ExecutionOptions.__dict__.values(),
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/labels',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AdSet,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdSet, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
 
         if batch is not None:
             request.add_to_batch(batch, success=success, failure=failure)

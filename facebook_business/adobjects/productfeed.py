@@ -58,7 +58,6 @@ class ProductFeed(
         update_schedule = 'update_schedule'
         feed_type = 'feed_type'
         rules = 'rules'
-        upload_schedule = 'upload_schedule'
 
     class Delimiter:
         autodetect = 'AUTODETECT'
@@ -100,6 +99,8 @@ class ProductFeed(
         catalog_segment_customize_default = 'CATALOG_SEGMENT_CUSTOMIZE_DEFAULT'
         country = 'COUNTRY'
         language = 'LANGUAGE'
+        language_and_country = 'LANGUAGE_AND_COUNTRY'
+        local = 'LOCAL'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
@@ -184,7 +185,6 @@ class ProductFeed(
             'quoted_fields_mode': 'quoted_fields_mode_enum',
             'schedule': 'string',
             'update_schedule': 'string',
-            'upload_schedule': 'string',
         }
         enums = {
             'delimiter_enum': ProductFeed.Delimiter.__dict__.values(),
@@ -477,6 +477,68 @@ class ProductFeed(
             self.assure_call()
             return request.execute()
 
+    def get_upload_schedules(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.productfeedschedule import ProductFeedSchedule
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/upload_schedules',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ProductFeedSchedule,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ProductFeedSchedule, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_upload_schedule(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'upload_schedule': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/upload_schedules',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ProductFeed,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ProductFeed, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_uploads(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -514,6 +576,7 @@ class ProductFeed(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.productfeedupload import ProductFeedUpload
         param_types = {
+            'fbe_external_business_id': 'string',
             'file': 'file',
             'password': 'string',
             'update_only': 'bool',
@@ -531,6 +594,39 @@ class ProductFeed(
             target_class=ProductFeedUpload,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=ProductFeedUpload, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_vehicle_offers(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.vehicleoffer import VehicleOffer
+        param_types = {
+            'bulk_pagination': 'bool',
+            'filter': 'Object',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/vehicle_offers',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=VehicleOffer,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=VehicleOffer, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -595,7 +691,6 @@ class ProductFeed(
         'update_schedule': 'ProductFeedSchedule',
         'feed_type': 'FeedType',
         'rules': 'list<string>',
-        'upload_schedule': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

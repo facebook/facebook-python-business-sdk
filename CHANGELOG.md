@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+## v5.0.3
+
+  - Strongly typed Server-Side API support for python (https://developers.facebook.com/docs/marketing-api/facebook-pixel/server-side-api)
+  - Pull request 554 (`get_insights_async()`) resolved
+
+## v5.0.1
+
+### Added
+  - Added `CrashRepoter`, more context available [here](https://developers.facebook.com/docs/business-sdk/guides/crash-reports)
+
+## v5.0.0
+### Changed
+- Graph API call upgrade to [v5.0](https://developers.facebook.com/docs/graph-api/changelog/version5.0)
+
 ## v4.0.6
 
 ### Fixed
@@ -27,7 +41,7 @@ All notable changes to this project will be documented in this file.
 
 ## v3.3.2
 ### Changed
-- Remove list of API call from Business SDK, any [these APIs](https://developers.facebook.com/docs/graph-api/changelog/4-30-2019-endpoint-deprecations) included in Business SDK will be deprecated.   
+- Remove list of API call from Business SDK, any [these APIs](https://developers.facebook.com/docs/graph-api/changelog/4-30-2019-endpoint-deprecations) included in Business SDK will be deprecated.
 
 ## v3.3.0
 ### Changed
@@ -35,4 +49,5 @@ All notable changes to this project will be documented in this file.
 ### Deprecated
 - `parent_id` in `AbstractCrudObject`.
 - Function `remote_create`, `remote_read`, `remote_update` and `remote_delete` for `AbstractCrudObject`. Check out our [recommended way](https://github.com/facebook/facebook-python-business-sdk#exploring-the-graph) to make API call with python SDK.
+
 

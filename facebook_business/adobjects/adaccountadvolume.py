@@ -39,19 +39,13 @@ class AdAccountAdVolume(
 
     class Field(AbstractObject.Field):
         actor_id = 'actor_id'
-        has_hit_total_live_ads_limit = 'has_hit_total_live_ads_limit'
-        live_ads_quota_left = 'live_ads_quota_left'
-        total_live_ads = 'total_live_ads'
-        total_live_ads_in_current_account = 'total_live_ads_in_current_account'
-        total_live_ads_limit = 'total_live_ads_limit'
+        ads_running_or_in_review_count = 'ads_running_or_in_review_count'
+        current_account_ads_running_or_in_review_count = 'current_account_ads_running_or_in_review_count'
 
     _field_types = {
         'actor_id': 'string',
-        'has_hit_total_live_ads_limit': 'bool',
-        'live_ads_quota_left': 'int',
-        'total_live_ads': 'unsigned int',
-        'total_live_ads_in_current_account': 'unsigned int',
-        'total_live_ads_limit': 'unsigned int',
+        'ads_running_or_in_review_count': 'unsigned int',
+        'current_account_ads_running_or_in_review_count': 'unsigned int',
     }
     @classmethod
     def _get_field_enum_info(cls):

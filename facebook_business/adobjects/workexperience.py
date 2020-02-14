@@ -32,21 +32,25 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class PartnerCouponOffer(
+class WorkExperience(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isPartnerCouponOffer = True
-        super(PartnerCouponOffer, self).__init__(fbid, parent_id, api)
+        self._isWorkExperience = True
+        super(WorkExperience, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        claim_by = 'claim_by'
-        currency = 'currency'
-        expiration_days = 'expiration_days'
+        description = 'description'
+        employer = 'employer'
+        end_date = 'end_date'
+        field_from = 'from'
         id = 'id'
-        minimum_spend = 'minimum_spend'
-        offer_amount = 'offer_amount'
+        location = 'location'
+        position = 'position'
+        projects = 'projects'
+        start_date = 'start_date'
+        field_with = 'with'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -62,7 +66,7 @@ class PartnerCouponOffer(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=PartnerCouponOffer,
+            target_class=WorkExperience,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -79,12 +83,16 @@ class PartnerCouponOffer(
             return request.execute()
 
     _field_types = {
-        'claim_by': 'datetime',
-        'currency': 'string',
-        'expiration_days': 'int',
+        'description': 'string',
+        'employer': 'Page',
+        'end_date': 'string',
+        'from': 'User',
         'id': 'string',
-        'minimum_spend': 'int',
-        'offer_amount': 'int',
+        'location': 'Page',
+        'position': 'Page',
+        'projects': 'list<Object>',
+        'start_date': 'string',
+        'with': 'list<User>',
     }
     @classmethod
     def _get_field_enum_info(cls):

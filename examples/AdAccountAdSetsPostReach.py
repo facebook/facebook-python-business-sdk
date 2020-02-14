@@ -37,7 +37,7 @@ params = {
   'bid_amount': '2',
   'daily_budget': '1000',
   'campaign_id': '<adCampaignLinkClicksID>',
-  'targeting': {'excluded_geo_locations':{'regions':[{'key':'3847'}]},'geo_locations':{'countries':['US']}},
+  'targeting': {'excluded_geo_locations':{'regions':[{'key':'3847'}]},'geo_locations':{'countries':['US']},'facebook_positions':['feed']},
   'status': 'PAUSED',
   'promoted_object': {'page_id':'<pageID>'},
 }

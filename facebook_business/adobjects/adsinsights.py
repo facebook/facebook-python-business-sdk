@@ -102,7 +102,6 @@ class AdsInsights(
         conversion_rate_ranking = 'conversion_rate_ranking'
         conversion_values = 'conversion_values'
         conversions = 'conversions'
-        cost_per_10_sec_video_view = 'cost_per_10_sec_video_view'
         cost_per_15_sec_video_view = 'cost_per_15_sec_video_view'
         cost_per_2_sec_continuous_video_view = 'cost_per_2_sec_continuous_video_view'
         cost_per_action_result = 'cost_per_action_result'
@@ -214,12 +213,10 @@ class AdsInsights(
         quality_ranking = 'quality_ranking'
         quality_score_ectr = 'quality_score_ectr'
         quality_score_ecvr = 'quality_score_ecvr'
-        quality_score_enfbr = 'quality_score_enfbr'
         quality_score_organic = 'quality_score_organic'
         reach = 'reach'
         recurring_subscription_payment_actions = 'recurring_subscription_payment_actions'
         region = 'region'
-        relevance_score = 'relevance_score'
         rule_asset = 'rule_asset'
         schedule_actions = 'schedule_actions'
         schedule_value = 'schedule_value'
@@ -248,10 +245,8 @@ class AdsInsights(
         unique_outbound_clicks = 'unique_outbound_clicks'
         unique_outbound_clicks_ctr = 'unique_outbound_clicks_ctr'
         unique_video_continuous_2_sec_watched_actions = 'unique_video_continuous_2_sec_watched_actions'
-        unique_video_view_10_sec = 'unique_video_view_10_sec'
         unique_video_view_15_sec = 'unique_video_view_15_sec'
         updated_time = 'updated_time'
-        video_10_sec_watched_actions = 'video_10_sec_watched_actions'
         video_15_sec_watched_actions = 'video_15_sec_watched_actions'
         video_30_sec_watched_actions = 'video_30_sec_watched_actions'
         video_asset = 'video_asset'
@@ -289,7 +284,6 @@ class AdsInsights(
         action_canvas_component_name = 'action_canvas_component_name'
         action_carousel_card_id = 'action_carousel_card_id'
         action_carousel_card_name = 'action_carousel_card_name'
-        action_converted_product_id = 'action_converted_product_id'
         action_destination = 'action_destination'
         action_device = 'action_device'
         action_reaction = 'action_reaction'
@@ -357,7 +351,6 @@ class AdsInsights(
         action_canvas_component_name = 'action_canvas_component_name'
         action_carousel_card_id = 'action_carousel_card_id'
         action_carousel_card_name = 'action_carousel_card_name'
-        action_converted_product_id = 'action_converted_product_id'
         action_destination = 'action_destination'
         action_device = 'action_device'
         action_reaction = 'action_reaction'
@@ -434,7 +427,6 @@ class AdsInsights(
         'conversion_rate_ranking': 'string',
         'conversion_values': 'list<AdsActionStats>',
         'conversions': 'list<AdsActionStats>',
-        'cost_per_10_sec_video_view': 'list<AdsActionStats>',
         'cost_per_15_sec_video_view': 'list<AdsActionStats>',
         'cost_per_2_sec_continuous_video_view': 'list<AdsActionStats>',
         'cost_per_action_result': 'AdsActionStats',
@@ -546,12 +538,10 @@ class AdsInsights(
         'quality_ranking': 'string',
         'quality_score_ectr': 'string',
         'quality_score_ecvr': 'string',
-        'quality_score_enfbr': 'string',
         'quality_score_organic': 'string',
         'reach': 'string',
         'recurring_subscription_payment_actions': 'list<AdsActionStats>',
         'region': 'string',
-        'relevance_score': 'AdgroupRelevanceScore',
         'rule_asset': 'Object',
         'schedule_actions': 'list<AdsActionStats>',
         'schedule_value': 'list<AdsActionStats>',
@@ -580,10 +570,8 @@ class AdsInsights(
         'unique_outbound_clicks': 'list<AdsActionStats>',
         'unique_outbound_clicks_ctr': 'list<AdsActionStats>',
         'unique_video_continuous_2_sec_watched_actions': 'list<AdsActionStats>',
-        'unique_video_view_10_sec': 'list<AdsActionStats>',
         'unique_video_view_15_sec': 'list<AdsActionStats>',
         'updated_time': 'string',
-        'video_10_sec_watched_actions': 'list<AdsActionStats>',
         'video_15_sec_watched_actions': 'list<AdsActionStats>',
         'video_30_sec_watched_actions': 'list<AdsActionStats>',
         'video_asset': 'Object',

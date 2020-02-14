@@ -188,9 +188,15 @@ class BusinessImage(
         }
         enums = {
             'breakdowns_enum': [
+                'ad_id',
                 'age',
                 'country',
+                'device_platform',
                 'gender',
+                'objective',
+                'optimization_goal',
+                'platform_position',
+                'publisher_platform',
             ],
         }
         request = FacebookRequest(

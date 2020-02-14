@@ -32,50 +32,23 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdTopline(
+class AudienceInsightsRule(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isAdTopline = True
-        super(AdTopline, self).__init__(fbid, parent_id, api)
+        self._isAudienceInsightsRule = True
+        super(AudienceInsightsRule, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        account_id = 'account_id'
-        client_approval_date = 'client_approval_date'
+        archived = 'archived'
+        can_be_updated = 'can_be_updated'
         created_by = 'created_by'
-        created_date = 'created_date'
+        creation_time = 'creation_time'
         description = 'description'
-        flight_end_date = 'flight_end_date'
-        flight_start_date = 'flight_start_date'
-        func_cap_amount = 'func_cap_amount'
-        func_cap_amount_with_offset = 'func_cap_amount_with_offset'
-        func_line_amount = 'func_line_amount'
-        func_line_amount_with_offset = 'func_line_amount_with_offset'
-        func_price = 'func_price'
-        func_price_with_offset = 'func_price_with_offset'
-        gender = 'gender'
         id = 'id'
-        impressions = 'impressions'
-        io_number = 'io_number'
-        is_bonus_line = 'is_bonus_line'
-        keywords = 'keywords'
-        last_updated_by = 'last_updated_by'
-        last_updated_date = 'last_updated_date'
-        line_number = 'line_number'
-        line_position = 'line_position'
-        line_type = 'line_type'
-        location = 'location'
-        max_age = 'max_age'
-        max_budget = 'max_budget'
-        min_age = 'min_age'
-        price_per_trp = 'price_per_trp'
-        product_type = 'product_type'
-        rev_assurance_approval_date = 'rev_assurance_approval_date'
-        targets = 'targets'
-        trp_updated_time = 'trp_updated_time'
-        trp_value = 'trp_value'
-        uom = 'uom'
+        name = 'name'
+        studies = 'studies'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -91,7 +64,7 @@ class AdTopline(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AdTopline,
+            target_class=AudienceInsightsRule,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -108,41 +81,14 @@ class AdTopline(
             return request.execute()
 
     _field_types = {
-        'account_id': 'string',
-        'client_approval_date': 'datetime',
-        'created_by': 'string',
-        'created_date': 'datetime',
+        'archived': 'bool',
+        'can_be_updated': 'bool',
+        'created_by': 'User',
+        'creation_time': 'datetime',
         'description': 'string',
-        'flight_end_date': 'datetime',
-        'flight_start_date': 'datetime',
-        'func_cap_amount': 'string',
-        'func_cap_amount_with_offset': 'string',
-        'func_line_amount': 'string',
-        'func_line_amount_with_offset': 'string',
-        'func_price': 'string',
-        'func_price_with_offset': 'string',
-        'gender': 'string',
         'id': 'string',
-        'impressions': 'int',
-        'io_number': 'int',
-        'is_bonus_line': 'int',
-        'keywords': 'string',
-        'last_updated_by': 'string',
-        'last_updated_date': 'datetime',
-        'line_number': 'int',
-        'line_position': 'int',
-        'line_type': 'string',
-        'location': 'string',
-        'max_age': 'string',
-        'max_budget': 'string',
-        'min_age': 'string',
-        'price_per_trp': 'string',
-        'product_type': 'string',
-        'rev_assurance_approval_date': 'datetime',
-        'targets': 'string',
-        'trp_updated_time': 'int',
-        'trp_value': 'string',
-        'uom': 'string',
+        'name': 'string',
+        'studies': 'list<Object>',
     }
     @classmethod
     def _get_field_enum_info(cls):

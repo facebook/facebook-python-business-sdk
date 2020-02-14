@@ -43,9 +43,7 @@ class WhatsAppBusinessAccount(
     class Field(AbstractObject.Field):
         analytics = 'analytics'
         currency = 'currency'
-        eligible_for_sending_notifications = 'eligible_for_sending_notifications'
         id = 'id'
-        ineligible_for_sending_notifications_reason = 'ineligible_for_sending_notifications_reason'
         message_template_namespace = 'message_template_namespace'
         name = 'name'
         on_behalf_of_business_info = 'on_behalf_of_business_info'
@@ -57,6 +55,7 @@ class WhatsAppBusinessAccount(
         account_update = 'ACCOUNT_UPDATE'
         alert_update = 'ALERT_UPDATE'
         appointment_update = 'APPOINTMENT_UPDATE'
+        auto_reply = 'AUTO_REPLY'
         issue_resolution = 'ISSUE_RESOLUTION'
         payment_update = 'PAYMENT_UPDATE'
         personal_finance_update = 'PERSONAL_FINANCE_UPDATE'
@@ -175,6 +174,7 @@ class WhatsAppBusinessAccount(
             'status_enum': [
                 'APPROVED',
                 'DELETED',
+                'DISABLED',
                 'PENDING',
                 'PENDING_DELETION',
                 'REJECTED',
@@ -270,9 +270,7 @@ class WhatsAppBusinessAccount(
     _field_types = {
         'analytics': 'Object',
         'currency': 'string',
-        'eligible_for_sending_notifications': 'bool',
         'id': 'string',
-        'ineligible_for_sending_notifications_reason': 'string',
         'message_template_namespace': 'string',
         'name': 'string',
         'on_behalf_of_business_info': 'Object',

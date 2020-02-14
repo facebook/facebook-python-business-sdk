@@ -123,6 +123,7 @@ class AdActivity(
         update_campaign_group_spend_cap = 'update_campaign_group_spend_cap'
         update_campaign_name = 'update_campaign_name'
         update_campaign_run_status = 'update_campaign_run_status'
+        update_campaign_schedule = 'update_campaign_schedule'
 
     class Category:
         account = 'ACCOUNT'

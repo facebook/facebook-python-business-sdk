@@ -32,30 +32,46 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdToplineDetail(
+class VehicleOffer(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isAdToplineDetail = True
-        super(AdToplineDetail, self).__init__(fbid, parent_id, api)
+        self._isVehicleOffer = True
+        super(VehicleOffer, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        active_status = 'active_status'
-        ad_account_id = 'ad_account_id'
-        flight_end_date = 'flight_end_date'
-        flight_start_date = 'flight_start_date'
+        amount_currency = 'amount_currency'
+        amount_percentage = 'amount_percentage'
+        amount_price = 'amount_price'
+        amount_qualifier = 'amount_qualifier'
+        applinks = 'applinks'
+        body_style = 'body_style'
+        cashback_currency = 'cashback_currency'
+        cashback_price = 'cashback_price'
+        currency = 'currency'
+        dma_codes = 'dma_codes'
+        downpayment_currency = 'downpayment_currency'
+        downpayment_price = 'downpayment_price'
+        downpayment_qualifier = 'downpayment_qualifier'
+        end_date = 'end_date'
+        end_time = 'end_time'
         id = 'id'
-        io_number = 'io_number'
-        line_number = 'line_number'
+        images = 'images'
+        offer_description = 'offer_description'
+        offer_disclaimer = 'offer_disclaimer'
+        offer_type = 'offer_type'
         price = 'price'
-        quantity = 'quantity'
-        sf_detail_line_id = 'sf_detail_line_id'
-        subline_id = 'subline_id'
-        targets = 'targets'
-        time_created = 'time_created'
-        time_updated = 'time_updated'
-        topline_id = 'topline_id'
+        sanitized_images = 'sanitized_images'
+        start_date = 'start_date'
+        start_time = 'start_time'
+        term_length = 'term_length'
+        term_qualifier = 'term_qualifier'
+        title = 'title'
+        trim = 'trim'
+        url = 'url'
+        vehicle_offer_id = 'vehicle_offer_id'
+        year = 'year'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -71,7 +87,7 @@ class AdToplineDetail(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AdToplineDetail,
+            target_class=VehicleOffer,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -88,21 +104,37 @@ class AdToplineDetail(
             return request.execute()
 
     _field_types = {
-        'active_status': 'int',
-        'ad_account_id': 'string',
-        'flight_end_date': 'datetime',
-        'flight_start_date': 'datetime',
+        'amount_currency': 'string',
+        'amount_percentage': 'float',
+        'amount_price': 'string',
+        'amount_qualifier': 'string',
+        'applinks': 'AppLinks',
+        'body_style': 'string',
+        'cashback_currency': 'string',
+        'cashback_price': 'string',
+        'currency': 'string',
+        'dma_codes': 'list<string>',
+        'downpayment_currency': 'string',
+        'downpayment_price': 'string',
+        'downpayment_qualifier': 'string',
+        'end_date': 'string',
+        'end_time': 'int',
         'id': 'string',
-        'io_number': 'int',
-        'line_number': 'int',
-        'price': 'float',
-        'quantity': 'float',
-        'sf_detail_line_id': 'string',
-        'subline_id': 'string',
-        'targets': 'string',
-        'time_created': 'datetime',
-        'time_updated': 'datetime',
-        'topline_id': 'AdTopline',
+        'images': 'list<string>',
+        'offer_description': 'string',
+        'offer_disclaimer': 'string',
+        'offer_type': 'string',
+        'price': 'string',
+        'sanitized_images': 'list<string>',
+        'start_date': 'string',
+        'start_time': 'int',
+        'term_length': 'unsigned int',
+        'term_qualifier': 'string',
+        'title': 'string',
+        'trim': 'string',
+        'url': 'string',
+        'vehicle_offer_id': 'string',
+        'year': 'int',
     }
     @classmethod
     def _get_field_enum_info(cls):

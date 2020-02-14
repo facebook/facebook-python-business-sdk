@@ -149,10 +149,13 @@ class AdVideo(
         ad_placements_validation_only = 'ad_placements_validation_only'
         creative_folder_id = 'creative_folder_id'
         validation_ad_placements = 'validation_ad_placements'
+        is_explicit_share = 'is_explicit_share'
+        manual_privacy = 'manual_privacy'
         filename = 'filename'
         filepath = 'filepath'
 
     class ContainerType:
+        aco_video_variation = 'ACO_VIDEO_VARIATION'
         ad_break_preview = 'AD_BREAK_PREVIEW'
         ad_derivative = 'AD_DERIVATIVE'
         age_up = 'AGE_UP'
@@ -216,7 +219,9 @@ class AdVideo(
         live_linear_video_channel_internal_broadcast = 'LIVE_LINEAR_VIDEO_CHANNEL_INTERNAL_BROADCAST'
         live_photo = 'LIVE_PHOTO'
         look_now_deprecated = 'LOOK_NOW_DEPRECATED'
+        marketplace_listing_video = 'MARKETPLACE_LISTING_VIDEO'
         moments_video = 'MOMENTS_VIDEO'
+        neo_async_game_video = 'NEO_ASYNC_GAME_VIDEO'
         no_story = 'NO_STORY'
         oculus_creator_portal = 'OCULUS_CREATOR_PORTAL'
         oculus_venues_broadcast = 'OCULUS_VENUES_BROADCAST'
@@ -252,6 +257,7 @@ class AdVideo(
         unlisted = 'UNLISTED'
         video_comment = 'VIDEO_COMMENT'
         video_creative_editor_autogen_ad_video = 'VIDEO_CREATIVE_EDITOR_AUTOGEN_AD_VIDEO'
+        video_superres = 'VIDEO_SUPERRES'
         woodhenge = 'WOODHENGE'
         your_day = 'YOUR_DAY'
 
@@ -472,25 +478,86 @@ class AdVideo(
             self.assure_call()
             return request.execute()
 
-    def create_auto_trim(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def get_auto_generated_captions(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'auto_trim_type': 'string',
-            'target_id': 'unsigned int',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/auto_generated_captions',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_blocked_user(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'remove_block': 'bool',
+            'uid': 'Object',
         }
         enums = {
         }
         request = FacebookRequest(
             node_id=self['id'],
             method='POST',
-            endpoint='/auto_trims',
+            endpoint='/blocked_users',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
             target_class=AdVideo,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=AdVideo, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def delete_captions(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'locale': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='DELETE',
+            endpoint='/captions',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -668,6 +735,40 @@ class AdVideo(
             target_class=Page,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=Page, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def delete_likes(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'feedback_source': 'string',
+            'nectar_module': 'string',
+            'notify': 'bool',
+            'tracking': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='DELETE',
+            endpoint='/likes',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -973,38 +1074,6 @@ class AdVideo(
             self.assure_call()
             return request.execute()
 
-    def create_summarization(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'summarization_type': 'string',
-            'target_id': 'unsigned int',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/summarizations',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AdVideo,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdVideo, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def get_tags(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -1277,6 +1346,8 @@ class AdVideo(
         'ad_placements_validation_only': 'bool',
         'creative_folder_id': 'string',
         'validation_ad_placements': 'list<ValidationAdPlacements>',
+        'is_explicit_share': 'bool',
+        'manual_privacy': 'bool',
         'filename': 'file'
     }
     @classmethod

@@ -37,7 +37,7 @@ params = {
   'bid_amount': '2',
   'daily_budget': '1000',
   'campaign_id': '<adCampaignLinkClicksID>',
-  'targeting': {'device_platforms':['mobile'],'geo_locations':{'countries':['US']},'publisher_platforms':['facebook','audience_network']},
+  'targeting': {'device_platforms':['mobile'],'geo_locations':{'countries':['US']},'publisher_platforms':['facebook','audience_network'],'facebook_positions':['feed']},
 }
 print AdAccount(id).create_ad_set(
   fields=fields,

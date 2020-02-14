@@ -45,6 +45,7 @@ class PageUpcomingChange(
         effective_time = 'effective_time'
         id = 'id'
         page = 'page'
+        proposal = 'proposal'
         timer_status = 'timer_status'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
@@ -113,6 +114,7 @@ class PageUpcomingChange(
         'effective_time': 'datetime',
         'id': 'string',
         'page': 'Page',
+        'proposal': 'PageChangeProposal',
         'timer_status': 'string',
     }
     @classmethod

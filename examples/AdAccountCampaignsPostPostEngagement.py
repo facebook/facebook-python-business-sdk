@@ -31,6 +31,7 @@ FacebookAdsApi.init(access_token=access_token)
 fields = [
 ]
 params = {
+  'special_ad_category': 'NONE',
   'name': 'My First Campaign',
   'objective': 'POST_ENGAGEMENT',
   'status': 'PAUSED',

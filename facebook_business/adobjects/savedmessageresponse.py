@@ -48,6 +48,52 @@ class SavedMessageResponse(
         message = 'message'
         title = 'title'
 
+    class Category:
+        appointment_reminder = 'APPOINTMENT_REMINDER'
+        away_message = 'AWAY_MESSAGE'
+        follow_up = 'FOLLOW_UP'
+        instant_reply = 'INSTANT_REPLY'
+        job_application = 'JOB_APPLICATION'
+        messenger_code = 'MESSENGER_CODE'
+        referral = 'REFERRAL'
+        smart_reply_contact = 'SMART_REPLY_CONTACT'
+        smart_reply_hours = 'SMART_REPLY_HOURS'
+        smart_reply_location = 'SMART_REPLY_LOCATION'
+        smart_reply_negative_feedback = 'SMART_REPLY_NEGATIVE_FEEDBACK'
+        smart_reply_positive_feedback = 'SMART_REPLY_POSITIVE_FEEDBACK'
+        standard = 'STANDARD'
+        welcome_message = 'WELCOME_MESSAGE'
+
+    def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='DELETE',
+            endpoint='/',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -78,6 +124,71 @@ class SavedMessageResponse(
             self.assure_call()
             return request.execute()
 
+    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'image': 'string',
+            'message': 'string',
+            'remove_image': 'bool',
+            'title': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=SavedMessageResponse,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_macros(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.savedmessageresponsemacro import SavedMessageResponseMacro
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/macros',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=SavedMessageResponseMacro,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=SavedMessageResponseMacro, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     _field_types = {
         'category': 'string',
         'id': 'string',
@@ -89,6 +200,7 @@ class SavedMessageResponse(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['Category'] = SavedMessageResponse.Category.__dict__.values()
         return field_enum_info
 
 

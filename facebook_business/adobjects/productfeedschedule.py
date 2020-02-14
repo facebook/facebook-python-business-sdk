@@ -44,13 +44,13 @@ class ProductFeedSchedule(
         day_of_month = 'day_of_month'
         day_of_week = 'day_of_week'
         hour = 'hour'
+        id = 'id'
         interval = 'interval'
         interval_count = 'interval_count'
         minute = 'minute'
         timezone = 'timezone'
         url = 'url'
         username = 'username'
-        id = 'id'
 
     class DayOfWeek:
         friday = 'FRIDAY'
@@ -66,6 +66,36 @@ class ProductFeedSchedule(
         hourly = 'HOURLY'
         monthly = 'MONTHLY'
         weekly = 'WEEKLY'
+
+    def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='DELETE',
+            endpoint='/',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -97,17 +127,48 @@ class ProductFeedSchedule(
             self.assure_call()
             return request.execute()
 
+    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'upload_schedule': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ProductFeedSchedule,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     _field_types = {
         'day_of_month': 'unsigned int',
         'day_of_week': 'DayOfWeek',
         'hour': 'unsigned int',
+        'id': 'string',
         'interval': 'Interval',
         'interval_count': 'unsigned int',
         'minute': 'unsigned int',
         'timezone': 'string',
         'url': 'string',
         'username': 'string',
-        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

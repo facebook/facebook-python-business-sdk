@@ -592,6 +592,11 @@ class Ad(
             'level_enum': AdsInsights.Level.__dict__.values(),
             'summary_action_breakdowns_enum': AdsInsights.SummaryActionBreakdowns.__dict__.values(),
         }
+
+        if fields is not None:
+            params['fields'] = params.get('fields') if params.get('fields') is not None else list()
+            params['fields'].extend(fields)
+
         request = FacebookRequest(
             node_id=self['id'],
             method='POST',
@@ -604,39 +609,6 @@ class Ad(
             include_summary=False,
         )
         request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def get_keyword_stats(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.adkeywordstats import AdKeywordStats
-        param_types = {
-            'date': 'datetime',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/keywordstats',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AdKeywordStats,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdKeywordStats, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
 
         if batch is not None:
             request.add_to_batch(batch, success=success, failure=failure)
@@ -659,6 +631,40 @@ class Ad(
         request = FacebookRequest(
             node_id=self['id'],
             method='GET',
+            endpoint='/leads',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Lead,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Lead, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_lead(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.lead import Lead
+        param_types = {
+            'end_time': 'datetime',
+            'session_id': 'string',
+            'start_time': 'datetime',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
             endpoint='/leads',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
@@ -742,6 +748,36 @@ class Ad(
             target_class=TargetingSentenceLine,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=TargetingSentenceLine, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def delete_tracking_tag(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='DELETE',
+            endpoint='/trackingtag',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
