@@ -42,14 +42,15 @@ class CustomData(object):
         'predicted_ltv': 'float',
         'num_items': 'int',
         'status': 'str',
-        'search_string' : 'str'
+        'search_string' : 'str',
+        'custom_properties' : 'dict'
     }
 
     def __init__(self, value: float = None, currency: str = None, content_name: str = None,
                  content_category: str = None, content_ids: List[str] = None,
                  contents: List[Content] = None, content_type: str = None, order_id: str = None,
                  predicted_ltv: float = None, num_items: int = None,
-                 status: str = None, search_string: str = None):
+                 status: str = None, search_string: str = None, custom_properties: dict = {}):
         self._value = None
         self._currency = None
         self._content_name = None
@@ -62,6 +63,7 @@ class CustomData(object):
         self._num_items = None
         self._status = None
         self._search_string = None
+        self._custom_properties = None
         if value is not None:
             self.value = value
         if currency is not None:
@@ -86,6 +88,8 @@ class CustomData(object):
             self.status = status
         if search_string is not None:
             self.search_string = search_string
+        if custom_properties:
+            self.custom_properties = custom_properties
 
     @property
     def value(self):
@@ -108,7 +112,7 @@ class CustomData(object):
         :type: float
         """
         if not isinstance(value, float):
-            raise TypeError('CustomData.value must be a float')
+            raise TypeError('CustomData.value must be a float value')
         self._value = value
 
     @property
@@ -301,7 +305,7 @@ class CustomData(object):
         :type: float
         """
         if not isinstance(predicted_ltv, float):
-            raise TypeError('CustomData.predicted_ltv must be a float')
+            raise TypeError('CustomData.predicted_ltv must be a float value')
         self._predicted_ltv = predicted_ltv
 
     @property
@@ -369,7 +373,40 @@ class CustomData(object):
         :type: str
         """
 
-        self._search_string = search_string
+        self._search_string = search_string  
+
+    @property
+    def custom_properties(self):
+        """Gets the custom properties to be included in the Custom Data.
+
+        :return: The custom properties dictionary.
+        :rtype: dict
+        """
+        return self._custom_properties
+
+    @custom_properties.setter
+    def custom_properties(self, custom_properties: dict):
+        """Sets the custom properties to be included in the Custom Data.
+
+        These are properties that are not defined in the standard list of the custom data.
+
+        :param custom_properties: The custom properties dictionary.
+        :type: dict
+        """
+
+        self._custom_properties = custom_properties        
+    
+    def add_custom_property(self, key, value):
+
+        """Adds the custom property (key, value) to the custom property bag.
+
+        :param key: The Key for the property to be added.
+        :type: str
+        :param value: The Value for the property to be added.
+        :type: str
+        """
+        
+        self.custom_properties[key] = value         
 
     def normalize(self):
         normalized_payload = {
@@ -392,7 +429,14 @@ class CustomData(object):
                     contents.append(content.normalize())
 
             normalized_payload['contents'] = contents
-
+        
+        # Append the custom_properties to the custom_data normalized payload.
+        if self.custom_properties:
+            for key in self.custom_properties:                
+                if key in normalized_payload.keys(): 
+                    raise Exception('Duplicate key in custom_properties:"' + key + '". Please make sure the keys defined in the custom_properties are not already available in standard custom_data property list.')
+                normalized_payload[key] = self.custom_properties[key]        
+            
         normalized_payload: dict = {k: v for k, v in normalized_payload.items() if v is not None}
         return normalized_payload
 

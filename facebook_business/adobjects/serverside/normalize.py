@@ -128,9 +128,9 @@ class Normalize(object):
             return None
 
         # International Phone number with country calling code.
-        internation_number_regex = re.compile(r'^\d{1,4}\(?\d{2,3}\)?\d{4,}$')
+        international_number_regex = re.compile(r'^\d{1,4}\(?\d{2,3}\)?\d{4,}$')
 
-        return internation_number_regex.match(phone_number).group()
+        return international_number_regex.match(phone_number).group()
 
     """
     Checks if the given country code is present in the ISO list
