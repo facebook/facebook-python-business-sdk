@@ -1,6 +1,11 @@
 language: python
 matrix:
   include:
+    deploy:
+      provider: script
+      script: bash .travis/deploy.sh $TRAVIS_TAG
+      on:
+        all_branches: true
     - python: 2.7
       env:
         - TOX_ENV=py27
@@ -18,12 +23,8 @@ matrix:
         - TOX_ENV=py37
       dist: xenial
       sudo: true
+
 install:
   - pip install tox 
 script:
   - tox -e $TOX_ENV
-deploy:
-  provider: script
-  script: bash .travis/deploy.sh $TRAVIS_TAG
-  on:
-    branch: develop
