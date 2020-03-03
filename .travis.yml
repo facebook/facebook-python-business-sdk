@@ -1,11 +1,6 @@
 language: python
 matrix:
   include:
-    deploy:
-      provider: script
-      script: bash .travis/deploy.sh $TRAVIS_TAG
-      on:
-        all_branches: true
     - python: 2.7
       env:
         - TOX_ENV=py27
@@ -28,3 +23,10 @@ install:
   - pip install tox 
 script:
   - tox -e $TOX_ENV
+before_deploy: "Before deploy'"
+deploy:
+  provider: script
+  script: bash .travis/deploy.sh $TRAVIS_TAG
+  on:
+    all_branches: true
+after_deploy: "echo 'After deploy'"
