@@ -1,2 +1,2 @@
 echo 'test deploy...'
-echo $1
+python setup.py sdist bdist_wheel
