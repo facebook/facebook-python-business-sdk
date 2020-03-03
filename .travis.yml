@@ -1,24 +1,36 @@
 language: python
 matrix:
   include:
-    - python: 2.7
-      env:
-        - TOX_ENV=py27
-    - python: 3.4
-      env:
-        - TOX_ENV=py34
-    - python: 3.5
-      env:
-        - TOX_ENV=py35
-    - python: 3.6
-      env:
-        - TOX_ENV=py36
-    - python: 3.7
-      env:
-        - TOX_ENV=py37
-      dist: xenial
-      sudo: true
+  - python: 2.7
+    env:
+    - TOX_ENV=py27
+  - python: 3.4
+    env:
+    - TOX_ENV=py34
+  - python: 3.5
+    env:
+    - TOX_ENV=py35
+  - python: 3.6
+    env:
+    - TOX_ENV=py36
+  - python: 3.7
+    env:
+    - TOX_ENV=py37
+    dist: xenial
+    sudo: true
 install:
-  - pip install tox 
+- pip install tox
 script:
-  - tox -e $TOX_ENV
+- tox -e $TOX_ENV
+
+deploy:
+  provider: pypi
+  user: ellentao
+  password:
+    secure: gw47bgeFg8D1a05ml0R02QVsb4hSpgoX59axJhj28/Wm6ZweucFVCS1Hhkq7fQb854m3jXUfNxW8vtPNxNLazPOJT5AJjtIWHHxYD8WjwRyLMy8kZdiQf3UdE9DKGQlmKR7u4kUtoOWOih10ysEPBq3QT4P1wQqy8fDA/CgyuvU=
+  on:
+    tags: true
+    distributions: sdist bdist_wheel
+    repo: facebook/facebook-python-business-sdk
+    python: 3.7
+    env: TOX_ENV=py37
