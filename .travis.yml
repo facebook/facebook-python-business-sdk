@@ -30,5 +30,5 @@ deploy:
   skip_cleanup: true
   on:
     all_branches: true
-    env: TOX_ENV=py37
+    condition: TOX_ENV=py37
 
