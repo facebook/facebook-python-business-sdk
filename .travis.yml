@@ -22,12 +22,18 @@ install:
 - pip install tox
 script:
 - tox -e $TOX_ENV
-deploy:
-  provider: pypi
-  user: ellentao
-  password:
-    secure: gw47bgeFg8D1a05ml0R02QVsb4hSpgoX59axJhj28/Wm6ZweucFVCS1Hhkq7fQb854m3jXUfNxW8vtPNxNLazPOJT5AJjtIWHHxYD8WjwRyLMy8kZdiQf3UdE9DKGQlmKR7u4kUtoOWOih10ysEPBq3QT4P1wQqy8fDA/CgyuvU=
-  on:
-    tags: true
-    distributions: sdist bdist_wheel
-    repo: facebook/facebook-python-business-sdk
+
+jobs:
+  include:
+    - stage: deploy
+      deploy:
+        provider: pypi
+        user: ellentao
+        password:
+          secure: gw47bgeFg8D1a05ml0R02QVsb4hSpgoX59axJhj28/Wm6ZweucFVCS1Hhkq7fQb854m3jXUfNxW8vtPNxNLazPOJT5AJjtIWHHxYD8WjwRyLMy8kZdiQf3UdE9DKGQlmKR7u4kUtoOWOih10ysEPBq3QT4P1wQqy8fDA/CgyuvU=
+        on:
+          tags: true
+          distributions: sdist bdist_wheel
+          repo: facebook/facebook-python-business-sdk
+          rvm: 3.7
+          env: TOX_ENV=py37
