@@ -26,6 +26,7 @@ script:
 jobs:
   include:
     - stage: deploy
+      script: echo 'Deploy+++++++++++'
       deploy:
         provider: pypi
         user: ellentao
