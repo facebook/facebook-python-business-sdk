@@ -36,5 +36,5 @@ jobs:
           tags: true
           distributions: sdist bdist_wheel
           repo: facebook/facebook-python-business-sdk
-          rvm: 3.7
+          python: 3.7
           env: TOX_ENV=py37
