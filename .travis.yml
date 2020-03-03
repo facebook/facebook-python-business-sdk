@@ -23,7 +23,7 @@ install:
   - pip install tox 
 script:
   - tox -e $TOX_ENV
-before_deploy: "Before deploy'"
+before_deploy: "echo 'Before deploy'"
 deploy:
   provider: script
   script: bash .travis/deploy.sh $TRAVIS_TAG
