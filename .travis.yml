@@ -24,7 +24,7 @@ script:
   - tox -e $TOX_ENV
 deploy:
   provider: script
-  script: ./.travis/deploy.sh $TRAVIS_TAG
+  script: bash .travis/deploy.sh $TRAVIS_TAG
   on:
   #  tags: true
     all_branches: true
