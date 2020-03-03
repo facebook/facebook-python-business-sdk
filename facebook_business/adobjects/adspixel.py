@@ -135,7 +135,7 @@ class AdsPixel(
             'enable_automatic_matching': 'bool',
             'first_party_cookie_status': 'first_party_cookie_status_enum',
             'name': 'string',
-            'server_events_business_id': 'string',
+            'server_events_business_ids': 'list<string>',
         }
         enums = {
             'automatic_matching_fields_enum': AdsPixel.AutomaticMatchingFields.__dict__.values(),
@@ -298,9 +298,13 @@ class AdsPixel(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'data': 'list<string>',
+            'namespace_id': 'string',
             'partner_agent': 'string',
             'test_event_code': 'string',
             'trace': 'unsigned int',
+            'upload_id': 'string',
+            'upload_source': 'string',
+            'upload_tag': 'string',
         }
         enums = {
         }

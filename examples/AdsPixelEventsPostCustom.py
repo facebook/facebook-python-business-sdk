@@ -23,6 +23,7 @@ import time
 from facebook_business.adobjects.serverside.event import Event
 from facebook_business.adobjects.serverside.event_request import EventRequest
 from facebook_business.adobjects.serverside.user_data import UserData
+from facebook_business.adobjects.serverside.custom_data import CustomData
 from facebook_business.api import FacebookAdsApi
 
 access_token = '<ACCESS_TOKEN>'
@@ -36,10 +37,16 @@ user_data = UserData(
     fbp='fb.1.1558571054389.1098115397'
 )
 
+custom_data = CustomData(
+    currency='usd',
+    value=123.45
+)
+
 event = Event(
-    event_name='PageView',
+    event_name='Purchase',
     event_time=int(time.time()),
     user_data=user_data,
+    custom_data=custom_data,
 )
 
 events = [event]

@@ -57,7 +57,9 @@ class ProductFeed(
         schedule = 'schedule'
         update_schedule = 'update_schedule'
         feed_type = 'feed_type'
+        override_value = 'override_value'
         rules = 'rules'
+        whitelisted_properties = 'whitelisted_properties'
 
     class Delimiter:
         autodetect = 'AUTODETECT'
@@ -690,7 +692,9 @@ class ProductFeed(
         'schedule': 'ProductFeedSchedule',
         'update_schedule': 'ProductFeedSchedule',
         'feed_type': 'FeedType',
+        'override_value': 'string',
         'rules': 'list<string>',
+        'whitelisted_properties': 'list<string>',
     }
     @classmethod
     def _get_field_enum_info(cls):

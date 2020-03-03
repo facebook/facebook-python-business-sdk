@@ -188,6 +188,7 @@ class AdVideo(
         event_cover_video = 'EVENT_COVER_VIDEO'
         event_tour = 'EVENT_TOUR'
         facecast_dvr = 'FACECAST_DVR'
+        fb_shorts = 'FB_SHORTS'
         fundraiser_cover_video = 'FUNDRAISER_COVER_VIDEO'
         game_clip = 'GAME_CLIP'
         gaming_update_video = 'GAMING_UPDATE_VIDEO'

@@ -143,6 +143,7 @@ class WhatsAppBusinessAccount(
                 'APPROVED',
                 'DELETED',
                 'DISABLED',
+                'IN_APPEAL',
                 'PENDING',
                 'PENDING_DELETION',
                 'REJECTED',

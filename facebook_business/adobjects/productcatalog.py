@@ -64,6 +64,7 @@ class ProductCatalog(
         flights = 'flights'
         home_listings = 'home_listings'
         hotels = 'hotels'
+        offer_items = 'offer_items'
         offline_commerce = 'offline_commerce'
         ticketed_experiences = 'ticketed_experiences'
         transactable_items = 'transactable_items'
@@ -1214,10 +1215,12 @@ class ProductCatalog(
             'file_name': 'string',
             'name': 'string',
             'override_type': 'override_type_enum',
+            'override_value': 'string',
             'quoted_fields_mode': 'quoted_fields_mode_enum',
             'rules': 'list<string>',
             'schedule': 'string',
             'update_schedule': 'string',
+            'whitelisted_properties': 'list<string>',
         }
         enums = {
             'delimiter_enum': ProductFeed.Delimiter.__dict__.values(),

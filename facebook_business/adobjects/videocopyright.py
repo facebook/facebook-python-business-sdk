@@ -56,6 +56,7 @@ class VideoCopyright(
         reference_file_expired = 'reference_file_expired'
         reference_owner_id = 'reference_owner_id'
         rule_ids = 'rule_ids'
+        tags = 'tags'
         whitelisted_ids = 'whitelisted_ids'
 
     class ContentCategory:
@@ -157,6 +158,7 @@ class VideoCopyright(
         'reference_file_expired': 'bool',
         'reference_owner_id': 'string',
         'rule_ids': 'list<VideoCopyrightRule>',
+        'tags': 'list<string>',
         'whitelisted_ids': 'list<string>',
     }
     @classmethod

@@ -42,12 +42,6 @@ class ReachFrequencyActivity(
         campaign_active = 'campaign_active'
         campaign_started = 'campaign_started'
         creative_uploaded = 'creative_uploaded'
-        delivered_budget = 'delivered_budget'
-        delivered_daily_grp = 'delivered_daily_grp'
-        delivered_daily_impression = 'delivered_daily_impression'
-        delivered_impression = 'delivered_impression'
-        delivered_reach = 'delivered_reach'
-        delivered_total_impression = 'delivered_total_impression'
         io_approved = 'io_approved'
         sf_link = 'sf_link'
 
@@ -56,12 +50,6 @@ class ReachFrequencyActivity(
         'campaign_active': 'bool',
         'campaign_started': 'bool',
         'creative_uploaded': 'bool',
-        'delivered_budget': 'int',
-        'delivered_daily_grp': 'list<float>',
-        'delivered_daily_impression': 'list<float>',
-        'delivered_impression': 'unsigned int',
-        'delivered_reach': 'unsigned int',
-        'delivered_total_impression': 'unsigned int',
         'io_approved': 'bool',
         'sf_link': 'string',
     }

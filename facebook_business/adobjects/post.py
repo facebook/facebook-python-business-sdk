@@ -120,9 +120,6 @@ class Post(
         hidden = 'hidden'
         normal = 'normal'
 
-    class With:
-        location = 'LOCATION'
-
     def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -806,7 +803,6 @@ class Post(
         field_enum_info['BackdatedTimeGranularity'] = Post.BackdatedTimeGranularity.__dict__.values()
         field_enum_info['FeedStoryVisibility'] = Post.FeedStoryVisibility.__dict__.values()
         field_enum_info['TimelineVisibility'] = Post.TimelineVisibility.__dict__.values()
-        field_enum_info['With'] = Post.With.__dict__.values()
         return field_enum_info
 
 

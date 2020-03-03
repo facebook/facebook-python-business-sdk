@@ -110,7 +110,6 @@ class Page(
         is_verified = 'is_verified'
         is_webhooks_subscribed = 'is_webhooks_subscribed'
         keywords = 'keywords'
-        leadgen_form_preview_details = 'leadgen_form_preview_details'
         leadgen_tos_acceptance_time = 'leadgen_tos_acceptance_time'
         leadgen_tos_accepted = 'leadgen_tos_accepted'
         leadgen_tos_accepting_user = 'leadgen_tos_accepting_user'
@@ -167,6 +166,7 @@ class Page(
         store_location_descriptor = 'store_location_descriptor'
         store_number = 'store_number'
         studio = 'studio'
+        supports_donate_button_in_live_video = 'supports_donate_button_in_live_video'
         supports_instant_articles = 'supports_instant_articles'
         talking_about_count = 'talking_about_count'
         unread_message_count = 'unread_message_count'
@@ -258,6 +258,12 @@ class Page(
         platform_manage_pages = 'PLATFORM_MANAGE_PAGES'
         platform_pages_manage_instant_articles = 'PLATFORM_PAGES_MANAGE_INSTANT_ARTICLES'
         platform_read_insights = 'PLATFORM_READ_INSIGHTS'
+        profile_plus_advertise = 'PROFILE_PLUS_ADVERTISE'
+        profile_plus_analyze = 'PROFILE_PLUS_ANALYZE'
+        profile_plus_create_content = 'PROFILE_PLUS_CREATE_CONTENT'
+        profile_plus_manage = 'PROFILE_PLUS_MANAGE'
+        profile_plus_messaging = 'PROFILE_PLUS_MESSAGING'
+        profile_plus_moderate = 'PROFILE_PLUS_MODERATE'
         read_page_mailboxes = 'READ_PAGE_MAILBOXES'
         view_monetization_insights = 'VIEW_MONETIZATION_INSIGHTS'
 
@@ -275,6 +281,12 @@ class Page(
         platform_manage_pages = 'PLATFORM_MANAGE_PAGES'
         platform_pages_manage_instant_articles = 'PLATFORM_PAGES_MANAGE_INSTANT_ARTICLES'
         platform_read_insights = 'PLATFORM_READ_INSIGHTS'
+        profile_plus_advertise = 'PROFILE_PLUS_ADVERTISE'
+        profile_plus_analyze = 'PROFILE_PLUS_ANALYZE'
+        profile_plus_create_content = 'PROFILE_PLUS_CREATE_CONTENT'
+        profile_plus_manage = 'PROFILE_PLUS_MANAGE'
+        profile_plus_messaging = 'PROFILE_PLUS_MESSAGING'
+        profile_plus_moderate = 'PROFILE_PLUS_MODERATE'
         read_page_mailboxes = 'READ_PAGE_MAILBOXES'
         view_monetization_insights = 'VIEW_MONETIZATION_INSIGHTS'
 
@@ -294,8 +306,10 @@ class Page(
 
     class SenderAction:
         mark_seen = 'MARK_SEEN'
+        react = 'REACT'
         typing_off = 'TYPING_OFF'
         typing_on = 'TYPING_ON'
+        unreact = 'UNREACT'
 
     class Model:
         arabic = 'ARABIC'
@@ -4269,6 +4283,7 @@ class Page(
             'monitoring_type': 'monitoring_type_enum',
             'ownership_countries': 'list<string>',
             'rule_id': 'string',
+            'tags': 'list<string>',
             'whitelisted_ids': 'list<string>',
             'whitelisted_ig_user_ids': 'list<string>',
         }
@@ -4595,7 +4610,6 @@ class Page(
         'is_verified': 'bool',
         'is_webhooks_subscribed': 'bool',
         'keywords': 'Object',
-        'leadgen_form_preview_details': 'LeadGenFormPreviewDetails',
         'leadgen_tos_acceptance_time': 'datetime',
         'leadgen_tos_accepted': 'bool',
         'leadgen_tos_accepting_user': 'User',
@@ -4652,6 +4666,7 @@ class Page(
         'store_location_descriptor': 'string',
         'store_number': 'unsigned int',
         'studio': 'string',
+        'supports_donate_button_in_live_video': 'bool',
         'supports_instant_articles': 'bool',
         'talking_about_count': 'unsigned int',
         'unread_message_count': 'unsigned int',

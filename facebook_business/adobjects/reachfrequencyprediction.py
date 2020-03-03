@@ -74,7 +74,6 @@ class ReachFrequencyPrediction(
         external_reach = 'external_reach'
         feed_ratio_0000 = 'feed_ratio_0000'
         frequency_cap = 'frequency_cap'
-        frequency_distribution = 'frequency_distribution'
         frequency_distribution_map = 'frequency_distribution_map'
         frequency_distribution_map_agg = 'frequency_distribution_map_agg'
         grp_audience_size = 'grp_audience_size'
@@ -245,7 +244,6 @@ class ReachFrequencyPrediction(
         'external_reach': 'unsigned int',
         'feed_ratio_0000': 'unsigned int',
         'frequency_cap': 'unsigned int',
-        'frequency_distribution': 'list<float>',
         'frequency_distribution_map': 'map<unsigned int, list<float>>',
         'frequency_distribution_map_agg': 'map<unsigned int, list<unsigned int>>',
         'grp_audience_size': 'float',
