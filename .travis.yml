@@ -22,3 +22,9 @@ install:
   - pip install tox 
 script:
   - tox -e $TOX_ENV
+deploy:
+  provider: script
+  script: bash scripts/deploy.sh production $TRAVIS_TAG
+  on:
+    tags: true
+    all_branches: true
