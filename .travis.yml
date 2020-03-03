@@ -26,5 +26,4 @@ deploy:
   provider: script
   script: bash .travis/deploy.sh $TRAVIS_TAG
   on:
-  #  tags: true
     all_branches: true
