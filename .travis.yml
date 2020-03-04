@@ -34,4 +34,5 @@ deploy:
 env:
   global:
     secure: "PjHUixnHrQUr25yDV4/hTMy2odhO3WiXchkquVV0YTF3BPCtbBjELOMlYpm/OOeKkrg4AvPSLfw4qtbifud9NpdMsrijZ98jNTEYTy7J5egLlJTy1fCKxwiPf5mO2eoHmjQqZVetu/JzLcptCbj9bci/yNtNyM/lSSegLVHsO04="
-
+    # TEST
+    secure: "jPtnsJW3K7mySqVeD57UzPwHwz8ztL5+FL7kNKVbWxzHlljSZFXqoAzugMG04T8/PmhqKOLn4oBliBqo7pRklaMk1LYUmnoJzmJ9ld+cJtdCAejJhbyzNNHuIygnEZOUIF91Pi1Vioud47/DeeqJeMzeck8fJROWmqQlPurQxlA="
