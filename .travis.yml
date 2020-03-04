@@ -26,12 +26,12 @@ script:
 deploy:
   provider: pypi
   user: ellentao
+  distributions: sdist bdist_wheel
+  repo: facebook/facebook-python-business-sdk
   password:
     secure: "galrdmbUThJeH+oZvJUL4Kj9y94QndK6WXFwgETbKDgJkHQG2aCMBCtm7/sr4ilebL8tr5Ogize+y0ugOp+gMtCInhQu/5ZvCbR8a0xsbFx++ZoBGhyf5TtkP5ZpDltH92Kh4jcVd/UJl4Pd0vajTn9IkpzbO1ICwhTVfzxeolE="
   on:
+    all_branches: true 
     # tags: true
-    distributions: sdist bdist_wheel
-    all_branches: true
-    repo: facebook/facebook-python-business-sdk
     python: 3.7
     env: TOX_ENV=py37
