@@ -28,7 +28,7 @@ deploy:
   user: ellentao
   distributions: sdist bdist_wheel
   password:
-    secure: "NYYJ+rOwcuxL4FMe5/5kAKYo3Je6QtGA3tRatraaiyjwzEkgTK4Q8E+wYi2RT2u7LW6x+hoIxzmGFctB86s91b2oj9W9TMNZazmha/il3UbIy46TEchxF3/9WAM0el2ZNQpvQ8A3ttsJdMGusxfYSMOsMBGEbRYgJPBSewz36mM="
+    secure: "HrIPa6nOGZyBtX2gTSeDRR8Mcj1KzQ8bTI4qRoshOSxFcrMKAibBilaIQAgn8FjG8YQ9F9T1snLOPvXJhtzDOkpP0PzS4FVU4oOGVvVTnnlxTi/olT0Na432IcCMdeFlzOzqrF+p4uyDxgAxpoJTqYlTB8lqZRueSkL69WzC4JM="
   on:
     all_branches: true 
     repo: facebook/facebook-python-business-sdk
