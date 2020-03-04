@@ -33,5 +33,5 @@ deploy:
         env: TOX_ENV=py37
 env:
   global:
-    secure: AmJhbIOXBOINoqXyhJVeughHHSqqc13ms/v3xm2NGXh01epG16hckdpqW391YsZwAcmI18o25SD0RTZdFAmY9PtJO34cFPlA/2RmIvb+AqZJ7P/Mirv0lIkrnpMmivmDPblCO5hNkXdD+oUZp+Bk7Hkle2fydh1vTi3riPhyguM=
+    secure: "PjHUixnHrQUr25yDV4/hTMy2odhO3WiXchkquVV0YTF3BPCtbBjELOMlYpm/OOeKkrg4AvPSLfw4qtbifud9NpdMsrijZ98jNTEYTy7J5egLlJTy1fCKxwiPf5mO2eoHmjQqZVetu/JzLcptCbj9bci/yNtNyM/lSSegLVHsO04="
 
