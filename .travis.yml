@@ -27,9 +27,10 @@ deploy:
   provider: pypi
   user: ellentao
   password:
-    secure: gw47bgeFg8D1a05ml0R02QVsb4hSpgoX59axJhj28/Wm6ZweucFVCS1Hhkq7fQb854m3jXUfNxW8vtPNxNLazPOJT5AJjtIWHHxYD8WjwRyLMy8kZdiQf3UdE9DKGQlmKR7u4kUtoOWOih10ysEPBq3QT4P1wQqy8fDA/CgyuvU=
+    secure: aJDWP5EfNKhYlNvxk9mm50IVl0MECcf0VXXzafwErK+O+3hFKombRpHiTK5qlwylad08jB0QExMqEDjWXaCyL45OaEeHxshEyc32kLxHX3sGFLq99xTCq4/6khtpMW8cRM11r1PVz9WpkxbFy1Fvkpi3wH+eej3UAOLhtMbNimg=
   on:
     # tags: true
+    distributions: sdist bdist_wheel
     all_branches: true
     repo: facebook/facebook-python-business-sdk
     python: 3.7
