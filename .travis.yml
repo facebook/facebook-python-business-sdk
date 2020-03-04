@@ -29,7 +29,7 @@ deploy:
   distributions: sdist bdist_wheel
   # repo: facebook/facebook-python-business-sdk
   password:
-    secure: GpMb5Pr9Bh+8TaClZXN9QOitgjBAwmzlZhVG9cbYPTpVKFAO9SS+/ZPvb18Jl7ds/Jju4xWyEhjeXSMYIqiqKCLkMNlfm/UNFizMZfKeRaITNyeIoEe1ieGuqH2fdVoT4UE4o0WU6Q0KYF8vwR0FrnC/+9BEVgeziU91ySB7WeI=
+    secure: VZ4vocSufmh7xifDMIKwzZQlIgX+70JK3ks0Fa4nnuYWghqyqNI7UNEHa4Ij2AqU9s3ubiKdgmJyRzrnQVJ8OBCjp2WGeA/WW9FOgdEK/Eo2QiySiXZ6Lj/nQHNduDR+lKMzIWyH+ui6T36zCt546smkJHVHg1/YlG3cYk4E0Yw=
   on:
     all_branches: true 
     # tags: true
