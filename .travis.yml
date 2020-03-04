@@ -18,15 +18,17 @@ matrix:
         - TOX_ENV=py37
       dist: xenial
       sudo: true
-      deploy:
-      provider: script
-      script: bash .travis/deploy.sh 
-      skip_cleanup: true
-      on:
-        all_branches: true
+      
 install:
   - pip install tox 
 script:
   - tox -e $TOX_ENV
 
+deploy:
+      provider: script
+      script: bash .travis/deploy.sh 
+      on:
+        all_branches: true
+        python: 3.7
+        env: TOX_ENV=py37
 
