@@ -27,8 +27,7 @@ deploy:
   provider: pypi
   user: ellentao
   password:
-    secure: "kFqgTZvLaSbIbOJcmhQM8RMdefc+5SAH5J2fYGXvat2Tw6KVZXQhf9QAOG2lhHKAwDDXYsqsxGanngs27AtTVANHHi+eaf77VMFMIbO53y1imt95ZZ/TP3zAdMnf4ntKTTE1skcTE1az46jEwBqni4ONDm40lTol1dMfSzR8ZJ8="
-  on:
+    secure: "galrdmbUThJeH+oZvJUL4Kj9y94QndK6WXFwgETbKDgJkHQG2aCMBCtm7/sr4ilebL8tr5Ogize+y0ugOp+gMtCInhQu/5ZvCbR8a0xsbFx++ZoBGhyf5TtkP5ZpDltH92Kh4jcVd/UJl4Pd0vajTn9IkpzbO1ICwhTVfzxeolE="
     # tags: true
     distributions: sdist bdist_wheel
     all_branches: true
