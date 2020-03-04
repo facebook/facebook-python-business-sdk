@@ -1,4 +1,4 @@
-echo 'test deploy...'
+echo $PASSWORD
 python setup.py sdist bdist_wheel
 pip install twine wheel
 PROD_REPOSITORY="https://upload.pypi.org/legacy/"
