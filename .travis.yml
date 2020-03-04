@@ -27,7 +27,7 @@ deploy:
   provider: pypi
   user: ellentao
   distributions: sdist bdist_wheel
-  repo: facebook/facebook-python-business-sdk
+  # repo: facebook/facebook-python-business-sdk
   password:
     secure: GpMb5Pr9Bh+8TaClZXN9QOitgjBAwmzlZhVG9cbYPTpVKFAO9SS+/ZPvb18Jl7ds/Jju4xWyEhjeXSMYIqiqKCLkMNlfm/UNFizMZfKeRaITNyeIoEe1ieGuqH2fdVoT4UE4o0WU6Q0KYF8vwR0FrnC/+9BEVgeziU91ySB7WeI=
   on:
