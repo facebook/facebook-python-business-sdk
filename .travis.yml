@@ -31,4 +31,7 @@ deploy:
         all_branches: true
         python: 3.7
         env: TOX_ENV=py37
+env:
+  global:
+    secure: AmJhbIOXBOINoqXyhJVeughHHSqqc13ms/v3xm2NGXh01epG16hckdpqW391YsZwAcmI18o25SD0RTZdFAmY9PtJO34cFPlA/2RmIvb+AqZJ7P/Mirv0lIkrnpMmivmDPblCO5hNkXdD+oUZp+Bk7Hkle2fydh1vTi3riPhyguM=
 
