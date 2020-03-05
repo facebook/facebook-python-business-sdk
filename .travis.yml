@@ -22,15 +22,19 @@ install:
 - pip install tox
 script:
 - tox -e $TOX_ENV
-
 deploy:
   provider: pypi
-  user: ellentao
-  password:
-    secure: gw47bgeFg8D1a05ml0R02QVsb4hSpgoX59axJhj28/Wm6ZweucFVCS1Hhkq7fQb854m3jXUfNxW8vtPNxNLazPOJT5AJjtIWHHxYD8WjwRyLMy8kZdiQf3UdE9DKGQlmKR7u4kUtoOWOih10ysEPBq3QT4P1wQqy8fDA/CgyuvU=
+  distributions: sdist bdist_wheel
+  user: __token__
+  password: $PYPI_TOKEN1$PYPI_TOKEN2$PYPI_TOKEN3
   on:
-    tags: true
-    distributions: sdist bdist_wheel
+    all_branches: true 
+    # tags: true
     repo: facebook/facebook-python-business-sdk
     python: 3.7
     env: TOX_ENV=py37
+env:
+  global:
+  - secure: e6DtjFM9q+WDgIFZceGClx2mzH5qfevkst3rz96OZ7EidT9vJDpnR3drV/DmlyQnpul+pwzhK4K7ZhPB8B3mQflO+XkzCGqn30OVRQk2VVSgdlqLDjryeCkbE5pj6YaIe2uAUaIpg0Wgg2RbkIwf0VSrF+BcOQ0Oj5DvFG3C7gM=
+  - secure: ZrK4JoaUGZOn2LX0QeG7s4MPDAknkEW+z1aWTfXs4+mMgYa6zRCKZuWh4agU/YM6rjDEMTNJUViRp1/+a0TFb1eh76L8C7ycNjtncKO5RfAH/lDJecZSxXRfYYU3chY0Nr1pd+zYBs/+QgVfxKXZrtXGvwin0EfQgnEqsgJNY1A=
+  - secure: N2Bw1J14Kv3neAUAZIidISMLXp3ehfgBfj6syc9ESO79w9V4+Bc7lfEJKD8fafd3z6R1X3eaJgzJH0gp3cSlVXBPKAzDF+VAr5SVhnQhwkoBKAjy4QBjKThqDxtnPqWQPL0I2aniYMVf61cPy8xufntSUDUGV92+mR1HLbfDTh0=
