@@ -35,6 +35,6 @@ deploy:
     env: TOX_ENV=py37
 env:
   global:
-  - secure: e6DtjFM9q+WDgIFZceGClx2mzH5qfevkst3rz96OZ7EidT9vJDpnR3drV/DmlyQnpul+pwzhK4K7ZhPB8B3mQflO+XkzCGqn30OVRQk2VVSgdlqLDjryeCkbE5pj6YaIe2uAUaIpg0Wgg2RbkIwf0VSrF+BcOQ0Oj5DvFG3C7gM=
-  - secure: ZrK4JoaUGZOn2LX0QeG7s4MPDAknkEW+z1aWTfXs4+mMgYa6zRCKZuWh4agU/YM6rjDEMTNJUViRp1/+a0TFb1eh76L8C7ycNjtncKO5RfAH/lDJecZSxXRfYYU3chY0Nr1pd+zYBs/+QgVfxKXZrtXGvwin0EfQgnEqsgJNY1A=
+  - secure: "OHxLYGAhtAp3ZObi+T8wZdDZfmVhk117KzMLuZqf3Lj1BE5hCFIkajKPisLOhhqJybdojiSiPSTggXGXckD0vcwlw7T5gfchsgM9hmPr91FRXxXI/cEdyB7YYGd1+TxQbMPG2EJDEKxGhMIWF2+h+8e5U3t3DyzHRMfPiwEarvw="
+  - secure: "Xpk1FPmAU+SLQBYblu8LexX1xJ2ILnuVttvns8hNz4uzE9j38w4LGuyFJ3E8+T2uIp36qd8lL/oSwz/n2JHtlv/VbjVDz+NbC6V8bHcouYSg2TfeEdIEzoh9U6vILGvW8Nes7aYgZ8y8v8H0OxDB0jvVbcgSf3ziqk5dP6z6DnY="
   - secure: "O753kPqFLhQHzjpRcM/u1isV3vyF74qPKSz0zvLaIvvs6Rv2YgSWEC08ZfpKfFZwO+OZlnEqJjQXOPpt0btsGd3Jg3W60hDDo1+Ds4hDoQXa4x+3ui32XFT6YfPvywEnr9UfixgTeeIVyjWkND2lYAMRHC0aEZvqWyVhtMEGs0M="
