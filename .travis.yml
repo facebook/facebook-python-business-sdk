@@ -28,8 +28,8 @@ deploy:
   user: __token__
   password: $PYPI_TOKEN1$PYPI_TOKEN2$PYPI_TOKEN3
   on:
-    all_branches: true 
-    # tags: true
+    tags: true
+    skip_existing: true
     repo: facebook/facebook-python-business-sdk
     python: 3.7
     env: TOX_ENV=py37
