@@ -26,7 +26,7 @@ deploy:
   provider: pypi
   distributions: sdist bdist_wheel
   user: __token__
-  password: $PYPI_TOKEN1$PYPI_TOKEN2$PYPI_TOKEN3
+  password: ${PYPI_TOKEN1}${PYPI_TOKEN2}${PYPI_TOKEN3}
   on:
     all_branches: true 
     # tags: true
