@@ -169,6 +169,7 @@ class Page(
         supports_donate_button_in_live_video = 'supports_donate_button_in_live_video'
         supports_instant_articles = 'supports_instant_articles'
         talking_about_count = 'talking_about_count'
+        temporary_status = 'temporary_status'
         unread_message_count = 'unread_message_count'
         unread_notif_count = 'unread_notif_count'
         unseen_message_count = 'unseen_message_count'
@@ -244,9 +245,15 @@ class Page(
         vegetarian = 'Vegetarian'
         vietnamese = 'Vietnamese'
 
+    class TemporaryStatus:
+        differently_open = 'DIFFERENTLY_OPEN'
+        operating_as_usual = 'OPERATING_AS_USUAL'
+        temporarily_closed = 'TEMPORARILY_CLOSED'
+
     class PermittedTasks:
         advertise = 'ADVERTISE'
         analyze = 'ANALYZE'
+        cashier_role = 'CASHIER_ROLE'
         create_content = 'CREATE_CONTENT'
         manage = 'MANAGE'
         manage_jobs = 'MANAGE_JOBS'
@@ -270,6 +277,7 @@ class Page(
     class Tasks:
         advertise = 'ADVERTISE'
         analyze = 'ANALYZE'
+        cashier_role = 'CASHIER_ROLE'
         create_content = 'CREATE_CONTENT'
         manage = 'MANAGE'
         manage_jobs = 'MANAGE_JOBS'
@@ -520,6 +528,7 @@ class Page(
             'spherical_metadata': 'map',
             'start_info': 'Object',
             'store_location_descriptor': 'string',
+            'temporary_status': 'temporary_status_enum',
             'website': 'string',
             'zoom_scale_x': 'float',
             'zoom_scale_y': 'float',
@@ -527,6 +536,7 @@ class Page(
         enums = {
             'attire_enum': Page.Attire.__dict__.values(),
             'food_styles_enum': Page.FoodStyles.__dict__.values(),
+            'temporary_status_enum': Page.TemporaryStatus.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -4669,6 +4679,7 @@ class Page(
         'supports_donate_button_in_live_video': 'bool',
         'supports_instant_articles': 'bool',
         'talking_about_count': 'unsigned int',
+        'temporary_status': 'string',
         'unread_message_count': 'unsigned int',
         'unread_notif_count': 'unsigned int',
         'unseen_message_count': 'unsigned int',
@@ -4685,6 +4696,7 @@ class Page(
         field_enum_info = {}
         field_enum_info['Attire'] = Page.Attire.__dict__.values()
         field_enum_info['FoodStyles'] = Page.FoodStyles.__dict__.values()
+        field_enum_info['TemporaryStatus'] = Page.TemporaryStatus.__dict__.values()
         field_enum_info['PermittedTasks'] = Page.PermittedTasks.__dict__.values()
         field_enum_info['Tasks'] = Page.Tasks.__dict__.values()
         field_enum_info['PublishStatus'] = Page.PublishStatus.__dict__.values()

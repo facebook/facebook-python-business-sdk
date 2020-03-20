@@ -361,67 +361,6 @@ class User(
             self.assure_call()
             return request.execute()
 
-    def create_achievement(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'added': 'string',
-            'alias': 'string',
-            'android_key_hash': 'string',
-            'client_secret': 'string',
-            'created_time': 'datetime',
-            'end_time': 'datetime',
-            'expires_in': 'unsigned int',
-            'fb:channel': 'string',
-            'fb:explicitly_shared': 'bool',
-            'image:height': 'unsigned int',
-            'image:secure_url': 'string',
-            'image:type': 'string',
-            'image:url': 'string',
-            'image:user_generated': 'bool',
-            'image:width': 'unsigned int',
-            'ios_bundle_id': 'string',
-            'message': 'string',
-            'no_action_link': 'bool',
-            'no_feed_story': 'bool',
-            'notify': 'bool',
-            'place': 'string',
-            'preview': 'bool',
-            'privacy': 'string',
-            'proxied_app_id': 'string',
-            'ref': 'string',
-            'scrape': 'bool',
-            'start_time': 'datetime',
-            'tags': 'list<int>',
-            'to': 'string',
-            'user_selected_place': 'bool',
-            'user_selected_tags': 'bool',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/achievements',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def get_ad_studies(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):

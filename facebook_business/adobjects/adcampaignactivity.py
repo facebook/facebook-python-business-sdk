@@ -155,6 +155,7 @@ class AdCampaignActivity(
         thruplay = 'THRUPLAY'
         two_second_continuous_video_views = 'TWO_SECOND_CONTINUOUS_VIDEO_VIEWS'
         value = 'VALUE'
+        visit_instagram_profile = 'VISIT_INSTAGRAM_PROFILE'
 
     class OptimizationGoalOld:
         ad_recall_lift = 'AD_RECALL_LIFT'
@@ -181,6 +182,7 @@ class AdCampaignActivity(
         thruplay = 'THRUPLAY'
         two_second_continuous_video_views = 'TWO_SECOND_CONTINUOUS_VIDEO_VIEWS'
         value = 'VALUE'
+        visit_instagram_profile = 'VISIT_INSTAGRAM_PROFILE'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils

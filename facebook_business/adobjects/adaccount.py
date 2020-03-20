@@ -195,6 +195,7 @@ class AdAccount(
         flight = 'FLIGHT'
         home_listing = 'HOME_LISTING'
         hotel = 'HOTEL'
+        location_based_item = 'LOCATION_BASED_ITEM'
         media_title = 'MEDIA_TITLE'
         offline_product = 'OFFLINE_PRODUCT'
         product = 'PRODUCT'
@@ -900,147 +901,6 @@ class AdAccount(
         request = FacebookRequest(
             node_id=self['id'],
             method='GET',
-            endpoint='/adreportschedules',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_ad_report_schedule(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'actions_group_by': 'list<actions_group_by_enum>',
-            'breakdowns': 'list<string>',
-            'builtin_column_set': 'builtin_column_set_enum',
-            'creation_source': 'creation_source_enum',
-            'custom_column_set_id': 'string',
-            'data_columns': 'list<string>',
-            'date_interval': 'Object',
-            'date_preset': 'date_preset_enum',
-            'emails': 'list<string>',
-            'export_columns': 'Object',
-            'filters': 'list<Object>',
-            'format_version': 'unsigned int',
-            'insights_section': 'Object',
-            'level': 'level_enum',
-            'name': 'string',
-            'normalized_filter': 'list<Object>',
-            'schedule_frequency': 'schedule_frequency_enum',
-            'sort': 'list<Object>',
-            'sort_by': 'string',
-            'sort_dir': 'string',
-            'start_date': 'Object',
-            'status': 'status_enum',
-            'subscribers': 'list<int>',
-            'time_increment': 'string',
-            'user_attribution_windows': 'list<string>',
-            'user_columns': 'list<string>',
-            'user_filter': 'list<Object>',
-        }
-        enums = {
-            'actions_group_by_enum': [
-                'action_brand',
-                'action_canvas_component_id',
-                'action_canvas_component_name',
-                'action_carousel_card_id',
-                'action_carousel_card_name',
-                'action_category',
-                'action_converted_brand_tag_id',
-                'action_converted_category_tag_id',
-                'action_converted_product_id',
-                'action_destination',
-                'action_device',
-                'action_event_channel',
-                'action_target_id',
-                'action_type',
-                'action_video_sound',
-                'action_video_type',
-                'attribution_model_type',
-                'interactive_component_sticker_id',
-                'interactive_component_sticker_response',
-            ],
-            'builtin_column_set_enum': [
-                '',
-                'APP_ENGAGEMENT',
-                'AUDIENCE_DIRECT',
-                'BIDDING_AND_OPTIMIZATION',
-                'CAROUSEL_ENGAGEMENT',
-                'CROSS_DEVICE',
-                'DELIVERY',
-                'ENGAGEMENT',
-                'HOUSEHOLD',
-                'MESSAGING_ENGAGEMENT',
-                'MESSENGER',
-                'OFFLINE_CONVERSIONS',
-                'PERFORMANCE',
-                'PERFORMANCE_LEGACY',
-                'TARGETING_AND_CREATIVE',
-                'VALIDATION_VIEW',
-                'VIDEO_ENGAGEMENT',
-            ],
-            'creation_source_enum': [
-                'adsExcelAddin',
-                'adsManagerReporting',
-                'newAdsManager',
-            ],
-            'date_preset_enum': [
-                'last_14d',
-                'last_28d',
-                'last_30d',
-                'last_3d',
-                'last_7d',
-                'last_90d',
-                'last_month',
-                'last_quarter',
-                'last_week_mon_sun',
-                'last_week_sun_sat',
-                'last_year',
-                'lifetime',
-                'this_month',
-                'this_quarter',
-                'this_week_mon_today',
-                'this_week_sun_today',
-                'this_year',
-                'today',
-                'yesterday',
-            ],
-            'level_enum': [
-                'account',
-                'ad',
-                'adgroup',
-                'campaign',
-                'campaign_group',
-                'politicalad',
-            ],
-            'schedule_frequency_enum': [
-                'daily',
-                'monthly',
-                'weekly',
-            ],
-            'status_enum': [
-                'Active',
-                'Deleted',
-                'Paused',
-            ],
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
             endpoint='/adreportschedules',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
@@ -2480,6 +2340,7 @@ class AdAccount(
         from facebook_business.adobjects.contentdeliveryreport import ContentDeliveryReport
         param_types = {
             'end_date': 'datetime',
+            'page_id': 'unsigned int',
             'platform': 'platform_enum',
             'position': 'position_enum',
             'start_date': 'datetime',

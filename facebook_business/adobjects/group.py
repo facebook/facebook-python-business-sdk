@@ -172,16 +172,12 @@ class Group(
         work_teamwork = 'WORK_TEAMWORK'
 
     class SuggestionCategory:
-        close_friends_generic = 'CLOSE_FRIENDS_GENERIC'
         event = 'EVENT'
-        family = 'FAMILY'
-        life_event = 'LIFE_EVENT'
         messenger = 'MESSENGER'
         work = 'WORK'
         workplace = 'WORKPLACE'
         workplace_1_1 = 'WORKPLACE_1_1'
         workplace_manager = 'WORKPLACE_MANAGER'
-        work_generic = 'WORK_GENERIC'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
