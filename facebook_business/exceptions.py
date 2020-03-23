@@ -82,7 +82,7 @@ class FacebookRequestError(FacebookError):
                 self._api_error_type = self._error['type']
             if error_data and error_data.get('blame_field_specs'):
                 self._api_blame_field_specs = \
-                    self._error['error_data']['blame_field_specs']
+                    error_data['blame_field_specs']
         else:
             self._error = None
 
