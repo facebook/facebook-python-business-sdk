@@ -63,6 +63,7 @@ class PageCallToAction(
 
     class AndroidDestinationType:
         app_deeplink = 'APP_DEEPLINK'
+        become_a_volunteer = 'BECOME_A_VOLUNTEER'
         email = 'EMAIL'
         facebook_app = 'FACEBOOK_APP'
         messenger = 'MESSENGER'
@@ -82,6 +83,7 @@ class PageCallToAction(
         website = 'WEBSITE'
 
     class Type:
+        become_a_volunteer = 'BECOME_A_VOLUNTEER'
         book_appointment = 'BOOK_APPOINTMENT'
         book_now = 'BOOK_NOW'
         buy_tickets = 'BUY_TICKETS'
@@ -111,6 +113,7 @@ class PageCallToAction(
         woodhenge_support = 'WOODHENGE_SUPPORT'
 
     class WebDestinationType:
+        become_a_volunteer = 'BECOME_A_VOLUNTEER'
         become_supporter = 'BECOME_SUPPORTER'
         email = 'EMAIL'
         messenger = 'MESSENGER'

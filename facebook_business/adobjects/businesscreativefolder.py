@@ -46,6 +46,7 @@ class BusinessCreativeFolder(
         creative_insight_permissions = 'creative_insight_permissions'
         description = 'description'
         id = 'id'
+        media_library_url = 'media_library_url'
         name = 'name'
         parent_folder = 'parent_folder'
         parent_folder_id = 'parent_folder_id'
@@ -363,6 +364,7 @@ class BusinessCreativeFolder(
         'creative_insight_permissions': 'map<string, string>',
         'description': 'string',
         'id': 'string',
+        'media_library_url': 'string',
         'name': 'string',
         'parent_folder': 'BusinessCreativeFolder',
         'parent_folder_id': 'string',
