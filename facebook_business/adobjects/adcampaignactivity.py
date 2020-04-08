@@ -99,11 +99,13 @@ class AdCampaignActivity(
         updated_time_old = 'updated_time_old'
 
     class BidStrategyNew:
+        cost_cap = 'COST_CAP'
         lowest_cost_without_cap = 'LOWEST_COST_WITHOUT_CAP'
         lowest_cost_with_bid_cap = 'LOWEST_COST_WITH_BID_CAP'
         target_cost = 'TARGET_COST'
 
     class BidStrategyOld:
+        cost_cap = 'COST_CAP'
         lowest_cost_without_cap = 'LOWEST_COST_WITHOUT_CAP'
         lowest_cost_with_bid_cap = 'LOWEST_COST_WITH_BID_CAP'
         target_cost = 'TARGET_COST'

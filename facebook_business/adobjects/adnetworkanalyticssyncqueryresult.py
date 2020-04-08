@@ -58,6 +58,8 @@ class AdNetworkAnalyticsSyncQueryResult(
         display_format = 'DISPLAY_FORMAT'
         fail_reason = 'FAIL_REASON'
         gender = 'GENDER'
+        instant_article_id = 'INSTANT_ARTICLE_ID'
+        instant_article_page_id = 'INSTANT_ARTICLE_PAGE_ID'
         placement = 'PLACEMENT'
         placement_name = 'PLACEMENT_NAME'
         platform = 'PLATFORM'

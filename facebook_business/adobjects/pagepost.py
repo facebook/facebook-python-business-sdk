@@ -96,6 +96,9 @@ class PagePost(
         video_buying_eligibility = 'video_buying_eligibility'
         width = 'width'
 
+    class With:
+        location = 'LOCATION'
+
     class BackdatedTimeGranularity:
         day = 'day'
         hour = 'hour'
@@ -103,47 +106,6 @@ class PagePost(
         month = 'month'
         none = 'none'
         year = 'year'
-
-    class CheckinEntryPoint:
-        branding_checkin = 'BRANDING_CHECKIN'
-        branding_other = 'BRANDING_OTHER'
-        branding_photo = 'BRANDING_PHOTO'
-        branding_status = 'BRANDING_STATUS'
-
-    class Formatting:
-        markdown = 'MARKDOWN'
-        plaintext = 'PLAINTEXT'
-
-    class PlaceAttachmentSetting:
-        value_1 = '1'
-        value_2 = '2'
-
-    class PostSurfacesBlacklist:
-        value_1 = '1'
-        value_2 = '2'
-        value_3 = '3'
-        value_4 = '4'
-        value_5 = '5'
-
-    class PostingToRedspace:
-        disabled = 'disabled'
-        enabled = 'enabled'
-
-    class TargetSurface:
-        story = 'STORY'
-        timeline = 'TIMELINE'
-
-    class UnpublishedContentType:
-        ads_post = 'ADS_POST'
-        draft = 'DRAFT'
-        inline_created = 'INLINE_CREATED'
-        published = 'PUBLISHED'
-        reviewable_branded_content = 'REVIEWABLE_BRANDED_CONTENT'
-        scheduled = 'SCHEDULED'
-        scheduled_recurring = 'SCHEDULED_RECURRING'
-
-    class With:
-        location = 'LOCATION'
 
     class FeedStoryVisibility:
         hidden = 'hidden'
@@ -741,15 +703,8 @@ class PagePost(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['BackdatedTimeGranularity'] = PagePost.BackdatedTimeGranularity.__dict__.values()
-        field_enum_info['CheckinEntryPoint'] = PagePost.CheckinEntryPoint.__dict__.values()
-        field_enum_info['Formatting'] = PagePost.Formatting.__dict__.values()
-        field_enum_info['PlaceAttachmentSetting'] = PagePost.PlaceAttachmentSetting.__dict__.values()
-        field_enum_info['PostSurfacesBlacklist'] = PagePost.PostSurfacesBlacklist.__dict__.values()
-        field_enum_info['PostingToRedspace'] = PagePost.PostingToRedspace.__dict__.values()
-        field_enum_info['TargetSurface'] = PagePost.TargetSurface.__dict__.values()
-        field_enum_info['UnpublishedContentType'] = PagePost.UnpublishedContentType.__dict__.values()
         field_enum_info['With'] = PagePost.With.__dict__.values()
+        field_enum_info['BackdatedTimeGranularity'] = PagePost.BackdatedTimeGranularity.__dict__.values()
         field_enum_info['FeedStoryVisibility'] = PagePost.FeedStoryVisibility.__dict__.values()
         field_enum_info['TimelineVisibility'] = PagePost.TimelineVisibility.__dict__.values()
         return field_enum_info

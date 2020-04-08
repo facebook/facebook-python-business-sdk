@@ -55,6 +55,7 @@ class Event(
         interested_count = 'interested_count'
         is_canceled = 'is_canceled'
         is_draft = 'is_draft'
+        is_online = 'is_online'
         is_page_owned = 'is_page_owned'
         maybe_count = 'maybe_count'
         name = 'name'
@@ -465,6 +466,7 @@ class Event(
         'interested_count': 'int',
         'is_canceled': 'bool',
         'is_draft': 'bool',
+        'is_online': 'bool',
         'is_page_owned': 'bool',
         'maybe_count': 'int',
         'name': 'string',

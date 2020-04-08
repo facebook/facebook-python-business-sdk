@@ -122,7 +122,6 @@ class ReachFrequencyPrediction(
         timezone_id = 'timezone_id'
         timezone_name = 'timezone_name'
         topline_id = 'topline_id'
-        tv_viewer_cluster_map = 'tv_viewer_cluster_map'
         video_view_length_constraint = 'video_view_length_constraint'
         viewtag = 'viewtag'
         action = 'action'
@@ -292,7 +291,6 @@ class ReachFrequencyPrediction(
         'timezone_id': 'unsigned int',
         'timezone_name': 'string',
         'topline_id': 'unsigned int',
-        'tv_viewer_cluster_map': 'map<unsigned int, Object>',
         'video_view_length_constraint': 'unsigned int',
         'viewtag': 'string',
         'action': 'Action',

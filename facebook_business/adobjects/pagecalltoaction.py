@@ -74,6 +74,7 @@ class PageCallToAction(
 
     class IphoneDestinationType:
         app_deeplink = 'APP_DEEPLINK'
+        become_a_volunteer = 'BECOME_A_VOLUNTEER'
         email = 'EMAIL'
         facebook_app = 'FACEBOOK_APP'
         messenger = 'MESSENGER'

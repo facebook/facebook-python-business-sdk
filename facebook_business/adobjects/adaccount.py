@@ -572,6 +572,7 @@ class AdAccount(
             'image_url': 'string',
             'instagram_actor_id': 'string',
             'instagram_permalink_url': 'string',
+            'instant_checkout_setting': 'instant_checkout_setting_enum',
             'interactive_components_spec': 'map',
             'is_dco_internal': 'bool',
             'link_og_id': 'string',
@@ -601,6 +602,7 @@ class AdAccount(
             'categorization_criteria_enum': AdCreative.CategorizationCriteria.__dict__.values(),
             'category_media_source_enum': AdCreative.CategoryMediaSource.__dict__.values(),
             'dynamic_ad_voice_enum': AdCreative.DynamicAdVoice.__dict__.values(),
+            'instant_checkout_setting_enum': AdCreative.InstantCheckoutSetting.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -1123,7 +1125,7 @@ class AdAccount(
         from facebook_business.adobjects.adaccountadvolume import AdAccountAdVolume
         param_types = {
             'page_id': 'int',
-            'show_ad_limit_by_actor': 'bool',
+            'show_breakdown_by_actor': 'bool',
         }
         enums = {
         }
@@ -2024,68 +2026,6 @@ class AdAccount(
             node_id=self['id'],
             method='POST',
             endpoint='/audiencereplace',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_batch_replace(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'payload': 'list<string>',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/batchreplace',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_batch_upload(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'payload': 'list<string>',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/batchupload',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,

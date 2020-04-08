@@ -100,6 +100,7 @@ class AdCreative(
         video_id = 'video_id'
         call_to_action = 'call_to_action'
         image_file = 'image_file'
+        instant_checkout_setting = 'instant_checkout_setting'
         is_dco_internal = 'is_dco_internal'
 
     class ApplinkTreatment:
@@ -201,6 +202,10 @@ class AdCreative(
     class DynamicAdVoice:
         dynamic = 'DYNAMIC'
         story_owner = 'STORY_OWNER'
+
+    class InstantCheckoutSetting:
+        off = 'off'
+        on = 'on'
 
     class Operator:
         all = 'ALL'
@@ -515,6 +520,7 @@ class AdCreative(
         'video_id': 'string',
         'call_to_action': 'Object',
         'image_file': 'string',
+        'instant_checkout_setting': 'InstantCheckoutSetting',
         'is_dco_internal': 'bool',
     }
     @classmethod
@@ -528,6 +534,7 @@ class AdCreative(
         field_enum_info['CategorizationCriteria'] = AdCreative.CategorizationCriteria.__dict__.values()
         field_enum_info['CategoryMediaSource'] = AdCreative.CategoryMediaSource.__dict__.values()
         field_enum_info['DynamicAdVoice'] = AdCreative.DynamicAdVoice.__dict__.values()
+        field_enum_info['InstantCheckoutSetting'] = AdCreative.InstantCheckoutSetting.__dict__.values()
         field_enum_info['Operator'] = AdCreative.Operator.__dict__.values()
         return field_enum_info
 

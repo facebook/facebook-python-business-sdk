@@ -47,6 +47,7 @@ class AdgroupPlacementSpecificReviewFeedback(
         daily_deals_legacy = 'daily_deals_legacy'
         dpa = 'dpa'
         facebook = 'facebook'
+        facebook_pages_live_shopping = 'facebook_pages_live_shopping'
         instagram = 'instagram'
         instagram_shop = 'instagram_shop'
         lead_gen_honeypot = 'lead_gen_honeypot'
@@ -75,6 +76,7 @@ class AdgroupPlacementSpecificReviewFeedback(
         'daily_deals_legacy': 'map<string, string>',
         'dpa': 'map<string, string>',
         'facebook': 'map<string, string>',
+        'facebook_pages_live_shopping': 'map<string, string>',
         'instagram': 'map<string, string>',
         'instagram_shop': 'map<string, string>',
         'lead_gen_honeypot': 'map<string, string>',

@@ -83,6 +83,7 @@ class Campaign(
         upstream_events = 'upstream_events'
 
     class BidStrategy:
+        cost_cap = 'COST_CAP'
         lowest_cost_without_cap = 'LOWEST_COST_WITHOUT_CAP'
         lowest_cost_with_bid_cap = 'LOWEST_COST_WITH_BID_CAP'
         target_cost = 'TARGET_COST'

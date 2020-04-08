@@ -72,6 +72,7 @@ class Page(
         current_location = 'current_location'
         description = 'description'
         description_html = 'description_html'
+        differently_open_offerings = 'differently_open_offerings'
         directed_by = 'directed_by'
         display_subtext = 'display_subtext'
         displayed_message_response_time = 'displayed_message_response_time'
@@ -247,6 +248,7 @@ class Page(
 
     class TemporaryStatus:
         differently_open = 'DIFFERENTLY_OPEN'
+        no_data = 'NO_DATA'
         operating_as_usual = 'OPERATING_AS_USUAL'
         temporarily_closed = 'TEMPORARILY_CLOSED'
 
@@ -262,8 +264,9 @@ class Page(
         moderate_community = 'MODERATE_COMMUNITY'
         pages_messaging = 'PAGES_MESSAGING'
         pages_messaging_subscriptions = 'PAGES_MESSAGING_SUBSCRIPTIONS'
-        platform_manage_pages = 'PLATFORM_MANAGE_PAGES'
         platform_pages_manage_instant_articles = 'PLATFORM_PAGES_MANAGE_INSTANT_ARTICLES'
+        platform_page_administer = 'PLATFORM_PAGE_ADMINISTER'
+        platform_page_basic_admin = 'PLATFORM_PAGE_BASIC_ADMIN'
         platform_read_insights = 'PLATFORM_READ_INSIGHTS'
         profile_plus_advertise = 'PROFILE_PLUS_ADVERTISE'
         profile_plus_analyze = 'PROFILE_PLUS_ANALYZE'
@@ -286,8 +289,9 @@ class Page(
         moderate_community = 'MODERATE_COMMUNITY'
         pages_messaging = 'PAGES_MESSAGING'
         pages_messaging_subscriptions = 'PAGES_MESSAGING_SUBSCRIPTIONS'
-        platform_manage_pages = 'PLATFORM_MANAGE_PAGES'
         platform_pages_manage_instant_articles = 'PLATFORM_PAGES_MANAGE_INSTANT_ARTICLES'
+        platform_page_administer = 'PLATFORM_PAGE_ADMINISTER'
+        platform_page_basic_admin = 'PLATFORM_PAGE_BASIC_ADMIN'
         platform_read_insights = 'PLATFORM_READ_INSIGHTS'
         profile_plus_advertise = 'PROFILE_PLUS_ADVERTISE'
         profile_plus_analyze = 'PROFILE_PLUS_ANALYZE'
@@ -297,6 +301,52 @@ class Page(
         profile_plus_moderate = 'PROFILE_PLUS_MODERATE'
         read_page_mailboxes = 'READ_PAGE_MAILBOXES'
         view_monetization_insights = 'VIEW_MONETIZATION_INSIGHTS'
+
+    class BackdatedTimeGranularity:
+        day = 'day'
+        hour = 'hour'
+        min = 'min'
+        month = 'month'
+        none = 'none'
+        year = 'year'
+
+    class CheckinEntryPoint:
+        branding_checkin = 'BRANDING_CHECKIN'
+        branding_other = 'BRANDING_OTHER'
+        branding_photo = 'BRANDING_PHOTO'
+        branding_status = 'BRANDING_STATUS'
+
+    class Formatting:
+        markdown = 'MARKDOWN'
+        plaintext = 'PLAINTEXT'
+
+    class PlaceAttachmentSetting:
+        value_1 = '1'
+        value_2 = '2'
+
+    class PostSurfacesBlacklist:
+        value_1 = '1'
+        value_2 = '2'
+        value_3 = '3'
+        value_4 = '4'
+        value_5 = '5'
+
+    class PostingToRedspace:
+        disabled = 'disabled'
+        enabled = 'enabled'
+
+    class TargetSurface:
+        story = 'STORY'
+        timeline = 'TIMELINE'
+
+    class UnpublishedContentType:
+        ads_post = 'ADS_POST'
+        draft = 'DRAFT'
+        inline_created = 'INLINE_CREATED'
+        published = 'PUBLISHED'
+        reviewable_branded_content = 'REVIEWABLE_BRANDED_CONTENT'
+        scheduled = 'SCHEDULED'
+        scheduled_recurring = 'SCHEDULED_RECURRING'
 
     class PublishStatus:
         draft = 'DRAFT'
@@ -491,6 +541,7 @@ class Page(
             'cover': 'string',
             'culinary_team': 'string',
             'description': 'string',
+            'differently_open_offerings': 'map',
             'directed_by': 'string',
             'displayed_message_response_time': 'string',
             'emails': 'list<string>',
@@ -1650,7 +1701,6 @@ class Page(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.pagepost import PagePost
         param_types = {
             'actions': 'Object',
             'adaptive_type': 'string',
@@ -1767,14 +1817,14 @@ class Page(
             'width': 'unsigned int',
         }
         enums = {
-            'backdated_time_granularity_enum': PagePost.BackdatedTimeGranularity.__dict__.values(),
-            'checkin_entry_point_enum': PagePost.CheckinEntryPoint.__dict__.values(),
-            'formatting_enum': PagePost.Formatting.__dict__.values(),
-            'place_attachment_setting_enum': PagePost.PlaceAttachmentSetting.__dict__.values(),
-            'post_surfaces_blacklist_enum': PagePost.PostSurfacesBlacklist.__dict__.values(),
-            'posting_to_redspace_enum': PagePost.PostingToRedspace.__dict__.values(),
-            'target_surface_enum': PagePost.TargetSurface.__dict__.values(),
-            'unpublished_content_type_enum': PagePost.UnpublishedContentType.__dict__.values(),
+            'backdated_time_granularity_enum': Page.BackdatedTimeGranularity.__dict__.values(),
+            'checkin_entry_point_enum': Page.CheckinEntryPoint.__dict__.values(),
+            'formatting_enum': Page.Formatting.__dict__.values(),
+            'place_attachment_setting_enum': Page.PlaceAttachmentSetting.__dict__.values(),
+            'post_surfaces_blacklist_enum': Page.PostSurfacesBlacklist.__dict__.values(),
+            'posting_to_redspace_enum': Page.PostingToRedspace.__dict__.values(),
+            'target_surface_enum': Page.TargetSurface.__dict__.values(),
+            'unpublished_content_type_enum': Page.UnpublishedContentType.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -1782,9 +1832,9 @@ class Page(
             endpoint='/feed',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=PagePost,
+            target_class=Page,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=PagePost, api=self._api),
+            response_parser=ObjectParser(target_class=Page, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2410,6 +2460,7 @@ class Page(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'always_open': 'bool',
+            'differently_open_offerings': 'map',
             'hours': 'map',
             'ignore_warnings': 'bool',
             'location': 'Object',
@@ -2424,9 +2475,11 @@ class Page(
             'store_location_descriptor': 'string',
             'store_name': 'string',
             'store_number': 'unsigned int',
+            'temporary_status': 'temporary_status_enum',
             'website': 'string',
         }
         enums = {
+            'temporary_status_enum': Page.TemporaryStatus.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -2456,11 +2509,9 @@ class Page(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.mediafingerprint import MediaFingerprint
         param_types = {
-            'fingerprint_validity': 'fingerprint_validity_enum',
             'universal_content_id': 'string',
         }
         enums = {
-            'fingerprint_validity_enum': MediaFingerprint.FingerprintValidity.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -3173,6 +3224,7 @@ class Page(
             'initial_view_heading_override_degrees': 'unsigned int',
             'initial_view_pitch_override_degrees': 'unsigned int',
             'initial_view_vertical_fov_override_degrees': 'unsigned int',
+            'instagram_product_tags': 'list<map>',
             'ios_bundle_id': 'string',
             'is_explicit_location': 'bool',
             'is_explicit_place': 'bool',
@@ -3190,6 +3242,7 @@ class Page(
             'og_phrase': 'string',
             'og_set_profile_badge': 'bool',
             'og_suggestion_mechanism': 'string',
+            'parent_media_id': 'unsigned int',
             'place': 'Object',
             'privacy': 'string',
             'profile_id': 'int',
@@ -4276,6 +4329,39 @@ class Page(
             self.assure_call()
             return request.execute()
 
+    def create_video_copyright_rule(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.videocopyrightrule import VideoCopyrightRule
+        param_types = {
+            'condition_groups': 'list<Object>',
+            'name': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/video_copyright_rules',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=VideoCopyrightRule,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=VideoCopyrightRule, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def create_video_copyright(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -4287,7 +4373,6 @@ class Page(
             'copyright_content_id': 'string',
             'excluded_ownership_countries': 'list<string>',
             'excluded_ownership_segments': 'list<Object>',
-            'fingerprint_id': 'string',
             'is_reference_disabled': 'bool',
             'is_reference_video': 'bool',
             'monitoring_type': 'monitoring_type_enum',
@@ -4582,6 +4667,7 @@ class Page(
         'current_location': 'string',
         'description': 'string',
         'description_html': 'string',
+        'differently_open_offerings': 'map<string, bool>',
         'directed_by': 'string',
         'display_subtext': 'string',
         'displayed_message_response_time': 'string',
@@ -4699,6 +4785,14 @@ class Page(
         field_enum_info['TemporaryStatus'] = Page.TemporaryStatus.__dict__.values()
         field_enum_info['PermittedTasks'] = Page.PermittedTasks.__dict__.values()
         field_enum_info['Tasks'] = Page.Tasks.__dict__.values()
+        field_enum_info['BackdatedTimeGranularity'] = Page.BackdatedTimeGranularity.__dict__.values()
+        field_enum_info['CheckinEntryPoint'] = Page.CheckinEntryPoint.__dict__.values()
+        field_enum_info['Formatting'] = Page.Formatting.__dict__.values()
+        field_enum_info['PlaceAttachmentSetting'] = Page.PlaceAttachmentSetting.__dict__.values()
+        field_enum_info['PostSurfacesBlacklist'] = Page.PostSurfacesBlacklist.__dict__.values()
+        field_enum_info['PostingToRedspace'] = Page.PostingToRedspace.__dict__.values()
+        field_enum_info['TargetSurface'] = Page.TargetSurface.__dict__.values()
+        field_enum_info['UnpublishedContentType'] = Page.UnpublishedContentType.__dict__.values()
         field_enum_info['PublishStatus'] = Page.PublishStatus.__dict__.values()
         field_enum_info['MessagingType'] = Page.MessagingType.__dict__.values()
         field_enum_info['NotificationType'] = Page.NotificationType.__dict__.values()
