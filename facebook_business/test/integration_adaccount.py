@@ -27,7 +27,6 @@ How to run:
 
 import warnings
 import json
-from mock import patch
 from facebook_business.session import FacebookSession
 from facebook_business.exceptions import FacebookRequestError
 from facebook_business.api import FacebookAdsApi, FacebookRequest, FacebookResponse
@@ -47,7 +46,7 @@ class AdAccountTestCase(IntegrationTestCase):
     def test_get_adaccount(self):
         with warnings.catch_warnings(record=True) as warning:
             self.mock_response.status_code = StatusCode.SUCCESS
-            self.mock_response._content = (
+            self.mock_response._content = str.encode(
                 '{'
                 '"' + str(FieldName.ACCOUNT_ID) + '":"' + str(TestValue.ACCOUNT_ID) + '",'
                 '"' + str(FieldName.ACCOUNT_STATUS) + '":' + str(TestValue.ACCOUNT_STATUS) + ','
@@ -133,7 +132,7 @@ class AdAccountTestCase(IntegrationTestCase):
     def test_create_adaccount(self):
         with warnings.catch_warnings(record=True) as warning:
             self.mock_response.status_code = StatusCode.SUCCESS
-            self.mock_response._content = '{"' + str(FieldName.ID) + '":"' + str(TestValue.ACCOUNT_ID) + '", "success": "true"}'
+            self.mock_response._content = str.encode('{"' + str(FieldName.ID) + '":"' + str(TestValue.ACCOUNT_ID) + '", "success": "true"}')
             self.mock_request.return_value = self.mock_response
 
             fields = []
@@ -178,7 +177,7 @@ class AdAccountTestCase(IntegrationTestCase):
     def test_get_insights(self):
         with warnings.catch_warnings(record=True) as warning:
             self.mock_response.status_code = StatusCode.SUCCESS
-            self.mock_response._content = (
+            self.mock_response._content = str.encode(
                 '{'
                 '"' + str(FieldName.ID) + '":"' + str(TestValue.ACCOUNT_ID) + '"'
                 '}'
@@ -234,7 +233,7 @@ class AdAccountTestCase(IntegrationTestCase):
     def test_get_ad_creatives(self):
         with warnings.catch_warnings(record=True) as warning:
             self.mock_response.status_code = StatusCode.SUCCESS
-            self.mock_response._content = (
+            self.mock_response._content = str.encode(
                 '{'
                 '"' + str(FieldName.NAME) + '":"' + str(TestValue.NAME) + '"'
                 '}'
@@ -279,7 +278,7 @@ class AdAccountTestCase(IntegrationTestCase):
     def test_get_campaigns(self):
         with warnings.catch_warnings(record=True) as warning:
             self.mock_response.status_code = StatusCode.SUCCESS
-            self.mock_response._content = (
+            self.mock_response._content = str.encode(
                 '{'
                 '"' + str(FieldName.NAME) + '":"' + str(TestValue.NAME) + '"'
                 '}'
@@ -333,7 +332,7 @@ class AdAccountTestCase(IntegrationTestCase):
     def test_get_ads(self):
         with warnings.catch_warnings(record=True) as warning:
             self.mock_response.status_code = StatusCode.SUCCESS
-            self.mock_response._content = (
+            self.mock_response._content = str.encode(
                 '{'
                 '"' + str(FieldName.NAME) + '":"' + str(TestValue.NAME) + '"'
                 '}'

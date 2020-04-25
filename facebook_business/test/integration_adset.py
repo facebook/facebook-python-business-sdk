@@ -25,9 +25,9 @@ How to run:
     python -m facebook_business.test.integration_adset
 '''
 
+import unittest
 import warnings
 import json
-from mock import patch
 from facebook_business.session import FacebookSession
 from facebook_business.exceptions import FacebookRequestError
 from facebook_business.api import FacebookAdsApi, FacebookRequest, FacebookResponse
@@ -42,7 +42,7 @@ class AdSetTestCase(IntegrationTestCase):
     def test_get_ad_set(self):
         with warnings.catch_warnings(record=True) as warning:
             self.mock_response.status_code = StatusCode.SUCCESS
-            self.mock_response._content = (
+            self.mock_response._content = str.encode(
                 '{'
                 '"' + str(FieldName.ACCOUNT_ID) + '":"' + str(TestValue.ACCOUNT_ID) + '",'
                 '"' + str(FieldName.ADLABELS) + '":' + str(TestValue.AD_LABEL) + ','
@@ -92,12 +92,12 @@ class AdSetTestCase(IntegrationTestCase):
                 FieldName.TUNE_FOR_CATEGORY,
             ]
             params = {}
-
+            print(params.__class__.__name__)
             ad_set = AdSet(TestValue.ADSET_ID).api_get(
                 fields=fields,
                 params=params,
             )
-
+            
             self.assertEqual(len(warning), 0)
             self.assertTrue(isinstance(ad_set, AdSet))
             self.assertEqual(ad_set[FieldName.ACCOUNT_ID], TestValue.ACCOUNT_ID)
@@ -144,7 +144,7 @@ class AdSetTestCase(IntegrationTestCase):
     def test_create_ad_set(self):
         with warnings.catch_warnings(record=True) as warning:
             self.mock_response.status_code = StatusCode.SUCCESS
-            self.mock_response._content = '{"' + str(FieldName.ID) + '":"' + str(TestValue.ADSET_ID) + '", "success": "true"}'
+            self.mock_response._content = str.encode('{"' + str(FieldName.ID) + '":"' + str(TestValue.ADSET_ID) + '", "success": "true"}')
             self.mock_request.return_value = self.mock_response
 
             fields = []
@@ -176,7 +176,6 @@ class AdSetTestCase(IntegrationTestCase):
                 fields,
                 params,
             )
-
             self.assertEqual(len(warning), 0)
             self.assertTrue(isinstance(ad_set, AdSet))
             self.assertEqual(ad_set[FieldName.ID], TestValue.ADSET_ID)
