@@ -28,26 +28,22 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class CatalogItemAppealStatus(
+class ProductFeedUploadDiagnostics(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(CatalogItemAppealStatus, self).__init__()
-        self._isCatalogItemAppealStatus = True
+        super(ProductFeedUploadDiagnostics, self).__init__()
+        self._isProductFeedUploadDiagnostics = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        handle = 'handle'
-        item_id = 'item_id'
-        status = 'status'
-        use_cases = 'use_cases'
+        last_modified_time = 'last_modified_time'
+        report_url = 'report_url'
 
     _field_types = {
-        'handle': 'string',
-        'item_id': 'int',
-        'status': 'string',
-        'use_cases': 'list<Object>',
+        'last_modified_time': 'string',
+        'report_url': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

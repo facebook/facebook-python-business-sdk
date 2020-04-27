@@ -18,40 +18,22 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebook_business.adobjects.abstractobject import AbstractObject
+from facebook_business.adobjects.adaccount import AdAccount
+from facebook_business.adobjects.adcreative import AdCreative
+from facebook_business.api import FacebookAdsApi
 
-"""
-This class is auto-generated.
+access_token = '<ACCESS_TOKEN>'
+app_secret = '<APP_SECRET>'
+app_id = '<APP_ID>'
+id = '<AD_ACCOUNT_ID>'
+FacebookAdsApi.init(access_token=access_token)
 
-For any issues or feature requests related to this class, please let us know on
-github and we'll fix in our codegen framework. We'll not be able to accept
-pull request for this class.
-"""
-
-class CatalogItemAppealStatus(
-    AbstractObject,
-):
-
-    def __init__(self, api=None):
-        super(CatalogItemAppealStatus, self).__init__()
-        self._isCatalogItemAppealStatus = True
-        self._api = api
-
-    class Field(AbstractObject.Field):
-        handle = 'handle'
-        item_id = 'item_id'
-        status = 'status'
-        use_cases = 'use_cases'
-
-    _field_types = {
-        'handle': 'string',
-        'item_id': 'int',
-        'status': 'string',
-        'use_cases': 'list<Object>',
-    }
-    @classmethod
-    def _get_field_enum_info(cls):
-        field_enum_info = {}
-        return field_enum_info
-
-
+fields = [
+]
+params = {
+  'object_story_spec': {'page_id':'<pageID>','video_data':{'link_description':'try it out','image_url':'<imageURL>','video_id':'<videoID>','call_to_action':{'type':'SIGN_UP','value':{'link':'http:\/\/fb.me\/','lead_gen_form_id':'<formID>'}}}},
+}
+print AdAccount(id).create_ad_creative(
+  fields=fields,
+  params=params,
+)

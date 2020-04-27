@@ -65,6 +65,7 @@ class ProductCatalog(
         flights = 'flights'
         home_listings = 'home_listings'
         hotels = 'hotels'
+        jobs = 'jobs'
         offer_items = 'offer_items'
         offline_commerce = 'offline_commerce'
         ticketed_experiences = 'ticketed_experiences'

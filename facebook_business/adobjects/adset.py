@@ -79,6 +79,7 @@ class AdSet(
         lifetime_imps = 'lifetime_imps'
         lifetime_min_spend_target = 'lifetime_min_spend_target'
         lifetime_spend_cap = 'lifetime_spend_cap'
+        multi_optimization_goal_weight = 'multi_optimization_goal_weight'
         name = 'name'
         optimization_goal = 'optimization_goal'
         optimization_sub_event = 'optimization_sub_event'
@@ -211,6 +212,12 @@ class AdSet(
         extended_exploration = 'EXTENDED_EXPLORATION'
         limited_exploration = 'LIMITED_EXPLORATION'
         none_exploration = 'NONE_EXPLORATION'
+
+    class MultiOptimizationGoalWeight:
+        balanced = 'BALANCED'
+        prefer_event = 'PREFER_EVENT'
+        prefer_install = 'PREFER_INSTALL'
+        undefined = 'UNDEFINED'
 
     class OptimizationSubEvent:
         none = 'NONE'
@@ -363,6 +370,7 @@ class AdSet(
             'lifetime_imps': 'unsigned int',
             'lifetime_min_spend_target': 'unsigned int',
             'lifetime_spend_cap': 'unsigned int',
+            'multi_optimization_goal_weight': 'multi_optimization_goal_weight_enum',
             'name': 'string',
             'optimization_goal': 'optimization_goal_enum',
             'optimization_sub_event': 'optimization_sub_event_enum',
@@ -386,6 +394,7 @@ class AdSet(
             'destination_type_enum': AdSet.DestinationType.__dict__.values(),
             'execution_options_enum': AdSet.ExecutionOptions.__dict__.values(),
             'full_funnel_exploration_mode_enum': AdSet.FullFunnelExplorationMode.__dict__.values(),
+            'multi_optimization_goal_weight_enum': AdSet.MultiOptimizationGoalWeight.__dict__.values(),
             'optimization_goal_enum': AdSet.OptimizationGoal.__dict__.values(),
             'optimization_sub_event_enum': AdSet.OptimizationSubEvent.__dict__.values(),
             'status_enum': AdSet.Status.__dict__.values(),
@@ -618,10 +627,8 @@ class AdSet(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.ad import Ad
         param_types = {
-            'ad_draft_id': 'string',
             'date_preset': 'date_preset_enum',
             'effective_status': 'list<string>',
-            'include_drafts': 'bool',
             'time_range': 'Object',
             'updated_since': 'int',
         }
@@ -1021,6 +1028,7 @@ class AdSet(
         'lifetime_imps': 'int',
         'lifetime_min_spend_target': 'string',
         'lifetime_spend_cap': 'string',
+        'multi_optimization_goal_weight': 'string',
         'name': 'string',
         'optimization_goal': 'OptimizationGoal',
         'optimization_sub_event': 'string',
@@ -1064,6 +1072,7 @@ class AdSet(
         field_enum_info['DestinationType'] = AdSet.DestinationType.__dict__.values()
         field_enum_info['ExecutionOptions'] = AdSet.ExecutionOptions.__dict__.values()
         field_enum_info['FullFunnelExplorationMode'] = AdSet.FullFunnelExplorationMode.__dict__.values()
+        field_enum_info['MultiOptimizationGoalWeight'] = AdSet.MultiOptimizationGoalWeight.__dict__.values()
         field_enum_info['OptimizationSubEvent'] = AdSet.OptimizationSubEvent.__dict__.values()
         field_enum_info['TuneForCategory'] = AdSet.TuneForCategory.__dict__.values()
         field_enum_info['Operator'] = AdSet.Operator.__dict__.values()

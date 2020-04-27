@@ -68,6 +68,7 @@ class Post(
         is_eligible_for_promotion = 'is_eligible_for_promotion'
         is_expired = 'is_expired'
         is_hidden = 'is_hidden'
+        is_inline_created = 'is_inline_created'
         is_instagram_eligible = 'is_instagram_eligible'
         is_popular = 'is_popular'
         is_published = 'is_published'
@@ -515,6 +516,7 @@ class Post(
                 'AUTO_LOOKALIKE',
                 'AUTO_PAGE_LOOKALIKE',
                 'AUTO_TARGETING',
+                'COUNTRY_AND_INTEREST',
                 'CREATE_NEW',
                 'CUSTOM_AUDIENCE',
                 'DISTRICT',
@@ -526,6 +528,7 @@ class Post(
                 'IG_PROMOTED_POST_AUTO',
                 'LOCAL',
                 'LOOKALIKE',
+                'MARKETPLACE_DEFAULT',
                 'MULT_CUSTOM_AUDIENCES',
                 'NCPP',
                 'SAVED_AUDIENCE',
@@ -549,6 +552,7 @@ class Post(
                 'FIND_A_GROUP',
                 'FIND_YOUR_GROUPS',
                 'FOLLOW_NEWS_STORYLINE',
+                'FOLLOW_USER',
                 'GET_DIRECTIONS',
                 'GET_OFFER',
                 'GET_OFFER_VIEW',
@@ -566,8 +570,10 @@ class Post(
                 'NO_BUTTON',
                 'OPEN_LINK',
                 'ORDER_NOW',
+                'PAY_TO_ACCESS',
                 'PLAY_GAME',
                 'RECORD_NOW',
+                'REQUEST_TIME',
                 'SAY_THANKS',
                 'SEE_MORE',
                 'SELL_NOW',
@@ -762,6 +768,7 @@ class Post(
         'is_eligible_for_promotion': 'bool',
         'is_expired': 'bool',
         'is_hidden': 'bool',
+        'is_inline_created': 'bool',
         'is_instagram_eligible': 'bool',
         'is_popular': 'bool',
         'is_published': 'bool',

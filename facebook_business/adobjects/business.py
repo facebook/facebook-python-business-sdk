@@ -118,10 +118,6 @@ class Business(
         moderate_community = 'MODERATE_COMMUNITY'
         pages_messaging = 'PAGES_MESSAGING'
         pages_messaging_subscriptions = 'PAGES_MESSAGING_SUBSCRIPTIONS'
-        platform_pages_manage_instant_articles = 'PLATFORM_PAGES_MANAGE_INSTANT_ARTICLES'
-        platform_page_administer = 'PLATFORM_PAGE_ADMINISTER'
-        platform_page_basic_admin = 'PLATFORM_PAGE_BASIC_ADMIN'
-        platform_read_insights = 'PLATFORM_READ_INSIGHTS'
         profile_plus_advertise = 'PROFILE_PLUS_ADVERTISE'
         profile_plus_analyze = 'PROFILE_PLUS_ANALYZE'
         profile_plus_create_content = 'PROFILE_PLUS_CREATE_CONTENT'
@@ -1515,6 +1511,7 @@ class Business(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.extendedcredit import ExtendedCredit
         param_types = {
+            'order_by_is_owned_credential': 'bool',
         }
         enums = {
         }
@@ -2551,42 +2548,10 @@ class Business(
             self.assure_call()
             return request.execute()
 
-    def get_pixel_tos(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.businesspixeltos import BusinessPixelTOS
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/pixel_tos',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=BusinessPixelTOS,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=BusinessPixelTOS, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def create_pixel_to(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.businesspixeltos import BusinessPixelTOS
         param_types = {
         }
         enums = {
@@ -2597,9 +2562,9 @@ class Business(
             endpoint='/pixel_tos',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=BusinessPixelTOS,
+            target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=BusinessPixelTOS, api=self._api),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

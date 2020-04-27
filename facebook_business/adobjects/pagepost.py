@@ -66,6 +66,7 @@ class PagePost(
         is_eligible_for_promotion = 'is_eligible_for_promotion'
         is_expired = 'is_expired'
         is_hidden = 'is_hidden'
+        is_inline_created = 'is_inline_created'
         is_instagram_eligible = 'is_instagram_eligible'
         is_popular = 'is_popular'
         is_published = 'is_published'
@@ -670,6 +671,7 @@ class PagePost(
         'is_eligible_for_promotion': 'bool',
         'is_expired': 'bool',
         'is_hidden': 'bool',
+        'is_inline_created': 'bool',
         'is_instagram_eligible': 'bool',
         'is_popular': 'bool',
         'is_published': 'bool',

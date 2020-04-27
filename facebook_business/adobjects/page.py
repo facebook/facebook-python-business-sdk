@@ -70,6 +70,7 @@ class Page(
         cover = 'cover'
         culinary_team = 'culinary_team'
         current_location = 'current_location'
+        delivery_and_pickup_option_info = 'delivery_and_pickup_option_info'
         description = 'description'
         description_html = 'description_html'
         differently_open_offerings = 'differently_open_offerings'
@@ -264,10 +265,6 @@ class Page(
         moderate_community = 'MODERATE_COMMUNITY'
         pages_messaging = 'PAGES_MESSAGING'
         pages_messaging_subscriptions = 'PAGES_MESSAGING_SUBSCRIPTIONS'
-        platform_pages_manage_instant_articles = 'PLATFORM_PAGES_MANAGE_INSTANT_ARTICLES'
-        platform_page_administer = 'PLATFORM_PAGE_ADMINISTER'
-        platform_page_basic_admin = 'PLATFORM_PAGE_BASIC_ADMIN'
-        platform_read_insights = 'PLATFORM_READ_INSIGHTS'
         profile_plus_advertise = 'PROFILE_PLUS_ADVERTISE'
         profile_plus_analyze = 'PROFILE_PLUS_ANALYZE'
         profile_plus_create_content = 'PROFILE_PLUS_CREATE_CONTENT'
@@ -289,10 +286,6 @@ class Page(
         moderate_community = 'MODERATE_COMMUNITY'
         pages_messaging = 'PAGES_MESSAGING'
         pages_messaging_subscriptions = 'PAGES_MESSAGING_SUBSCRIPTIONS'
-        platform_pages_manage_instant_articles = 'PLATFORM_PAGES_MANAGE_INSTANT_ARTICLES'
-        platform_page_administer = 'PLATFORM_PAGE_ADMINISTER'
-        platform_page_basic_admin = 'PLATFORM_PAGE_BASIC_ADMIN'
-        platform_read_insights = 'PLATFORM_READ_INSIGHTS'
         profile_plus_advertise = 'PROFILE_PLUS_ADVERTISE'
         profile_plus_analyze = 'PROFILE_PLUS_ANALYZE'
         profile_plus_create_content = 'PROFILE_PLUS_CREATE_CONTENT'
@@ -418,6 +411,7 @@ class Page(
         hometown = 'hometown'
         hours = 'hours'
         invoice_access_invoice_change = 'invoice_access_invoice_change'
+        invoice_access_onboarding_status_active = 'invoice_access_onboarding_status_active'
         leadgen = 'leadgen'
         leadgen_fat = 'leadgen_fat'
         live_videos = 'live_videos'
@@ -465,6 +459,7 @@ class Page(
         ratings = 'ratings'
         registration = 'registration'
         standby = 'standby'
+        user_action = 'user_action'
         video_text_question_responses = 'video_text_question_responses'
         videos = 'videos'
         website = 'website'
@@ -984,8 +979,8 @@ class Page(
         param_types = {
             'asid': 'list',
             'psid': 'list<int>',
-            'uid': 'list<string>',
-            'user': 'list<string>',
+            'uid': 'list',
+            'user': 'list',
         }
         enums = {
         }
@@ -4665,6 +4660,7 @@ class Page(
         'cover': 'CoverPhoto',
         'culinary_team': 'string',
         'current_location': 'string',
+        'delivery_and_pickup_option_info': 'list<string>',
         'description': 'string',
         'description_html': 'string',
         'differently_open_offerings': 'map<string, bool>',

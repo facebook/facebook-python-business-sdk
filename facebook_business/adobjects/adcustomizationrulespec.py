@@ -41,21 +41,25 @@ class AdCustomizationRuleSpec(
         caption = 'caption'
         customization_spec = 'customization_spec'
         description = 'description'
+        image_hash = 'image_hash'
         link = 'link'
         message = 'message'
         name = 'name'
         priority = 'priority'
         template_url_spec = 'template_url_spec'
+        video_id = 'video_id'
 
     _field_types = {
         'caption': 'string',
         'customization_spec': 'Object',
         'description': 'string',
+        'image_hash': 'string',
         'link': 'string',
         'message': 'string',
         'name': 'string',
         'priority': 'int',
         'template_url_spec': 'AdCreativeTemplateURLSpec',
+        'video_id': 'int',
     }
     @classmethod
     def _get_field_enum_info(cls):
