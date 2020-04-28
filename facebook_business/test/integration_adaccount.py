@@ -316,7 +316,6 @@ class AdAccountTestCase(IntegrationTestCase):
             ]
             params = {
                 FieldName.EFFECTIVE_STATUS: 'unexisted_status',
-                FieldName.INCLUDE_DRAFTS: 'drafts',
             }
 
             with self.assertRaises(FacebookRequestError):
@@ -325,7 +324,7 @@ class AdAccountTestCase(IntegrationTestCase):
                     params=params,
                 )
 
-            self.assertEqual(len(warning), 3)
+            self.assertEqual(len(warning), 2)
             self.assertTrue(issubclass(warning[0].category, UserWarning))
 
 
@@ -371,7 +370,6 @@ class AdAccountTestCase(IntegrationTestCase):
             ]
             params = {
                 FieldName.EFFECTIVE_STATUS: 'unexisted_status',
-                FieldName.INCLUDE_DRAFTS: 123,
             }
             with self.assertRaises(FacebookRequestError):
                 ads = AdAccount(TestValue.ACCOUNT_ID).get_ads(
@@ -379,7 +377,7 @@ class AdAccountTestCase(IntegrationTestCase):
                     params=params,
                 )
 
-            self.assertEqual(len(warning), 3)
+            self.assertEqual(len(warning), 2)
             self.assertTrue(issubclass(warning[0].category, UserWarning))
 
 
