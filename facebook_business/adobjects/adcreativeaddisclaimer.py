@@ -18,12 +18,38 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebook_business.session import FacebookSession
-from facebook_business.api import FacebookAdsApi
+from facebook_business.adobjects.abstractobject import AbstractObject
 
-__version__ = '7.0.0'
-__all__ = [
-    'session',
-    'objects',
-    'api',
-]
+"""
+This class is auto-generated.
+
+For any issues or feature requests related to this class, please let us know on
+github and we'll fix in our codegen framework. We'll not be able to accept
+pull request for this class.
+"""
+
+class AdCreativeAdDisclaimer(
+    AbstractObject,
+):
+
+    def __init__(self, api=None):
+        super(AdCreativeAdDisclaimer, self).__init__()
+        self._isAdCreativeAdDisclaimer = True
+        self._api = api
+
+    class Field(AbstractObject.Field):
+        text = 'text'
+        title = 'title'
+        url = 'url'
+
+    _field_types = {
+        'text': 'string',
+        'title': 'string',
+        'url': 'string',
+    }
+    @classmethod
+    def _get_field_enum_info(cls):
+        field_enum_info = {}
+        return field_enum_info
+
+

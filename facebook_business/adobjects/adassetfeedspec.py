@@ -93,6 +93,7 @@ class AdAssetFeedSpec(
         order_now = 'ORDER_NOW'
         pay_to_access = 'PAY_TO_ACCESS'
         play_game = 'PLAY_GAME'
+        purchase_gift_cards = 'PURCHASE_GIFT_CARDS'
         record_now = 'RECORD_NOW'
         request_time = 'REQUEST_TIME'
         say_thanks = 'SAY_THANKS'

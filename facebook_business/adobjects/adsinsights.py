@@ -126,6 +126,7 @@ class AdsInsights(
         outbound_clicks_ctr = 'outbound_clicks_ctr'
         place_page_name = 'place_page_name'
         purchase_roas = 'purchase_roas'
+        qualifying_question_qualify_answer_rate = 'qualifying_question_qualify_answer_rate'
         quality_ranking = 'quality_ranking'
         quality_score_ectr = 'quality_score_ectr'
         quality_score_ecvr = 'quality_score_ecvr'
@@ -346,6 +347,7 @@ class AdsInsights(
         'outbound_clicks_ctr': 'list<AdsActionStats>',
         'place_page_name': 'string',
         'purchase_roas': 'list<AdsActionStats>',
+        'qualifying_question_qualify_answer_rate': 'string',
         'quality_ranking': 'string',
         'quality_score_ectr': 'string',
         'quality_score_ecvr': 'string',

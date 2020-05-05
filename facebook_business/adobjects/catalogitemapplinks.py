@@ -28,34 +28,34 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class MessengerProfile(
+class CatalogItemAppLinks(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(MessengerProfile, self).__init__()
-        self._isMessengerProfile = True
+        super(CatalogItemAppLinks, self).__init__()
+        self._isCatalogItemAppLinks = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        account_linking_url = 'account_linking_url'
-        get_started = 'get_started'
-        greeting = 'greeting'
-        ice_breakers = 'ice_breakers'
-        payment_settings = 'payment_settings'
-        persistent_menu = 'persistent_menu'
-        target_audience = 'target_audience'
-        whitelisted_domains = 'whitelisted_domains'
+        android = 'android'
+        ios = 'ios'
+        ipad = 'ipad'
+        iphone = 'iphone'
+        web = 'web'
+        windows = 'windows'
+        windows_phone = 'windows_phone'
+        windows_universal = 'windows_universal'
 
     _field_types = {
-        'account_linking_url': 'string',
-        'get_started': 'Object',
-        'greeting': 'list<Object>',
-        'ice_breakers': 'list<Object>',
-        'payment_settings': 'Object',
-        'persistent_menu': 'list<Object>',
-        'target_audience': 'Object',
-        'whitelisted_domains': 'list<string>',
+        'android': 'list<AndroidAppLink>',
+        'ios': 'list<IosAppLink>',
+        'ipad': 'list<IosAppLink>',
+        'iphone': 'list<IosAppLink>',
+        'web': 'WebAppLink',
+        'windows': 'list<WindowsAppLink>',
+        'windows_phone': 'list<WindowsPhoneAppLink>',
+        'windows_universal': 'list<WindowsAppLink>',
     }
     @classmethod
     def _get_field_enum_info(cls):

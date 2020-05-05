@@ -46,6 +46,7 @@ class AdgroupPlacementSpecificReviewFeedback(
         daily_deals = 'daily_deals'
         daily_deals_legacy = 'daily_deals_legacy'
         dpa = 'dpa'
+        dri_counterfeit = 'dri_counterfeit'
         facebook = 'facebook'
         facebook_pages_live_shopping = 'facebook_pages_live_shopping'
         instagram = 'instagram'
@@ -75,6 +76,7 @@ class AdgroupPlacementSpecificReviewFeedback(
         'daily_deals': 'map<string, string>',
         'daily_deals_legacy': 'map<string, string>',
         'dpa': 'map<string, string>',
+        'dri_counterfeit': 'map<string, string>',
         'facebook': 'map<string, string>',
         'facebook_pages_live_shopping': 'map<string, string>',
         'instagram': 'map<string, string>',

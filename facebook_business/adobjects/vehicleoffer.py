@@ -45,6 +45,7 @@ class VehicleOffer(
         amount_percentage = 'amount_percentage'
         amount_price = 'amount_price'
         amount_qualifier = 'amount_qualifier'
+        applinks = 'applinks'
         body_style = 'body_style'
         cashback_currency = 'cashback_currency'
         cashback_price = 'cashback_price'
@@ -109,6 +110,7 @@ class VehicleOffer(
         'amount_percentage': 'float',
         'amount_price': 'string',
         'amount_qualifier': 'string',
+        'applinks': 'CatalogItemAppLinks',
         'body_style': 'string',
         'cashback_currency': 'string',
         'cashback_price': 'string',

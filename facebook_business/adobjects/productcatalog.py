@@ -44,7 +44,6 @@ class ProductCatalog(
 
     class Field(AbstractObject.Field):
         business = 'business'
-        cpas_parent_catalog_settings = 'cpas_parent_catalog_settings'
         da_display_settings = 'da_display_settings'
         default_image_url = 'default_image_url'
         fallback_image_url = 'fallback_image_url'
@@ -66,6 +65,7 @@ class ProductCatalog(
         home_listings = 'home_listings'
         hotels = 'hotels'
         jobs = 'jobs'
+        local_service_businesses = 'local_service_businesses'
         offer_items = 'offer_items'
         offline_commerce = 'offline_commerce'
         ticketed_experiences = 'ticketed_experiences'
@@ -1617,7 +1617,6 @@ class ProductCatalog(
 
     _field_types = {
         'business': 'Business',
-        'cpas_parent_catalog_settings': 'CPASParentCatalogSettings',
         'da_display_settings': 'ProductCatalogImageSettings',
         'default_image_url': 'string',
         'fallback_image_url': 'list<string>',

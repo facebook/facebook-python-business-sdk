@@ -572,6 +572,7 @@ class Post(
                 'ORDER_NOW',
                 'PAY_TO_ACCESS',
                 'PLAY_GAME',
+                'PURCHASE_GIFT_CARDS',
                 'RECORD_NOW',
                 'REQUEST_TIME',
                 'SAY_THANKS',

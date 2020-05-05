@@ -2187,7 +2187,6 @@ class AdAccount(
         param_types = {
             'adlabels': 'list<Object>',
             'bid_strategy': 'bid_strategy_enum',
-            'budget_rebalance_flag': 'bool',
             'buying_type': 'string',
             'daily_budget': 'unsigned int',
             'execution_options': 'list<execution_options_enum>',
@@ -2198,7 +2197,7 @@ class AdAccount(
             'pacing_type': 'list<string>',
             'promoted_object': 'Object',
             'source_campaign_id': 'string',
-            'special_ad_category': 'special_ad_category_enum',
+            'special_ad_categories': 'list<special_ad_categories_enum>',
             'spend_cap': 'unsigned int',
             'status': 'status_enum',
             'topline_id': 'string',
@@ -2208,7 +2207,7 @@ class AdAccount(
             'bid_strategy_enum': Campaign.BidStrategy.__dict__.values(),
             'execution_options_enum': Campaign.ExecutionOptions.__dict__.values(),
             'objective_enum': Campaign.Objective.__dict__.values(),
-            'special_ad_category_enum': Campaign.SpecialAdCategory.__dict__.values(),
+            'special_ad_categories_enum': Campaign.SpecialAdCategories.__dict__.values(),
             'status_enum': Campaign.Status.__dict__.values(),
         }
         request = FacebookRequest(
