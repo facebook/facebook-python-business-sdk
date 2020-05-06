@@ -43,13 +43,15 @@ class UserData(object):
         'client_user_agent': 'str',
         'fbc': 'str',
         'fbp': 'str',
-        'subscription_id': 'str'
+        'subscription_id': 'str',
+        'fb_login_id': 'str'
     }
 
     def __init__(self, email: str = None, phone: str = None, gender: Gender = None, date_of_birth: str = None,
                  last_name: str = None, first_name: str = None, city: str = None, state: str = None,
                  country_code: str = None, zip_code: str = None, external_id: str = None, client_ip_address: str = None,
-                 client_user_agent: str = None, fbc: str = None, fbp: str = None, subscription_id: str = None):
+                 client_user_agent: str = None, fbc: str = None, fbp: str = None, subscription_id: str = None,
+                 fb_login_id: str = None):
         """UserData is a set of identifiers Facebook can use for targeted attribution"""
         self._email = None
         self._phone = None
@@ -67,6 +69,7 @@ class UserData(object):
         self._fbc = None
         self._fbp = None
         self._subscription_id = None
+        self._fb_login_id = None
         if email is not None:
             self.email = email
         if phone is not None:
@@ -99,6 +102,8 @@ class UserData(object):
             self.fbp = fbp
         if subscription_id is not None:
             self.subscription_id = subscription_id
+        if fb_login_id is not None:
+            self.fb_login_id = fb_login_id
 
     @property
     def email(self):
@@ -489,6 +494,29 @@ class UserData(object):
 
         self._subscription_id = subscription_id
 
+    @property
+    def fb_login_id(self):
+        """Gets the Facbook login id.
+
+        ID issued by Facebook when a person first logs into an instance of an app. This is also known as App-Scoped ID.
+
+        :return: The Facbook login id.
+        :rtype: str
+        """
+        return self._fb_login_id
+
+    @fb_login_id.setter
+    def fb_login_id(self, fb_login_id: str):
+        """Sets the Facbook login id.
+
+        ID issued by Facebook when a person first logs into an instance of an app. This is also known as App-Scoped ID.
+
+        :param fb_login_id: The Facbook login id.
+        :type: str
+        """
+
+        self._fb_login_id = fb_login_id
+
     def normalize(self):
         normalized_payload = {'em': self.hash_sha_256(Normalize.normalize_field('em', self.email)),
                               'ph': self.hash_sha_256(Normalize.normalize_field('ph', self.phone)),
@@ -505,6 +533,7 @@ class UserData(object):
                               'fbc': self.fbc,
                               'fbp': self.fbp,
                               'subscription_id': self.subscription_id,
+                              'fb_login_id': self.fb_login_id,
                               }
         if self.gender is not None:
             normalized_payload['ge'] = self.hash_sha_256(Normalize.normalize_field('ge', self.gender.value))
