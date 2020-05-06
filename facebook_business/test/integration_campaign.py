@@ -224,7 +224,7 @@ class CampaignTestCase(IntegrationTestCase):
                     params,
                 )
 
-            self.assertEqual(len(warning), 2)
+            self.assertEqual(len(warning), 1)
             self.assertTrue(issubclass(warning[-1].category, UserWarning))
 
 
