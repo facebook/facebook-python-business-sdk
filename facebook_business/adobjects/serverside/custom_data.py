@@ -50,6 +50,8 @@ class CustomData(object):
                  contents = None, content_type = None, order_id = None,
                  predicted_ltv = None, num_items = None,
                  status = None, search_string = None, custom_properties = {}):
+        # type: (float, str, str, str, content_ids, List[str], List[Content], str, str, float, int, str, str, dict) -> None
+
         self._value = None
         self._currency = None
         self._content_name = None

@@ -38,6 +38,8 @@ class Event(object):
 
     def __init__(self, event_name = None, event_time = None, event_source_url = None,
                  opt_out = None, event_id = None, user_data = None, custom_data = None):
+        # type: (str, int, str, bool, str, UserData, CustomData) -> None
+
         """Server-Side Event"""
         self._event_name = None
         self._event_time = None

@@ -33,6 +33,8 @@ class Content(object):
     }
 
     def __init__(self, product_id = None, quantity = None, item_price = None):
+        # type: (str, int, float) -> None
+
         self._product_id = None
         self._quantity = None
         self._item_price = None

@@ -37,6 +37,8 @@ class EventRequest(object):
     }
 
     def __init__(self, pixel_id = None, events = None, test_event_code = None):
+        # type: (str, List[Event], str) -> None
+
         self._events = None
         self._test_event_code = None
         self.__pixel_id = None

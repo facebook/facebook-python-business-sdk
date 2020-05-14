@@ -52,6 +52,8 @@ class UserData(object):
                  country_code = None, zip_code = None, external_id = None, client_ip_address = None,
                  client_user_agent = None, fbc = None, fbp = None, subscription_id = None,
                  fb_login_id = None):
+        # type: (str, str, Gender, str, str, str, str, str, str, str, str, str, str, str, str, str, str) -> None
+
         """UserData is a set of identifiers Facebook can use for targeted attribution"""
         self._email = None
         self._phone = None
