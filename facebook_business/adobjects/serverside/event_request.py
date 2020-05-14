@@ -20,9 +20,8 @@
 
 import json
 import pprint
-from typing import List
-
 import six
+
 from facebook_business.adobjects.adspixel import AdsPixel
 from facebook_business.adobjects.serverside.event import Event
 from facebook_business.adobjects.serverside.event_response import EventResponse
@@ -37,7 +36,7 @@ class EventRequest(object):
         'test_event_code': 'str'
     }
 
-    def __init__(self, pixel_id: str = None, events: List[Event] = None, test_event_code: str = None):
+    def __init__(self, pixel_id = None, events = None, test_event_code = None):
         self._events = None
         self._test_event_code = None
         self.__pixel_id = None
@@ -60,7 +59,7 @@ class EventRequest(object):
         return self._events
 
     @events.setter
-    def events(self, events: List[Event]):
+    def events(self, events):
         """Sets the events.
 
         An array of Server Event objects
@@ -87,7 +86,7 @@ class EventRequest(object):
         return self._test_event_code
 
     @test_event_code.setter
-    def test_event_code(self, test_event_code: str):
+    def test_event_code(self, test_event_code):
         """Sets the test_event_code.
 
         Code used to verify that your server events are received correctly by Facebook.

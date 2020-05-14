@@ -19,7 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 import pprint
-
 import six
 
 
@@ -33,7 +32,7 @@ class Content(object):
         'item_price': 'float'
     }
 
-    def __init__(self, product_id: str = None, quantity: str = None, item_price: float = None):
+    def __init__(self, product_id = None, quantity = None, item_price = None):
         self._product_id = None
         self._quantity = None
         self._item_price = None
@@ -53,7 +52,7 @@ class Content(object):
         return self._product_id
 
     @product_id.setter
-    def product_id(self, product_id: str):
+    def product_id(self, product_id):
         """
         Sets Product Id.
         """
@@ -68,7 +67,7 @@ class Content(object):
         return self._quantity
 
     @quantity.setter
-    def quantity(self, quantity: str):
+    def quantity(self, quantity):
         """
         Set number of product.
         """
@@ -83,7 +82,7 @@ class Content(object):
         return self._item_price
 
     @item_price.setter
-    def item_price(self, item_price: float):
+    def item_price(self, item_price):
         """
         Sets Item Price.
         """
@@ -95,7 +94,7 @@ class Content(object):
             'quantity': self.quantity,
             'item_price': self.item_price,
         }
-        normalized_payload: dict = {k: v for k, v in normalized_payload.items() if v is not None}
+        normalized_payload = {k: v for k, v in normalized_payload.items() if v is not None}
         return normalized_payload
 
     def to_dict(self):

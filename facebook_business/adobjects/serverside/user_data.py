@@ -20,8 +20,8 @@
 
 import hashlib
 import pprint
-
 import six
+
 from facebook_business.adobjects.serverside.gender import Gender
 from facebook_business.adobjects.serverside.normalize import Normalize
 
@@ -47,11 +47,11 @@ class UserData(object):
         'fb_login_id': 'str'
     }
 
-    def __init__(self, email: str = None, phone: str = None, gender: Gender = None, date_of_birth: str = None,
-                 last_name: str = None, first_name: str = None, city: str = None, state: str = None,
-                 country_code: str = None, zip_code: str = None, external_id: str = None, client_ip_address: str = None,
-                 client_user_agent: str = None, fbc: str = None, fbp: str = None, subscription_id: str = None,
-                 fb_login_id: str = None):
+    def __init__(self, email = None, phone = None, gender = None, date_of_birth = None,
+                 last_name = None, first_name = None, city = None, state = None,
+                 country_code = None, zip_code = None, external_id = None, client_ip_address = None,
+                 client_user_agent = None, fbc = None, fbp = None, subscription_id = None,
+                 fb_login_id = None):
         """UserData is a set of identifiers Facebook can use for targeted attribution"""
         self._email = None
         self._phone = None
@@ -117,7 +117,7 @@ class UserData(object):
         return self._email
 
     @email.setter
-    def email(self, email: str):
+    def email(self, email):
         """Sets the email.
 
         An email address, in lowercase.
@@ -140,7 +140,7 @@ class UserData(object):
         return self._phone
 
     @phone.setter
-    def phone(self, phone: str):
+    def phone(self, phone):
         """Sets the phone.
 
         A phone number. Include only digits with country code, area code, and number.
@@ -163,7 +163,7 @@ class UserData(object):
         return self._gender
 
     @gender.setter
-    def gender(self, gender: Gender):
+    def gender(self, gender):
         """Sets the gender.
 
         Gender, in lowercase. Either f or m.
@@ -189,7 +189,7 @@ class UserData(object):
         return self._date_of_birth
 
     @date_of_birth.setter
-    def date_of_birth(self, date_of_birth: str):
+    def date_of_birth(self, date_of_birth):
         """Sets the date of birth.
 
         A date of birth given as YYYYMMDD.
@@ -212,7 +212,7 @@ class UserData(object):
         return self._last_name
 
     @last_name.setter
-    def last_name(self, last_name: str):
+    def last_name(self, last_name):
         """Sets the last name.
 
         A last name in lowercase.
@@ -235,7 +235,7 @@ class UserData(object):
         return self._first_name
 
     @first_name.setter
-    def first_name(self, first_name: str):
+    def first_name(self, first_name):
         """Sets the first name.
 
         A first name in lowercase.
@@ -258,7 +258,7 @@ class UserData(object):
         return self._city
 
     @city.setter
-    def city(self, city: str):
+    def city(self, city):
         """Sets the city.
 
         A city in lower-case without spaces or punctuation.
@@ -281,7 +281,7 @@ class UserData(object):
         return self._state
 
     @state.setter
-    def state(self, state: str):
+    def state(self, state):
         """Sets the state.
 
         A two-letter state code in lowercase.
@@ -304,7 +304,7 @@ class UserData(object):
         return self._country_code
 
     @country_code.setter
-    def country_code(self, country_code: str):
+    def country_code(self, country_code):
         """Sets a two-letter country code in lowercase.
 
         :param country_code: The country code
@@ -326,7 +326,7 @@ class UserData(object):
         return self._zip_code
 
     @zip_code.setter
-    def zip_code(self, zip_code: str):
+    def zip_code(self, zip_code):
         """Sets the zipcode.
 
         For the United States, this is a five-digit zip code.
@@ -353,7 +353,7 @@ class UserData(object):
         return self._external_id
 
     @external_id.setter
-    def external_id(self, external_id: str):
+    def external_id(self, external_id):
         """Sets the external id.
 
         Any unique ID from the advertiser, such as loyalty membership IDs, user IDs, and external cookie IDs.
@@ -379,7 +379,7 @@ class UserData(object):
         return self._client_ip_address
 
     @client_ip_address.setter
-    def client_ip_address(self, client_ip_address: str):
+    def client_ip_address(self, client_ip_address):
         """Sets the client ip address.
 
         The IP address of the browser corresponding to the event.
@@ -402,7 +402,7 @@ class UserData(object):
         return self._client_user_agent
 
     @client_user_agent.setter
-    def client_user_agent(self, client_user_agent: str):
+    def client_user_agent(self, client_user_agent):
         """Sets the client user agent.
 
         The user agent for the browser corresponding to the event.
@@ -428,7 +428,7 @@ class UserData(object):
         return self._fbc
 
     @fbc.setter
-    def fbc(self, fbc: str):
+    def fbc(self, fbc):
         """Sets the fbc.
 
         The Facebook click ID value stored in the _fbc browser cookie under your domain.
@@ -457,7 +457,7 @@ class UserData(object):
         return self._fbp
 
     @fbp.setter
-    def fbp(self, fbp: str):
+    def fbp(self, fbp):
         """Sets the fbp.
 
         The Facebook browser ID value stored in the _fbp browser cookie under your domain.
@@ -483,7 +483,7 @@ class UserData(object):
         return self._subscription_id
 
     @subscription_id.setter
-    def subscription_id(self, subscription_id: str):
+    def subscription_id(self, subscription_id):
         """Sets the subscription id.
 
         The subscription ID for the user in this transaction. This is similar to the order ID for an individual product.
@@ -506,7 +506,7 @@ class UserData(object):
         return self._fb_login_id
 
     @fb_login_id.setter
-    def fb_login_id(self, fb_login_id: str):
+    def fb_login_id(self, fb_login_id):
         """Sets the Facbook login id.
 
         ID issued by Facebook when a person first logs into an instance of an app. This is also known as App-Scoped ID.
@@ -538,7 +538,7 @@ class UserData(object):
         if self.gender is not None:
             normalized_payload['ge'] = self.hash_sha_256(Normalize.normalize_field('ge', self.gender.value))
 
-        normalized_payload: dict = {k: v for k, v in normalized_payload.items() if v is not None}
+        normalized_payload = {k: v for k, v in normalized_payload.items() if v is not None}
         return normalized_payload
 
     def hash_sha_256(self, input):

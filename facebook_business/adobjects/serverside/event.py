@@ -19,8 +19,8 @@
 # DEALINGS IN THE SOFTWARE.
 
 import pprint
-
 import six
+
 from facebook_business.adobjects.serverside.custom_data import CustomData
 from facebook_business.adobjects.serverside.user_data import UserData
 
@@ -36,9 +36,8 @@ class Event(object):
         'custom_data': 'CustomData'
     }
 
-    def __init__(self, event_name: str = None, event_time: int = None, event_source_url: str = None,
-                 opt_out: bool = None, event_id: str = None,
-                 user_data: UserData = None, custom_data: CustomData = None):
+    def __init__(self, event_name = None, event_time = None, event_source_url = None,
+                 opt_out = None, event_id = None, user_data = None, custom_data = None):
         """Server-Side Event"""
         self._event_name = None
         self._event_time = None
@@ -72,7 +71,7 @@ class Event(object):
         return self._event_name
 
     @event_name.setter
-    def event_name(self, event_name: str):
+    def event_name(self, event_name):
         """Sets the event_name of this Event.
 
         A Facebook pixel Standard Event or Custom Event name.
@@ -98,7 +97,7 @@ class Event(object):
         return self._event_time
 
     @event_time.setter
-    def event_time(self, event_time: int):
+    def event_time(self, event_time):
         """Sets the event_time of this Event.
 
         A Unix timestamp in seconds indicating when the actual event occurred.
@@ -126,7 +125,7 @@ class Event(object):
         return self._event_source_url
 
     @event_source_url.setter
-    def event_source_url(self, event_source_url: str):
+    def event_source_url(self, event_source_url):
         """Sets the event_source_url of this Event.
 
         The browser URL where the event happened.
@@ -150,7 +149,7 @@ class Event(object):
         return self._opt_out
 
     @opt_out.setter
-    def opt_out(self, opt_out: bool):
+    def opt_out(self, opt_out):
         """Sets the opt_out of this Event.
 
         A flag that indicates we should not use this event for ads delivery optimization.
@@ -178,7 +177,7 @@ class Event(object):
         return self._event_id
 
     @event_id.setter
-    def event_id(self, event_id: str):
+    def event_id(self, event_id):
         """Sets the event_id of this Event.
 
         This ID can be any string chosen by the advertiser.
@@ -202,7 +201,7 @@ class Event(object):
         return self._user_data
 
     @user_data.setter
-    def user_data(self, user_data: UserData):
+    def user_data(self, user_data):
         """Sets the user_data of this Event.
 
 
@@ -228,7 +227,7 @@ class Event(object):
         return self._custom_data
 
     @custom_data.setter
-    def custom_data(self, custom_data: CustomData):
+    def custom_data(self, custom_data):
         """Sets the custom_data of this Event.
 
 
@@ -252,7 +251,7 @@ class Event(object):
         if self.custom_data is not None:
             normalized_payload['custom_data'] = self.custom_data.normalize()
 
-        normalized_payload: dict = {k: v for k, v in normalized_payload.items() if v is not None}
+        normalized_payload = {k: v for k, v in normalized_payload.items() if v is not None}
         return normalized_payload
 
     def to_dict(self):
