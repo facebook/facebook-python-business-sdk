@@ -62,6 +62,7 @@ class Profile(
 
     class Type:
         angry = 'ANGRY'
+        care = 'CARE'
         haha = 'HAHA'
         like = 'LIKE'
         love = 'LOVE'

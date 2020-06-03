@@ -18,38 +18,23 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebook_business.adobjects.abstractobject import AbstractObject
+from facebook_business.adobjects.adaccount import AdAccount
+from facebook_business.adobjects.adcreative import AdCreative
+from facebook_business.api import FacebookAdsApi
 
-"""
-This class is auto-generated.
+access_token = '<ACCESS_TOKEN>'
+app_secret = '<APP_SECRET>'
+app_id = '<APP_ID>'
+id = '<AD_ACCOUNT_ID>'
+FacebookAdsApi.init(access_token=access_token)
 
-For any issues or feature requests related to this class, please let us know on
-github and we'll fix in our codegen framework. We'll not be able to accept
-pull request for this class.
-"""
-
-class CustomAudiencePrefillState(
-    AbstractObject,
-):
-
-    def __init__(self, api=None):
-        super(CustomAudiencePrefillState, self).__init__()
-        self._isCustomAudiencePrefillState = True
-        self._api = api
-
-    class Field(AbstractObject.Field):
-        description = 'description'
-        num_added = 'num_added'
-        status = 'status'
-
-    _field_types = {
-        'description': 'string',
-        'num_added': 'unsigned int',
-        'status': 'string',
-    }
-    @classmethod
-    def _get_field_enum_info(cls):
-        field_enum_info = {}
-        return field_enum_info
-
-
+fields = [
+]
+params = {
+  'object_story_spec': {'page_id':'<pageID>','template_data':{'format_option':'collection_video','link':'<canvasURI>','name':'English Creative title','message':'English Creative message','call_to_action':{'type':'LEARN_MORE'},'retailer_item_ids':[0,0,0,0],'customization_rules_spec':[{'customization_spec':{'language':'en_XX'}},{'customization_spec':{'language':'fr_XX'},'link':'<canvasURIFR>','name':'French Creative title','message':'French Creative message'}]}},
+  'product_set_id': '<productSetID>',
+}
+print AdAccount(id).create_ad_creative(
+  fields=fields,
+  params=params,
+)

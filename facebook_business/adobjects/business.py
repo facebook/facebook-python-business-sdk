@@ -1235,6 +1235,37 @@ class Business(
             self.assure_call()
             return request.execute()
 
+    def get_commerce_merchant_settings(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.commercemerchantsettings import CommerceMerchantSettings
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/commerce_merchant_settings',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=CommerceMerchantSettings,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=CommerceMerchantSettings, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_content_delivery_report(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -1595,6 +1626,40 @@ class Business(
             target_class=BusinessAssetSharingAgreement,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=BusinessAssetSharingAgreement, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_initiated_sharing_agreements(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.businessagreement import BusinessAgreement
+        param_types = {
+            'receiving_business_id': 'string',
+            'request_status': 'request_status_enum',
+        }
+        enums = {
+            'request_status_enum': BusinessAgreement.RequestStatus.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/initiated_sharing_agreements',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=BusinessAgreement,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=BusinessAgreement, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2136,7 +2201,6 @@ class Business(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'code': 'string',
-            'ig_password': 'string',
             'page_id': 'int',
         }
         enums = {
@@ -2231,10 +2295,12 @@ class Business(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.productcatalog import ProductCatalog
         param_types = {
+            'commerce_merchant_settings': 'Object',
             'da_display_settings': 'Object',
             'destination_catalog_settings': 'map',
             'flight_catalog_settings': 'map',
             'name': 'string',
+            'onsite_commerce_merchant': 'Object',
             'store_catalog_settings': 'map',
             'vertical': 'vertical_enum',
         }
@@ -2599,6 +2665,40 @@ class Business(
             target_class=BusinessAssetSharingAgreement,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=BusinessAssetSharingAgreement, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_received_sharing_agreements(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.businessagreement import BusinessAgreement
+        param_types = {
+            'request_status': 'request_status_enum',
+            'requesting_business_id': 'string',
+        }
+        enums = {
+            'request_status_enum': BusinessAgreement.RequestStatus.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/received_sharing_agreements',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=BusinessAgreement,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=BusinessAgreement, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

@@ -32,36 +32,24 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class OpenGraphObject(
+class BusinessAgreement(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isOpenGraphObject = True
-        super(OpenGraphObject, self).__init__(fbid, parent_id, api)
+        self._isBusinessAgreement = True
+        super(BusinessAgreement, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        admins = 'admins'
-        application = 'application'
-        audio = 'audio'
-        created_time = 'created_time'
-        description = 'description'
-        determiner = 'determiner'
-        engagement = 'engagement'
         id = 'id'
-        image = 'image'
-        is_scraped = 'is_scraped'
-        locale = 'locale'
-        location = 'location'
-        post_action_id = 'post_action_id'
-        profile_id = 'profile_id'
-        restrictions = 'restrictions'
-        see_also = 'see_also'
-        site_name = 'site_name'
-        title = 'title'
-        type = 'type'
-        updated_time = 'updated_time'
-        video = 'video'
+        request_status = 'request_status'
+
+    class RequestStatus:
+        approve = 'APPROVE'
+        decline = 'DECLINE'
+        expired = 'EXPIRED'
+        in_progress = 'IN_PROGRESS'
+        pending = 'PENDING'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -77,7 +65,7 @@ class OpenGraphObject(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=OpenGraphObject,
+            target_class=BusinessAgreement,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -93,64 +81,26 @@ class OpenGraphObject(
             self.assure_call()
             return request.execute()
 
-    def get_comments(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.comment import Comment
         param_types = {
-            'filter': 'filter_enum',
-            'live_filter': 'live_filter_enum',
-            'order': 'order_enum',
-            'since': 'datetime',
+            'asset_id': 'unsigned int',
+            'request_status': 'request_status_enum',
         }
         enums = {
-            'filter_enum': Comment.Filter.__dict__.values(),
-            'live_filter_enum': Comment.LiveFilter.__dict__.values(),
-            'order_enum': Comment.Order.__dict__.values(),
+            'request_status_enum': BusinessAgreement.RequestStatus.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
-            method='GET',
-            endpoint='/comments',
+            method='POST',
+            endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=Comment,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=Comment, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def get_reactions(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.profile import Profile
-        param_types = {
-            'type': 'type_enum',
-        }
-        enums = {
-            'type_enum': Profile.Type.__dict__.values(),
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/reactions',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=Profile,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=Profile, api=self._api),
+            target_class=BusinessAgreement,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -165,31 +115,13 @@ class OpenGraphObject(
             return request.execute()
 
     _field_types = {
-        'admins': 'list<Object>',
-        'application': 'Object',
-        'audio': 'list<Object>',
-        'created_time': 'datetime',
-        'description': 'string',
-        'determiner': 'string',
-        'engagement': 'Engagement',
         'id': 'string',
-        'image': 'list<Object>',
-        'is_scraped': 'bool',
-        'locale': 'Object',
-        'location': 'Location',
-        'post_action_id': 'string',
-        'profile_id': 'Object',
-        'restrictions': 'Object',
-        'see_also': 'list<string>',
-        'site_name': 'string',
-        'title': 'string',
-        'type': 'string',
-        'updated_time': 'datetime',
-        'video': 'list<Object>',
+        'request_status': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['RequestStatus'] = BusinessAgreement.RequestStatus.__dict__.values()
         return field_enum_info
 
 

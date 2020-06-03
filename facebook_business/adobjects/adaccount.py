@@ -195,6 +195,7 @@ class AdAccount(
         flight = 'FLIGHT'
         home_listing = 'HOME_LISTING'
         hotel = 'HOTEL'
+        local_service_business = 'LOCAL_SERVICE_BUSINESS'
         location_based_item = 'LOCATION_BASED_ITEM'
         media_title = 'MEDIA_TITLE'
         offline_product = 'OFFLINE_PRODUCT'

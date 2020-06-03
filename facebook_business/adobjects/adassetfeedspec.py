@@ -73,6 +73,7 @@ class AdAssetFeedSpec(
         find_a_group = 'FIND_A_GROUP'
         find_your_groups = 'FIND_YOUR_GROUPS'
         follow_news_storyline = 'FOLLOW_NEWS_STORYLINE'
+        follow_page = 'FOLLOW_PAGE'
         follow_user = 'FOLLOW_USER'
         get_directions = 'GET_DIRECTIONS'
         get_offer = 'GET_OFFER'

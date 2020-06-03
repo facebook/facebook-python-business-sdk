@@ -126,6 +126,7 @@ class AdCreative(
         find_a_group = 'FIND_A_GROUP'
         find_your_groups = 'FIND_YOUR_GROUPS'
         follow_news_storyline = 'FOLLOW_NEWS_STORYLINE'
+        follow_page = 'FOLLOW_PAGE'
         follow_user = 'FOLLOW_USER'
         get_directions = 'GET_DIRECTIONS'
         get_offer = 'GET_OFFER'
@@ -314,37 +315,6 @@ class AdCreative(
             target_class=AdCreative,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def delete_ad_labels(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'adlabels': 'list<Object>',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='DELETE',
-            endpoint='/adlabels',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

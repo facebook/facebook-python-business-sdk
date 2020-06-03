@@ -28,42 +28,32 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class RequestHistory(
+class CommerceMerchantSettingsSetupStatus(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(RequestHistory, self).__init__()
-        self._isRequestHistory = True
+        super(CommerceMerchantSettingsSetupStatus, self).__init__()
+        self._isCommerceMerchantSettingsSetupStatus = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        api_version = 'api_version'
-        created_time = 'created_time'
-        error_code = 'error_code'
-        graph_path = 'graph_path'
-        http_method = 'http_method'
-        post_params = 'post_params'
-        query_params = 'query_params'
-
-    class HttpMethod:
-        delete = 'DELETE'
-        get = 'GET'
-        post = 'POST'
+        deals_setup = 'deals_setup'
+        marketplace_approval_status = 'marketplace_approval_status'
+        marketplace_approval_status_details = 'marketplace_approval_status_details'
+        payment_setup = 'payment_setup'
+        shop_setup = 'shop_setup'
 
     _field_types = {
-        'api_version': 'string',
-        'created_time': 'datetime',
-        'error_code': 'unsigned int',
-        'graph_path': 'string',
-        'http_method': 'HttpMethod',
-        'post_params': 'map<string, string>',
-        'query_params': 'map<string, string>',
+        'deals_setup': 'string',
+        'marketplace_approval_status': 'string',
+        'marketplace_approval_status_details': 'Object',
+        'payment_setup': 'string',
+        'shop_setup': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['HttpMethod'] = RequestHistory.HttpMethod.__dict__.values()
         return field_enum_info
 
 

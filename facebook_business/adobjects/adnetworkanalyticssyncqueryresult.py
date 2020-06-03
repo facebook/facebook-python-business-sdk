@@ -46,6 +46,7 @@ class AdNetworkAnalyticsSyncQueryResult(
         total = 'TOTAL'
 
     class Breakdowns:
+        ad_server_campaign_id = 'AD_SERVER_CAMPAIGN_ID'
         ad_space = 'AD_SPACE'
         age = 'AGE'
         app = 'APP'

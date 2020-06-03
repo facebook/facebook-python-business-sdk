@@ -46,6 +46,7 @@ class CPASParentCatalogSettings(
         id = 'id'
 
     class AttributionWindows:
+        dda = 'DDA'
         value_default = 'DEFAULT'
         x1d_click = 'X1D_CLICK'
         x1d_view = 'X1D_VIEW'

@@ -28,39 +28,26 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class StreamingReaction(
+class ProductFeedUploadDiagnosticsReport(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(StreamingReaction, self).__init__()
-        self._isStreamingReaction = True
+        super(ProductFeedUploadDiagnosticsReport, self).__init__()
+        self._isProductFeedUploadDiagnosticsReport = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        count = 'count'
-        reaction_type = 'reaction_type'
-
-    class ReactionType:
-        angry = 'ANGRY'
-        care = 'CARE'
-        haha = 'HAHA'
-        like = 'LIKE'
-        love = 'LOVE'
-        none = 'NONE'
-        pride = 'PRIDE'
-        sad = 'SAD'
-        thankful = 'THANKFUL'
-        wow = 'WOW'
+        last_updated_time = 'last_updated_time'
+        report_url = 'report_url'
 
     _field_types = {
-        'count': 'unsigned int',
-        'reaction_type': 'ReactionType',
+        'last_updated_time': 'string',
+        'report_url': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['ReactionType'] = StreamingReaction.ReactionType.__dict__.values()
         return field_enum_info
 
 

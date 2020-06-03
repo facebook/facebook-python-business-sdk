@@ -18,12 +18,23 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebook_business.session import FacebookSession
+from facebook_business.adobjects.adaccount import AdAccount
+from facebook_business.adobjects.adcreative import AdCreative
 from facebook_business.api import FacebookAdsApi
 
-__version__ = '7.0.2'
-__all__ = [
-    'session',
-    'objects',
-    'api',
+access_token = '<ACCESS_TOKEN>'
+app_secret = '<APP_SECRET>'
+app_id = '<APP_ID>'
+id = '<AD_ACCOUNT_ID>'
+FacebookAdsApi.init(access_token=access_token)
+
+fields = [
 ]
+params = {
+  'object_story_spec': {'page_id':'<pageID>','link_data':{'picture':'<imageURL>','link':'<canvasURI>','name':'English Creative title','message':'English Creative message','call_to_action':{'type':'LEARN_MORE'},'retailer_item_ids':[0,0,0,0],'customization_rules_spec':[{'customization_spec':{'language':'en_XX'}},{'customization_spec':{'language':'fr_XX'},'picture':'<imageURLFR>','link':'<canvasURIFR>','name':'French Creative title','message':'French Creative message'}]}},
+  'product_set_id': '<productSetID>',
+}
+print AdAccount(id).create_ad_creative(
+  fields=fields,
+  params=params,
+)

@@ -320,6 +320,7 @@ class AdVideo(
         instagram_story = 'INSTAGRAM_STORY'
         instant_article_standard = 'INSTANT_ARTICLE_STANDARD'
         instream_video_desktop = 'INSTREAM_VIDEO_DESKTOP'
+        instream_video_image = 'INSTREAM_VIDEO_IMAGE'
         instream_video_mobile = 'INSTREAM_VIDEO_MOBILE'
         messenger_mobile_inbox_media = 'MESSENGER_MOBILE_INBOX_MEDIA'
         messenger_mobile_story_media = 'MESSENGER_MOBILE_STORY_MEDIA'
