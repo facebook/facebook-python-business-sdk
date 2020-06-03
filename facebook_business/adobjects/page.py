@@ -4912,6 +4912,129 @@ class Page(
             self.assure_call()
             return request.execute()
 
+    def create_work_page_message(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'message': 'Object',
+            'messaging_type': 'messaging_type_enum',
+            'notification_type': 'notification_type_enum',
+            'payload': 'string',
+            'persona_id': 'string',
+            'recipient': 'Object',
+            'sender_action': 'sender_action_enum',
+            'tag': 'Object',
+        }
+        enums = {
+            'messaging_type_enum': Page.MessagingType.__dict__.values(),
+            'notification_type_enum': Page.NotificationType.__dict__.values(),
+            'sender_action_enum': Page.SenderAction.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/workpagemessages',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Page,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Page, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    # --------------------------
+    # Mayple additions - start
+    # --------------------------
+
+    def get_extended_access_token(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'grant_type':        'string',
+            'client_id':         'string',
+            'client_secret':     'string',
+            'fb_exchange_token': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id='oauth',
+            method='GET',
+            endpoint='/access_token',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+
+        # TODO: Create an actual object instead of using AbstractCrudObject with this list..
+        request._accepted_fields = list(request._accepted_fields)
+        request._accepted_fields.extend([
+            'access_token', 'token_type'
+        ])
+
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_access_token_debug_details(self, fields=None, params=None, batch=None, pending=False):
+        param_types = {
+            'input_token':  'string',
+            'access_token': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id='debug_token',
+            method='GET',
+            endpoint='/',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+
+        # TODO: Create an actual object instead of using AbstractCrudObject with this list..
+        request._accepted_fields = list(request._accepted_fields)
+        request._accepted_fields.extend([
+            'app_id', 'application', 'expires_at', 'is_valid', 'issued_at', 'scopes', 'user_id'
+        ])
+
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    # ------------------------
+    # Mayple additions - end
+    # ------------------------
+
     _field_types = {
         'about': 'string',
         'access_token': 'string',

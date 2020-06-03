@@ -49,9 +49,12 @@ class ProfilePictureSource(
         width = 'width'
 
     class Type:
-        album = 'album'
-        small = 'small'
         thumbnail = 'thumbnail'
+        small = 'small'
+        normal = 'normal'
+        album  = 'album'
+        large  = 'large'
+        square = 'square'
 
     class BreakingChange:
         profile_picture = 'PROFILE_PICTURE'
