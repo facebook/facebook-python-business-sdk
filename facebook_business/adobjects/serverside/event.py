@@ -33,12 +33,16 @@ class Event(object):
         'opt_out': 'bool',
         'event_id': 'str',
         'user_data': 'UserData',
-        'custom_data': 'CustomData'
+        'custom_data': 'CustomData',
+        'data_processing_options': 'list[str]',
+        'data_processing_options_country': 'int',
+        'data_processing_options_state': 'int'
     }
 
     def __init__(self, event_name = None, event_time = None, event_source_url = None,
-                 opt_out = None, event_id = None, user_data = None, custom_data = None):
-        # type: (str, int, str, bool, str, UserData, CustomData) -> None
+                 opt_out = None, event_id = None, user_data = None, custom_data = None,
+                 data_processing_options = None, data_processing_options_country = None, data_processing_options_state = None):
+        # type: (str, int, str, bool, str, UserData, CustomData, list[str], int, int) -> None
 
         """Server-Side Event"""
         self._event_name = None
@@ -48,6 +52,9 @@ class Event(object):
         self._event_id = None
         self._user_data = None
         self._custom_data = None
+        self._data_processing_options = None
+        self._data_processing_options_country = None
+        self._data_processing_options_state = None
         self.event_name = event_name
         self.event_time = event_time
         if event_source_url is not None:
@@ -60,6 +67,12 @@ class Event(object):
             self.user_data = user_data
         if custom_data is not None:
             self.custom_data = custom_data
+        if data_processing_options is not None:
+            self.data_processing_options = data_processing_options
+        if data_processing_options_country is not None:
+            self.data_processing_options_country = data_processing_options_country
+        if data_processing_options_state is not None:
+            self.data_processing_options_state = data_processing_options_state
 
     @property
     def event_name(self):
@@ -242,10 +255,79 @@ class Event(object):
 
         self._custom_data = custom_data
 
+    @property
+    def data_processing_options(self):
+        """Gets the data_processing_options of this Event.
+
+        :return: The data_processing_options of this Event.
+        :rtype: list[str]
+        """
+        return self._data_processing_options
+
+    @data_processing_options.setter
+    def data_processing_options(self, data_processing_options):
+        """Sets the data_processing_options of this Event.
+        Processing options you would like to enable for a specific event.
+        For more details see https://developers.facebook.com/docs/marketing-apis/data-processing-options
+
+        :param data_processing_options: The data_processing_options of this Event.
+        :type: list[str]
+        """
+
+        self._data_processing_options = data_processing_options
+
+    @property
+    def data_processing_options_country(self):
+        """Gets the data_processing_options_country of this Event.
+
+        :return: The data_processing_options_country of this Event.
+        :rtype: int
+        """
+        return self._data_processing_options_country
+
+    @data_processing_options_country.setter
+    def data_processing_options_country(self, data_processing_options_country):
+        """Sets the data_processing_options_country of this Event.
+        A country that you want to associate to this data processing option.
+        For more details: https://developers.intern.facebook.com/docs/marketing-apis/data-processing-options
+
+        :param data_processing_options_country: The data_processing_options_country of this Event.
+        :type: int
+        """
+
+        if not isinstance(data_processing_options_country, int):
+            raise TypeError('Event.data_processing_options_country must be an int')
+
+        self._data_processing_options_country = data_processing_options_country
+
+    @property
+    def data_processing_options_state(self):
+        """Gets the data_processing_options_state of this Event.
+
+        :return: The data_processing_options_state of this Event.
+        :rtype: int
+        """
+        return self._data_processing_options_state
+
+    @data_processing_options_state.setter
+    def data_processing_options_state(self, data_processing_options_state):
+        """Sets the data_processing_options_state of this Event.
+        A state that you want to associate with this data processing option.
+        For more details: https://developers.facebook.com/docs/marketing-apis/data-processing-options
+
+        :param data_processing_options: The data_processing_options of this Event.
+        :type: int
+        """
+
+        self._data_processing_options_state = data_processing_options_state
+
+
     def normalize(self):
         normalized_payload = {'event_name': self.event_name, 'event_time': self.event_time,
                               'event_source_url': self.event_source_url, 'opt_out': self.opt_out,
-                              'event_id': self.event_id}
+                              'event_id': self.event_id, 'data_processing_options': self.data_processing_options,
+                              'data_processing_options_country' : self.data_processing_options_country,
+                              'data_processing_options_state': self.data_processing_options_state }
 
         if self.user_data is not None:
             normalized_payload['user_data'] = self.user_data.normalize()
