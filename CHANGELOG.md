@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+## v7.0.3
+### Added
+- Added support for data processing options in Serverside API. For more details see : https://developers.facebook.com/docs/marketing-apis/data-processing-options
+
 ## v7.0.1
 ### Fixed
 - Adding Python 2.7 compatibility for ServerSide API
