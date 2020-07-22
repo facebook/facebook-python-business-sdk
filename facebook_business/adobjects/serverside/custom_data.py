@@ -42,15 +42,28 @@ class CustomData(object):
         'num_items': 'int',
         'status': 'str',
         'search_string' : 'str',
+        'item_number': 'str',
         'custom_properties' : 'dict'
     }
 
-    def __init__(self, value = None, currency = None, content_name = None,
-                 content_category = None, content_ids = None,
-                 contents = None, content_type = None, order_id = None,
-                 predicted_ltv = None, num_items = None,
-                 status = None, search_string = None, custom_properties = {}):
-        # type: (float, str, str, str, content_ids, List[str], List[Content], str, str, float, int, str, str, dict) -> None
+    def __init__(
+        self,
+        value=None,
+        currency=None,
+        content_name=None,
+        content_category=None,
+        content_ids=None,
+        contents=None,
+        content_type=None,
+        order_id=None,
+        predicted_ltv=None,
+        num_items=None,
+        status=None,
+        search_string=None,
+        item_number=None,
+        custom_properties={},
+    ):
+        # type: (float, str, str, str, content_ids, List[str], List[Content], str, str, float, int, str, str, str, dict) -> None
 
         self._value = None
         self._currency = None
@@ -64,6 +77,7 @@ class CustomData(object):
         self._num_items = None
         self._status = None
         self._search_string = None
+        self._item_number = None
         self._custom_properties = None
         if value is not None:
             self.value = value
@@ -89,6 +103,8 @@ class CustomData(object):
             self.status = status
         if search_string is not None:
             self.search_string = search_string
+        if item_number is not None:
+            self.item_number = item_number
         if custom_properties:
             self.custom_properties = custom_properties
 
@@ -377,6 +393,25 @@ class CustomData(object):
         self._search_string = search_string
 
     @property
+    def item_number(self):
+        """Gets the item number.
+
+        :return: The item number.
+        :rtype: str
+        """
+        return self._item_number
+
+    @item_number.setter
+    def item_number(self, item_number):
+        """Sets the item number.
+
+        :param item_number: The item number.
+        :type: str
+        """
+
+        self._item_number = item_number
+
+    @property
     def custom_properties(self):
         """Gets the custom properties to be included in the Custom Data.
 
@@ -422,6 +457,7 @@ class CustomData(object):
             'num_items': self.num_items,
             'status': self.status,
             'search_string': self.search_string,
+            'item_number': self.item_number,
         }
         if self.contents is not None:
             contents = []

@@ -44,15 +44,42 @@ class UserData(object):
         'fbc': 'str',
         'fbp': 'str',
         'subscription_id': 'str',
-        'fb_login_id': 'str'
+        'fb_login_id': 'str',
+        'f5first': 'str',
+        'f5last': 'str',
+        'fi': 'str',
+        'dobd': 'str',
+        'dobm': 'str',
+        'doby': 'str',
     }
 
-    def __init__(self, email = None, phone = None, gender = None, date_of_birth = None,
-                 last_name = None, first_name = None, city = None, state = None,
-                 country_code = None, zip_code = None, external_id = None, client_ip_address = None,
-                 client_user_agent = None, fbc = None, fbp = None, subscription_id = None,
-                 fb_login_id = None):
-        # type: (str, str, Gender, str, str, str, str, str, str, str, str, str, str, str, str, str, str) -> None
+    def __init__(
+        self,
+        email=None,
+        phone=None,
+        gender=None,
+        date_of_birth=None,
+        last_name=None,
+        first_name=None,
+        city=None,
+        state=None,
+        country_code=None,
+        zip_code=None,
+        external_id=None,
+        client_ip_address=None,
+        client_user_agent=None,
+        fbc=None,
+        fbp=None,
+        subscription_id=None,
+        fb_login_id=None,
+        f5first=None,
+        f5last=None,
+        fi=None,
+        dobd=None,
+        dobm=None,
+        doby=None,
+    ):
+        # type: (str, str, Gender, str, str, str, str, str, str, str, str, str, str, str, str, str, str, str, str, str, str, str, str) -> None
 
         """UserData is a set of identifiers Facebook can use for targeted attribution"""
         self._email = None
@@ -72,6 +99,12 @@ class UserData(object):
         self._fbp = None
         self._subscription_id = None
         self._fb_login_id = None
+        self._f5first = None
+        self._f5last = None
+        self._fi = None
+        self._dobd = None
+        self._dobm = None
+        self._doby = None
         if email is not None:
             self.email = email
         if phone is not None:
@@ -106,6 +139,18 @@ class UserData(object):
             self.subscription_id = subscription_id
         if fb_login_id is not None:
             self.fb_login_id = fb_login_id
+        if f5first is not None:
+            self.f5first = f5first
+        if f5last is not None:
+            self.f5last = f5last
+        if fi is not None:
+            self.fi = fi
+        if dobd is not None:
+            self.dobd = dobd
+        if dobm is not None:
+            self.dobm = dobm
+        if doby is not None:
+            self.doby = doby
 
     @property
     def email(self):
@@ -519,6 +564,144 @@ class UserData(object):
 
         self._fb_login_id = fb_login_id
 
+    @property
+    def f5first(self):
+        """Gets the f5first.
+
+        The first 5 characters of a first name.
+
+        :return: f5first.
+        :rtype: str
+        """
+        return self._f5first
+
+    @f5first.setter
+    def f5first(self, f5first):
+        """Sets the f5first.
+
+        The first 5 characters of a first name.
+
+        :param f5first.
+        :type: str
+        """
+
+        self._f5first = f5first
+
+    @property
+    def f5last(self):
+        """Gets the f5last.
+
+        The first 5 characters of a last name.
+
+        :return: f5last.
+        :rtype: str
+        """
+        return self._f5last
+
+    @f5last.setter
+    def f5last(self, f5last):
+        """Sets the f5last.
+
+        The first 5 characters of a last name.
+
+        :param f5last.
+        :type: str
+        """
+
+        self._f5last = f5last
+
+    @property
+    def fi(self):
+        """Gets the fi.
+
+        The first initial.
+
+        :return: fi.
+        :rtype: str
+        """
+        return self._fi
+
+    @fi.setter
+    def fi(self, fi):
+        """Sets the fi.
+
+        The first initial.
+
+        :param fi.
+        :type: str
+        """
+
+        self._fi = fi
+
+    @property
+    def dobd(self):
+        """Gets the dobd.
+
+        The date of birth day.
+
+        :return: dobd.
+        :rtype: str
+        """
+        return self._dobd
+
+    @dobd.setter
+    def dobd(self, dobd):
+        """Sets the dobd.
+
+        The date of birth day.
+
+        :param dobd.
+        :type: str
+        """
+
+        self._dobd = dobd
+
+    @property
+    def dobm(self):
+        """Gets the dobm.
+
+        The date of birth month.
+
+        :return: dobm.
+        :rtype: str
+        """
+        return self._dobm
+
+    @dobm.setter
+    def dobm(self, dobm):
+        """Sets the dobm.
+
+        The date of birth month.
+
+        :param dobm.
+        :type: str
+        """
+
+        self._dobm = dobm
+
+    @property
+    def doby(self):
+        """Gets the doby.
+
+        The date of birth year.
+
+        :return: doby.
+        :rtype: str
+        """
+        return self._doby
+
+    @doby.setter
+    def doby(self, doby):
+        """Sets the doby.
+
+        The date of birth year.
+
+        :param doby.
+        :type: str
+        """
+
+        self._doby = doby
+
     def normalize(self):
         normalized_payload = {'em': self.hash_sha_256(Normalize.normalize_field('em', self.email)),
                               'ph': self.hash_sha_256(Normalize.normalize_field('ph', self.phone)),
@@ -536,6 +719,12 @@ class UserData(object):
                               'fbp': self.fbp,
                               'subscription_id': self.subscription_id,
                               'fb_login_id': self.fb_login_id,
+                              'f5first': self.hash_sha_256(Normalize.normalize_field('f5first', self.f5first)),
+                              'f5last': self.hash_sha_256(Normalize.normalize_field('f5last', self.f5last)),
+                              'fi': self.hash_sha_256(Normalize.normalize_field('fi', self.fi)),
+                              'dobd': self.hash_sha_256(Normalize.normalize_field('dobd', self.dobd)),
+                              'dobm': self.hash_sha_256(Normalize.normalize_field('dobm', self.dobm)),
+                              'doby': self.hash_sha_256(Normalize.normalize_field('doby', self.doby)),
                               }
         if self.gender is not None:
             normalized_payload['ge'] = self.hash_sha_256(Normalize.normalize_field('ge', self.gender.value))

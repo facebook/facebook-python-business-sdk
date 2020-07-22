@@ -144,7 +144,7 @@ class EventResponse(object):
 
     def __eq__(self, other):
         """Returns true if both objects are equal"""
-        if not isinstance(other, ServerSidePixelEventResponseSucess):
+        if not isinstance(other, EventResponse):
             return False
 
         return self.__dict__ == other.__dict__
