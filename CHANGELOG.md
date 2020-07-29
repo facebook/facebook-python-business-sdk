@@ -5,9 +5,14 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-## v5.0.3
+## v6.0.0
+### Changed
+- Graph API call upgrade to [v6.0](https://developers.facebook.com/docs/graph-api/changelog/version6.0)
 
-  - Strongly typed Server-Side API support for python (https://developers.facebook.com/docs/marketing-api/facebook-pixel/server-side-api)
+## v5.0.3
+### Changed
+ - Strongly typed Server-Side API support for python (https://developers.facebook.com/docs/marketing-api/facebook-pixel/server-side-api)
+### Fix
   - Pull request 554 (`get_insights_async()`) resolved
 
 ## v5.0.1

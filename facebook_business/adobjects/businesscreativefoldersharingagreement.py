@@ -32,24 +32,26 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AppLinks(
+class BusinessCreativeFolderSharingAgreement(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isAppLinks = True
-        super(AppLinks, self).__init__(fbid, parent_id, api)
+        self._isBusinessCreativeFolderSharingAgreement = True
+        super(BusinessCreativeFolderSharingAgreement, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        android = 'android'
+        folder_id = 'folder_id'
         id = 'id'
-        ios = 'ios'
-        ipad = 'ipad'
-        iphone = 'iphone'
-        web = 'web'
-        windows = 'windows'
-        windows_phone = 'windows_phone'
-        windows_universal = 'windows_universal'
+        requesting_business = 'requesting_business'
+        status = 'status'
+
+    class RequestStatus:
+        approve = 'APPROVE'
+        decline = 'DECLINE'
+        expired = 'EXPIRED'
+        in_progress = 'IN_PROGRESS'
+        pending = 'PENDING'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -65,7 +67,7 @@ class AppLinks(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AppLinks,
+            target_class=BusinessCreativeFolderSharingAgreement,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -82,19 +84,15 @@ class AppLinks(
             return request.execute()
 
     _field_types = {
-        'android': 'list<AndroidAppLink>',
+        'folder_id': 'string',
         'id': 'string',
-        'ios': 'list<IosAppLink>',
-        'ipad': 'list<IosAppLink>',
-        'iphone': 'list<IosAppLink>',
-        'web': 'WebAppLink',
-        'windows': 'list<WindowsAppLink>',
-        'windows_phone': 'list<WindowsPhoneAppLink>',
-        'windows_universal': 'list<WindowsAppLink>',
+        'requesting_business': 'Business',
+        'status': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['RequestStatus'] = BusinessCreativeFolderSharingAgreement.RequestStatus.__dict__.values()
         return field_enum_info
 
 

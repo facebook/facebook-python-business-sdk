@@ -99,11 +99,13 @@ class AdCampaignActivity(
         updated_time_old = 'updated_time_old'
 
     class BidStrategyNew:
+        cost_cap = 'COST_CAP'
         lowest_cost_without_cap = 'LOWEST_COST_WITHOUT_CAP'
         lowest_cost_with_bid_cap = 'LOWEST_COST_WITH_BID_CAP'
         target_cost = 'TARGET_COST'
 
     class BidStrategyOld:
+        cost_cap = 'COST_CAP'
         lowest_cost_without_cap = 'LOWEST_COST_WITHOUT_CAP'
         lowest_cost_with_bid_cap = 'LOWEST_COST_WITH_BID_CAP'
         target_cost = 'TARGET_COST'
@@ -118,7 +120,6 @@ class AdCampaignActivity(
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
         thruplay = 'THRUPLAY'
-        video_views = 'VIDEO_VIEWS'
 
     class BillingEventOld:
         app_installs = 'APP_INSTALLS'
@@ -130,7 +131,6 @@ class AdCampaignActivity(
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
         thruplay = 'THRUPLAY'
-        video_views = 'VIDEO_VIEWS'
 
     class OptimizationGoalNew:
         ad_recall_lift = 'AD_RECALL_LIFT'
@@ -157,7 +157,7 @@ class AdCampaignActivity(
         thruplay = 'THRUPLAY'
         two_second_continuous_video_views = 'TWO_SECOND_CONTINUOUS_VIDEO_VIEWS'
         value = 'VALUE'
-        video_views = 'VIDEO_VIEWS'
+        visit_instagram_profile = 'VISIT_INSTAGRAM_PROFILE'
 
     class OptimizationGoalOld:
         ad_recall_lift = 'AD_RECALL_LIFT'
@@ -184,7 +184,7 @@ class AdCampaignActivity(
         thruplay = 'THRUPLAY'
         two_second_continuous_video_views = 'TWO_SECOND_CONTINUOUS_VIDEO_VIEWS'
         value = 'VALUE'
-        video_views = 'VIDEO_VIEWS'
+        visit_instagram_profile = 'VISIT_INSTAGRAM_PROFILE'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -233,8 +233,8 @@ class AdCampaignActivity(
         'bid_type_old': 'string',
         'billing_event_new': 'BillingEventNew',
         'billing_event_old': 'BillingEventOld',
-        'brande_audience_id_new': 'string',
-        'brande_audience_id_old': 'string',
+        'brande_audience_id_new': 'BrandAudience',
+        'brande_audience_id_old': 'BrandAudience',
         'budget_limit_new': 'Object',
         'budget_limit_old': 'Object',
         'created_time': 'datetime',

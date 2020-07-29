@@ -40,18 +40,14 @@ class AdCampaignLearningStageInfo(
     class Field(AbstractObject.Field):
         attribution_windows = 'attribution_windows'
         conversions = 'conversions'
-        exit_reason = 'exit_reason'
         last_sig_edit_ts = 'last_sig_edit_ts'
         status = 'status'
-        types = 'types'
 
     _field_types = {
         'attribution_windows': 'list<string>',
         'conversions': 'unsigned int',
-        'exit_reason': 'string',
         'last_sig_edit_ts': 'int',
         'status': 'string',
-        'types': 'list<string>',
     }
     @classmethod
     def _get_field_enum_info(cls):

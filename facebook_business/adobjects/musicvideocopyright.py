@@ -50,6 +50,7 @@ class MusicVideoCopyright(
         ownership_countries = 'ownership_countries'
         reference_file_status = 'reference_file_status'
         ridge_monitoring_status = 'ridge_monitoring_status'
+        tags = 'tags'
         update_time = 'update_time'
         video_asset = 'video_asset'
         whitelisted_fb_users = 'whitelisted_fb_users'
@@ -95,6 +96,7 @@ class MusicVideoCopyright(
         'ownership_countries': 'list<string>',
         'reference_file_status': 'string',
         'ridge_monitoring_status': 'string',
+        'tags': 'list<string>',
         'update_time': 'datetime',
         'video_asset': 'CopyrightReferenceContainer',
         'whitelisted_fb_users': 'list<Object>',

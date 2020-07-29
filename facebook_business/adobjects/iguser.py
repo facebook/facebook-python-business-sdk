@@ -52,6 +52,7 @@ class IGUser(
         mentioned_media = 'mentioned_media'
         name = 'name'
         profile_picture_url = 'profile_picture_url'
+        shopping_review_status = 'shopping_review_status'
         username = 'username'
         website = 'website'
 
@@ -363,6 +364,7 @@ class IGUser(
         'mentioned_media': 'IGMedia',
         'name': 'string',
         'profile_picture_url': 'string',
+        'shopping_review_status': 'string',
         'username': 'string',
         'website': 'string',
     }

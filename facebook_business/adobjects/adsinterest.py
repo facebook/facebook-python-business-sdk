@@ -32,24 +32,22 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class PageInsightsAsyncExportRun(
+class AdsInterest(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isPageInsightsAsyncExportRun = True
-        super(PageInsightsAsyncExportRun, self).__init__(fbid, parent_id, api)
+        self._isAdsInterest = True
+        super(AdsInterest, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        data_level = 'data_level'
-        filters = 'filters'
-        format = 'format'
-        gen_report_date = 'gen_report_date'
+        audience_size = 'audience_size'
+        description = 'description'
+        disambiguation_category = 'disambiguation_category'
         id = 'id'
-        report_end_date = 'report_end_date'
-        report_start_date = 'report_start_date'
-        sorters = 'sorters'
-        status = 'status'
+        name = 'name'
+        path = 'path'
+        topic = 'topic'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -65,7 +63,7 @@ class PageInsightsAsyncExportRun(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=PageInsightsAsyncExportRun,
+            target_class=AdsInterest,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -81,46 +79,14 @@ class PageInsightsAsyncExportRun(
             self.assure_call()
             return request.execute()
 
-    def delete_insights_exports(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='DELETE',
-            endpoint='/insights_exports',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     _field_types = {
-        'data_level': 'string',
-        'filters': 'list<Object>',
-        'format': 'string',
-        'gen_report_date': 'int',
+        'audience_size': 'unsigned int',
+        'description': 'string',
+        'disambiguation_category': 'string',
         'id': 'string',
-        'report_end_date': 'int',
-        'report_start_date': 'int',
-        'sorters': 'list<Object>',
-        'status': 'string',
+        'name': 'string',
+        'path': 'list<string>',
+        'topic': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

@@ -18,42 +18,39 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebook_business.adobjects.abstractobject import AbstractObject
 
-"""
-This class is auto-generated.
+import unittest
+import warnings
+from enum import Enum
+try:
+    from unittest.mock import patch
+except ImportError:
+    from mock import patch
+from requests.models import Response
+from facebook_business.api import FacebookAdsApi, FacebookResponse
 
-For any issues or feature requests related to this class, please let us know on
-github and we'll fix in our codegen framework. We'll not be able to accept
-pull request for this class.
-"""
+class IntegrationTestCase(unittest.TestCase):
+    mock_response = None
 
-class BusinessSettingLogsData(
-    AbstractObject,
-):
+    def __init__(self, *args, **kwargs):
+        super(IntegrationTestCase, self).__init__(*args, **kwargs)
+        FacebookAdsApi.init(access_token='access_token', crash_log=False)
 
-    def __init__(self, api=None):
-        super(BusinessSettingLogsData, self).__init__()
-        self._isBusinessSettingLogsData = True
-        self._api = api
+    def setUp(self):
+        self.patcher = patch('requests.Session.request')
+        self.mock_request = self.patcher.start()
+        self.mock_response = Response()
+        
+        # ignore Deprecation warning from SDK which is not the part of our testcase
+        warnings.filterwarnings(
+            action='ignore',
+            category=DeprecationWarning,
+        )
 
-    class Field(AbstractObject.Field):
-        actor = 'actor'
-        event_object = 'event_object'
-        event_time = 'event_time'
-        event_type = 'event_type'
-        extra_data = 'extra_data'
+    def tearDown(self):
+        mock_response = None
+        self.patcher.stop()
 
-    _field_types = {
-        'actor': 'Object',
-        'event_object': 'Object',
-        'event_time': 'string',
-        'event_type': 'string',
-        'extra_data': 'Object',
-    }
-    @classmethod
-    def _get_field_enum_info(cls):
-        field_enum_info = {}
-        return field_enum_info
-
-
+class StatusCode(Enum):
+    SUCCESS = 200
+    ERROR = 400

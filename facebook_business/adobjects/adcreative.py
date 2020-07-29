@@ -100,9 +100,8 @@ class AdCreative(
         video_id = 'video_id'
         call_to_action = 'call_to_action'
         image_file = 'image_file'
+        instant_checkout_setting = 'instant_checkout_setting'
         is_dco_internal = 'is_dco_internal'
-        mockup_id = 'mockup_id'
-        page_id = 'page_id'
 
     class ApplinkTreatment:
         deeplink_with_appstore_fallback = 'deeplink_with_appstore_fallback'
@@ -127,6 +126,7 @@ class AdCreative(
         find_a_group = 'FIND_A_GROUP'
         find_your_groups = 'FIND_YOUR_GROUPS'
         follow_news_storyline = 'FOLLOW_NEWS_STORYLINE'
+        follow_user = 'FOLLOW_USER'
         get_directions = 'GET_DIRECTIONS'
         get_offer = 'GET_OFFER'
         get_offer_view = 'GET_OFFER_VIEW'
@@ -144,8 +144,10 @@ class AdCreative(
         no_button = 'NO_BUTTON'
         open_link = 'OPEN_LINK'
         order_now = 'ORDER_NOW'
+        pay_to_access = 'PAY_TO_ACCESS'
         play_game = 'PLAY_GAME'
         record_now = 'RECORD_NOW'
+        request_time = 'REQUEST_TIME'
         say_thanks = 'SAY_THANKS'
         see_more = 'SEE_MORE'
         sell_now = 'SELL_NOW'
@@ -203,6 +205,10 @@ class AdCreative(
     class DynamicAdVoice:
         dynamic = 'DYNAMIC'
         story_owner = 'STORY_OWNER'
+
+    class InstantCheckoutSetting:
+        off = 'off'
+        on = 'on'
 
     class Operator:
         all = 'ALL'
@@ -517,9 +523,8 @@ class AdCreative(
         'video_id': 'string',
         'call_to_action': 'Object',
         'image_file': 'string',
+        'instant_checkout_setting': 'InstantCheckoutSetting',
         'is_dco_internal': 'bool',
-        'mockup_id': 'string',
-        'page_id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):
@@ -532,6 +537,7 @@ class AdCreative(
         field_enum_info['CategorizationCriteria'] = AdCreative.CategorizationCriteria.__dict__.values()
         field_enum_info['CategoryMediaSource'] = AdCreative.CategoryMediaSource.__dict__.values()
         field_enum_info['DynamicAdVoice'] = AdCreative.DynamicAdVoice.__dict__.values()
+        field_enum_info['InstantCheckoutSetting'] = AdCreative.InstantCheckoutSetting.__dict__.values()
         field_enum_info['Operator'] = AdCreative.Operator.__dict__.values()
         return field_enum_info
 

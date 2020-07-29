@@ -28,36 +28,26 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class CustomConversionActivities(
+class ProductFeedUploadDiagnostics(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(CustomConversionActivities, self).__init__()
-        self._isCustomConversionActivities = True
+        super(ProductFeedUploadDiagnostics, self).__init__()
+        self._isProductFeedUploadDiagnostics = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        app_id = 'app_id'
-        data = 'data'
-        event_type = 'event_type'
-        timestamp = 'timestamp'
-
-    class EventType:
-        conversion_create = 'conversion_create'
-        conversion_delete = 'conversion_delete'
-        conversion_update = 'conversion_update'
+        last_modified_time = 'last_modified_time'
+        report_url = 'report_url'
 
     _field_types = {
-        'app_id': 'unsigned int',
-        'data': 'string',
-        'event_type': 'string',
-        'timestamp': 'datetime',
+        'last_modified_time': 'string',
+        'report_url': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['EventType'] = CustomConversionActivities.EventType.__dict__.values()
         return field_enum_info
 
 

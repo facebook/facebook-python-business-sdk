@@ -46,6 +46,7 @@ class BusinessImage(
         hash = 'hash'
         height = 'height'
         id = 'id'
+        media_library_url = 'media_library_url'
         name = 'name'
         url = 'url'
         url_128 = 'url_128'
@@ -176,6 +177,102 @@ class BusinessImage(
             self.assure_call()
             return request.execute()
 
+    def delete_creative_asset_tags(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'business_id': 'string',
+            'tag_name': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='DELETE',
+            endpoint='/creative_asset_tags',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_creative_asset_tags(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.creativeassettag import CreativeAssetTag
+        param_types = {
+            'business_id': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/creative_asset_tags',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=CreativeAssetTag,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=CreativeAssetTag, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_creative_asset_tag(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'business_id': 'string',
+            'tag_name': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/creative_asset_tags',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=BusinessImage,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=BusinessImage, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_insights(self, fields=None, params=None, is_async=False, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -228,6 +325,7 @@ class BusinessImage(
         'hash': 'string',
         'height': 'int',
         'id': 'string',
+        'media_library_url': 'string',
         'name': 'string',
         'url': 'string',
         'url_128': 'string',

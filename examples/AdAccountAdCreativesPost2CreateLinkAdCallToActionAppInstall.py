@@ -18,38 +18,23 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebook_business.adobjects.abstractobject import AbstractObject
+from facebook_business.adobjects.adaccount import AdAccount
+from facebook_business.adobjects.adcreative import AdCreative
+from facebook_business.api import FacebookAdsApi
 
-"""
-This class is auto-generated.
+access_token = '<ACCESS_TOKEN>'
+app_secret = '<APP_SECRET>'
+app_id = '<APP_ID>'
+id = '<AD_ACCOUNT_ID>'
+FacebookAdsApi.init(access_token=access_token)
 
-For any issues or feature requests related to this class, please let us know on
-github and we'll fix in our codegen framework. We'll not be able to accept
-pull request for this class.
-"""
-
-class StreamFilter(
-    AbstractObject,
-):
-
-    def __init__(self, api=None):
-        super(StreamFilter, self).__init__()
-        self._isStreamFilter = True
-        self._api = api
-
-    class Field(AbstractObject.Field):
-        filter_key = 'filter_key'
-        name = 'name'
-        type = 'type'
-
-    _field_types = {
-        'filter_key': 'string',
-        'name': 'string',
-        'type': 'string',
-    }
-    @classmethod
-    def _get_field_enum_info(cls):
-        field_enum_info = {}
-        return field_enum_info
-
-
+fields = [
+]
+params = {
+  'name': 'Sample Creative',
+  'object_story_spec': {'page_id':'<pageID>','link_data':{'call_to_action':{'type':'INSTALL_MOBILE_APP','value':{'link':'<appLink>'}},'image_hash':'<imageHash>','link':'<appLink>','message':'Try it out'}},
+}
+print AdAccount(id).create_ad_creative(
+  fields=fields,
+  params=params,
+)

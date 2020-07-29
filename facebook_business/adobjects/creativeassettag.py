@@ -28,42 +28,20 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class LeadGenFormPreviewDetails(
+class CreativeAssetTag(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(LeadGenFormPreviewDetails, self).__init__()
-        self._isLeadGenFormPreviewDetails = True
+        super(CreativeAssetTag, self).__init__()
+        self._isCreativeAssetTag = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        call_to_action_title = 'call_to_action_title'
-        default_appointment_scheduling_inline_context = 'default_appointment_scheduling_inline_context'
-        default_thank_you_page = 'default_thank_you_page'
-        edit_text = 'edit_text'
-        email_inline_context_text = 'email_inline_context_text'
-        next_button_text = 'next_button_text'
-        personal_info_text = 'personal_info_text'
-        phone_number_inline_context_text = 'phone_number_inline_context_text'
-        review_your_info_text = 'review_your_info_text'
-        secure_sharing_text = 'secure_sharing_text'
-        slide_to_submit_text = 'slide_to_submit_text'
-        submit_button_text = 'submit_button_text'
+        name = 'name'
 
     _field_types = {
-        'call_to_action_title': 'string',
-        'default_appointment_scheduling_inline_context': 'string',
-        'default_thank_you_page': 'Object',
-        'edit_text': 'string',
-        'email_inline_context_text': 'string',
-        'next_button_text': 'string',
-        'personal_info_text': 'string',
-        'phone_number_inline_context_text': 'string',
-        'review_your_info_text': 'string',
-        'secure_sharing_text': 'string',
-        'slide_to_submit_text': 'string',
-        'submit_button_text': 'string',
+        'name': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

@@ -41,7 +41,6 @@ class Flight(
         super(Flight, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        applinks = 'applinks'
         currency = 'currency'
         description = 'description'
         destination_airport = 'destination_airport'
@@ -56,16 +55,6 @@ class Flight(
         price = 'price'
         sanitized_images = 'sanitized_images'
         url = 'url'
-
-    # @deprecated get_endpoint function is deprecated
-    @classmethod
-    def get_endpoint(cls):
-        return 'flights'
-
-    # @deprecated api_create is being deprecated
-    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.adobjects.productcatalog import ProductCatalog
-        return ProductCatalog(api=self._api, fbid=parent_id).create_flight(fields, params, batch, success, failure, pending)
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -135,7 +124,6 @@ class Flight(
             return request.execute()
 
     _field_types = {
-        'applinks': 'AppLinks',
         'currency': 'string',
         'description': 'string',
         'destination_airport': 'string',

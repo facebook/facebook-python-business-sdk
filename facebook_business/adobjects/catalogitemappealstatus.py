@@ -28,24 +28,26 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AudiencePermission(
+class CatalogItemAppealStatus(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(AudiencePermission, self).__init__()
-        self._isAudiencePermission = True
+        super(CatalogItemAppealStatus, self).__init__()
+        self._isCatalogItemAppealStatus = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        audience = 'audience'
-        share_account_id = 'share_account_id'
-        share_account_name = 'share_account_name'
+        handle = 'handle'
+        item_id = 'item_id'
+        status = 'status'
+        use_cases = 'use_cases'
 
     _field_types = {
-        'audience': 'CustomAudience',
-        'share_account_id': 'string',
-        'share_account_name': 'string',
+        'handle': 'string',
+        'item_id': 'int',
+        'status': 'string',
+        'use_cases': 'list<Object>',
     }
     @classmethod
     def _get_field_enum_info(cls):

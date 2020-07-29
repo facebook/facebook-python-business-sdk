@@ -19,10 +19,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
-from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
-from facebook_business.adobjects.objectparser import ObjectParser
-from facebook_business.api import FacebookRequest
-from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -32,53 +28,30 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class PartnerCategory(
-    AbstractCrudObject,
+class AdCreativePhotoDataMediaElements(
+    AbstractObject,
 ):
 
-    def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isPartnerCategory = True
-        super(PartnerCategory, self).__init__(fbid, parent_id, api)
+    def __init__(self, api=None):
+        super(AdCreativePhotoDataMediaElements, self).__init__()
+        self._isAdCreativePhotoDataMediaElements = True
+        self._api = api
 
     class Field(AbstractObject.Field):
-        approximate_count = 'approximate_count'
-        country = 'country'
-        description = 'description'
-        details = 'details'
-        id = 'id'
-        is_private = 'is_private'
-        name = 'name'
-        parent_category = 'parent_category'
-        source = 'source'
-        status = 'status'
-        targeting_type = 'targeting_type'
-
-    class PrivateOrPublic:
-        private = 'PRIVATE'
-        public = 'PUBLIC'
-
-    # @deprecated get_endpoint function is deprecated
-    @classmethod
-    def get_endpoint(cls):
-        return 'partnercategories'
+        element_id = 'element_id'
+        element_type = 'element_type'
+        x = 'x'
+        y = 'y'
 
     _field_types = {
-        'approximate_count': 'int',
-        'country': 'string',
-        'description': 'string',
-        'details': 'string',
-        'id': 'string',
-        'is_private': 'bool',
-        'name': 'string',
-        'parent_category': 'string',
-        'source': 'string',
-        'status': 'string',
-        'targeting_type': 'string',
+        'element_id': 'string',
+        'element_type': 'string',
+        'x': 'float',
+        'y': 'float',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['PrivateOrPublic'] = PartnerCategory.PrivateOrPublic.__dict__.values()
         return field_enum_info
 
 

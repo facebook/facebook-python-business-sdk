@@ -18,42 +18,22 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebook_business.adobjects.abstractobject import AbstractObject
+from facebook_business.adobjects.adaccount import AdAccount
+from facebook_business.adobjects.adcreative import AdCreative
+from facebook_business.api import FacebookAdsApi
 
-"""
-This class is auto-generated.
+access_token = '<ACCESS_TOKEN>'
+app_secret = '<APP_SECRET>'
+app_id = '<APP_ID>'
+id = '<AD_ACCOUNT_ID>'
+FacebookAdsApi.init(access_token=access_token)
 
-For any issues or feature requests related to this class, please let us know on
-github and we'll fix in our codegen framework. We'll not be able to accept
-pull request for this class.
-"""
-
-class TimezoneOffset(
-    AbstractObject,
-):
-
-    def __init__(self, api=None):
-        super(TimezoneOffset, self).__init__()
-        self._isTimezoneOffset = True
-        self._api = api
-
-    class Field(AbstractObject.Field):
-        abbr = 'abbr'
-        isdst = 'isdst'
-        offset = 'offset'
-        time = 'time'
-        ts = 'ts'
-
-    _field_types = {
-        'abbr': 'string',
-        'isdst': 'bool',
-        'offset': 'int',
-        'time': 'string',
-        'ts': 'unsigned int',
-    }
-    @classmethod
-    def _get_field_enum_info(cls):
-        field_enum_info = {}
-        return field_enum_info
-
-
+fields = [
+]
+params = {
+  'object_story_spec': {'page_id':'<pageID>','video_data':{'link_description':'try it out','image_url':'<imageURL>','video_id':'<videoID>','call_to_action':{'type':'SIGN_UP','value':{'link':'http:\/\/fb.me\/','lead_gen_form_id':'<formID>'}}}},
+}
+print AdAccount(id).create_ad_creative(
+  fields=fields,
+  params=params,
+)

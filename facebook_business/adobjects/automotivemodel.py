@@ -41,7 +41,6 @@ class AutomotiveModel(
         super(AutomotiveModel, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        applinks = 'applinks'
         automotive_model_id = 'automotive_model_id'
         availability = 'availability'
         body_style = 'body_style'
@@ -99,7 +98,6 @@ class AutomotiveModel(
             return request.execute()
 
     _field_types = {
-        'applinks': 'AppLinks',
         'automotive_model_id': 'string',
         'availability': 'string',
         'body_style': 'string',

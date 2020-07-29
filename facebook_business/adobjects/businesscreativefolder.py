@@ -43,9 +43,13 @@ class BusinessCreativeFolder(
     class Field(AbstractObject.Field):
         business = 'business'
         creation_time = 'creation_time'
+        creative_insight_permissions = 'creative_insight_permissions'
         description = 'description'
         id = 'id'
+        media_library_url = 'media_library_url'
         name = 'name'
+        parent_folder = 'parent_folder'
+        parent_folder_id = 'parent_folder_id'
 
     class PermittedTasks:
         create_content = 'CREATE_CONTENT'
@@ -151,37 +155,6 @@ class BusinessCreativeFolder(
             target_class=BusinessCreativeFolder,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def delete_agencies(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'business': 'string',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='DELETE',
-            endpoint='/agencies',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -324,12 +297,46 @@ class BusinessCreativeFolder(
             self.assure_call()
             return request.execute()
 
+    def get_sub_folders(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/subfolders',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=BusinessCreativeFolder,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=BusinessCreativeFolder, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     _field_types = {
         'business': 'Business',
         'creation_time': 'datetime',
+        'creative_insight_permissions': 'map<string, string>',
         'description': 'string',
         'id': 'string',
+        'media_library_url': 'string',
         'name': 'string',
+        'parent_folder': 'BusinessCreativeFolder',
+        'parent_folder_id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):
