@@ -29,21 +29,46 @@ class Content(object):
     param_types = {
         'product_id': 'str',
         'quantity': 'str',
-        'item_price': 'float'
+        'item_price': 'float',
+        'title': 'str',
+        'description': 'str',
+        'brand': 'str',
+        'category': 'str',
     }
 
-    def __init__(self, product_id = None, quantity = None, item_price = None):
-        # type: (str, int, float) -> None
+    def __init__(
+        self,
+        product_id=None,
+        quantity=None,
+        item_price=None,
+        title=None,
+        description=None,
+        brand=None,
+        category=None,
+    ):
+        # type: (str, int, float, str, str, str, str) -> None
 
         self._product_id = None
         self._quantity = None
         self._item_price = None
+        self._title = None
+        self._description = None
+        self._brand = None
+        self._category = None
         if product_id is not None:
             self.product_id = product_id
         if quantity is not None:
             self.quantity = quantity
         if item_price is not None:
             self.item_price = item_price
+        if title is not None:
+            self.title = title
+        if description is not None:
+            self.description = description
+        if brand is not None:
+            self.brand = brand
+        if category is not None:
+            self.category = category
 
     @property
     def product_id(self):
@@ -90,11 +115,75 @@ class Content(object):
         """
         self._item_price = item_price
 
+    @property
+    def title(self):
+        """
+        Gets title.
+        :rtype: float
+        """
+        return self._title
+
+    @title.setter
+    def title(self, title):
+        """
+        Sets title.
+        """
+        self._title = title
+
+    @property
+    def description(self):
+        """
+        Gets description.
+        :rtype: float
+        """
+        return self._description
+
+    @description.setter
+    def description(self, description):
+        """
+        Sets description.
+        """
+        self._description = description
+
+    @property
+    def brand(self):
+        """
+        Gets brand.
+        :rtype: float
+        """
+        return self._brand
+
+    @brand.setter
+    def brand(self, brand):
+        """
+        Sets brand.
+        """
+        self._brand = brand
+
+    @property
+    def category(self):
+        """
+        Gets category.
+        :rtype: float
+        """
+        return self._category
+
+    @category.setter
+    def category(self, category):
+        """
+        Sets category.
+        """
+        self._category = category
+
     def normalize(self):
         normalized_payload = {
             'id': self.product_id,
             'quantity': self.quantity,
             'item_price': self.item_price,
+            'title': self.title,
+            'description': self.description,
+            'brand': self.brand,
+            'category': self.category,
         }
         normalized_payload = {k: v for k, v in normalized_payload.items() if v is not None}
         return normalized_payload
