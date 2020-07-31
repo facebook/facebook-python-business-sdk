@@ -53,8 +53,12 @@ class NormalizeTest(TestCase):
     def test_normalize_dobd_errors(self):
         with self.assertRaisesRegex(ValueError, "Invalid format for dobd: '32'"):
             Normalize.normalize_field('dobd', '32')
+        with self.assertRaisesRegex(ValueError, "Invalid format for dobd: '444'"):
+            Normalize.normalize_field('dobd', '444')
         with self.assertRaisesRegex(ValueError, "Invalid format for dobd: '0'"):
             Normalize.normalize_field('dobd', '0')
+        with self.assertRaisesRegex(ValueError, "Invalid format for dobd: '0a'"):
+            Normalize.normalize_field('dobd', '0a')
         with self.assertRaisesRegex(ValueError, "Invalid format for dobd: '-1'"):
             Normalize.normalize_field('dobd', '-1')
 
@@ -69,8 +73,12 @@ class NormalizeTest(TestCase):
     def test_normalize_dobm_errors(self):
         with self.assertRaisesRegex(ValueError, "Invalid format for dobm: '13'"):
             Normalize.normalize_field('dobm', '13')
+        with self.assertRaisesRegex(ValueError, "Invalid format for dobm: '444'"):
+            Normalize.normalize_field('dobm', '444')
         with self.assertRaisesRegex(ValueError, "Invalid format for dobm: '0'"):
             Normalize.normalize_field('dobm', '0')
+        with self.assertRaisesRegex(ValueError, "Invalid format for dobm: '0a'"):
+            Normalize.normalize_field('dobm', '0a')
         with self.assertRaisesRegex(ValueError, "Invalid format for dobm: '-1'"):
             Normalize.normalize_field('dobm', '-1')
 

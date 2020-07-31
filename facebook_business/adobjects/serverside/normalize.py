@@ -98,20 +98,30 @@ class Normalize(object):
             normalized_data = normalized_data[:1]
 
         elif field == "dobd":
+            if len(normalized_data) == 1:
+                normalized_data = '0' + normalized_data
+
             try:
-                normalized_data = datetime.datetime.strptime(normalized_data, "%d").strftime("%d")
+                dobd_int = int(normalized_data)
+                if dobd_int < 1 or dobd_int > 31:
+                    raise ValueError
             except ValueError:
-                raise ValueError("Invalid format for dobd: '%s'. Day should be specified in 'DD' format." % normalized_data)
+                raise ValueError("Invalid format for dobd: '%s'. Day should be specified in 'DD' format." % data)
 
         elif field == "dobm":
+            if len(normalized_data) == 1:
+                normalized_data = '0' + normalized_data
+
             try:
-                normalized_data = datetime.datetime.strptime(normalized_data, "%m").strftime("%m")
+                dobm_int = int(normalized_data)
+                if dobm_int < 1 or dobm_int > 12:
+                    raise ValueError
             except ValueError:
-                raise ValueError("Invalid format for dobm: '%s'. Month should be specified in 'MM' format." % normalized_data)
+                raise ValueError("Invalid format for dobm: '%s'. Month should be specified in 'MM' format." % data)
 
         elif field == "doby":
             if not year_pattern.match(normalized_data):
-                raise ValueError("Invalid format for doby: '%s'. Year should be specified in 'YYYY' format." % normalized_data)
+                raise ValueError("Invalid format for doby: '%s'. Year should be specified in 'YYYY' format." % data)
 
         return normalized_data
 
