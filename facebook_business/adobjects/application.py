@@ -151,6 +151,7 @@ class Application(
         ipad = 'IPAD'
         iphone = 'IPHONE'
         mobile_web = 'MOBILE_WEB'
+        oculus = 'OCULUS'
         supplementary_images = 'SUPPLEMENTARY_IMAGES'
         web = 'WEB'
         windows = 'WINDOWS'
@@ -236,7 +237,6 @@ class Application(
         param_types = {
             'an_platforms': 'list<an_platforms_enum>',
             'android_class_name': 'string',
-            'android_key_hash': 'list<string>',
             'android_key_hashes': 'list<string>',
             'android_package_name': 'string',
             'android_sso': 'bool',
@@ -254,12 +254,9 @@ class Application(
             'canvas_fluid_height': 'bool',
             'canvas_fluid_width': 'bool',
             'canvas_url': 'string',
-            'configured_ios_sso': 'bool',
             'contact_email': 'string',
             'deauth_callback_url': 'string',
             'ios_bundle_id': 'list<string>',
-            'ipad_app_store_id': 'string',
-            'iphone_app_store_id': 'string',
             'mobile_web_url': 'string',
             'namespace': 'string',
             'page_tab_default_name': 'string',
@@ -426,6 +423,9 @@ class Application(
             'consider_views': 'bool',
             'custom_events': 'list<Object>',
             'custom_events_file': 'file',
+            'data_processing_options': 'list<string>',
+            'data_processing_options_country': 'unsigned int',
+            'data_processing_options_state': 'unsigned int',
             'device_token': 'string',
             'event': 'event_enum',
             'extinfo': 'Object',

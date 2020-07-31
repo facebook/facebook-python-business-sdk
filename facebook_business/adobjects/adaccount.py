@@ -158,6 +158,7 @@ class AdAccount(
         thb = 'THB'
         value_try = 'TRY'
         twd = 'TWD'
+        uah = 'UAH'
         usd = 'USD'
         uyu = 'UYU'
         vnd = 'VND'
@@ -166,17 +167,11 @@ class AdAccount(
     class PermittedTasks:
         advertise = 'ADVERTISE'
         analyze = 'ANALYZE'
-        creative = 'CREATIVE'
-        draft = 'DRAFT'
-        fb_employee_dso_advertise = 'FB_EMPLOYEE_DSO_ADVERTISE'
         manage = 'MANAGE'
 
     class Tasks:
         advertise = 'ADVERTISE'
         analyze = 'ANALYZE'
-        creative = 'CREATIVE'
-        draft = 'DRAFT'
-        fb_employee_dso_advertise = 'FB_EMPLOYEE_DSO_ADVERTISE'
         manage = 'MANAGE'
 
     class ClaimObjective:
@@ -309,6 +304,7 @@ class AdAccount(
             'after': 'string',
             'business_id': 'string',
             'category': 'category_enum',
+            'data_source': 'data_source_enum',
             'extra_oids': 'list<string>',
             'limit': 'int',
             'oid': 'string',
@@ -318,6 +314,7 @@ class AdAccount(
         }
         enums = {
             'category_enum': AdActivity.Category.__dict__.values(),
+            'data_source_enum': AdActivity.DataSource.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -1532,6 +1529,7 @@ class AdAccount(
             'composer_type': 'string',
             'container_type': 'container_type_enum',
             'content_category': 'content_category_enum',
+            'creative_tools': 'string',
             'description': 'string',
             'embeddable': 'bool',
             'end_offset': 'unsigned int',
@@ -1585,6 +1583,7 @@ class AdAccount(
             'upload_session_id': 'string',
             'upload_setting_properties': 'string',
             'video_file_chunk': 'file',
+            'video_id_original': 'string',
             'video_start_time_ms': 'unsigned int',
             'waterfall_id': 'string',
         }
@@ -2199,6 +2198,7 @@ class AdAccount(
             'promoted_object': 'Object',
             'source_campaign_id': 'string',
             'special_ad_categories': 'list<special_ad_categories_enum>',
+            'special_ad_category_country': 'list<special_ad_category_country_enum>',
             'spend_cap': 'unsigned int',
             'status': 'status_enum',
             'topline_id': 'string',
@@ -2209,6 +2209,7 @@ class AdAccount(
             'execution_options_enum': Campaign.ExecutionOptions.__dict__.values(),
             'objective_enum': Campaign.Objective.__dict__.values(),
             'special_ad_categories_enum': Campaign.SpecialAdCategories.__dict__.values(),
+            'special_ad_category_country_enum': Campaign.SpecialAdCategoryCountry.__dict__.values(),
             'status_enum': Campaign.Status.__dict__.values(),
         }
         request = FacebookRequest(

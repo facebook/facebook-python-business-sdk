@@ -32,18 +32,39 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class WhatsAppBusinessProfile(
+class PaymentSubscription(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isWhatsAppBusinessProfile = True
-        super(WhatsAppBusinessProfile, self).__init__(fbid, parent_id, api)
+        self._isPaymentSubscription = True
+        super(PaymentSubscription, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        amount = 'amount'
+        app_param_data = 'app_param_data'
+        application = 'application'
+        billing_period = 'billing_period'
+        canceled_reason = 'canceled_reason'
+        created_time = 'created_time'
+        currency = 'currency'
         id = 'id'
-        name_verification = 'name_verification'
-        verified_name = 'verified_name'
+        last_payment = 'last_payment'
+        next_bill_time = 'next_bill_time'
+        next_period_amount = 'next_period_amount'
+        next_period_currency = 'next_period_currency'
+        next_period_product = 'next_period_product'
+        payment_status = 'payment_status'
+        pending_cancel = 'pending_cancel'
+        period_start_time = 'period_start_time'
+        product = 'product'
+        status = 'status'
+        test = 'test'
+        trial_amount = 'trial_amount'
+        trial_currency = 'trial_currency'
+        trial_expiry_time = 'trial_expiry_time'
+        updated_time = 'updated_time'
+        user = 'user'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -59,38 +80,7 @@ class WhatsAppBusinessProfile(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=WhatsAppBusinessProfile,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'verified_name': 'string',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=WhatsAppBusinessProfile,
+            target_class=PaymentSubscription,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -107,9 +97,30 @@ class WhatsAppBusinessProfile(
             return request.execute()
 
     _field_types = {
+        'amount': 'string',
+        'app_param_data': 'string',
+        'application': 'Profile',
+        'billing_period': 'string',
+        'canceled_reason': 'string',
+        'created_time': 'datetime',
+        'currency': 'string',
         'id': 'string',
-        'name_verification': 'Object',
-        'verified_name': 'string',
+        'last_payment': 'string',
+        'next_bill_time': 'datetime',
+        'next_period_amount': 'string',
+        'next_period_currency': 'string',
+        'next_period_product': 'string',
+        'payment_status': 'string',
+        'pending_cancel': 'bool',
+        'period_start_time': 'datetime',
+        'product': 'string',
+        'status': 'string',
+        'test': 'unsigned int',
+        'trial_amount': 'string',
+        'trial_currency': 'string',
+        'trial_expiry_time': 'datetime',
+        'updated_time': 'datetime',
+        'user': 'Profile',
     }
     @classmethod
     def _get_field_enum_info(cls):

@@ -44,6 +44,7 @@ class PageAdminNote(
         body = 'body'
         field_from = 'from'
         id = 'id'
+        note_label = 'note_label'
         user = 'user'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
@@ -80,6 +81,7 @@ class PageAdminNote(
         'body': 'string',
         'from': 'Page',
         'id': 'string',
+        'note_label': 'string',
         'user': 'User',
     }
     @classmethod

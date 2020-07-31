@@ -70,6 +70,7 @@ class AdsInsights(
         campaign_name = 'campaign_name'
         canvas_avg_view_percent = 'canvas_avg_view_percent'
         canvas_avg_view_time = 'canvas_avg_view_time'
+        catalog_segment_actions = 'catalog_segment_actions'
         catalog_segment_value = 'catalog_segment_value'
         catalog_segment_value_mobile_purchase_roas = 'catalog_segment_value_mobile_purchase_roas'
         catalog_segment_value_omni_purchase_roas = 'catalog_segment_value_omni_purchase_roas'
@@ -78,6 +79,8 @@ class AdsInsights(
         conversion_rate_ranking = 'conversion_rate_ranking'
         conversion_values = 'conversion_values'
         conversions = 'conversions'
+        converted_product_quantity = 'converted_product_quantity'
+        converted_product_value = 'converted_product_value'
         cost_per_15_sec_video_view = 'cost_per_15_sec_video_view'
         cost_per_2_sec_continuous_video_view = 'cost_per_2_sec_continuous_video_view'
         cost_per_action_type = 'cost_per_action_type'
@@ -122,6 +125,7 @@ class AdsInsights(
         instant_experience_clicks_to_open = 'instant_experience_clicks_to_open'
         instant_experience_clicks_to_start = 'instant_experience_clicks_to_start'
         instant_experience_outbound_clicks = 'instant_experience_outbound_clicks'
+        interactive_component_tap = 'interactive_component_tap'
         labels = 'labels'
         location = 'location'
         mobile_app_purchase_roas = 'mobile_app_purchase_roas'
@@ -296,6 +300,7 @@ class AdsInsights(
         'campaign_name': 'string',
         'canvas_avg_view_percent': 'string',
         'canvas_avg_view_time': 'string',
+        'catalog_segment_actions': 'list<AdsActionStats>',
         'catalog_segment_value': 'list<AdsActionStats>',
         'catalog_segment_value_mobile_purchase_roas': 'list<AdsActionStats>',
         'catalog_segment_value_omni_purchase_roas': 'list<AdsActionStats>',
@@ -304,6 +309,8 @@ class AdsInsights(
         'conversion_rate_ranking': 'string',
         'conversion_values': 'list<AdsActionStats>',
         'conversions': 'list<AdsActionStats>',
+        'converted_product_quantity': 'list<AdsActionStats>',
+        'converted_product_value': 'list<AdsActionStats>',
         'cost_per_15_sec_video_view': 'list<AdsActionStats>',
         'cost_per_2_sec_continuous_video_view': 'list<AdsActionStats>',
         'cost_per_action_type': 'list<AdsActionStats>',
@@ -348,6 +355,7 @@ class AdsInsights(
         'instant_experience_clicks_to_open': 'string',
         'instant_experience_clicks_to_start': 'string',
         'instant_experience_outbound_clicks': 'string',
+        'interactive_component_tap': 'list<AdsActionStats>',
         'labels': 'string',
         'location': 'string',
         'mobile_app_purchase_roas': 'list<AdsActionStats>',

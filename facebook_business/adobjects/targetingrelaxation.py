@@ -28,24 +28,20 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class UserInfluence(
+class TargetingRelaxation(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(UserInfluence, self).__init__()
-        self._isUserInfluence = True
+        super(TargetingRelaxation, self).__init__()
+        self._isTargetingRelaxation = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        trust = 'trust'
-        trust_code = 'trust_code'
-        version = 'version'
+        lookalike = 'lookalike'
 
     _field_types = {
-        'trust': 'string',
-        'trust_code': 'int',
-        'version': 'int',
+        'lookalike': 'unsigned int',
     }
     @classmethod
     def _get_field_enum_info(cls):

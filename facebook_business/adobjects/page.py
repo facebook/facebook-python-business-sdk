@@ -396,7 +396,6 @@ class Page(
         branded_camera = 'branded_camera'
         category = 'category'
         checkins = 'checkins'
-        commerce_order = 'commerce_order'
         company_overview = 'company_overview'
         conversations = 'conversations'
         culinary_team = 'culinary_team'
@@ -432,6 +431,7 @@ class Page(
         messaging_checkout_updates = 'messaging_checkout_updates'
         messaging_direct_sends = 'messaging_direct_sends'
         messaging_fblogin_account_linking = 'messaging_fblogin_account_linking'
+        messaging_feedback = 'messaging_feedback'
         messaging_game_plays = 'messaging_game_plays'
         messaging_handovers = 'messaging_handovers'
         messaging_optins = 'messaging_optins'
@@ -2999,6 +2999,7 @@ class Page(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'api_version': 'Object',
             'custom_token': 'string',
             'model': 'model_enum',
             'n_best': 'unsigned int',
@@ -3316,7 +3317,6 @@ class Page(
             'initial_view_heading_override_degrees': 'unsigned int',
             'initial_view_pitch_override_degrees': 'unsigned int',
             'initial_view_vertical_fov_override_degrees': 'unsigned int',
-            'instagram_product_tags': 'list<map>',
             'ios_bundle_id': 'string',
             'is_explicit_location': 'bool',
             'is_explicit_place': 'bool',
@@ -3388,12 +3388,14 @@ class Page(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.profilepicturesource import ProfilePictureSource
         param_types = {
+            'breaking_change': 'breaking_change_enum',
             'height': 'int',
             'redirect': 'bool',
             'type': 'type_enum',
             'width': 'int',
         }
         enums = {
+            'breaking_change_enum': ProfilePictureSource.BreakingChange.__dict__.values(),
             'type_enum': ProfilePictureSource.Type.__dict__.values(),
         }
         request = FacebookRequest(
@@ -4518,6 +4520,7 @@ class Page(
             'container_type': 'container_type_enum',
             'content_category': 'content_category_enum',
             'content_tags': 'list<string>',
+            'creative_tools': 'string',
             'crossposted_video_id': 'string',
             'custom_labels': 'list<string>',
             'description': 'string',
@@ -4590,6 +4593,7 @@ class Page(
             'upload_setting_properties': 'string',
             'video_asset_id': 'string',
             'video_file_chunk': 'string',
+            'video_id_original': 'string',
             'video_start_time_ms': 'unsigned int',
             'waterfall_id': 'string',
         }

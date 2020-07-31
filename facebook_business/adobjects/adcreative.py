@@ -153,6 +153,7 @@ class AdCreative(
         say_thanks = 'SAY_THANKS'
         see_more = 'SEE_MORE'
         sell_now = 'SELL_NOW'
+        send_a_gift = 'SEND_A_GIFT'
         share = 'SHARE'
         shop_now = 'SHOP_NOW'
         sign_up = 'SIGN_UP'

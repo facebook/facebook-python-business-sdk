@@ -32,28 +32,19 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class BusinessCreative(
+class WorkMeetingLink(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isBusinessCreative = True
-        super(BusinessCreative, self).__init__(fbid, parent_id, api)
+        self._isWorkMeetingLink = True
+        super(WorkMeetingLink, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        creation_time = 'creation_time'
-        duration = 'duration'
-        hash = 'hash'
-        height = 'height'
         id = 'id'
-        name = 'name'
-        thumbnail = 'thumbnail'
-        type = 'type'
-        url = 'url'
-        video_id = 'video_id'
-        width = 'width'
+        owner = 'owner'
 
-    def get_ad_placement_validation_results(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
@@ -64,12 +55,12 @@ class BusinessCreative(
         request = FacebookRequest(
             node_id=self['id'],
             method='GET',
-            endpoint='/ad_placement_validation_results',
+            endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            target_class=WorkMeetingLink,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -84,17 +75,8 @@ class BusinessCreative(
             return request.execute()
 
     _field_types = {
-        'creation_time': 'datetime',
-        'duration': 'int',
-        'hash': 'string',
-        'height': 'int',
         'id': 'string',
-        'name': 'string',
-        'thumbnail': 'string',
-        'type': 'string',
-        'url': 'string',
-        'video_id': 'string',
-        'width': 'int',
+        'owner': 'User',
     }
     @classmethod
     def _get_field_enum_info(cls):

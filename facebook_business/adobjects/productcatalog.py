@@ -60,6 +60,7 @@ class ProductCatalog(
         onsite_commerce_merchant = 'onsite_commerce_merchant'
 
     class Vertical:
+        adoptable_pets = 'adoptable_pets'
         bookable = 'bookable'
         commerce = 'commerce'
         destinations = 'destinations'
@@ -134,8 +135,15 @@ class ProductCatalog(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'segment_use_cases': 'list<segment_use_cases_enum>',
         }
         enums = {
+            'segment_use_cases_enum': [
+                'COLLAB_ADS',
+                'COLLAB_ADS_FOR_MARKETPLACE_PARTNER',
+                'IG_SHOPPING',
+                'TEST',
+            ],
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -1323,6 +1331,7 @@ class ProductCatalog(
         from facebook_business.adobjects.productset import ProductSet
         param_types = {
             'filter': 'Object',
+            'metadata': 'map',
             'name': 'string',
         }
         enums = {

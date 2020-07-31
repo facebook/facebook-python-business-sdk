@@ -62,6 +62,7 @@ class CommerceMerchantSettings(
         supported_card_types = 'supported_card_types'
         terms = 'terms'
         terms_url_by_locale = 'terms_url_by_locale'
+        whatsapp_channel = 'whatsapp_channel'
 
     class MerchantStatus:
         enabled = 'ENABLED'
@@ -420,6 +421,42 @@ class CommerceMerchantSettings(
             self.assure_call()
             return request.execute()
 
+    def create_whatsapp_channel(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'op': 'op_enum',
+            'whatsapp_business_accounts': 'list<string>',
+        }
+        enums = {
+            'op_enum': [
+                'ADD',
+                'REMOVE',
+            ],
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/whatsapp_channel',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     _field_types = {
         'braintree_merchant_id': 'string',
         'checkout_message': 'string',
@@ -442,6 +479,7 @@ class CommerceMerchantSettings(
         'supported_card_types': 'list<string>',
         'terms': 'string',
         'terms_url_by_locale': 'map<string, string>',
+        'whatsapp_channel': 'Object',
     }
     @classmethod
     def _get_field_enum_info(cls):

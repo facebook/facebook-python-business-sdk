@@ -587,6 +587,7 @@ class Post(
                 'SAY_THANKS',
                 'SEE_MORE',
                 'SELL_NOW',
+                'SEND_A_GIFT',
                 'SHARE',
                 'SHOP_NOW',
                 'SIGN_UP',

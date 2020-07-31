@@ -95,6 +95,7 @@ class ProductFeed(
         media_title = 'MEDIA_TITLE'
         offer = 'OFFER'
         products = 'PRODUCTS'
+        transactable_items = 'TRANSACTABLE_ITEMS'
         vehicles = 'VEHICLES'
         vehicle_offer = 'VEHICLE_OFFER'
 

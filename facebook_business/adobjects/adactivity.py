@@ -107,6 +107,7 @@ class AdActivity(
         update_ad_set_bidding = 'update_ad_set_bidding'
         update_ad_set_budget = 'update_ad_set_budget'
         update_ad_set_duration = 'update_ad_set_duration'
+        update_ad_set_learning_stage_status = 'update_ad_set_learning_stage_status'
         update_ad_set_min_spend_target = 'update_ad_set_min_spend_target'
         update_ad_set_name = 'update_ad_set_name'
         update_ad_set_optimization_goal = 'update_ad_set_optimization_goal'
@@ -127,6 +128,7 @@ class AdActivity(
         update_campaign_name = 'update_campaign_name'
         update_campaign_run_status = 'update_campaign_run_status'
         update_campaign_schedule = 'update_campaign_schedule'
+        update_delivery_type_cross_level_shift = 'update_delivery_type_cross_level_shift'
 
     class Category:
         account = 'ACCOUNT'
@@ -140,6 +142,10 @@ class AdActivity(
         date = 'DATE'
         status = 'STATUS'
         targeting = 'TARGETING'
+
+    class DataSource:
+        calypso = 'CALYPSO'
+        tao = 'TAO'
 
     _field_types = {
         'actor_id': 'string',
@@ -160,6 +166,7 @@ class AdActivity(
         field_enum_info = {}
         field_enum_info['EventType'] = AdActivity.EventType.__dict__.values()
         field_enum_info['Category'] = AdActivity.Category.__dict__.values()
+        field_enum_info['DataSource'] = AdActivity.DataSource.__dict__.values()
         return field_enum_info
 
 
