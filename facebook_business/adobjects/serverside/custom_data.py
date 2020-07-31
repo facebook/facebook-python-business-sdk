@@ -23,7 +23,7 @@ import six
 
 from facebook_business.adobjects.serverside.content import Content
 from facebook_business.adobjects.serverside.normalize import Normalize
-
+from facebook_business.adobjects.serverside.delivery_category import DeliveryCategory
 
 class CustomData(object):
     """
@@ -42,6 +42,7 @@ class CustomData(object):
         'num_items': 'int',
         'status': 'str',
         'search_string' : 'str',
+        'delivery_category' : 'DeliveryCategory',
         'item_number': 'str',
         'custom_properties' : 'dict'
     }
@@ -60,10 +61,11 @@ class CustomData(object):
         num_items=None,
         status=None,
         search_string=None,
+        delivery_category=None,
         item_number=None,
         custom_properties={},
     ):
-        # type: (float, str, str, str, content_ids, List[str], List[Content], str, str, float, int, str, str, str, dict) -> None
+        # type: (float, str, str, str, content_ids, List[str], List[Content], str, str, float, int, str, str, DeliveryCategory ,str, dict) -> None
 
         self._value = None
         self._currency = None
@@ -77,6 +79,7 @@ class CustomData(object):
         self._num_items = None
         self._status = None
         self._search_string = None
+        self._delivery_category = None
         self._item_number = None
         self._custom_properties = None
         if value is not None:
@@ -103,6 +106,8 @@ class CustomData(object):
             self.status = status
         if search_string is not None:
             self.search_string = search_string
+        if delivery_category is not None:
+            self.delivery_category = delivery_category
         if item_number is not None:
             self.item_number = item_number
         if custom_properties:
@@ -393,6 +398,29 @@ class CustomData(object):
         self._search_string = search_string
 
     @property
+    def delivery_category(self):
+        """Gets the Type of Delivery Category.
+
+        :return: The Delivery Category type.
+        :rtype: DeliveryCategory
+        """
+        return self._delivery_category
+
+    @delivery_category.setter
+    def delivery_category(self, delivery_category):
+        """Sets the Type of Delivery Category.
+
+        Use with Purchase events.
+
+        :param delivery_category: The Delivery Category type.
+        :type: DeliveryCategory
+        """
+        if not isinstance(delivery_category, DeliveryCategory):
+            raise TypeError('delivery_category must be of type DeliveryCategory. Passed invalid category: ' + delivery_category)
+
+        self._delivery_category = delivery_category
+
+    @property
     def item_number(self):
         """Gets the item number.
 
@@ -457,6 +485,7 @@ class CustomData(object):
             'num_items': self.num_items,
             'status': self.status,
             'search_string': self.search_string,
+            'delivery_category': self.delivery_category.value,
             'item_number': self.item_number,
         }
         if self.contents is not None:

@@ -22,12 +22,15 @@ from unittest import TestCase
 
 from facebook_business.adobjects.serverside.content import Content
 from facebook_business.adobjects.serverside.custom_data import CustomData
+from facebook_business.adobjects.serverside.delivery_category import DeliveryCategory
 
 
 class CustomDataTest(TestCase):
     def test_normalize(self):
         content = Content(product_id='id0', quantity='quantity1', item_price=3.99)
         custom_properties = {'custom1': 'property1', 'custom2': 'property2'}
+        delivery_category = DeliveryCategory.CURBSIDE
+
         expected = {
             'value': 0.5,
             'currency': 'usd',
@@ -48,6 +51,7 @@ class CustomDataTest(TestCase):
             'status': 'status7',
             'search_string': 'search-string8',
             'item_number': 'item-number9',
+            'delivery_category': delivery_category.value,
             'custom1': 'property1',
             'custom2': 'property2',
         }
@@ -65,7 +69,20 @@ class CustomDataTest(TestCase):
             status=expected['status'],
             search_string=expected['search_string'],
             item_number=expected['item_number'],
+            delivery_category=delivery_category,
             custom_properties=custom_properties,
         )
 
         self.assertEqual(custom_data.normalize(), expected)
+
+    def test_delivery_category_validate(self):
+        delivery_category = 'undefined_delivery_category'
+
+        with self.assertRaises(TypeError) as context:
+            CustomData(
+            value=123.12,
+            delivery_category=delivery_category,
+        )
+
+        expected_exception_message = 'delivery_category must be of type DeliveryCategory. Passed invalid category: ' + delivery_category;
+        self.assertTrue(expected_exception_message in str(context.exception))

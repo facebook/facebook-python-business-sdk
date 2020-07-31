@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 
 ## Unreleased
+### Added
+- `delivery_category` field in custom_data section for Conversions API(formerly Serverside API).
 
 ## v7.0.3
 ### Added
