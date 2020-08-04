@@ -2,8 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
-
 ## Unreleased
+### Fixed
+- Fixed `delivery_category` field being mandatory in custom_data section for Conversions API.
+
+## v7.0.4
 ### Added
 - `delivery_category` field in custom_data section for Conversions API(formerly Serverside API).
 

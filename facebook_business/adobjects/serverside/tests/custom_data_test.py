@@ -86,3 +86,9 @@ class CustomDataTest(TestCase):
 
         expected_exception_message = 'delivery_category must be of type DeliveryCategory. Passed invalid category: ' + delivery_category;
         self.assertTrue(expected_exception_message in str(context.exception))
+
+    # custom data doesn't have mandatory fields, hence normalizing empty custom_data should return empty {}.
+    def test_emptyobject_normalize(self):
+        custom_data = CustomData()
+
+        self.assertEqual(custom_data.normalize(), {})
