@@ -6,6 +6,9 @@ All notable changes to this project will be documented in this file.
 
 ## v8.0.0
 
+### Changed
+- Graph API call upgrade to [v8.0](https://developers.facebook.com/docs/graph-api/changelog/version8.0)
+
 ### Fixed
 - Fixed `delivery_category` field being mandatory in custom_data section for Conversions API.
 
@@ -74,4 +77,3 @@ All notable changes to this project will be documented in this file.
 ### Deprecated
 - `parent_id` in `AbstractCrudObject`.
 - Function `remote_create`, `remote_read`, `remote_update` and `remote_delete` for `AbstractCrudObject`. Check out our [recommended way](https://github.com/facebook/facebook-python-business-sdk#exploring-the-graph) to make API call with python SDK.
-
