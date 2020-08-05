@@ -82,10 +82,12 @@ class ProductCatalog(
     class PermittedTasks:
         advertise = 'ADVERTISE'
         manage = 'MANAGE'
+        manage_ar = 'MANAGE_AR'
 
     class Tasks:
         advertise = 'ADVERTISE'
         manage = 'MANAGE'
+        manage_ar = 'MANAGE_AR'
 
     class Standard:
         google = 'google'

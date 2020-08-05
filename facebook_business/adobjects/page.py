@@ -132,7 +132,6 @@ class Page(
         new_like_count = 'new_like_count'
         offer_eligible = 'offer_eligible'
         overall_star_rating = 'overall_star_rating'
-        page_about_story = 'page_about_story'
         page_token = 'page_token'
         parent_page = 'parent_page'
         parking = 'parking'
@@ -141,6 +140,7 @@ class Page(
         personal_interests = 'personal_interests'
         pharma_safety_info = 'pharma_safety_info'
         phone = 'phone'
+        pickup_options = 'pickup_options'
         place_type = 'place_type'
         plot_outline = 'plot_outline'
         preferred_audience = 'preferred_audience'
@@ -246,6 +246,11 @@ class Page(
         vegan = 'Vegan'
         vegetarian = 'Vegetarian'
         vietnamese = 'Vietnamese'
+
+    class PickupOptions:
+        curbside = 'CURBSIDE'
+        in_store = 'IN_STORE'
+        other = 'OTHER'
 
     class TemporaryStatus:
         differently_open = 'DIFFERENTLY_OPEN'
@@ -466,25 +471,6 @@ class Page(
         videos = 'videos'
         website = 'website'
 
-    class DomainActionType:
-        add = 'ADD'
-        remove = 'REMOVE'
-
-    class PaymentDevModeAction:
-        add = 'ADD'
-        remove = 'REMOVE'
-
-    class SettingType:
-        account_linking = 'ACCOUNT_LINKING'
-        call_to_actions = 'CALL_TO_ACTIONS'
-        domain_whitelisting = 'DOMAIN_WHITELISTING'
-        greeting = 'GREETING'
-        payment = 'PAYMENT'
-
-    class ThreadState:
-        existing_thread = 'EXISTING_THREAD'
-        new_thread = 'NEW_THREAD'
-
     # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
@@ -567,6 +553,7 @@ class Page(
             'parking': 'map',
             'payment_options': 'map',
             'phone': 'string',
+            'pickup_options': 'list<pickup_options_enum>',
             'plot_outline': 'string',
             'price_range': 'string',
             'public_transit': 'string',
@@ -585,6 +572,7 @@ class Page(
         enums = {
             'attire_enum': Page.Attire.__dict__.values(),
             'food_styles_enum': Page.FoodStyles.__dict__.values(),
+            'pickup_options_enum': Page.PickupOptions.__dict__.values(),
             'temporary_status_enum': Page.TemporaryStatus.__dict__.values(),
         }
         request = FacebookRequest(
@@ -2445,7 +2433,6 @@ class Page(
             'privacy': 'string',
             'projection': 'projection_enum',
             'published': 'bool',
-            'save_vod': 'bool',
             'schedule_custom_profile_image': 'file',
             'spatial_audio_format': 'spatial_audio_format_enum',
             'status': 'status_enum',
@@ -2562,6 +2549,7 @@ class Page(
             'page_username': 'string',
             'permanently_closed': 'bool',
             'phone': 'string',
+            'pickup_options': 'list<pickup_options_enum>',
             'place_topics': 'list<string>',
             'price_range': 'string',
             'store_code': 'string',
@@ -2572,6 +2560,7 @@ class Page(
             'website': 'string',
         }
         enums = {
+            'pickup_options_enum': Page.PickupOptions.__dict__.values(),
             'temporary_status_enum': Page.TemporaryStatus.__dict__.values(),
         }
         request = FacebookRequest(
@@ -3032,41 +3021,6 @@ class Page(
             self.assure_call()
             return request.execute()
 
-    def create_page_about_story(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'composed_text': 'list<map>',
-            'cover_photo': 'map',
-            'entity_map': 'list<map>',
-            'is_published': 'bool',
-            'title': 'string',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/page_about_story',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=Page,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=Page, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def get_page_backed_instagram_accounts(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -3462,37 +3416,6 @@ class Page(
             target_class=ProfilePictureSource,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=ProfilePictureSource, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def get_place_topics(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.placetopic import PlaceTopic
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/place_topics',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=PlaceTopic,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=PlaceTopic, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -3982,37 +3905,6 @@ class Page(
             self.assure_call()
             return request.execute()
 
-    def delete_tabs(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'tab': 'string',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='DELETE',
-            endpoint='/tabs',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def get_tabs(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -4163,85 +4055,6 @@ class Page(
             target_class=PageThreadOwner,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=PageThreadOwner, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def delete_thread_settings(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'setting_type': 'setting_type_enum',
-            'thread_state': 'thread_state_enum',
-        }
-        enums = {
-            'setting_type_enum': Page.SettingType.__dict__.values(),
-            'thread_state_enum': Page.ThreadState.__dict__.values(),
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='DELETE',
-            endpoint='/thread_settings',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_thread_setting(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'account_linking_url': 'string',
-            'call_to_actions': 'list<Object>',
-            'domain_action_type': 'domain_action_type_enum',
-            'greeting': 'Object',
-            'payment_dev_mode_action': 'payment_dev_mode_action_enum',
-            'payment_privacy_url': 'string',
-            'payment_public_key': 'string',
-            'payment_testers': 'list<string>',
-            'setting_type': 'setting_type_enum',
-            'thread_state': 'thread_state_enum',
-            'whitelisted_domains': 'list<string>',
-        }
-        enums = {
-            'domain_action_type_enum': Page.DomainActionType.__dict__.values(),
-            'payment_dev_mode_action_enum': Page.PaymentDevModeAction.__dict__.values(),
-            'setting_type_enum': Page.SettingType.__dict__.values(),
-            'thread_state_enum': Page.ThreadState.__dict__.values(),
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/thread_settings',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=Page,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=Page, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -4752,7 +4565,6 @@ class Page(
         'new_like_count': 'unsigned int',
         'offer_eligible': 'bool',
         'overall_star_rating': 'float',
-        'page_about_story': 'PageAboutStory',
         'page_token': 'string',
         'parent_page': 'Page',
         'parking': 'PageParking',
@@ -4761,6 +4573,7 @@ class Page(
         'personal_interests': 'string',
         'pharma_safety_info': 'string',
         'phone': 'string',
+        'pickup_options': 'list<string>',
         'place_type': 'string',
         'plot_outline': 'string',
         'preferred_audience': 'Targeting',
@@ -4808,6 +4621,7 @@ class Page(
         field_enum_info = {}
         field_enum_info['Attire'] = Page.Attire.__dict__.values()
         field_enum_info['FoodStyles'] = Page.FoodStyles.__dict__.values()
+        field_enum_info['PickupOptions'] = Page.PickupOptions.__dict__.values()
         field_enum_info['TemporaryStatus'] = Page.TemporaryStatus.__dict__.values()
         field_enum_info['PermittedTasks'] = Page.PermittedTasks.__dict__.values()
         field_enum_info['Tasks'] = Page.Tasks.__dict__.values()
@@ -4825,10 +4639,6 @@ class Page(
         field_enum_info['SenderAction'] = Page.SenderAction.__dict__.values()
         field_enum_info['Model'] = Page.Model.__dict__.values()
         field_enum_info['SubscribedFields'] = Page.SubscribedFields.__dict__.values()
-        field_enum_info['DomainActionType'] = Page.DomainActionType.__dict__.values()
-        field_enum_info['PaymentDevModeAction'] = Page.PaymentDevModeAction.__dict__.values()
-        field_enum_info['SettingType'] = Page.SettingType.__dict__.values()
-        field_enum_info['ThreadState'] = Page.ThreadState.__dict__.values()
         return field_enum_info
 
 

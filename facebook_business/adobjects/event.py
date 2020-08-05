@@ -268,7 +268,6 @@ class Event(
             'privacy': 'string',
             'projection': 'projection_enum',
             'published': 'bool',
-            'save_vod': 'bool',
             'schedule_custom_profile_image': 'file',
             'spatial_audio_format': 'spatial_audio_format_enum',
             'status': 'status_enum',
