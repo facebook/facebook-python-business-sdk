@@ -561,7 +561,6 @@ class AbstractCrudObject(AbstractObject):
         batch=None,
         failure=None,
         success=None,
-        transient_error=None,
     ):
         if 'Status' not in dir(self) or 'archived' not in dir(self.Status):
             raise TypeError('Cannot archive object of type %s.'
@@ -573,7 +572,6 @@ class AbstractCrudObject(AbstractObject):
             batch=batch,
             failure=failure,
             success=success,
-            transient_error=transient_error,
         )
 
     # @deprecated
