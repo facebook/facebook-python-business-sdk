@@ -3206,6 +3206,7 @@ class Page(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.photo import Photo
         param_types = {
+            'source': 'file',
             'aid': 'string',
             'allow_spherical_photo': 'bool',
             'alt_text_custom': 'string',
