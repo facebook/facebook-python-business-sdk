@@ -53,6 +53,7 @@ class HomeListing(
         area_size = 'area_size'
         area_unit = 'area_unit'
         availability = 'availability'
+        category_specific_fields = 'category_specific_fields'
         co_2_emission_rating_eu = 'co_2_emission_rating_eu'
         currency = 'currency'
         days_on_market = 'days_on_market'
@@ -211,6 +212,7 @@ class HomeListing(
         'area_size': 'unsigned int',
         'area_unit': 'string',
         'availability': 'string',
+        'category_specific_fields': 'CatalogSubVerticalList',
         'co_2_emission_rating_eu': 'Object',
         'currency': 'string',
         'days_on_market': 'unsigned int',

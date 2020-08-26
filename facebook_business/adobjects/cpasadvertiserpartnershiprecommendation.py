@@ -32,49 +32,24 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class VehicleOffer(
+class CPASAdvertiserPartnershipRecommendation(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isVehicleOffer = True
-        super(VehicleOffer, self).__init__(fbid, parent_id, api)
+        self._isCPASAdvertiserPartnershipRecommendation = True
+        super(CPASAdvertiserPartnershipRecommendation, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        amount_currency = 'amount_currency'
-        amount_percentage = 'amount_percentage'
-        amount_price = 'amount_price'
-        amount_qualifier = 'amount_qualifier'
-        applinks = 'applinks'
-        body_style = 'body_style'
-        cashback_currency = 'cashback_currency'
-        cashback_price = 'cashback_price'
-        category_specific_fields = 'category_specific_fields'
-        currency = 'currency'
-        dma_codes = 'dma_codes'
-        downpayment_currency = 'downpayment_currency'
-        downpayment_price = 'downpayment_price'
-        downpayment_qualifier = 'downpayment_qualifier'
-        end_date = 'end_date'
-        end_time = 'end_time'
+        advertiser_business_id = 'advertiser_business_id'
+        brand_business_id = 'brand_business_id'
+        brands = 'brands'
+        countries = 'countries'
         id = 'id'
-        images = 'images'
-        make = 'make'
-        model = 'model'
-        offer_description = 'offer_description'
-        offer_disclaimer = 'offer_disclaimer'
-        offer_type = 'offer_type'
-        price = 'price'
-        sanitized_images = 'sanitized_images'
-        start_date = 'start_date'
-        start_time = 'start_time'
-        term_length = 'term_length'
-        term_qualifier = 'term_qualifier'
-        title = 'title'
-        trim = 'trim'
-        url = 'url'
-        vehicle_offer_id = 'vehicle_offer_id'
-        year = 'year'
+        merchant_business_id = 'merchant_business_id'
+        merchant_categories = 'merchant_categories'
+        status = 'status'
+        status_reason = 'status_reason'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -90,7 +65,7 @@ class VehicleOffer(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=VehicleOffer,
+            target_class=CPASAdvertiserPartnershipRecommendation,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -107,40 +82,15 @@ class VehicleOffer(
             return request.execute()
 
     _field_types = {
-        'amount_currency': 'string',
-        'amount_percentage': 'float',
-        'amount_price': 'string',
-        'amount_qualifier': 'string',
-        'applinks': 'CatalogItemAppLinks',
-        'body_style': 'string',
-        'cashback_currency': 'string',
-        'cashback_price': 'string',
-        'category_specific_fields': 'CatalogSubVerticalList',
-        'currency': 'string',
-        'dma_codes': 'list<string>',
-        'downpayment_currency': 'string',
-        'downpayment_price': 'string',
-        'downpayment_qualifier': 'string',
-        'end_date': 'string',
-        'end_time': 'int',
+        'advertiser_business_id': 'string',
+        'brand_business_id': 'string',
+        'brands': 'list<string>',
+        'countries': 'list<string>',
         'id': 'string',
-        'images': 'list<string>',
-        'make': 'string',
-        'model': 'string',
-        'offer_description': 'string',
-        'offer_disclaimer': 'string',
-        'offer_type': 'string',
-        'price': 'string',
-        'sanitized_images': 'list<string>',
-        'start_date': 'string',
-        'start_time': 'int',
-        'term_length': 'unsigned int',
-        'term_qualifier': 'string',
-        'title': 'string',
-        'trim': 'string',
-        'url': 'string',
-        'vehicle_offer_id': 'string',
-        'year': 'int',
+        'merchant_business_id': 'string',
+        'merchant_categories': 'list<string>',
+        'status': 'string',
+        'status_reason': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

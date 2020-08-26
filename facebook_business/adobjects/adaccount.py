@@ -1055,9 +1055,11 @@ class AdAccount(
         from facebook_business.adobjects.adaccountadvolume import AdAccountAdVolume
         param_types = {
             'page_id': 'int',
+            'recommendation_type': 'recommendation_type_enum',
             'show_breakdown_by_actor': 'bool',
         }
         enums = {
+            'recommendation_type_enum': AdAccountAdVolume.RecommendationType.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -2229,6 +2231,39 @@ class AdAccount(
             target_class=ContentDeliveryReport,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=ContentDeliveryReport, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_create_and_apply_publisher_block_list(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'is_auto_blocking_on': 'bool',
+            'name': 'string',
+            'publisher_urls': 'list<string>',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/create_and_apply_publisher_block_list',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

@@ -44,6 +44,7 @@ class CommerceMerchantSettings(
         braintree_merchant_id = 'braintree_merchant_id'
         checkout_message = 'checkout_message'
         contact_email = 'contact_email'
+        cta = 'cta'
         disable_checkout_urls = 'disable_checkout_urls'
         display_name = 'display_name'
         facebook_channel = 'facebook_channel'
@@ -63,6 +64,10 @@ class CommerceMerchantSettings(
         terms = 'terms'
         terms_url_by_locale = 'terms_url_by_locale'
         whatsapp_channel = 'whatsapp_channel'
+
+    class Cta:
+        contact_merchant = 'CONTACT_MERCHANT'
+        offsite_link = 'OFFSITE_LINK'
 
     class MerchantStatus:
         enabled = 'ENABLED'
@@ -104,12 +109,14 @@ class CommerceMerchantSettings(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'contact_email': 'string',
+            'cta': 'cta_enum',
             'merchant_alert_email': 'string',
             'merchant_status': 'merchant_status_enum',
             'onsite_commerce_merchant': 'Object',
             'terms': 'string',
         }
         enums = {
+            'cta_enum': CommerceMerchantSettings.Cta.__dict__.values(),
             'merchant_status_enum': CommerceMerchantSettings.MerchantStatus.__dict__.values(),
         }
         request = FacebookRequest(
@@ -461,6 +468,7 @@ class CommerceMerchantSettings(
         'braintree_merchant_id': 'string',
         'checkout_message': 'string',
         'contact_email': 'string',
+        'cta': 'string',
         'disable_checkout_urls': 'bool',
         'display_name': 'string',
         'facebook_channel': 'Object',
@@ -484,6 +492,7 @@ class CommerceMerchantSettings(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['Cta'] = CommerceMerchantSettings.Cta.__dict__.values()
         field_enum_info['MerchantStatus'] = CommerceMerchantSettings.MerchantStatus.__dict__.values()
         return field_enum_info
 

@@ -85,6 +85,7 @@ class CustomAudienceDataSource(
         platform = 'PLATFORM'
         platform_users = 'PLATFORM_USERS'
         seed_list = 'SEED_LIST'
+        signal_source = 'SIGNAL_SOURCE'
         smart_audience = 'SMART_AUDIENCE'
         store_visit_events = 'STORE_VISIT_EVENTS'
         s_expr = 'S_EXPR'
