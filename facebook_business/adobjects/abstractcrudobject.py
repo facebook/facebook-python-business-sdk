@@ -566,6 +566,7 @@ class AbstractCrudObject(AbstractObject):
             raise TypeError('Cannot archive object of type %s.'
                             % self.__class__.__name__)
         return self.api_create(
+            self.get_parent_id_assured(),
             params={
                 'status': self.Status.archived,
             },
