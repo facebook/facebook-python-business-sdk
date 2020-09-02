@@ -89,6 +89,7 @@ class Post(
         permalink_url = 'permalink_url'
         picture = 'picture'
         place = 'place'
+        poll = 'poll'
         privacy = 'privacy'
         promotable_id = 'promotable_id'
         promotion_status = 'promotion_status'
@@ -800,6 +801,7 @@ class Post(
         'permalink_url': 'Object',
         'picture': 'string',
         'place': 'Place',
+        'poll': 'Object',
         'privacy': 'Privacy',
         'promotable_id': 'string',
         'promotion_status': 'string',

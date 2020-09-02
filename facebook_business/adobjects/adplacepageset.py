@@ -47,7 +47,12 @@ class AdPlacePageSet(
         name = 'name'
         pages_count = 'pages_count'
         parent_page = 'parent_page'
+        category = 'category'
         targeted_area_type = 'targeted_area_type'
+
+    class Category:
+        bopus = 'BOPUS'
+        general = 'GENERAL'
 
     class LocationTypes:
         home = 'home'
@@ -105,11 +110,13 @@ class AdPlacePageSet(
         'name': 'string',
         'pages_count': 'int',
         'parent_page': 'Page',
+        'category': 'Category',
         'targeted_area_type': 'TargetedAreaType',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['Category'] = AdPlacePageSet.Category.__dict__.values()
         field_enum_info['LocationTypes'] = AdPlacePageSet.LocationTypes.__dict__.values()
         field_enum_info['TargetedAreaType'] = AdPlacePageSet.TargetedAreaType.__dict__.values()
         return field_enum_info

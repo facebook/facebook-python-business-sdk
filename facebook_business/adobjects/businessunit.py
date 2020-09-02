@@ -291,7 +291,7 @@ class BusinessUnit(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'click_lookback_window': 'unsigned int',
-            'date_range': 'Object',
+            'date_range': 'map',
             'fb_conversion_event_id': 'unsigned int',
             'limit': 'unsigned int',
             'metric_context': 'map',

@@ -49,6 +49,7 @@ class AdoptablePet(
         applinks = 'applinks'
         availability = 'availability'
         breed = 'breed'
+        category_specific_fields = 'category_specific_fields'
         currency = 'currency'
         description = 'description'
         gender = 'gender'
@@ -101,6 +102,7 @@ class AdoptablePet(
         'applinks': 'CatalogItemAppLinks',
         'availability': 'string',
         'breed': 'string',
+        'category_specific_fields': 'CatalogSubVerticalList',
         'currency': 'string',
         'description': 'string',
         'gender': 'string',

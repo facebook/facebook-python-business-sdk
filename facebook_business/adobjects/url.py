@@ -89,6 +89,7 @@ class URL(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'blacklist': 'bool',
+            'denylist': 'bool',
             'hmac': 'string',
             'locale': 'list<Object>',
             'scopes': 'list<scopes_enum>',

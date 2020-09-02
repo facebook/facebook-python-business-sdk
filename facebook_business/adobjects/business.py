@@ -1198,6 +1198,109 @@ class Business(
             self.assure_call()
             return request.execute()
 
+    def get_collaborative_ads_collaboration_requests(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.cpascollaborationrequest import CPASCollaborationRequest
+        param_types = {
+            'status': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/collaborative_ads_collaboration_requests',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=CPASCollaborationRequest,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=CPASCollaborationRequest, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_collaborative_ads_collaboration_request(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.cpascollaborationrequest import CPASCollaborationRequest
+        param_types = {
+            'brands': 'list<string>',
+            'contact_email': 'string',
+            'contact_first_name': 'string',
+            'contact_last_name': 'string',
+            'phone_number': 'string',
+            'receiver_business': 'string',
+            'requester_agency_or_brand': 'requester_agency_or_brand_enum',
+            'sender_client_business': 'string',
+        }
+        enums = {
+            'requester_agency_or_brand_enum': CPASCollaborationRequest.RequesterAgencyOrBrand.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/collaborative_ads_collaboration_requests',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=CPASCollaborationRequest,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=CPASCollaborationRequest, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_collaborative_ads_suggested_partners(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.cpasadvertiserpartnershiprecommendation import CPASAdvertiserPartnershipRecommendation
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/collaborative_ads_suggested_partners',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=CPASAdvertiserPartnershipRecommendation,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=CPASAdvertiserPartnershipRecommendation, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_commerce_merchant_settings(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -1255,6 +1358,39 @@ class Business(
             target_class=ContentDeliveryReport,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=ContentDeliveryReport, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_create_and_apply_publisher_block_list(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'is_auto_blocking_on': 'bool',
+            'name': 'string',
+            'publisher_urls': 'list<string>',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/create_and_apply_publisher_block_list',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1569,6 +1705,7 @@ class Business(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'child_business_external_id': 'string',
             'existing_client_business_id': 'string',
             'name': 'string',
             'sales_rep_email': 'string',
@@ -1894,6 +2031,7 @@ class Business(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'child_business_external_id': 'string',
             'name': 'string',
             'page_permitted_tasks': 'list<page_permitted_tasks_enum>',
             'sales_rep_email': 'string',
@@ -2093,12 +2231,15 @@ class Business(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.productcatalog import ProductCatalog
         param_types = {
+            'catalog_segment_filter': 'Object',
+            'catalog_segment_product_set_id': 'string',
             'commerce_merchant_settings': 'Object',
             'da_display_settings': 'Object',
             'destination_catalog_settings': 'map',
             'flight_catalog_settings': 'map',
             'name': 'string',
             'onsite_commerce_merchant': 'Object',
+            'parent_catalog_id': 'string',
             'store_catalog_settings': 'map',
             'vertical': 'vertical_enum',
         }

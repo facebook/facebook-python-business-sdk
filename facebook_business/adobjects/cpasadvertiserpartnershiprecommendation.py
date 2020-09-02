@@ -32,17 +32,24 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class WorkMeetingLink(
+class CPASAdvertiserPartnershipRecommendation(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isWorkMeetingLink = True
-        super(WorkMeetingLink, self).__init__(fbid, parent_id, api)
+        self._isCPASAdvertiserPartnershipRecommendation = True
+        super(CPASAdvertiserPartnershipRecommendation, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        advertiser_business_id = 'advertiser_business_id'
+        brand_business_id = 'brand_business_id'
+        brands = 'brands'
+        countries = 'countries'
         id = 'id'
-        owner = 'owner'
+        merchant_business_id = 'merchant_business_id'
+        merchant_categories = 'merchant_categories'
+        status = 'status'
+        status_reason = 'status_reason'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -58,7 +65,7 @@ class WorkMeetingLink(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=WorkMeetingLink,
+            target_class=CPASAdvertiserPartnershipRecommendation,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -75,8 +82,15 @@ class WorkMeetingLink(
             return request.execute()
 
     _field_types = {
+        'advertiser_business_id': 'string',
+        'brand_business_id': 'string',
+        'brands': 'list<string>',
+        'countries': 'list<string>',
         'id': 'string',
-        'owner': 'User',
+        'merchant_business_id': 'string',
+        'merchant_categories': 'list<string>',
+        'status': 'string',
+        'status_reason': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

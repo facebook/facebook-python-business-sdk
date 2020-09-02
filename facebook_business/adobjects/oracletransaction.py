@@ -46,7 +46,6 @@ class OracleTransaction(
         amount_due = 'amount_due'
         billed_amount_details = 'billed_amount_details'
         billing_period = 'billing_period'
-        campaign = 'campaign'
         cdn_download_uri = 'cdn_download_uri'
         currency = 'currency'
         download_uri = 'download_uri'
@@ -126,45 +125,12 @@ class OracleTransaction(
             self.assure_call()
             return request.execute()
 
-    def get_data(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.atlasurl import AtlasURL
-        param_types = {
-            'redirect': 'bool',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/data',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AtlasURL,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AtlasURL, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     _field_types = {
         'ad_account_ids': 'list<string>',
         'amount': 'string',
         'amount_due': 'CurrencyAmount',
         'billed_amount_details': 'BilledAmountDetails',
         'billing_period': 'string',
-        'campaign': 'AtlasCampaign',
         'cdn_download_uri': 'string',
         'currency': 'string',
         'download_uri': 'string',

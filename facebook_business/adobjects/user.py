@@ -47,7 +47,6 @@ class User(
         age_range = 'age_range'
         auth_method = 'auth_method'
         birthday = 'birthday'
-        can_review_measurement_request = 'can_review_measurement_request'
         cover = 'cover'
         currency = 'currency'
         devices = 'devices'
@@ -63,9 +62,7 @@ class User(
         install_type = 'install_type'
         installed = 'installed'
         interested_in = 'interested_in'
-        is_famedeeplinkinguser = 'is_famedeeplinkinguser'
         is_guest_user = 'is_guest_user'
-        is_shared_login = 'is_shared_login'
         is_verified = 'is_verified'
         languages = 'languages'
         last_name = 'last_name'
@@ -85,20 +82,17 @@ class User(
         quotes = 'quotes'
         relationship_status = 'relationship_status'
         religion = 'religion'
-        security_settings = 'security_settings'
         shared_login_upgrade_required_by = 'shared_login_upgrade_required_by'
         short_name = 'short_name'
         significant_other = 'significant_other'
         sports = 'sports'
         supports_donate_button_in_live_video = 'supports_donate_button_in_live_video'
-        test_group = 'test_group'
         third_party_id = 'third_party_id'
         timezone = 'timezone'
         token_for_business = 'token_for_business'
         updated_time = 'updated_time'
         verified = 'verified'
         video_upload_limits = 'video_upload_limits'
-        viewer_can_send_gift = 'viewer_can_send_gift'
         website = 'website'
         work = 'work'
 
@@ -815,6 +809,7 @@ class User(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.business import Business
         param_types = {
+            'child_business_external_id': 'string',
             'email': 'string',
             'name': 'string',
             'primary_page': 'string',
@@ -1578,6 +1573,7 @@ class User(
         param_types = {
             'content_tags': 'list<string>',
             'description': 'string',
+            'enable_backup_ingest': 'bool',
             'encoding_settings': 'string',
             'fisheye_video_cropped': 'bool',
             'front_z_rotation': 'float',
@@ -1589,7 +1585,6 @@ class User(
             'privacy': 'string',
             'projection': 'projection_enum',
             'published': 'bool',
-            'save_vod': 'bool',
             'schedule_custom_profile_image': 'file',
             'spatial_audio_format': 'spatial_audio_format_enum',
             'status': 'status_enum',
@@ -1614,68 +1609,6 @@ class User(
             target_class=LiveVideo,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=LiveVideo, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def get_meeting_link(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.workmeetinglink import WorkMeetingLink
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/meeting_link',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=WorkMeetingLink,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=WorkMeetingLink, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_meeting_link(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.workmeetinglink import WorkMeetingLink
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/meeting_link',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=WorkMeetingLink,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=WorkMeetingLink, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1748,6 +1681,37 @@ class User(
             target_class=User,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=User, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_owned_product_catalogs(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.productcatalog import ProductCatalog
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/owned_product_catalogs',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ProductCatalog,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ProductCatalog, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2076,37 +2040,6 @@ class User(
             self.assure_call()
             return request.execute()
 
-    def get_taggable_friends(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.usertaggablefriend import UserTaggableFriend
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/taggable_friends',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=UserTaggableFriend,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=UserTaggableFriend, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def get_videos(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -2262,7 +2195,6 @@ class User(
         'age_range': 'AgeRange',
         'auth_method': 'string',
         'birthday': 'string',
-        'can_review_measurement_request': 'bool',
         'cover': 'UserCoverPhoto',
         'currency': 'Currency',
         'devices': 'list<UserDevice>',
@@ -2278,9 +2210,7 @@ class User(
         'install_type': 'string',
         'installed': 'bool',
         'interested_in': 'list<string>',
-        'is_famedeeplinkinguser': 'bool',
         'is_guest_user': 'bool',
-        'is_shared_login': 'bool',
         'is_verified': 'bool',
         'languages': 'list<Experience>',
         'last_name': 'string',
@@ -2300,20 +2230,17 @@ class User(
         'quotes': 'string',
         'relationship_status': 'string',
         'religion': 'string',
-        'security_settings': 'SecuritySettings',
         'shared_login_upgrade_required_by': 'datetime',
         'short_name': 'string',
         'significant_other': 'User',
         'sports': 'list<Experience>',
         'supports_donate_button_in_live_video': 'bool',
-        'test_group': 'unsigned int',
         'third_party_id': 'string',
         'timezone': 'float',
         'token_for_business': 'string',
         'updated_time': 'datetime',
         'verified': 'bool',
         'video_upload_limits': 'VideoUploadLimits',
-        'viewer_can_send_gift': 'bool',
         'website': 'string',
         'work': 'list<Object>',
     }

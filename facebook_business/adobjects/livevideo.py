@@ -69,6 +69,17 @@ class LiveVideo(
         total_views = 'total_views'
         video = 'video'
 
+    class BroadcastStatus:
+        live = 'live'
+        live_stopped = 'live_stopped'
+        processing = 'processing'
+        scheduled_canceled = 'scheduled_canceled'
+        scheduled_expired = 'scheduled_expired'
+        scheduled_live = 'scheduled_live'
+        scheduled_unpublished = 'scheduled_unpublished'
+        unpublished = 'unpublished'
+        vod = 'vod'
+
     class Projection:
         cubemap = 'CUBEMAP'
         equirectangular = 'EQUIRECTANGULAR'
@@ -92,17 +103,6 @@ class LiveVideo(
     class StreamType:
         ambient = 'AMBIENT'
         regular = 'REGULAR'
-
-    class BroadcastStatus:
-        live = 'LIVE'
-        live_stopped = 'LIVE_STOPPED'
-        processing = 'PROCESSING'
-        scheduled_canceled = 'SCHEDULED_CANCELED'
-        scheduled_expired = 'SCHEDULED_EXPIRED'
-        scheduled_live = 'SCHEDULED_LIVE'
-        scheduled_unpublished = 'SCHEDULED_UNPUBLISHED'
-        unpublished = 'UNPUBLISHED'
-        vod = 'VOD'
 
     class Source:
         owner = 'owner'
@@ -202,6 +202,7 @@ class LiveVideo(
             'is_manual_mode': 'bool',
             'live_comment_moderation_setting': 'list<live_comment_moderation_setting_enum>',
             'live_encoders': 'list<string>',
+            'master_ingest_stream_id': 'string',
             'og_icon_id': 'string',
             'og_phrase': 'string',
             'place': 'Object',
@@ -438,37 +439,6 @@ class LiveVideo(
             self.assure_call()
             return request.execute()
 
-    def get_likes(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.profile import Profile
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/likes',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=Profile,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=Profile, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def get_polls(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -603,12 +573,12 @@ class LiveVideo(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['BroadcastStatus'] = LiveVideo.BroadcastStatus.__dict__.values()
         field_enum_info['Projection'] = LiveVideo.Projection.__dict__.values()
         field_enum_info['SpatialAudioFormat'] = LiveVideo.SpatialAudioFormat.__dict__.values()
         field_enum_info['Status'] = LiveVideo.Status.__dict__.values()
         field_enum_info['StereoscopicMode'] = LiveVideo.StereoscopicMode.__dict__.values()
         field_enum_info['StreamType'] = LiveVideo.StreamType.__dict__.values()
-        field_enum_info['BroadcastStatus'] = LiveVideo.BroadcastStatus.__dict__.values()
         field_enum_info['Source'] = LiveVideo.Source.__dict__.values()
         field_enum_info['LiveCommentModerationSetting'] = LiveVideo.LiveCommentModerationSetting.__dict__.values()
         return field_enum_info

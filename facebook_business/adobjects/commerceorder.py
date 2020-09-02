@@ -47,6 +47,7 @@ class CommerceOrder(
         estimated_payment_details = 'estimated_payment_details'
         id = 'id'
         is_group_buy = 'is_group_buy'
+        is_test_order = 'is_test_order'
         last_updated = 'last_updated'
         merchant_order_id = 'merchant_order_id'
         order_status = 'order_status'
@@ -117,6 +118,7 @@ class CommerceOrder(
         param_types = {
             'idempotency_key': 'string',
             'merchant_order_reference': 'string',
+            'return_error_response': 'bool',
         }
         enums = {
         }
@@ -512,6 +514,7 @@ class CommerceOrder(
         'estimated_payment_details': 'Object',
         'id': 'string',
         'is_group_buy': 'bool',
+        'is_test_order': 'bool',
         'last_updated': 'string',
         'merchant_order_id': 'string',
         'order_status': 'Object',
