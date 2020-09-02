@@ -203,10 +203,8 @@ class EventRequest(object):
 
         self._upload_source = upload_source
 
-    def execute(self):
-
-        params = {"data": self.normalize()}
-
+    def get_request_params(self):
+        params = {}
         if self.test_event_code is not None:
             params['test_event_code'] = self.test_event_code
         if self.namespace_id is not None:
@@ -217,6 +215,16 @@ class EventRequest(object):
             params['upload_tag'] = self.upload_tag
         if self.upload_source is not None:
             params['upload_source'] = self.upload_source
+
+        return params
+
+    def get_params(self):
+        params = self.get_request_params()
+        params["data"] = self.normalize()
+        return params
+
+    def execute(self):
+        params = self.get_params()
 
         response = AdsPixel(self.__pixel_id).create_event(
             fields=[],

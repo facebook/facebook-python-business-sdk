@@ -3,6 +3,8 @@
 All notable changes to this project will be documented in this file.
 
 ## Unreleased
+### Added
+- Added async support to Conversions API - Create event request promises by using EventRequestAsync.
 
 ## v8.0.0
 

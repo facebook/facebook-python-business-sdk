@@ -20,7 +20,7 @@
 
 from unittest import TestCase
 
-from adobjects.serverside.content import Content
+from facebook_business.adobjects.serverside.content import Content
 
 
 class TestContent(TestCase):
