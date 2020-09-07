@@ -47,9 +47,6 @@ class BusinessAssetGroup(
     class AdaccountTasks:
         advertise = 'ADVERTISE'
         analyze = 'ANALYZE'
-        creative = 'CREATIVE'
-        draft = 'DRAFT'
-        fb_employee_dso_advertise = 'FB_EMPLOYEE_DSO_ADVERTISE'
         manage = 'MANAGE'
 
     class OfflineConversionDataSetTasks:

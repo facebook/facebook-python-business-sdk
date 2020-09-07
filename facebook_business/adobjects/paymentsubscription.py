@@ -32,26 +32,39 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class BusinessCreativeFolderSharingAgreement(
+class PaymentSubscription(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isBusinessCreativeFolderSharingAgreement = True
-        super(BusinessCreativeFolderSharingAgreement, self).__init__(fbid, parent_id, api)
+        self._isPaymentSubscription = True
+        super(PaymentSubscription, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        folder_id = 'folder_id'
+        amount = 'amount'
+        app_param_data = 'app_param_data'
+        application = 'application'
+        billing_period = 'billing_period'
+        canceled_reason = 'canceled_reason'
+        created_time = 'created_time'
+        currency = 'currency'
         id = 'id'
-        requesting_business = 'requesting_business'
+        last_payment = 'last_payment'
+        next_bill_time = 'next_bill_time'
+        next_period_amount = 'next_period_amount'
+        next_period_currency = 'next_period_currency'
+        next_period_product = 'next_period_product'
+        payment_status = 'payment_status'
+        pending_cancel = 'pending_cancel'
+        period_start_time = 'period_start_time'
+        product = 'product'
         status = 'status'
-
-    class RequestStatus:
-        approve = 'APPROVE'
-        decline = 'DECLINE'
-        expired = 'EXPIRED'
-        in_progress = 'IN_PROGRESS'
-        pending = 'PENDING'
+        test = 'test'
+        trial_amount = 'trial_amount'
+        trial_currency = 'trial_currency'
+        trial_expiry_time = 'trial_expiry_time'
+        updated_time = 'updated_time'
+        user = 'user'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -67,7 +80,7 @@ class BusinessCreativeFolderSharingAgreement(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=BusinessCreativeFolderSharingAgreement,
+            target_class=PaymentSubscription,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -84,15 +97,34 @@ class BusinessCreativeFolderSharingAgreement(
             return request.execute()
 
     _field_types = {
-        'folder_id': 'string',
+        'amount': 'string',
+        'app_param_data': 'string',
+        'application': 'Profile',
+        'billing_period': 'string',
+        'canceled_reason': 'string',
+        'created_time': 'datetime',
+        'currency': 'string',
         'id': 'string',
-        'requesting_business': 'Business',
+        'last_payment': 'string',
+        'next_bill_time': 'datetime',
+        'next_period_amount': 'string',
+        'next_period_currency': 'string',
+        'next_period_product': 'string',
+        'payment_status': 'string',
+        'pending_cancel': 'bool',
+        'period_start_time': 'datetime',
+        'product': 'string',
         'status': 'string',
+        'test': 'unsigned int',
+        'trial_amount': 'string',
+        'trial_currency': 'string',
+        'trial_expiry_time': 'datetime',
+        'updated_time': 'datetime',
+        'user': 'Profile',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['RequestStatus'] = BusinessCreativeFolderSharingAgreement.RequestStatus.__dict__.values()
         return field_enum_info
 
 

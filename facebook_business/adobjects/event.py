@@ -60,6 +60,8 @@ class Event(
         maybe_count = 'maybe_count'
         name = 'name'
         noreply_count = 'noreply_count'
+        online_event_format = 'online_event_format'
+        online_event_third_party_url = 'online_event_third_party_url'
         owner = 'owner'
         parent_group = 'parent_group'
         place = 'place'
@@ -100,8 +102,16 @@ class Event(
         volunteering = 'VOLUNTEERING'
         workshop = 'WORKSHOP'
 
+    class OnlineEventFormat:
+        fb_live = 'fb_live'
+        messenger_room = 'messenger_room'
+        none = 'none'
+        other = 'other'
+        third_party = 'third_party'
+
     class Type:
         community = 'community'
+        friends = 'friends'
         group = 'group'
         private = 'private'
         public = 'public'
@@ -471,6 +481,8 @@ class Event(
         'maybe_count': 'int',
         'name': 'string',
         'noreply_count': 'int',
+        'online_event_format': 'OnlineEventFormat',
+        'online_event_third_party_url': 'string',
         'owner': 'Object',
         'parent_group': 'Group',
         'place': 'Place',
@@ -488,6 +500,7 @@ class Event(
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['Category'] = Event.Category.__dict__.values()
+        field_enum_info['OnlineEventFormat'] = Event.OnlineEventFormat.__dict__.values()
         field_enum_info['Type'] = Event.Type.__dict__.values()
         field_enum_info['EventStateFilter'] = Event.EventStateFilter.__dict__.values()
         field_enum_info['TimeFilter'] = Event.TimeFilter.__dict__.values()

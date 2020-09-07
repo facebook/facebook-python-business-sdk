@@ -61,7 +61,6 @@ class AdAccountCreationRequest(
         id = 'id'
         is_smb = 'is_smb'
         is_test = 'is_test'
-        is_under_authorization = 'is_under_authorization'
         legal_entity_name_in_local_language = 'legal_entity_name_in_local_language'
         oe_request_id = 'oe_request_id'
         official_website_url = 'official_website_url'
@@ -158,7 +157,6 @@ class AdAccountCreationRequest(
         'id': 'string',
         'is_smb': 'bool',
         'is_test': 'bool',
-        'is_under_authorization': 'bool',
         'legal_entity_name_in_local_language': 'string',
         'oe_request_id': 'string',
         'official_website_url': 'string',

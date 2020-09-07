@@ -45,6 +45,7 @@ class ProductItem(
         additional_image_urls = 'additional_image_urls'
         additional_variant_attributes = 'additional_variant_attributes'
         age_group = 'age_group'
+        applinks = 'applinks'
         availability = 'availability'
         brand = 'brand'
         capability_to_review_status = 'capability_to_review_status'
@@ -573,6 +574,7 @@ class ProductItem(
         'additional_image_urls': 'list<string>',
         'additional_variant_attributes': 'map<string, string>',
         'age_group': 'AgeGroup',
+        'applinks': 'CatalogItemAppLinks',
         'availability': 'Availability',
         'brand': 'string',
         'capability_to_review_status': 'map<Object, Object>',

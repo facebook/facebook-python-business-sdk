@@ -216,7 +216,7 @@ class CampaignTestCase(IntegrationTestCase):
             fields = []
             params = {
                 'status': 3,
-                'special_ad_category': 'wrong_enum',
+                'special_ad_categories': 'wrong_enum',
             }
             with self.assertRaises(FacebookRequestError):
                 campaign = AdAccount(TestValue.ACCOUNT_ID).create_campaign(

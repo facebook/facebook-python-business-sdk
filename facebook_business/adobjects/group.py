@@ -117,6 +117,7 @@ class Group(
         work_mentorship = 'WORK_MENTORSHIP'
         work_multi_company = 'WORK_MULTI_COMPANY'
         work_recruiting = 'WORK_RECRUITING'
+        work_resume_review = 'WORK_RESUME_REVIEW'
         work_social = 'WORK_SOCIAL'
         work_team = 'WORK_TEAM'
         work_teamwork = 'WORK_TEAMWORK'
@@ -168,6 +169,7 @@ class Group(
         work_mentorship = 'WORK_MENTORSHIP'
         work_multi_company = 'WORK_MULTI_COMPANY'
         work_recruiting = 'WORK_RECRUITING'
+        work_resume_review = 'WORK_RESUME_REVIEW'
         work_social = 'WORK_SOCIAL'
         work_team = 'WORK_TEAM'
         work_teamwork = 'WORK_TEAMWORK'
@@ -1009,12 +1011,14 @@ class Group(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.profilepicturesource import ProfilePictureSource
         param_types = {
+            'breaking_change': 'breaking_change_enum',
             'height': 'int',
             'redirect': 'bool',
             'type': 'type_enum',
             'width': 'int',
         }
         enums = {
+            'breaking_change_enum': ProfilePictureSource.BreakingChange.__dict__.values(),
             'type_enum': ProfilePictureSource.Type.__dict__.values(),
         }
         request = FacebookRequest(
@@ -1093,6 +1097,7 @@ class Group(
             'composer_type': 'string',
             'container_type': 'container_type_enum',
             'content_category': 'content_category_enum',
+            'creative_tools': 'string',
             'description': 'string',
             'embeddable': 'bool',
             'end_offset': 'unsigned int',
@@ -1148,6 +1153,7 @@ class Group(
             'upload_session_id': 'string',
             'upload_setting_properties': 'string',
             'video_file_chunk': 'string',
+            'video_id_original': 'string',
             'video_start_time_ms': 'unsigned int',
             'waterfall_id': 'string',
         }

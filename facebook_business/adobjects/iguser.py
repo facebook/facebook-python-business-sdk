@@ -47,6 +47,7 @@ class IGUser(
         follows_count = 'follows_count'
         id = 'id'
         ig_id = 'ig_id'
+        is_ig_shopping_seller_policy_enabled = 'is_ig_shopping_seller_policy_enabled'
         media_count = 'media_count'
         mentioned_comment = 'mentioned_comment'
         mentioned_media = 'mentioned_media'
@@ -359,6 +360,7 @@ class IGUser(
         'follows_count': 'int',
         'id': 'string',
         'ig_id': 'int',
+        'is_ig_shopping_seller_policy_enabled': 'bool',
         'media_count': 'int',
         'mentioned_comment': 'IGComment',
         'mentioned_media': 'IGMedia',

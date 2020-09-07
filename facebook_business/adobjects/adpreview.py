@@ -56,6 +56,7 @@ class AdPreview(
         instant_article_recirculation_ad = 'INSTANT_ARTICLE_RECIRCULATION_AD'
         instant_article_standard = 'INSTANT_ARTICLE_STANDARD'
         instream_video_desktop = 'INSTREAM_VIDEO_DESKTOP'
+        instream_video_image = 'INSTREAM_VIDEO_IMAGE'
         instream_video_mobile = 'INSTREAM_VIDEO_MOBILE'
         job_browser_desktop = 'JOB_BROWSER_DESKTOP'
         job_browser_mobile = 'JOB_BROWSER_MOBILE'

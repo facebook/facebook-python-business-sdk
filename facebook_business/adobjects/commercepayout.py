@@ -28,22 +28,28 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class ProductFeedUploadDiagnostics(
+class CommercePayout(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(ProductFeedUploadDiagnostics, self).__init__()
-        self._isProductFeedUploadDiagnostics = True
+        super(CommercePayout, self).__init__()
+        self._isCommercePayout = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        last_modified_time = 'last_modified_time'
-        report_url = 'report_url'
+        amount = 'amount'
+        payout_date = 'payout_date'
+        payout_reference_id = 'payout_reference_id'
+        status = 'status'
+        transfer_id = 'transfer_id'
 
     _field_types = {
-        'last_modified_time': 'string',
-        'report_url': 'string',
+        'amount': 'Object',
+        'payout_date': 'string',
+        'payout_reference_id': 'string',
+        'status': 'string',
+        'transfer_id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

@@ -139,6 +139,7 @@ class AdStudyObjective(
             'name': 'string',
             'offline_conversion_data_sets': 'list<Object>',
             'offsitepixels': 'list<Object>',
+            'product_catalogs': 'list<Object>',
             'product_sets': 'list<Object>',
             'type': 'type_enum',
         }

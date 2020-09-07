@@ -42,6 +42,7 @@ class Vehicle(
 
     class Field(AbstractObject.Field):
         address = 'address'
+        applinks = 'applinks'
         availability = 'availability'
         body_style = 'body_style'
         condition = 'condition'
@@ -84,7 +85,6 @@ class Vehicle(
         vehicle_type = 'vehicle_type'
         vin = 'vin'
         year = 'year'
-        applinks = 'applinks'
 
     class Availability:
         available = 'AVAILABLE'
@@ -264,6 +264,7 @@ class Vehicle(
 
     _field_types = {
         'address': 'Object',
+        'applinks': 'CatalogItemAppLinks',
         'availability': 'string',
         'body_style': 'string',
         'condition': 'string',
@@ -306,7 +307,6 @@ class Vehicle(
         'vehicle_type': 'string',
         'vin': 'string',
         'year': 'unsigned int',
-        'applinks': 'Object',
     }
     @classmethod
     def _get_field_enum_info(cls):

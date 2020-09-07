@@ -57,8 +57,6 @@ class AdCampaignActivity(
         bid_type_old = 'bid_type_old'
         billing_event_new = 'billing_event_new'
         billing_event_old = 'billing_event_old'
-        brande_audience_id_new = 'brande_audience_id_new'
-        brande_audience_id_old = 'brande_audience_id_old'
         budget_limit_new = 'budget_limit_new'
         budget_limit_old = 'budget_limit_old'
         created_time = 'created_time'
@@ -151,6 +149,7 @@ class AdCampaignActivity(
         page_engagement = 'PAGE_ENGAGEMENT'
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
+        quality_lead = 'QUALITY_LEAD'
         reach = 'REACH'
         replies = 'REPLIES'
         social_impressions = 'SOCIAL_IMPRESSIONS'
@@ -178,6 +177,7 @@ class AdCampaignActivity(
         page_engagement = 'PAGE_ENGAGEMENT'
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
+        quality_lead = 'QUALITY_LEAD'
         reach = 'REACH'
         replies = 'REPLIES'
         social_impressions = 'SOCIAL_IMPRESSIONS'
@@ -233,8 +233,6 @@ class AdCampaignActivity(
         'bid_type_old': 'string',
         'billing_event_new': 'BillingEventNew',
         'billing_event_old': 'BillingEventOld',
-        'brande_audience_id_new': 'BrandAudience',
-        'brande_audience_id_old': 'BrandAudience',
         'budget_limit_new': 'Object',
         'budget_limit_old': 'Object',
         'created_time': 'datetime',

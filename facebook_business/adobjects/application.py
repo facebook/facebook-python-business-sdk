@@ -151,6 +151,7 @@ class Application(
         ipad = 'IPAD'
         iphone = 'IPHONE'
         mobile_web = 'MOBILE_WEB'
+        oculus = 'OCULUS'
         supplementary_images = 'SUPPLEMENTARY_IMAGES'
         web = 'WEB'
         windows = 'WINDOWS'
@@ -236,14 +237,12 @@ class Application(
         param_types = {
             'an_platforms': 'list<an_platforms_enum>',
             'android_class_name': 'string',
-            'android_key_hash': 'list<string>',
             'android_key_hashes': 'list<string>',
             'android_package_name': 'string',
             'android_sso': 'bool',
             'app_domains': 'list<string>',
             'app_name': 'string',
             'app_type': 'bool',
-            'auth_dialog_data_help_url': 'string',
             'auth_dialog_headline': 'string',
             'auth_dialog_perms_explanation': 'string',
             'auth_referral_default_activity_privacy': 'string',
@@ -255,28 +254,17 @@ class Application(
             'canvas_fluid_height': 'bool',
             'canvas_fluid_width': 'bool',
             'canvas_url': 'string',
-            'category': 'string',
-            'configured_ios_sso': 'bool',
             'contact_email': 'string',
-            'created_time': 'Object',
-            'creator_uid': 'int',
             'deauth_callback_url': 'string',
-            'hosting_url': 'string',
             'ios_bundle_id': 'list<string>',
-            'ipad_app_store_id': 'string',
-            'iphone_app_store_id': 'string',
-            'migrations': 'string',
             'mobile_web_url': 'string',
             'namespace': 'string',
             'page_tab_default_name': 'string',
-            'page_tab_url': 'string',
             'privacy_policy_url': 'string',
             'restrictions': 'string',
             'secure_canvas_url': 'string',
             'secure_page_tab_url': 'string',
             'server_ip_whitelist': 'list<string>',
-            'social_discovery': 'bool',
-            'subcategory': 'string',
             'terms_of_service_url': 'string',
             'url_scheme_suffix': 'string',
             'user_support_email': 'string',
@@ -435,6 +423,9 @@ class Application(
             'consider_views': 'bool',
             'custom_events': 'list<Object>',
             'custom_events_file': 'file',
+            'data_processing_options': 'list<string>',
+            'data_processing_options_country': 'unsigned int',
+            'data_processing_options_state': 'unsigned int',
             'device_token': 'string',
             'event': 'event_enum',
             'extinfo': 'Object',

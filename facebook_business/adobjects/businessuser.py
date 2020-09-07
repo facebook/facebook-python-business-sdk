@@ -58,9 +58,15 @@ class BusinessUser(
     class Role:
         admin = 'ADMIN'
         ads_rights_reviewer = 'ADS_RIGHTS_REVIEWER'
+        developer = 'DEVELOPER'
         employee = 'EMPLOYEE'
         finance_analyst = 'FINANCE_ANALYST'
         finance_editor = 'FINANCE_EDITOR'
+        partner_center_admin = 'PARTNER_CENTER_ADMIN'
+        partner_center_analyst = 'PARTNER_CENTER_ANALYST'
+        partner_center_education = 'PARTNER_CENTER_EDUCATION'
+        partner_center_marketing = 'PARTNER_CENTER_MARKETING'
+        partner_center_operations = 'PARTNER_CENTER_OPERATIONS'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod

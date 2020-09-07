@@ -19,12 +19,11 @@
 # DEALINGS IN THE SOFTWARE.
 
 import pprint
-from typing import List
-
 import six
+
 from facebook_business.adobjects.serverside.content import Content
 from facebook_business.adobjects.serverside.normalize import Normalize
-
+from facebook_business.adobjects.serverside.delivery_category import DeliveryCategory
 
 class CustomData(object):
     """
@@ -43,14 +42,31 @@ class CustomData(object):
         'num_items': 'int',
         'status': 'str',
         'search_string' : 'str',
+        'delivery_category' : 'DeliveryCategory',
+        'item_number': 'str',
         'custom_properties' : 'dict'
     }
 
-    def __init__(self, value: float = None, currency: str = None, content_name: str = None,
-                 content_category: str = None, content_ids: List[str] = None,
-                 contents: List[Content] = None, content_type: str = None, order_id: str = None,
-                 predicted_ltv: float = None, num_items: int = None,
-                 status: str = None, search_string: str = None, custom_properties: dict = {}):
+    def __init__(
+        self,
+        value=None,
+        currency=None,
+        content_name=None,
+        content_category=None,
+        content_ids=None,
+        contents=None,
+        content_type=None,
+        order_id=None,
+        predicted_ltv=None,
+        num_items=None,
+        status=None,
+        search_string=None,
+        delivery_category=None,
+        item_number=None,
+        custom_properties={},
+    ):
+        # type: (float, str, str, str, content_ids, List[str], List[Content], str, str, float, int, str, str, DeliveryCategory ,str, dict) -> None
+
         self._value = None
         self._currency = None
         self._content_name = None
@@ -63,6 +79,8 @@ class CustomData(object):
         self._num_items = None
         self._status = None
         self._search_string = None
+        self._delivery_category = None
+        self._item_number = None
         self._custom_properties = None
         if value is not None:
             self.value = value
@@ -88,6 +106,10 @@ class CustomData(object):
             self.status = status
         if search_string is not None:
             self.search_string = search_string
+        if delivery_category is not None:
+            self.delivery_category = delivery_category
+        if item_number is not None:
+            self.item_number = item_number
         if custom_properties:
             self.custom_properties = custom_properties
 
@@ -103,7 +125,7 @@ class CustomData(object):
         return self._value
 
     @value.setter
-    def value(self, value: float):
+    def value(self, value):
         """Sets the value.
 
         A numeric value associated with this event. This could be a monetary value or a value in some other metric.
@@ -127,7 +149,7 @@ class CustomData(object):
         return self._currency
 
     @currency.setter
-    def currency(self, currency: str):
+    def currency(self, currency):
         """Sets the currency.
 
         The currency for the value specified, if applicable. Currency must be a valid ISO 4217 three digit currency code.
@@ -150,7 +172,7 @@ class CustomData(object):
         return self._content_name
 
     @content_name.setter
-    def content_name(self, content_name: str):
+    def content_name(self, content_name):
         """Sets the content name.
 
         The name of the page or product associated with the event. Example: 'lettuce'.
@@ -173,7 +195,7 @@ class CustomData(object):
         return self._content_category
 
     @content_category.setter
-    def content_category(self, content_category: str):
+    def content_category(self, content_category):
         """Sets the content category.
 
         The category of the content associated with the event. Example: 'grocery'
@@ -198,7 +220,7 @@ class CustomData(object):
         return self._content_ids
 
     @content_ids.setter
-    def content_ids(self, content_ids: List[str]):
+    def content_ids(self, content_ids):
         """Sets the content_ids.
 
         The content IDs associated with the event, such as product SKUs for items in an AddToCart event:
@@ -224,7 +246,7 @@ class CustomData(object):
         return self._contents
 
     @contents.setter
-    def contents(self, contents: List[Content]):
+    def contents(self, contents):
         """Sets the contents.
 
         A list of Content objects that contain the product IDs associated with the event plus information about
@@ -249,7 +271,7 @@ class CustomData(object):
         return self._content_type
 
     @content_type.setter
-    def content_type(self, content_type: str):
+    def content_type(self, content_type):
         """Sets the content type.
 
         A String equal to either 'product' or 'product_group'. Set to product if the keys you send content_ids or
@@ -273,7 +295,7 @@ class CustomData(object):
         return self._order_id
 
     @order_id.setter
-    def order_id(self, order_id: str):
+    def order_id(self, order_id):
         """Sets the order id.
 
         The order ID for this transaction as a String.
@@ -296,7 +318,7 @@ class CustomData(object):
         return self._predicted_ltv
 
     @predicted_ltv.setter
-    def predicted_ltv(self, predicted_ltv: float):
+    def predicted_ltv(self, predicted_ltv):
         """Sets the predicted_ltv.
 
         The predicted lifetime value of a conversion event
@@ -320,7 +342,7 @@ class CustomData(object):
         return self._num_items
 
     @num_items.setter
-    def num_items(self, num_items: int):
+    def num_items(self, num_items):
         """Sets the num items.
 
         Use only with InitiateCheckout events. The number of items that a user tries to buy during checkout.
@@ -343,7 +365,7 @@ class CustomData(object):
         return self._status
 
     @status.setter
-    def status(self, status: str):
+    def status(self, status):
         """Sets the status.
 
         Use only with CompleteRegistration events. The status of the registration event, as a String.
@@ -364,7 +386,7 @@ class CustomData(object):
         return self._search_string
 
     @search_string.setter
-    def search_string(self, search_string: str):
+    def search_string(self, search_string):
         """Sets the search query made by a user.
 
         Use only with Search events. A search query made by a user.
@@ -373,7 +395,49 @@ class CustomData(object):
         :type: str
         """
 
-        self._search_string = search_string  
+        self._search_string = search_string
+
+    @property
+    def delivery_category(self):
+        """Gets the Type of Delivery Category.
+
+        :return: The Delivery Category type.
+        :rtype: DeliveryCategory
+        """
+        return self._delivery_category
+
+    @delivery_category.setter
+    def delivery_category(self, delivery_category):
+        """Sets the Type of Delivery Category.
+
+        Use with Purchase events.
+
+        :param delivery_category: The Delivery Category type.
+        :type: DeliveryCategory
+        """
+        if not isinstance(delivery_category, DeliveryCategory):
+            raise TypeError('delivery_category must be of type DeliveryCategory. Passed invalid category: ' + delivery_category)
+
+        self._delivery_category = delivery_category
+
+    @property
+    def item_number(self):
+        """Gets the item number.
+
+        :return: The item number.
+        :rtype: str
+        """
+        return self._item_number
+
+    @item_number.setter
+    def item_number(self, item_number):
+        """Sets the item number.
+
+        :param item_number: The item number.
+        :type: str
+        """
+
+        self._item_number = item_number
 
     @property
     def custom_properties(self):
@@ -385,7 +449,7 @@ class CustomData(object):
         return self._custom_properties
 
     @custom_properties.setter
-    def custom_properties(self, custom_properties: dict):
+    def custom_properties(self, custom_properties):
         """Sets the custom properties to be included in the Custom Data.
 
         These are properties that are not defined in the standard list of the custom data.
@@ -394,8 +458,8 @@ class CustomData(object):
         :type: dict
         """
 
-        self._custom_properties = custom_properties        
-    
+        self._custom_properties = custom_properties
+
     def add_custom_property(self, key, value):
 
         """Adds the custom property (key, value) to the custom property bag.
@@ -405,8 +469,8 @@ class CustomData(object):
         :param value: The Value for the property to be added.
         :type: str
         """
-        
-        self.custom_properties[key] = value         
+
+        self.custom_properties[key] = value
 
     def normalize(self):
         normalized_payload = {
@@ -421,6 +485,8 @@ class CustomData(object):
             'num_items': self.num_items,
             'status': self.status,
             'search_string': self.search_string,
+            'delivery_category': self.delivery_category.value,
+            'item_number': self.item_number,
         }
         if self.contents is not None:
             contents = []
@@ -429,15 +495,15 @@ class CustomData(object):
                     contents.append(content.normalize())
 
             normalized_payload['contents'] = contents
-        
+
         # Append the custom_properties to the custom_data normalized payload.
         if self.custom_properties:
-            for key in self.custom_properties:                
-                if key in normalized_payload.keys(): 
+            for key in self.custom_properties:
+                if key in normalized_payload.keys():
                     raise Exception('Duplicate key in custom_properties:"' + key + '". Please make sure the keys defined in the custom_properties are not already available in standard custom_data property list.')
-                normalized_payload[key] = self.custom_properties[key]        
-            
-        normalized_payload: dict = {k: v for k, v in normalized_payload.items() if v is not None}
+                normalized_payload[key] = self.custom_properties[key]
+
+        normalized_payload = {k: v for k, v in normalized_payload.items() if v is not None}
         return normalized_payload
 
     def to_dict(self):

@@ -96,6 +96,7 @@ class AdAccountTargetingUnified(
         credit = 'CREDIT'
         employment = 'EMPLOYMENT'
         housing = 'HOUSING'
+        issues_elections_politics = 'ISSUES_ELECTIONS_POLITICS'
         none = 'NONE'
 
     class WhitelistedTypes:
@@ -170,6 +171,7 @@ class AdAccountTargetingUnified(
         industries = 'industries'
         instagram_hashtags = 'instagram_hashtags'
         instagram_positions = 'instagram_positions'
+        instream_video_skippable_excluded = 'instream_video_skippable_excluded'
         instream_video_sponsorship_placements = 'instream_video_sponsorship_placements'
         interest_defaults_source = 'interest_defaults_source'
         interested_in = 'interested_in'
@@ -238,6 +240,7 @@ class AdAccountTargetingUnified(
         post_engagement = 'POST_ENGAGEMENT'
         product_catalog_sales = 'PRODUCT_CATALOG_SALES'
         reach = 'REACH'
+        store_visits = 'STORE_VISITS'
         video_views = 'VIDEO_VIEWS'
 
     _field_types = {

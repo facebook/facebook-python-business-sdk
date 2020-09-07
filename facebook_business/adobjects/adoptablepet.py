@@ -32,28 +32,37 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class BusinessCreative(
+class AdoptablePet(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isBusinessCreative = True
-        super(BusinessCreative, self).__init__(fbid, parent_id, api)
+        self._isAdoptablePet = True
+        super(AdoptablePet, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        creation_time = 'creation_time'
-        duration = 'duration'
-        hash = 'hash'
-        height = 'height'
+        address = 'address'
+        adoptable_pet_id = 'adoptable_pet_id'
+        adoption_application_form_url = 'adoption_application_form_url'
+        age_bucket = 'age_bucket'
+        animal_type = 'animal_type'
+        applinks = 'applinks'
+        availability = 'availability'
+        breed = 'breed'
+        currency = 'currency'
+        description = 'description'
+        gender = 'gender'
         id = 'id'
+        images = 'images'
         name = 'name'
-        thumbnail = 'thumbnail'
-        type = 'type'
+        price = 'price'
+        sanitized_images = 'sanitized_images'
+        shelter_name = 'shelter_name'
+        shelter_page_id = 'shelter_page_id'
+        size = 'size'
         url = 'url'
-        video_id = 'video_id'
-        width = 'width'
 
-    def get_ad_placement_validation_results(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
@@ -64,12 +73,12 @@ class BusinessCreative(
         request = FacebookRequest(
             node_id=self['id'],
             method='GET',
-            endpoint='/ad_placement_validation_results',
+            endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            target_class=AdoptablePet,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -84,17 +93,26 @@ class BusinessCreative(
             return request.execute()
 
     _field_types = {
-        'creation_time': 'datetime',
-        'duration': 'int',
-        'hash': 'string',
-        'height': 'int',
+        'address': 'Object',
+        'adoptable_pet_id': 'string',
+        'adoption_application_form_url': 'string',
+        'age_bucket': 'string',
+        'animal_type': 'string',
+        'applinks': 'CatalogItemAppLinks',
+        'availability': 'string',
+        'breed': 'string',
+        'currency': 'string',
+        'description': 'string',
+        'gender': 'string',
         'id': 'string',
+        'images': 'list<string>',
         'name': 'string',
-        'thumbnail': 'string',
-        'type': 'string',
+        'price': 'string',
+        'sanitized_images': 'list<string>',
+        'shelter_name': 'string',
+        'shelter_page_id': 'Page',
+        'size': 'string',
         'url': 'string',
-        'video_id': 'string',
-        'width': 'int',
     }
     @classmethod
     def _get_field_enum_info(cls):

@@ -44,7 +44,7 @@ class ProductCatalog(
 
     class Field(AbstractObject.Field):
         business = 'business'
-        cpas_parent_catalog_settings = 'cpas_parent_catalog_settings'
+        commerce_merchant_settings = 'commerce_merchant_settings'
         da_display_settings = 'da_display_settings'
         default_image_url = 'default_image_url'
         fallback_image_url = 'fallback_image_url'
@@ -57,8 +57,10 @@ class ProductCatalog(
         vertical = 'vertical'
         destination_catalog_settings = 'destination_catalog_settings'
         flight_catalog_settings = 'flight_catalog_settings'
+        onsite_commerce_merchant = 'onsite_commerce_merchant'
 
     class Vertical:
+        adoptable_pets = 'adoptable_pets'
         bookable = 'bookable'
         commerce = 'commerce'
         destinations = 'destinations'
@@ -66,6 +68,7 @@ class ProductCatalog(
         home_listings = 'home_listings'
         hotels = 'hotels'
         jobs = 'jobs'
+        local_service_businesses = 'local_service_businesses'
         offer_items = 'offer_items'
         offline_commerce = 'offline_commerce'
         ticketed_experiences = 'ticketed_experiences'
@@ -132,8 +135,15 @@ class ProductCatalog(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'segment_use_cases': 'list<segment_use_cases_enum>',
         }
         enums = {
+            'segment_use_cases_enum': [
+                'COLLAB_ADS',
+                'COLLAB_ADS_FOR_MARKETPLACE_PARTNER',
+                'IG_SHOPPING',
+                'TEST',
+            ],
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -1033,6 +1043,37 @@ class ProductCatalog(
             self.assure_call()
             return request.execute()
 
+    def create_onsite_commerce_merchant(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'onsite_commerce_merchant': 'Object',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/onsite_commerce_merchant',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ProductCatalog,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ProductCatalog, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_pricing_variables_batch(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -1290,6 +1331,7 @@ class ProductCatalog(
         from facebook_business.adobjects.productset import ProductSet
         param_types = {
             'filter': 'Object',
+            'metadata': 'map',
             'name': 'string',
         }
         enums = {
@@ -1617,7 +1659,7 @@ class ProductCatalog(
 
     _field_types = {
         'business': 'Business',
-        'cpas_parent_catalog_settings': 'CPASParentCatalogSettings',
+        'commerce_merchant_settings': 'CommerceMerchantSettings',
         'da_display_settings': 'ProductCatalogImageSettings',
         'default_image_url': 'string',
         'fallback_image_url': 'list<string>',
@@ -1630,6 +1672,7 @@ class ProductCatalog(
         'vertical': 'string',
         'destination_catalog_settings': 'map',
         'flight_catalog_settings': 'map',
+        'onsite_commerce_merchant': 'Object',
     }
     @classmethod
     def _get_field_enum_info(cls):

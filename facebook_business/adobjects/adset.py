@@ -161,6 +161,7 @@ class AdSet(
         page_engagement = 'PAGE_ENGAGEMENT'
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
+        quality_lead = 'QUALITY_LEAD'
         reach = 'REACH'
         replies = 'REPLIES'
         social_impressions = 'SOCIAL_IMPRESSIONS'
@@ -235,6 +236,7 @@ class AdSet(
         credit = 'CREDIT'
         employment = 'EMPLOYMENT'
         housing = 'HOUSING'
+        issues_elections_politics = 'ISSUES_ELECTIONS_POLITICS'
         none = 'NONE'
 
     class Operator:
