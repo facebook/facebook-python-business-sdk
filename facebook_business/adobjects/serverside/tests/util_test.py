@@ -18,38 +18,23 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebook_business.adobjects.abstractobject import AbstractObject
+from unittest import TestCase
+from unittest.mock import PropertyMock, patch
 
-"""
-This class is auto-generated.
-
-For any issues or feature requests related to this class, please let us know on
-github and we'll fix in our codegen framework. We'll not be able to accept
-pull request for this class.
-"""
-
-class CustomAudiencePrefillState(
-    AbstractObject,
-):
-
-    def __init__(self, api=None):
-        super(CustomAudiencePrefillState, self).__init__()
-        self._isCustomAudiencePrefillState = True
-        self._api = api
-
-    class Field(AbstractObject.Field):
-        description = 'description'
-        num_added = 'num_added'
-        status = 'status'
-
-    _field_types = {
-        'description': 'string',
-        'num_added': 'unsigned int',
-        'status': 'string',
-    }
-    @classmethod
-    def _get_field_enum_info(cls):
-        field_enum_info = {}
-        return field_enum_info
+from facebook_business.adobjects.serverside.util import Util, sys
 
 
+class UtilTest(TestCase):
+    @patch('facebook_business.adobjects.serverside.util.sys')
+    def test_async_requests_available(self, mock_sys):
+        type(mock_sys).version_info = PropertyMock(return_value=(3, 7))
+        self.assertTrue(Util.async_requests_available())
+        type(mock_sys).version_info = PropertyMock(return_value=(3, 5, 3))
+        self.assertTrue(Util.async_requests_available())
+
+        type(mock_sys).version_info = PropertyMock(return_value=(3, 4, 10))
+        self.assertFalse(Util.async_requests_available())
+        type(mock_sys).version_info = PropertyMock(return_value=(3, 2, 1))
+        self.assertFalse(Util.async_requests_available())
+        type(mock_sys).version_info = PropertyMock(return_value=(2, 7))
+        self.assertFalse(Util.async_requests_available())

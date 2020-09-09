@@ -165,8 +165,8 @@ class AdgroupActivity(
             return request.execute()
 
     _field_types = {
-        'ad_creative_id_new': 'string',
-        'ad_creative_id_old': 'string',
+        'ad_creative_id_new': 'AdCreative',
+        'ad_creative_id_old': 'AdCreative',
         'asset_feed_id_new': 'string',
         'asset_feed_id_old': 'string',
         'bid_amount_new': 'int',
@@ -201,8 +201,8 @@ class AdgroupActivity(
         'reason_old': 'string',
         'run_status_new': 'string',
         'run_status_old': 'string',
-        'source_adgroup_id_new': 'string',
-        'source_adgroup_id_old': 'string',
+        'source_adgroup_id_new': 'Ad',
+        'source_adgroup_id_old': 'Ad',
         'start_time_new': 'datetime',
         'start_time_old': 'datetime',
         'stop_time_new': 'datetime',

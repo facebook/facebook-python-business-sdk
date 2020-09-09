@@ -27,7 +27,6 @@ How to run:
 
 import warnings
 import json
-from mock import patch
 from facebook_business.session import FacebookSession
 from facebook_business.exceptions import FacebookRequestError
 from facebook_business.api import FacebookAdsApi, FacebookRequest, FacebookResponse
@@ -45,7 +44,7 @@ class AdTestCase(IntegrationTestCase):
     def test_get_ad(self):
         with warnings.catch_warnings(record=True) as warning:
             self.mock_response.status_code = StatusCode.SUCCESS
-            self.mock_response._content = (
+            self.mock_response._content = str.encode(
                 '{'
                 '"' + str(FieldName.ACCOUNT_ID) + '":"' + str(TestValue.ACCOUNT_ID) + '",'
                 '"' + str(FieldName.AD_REVIEW_FEEDBACK) + '":' + str(TestValue.AD_REVIEW_FEEDBACK) + ','
@@ -126,7 +125,7 @@ class AdTestCase(IntegrationTestCase):
     def test_create_ad(self):
         with warnings.catch_warnings(record=True) as warning:
             self.mock_response.status_code = StatusCode.SUCCESS
-            self.mock_response._content = '{"' + str(FieldName.ID) + '":"' + str(TestValue.AD_ID) + '", "success": "true"}'
+            self.mock_response._content = str.encode('{"' + str(FieldName.ID) + '":"' + str(TestValue.AD_ID) + '", "success": "true"}')
             self.mock_request.return_value = self.mock_response
 
             fields = []
@@ -179,7 +178,7 @@ class AdTestCase(IntegrationTestCase):
     def test_get_ad_creatives(self):
         with warnings.catch_warnings(record=True) as warning:
             self.mock_response.status_code = StatusCode.SUCCESS
-            self.mock_response._content = (
+            self.mock_response._content = str.encode(
                 '{'
                 '"' + str(FieldName.NAME) + '":"' + str(TestValue.NAME) + '",'
                 '"' + str(FieldName.ID) + '":"' + str(TestValue.CREATIVE_ID) + '"'
@@ -227,7 +226,7 @@ class AdTestCase(IntegrationTestCase):
     def test_get_insights(self):
         with warnings.catch_warnings(record=True) as warning:
             self.mock_response.status_code = StatusCode.SUCCESS
-            self.mock_response._content = (
+            self.mock_response._content = str.encode(
                 '{'
                 '"' + str(FieldName.AD_NAME) + '":"' + str(TestValue.NAME) + '",'
                 '"' + str(FieldName.AD_ID) + '":"' + str(TestValue.AD_ID) + '",'

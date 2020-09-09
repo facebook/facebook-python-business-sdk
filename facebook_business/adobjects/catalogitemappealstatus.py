@@ -28,42 +28,30 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class RequestHistory(
+class CatalogItemAppealStatus(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(RequestHistory, self).__init__()
-        self._isRequestHistory = True
+        super(CatalogItemAppealStatus, self).__init__()
+        self._isCatalogItemAppealStatus = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        api_version = 'api_version'
-        created_time = 'created_time'
-        error_code = 'error_code'
-        graph_path = 'graph_path'
-        http_method = 'http_method'
-        post_params = 'post_params'
-        query_params = 'query_params'
-
-    class HttpMethod:
-        delete = 'DELETE'
-        get = 'GET'
-        post = 'POST'
+        handle = 'handle'
+        item_id = 'item_id'
+        status = 'status'
+        use_cases = 'use_cases'
 
     _field_types = {
-        'api_version': 'string',
-        'created_time': 'datetime',
-        'error_code': 'unsigned int',
-        'graph_path': 'string',
-        'http_method': 'HttpMethod',
-        'post_params': 'map<string, string>',
-        'query_params': 'map<string, string>',
+        'handle': 'string',
+        'item_id': 'int',
+        'status': 'string',
+        'use_cases': 'list<Object>',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['HttpMethod'] = RequestHistory.HttpMethod.__dict__.values()
         return field_enum_info
 
 

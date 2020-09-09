@@ -41,8 +41,6 @@ class AdAccountActivity(
         super(AdAccountActivity, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        billing_address_new = 'billing_address_new'
-        billing_address_old = 'billing_address_old'
         created_by = 'created_by'
         created_time = 'created_time'
         credit_new = 'credit_new'
@@ -104,9 +102,7 @@ class AdAccountActivity(
             return request.execute()
 
     _field_types = {
-        'billing_address_new': 'string',
-        'billing_address_old': 'string',
-        'created_by': 'string',
+        'created_by': 'Profile',
         'created_time': 'datetime',
         'credit_new': 'Object',
         'credit_old': 'Object',
@@ -121,8 +117,8 @@ class AdAccountActivity(
         'grace_period_time_new': 'int',
         'grace_period_time_old': 'int',
         'id': 'string',
-        'manager_id_new': 'string',
-        'manager_id_old': 'string',
+        'manager_id_new': 'Profile',
+        'manager_id_old': 'Profile',
         'name_new': 'string',
         'name_old': 'string',
         'spend_cap_new': 'Object',

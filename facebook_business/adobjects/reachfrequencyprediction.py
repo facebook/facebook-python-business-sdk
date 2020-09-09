@@ -74,7 +74,6 @@ class ReachFrequencyPrediction(
         external_reach = 'external_reach'
         feed_ratio_0000 = 'feed_ratio_0000'
         frequency_cap = 'frequency_cap'
-        frequency_distribution = 'frequency_distribution'
         frequency_distribution_map = 'frequency_distribution_map'
         frequency_distribution_map_agg = 'frequency_distribution_map_agg'
         grp_audience_size = 'grp_audience_size'
@@ -123,7 +122,6 @@ class ReachFrequencyPrediction(
         timezone_id = 'timezone_id'
         timezone_name = 'timezone_name'
         topline_id = 'topline_id'
-        tv_viewer_cluster_map = 'tv_viewer_cluster_map'
         video_view_length_constraint = 'video_view_length_constraint'
         viewtag = 'viewtag'
         action = 'action'
@@ -245,7 +243,6 @@ class ReachFrequencyPrediction(
         'external_reach': 'unsigned int',
         'feed_ratio_0000': 'unsigned int',
         'frequency_cap': 'unsigned int',
-        'frequency_distribution': 'list<float>',
         'frequency_distribution_map': 'map<unsigned int, list<float>>',
         'frequency_distribution_map_agg': 'map<unsigned int, list<unsigned int>>',
         'grp_audience_size': 'float',
@@ -294,7 +291,6 @@ class ReachFrequencyPrediction(
         'timezone_id': 'unsigned int',
         'timezone_name': 'string',
         'topline_id': 'unsigned int',
-        'tv_viewer_cluster_map': 'map<unsigned int, Object>',
         'video_view_length_constraint': 'unsigned int',
         'viewtag': 'string',
         'action': 'Action',

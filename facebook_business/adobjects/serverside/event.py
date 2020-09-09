@@ -19,8 +19,8 @@
 # DEALINGS IN THE SOFTWARE.
 
 import pprint
-
 import six
+
 from facebook_business.adobjects.serverside.custom_data import CustomData
 from facebook_business.adobjects.serverside.user_data import UserData
 
@@ -33,12 +33,17 @@ class Event(object):
         'opt_out': 'bool',
         'event_id': 'str',
         'user_data': 'UserData',
-        'custom_data': 'CustomData'
+        'custom_data': 'CustomData',
+        'data_processing_options': 'list[str]',
+        'data_processing_options_country': 'int',
+        'data_processing_options_state': 'int'
     }
 
-    def __init__(self, event_name: str = None, event_time: int = None, event_source_url: str = None,
-                 opt_out: bool = None, event_id: str = None,
-                 user_data: UserData = None, custom_data: CustomData = None):
+    def __init__(self, event_name = None, event_time = None, event_source_url = None,
+                 opt_out = None, event_id = None, user_data = None, custom_data = None,
+                 data_processing_options = None, data_processing_options_country = None, data_processing_options_state = None):
+        # type: (str, int, str, bool, str, UserData, CustomData, list[str], int, int) -> None
+
         """Server-Side Event"""
         self._event_name = None
         self._event_time = None
@@ -47,6 +52,9 @@ class Event(object):
         self._event_id = None
         self._user_data = None
         self._custom_data = None
+        self._data_processing_options = None
+        self._data_processing_options_country = None
+        self._data_processing_options_state = None
         self.event_name = event_name
         self.event_time = event_time
         if event_source_url is not None:
@@ -59,6 +67,12 @@ class Event(object):
             self.user_data = user_data
         if custom_data is not None:
             self.custom_data = custom_data
+        if data_processing_options is not None:
+            self.data_processing_options = data_processing_options
+        if data_processing_options_country is not None:
+            self.data_processing_options_country = data_processing_options_country
+        if data_processing_options_state is not None:
+            self.data_processing_options_state = data_processing_options_state
 
     @property
     def event_name(self):
@@ -72,7 +86,7 @@ class Event(object):
         return self._event_name
 
     @event_name.setter
-    def event_name(self, event_name: str):
+    def event_name(self, event_name):
         """Sets the event_name of this Event.
 
         A Facebook pixel Standard Event or Custom Event name.
@@ -98,7 +112,7 @@ class Event(object):
         return self._event_time
 
     @event_time.setter
-    def event_time(self, event_time: int):
+    def event_time(self, event_time):
         """Sets the event_time of this Event.
 
         A Unix timestamp in seconds indicating when the actual event occurred.
@@ -126,7 +140,7 @@ class Event(object):
         return self._event_source_url
 
     @event_source_url.setter
-    def event_source_url(self, event_source_url: str):
+    def event_source_url(self, event_source_url):
         """Sets the event_source_url of this Event.
 
         The browser URL where the event happened.
@@ -150,7 +164,7 @@ class Event(object):
         return self._opt_out
 
     @opt_out.setter
-    def opt_out(self, opt_out: bool):
+    def opt_out(self, opt_out):
         """Sets the opt_out of this Event.
 
         A flag that indicates we should not use this event for ads delivery optimization.
@@ -178,7 +192,7 @@ class Event(object):
         return self._event_id
 
     @event_id.setter
-    def event_id(self, event_id: str):
+    def event_id(self, event_id):
         """Sets the event_id of this Event.
 
         This ID can be any string chosen by the advertiser.
@@ -202,7 +216,7 @@ class Event(object):
         return self._user_data
 
     @user_data.setter
-    def user_data(self, user_data: UserData):
+    def user_data(self, user_data):
         """Sets the user_data of this Event.
 
 
@@ -228,7 +242,7 @@ class Event(object):
         return self._custom_data
 
     @custom_data.setter
-    def custom_data(self, custom_data: CustomData):
+    def custom_data(self, custom_data):
         """Sets the custom_data of this Event.
 
 
@@ -241,10 +255,79 @@ class Event(object):
 
         self._custom_data = custom_data
 
+    @property
+    def data_processing_options(self):
+        """Gets the data_processing_options of this Event.
+
+        :return: The data_processing_options of this Event.
+        :rtype: list[str]
+        """
+        return self._data_processing_options
+
+    @data_processing_options.setter
+    def data_processing_options(self, data_processing_options):
+        """Sets the data_processing_options of this Event.
+        Processing options you would like to enable for a specific event.
+        For more details see https://developers.facebook.com/docs/marketing-apis/data-processing-options
+
+        :param data_processing_options: The data_processing_options of this Event.
+        :type: list[str]
+        """
+
+        self._data_processing_options = data_processing_options
+
+    @property
+    def data_processing_options_country(self):
+        """Gets the data_processing_options_country of this Event.
+
+        :return: The data_processing_options_country of this Event.
+        :rtype: int
+        """
+        return self._data_processing_options_country
+
+    @data_processing_options_country.setter
+    def data_processing_options_country(self, data_processing_options_country):
+        """Sets the data_processing_options_country of this Event.
+        A country that you want to associate to this data processing option.
+        For more details: https://developers.intern.facebook.com/docs/marketing-apis/data-processing-options
+
+        :param data_processing_options_country: The data_processing_options_country of this Event.
+        :type: int
+        """
+
+        if not isinstance(data_processing_options_country, int):
+            raise TypeError('Event.data_processing_options_country must be an int')
+
+        self._data_processing_options_country = data_processing_options_country
+
+    @property
+    def data_processing_options_state(self):
+        """Gets the data_processing_options_state of this Event.
+
+        :return: The data_processing_options_state of this Event.
+        :rtype: int
+        """
+        return self._data_processing_options_state
+
+    @data_processing_options_state.setter
+    def data_processing_options_state(self, data_processing_options_state):
+        """Sets the data_processing_options_state of this Event.
+        A state that you want to associate with this data processing option.
+        For more details: https://developers.facebook.com/docs/marketing-apis/data-processing-options
+
+        :param data_processing_options: The data_processing_options of this Event.
+        :type: int
+        """
+
+        self._data_processing_options_state = data_processing_options_state
+
+
     def normalize(self):
         normalized_payload = {'event_name': self.event_name, 'event_time': self.event_time,
                               'event_source_url': self.event_source_url, 'opt_out': self.opt_out,
-                              'event_id': self.event_id}
+                              'event_id': self.event_id, 'data_processing_options': self.data_processing_options,
+                              'data_processing_options_country' : self.data_processing_options_country,
+                              'data_processing_options_state': self.data_processing_options_state }
 
         if self.user_data is not None:
             normalized_payload['user_data'] = self.user_data.normalize()
@@ -252,7 +335,7 @@ class Event(object):
         if self.custom_data is not None:
             normalized_payload['custom_data'] = self.custom_data.normalize()
 
-        normalized_payload: dict = {k: v for k, v in normalized_payload.items() if v is not None}
+        normalized_payload = {k: v for k, v in normalized_payload.items() if v is not None}
         return normalized_payload
 
     def to_dict(self):

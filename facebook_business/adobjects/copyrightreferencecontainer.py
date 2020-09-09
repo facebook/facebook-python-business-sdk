@@ -45,7 +45,6 @@ class CopyrightReferenceContainer(
         copyright_creation_time = 'copyright_creation_time'
         download_hd_url = 'download_hd_url'
         duration_in_sec = 'duration_in_sec'
-        fingerprint_validity = 'fingerprint_validity'
         id = 'id'
         iswc = 'iswc'
         metadata = 'metadata'
@@ -60,7 +59,6 @@ class CopyrightReferenceContainer(
         'copyright_creation_time': 'datetime',
         'download_hd_url': 'string',
         'duration_in_sec': 'float',
-        'fingerprint_validity': 'string',
         'id': 'string',
         'iswc': 'string',
         'metadata': 'Object',

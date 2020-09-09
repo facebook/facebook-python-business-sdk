@@ -31,10 +31,10 @@ FacebookAdsApi.init(access_token=access_token)
 fields = [
 ]
 params = {
-  'special_ad_category': 'NONE',
   'name': 'Lead generation campaign',
   'objective': 'LEAD_GENERATION',
   'status': 'PAUSED',
+  'special_ad_categories': [],
 }
 print AdAccount(id).create_campaign(
   fields=fields,

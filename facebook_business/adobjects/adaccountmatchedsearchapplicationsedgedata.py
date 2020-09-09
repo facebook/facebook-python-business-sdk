@@ -57,6 +57,7 @@ class AdAccountMatchedSearchApplicationsEdgeData(
         instant_game = 'INSTANT_GAME'
         itunes = 'ITUNES'
         itunes_ipad = 'ITUNES_IPAD'
+        oculus_app_store = 'OCULUS_APP_STORE'
         roku_store = 'ROKU_STORE'
         windows_10_store = 'WINDOWS_10_STORE'
         windows_store = 'WINDOWS_STORE'

@@ -28,26 +28,20 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class ClientTransparencyStatus(
+class TargetingRelaxation(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(ClientTransparencyStatus, self).__init__()
-        self._isClientTransparencyStatus = True
+        super(TargetingRelaxation, self).__init__()
+        self._isTargetingRelaxation = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        grace_period_expiration_date = 'grace_period_expiration_date'
-        has_owning_business = 'has_owning_business'
-        is_satisfied = 'is_satisfied'
-        owning_business_requirements = 'owning_business_requirements'
+        lookalike = 'lookalike'
 
     _field_types = {
-        'grace_period_expiration_date': 'datetime',
-        'has_owning_business': 'bool',
-        'is_satisfied': 'bool',
-        'owning_business_requirements': 'Object',
+        'lookalike': 'unsigned int',
     }
     @classmethod
     def _get_field_enum_info(cls):
