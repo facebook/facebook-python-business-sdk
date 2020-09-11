@@ -55,10 +55,13 @@ class Event(
         interested_count = 'interested_count'
         is_canceled = 'is_canceled'
         is_draft = 'is_draft'
+        is_online = 'is_online'
         is_page_owned = 'is_page_owned'
         maybe_count = 'maybe_count'
         name = 'name'
         noreply_count = 'noreply_count'
+        online_event_format = 'online_event_format'
+        online_event_third_party_url = 'online_event_third_party_url'
         owner = 'owner'
         parent_group = 'parent_group'
         place = 'place'
@@ -99,8 +102,16 @@ class Event(
         volunteering = 'VOLUNTEERING'
         workshop = 'WORKSHOP'
 
+    class OnlineEventFormat:
+        fb_live = 'fb_live'
+        messenger_room = 'messenger_room'
+        none = 'none'
+        other = 'other'
+        third_party = 'third_party'
+
     class Type:
         community = 'community'
+        friends = 'friends'
         group = 'group'
         private = 'private'
         public = 'public'
@@ -246,6 +257,7 @@ class Event(
         param_types = {
             'content_tags': 'list<string>',
             'description': 'string',
+            'enable_backup_ingest': 'bool',
             'encoding_settings': 'string',
             'fisheye_video_cropped': 'bool',
             'front_z_rotation': 'float',
@@ -257,7 +269,6 @@ class Event(
             'privacy': 'string',
             'projection': 'projection_enum',
             'published': 'bool',
-            'save_vod': 'bool',
             'schedule_custom_profile_image': 'file',
             'spatial_audio_format': 'spatial_audio_format_enum',
             'status': 'status_enum',
@@ -465,10 +476,13 @@ class Event(
         'interested_count': 'int',
         'is_canceled': 'bool',
         'is_draft': 'bool',
+        'is_online': 'bool',
         'is_page_owned': 'bool',
         'maybe_count': 'int',
         'name': 'string',
         'noreply_count': 'int',
+        'online_event_format': 'OnlineEventFormat',
+        'online_event_third_party_url': 'string',
         'owner': 'Object',
         'parent_group': 'Group',
         'place': 'Place',
@@ -486,6 +500,7 @@ class Event(
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['Category'] = Event.Category.__dict__.values()
+        field_enum_info['OnlineEventFormat'] = Event.OnlineEventFormat.__dict__.values()
         field_enum_info['Type'] = Event.Type.__dict__.values()
         field_enum_info['EventStateFilter'] = Event.EventStateFilter.__dict__.values()
         field_enum_info['TimeFilter'] = Event.TimeFilter.__dict__.values()

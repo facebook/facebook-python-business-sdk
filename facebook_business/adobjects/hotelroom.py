@@ -41,6 +41,7 @@ class HotelRoom(
         super(HotelRoom, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        applinks = 'applinks'
         base_price = 'base_price'
         currency = 'currency'
         description = 'description'
@@ -184,6 +185,7 @@ class HotelRoom(
             return request.execute()
 
     _field_types = {
+        'applinks': 'CatalogItemAppLinks',
         'base_price': 'string',
         'currency': 'string',
         'description': 'string',

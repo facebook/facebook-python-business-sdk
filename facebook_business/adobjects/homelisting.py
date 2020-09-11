@@ -49,9 +49,11 @@ class HomeListing(
         agent_fb_page_id = 'agent_fb_page_id'
         agent_name = 'agent_name'
         agent_phone = 'agent_phone'
+        applinks = 'applinks'
         area_size = 'area_size'
         area_unit = 'area_unit'
         availability = 'availability'
+        category_specific_fields = 'category_specific_fields'
         co_2_emission_rating_eu = 'co_2_emission_rating_eu'
         currency = 'currency'
         days_on_market = 'days_on_market'
@@ -206,9 +208,11 @@ class HomeListing(
         'agent_fb_page_id': 'Page',
         'agent_name': 'string',
         'agent_phone': 'string',
+        'applinks': 'CatalogItemAppLinks',
         'area_size': 'unsigned int',
         'area_unit': 'string',
         'availability': 'string',
+        'category_specific_fields': 'CatalogSubVerticalList',
         'co_2_emission_rating_eu': 'Object',
         'currency': 'string',
         'days_on_market': 'unsigned int',

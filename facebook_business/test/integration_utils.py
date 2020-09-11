@@ -20,8 +20,12 @@
 
 
 import unittest
+import warnings
 from enum import Enum
-from mock import patch
+try:
+    from unittest.mock import patch
+except ImportError:
+    from mock import patch
 from requests.models import Response
 from facebook_business.api import FacebookAdsApi, FacebookResponse
 
@@ -36,6 +40,12 @@ class IntegrationTestCase(unittest.TestCase):
         self.patcher = patch('requests.Session.request')
         self.mock_request = self.patcher.start()
         self.mock_response = Response()
+        
+        # ignore Deprecation warning from SDK which is not the part of our testcase
+        warnings.filterwarnings(
+            action='ignore',
+            category=DeprecationWarning,
+        )
 
     def tearDown(self):
         mock_response = None

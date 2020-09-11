@@ -32,62 +32,24 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class DynamicItemDisplayBundle(
+class BusinessAgreement(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isDynamicItemDisplayBundle = True
-        super(DynamicItemDisplayBundle, self).__init__(fbid, parent_id, api)
+        self._isBusinessAgreement = True
+        super(BusinessAgreement, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        additional_urls = 'additional_urls'
-        description = 'description'
         id = 'id'
-        name = 'name'
-        product_set = 'product_set'
-        text_tokens = 'text_tokens'
-        url = 'url'
+        request_status = 'request_status'
 
-    # @deprecated get_endpoint function is deprecated
-    @classmethod
-    def get_endpoint(cls):
-        return 'bundles'
-
-    # @deprecated api_create is being deprecated
-    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.adobjects.productcatalog import ProductCatalog
-        return ProductCatalog(api=self._api, fbid=parent_id).create_bundle(fields, params, batch, success, failure, pending)
-
-    def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='DELETE',
-            endpoint='/',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
+    class RequestStatus:
+        approve = 'APPROVE'
+        decline = 'DECLINE'
+        expired = 'EXPIRED'
+        in_progress = 'IN_PROGRESS'
+        pending = 'PENDING'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -103,7 +65,7 @@ class DynamicItemDisplayBundle(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=DynamicItemDisplayBundle,
+            target_class=BusinessAgreement,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -124,13 +86,11 @@ class DynamicItemDisplayBundle(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'additional_urls': 'map',
-            'description': 'string',
-            'name': 'string',
-            'text_tokens': 'map',
-            'url': 'string',
+            'asset_id': 'unsigned int',
+            'request_status': 'request_status_enum',
         }
         enums = {
+            'request_status_enum': BusinessAgreement.RequestStatus.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -138,7 +98,7 @@ class DynamicItemDisplayBundle(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=DynamicItemDisplayBundle,
+            target_class=BusinessAgreement,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -154,49 +114,14 @@ class DynamicItemDisplayBundle(
             self.assure_call()
             return request.execute()
 
-    def get_bundle_folders(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.dynamicitemdisplaybundlefolder import DynamicItemDisplayBundleFolder
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/bundle_folders',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=DynamicItemDisplayBundleFolder,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=DynamicItemDisplayBundleFolder, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     _field_types = {
-        'additional_urls': 'map<string, string>',
-        'description': 'string',
         'id': 'string',
-        'name': 'string',
-        'product_set': 'ProductSet',
-        'text_tokens': 'map<string, string>',
-        'url': 'string',
+        'request_status': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['RequestStatus'] = BusinessAgreement.RequestStatus.__dict__.values()
         return field_enum_info
 
 

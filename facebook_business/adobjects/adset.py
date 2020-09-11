@@ -74,10 +74,12 @@ class AdSet(
         instagram_actor_id = 'instagram_actor_id'
         is_dynamic_creative = 'is_dynamic_creative'
         issues_info = 'issues_info'
+        learning_stage_info = 'learning_stage_info'
         lifetime_budget = 'lifetime_budget'
         lifetime_imps = 'lifetime_imps'
         lifetime_min_spend_target = 'lifetime_min_spend_target'
         lifetime_spend_cap = 'lifetime_spend_cap'
+        multi_optimization_goal_weight = 'multi_optimization_goal_weight'
         name = 'name'
         optimization_goal = 'optimization_goal'
         optimization_sub_event = 'optimization_sub_event'
@@ -109,6 +111,7 @@ class AdSet(
         upstream_events = 'upstream_events'
 
     class BidStrategy:
+        cost_cap = 'COST_CAP'
         lowest_cost_without_cap = 'LOWEST_COST_WITHOUT_CAP'
         lowest_cost_with_bid_cap = 'LOWEST_COST_WITH_BID_CAP'
         target_cost = 'TARGET_COST'
@@ -158,12 +161,14 @@ class AdSet(
         page_engagement = 'PAGE_ENGAGEMENT'
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
+        quality_lead = 'QUALITY_LEAD'
         reach = 'REACH'
         replies = 'REPLIES'
         social_impressions = 'SOCIAL_IMPRESSIONS'
         thruplay = 'THRUPLAY'
         two_second_continuous_video_views = 'TWO_SECOND_CONTINUOUS_VIDEO_VIEWS'
         value = 'VALUE'
+        visit_instagram_profile = 'VISIT_INSTAGRAM_PROFILE'
 
     class Status:
         active = 'ACTIVE'
@@ -184,6 +189,7 @@ class AdSet(
         last_week_sun_sat = 'last_week_sun_sat'
         last_year = 'last_year'
         lifetime = 'lifetime'
+        maximum = 'maximum'
         this_month = 'this_month'
         this_quarter = 'this_quarter'
         this_week_mon_today = 'this_week_mon_today'
@@ -209,6 +215,12 @@ class AdSet(
         limited_exploration = 'LIMITED_EXPLORATION'
         none_exploration = 'NONE_EXPLORATION'
 
+    class MultiOptimizationGoalWeight:
+        balanced = 'BALANCED'
+        prefer_event = 'PREFER_EVENT'
+        prefer_install = 'PREFER_INSTALL'
+        undefined = 'UNDEFINED'
+
     class OptimizationSubEvent:
         none = 'NONE'
         travel_intent = 'TRAVEL_INTENT'
@@ -225,6 +237,7 @@ class AdSet(
         credit = 'CREDIT'
         employment = 'EMPLOYMENT'
         housing = 'HOUSING'
+        issues_elections_politics = 'ISSUES_ELECTIONS_POLITICS'
         none = 'NONE'
 
     class Operator:
@@ -300,6 +313,7 @@ class AdSet(
                 'last_week_sun_sat',
                 'last_year',
                 'lifetime',
+                'maximum',
                 'this_month',
                 'this_quarter',
                 'this_week_mon_today',
@@ -360,6 +374,7 @@ class AdSet(
             'lifetime_imps': 'unsigned int',
             'lifetime_min_spend_target': 'unsigned int',
             'lifetime_spend_cap': 'unsigned int',
+            'multi_optimization_goal_weight': 'multi_optimization_goal_weight_enum',
             'name': 'string',
             'optimization_goal': 'optimization_goal_enum',
             'optimization_sub_event': 'optimization_sub_event_enum',
@@ -383,6 +398,7 @@ class AdSet(
             'destination_type_enum': AdSet.DestinationType.__dict__.values(),
             'execution_options_enum': AdSet.ExecutionOptions.__dict__.values(),
             'full_funnel_exploration_mode_enum': AdSet.FullFunnelExplorationMode.__dict__.values(),
+            'multi_optimization_goal_weight_enum': AdSet.MultiOptimizationGoalWeight.__dict__.values(),
             'optimization_goal_enum': AdSet.OptimizationGoal.__dict__.values(),
             'optimization_sub_event_enum': AdSet.OptimizationSubEvent.__dict__.values(),
             'status_enum': AdSet.Status.__dict__.values(),
@@ -615,10 +631,8 @@ class AdSet(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.ad import Ad
         param_types = {
-            'ad_draft_id': 'string',
             'date_preset': 'date_preset_enum',
             'effective_status': 'list<string>',
-            'include_drafts': 'bool',
             'time_range': 'Object',
             'updated_since': 'int',
         }
@@ -1013,10 +1027,12 @@ class AdSet(
         'instagram_actor_id': 'string',
         'is_dynamic_creative': 'bool',
         'issues_info': 'list<AdCampaignIssuesInfo>',
+        'learning_stage_info': 'AdCampaignLearningStageInfo',
         'lifetime_budget': 'string',
         'lifetime_imps': 'int',
         'lifetime_min_spend_target': 'string',
         'lifetime_spend_cap': 'string',
+        'multi_optimization_goal_weight': 'string',
         'name': 'string',
         'optimization_goal': 'OptimizationGoal',
         'optimization_sub_event': 'string',
@@ -1060,6 +1076,7 @@ class AdSet(
         field_enum_info['DestinationType'] = AdSet.DestinationType.__dict__.values()
         field_enum_info['ExecutionOptions'] = AdSet.ExecutionOptions.__dict__.values()
         field_enum_info['FullFunnelExplorationMode'] = AdSet.FullFunnelExplorationMode.__dict__.values()
+        field_enum_info['MultiOptimizationGoalWeight'] = AdSet.MultiOptimizationGoalWeight.__dict__.values()
         field_enum_info['OptimizationSubEvent'] = AdSet.OptimizationSubEvent.__dict__.values()
         field_enum_info['TuneForCategory'] = AdSet.TuneForCategory.__dict__.values()
         field_enum_info['Operator'] = AdSet.Operator.__dict__.values()

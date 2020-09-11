@@ -57,8 +57,6 @@ class AdCampaignActivity(
         bid_type_old = 'bid_type_old'
         billing_event_new = 'billing_event_new'
         billing_event_old = 'billing_event_old'
-        brande_audience_id_new = 'brande_audience_id_new'
-        brande_audience_id_old = 'brande_audience_id_old'
         budget_limit_new = 'budget_limit_new'
         budget_limit_old = 'budget_limit_old'
         created_time = 'created_time'
@@ -99,11 +97,13 @@ class AdCampaignActivity(
         updated_time_old = 'updated_time_old'
 
     class BidStrategyNew:
+        cost_cap = 'COST_CAP'
         lowest_cost_without_cap = 'LOWEST_COST_WITHOUT_CAP'
         lowest_cost_with_bid_cap = 'LOWEST_COST_WITH_BID_CAP'
         target_cost = 'TARGET_COST'
 
     class BidStrategyOld:
+        cost_cap = 'COST_CAP'
         lowest_cost_without_cap = 'LOWEST_COST_WITHOUT_CAP'
         lowest_cost_with_bid_cap = 'LOWEST_COST_WITH_BID_CAP'
         target_cost = 'TARGET_COST'
@@ -149,12 +149,14 @@ class AdCampaignActivity(
         page_engagement = 'PAGE_ENGAGEMENT'
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
+        quality_lead = 'QUALITY_LEAD'
         reach = 'REACH'
         replies = 'REPLIES'
         social_impressions = 'SOCIAL_IMPRESSIONS'
         thruplay = 'THRUPLAY'
         two_second_continuous_video_views = 'TWO_SECOND_CONTINUOUS_VIDEO_VIEWS'
         value = 'VALUE'
+        visit_instagram_profile = 'VISIT_INSTAGRAM_PROFILE'
 
     class OptimizationGoalOld:
         ad_recall_lift = 'AD_RECALL_LIFT'
@@ -175,12 +177,14 @@ class AdCampaignActivity(
         page_engagement = 'PAGE_ENGAGEMENT'
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
+        quality_lead = 'QUALITY_LEAD'
         reach = 'REACH'
         replies = 'REPLIES'
         social_impressions = 'SOCIAL_IMPRESSIONS'
         thruplay = 'THRUPLAY'
         two_second_continuous_video_views = 'TWO_SECOND_CONTINUOUS_VIDEO_VIEWS'
         value = 'VALUE'
+        visit_instagram_profile = 'VISIT_INSTAGRAM_PROFILE'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -229,8 +233,6 @@ class AdCampaignActivity(
         'bid_type_old': 'string',
         'billing_event_new': 'BillingEventNew',
         'billing_event_old': 'BillingEventOld',
-        'brande_audience_id_new': 'string',
-        'brande_audience_id_old': 'string',
         'budget_limit_new': 'Object',
         'budget_limit_old': 'Object',
         'created_time': 'datetime',

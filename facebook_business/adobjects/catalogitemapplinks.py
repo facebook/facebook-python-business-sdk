@@ -28,38 +28,38 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class StreamingReaction(
+class CatalogItemAppLinks(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(StreamingReaction, self).__init__()
-        self._isStreamingReaction = True
+        super(CatalogItemAppLinks, self).__init__()
+        self._isCatalogItemAppLinks = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        count = 'count'
-        reaction_type = 'reaction_type'
-
-    class ReactionType:
-        angry = 'ANGRY'
-        haha = 'HAHA'
-        like = 'LIKE'
-        love = 'LOVE'
-        none = 'NONE'
-        pride = 'PRIDE'
-        sad = 'SAD'
-        thankful = 'THANKFUL'
-        wow = 'WOW'
+        android = 'android'
+        ios = 'ios'
+        ipad = 'ipad'
+        iphone = 'iphone'
+        web = 'web'
+        windows = 'windows'
+        windows_phone = 'windows_phone'
+        windows_universal = 'windows_universal'
 
     _field_types = {
-        'count': 'unsigned int',
-        'reaction_type': 'ReactionType',
+        'android': 'list<AndroidAppLink>',
+        'ios': 'list<IosAppLink>',
+        'ipad': 'list<IosAppLink>',
+        'iphone': 'list<IosAppLink>',
+        'web': 'WebAppLink',
+        'windows': 'list<WindowsAppLink>',
+        'windows_phone': 'list<WindowsPhoneAppLink>',
+        'windows_universal': 'list<WindowsAppLink>',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['ReactionType'] = StreamingReaction.ReactionType.__dict__.values()
         return field_enum_info
 
 

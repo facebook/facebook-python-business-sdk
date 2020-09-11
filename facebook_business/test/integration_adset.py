@@ -25,9 +25,9 @@ How to run:
     python -m facebook_business.test.integration_adset
 '''
 
+import unittest
 import warnings
 import json
-from mock import patch
 from facebook_business.session import FacebookSession
 from facebook_business.exceptions import FacebookRequestError
 from facebook_business.api import FacebookAdsApi, FacebookRequest, FacebookResponse
@@ -42,7 +42,7 @@ class AdSetTestCase(IntegrationTestCase):
     def test_get_ad_set(self):
         with warnings.catch_warnings(record=True) as warning:
             self.mock_response.status_code = StatusCode.SUCCESS
-            self.mock_response._content = (
+            self.mock_response._content = str.encode(
                 '{'
                 '"' + str(FieldName.ACCOUNT_ID) + '":"' + str(TestValue.ACCOUNT_ID) + '",'
                 '"' + str(FieldName.ADLABELS) + '":' + str(TestValue.AD_LABEL) + ','
@@ -69,7 +69,6 @@ class AdSetTestCase(IntegrationTestCase):
 
             self.mock_request.return_value = self.mock_response
 
-            # reference : codegen/api_specs/specs/AdSet.json
             fields = [
                 FieldName.ACCOUNT_ID,
                 FieldName.ADLABELS,
@@ -93,38 +92,38 @@ class AdSetTestCase(IntegrationTestCase):
                 FieldName.TUNE_FOR_CATEGORY,
             ]
             params = {}
-
+            print(params.__class__.__name__)
             ad_set = AdSet(TestValue.ADSET_ID).api_get(
                 fields=fields,
                 params=params,
             )
-
-            assert len(warning) == 0
-            assert isinstance(ad_set, AdSet)
-            assert ad_set[FieldName.ACCOUNT_ID] == TestValue.ACCOUNT_ID
-            assert ad_set[FieldName.ADLABELS] == [json.loads(TestValue.AD_LABEL)]
-            assert ad_set[FieldName.ADSET_SCHEDULE] == [json.loads(TestValue.ADSET_SCHEDULE)]
-            assert ad_set[FieldName.ASSET_FEED_ID] == TestValue.ASSET_FEED_ID
-            assert isinstance(ad_set[FieldName.BID_ADJUSTMENTS], AdBidAdjustments)
-            assert ad_set[FieldName.BID_AMOUNT] == TestValue.BID_AMOUNT
-            assert ad_set[FieldName.BILLING_EVENT] == TestValue.BILLING_EVENT
-            assert ad_set[FieldName.BID_STRATEGY] == TestValue.BID_STRATEGY
-            assert ad_set[FieldName.BUDGET_REMAINING] == TestValue.BUDGET_REMAINING
-            assert ad_set[FieldName.CAMPAIGN_ID] == TestValue.CAMPAIGN_ID
-            assert ad_set[FieldName.CONFIGURED_STATUS] == TestValue.CONFIGURED_STATUS
-            assert ad_set[FieldName.DATE_FORMAT] == TestValue.DATE_FORMAT
-            assert ad_set[FieldName.DAILY_MIN_SPEND_TARGET] == TestValue.DAILY_MIN_SPEND_TARGET
-            assert ad_set[FieldName.EFFECTIVE_STATUS] == TestValue.EFFECTIVE_STATUS
-            assert ad_set[FieldName.INSTAGRAM_ACTOR_ID] == TestValue.INSTAGRAM_ACTOR_ID
-            assert ad_set[FieldName.ISSUES_INFO] == [json.loads(TestValue.ISSUES_INFO)]
-            assert ad_set[FieldName.OPTIMIZATION_GOAL] == TestValue.OPTIMIZATION_GOAL
-            assert ad_set[FieldName.PACING_TYPE] == [TestValue.PACING_TYPE]
-            assert ad_set[FieldName.REVIEW_FEEDBACK] == TestValue.REVIEW_FEEDBACK
-            assert ad_set[FieldName.TUNE_FOR_CATEGORY] == TestValue.TUNE_FOR_CATEGORY
+            
+            self.assertEqual(len(warning), 0)
+            self.assertTrue(isinstance(ad_set, AdSet))
+            self.assertEqual(ad_set[FieldName.ACCOUNT_ID], TestValue.ACCOUNT_ID)
+            self.assertEqual(ad_set[FieldName.ADLABELS], [json.loads(TestValue.AD_LABEL)])
+            self.assertEqual(ad_set[FieldName.ADSET_SCHEDULE], [json.loads(TestValue.ADSET_SCHEDULE)])
+            self.assertEqual(ad_set[FieldName.ASSET_FEED_ID], TestValue.ASSET_FEED_ID)
+            self.assertTrue(isinstance(ad_set[FieldName.BID_ADJUSTMENTS], AdBidAdjustments))
+            self.assertEqual(ad_set[FieldName.BID_AMOUNT], TestValue.BID_AMOUNT)
+            self.assertEqual(ad_set[FieldName.BILLING_EVENT], TestValue.BILLING_EVENT)
+            self.assertEqual(ad_set[FieldName.BID_STRATEGY], TestValue.BID_STRATEGY)
+            self.assertEqual(ad_set[FieldName.BUDGET_REMAINING], TestValue.BUDGET_REMAINING)
+            self.assertEqual(ad_set[FieldName.CAMPAIGN_ID], TestValue.CAMPAIGN_ID)
+            self.assertEqual(ad_set[FieldName.CONFIGURED_STATUS], TestValue.CONFIGURED_STATUS)
+            self.assertEqual(ad_set[FieldName.DATE_FORMAT], TestValue.DATE_FORMAT)
+            self.assertEqual(ad_set[FieldName.DAILY_MIN_SPEND_TARGET], TestValue.DAILY_MIN_SPEND_TARGET)
+            self.assertEqual(ad_set[FieldName.EFFECTIVE_STATUS], TestValue.EFFECTIVE_STATUS)
+            self.assertEqual(ad_set[FieldName.INSTAGRAM_ACTOR_ID], TestValue.INSTAGRAM_ACTOR_ID)
+            self.assertEqual(ad_set[FieldName.ISSUES_INFO], [json.loads(TestValue.ISSUES_INFO)])
+            self.assertEqual(ad_set[FieldName.OPTIMIZATION_GOAL], TestValue.OPTIMIZATION_GOAL)
+            self.assertEqual(ad_set[FieldName.PACING_TYPE], [TestValue.PACING_TYPE])
+            self.assertEqual(ad_set[FieldName.REVIEW_FEEDBACK], TestValue.REVIEW_FEEDBACK)
+            self.assertEqual(ad_set[FieldName.TUNE_FOR_CATEGORY], TestValue.TUNE_FOR_CATEGORY)
 
 
     def test_get_ad_set_with_wrong_fields(self):
-        with warnings.catch_warnings(record=True) as warning, self.assertRaises(FacebookRequestError):
+        with warnings.catch_warnings(record=True) as warning:
             self.mock_response.status_code = StatusCode.ERROR
             self.mock_request.return_value = self.mock_response
 
@@ -132,24 +131,23 @@ class AdSetTestCase(IntegrationTestCase):
                 'unexist_field',
             ]
             params = {}
+            with self.assertRaises(FacebookRequestError):
+                ad_set = AdSet(TestValue.ADSET_ID).api_get(
+                    fields=fields,
+                    params=params,
+                )
 
-            ad_set = AdSet(TestValue.ADSET_ID).api_get(
-                fields=fields,
-                params=params,
-            )
-
-            assert len(warning) == 1
-            assert issubclass(warning[0].category, UserWarning)
+            self.assertEqual(len(warning), 1)
+            self.assertTrue((issubclass(warning[0].category, UserWarning)))
 
 
     def test_create_ad_set(self):
         with warnings.catch_warnings(record=True) as warning:
             self.mock_response.status_code = StatusCode.SUCCESS
-            self.mock_response._content = '{"' + str(FieldName.ID) + '":"' + str(TestValue.ADSET_ID) + '", "success": "true"}'
+            self.mock_response._content = str.encode('{"' + str(FieldName.ID) + '":"' + str(TestValue.ADSET_ID) + '", "success": "true"}')
             self.mock_request.return_value = self.mock_response
 
             fields = []
-            # reference : codegen/api_specs/specs/AdSet.json
             params = {
                 FieldName.ADLABELS: [json.loads(TestValue.AD_LABEL)],
                 FieldName.BID_STRATEGY: TestValue.BID_STRATEGY,
@@ -178,30 +176,29 @@ class AdSetTestCase(IntegrationTestCase):
                 fields,
                 params,
             )
-
-            assert len(warning) == 0
-            assert isinstance(ad_set, AdSet)
-            assert ad_set[FieldName.ID] == TestValue.ADSET_ID
+            self.assertEqual(len(warning), 0)
+            self.assertTrue(isinstance(ad_set, AdSet))
+            self.assertEqual(ad_set[FieldName.ID], TestValue.ADSET_ID)
 
 
     def test_create_ad_set_with_wrong_params(self):
-        with warnings.catch_warnings(record=True) as warning, self.assertRaises(FacebookRequestError):
+        with warnings.catch_warnings(record=True) as warning:
             self.mock_response.status_code = StatusCode.ERROR
             self.mock_request.return_value = self.mock_response
 
             fields = []
             params = {
-                'status': 3,
-                'special_ad_category': 'wrong_enum',
+                FieldName.STATUS: 3,
+                FieldName.TARGETING: 'wrong_targeting',
             }
+            with self.assertRaises(FacebookRequestError):
+                ad_set = AdAccount(TestValue.ACCOUNT_ID).create_ad_set(
+                    fields,
+                    params,
+                )
 
-            ad_set = AdAccount(TestValue.ACCOUNT_ID).create_ad_set(
-                fields,
-                params,
-            )
-
-            assert len(warning) == 2
-            assert issubclass(warning[-1].category, UserWarning)
+            self.assertEqual(len(warning), 2)
+            self.assertTrue(issubclass(warning[-1].category, UserWarning))
 
 
 if __name__ == '__main__':

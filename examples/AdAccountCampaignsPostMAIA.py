@@ -31,10 +31,10 @@ FacebookAdsApi.init(access_token=access_token)
 fields = [
 ]
 params = {
-  'special_ad_category': 'NONE',
   'name': 'Mobile App Installs Campaign',
   'objective': 'APP_INSTALLS',
   'status': 'PAUSED',
+  'special_ad_categories': [],
 }
 print AdAccount(id).create_campaign(
   fields=fields,

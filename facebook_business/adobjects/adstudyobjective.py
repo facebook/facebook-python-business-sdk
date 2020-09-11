@@ -95,6 +95,7 @@ class AdStudyObjective(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'breakdowns': 'list<breakdowns_enum>',
+            'ds': 'string',
         }
         enums = {
             'breakdowns_enum': [
@@ -138,6 +139,7 @@ class AdStudyObjective(
             'name': 'string',
             'offline_conversion_data_sets': 'list<Object>',
             'offsitepixels': 'list<Object>',
+            'product_catalogs': 'list<Object>',
             'product_sets': 'list<Object>',
             'type': 'type_enum',
         }

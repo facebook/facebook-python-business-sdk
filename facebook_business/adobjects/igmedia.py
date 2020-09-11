@@ -41,6 +41,7 @@ class IGMedia(
         super(IGMedia, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        alt_text = 'alt_text'
         caption = 'caption'
         comments_count = 'comments_count'
         id = 'id'
@@ -249,6 +250,7 @@ class IGMedia(
             return request.execute()
 
     _field_types = {
+        'alt_text': 'string',
         'caption': 'string',
         'comments_count': 'int',
         'id': 'string',

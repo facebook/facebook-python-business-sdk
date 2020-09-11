@@ -62,12 +62,14 @@ class AdAccountDeliveryEstimate(
         page_engagement = 'PAGE_ENGAGEMENT'
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
+        quality_lead = 'QUALITY_LEAD'
         reach = 'REACH'
         replies = 'REPLIES'
         social_impressions = 'SOCIAL_IMPRESSIONS'
         thruplay = 'THRUPLAY'
         two_second_continuous_video_views = 'TWO_SECOND_CONTINUOUS_VIDEO_VIEWS'
         value = 'VALUE'
+        visit_instagram_profile = 'VISIT_INSTAGRAM_PROFILE'
 
     _field_types = {
         'daily_outcomes_curve': 'list<OutcomePredictionPoint>',

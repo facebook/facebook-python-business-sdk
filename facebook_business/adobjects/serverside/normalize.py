@@ -19,6 +19,7 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
+import datetime
 import pycountry
 import re
 
@@ -28,6 +29,7 @@ isocode_included_chars = re.compile(r"[^a-z]")
 email_pattern = re.compile("(^[a-z0-9_.+-]+@[a-z0-9-]+\.[a-z0-9-.]+$)")
 md5_pattern = re.compile(r"^[a-f0-9]{32}$");
 sha256_pattern = re.compile(r"^[a-f0-9]{64}$");
+year_pattern = re.compile(r"^[0-9]{4}$")
 
 class Normalize(object):
 
@@ -88,6 +90,38 @@ class Normalize(object):
 
             if international_number is not None:
                 return international_number
+
+        elif field == "f5first" or field == "f5last":
+            normalized_data = normalized_data[:5]
+
+        elif field == "fi":
+            normalized_data = normalized_data[:1]
+
+        elif field == "dobd":
+            if len(normalized_data) == 1:
+                normalized_data = '0' + normalized_data
+
+            try:
+                dobd_int = int(normalized_data)
+                if dobd_int < 1 or dobd_int > 31:
+                    raise ValueError
+            except ValueError:
+                raise ValueError("Invalid format for dobd: '%s'. Day should be specified in 'DD' format." % data)
+
+        elif field == "dobm":
+            if len(normalized_data) == 1:
+                normalized_data = '0' + normalized_data
+
+            try:
+                dobm_int = int(normalized_data)
+                if dobm_int < 1 or dobm_int > 12:
+                    raise ValueError
+            except ValueError:
+                raise ValueError("Invalid format for dobm: '%s'. Month should be specified in 'MM' format." % data)
+
+        elif field == "doby":
+            if not year_pattern.match(normalized_data):
+                raise ValueError("Invalid format for doby: '%s'. Year should be specified in 'YYYY' format." % data)
 
         return normalized_data
 

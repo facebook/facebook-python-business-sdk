@@ -78,6 +78,7 @@ class Group(
         couple = 'COUPLE'
         coworkers = 'COWORKERS'
         custom = 'CUSTOM'
+        deals = 'DEALS'
         ephemeral = 'EPHEMERAL'
         event_planning = 'EVENT_PLANNING'
         family = 'FAMILY'
@@ -112,13 +113,16 @@ class Group(
         work_ephemeral = 'WORK_EPHEMERAL'
         work_feedback = 'WORK_FEEDBACK'
         work_for_sale = 'WORK_FOR_SALE'
+        work_garden = 'WORK_GARDEN'
         work_learning = 'WORK_LEARNING'
         work_mentorship = 'WORK_MENTORSHIP'
         work_multi_company = 'WORK_MULTI_COMPANY'
         work_recruiting = 'WORK_RECRUITING'
+        work_resume_review = 'WORK_RESUME_REVIEW'
         work_social = 'WORK_SOCIAL'
         work_team = 'WORK_TEAM'
         work_teamwork = 'WORK_TEAMWORK'
+        work_vc_call = 'WORK_VC_CALL'
 
     class GroupType:
         casual = 'CASUAL'
@@ -127,6 +131,7 @@ class Group(
         couple = 'COUPLE'
         coworkers = 'COWORKERS'
         custom = 'CUSTOM'
+        deals = 'DEALS'
         ephemeral = 'EPHEMERAL'
         event_planning = 'EVENT_PLANNING'
         family = 'FAMILY'
@@ -161,35 +166,24 @@ class Group(
         work_ephemeral = 'WORK_EPHEMERAL'
         work_feedback = 'WORK_FEEDBACK'
         work_for_sale = 'WORK_FOR_SALE'
+        work_garden = 'WORK_GARDEN'
         work_learning = 'WORK_LEARNING'
         work_mentorship = 'WORK_MENTORSHIP'
         work_multi_company = 'WORK_MULTI_COMPANY'
         work_recruiting = 'WORK_RECRUITING'
+        work_resume_review = 'WORK_RESUME_REVIEW'
         work_social = 'WORK_SOCIAL'
         work_team = 'WORK_TEAM'
         work_teamwork = 'WORK_TEAMWORK'
+        work_vc_call = 'WORK_VC_CALL'
 
     class SuggestionCategory:
-        close_friends = 'CLOSE_FRIENDS'
-        close_friends_generic = 'CLOSE_FRIENDS_GENERIC'
-        current_city = 'CURRENT_CITY'
         event = 'EVENT'
-        family = 'FAMILY'
-        friend_list = 'FRIEND_LIST'
-        games = 'GAMES'
-        life_event = 'LIFE_EVENT'
         messenger = 'MESSENGER'
-        messenger_thread = 'MESSENGER_THREAD'
-        nearby_friends = 'NEARBY_FRIENDS'
-        page_admin = 'PAGE_ADMIN'
-        school = 'SCHOOL'
-        school_generic = 'SCHOOL_GENERIC'
-        top_page = 'TOP_PAGE'
         work = 'WORK'
         workplace = 'WORKPLACE'
         workplace_1_1 = 'WORKPLACE_1_1'
         workplace_manager = 'WORKPLACE_MANAGER'
-        work_generic = 'WORK_GENERIC'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -781,6 +775,7 @@ class Group(
         param_types = {
             'content_tags': 'list<string>',
             'description': 'string',
+            'enable_backup_ingest': 'bool',
             'encoding_settings': 'string',
             'fisheye_video_cropped': 'bool',
             'front_z_rotation': 'float',
@@ -792,7 +787,6 @@ class Group(
             'privacy': 'string',
             'projection': 'projection_enum',
             'published': 'bool',
-            'save_vod': 'bool',
             'schedule_custom_profile_image': 'file',
             'spatial_audio_format': 'spatial_audio_format_enum',
             'status': 'status_enum',
@@ -884,67 +878,6 @@ class Group(
             target_class=Group,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=Group, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_open_graph_action_feed(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'added': 'string',
-            'alias': 'string',
-            'android_key_hash': 'string',
-            'client_secret': 'string',
-            'created_time': 'datetime',
-            'end_time': 'datetime',
-            'expires_in': 'unsigned int',
-            'fb:channel': 'string',
-            'fb:explicitly_shared': 'bool',
-            'image:height': 'unsigned int',
-            'image:secure_url': 'string',
-            'image:type': 'string',
-            'image:url': 'string',
-            'image:user_generated': 'bool',
-            'image:width': 'unsigned int',
-            'ios_bundle_id': 'string',
-            'message': 'string',
-            'no_action_link': 'bool',
-            'no_feed_story': 'bool',
-            'notify': 'bool',
-            'place': 'string',
-            'preview': 'bool',
-            'privacy': 'string',
-            'proxied_app_id': 'string',
-            'ref': 'string',
-            'scrape': 'bool',
-            'start_time': 'datetime',
-            'tags': 'list<int>',
-            'to': 'string',
-            'user_selected_place': 'bool',
-            'user_selected_tags': 'bool',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/open_graph_action_feed',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1080,12 +1013,14 @@ class Group(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.profilepicturesource import ProfilePictureSource
         param_types = {
+            'breaking_change': 'breaking_change_enum',
             'height': 'int',
             'redirect': 'bool',
             'type': 'type_enum',
             'width': 'int',
         }
         enums = {
+            'breaking_change_enum': ProfilePictureSource.BreakingChange.__dict__.values(),
             'type_enum': ProfilePictureSource.Type.__dict__.values(),
         }
         request = FacebookRequest(
@@ -1164,6 +1099,7 @@ class Group(
             'composer_type': 'string',
             'container_type': 'container_type_enum',
             'content_category': 'content_category_enum',
+            'creative_tools': 'string',
             'description': 'string',
             'embeddable': 'bool',
             'end_offset': 'unsigned int',
@@ -1219,6 +1155,7 @@ class Group(
             'upload_session_id': 'string',
             'upload_setting_properties': 'string',
             'video_file_chunk': 'string',
+            'video_id_original': 'string',
             'video_start_time_ms': 'unsigned int',
             'waterfall_id': 'string',
         }

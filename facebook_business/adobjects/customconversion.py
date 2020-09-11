@@ -73,6 +73,7 @@ class CustomConversion(
         content_view = 'CONTENT_VIEW'
         customize_product = 'CUSTOMIZE_PRODUCT'
         donate = 'DONATE'
+        facebook_selected = 'FACEBOOK_SELECTED'
         find_location = 'FIND_LOCATION'
         initiated_checkout = 'INITIATED_CHECKOUT'
         lead = 'LEAD'

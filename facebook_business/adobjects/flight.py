@@ -41,6 +41,8 @@ class Flight(
         super(Flight, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        applinks = 'applinks'
+        category_specific_fields = 'category_specific_fields'
         currency = 'currency'
         description = 'description'
         destination_airport = 'destination_airport'
@@ -124,6 +126,8 @@ class Flight(
             return request.execute()
 
     _field_types = {
+        'applinks': 'CatalogItemAppLinks',
+        'category_specific_fields': 'CatalogSubVerticalList',
         'currency': 'string',
         'description': 'string',
         'destination_airport': 'string',

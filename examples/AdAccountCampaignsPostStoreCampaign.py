@@ -31,11 +31,11 @@ FacebookAdsApi.init(access_token=access_token)
 fields = [
 ]
 params = {
-  'special_ad_category': 'NONE',
-  'name': 'Store Visits Campaign',
+  'name': 'Store Traffic Campaign',
   'objective': 'STORE_VISITS',
   'promoted_object': {'page_id':'<pageID>'},
   'status': 'PAUSED',
+  'special_ad_categories': [],
 }
 print AdAccount(id).create_campaign(
   fields=fields,

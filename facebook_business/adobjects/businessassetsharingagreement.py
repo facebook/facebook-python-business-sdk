@@ -53,6 +53,7 @@ class BusinessAssetSharingAgreement(
         decline = 'DECLINE'
         expired = 'EXPIRED'
         in_progress = 'IN_PROGRESS'
+        pending = 'PENDING'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils

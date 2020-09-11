@@ -32,18 +32,24 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class WhatsAppBusinessProfile(
+class CPASAdvertiserPartnershipRecommendation(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isWhatsAppBusinessProfile = True
-        super(WhatsAppBusinessProfile, self).__init__(fbid, parent_id, api)
+        self._isCPASAdvertiserPartnershipRecommendation = True
+        super(CPASAdvertiserPartnershipRecommendation, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        advertiser_business_id = 'advertiser_business_id'
+        brand_business_id = 'brand_business_id'
+        brands = 'brands'
+        countries = 'countries'
         id = 'id'
-        name_verification = 'name_verification'
-        verified_name = 'verified_name'
+        merchant_business_id = 'merchant_business_id'
+        merchant_categories = 'merchant_categories'
+        status = 'status'
+        status_reason = 'status_reason'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -59,38 +65,7 @@ class WhatsAppBusinessProfile(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=WhatsAppBusinessProfile,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'verified_name': 'string',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=WhatsAppBusinessProfile,
+            target_class=CPASAdvertiserPartnershipRecommendation,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -107,9 +82,15 @@ class WhatsAppBusinessProfile(
             return request.execute()
 
     _field_types = {
+        'advertiser_business_id': 'string',
+        'brand_business_id': 'string',
+        'brands': 'list<string>',
+        'countries': 'list<string>',
         'id': 'string',
-        'name_verification': 'Object',
-        'verified_name': 'string',
+        'merchant_business_id': 'string',
+        'merchant_categories': 'list<string>',
+        'status': 'string',
+        'status_reason': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

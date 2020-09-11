@@ -31,10 +31,10 @@ FacebookAdsApi.init(access_token=access_token)
 fields = [
 ]
 params = {
-  'special_ad_category': 'NONE',
   'name': 'Video Views campaign',
   'objective': 'VIDEO_VIEWS',
   'status': 'PAUSED',
+  'special_ad_categories': [],
 }
 print AdAccount(id).create_campaign(
   fields=fields,

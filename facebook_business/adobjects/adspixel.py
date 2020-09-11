@@ -135,7 +135,7 @@ class AdsPixel(
             'enable_automatic_matching': 'bool',
             'first_party_cookie_status': 'first_party_cookie_status_enum',
             'name': 'string',
-            'server_events_business_id': 'string',
+            'server_events_business_ids': 'list<string>',
         }
         enums = {
             'automatic_matching_fields_enum': AdsPixel.AutomaticMatchingFields.__dict__.values(),
@@ -151,37 +151,6 @@ class AdsPixel(
             target_class=AdsPixel,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def delete_assigned_users(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'user': 'int',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='DELETE',
-            endpoint='/assigned_users',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -298,9 +267,13 @@ class AdsPixel(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'data': 'list<string>',
+            'namespace_id': 'string',
             'partner_agent': 'string',
             'test_event_code': 'string',
             'trace': 'unsigned int',
+            'upload_id': 'string',
+            'upload_source': 'string',
+            'upload_tag': 'string',
         }
         enums = {
         }

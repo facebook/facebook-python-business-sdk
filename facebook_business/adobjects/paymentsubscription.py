@@ -32,28 +32,41 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class BusinessCreative(
+class PaymentSubscription(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isBusinessCreative = True
-        super(BusinessCreative, self).__init__(fbid, parent_id, api)
+        self._isPaymentSubscription = True
+        super(PaymentSubscription, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        creation_time = 'creation_time'
-        duration = 'duration'
-        hash = 'hash'
-        height = 'height'
+        amount = 'amount'
+        app_param_data = 'app_param_data'
+        application = 'application'
+        billing_period = 'billing_period'
+        canceled_reason = 'canceled_reason'
+        created_time = 'created_time'
+        currency = 'currency'
         id = 'id'
-        name = 'name'
-        thumbnail = 'thumbnail'
-        type = 'type'
-        url = 'url'
-        video_id = 'video_id'
-        width = 'width'
+        last_payment = 'last_payment'
+        next_bill_time = 'next_bill_time'
+        next_period_amount = 'next_period_amount'
+        next_period_currency = 'next_period_currency'
+        next_period_product = 'next_period_product'
+        payment_status = 'payment_status'
+        pending_cancel = 'pending_cancel'
+        period_start_time = 'period_start_time'
+        product = 'product'
+        status = 'status'
+        test = 'test'
+        trial_amount = 'trial_amount'
+        trial_currency = 'trial_currency'
+        trial_expiry_time = 'trial_expiry_time'
+        updated_time = 'updated_time'
+        user = 'user'
 
-    def get_ad_placement_validation_results(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
@@ -64,12 +77,12 @@ class BusinessCreative(
         request = FacebookRequest(
             node_id=self['id'],
             method='GET',
-            endpoint='/ad_placement_validation_results',
+            endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            target_class=PaymentSubscription,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -84,17 +97,30 @@ class BusinessCreative(
             return request.execute()
 
     _field_types = {
-        'creation_time': 'datetime',
-        'duration': 'int',
-        'hash': 'string',
-        'height': 'int',
+        'amount': 'string',
+        'app_param_data': 'string',
+        'application': 'Profile',
+        'billing_period': 'string',
+        'canceled_reason': 'string',
+        'created_time': 'datetime',
+        'currency': 'string',
         'id': 'string',
-        'name': 'string',
-        'thumbnail': 'string',
-        'type': 'string',
-        'url': 'string',
-        'video_id': 'string',
-        'width': 'int',
+        'last_payment': 'string',
+        'next_bill_time': 'datetime',
+        'next_period_amount': 'string',
+        'next_period_currency': 'string',
+        'next_period_product': 'string',
+        'payment_status': 'string',
+        'pending_cancel': 'bool',
+        'period_start_time': 'datetime',
+        'product': 'string',
+        'status': 'string',
+        'test': 'unsigned int',
+        'trial_amount': 'string',
+        'trial_currency': 'string',
+        'trial_expiry_time': 'datetime',
+        'updated_time': 'datetime',
+        'user': 'Profile',
     }
     @classmethod
     def _get_field_enum_info(cls):

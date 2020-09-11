@@ -27,7 +27,6 @@ How to run:
 
 import warnings
 import json
-from mock import patch
 from facebook_business.session import FacebookSession
 from facebook_business.exceptions import FacebookRequestError
 from facebook_business.api import FacebookAdsApi, FacebookRequest, FacebookResponse
@@ -42,7 +41,7 @@ class AdCreativeTestCase(IntegrationTestCase):
     def test_get_adcreative(self):
         with warnings.catch_warnings(record=True) as warning:
             self.mock_response.status_code = StatusCode.SUCCESS
-            self.mock_response._content = (
+            self.mock_response._content = str.encode(
                 '{'
                 '"' + str(FieldName.ACCOUNT_ID) + '":"' + str(TestValue.ACCOUNT_ID) + '",'
                 '"' + str(FieldName.ACTOR_ID) + '":"' + str(TestValue.ACTOR_ID) + '",'
@@ -123,7 +122,7 @@ class AdCreativeTestCase(IntegrationTestCase):
     def test_create_ad_creative(self):
         with warnings.catch_warnings(record=True) as warning:
             self.mock_response.status_code = StatusCode.SUCCESS
-            self.mock_response._content = '{"' + str(FieldName.ID) + '":"' + str(TestValue.CREATIVE_ID) + '", "success": "true"}'
+            self.mock_response._content = str.encode('{"' + str(FieldName.ID) + '":"' + str(TestValue.CREATIVE_ID) + '", "success": "true"}')
             self.mock_request.return_value = self.mock_response
 
             fields = []
@@ -175,7 +174,7 @@ class AdCreativeTestCase(IntegrationTestCase):
     def test_get_previews(self):
         with warnings.catch_warnings(record=True) as warning:
             self.mock_response.status_code = StatusCode.SUCCESS
-            self.mock_response._content = (
+            self.mock_response._content = str.encode(
                 '{'
                 '"' + str(FieldName.BODY) + '":"' + str(TestValue.BODY) + '"'
                 '}'
