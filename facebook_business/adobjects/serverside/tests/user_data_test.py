@@ -35,6 +35,7 @@ class UserDataTest(TestCase):
             'dobd': '01',
             'dobm': '02',
             'doby': '2000',
+            'lead_id': 'lead-id-3',
         }
         user_data = UserData(
             f5first=initial_state['f5first'],
@@ -43,6 +44,7 @@ class UserDataTest(TestCase):
             dobd=initial_state['dobd'],
             dobm=initial_state['dobm'],
             doby=initial_state['doby'],
+            lead_id=initial_state['lead_id'],
         )
         hash_sha_256_mock.side_effect = (
             lambda field: field + '-sha256' if field else None
@@ -53,6 +55,9 @@ class UserDataTest(TestCase):
         actual = user_data.normalize()
         expected = {}
         for key, value in initial_state.items():
-            expected[key] = '%s-normal-sha256' % value
+            if key != 'lead_id':
+                expected[key] = '%s-normal-sha256' % value
+            else:
+                expected[key] = value
 
         self.assertEqual(actual, expected)
