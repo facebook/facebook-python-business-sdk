@@ -28,22 +28,19 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdCreativeInteractiveComponentsSpec(
+class AdCreativeInstagramBrandedContent(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(AdCreativeInteractiveComponentsSpec, self).__init__()
-        self._isAdCreativeInteractiveComponentsSpec = True
+        super(AdCreativeInstagramBrandedContent, self).__init__()
+        self._isAdCreativeInstagramBrandedContent = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        child_attachments = 'child_attachments'
-        components = 'components'
+        pass
 
     _field_types = {
-        'child_attachments': 'list<Object>',
-        'components': 'list<Object>',
     }
     @classmethod
     def _get_field_enum_info(cls):

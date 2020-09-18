@@ -420,6 +420,7 @@ class Application(
             'bundle_id': 'string',
             'bundle_short_version': 'string',
             'bundle_version': 'string',
+            'click_id': 'string',
             'consider_views': 'bool',
             'custom_events': 'list<Object>',
             'custom_events_file': 'file',
@@ -432,6 +433,7 @@ class Application(
             'include_dwell_data': 'bool',
             'include_video_data': 'bool',
             'install_referrer': 'string',
+            'install_timestamp': 'unsigned int',
             'installer_package': 'string',
             'limited_data_use': 'bool',
             'migration_bundle': 'string',
@@ -616,6 +618,39 @@ class Application(
             target_class=Business,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=Business, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_aggregate_revenue(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'ecpms': 'list<string>',
+            'query_ids': 'list<string>',
+            'request_id': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/aggregate_revenue',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1152,8 +1187,10 @@ class Application(
         from facebook_business.adobjects.dacheck import DACheck
         param_types = {
             'checks': 'list<string>',
+            'connection_method': 'connection_method_enum',
         }
         enums = {
+            'connection_method_enum': DACheck.ConnectionMethod.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -1551,6 +1588,7 @@ class Application(
         param_types = {
             'device_id': 'string',
             'extinfo': 'Object',
+            'os_version': 'string',
             'platform': 'platform_enum',
             'sdk_version': 'string',
         }

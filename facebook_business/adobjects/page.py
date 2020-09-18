@@ -266,6 +266,7 @@ class Page(
         manage = 'MANAGE'
         manage_jobs = 'MANAGE_JOBS'
         manage_leads = 'MANAGE_LEADS'
+        messaging = 'MESSAGING'
         moderate = 'MODERATE'
         moderate_community = 'MODERATE_COMMUNITY'
         pages_messaging = 'PAGES_MESSAGING'
@@ -273,6 +274,7 @@ class Page(
         profile_plus_advertise = 'PROFILE_PLUS_ADVERTISE'
         profile_plus_analyze = 'PROFILE_PLUS_ANALYZE'
         profile_plus_create_content = 'PROFILE_PLUS_CREATE_CONTENT'
+        profile_plus_live_stream_moderation = 'PROFILE_PLUS_LIVE_STREAM_MODERATION'
         profile_plus_manage = 'PROFILE_PLUS_MANAGE'
         profile_plus_messaging = 'PROFILE_PLUS_MESSAGING'
         profile_plus_moderate = 'PROFILE_PLUS_MODERATE'
@@ -287,6 +289,7 @@ class Page(
         manage = 'MANAGE'
         manage_jobs = 'MANAGE_JOBS'
         manage_leads = 'MANAGE_LEADS'
+        messaging = 'MESSAGING'
         moderate = 'MODERATE'
         moderate_community = 'MODERATE_COMMUNITY'
         pages_messaging = 'PAGES_MESSAGING'
@@ -294,6 +297,7 @@ class Page(
         profile_plus_advertise = 'PROFILE_PLUS_ADVERTISE'
         profile_plus_analyze = 'PROFILE_PLUS_ANALYZE'
         profile_plus_create_content = 'PROFILE_PLUS_CREATE_CONTENT'
+        profile_plus_live_stream_moderation = 'PROFILE_PLUS_LIVE_STREAM_MODERATION'
         profile_plus_manage = 'PROFILE_PLUS_MANAGE'
         profile_plus_messaging = 'PROFILE_PLUS_MESSAGING'
         profile_plus_moderate = 'PROFILE_PLUS_MODERATE'
@@ -1773,6 +1777,38 @@ class Page(
             self.assure_call()
             return request.execute()
 
+    def create_extend_thread_control(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'duration': 'unsigned int',
+            'recipient': 'Object',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/extend_thread_control',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Page,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Page, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_feed(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -2836,6 +2872,7 @@ class Page(
                 'ICE_BREAKERS',
                 'PAYMENT_SETTINGS',
                 'PERSISTENT_MENU',
+                'PLATFORM',
                 'TARGET_AUDIENCE',
                 'WHITELISTED_DOMAINS',
             ],
@@ -3414,6 +3451,7 @@ class Page(
         from facebook_business.adobjects.profilepicturesource import ProfilePictureSource
         param_types = {
             'android_key_hash': 'string',
+            'burn_media_effect': 'bool',
             'caption': 'string',
             'composer_session_id': 'string',
             'has_umg': 'bool',

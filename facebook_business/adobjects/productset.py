@@ -49,6 +49,7 @@ class ProductSet(
         name = 'name'
         product_catalog = 'product_catalog'
         product_count = 'product_count'
+        retailer_id = 'retailer_id'
         metadata = 'metadata'
 
     # @deprecated get_endpoint function is deprecated
@@ -129,6 +130,7 @@ class ProductSet(
             'filter': 'Object',
             'metadata': 'map',
             'name': 'string',
+            'retailer_id': 'string',
         }
         enums = {
         }
@@ -427,6 +429,7 @@ class ProductSet(
         'name': 'string',
         'product_catalog': 'ProductCatalog',
         'product_count': 'unsigned int',
+        'retailer_id': 'string',
         'metadata': 'map',
     }
     @classmethod

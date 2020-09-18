@@ -52,6 +52,7 @@ class AdAssetFeedSpec(
         images = 'images'
         link_urls = 'link_urls'
         optimization_type = 'optimization_type'
+        posts = 'posts'
         titles = 'titles'
         videos = 'videos'
 
@@ -131,6 +132,7 @@ class AdAssetFeedSpec(
         'images': 'list<AdAssetFeedSpecImage>',
         'link_urls': 'list<AdAssetFeedSpecLinkURL>',
         'optimization_type': 'string',
+        'posts': 'list<Object>',
         'titles': 'list<AdAssetFeedSpecTitle>',
         'videos': 'list<AdAssetFeedSpecVideo>',
     }

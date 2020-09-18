@@ -269,6 +269,7 @@ class AdCreative(
         param_types = {
             'thumbnail_height': 'unsigned int',
             'thumbnail_width': 'unsigned int',
+            'with_unified_spec': 'bool',
         }
         enums = {
         }
