@@ -18,32 +18,13 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-import hmac
-import hashlib
-import os
-import sys
+class RequestOptions:
+    def __init__(self, ca_bundle_path=None):
+        self.ca_bundle_path = ca_bundle_path
 
-class Util:
+    def __eq__(self, other):
+        """Returns true if both objects are equal"""
+        if not isinstance(other, RequestOptions):
+            return False
 
-    @staticmethod
-    def async_requests_available():
-        return sys.version_info >= (3, 5, 3)
-
-    @staticmethod
-    def ca_bundle_path():
-        return os.path.join(
-            os.path.dirname(__file__),
-            '..',
-            '..',
-            'fb_ca_chain_bundle.crt',
-        )
-
-    @staticmethod
-    def appsecret_proof(appsecret, access_token):
-        hmac_object = hmac.new(
-            appsecret.encode('utf-8'),
-            msg=access_token.encode('utf-8'),
-            digestmod=hashlib.sha256
-        )
-
-        return hmac_object.hexdigest()
+        return self.__dict__ == other.__dict__

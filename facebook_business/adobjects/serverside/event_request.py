@@ -22,9 +22,14 @@ import json
 import pprint
 import six
 
+from facebook_business import FacebookAdsApi
 from facebook_business.adobjects.adspixel import AdsPixel
 from facebook_business.adobjects.serverside.event import Event
 from facebook_business.adobjects.serverside.event_response import EventResponse
+from facebook_business.adobjects.serverside.http_method import HttpMethod
+from facebook_business.adobjects.serverside.request_options import RequestOptions
+from facebook_business.adobjects.serverside.util import Util
+from facebook_business.session import FacebookSession
 
 
 class EventRequest(object):
@@ -52,6 +57,9 @@ class EventRequest(object):
         upload_tag=None,
         upload_source=None,
         partner_agent=None,
+        http_client=None,
+        access_token=None,
+        appsecret=None,
     ):
         # type: (str, List[Event], str) -> None
 
@@ -63,9 +71,20 @@ class EventRequest(object):
         self._upload_source = None
         self._partner_agent = None
         self.__pixel_id = None
+        self.__http_client = None
+        self.__access_token = None
+        self.__appsecret = None
         if pixel_id is None:
             raise ValueError("Invalid value for `pixel_id`, must not be `None`")
         self.__pixel_id = pixel_id
+        if http_client is not None and access_token is None:
+            raise ValueError("An access_token must also be passed in when passing in an http_client")
+        if http_client is not None:
+            self.__http_client = http_client
+        if access_token is not None:
+            self.__access_token = access_token
+        if appsecret is not None:
+            self.__appsecret = appsecret
         self.events = events
         if test_event_code is not None:
             self.test_event_code = test_event_code
@@ -256,6 +275,9 @@ class EventRequest(object):
     def execute(self):
         params = self.get_params()
 
+        if self.__http_client is not None:
+            return self.execute_with_client(params)
+
         response = AdsPixel(self.__pixel_id).create_event(
             fields=[],
             params=params,
@@ -264,6 +286,28 @@ class EventRequest(object):
                                        fbtrace_id=response['fbtrace_id'],
                                        messages=response['messages'])
         return event_response
+
+    def execute_with_client(self, params):
+        url = '/'.join([
+            FacebookSession.GRAPH,
+            FacebookAdsApi.API_VERSION,
+            self.__pixel_id,
+            'events',
+        ])
+        params['access_token'] = self.__access_token
+        if self.__appsecret is not None:
+            params['appsecret_proof'] = Util.appsecret_proof(self.__appsecret, self.__access_token)
+        request_options = RequestOptions(
+            ca_bundle_path=Util.ca_bundle_path()
+        )
+
+        return self.__http_client.execute(
+            url=url,
+            method=HttpMethod.POST,
+            request_options=request_options,
+            headers=FacebookAdsApi.HTTP_DEFAULT_HEADERS,
+            params=params
+        )
 
     def normalize(self):
         normalized_events = []

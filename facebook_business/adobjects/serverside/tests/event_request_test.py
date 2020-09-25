@@ -21,11 +21,17 @@
 import json
 import time
 from unittest import TestCase
-from unittest.mock import patch
+from unittest.mock import patch, Mock
 
+from facebook_business import FacebookAdsApi
 from facebook_business.adobjects.serverside.event import Event
 from facebook_business.adobjects.serverside.event_request import EventRequest
 from facebook_business.adobjects.serverside.event_response import EventResponse
+from facebook_business.adobjects.serverside.http_method import HttpMethod
+from facebook_business.adobjects.serverside.http_service_interface import HttpServiceInterface
+from facebook_business.adobjects.serverside.request_options import RequestOptions
+from facebook_business.adobjects.serverside.util import Util
+from facebook_business.session import FacebookSession
 
 
 class EventRequestTest(TestCase):
@@ -70,5 +76,57 @@ class EventRequestTest(TestCase):
         pixel_mock.assert_called_with(pixel_id)
         pixel_instance_mock.create_event.assert_called_with(
             fields=[], params=expected_data
+        )
+        self.assertEqual(actual_event_response, expected_event_response)
+
+    def test_http_client(self):
+        mock_http_client = Mock(HttpServiceInterface)
+        event = Event(event_name='Purchase', event_time=int(time.time()))
+        expected_event = json.dumps(
+            {'event_name': event.event_name, 'event_time': event.event_time}
+        )
+        access_token = 'access-token-0'
+        pixel_id = 'pixel123'
+        appsecret = 'app-secret-234'
+        appsecret_proof = Util.appsecret_proof(appsecret, access_token)
+        expected_params = {
+            'data': [expected_event],
+            'test_event_code': 'test-code-1',
+            'namespace_id': '222',
+            'upload_id': '333',
+            'upload_tag': 'upload-tag4',
+            'upload_source': 'upload-source5',
+            'access_token': access_token,
+            'appsecret_proof': appsecret_proof,
+        }
+        event_request = EventRequest(
+            pixel_id=pixel_id,
+            events=[event],
+            test_event_code=expected_params['test_event_code'],
+            namespace_id=expected_params['namespace_id'],
+            upload_id=expected_params['upload_id'],
+            upload_tag=expected_params['upload_tag'],
+            upload_source=expected_params['upload_source'],
+            http_client=mock_http_client,
+            access_token=access_token,
+            appsecret=appsecret
+        )
+        expected_event_response = EventResponse(
+            events_received=2, fbtrace_id='traceid1', messages=['1', '2']
+        )
+        mock_http_client.execute.return_value = expected_event_response
+        expected_headers = FacebookAdsApi.HTTP_DEFAULT_HEADERS
+        expected_url = '%s/%s/%s/events' % (FacebookSession.GRAPH, FacebookAdsApi.API_VERSION, pixel_id)
+        expected_request_options = RequestOptions(
+            ca_bundle_path=Util.ca_bundle_path(),
+        )
+        actual_event_response = event_request.execute()
+
+        mock_http_client.execute.assert_called_with(
+            url=expected_url,
+            method=HttpMethod.POST,
+            request_options=expected_request_options,
+            headers=expected_headers,
+            params=expected_params,
         )
         self.assertEqual(actual_event_response, expected_event_response)
