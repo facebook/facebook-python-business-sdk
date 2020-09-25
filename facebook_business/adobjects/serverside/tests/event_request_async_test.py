@@ -39,6 +39,7 @@ if Util.async_requests_available():
                 'upload_id': '333',
                 'upload_tag': 'upload-tag4',
                 'upload_source': 'upload-source5',
+                'partner_agent': 'partner-agent-6',
                 'data': json.dumps([event.normalize()]),
             }
             event_request_async = EventRequestAsync(
@@ -49,6 +50,7 @@ if Util.async_requests_available():
                 upload_id=expected['upload_id'],
                 upload_tag=expected['upload_tag'],
                 upload_source=expected['upload_source'],
+                partner_agent=expected['partner_agent'],
             )
 
             self.assertEqual(event_request_async.get_params(), expected)

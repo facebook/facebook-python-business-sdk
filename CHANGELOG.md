@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ## v8.0.3
 ### Added
+- Added partner_agent field to Conversions API EventRequest and EventRequestAsync.
 - Added async support to Conversions API - Create event request promises by using EventRequestAsync.
 - `lead_id` field to the Conversions API `user_data` section.
 

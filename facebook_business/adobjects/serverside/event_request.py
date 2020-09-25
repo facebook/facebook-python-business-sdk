@@ -39,6 +39,7 @@ class EventRequest(object):
         'upload_id': 'str',
         'upload_tag': 'str',
         'upload_source': 'str',
+        'partner_agent': 'str',
     }
 
     def __init__(
@@ -50,6 +51,7 @@ class EventRequest(object):
         upload_id=None,
         upload_tag=None,
         upload_source=None,
+        partner_agent=None,
     ):
         # type: (str, List[Event], str) -> None
 
@@ -59,6 +61,7 @@ class EventRequest(object):
         self._upload_id = None
         self._upload_tag = None
         self._upload_source = None
+        self._partner_agent = None
         self.__pixel_id = None
         if pixel_id is None:
             raise ValueError("Invalid value for `pixel_id`, must not be `None`")
@@ -74,6 +77,8 @@ class EventRequest(object):
             self.upload_tag = upload_tag
         if upload_source is not None:
             self.upload_source = upload_source
+        if partner_agent is not None:
+            self.partner_agent = partner_agent
 
     @property
     def events(self):
@@ -203,6 +208,29 @@ class EventRequest(object):
 
         self._upload_source = upload_source
 
+    @property
+    def partner_agent(self):
+        """Gets the partner_agent.
+
+        Allows you to specify the platform from which the event is sent e.g. wordpress
+
+        :return: The partner_agent.
+        :rtype: str
+        """
+        return self._partner_agent
+
+    @partner_agent.setter
+    def partner_agent(self, partner_agent):
+        """Sets the partner_agent.
+
+        Allows you to specify the platform from which the event is sent e.g. wordpress
+
+        :param partner_agent: The partner_agent.
+        :type: str
+        """
+
+        self._partner_agent = partner_agent
+
     def get_request_params(self):
         params = {}
         if self.test_event_code is not None:
@@ -215,6 +243,8 @@ class EventRequest(object):
             params['upload_tag'] = self.upload_tag
         if self.upload_source is not None:
             params['upload_source'] = self.upload_source
+        if self.partner_agent is not None:
+            params['partner_agent'] = self.partner_agent
 
         return params
 

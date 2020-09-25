@@ -43,6 +43,7 @@ class EventRequestTest(TestCase):
             'upload_id': '333',
             'upload_tag': 'upload-tag4',
             'upload_source': 'upload-source5',
+            'partner_agent': 'partner-agent-6',
         }
         event_request = EventRequest(
             pixel_id=pixel_id,
@@ -52,6 +53,7 @@ class EventRequestTest(TestCase):
             upload_id=expected_data['upload_id'],
             upload_tag=expected_data['upload_tag'],
             upload_source=expected_data['upload_source'],
+            partner_agent=expected_data['partner_agent'],
         )
         ads_pixel = {
             'events_received': 2,

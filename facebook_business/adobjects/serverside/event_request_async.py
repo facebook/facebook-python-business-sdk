@@ -41,7 +41,8 @@ class EventRequestAsync(EventRequest):
         namespace_id=None,
         upload_id=None,
         upload_tag=None,
-        upload_source=None
+        upload_source=None,
+        partner_agent=None
     ):
         super().__init__(
             pixel_id,
@@ -50,7 +51,8 @@ class EventRequestAsync(EventRequest):
             namespace_id,
             upload_id,
             upload_tag,
-            upload_source
+            upload_source,
+            partner_agent
         )
         self.pixel_id = pixel_id
 
