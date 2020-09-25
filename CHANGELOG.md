@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ## Unreleased
 ### Added
 - Added HttpServiceInterface to enable the default request object to be overridden by a user-defined HTTP Request Service object. Available for Conversions API create event requests.
+- Added batching to Conversions API. Create batched event requests by using BatchProcessor.
 
 ## v8.0.3
 ### Added

@@ -55,3 +55,26 @@ if Util.async_requests_available():
 
             self.assertEqual(event_request_async.get_params(), expected)
             self.assertEqual(event_request_async.pixel_id, pixel_id)
+
+        def test_clone_without_events(self):
+            event_request_async = EventRequestAsync(
+                pixel_id='pixel123',
+                events=[Event(event_name='Purchase', event_time=int(time.time()))],
+                test_event_code='test-code-1',
+                namespace_id='222',
+                upload_id='333',
+                upload_tag='upload-tag4',
+                upload_source='upload-source5',
+            )
+            expected_event_request_async = EventRequestAsync(
+                pixel_id=event_request_async.pixel_id,
+                events=[],
+                test_event_code=event_request_async.test_event_code,
+                namespace_id=event_request_async.namespace_id,
+                upload_id=event_request_async.upload_id,
+                upload_tag=event_request_async.upload_tag,
+                upload_source=event_request_async.upload_source,
+            )
+            event_request_async_cloned = event_request_async.clone_without_events()
+
+            self.assertEqual(event_request_async_cloned, expected_event_request_async)
