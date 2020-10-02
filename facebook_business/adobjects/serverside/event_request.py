@@ -20,14 +20,15 @@
 
 import json
 import pprint
-import six
 
+import six
 from facebook_business import FacebookAdsApi
 from facebook_business.adobjects.adspixel import AdsPixel
 from facebook_business.adobjects.serverside.event import Event
 from facebook_business.adobjects.serverside.event_response import EventResponse
 from facebook_business.adobjects.serverside.http_method import HttpMethod
-from facebook_business.adobjects.serverside.request_options import RequestOptions
+from facebook_business.adobjects.serverside.request_options import \
+    RequestOptions
 from facebook_business.adobjects.serverside.util import Util
 from facebook_business.session import FacebookSession
 

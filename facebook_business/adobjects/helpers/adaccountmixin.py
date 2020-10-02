@@ -20,6 +20,7 @@
 
 from facebook_business.adobjects import agencyclientdeclaration
 
+
 class AdAccountMixin:
     class AccountStatus(object):
         active = 1

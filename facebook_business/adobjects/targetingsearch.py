@@ -24,6 +24,7 @@ from facebook_business.api import FacebookAdsApi
 from facebook_business.exceptions import FacebookBadObjectError
 from facebook_business.session import FacebookSession
 
+
 class TargetingSearch(AbstractObject):
 
     class DemographicSearchClasses(object):

@@ -18,10 +18,11 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-import hmac
 import hashlib
+import hmac
 import os
 import sys
+
 
 class Util:
 

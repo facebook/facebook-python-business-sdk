@@ -20,8 +20,9 @@
 # DEALINGS IN THE SOFTWARE.
 
 import datetime
-import pycountry
 import re
+
+import pycountry
 
 # defined regex for normalization of data
 location_excluded_chars = re.compile(r"[0-9.\s\-()]")

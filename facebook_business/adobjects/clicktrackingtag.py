@@ -20,6 +20,7 @@
 
 from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
 
+
 class ClickTrackingTag(AbstractCrudObject):
 
     class Field(object):

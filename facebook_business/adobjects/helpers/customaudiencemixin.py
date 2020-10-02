@@ -18,11 +18,12 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
+import hashlib
+import re
+
+import six
 from facebook_business.exceptions import FacebookBadObjectError
 
-import hashlib
-import six
-import re
 
 class CustomAudienceMixin:
 

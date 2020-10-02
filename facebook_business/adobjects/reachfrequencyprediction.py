@@ -18,12 +18,13 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebook_business.adobjects.abstractobject import AbstractObject
 from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
+from facebook_business.adobjects.abstractobject import AbstractObject
+from facebook_business.adobjects.helpers.reachfrequencypredictionmixin import \
+    ReachFrequencyPredictionMixin
 from facebook_business.adobjects.objectparser import ObjectParser
 from facebook_business.api import FacebookRequest
 from facebook_business.typechecker import TypeChecker
-from facebook_business.adobjects.helpers.reachfrequencypredictionmixin import ReachFrequencyPredictionMixin
 
 """
 This class is auto-generated.

@@ -26,7 +26,8 @@ if Util.async_requests_available():
     from unittest import TestCase
 
     from facebook_business.adobjects.serverside.event import Event
-    from facebook_business.adobjects.serverside.event_request_async import EventRequestAsync
+    from facebook_business.adobjects.serverside.event_request_async import \
+        EventRequestAsync
 
 
     class EventRequestAsyncTest(TestCase):

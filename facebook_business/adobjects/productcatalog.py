@@ -18,12 +18,13 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebook_business.adobjects.abstractobject import AbstractObject
 from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
+from facebook_business.adobjects.abstractobject import AbstractObject
+from facebook_business.adobjects.helpers.productcatalogmixin import \
+    ProductCatalogMixin
 from facebook_business.adobjects.objectparser import ObjectParser
 from facebook_business.api import FacebookRequest
 from facebook_business.typechecker import TypeChecker
-from facebook_business.adobjects.helpers.productcatalogmixin import ProductCatalogMixin
 
 """
 This class is auto-generated.
@@ -502,7 +503,8 @@ class ProductCatalog(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.productcatalogcategory import ProductCatalogCategory
+        from facebook_business.adobjects.productcatalogcategory import \
+            ProductCatalogCategory
         param_types = {
             'categorization_criteria': 'categorization_criteria_enum',
             'filter': 'Object',
@@ -536,7 +538,8 @@ class ProductCatalog(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.productcatalogcategory import ProductCatalogCategory
+        from facebook_business.adobjects.productcatalogcategory import \
+            ProductCatalogCategory
         param_types = {
             'data': 'list<map>',
         }
@@ -568,7 +571,8 @@ class ProductCatalog(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.checkbatchrequeststatus import CheckBatchRequestStatus
+        from facebook_business.adobjects.checkbatchrequeststatus import \
+            CheckBatchRequestStatus
         param_types = {
             'handle': 'string',
             'load_ids_of_invalid_requests': 'bool',
@@ -601,7 +605,8 @@ class ProductCatalog(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.collaborativeadssharesettings import CollaborativeAdsShareSettings
+        from facebook_business.adobjects.collaborativeadssharesettings import \
+            CollaborativeAdsShareSettings
         param_types = {
         }
         enums = {
@@ -665,7 +670,8 @@ class ProductCatalog(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.producteventstat import ProductEventStat
+        from facebook_business.adobjects.producteventstat import \
+            ProductEventStat
         param_types = {
             'breakdowns': 'list<breakdowns_enum>',
         }
@@ -729,7 +735,8 @@ class ProductCatalog(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.externaleventsource import ExternalEventSource
+        from facebook_business.adobjects.externaleventsource import \
+            ExternalEventSource
         param_types = {
         }
         enums = {
@@ -903,7 +910,8 @@ class ProductCatalog(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.productcataloghotelroomsbatch import ProductCatalogHotelRoomsBatch
+        from facebook_business.adobjects.productcataloghotelroomsbatch import \
+            ProductCatalogHotelRoomsBatch
         param_types = {
             'handle': 'string',
         }
@@ -1115,7 +1123,8 @@ class ProductCatalog(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.productcatalogpricingvariablesbatch import ProductCatalogPricingVariablesBatch
+        from facebook_business.adobjects.productcatalogpricingvariablesbatch import \
+            ProductCatalogPricingVariablesBatch
         param_types = {
             'handle': 'string',
         }
@@ -1402,7 +1411,8 @@ class ProductCatalog(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.productcatalogproductsetsbatch import ProductCatalogProductSetsBatch
+        from facebook_business.adobjects.productcatalogproductsetsbatch import \
+            ProductCatalogProductSetsBatch
         param_types = {
             'handle': 'string',
         }

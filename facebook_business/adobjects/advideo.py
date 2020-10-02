@@ -18,8 +18,8 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebook_business.adobjects.abstractobject import AbstractObject
 from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
+from facebook_business.adobjects.abstractobject import AbstractObject
 from facebook_business.adobjects.objectparser import ObjectParser
 from facebook_business.api import FacebookRequest
 from facebook_business.typechecker import TypeChecker
@@ -1191,10 +1191,8 @@ class AdVideo(
         to be defined.
         """
         from facebook_business.exceptions import FacebookBadObjectError
-        from facebook_business.video_uploader import (
-            VideoUploader,
-            VideoUploadRequest,
-        )
+        from facebook_business.video_uploader import (VideoUploader,
+                                                      VideoUploadRequest)
 
         if (self.Field.slideshow_spec in self and
         self[self.Field.slideshow_spec] is not None):
@@ -1216,8 +1214,8 @@ class AdVideo(
         return response
 
     def waitUntilEncodingReady(self, interval=30, timeout=600):
-        from facebook_business.video_uploader import VideoEncodingStatusChecker
         from facebook_business.exceptions import FacebookError
+        from facebook_business.video_uploader import VideoEncodingStatusChecker
 
         if 'id' not in self:
             raise FacebookError(

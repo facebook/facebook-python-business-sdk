@@ -18,19 +18,13 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebook_business.exceptions import (
-    FacebookBadObjectError,
-)
-from facebook_business.api import (
-    FacebookAdsApi,
-    Cursor,
-    FacebookRequest,
-)
+import logging
 
 from facebook_business.adobjects.abstractobject import AbstractObject
 from facebook_business.adobjects.objectparser import ObjectParser
+from facebook_business.api import Cursor, FacebookAdsApi, FacebookRequest
+from facebook_business.exceptions import FacebookBadObjectError
 
-import logging
 
 class AbstractCrudObject(AbstractObject):
     """

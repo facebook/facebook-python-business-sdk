@@ -18,13 +18,12 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebook_business.adobjects.abstractobject import AbstractObject
 from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
+from facebook_business.adobjects.abstractobject import AbstractObject
 from facebook_business.adobjects.objectparser import ObjectParser
 from facebook_business.api import FacebookRequest
+from facebook_business.mixins import CanValidate, HasAdLabels
 from facebook_business.typechecker import TypeChecker
-from facebook_business.mixins import HasAdLabels
-from facebook_business.mixins import CanValidate
 
 """
 This class is auto-generated.
@@ -696,7 +695,8 @@ class AdSet(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.contentdeliveryreport import ContentDeliveryReport
+        from facebook_business.adobjects.contentdeliveryreport import \
+            ContentDeliveryReport
         param_types = {
             'end_date': 'datetime',
             'platform': 'platform_enum',
@@ -808,7 +808,8 @@ class AdSet(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.adcampaigndeliveryestimate import AdCampaignDeliveryEstimate
+        from facebook_business.adobjects.adcampaigndeliveryestimate import \
+            AdCampaignDeliveryEstimate
         param_types = {
             'optimization_goal': 'optimization_goal_enum',
             'promoted_object': 'Object',
@@ -968,7 +969,8 @@ class AdSet(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.targetingsentenceline import TargetingSentenceLine
+        from facebook_business.adobjects.targetingsentenceline import \
+            TargetingSentenceLine
         param_types = {
         }
         enums = {

@@ -19,8 +19,8 @@
 # DEALINGS IN THE SOFTWARE.
 
 import pprint
-import six
 
+import six
 from facebook_business.adobjects.serverside.custom_data import CustomData
 from facebook_business.adobjects.serverside.user_data import UserData
 
