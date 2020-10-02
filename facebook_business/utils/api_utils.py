@@ -19,6 +19,7 @@
 # DEALINGS IN THE SOFTWARE.
 
 import warnings
+
 from facebook_business import apiconfig
 from facebook_business.exceptions import FacebookBadObjectError
 
