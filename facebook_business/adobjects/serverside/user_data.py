@@ -20,8 +20,8 @@
 
 import hashlib
 import pprint
-import six
 
+import six
 from facebook_business.adobjects.serverside.gender import Gender
 from facebook_business.adobjects.serverside.normalize import Normalize
 

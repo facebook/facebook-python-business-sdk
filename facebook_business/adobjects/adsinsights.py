@@ -19,7 +19,8 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
-from facebook_business.adobjects.helpers.adsinsightsmixin import AdsInsightsMixin
+from facebook_business.adobjects.helpers.adsinsightsmixin import \
+    AdsInsightsMixin
 
 """
 This class is auto-generated.

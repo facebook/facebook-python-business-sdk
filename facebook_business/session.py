@@ -24,8 +24,9 @@ utilities.
 """
 import hashlib
 import hmac
-import requests
 import os
+
+import requests
 
 
 class FacebookSession(object):

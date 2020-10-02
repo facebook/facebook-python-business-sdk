@@ -18,8 +18,8 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebook_business.adobjects.abstractobject import AbstractObject
 from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
+from facebook_business.adobjects.abstractobject import AbstractObject
 from facebook_business.adobjects.objectparser import ObjectParser
 from facebook_business.api import FacebookRequest
 from facebook_business.typechecker import TypeChecker
@@ -1027,7 +1027,8 @@ class Page(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.pagecalltoaction import PageCallToAction
+        from facebook_business.adobjects.pagecalltoaction import \
+            PageCallToAction
         param_types = {
         }
         enums = {
@@ -1058,7 +1059,8 @@ class Page(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.canvasbodyelement import CanvasBodyElement
+        from facebook_business.adobjects.canvasbodyelement import \
+            CanvasBodyElement
         param_types = {
         }
         enums = {
@@ -1089,7 +1091,8 @@ class Page(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.canvasbodyelement import CanvasBodyElement
+        from facebook_business.adobjects.canvasbodyelement import \
+            CanvasBodyElement
         param_types = {
             'canvas_button': 'Object',
             'canvas_carousel': 'Object',
@@ -1294,7 +1297,8 @@ class Page(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.commercemerchantsettings import CommerceMerchantSettings
+        from facebook_business.adobjects.commercemerchantsettings import \
+            CommerceMerchantSettings
         param_types = {
         }
         enums = {
@@ -1395,7 +1399,8 @@ class Page(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.commerceordertransactiondetail import CommerceOrderTransactionDetail
+        from facebook_business.adobjects.commerceordertransactiondetail import \
+            CommerceOrderTransactionDetail
         param_types = {
             'end_time': 'datetime',
             'payout_reference_id': 'string',
@@ -1581,7 +1586,8 @@ class Page(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.pageusermessagethreadlabel import PageUserMessageThreadLabel
+        from facebook_business.adobjects.pageusermessagethreadlabel import \
+            PageUserMessageThreadLabel
         param_types = {
         }
         enums = {
@@ -1612,7 +1618,8 @@ class Page(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.pageusermessagethreadlabel import PageUserMessageThreadLabel
+        from facebook_business.adobjects.pageusermessagethreadlabel import \
+            PageUserMessageThreadLabel
         param_types = {
             'name': 'string',
         }
@@ -1679,7 +1686,8 @@ class Page(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.customusersettings import CustomUserSettings
+        from facebook_business.adobjects.customusersettings import \
+            CustomUserSettings
         param_types = {
             'psid': 'string',
         }
@@ -2201,7 +2209,8 @@ class Page(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.instantarticleinsightsqueryresult import InstantArticleInsightsQueryResult
+        from facebook_business.adobjects.instantarticleinsightsqueryresult import \
+            InstantArticleInsightsQueryResult
         param_types = {
             'breakdown': 'breakdown_enum',
             'metric': 'list<Object>',
@@ -2658,7 +2667,8 @@ class Page(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.mediafingerprint import MediaFingerprint
+        from facebook_business.adobjects.mediafingerprint import \
+            MediaFingerprint
         param_types = {
             'universal_content_id': 'string',
         }
@@ -2690,7 +2700,8 @@ class Page(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.mediafingerprint import MediaFingerprint
+        from facebook_business.adobjects.mediafingerprint import \
+            MediaFingerprint
         param_types = {
             'fingerprint_content_type': 'fingerprint_content_type_enum',
             'metadata': 'list',
@@ -2798,7 +2809,8 @@ class Page(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.messagingfeaturereview import MessagingFeatureReview
+        from facebook_business.adobjects.messagingfeaturereview import \
+            MessagingFeatureReview
         param_types = {
         }
         enums = {
@@ -2829,7 +2841,8 @@ class Page(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.messengerdestinationpagewelcomemessage import MessengerDestinationPageWelcomeMessage
+        from facebook_business.adobjects.messengerdestinationpagewelcomemessage import \
+            MessengerDestinationPageWelcomeMessage
         param_types = {
         }
         enums = {
@@ -2903,7 +2916,8 @@ class Page(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.messengerprofile import MessengerProfile
+        from facebook_business.adobjects.messengerprofile import \
+            MessengerProfile
         param_types = {
         }
         enums = {
@@ -3410,7 +3424,8 @@ class Page(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.profilepicturesource import ProfilePictureSource
+        from facebook_business.adobjects.profilepicturesource import \
+            ProfilePictureSource
         param_types = {
             'breaking_change': 'breaking_change_enum',
             'height': 'int',
@@ -3448,7 +3463,8 @@ class Page(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.profilepicturesource import ProfilePictureSource
+        from facebook_business.adobjects.profilepicturesource import \
+            ProfilePictureSource
         param_types = {
             'android_key_hash': 'string',
             'burn_media_effect': 'bool',
@@ -3856,7 +3872,8 @@ class Page(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.commercemerchantsettingssetupstatus import CommerceMerchantSettingsSetupStatus
+        from facebook_business.adobjects.commercemerchantsettingssetupstatus import \
+            CommerceMerchantSettingsSetupStatus
         param_types = {
         }
         enums = {
@@ -4239,7 +4256,8 @@ class Page(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.videocopyrightrule import VideoCopyrightRule
+        from facebook_business.adobjects.videocopyrightrule import \
+            VideoCopyrightRule
         param_types = {
             'selected_rule_id': 'string',
             'source': 'source_enum',

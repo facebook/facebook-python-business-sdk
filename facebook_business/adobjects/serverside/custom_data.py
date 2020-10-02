@@ -19,11 +19,13 @@
 # DEALINGS IN THE SOFTWARE.
 
 import pprint
-import six
 
+import six
 from facebook_business.adobjects.serverside.content import Content
+from facebook_business.adobjects.serverside.delivery_category import \
+    DeliveryCategory
 from facebook_business.adobjects.serverside.normalize import Normalize
-from facebook_business.adobjects.serverside.delivery_category import DeliveryCategory
+
 
 class CustomData(object):
     """

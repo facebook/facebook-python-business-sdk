@@ -22,13 +22,12 @@
 video uploader that is used to upload video to adaccount
 """
 
-from facebook_business.exceptions import FacebookError
-from facebook_business.exceptions import FacebookRequestError
+import ntpath
+import os
+import time
 from abc import ABCMeta, abstractmethod
 
-import os
-import ntpath
-import time
+from facebook_business.exceptions import FacebookError, FacebookRequestError
 
 
 class VideoUploader(object):

@@ -18,10 +18,9 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebook_business.exceptions import (
-    FacebookBadObjectError,
-)
 from facebook_business.adobjects.abstractobject import AbstractObject
+from facebook_business.exceptions import FacebookBadObjectError
+
 
 class ObjectParser:
     """

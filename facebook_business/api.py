@@ -18,30 +18,25 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebook_business.session import FacebookSession
-from facebook_business import apiconfig
-
-from facebook_business.exceptions import (
-    FacebookRequestError,
-    FacebookBadObjectError,
-    FacebookUnavailablePropertyException,
-    FacebookBadParameterError,
-)
-from facebook_business.utils import api_utils
-from facebook_business.utils import urls
-
-from contextlib import contextmanager
-import copy
-from six.moves import http_client
-import os
-import json
-import six
 import collections
+import copy
+import json
+import os
 import re
+from contextlib import contextmanager
 
+import six
+from six.moves import http_client
+
+from facebook_business import apiconfig
 from facebook_business.adobjects.objectparser import ObjectParser
+from facebook_business.exceptions import (FacebookBadObjectError,
+                                          FacebookBadParameterError,
+                                          FacebookRequestError,
+                                          FacebookUnavailablePropertyException)
+from facebook_business.session import FacebookSession
 from facebook_business.typechecker import TypeChecker
-
+from facebook_business.utils import api_utils, urls
 
 """
 api module contains classes that make http requests to Facebook's graph API.

@@ -22,7 +22,8 @@ from unittest import TestCase
 
 from facebook_business.adobjects.serverside.content import Content
 from facebook_business.adobjects.serverside.custom_data import CustomData
-from facebook_business.adobjects.serverside.delivery_category import DeliveryCategory
+from facebook_business.adobjects.serverside.delivery_category import \
+    DeliveryCategory
 
 
 class CustomDataTest(TestCase):

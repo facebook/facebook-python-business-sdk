@@ -23,20 +23,17 @@ specs module contains classes that help you define and create specs for use
 in the Ads API.
 """
 
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
-from facebook_business.adobjects.abstractobject  import AbstractObject
+from __future__ import (absolute_import, division, print_function,
+                        unicode_literals)
+
+from facebook_business.adobjects import (adcreativelinkdata,
+                                         adcreativelinkdatachildattachment,
+                                         adcreativeobjectstoryspec,
+                                         adcreativephotodata,
+                                         adcreativetextdata,
+                                         adcreativevideodata, pagepost, user)
+from facebook_business.adobjects.abstractobject import AbstractObject
 from facebook_business.mixins import ValidatesFields
-from facebook_business.adobjects import adcreativeobjectstoryspec
-from facebook_business.adobjects import adcreativelinkdatachildattachment
-from facebook_business.adobjects import adcreativelinkdata
-from facebook_business.adobjects import adcreativetextdata
-from facebook_business.adobjects import adcreativephotodata
-from facebook_business.adobjects import adcreativevideodata
-from facebook_business.adobjects import pagepost
-from facebook_business.adobjects import user
 
 
 class ObjectStorySpec(adcreativeobjectstoryspec.AdCreativeObjectStorySpec):

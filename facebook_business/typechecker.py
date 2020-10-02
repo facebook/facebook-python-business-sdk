@@ -21,12 +21,12 @@
 
 import importlib
 import os
+
 import six
 
+from facebook_business.exceptions import FacebookBadParameterTypeException
 from facebook_business.utils import api_utils
-from facebook_business.exceptions import(
-    FacebookBadParameterTypeException,
-)
+
 
 class TypeChecker:
     """

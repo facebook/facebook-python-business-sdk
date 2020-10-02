@@ -22,15 +22,17 @@ from facebook_business.adobjects.serverside.util import Util
 
 if Util.async_requests_available():
 
-    from facebook_business.adobjects.serverside.batch_processor import BatchProcessor
-    from facebook_business.adobjects.serverside.event import Event
-    from facebook_business.adobjects.serverside.event_request_async import EventRequestAsync
-    from facebook_business.adobjects.serverside.event_response import EventResponse
-
-    from unittest import TestCase
-    from unittest.mock import patch, AsyncMock, Mock
-
     import asyncio
+    from unittest import TestCase
+    from unittest.mock import AsyncMock, Mock, patch
+
+    from facebook_business.adobjects.serverside.batch_processor import \
+        BatchProcessor
+    from facebook_business.adobjects.serverside.event import Event
+    from facebook_business.adobjects.serverside.event_request_async import \
+        EventRequestAsync
+    from facebook_business.adobjects.serverside.event_response import \
+        EventResponse
 
     class BatchProcessorTests(TestCase):
         @patch('facebook_business.adobjects.serverside.batch_processor.BatchProcessor.process_event_requests_generator')

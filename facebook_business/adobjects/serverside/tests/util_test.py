@@ -18,14 +18,14 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
+import hashlib
+import hmac
+import os
 from unittest import TestCase
 from unittest.mock import PropertyMock, patch
 
 from facebook_business.adobjects.serverside.util import Util, sys
 
-import hashlib
-import hmac
-import os
 
 class UtilTest(TestCase):
     @patch('facebook_business.adobjects.serverside.util.sys')

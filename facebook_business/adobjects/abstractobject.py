@@ -18,13 +18,12 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebook_business.exceptions import (
-    FacebookBadObjectError,
-)
-from facebook_business.typechecker import TypeChecker
-
 import collections
 import json
+
+from facebook_business.exceptions import FacebookBadObjectError
+from facebook_business.typechecker import TypeChecker
+
 
 class AbstractObject(collections.MutableMapping):
 

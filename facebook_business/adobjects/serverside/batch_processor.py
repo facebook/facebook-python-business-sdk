@@ -19,10 +19,12 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.serverside.util import Util
+
 if not Util.async_requests_available():
     raise Exception('BatchProcessor requires Python >= 3.5.3')
 
 import asyncio
+
 
 class BatchProcessor:
     def __init__(self, batch_size=50, concurrent_requests=4):

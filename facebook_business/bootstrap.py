@@ -18,18 +18,19 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-import sys
 import os
+import sys
 
 this_dir = os.path.dirname(__file__)
 repo_dir = os.path.join(this_dir, os.pardir)
 sys.path.insert(1, repo_dir)
 
 import json
-from facebook_business.session import FacebookSession
-from facebook_business.api import FacebookAdsApi
+
 from facebook_business.adobjects import *
+from facebook_business.api import FacebookAdsApi
 from facebook_business.exceptions import FacebookError
+from facebook_business.session import FacebookSession
 
 
 class Authentication():

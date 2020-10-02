@@ -18,13 +18,13 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebook_business.adobjects.abstractobject import AbstractObject
 from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
+from facebook_business.adobjects.abstractobject import AbstractObject
+from facebook_business.adobjects.helpers.adaccountmixin import AdAccountMixin
 from facebook_business.adobjects.objectparser import ObjectParser
 from facebook_business.api import FacebookRequest
-from facebook_business.typechecker import TypeChecker
-from facebook_business.adobjects.helpers.adaccountmixin import AdAccountMixin
 from facebook_business.mixins import HasAdLabels
+from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -859,7 +859,8 @@ class AdAccount(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.adaccountadruleshistory import AdAccountAdRulesHistory
+        from facebook_business.adobjects.adaccountadruleshistory import \
+            AdAccountAdRulesHistory
         param_types = {
             'action': 'action_enum',
             'evaluation_type': 'evaluation_type_enum',
@@ -1052,7 +1053,8 @@ class AdAccount(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.adaccountadvolume import AdAccountAdVolume
+        from facebook_business.adobjects.adaccountadvolume import \
+            AdAccountAdVolume
         param_types = {
             'page_id': 'int',
             'recommendation_type': 'recommendation_type_enum',
@@ -1881,7 +1883,8 @@ class AdAccount(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.adasyncrequestset import AdAsyncRequestSet
+        from facebook_business.adobjects.adasyncrequestset import \
+            AdAsyncRequestSet
         param_types = {
             'is_completed': 'bool',
         }
@@ -1913,7 +1916,8 @@ class AdAccount(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.adasyncrequestset import AdAsyncRequestSet
+        from facebook_business.adobjects.adasyncrequestset import \
+            AdAsyncRequestSet
         param_types = {
             'ad_specs': 'list<map>',
             'name': 'string',
@@ -2012,7 +2016,8 @@ class AdAccount(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.broadtargetingcategories import BroadTargetingCategories
+        from facebook_business.adobjects.broadtargetingcategories import \
+            BroadTargetingCategories
         param_types = {
             'custom_categories_only': 'bool',
         }
@@ -2209,7 +2214,8 @@ class AdAccount(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.contentdeliveryreport import ContentDeliveryReport
+        from facebook_business.adobjects.contentdeliveryreport import \
+            ContentDeliveryReport
         param_types = {
             'end_date': 'datetime',
             'page_id': 'unsigned int',
@@ -2398,7 +2404,8 @@ class AdAccount(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.customaudiencestos import CustomAudiencesTOS
+        from facebook_business.adobjects.customaudiencestos import \
+            CustomAudiencesTOS
         param_types = {
         }
         enums = {
@@ -2461,7 +2468,8 @@ class AdAccount(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.customconversion import CustomConversion
+        from facebook_business.adobjects.customconversion import \
+            CustomConversion
         param_types = {
         }
         enums = {
@@ -2492,7 +2500,8 @@ class AdAccount(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.customconversion import CustomConversion
+        from facebook_business.adobjects.customconversion import \
+            CustomConversion
         param_types = {
             'advanced_rule': 'string',
             'custom_event_type': 'custom_event_type_enum',
@@ -2531,7 +2540,8 @@ class AdAccount(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.adaccountdeliveryestimate import AdAccountDeliveryEstimate
+        from facebook_business.adobjects.adaccountdeliveryestimate import \
+            AdAccountDeliveryEstimate
         param_types = {
             'optimization_goal': 'optimization_goal_enum',
             'promoted_object': 'Object',
@@ -2832,7 +2842,8 @@ class AdAccount(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.adaccountmatchedsearchapplicationsedgedata import AdAccountMatchedSearchApplicationsEdgeData
+        from facebook_business.adobjects.adaccountmatchedsearchapplicationsedgedata import \
+            AdAccountMatchedSearchApplicationsEdgeData
         param_types = {
             'allow_incomplete_app': 'bool',
             'app_store': 'app_store_enum',
@@ -2932,7 +2943,8 @@ class AdAccount(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.offlineconversiondataset import OfflineConversionDataSet
+        from facebook_business.adobjects.offlineconversiondataset import \
+            OfflineConversionDataSet
         param_types = {
         }
         enums = {
@@ -2963,7 +2975,8 @@ class AdAccount(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.businessownedobjectonbehalfofrequest import BusinessOwnedObjectOnBehalfOfRequest
+        from facebook_business.adobjects.businessownedobjectonbehalfofrequest import \
+            BusinessOwnedObjectOnBehalfOfRequest
         param_types = {
             'status': 'status_enum',
         }
@@ -3084,7 +3097,8 @@ class AdAccount(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.publisherblocklist import PublisherBlockList
+        from facebook_business.adobjects.publisherblocklist import \
+            PublisherBlockList
         param_types = {
         }
         enums = {
@@ -3115,7 +3129,8 @@ class AdAccount(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.publisherblocklist import PublisherBlockList
+        from facebook_business.adobjects.publisherblocklist import \
+            PublisherBlockList
         param_types = {
             'name': 'string',
         }
@@ -3147,7 +3162,8 @@ class AdAccount(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.adaccountreachestimate import AdAccountReachEstimate
+        from facebook_business.adobjects.adaccountreachestimate import \
+            AdAccountReachEstimate
         param_types = {
             'adgroup_ids': 'list<string>',
             'caller_id': 'string',
@@ -3185,7 +3201,8 @@ class AdAccount(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.reachfrequencyprediction import ReachFrequencyPrediction
+        from facebook_business.adobjects.reachfrequencyprediction import \
+            ReachFrequencyPrediction
         param_types = {
         }
         enums = {
@@ -3216,7 +3233,8 @@ class AdAccount(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.reachfrequencyprediction import ReachFrequencyPrediction
+        from facebook_business.adobjects.reachfrequencyprediction import \
+            ReachFrequencyPrediction
         param_types = {
             'action': 'action_enum',
             'ad_formats': 'list<map>',
@@ -3422,7 +3440,8 @@ class AdAccount(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.adaccountsubscribedapps import AdAccountSubscribedApps
+        from facebook_business.adobjects.adaccountsubscribedapps import \
+            AdAccountSubscribedApps
         param_types = {
         }
         enums = {
@@ -3453,7 +3472,8 @@ class AdAccount(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.adaccountsubscribedapps import AdAccountSubscribedApps
+        from facebook_business.adobjects.adaccountsubscribedapps import \
+            AdAccountSubscribedApps
         param_types = {
             'app_id': 'string',
         }
@@ -3485,7 +3505,8 @@ class AdAccount(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.adaccounttargetingunified import AdAccountTargetingUnified
+        from facebook_business.adobjects.adaccounttargetingunified import \
+            AdAccountTargetingUnified
         param_types = {
             'excluded_category': 'string',
             'include_nodes': 'bool',
@@ -3525,7 +3546,8 @@ class AdAccount(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.adaccounttargetingunified import AdAccountTargetingUnified
+        from facebook_business.adobjects.adaccounttargetingunified import \
+            AdAccountTargetingUnified
         param_types = {
             'allow_only_fat_head_interests': 'bool',
             'countries': 'list<string>',
@@ -3568,7 +3590,8 @@ class AdAccount(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.targetingsentenceline import TargetingSentenceLine
+        from facebook_business.adobjects.targetingsentenceline import \
+            TargetingSentenceLine
         param_types = {
             'discard_ages': 'bool',
             'discard_placements': 'bool',
@@ -3603,7 +3626,8 @@ class AdAccount(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.adaccounttargetingunified import AdAccountTargetingUnified
+        from facebook_business.adobjects.adaccounttargetingunified import \
+            AdAccountTargetingUnified
         param_types = {
             'countries': 'list<string>',
             'limit_type': 'limit_type_enum',
@@ -3648,7 +3672,8 @@ class AdAccount(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.adaccounttargetingunified import AdAccountTargetingUnified
+        from facebook_business.adobjects.adaccounttargetingunified import \
+            AdAccountTargetingUnified
         param_types = {
             'id_list': 'list<unsigned int>',
             'is_exclusion': 'bool',
@@ -3714,7 +3739,8 @@ class AdAccount(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.adaccounttrackingdata import AdAccountTrackingData
+        from facebook_business.adobjects.adaccounttrackingdata import \
+            AdAccountTrackingData
         param_types = {
         }
         enums = {

@@ -20,6 +20,7 @@
 
 from facebook_business.adobjects.adsinsights import AdsInsights
 
+
 class BusinessMixin:
 
     def get_insights(self, fields=None, params=None, is_async=False):

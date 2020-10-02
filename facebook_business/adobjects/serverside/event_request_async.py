@@ -19,18 +19,20 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.serverside.util import Util
+
 if not Util.async_requests_available():
     raise Exception('EventRequestAsync requires Python >= 3.5.3')
 
+import json
+import os
+import ssl
+
+import aiohttp
 from facebook_business.adobjects.serverside.event_request import EventRequest
 from facebook_business.adobjects.serverside.event_response import EventResponse
 from facebook_business.api import FacebookAdsApi
 from facebook_business.session import FacebookSession
 
-import aiohttp
-import json
-import os
-import ssl
 
 class EventRequestAsync(EventRequest):
     def __init__(
