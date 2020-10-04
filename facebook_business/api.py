@@ -32,11 +32,10 @@ from facebook_business.utils import urls
 
 from contextlib import contextmanager
 import copy
-from six.moves import http_client
+from six.moves import http_client, collections_abc
 import os
 import json
 import six
-import collections
 import re
 
 from facebook_business.adobjects.objectparser import ObjectParser
@@ -93,7 +92,7 @@ class FacebookResponse(object):
 
         json_body = self.json()
 
-        if isinstance(json_body, collections.Mapping) and 'error' in json_body:
+        if isinstance(json_body, collections_abc.Mapping) and 'error' in json_body:
             # Is a dictionary, has error in it
             return False
         elif bool(json_body):
@@ -884,7 +883,7 @@ def _top_level_param_json_encode(params):
 
     for param, value in params.items():
         if (
-            isinstance(value, (collections.Mapping, collections.Sequence, bool))
+            isinstance(value, (collections_abc.Mapping, collections_abc.Sequence, bool))
             and not isinstance(value, six.string_types)
         ):
             params[param] = json.dumps(
