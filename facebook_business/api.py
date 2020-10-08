@@ -36,8 +36,14 @@ from six.moves import http_client
 import os
 import json
 import six
-import collections
 import re
+
+try:
+  # Since python 3
+  from six.moves import collections_abc
+except ImportError:
+  # Won't work after python 3.8
+  import collections as collections_abc
 
 from facebook_business.adobjects.objectparser import ObjectParser
 from facebook_business.typechecker import TypeChecker
@@ -93,7 +99,7 @@ class FacebookResponse(object):
 
         json_body = self.json()
 
-        if isinstance(json_body, collections.Mapping) and 'error' in json_body:
+        if isinstance(json_body, collections_abc.Mapping) and 'error' in json_body:
             # Is a dictionary, has error in it
             return False
         elif bool(json_body):
@@ -884,7 +890,7 @@ def _top_level_param_json_encode(params):
 
     for param, value in params.items():
         if (
-            isinstance(value, (collections.Mapping, collections.Sequence, bool))
+            isinstance(value, (collections_abc.Mapping, collections_abc.Sequence, bool))
             and not isinstance(value, six.string_types)
         ):
             params[param] = json.dumps(
