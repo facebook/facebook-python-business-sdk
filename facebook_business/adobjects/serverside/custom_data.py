@@ -25,6 +25,7 @@ from facebook_business.adobjects.serverside.content import Content
 from facebook_business.adobjects.serverside.normalize import Normalize
 from facebook_business.adobjects.serverside.delivery_category import DeliveryCategory
 
+
 class CustomData(object):
     """
     CustomData includes additional business data about the event.
