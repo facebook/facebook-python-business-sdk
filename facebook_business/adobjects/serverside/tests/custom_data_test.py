@@ -24,7 +24,6 @@ from facebook_business.adobjects.serverside.content import Content
 from facebook_business.adobjects.serverside.custom_data import CustomData
 from facebook_business.adobjects.serverside.delivery_category import DeliveryCategory
 
-
 class CustomDataTest(TestCase):
     def test_normalize(self):
         content = Content(product_id='id0', quantity='quantity1', item_price=3.99)
@@ -92,3 +91,42 @@ class CustomDataTest(TestCase):
         custom_data = CustomData()
 
         self.assertEqual(custom_data.normalize(), {})
+
+class CustomDataFloatCastingTest(TestCase):
+    def test_safecasting_to_float_ok__100(self):
+        tested_value = 100  # Should be casted to expected 100.0
+        expected_value = 100.0 
+        tested_keys = ['value', 'predicted_ltv']
+
+        tested_kwargs = {}
+        for key in tested_keys:
+            tested_kwargs[key] = tested_value
+
+        custom_data = CustomData(**tested_kwargs)
+
+        # Verify just the tested keys
+        for key in tested_keys:
+            self.assertEqual(getattr(custom_data, key), expected_value)
+
+    def test_safecasting_to_float_ok__100_1(self):
+        tested_value = 100.1  # Should be casted to expected 100.0
+        expected_value = 100.1 
+        tested_keys = ['value', 'predicted_ltv']
+
+        tested_kwargs = {}
+        for key in tested_keys:
+            tested_kwargs[key] = tested_value
+
+        custom_data = CustomData(**tested_kwargs)
+
+        # Verify just the tested keys
+        for key in tested_keys:
+            self.assertEqual(getattr(custom_data, key), expected_value)
+
+    def test_safecasting_to_float__raises__value(self):
+        with self.assertRaises(TypeError):
+            CustomData(value="non-castable-value")
+
+    def test_safecasting_to_float__raises__predicted_ltv(self):
+        with self.assertRaises(TypeError):
+            CustomData(predicted_ltv="non-castable-value")

@@ -133,9 +133,31 @@ class CustomData(object):
         :param value: The value.
         :type: float
         """
-        if not isinstance(value, float):
+        casted_value = self.safecast_to_float(value)
+        if not isinstance(casted_value, float):
             raise TypeError('CustomData.value must be a float value')
-        self._value = value
+        self._value = casted_value
+
+    def safecast_to_float(self, value, value_description=None):
+        """Returns the float equivalent of a the passed value_description. If casting fails, returns None.
+        
+        Due to discrepancy between Javasctipt's JSON.stringify() in JS vs Pythonic json.dumps()
+        it is needed to perform casting some numbers (integer) back to float to match type requirements.
+
+        In JS:
+        JSON.parse(JSON.stringify({value: 100.0}))
+        > {value: 100}
+
+        In Python:
+        json.loads(json.dumps({"val": 100.0}))                                                                         
+        > {'val': 100.0}
+
+        :param value: The value that is castable to float.
+        """
+        try:
+            return float(value)
+        except ValueError:
+            None
 
     @property
     def currency(self):
@@ -326,9 +348,10 @@ class CustomData(object):
         :param predicted_ltv: The predicted_ltv.
         :type: float
         """
-        if not isinstance(predicted_ltv, float):
+        casted_predicted_ltv = self.safecast_to_float(predicted_ltv)
+        if not isinstance(casted_predicted_ltv, float):
             raise TypeError('CustomData.predicted_ltv must be a float value')
-        self._predicted_ltv = predicted_ltv
+        self._predicted_ltv = casted_predicted_ltv
 
     @property
     def num_items(self):
