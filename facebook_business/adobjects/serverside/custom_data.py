@@ -138,8 +138,8 @@ class CustomData(object):
             raise TypeError('CustomData.value must be a float value')
         self._value = casted_value
 
-    def safecast_to_float(self, value, value_description=None):
-        """Returns the float equivalent of a the passed value_description. If casting fails, returns None.
+    def safecast_to_float(self, value):
+        """Returns value casted to float, if casting fails, returns None.
         
         Due to discrepancy between Javasctipt's JSON.stringify() in JS vs Pythonic json.dumps()
         it is needed to perform casting some numbers (integer) back to float to match type requirements.
