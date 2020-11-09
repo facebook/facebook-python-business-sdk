@@ -47,6 +47,7 @@ class CommerceMerchantSettings(
         cta = 'cta'
         disable_checkout_urls = 'disable_checkout_urls'
         display_name = 'display_name'
+        external_merchant_id = 'external_merchant_id'
         facebook_channel = 'facebook_channel'
         has_discount_code = 'has_discount_code'
         id = 'id'
@@ -65,14 +66,6 @@ class CommerceMerchantSettings(
         terms_url_by_locale = 'terms_url_by_locale'
         whatsapp_channel = 'whatsapp_channel'
 
-    class Cta:
-        contact_merchant = 'CONTACT_MERCHANT'
-        offsite_link = 'OFFSITE_LINK'
-
-    class MerchantStatus:
-        enabled = 'ENABLED'
-        externally_disabled = 'EXTERNALLY_DISABLED'
-
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -90,137 +83,6 @@ class CommerceMerchantSettings(
             target_class=CommerceMerchantSettings,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'contact_email': 'string',
-            'cta': 'cta_enum',
-            'merchant_alert_email': 'string',
-            'merchant_status': 'merchant_status_enum',
-            'onsite_commerce_merchant': 'Object',
-            'terms': 'string',
-        }
-        enums = {
-            'cta_enum': CommerceMerchantSettings.Cta.__dict__.values(),
-            'merchant_status_enum': CommerceMerchantSettings.MerchantStatus.__dict__.values(),
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=CommerceMerchantSettings,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_facebook_channel(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'pages': 'list<string>',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/facebook_channel',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=CommerceMerchantSettings,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=CommerceMerchantSettings, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def delete_instagram_channel(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='DELETE',
-            endpoint='/instagram_channel',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_instagram_channel(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'instagram_business_accounts': 'list<string>',
-            'instagram_users': 'list<string>',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/instagram_channel',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=CommerceMerchantSettings,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=CommerceMerchantSettings, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -537,6 +399,7 @@ class CommerceMerchantSettings(
         'cta': 'string',
         'disable_checkout_urls': 'bool',
         'display_name': 'string',
+        'external_merchant_id': 'string',
         'facebook_channel': 'Object',
         'has_discount_code': 'bool',
         'id': 'string',
@@ -558,8 +421,6 @@ class CommerceMerchantSettings(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['Cta'] = CommerceMerchantSettings.Cta.__dict__.values()
-        field_enum_info['MerchantStatus'] = CommerceMerchantSettings.MerchantStatus.__dict__.values()
         return field_enum_info
 
 

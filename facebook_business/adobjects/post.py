@@ -131,6 +131,44 @@ class Post(
         hidden = 'hidden'
         normal = 'normal'
 
+    class CheckinEntryPoint:
+        branding_checkin = 'BRANDING_CHECKIN'
+        branding_other = 'BRANDING_OTHER'
+        branding_photo = 'BRANDING_PHOTO'
+        branding_status = 'BRANDING_STATUS'
+
+    class Formatting:
+        markdown = 'MARKDOWN'
+        plaintext = 'PLAINTEXT'
+
+    class PlaceAttachmentSetting:
+        value_1 = '1'
+        value_2 = '2'
+
+    class PostSurfacesBlacklist:
+        value_1 = '1'
+        value_2 = '2'
+        value_3 = '3'
+        value_4 = '4'
+        value_5 = '5'
+
+    class PostingToRedspace:
+        disabled = 'disabled'
+        enabled = 'enabled'
+
+    class TargetSurface:
+        story = 'STORY'
+        timeline = 'TIMELINE'
+
+    class UnpublishedContentType:
+        ads_post = 'ADS_POST'
+        draft = 'DRAFT'
+        inline_created = 'INLINE_CREATED'
+        published = 'PUBLISHED'
+        reviewable_branded_content = 'REVIEWABLE_BRANDED_CONTENT'
+        scheduled = 'SCHEDULED'
+        scheduled_recurring = 'SCHEDULED_RECURRING'
+
     def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -587,6 +625,7 @@ class Post(
                 'PLAY_GAME',
                 'PURCHASE_GIFT_CARDS',
                 'RECORD_NOW',
+                'REFER_FRIENDS',
                 'REQUEST_TIME',
                 'SAY_THANKS',
                 'SEE_MORE',
@@ -597,6 +636,8 @@ class Post(
                 'SIGN_UP',
                 'SOTTO_SUBSCRIBE',
                 'SUBSCRIBE',
+                'SWIPE_UP_PRODUCT',
+                'SWIPE_UP_SHOP',
                 'UPDATE_APP',
                 'USE_APP',
                 'USE_MOBILE_APP',
@@ -835,6 +876,13 @@ class Post(
         field_enum_info['BackdatedTimeGranularity'] = Post.BackdatedTimeGranularity.__dict__.values()
         field_enum_info['FeedStoryVisibility'] = Post.FeedStoryVisibility.__dict__.values()
         field_enum_info['TimelineVisibility'] = Post.TimelineVisibility.__dict__.values()
+        field_enum_info['CheckinEntryPoint'] = Post.CheckinEntryPoint.__dict__.values()
+        field_enum_info['Formatting'] = Post.Formatting.__dict__.values()
+        field_enum_info['PlaceAttachmentSetting'] = Post.PlaceAttachmentSetting.__dict__.values()
+        field_enum_info['PostSurfacesBlacklist'] = Post.PostSurfacesBlacklist.__dict__.values()
+        field_enum_info['PostingToRedspace'] = Post.PostingToRedspace.__dict__.values()
+        field_enum_info['TargetSurface'] = Post.TargetSurface.__dict__.values()
+        field_enum_info['UnpublishedContentType'] = Post.UnpublishedContentType.__dict__.values()
         return field_enum_info
 
 

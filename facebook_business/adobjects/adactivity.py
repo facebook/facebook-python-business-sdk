@@ -121,7 +121,6 @@ class AdActivity(
         update_campaign_budget = 'update_campaign_budget'
         update_campaign_budget_optimization_toggling_status = 'update_campaign_budget_optimization_toggling_status'
         update_campaign_delivery_type = 'update_campaign_delivery_type'
-        update_campaign_duration = 'update_campaign_duration'
         update_campaign_group_ad_scheduling = 'update_campaign_group_ad_scheduling'
         update_campaign_group_delivery_type = 'update_campaign_group_delivery_type'
         update_campaign_group_spend_cap = 'update_campaign_group_spend_cap'

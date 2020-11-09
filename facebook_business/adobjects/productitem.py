@@ -69,6 +69,7 @@ class ProductItem(
         id = 'id'
         image_cdn_urls = 'image_cdn_urls'
         image_url = 'image_url'
+        images = 'images'
         inventory = 'inventory'
         manufacturer_part_number = 'manufacturer_part_number'
         material = 'material'
@@ -602,6 +603,7 @@ class ProductItem(
         'id': 'string',
         'image_cdn_urls': 'map<string, string>',
         'image_url': 'string',
+        'images': 'list<string>',
         'inventory': 'int',
         'manufacturer_part_number': 'string',
         'material': 'string',

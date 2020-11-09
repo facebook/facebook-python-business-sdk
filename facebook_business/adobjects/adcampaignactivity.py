@@ -81,6 +81,8 @@ class AdCampaignActivity(
         optimization_goal_old = 'optimization_goal_old'
         pacing_type_new = 'pacing_type_new'
         pacing_type_old = 'pacing_type_old'
+        promoted_object_id_new = 'promoted_object_id_new'
+        promoted_object_id_old = 'promoted_object_id_old'
         run_status_new = 'run_status_new'
         run_status_old = 'run_status_old'
         schedule_new = 'schedule_new'
@@ -257,6 +259,8 @@ class AdCampaignActivity(
         'optimization_goal_old': 'OptimizationGoalOld',
         'pacing_type_new': 'int',
         'pacing_type_old': 'int',
+        'promoted_object_id_new': 'string',
+        'promoted_object_id_old': 'string',
         'run_status_new': 'string',
         'run_status_old': 'string',
         'schedule_new': 'list<Object>',

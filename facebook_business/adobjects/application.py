@@ -47,6 +47,7 @@ class Application(
         android_key_hash = 'android_key_hash'
         android_sdk_error_categories = 'android_sdk_error_categories'
         app_domains = 'app_domains'
+        app_events_config = 'app_events_config'
         app_events_feature_bitmask = 'app_events_feature_bitmask'
         app_events_session_timeout = 'app_events_session_timeout'
         app_install_tracked = 'app_install_tracked'
@@ -2181,6 +2182,7 @@ class Application(
         'android_key_hash': 'list<string>',
         'android_sdk_error_categories': 'list<Object>',
         'app_domains': 'list<string>',
+        'app_events_config': 'Object',
         'app_events_feature_bitmask': 'unsigned int',
         'app_events_session_timeout': 'unsigned int',
         'app_install_tracked': 'bool',

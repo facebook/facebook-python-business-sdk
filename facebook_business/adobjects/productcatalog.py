@@ -59,7 +59,6 @@ class ProductCatalog(
         catalog_segment_product_set_id = 'catalog_segment_product_set_id'
         destination_catalog_settings = 'destination_catalog_settings'
         flight_catalog_settings = 'flight_catalog_settings'
-        onsite_commerce_merchant = 'onsite_commerce_merchant'
         parent_catalog_id = 'parent_catalog_id'
 
     class Vertical:
@@ -71,6 +70,7 @@ class ProductCatalog(
         home_listings = 'home_listings'
         hotels = 'hotels'
         jobs = 'jobs'
+        local_delivery_shipping_profiles = 'local_delivery_shipping_profiles'
         local_service_businesses = 'local_service_businesses'
         offer_items = 'offer_items'
         offline_commerce = 'offline_commerce'
@@ -174,7 +174,9 @@ class ProductCatalog(
             'segment_use_cases_enum': [
                 'COLLAB_ADS',
                 'COLLAB_ADS_FOR_MARKETPLACE_PARTNER',
+                'COLLAB_ADS_SEGMENT_WITHOUT_SEGMENT_SYNCING',
                 'IG_SHOPPING',
+                'IG_SHOPPING_SUGGESTED_PRODUCTS',
                 'MARKETPLACE_SHOPS',
                 'TEST',
             ],
@@ -1080,37 +1082,6 @@ class ProductCatalog(
             self.assure_call()
             return request.execute()
 
-    def create_onsite_commerce_merchant(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'onsite_commerce_merchant': 'Object',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/onsite_commerce_merchant',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=ProductCatalog,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=ProductCatalog, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def get_pricing_variables_batch(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -1225,6 +1196,7 @@ class ProductCatalog(
             'feed_type': 'feed_type_enum',
             'file_name': 'string',
             'item_sub_type': 'item_sub_type_enum',
+            'migrated_from_feed_id': 'string',
             'name': 'string',
             'override_type': 'override_type_enum',
             'override_value': 'string',
@@ -1716,7 +1688,6 @@ class ProductCatalog(
         'catalog_segment_product_set_id': 'string',
         'destination_catalog_settings': 'map',
         'flight_catalog_settings': 'map',
-        'onsite_commerce_merchant': 'Object',
         'parent_catalog_id': 'string',
     }
     @classmethod

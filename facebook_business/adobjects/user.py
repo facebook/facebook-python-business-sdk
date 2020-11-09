@@ -72,6 +72,7 @@ class User(
         locale = 'locale'
         location = 'location'
         meeting_for = 'meeting_for'
+        messenger_join_notifications_enabled = 'messenger_join_notifications_enabled'
         middle_name = 'middle_name'
         name = 'name'
         name_format = 'name_format'
@@ -79,6 +80,7 @@ class User(
         political = 'political'
         profile_pic = 'profile_pic'
         public_key = 'public_key'
+        published_timeline = 'published_timeline'
         quotes = 'quotes'
         relationship_status = 'relationship_status'
         religion = 'religion'
@@ -91,6 +93,8 @@ class User(
         timezone = 'timezone'
         token_for_business = 'token_for_business'
         updated_time = 'updated_time'
+        user_storage_key = 'user_storage_key'
+        username = 'username'
         verified = 'verified'
         video_upload_limits = 'video_upload_limits'
         website = 'website'
@@ -945,10 +949,48 @@ class User(
             self.assure_call()
             return request.execute()
 
+    def get_feed(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.post import Post
+        param_types = {
+            'include_hidden': 'bool',
+            'q': 'string',
+            'show_expired': 'bool',
+            'since': 'datetime',
+            'until': 'datetime',
+            'with': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/feed',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Post,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Post, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def create_feed(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.post import Post
         param_types = {
             'actions': 'Object',
             'adaptive_type': 'string',
@@ -1064,52 +1106,14 @@ class User(
             'width': 'unsigned int',
         }
         enums = {
-            'backdated_time_granularity_enum': [
-                'day',
-                'hour',
-                'min',
-                'month',
-                'none',
-                'year',
-            ],
-            'checkin_entry_point_enum': [
-                'BRANDING_CHECKIN',
-                'BRANDING_OTHER',
-                'BRANDING_PHOTO',
-                'BRANDING_STATUS',
-            ],
-            'formatting_enum': [
-                'MARKDOWN',
-                'PLAINTEXT',
-            ],
-            'place_attachment_setting_enum': [
-                '1',
-                '2',
-            ],
-            'post_surfaces_blacklist_enum': [
-                '1',
-                '2',
-                '3',
-                '4',
-                '5',
-            ],
-            'posting_to_redspace_enum': [
-                'disabled',
-                'enabled',
-            ],
-            'target_surface_enum': [
-                'STORY',
-                'TIMELINE',
-            ],
-            'unpublished_content_type_enum': [
-                'ADS_POST',
-                'DRAFT',
-                'INLINE_CREATED',
-                'PUBLISHED',
-                'REVIEWABLE_BRANDED_CONTENT',
-                'SCHEDULED',
-                'SCHEDULED_RECURRING',
-            ],
+            'backdated_time_granularity_enum': Post.BackdatedTimeGranularity.__dict__.values(),
+            'checkin_entry_point_enum': Post.CheckinEntryPoint.__dict__.values(),
+            'formatting_enum': Post.Formatting.__dict__.values(),
+            'place_attachment_setting_enum': Post.PlaceAttachmentSetting.__dict__.values(),
+            'post_surfaces_blacklist_enum': Post.PostSurfacesBlacklist.__dict__.values(),
+            'posting_to_redspace_enum': Post.PostingToRedspace.__dict__.values(),
+            'target_surface_enum': Post.TargetSurface.__dict__.values(),
+            'unpublished_content_type_enum': Post.UnpublishedContentType.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -1117,9 +1121,9 @@ class User(
             endpoint='/feed',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=Post,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=Post, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2220,6 +2224,7 @@ class User(
         'locale': 'string',
         'location': 'Page',
         'meeting_for': 'list<string>',
+        'messenger_join_notifications_enabled': 'bool',
         'middle_name': 'string',
         'name': 'string',
         'name_format': 'string',
@@ -2227,6 +2232,7 @@ class User(
         'political': 'string',
         'profile_pic': 'string',
         'public_key': 'string',
+        'published_timeline': 'bool',
         'quotes': 'string',
         'relationship_status': 'string',
         'religion': 'string',
@@ -2239,6 +2245,8 @@ class User(
         'timezone': 'float',
         'token_for_business': 'string',
         'updated_time': 'datetime',
+        'user_storage_key': 'string',
+        'username': 'string',
         'verified': 'bool',
         'video_upload_limits': 'VideoUploadLimits',
         'website': 'string',

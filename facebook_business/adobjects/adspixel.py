@@ -66,6 +66,7 @@ class AdsPixel(
         ct = 'ct'
         db = 'db'
         em = 'em'
+        external_id = 'external_id'
         fn = 'fn'
         ge = 'ge'
         ln = 'ln'
