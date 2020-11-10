@@ -21,6 +21,7 @@
 import pprint
 import six
 
+from facebook_business.adobjects.serverside.delivery_category import DeliveryCategory
 
 class Content(object):
     """
@@ -34,6 +35,7 @@ class Content(object):
         'description': 'str',
         'brand': 'str',
         'category': 'str',
+        'delivery_category': 'str',
     }
 
     def __init__(
@@ -45,8 +47,9 @@ class Content(object):
         description=None,
         brand=None,
         category=None,
+        delivery_category=None,
     ):
-        # type: (str, int, float, str, str, str, str) -> None
+        # type: (str, int, float, str, str, str, str, str) -> None
 
         self._product_id = None
         self._quantity = None
@@ -55,6 +58,7 @@ class Content(object):
         self._description = None
         self._brand = None
         self._category = None
+        self._delivery_category = None
         if product_id is not None:
             self.product_id = product_id
         if quantity is not None:
@@ -69,6 +73,8 @@ class Content(object):
             self.brand = brand
         if category is not None:
             self.category = category
+        if delivery_category is not None:
+            self.delivery_category = delivery_category
 
     @property
     def product_id(self):
@@ -175,6 +181,29 @@ class Content(object):
         """
         self._category = category
 
+    @property
+    def delivery_category(self):
+        """Gets the Type of Delivery Category.
+
+        :return: The Delivery Category type.
+        :rtype: DeliveryCategory
+        """
+        return self._delivery_category
+
+    @delivery_category.setter
+    def delivery_category(self, delivery_category):
+        """Sets the Type of Delivery Category.
+
+        Use with Purchase events.
+
+        :param delivery_category: The Delivery Category type.
+        :type: DeliveryCategory
+        """
+        if not isinstance(delivery_category, DeliveryCategory):
+            raise TypeError('delivery_category must be of type DeliveryCategory. Passed invalid category: ' + delivery_category)
+
+        self._delivery_category = delivery_category
+
     def normalize(self):
         normalized_payload = {
             'id': self.product_id,
@@ -185,6 +214,10 @@ class Content(object):
             'brand': self.brand,
             'category': self.category,
         }
+
+        if self.delivery_category is not None:
+            normalized_payload['delivery_category'] = self.delivery_category.value
+
         normalized_payload = {k: v for k, v in normalized_payload.items() if v is not None}
         return normalized_payload
 
