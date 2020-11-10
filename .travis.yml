@@ -30,6 +30,7 @@ deploy:
   skip_existing: true
   on:
     # tags: true
+    branches: develop
     repo: facebook/facebook-python-business-sdk
     python: 3.7
     env: TOX_ENV=py37
