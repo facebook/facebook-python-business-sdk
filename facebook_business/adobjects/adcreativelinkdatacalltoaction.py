@@ -92,6 +92,7 @@ class AdCreativeLinkDataCallToAction(
         shop_now = 'SHOP_NOW'
         sign_up = 'SIGN_UP'
         sotto_subscribe = 'SOTTO_SUBSCRIBE'
+        start_order = 'START_ORDER'
         subscribe = 'SUBSCRIBE'
         swipe_up_product = 'SWIPE_UP_PRODUCT'
         swipe_up_shop = 'SWIPE_UP_SHOP'

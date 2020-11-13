@@ -48,7 +48,6 @@ class ExtendedCredit(
         id = 'id'
         is_access_revoked = 'is_access_revoked'
         is_automated_experience = 'is_automated_experience'
-        last_payment_time = 'last_payment_time'
         legal_entity_name = 'legal_entity_name'
         liable_biz_name = 'liable_biz_name'
         max_balance = 'max_balance'
@@ -264,7 +263,6 @@ class ExtendedCredit(
         'id': 'string',
         'is_access_revoked': 'bool',
         'is_automated_experience': 'bool',
-        'last_payment_time': 'datetime',
         'legal_entity_name': 'string',
         'liable_biz_name': 'string',
         'max_balance': 'CurrencyAmount',

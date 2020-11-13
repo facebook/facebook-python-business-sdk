@@ -535,6 +535,7 @@ class AdAccount(
             'image_url': 'string',
             'instagram_actor_id': 'string',
             'instagram_permalink_url': 'string',
+            'instagram_user_id': 'string',
             'instant_checkout_setting': 'instant_checkout_setting_enum',
             'interactive_components_spec': 'map',
             'is_dco_internal': 'bool',
@@ -552,6 +553,7 @@ class AdAccount(
             'portrait_customizations': 'map',
             'product_set_id': 'string',
             'recommender_settings': 'map',
+            'source_instagram_media_id': 'string',
             'template_url': 'string',
             'template_url_spec': 'Object',
             'thumbnail_url': 'string',
@@ -1507,6 +1509,7 @@ class AdAccount(
             'sales_promo_id': 'unsigned int',
             'slideshow_spec': 'map',
             'source': 'file',
+            'source_instagram_media_id': 'string',
             'spherical': 'bool',
             'start_offset': 'unsigned int',
             'swap_mode': 'swap_mode_enum',
@@ -2134,6 +2137,7 @@ class AdAccount(
             'objective': 'objective_enum',
             'pacing_type': 'list<string>',
             'promoted_object': 'Object',
+            'smart_promotion_type': 'smart_promotion_type_enum',
             'source_campaign_id': 'string',
             'special_ad_categories': 'list<special_ad_categories_enum>',
             'special_ad_category_country': 'list<special_ad_category_country_enum>',
@@ -2146,6 +2150,7 @@ class AdAccount(
             'bid_strategy_enum': Campaign.BidStrategy.__dict__.values(),
             'execution_options_enum': Campaign.ExecutionOptions.__dict__.values(),
             'objective_enum': Campaign.Objective.__dict__.values(),
+            'smart_promotion_type_enum': Campaign.SmartPromotionType.__dict__.values(),
             'special_ad_categories_enum': Campaign.SpecialAdCategories.__dict__.values(),
             'special_ad_category_country_enum': Campaign.SpecialAdCategoryCountry.__dict__.values(),
             'status_enum': Campaign.Status.__dict__.values(),
@@ -2193,6 +2198,37 @@ class AdAccount(
             target_class=Campaign,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=Campaign, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_connected_instagram_accounts(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.iguser import IGUser
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/connected_instagram_accounts',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=IGUser,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=IGUser, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

@@ -95,6 +95,8 @@ class AdCampaignActivity(
         stop_time_old = 'stop_time_old'
         targeting_expansion_new = 'targeting_expansion_new'
         targeting_expansion_old = 'targeting_expansion_old'
+        targeting_new = 'targeting_new'
+        targeting_old = 'targeting_old'
         updated_time_new = 'updated_time_new'
         updated_time_old = 'updated_time_old'
 
@@ -273,6 +275,8 @@ class AdCampaignActivity(
         'stop_time_old': 'datetime',
         'targeting_expansion_new': 'Object',
         'targeting_expansion_old': 'Object',
+        'targeting_new': 'Object',
+        'targeting_old': 'Object',
         'updated_time_new': 'datetime',
         'updated_time_old': 'datetime',
     }

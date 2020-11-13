@@ -97,6 +97,7 @@ class ProductItem(
         url = 'url'
         visibility = 'visibility'
         additional_image_files = 'additional_image_files'
+        additional_uploaded_image_ids = 'additional_uploaded_image_ids'
         android_app_name = 'android_app_name'
         android_class = 'android_class'
         android_package = 'android_package'
@@ -452,6 +453,7 @@ class ProductItem(
         param_types = {
             'additional_image_files': 'list<file>',
             'additional_image_urls': 'list<string>',
+            'additional_uploaded_image_ids': 'list<string>',
             'additional_variant_attributes': 'map',
             'android_app_name': 'string',
             'android_class': 'string',
@@ -631,6 +633,7 @@ class ProductItem(
         'url': 'string',
         'visibility': 'Visibility',
         'additional_image_files': 'list<file>',
+        'additional_uploaded_image_ids': 'list<string>',
         'android_app_name': 'string',
         'android_class': 'string',
         'android_package': 'string',

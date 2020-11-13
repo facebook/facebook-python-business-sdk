@@ -83,6 +83,7 @@ class Campaign(
         adbatch = 'adbatch'
         execution_options = 'execution_options'
         iterative_split_test_configs = 'iterative_split_test_configs'
+        smart_promotion_type = 'smart_promotion_type'
         upstream_events = 'upstream_events'
 
     class BidStrategy:
@@ -146,12 +147,17 @@ class Campaign(
         local_awareness = 'LOCAL_AWARENESS'
         messages = 'MESSAGES'
         offer_claims = 'OFFER_CLAIMS'
+        outcome_leads = 'OUTCOME_LEADS'
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
         product_catalog_sales = 'PRODUCT_CATALOG_SALES'
         reach = 'REACH'
         store_visits = 'STORE_VISITS'
         video_views = 'VIDEO_VIEWS'
+
+    class SmartPromotionType:
+        guided_creation = 'GUIDED_CREATION'
+        smart_app_promotion = 'SMART_APP_PROMOTION'
 
     class SpecialAdCategories:
         credit = 'CREDIT'
@@ -542,6 +548,7 @@ class Campaign(
             'objective': 'objective_enum',
             'pacing_type': 'list<string>',
             'promoted_object': 'Object',
+            'smart_promotion_type': 'smart_promotion_type_enum',
             'special_ad_categories': 'list<special_ad_categories_enum>',
             'special_ad_category': 'special_ad_category_enum',
             'special_ad_category_country': 'list<special_ad_category_country_enum>',
@@ -553,6 +560,7 @@ class Campaign(
             'bid_strategy_enum': Campaign.BidStrategy.__dict__.values(),
             'execution_options_enum': Campaign.ExecutionOptions.__dict__.values(),
             'objective_enum': Campaign.Objective.__dict__.values(),
+            'smart_promotion_type_enum': Campaign.SmartPromotionType.__dict__.values(),
             'special_ad_categories_enum': Campaign.SpecialAdCategories.__dict__.values(),
             'special_ad_category_enum': Campaign.SpecialAdCategory.__dict__.values(),
             'special_ad_category_country_enum': Campaign.SpecialAdCategoryCountry.__dict__.values(),
@@ -1024,6 +1032,7 @@ class Campaign(
         'adbatch': 'list<Object>',
         'execution_options': 'list<ExecutionOptions>',
         'iterative_split_test_configs': 'list<Object>',
+        'smart_promotion_type': 'SmartPromotionType',
         'upstream_events': 'map',
     }
     @classmethod
@@ -1036,6 +1045,7 @@ class Campaign(
         field_enum_info['DatePreset'] = Campaign.DatePreset.__dict__.values()
         field_enum_info['ExecutionOptions'] = Campaign.ExecutionOptions.__dict__.values()
         field_enum_info['Objective'] = Campaign.Objective.__dict__.values()
+        field_enum_info['SmartPromotionType'] = Campaign.SmartPromotionType.__dict__.values()
         field_enum_info['SpecialAdCategories'] = Campaign.SpecialAdCategories.__dict__.values()
         field_enum_info['SpecialAdCategoryCountry'] = Campaign.SpecialAdCategoryCountry.__dict__.values()
         field_enum_info['Operator'] = Campaign.Operator.__dict__.values()

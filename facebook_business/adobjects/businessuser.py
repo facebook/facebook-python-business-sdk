@@ -72,16 +72,6 @@ class BusinessUser(
         partner_center_marketing = 'PARTNER_CENTER_MARKETING'
         partner_center_operations = 'PARTNER_CENTER_OPERATIONS'
 
-    # @deprecated get_endpoint function is deprecated
-    @classmethod
-    def get_endpoint(cls):
-        return 'business_users'
-
-    # @deprecated api_create is being deprecated
-    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.adobjects.business import Business
-        return Business(api=self._api, fbid=parent_id).create_business_user(fields, params, batch, success, failure, pending)
-
     def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):

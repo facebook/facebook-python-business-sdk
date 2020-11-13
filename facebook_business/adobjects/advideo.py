@@ -133,6 +133,7 @@ class AdVideo(
         replace_video_id = 'replace_video_id'
         sales_promo_id = 'sales_promo_id'
         slideshow_spec = 'slideshow_spec'
+        source_instagram_media_id = 'source_instagram_media_id'
         start_offset = 'start_offset'
         swap_mode = 'swap_mode'
         text_format_metadata = 'text_format_metadata'
@@ -1148,6 +1149,7 @@ class AdVideo(
         'replace_video_id': 'string',
         'sales_promo_id': 'unsigned int',
         'slideshow_spec': 'map',
+        'source_instagram_media_id': 'string',
         'start_offset': 'unsigned int',
         'swap_mode': 'SwapMode',
         'text_format_metadata': 'string',
