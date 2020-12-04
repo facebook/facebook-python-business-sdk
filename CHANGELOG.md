@@ -4,9 +4,6 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-### Added
-- `action_source` field to EventRequest for Conversions API.
-
 ## v8.0.5
 
 ### Added

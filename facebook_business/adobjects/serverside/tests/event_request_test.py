@@ -24,7 +24,6 @@ from unittest import TestCase
 from unittest.mock import patch, Mock
 
 from facebook_business import FacebookAdsApi
-from facebook_business.adobjects.serverside.action_source import ActionSource
 from facebook_business.adobjects.serverside.event import Event
 from facebook_business.adobjects.serverside.event_request import EventRequest
 from facebook_business.adobjects.serverside.event_response import EventResponse
@@ -43,7 +42,6 @@ class EventRequestTest(TestCase):
             {'event_name': event.event_name, 'event_time': event.event_time}
         )
         pixel_id = 'pixel123'
-        action_source = ActionSource.SYSTEM_GENERATED
         expected_data = {
             'data': [expected_event],
             'test_event_code': 'test-code-1',
@@ -52,7 +50,6 @@ class EventRequestTest(TestCase):
             'upload_tag': 'upload-tag4',
             'upload_source': 'upload-source5',
             'partner_agent': 'partner-agent-6',
-            'action_source': action_source.value,
         }
         event_request = EventRequest(
             pixel_id=pixel_id,
@@ -63,7 +60,6 @@ class EventRequestTest(TestCase):
             upload_tag=expected_data['upload_tag'],
             upload_source=expected_data['upload_source'],
             partner_agent=expected_data['partner_agent'],
-            action_source=action_source,
         )
         ads_pixel = {
             'events_received': 2,
@@ -83,19 +79,6 @@ class EventRequestTest(TestCase):
         )
         self.assertEqual(actual_event_response, expected_event_response)
 
-    def test_action_source_validation(self):
-        action_source = 'wrong type'
-        expected_exception_message = 'action_source must be an ActionSource. TypeError on value: ' + action_source
-
-        with self.assertRaises(TypeError) as context:
-            EventRequest(
-                'pixel-id',
-                events=[],
-                action_source=action_source,
-            ).get_params()
-
-        self.assertTrue(expected_exception_message in str(context.exception))
-
     def test_http_client(self):
         mock_http_client = Mock(HttpServiceInterface)
         event = Event(event_name='Purchase', event_time=int(time.time()))
@@ -106,7 +89,6 @@ class EventRequestTest(TestCase):
         pixel_id = 'pixel123'
         appsecret = 'app-secret-234'
         appsecret_proof = Util.appsecret_proof(appsecret, access_token)
-        action_source = ActionSource.SYSTEM_GENERATED
         expected_params = {
             'data': [expected_event],
             'test_event_code': 'test-code-1',
@@ -116,7 +98,6 @@ class EventRequestTest(TestCase):
             'upload_source': 'upload-source5',
             'access_token': access_token,
             'appsecret_proof': appsecret_proof,
-            'action_source': action_source.value,
         }
         event_request = EventRequest(
             pixel_id=pixel_id,
@@ -128,8 +109,7 @@ class EventRequestTest(TestCase):
             upload_source=expected_params['upload_source'],
             http_client=mock_http_client,
             access_token=access_token,
-            appsecret=appsecret,
-            action_source=action_source
+            appsecret=appsecret
         )
         expected_event_response = EventResponse(
             events_received=2, fbtrace_id='traceid1', messages=['1', '2']
