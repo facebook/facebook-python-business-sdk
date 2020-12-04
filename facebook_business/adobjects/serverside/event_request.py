@@ -24,6 +24,7 @@ import six
 
 from facebook_business import FacebookAdsApi
 from facebook_business.adobjects.adspixel import AdsPixel
+from facebook_business.adobjects.serverside.action_source import ActionSource
 from facebook_business.adobjects.serverside.event import Event
 from facebook_business.adobjects.serverside.event_response import EventResponse
 from facebook_business.adobjects.serverside.http_method import HttpMethod
@@ -45,6 +46,7 @@ class EventRequest(object):
         'upload_tag': 'str',
         'upload_source': 'str',
         'partner_agent': 'str',
+        'action_source': 'ActionSource',
     }
 
     def __init__(
@@ -60,6 +62,7 @@ class EventRequest(object):
         http_client=None,
         access_token=None,
         appsecret=None,
+        action_source=None,
     ):
         # type: (str, List[Event], str) -> None
 
@@ -74,6 +77,7 @@ class EventRequest(object):
         self.__http_client = None
         self.__access_token = None
         self.__appsecret = None
+        self._action_source = None
         if pixel_id is None:
             raise ValueError("Invalid value for `pixel_id`, must not be `None`")
         self.__pixel_id = pixel_id
@@ -98,6 +102,8 @@ class EventRequest(object):
             self.upload_source = upload_source
         if partner_agent is not None:
             self.partner_agent = partner_agent
+        if action_source is not None:
+            self.action_source = action_source
 
     @property
     def events(self):
@@ -250,6 +256,29 @@ class EventRequest(object):
 
         self._partner_agent = partner_agent
 
+    @property
+    def action_source(self):
+        """Gets the action_source.
+
+        Allows you to specify where the conversion occurred.
+
+        :return: The action_source.
+        :rtype: ActionSource
+        """
+        return self._action_source
+
+    @action_source.setter
+    def action_source(self, action_source):
+        """Sets the action_source.
+
+        Allows you to specify where the conversion occurred.
+
+        :param action_source: The action_source.
+        :type: ActionSource
+        """
+
+        self._action_source = action_source
+
     def get_request_params(self):
         params = {}
         if self.test_event_code is not None:
@@ -264,6 +293,9 @@ class EventRequest(object):
             params['upload_source'] = self.upload_source
         if self.partner_agent is not None:
             params['partner_agent'] = self.partner_agent
+        if self.action_source is not None:
+            self.validate_action_source(self.action_source)
+            params['action_source'] = self.action_source.value
 
         return params
 
@@ -343,6 +375,12 @@ class EventRequest(object):
                 result[key] = value
 
         return result
+
+    def validate_action_source(self, action_source):
+        if not type(action_source) == ActionSource:
+            raise TypeError(
+                'action_source must be an ActionSource. TypeError on value: %s' % action_source
+            )
 
     def to_str(self):
         """Returns the string representation of the model"""
