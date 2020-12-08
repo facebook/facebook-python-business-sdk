@@ -1,6 +1,9 @@
 name: Publish
 
-on: [push, pull_request]
+on:
+  release:
+    tags:
+    - 'v*'
 
 jobs:
   deploy:
