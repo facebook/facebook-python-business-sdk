@@ -7,12 +7,19 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        # python-version: [2.7, 3.5, 3.6, 3.7, 3.8, 3.9, pypy2, pypy3]
         include:
           - python-version: 2.7
             tox-env: py27
           - python-version: 3.4
             tox-env: py34
+          - python-version: 3.5
+            tox-env: py35
+          - python-version: 3.6
+            tox-env: py36
+          - python-version: 3.7
+            tox-env: py37
+          - python-version: 3.8
+            tox-env: py38
 
     steps:
     - uses: actions/checkout@v1
@@ -20,9 +27,7 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Install dependencies
-      run: pip install tox
-        #python -m pip install --upgrade setuptools pip wheel
-        #python -m pip install tox-gh-actions
     - name: Test with tox
-      run: tox -e ${{ matrix.tox-env }}
+      run: |
+        pip install tox
+        tox -e ${{ matrix.tox-env }}
