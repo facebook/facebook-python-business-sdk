@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+### Added
+- `action_source` field to Event for Conversions API.
+
+### Fixed
+- Enum compatibility for Python 2.7
+
 ## v8.0.5
 
 ### Added
