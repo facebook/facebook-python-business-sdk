@@ -1,9 +1,9 @@
 name: Publish
 
 on:
-  release:
+  push:
     tags:
-    - 'v*'
+      - *
 
 jobs:
   deploy:
