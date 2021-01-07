@@ -59,10 +59,10 @@ class FacebookSession(object):
         self.timeout = timeout
         self.debug = debug
         self.requests = requests.Session()
-        self.requests.verify = os.path.join(
-            os.path.dirname(__file__),
-            'fb_ca_chain_bundle.crt',
-        )
+        # self.requests.verify = os.path.join(
+        #     os.path.dirname(__file__),
+        #     'fb_ca_chain_bundle.crt',
+        # )
         params = {
             'access_token': self.access_token
         }
