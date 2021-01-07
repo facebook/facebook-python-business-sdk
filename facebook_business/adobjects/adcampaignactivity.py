@@ -57,8 +57,6 @@ class AdCampaignActivity(
         bid_type_old = 'bid_type_old'
         billing_event_new = 'billing_event_new'
         billing_event_old = 'billing_event_old'
-        brande_audience_id_new = 'brande_audience_id_new'
-        brande_audience_id_old = 'brande_audience_id_old'
         budget_limit_new = 'budget_limit_new'
         budget_limit_old = 'budget_limit_old'
         created_time = 'created_time'
@@ -83,6 +81,8 @@ class AdCampaignActivity(
         optimization_goal_old = 'optimization_goal_old'
         pacing_type_new = 'pacing_type_new'
         pacing_type_old = 'pacing_type_old'
+        promoted_object_id_new = 'promoted_object_id_new'
+        promoted_object_id_old = 'promoted_object_id_old'
         run_status_new = 'run_status_new'
         run_status_old = 'run_status_old'
         schedule_new = 'schedule_new'
@@ -95,6 +95,8 @@ class AdCampaignActivity(
         stop_time_old = 'stop_time_old'
         targeting_expansion_new = 'targeting_expansion_new'
         targeting_expansion_old = 'targeting_expansion_old'
+        targeting_new = 'targeting_new'
+        targeting_old = 'targeting_old'
         updated_time_new = 'updated_time_new'
         updated_time_old = 'updated_time_old'
 
@@ -151,6 +153,7 @@ class AdCampaignActivity(
         page_engagement = 'PAGE_ENGAGEMENT'
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
+        quality_lead = 'QUALITY_LEAD'
         reach = 'REACH'
         replies = 'REPLIES'
         social_impressions = 'SOCIAL_IMPRESSIONS'
@@ -178,6 +181,7 @@ class AdCampaignActivity(
         page_engagement = 'PAGE_ENGAGEMENT'
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
+        quality_lead = 'QUALITY_LEAD'
         reach = 'REACH'
         replies = 'REPLIES'
         social_impressions = 'SOCIAL_IMPRESSIONS'
@@ -233,8 +237,6 @@ class AdCampaignActivity(
         'bid_type_old': 'string',
         'billing_event_new': 'BillingEventNew',
         'billing_event_old': 'BillingEventOld',
-        'brande_audience_id_new': 'string',
-        'brande_audience_id_old': 'string',
         'budget_limit_new': 'Object',
         'budget_limit_old': 'Object',
         'created_time': 'datetime',
@@ -259,6 +261,8 @@ class AdCampaignActivity(
         'optimization_goal_old': 'OptimizationGoalOld',
         'pacing_type_new': 'int',
         'pacing_type_old': 'int',
+        'promoted_object_id_new': 'string',
+        'promoted_object_id_old': 'string',
         'run_status_new': 'string',
         'run_status_old': 'string',
         'schedule_new': 'list<Object>',
@@ -271,6 +275,8 @@ class AdCampaignActivity(
         'stop_time_old': 'datetime',
         'targeting_expansion_new': 'Object',
         'targeting_expansion_old': 'Object',
+        'targeting_new': 'Object',
+        'targeting_old': 'Object',
         'updated_time_new': 'datetime',
         'updated_time_old': 'datetime',
     }

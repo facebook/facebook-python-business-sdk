@@ -47,7 +47,7 @@ class CatalogItemAppealStatus(
         'handle': 'string',
         'item_id': 'int',
         'status': 'string',
-        'use_cases': 'map<Object, Object>',
+        'use_cases': 'list<Object>',
     }
     @classmethod
     def _get_field_enum_info(cls):

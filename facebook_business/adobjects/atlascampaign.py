@@ -243,10 +243,13 @@ class AtlasCampaign(
             'dimensions': 'list<dimensions_enum>',
             'granularity': 'granularity_enum',
             'metric_scope': 'map',
-            'order_by': 'list',
+            'order_by': 'list<map>',
         }
         enums = {
             'dimensions_enum': [
+                'AD_ID',
+                'AD_SET_ID',
+                'CAMPAIGN_ID',
                 'DEVICE_TYPE',
                 'SOURCE_CHANNEL',
             ],
@@ -254,7 +257,7 @@ class AtlasCampaign(
                 'DAY',
                 'HOUR',
                 'MONTH',
-                'WEEK',
+                'WEEK_SUNDAY',
                 'YEAR',
             ],
         }

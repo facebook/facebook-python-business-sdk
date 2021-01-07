@@ -44,9 +44,13 @@ class ProductSet(
         auto_creation_url = 'auto_creation_url'
         filter = 'filter'
         id = 'id'
+        latest_metadata = 'latest_metadata'
+        live_metadata = 'live_metadata'
         name = 'name'
         product_catalog = 'product_catalog'
         product_count = 'product_count'
+        retailer_id = 'retailer_id'
+        metadata = 'metadata'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
@@ -63,6 +67,7 @@ class ProductSet(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'allow_live_product_set_deletion': 'bool',
         }
         enums = {
         }
@@ -124,7 +129,9 @@ class ProductSet(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'filter': 'Object',
+            'metadata': 'map',
             'name': 'string',
+            'retailer_id': 'string',
         }
         enums = {
         }
@@ -418,9 +425,13 @@ class ProductSet(
         'auto_creation_url': 'string',
         'filter': 'string',
         'id': 'string',
+        'latest_metadata': 'ProductSetMetadata',
+        'live_metadata': 'ProductSetMetadata',
         'name': 'string',
         'product_catalog': 'ProductCatalog',
         'product_count': 'unsigned int',
+        'retailer_id': 'string',
+        'metadata': 'map',
     }
     @classmethod
     def _get_field_enum_info(cls):

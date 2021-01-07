@@ -52,24 +52,31 @@ class PagePost(
         comments_mirroring_domain = 'comments_mirroring_domain'
         coordinates = 'coordinates'
         created_time = 'created_time'
+        delivery_growth_optimizations = 'delivery_growth_optimizations'
+        entities = 'entities'
         event = 'event'
         expanded_height = 'expanded_height'
         expanded_width = 'expanded_width'
         feed_targeting = 'feed_targeting'
+        formatting = 'formatting'
         field_from = 'from'
         full_picture = 'full_picture'
         height = 'height'
         icon = 'icon'
         id = 'id'
+        implicit_place = 'implicit_place'
         instagram_eligibility = 'instagram_eligibility'
+        instream_eligibility = 'instream_eligibility'
         is_app_share = 'is_app_share'
         is_eligible_for_promotion = 'is_eligible_for_promotion'
         is_expired = 'is_expired'
         is_hidden = 'is_hidden'
+        is_inline_created = 'is_inline_created'
         is_instagram_eligible = 'is_instagram_eligible'
         is_popular = 'is_popular'
         is_published = 'is_published'
         is_spherical = 'is_spherical'
+        live_video_eligibility = 'live_video_eligibility'
         message = 'message'
         message_tags = 'message_tags'
         multi_share_end_card = 'multi_share_end_card'
@@ -78,10 +85,12 @@ class PagePost(
         permalink_url = 'permalink_url'
         picture = 'picture'
         place = 'place'
+        poll = 'poll'
         privacy = 'privacy'
         promotable_id = 'promotable_id'
         promotion_status = 'promotion_status'
         properties = 'properties'
+        publishing_stats = 'publishing_stats'
         scheduled_publish_time = 'scheduled_publish_time'
         shares = 'shares'
         status_type = 'status_type'
@@ -91,10 +100,12 @@ class PagePost(
         target = 'target'
         targeting = 'targeting'
         timeline_visibility = 'timeline_visibility'
+        translations = 'translations'
         updated_time = 'updated_time'
         via = 'via'
         video_buying_eligibility = 'video_buying_eligibility'
         width = 'width'
+        will_be_autocropped_when_deliver_to_instagram = 'will_be_autocropped_when_deliver_to_instagram'
 
     class With:
         location = 'LOCATION'
@@ -656,24 +667,31 @@ class PagePost(
         'comments_mirroring_domain': 'string',
         'coordinates': 'Object',
         'created_time': 'datetime',
+        'delivery_growth_optimizations': 'list<string>',
+        'entities': 'Object',
         'event': 'Event',
         'expanded_height': 'unsigned int',
         'expanded_width': 'unsigned int',
         'feed_targeting': 'Object',
+        'formatting': 'string',
         'from': 'Object',
         'full_picture': 'string',
         'height': 'unsigned int',
         'icon': 'string',
         'id': 'string',
+        'implicit_place': 'Place',
         'instagram_eligibility': 'string',
+        'instream_eligibility': 'string',
         'is_app_share': 'bool',
         'is_eligible_for_promotion': 'bool',
         'is_expired': 'bool',
         'is_hidden': 'bool',
+        'is_inline_created': 'bool',
         'is_instagram_eligible': 'bool',
         'is_popular': 'bool',
         'is_published': 'bool',
         'is_spherical': 'bool',
+        'live_video_eligibility': 'list<string>',
         'message': 'string',
         'message_tags': 'list',
         'multi_share_end_card': 'bool',
@@ -682,10 +700,12 @@ class PagePost(
         'permalink_url': 'Object',
         'picture': 'string',
         'place': 'Place',
+        'poll': 'Object',
         'privacy': 'Privacy',
         'promotable_id': 'string',
         'promotion_status': 'string',
         'properties': 'list',
+        'publishing_stats': 'unsigned int',
         'scheduled_publish_time': 'float',
         'shares': 'Object',
         'status_type': 'string',
@@ -695,10 +715,12 @@ class PagePost(
         'target': 'Profile',
         'targeting': 'Object',
         'timeline_visibility': 'string',
+        'translations': 'map<string, string>',
         'updated_time': 'datetime',
         'via': 'Object',
         'video_buying_eligibility': 'list<string>',
         'width': 'unsigned int',
+        'will_be_autocropped_when_deliver_to_instagram': 'bool',
     }
     @classmethod
     def _get_field_enum_info(cls):

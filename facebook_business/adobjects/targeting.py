@@ -97,6 +97,7 @@ class Targeting(
         income = 'income'
         industries = 'industries'
         instagram_positions = 'instagram_positions'
+        instream_video_skippable_excluded = 'instream_video_skippable_excluded'
         interested_in = 'interested_in'
         interests = 'interests'
         is_whatsapp_destination_ad = 'is_whatsapp_destination_ad'
@@ -149,7 +150,7 @@ class Targeting(
         'catalog_based_targeting': 'CatalogBasedTargeting',
         'cities': 'list<IDName>',
         'college_years': 'list<unsigned int>',
-        'connections': 'list<IDName>',
+        'connections': 'list<ConnectionsTargeting>',
         'contextual_targeting_categories': 'list<IDName>',
         'countries': 'list<string>',
         'country': 'list<string>',
@@ -171,7 +172,7 @@ class Targeting(
         'ethnic_affinity': 'list<IDName>',
         'exclude_reached_since': 'list<string>',
         'excluded_brand_safety_content_types': 'list<string>',
-        'excluded_connections': 'list<IDName>',
+        'excluded_connections': 'list<ConnectionsTargeting>',
         'excluded_custom_audiences': 'list<RawCustomAudience>',
         'excluded_dynamic_audience_ids': 'list<string>',
         'excluded_engagement_specs': 'list<TargetingDynamicRule>',
@@ -186,7 +187,7 @@ class Targeting(
         'family_statuses': 'list<IDName>',
         'fb_deal_id': 'string',
         'flexible_spec': 'list<FlexibleTargeting>',
-        'friends_of_connections': 'list<IDName>',
+        'friends_of_connections': 'list<ConnectionsTargeting>',
         'genders': 'list<unsigned int>',
         'generation': 'list<IDName>',
         'geo_locations': 'TargetingGeoLocation',
@@ -197,6 +198,7 @@ class Targeting(
         'income': 'list<IDName>',
         'industries': 'list<IDName>',
         'instagram_positions': 'list<string>',
+        'instream_video_skippable_excluded': 'bool',
         'interested_in': 'list<unsigned int>',
         'interests': 'list<IDName>',
         'is_whatsapp_destination_ad': 'bool',

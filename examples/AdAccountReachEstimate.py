@@ -19,7 +19,7 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.adaccount import AdAccount
-from facebook_business.adobjects.reachestimate import ReachEstimate
+from facebook_business.adobjects.adaccountreachestimate import AdAccountReachEstimate
 from facebook_business.api import FacebookAdsApi
 
 access_token = '<ACCESS_TOKEN>'

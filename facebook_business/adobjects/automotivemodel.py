@@ -41,9 +41,11 @@ class AutomotiveModel(
         super(AutomotiveModel, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        applinks = 'applinks'
         automotive_model_id = 'automotive_model_id'
         availability = 'availability'
         body_style = 'body_style'
+        category_specific_fields = 'category_specific_fields'
         currency = 'currency'
         custom_label_0 = 'custom_label_0'
         description = 'description'
@@ -98,9 +100,11 @@ class AutomotiveModel(
             return request.execute()
 
     _field_types = {
+        'applinks': 'CatalogItemAppLinks',
         'automotive_model_id': 'string',
         'availability': 'string',
         'body_style': 'string',
+        'category_specific_fields': 'CatalogSubVerticalList',
         'currency': 'string',
         'custom_label_0': 'string',
         'description': 'string',

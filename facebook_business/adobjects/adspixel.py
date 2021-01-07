@@ -62,8 +62,11 @@ class AdsPixel(
         name = 'NAME'
 
     class AutomaticMatchingFields:
+        country = 'country'
         ct = 'ct'
+        db = 'db'
         em = 'em'
+        external_id = 'external_id'
         fn = 'fn'
         ge = 'ge'
         ln = 'ln'
@@ -236,8 +239,10 @@ class AdsPixel(
         from facebook_business.adobjects.dacheck import DACheck
         param_types = {
             'checks': 'list<string>',
+            'connection_method': 'connection_method_enum',
         }
         enums = {
+            'connection_method_enum': DACheck.ConnectionMethod.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],

@@ -47,25 +47,6 @@ class SystemUser(
         id = 'id'
         ip_permission = 'ip_permission'
         name = 'name'
-        role = 'role'
-        system_user_id = 'system_user_id'
-
-    class Role:
-        admin = 'ADMIN'
-        ads_rights_reviewer = 'ADS_RIGHTS_REVIEWER'
-        employee = 'EMPLOYEE'
-        finance_analyst = 'FINANCE_ANALYST'
-        finance_editor = 'FINANCE_EDITOR'
-
-    # @deprecated get_endpoint function is deprecated
-    @classmethod
-    def get_endpoint(cls):
-        return 'system_users'
-
-    # @deprecated api_create is being deprecated
-    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.adobjects.business import Business
-        return Business(api=self._api, fbid=parent_id).create_system_user(fields, params, batch, success, failure, pending)
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -222,37 +203,6 @@ class SystemUser(
             self.assure_call()
             return request.execute()
 
-    def get_updated_by(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.user import User
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/updated_by',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=User,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=User, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     _field_types = {
         'created_by': 'User',
         'created_time': 'datetime',
@@ -260,13 +210,10 @@ class SystemUser(
         'id': 'string',
         'ip_permission': 'string',
         'name': 'string',
-        'role': 'Role',
-        'system_user_id': 'int',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['Role'] = SystemUser.Role.__dict__.values()
         return field_enum_info
 
 

@@ -45,9 +45,11 @@ class VehicleOffer(
         amount_percentage = 'amount_percentage'
         amount_price = 'amount_price'
         amount_qualifier = 'amount_qualifier'
+        applinks = 'applinks'
         body_style = 'body_style'
         cashback_currency = 'cashback_currency'
         cashback_price = 'cashback_price'
+        category_specific_fields = 'category_specific_fields'
         currency = 'currency'
         dma_codes = 'dma_codes'
         downpayment_currency = 'downpayment_currency'
@@ -109,9 +111,11 @@ class VehicleOffer(
         'amount_percentage': 'float',
         'amount_price': 'string',
         'amount_qualifier': 'string',
+        'applinks': 'CatalogItemAppLinks',
         'body_style': 'string',
         'cashback_currency': 'string',
         'cashback_price': 'string',
+        'category_specific_fields': 'CatalogSubVerticalList',
         'currency': 'string',
         'dma_codes': 'list<string>',
         'downpayment_currency': 'string',

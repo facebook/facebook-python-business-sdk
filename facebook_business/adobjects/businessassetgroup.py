@@ -47,9 +47,6 @@ class BusinessAssetGroup(
     class AdaccountTasks:
         advertise = 'ADVERTISE'
         analyze = 'ANALYZE'
-        creative = 'CREATIVE'
-        draft = 'DRAFT'
-        fb_employee_dso_advertise = 'FB_EMPLOYEE_DSO_ADVERTISE'
         manage = 'MANAGE'
 
     class OfflineConversionDataSetTasks:
@@ -66,14 +63,11 @@ class BusinessAssetGroup(
         manage = 'MANAGE'
         manage_jobs = 'MANAGE_JOBS'
         manage_leads = 'MANAGE_LEADS'
+        messaging = 'MESSAGING'
         moderate = 'MODERATE'
         moderate_community = 'MODERATE_COMMUNITY'
         pages_messaging = 'PAGES_MESSAGING'
         pages_messaging_subscriptions = 'PAGES_MESSAGING_SUBSCRIPTIONS'
-        platform_pages_manage_instant_articles = 'PLATFORM_PAGES_MANAGE_INSTANT_ARTICLES'
-        platform_page_administer = 'PLATFORM_PAGE_ADMINISTER'
-        platform_page_basic_admin = 'PLATFORM_PAGE_BASIC_ADMIN'
-        platform_read_insights = 'PLATFORM_READ_INSIGHTS'
         profile_plus_advertise = 'PROFILE_PLUS_ADVERTISE'
         profile_plus_analyze = 'PROFILE_PLUS_ANALYZE'
         profile_plus_create_content = 'PROFILE_PLUS_CREATE_CONTENT'

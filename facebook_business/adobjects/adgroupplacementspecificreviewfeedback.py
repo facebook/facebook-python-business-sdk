@@ -40,12 +40,17 @@ class AdgroupPlacementSpecificReviewFeedback(
     class Field(AbstractObject.Field):
         account_admin = 'account_admin'
         ad = 'ad'
+        ads_conversion_experiences = 'ads_conversion_experiences'
         b2c = 'b2c'
+        b2c_commerce_unified = 'b2c_commerce_unified'
         bsg = 'bsg'
         city_community = 'city_community'
+        commerce = 'commerce'
         daily_deals = 'daily_deals'
         daily_deals_legacy = 'daily_deals_legacy'
         dpa = 'dpa'
+        dri_copyright = 'dri_copyright'
+        dri_counterfeit = 'dri_counterfeit'
         facebook = 'facebook'
         facebook_pages_live_shopping = 'facebook_pages_live_shopping'
         instagram = 'instagram'
@@ -69,12 +74,17 @@ class AdgroupPlacementSpecificReviewFeedback(
     _field_types = {
         'account_admin': 'map<string, string>',
         'ad': 'map<string, string>',
+        'ads_conversion_experiences': 'map<string, string>',
         'b2c': 'map<string, string>',
+        'b2c_commerce_unified': 'map<string, string>',
         'bsg': 'map<string, string>',
         'city_community': 'map<string, string>',
+        'commerce': 'map<string, string>',
         'daily_deals': 'map<string, string>',
         'daily_deals_legacy': 'map<string, string>',
         'dpa': 'map<string, string>',
+        'dri_copyright': 'map<string, string>',
+        'dri_counterfeit': 'map<string, string>',
         'facebook': 'map<string, string>',
         'facebook_pages_live_shopping': 'map<string, string>',
         'instagram': 'map<string, string>',

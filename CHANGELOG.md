@@ -2,8 +2,55 @@
 
 All notable changes to this project will be documented in this file.
 
-
 ## Unreleased
+
+## v9.0.1
+
+
+### Added
+- `action_source` field to Event for Conversions API.
+
+### Fixed
+- Enum compatibility for Python 2.7
+
+## v8.0.5
+
+### Added
+- `delivery_category` field to Content for Conversions API.
+
+### Added
+- Added HttpServiceInterface to enable the default request object to be overridden by a user-defined HTTP Request Service object. Available for Conversions API create event requests.
+- Added batching to Conversions API. Create batched event requests by using BatchProcessor.
+
+## v8.0.3
+### Added
+- Added partner_agent field to Conversions API EventRequest and EventRequestAsync.
+- Added async support to Conversions API - Create event request promises by using EventRequestAsync.
+- `lead_id` field to the Conversions API `user_data` section.
+
+## v8.0.0
+
+### Changed
+- Graph API call upgrade to [v8.0](https://developers.facebook.com/docs/graph-api/changelog/version8.0)
+
+### Fixed
+- Fixed `delivery_category` field being mandatory in custom_data section for Conversions API.
+
+## v7.0.4
+### Added
+- `delivery_category` field in custom_data section for Conversions API(formerly Serverside API).
+
+## v7.0.3
+### Added
+- Added support for data processing options in Serverside API. For more details see : https://developers.facebook.com/docs/marketing-apis/data-processing-options
+
+## v7.0.1
+### Fixed
+- Adding Python 2.7 compatibility for ServerSide API
+
+## v7.0.0
+### Changed
+- Graph API call upgrade to [v7.0](https://developers.facebook.com/docs/graph-api/changelog/version7.0)
 
 ## v6.0.0
 ### Changed
@@ -54,5 +101,4 @@ All notable changes to this project will be documented in this file.
 ### Deprecated
 - `parent_id` in `AbstractCrudObject`.
 - Function `remote_create`, `remote_read`, `remote_update` and `remote_delete` for `AbstractCrudObject`. Check out our [recommended way](https://github.com/facebook/facebook-python-business-sdk#exploring-the-graph) to make API call with python SDK.
-
 

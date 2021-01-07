@@ -43,6 +43,7 @@ class AdCreativeVideoData(
         branded_content_sponsor_page_id = 'branded_content_sponsor_page_id'
         call_to_action = 'call_to_action'
         collection_thumbnails = 'collection_thumbnails'
+        customization_rules_spec = 'customization_rules_spec'
         image_hash = 'image_hash'
         image_url = 'image_url'
         link_description = 'link_description'
@@ -61,6 +62,7 @@ class AdCreativeVideoData(
         'branded_content_sponsor_page_id': 'string',
         'call_to_action': 'AdCreativeLinkDataCallToAction',
         'collection_thumbnails': 'list<AdCreativeCollectionThumbnailInfo>',
+        'customization_rules_spec': 'list<AdCustomizationRuleSpec>',
         'image_hash': 'string',
         'image_url': 'string',
         'link_description': 'string',

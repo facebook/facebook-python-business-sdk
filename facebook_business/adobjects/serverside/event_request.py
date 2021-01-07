@@ -20,33 +20,84 @@
 
 import json
 import pprint
-from typing import List
-
 import six
+
+from facebook_business import FacebookAdsApi
 from facebook_business.adobjects.adspixel import AdsPixel
 from facebook_business.adobjects.serverside.event import Event
 from facebook_business.adobjects.serverside.event_response import EventResponse
+from facebook_business.adobjects.serverside.http_method import HttpMethod
+from facebook_business.adobjects.serverside.request_options import RequestOptions
+from facebook_business.adobjects.serverside.util import Util
+from facebook_business.session import FacebookSession
 
 
 class EventRequest(object):
     """
     Server-Side Event Request.
     """
+
     param_types = {
         'events': 'list[Event]',
-        'test_event_code': 'str'
+        'test_event_code': 'str',
+        'namespace_id': 'str',
+        'upload_id': 'str',
+        'upload_tag': 'str',
+        'upload_source': 'str',
+        'partner_agent': 'str',
     }
 
-    def __init__(self, pixel_id: str = None, events: List[Event] = None, test_event_code: str = None):
+    def __init__(
+        self,
+        pixel_id=None,
+        events=None,
+        test_event_code=None,
+        namespace_id=None,
+        upload_id=None,
+        upload_tag=None,
+        upload_source=None,
+        partner_agent=None,
+        http_client=None,
+        access_token=None,
+        appsecret=None,
+    ):
+        # type: (str, List[Event], str) -> None
+
         self._events = None
         self._test_event_code = None
+        self._namespace_id = None
+        self._upload_id = None
+        self._upload_tag = None
+        self._upload_source = None
+        self._partner_agent = None
         self.__pixel_id = None
+        self.__http_client = None
+        self.__access_token = None
+        self.__appsecret = None
         if pixel_id is None:
             raise ValueError("Invalid value for `pixel_id`, must not be `None`")
         self.__pixel_id = pixel_id
+        if http_client is not None and access_token is None:
+            raise ValueError("An access_token must also be passed in when passing in an http_client")
+        if http_client is not None:
+            self.__http_client = http_client
+        if access_token is not None:
+            self.__access_token = access_token
+        if appsecret is not None:
+            self.__appsecret = appsecret
         self.events = events
         if test_event_code is not None:
             self.test_event_code = test_event_code
+        if namespace_id is not None:
+            self.namespace_id = namespace_id
+        if upload_id is not None:
+            self.upload_id = upload_id
+        if upload_tag is not None:
+            self.upload_tag = upload_tag
+        if upload_source is not None:
+            self.upload_source = upload_source
+        if partner_agent is not None:
+            self.partner_agent = partner_agent
 
     @property
     def events(self):
@@ -60,7 +111,7 @@ class EventRequest(object):
         return self._events
 
     @events.setter
-    def events(self, events: List[Event]):
+    def events(self, events):
         """Sets the events.
 
         An array of Server Event objects
@@ -87,7 +138,7 @@ class EventRequest(object):
         return self._test_event_code
 
     @test_event_code.setter
-    def test_event_code(self, test_event_code: str):
+    def test_event_code(self, test_event_code):
         """Sets the test_event_code.
 
         Code used to verify that your server events are received correctly by Facebook.
@@ -100,12 +151,132 @@ class EventRequest(object):
 
         self._test_event_code = test_event_code
 
-    def execute(self):
+    @property
+    def namespace_id(self):
+        """Gets the namespace_id.
 
-        params = {"data": self.normalize()}
+        :return: The namespace_id.
+        :rtype: str
+        """
+        return self._namespace_id
 
+    @namespace_id.setter
+    def namespace_id(self, namespace_id):
+        """Sets the namespace_id.
+
+        :param namespace_id: The namespace_id.
+        :type: str
+        """
+
+        self._namespace_id = namespace_id
+
+    @property
+    def upload_id(self):
+        """Gets the upload_id.
+
+        :return: The upload_id.
+        :rtype: str
+        """
+        return self._upload_id
+
+    @upload_id.setter
+    def upload_id(self, upload_id):
+        """Sets the upload_id.
+
+        :param upload_id: The upload_id.
+        :type: str
+        """
+
+        self._upload_id = upload_id
+
+    @property
+    def upload_tag(self):
+        """Gets the upload_tag.
+
+        :return: The upload_tag.
+        :rtype: str
+        """
+        return self._upload_tag
+
+    @upload_tag.setter
+    def upload_tag(self, upload_tag):
+        """Sets the upload_tag.
+
+        :param upload_tag: The upload_tag.
+        :type: str
+        """
+
+        self._upload_tag = upload_tag
+
+    @property
+    def upload_source(self):
+        """Gets the upload_source.
+
+        :return: The upload_source.
+        :rtype: str
+        """
+        return self._upload_source
+
+    @upload_source.setter
+    def upload_source(self, upload_source):
+        """Sets the upload_source.
+
+        :param upload_source: The upload_source.
+        :type: str
+        """
+
+        self._upload_source = upload_source
+
+    @property
+    def partner_agent(self):
+        """Gets the partner_agent.
+
+        Allows you to specify the platform from which the event is sent e.g. wordpress
+
+        :return: The partner_agent.
+        :rtype: str
+        """
+        return self._partner_agent
+
+    @partner_agent.setter
+    def partner_agent(self, partner_agent):
+        """Sets the partner_agent.
+
+        Allows you to specify the platform from which the event is sent e.g. wordpress
+
+        :param partner_agent: The partner_agent.
+        :type: str
+        """
+
+        self._partner_agent = partner_agent
+
+    def get_request_params(self):
+        params = {}
         if self.test_event_code is not None:
             params['test_event_code'] = self.test_event_code
+        if self.namespace_id is not None:
+            params['namespace_id'] = self.namespace_id
+        if self.upload_id is not None:
+            params['upload_id'] = self.upload_id
+        if self.upload_tag is not None:
+            params['upload_tag'] = self.upload_tag
+        if self.upload_source is not None:
+            params['upload_source'] = self.upload_source
+        if self.partner_agent is not None:
+            params['partner_agent'] = self.partner_agent
+
+        return params
+
+    def get_params(self):
+        params = self.get_request_params()
+        params["data"] = self.normalize()
+        return params
+
+    def execute(self):
+        params = self.get_params()
+
+        if self.__http_client is not None:
+            return self.execute_with_client(params)
 
         response = AdsPixel(self.__pixel_id).create_event(
             fields=[],
@@ -115,6 +286,28 @@ class EventRequest(object):
                                        fbtrace_id=response['fbtrace_id'],
                                        messages=response['messages'])
         return event_response
+
+    def execute_with_client(self, params):
+        url = '/'.join([
+            FacebookSession.GRAPH,
+            FacebookAdsApi.API_VERSION,
+            self.__pixel_id,
+            'events',
+        ])
+        params['access_token'] = self.__access_token
+        if self.__appsecret is not None:
+            params['appsecret_proof'] = Util.appsecret_proof(self.__appsecret, self.__access_token)
+        request_options = RequestOptions(
+            ca_bundle_path=Util.ca_bundle_path()
+        )
+
+        return self.__http_client.execute(
+            url=url,
+            method=HttpMethod.POST,
+            request_options=request_options,
+            headers=FacebookAdsApi.HTTP_DEFAULT_HEADERS,
+            params=params
+        )
 
     def normalize(self):
         normalized_events = []

@@ -71,6 +71,7 @@ class AdCreative(
         instagram_actor_id = 'instagram_actor_id'
         instagram_permalink_url = 'instagram_permalink_url'
         instagram_story_id = 'instagram_story_id'
+        instagram_user_id = 'instagram_user_id'
         interactive_components_spec = 'interactive_components_spec'
         link_deep_link_url = 'link_deep_link_url'
         link_destination_display_url = 'link_destination_display_url'
@@ -90,6 +91,7 @@ class AdCreative(
         portrait_customizations = 'portrait_customizations'
         product_set_id = 'product_set_id'
         recommender_settings = 'recommender_settings'
+        source_instagram_media_id = 'source_instagram_media_id'
         status = 'status'
         template_url = 'template_url'
         template_url_spec = 'template_url_spec'
@@ -126,6 +128,8 @@ class AdCreative(
         find_a_group = 'FIND_A_GROUP'
         find_your_groups = 'FIND_YOUR_GROUPS'
         follow_news_storyline = 'FOLLOW_NEWS_STORYLINE'
+        follow_page = 'FOLLOW_PAGE'
+        follow_user = 'FOLLOW_USER'
         get_directions = 'GET_DIRECTIONS'
         get_offer = 'GET_OFFER'
         get_offer_view = 'GET_OFFER_VIEW'
@@ -143,16 +147,24 @@ class AdCreative(
         no_button = 'NO_BUTTON'
         open_link = 'OPEN_LINK'
         order_now = 'ORDER_NOW'
+        pay_to_access = 'PAY_TO_ACCESS'
         play_game = 'PLAY_GAME'
+        purchase_gift_cards = 'PURCHASE_GIFT_CARDS'
         record_now = 'RECORD_NOW'
+        refer_friends = 'REFER_FRIENDS'
+        request_time = 'REQUEST_TIME'
         say_thanks = 'SAY_THANKS'
         see_more = 'SEE_MORE'
         sell_now = 'SELL_NOW'
+        send_a_gift = 'SEND_A_GIFT'
         share = 'SHARE'
         shop_now = 'SHOP_NOW'
         sign_up = 'SIGN_UP'
         sotto_subscribe = 'SOTTO_SUBSCRIBE'
+        start_order = 'START_ORDER'
         subscribe = 'SUBSCRIBE'
+        swipe_up_product = 'SWIPE_UP_PRODUCT'
+        swipe_up_shop = 'SWIPE_UP_SHOP'
         update_app = 'UPDATE_APP'
         use_app = 'USE_APP'
         use_mobile_app = 'USE_MOBILE_APP'
@@ -323,37 +335,6 @@ class AdCreative(
             self.assure_call()
             return request.execute()
 
-    def delete_ad_labels(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'adlabels': 'list<Object>',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='DELETE',
-            endpoint='/adlabels',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def create_ad_label(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -491,6 +472,7 @@ class AdCreative(
         'instagram_actor_id': 'string',
         'instagram_permalink_url': 'string',
         'instagram_story_id': 'string',
+        'instagram_user_id': 'string',
         'interactive_components_spec': 'AdCreativeInteractiveComponentsSpec',
         'link_deep_link_url': 'string',
         'link_destination_display_url': 'string',
@@ -510,6 +492,7 @@ class AdCreative(
         'portrait_customizations': 'AdCreativePortraitCustomizations',
         'product_set_id': 'string',
         'recommender_settings': 'AdCreativeRecommenderSettings',
+        'source_instagram_media_id': 'string',
         'status': 'Status',
         'template_url': 'string',
         'template_url_spec': 'AdCreativeTemplateURLSpec',

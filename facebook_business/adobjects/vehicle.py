@@ -42,8 +42,10 @@ class Vehicle(
 
     class Field(AbstractObject.Field):
         address = 'address'
+        applinks = 'applinks'
         availability = 'availability'
         body_style = 'body_style'
+        category_specific_fields = 'category_specific_fields'
         condition = 'condition'
         currency = 'currency'
         custom_label_0 = 'custom_label_0'
@@ -84,11 +86,11 @@ class Vehicle(
         vehicle_type = 'vehicle_type'
         vin = 'vin'
         year = 'year'
-        applinks = 'applinks'
 
     class Availability:
         available = 'AVAILABLE'
         not_available = 'NOT_AVAILABLE'
+        pending = 'PENDING'
 
     class BodyStyle:
         convertible = 'CONVERTIBLE'
@@ -264,8 +266,10 @@ class Vehicle(
 
     _field_types = {
         'address': 'Object',
+        'applinks': 'CatalogItemAppLinks',
         'availability': 'string',
         'body_style': 'string',
+        'category_specific_fields': 'CatalogSubVerticalList',
         'condition': 'string',
         'currency': 'string',
         'custom_label_0': 'string',
@@ -306,7 +310,6 @@ class Vehicle(
         'vehicle_type': 'string',
         'vin': 'string',
         'year': 'unsigned int',
-        'applinks': 'Object',
     }
     @classmethod
     def _get_field_enum_info(cls):
