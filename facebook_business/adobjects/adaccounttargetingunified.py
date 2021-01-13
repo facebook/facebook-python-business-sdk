@@ -226,6 +226,7 @@ class AdAccountTargetingUnified(
         fb_android_store = 'fb_android_store'
         fb_canvas = 'fb_canvas'
         fb_gameroom = 'fb_gameroom'
+        galaxy_store = 'galaxy_store'
         google_play = 'google_play'
         instant_game = 'instant_game'
         itunes = 'itunes'

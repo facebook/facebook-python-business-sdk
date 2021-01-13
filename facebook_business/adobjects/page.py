@@ -1197,37 +1197,6 @@ class Page(
             self.assure_call()
             return request.execute()
 
-    def delete_claimed_urls(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'url': 'string',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='DELETE',
-            endpoint='/claimed_urls',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def get_claimed_urls(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -2584,7 +2553,6 @@ class Page(
             'location': 'Object',
             'location_page_id': 'string',
             'old_store_number': 'unsigned int',
-            'page_username': 'string',
             'permanently_closed': 'bool',
             'phone': 'string',
             'pickup_options': 'list<pickup_options_enum>',
@@ -2811,6 +2779,7 @@ class Page(
                 'PAYMENT_SETTINGS',
                 'PERSISTENT_MENU',
                 'PLATFORM',
+                'SUBJECT_TO_NEW_EU_PRIVACY_RULES',
                 'TARGET_AUDIENCE',
                 'WHITELISTED_DOMAINS',
             ],
@@ -4179,7 +4148,6 @@ class Page(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.eventtour import EventTour
         param_types = {
         }
         enums = {
@@ -4190,9 +4158,9 @@ class Page(
             endpoint='/tours',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=EventTour,
+            target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=EventTour, api=self._api),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

@@ -52,7 +52,6 @@ class Group(
         member_count = 'member_count'
         member_request_count = 'member_request_count'
         name = 'name'
-        owner = 'owner'
         parent = 'parent'
         permissions = 'permissions'
         privacy = 'privacy'
@@ -81,6 +80,7 @@ class Group(
         deals = 'DEALS'
         ephemeral = 'EPHEMERAL'
         event_planning = 'EVENT_PLANNING'
+        faith = 'FAITH'
         family = 'FAMILY'
         fitness = 'FITNESS'
         for_sale = 'FOR_SALE'
@@ -136,6 +136,7 @@ class Group(
         deals = 'DEALS'
         ephemeral = 'EPHEMERAL'
         event_planning = 'EVENT_PLANNING'
+        faith = 'FAITH'
         family = 'FAMILY'
         fitness = 'FITNESS'
         for_sale = 'FOR_SALE'
@@ -471,10 +472,48 @@ class Group(
             self.assure_call()
             return request.execute()
 
+    def get_feed(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.post import Post
+        param_types = {
+            'include_hidden': 'bool',
+            'q': 'string',
+            'show_expired': 'bool',
+            'since': 'datetime',
+            'until': 'datetime',
+            'with': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/feed',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Post,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Post, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def create_feed(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.post import Post
         param_types = {
             'actions': 'Object',
             'adaptive_type': 'string',
@@ -590,57 +629,49 @@ class Group(
             'width': 'unsigned int',
         }
         enums = {
-            'backdated_time_granularity_enum': [
-                'day',
-                'hour',
-                'min',
-                'month',
-                'none',
-                'year',
-            ],
-            'checkin_entry_point_enum': [
-                'BRANDING_CHECKIN',
-                'BRANDING_OTHER',
-                'BRANDING_PHOTO',
-                'BRANDING_STATUS',
-            ],
-            'formatting_enum': [
-                'MARKDOWN',
-                'PLAINTEXT',
-            ],
-            'place_attachment_setting_enum': [
-                '1',
-                '2',
-            ],
-            'post_surfaces_blacklist_enum': [
-                '1',
-                '2',
-                '3',
-                '4',
-                '5',
-            ],
-            'posting_to_redspace_enum': [
-                'disabled',
-                'enabled',
-            ],
-            'target_surface_enum': [
-                'STORY',
-                'TIMELINE',
-            ],
-            'unpublished_content_type_enum': [
-                'ADS_POST',
-                'DRAFT',
-                'INLINE_CREATED',
-                'PUBLISHED',
-                'REVIEWABLE_BRANDED_CONTENT',
-                'SCHEDULED',
-                'SCHEDULED_RECURRING',
-            ],
+            'backdated_time_granularity_enum': Post.BackdatedTimeGranularity.__dict__.values(),
+            'checkin_entry_point_enum': Post.CheckinEntryPoint.__dict__.values(),
+            'formatting_enum': Post.Formatting.__dict__.values(),
+            'place_attachment_setting_enum': Post.PlaceAttachmentSetting.__dict__.values(),
+            'post_surfaces_blacklist_enum': Post.PostSurfacesBlacklist.__dict__.values(),
+            'posting_to_redspace_enum': Post.PostingToRedspace.__dict__.values(),
+            'target_surface_enum': Post.TargetSurface.__dict__.values(),
+            'unpublished_content_type_enum': Post.UnpublishedContentType.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
             method='POST',
             endpoint='/feed',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Post,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Post, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_files(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/files',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
@@ -1207,7 +1238,6 @@ class Group(
         'member_count': 'unsigned int',
         'member_request_count': 'unsigned int',
         'name': 'string',
-        'owner': 'Object',
         'parent': 'Object',
         'permissions': 'list<string>',
         'privacy': 'string',

@@ -47,7 +47,6 @@ class AdAccount(
     class Field(AbstractObject.Field):
         account_id = 'account_id'
         account_status = 'account_status'
-        ad_account_creation_request = 'ad_account_creation_request'
         ad_account_promotable_objects = 'ad_account_promotable_objects'
         age = 'age'
         agency_client_declaration = 'agency_client_declaration'
@@ -167,11 +166,13 @@ class AdAccount(
     class PermittedTasks:
         advertise = 'ADVERTISE'
         analyze = 'ANALYZE'
+        draft = 'DRAFT'
         manage = 'MANAGE'
 
     class Tasks:
         advertise = 'ADVERTISE'
         analyze = 'ANALYZE'
+        draft = 'DRAFT'
         manage = 'MANAGE'
 
     class ClaimObjective:
@@ -1011,6 +1012,7 @@ class AdAccount(
             'adset_spec': 'AdSet',
             'audience_id': 'string',
             'bid_amount': 'int',
+            'conversion_domain': 'string',
             'creative': 'AdCreative',
             'date_format': 'string',
             'display_sequence': 'unsigned int',
@@ -2131,6 +2133,7 @@ class AdAccount(
             'buying_type': 'string',
             'daily_budget': 'unsigned int',
             'execution_options': 'list<execution_options_enum>',
+            'is_skadnetwork_attribution': 'bool',
             'iterative_split_test_configs': 'list<Object>',
             'lifetime_budget': 'unsigned int',
             'name': 'string',
@@ -2737,6 +2740,7 @@ class AdAccount(
             'time_range': 'Object',
             'time_ranges': 'list<Object>',
             'use_account_attribution_setting': 'bool',
+            'use_unified_attribution_setting': 'bool',
         }
         enums = {
             'action_attribution_windows_enum': AdsInsights.ActionAttributionWindows.__dict__.values(),
@@ -2797,6 +2801,7 @@ class AdAccount(
             'time_range': 'Object',
             'time_ranges': 'list<Object>',
             'use_account_attribution_setting': 'bool',
+            'use_unified_attribution_setting': 'bool',
         }
         enums = {
             'action_attribution_windows_enum': AdsInsights.ActionAttributionWindows.__dict__.values(),
@@ -2875,6 +2880,8 @@ class AdAccount(
             'app_store': 'app_store_enum',
             'app_store_country': 'string',
             'business_id': 'string',
+            'is_skadnetwork_search': 'bool',
+            'only_apps_with_permission': 'bool',
             'query_term': 'string',
         }
         enums = {
@@ -3390,40 +3397,6 @@ class AdAccount(
             self.assure_call()
             return request.execute()
 
-    def create_sponsored_message_ad(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'bid_amount': 'int',
-            'daily_budget': 'unsigned int',
-            'message_creative_id': 'string',
-            'targeting': 'Targeting',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/sponsored_message_ads',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def delete_subscribed_apps(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -3852,7 +3825,6 @@ class AdAccount(
     _field_types = {
         'account_id': 'string',
         'account_status': 'unsigned int',
-        'ad_account_creation_request': 'AdAccountCreationRequest',
         'ad_account_promotable_objects': 'AdAccountPromotableObjects',
         'age': 'float',
         'agency_client_declaration': 'AgencyClientDeclaration',

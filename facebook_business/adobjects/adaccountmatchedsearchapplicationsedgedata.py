@@ -53,6 +53,7 @@ class AdAccountMatchedSearchApplicationsEdgeData(
         fb_android_store = 'FB_ANDROID_STORE'
         fb_canvas = 'FB_CANVAS'
         fb_gameroom = 'FB_GAMEROOM'
+        galaxy_store = 'GALAXY_STORE'
         google_play = 'GOOGLE_PLAY'
         instant_game = 'INSTANT_GAME'
         itunes = 'ITUNES'
