@@ -54,7 +54,8 @@ class FacebookResponse(object):
     TRANSIENT_ERROR_MESSAGES = [
         'An unknown error occurred',
         'Sorry, something went wrong',
-        'This could happen if a dependent request failed or the entire request timed out.'
+        'This could happen if a dependent request failed or the entire request timed out.',
+        'Please reduce the amount of data',
     ]
 
     def __init__(self, body=None, http_status=None, headers=None, call=None):

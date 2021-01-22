@@ -718,7 +718,8 @@ class FacebookResponseTestCase(unittest.TestCase):
             </body>
             </html>
             """,
-            'This could happen if a dependent request failed or the entire request timed out.'
+            'This could happen if a dependent request failed or the entire request timed out.',
+            "Please reduce the amount of data you're asking for, then retry your request",
         ]
         for message in messages:
             resp = api.FacebookResponse(
