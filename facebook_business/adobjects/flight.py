@@ -42,6 +42,7 @@ class Flight(
 
     class Field(AbstractObject.Field):
         applinks = 'applinks'
+        category_specific_fields = 'category_specific_fields'
         currency = 'currency'
         description = 'description'
         destination_airport = 'destination_airport'
@@ -95,8 +96,10 @@ class Flight(
             'currency': 'string',
             'description': 'string',
             'destination_airport': 'string',
+            'destination_city': 'string',
             'images': 'list<Object>',
             'origin_airport': 'string',
+            'origin_city': 'string',
             'price': 'unsigned int',
             'url': 'string',
         }
@@ -126,6 +129,7 @@ class Flight(
 
     _field_types = {
         'applinks': 'CatalogItemAppLinks',
+        'category_specific_fields': 'CatalogSubVerticalList',
         'currency': 'string',
         'description': 'string',
         'destination_airport': 'string',

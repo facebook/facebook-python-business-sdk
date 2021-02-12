@@ -80,7 +80,7 @@ class FacebookRequestError(FacebookError):
                 self._api_error_subcode = self._error['error_subcode']
             if 'type' in self._error:
                 self._api_error_type = self._error['type']
-            if error_data and error_data.get('blame_field_specs'):
+            if isinstance(error_data, dict) and error_data.get('blame_field_specs'):
                 self._api_blame_field_specs = \
                     error_data['blame_field_specs']
         else:

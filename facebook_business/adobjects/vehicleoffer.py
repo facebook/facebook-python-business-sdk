@@ -49,6 +49,7 @@ class VehicleOffer(
         body_style = 'body_style'
         cashback_currency = 'cashback_currency'
         cashback_price = 'cashback_price'
+        category_specific_fields = 'category_specific_fields'
         currency = 'currency'
         dma_codes = 'dma_codes'
         downpayment_currency = 'downpayment_currency'
@@ -114,6 +115,7 @@ class VehicleOffer(
         'body_style': 'string',
         'cashback_currency': 'string',
         'cashback_price': 'string',
+        'category_specific_fields': 'CatalogSubVerticalList',
         'currency': 'string',
         'dma_codes': 'list<string>',
         'downpayment_currency': 'string',

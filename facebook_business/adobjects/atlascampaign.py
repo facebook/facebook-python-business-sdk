@@ -243,7 +243,7 @@ class AtlasCampaign(
             'dimensions': 'list<dimensions_enum>',
             'granularity': 'granularity_enum',
             'metric_scope': 'map',
-            'order_by': 'list',
+            'order_by': 'list<map>',
         }
         enums = {
             'dimensions_enum': [

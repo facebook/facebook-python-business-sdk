@@ -52,7 +52,6 @@ class AdReportSpec(
         id = 'id'
         insights_section = 'insights_section'
         name = 'name'
-        report_schedule = 'report_schedule'
         report_schedule_id = 'report_schedule_id'
         sort_by = 'sort_by'
         sort_dir = 'sort_dir'
@@ -102,7 +101,6 @@ class AdReportSpec(
         'id': 'string',
         'insights_section': 'Object',
         'name': 'string',
-        'report_schedule': 'Object',
         'report_schedule_id': 'string',
         'sort_by': 'string',
         'sort_dir': 'string',

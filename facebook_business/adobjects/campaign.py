@@ -46,6 +46,7 @@ class Campaign(
 
     class Field(AbstractObject.Field):
         account_id = 'account_id'
+        ad_strategy_id = 'ad_strategy_id'
         adlabels = 'adlabels'
         bid_strategy = 'bid_strategy'
         boosted_object_id = 'boosted_object_id'
@@ -986,6 +987,7 @@ class Campaign(
 
     _field_types = {
         'account_id': 'string',
+        'ad_strategy_id': 'string',
         'adlabels': 'list<AdLabel>',
         'bid_strategy': 'BidStrategy',
         'boosted_object_id': 'string',

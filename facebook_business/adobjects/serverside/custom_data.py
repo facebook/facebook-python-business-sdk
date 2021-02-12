@@ -485,9 +485,12 @@ class CustomData(object):
             'num_items': self.num_items,
             'status': self.status,
             'search_string': self.search_string,
-            'delivery_category': self.delivery_category.value,
             'item_number': self.item_number,
         }
+
+        if self.delivery_category is not None:
+            normalized_payload['delivery_category'] = self.delivery_category.value
+
         if self.contents is not None:
             contents = []
             for content in self.contents:

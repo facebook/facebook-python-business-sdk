@@ -66,6 +66,7 @@ class PagePost(
         id = 'id'
         implicit_place = 'implicit_place'
         instagram_eligibility = 'instagram_eligibility'
+        instream_eligibility = 'instream_eligibility'
         is_app_share = 'is_app_share'
         is_eligible_for_promotion = 'is_eligible_for_promotion'
         is_expired = 'is_expired'
@@ -84,6 +85,7 @@ class PagePost(
         permalink_url = 'permalink_url'
         picture = 'picture'
         place = 'place'
+        poll = 'poll'
         privacy = 'privacy'
         promotable_id = 'promotable_id'
         promotion_status = 'promotion_status'
@@ -679,6 +681,7 @@ class PagePost(
         'id': 'string',
         'implicit_place': 'Place',
         'instagram_eligibility': 'string',
+        'instream_eligibility': 'string',
         'is_app_share': 'bool',
         'is_eligible_for_promotion': 'bool',
         'is_expired': 'bool',
@@ -697,6 +700,7 @@ class PagePost(
         'permalink_url': 'Object',
         'picture': 'string',
         'place': 'Place',
+        'poll': 'Object',
         'privacy': 'Privacy',
         'promotable_id': 'string',
         'promotion_status': 'string',

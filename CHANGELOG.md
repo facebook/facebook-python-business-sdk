@@ -2,8 +2,32 @@
 
 All notable changes to this project will be documented in this file.
 
-
 ## Unreleased
+
+## v8.0.5
+
+### Added
+- `delivery_category` field to Content for Conversions API.
+
+### Added
+- Added HttpServiceInterface to enable the default request object to be overridden by a user-defined HTTP Request Service object. Available for Conversions API create event requests.
+- Added batching to Conversions API. Create batched event requests by using BatchProcessor.
+
+## v8.0.3
+### Added
+- Added partner_agent field to Conversions API EventRequest and EventRequestAsync.
+- Added async support to Conversions API - Create event request promises by using EventRequestAsync.
+- `lead_id` field to the Conversions API `user_data` section.
+
+## v8.0.0
+
+### Changed
+- Graph API call upgrade to [v8.0](https://developers.facebook.com/docs/graph-api/changelog/version8.0)
+
+### Fixed
+- Fixed `delivery_category` field being mandatory in custom_data section for Conversions API.
+
+## v7.0.4
 ### Added
 - `delivery_category` field in custom_data section for Conversions API(formerly Serverside API).
 

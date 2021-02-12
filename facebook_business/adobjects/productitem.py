@@ -50,6 +50,7 @@ class ProductItem(
         brand = 'brand'
         capability_to_review_status = 'capability_to_review_status'
         category = 'category'
+        category_specific_fields = 'category_specific_fields'
         color = 'color'
         commerce_insights = 'commerce_insights'
         condition = 'condition'
@@ -62,11 +63,13 @@ class ProductItem(
         custom_label_4 = 'custom_label_4'
         description = 'description'
         expiration_date = 'expiration_date'
+        fb_product_category = 'fb_product_category'
         gender = 'gender'
         gtin = 'gtin'
         id = 'id'
         image_cdn_urls = 'image_cdn_urls'
         image_url = 'image_url'
+        images = 'images'
         inventory = 'inventory'
         manufacturer_part_number = 'manufacturer_part_number'
         material = 'material'
@@ -457,6 +460,7 @@ class ProductItem(
             'availability': 'availability_enum',
             'brand': 'string',
             'category': 'string',
+            'category_specific_fields': 'map',
             'checkout_url': 'string',
             'color': 'string',
             'commerce_tax_category': 'commerce_tax_category_enum',
@@ -470,6 +474,7 @@ class ProductItem(
             'custom_label_4': 'string',
             'description': 'string',
             'expiration_date': 'string',
+            'fb_product_category': 'string',
             'gender': 'gender_enum',
             'gtin': 'string',
             'image_url': 'string',
@@ -579,6 +584,7 @@ class ProductItem(
         'brand': 'string',
         'capability_to_review_status': 'map<Object, Object>',
         'category': 'string',
+        'category_specific_fields': 'CatalogSubVerticalList',
         'color': 'string',
         'commerce_insights': 'ProductItemCommerceInsights',
         'condition': 'Condition',
@@ -591,11 +597,13 @@ class ProductItem(
         'custom_label_4': 'string',
         'description': 'string',
         'expiration_date': 'string',
+        'fb_product_category': 'string',
         'gender': 'Gender',
         'gtin': 'string',
         'id': 'string',
         'image_cdn_urls': 'map<string, string>',
         'image_url': 'string',
+        'images': 'list<string>',
         'inventory': 'int',
         'manufacturer_part_number': 'string',
         'material': 'string',

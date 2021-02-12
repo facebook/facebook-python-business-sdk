@@ -200,6 +200,7 @@ class AdsInsights(
     class ActionReportTime:
         conversion = 'conversion'
         impression = 'impression'
+        mixed = 'mixed'
 
     class Breakdowns:
         ad_format_asset = 'ad_format_asset'

@@ -103,9 +103,11 @@ class Group(
         school_class = 'SCHOOL_CLASS'
         sorority = 'SORORITY'
         sports = 'SPORTS'
+        streamer = 'STREAMER'
         study_group = 'STUDY_GROUP'
         support = 'SUPPORT'
         teammates = 'TEAMMATES'
+        theme = 'THEME'
         travel_planning = 'TRAVEL_PLANNING'
         work_announcement = 'WORK_ANNOUNCEMENT'
         work_demo_group = 'WORK_DEMO_GROUP'
@@ -113,6 +115,7 @@ class Group(
         work_ephemeral = 'WORK_EPHEMERAL'
         work_feedback = 'WORK_FEEDBACK'
         work_for_sale = 'WORK_FOR_SALE'
+        work_garden = 'WORK_GARDEN'
         work_learning = 'WORK_LEARNING'
         work_mentorship = 'WORK_MENTORSHIP'
         work_multi_company = 'WORK_MULTI_COMPANY'
@@ -155,9 +158,11 @@ class Group(
         school_class = 'SCHOOL_CLASS'
         sorority = 'SORORITY'
         sports = 'SPORTS'
+        streamer = 'STREAMER'
         study_group = 'STUDY_GROUP'
         support = 'SUPPORT'
         teammates = 'TEAMMATES'
+        theme = 'THEME'
         travel_planning = 'TRAVEL_PLANNING'
         work_announcement = 'WORK_ANNOUNCEMENT'
         work_demo_group = 'WORK_DEMO_GROUP'
@@ -165,6 +170,7 @@ class Group(
         work_ephemeral = 'WORK_EPHEMERAL'
         work_feedback = 'WORK_FEEDBACK'
         work_for_sale = 'WORK_FOR_SALE'
+        work_garden = 'WORK_GARDEN'
         work_learning = 'WORK_LEARNING'
         work_mentorship = 'WORK_MENTORSHIP'
         work_multi_company = 'WORK_MULTI_COMPANY'
@@ -773,6 +779,7 @@ class Group(
         param_types = {
             'content_tags': 'list<string>',
             'description': 'string',
+            'enable_backup_ingest': 'bool',
             'encoding_settings': 'string',
             'fisheye_video_cropped': 'bool',
             'front_z_rotation': 'float',
@@ -784,7 +791,6 @@ class Group(
             'privacy': 'string',
             'projection': 'projection_enum',
             'published': 'bool',
-            'save_vod': 'bool',
             'schedule_custom_profile_image': 'file',
             'spatial_audio_format': 'spatial_audio_format_enum',
             'status': 'status_enum',

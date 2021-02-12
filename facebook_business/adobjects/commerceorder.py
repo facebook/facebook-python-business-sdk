@@ -47,6 +47,7 @@ class CommerceOrder(
         estimated_payment_details = 'estimated_payment_details'
         id = 'id'
         is_group_buy = 'is_group_buy'
+        is_test_order = 'is_test_order'
         last_updated = 'last_updated'
         merchant_order_id = 'merchant_order_id'
         order_status = 'order_status'
@@ -117,6 +118,7 @@ class CommerceOrder(
         param_types = {
             'idempotency_key': 'string',
             'merchant_order_reference': 'string',
+            'return_error_response': 'bool',
         }
         enums = {
         }
@@ -248,6 +250,36 @@ class CommerceOrder(
             node_id=self['id'],
             method='GET',
             endpoint='/payments',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_promotion_details(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/promotion_details',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
@@ -512,6 +544,7 @@ class CommerceOrder(
         'estimated_payment_details': 'Object',
         'id': 'string',
         'is_group_buy': 'bool',
+        'is_test_order': 'bool',
         'last_updated': 'string',
         'merchant_order_id': 'string',
         'order_status': 'Object',

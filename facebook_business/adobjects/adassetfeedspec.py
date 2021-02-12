@@ -52,6 +52,7 @@ class AdAssetFeedSpec(
         images = 'images'
         link_urls = 'link_urls'
         optimization_type = 'optimization_type'
+        posts = 'posts'
         titles = 'titles'
         videos = 'videos'
 
@@ -96,6 +97,7 @@ class AdAssetFeedSpec(
         play_game = 'PLAY_GAME'
         purchase_gift_cards = 'PURCHASE_GIFT_CARDS'
         record_now = 'RECORD_NOW'
+        refer_friends = 'REFER_FRIENDS'
         request_time = 'REQUEST_TIME'
         say_thanks = 'SAY_THANKS'
         see_more = 'SEE_MORE'
@@ -106,6 +108,8 @@ class AdAssetFeedSpec(
         sign_up = 'SIGN_UP'
         sotto_subscribe = 'SOTTO_SUBSCRIBE'
         subscribe = 'SUBSCRIBE'
+        swipe_up_product = 'SWIPE_UP_PRODUCT'
+        swipe_up_shop = 'SWIPE_UP_SHOP'
         update_app = 'UPDATE_APP'
         use_app = 'USE_APP'
         use_mobile_app = 'USE_MOBILE_APP'
@@ -131,6 +135,7 @@ class AdAssetFeedSpec(
         'images': 'list<AdAssetFeedSpecImage>',
         'link_urls': 'list<AdAssetFeedSpecLinkURL>',
         'optimization_type': 'string',
+        'posts': 'list<Object>',
         'titles': 'list<AdAssetFeedSpecTitle>',
         'videos': 'list<AdAssetFeedSpecVideo>',
     }

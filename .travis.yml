@@ -27,9 +27,9 @@ deploy:
   distributions: sdist bdist_wheel
   user: __token__
   password: $PYPI_TOKEN1$PYPI_TOKEN2$PYPI_TOKEN3
+  skip_existing: true
   on:
     tags: true
-    skip_existing: true
     repo: facebook/facebook-python-business-sdk
     python: 3.7
     env: TOX_ENV=py37

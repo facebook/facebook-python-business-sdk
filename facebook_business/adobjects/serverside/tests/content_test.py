@@ -20,7 +20,8 @@
 
 from unittest import TestCase
 
-from adobjects.serverside.content import Content
+from facebook_business.adobjects.serverside.content import Content
+from facebook_business.adobjects.serverside.delivery_category import DeliveryCategory
 
 
 class TestContent(TestCase):
@@ -33,9 +34,11 @@ class TestContent(TestCase):
             "description": "description5",
             "brand": "brand6",
             "category": "category7",
+            "delivery_category": DeliveryCategory.HOME_DELIVERY,
         }
         normalized_fields = dict_fields.copy()
         normalized_fields["id"] = product_id
+        normalized_fields["delivery_category"] = dict_fields["delivery_category"].value
         dict_fields["product_id"] = product_id
         content = Content(
             product_id=dict_fields["product_id"],
@@ -45,6 +48,7 @@ class TestContent(TestCase):
             description=dict_fields["description"],
             brand=dict_fields["brand"],
             category=dict_fields["category"],
+            delivery_category=dict_fields["delivery_category"],
         )
 
         self.assertEqual(content.to_dict(), dict_fields)
@@ -93,3 +97,13 @@ class TestContent(TestCase):
         )
 
         self.assertTrue(content1 != content2)
+
+    def test_delivery_category_is_validated_when_set(self):
+        delivery_category = 'undefined_delivery_category'
+        with self.assertRaises(TypeError) as context:
+            Content(
+                delivery_category=delivery_category,
+            )
+        expected_exception_message = 'delivery_category must be of type DeliveryCategory. Passed invalid category: ' + delivery_category;
+
+        self.assertTrue(expected_exception_message in str(context.exception))

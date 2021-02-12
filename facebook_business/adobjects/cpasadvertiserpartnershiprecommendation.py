@@ -32,24 +32,24 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class IterativeSplitTestConfig(
+class CPASAdvertiserPartnershipRecommendation(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isIterativeSplitTestConfig = True
-        super(IterativeSplitTestConfig, self).__init__(fbid, parent_id, api)
+        self._isCPASAdvertiserPartnershipRecommendation = True
+        super(CPASAdvertiserPartnershipRecommendation, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        budget = 'budget'
-        end_time = 'end_time'
-        guidance = 'guidance'
+        advertiser_business_id = 'advertiser_business_id'
+        brand_business_id = 'brand_business_id'
+        brands = 'brands'
+        countries = 'countries'
         id = 'id'
-        iterative_split_test_original_variant_id = 'iterative_split_test_original_variant_id'
-        iterative_split_test_variant_to_split_mapping = 'iterative_split_test_variant_to_split_mapping'
-        results_window = 'results_window'
-        splits = 'splits'
-        start_time = 'start_time'
+        merchant_business_id = 'merchant_business_id'
+        merchant_categories = 'merchant_categories'
+        status = 'status'
+        status_reason = 'status_reason'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -65,7 +65,7 @@ class IterativeSplitTestConfig(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=IterativeSplitTestConfig,
+            target_class=CPASAdvertiserPartnershipRecommendation,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -82,15 +82,15 @@ class IterativeSplitTestConfig(
             return request.execute()
 
     _field_types = {
-        'budget': 'int',
-        'end_time': 'datetime',
-        'guidance': 'Object',
+        'advertiser_business_id': 'string',
+        'brand_business_id': 'string',
+        'brands': 'list<string>',
+        'countries': 'list<string>',
         'id': 'string',
-        'iterative_split_test_original_variant_id': 'string',
-        'iterative_split_test_variant_to_split_mapping': 'map<string, int>',
-        'results_window': 'Object',
-        'splits': 'list<int>',
-        'start_time': 'datetime',
+        'merchant_business_id': 'string',
+        'merchant_categories': 'list<string>',
+        'status': 'string',
+        'status_reason': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

@@ -18,34 +18,21 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebook_business.adobjects.abstractobject import AbstractObject
+from facebook_business.adobjects.pagepost import PagePost
+from facebook_business.adobjects.comment import Comment
+from facebook_business.api import FacebookAdsApi
 
-"""
-This class is auto-generated.
+access_token = '<ACCESS_TOKEN>'
+app_secret = '<APP_SECRET>'
+app_id = '<APP_ID>'
+id = '<PAGE_POST_ID>'
+FacebookAdsApi.init(access_token=access_token)
 
-For any issues or feature requests related to this class, please let us know on
-github and we'll fix in our codegen framework. We'll not be able to accept
-pull request for this class.
-"""
-
-class AtlasURL(
-    AbstractObject,
-):
-
-    def __init__(self, api=None):
-        super(AtlasURL, self).__init__()
-        self._isAtlasURL = True
-        self._api = api
-
-    class Field(AbstractObject.Field):
-        url = 'url'
-
-    _field_types = {
-        'url': 'string',
-    }
-    @classmethod
-    def _get_field_enum_info(cls):
-        field_enum_info = {}
-        return field_enum_info
-
-
+fields = [
+]
+params = {
+}
+print PagePost(id).get_comments(
+  fields=fields,
+  params=params,
+)
