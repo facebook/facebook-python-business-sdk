@@ -18,31 +18,34 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebook_business.adobjects.adaccount import AdAccount
-from facebook_business.adobjects.adset import AdSet
-from facebook_business.api import FacebookAdsApi
+from facebook_business.adobjects.abstractobject import AbstractObject
 
-access_token = '<ACCESS_TOKEN>'
-app_secret = '<APP_SECRET>'
-app_id = '<APP_ID>'
-id = '<AD_ACCOUNT_ID>'
-FacebookAdsApi.init(access_token=access_token)
+"""
+This class is auto-generated.
 
-fields = [
-]
-params = {
-  'name': 'My First Adset',
-  'lifetime_budget': '20000',
-  'start_time': '2021-01-19T14:03:02-0800',
-  'end_time': '2021-01-29T14:03:02-0800',
-  'campaign_id': '<adCampaignLinkClicksID>',
-  'bid_amount': '100',
-  'billing_event': 'LINK_CLICKS',
-  'optimization_goal': 'LINK_CLICKS',
-  'targeting': {'facebook_positions':['feed'],'geo_locations':{'countries':['US']},'publisher_platforms':['facebook','audience_network']},
-  'status': 'PAUSED',
-}
-print AdAccount(id).create_ad_set(
-  fields=fields,
-  params=params,
-)
+For any issues or feature requests related to this class, please let us know on
+github and we'll fix in our codegen framework. We'll not be able to accept
+pull request for this class.
+"""
+
+class ContextualBundlingSpec(
+    AbstractObject,
+):
+
+    def __init__(self, api=None):
+        super(ContextualBundlingSpec, self).__init__()
+        self._isContextualBundlingSpec = True
+        self._api = api
+
+    class Field(AbstractObject.Field):
+        status = 'status'
+
+    _field_types = {
+        'status': 'string',
+    }
+    @classmethod
+    def _get_field_enum_info(cls):
+        field_enum_info = {}
+        return field_enum_info
+
+

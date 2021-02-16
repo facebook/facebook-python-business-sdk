@@ -549,6 +549,7 @@ class AdAccount(
             'object_story_spec': 'AdCreativeObjectStorySpec',
             'object_type': 'string',
             'object_url': 'string',
+            'place_page_set_id': 'string',
             'platform_customizations': 'Object',
             'playable_asset_id': 'string',
             'portrait_customizations': 'map',
@@ -1459,7 +1460,6 @@ class AdAccount(
             'animated_effect_id': 'unsigned int',
             'application_id': 'string',
             'asked_fun_fact_prompt_id': 'unsigned int',
-            'attribution_app_id': 'string',
             'audio_story_wave_animation_handle': 'string',
             'chunk_session_id': 'string',
             'composer_entry_picker': 'string',
@@ -3315,41 +3315,6 @@ class AdAccount(
             target_class=ReachFrequencyPrediction,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=ReachFrequencyPrediction, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def get_roas(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.adaccountroas import AdAccountRoas
-        param_types = {
-            'fields': 'list<string>',
-            'filtering': 'list<Object>',
-            'time_increment': 'string',
-            'time_range': 'Object',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/roas',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AdAccountRoas,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdAccountRoas, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

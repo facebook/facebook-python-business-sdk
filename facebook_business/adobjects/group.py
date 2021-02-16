@@ -182,14 +182,6 @@ class Group(
         work_teamwork = 'WORK_TEAMWORK'
         work_vc_call = 'WORK_VC_CALL'
 
-    class SuggestionCategory:
-        event = 'EVENT'
-        messenger = 'MESSENGER'
-        work = 'WORK'
-        workplace = 'WORKPLACE'
-        workplace_1_1 = 'WORKPLACE_1_1'
-        workplace_manager = 'WORKPLACE_MANAGER'
-
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -736,14 +728,11 @@ class Group(
             'post_requires_admin_approval': 'bool',
             'privacy': 'string',
             'ref': 'string',
-            'suggestion_category': 'suggestion_category_enum',
-            'suggestion_identifier': 'string',
         }
         enums = {
             'group_type_enum': Group.GroupType.__dict__.values(),
             'join_setting_enum': Group.JoinSetting.__dict__.values(),
             'post_permissions_enum': Group.PostPermissions.__dict__.values(),
-            'suggestion_category_enum': Group.SuggestionCategory.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -1123,7 +1112,6 @@ class Group(
             'animated_effect_id': 'unsigned int',
             'application_id': 'string',
             'asked_fun_fact_prompt_id': 'unsigned int',
-            'attribution_app_id': 'string',
             'audio_story_wave_animation_handle': 'string',
             'composer_entry_picker': 'string',
             'composer_entry_point': 'string',
@@ -1253,7 +1241,6 @@ class Group(
         field_enum_info['PostPermissions'] = Group.PostPermissions.__dict__.values()
         field_enum_info['Purpose'] = Group.Purpose.__dict__.values()
         field_enum_info['GroupType'] = Group.GroupType.__dict__.values()
-        field_enum_info['SuggestionCategory'] = Group.SuggestionCategory.__dict__.values()
         return field_enum_info
 
 

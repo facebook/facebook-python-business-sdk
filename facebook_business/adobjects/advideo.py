@@ -85,7 +85,6 @@ class AdVideo(
         animated_effect_id = 'animated_effect_id'
         application_id = 'application_id'
         asked_fun_fact_prompt_id = 'asked_fun_fact_prompt_id'
-        attribution_app_id = 'attribution_app_id'
         audio_story_wave_animation_handle = 'audio_story_wave_animation_handle'
         chunk_session_id = 'chunk_session_id'
         composer_entry_picker = 'composer_entry_picker'
@@ -153,6 +152,7 @@ class AdVideo(
         filepath = 'filepath'
 
     class ContainerType:
+        aco_autoextracted_video = 'ACO_AUTOEXTRACTED_VIDEO'
         aco_video_variation = 'ACO_VIDEO_VARIATION'
         ad_break_preview = 'AD_BREAK_PREVIEW'
         ad_derivative = 'AD_DERIVATIVE'
@@ -190,6 +190,7 @@ class AdVideo(
         event_tour = 'EVENT_TOUR'
         facecast_dvr = 'FACECAST_DVR'
         fb_shorts = 'FB_SHORTS'
+        fb_shorts_group_post = 'FB_SHORTS_GROUP_POST'
         fb_shorts_post = 'FB_SHORTS_POST'
         fundraiser_cover_video = 'FUNDRAISER_COVER_VIDEO'
         game_clip = 'GAME_CLIP'
@@ -1038,7 +1039,6 @@ class AdVideo(
         'animated_effect_id': 'unsigned int',
         'application_id': 'string',
         'asked_fun_fact_prompt_id': 'unsigned int',
-        'attribution_app_id': 'string',
         'audio_story_wave_animation_handle': 'string',
         'chunk_session_id': 'string',
         'composer_entry_picker': 'string',

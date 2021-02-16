@@ -83,6 +83,7 @@ class Page(
         fan_count = 'fan_count'
         featured_video = 'featured_video'
         features = 'features'
+        followers_count = 'followers_count'
         food_styles = 'food_styles'
         founded = 'founded'
         general_info = 'general_info'
@@ -1228,6 +1229,37 @@ class Page(
             self.assure_call()
             return request.execute()
 
+    def get_commerce_eligibility(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.pagecommerceeligibility import PageCommerceEligibility
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/commerce_eligibility',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=PageCommerceEligibility,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=PageCommerceEligibility, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_commerce_merchant_settings(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -1964,6 +1996,78 @@ class Page(
             self.assure_call()
             return request.execute()
 
+    def get_image_copyrights(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.imagecopyright import ImageCopyright
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/image_copyrights',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ImageCopyright,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ImageCopyright, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_image_copyright(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.imagecopyright import ImageCopyright
+        param_types = {
+            'artist': 'string',
+            'creator': 'string',
+            'custom_id': 'string',
+            'description': 'string',
+            'filename': 'string',
+            'geo_ownership': 'list<geo_ownership_enum>',
+            'original_content_creation_date': 'unsigned int',
+            'reference_photo': 'string',
+            'title': 'string',
+        }
+        enums = {
+            'geo_ownership_enum': ImageCopyright.GeoOwnership.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/image_copyrights',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ImageCopyright,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ImageCopyright, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_indexed_videos(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -2553,6 +2657,7 @@ class Page(
             'location': 'Object',
             'location_page_id': 'string',
             'old_store_number': 'unsigned int',
+            'page_username': 'string',
             'permanently_closed': 'bool',
             'phone': 'string',
             'pickup_options': 'list<pickup_options_enum>',
@@ -4393,7 +4498,6 @@ class Page(
             'animated_effect_id': 'unsigned int',
             'application_id': 'string',
             'asked_fun_fact_prompt_id': 'unsigned int',
-            'attribution_app_id': 'string',
             'audio_story_wave_animation_handle': 'string',
             'backdated_post': 'list',
             'call_to_action': 'Object',
@@ -4591,6 +4695,7 @@ class Page(
         'fan_count': 'unsigned int',
         'featured_video': 'AdVideo',
         'features': 'string',
+        'followers_count': 'unsigned int',
         'food_styles': 'list<string>',
         'founded': 'string',
         'general_info': 'string',

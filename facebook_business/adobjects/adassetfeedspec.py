@@ -51,6 +51,7 @@ class AdAssetFeedSpec(
         groups = 'groups'
         images = 'images'
         link_urls = 'link_urls'
+        onsite_destinations = 'onsite_destinations'
         optimization_type = 'optimization_type'
         posts = 'posts'
         titles = 'titles'
@@ -136,6 +137,7 @@ class AdAssetFeedSpec(
         'groups': 'list<AdAssetFeedSpecGroupRule>',
         'images': 'list<AdAssetFeedSpecImage>',
         'link_urls': 'list<AdAssetFeedSpecLinkURL>',
+        'onsite_destinations': 'list<Object>',
         'optimization_type': 'string',
         'posts': 'list<Object>',
         'titles': 'list<AdAssetFeedSpecTitle>',
