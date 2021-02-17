@@ -10,7 +10,7 @@ jobs:
         include:
           - python-version: 2.7
             tox-env: py27
-          - python-version: '3.4.x'
+          - python-version: 3.4.10
             tox-env: py34
           - python-version: 3.5
             tox-env: py35
