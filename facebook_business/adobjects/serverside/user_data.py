@@ -762,8 +762,19 @@ class UserData(object):
         return normalized_payload
 
     def hash_sha_256(self, input):
+        """Returns the sha256 hash of the input.
+
+        In case the input is already hashed, it doesn't rehash it.
+
+        :param input
+        :type: str
+        """
         if input is None:
             return None
+
+        if Normalize.is_already_hashed(input):
+            return input
+
         input = input.encode('utf-8')
         return hashlib.sha256(input).hexdigest()
 
