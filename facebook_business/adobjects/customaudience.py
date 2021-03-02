@@ -78,8 +78,6 @@ class CustomAudience(
         time_content_updated = 'time_content_updated'
         time_created = 'time_created'
         time_updated = 'time_updated'
-        accountid = 'accountID'
-        additionalmetadata = 'additionalMetadata'
         allowed_domains = 'allowed_domains'
         associated_audience_id = 'associated_audience_id'
         claim_objective = 'claim_objective'
@@ -87,26 +85,18 @@ class CustomAudience(
         countries = 'countries'
         creation_params = 'creation_params'
         dataset_id = 'dataset_id'
-        details = 'details'
         enable_fetch_or_create = 'enable_fetch_or_create'
         event_source_group = 'event_source_group'
         event_sources = 'event_sources'
         exclusions = 'exclusions'
-        expectedsize = 'expectedSize'
-        gender = 'gender'
         inclusions = 'inclusions'
-        isprivate = 'isPrivate'
         is_household_exclusion = 'is_household_exclusion'
         list_of_accounts = 'list_of_accounts'
-        maxage = 'maxAge'
-        minage = 'minAge'
         origin_audience_id = 'origin_audience_id'
         parent_audience_id = 'parent_audience_id'
-        partnerid = 'partnerID'
         partner_reference_key = 'partner_reference_key'
         prefill = 'prefill'
         product_set_id = 'product_set_id'
-        source = 'source'
         tags = 'tags'
         video_group_ids = 'video_group_ids'
 
@@ -233,40 +223,29 @@ class CustomAudience(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'accountID': 'string',
-            'additionalMetadata': 'string',
             'allowed_domains': 'list<string>',
             'claim_objective': 'claim_objective_enum',
             'content_type': 'content_type_enum',
             'countries': 'string',
             'customer_file_source': 'customer_file_source_enum',
             'description': 'string',
-            'details': 'string',
             'enable_fetch_or_create': 'bool',
             'event_source_group': 'string',
             'event_sources': 'list<map>',
             'exclusions': 'list<Object>',
-            'expectedSize': 'unsigned int',
-            'gender': 'string',
             'inclusions': 'list<Object>',
-            'isPrivate': 'bool',
             'is_household': 'bool',
             'is_household_exclusion': 'bool',
             'lookalike_spec': 'string',
-            'maxAge': 'unsigned int',
-            'minAge': 'unsigned int',
             'name': 'string',
             'opt_out_link': 'string',
             'parent_audience_id': 'unsigned int',
-            'partnerID': 'string',
-            'partner_reference_key': 'string',
             'product_set_id': 'string',
             'retention_days': 'unsigned int',
             'rev_share_policy_id': 'unsigned int',
             'rule': 'string',
             'rule_aggregation': 'string',
             'seed_audience': 'unsigned int',
-            'source': 'string',
             'tags': 'list<string>',
         }
         enums = {
@@ -624,8 +603,6 @@ class CustomAudience(
         'time_content_updated': 'unsigned int',
         'time_created': 'unsigned int',
         'time_updated': 'unsigned int',
-        'accountID': 'string',
-        'additionalMetadata': 'string',
         'allowed_domains': 'list<string>',
         'associated_audience_id': 'unsigned int',
         'claim_objective': 'ClaimObjective',
@@ -633,26 +610,18 @@ class CustomAudience(
         'countries': 'string',
         'creation_params': 'map',
         'dataset_id': 'string',
-        'details': 'string',
         'enable_fetch_or_create': 'bool',
         'event_source_group': 'string',
         'event_sources': 'list<map>',
         'exclusions': 'list<Object>',
-        'expectedSize': 'unsigned int',
-        'gender': 'string',
         'inclusions': 'list<Object>',
-        'isPrivate': 'bool',
         'is_household_exclusion': 'bool',
         'list_of_accounts': 'list<unsigned int>',
-        'maxAge': 'unsigned int',
-        'minAge': 'unsigned int',
         'origin_audience_id': 'string',
         'parent_audience_id': 'unsigned int',
-        'partnerID': 'string',
         'partner_reference_key': 'string',
         'prefill': 'bool',
         'product_set_id': 'string',
-        'source': 'string',
         'tags': 'list<string>',
         'video_group_ids': 'list<string>',
     }

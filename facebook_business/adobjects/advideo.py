@@ -194,7 +194,6 @@ class AdVideo(
         fb_shorts_post = 'FB_SHORTS_POST'
         fundraiser_cover_video = 'FUNDRAISER_COVER_VIDEO'
         game_clip = 'GAME_CLIP'
-        gaming_update_video = 'GAMING_UPDATE_VIDEO'
         gemstone = 'GEMSTONE'
         goodwill_anniversary_deprecated = 'GOODWILL_ANNIVERSARY_DEPRECATED'
         goodwill_anniversary_promotion_deprecated = 'GOODWILL_ANNIVERSARY_PROMOTION_DEPRECATED'
