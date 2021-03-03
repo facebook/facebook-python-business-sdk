@@ -32,29 +32,39 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class EventTour(
+class PaymentEnginePayment(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isEventTour = True
-        super(EventTour, self).__init__(fbid, parent_id, api)
+        self._isPaymentEnginePayment = True
+        super(PaymentEnginePayment, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        description = 'description'
-        dominant_color = 'dominant_color'
-        end_time = 'end_time'
+        actions = 'actions'
+        application = 'application'
+        country = 'country'
+        created_time = 'created_time'
+        disputes = 'disputes'
+        fraud_status = 'fraud_status'
+        fulfillment_status = 'fulfillment_status'
         id = 'id'
-        is_past = 'is_past'
-        last_event_timestamp = 'last_event_timestamp'
-        name = 'name'
-        num_events = 'num_events'
-        photo = 'photo'
-        publishing_state = 'publishing_state'
-        scheduled_publish_timestamp = 'scheduled_publish_timestamp'
-        start_time = 'start_time'
-        ticketing_uri = 'ticketing_uri'
-        video = 'video'
+        is_from_ad = 'is_from_ad'
+        is_from_page_post = 'is_from_page_post'
+        items = 'items'
+        payout_foreign_exchange_rate = 'payout_foreign_exchange_rate'
+        phone_support_eligible = 'phone_support_eligible'
+        refundable_amount = 'refundable_amount'
+        request_id = 'request_id'
+        tax = 'tax'
+        tax_country = 'tax_country'
+        test = 'test'
+        user = 'user'
+
+    class Reason:
+        banned_user = 'BANNED_USER'
+        denied_refund = 'DENIED_REFUND'
+        granted_replacement_item = 'GRANTED_REPLACEMENT_ITEM'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -70,7 +80,7 @@ class EventTour(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=EventTour,
+            target_class=PaymentEnginePayment,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -86,24 +96,25 @@ class EventTour(
             self.assure_call()
             return request.execute()
 
-    def get_events(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def create_dispute(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.event import Event
         param_types = {
+            'reason': 'reason_enum',
         }
         enums = {
+            'reason_enum': PaymentEnginePayment.Reason.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
-            method='GET',
-            endpoint='/events',
+            method='POST',
+            endpoint='/dispute',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=Event,
+            target_class=PaymentEnginePayment,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=Event, api=self._api),
+            response_parser=ObjectParser(target_class=PaymentEnginePayment, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -117,24 +128,27 @@ class EventTour(
             self.assure_call()
             return request.execute()
 
-    def get_pages(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def create_refund(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.page import Page
         param_types = {
+            'amount': 'float',
+            'currency': 'string',
+            'reason': 'reason_enum',
         }
         enums = {
+            'reason_enum': PaymentEnginePayment.Reason.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
-            method='GET',
-            endpoint='/pages',
+            method='POST',
+            endpoint='/refunds',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=Page,
+            target_class=PaymentEnginePayment,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=Page, api=self._api),
+            response_parser=ObjectParser(target_class=PaymentEnginePayment, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -149,24 +163,30 @@ class EventTour(
             return request.execute()
 
     _field_types = {
-        'description': 'string',
-        'dominant_color': 'string',
-        'end_time': 'string',
+        'actions': 'list<Object>',
+        'application': 'Application',
+        'country': 'string',
+        'created_time': 'datetime',
+        'disputes': 'list<Object>',
+        'fraud_status': 'string',
+        'fulfillment_status': 'string',
         'id': 'string',
-        'is_past': 'bool',
-        'last_event_timestamp': 'int',
-        'name': 'string',
-        'num_events': 'int',
-        'photo': 'Photo',
-        'publishing_state': 'string',
-        'scheduled_publish_timestamp': 'int',
-        'start_time': 'string',
-        'ticketing_uri': 'string',
-        'video': 'AdVideo',
+        'is_from_ad': 'bool',
+        'is_from_page_post': 'bool',
+        'items': 'list<Object>',
+        'payout_foreign_exchange_rate': 'float',
+        'phone_support_eligible': 'bool',
+        'refundable_amount': 'CurrencyAmount',
+        'request_id': 'string',
+        'tax': 'string',
+        'tax_country': 'string',
+        'test': 'unsigned int',
+        'user': 'User',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['Reason'] = PaymentEnginePayment.Reason.__dict__.values()
         return field_enum_info
 
 

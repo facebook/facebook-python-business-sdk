@@ -32,18 +32,17 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class OfflineTermsOfService(
+class WhatsAppBusinessProfile(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isOfflineTermsOfService = True
-        super(OfflineTermsOfService, self).__init__(fbid, parent_id, api)
+        self._isWhatsAppBusinessProfile = True
+        super(WhatsAppBusinessProfile, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        accept_time = 'accept_time'
         id = 'id'
-        signed_by_user = 'signed_by_user'
+        name_verification = 'name_verification'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -59,7 +58,37 @@ class OfflineTermsOfService(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=OfflineTermsOfService,
+            target_class=WhatsAppBusinessProfile,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=WhatsAppBusinessProfile,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -76,9 +105,8 @@ class OfflineTermsOfService(
             return request.execute()
 
     _field_types = {
-        'accept_time': 'int',
         'id': 'string',
-        'signed_by_user': 'User',
+        'name_verification': 'Object',
     }
     @classmethod
     def _get_field_enum_info(cls):

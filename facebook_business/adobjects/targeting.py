@@ -129,12 +129,10 @@ class Targeting(
         zips = 'zips'
 
     class DevicePlatforms:
-        connected_tv = 'connected_tv'
         desktop = 'desktop'
         mobile = 'mobile'
 
     class EffectiveDevicePlatforms:
-        connected_tv = 'connected_tv'
         desktop = 'desktop'
         mobile = 'mobile'
 

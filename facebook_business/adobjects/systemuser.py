@@ -47,6 +47,35 @@ class SystemUser(
         id = 'id'
         ip_permission = 'ip_permission'
         name = 'name'
+        role = 'role'
+        system_user_id = 'system_user_id'
+
+    class Role:
+        admin = 'ADMIN'
+        ads_rights_reviewer = 'ADS_RIGHTS_REVIEWER'
+        value_default = 'DEFAULT'
+        developer = 'DEVELOPER'
+        employee = 'EMPLOYEE'
+        finance_analyst = 'FINANCE_ANALYST'
+        finance_edit = 'FINANCE_EDIT'
+        finance_editor = 'FINANCE_EDITOR'
+        finance_view = 'FINANCE_VIEW'
+        manage = 'MANAGE'
+        partner_center_admin = 'PARTNER_CENTER_ADMIN'
+        partner_center_analyst = 'PARTNER_CENTER_ANALYST'
+        partner_center_education = 'PARTNER_CENTER_EDUCATION'
+        partner_center_marketing = 'PARTNER_CENTER_MARKETING'
+        partner_center_operations = 'PARTNER_CENTER_OPERATIONS'
+
+    # @deprecated get_endpoint function is deprecated
+    @classmethod
+    def get_endpoint(cls):
+        return 'system_users'
+
+    # @deprecated api_create is being deprecated
+    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.adobjects.business import Business
+        return Business(api=self._api, fbid=parent_id).create_system_user(fields, params, batch, success, failure, pending)
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -210,10 +239,13 @@ class SystemUser(
         'id': 'string',
         'ip_permission': 'string',
         'name': 'string',
+        'role': 'Role',
+        'system_user_id': 'int',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['Role'] = SystemUser.Role.__dict__.values()
         return field_enum_info
 
 

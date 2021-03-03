@@ -47,6 +47,7 @@ class BusinessAssetGroup(
     class AdaccountTasks:
         advertise = 'ADVERTISE'
         analyze = 'ANALYZE'
+        draft = 'DRAFT'
         manage = 'MANAGE'
 
     class OfflineConversionDataSetTasks:

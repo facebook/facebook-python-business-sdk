@@ -53,22 +53,17 @@ class Post(
         comments_mirroring_domain = 'comments_mirroring_domain'
         coordinates = 'coordinates'
         created_time = 'created_time'
-        delivery_growth_optimizations = 'delivery_growth_optimizations'
         description = 'description'
-        entities = 'entities'
         event = 'event'
         expanded_height = 'expanded_height'
         expanded_width = 'expanded_width'
         feed_targeting = 'feed_targeting'
-        formatting = 'formatting'
         field_from = 'from'
         full_picture = 'full_picture'
         height = 'height'
         icon = 'icon'
         id = 'id'
-        implicit_place = 'implicit_place'
         instagram_eligibility = 'instagram_eligibility'
-        instream_eligibility = 'instream_eligibility'
         is_app_share = 'is_app_share'
         is_eligible_for_promotion = 'is_eligible_for_promotion'
         is_expired = 'is_expired'
@@ -79,7 +74,6 @@ class Post(
         is_published = 'is_published'
         is_spherical = 'is_spherical'
         link = 'link'
-        live_video_eligibility = 'live_video_eligibility'
         message = 'message'
         message_tags = 'message_tags'
         multi_share_end_card = 'multi_share_end_card'
@@ -90,12 +84,10 @@ class Post(
         permalink_url = 'permalink_url'
         picture = 'picture'
         place = 'place'
-        poll = 'poll'
         privacy = 'privacy'
         promotable_id = 'promotable_id'
         promotion_status = 'promotion_status'
         properties = 'properties'
-        publishing_stats = 'publishing_stats'
         scheduled_publish_time = 'scheduled_publish_time'
         shares = 'shares'
         source = 'source'
@@ -106,13 +98,11 @@ class Post(
         target = 'target'
         targeting = 'targeting'
         timeline_visibility = 'timeline_visibility'
-        translations = 'translations'
         type = 'type'
         updated_time = 'updated_time'
         via = 'via'
         video_buying_eligibility = 'video_buying_eligibility'
         width = 'width'
-        will_be_autocropped_when_deliver_to_instagram = 'will_be_autocropped_when_deliver_to_instagram'
 
     class BackdatedTimeGranularity:
         day = 'day'
@@ -121,15 +111,6 @@ class Post(
         month = 'month'
         none = 'none'
         year = 'year'
-
-    class FeedStoryVisibility:
-        hidden = 'hidden'
-        visible = 'visible'
-
-    class TimelineVisibility:
-        forced_allow = 'forced_allow'
-        hidden = 'hidden'
-        normal = 'normal'
 
     class CheckinEntryPoint:
         branding_checkin = 'BRANDING_CHECKIN'
@@ -168,6 +149,15 @@ class Post(
         reviewable_branded_content = 'REVIEWABLE_BRANDED_CONTENT'
         scheduled = 'SCHEDULED'
         scheduled_recurring = 'SCHEDULED_RECURRING'
+
+    class FeedStoryVisibility:
+        hidden = 'hidden'
+        visible = 'visible'
+
+    class TimelineVisibility:
+        forced_allow = 'forced_allow'
+        hidden = 'hidden'
+        normal = 'normal'
 
     def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -540,138 +530,6 @@ class Post(
             self.assure_call()
             return request.execute()
 
-    def create_promotion(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'ad_account_id': 'string',
-            'ad_conversion_pixel_id': 'unsigned int',
-            'audience': 'audience_enum',
-            'audience_id': 'string',
-            'bid_amount': 'unsigned int',
-            'budget': 'unsigned int',
-            'cta_type': 'cta_type_enum',
-            'currency': 'string',
-            'flow_id': 'string',
-            'placement': 'string',
-            'start_time': 'unsigned int',
-            'stop_time': 'unsigned int',
-            'targeting': 'Targeting',
-        }
-        enums = {
-            'audience_enum': [
-                'AUTO_LOOKALIKE',
-                'AUTO_PAGE_LOOKALIKE',
-                'AUTO_TARGETING',
-                'COUNTRY_AND_INTEREST',
-                'CREATE_NEW',
-                'CUSTOM_AUDIENCE',
-                'DISTRICT',
-                'EVENT_CUSTOM_AUDIENCES',
-                'EVENT_ENGAGEMENT',
-                'FANS',
-                'GROUPER',
-                'HEC_AUDIENCE',
-                'IG_PROMOTED_POST_AUTO',
-                'LOCAL',
-                'LOOKALIKE',
-                'MARKETPLACE_DEFAULT',
-                'MARKETPLACE_NATIONWIDE_AUDIENCE',
-                'MARKETPLACE_SAVED_AUDIENCE',
-                'MULT_CUSTOM_AUDIENCES',
-                'NCPP',
-                'SAVED_AUDIENCE',
-                'SMART_AUDIENCE',
-            ],
-            'cta_type_enum': [
-                'ADD_TO_CART',
-                'APPLY_NOW',
-                'BOOK_TRAVEL',
-                'BUY',
-                'BUY_NOW',
-                'BUY_TICKETS',
-                'CALL',
-                'CALL_ME',
-                'CONTACT',
-                'CONTACT_US',
-                'DONATE',
-                'DONATE_NOW',
-                'DOWNLOAD',
-                'EVENT_RSVP',
-                'FIND_A_GROUP',
-                'FIND_YOUR_GROUPS',
-                'FOLLOW_NEWS_STORYLINE',
-                'FOLLOW_PAGE',
-                'FOLLOW_USER',
-                'GET_DIRECTIONS',
-                'GET_OFFER',
-                'GET_OFFER_VIEW',
-                'GET_QUOTE',
-                'GET_SHOWTIMES',
-                'INSTALL_APP',
-                'INSTALL_MOBILE_APP',
-                'LEARN_MORE',
-                'LIKE_PAGE',
-                'LISTEN_MUSIC',
-                'LISTEN_NOW',
-                'MESSAGE_PAGE',
-                'MOBILE_DOWNLOAD',
-                'MOMENTS',
-                'NO_BUTTON',
-                'OPEN_LINK',
-                'ORDER_NOW',
-                'PAY_TO_ACCESS',
-                'PLAY_GAME',
-                'PURCHASE_GIFT_CARDS',
-                'RECORD_NOW',
-                'REFER_FRIENDS',
-                'REQUEST_TIME',
-                'SAY_THANKS',
-                'SEE_MORE',
-                'SELL_NOW',
-                'SEND_A_GIFT',
-                'SHARE',
-                'SHOP_NOW',
-                'SIGN_UP',
-                'SOTTO_SUBSCRIBE',
-                'START_ORDER',
-                'SUBSCRIBE',
-                'SWIPE_UP_PRODUCT',
-                'SWIPE_UP_SHOP',
-                'UPDATE_APP',
-                'USE_APP',
-                'USE_MOBILE_APP',
-                'VIDEO_ANNOTATION',
-                'VISIT_PAGES_FEED',
-                'WATCH_MORE',
-                'WATCH_VIDEO',
-                'WHATSAPP_MESSAGE',
-                'WOODHENGE_SUPPORT',
-            ],
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/promotions',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def get_reactions(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -810,22 +668,17 @@ class Post(
         'comments_mirroring_domain': 'string',
         'coordinates': 'Object',
         'created_time': 'datetime',
-        'delivery_growth_optimizations': 'list<string>',
         'description': 'string',
-        'entities': 'Object',
         'event': 'Event',
         'expanded_height': 'unsigned int',
         'expanded_width': 'unsigned int',
         'feed_targeting': 'Object',
-        'formatting': 'string',
         'from': 'Object',
         'full_picture': 'string',
         'height': 'unsigned int',
         'icon': 'string',
         'id': 'string',
-        'implicit_place': 'Place',
         'instagram_eligibility': 'string',
-        'instream_eligibility': 'string',
         'is_app_share': 'bool',
         'is_eligible_for_promotion': 'bool',
         'is_expired': 'bool',
@@ -835,8 +688,7 @@ class Post(
         'is_popular': 'bool',
         'is_published': 'bool',
         'is_spherical': 'bool',
-        'link': 'string',
-        'live_video_eligibility': 'list<string>',
+        'link': 'Object',
         'message': 'string',
         'message_tags': 'list',
         'multi_share_end_card': 'bool',
@@ -847,12 +699,10 @@ class Post(
         'permalink_url': 'Object',
         'picture': 'string',
         'place': 'Place',
-        'poll': 'Object',
         'privacy': 'Privacy',
         'promotable_id': 'string',
         'promotion_status': 'string',
         'properties': 'list',
-        'publishing_stats': 'unsigned int',
         'scheduled_publish_time': 'float',
         'shares': 'Object',
         'source': 'string',
@@ -863,20 +713,16 @@ class Post(
         'target': 'Profile',
         'targeting': 'Object',
         'timeline_visibility': 'string',
-        'translations': 'map<string, string>',
         'type': 'string',
         'updated_time': 'datetime',
         'via': 'Object',
         'video_buying_eligibility': 'list<string>',
         'width': 'unsigned int',
-        'will_be_autocropped_when_deliver_to_instagram': 'bool',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['BackdatedTimeGranularity'] = Post.BackdatedTimeGranularity.__dict__.values()
-        field_enum_info['FeedStoryVisibility'] = Post.FeedStoryVisibility.__dict__.values()
-        field_enum_info['TimelineVisibility'] = Post.TimelineVisibility.__dict__.values()
         field_enum_info['CheckinEntryPoint'] = Post.CheckinEntryPoint.__dict__.values()
         field_enum_info['Formatting'] = Post.Formatting.__dict__.values()
         field_enum_info['PlaceAttachmentSetting'] = Post.PlaceAttachmentSetting.__dict__.values()
@@ -884,6 +730,8 @@ class Post(
         field_enum_info['PostingToRedspace'] = Post.PostingToRedspace.__dict__.values()
         field_enum_info['TargetSurface'] = Post.TargetSurface.__dict__.values()
         field_enum_info['UnpublishedContentType'] = Post.UnpublishedContentType.__dict__.values()
+        field_enum_info['FeedStoryVisibility'] = Post.FeedStoryVisibility.__dict__.values()
+        field_enum_info['TimelineVisibility'] = Post.TimelineVisibility.__dict__.values()
         return field_enum_info
 
 

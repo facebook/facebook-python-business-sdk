@@ -62,6 +62,7 @@ class AdsInsights(
         adset_name = 'adset_name'
         adset_start = 'adset_start'
         age_targeting = 'age_targeting'
+        attribution_setting = 'attribution_setting'
         auction_bid = 'auction_bid'
         auction_competitiveness = 'auction_competitiveness'
         auction_max_competitor_bid = 'auction_max_competitor_bid'
@@ -238,7 +239,7 @@ class AdsInsights(
         last_week_mon_sun = 'last_week_mon_sun'
         last_week_sun_sat = 'last_week_sun_sat'
         last_year = 'last_year'
-        lifetime = 'lifetime'
+        maximum = 'maximum'
         this_month = 'this_month'
         this_quarter = 'this_quarter'
         this_week_mon_today = 'this_week_mon_today'
@@ -293,6 +294,7 @@ class AdsInsights(
         'adset_name': 'string',
         'adset_start': 'string',
         'age_targeting': 'string',
+        'attribution_setting': 'string',
         'auction_bid': 'string',
         'auction_competitiveness': 'string',
         'auction_max_competitor_bid': 'string',

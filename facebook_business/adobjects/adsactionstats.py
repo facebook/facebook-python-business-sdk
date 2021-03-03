@@ -44,10 +44,12 @@ class AdsActionStats(
         field_28d_view = '28d_view'
         field_7d_click = '7d_click'
         field_7d_view = '7d_view'
+        action_brand = 'action_brand'
         action_canvas_component_id = 'action_canvas_component_id'
         action_canvas_component_name = 'action_canvas_component_name'
         action_carousel_card_id = 'action_carousel_card_id'
         action_carousel_card_name = 'action_carousel_card_name'
+        action_category = 'action_category'
         action_converted_product_id = 'action_converted_product_id'
         action_destination = 'action_destination'
         action_device = 'action_device'
@@ -73,10 +75,12 @@ class AdsActionStats(
         '28d_view': 'string',
         '7d_click': 'string',
         '7d_view': 'string',
+        'action_brand': 'string',
         'action_canvas_component_id': 'string',
         'action_canvas_component_name': 'string',
         'action_carousel_card_id': 'string',
         'action_carousel_card_name': 'string',
+        'action_category': 'string',
         'action_converted_product_id': 'string',
         'action_destination': 'string',
         'action_device': 'string',

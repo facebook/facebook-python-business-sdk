@@ -61,6 +61,7 @@ class Campaign(
         daily_budget = 'daily_budget'
         effective_status = 'effective_status'
         id = 'id'
+        is_skadnetwork_attribution = 'is_skadnetwork_attribution'
         issues_info = 'issues_info'
         last_budget_toggling_time = 'last_budget_toggling_time'
         lifetime_budget = 'lifetime_budget'
@@ -69,6 +70,7 @@ class Campaign(
         pacing_type = 'pacing_type'
         promoted_object = 'promoted_object'
         recommendations = 'recommendations'
+        smart_promotion_type = 'smart_promotion_type'
         source_campaign = 'source_campaign'
         source_campaign_id = 'source_campaign_id'
         special_ad_categories = 'special_ad_categories'
@@ -83,14 +85,12 @@ class Campaign(
         adbatch = 'adbatch'
         execution_options = 'execution_options'
         iterative_split_test_configs = 'iterative_split_test_configs'
-        smart_promotion_type = 'smart_promotion_type'
         upstream_events = 'upstream_events'
 
     class BidStrategy:
         cost_cap = 'COST_CAP'
         lowest_cost_without_cap = 'LOWEST_COST_WITHOUT_CAP'
         lowest_cost_with_bid_cap = 'LOWEST_COST_WITH_BID_CAP'
-        target_cost = 'TARGET_COST'
 
     class ConfiguredStatus:
         active = 'ACTIVE'
@@ -124,7 +124,7 @@ class Campaign(
         last_week_mon_sun = 'last_week_mon_sun'
         last_week_sun_sat = 'last_week_sun_sat'
         last_year = 'last_year'
-        lifetime = 'lifetime'
+        maximum = 'maximum'
         this_month = 'this_month'
         this_quarter = 'this_quarter'
         this_week_mon_today = 'this_week_mon_today'
@@ -147,7 +147,6 @@ class Campaign(
         local_awareness = 'LOCAL_AWARENESS'
         messages = 'MESSAGES'
         offer_claims = 'OFFER_CLAIMS'
-        outcome_leads = 'OUTCOME_LEADS'
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
         product_catalog_sales = 'PRODUCT_CATALOG_SALES'
@@ -498,7 +497,7 @@ class Campaign(
                 'last_week_mon_sun',
                 'last_week_sun_sat',
                 'last_year',
-                'lifetime',
+                'maximum',
                 'this_month',
                 'this_quarter',
                 'this_week_mon_today',
@@ -542,6 +541,7 @@ class Campaign(
             'budget_rebalance_flag': 'bool',
             'daily_budget': 'unsigned int',
             'execution_options': 'list<execution_options_enum>',
+            'is_skadnetwork_attribution': 'bool',
             'iterative_split_test_configs': 'list<Object>',
             'lifetime_budget': 'unsigned int',
             'name': 'string',
@@ -896,6 +896,7 @@ class Campaign(
             'time_range': 'Object',
             'time_ranges': 'list<Object>',
             'use_account_attribution_setting': 'bool',
+            'use_unified_attribution_setting': 'bool',
         }
         enums = {
             'action_attribution_windows_enum': AdsInsights.ActionAttributionWindows.__dict__.values(),
@@ -956,6 +957,7 @@ class Campaign(
             'time_range': 'Object',
             'time_ranges': 'list<Object>',
             'use_account_attribution_setting': 'bool',
+            'use_unified_attribution_setting': 'bool',
         }
         enums = {
             'action_attribution_windows_enum': AdsInsights.ActionAttributionWindows.__dict__.values(),
@@ -1010,6 +1012,7 @@ class Campaign(
         'daily_budget': 'string',
         'effective_status': 'EffectiveStatus',
         'id': 'string',
+        'is_skadnetwork_attribution': 'bool',
         'issues_info': 'list<AdCampaignIssuesInfo>',
         'last_budget_toggling_time': 'datetime',
         'lifetime_budget': 'string',
@@ -1018,6 +1021,7 @@ class Campaign(
         'pacing_type': 'list<string>',
         'promoted_object': 'AdPromotedObject',
         'recommendations': 'list<AdRecommendation>',
+        'smart_promotion_type': 'string',
         'source_campaign': 'Campaign',
         'source_campaign_id': 'string',
         'special_ad_categories': 'list<string>',
@@ -1032,7 +1036,6 @@ class Campaign(
         'adbatch': 'list<Object>',
         'execution_options': 'list<ExecutionOptions>',
         'iterative_split_test_configs': 'list<Object>',
-        'smart_promotion_type': 'SmartPromotionType',
         'upstream_events': 'map',
     }
     @classmethod

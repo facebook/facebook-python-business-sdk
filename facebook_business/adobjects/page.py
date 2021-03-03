@@ -83,6 +83,7 @@ class Page(
         fan_count = 'fan_count'
         featured_video = 'featured_video'
         features = 'features'
+        followers_count = 'followers_count'
         food_styles = 'food_styles'
         founded = 'founded'
         general_info = 'general_info'
@@ -991,6 +992,46 @@ class Page(
             self.assure_call()
             return request.execute()
 
+    def delete_business_data(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'email': 'string',
+            'external_id': 'string',
+            'object_name': 'object_name_enum',
+            'order_id': 'string',
+            'order_item_id': 'string',
+        }
+        enums = {
+            'object_name_enum': [
+                'contact',
+                'order',
+                'order_item',
+            ],
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='DELETE',
+            endpoint='/business_data',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def create_business_datum(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -1197,37 +1238,6 @@ class Page(
             self.assure_call()
             return request.execute()
 
-    def delete_claimed_urls(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'url': 'string',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='DELETE',
-            endpoint='/claimed_urls',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def get_claimed_urls(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -1246,6 +1256,37 @@ class Page(
             target_class=URL,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=URL, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_commerce_eligibility(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.pagecommerceeligibility import PageCommerceEligibility
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/commerce_eligibility',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=PageCommerceEligibility,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=PageCommerceEligibility, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1982,6 +2023,78 @@ class Page(
             target_class=Page,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=Page, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_image_copyrights(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.imagecopyright import ImageCopyright
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/image_copyrights',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ImageCopyright,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ImageCopyright, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_image_copyright(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.imagecopyright import ImageCopyright
+        param_types = {
+            'artist': 'string',
+            'creator': 'string',
+            'custom_id': 'string',
+            'description': 'string',
+            'filename': 'string',
+            'geo_ownership': 'list<geo_ownership_enum>',
+            'original_content_creation_date': 'unsigned int',
+            'reference_photo': 'string',
+            'title': 'string',
+        }
+        enums = {
+            'geo_ownership_enum': ImageCopyright.GeoOwnership.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/image_copyrights',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ImageCopyright,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ImageCopyright, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2811,6 +2924,7 @@ class Page(
                 'PAYMENT_SETTINGS',
                 'PERSISTENT_MENU',
                 'PLATFORM',
+                'SUBJECT_TO_NEW_EU_PRIVACY_RULES',
                 'TARGET_AUDIENCE',
                 'WHITELISTED_DOMAINS',
             ],
@@ -3979,6 +4093,37 @@ class Page(
             self.assure_call()
             return request.execute()
 
+    def delete_tabs(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'tab': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='DELETE',
+            endpoint='/tabs',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_tabs(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -4180,7 +4325,6 @@ class Page(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.eventtour import EventTour
         param_types = {
         }
         enums = {
@@ -4191,9 +4335,9 @@ class Page(
             endpoint='/tours',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=EventTour,
+            target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=EventTour, api=self._api),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -4426,7 +4570,6 @@ class Page(
             'animated_effect_id': 'unsigned int',
             'application_id': 'string',
             'asked_fun_fact_prompt_id': 'unsigned int',
-            'attribution_app_id': 'string',
             'audio_story_wave_animation_handle': 'string',
             'backdated_post': 'list',
             'call_to_action': 'Object',
@@ -4624,6 +4767,7 @@ class Page(
         'fan_count': 'unsigned int',
         'featured_video': 'AdVideo',
         'features': 'string',
+        'followers_count': 'unsigned int',
         'food_styles': 'list<string>',
         'founded': 'string',
         'general_info': 'string',

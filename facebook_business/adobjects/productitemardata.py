@@ -28,36 +28,51 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class UserPaymentMethodsInfo(
+class ProductItemARData(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(UserPaymentMethodsInfo, self).__init__()
-        self._isUserPaymentMethodsInfo = True
+        super(ProductItemARData, self).__init__()
+        self._isProductItemARData = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        account_id = 'account_id'
-        available_card_types = 'available_card_types'
-        available_payment_methods = 'available_payment_methods'
-        available_payment_methods_details = 'available_payment_methods_details'
-        country = 'country'
-        currency = 'currency'
-        existing_payment_methods = 'existing_payment_methods'
+        container_effect = 'container_effect'
+        effect_icon = 'effect_icon'
+        effect_parameters = 'effect_parameters'
+        picker_icon = 'picker_icon'
+        product_ar_link = 'product_ar_link'
+        state = 'state'
+        surfaces = 'surfaces'
+
+    class Surfaces:
+        b2c_marketplace = 'B2C_MARKETPLACE'
+        c2c_marketplace = 'C2C_MARKETPLACE'
+        da = 'DA'
+        daily_deals = 'DAILY_DEALS'
+        daily_deals_legacy = 'DAILY_DEALS_LEGACY'
+        ig_product_tagging = 'IG_PRODUCT_TAGGING'
+        marketplace = 'MARKETPLACE'
+        marketplace_ads_deprecated = 'MARKETPLACE_ADS_DEPRECATED'
+        marketplace_shops = 'MARKETPLACE_SHOPS'
+        offline_conversions = 'OFFLINE_CONVERSIONS'
+        shops = 'SHOPS'
+        universal_checkout = 'UNIVERSAL_CHECKOUT'
 
     _field_types = {
-        'account_id': 'string',
-        'available_card_types': 'list<string>',
-        'available_payment_methods': 'list<string>',
-        'available_payment_methods_details': 'list<Object>',
-        'country': 'string',
-        'currency': 'string',
-        'existing_payment_methods': 'list<Object>',
+        'container_effect': 'string',
+        'effect_icon': 'string',
+        'effect_parameters': 'Object',
+        'picker_icon': 'string',
+        'product_ar_link': 'Object',
+        'state': 'string',
+        'surfaces': 'list<Surfaces>',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['Surfaces'] = ProductItemARData.Surfaces.__dict__.values()
         return field_enum_info
 
 

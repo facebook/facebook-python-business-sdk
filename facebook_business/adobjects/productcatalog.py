@@ -467,6 +467,49 @@ class ProductCatalog(
             self.assure_call()
             return request.execute()
 
+    def create_automotive_model(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.automotivemodel import AutomotiveModel
+        param_types = {
+            'automotive_model_id': 'string',
+            'body_style': 'body_style_enum',
+            'currency': 'string',
+            'description': 'string',
+            'images': 'list<Object>',
+            'make': 'string',
+            'model': 'string',
+            'price': 'unsigned int',
+            'title': 'string',
+            'url': 'string',
+            'year': 'unsigned int',
+        }
+        enums = {
+            'body_style_enum': AutomotiveModel.BodyStyle.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/automotive_models',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AutomotiveModel,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AutomotiveModel, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def create_batch(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -1203,8 +1246,8 @@ class ProductCatalog(
             'quoted_fields_mode': 'quoted_fields_mode_enum',
             'rules': 'list<string>',
             'schedule': 'string',
+            'selected_override_fields': 'list<string>',
             'update_schedule': 'string',
-            'whitelisted_properties': 'list<string>',
         }
         enums = {
             'delimiter_enum': ProductFeed.Delimiter.__dict__.values(),
@@ -1442,7 +1485,6 @@ class ProductCatalog(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.productitem import ProductItem
         param_types = {
-            'additional_image_files': 'list<file>',
             'additional_image_urls': 'list<string>',
             'additional_uploaded_image_ids': 'list<string>',
             'additional_variant_attributes': 'map',
