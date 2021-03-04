@@ -47,6 +47,7 @@ class Application(
         android_key_hash = 'android_key_hash'
         android_sdk_error_categories = 'android_sdk_error_categories'
         app_domains = 'app_domains'
+        app_events_config = 'app_events_config'
         app_events_feature_bitmask = 'app_events_feature_bitmask'
         app_events_session_timeout = 'app_events_session_timeout'
         app_install_tracked = 'app_install_tracked'
@@ -152,6 +153,7 @@ class Application(
         iphone = 'IPHONE'
         mobile_web = 'MOBILE_WEB'
         oculus = 'OCULUS'
+        samsung = 'SAMSUNG'
         supplementary_images = 'SUPPLEMENTARY_IMAGES'
         web = 'WEB'
         windows = 'WINDOWS'
@@ -420,6 +422,7 @@ class Application(
             'bundle_id': 'string',
             'bundle_short_version': 'string',
             'bundle_version': 'string',
+            'click_id': 'string',
             'consider_views': 'bool',
             'custom_events': 'list<Object>',
             'custom_events_file': 'file',
@@ -432,6 +435,7 @@ class Application(
             'include_dwell_data': 'bool',
             'include_video_data': 'bool',
             'install_referrer': 'string',
+            'install_timestamp': 'unsigned int',
             'installer_package': 'string',
             'limited_data_use': 'bool',
             'migration_bundle': 'string',
@@ -616,6 +620,39 @@ class Application(
             target_class=Business,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=Business, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_aggregate_revenue(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'ecpms': 'list<string>',
+            'query_ids': 'list<string>',
+            'request_id': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/aggregate_revenue',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1152,8 +1189,10 @@ class Application(
         from facebook_business.adobjects.dacheck import DACheck
         param_types = {
             'checks': 'list<string>',
+            'connection_method': 'connection_method_enum',
         }
         enums = {
+            'connection_method_enum': DACheck.ConnectionMethod.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -1467,39 +1506,6 @@ class Application(
             self.assure_call()
             return request.execute()
 
-    def get_live_videos(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.livevideo import LiveVideo
-        param_types = {
-            'broadcast_status': 'broadcast_status_enum',
-        }
-        enums = {
-            'broadcast_status_enum': LiveVideo.BroadcastStatus.__dict__.values(),
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/live_videos',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=LiveVideo,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=LiveVideo, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def create_mmp_auditing(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -1551,6 +1557,7 @@ class Application(
         param_types = {
             'device_id': 'string',
             'extinfo': 'Object',
+            'os_version': 'string',
             'platform': 'platform_enum',
             'sdk_version': 'string',
         }
@@ -1596,36 +1603,6 @@ class Application(
             node_id=self['id'],
             method='POST',
             endpoint='/occludespopups',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def get_ozone_release(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/ozone_release',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
@@ -2143,6 +2120,7 @@ class Application(
         'android_key_hash': 'list<string>',
         'android_sdk_error_categories': 'list<Object>',
         'app_domains': 'list<string>',
+        'app_events_config': 'Object',
         'app_events_feature_bitmask': 'unsigned int',
         'app_events_session_timeout': 'unsigned int',
         'app_install_tracked': 'bool',

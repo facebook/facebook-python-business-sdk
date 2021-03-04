@@ -18,23 +18,9 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebook_business.adobjects.adaccount import AdAccount
-from facebook_business.adobjects.adcreative import AdCreative
-from facebook_business.api import FacebookAdsApi
+from abc import ABC, abstractmethod
 
-access_token = '<ACCESS_TOKEN>'
-app_secret = '<APP_SECRET>'
-app_id = '<APP_ID>'
-id = '<AD_ACCOUNT_ID>'
-FacebookAdsApi.init(access_token=access_token)
-
-fields = [
-]
-params = {
-  'name': 'Sample Creative',
-  'object_story_spec': {'page_id':'<pageID>','link_data':{'call_to_action':{'type':'INSTALL_MOBILE_APP','value':{'link':'<appLink>'}},'image_hash':'<imageHash>','link':'<appLink>','message':'Try it out'}},
-}
-print AdAccount(id).create_ad_creative(
-  fields=fields,
-  params=params,
-)
+class HttpServiceInterface(ABC):
+    @abstractmethod
+    def execute(self, url, method, request_options, headers, params):
+        pass

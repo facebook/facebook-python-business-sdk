@@ -48,10 +48,12 @@ class Referral(
         namespace = 'namespace'
         need_promo_code = 'need_promo_code'
         offer_origin = 'offer_origin'
+        privacy_policy_link = 'privacy_policy_link'
         promotion_text = 'promotion_text'
         receiver_benefits_text = 'receiver_benefits_text'
         referral_link_uri = 'referral_link_uri'
         sender_benefits_text = 'sender_benefits_text'
+        terms_and_condition_link = 'terms_and_condition_link'
 
     def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -124,10 +126,12 @@ class Referral(
             'namespace': 'unsigned int',
             'need_promo_code': 'bool',
             'offer_origin': 'string',
+            'privacy_policy_link': 'string',
             'promotion_text': 'string',
             'receiver_benefits_text': 'string',
             'referral_link_uri': 'string',
             'sender_benefits_text': 'string',
+            'terms_and_condition_link': 'string',
         }
         enums = {
         }
@@ -161,10 +165,12 @@ class Referral(
         'namespace': 'string',
         'need_promo_code': 'bool',
         'offer_origin': 'string',
+        'privacy_policy_link': 'string',
         'promotion_text': 'string',
         'receiver_benefits_text': 'string',
         'referral_link_uri': 'string',
         'sender_benefits_text': 'string',
+        'terms_and_condition_link': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

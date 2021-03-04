@@ -18,21 +18,21 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebook_business.adobjects.adspixel import AdsPixel
+from facebook_business.adobjects.pagepost import PagePost
+from facebook_business.adobjects.comment import Comment
 from facebook_business.api import FacebookAdsApi
 
 access_token = '<ACCESS_TOKEN>'
 app_secret = '<APP_SECRET>'
 app_id = '<APP_ID>'
-id = '<ADS_PIXEL_ID>'
+id = '<PAGE_POST_ID>'
 FacebookAdsApi.init(access_token=access_token)
 
 fields = [
-  'code',
 ]
 params = {
 }
-print AdsPixel(id).get(
+print PagePost(id).get_comments(
   fields=fields,
   params=params,
 )

@@ -18,24 +18,8 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebook_business.adobjects.adaccount import AdAccount
-from facebook_business.adobjects.adcreative import AdCreative
-from facebook_business.api import FacebookAdsApi
-
-access_token = '<ACCESS_TOKEN>'
-app_secret = '<APP_SECRET>'
-app_id = '<APP_ID>'
-id = '<AD_ACCOUNT_ID>'
-FacebookAdsApi.init(access_token=access_token)
-
-fields = [
-]
-params = {
-  'name': 'Dynamic Ad Template Creative Sample',
-  'object_story_spec': {'page_id':'<pageID>','template_data':{'call_to_action':{'type':'INSTALL_MOBILE_APP','value':{'link':'http://www.example.com/appstoreurl'}},'message':'Test {{product.name | titleize}}','link':'http://www.example.com/appstoreurl','name':'Headline {{product.price}}','description':'Description {{product.description}}'}},
-  'product_set_id': '<productSetID>',
-}
-print AdAccount(id).create_ad_creative(
-  fields=fields,
-  params=params,
-)
+class HttpMethod:
+    POST = 'POST'
+    PUT = 'PUT'
+    GET = 'GET'
+    DELETE = 'DELETE'

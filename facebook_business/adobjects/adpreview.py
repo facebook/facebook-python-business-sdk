@@ -51,10 +51,13 @@ class AdPreview(
         facebook_story_mobile = 'FACEBOOK_STORY_MOBILE'
         instagram_explore_contextual = 'INSTAGRAM_EXPLORE_CONTEXTUAL'
         instagram_explore_immersive = 'INSTAGRAM_EXPLORE_IMMERSIVE'
+        instagram_reels = 'INSTAGRAM_REELS'
         instagram_standard = 'INSTAGRAM_STANDARD'
         instagram_story = 'INSTAGRAM_STORY'
         instant_article_recirculation_ad = 'INSTANT_ARTICLE_RECIRCULATION_AD'
         instant_article_standard = 'INSTANT_ARTICLE_STANDARD'
+        instream_banner_desktop = 'INSTREAM_BANNER_DESKTOP'
+        instream_banner_mobile = 'INSTREAM_BANNER_MOBILE'
         instream_video_desktop = 'INSTREAM_VIDEO_DESKTOP'
         instream_video_image = 'INSTREAM_VIDEO_IMAGE'
         instream_video_mobile = 'INSTREAM_VIDEO_MOBILE'
@@ -73,6 +76,7 @@ class AdPreview(
         right_column_standard = 'RIGHT_COLUMN_STANDARD'
         suggested_video_desktop = 'SUGGESTED_VIDEO_DESKTOP'
         suggested_video_mobile = 'SUGGESTED_VIDEO_MOBILE'
+        watch_feed_home = 'WATCH_FEED_HOME'
         watch_feed_mobile = 'WATCH_FEED_MOBILE'
 
     class RenderType:

@@ -41,7 +41,8 @@ class EventRequestAsync(EventRequest):
         namespace_id=None,
         upload_id=None,
         upload_tag=None,
-        upload_source=None
+        upload_source=None,
+        partner_agent=None
     ):
         super().__init__(
             pixel_id,
@@ -50,7 +51,8 @@ class EventRequestAsync(EventRequest):
             namespace_id,
             upload_id,
             upload_tag,
-            upload_source
+            upload_source,
+            partner_agent
         )
         self.pixel_id = pixel_id
 
@@ -99,3 +101,14 @@ class EventRequestAsync(EventRequest):
             normalized_events.append(normalized_event)
 
         return json.dumps(normalized_events)
+
+    def clone_without_events(self):
+        return EventRequestAsync(
+            pixel_id=self.pixel_id,
+            events=[],
+            test_event_code=self.test_event_code,
+            namespace_id=self.namespace_id,
+            upload_id=self.upload_id,
+            upload_tag=self.upload_tag,
+            upload_source=self.upload_source,
+        )

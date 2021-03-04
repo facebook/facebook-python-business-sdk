@@ -48,7 +48,6 @@ class ExtendedCredit(
         id = 'id'
         is_access_revoked = 'is_access_revoked'
         is_automated_experience = 'is_automated_experience'
-        last_payment_time = 'last_payment_time'
         legal_entity_name = 'legal_entity_name'
         liable_biz_name = 'liable_biz_name'
         max_balance = 'max_balance'
@@ -224,6 +223,38 @@ class ExtendedCredit(
             self.assure_call()
             return request.execute()
 
+    def create_whatsapp_credit_sharing_and_attach(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'waba_currency': 'string',
+            'waba_id': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/whatsapp_credit_sharing_and_attach',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     _field_types = {
         'allocated_amount': 'CurrencyAmount',
         'balance': 'CurrencyAmount',
@@ -232,7 +263,6 @@ class ExtendedCredit(
         'id': 'string',
         'is_access_revoked': 'bool',
         'is_automated_experience': 'bool',
-        'last_payment_time': 'datetime',
         'legal_entity_name': 'string',
         'liable_biz_name': 'string',
         'max_balance': 'CurrencyAmount',

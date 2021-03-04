@@ -18,6 +18,9 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
+import hmac
+import hashlib
+import os
 import sys
 
 class Util:
@@ -25,3 +28,22 @@ class Util:
     @staticmethod
     def async_requests_available():
         return sys.version_info >= (3, 5, 3)
+
+    @staticmethod
+    def ca_bundle_path():
+        return os.path.join(
+            os.path.dirname(__file__),
+            '..',
+            '..',
+            'fb_ca_chain_bundle.crt',
+        )
+
+    @staticmethod
+    def appsecret_proof(appsecret, access_token):
+        hmac_object = hmac.new(
+            appsecret.encode('utf-8'),
+            msg=access_token.encode('utf-8'),
+            digestmod=hashlib.sha256
+        )
+
+        return hmac_object.hexdigest()

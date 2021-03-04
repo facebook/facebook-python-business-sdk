@@ -69,17 +69,6 @@ class LiveVideo(
         total_views = 'total_views'
         video = 'video'
 
-    class BroadcastStatus:
-        live = 'live'
-        live_stopped = 'live_stopped'
-        processing = 'processing'
-        scheduled_canceled = 'scheduled_canceled'
-        scheduled_expired = 'scheduled_expired'
-        scheduled_live = 'scheduled_live'
-        scheduled_unpublished = 'scheduled_unpublished'
-        unpublished = 'unpublished'
-        vod = 'vod'
-
     class Projection:
         cubemap = 'CUBEMAP'
         equirectangular = 'EQUIRECTANGULAR'
@@ -103,6 +92,17 @@ class LiveVideo(
     class StreamType:
         ambient = 'AMBIENT'
         regular = 'REGULAR'
+
+    class BroadcastStatus:
+        live = 'LIVE'
+        live_stopped = 'LIVE_STOPPED'
+        processing = 'PROCESSING'
+        scheduled_canceled = 'SCHEDULED_CANCELED'
+        scheduled_expired = 'SCHEDULED_EXPIRED'
+        scheduled_live = 'SCHEDULED_LIVE'
+        scheduled_unpublished = 'SCHEDULED_UNPUBLISHED'
+        unpublished = 'UNPUBLISHED'
+        vod = 'VOD'
 
     class Source:
         owner = 'owner'
@@ -182,15 +182,7 @@ class LiveVideo(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'ad_break_drop_live_stream': 'bool',
-            'ad_break_duration': 'unsigned int',
-            'ad_break_encoder_drops_live_stream': 'bool',
-            'ad_break_intent': 'bool',
-            'ad_break_start_now': 'bool',
-            'ad_break_time_offset': 'float',
             'allow_bm_crossposting': 'bool',
-            'attribution_app_id': 'string',
-            'commercial_break_durations': 'list<unsigned int>',
             'content_tags': 'list<string>',
             'crossposting_actions': 'list<map>',
             'custom_labels': 'list<string>',
@@ -573,12 +565,12 @@ class LiveVideo(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['BroadcastStatus'] = LiveVideo.BroadcastStatus.__dict__.values()
         field_enum_info['Projection'] = LiveVideo.Projection.__dict__.values()
         field_enum_info['SpatialAudioFormat'] = LiveVideo.SpatialAudioFormat.__dict__.values()
         field_enum_info['Status'] = LiveVideo.Status.__dict__.values()
         field_enum_info['StereoscopicMode'] = LiveVideo.StereoscopicMode.__dict__.values()
         field_enum_info['StreamType'] = LiveVideo.StreamType.__dict__.values()
+        field_enum_info['BroadcastStatus'] = LiveVideo.BroadcastStatus.__dict__.values()
         field_enum_info['Source'] = LiveVideo.Source.__dict__.values()
         field_enum_info['LiveCommentModerationSetting'] = LiveVideo.LiveCommentModerationSetting.__dict__.values()
         return field_enum_info
