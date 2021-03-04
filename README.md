@@ -26,6 +26,11 @@ README.md
 requirements.txt
 ```
 
+And remove the following folders:
+```
+.github/workflows
+```
+
 You can verify that your new branch only applies the intended changes by checking:
 ```
 https://github.com/facebook/facebook-python-business-sdk/compare/master...SemanticSugar:version-x
