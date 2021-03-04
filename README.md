@@ -26,6 +26,13 @@ README.md
 requirements.txt
 ```
 
+You can verify that your new branch only applies the intended changes by checking:
+```
+https://github.com/facebook/facebook-python-business-sdk/compare/master...SemanticSugar:version-x
+```
+
+The only changes that should be there are the ones you manually added.
+
 Source of this strategy is [here](https://stackoverflow.com/a/27338013/1634525).
 
 And then commit and push the changes:
