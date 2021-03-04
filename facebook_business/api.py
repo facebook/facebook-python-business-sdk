@@ -59,6 +59,7 @@ class FacebookResponse(object):
 
     TRANSIENT_ERROR_MESSAGES = [
         'An unknown error occurred',
+        'An unknown error has occurred',
         'Sorry, something went wrong',
         'This could happen if a dependent request failed or the entire request timed out.',
         'Please reduce the amount of data',
