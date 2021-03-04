@@ -45,6 +45,7 @@ class PlayableContent(
         name = 'name'
         owner = 'owner'
         app_id = 'app_id'
+        session_id = 'session_id'
         source = 'source'
         source_url = 'source_url'
         source_zip = 'source_zip'
@@ -94,6 +95,7 @@ class PlayableContent(
         'name': 'string',
         'owner': 'Profile',
         'app_id': 'string',
+        'session_id': 'string',
         'source': 'file',
         'source_url': 'string',
         'source_zip': 'file',

@@ -120,7 +120,7 @@ class CustomData(object):
         A numeric value associated with this event. This could be a monetary value or a value in some other metric.
 
         :return: The value.
-        :rtype: float
+        :rtype: float or int
         """
         return self._value
 
@@ -131,10 +131,10 @@ class CustomData(object):
         A numeric value associated with this event. This could be a monetary value or a value in some other metric.
 
         :param value: The value.
-        :type: float
+        :type: float or int
         """
-        if not isinstance(value, float):
-            raise TypeError('CustomData.value must be a float value')
+        if not isinstance(value, (float, int)):
+            raise TypeError('CustomData.value must be a float or int. TypeError on value: %s' % value)
         self._value = value
 
     @property
@@ -313,7 +313,7 @@ class CustomData(object):
         The predicted lifetime value of a conversion event
 
         :return: The predicted ltv.
-        :rtype: float
+        :rtype: float or int
         """
         return self._predicted_ltv
 
@@ -324,10 +324,10 @@ class CustomData(object):
         The predicted lifetime value of a conversion event
 
         :param predicted_ltv: The predicted_ltv.
-        :type: float
+        :type: float or int
         """
-        if not isinstance(predicted_ltv, float):
-            raise TypeError('CustomData.predicted_ltv must be a float value')
+        if not isinstance(predicted_ltv, (float, int)):
+            raise TypeError('CustomData.predicted_ltv must be a float or int. TypeError on predicted_ltv: %s' % predicted_ltv)
         self._predicted_ltv = predicted_ltv
 
     @property

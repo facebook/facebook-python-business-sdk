@@ -450,7 +450,6 @@ class BusinessUnit(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'filter_by': 'string',
-            'metric_scope': 'map',
             'order_by': 'string',
         }
         enums = {

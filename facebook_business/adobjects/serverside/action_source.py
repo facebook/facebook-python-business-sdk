@@ -18,27 +18,49 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebook_business.adobjects.adaccount import AdAccount
-from facebook_business.adobjects.adcreative import AdCreative
-from facebook_business.api import FacebookAdsApi
+from enum import Enum
 
-access_token = '<ACCESS_TOKEN>'
-app_secret = '<APP_SECRET>'
-app_id = '<APP_ID>'
-id = '<ID>'
-FacebookAdsApi.init(access_token=access_token)
 
-fields = [
-]
-params = {
-  'name': 'Sample Creative',
-  'title': 'My title',
-  'body': 'My body',
-  'object_url': '<url>',
-  'link_url': '<url>',
-  'image_hash': '<imageHash>',
-}
-print AdAccount(id).create_ad_creative(
-  fields=fields,
-  params=params,
-)
+# Used to specify where the conversion occurred.
+# See https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/server-event#action-source
+class ActionSource(Enum):
+
+    """
+    Conversion happened over email.
+    """
+    EMAIL = 'email'
+
+    """
+    Conversion was made on your website.
+    """
+    WEBSITE = 'website'
+
+    """
+    Conversion was made using your app.
+    """
+    APP = 'app'
+
+    """
+    Conversion was made over the phone.
+    """
+    PHONE_CALL = 'phone_call'
+
+    """
+    Conversion was made via a messaging app, SMS, or online messaging feature.
+    """
+    CHAT = 'chat'
+
+    """
+    Conversion was made in person at your physical store.
+    """
+    PHYSICAL_STORE = 'physical_store'
+
+    """
+    Conversion happened automatically, for example, a subscription renewal that's set on auto-pay each month.
+    """
+    SYSTEM_GENERATED = 'system_generated'
+
+    """
+    Conversion happened in a way that is not listed.
+    """
+    OTHER = 'other'

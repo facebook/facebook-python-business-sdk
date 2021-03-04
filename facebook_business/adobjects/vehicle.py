@@ -90,6 +90,7 @@ class Vehicle(
     class Availability:
         available = 'AVAILABLE'
         not_available = 'NOT_AVAILABLE'
+        pending = 'PENDING'
 
     class BodyStyle:
         convertible = 'CONVERTIBLE'

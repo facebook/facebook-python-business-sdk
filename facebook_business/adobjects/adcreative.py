@@ -71,6 +71,7 @@ class AdCreative(
         instagram_actor_id = 'instagram_actor_id'
         instagram_permalink_url = 'instagram_permalink_url'
         instagram_story_id = 'instagram_story_id'
+        instagram_user_id = 'instagram_user_id'
         interactive_components_spec = 'interactive_components_spec'
         link_deep_link_url = 'link_deep_link_url'
         link_destination_display_url = 'link_destination_display_url'
@@ -90,6 +91,7 @@ class AdCreative(
         portrait_customizations = 'portrait_customizations'
         product_set_id = 'product_set_id'
         recommender_settings = 'recommender_settings'
+        source_instagram_media_id = 'source_instagram_media_id'
         status = 'status'
         template_url = 'template_url'
         template_url_spec = 'template_url_spec'
@@ -149,20 +151,26 @@ class AdCreative(
         play_game = 'PLAY_GAME'
         purchase_gift_cards = 'PURCHASE_GIFT_CARDS'
         record_now = 'RECORD_NOW'
+        refer_friends = 'REFER_FRIENDS'
         request_time = 'REQUEST_TIME'
         say_thanks = 'SAY_THANKS'
         see_more = 'SEE_MORE'
         sell_now = 'SELL_NOW'
         send_a_gift = 'SEND_A_GIFT'
+        send_gift_money = 'SEND_GIFT_MONEY'
         share = 'SHARE'
         shop_now = 'SHOP_NOW'
         sign_up = 'SIGN_UP'
         sotto_subscribe = 'SOTTO_SUBSCRIBE'
+        start_order = 'START_ORDER'
         subscribe = 'SUBSCRIBE'
+        swipe_up_product = 'SWIPE_UP_PRODUCT'
+        swipe_up_shop = 'SWIPE_UP_SHOP'
         update_app = 'UPDATE_APP'
         use_app = 'USE_APP'
         use_mobile_app = 'USE_MOBILE_APP'
         video_annotation = 'VIDEO_ANNOTATION'
+        video_call = 'VIDEO_CALL'
         visit_pages_feed = 'VISIT_PAGES_FEED'
         watch_more = 'WATCH_MORE'
         watch_video = 'WATCH_VIDEO'
@@ -466,6 +474,7 @@ class AdCreative(
         'instagram_actor_id': 'string',
         'instagram_permalink_url': 'string',
         'instagram_story_id': 'string',
+        'instagram_user_id': 'string',
         'interactive_components_spec': 'AdCreativeInteractiveComponentsSpec',
         'link_deep_link_url': 'string',
         'link_destination_display_url': 'string',
@@ -485,6 +494,7 @@ class AdCreative(
         'portrait_customizations': 'AdCreativePortraitCustomizations',
         'product_set_id': 'string',
         'recommender_settings': 'AdCreativeRecommenderSettings',
+        'source_instagram_media_id': 'string',
         'status': 'Status',
         'template_url': 'string',
         'template_url_spec': 'AdCreativeTemplateURLSpec',

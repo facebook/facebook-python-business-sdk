@@ -51,6 +51,7 @@ class ProductFeed(
         id = 'id'
         item_sub_type = 'item_sub_type'
         latest_upload = 'latest_upload'
+        migrated_from_feed_id = 'migrated_from_feed_id'
         name = 'name'
         override_type = 'override_type'
         product_count = 'product_count'
@@ -60,7 +61,7 @@ class ProductFeed(
         feed_type = 'feed_type'
         override_value = 'override_value'
         rules = 'rules'
-        whitelisted_properties = 'whitelisted_properties'
+        selected_override_fields = 'selected_override_fields'
 
     class Delimiter:
         autodetect = 'AUTODETECT'
@@ -214,6 +215,7 @@ class ProductFeed(
             'deletion_enabled': 'bool',
             'delimiter': 'delimiter_enum',
             'encoding': 'encoding_enum',
+            'migrated_from_feed_id': 'string',
             'name': 'string',
             'quoted_fields_mode': 'quoted_fields_mode_enum',
             'schedule': 'string',
@@ -717,6 +719,7 @@ class ProductFeed(
         'id': 'string',
         'item_sub_type': 'string',
         'latest_upload': 'ProductFeedUpload',
+        'migrated_from_feed_id': 'string',
         'name': 'string',
         'override_type': 'string',
         'product_count': 'int',
@@ -726,7 +729,7 @@ class ProductFeed(
         'feed_type': 'FeedType',
         'override_value': 'string',
         'rules': 'list<string>',
-        'whitelisted_properties': 'list<string>',
+        'selected_override_fields': 'list<string>',
     }
     @classmethod
     def _get_field_enum_info(cls):

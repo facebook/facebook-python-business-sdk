@@ -220,11 +220,21 @@ class AdAccountTargetingUnified(
         work_positions = 'work_positions'
         zips = 'zips'
 
-    class Mode:
-        best_performing = 'best_performing'
-        recently_used = 'recently_used'
-        related = 'related'
-        suggestions = 'suggestions'
+    class AppStore:
+        amazon_app_store = 'amazon_app_store'
+        does_not_exist = 'does_not_exist'
+        fb_android_store = 'fb_android_store'
+        fb_canvas = 'fb_canvas'
+        fb_gameroom = 'fb_gameroom'
+        galaxy_store = 'galaxy_store'
+        google_play = 'google_play'
+        instant_game = 'instant_game'
+        itunes = 'itunes'
+        itunes_ipad = 'itunes_ipad'
+        oculus_app_store = 'oculus_app_store'
+        roku_channel_store = 'roku_channel_store'
+        windows_10_store = 'windows_10_store'
+        windows_store = 'windows_store'
 
     class Objective:
         app_installs = 'APP_INSTALLS'
@@ -242,6 +252,12 @@ class AdAccountTargetingUnified(
         reach = 'REACH'
         store_visits = 'STORE_VISITS'
         video_views = 'VIDEO_VIEWS'
+
+    class Mode:
+        best_performing = 'best_performing'
+        recently_used = 'recently_used'
+        related = 'related'
+        suggestions = 'suggestions'
 
     _field_types = {
         'audience_size': 'unsigned int',
@@ -273,8 +289,9 @@ class AdAccountTargetingUnified(
         field_enum_info['LimitType'] = AdAccountTargetingUnified.LimitType.__dict__.values()
         field_enum_info['RegulatedCategories'] = AdAccountTargetingUnified.RegulatedCategories.__dict__.values()
         field_enum_info['WhitelistedTypes'] = AdAccountTargetingUnified.WhitelistedTypes.__dict__.values()
-        field_enum_info['Mode'] = AdAccountTargetingUnified.Mode.__dict__.values()
+        field_enum_info['AppStore'] = AdAccountTargetingUnified.AppStore.__dict__.values()
         field_enum_info['Objective'] = AdAccountTargetingUnified.Objective.__dict__.values()
+        field_enum_info['Mode'] = AdAccountTargetingUnified.Mode.__dict__.values()
         return field_enum_info
 
 

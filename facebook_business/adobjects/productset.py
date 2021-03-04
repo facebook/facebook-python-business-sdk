@@ -49,6 +49,7 @@ class ProductSet(
         name = 'name'
         product_catalog = 'product_catalog'
         product_count = 'product_count'
+        retailer_id = 'retailer_id'
         metadata = 'metadata'
 
     # @deprecated get_endpoint function is deprecated
@@ -66,6 +67,7 @@ class ProductSet(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'allow_live_product_set_deletion': 'bool',
         }
         enums = {
         }
@@ -129,6 +131,7 @@ class ProductSet(
             'filter': 'Object',
             'metadata': 'map',
             'name': 'string',
+            'retailer_id': 'string',
         }
         enums = {
         }
@@ -427,6 +430,7 @@ class ProductSet(
         'name': 'string',
         'product_catalog': 'ProductCatalog',
         'product_count': 'unsigned int',
+        'retailer_id': 'string',
         'metadata': 'map',
     }
     @classmethod

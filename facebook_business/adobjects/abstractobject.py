@@ -23,10 +23,16 @@ from facebook_business.exceptions import (
 )
 from facebook_business.typechecker import TypeChecker
 
-import collections
+try:
+  # Since python 3
+  import collections.abc as collections_abc
+except ImportError:
+  # Won't work after python 3.8
+  import collections as collections_abc
+
 import json
 
-class AbstractObject(collections.MutableMapping):
+class AbstractObject(collections_abc.MutableMapping):
 
     """
     Represents an abstract object (may or may not have explicitly be a node of

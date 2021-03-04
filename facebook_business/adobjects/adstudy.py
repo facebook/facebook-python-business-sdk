@@ -66,6 +66,7 @@ class AdStudy(
         continuous_lift_config = 'CONTINUOUS_LIFT_CONFIG'
         geo_lift = 'GEO_LIFT'
         lift = 'LIFT'
+        private_lift = 'PRIVATE_LIFT'
         split_test = 'SPLIT_TEST'
 
     # @deprecated get_endpoint function is deprecated
@@ -224,48 +225,6 @@ class AdStudy(
         request = FacebookRequest(
             node_id=self['id'],
             method='GET',
-            endpoint='/objectives',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AdStudyObjective,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdStudyObjective, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_objective(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.adstudyobjective import AdStudyObjective
-        param_types = {
-            'adspixels': 'list<Object>',
-            'applications': 'list<Object>',
-            'customconversions': 'list<Object>',
-            'is_primary': 'bool',
-            'name': 'string',
-            'offline_conversion_data_sets': 'list<Object>',
-            'offsitepixels': 'list<Object>',
-            'product_catalogs': 'list<Object>',
-            'product_sets': 'list<Object>',
-            'type': 'type_enum',
-        }
-        enums = {
-            'type_enum': AdStudyObjective.Type.__dict__.values(),
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
             endpoint='/objectives',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),

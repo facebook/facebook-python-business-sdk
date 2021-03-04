@@ -69,6 +69,40 @@ class AutomotiveModel(
         url = 'url'
         year = 'year'
 
+    class BodyStyle:
+        convertible = 'CONVERTIBLE'
+        coupe = 'COUPE'
+        crossover = 'CROSSOVER'
+        estate = 'ESTATE'
+        grandtourer = 'GRANDTOURER'
+        hatchback = 'HATCHBACK'
+        minibus = 'MINIBUS'
+        minivan = 'MINIVAN'
+        mpv = 'MPV'
+        none = 'NONE'
+        other = 'OTHER'
+        pickup = 'PICKUP'
+        roadster = 'ROADSTER'
+        saloon = 'SALOON'
+        sedan = 'SEDAN'
+        sportscar = 'SPORTSCAR'
+        supercar = 'SUPERCAR'
+        supermini = 'SUPERMINI'
+        suv = 'SUV'
+        truck = 'TRUCK'
+        van = 'VAN'
+        wagon = 'WAGON'
+
+    # @deprecated get_endpoint function is deprecated
+    @classmethod
+    def get_endpoint(cls):
+        return 'automotive_models'
+
+    # @deprecated api_create is being deprecated
+    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.adobjects.productcatalog import ProductCatalog
+        return ProductCatalog(api=self._api, fbid=parent_id).create_automotive_model(fields, params, batch, success, failure, pending)
+
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -131,6 +165,7 @@ class AutomotiveModel(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['BodyStyle'] = AutomotiveModel.BodyStyle.__dict__.values()
         return field_enum_info
 
 

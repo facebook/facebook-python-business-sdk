@@ -81,6 +81,8 @@ class AdCampaignActivity(
         optimization_goal_old = 'optimization_goal_old'
         pacing_type_new = 'pacing_type_new'
         pacing_type_old = 'pacing_type_old'
+        promoted_object_id_new = 'promoted_object_id_new'
+        promoted_object_id_old = 'promoted_object_id_old'
         run_status_new = 'run_status_new'
         run_status_old = 'run_status_old'
         schedule_new = 'schedule_new'
@@ -93,6 +95,8 @@ class AdCampaignActivity(
         stop_time_old = 'stop_time_old'
         targeting_expansion_new = 'targeting_expansion_new'
         targeting_expansion_old = 'targeting_expansion_old'
+        targeting_new = 'targeting_new'
+        targeting_old = 'targeting_old'
         updated_time_new = 'updated_time_new'
         updated_time_old = 'updated_time_old'
 
@@ -100,23 +104,23 @@ class AdCampaignActivity(
         cost_cap = 'COST_CAP'
         lowest_cost_without_cap = 'LOWEST_COST_WITHOUT_CAP'
         lowest_cost_with_bid_cap = 'LOWEST_COST_WITH_BID_CAP'
-        target_cost = 'TARGET_COST'
 
     class BidStrategyOld:
         cost_cap = 'COST_CAP'
         lowest_cost_without_cap = 'LOWEST_COST_WITHOUT_CAP'
         lowest_cost_with_bid_cap = 'LOWEST_COST_WITH_BID_CAP'
-        target_cost = 'TARGET_COST'
 
     class BillingEventNew:
         app_installs = 'APP_INSTALLS'
         clicks = 'CLICKS'
         impressions = 'IMPRESSIONS'
         link_clicks = 'LINK_CLICKS'
+        listing_interaction = 'LISTING_INTERACTION'
         none = 'NONE'
         offer_claims = 'OFFER_CLAIMS'
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
+        purchase = 'PURCHASE'
         thruplay = 'THRUPLAY'
 
     class BillingEventOld:
@@ -124,10 +128,12 @@ class AdCampaignActivity(
         clicks = 'CLICKS'
         impressions = 'IMPRESSIONS'
         link_clicks = 'LINK_CLICKS'
+        listing_interaction = 'LISTING_INTERACTION'
         none = 'NONE'
         offer_claims = 'OFFER_CLAIMS'
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
+        purchase = 'PURCHASE'
         thruplay = 'THRUPLAY'
 
     class OptimizationGoalNew:
@@ -149,6 +155,7 @@ class AdCampaignActivity(
         page_engagement = 'PAGE_ENGAGEMENT'
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
+        quality_call = 'QUALITY_CALL'
         quality_lead = 'QUALITY_LEAD'
         reach = 'REACH'
         replies = 'REPLIES'
@@ -177,6 +184,7 @@ class AdCampaignActivity(
         page_engagement = 'PAGE_ENGAGEMENT'
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
+        quality_call = 'QUALITY_CALL'
         quality_lead = 'QUALITY_LEAD'
         reach = 'REACH'
         replies = 'REPLIES'
@@ -257,6 +265,8 @@ class AdCampaignActivity(
         'optimization_goal_old': 'OptimizationGoalOld',
         'pacing_type_new': 'int',
         'pacing_type_old': 'int',
+        'promoted_object_id_new': 'string',
+        'promoted_object_id_old': 'string',
         'run_status_new': 'string',
         'run_status_old': 'string',
         'schedule_new': 'list<Object>',
@@ -269,6 +279,8 @@ class AdCampaignActivity(
         'stop_time_old': 'datetime',
         'targeting_expansion_new': 'Object',
         'targeting_expansion_old': 'Object',
+        'targeting_new': 'Object',
+        'targeting_old': 'Object',
         'updated_time_new': 'datetime',
         'updated_time_old': 'datetime',
     }

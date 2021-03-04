@@ -85,7 +85,6 @@ class AdVideo(
         animated_effect_id = 'animated_effect_id'
         application_id = 'application_id'
         asked_fun_fact_prompt_id = 'asked_fun_fact_prompt_id'
-        attribution_app_id = 'attribution_app_id'
         audio_story_wave_animation_handle = 'audio_story_wave_animation_handle'
         chunk_session_id = 'chunk_session_id'
         composer_entry_picker = 'composer_entry_picker'
@@ -133,6 +132,7 @@ class AdVideo(
         replace_video_id = 'replace_video_id'
         sales_promo_id = 'sales_promo_id'
         slideshow_spec = 'slideshow_spec'
+        source_instagram_media_id = 'source_instagram_media_id'
         start_offset = 'start_offset'
         swap_mode = 'swap_mode'
         text_format_metadata = 'text_format_metadata'
@@ -152,6 +152,7 @@ class AdVideo(
         filepath = 'filepath'
 
     class ContainerType:
+        aco_autoextracted_video = 'ACO_AUTOEXTRACTED_VIDEO'
         aco_video_variation = 'ACO_VIDEO_VARIATION'
         ad_break_preview = 'AD_BREAK_PREVIEW'
         ad_derivative = 'AD_DERIVATIVE'
@@ -168,6 +169,7 @@ class AdVideo(
         candidate_videos = 'CANDIDATE_VIDEOS'
         canvas = 'CANVAS'
         cfc_video = 'CFC_VIDEO'
+        cms_media_manager = 'CMS_MEDIA_MANAGER'
         contained_post_attachment = 'CONTAINED_POST_ATTACHMENT'
         contained_post_audio_broadcast = 'CONTAINED_POST_AUDIO_BROADCAST'
         contained_post_broadcast = 'CONTAINED_POST_BROADCAST'
@@ -188,9 +190,10 @@ class AdVideo(
         event_tour = 'EVENT_TOUR'
         facecast_dvr = 'FACECAST_DVR'
         fb_shorts = 'FB_SHORTS'
+        fb_shorts_group_post = 'FB_SHORTS_GROUP_POST'
+        fb_shorts_post = 'FB_SHORTS_POST'
         fundraiser_cover_video = 'FUNDRAISER_COVER_VIDEO'
         game_clip = 'GAME_CLIP'
-        gaming_update_video = 'GAMING_UPDATE_VIDEO'
         gemstone = 'GEMSTONE'
         goodwill_anniversary_deprecated = 'GOODWILL_ANNIVERSARY_DEPRECATED'
         goodwill_anniversary_promotion_deprecated = 'GOODWILL_ANNIVERSARY_PROMOTION_DEPRECATED'
@@ -202,6 +205,7 @@ class AdVideo(
         heuristic_cluster_video = 'HEURISTIC_CLUSTER_VIDEO'
         heuristic_preview = 'HEURISTIC_PREVIEW'
         highlight_clip_video = 'HIGHLIGHT_CLIP_VIDEO'
+        ig_reels_xpv = 'IG_REELS_XPV'
         ig_stories_reader = 'IG_STORIES_READER'
         inspiration_video = 'INSPIRATION_VIDEO'
         instagram_video_copy = 'INSTAGRAM_VIDEO_COPY'
@@ -254,12 +258,14 @@ class AdVideo(
         storyline_with_external_music = 'STORYLINE_WITH_EXTERNAL_MUSIC'
         story_archive_video = 'STORY_ARCHIVE_VIDEO'
         story_card_template = 'STORY_CARD_TEMPLATE'
+        stream_highlights_video = 'STREAM_HIGHLIGHTS_VIDEO'
         tarot_digest = 'TAROT_DIGEST'
         temp_multimedia_post = 'TEMP_MULTIMEDIA_POST'
         unlisted = 'UNLISTED'
         video_comment = 'VIDEO_COMMENT'
         video_creative_editor_autogen_ad_video = 'VIDEO_CREATIVE_EDITOR_AUTOGEN_AD_VIDEO'
         video_superres = 'VIDEO_SUPERRES'
+        vu_generated_video = 'VU_GENERATED_VIDEO'
         woodhenge = 'WOODHENGE'
         work_knowledge_video = 'WORK_KNOWLEDGE_VIDEO'
         your_day = 'YOUR_DAY'
@@ -794,37 +800,6 @@ class AdVideo(
             self.assure_call()
             return request.execute()
 
-    def get_shared_posts(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.post import Post
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/sharedposts',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=Post,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=Post, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def get_sponsor_tags(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -1063,7 +1038,6 @@ class AdVideo(
         'animated_effect_id': 'unsigned int',
         'application_id': 'string',
         'asked_fun_fact_prompt_id': 'unsigned int',
-        'attribution_app_id': 'string',
         'audio_story_wave_animation_handle': 'string',
         'chunk_session_id': 'string',
         'composer_entry_picker': 'string',
@@ -1111,6 +1085,7 @@ class AdVideo(
         'replace_video_id': 'string',
         'sales_promo_id': 'unsigned int',
         'slideshow_spec': 'map',
+        'source_instagram_media_id': 'string',
         'start_offset': 'unsigned int',
         'swap_mode': 'SwapMode',
         'text_format_metadata': 'string',

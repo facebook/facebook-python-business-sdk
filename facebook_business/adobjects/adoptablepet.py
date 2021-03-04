@@ -50,17 +50,24 @@ class AdoptablePet(
         availability = 'availability'
         breed = 'breed'
         category_specific_fields = 'category_specific_fields'
+        coat_length = 'coat_length'
+        color = 'color'
         currency = 'currency'
         description = 'description'
+        features = 'features'
         gender = 'gender'
         id = 'id'
         images = 'images'
         name = 'name'
         price = 'price'
         sanitized_images = 'sanitized_images'
+        secondary_color = 'secondary_color'
+        shelter_email = 'shelter_email'
         shelter_name = 'shelter_name'
         shelter_page_id = 'shelter_page_id'
+        shelter_phone = 'shelter_phone'
         size = 'size'
+        tertiary_color = 'tertiary_color'
         url = 'url'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
@@ -103,17 +110,24 @@ class AdoptablePet(
         'availability': 'string',
         'breed': 'string',
         'category_specific_fields': 'CatalogSubVerticalList',
+        'coat_length': 'string',
+        'color': 'string',
         'currency': 'string',
         'description': 'string',
+        'features': 'list<string>',
         'gender': 'string',
         'id': 'string',
         'images': 'list<string>',
         'name': 'string',
         'price': 'string',
         'sanitized_images': 'list<string>',
+        'secondary_color': 'string',
+        'shelter_email': 'string',
         'shelter_name': 'string',
         'shelter_page_id': 'Page',
+        'shelter_phone': 'string',
         'size': 'string',
+        'tertiary_color': 'string',
         'url': 'string',
     }
     @classmethod

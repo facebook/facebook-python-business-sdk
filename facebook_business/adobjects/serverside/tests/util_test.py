@@ -23,6 +23,9 @@ from unittest.mock import PropertyMock, patch
 
 from facebook_business.adobjects.serverside.util import Util, sys
 
+import hashlib
+import hmac
+import os
 
 class UtilTest(TestCase):
     @patch('facebook_business.adobjects.serverside.util.sys')
@@ -38,3 +41,18 @@ class UtilTest(TestCase):
         self.assertFalse(Util.async_requests_available())
         type(mock_sys).version_info = PropertyMock(return_value=(2, 7))
         self.assertFalse(Util.async_requests_available())
+
+    def test_ca_bundle_path(self):
+        self.assertTrue(os.path.exists(Util.ca_bundle_path()))
+
+    def test_appsecret_proof(self):
+        appsecret = 'appsecret-123'
+        access_token = 'access-token-234'
+        expected = hmac.new(
+            appsecret.encode('utf-8'),
+            msg=access_token.encode('utf-8'),
+            digestmod=hashlib.sha256
+        ).hexdigest()
+        actual = Util.appsecret_proof(appsecret, access_token)
+
+        self.assertEqual(actual, expected)
