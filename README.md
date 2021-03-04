@@ -1,4 +1,9 @@
-# Facebook Business SDK for Python
+# NextRoll's fork of the Facebook Business SDK for Python
+
+To deploy to artifactory:
+```
+python setup.py sdist upload -r pip-adroll
+```
 
 [![Build Status](https://travis-ci.org/facebook/facebook-python-business-sdk.svg)](https://travis-ci.org/facebook/facebook-python-business-sdk)
 
