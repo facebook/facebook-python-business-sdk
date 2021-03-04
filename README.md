@@ -1,5 +1,41 @@
 # NextRoll's fork of the Facebook Business SDK for Python
 
+To update to the newest version of the original Facebook SDK,
+first we need a branch with an exact copy of that version:
+
+```
+git remote add upstream https://github.com/facebook/facebook-python-business-sdk.git
+
+git checkout main
+git checkout -b version-x
+
+git merge -s ours upstream/master
+
+git checkout --detach upstream/master
+git reset --soft version-x
+
+git checkout version-x
+git commit --amend -C HEAD
+
+git push origin version-x
+```
+
+Then manually apply our changes to these files:
+```
+README.md
+requirements.txt
+```
+
+Source of this strategy is [here](https://stackoverflow.com/a/27338013/1634525).
+
+And then commit and push the changes:
+
+```
+git add -u
+git commit -m "Applying the NextRoll changes"
+git push origin version-x
+```
+
 To deploy to artifactory:
 ```
 python setup.py sdist upload -r pip-adroll
