@@ -31,6 +31,14 @@ And remove the following folders:
 .github/workflows
 ```
 
+And then commit and push the changes:
+
+```
+git add -u
+git commit -m "Applying the NextRoll changes"
+git push origin version-x
+```
+
 You can verify that your new branch only applies the intended changes by checking:
 ```
 https://github.com/facebook/facebook-python-business-sdk/compare/master...SemanticSugar:version-x
@@ -39,14 +47,6 @@ https://github.com/facebook/facebook-python-business-sdk/compare/master...Semant
 The only changes that should be there are the ones you manually added.
 
 Source of this strategy is [here](https://stackoverflow.com/a/27338013/1634525).
-
-And then commit and push the changes:
-
-```
-git add -u
-git commit -m "Applying the NextRoll changes"
-git push origin version-x
-```
 
 To deploy to artifactory:
 ```
