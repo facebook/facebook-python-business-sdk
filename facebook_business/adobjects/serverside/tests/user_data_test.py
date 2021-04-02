@@ -19,19 +19,17 @@
 # DEALINGS IN THE SOFTWARE.
 
 from unittest import TestCase
-from unittest.mock import MagicMock, patch
 
 from facebook_business.adobjects.serverside.user_data import UserData
+from facebook_business.adobjects.serverside.normalize import Normalize
 
 
 class UserDataTest(TestCase):
-    @patch('facebook_business.adobjects.serverside.user_data.UserData.hash_sha_256')
-    @patch('facebook_business.adobjects.serverside.user_data.Normalize.normalize_field')
-    def test_normalize(self, normalize_mock, hash_sha_256_mock):
+    def test_normalize_it_normalizes_and_hashes(self):
         initial_state = {
-            'f5first': 'FirstName',
-            'f5last': 'LastName',
-            'fi': 'FI',
+            'f5first': 'First',
+            'f5last': 'Last',
+            'fi': 'A',
             'dobd': '01',
             'dobm': '02',
             'doby': '2000',
@@ -46,18 +44,16 @@ class UserDataTest(TestCase):
             doby=initial_state['doby'],
             lead_id=initial_state['lead_id'],
         )
-        hash_sha_256_mock.side_effect = (
-            lambda field: field + '-sha256' if field else None
-        )
-        normalize_mock.side_effect = (
-            lambda _, field: field + '-normal' if field else None
-        )
+
         actual = user_data.normalize()
-        expected = {}
-        for key, value in initial_state.items():
-            if key != 'lead_id':
-                expected[key] = '%s-normal-sha256' % value
-            else:
-                expected[key] = value
+        expected = {
+            'f5first': Normalize.hash_sha_256(initial_state['f5first'].lower()),
+            'f5last': Normalize.hash_sha_256(initial_state['f5last'].lower()),
+            'fi': Normalize.hash_sha_256(initial_state['fi'].lower()),
+            'dobd': Normalize.hash_sha_256(initial_state['dobd']),
+            'dobm': Normalize.hash_sha_256(initial_state['dobm']),
+            'doby': Normalize.hash_sha_256(initial_state['doby']),
+            'lead_id': initial_state['lead_id'],
+        }
 
         self.assertEqual(actual, expected)

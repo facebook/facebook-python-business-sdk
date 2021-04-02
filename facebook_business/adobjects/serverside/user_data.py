@@ -18,7 +18,6 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-import hashlib
 import pprint
 import six
 
@@ -731,15 +730,15 @@ class UserData(object):
         self._doby = doby
 
     def normalize(self):
-        normalized_payload = {'em': self.hash_sha_256(Normalize.normalize_field('em', self.email)),
-                              'ph': self.hash_sha_256(Normalize.normalize_field('ph', self.phone)),
-                              'db': self.hash_sha_256(Normalize.normalize_field('db', self.date_of_birth)),
-                              'ln': self.hash_sha_256(Normalize.normalize_field('ln', self.last_name)),
-                              'fn': self.hash_sha_256(Normalize.normalize_field('fn', self.first_name)),
-                              'ct': self.hash_sha_256(Normalize.normalize_field('ct', self.city)),
-                              'st': self.hash_sha_256(Normalize.normalize_field('st', self.state)),
-                              'zp': self.hash_sha_256(Normalize.normalize_field('zp', self.zip_code)),
-                              'country': self.hash_sha_256(Normalize.normalize_field('country', self.country_code)),
+        normalized_payload = {'em': Normalize.normalize_field('em', self.email),
+                              'ph': Normalize.normalize_field('ph', self.phone),
+                              'db': Normalize.normalize_field('db', self.date_of_birth),
+                              'ln': Normalize.normalize_field('ln', self.last_name),
+                              'fn': Normalize.normalize_field('fn', self.first_name),
+                              'ct': Normalize.normalize_field('ct', self.city),
+                              'st': Normalize.normalize_field('st', self.state),
+                              'zp': Normalize.normalize_field('zp', self.zip_code),
+                              'country': Normalize.normalize_field('country', self.country_code),
                               'external_id': self.external_id,
                               'client_ip_address': self.client_ip_address,
                               'client_user_agent': self.client_user_agent,
@@ -748,24 +747,18 @@ class UserData(object):
                               'subscription_id': self.subscription_id,
                               'fb_login_id': self.fb_login_id,
                               'lead_id': self.lead_id,
-                              'f5first': self.hash_sha_256(Normalize.normalize_field('f5first', self.f5first)),
-                              'f5last': self.hash_sha_256(Normalize.normalize_field('f5last', self.f5last)),
-                              'fi': self.hash_sha_256(Normalize.normalize_field('fi', self.fi)),
-                              'dobd': self.hash_sha_256(Normalize.normalize_field('dobd', self.dobd)),
-                              'dobm': self.hash_sha_256(Normalize.normalize_field('dobm', self.dobm)),
-                              'doby': self.hash_sha_256(Normalize.normalize_field('doby', self.doby)),
+                              'f5first': Normalize.normalize_field('f5first', self.f5first),
+                              'f5last': Normalize.normalize_field('f5last', self.f5last),
+                              'fi': Normalize.normalize_field('fi', self.fi),
+                              'dobd': Normalize.normalize_field('dobd', self.dobd),
+                              'dobm': Normalize.normalize_field('dobm', self.dobm),
+                              'doby': Normalize.normalize_field('doby', self.doby),
                               }
         if self.gender is not None:
-            normalized_payload['ge'] = self.hash_sha_256(Normalize.normalize_field('ge', self.gender.value))
+            normalized_payload['ge'] = Normalize.normalize_field('ge', self.gender.value)
 
         normalized_payload = {k: v for k, v in normalized_payload.items() if v is not None}
         return normalized_payload
-
-    def hash_sha_256(self, input):
-        if input is None:
-            return None
-        input = input.encode('utf-8')
-        return hashlib.sha256(input).hexdigest()
 
     def to_dict(self):
         """Returns the model properties as a dict"""

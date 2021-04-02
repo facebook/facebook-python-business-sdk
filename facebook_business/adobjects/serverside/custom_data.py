@@ -475,7 +475,7 @@ class CustomData(object):
     def normalize(self):
         normalized_payload = {
             'value': self.value,
-            'currency': Normalize.normalize_field('currency', self.currency),
+            'currency': Normalize.normalize_field_skip_hashing('currency', self.currency),
             'content_name': self.content_name,
             'content_category': self.content_category,
             'content_ids': self.content_ids,

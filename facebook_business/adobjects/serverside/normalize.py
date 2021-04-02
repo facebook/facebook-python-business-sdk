@@ -20,6 +20,7 @@
 # DEALINGS IN THE SOFTWARE.
 
 import datetime
+import hashlib
 import pycountry
 import re
 
@@ -36,6 +37,14 @@ class Normalize(object):
 
     @staticmethod
     def normalize_field(field, data):
+        return Normalize.normalize(field, data, True)
+
+    @staticmethod
+    def normalize_field_skip_hashing(field, data):
+        return Normalize.normalize(field, data, False)
+
+    @staticmethod
+    def normalize(field, data, hash_field):
         """Computes the normalized value for the given field type and data.
 
         :param field: The field name that is being normalized.
@@ -123,6 +132,9 @@ class Normalize(object):
             if not year_pattern.match(normalized_data):
                 raise ValueError("Invalid format for doby: '%s'. Year should be specified in 'YYYY' format." % data)
 
+        if hash_field:
+            normalized_data = Normalize.hash_sha_256(normalized_data)
+
         return normalized_data
 
     """
@@ -151,6 +163,13 @@ class Normalize(object):
         if md5_match is None and sha256_match is None:
             return False
         return True
+
+    @staticmethod
+    def hash_sha_256(input):
+        if input is None:
+            return None
+        input = input.encode('utf-8')
+        return hashlib.sha256(input).hexdigest()
 
     @staticmethod
     def is_international_number(phone_number):
