@@ -47,7 +47,6 @@ class IGUser(
         follows_count = 'follows_count'
         id = 'id'
         ig_id = 'ig_id'
-        is_ig_shopping_seller_policy_enabled = 'is_ig_shopping_seller_policy_enabled'
         media_count = 'media_count'
         mentioned_comment = 'mentioned_comment'
         mentioned_media = 'mentioned_media'
@@ -75,6 +74,37 @@ class IGUser(
             target_class=IGUser,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_content_publishing_limit(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'since': 'datetime',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/content_publishing_limit',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -361,7 +391,6 @@ class IGUser(
         'follows_count': 'int',
         'id': 'string',
         'ig_id': 'int',
-        'is_ig_shopping_seller_policy_enabled': 'bool',
         'media_count': 'int',
         'mentioned_comment': 'IGComment',
         'mentioned_media': 'IGMedia',

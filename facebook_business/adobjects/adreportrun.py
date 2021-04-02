@@ -76,6 +76,7 @@ class AdReportRun(
         time_range = 'time_range'
         time_ranges = 'time_ranges'
         use_account_attribution_setting = 'use_account_attribution_setting'
+        use_unified_attribution_setting = 'use_unified_attribution_setting'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
@@ -185,6 +186,7 @@ class AdReportRun(
         'time_range': 'Object',
         'time_ranges': 'list<Object>',
         'use_account_attribution_setting': 'bool',
+        'use_unified_attribution_setting': 'bool',
     }
     @classmethod
     def _get_field_enum_info(cls):

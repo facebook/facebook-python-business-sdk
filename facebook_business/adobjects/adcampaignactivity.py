@@ -95,6 +95,8 @@ class AdCampaignActivity(
         stop_time_old = 'stop_time_old'
         targeting_expansion_new = 'targeting_expansion_new'
         targeting_expansion_old = 'targeting_expansion_old'
+        targeting_new = 'targeting_new'
+        targeting_old = 'targeting_old'
         updated_time_new = 'updated_time_new'
         updated_time_old = 'updated_time_old'
 
@@ -102,23 +104,23 @@ class AdCampaignActivity(
         cost_cap = 'COST_CAP'
         lowest_cost_without_cap = 'LOWEST_COST_WITHOUT_CAP'
         lowest_cost_with_bid_cap = 'LOWEST_COST_WITH_BID_CAP'
-        target_cost = 'TARGET_COST'
 
     class BidStrategyOld:
         cost_cap = 'COST_CAP'
         lowest_cost_without_cap = 'LOWEST_COST_WITHOUT_CAP'
         lowest_cost_with_bid_cap = 'LOWEST_COST_WITH_BID_CAP'
-        target_cost = 'TARGET_COST'
 
     class BillingEventNew:
         app_installs = 'APP_INSTALLS'
         clicks = 'CLICKS'
         impressions = 'IMPRESSIONS'
         link_clicks = 'LINK_CLICKS'
+        listing_interaction = 'LISTING_INTERACTION'
         none = 'NONE'
         offer_claims = 'OFFER_CLAIMS'
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
+        purchase = 'PURCHASE'
         thruplay = 'THRUPLAY'
 
     class BillingEventOld:
@@ -126,10 +128,12 @@ class AdCampaignActivity(
         clicks = 'CLICKS'
         impressions = 'IMPRESSIONS'
         link_clicks = 'LINK_CLICKS'
+        listing_interaction = 'LISTING_INTERACTION'
         none = 'NONE'
         offer_claims = 'OFFER_CLAIMS'
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
+        purchase = 'PURCHASE'
         thruplay = 'THRUPLAY'
 
     class OptimizationGoalNew:
@@ -151,6 +155,7 @@ class AdCampaignActivity(
         page_engagement = 'PAGE_ENGAGEMENT'
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
+        quality_call = 'QUALITY_CALL'
         quality_lead = 'QUALITY_LEAD'
         reach = 'REACH'
         replies = 'REPLIES'
@@ -179,6 +184,7 @@ class AdCampaignActivity(
         page_engagement = 'PAGE_ENGAGEMENT'
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
+        quality_call = 'QUALITY_CALL'
         quality_lead = 'QUALITY_LEAD'
         reach = 'REACH'
         replies = 'REPLIES'
@@ -273,6 +279,8 @@ class AdCampaignActivity(
         'stop_time_old': 'datetime',
         'targeting_expansion_new': 'Object',
         'targeting_expansion_old': 'Object',
+        'targeting_new': 'Object',
+        'targeting_old': 'Object',
         'updated_time_new': 'datetime',
         'updated_time_old': 'datetime',
     }

@@ -46,6 +46,7 @@ class ProductItem(
         additional_variant_attributes = 'additional_variant_attributes'
         age_group = 'age_group'
         applinks = 'applinks'
+        ar_data = 'ar_data'
         availability = 'availability'
         brand = 'brand'
         capability_to_review_status = 'capability_to_review_status'
@@ -76,6 +77,7 @@ class ProductItem(
         mobile_link = 'mobile_link'
         name = 'name'
         ordering_index = 'ordering_index'
+        parent_product_id = 'parent_product_id'
         pattern = 'pattern'
         price = 'price'
         product_catalog = 'product_catalog'
@@ -96,7 +98,7 @@ class ProductItem(
         start_date = 'start_date'
         url = 'url'
         visibility = 'visibility'
-        additional_image_files = 'additional_image_files'
+        additional_uploaded_image_ids = 'additional_uploaded_image_ids'
         android_app_name = 'android_app_name'
         android_class = 'android_class'
         android_package = 'android_package'
@@ -450,8 +452,8 @@ class ProductItem(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'additional_image_files': 'list<file>',
             'additional_image_urls': 'list<string>',
+            'additional_uploaded_image_ids': 'list<string>',
             'additional_variant_attributes': 'map',
             'android_app_name': 'string',
             'android_class': 'string',
@@ -543,6 +545,37 @@ class ProductItem(
             self.assure_call()
             return request.execute()
 
+    def get_channels_to_integrity_status(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.catalogitemchannelstointegritystatus import CatalogItemChannelsToIntegrityStatus
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/channels_to_integrity_status',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=CatalogItemChannelsToIntegrityStatus,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=CatalogItemChannelsToIntegrityStatus, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_product_sets(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -580,6 +613,7 @@ class ProductItem(
         'additional_variant_attributes': 'map<string, string>',
         'age_group': 'AgeGroup',
         'applinks': 'CatalogItemAppLinks',
+        'ar_data': 'ProductItemARData',
         'availability': 'Availability',
         'brand': 'string',
         'capability_to_review_status': 'map<Object, Object>',
@@ -610,6 +644,7 @@ class ProductItem(
         'mobile_link': 'string',
         'name': 'string',
         'ordering_index': 'int',
+        'parent_product_id': 'string',
         'pattern': 'string',
         'price': 'string',
         'product_catalog': 'ProductCatalog',
@@ -630,7 +665,7 @@ class ProductItem(
         'start_date': 'string',
         'url': 'string',
         'visibility': 'Visibility',
-        'additional_image_files': 'list<file>',
+        'additional_uploaded_image_ids': 'list<string>',
         'android_app_name': 'string',
         'android_class': 'string',
         'android_package': 'string',

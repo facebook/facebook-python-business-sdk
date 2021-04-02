@@ -61,7 +61,7 @@ class ProductFeed(
         feed_type = 'feed_type'
         override_value = 'override_value'
         rules = 'rules'
-        whitelisted_properties = 'whitelisted_properties'
+        selected_override_fields = 'selected_override_fields'
 
     class Delimiter:
         autodetect = 'AUTODETECT'
@@ -114,6 +114,7 @@ class ProductFeed(
         clothing_accessories = 'CLOTHING_ACCESSORIES'
         computers_and_tablets = 'COMPUTERS_AND_TABLETS'
         diapering_and_potty_training = 'DIAPERING_AND_POTTY_TRAINING'
+        digital_product_offer = 'DIGITAL_PRODUCT_OFFER'
         electronics_accessories = 'ELECTRONICS_ACCESSORIES'
         furniture = 'FURNITURE'
         health = 'HEALTH'
@@ -729,7 +730,7 @@ class ProductFeed(
         'feed_type': 'FeedType',
         'override_value': 'string',
         'rules': 'list<string>',
-        'whitelisted_properties': 'list<string>',
+        'selected_override_fields': 'list<string>',
     }
     @classmethod
     def _get_field_enum_info(cls):

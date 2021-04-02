@@ -50,6 +50,7 @@ class CommerceMerchantSettings(
         external_merchant_id = 'external_merchant_id'
         facebook_channel = 'facebook_channel'
         has_discount_code = 'has_discount_code'
+        has_onsite_intent = 'has_onsite_intent'
         id = 'id'
         instagram_channel = 'instagram_channel'
         merchant_alert_email = 'merchant_alert_email'
@@ -402,6 +403,7 @@ class CommerceMerchantSettings(
         'external_merchant_id': 'string',
         'facebook_channel': 'Object',
         'has_discount_code': 'bool',
+        'has_onsite_intent': 'bool',
         'id': 'string',
         'instagram_channel': 'Object',
         'merchant_alert_email': 'string',
