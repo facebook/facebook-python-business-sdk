@@ -95,7 +95,7 @@ class Normalize(object):
             # Removes the starting + and leading two 0's
             normalized_data = re.sub(r"^\+?0{0,2}", "", normalized_data)
 
-            international_number = Normalize.is_international_number(normalized_data)
+            international_number = Normalize.get_international_number(normalized_data)
 
             if international_number is not None:
                 return international_number
@@ -172,10 +172,10 @@ class Normalize(object):
         return hashlib.sha256(input).hexdigest()
 
     @staticmethod
-    def is_international_number(phone_number):
+    def get_international_number(phone_number):
 
         # Removes the + and leading two 0's
-        phone_number = re.sub(r"^\+?0{0,2}", "", phone_number);
+        phone_number = re.sub(r"^\+?0{0,2}", "", phone_number)
 
         if phone_number.startswith('0'):
             return None
@@ -183,7 +183,11 @@ class Normalize(object):
         # International Phone number with country calling code.
         international_number_regex = re.compile(r'^\d{1,4}\(?\d{2,3}\)?\d{4,}$')
 
-        return international_number_regex.match(phone_number).group()
+        matched_groups = international_number_regex.match(phone_number)
+        if matched_groups is None:
+            return None
+
+        return matched_groups.group()
 
     """
     Checks if the given country code is present in the ISO list
