@@ -1054,16 +1054,16 @@ class UserData(object):
         self._doby = doby
 
     def normalize(self):
-        normalized_payload = {'em': Normalize.normalize_field('em', self.email),
-                              'ph': Normalize.normalize_field('ph', self.phone),
-                              'db': Normalize.normalize_field('db', self.date_of_birth),
-                              'ln': Normalize.normalize_field('ln', self.last_name),
-                              'fn': Normalize.normalize_field('fn', self.first_name),
-                              'ct': Normalize.normalize_field('ct', self.city),
-                              'st': Normalize.normalize_field('st', self.state),
-                              'zp': Normalize.normalize_field('zp', self.zip_code),
-                              'country': Normalize.normalize_field('country', self.country_code),
-                              'external_id': self.external_id,
+        normalized_payload = {'em': self.__normalize_list('em', self.emails),
+                              'ph': self.__normalize_list('ph', self.phones),
+                              'db': self.__normalize_list('db', self.dates_of_birth),
+                              'ln': self.__normalize_list('ln', self.last_names),
+                              'fn': self.__normalize_list('fn', self.first_names),
+                              'ct': self.__normalize_list('ct', self.cities),
+                              'st': self.__normalize_list('st', self.states),
+                              'zp': self.__normalize_list('zp', self.zip_codes),
+                              'country': self.__normalize_list('country', self.country_codes),
+                              'external_id': self.__dedup_list(self.external_ids),
                               'client_ip_address': self.client_ip_address,
                               'client_user_agent': self.client_user_agent,
                               'fbc': self.fbc,
@@ -1078,11 +1078,33 @@ class UserData(object):
                               'dobm': Normalize.normalize_field('dobm', self.dobm),
                               'doby': Normalize.normalize_field('doby', self.doby),
                               }
-        if self.gender is not None:
-            normalized_payload['ge'] = Normalize.normalize_field('ge', self.gender.value)
+        if self.genders:
+            normalized_payload['ge'] = self.__normalize_list('ge', list(map(lambda g: g.value, self.genders)))
 
         normalized_payload = {k: v for k, v in normalized_payload.items() if v is not None}
         return normalized_payload
+
+    def __normalize_list(self, field_name, value_list):
+        """Dedup, hash and normalize the given list.
+
+        :type: field_name: str
+        :type value_list: list[str]
+        :rtype: dict
+        """
+        if field_name is None or not value_list:
+            return None
+        normalized_list = list(map(lambda val: Normalize.normalize_field(field_name, val), value_list))
+        return self.__dedup_list(normalized_list)
+
+    def __dedup_list(self, value_list):
+        """Dedup the given list.
+
+        :type value_list: list[str]
+        :rtype: dict
+        """
+        if not value_list:
+            return None
+        return list(set(value_list))
 
     def to_dict(self):
         """Returns the model properties as a dict"""

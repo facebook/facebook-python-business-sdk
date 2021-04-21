@@ -97,8 +97,10 @@ class Normalize(object):
 
             international_number = Normalize.get_international_number(normalized_data)
 
-            if international_number is not None:
-                return international_number
+            if international_number is None:
+                raise ValueError("Invalid format for phone number:'" + normalized_data + "'. Please check passed phone number.")
+            else:
+                normalized_data = international_number
 
         elif field == "f5first" or field == "f5last":
             normalized_data = normalized_data[:5]

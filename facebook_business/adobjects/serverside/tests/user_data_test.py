@@ -28,6 +28,17 @@ from facebook_business.adobjects.serverside.gender import Gender
 class UserDataTest(TestCase):
     def test_normalize_it_normalizes_and_hashes(self):
         initial_state = {
+            'emails': ['joe@eg.com', 'mary@test.com', 'mary@test.com'],
+            'phones': ['12345678912', '12062072008', '12062072008'],
+            'genders': [Gender.MALE, Gender.FEMALE, Gender.FEMALE],
+            'dates_of_birth': ['19900101', '19660202', '19660202'],
+            'last_names': ['smith', 'brown', 'brown'],
+            'first_names': ['joe', 'mary', 'mary'],
+            'cities': ['seattle', 'sanfrancisco', 'sanfrancisco'],
+            'states': ['ca', 'wa', 'wa'],
+            'country_codes': ['us', 'ca', 'ca'],
+            'zip_codes': ['98001', '12345', '12345'],
+            'external_ids': ['123', '456', '456'],
             'f5first': 'First',
             'f5last': 'Last',
             'fi': 'A',
@@ -45,9 +56,31 @@ class UserDataTest(TestCase):
             doby=initial_state['doby'],
             lead_id=initial_state['lead_id'],
         )
+        user_data.emails = initial_state['emails']
+        user_data.phones = initial_state['phones']
+        user_data.genders = initial_state['genders']
+        user_data.dates_of_birth = initial_state['dates_of_birth']
+        user_data.last_names = initial_state['last_names']
+        user_data.first_names = initial_state['first_names']
+        user_data.cities = initial_state['cities']
+        user_data.states = initial_state['states']
+        user_data.country_codes = initial_state['country_codes']
+        user_data.zip_codes = initial_state['zip_codes']
+        user_data.external_ids = initial_state['external_ids']
 
         actual = user_data.normalize()
         expected = {
+            'em': self.__hash_list(initial_state['emails'][0:2]),
+            'ph': self.__hash_list(initial_state['phones'][0:2]),
+            'ge': self.__hash_list(list(map(lambda g: g.value, initial_state['genders'][0:2]))),
+            'db': self.__hash_list(initial_state['dates_of_birth'][0:2]),
+            'ln': self.__hash_list(initial_state['last_names'][0:2]),
+            'fn': self.__hash_list(initial_state['first_names'][0:2]),
+            'ct': self.__hash_list(initial_state['cities'][0:2]),
+            'st': self.__hash_list(initial_state['states'][0:2]),
+            'zp': self.__hash_list(initial_state['zip_codes'][0:2]),
+            'country': self.__hash_list(initial_state['country_codes'][0:2]),
+            'external_id': initial_state['external_ids'][0:2],
             'f5first': Normalize.hash_sha_256(initial_state['f5first'].lower()),
             'f5last': Normalize.hash_sha_256(initial_state['f5last'].lower()),
             'fi': Normalize.hash_sha_256(initial_state['fi'].lower()),
@@ -57,7 +90,9 @@ class UserDataTest(TestCase):
             'lead_id': initial_state['lead_id'],
         }
 
-        self.assertEqual(actual, expected)
+        not_equal_items = {k: actual[k] for k in actual if k not in expected or sorted(actual[k]) != sorted(expected[k])}
+        self.assertEqual(len(not_equal_items), 0)
+        self.assertEqual(len(actual), len(expected))
 
     def test_multiple_values_getters_and_setters(self):
         initial_state = {
@@ -262,3 +297,24 @@ class UserDataTest(TestCase):
             )
 
         self.assertEqual(expected_exception_message, str(context.exception))
+
+    def test_multi_value_normalization_with_empty(self):
+        user_data = UserData()
+        user_data.emails = []
+        user_data.phones = []
+        user_data.genders = []
+        user_data.dates_of_birth = []
+        user_data.last_names = []
+        user_data.first_names = []
+        user_data.cities = []
+        user_data.states = []
+        user_data.country_codes = []
+        user_data.zip_codes = []
+        user_data.external_ids = []
+
+        normalized_data = user_data.normalize()
+
+        self.assertFalse(normalized_data)
+
+    def __hash_list(self, value_list):
+        return list(map(lambda val: Normalize.hash_sha_256(val), value_list))

@@ -3,6 +3,8 @@
 All notable changes to this project will be documented in this file.
 
 ## Unreleased
+### Added
+- Support for sending multiple values for certain UserData parameters to Conversions API.
 
 ## v10.0.0
 
