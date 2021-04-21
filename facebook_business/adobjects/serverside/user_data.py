@@ -28,16 +28,27 @@ from facebook_business.adobjects.serverside.normalize import Normalize
 class UserData(object):
     param_types = {
         'email': 'str',
+        'emails': 'list[str]',
         'phone': 'str',
+        'phones': 'list[str]',
         'gender': 'Gender',
+        'genders': 'list[Gender]',
         'date_of_birth': 'str',
+        'dates_of_birth': 'list[str]',
         'last_name': 'str',
+        'last_names': 'list[str]',
         'first_name': 'str',
+        'first_names': 'list[str]',
         'city': 'str',
+        'cities': 'list[str]',
         'state': 'str',
+        'states': 'list[str]',
         'country_code': 'str',
+        'country_codes': 'list[str]',
         'zip_code': 'str',
+        'zip_codes': 'list[str]',
         'external_id': 'str',
+        'external_ids': 'list[str]',
         'client_ip_address': 'str',
         'client_user_agent': 'str',
         'fbc': 'str',
@@ -84,16 +95,27 @@ class UserData(object):
 
         """UserData is a set of identifiers Facebook can use for targeted attribution"""
         self._email = None
+        self._emails = None
         self._phone = None
+        self._phones = None
         self._gender = None
+        self._genders = None
         self._date_of_birth = None
+        self._dates_of_birth = None
         self._last_name = None
+        self._last_names = None
         self._first_name = None
+        self._first_names = None
         self._city = None
+        self._cities = None
         self._state = None
+        self._states = None
         self._country_code = None
+        self._country_codes = None
         self._zip_code = None
+        self._zip_codes = None
         self._external_id = None
+        self._external_ids = None
         self._client_ip_address = None
         self._client_user_agent = None
         self._fbc = None
@@ -180,6 +202,29 @@ class UserData(object):
         self._email = email
 
     @property
+    def emails(self):
+        """Gets the emails.
+
+        A list of email addresses, in lowercase.
+
+        :return: The emails.
+        :rtype: list[str]
+        """
+        return self._emails
+
+    @emails.setter
+    def emails(self, emails):
+        """Sets the emails.
+
+        A list of email addresses, in lowercase.
+
+        :param emails: A list of emails.
+        :type: list[str]
+        """
+
+        self._emails = emails
+
+    @property
     def phone(self):
         """Gets the phone.
 
@@ -201,6 +246,29 @@ class UserData(object):
         """
 
         self._phone = phone
+
+    @property
+    def phones(self):
+        """Gets the phones.
+
+        A list of phone numbers. Include only digits with country code, area code, and number.
+
+        :return: The phone numbers.
+        :rtype: list[str]
+        """
+        return self._phones
+
+    @phones.setter
+    def phones(self, phones):
+        """Sets the phones.
+
+        A list of phone numbers. Include only digits with country code, area code, and number.
+
+        :param phones: A list of phones.
+        :type: list[str]
+        """
+
+        self._phones = phones
 
     @property
     def gender(self):
@@ -228,6 +296,31 @@ class UserData(object):
         self._gender = gender
 
     @property
+    def genders(self):
+        """Gets the genders.
+
+        A list of genders, in lowercase. Either f or m.
+
+        :return: A list of genders.
+        :rtype: list[Gender]
+        """
+        return self._genders
+
+    @genders.setter
+    def genders(self, genders):
+        """Sets the genders.
+
+        A list of Genders, in lowercase. Either f or m.
+
+        :param genders: The genders.
+        :type: Gender
+        """
+        if genders and not (all(isinstance(gender, Gender) for gender in genders)):
+            raise TypeError('UserData.genders must be of type list[Gender]')
+
+        self._genders = genders
+
+    @property
     def date_of_birth(self):
         """Gets the date of birth.
 
@@ -250,6 +343,30 @@ class UserData(object):
         """
 
         self._date_of_birth = date_of_birth
+
+    @property
+    def dates_of_birth(self):
+        """Gets the dates of birth.
+
+        A list of dates of birth given as YYYYMMDD.
+
+
+        :return: The dates of birth.
+        :rtype: list[str]
+        """
+        return self._dates_of_birth
+
+    @dates_of_birth.setter
+    def dates_of_birth(self, dates_of_birth):
+        """Sets the dates of birth.
+
+        A list of dates of birth given as YYYYMMDD.
+
+        :param dates_of_birth: The dates of birth.
+        :type: list[str]
+        """
+
+        self._dates_of_birth = dates_of_birth
 
     @property
     def last_name(self):
@@ -275,6 +392,29 @@ class UserData(object):
         self._last_name = last_name
 
     @property
+    def last_names(self):
+        """Gets the last_names.
+
+        A list of last names in lowercase.
+
+        :return: The last names.
+        :rtype: list[str]
+        """
+        return self._last_names
+
+    @last_names.setter
+    def last_names(self, last_names):
+        """Sets the last names.
+
+        A list of last names in lowercase.
+
+        :param last_names: The last names.
+        :type: list[str]
+        """
+
+        self._last_names = last_names
+
+    @property
     def first_name(self):
         """Gets the first name.
 
@@ -296,6 +436,29 @@ class UserData(object):
         """
 
         self._first_name = first_name
+
+    @property
+    def first_names(self):
+        """Gets the first names.
+
+        A list of first names in lowercase.
+
+        :return: The first names.
+        :rtype: list[str]
+        """
+        return self._first_names
+
+    @first_names.setter
+    def first_names(self, first_names):
+        """Sets the first names.
+
+        A list of first names in lowercase.
+
+        :param first_names: The first names.
+        :type: list[str]
+        """
+
+        self._first_names = first_names
 
     @property
     def city(self):
@@ -321,6 +484,29 @@ class UserData(object):
         self._city = city
 
     @property
+    def cities(self):
+        """Gets the cities.
+
+        A list of cities in lower-case without spaces or punctuation.
+
+        :return: The cities.
+        :rtype: list[str]
+        """
+        return self._cities
+
+    @cities.setter
+    def cities(self, cities):
+        """Sets the cities.
+
+        A list of cities in lower-case without spaces or punctuation.
+
+        :param cities: The cities.
+        :type: list[str]
+        """
+
+        self._cities = cities
+
+    @property
     def state(self):
         """Gets the state.
 
@@ -344,6 +530,29 @@ class UserData(object):
         self._state = state
 
     @property
+    def states(self):
+        """Gets the states.
+
+        A list of two-letter state codes in lowercase.
+
+        :return: The states.
+        :rtype: list[str]
+        """
+        return self._states
+
+    @states.setter
+    def states(self, states):
+        """Sets the states.
+
+        A list of two-letter state codes in lowercase.
+
+        :param states: The states.
+        :type: list[str]
+        """
+
+        self._states = states
+
+    @property
     def country_code(self):
         """Gets the country code.
 
@@ -363,6 +572,27 @@ class UserData(object):
         """
 
         self._country_code = country_code
+
+    @property
+    def country_codes(self):
+        """Gets the country codes.
+
+         A list of two-letter country codes in lowercase
+
+        :return: The country codes.
+        :rtype: list[str]
+        """
+        return self._country_codes
+
+    @country_codes.setter
+    def country_codes(self, country_codes):
+        """Sets a list of two-letter country codes in lowercase.
+
+        :param country_codes: The country codes
+        :type: list[str]
+        """
+
+        self._country_codes = country_codes
 
     @property
     def zip_code(self):
@@ -388,6 +618,31 @@ class UserData(object):
         """
 
         self._zip_code = zip_code
+
+    @property
+    def zip_codes(self):
+        """Gets the zipcodes.
+
+        For the United States, this is a list of five-digit zip codes.
+        For other locations, follow each country's standards.
+
+        :return: The zipcodes.
+        :rtype: list[str]
+        """
+        return self._zip_codes
+
+    @zip_codes.setter
+    def zip_codes(self, zip_codes):
+        """Sets the zipcodes.
+
+        For the United States, this is a list of five-digit zip codes.
+        For other locations, follow each country's standards.
+
+        :param zip_codes: The zipcodes.
+        :type: list[str]
+        """
+
+        self._zip_codes = zip_codes
 
     @property
     def external_id(self):
@@ -417,6 +672,35 @@ class UserData(object):
         """
 
         self._external_id = external_id
+
+    @property
+    def external_ids(self):
+        """Gets the external ids.
+
+        A list of any unique IDs from the advertiser, such as loyalty membership IDs, user IDs, and external cookie IDs.
+        In the Offline Conversions API (https://www.facebook.com/business/help/104039186799009),
+        this is known as extern_id. For more information, see Offline Conversions, Providing External IDs. If
+        External ID is being sent via other channels, then it should be sent in the same format via the server-side API.
+
+        :return: The external ids.
+        :rtype: list[str]
+        """
+        return self._external_ids
+
+    @external_ids.setter
+    def external_ids(self, external_ids):
+        """Sets the external ids.
+
+        A list of any unique IDs from the advertiser, such as loyalty membership IDs, user IDs, and external cookie IDs.
+        In the Offline Conversions API (https://www.facebook.com/business/help/104039186799009),
+        this is known as extern_id. For more information, see Offline Conversions, Providing External IDs. If
+        External ID is being sent via other channels, then it should be sent in the same format via the server-side API.
+
+        :param external_ids: The external ids.
+        :type: list[str]
+        """
+
+        self._external_ids = external_ids
 
     @property
     def client_ip_address(self):

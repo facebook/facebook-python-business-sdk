@@ -22,6 +22,7 @@ from unittest import TestCase
 
 from facebook_business.adobjects.serverside.user_data import UserData
 from facebook_business.adobjects.serverside.normalize import Normalize
+from facebook_business.adobjects.serverside.gender import Gender
 
 
 class UserDataTest(TestCase):
@@ -57,3 +58,42 @@ class UserDataTest(TestCase):
         }
 
         self.assertEqual(actual, expected)
+
+    def test_multiple_values_getters_and_setters(self):
+        initial_state = {
+            'emails': ['joe@eg.com', 'mary@test.com'],
+            'phones': ['12345678912', '12062072008'],
+            'genders': [Gender.MALE, Gender.FEMALE],
+            'dates_of_birth':['19900101', '19660202'],
+            'last_names': ['smith', 'brown'],
+            'first_names': ['joe', 'mary'],
+            'cities': ['seattle', 'san francisco'],
+            'states': ['ca', 'wa'],
+            'country_codes': ['us', 'ca'],
+            'zip_codes': ['98001', '12345'],
+            'external_ids': ['123', '456']
+        }
+        user_data = UserData()
+        user_data.emails = initial_state['emails']
+        user_data.phones = initial_state['phones']
+        user_data.genders = initial_state['genders']
+        user_data.dates_of_birth = initial_state['dates_of_birth']
+        user_data.last_names = initial_state['last_names']
+        user_data.first_names = initial_state['first_names']
+        user_data.cities = initial_state['cities']
+        user_data.states = initial_state['states']
+        user_data.country_codes = initial_state['country_codes']
+        user_data.zip_codes = initial_state['zip_codes']
+        user_data.external_ids = initial_state['external_ids']
+
+        self.assertListEqual(user_data.emails, initial_state['emails'])
+        self.assertListEqual(user_data.phones, initial_state['phones'])
+        self.assertListEqual(user_data.genders, initial_state['genders'])
+        self.assertListEqual(user_data.dates_of_birth, initial_state['dates_of_birth'])
+        self.assertListEqual(user_data.last_names, initial_state['last_names'])
+        self.assertListEqual(user_data.first_names, initial_state['first_names'])
+        self.assertListEqual(user_data.cities, initial_state['cities'])
+        self.assertListEqual(user_data.states, initial_state['states'])
+        self.assertListEqual(user_data.country_codes, initial_state['country_codes'])
+        self.assertListEqual(user_data.zip_codes, initial_state['zip_codes'])
+        self.assertListEqual(user_data.external_ids, initial_state['external_ids'])
