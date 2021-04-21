@@ -26,28 +26,19 @@ from facebook_business.adobjects.serverside.normalize import Normalize
 
 
 class UserData(object):
+    multi_value_constructor_err = 'Cannot set both {} and {} parameters via constructor. Please set either the singular or plural parameter, not both.'
+
     param_types = {
-        'email': 'str',
         'emails': 'list[str]',
-        'phone': 'str',
         'phones': 'list[str]',
-        'gender': 'Gender',
         'genders': 'list[Gender]',
-        'date_of_birth': 'str',
         'dates_of_birth': 'list[str]',
-        'last_name': 'str',
         'last_names': 'list[str]',
-        'first_name': 'str',
         'first_names': 'list[str]',
-        'city': 'str',
         'cities': 'list[str]',
-        'state': 'str',
         'states': 'list[str]',
-        'country_code': 'str',
         'country_codes': 'list[str]',
-        'zip_code': 'str',
         'zip_codes': 'list[str]',
-        'external_id': 'str',
         'external_ids': 'list[str]',
         'client_ip_address': 'str',
         'client_user_agent': 'str',
@@ -90,31 +81,31 @@ class UserData(object):
         dobd=None,
         dobm=None,
         doby=None,
+        emails=None,
+        phones=None,
+        genders=None,
+        dates_of_birth=None,
+        last_names=None,
+        first_names=None,
+        cities=None,
+        states=None,
+        country_codes=None,
+        zip_codes=None,
+        external_ids=None,
     ):
-        # type: (str, str, Gender, str, str, str, str, str, str, str, str, str, str, str, str, str, str, str, str, str, str, str, str, str) -> None
+        # type: (str, str, Gender, str, str, str, str, str, str, str, str, str, str, str, str, str, str, str, str, str, str, str, str, str, list[str], list[str], list[Gender], list[str], list[str], list[str], list[str], list[str], list[str], list[str], list[str]) -> None
 
         """UserData is a set of identifiers Facebook can use for targeted attribution"""
-        self._email = None
         self._emails = None
-        self._phone = None
         self._phones = None
-        self._gender = None
         self._genders = None
-        self._date_of_birth = None
         self._dates_of_birth = None
-        self._last_name = None
         self._last_names = None
-        self._first_name = None
         self._first_names = None
-        self._city = None
         self._cities = None
-        self._state = None
         self._states = None
-        self._country_code = None
         self._country_codes = None
-        self._zip_code = None
         self._zip_codes = None
-        self._external_id = None
         self._external_ids = None
         self._client_ip_address = None
         self._client_user_agent = None
@@ -129,28 +120,75 @@ class UserData(object):
         self._dobd = None
         self._dobm = None
         self._doby = None
+
+        if email is not None and emails is not None:
+            raise ValueError(UserData.multi_value_constructor_err.format('email', 'emails'))
+        if phone is not None and phones is not None:
+            raise ValueError(UserData.multi_value_constructor_err.format('phone', 'phones'))
+        if gender is not None and genders is not None:
+            raise ValueError(UserData.multi_value_constructor_err.format('gender', 'genders'))
+        if date_of_birth is not None and dates_of_birth is not None:
+            raise ValueError(UserData.multi_value_constructor_err.format('date_of_birth', 'dates_of_birth'))
+        if last_name is not None and last_names is not None:
+            raise ValueError(UserData.multi_value_constructor_err.format('last_name', 'last_names'))
+        if first_name is not None and first_names is not None:
+            raise ValueError(UserData.multi_value_constructor_err.format('first_name', 'first_names'))
+        if city is not None and cities is not None:
+            raise ValueError(UserData.multi_value_constructor_err.format('city', 'cities'))
+        if state is not None and states is not None:
+            raise ValueError(UserData.multi_value_constructor_err.format('state', 'states'))
+        if country_code is not None and country_codes is not None:
+            raise ValueError(UserData.multi_value_constructor_err.format('country_code', 'country_codes'))
+        if zip_code is not None and zip_codes is not None:
+            raise ValueError(UserData.multi_value_constructor_err.format('zip_code', 'zip_codes'))
+        if external_id is not None and external_ids is not None:
+            raise ValueError(UserData.multi_value_constructor_err.format('external_id', 'external_ids'))
+
         if email is not None:
             self.email = email
+        elif emails is not None:
+            self.emails = emails
         if phone is not None:
             self.phone = phone
+        elif phones is not None:
+            self.phones = phones
         if gender is not None:
             self.gender = gender
+        elif genders is not None:
+            self.genders = genders
         if date_of_birth is not None:
             self.date_of_birth = date_of_birth
+        elif dates_of_birth is not None:
+            self.dates_of_birth = dates_of_birth
         if last_name is not None:
             self.last_name = last_name
+        elif last_names is not None:
+            self.last_names = last_names
         if first_name is not None:
             self.first_name = first_name
+        elif first_names is not None:
+            self.first_names = first_names
         if city is not None:
             self.city = city
+        elif cities is not None:
+            self.cities = cities
         if state is not None:
             self.state = state
+        elif states is not None:
+            self.states = states
         if country_code is not None:
             self.country_code = country_code
+        elif country_codes is not None:
+            self.country_codes = country_codes
         if zip_code is not None:
             self.zip_code = zip_code
+        elif zip_codes is not None:
+            self.zip_codes = zip_codes
         if external_id is not None:
             self.external_id = external_id
+        elif external_ids is not None:
+            self.external_ids = external_ids
+
         if client_ip_address is not None:
             self.client_ip_address = client_ip_address
         if client_user_agent is not None:
@@ -187,7 +225,7 @@ class UserData(object):
         :return: The email.
         :rtype: str
         """
-        return self._email
+        return self._emails[0] if self._emails else None
 
     @email.setter
     def email(self, email):
@@ -199,7 +237,7 @@ class UserData(object):
         :type: str
         """
 
-        self._email = email
+        self._emails = [email] if email is not None else None
 
     @property
     def emails(self):
@@ -233,7 +271,7 @@ class UserData(object):
         :return: The phone.
         :rtype: str
         """
-        return self._phone
+        return self._phones[0] if self._phones else None
 
     @phone.setter
     def phone(self, phone):
@@ -245,7 +283,7 @@ class UserData(object):
         :type: str
         """
 
-        self._phone = phone
+        self._phones = [phone] if phone is not None else None
 
     @property
     def phones(self):
@@ -279,7 +317,7 @@ class UserData(object):
         :return: The gender.
         :rtype: Gender
         """
-        return self._gender
+        return self._genders[0] if self._genders else None
 
     @gender.setter
     def gender(self, gender):
@@ -290,10 +328,12 @@ class UserData(object):
         :param gender: The gender.
         :type: Gender
         """
+        if gender is None:
+            return
         if not isinstance(gender, Gender):
             raise TypeError('UserData.gender must be of type Gender')
 
-        self._gender = gender
+        self._genders = [gender]
 
     @property
     def genders(self):
@@ -330,7 +370,7 @@ class UserData(object):
         :return: The date of birth.
         :rtype: str
         """
-        return self._date_of_birth
+        return self._dates_of_birth[0] if self._dates_of_birth else None
 
     @date_of_birth.setter
     def date_of_birth(self, date_of_birth):
@@ -342,7 +382,7 @@ class UserData(object):
         :type: str
         """
 
-        self._date_of_birth = date_of_birth
+        self._dates_of_birth = [date_of_birth] if date_of_birth is not None else None
 
     @property
     def dates_of_birth(self):
@@ -377,7 +417,7 @@ class UserData(object):
         :return: The last name.
         :rtype: str
         """
-        return self._last_name
+        return self._last_names[0] if self._last_names else None
 
     @last_name.setter
     def last_name(self, last_name):
@@ -389,7 +429,7 @@ class UserData(object):
         :type: str
         """
 
-        self._last_name = last_name
+        self._last_names = [last_name] if last_name is not None else None
 
     @property
     def last_names(self):
@@ -423,7 +463,7 @@ class UserData(object):
         :return: The first name.
         :rtype: str
         """
-        return self._first_name
+        return self._first_names[0] if self._first_names else None
 
     @first_name.setter
     def first_name(self, first_name):
@@ -435,7 +475,7 @@ class UserData(object):
         :type: str
         """
 
-        self._first_name = first_name
+        self._first_names = [first_name] if first_name is not None else None
 
     @property
     def first_names(self):
@@ -469,7 +509,7 @@ class UserData(object):
         :return: The city.
         :rtype: str
         """
-        return self._city
+        return self._cities[0] if self._cities else None
 
     @city.setter
     def city(self, city):
@@ -481,7 +521,7 @@ class UserData(object):
         :type: str
         """
 
-        self._city = city
+        self._cities = [city] if city is not None else None
 
     @property
     def cities(self):
@@ -515,7 +555,7 @@ class UserData(object):
         :return: The state.
         :rtype: str
         """
-        return self._state
+        return self._states[0] if self._states else None
 
     @state.setter
     def state(self, state):
@@ -527,7 +567,7 @@ class UserData(object):
         :type: str
         """
 
-        self._state = state
+        self._states = [state] if state is not None else None
 
     @property
     def states(self):
@@ -561,7 +601,7 @@ class UserData(object):
         :return: The country code.
         :rtype: str
         """
-        return self._country_code
+        return self._country_codes[0] if self._country_codes else None
 
     @country_code.setter
     def country_code(self, country_code):
@@ -571,7 +611,7 @@ class UserData(object):
         :type: str
         """
 
-        self._country_code = country_code
+        self._country_codes = [country_code] if country_code is not None else None
 
     @property
     def country_codes(self):
@@ -604,7 +644,7 @@ class UserData(object):
         :return: The zipcode.
         :rtype: str
         """
-        return self._zip_code
+        return self._zip_codes[0] if self._zip_codes else None
 
     @zip_code.setter
     def zip_code(self, zip_code):
@@ -617,7 +657,7 @@ class UserData(object):
         :type: str
         """
 
-        self._zip_code = zip_code
+        self._zip_codes = [zip_code] if zip_code is not None else None
 
     @property
     def zip_codes(self):
@@ -656,7 +696,7 @@ class UserData(object):
         :return: The external id.
         :rtype: str
         """
-        return self._external_id
+        return self._external_ids[0] if self._external_ids else None
 
     @external_id.setter
     def external_id(self, external_id):
@@ -671,7 +711,7 @@ class UserData(object):
         :type: str
         """
 
-        self._external_id = external_id
+        self._external_ids = [external_id] if external_id is not None else None
 
     @property
     def external_ids(self):
