@@ -33,7 +33,7 @@ class EventResponse(object):
     def __init__(self, events_received = None, messages = None, fbtrace_id = None):
         # type: (int, List[str], str) -> None
 
-        """ServerSide Event Response"""
+        """Conversions API Event Response"""
         self._events_received = None
         self._messages = None
         self._fbtrace_id = None

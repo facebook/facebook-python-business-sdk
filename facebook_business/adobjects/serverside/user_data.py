@@ -691,7 +691,7 @@ class UserData(object):
         Any unique ID from the advertiser, such as loyalty membership IDs, user IDs, and external cookie IDs.
         In the Offline Conversions API (https://www.facebook.com/business/help/104039186799009),
         this is known as extern_id. For more information, see Offline Conversions, Providing External IDs. If
-        External ID is being sent via other channels, then it should be sent in the same format via the server-side API.
+        External ID is being sent via other channels, then it should be sent in the same format via the Conversions API.
 
         :return: The external id.
         :rtype: str
@@ -705,7 +705,7 @@ class UserData(object):
         Any unique ID from the advertiser, such as loyalty membership IDs, user IDs, and external cookie IDs.
         In the Offline Conversions API (https://www.facebook.com/business/help/104039186799009),
         this is known as extern_id. For more information, see Offline Conversions, Providing External IDs. If
-        External ID is being sent via other channels, then it should be sent in the same format via the server-side API.
+        External ID is being sent via other channels, then it should be sent in the same format via the Conversions API.
 
         :param external_id: The external id.
         :type: str
@@ -720,7 +720,7 @@ class UserData(object):
         A list of any unique IDs from the advertiser, such as loyalty membership IDs, user IDs, and external cookie IDs.
         In the Offline Conversions API (https://www.facebook.com/business/help/104039186799009),
         this is known as extern_id. For more information, see Offline Conversions, Providing External IDs. If
-        External ID is being sent via other channels, then it should be sent in the same format via the server-side API.
+        External ID is being sent via other channels, then it should be sent in the same format via the Conversions API.
 
         :return: The external ids.
         :rtype: list[str]
@@ -734,7 +734,7 @@ class UserData(object):
         A list of any unique IDs from the advertiser, such as loyalty membership IDs, user IDs, and external cookie IDs.
         In the Offline Conversions API (https://www.facebook.com/business/help/104039186799009),
         this is known as extern_id. For more information, see Offline Conversions, Providing External IDs. If
-        External ID is being sent via other channels, then it should be sent in the same format via the server-side API.
+        External ID is being sent via other channels, then it should be sent in the same format via the Conversions API.
 
         :param external_ids: The external ids.
         :type: list[str]
@@ -794,7 +794,7 @@ class UserData(object):
 
         The Facebook click ID value stored in the _fbc browser cookie under your domain.
         See Managing fbc and fbp Parameters for how to get this value
-        (https://developers.facebook.com/docs/marketing-api/facebook-pixel/server-side-api/parameters#fbc),
+        (https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/customer-information-parameters#fbc),
         or generate this value from a fbclid query parameter.
 
         :return: The fbc.
@@ -808,7 +808,7 @@ class UserData(object):
 
         The Facebook click ID value stored in the _fbc browser cookie under your domain.
         See Managing fbc and fbp Parameters for how to get this value
-        (https://developers.facebook.com/docs/marketing-api/facebook-pixel/server-side-api/parameters#fbc),
+        (https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/customer-information-parameters#fbc),
         or generate this value from a fbclid query parameter.
 
         :param fbc: The fbc.
@@ -823,7 +823,7 @@ class UserData(object):
 
         The Facebook browser ID value stored in the _fbp browser cookie under your domain.
         See Managing fbc and fbp Parameters for how to get this value
-        (https://developers.facebook.com/docs/marketing-api/facebook-pixel/server-side-api/parameters#fbc),
+        (https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/customer-information-parameters#fbc),
         or generate this value from a fbclid query parameter.
 
         :return: The fbp.
@@ -837,7 +837,7 @@ class UserData(object):
 
         The Facebook browser ID value stored in the _fbp browser cookie under your domain.
         See Managing fbc and fbp Parameters for how to get this value
-        (https://developers.facebook.com/docs/marketing-api/facebook-pixel/server-side-api/parameters#fbc),
+        (https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/customer-information-parameters#fbc),
         or generate this value from a fbclid query parameter.
 
         :param fbp: The fbp.

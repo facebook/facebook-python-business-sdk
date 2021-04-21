@@ -47,7 +47,7 @@ class Event(object):
                  data_processing_options_state = None, action_source = None):
         # type: (str, int, str, bool, str, UserData, CustomData, list[str], int, int, ActionSource) -> None
 
-        """Server-Side Event"""
+        """Conversions API Event"""
         self._event_name = None
         self._event_time = None
         self._event_source_url = None
