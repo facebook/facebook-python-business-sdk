@@ -288,15 +288,30 @@ class UserDataTest(TestCase):
         self.assertListEqual(user_data.external_ids, initial_state['external_ids'])
 
     def test_multiple_values_constructor_with_singular_and_plural_values(self):
-        expected_exception_message = 'Cannot set both email and emails parameters via constructor. Please set either the singular or plural parameter, not both.';
+        params = [
+            ['email', 'emails'],
+            ['phone', 'phones'],
+            ['gender', 'genders'],
+            ['date_of_birth', 'dates_of_birth'],
+            ['last_name', 'last_names'],
+            ['first_name', 'first_names'],
+            ['city', 'cities'],
+            ['state', 'states'],
+            ['country_code', 'country_codes'],
+            ['zip_code', 'zip_codes'],
+            ['external_id', 'external_ids'],
+        ]
 
-        with self.assertRaises(ValueError) as context:
-            user_data = UserData(
-                email='a',
-                emails=['a', 'a']
-            )
-
-        self.assertEqual(expected_exception_message, str(context.exception))
+        for p in params:
+            param_dict = {
+                p[0]: 'test',
+                p[1]: ['test', 'test']
+            }
+            with self.assertRaises(ValueError) as context:
+                user_data = UserData(
+                    **param_dict
+                )
+            self.assertEqual(UserData.multi_value_constructor_err.format(list(param_dict)[0], list(param_dict)[1]), str(context.exception))
 
     def test_multi_value_normalization_with_empty(self):
         user_data = UserData()
