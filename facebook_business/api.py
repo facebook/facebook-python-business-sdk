@@ -99,13 +99,18 @@ class FacebookResponse(object):
 
         json_body = self.json()
 
-        if isinstance(json_body, collections_abc.Mapping) and 'error' in json_body:
-            # Is a dictionary, has error in it
-            return False
-        elif bool(json_body):
-            # Has body and no error
+        if isinstance(json_body, collections_abc.Mapping):
+            # Is a mapping
+
+            if 'error' in json_body:
+                # And the `error` key is present
+                return False
+
             if 'success' in json_body:
-                return json_body['success']
+                # Or the `success` flagged explicitly
+                return bool(json_body['success'])
+
+        if bool(json_body):
             # API can retuen a success 200 when service unavailable occurs
             return 'Service Unavailable' not in json_body
         elif self._http_status == http_client.NOT_MODIFIED:
