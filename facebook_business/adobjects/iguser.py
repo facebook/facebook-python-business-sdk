@@ -51,6 +51,7 @@ class IGUser(
         mentioned_comment = 'mentioned_comment'
         mentioned_media = 'mentioned_media'
         name = 'name'
+        permitted_tasks = 'permitted_tasks'
         profile_picture_url = 'profile_picture_url'
         shopping_review_status = 'shopping_review_status'
         username = 'username'

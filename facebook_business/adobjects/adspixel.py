@@ -56,6 +56,7 @@ class AdsPixel(
         name = 'name'
         owner_ad_account = 'owner_ad_account'
         owner_business = 'owner_business'
+        permitted_tasks = 'permitted_tasks'
 
     class SortBy:
         last_fired_time = 'LAST_FIRED_TIME'
