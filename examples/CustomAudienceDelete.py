@@ -32,7 +32,7 @@ fields = [
 ]
 params = {
 }
-print CustomAudience(id).delete(
+print CustomAudience(id).api_delete(
   fields=fields,
   params=params,
 )
