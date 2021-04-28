@@ -120,6 +120,7 @@ class Business(
         profile_plus_advertise = 'PROFILE_PLUS_ADVERTISE'
         profile_plus_analyze = 'PROFILE_PLUS_ANALYZE'
         profile_plus_create_content = 'PROFILE_PLUS_CREATE_CONTENT'
+        profile_plus_facebook_access = 'PROFILE_PLUS_FACEBOOK_ACCESS'
         profile_plus_manage = 'PROFILE_PLUS_MANAGE'
         profile_plus_messaging = 'PROFILE_PLUS_MESSAGING'
         profile_plus_moderate = 'PROFILE_PLUS_MODERATE'
@@ -540,6 +541,7 @@ class Business(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.adspixel import AdsPixel
         param_types = {
+            'is_crm': 'bool',
             'name': 'string',
         }
         enums = {
@@ -635,6 +637,7 @@ class Business(
             'ecpms': 'list<string>',
             'query_ids': 'list<string>',
             'request_id': 'string',
+            'sync_api': 'bool',
         }
         enums = {
         }
@@ -757,10 +760,10 @@ class Business(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.oracletransaction import OracleTransaction
+        from facebook_business.adobjects.omegacustomertrx import OmegaCustomerTrx
         param_types = {
             'end_date': 'string',
-            'invoice_id': 'unsigned int',
+            'invoice_id': 'string',
             'issue_end_date': 'string',
             'issue_start_date': 'string',
             'root_id': 'unsigned int',
@@ -768,7 +771,7 @@ class Business(
             'type': 'type_enum',
         }
         enums = {
-            'type_enum': OracleTransaction.Type.__dict__.values(),
+            'type_enum': OmegaCustomerTrx.Type.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -776,9 +779,9 @@ class Business(
             endpoint='/business_invoices',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=OracleTransaction,
+            target_class=OmegaCustomerTrx,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=OracleTransaction, api=self._api),
+            response_parser=ObjectParser(target_class=OmegaCustomerTrx, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1592,6 +1595,37 @@ class Business(
             target_class=EventSourceGroup,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=EventSourceGroup, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_extended_credit_applications(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'only_show_pending': 'bool',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/extendedcreditapplications',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2811,6 +2845,36 @@ class Business(
             target_class=BusinessAgreement,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=BusinessAgreement, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_spaco_data_set_collections(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/spaco_dataset_collections',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

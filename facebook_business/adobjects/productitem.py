@@ -69,6 +69,7 @@ class ProductItem(
         gtin = 'gtin'
         id = 'id'
         image_cdn_urls = 'image_cdn_urls'
+        image_fetch_status = 'image_fetch_status'
         image_url = 'image_url'
         images = 'images'
         inventory = 'inventory'
@@ -154,6 +155,14 @@ class ProductItem(
         female = 'female'
         male = 'male'
         unisex = 'unisex'
+
+    class ImageFetchStatus:
+        direct_upload = 'DIRECT_UPLOAD'
+        fetched = 'FETCHED'
+        fetch_failed = 'FETCH_FAILED'
+        no_status = 'NO_STATUS'
+        outdated = 'OUTDATED'
+        partial_fetch = 'PARTIAL_FETCH'
 
     class ReviewStatus:
         approved = 'approved'
@@ -421,6 +430,7 @@ class ProductItem(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'catalog_id': 'string',
             'image_height': 'unsigned int',
             'image_width': 'unsigned int',
         }
@@ -637,6 +647,7 @@ class ProductItem(
         'gtin': 'string',
         'id': 'string',
         'image_cdn_urls': 'map<string, string>',
+        'image_fetch_status': 'ImageFetchStatus',
         'image_url': 'string',
         'images': 'list<string>',
         'inventory': 'int',
@@ -698,6 +709,7 @@ class ProductItem(
         field_enum_info['Availability'] = ProductItem.Availability.__dict__.values()
         field_enum_info['Condition'] = ProductItem.Condition.__dict__.values()
         field_enum_info['Gender'] = ProductItem.Gender.__dict__.values()
+        field_enum_info['ImageFetchStatus'] = ProductItem.ImageFetchStatus.__dict__.values()
         field_enum_info['ReviewStatus'] = ProductItem.ReviewStatus.__dict__.values()
         field_enum_info['ShippingWeightUnit'] = ProductItem.ShippingWeightUnit.__dict__.values()
         field_enum_info['Visibility'] = ProductItem.Visibility.__dict__.values()

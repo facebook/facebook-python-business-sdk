@@ -48,14 +48,6 @@ class AtlasCampaign(
         cost_per_visit = 'cost_per_visit'
         created_by = 'created_by'
         created_date = 'created_date'
-        data_driven_convs = 'data_driven_convs'
-        data_driven_convs_per_1k_impress = 'data_driven_convs_per_1k_impress'
-        data_driven_convs_per_click = 'data_driven_convs_per_click'
-        data_driven_convs_per_visit = 'data_driven_convs_per_visit'
-        data_driven_cpa = 'data_driven_cpa'
-        data_driven_nullable_convs = 'data_driven_nullable_convs'
-        data_driven_revenue = 'data_driven_revenue'
-        data_driven_roas = 'data_driven_roas'
         even_credit_convs = 'even_credit_convs'
         even_credit_convs_per_1k_impress = 'even_credit_convs_per_1k_impress'
         even_credit_convs_per_click = 'even_credit_convs_per_click'
@@ -324,14 +316,6 @@ class AtlasCampaign(
         'cost_per_visit': 'float',
         'created_by': 'Object',
         'created_date': 'datetime',
-        'data_driven_convs': 'float',
-        'data_driven_convs_per_1k_impress': 'float',
-        'data_driven_convs_per_click': 'float',
-        'data_driven_convs_per_visit': 'float',
-        'data_driven_cpa': 'float',
-        'data_driven_nullable_convs': 'float',
-        'data_driven_revenue': 'float',
-        'data_driven_roas': 'float',
         'even_credit_convs': 'float',
         'even_credit_convs_per_1k_impress': 'float',
         'even_credit_convs_per_click': 'float',

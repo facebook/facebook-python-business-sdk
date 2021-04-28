@@ -90,14 +90,12 @@ class CustomAudience(
         event_sources = 'event_sources'
         exclusions = 'exclusions'
         inclusions = 'inclusions'
-        is_household_exclusion = 'is_household_exclusion'
         list_of_accounts = 'list_of_accounts'
         origin_audience_id = 'origin_audience_id'
         parent_audience_id = 'parent_audience_id'
         partner_reference_key = 'partner_reference_key'
         prefill = 'prefill'
         product_set_id = 'product_set_id'
-        tags = 'tags'
         video_group_ids = 'video_group_ids'
 
     class ClaimObjective:
@@ -234,8 +232,6 @@ class CustomAudience(
             'event_sources': 'list<map>',
             'exclusions': 'list<Object>',
             'inclusions': 'list<Object>',
-            'is_household': 'bool',
-            'is_household_exclusion': 'bool',
             'lookalike_spec': 'string',
             'name': 'string',
             'opt_out_link': 'string',
@@ -245,7 +241,6 @@ class CustomAudience(
             'rev_share_policy_id': 'unsigned int',
             'rule': 'string',
             'rule_aggregation': 'string',
-            'seed_audience': 'unsigned int',
             'tags': 'list<string>',
         }
         enums = {
@@ -615,14 +610,12 @@ class CustomAudience(
         'event_sources': 'list<map>',
         'exclusions': 'list<Object>',
         'inclusions': 'list<Object>',
-        'is_household_exclusion': 'bool',
         'list_of_accounts': 'list<unsigned int>',
         'origin_audience_id': 'string',
         'parent_audience_id': 'unsigned int',
         'partner_reference_key': 'string',
         'prefill': 'bool',
         'product_set_id': 'string',
-        'tags': 'list<string>',
         'video_group_ids': 'list<string>',
     }
     @classmethod

@@ -131,6 +131,7 @@ class AdsInsights(
         location = 'location'
         mobile_app_purchase_roas = 'mobile_app_purchase_roas'
         objective = 'objective'
+        optimization_goal = 'optimization_goal'
         outbound_clicks = 'outbound_clicks'
         outbound_clicks_ctr = 'outbound_clicks_ctr'
         place_page_name = 'place_page_name'
@@ -363,6 +364,7 @@ class AdsInsights(
         'location': 'string',
         'mobile_app_purchase_roas': 'list<AdsActionStats>',
         'objective': 'string',
+        'optimization_goal': 'string',
         'outbound_clicks': 'list<AdsActionStats>',
         'outbound_clicks_ctr': 'list<AdsActionStats>',
         'place_page_name': 'string',

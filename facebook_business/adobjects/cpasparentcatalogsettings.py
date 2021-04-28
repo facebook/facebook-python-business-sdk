@@ -43,6 +43,7 @@ class CPASParentCatalogSettings(
     class Field(AbstractObject.Field):
         attribution_windows = 'attribution_windows'
         default_currency = 'default_currency'
+        disable_use_as_parent_catalog = 'disable_use_as_parent_catalog'
         id = 'id'
 
     class AttributionWindows:
@@ -120,6 +121,7 @@ class CPASParentCatalogSettings(
     _field_types = {
         'attribution_windows': 'list<string>',
         'default_currency': 'string',
+        'disable_use_as_parent_catalog': 'bool',
         'id': 'string',
     }
     @classmethod

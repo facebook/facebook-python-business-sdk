@@ -49,6 +49,7 @@ class AdPreview(
         audience_network_rewarded_video = 'AUDIENCE_NETWORK_REWARDED_VIDEO'
         desktop_feed_standard = 'DESKTOP_FEED_STANDARD'
         facebook_story_mobile = 'FACEBOOK_STORY_MOBILE'
+        facebook_story_sticker_mobile = 'FACEBOOK_STORY_STICKER_MOBILE'
         instagram_explore_contextual = 'INSTAGRAM_EXPLORE_CONTEXTUAL'
         instagram_explore_immersive = 'INSTAGRAM_EXPLORE_IMMERSIVE'
         instagram_reels = 'INSTAGRAM_REELS'
