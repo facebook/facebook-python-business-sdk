@@ -385,10 +385,10 @@ class VideoUploadRequest(object):
 class VideoEncodingStatusChecker(object):
 
     @staticmethod
-    def waitUntilReady(api, video_id, interval, timeout):
+    def waitUntilReady(api, video_id, interval, timeout, appsecret_proof):
         start_time = time.time()
         while True:
-            status = VideoEncodingStatusChecker.getStatus(api, video_id)
+            status = VideoEncodingStatusChecker.getStatus(api, video_id, appsecret_proof)
             status = status['video_status']
             if status != 'processing':
                 break
@@ -402,10 +402,13 @@ class VideoEncodingStatusChecker(object):
         return
 
     @staticmethod
-    def getStatus(api, video_id):
+    def getStatus(api, video_id, appsecret_proof):
+        params={'fields': 'status'}
+        if appsecret_proof is not None:
+            params['appsecret_proof'] = appsecret_proof
         result = api.call(
             'GET',
             [int(video_id)],
-            params={'fields': 'status'},
+            params=params,
         ).json()
         return result['status']
