@@ -205,7 +205,7 @@ class FacebookAdsApi(object):
         session = FacebookSession(app_id, app_secret, access_token, proxies,
                                   timeout)
         api = cls(session, api_version, enable_debug_logger=debug)
-        cls.set_default_api(api)
+        FacebookAdsApi.set_default_api(api)
 
         if account_id:
             cls.set_default_account_id(account_id)
@@ -305,7 +305,7 @@ class FacebookAdsApi(object):
 
         # Include api headers in http request
         headers = headers.copy()
-        headers.update(FacebookAdsApi.HTTP_DEFAULT_HEADERS)
+        headers.update(self.HTTP_DEFAULT_HEADERS)
 
         if params:
             params = _top_level_param_json_encode(params)
