@@ -60,6 +60,7 @@ class ProductCatalog(
         destination_catalog_settings = 'destination_catalog_settings'
         flight_catalog_settings = 'flight_catalog_settings'
         parent_catalog_id = 'parent_catalog_id'
+        permitted_roles = 'permitted_roles'
 
     class Vertical:
         adoptable_pets = 'adoptable_pets'

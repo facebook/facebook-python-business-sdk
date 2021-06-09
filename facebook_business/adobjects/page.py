@@ -139,6 +139,7 @@ class Page(
         parent_page = 'parent_page'
         parking = 'parking'
         payment_options = 'payment_options'
+        permitted_tasks = 'permitted_tasks'
         personal_info = 'personal_info'
         personal_interests = 'personal_interests'
         pharma_safety_info = 'pharma_safety_info'

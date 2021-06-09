@@ -96,6 +96,7 @@ class AdAccount(
         rf_spec = 'rf_spec'
         show_checkout_experience = 'show_checkout_experience'
         spend_cap = 'spend_cap'
+        permitted_tasks = 'permitted_tasks'
         tax_id = 'tax_id'
         tax_id_status = 'tax_id_status'
         tax_id_type = 'tax_id_type'
