@@ -46,7 +46,6 @@ class AdStudy(
         cooldown_start_time = 'cooldown_start_time'
         created_by = 'created_by'
         created_time = 'created_time'
-        datasets_information = 'datasets_information'
         description = 'description'
         end_time = 'end_time'
         id = 'id'
@@ -314,7 +313,6 @@ class AdStudy(
         'cooldown_start_time': 'datetime',
         'created_by': 'User',
         'created_time': 'datetime',
-        'datasets_information': 'list<string>',
         'description': 'string',
         'end_time': 'datetime',
         'id': 'string',

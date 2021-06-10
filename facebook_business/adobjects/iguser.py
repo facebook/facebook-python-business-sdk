@@ -164,6 +164,8 @@ class IGUser(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.igmedia import IGMedia
         param_types = {
+            'since': 'datetime',
+            'until': 'datetime',
         }
         enums = {
         }

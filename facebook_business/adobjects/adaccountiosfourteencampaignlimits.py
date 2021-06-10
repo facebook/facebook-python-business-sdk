@@ -28,34 +28,24 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class InvoiceCampaignNew(
+class AdAccountIosFourteenCampaignLimits(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(InvoiceCampaignNew, self).__init__()
-        self._isInvoiceCampaignNew = True
+        super(AdAccountIosFourteenCampaignLimits, self).__init__()
+        self._isAdAccountIosFourteenCampaignLimits = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        ad_account_id = 'ad_account_id'
-        billed_amount_details = 'billed_amount_details'
-        campaign_id = 'campaign_id'
-        campaign_name = 'campaign_name'
-        clicks = 'clicks'
-        conversions = 'conversions'
-        impressions = 'impressions'
-        tags = 'tags'
+        campaign_group_limit = 'campaign_group_limit'
+        campaign_group_limits_details = 'campaign_group_limits_details'
+        campaign_limit = 'campaign_limit'
 
     _field_types = {
-        'ad_account_id': 'string',
-        'billed_amount_details': 'BilledAmountDetails',
-        'campaign_id': 'string',
-        'campaign_name': 'string',
-        'clicks': 'unsigned int',
-        'conversions': 'unsigned int',
-        'impressions': 'unsigned int',
-        'tags': 'list<string>',
+        'campaign_group_limit': 'int',
+        'campaign_group_limits_details': 'list<Object>',
+        'campaign_limit': 'int',
     }
     @classmethod
     def _get_field_enum_info(cls):

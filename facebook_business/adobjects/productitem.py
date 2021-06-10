@@ -74,6 +74,7 @@ class ProductItem(
         images = 'images'
         inventory = 'inventory'
         manufacturer_part_number = 'manufacturer_part_number'
+        marked_for_product_launch = 'marked_for_product_launch'
         material = 'material'
         mobile_link = 'mobile_link'
         name = 'name'
@@ -85,6 +86,7 @@ class ProductItem(
         product_feed = 'product_feed'
         product_group = 'product_group'
         product_type = 'product_type'
+        quantity_to_sell_on_facebook = 'quantity_to_sell_on_facebook'
         retailer_id = 'retailer_id'
         retailer_product_group_id = 'retailer_product_group_id'
         review_rejection_reasons = 'review_rejection_reasons'
@@ -385,6 +387,11 @@ class ProductItem(
         fb_vehi = 'FB_VEHI'
         fb_vehi_part = 'FB_VEHI_PART'
 
+    class MarkedForProductLaunch:
+        value_default = 'default'
+        marked = 'marked'
+        not_marked = 'not_marked'
+
     # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
@@ -433,6 +440,8 @@ class ProductItem(
             'catalog_id': 'string',
             'image_height': 'unsigned int',
             'image_width': 'unsigned int',
+            'override_country': 'string',
+            'override_language': 'string',
         }
         enums = {
         }
@@ -503,6 +512,7 @@ class ProductItem(
             'iphone_url': 'string',
             'launch_date': 'string',
             'manufacturer_part_number': 'string',
+            'marked_for_product_launch': 'marked_for_product_launch_enum',
             'material': 'string',
             'mobile_link': 'string',
             'name': 'string',
@@ -513,6 +523,7 @@ class ProductItem(
             'pattern': 'string',
             'price': 'unsigned int',
             'product_type': 'string',
+            'quantity_to_sell_on_facebook': 'unsigned int',
             'retailer_id': 'string',
             'return_policy_days': 'unsigned int',
             'sale_price': 'unsigned int',
@@ -532,6 +543,7 @@ class ProductItem(
             'commerce_tax_category_enum': ProductItem.CommerceTaxCategory.__dict__.values(),
             'condition_enum': ProductItem.Condition.__dict__.values(),
             'gender_enum': ProductItem.Gender.__dict__.values(),
+            'marked_for_product_launch_enum': ProductItem.MarkedForProductLaunch.__dict__.values(),
             'visibility_enum': ProductItem.Visibility.__dict__.values(),
         }
         request = FacebookRequest(
@@ -652,6 +664,7 @@ class ProductItem(
         'images': 'list<string>',
         'inventory': 'int',
         'manufacturer_part_number': 'string',
+        'marked_for_product_launch': 'string',
         'material': 'string',
         'mobile_link': 'string',
         'name': 'string',
@@ -663,6 +676,7 @@ class ProductItem(
         'product_feed': 'ProductFeed',
         'product_group': 'ProductGroup',
         'product_type': 'string',
+        'quantity_to_sell_on_facebook': 'int',
         'retailer_id': 'string',
         'retailer_product_group_id': 'string',
         'review_rejection_reasons': 'list<string>',
@@ -714,6 +728,7 @@ class ProductItem(
         field_enum_info['ShippingWeightUnit'] = ProductItem.ShippingWeightUnit.__dict__.values()
         field_enum_info['Visibility'] = ProductItem.Visibility.__dict__.values()
         field_enum_info['CommerceTaxCategory'] = ProductItem.CommerceTaxCategory.__dict__.values()
+        field_enum_info['MarkedForProductLaunch'] = ProductItem.MarkedForProductLaunch.__dict__.values()
         return field_enum_info
 
 

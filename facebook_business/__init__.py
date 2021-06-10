@@ -21,7 +21,7 @@
 from facebook_business.session import FacebookSession
 from facebook_business.api import FacebookAdsApi
 
-__version__ = '10.0.1'
+__version__ = '11.0.0'
 __all__ = [
     'session',
     'objects',
