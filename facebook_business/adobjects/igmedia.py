@@ -47,6 +47,7 @@ class IGMedia(
         ig_id = 'ig_id'
         is_comment_enabled = 'is_comment_enabled'
         like_count = 'like_count'
+        media_product_type = 'media_product_type'
         media_type = 'media_type'
         media_url = 'media_url'
         owner = 'owner'
@@ -55,6 +56,7 @@ class IGMedia(
         thumbnail_url = 'thumbnail_url'
         timestamp = 'timestamp'
         username = 'username'
+        video_title = 'video_title'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -255,6 +257,7 @@ class IGMedia(
         'ig_id': 'string',
         'is_comment_enabled': 'bool',
         'like_count': 'int',
+        'media_product_type': 'string',
         'media_type': 'string',
         'media_url': 'string',
         'owner': 'IGUser',
@@ -263,6 +266,7 @@ class IGMedia(
         'thumbnail_url': 'string',
         'timestamp': 'datetime',
         'username': 'string',
+        'video_title': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

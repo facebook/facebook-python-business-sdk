@@ -50,7 +50,6 @@ class CatalogSubVerticalList(
         clo_offer = 'clo_offer'
         clothing = 'clothing'
         clothing_accessories = 'clothing_accessories'
-        clothing_group = 'clothing_group'
         computer_components = 'computer_components'
         computers_and_tablets = 'computers_and_tablets'
         computers_laptops_and_tablets = 'computers_laptops_and_tablets'
@@ -107,7 +106,6 @@ class CatalogSubVerticalList(
         'clo_offer': 'Object',
         'clothing': 'Object',
         'clothing_accessories': 'Object',
-        'clothing_group': 'Object',
         'computer_components': 'Object',
         'computers_and_tablets': 'Object',
         'computers_laptops_and_tablets': 'Object',

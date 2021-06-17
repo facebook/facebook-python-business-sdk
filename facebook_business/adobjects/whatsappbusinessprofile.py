@@ -43,6 +43,7 @@ class WhatsAppBusinessProfile(
     class Field(AbstractObject.Field):
         id = 'id'
         name_verification = 'name_verification'
+        whatsapp_business_api_data = 'whatsapp_business_api_data'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -107,6 +108,7 @@ class WhatsAppBusinessProfile(
     _field_types = {
         'id': 'string',
         'name_verification': 'Object',
+        'whatsapp_business_api_data': 'Object',
     }
     @classmethod
     def _get_field_enum_info(cls):

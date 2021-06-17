@@ -56,6 +56,7 @@ class AdRule(
         deleted = 'DELETED'
         disabled = 'DISABLED'
         enabled = 'ENABLED'
+        has_issues = 'HAS_ISSUES'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod

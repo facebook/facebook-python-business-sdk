@@ -48,8 +48,10 @@ class Canvas(
         is_hidden = 'is_hidden'
         is_published = 'is_published'
         last_editor = 'last_editor'
+        linked_documents = 'linked_documents'
         name = 'name'
         owner = 'owner'
+        source_template = 'source_template'
         update_time = 'update_time'
 
     def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
@@ -123,6 +125,7 @@ class Canvas(
             'is_hidden': 'bool',
             'is_published': 'bool',
             'name': 'string',
+            'source_template_id': 'string',
         }
         enums = {
         }
@@ -217,8 +220,10 @@ class Canvas(
         'is_hidden': 'bool',
         'is_published': 'bool',
         'last_editor': 'User',
+        'linked_documents': 'list<Canvas>',
         'name': 'string',
         'owner': 'Page',
+        'source_template': 'CanvasTemplate',
         'update_time': 'int',
     }
     @classmethod
