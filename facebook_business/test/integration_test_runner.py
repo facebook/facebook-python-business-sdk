@@ -22,7 +22,7 @@
 Integration test runner for the Python Facebook Business SDK.
 
 Note: 
-    New integration test should follow the file name convention using integration_ as preffix,
+    New integration test should follow the file name convention using integration_ as prefix,
     for example, integration_adset.py.
 
 How to run:
