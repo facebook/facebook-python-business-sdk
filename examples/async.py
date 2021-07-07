@@ -50,7 +50,7 @@ while True:
     job = i_async_job.api_get()
     print("Percent done: " + str(job[AdReportRun.Field.async_percent_completion]))
     time.sleep(1)
-    if job:
+    if str(job[AdReportRun.Field.async_status]) == 'Job Completed'):
         print("Done!")
         break
 
