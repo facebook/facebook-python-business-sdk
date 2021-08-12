@@ -131,6 +131,7 @@ class AdsInsights(
         location = 'location'
         mobile_app_purchase_roas = 'mobile_app_purchase_roas'
         objective = 'objective'
+        optimization_goal = 'optimization_goal'
         outbound_clicks = 'outbound_clicks'
         outbound_clicks_ctr = 'outbound_clicks_ctr'
         place_page_name = 'place_page_name'
@@ -239,7 +240,7 @@ class AdsInsights(
         last_week_mon_sun = 'last_week_mon_sun'
         last_week_sun_sat = 'last_week_sun_sat'
         last_year = 'last_year'
-        lifetime = 'lifetime'
+        maximum = 'maximum'
         this_month = 'this_month'
         this_quarter = 'this_quarter'
         this_week_mon_today = 'this_week_mon_today'
@@ -363,6 +364,7 @@ class AdsInsights(
         'location': 'string',
         'mobile_app_purchase_roas': 'list<AdsActionStats>',
         'objective': 'string',
+        'optimization_goal': 'string',
         'outbound_clicks': 'list<AdsActionStats>',
         'outbound_clicks_ctr': 'list<AdsActionStats>',
         'place_page_name': 'string',

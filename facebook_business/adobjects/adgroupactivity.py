@@ -87,8 +87,6 @@ class AdgroupActivity(
         target_spec_id_old = 'target_spec_id_old'
         targets_spec_new = 'targets_spec_new'
         targets_spec_old = 'targets_spec_old'
-        tracking_pixel_ids_new = 'tracking_pixel_ids_new'
-        tracking_pixel_ids_old = 'tracking_pixel_ids_old'
         tracking_specs_new = 'tracking_specs_new'
         tracking_specs_old = 'tracking_specs_old'
         update_time_new = 'update_time_new'
@@ -213,8 +211,6 @@ class AdgroupActivity(
         'target_spec_id_old': 'string',
         'targets_spec_new': 'Object',
         'targets_spec_old': 'Object',
-        'tracking_pixel_ids_new': 'list<string>',
-        'tracking_pixel_ids_old': 'list<string>',
         'tracking_specs_new': 'list<Object>',
         'tracking_specs_old': 'list<Object>',
         'update_time_new': 'datetime',

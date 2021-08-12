@@ -59,6 +59,7 @@ class ProductItemARData(
         offline_conversions = 'OFFLINE_CONVERSIONS'
         shops = 'SHOPS'
         universal_checkout = 'UNIVERSAL_CHECKOUT'
+        whatsapp = 'WHATSAPP'
 
     _field_types = {
         'container_effect': 'string',

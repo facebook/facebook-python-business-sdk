@@ -19,38 +19,39 @@
 # DEALINGS IN THE SOFTWARE.
 
 from unittest import TestCase
+import hashlib
 
 from facebook_business.adobjects.serverside.normalize import Normalize
 
 
 class NormalizeTest(TestCase):
-    def test_normalize_f5first(self):
-        self.assertEqual(Normalize.normalize_field('f5first', 'George'), 'georg')
-        self.assertEqual(Normalize.normalize_field('f5first', 'John'), 'john')
+    def test_normalize_field_f5first(self):
+        self.assertEqual(Normalize.normalize_field('f5first', 'George'), Normalize.hash_sha_256('georg'))
+        self.assertEqual(Normalize.normalize_field('f5first', 'John'), Normalize.hash_sha_256('john'))
         self.assertEqual(Normalize.normalize_field('f5first', ''), None)
         self.assertEqual(Normalize.normalize_field('f5first', None), None)
 
-    def test_normalize_f5last(self):
-        self.assertEqual(Normalize.normalize_field('f5last', 'Washington'), 'washi')
-        self.assertEqual(Normalize.normalize_field('f5last', 'Adams'), 'adams')
+    def test_normalize_field_f5last(self):
+        self.assertEqual(Normalize.normalize_field('f5last', 'Washington'), Normalize.hash_sha_256('washi'))
+        self.assertEqual(Normalize.normalize_field('f5last', 'Adams'), Normalize.hash_sha_256('adams'))
         self.assertEqual(Normalize.normalize_field('f5last', ''), None)
         self.assertEqual(Normalize.normalize_field('f5last', None), None)
 
-    def test_normalize_fi(self):
-        self.assertEqual(Normalize.normalize_field('fi', 'ABC'), 'a')
-        self.assertEqual(Normalize.normalize_field('fi', 'A'), 'a')
+    def test_normalize_field_fi(self):
+        self.assertEqual(Normalize.normalize_field('fi', 'ABC'), Normalize.hash_sha_256('a'))
+        self.assertEqual(Normalize.normalize_field('fi', 'A'), Normalize.hash_sha_256('a'))
         self.assertEqual(Normalize.normalize_field('fi', ''), None)
         self.assertEqual(Normalize.normalize_field('fi', None), None)
 
-    def test_normalize_dobd(self):
-        self.assertEqual(Normalize.normalize_field('dobd', '1'), '01')
-        self.assertEqual(Normalize.normalize_field('dobd', '9'), '09')
-        self.assertEqual(Normalize.normalize_field('dobd', '02'), '02')
-        self.assertEqual(Normalize.normalize_field('dobd', '31'), '31')
+    def test_normalize_field_dobd(self):
+        self.assertEqual(Normalize.normalize_field('dobd', '1'), Normalize.hash_sha_256('01'))
+        self.assertEqual(Normalize.normalize_field('dobd', '9'), Normalize.hash_sha_256('09'))
+        self.assertEqual(Normalize.normalize_field('dobd', '02'), Normalize.hash_sha_256('02'))
+        self.assertEqual(Normalize.normalize_field('dobd', '31'), Normalize.hash_sha_256('31'))
         self.assertEqual(Normalize.normalize_field('dobd', ''), None)
         self.assertEqual(Normalize.normalize_field('dobd', None), None)
 
-    def test_normalize_dobd_errors(self):
+    def test_normalize_field_dobd_errors(self):
         with self.assertRaisesRegex(ValueError, "Invalid format for dobd: '32'"):
             Normalize.normalize_field('dobd', '32')
         with self.assertRaisesRegex(ValueError, "Invalid format for dobd: '444'"):
@@ -62,15 +63,15 @@ class NormalizeTest(TestCase):
         with self.assertRaisesRegex(ValueError, "Invalid format for dobd: '-1'"):
             Normalize.normalize_field('dobd', '-1')
 
-    def test_normalize_dobm(self):
-        self.assertEqual(Normalize.normalize_field('dobm', '1'), '01')
-        self.assertEqual(Normalize.normalize_field('dobm', '9'), '09')
-        self.assertEqual(Normalize.normalize_field('dobm', '02'), '02')
-        self.assertEqual(Normalize.normalize_field('dobm', '12'), '12')
+    def test_normalize_field_dobm(self):
+        self.assertEqual(Normalize.normalize_field('dobm', '1'), Normalize.hash_sha_256('01'))
+        self.assertEqual(Normalize.normalize_field('dobm', '9'), Normalize.hash_sha_256('09'))
+        self.assertEqual(Normalize.normalize_field('dobm', '02'), Normalize.hash_sha_256('02'))
+        self.assertEqual(Normalize.normalize_field('dobm', '12'), Normalize.hash_sha_256('12'))
         self.assertEqual(Normalize.normalize_field('dobm', ''), None)
         self.assertEqual(Normalize.normalize_field('dobm', None), None)
 
-    def test_normalize_dobm_errors(self):
+    def test_normalize_field_dobm_errors(self):
         with self.assertRaisesRegex(ValueError, "Invalid format for dobm: '13'"):
             Normalize.normalize_field('dobm', '13')
         with self.assertRaisesRegex(ValueError, "Invalid format for dobm: '444'"):
@@ -82,17 +83,34 @@ class NormalizeTest(TestCase):
         with self.assertRaisesRegex(ValueError, "Invalid format for dobm: '-1'"):
             Normalize.normalize_field('dobm', '-1')
 
-    def test_normalize_doby(self):
-        self.assertEqual(Normalize.normalize_field('doby', '2000'), '2000')
-        self.assertEqual(Normalize.normalize_field('doby', '0000'), '0000')
-        self.assertEqual(Normalize.normalize_field('doby', '9999'), '9999')
+    def test_normalize_field_doby(self):
+        self.assertEqual(Normalize.normalize_field('doby', '2000'), Normalize.hash_sha_256('2000'))
+        self.assertEqual(Normalize.normalize_field('doby', '0000'), Normalize.hash_sha_256('0000'))
+        self.assertEqual(Normalize.normalize_field('doby', '9999'), Normalize.hash_sha_256('9999'))
         self.assertEqual(Normalize.normalize_field('doby', ''), None)
         self.assertEqual(Normalize.normalize_field('doby', None), None)
 
-    def test_normalize_doby_errors(self):
+    def test_normalize_field_doby_errors(self):
         with self.assertRaisesRegex(ValueError, "Invalid format for doby: '19999'"):
             Normalize.normalize_field('doby', '19999')
         with self.assertRaisesRegex(ValueError, "Invalid format for doby: '1'"):
             Normalize.normalize_field('doby', '1')
         with self.assertRaisesRegex(ValueError, "Invalid format for doby: '-1'"):
             Normalize.normalize_field('doby', '-1')
+
+    def test_normalize_field_it_skips_hashing_when_already_hashed(self):
+        value = 'a' * 64
+        self.assertEqual(Normalize.normalize_field('f5last', value), value)
+
+    def test_normalize_field_it_skips_hashing_when_already_hashed_after_generic_normalizing(self):
+        value = " %s " % ('a' * 64)
+        self.assertEqual(Normalize.normalize_field('f5last', value), 'a' * 64)
+
+    def test_hash_sha_256_hashes(self):
+        value = '2000'
+        expected_hashed_value = hashlib.sha256(value.encode('utf-8')).hexdigest()
+        self.assertEqual(Normalize.hash_sha_256(value), expected_hashed_value)
+
+    def test_normalize_field_skip_hashing_it_does_not_hash(self):
+        value = ' USD '
+        self.assertEqual(Normalize.normalize_field_skip_hashing('currency', value), 'usd')

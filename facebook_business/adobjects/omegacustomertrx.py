@@ -32,13 +32,13 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class OracleTransaction(
+class OmegaCustomerTrx(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isOracleTransaction = True
-        super(OracleTransaction, self).__init__(fbid, parent_id, api)
+        self._isOmegaCustomerTrx = True
+        super(OmegaCustomerTrx, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
         ad_account_ids = 'ad_account_ids'
@@ -46,6 +46,7 @@ class OracleTransaction(
         amount_due = 'amount_due'
         billed_amount_details = 'billed_amount_details'
         billing_period = 'billing_period'
+        campaign = 'campaign'
         cdn_download_uri = 'cdn_download_uri'
         currency = 'currency'
         download_uri = 'download_uri'
@@ -59,6 +60,12 @@ class OracleTransaction(
         payment_status = 'payment_status'
         payment_term = 'payment_term'
         type = 'type'
+
+    class Type:
+        cm = 'CM'
+        dm = 'DM'
+        inv = 'INV'
+        pro_forma = 'PRO_FORMA'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -74,7 +81,7 @@ class OracleTransaction(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=OracleTransaction,
+            target_class=OmegaCustomerTrx,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -127,6 +134,7 @@ class OracleTransaction(
         'amount_due': 'CurrencyAmount',
         'billed_amount_details': 'BilledAmountDetails',
         'billing_period': 'string',
+        'campaign': 'AtlasCampaign',
         'cdn_download_uri': 'string',
         'currency': 'string',
         'download_uri': 'string',
@@ -144,6 +152,7 @@ class OracleTransaction(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['Type'] = OmegaCustomerTrx.Type.__dict__.values()
         return field_enum_info
 
 

@@ -104,6 +104,7 @@ class AdAssetFeedSpec(
         see_more = 'SEE_MORE'
         sell_now = 'SELL_NOW'
         send_a_gift = 'SEND_A_GIFT'
+        send_gift_money = 'SEND_GIFT_MONEY'
         share = 'SHARE'
         shop_now = 'SHOP_NOW'
         sign_up = 'SIGN_UP'

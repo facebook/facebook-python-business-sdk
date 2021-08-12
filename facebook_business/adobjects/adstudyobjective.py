@@ -49,11 +49,13 @@ class AdStudyObjective(
         type = 'type'
 
     class Type:
+        aep_conversion = 'AEP_CONVERSION'
         brand = 'BRAND'
         brandlift = 'BRANDLIFT'
         ftl = 'FTL'
         mae = 'MAE'
         mai = 'MAI'
+        mpc_conversion = 'MPC_CONVERSION'
         nonsales = 'NONSALES'
         partner = 'PARTNER'
         sales = 'SALES'

@@ -105,11 +105,6 @@ class AdCreative(
         instant_checkout_setting = 'instant_checkout_setting'
         is_dco_internal = 'is_dco_internal'
 
-    class ApplinkTreatment:
-        deeplink_with_appstore_fallback = 'deeplink_with_appstore_fallback'
-        deeplink_with_web_fallback = 'deeplink_with_web_fallback'
-        web_only = 'web_only'
-
     class CallToActionType:
         add_to_cart = 'ADD_TO_CART'
         apply_now = 'APPLY_NOW'
@@ -157,6 +152,7 @@ class AdCreative(
         see_more = 'SEE_MORE'
         sell_now = 'SELL_NOW'
         send_a_gift = 'SEND_A_GIFT'
+        send_gift_money = 'SEND_GIFT_MONEY'
         share = 'SHARE'
         shop_now = 'SHOP_NOW'
         sign_up = 'SIGN_UP'
@@ -196,6 +192,11 @@ class AdCreative(
         deleted = 'DELETED'
         in_process = 'IN_PROCESS'
         with_issues = 'WITH_ISSUES'
+
+    class ApplinkTreatment:
+        deeplink_with_appstore_fallback = 'deeplink_with_appstore_fallback'
+        deeplink_with_web_fallback = 'deeplink_with_web_fallback'
+        web_only = 'web_only'
 
     class AuthorizationCategory:
         none = 'NONE'
@@ -448,7 +449,7 @@ class AdCreative(
         'account_id': 'string',
         'actor_id': 'string',
         'adlabels': 'list<AdLabel>',
-        'applink_treatment': 'ApplinkTreatment',
+        'applink_treatment': 'string',
         'asset_feed_spec': 'AdAssetFeedSpec',
         'authorization_category': 'string',
         'auto_update': 'bool',
@@ -510,10 +511,10 @@ class AdCreative(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['ApplinkTreatment'] = AdCreative.ApplinkTreatment.__dict__.values()
         field_enum_info['CallToActionType'] = AdCreative.CallToActionType.__dict__.values()
         field_enum_info['ObjectType'] = AdCreative.ObjectType.__dict__.values()
         field_enum_info['Status'] = AdCreative.Status.__dict__.values()
+        field_enum_info['ApplinkTreatment'] = AdCreative.ApplinkTreatment.__dict__.values()
         field_enum_info['AuthorizationCategory'] = AdCreative.AuthorizationCategory.__dict__.values()
         field_enum_info['CategorizationCriteria'] = AdCreative.CategorizationCriteria.__dict__.values()
         field_enum_info['CategoryMediaSource'] = AdCreative.CategoryMediaSource.__dict__.values()

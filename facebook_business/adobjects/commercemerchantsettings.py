@@ -49,6 +49,7 @@ class CommerceMerchantSettings(
         display_name = 'display_name'
         external_merchant_id = 'external_merchant_id'
         facebook_channel = 'facebook_channel'
+        feature_eligibility = 'feature_eligibility'
         has_discount_code = 'has_discount_code'
         has_onsite_intent = 'has_onsite_intent'
         id = 'id'
@@ -402,6 +403,7 @@ class CommerceMerchantSettings(
         'display_name': 'string',
         'external_merchant_id': 'string',
         'facebook_channel': 'Object',
+        'feature_eligibility': 'Object',
         'has_discount_code': 'bool',
         'has_onsite_intent': 'bool',
         'id': 'string',

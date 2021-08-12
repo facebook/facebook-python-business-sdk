@@ -109,12 +109,18 @@ class LiveVideo(
         target = 'target'
 
     class LiveCommentModerationSetting:
+        value_default = 'DEFAULT'
         discussion = 'DISCUSSION'
         follower = 'FOLLOWER'
         protected_mode = 'PROTECTED_MODE'
         restricted = 'RESTRICTED'
         slow = 'SLOW'
         supporter = 'SUPPORTER'
+
+    class PersistentStreamKeyStatus:
+        disable = 'DISABLE'
+        enable = 'ENABLE'
+        regenerate = 'REGENERATE'
 
     def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -184,6 +190,7 @@ class LiveVideo(
         param_types = {
             'allow_bm_crossposting': 'bool',
             'content_tags': 'list<string>',
+            'cross_share_to_group_ids': 'list<string>',
             'crossposting_actions': 'list<map>',
             'custom_labels': 'list<string>',
             'description': 'string',
@@ -197,6 +204,7 @@ class LiveVideo(
             'master_ingest_stream_id': 'string',
             'og_icon_id': 'string',
             'og_phrase': 'string',
+            'persistent_stream_key_status': 'persistent_stream_key_status_enum',
             'place': 'Object',
             'planned_start_time': 'int',
             'privacy': 'string',
@@ -213,6 +221,7 @@ class LiveVideo(
         }
         enums = {
             'live_comment_moderation_setting_enum': LiveVideo.LiveCommentModerationSetting.__dict__.values(),
+            'persistent_stream_key_status_enum': LiveVideo.PersistentStreamKeyStatus.__dict__.values(),
             'status_enum': LiveVideo.Status.__dict__.values(),
             'stream_type_enum': LiveVideo.StreamType.__dict__.values(),
         }
@@ -551,7 +560,7 @@ class LiveVideo(
         'live_encoders': 'list<LiveEncoder>',
         'live_views': 'unsigned int',
         'overlay_url': 'string',
-        'permalink_url': 'string',
+        'permalink_url': 'Object',
         'planned_start_time': 'datetime',
         'seconds_left': 'int',
         'secure_stream_url': 'string',
@@ -573,6 +582,7 @@ class LiveVideo(
         field_enum_info['BroadcastStatus'] = LiveVideo.BroadcastStatus.__dict__.values()
         field_enum_info['Source'] = LiveVideo.Source.__dict__.values()
         field_enum_info['LiveCommentModerationSetting'] = LiveVideo.LiveCommentModerationSetting.__dict__.values()
+        field_enum_info['PersistentStreamKeyStatus'] = LiveVideo.PersistentStreamKeyStatus.__dict__.values()
         return field_enum_info
 
 

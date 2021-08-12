@@ -46,6 +46,7 @@ class AdStudy(
         cooldown_start_time = 'cooldown_start_time'
         created_by = 'created_by'
         created_time = 'created_time'
+        datasets_information = 'datasets_information'
         description = 'description'
         end_time = 'end_time'
         id = 'id'
@@ -213,6 +214,69 @@ class AdStudy(
             self.assure_call()
             return request.execute()
 
+    def get_instances(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.privateliftstudyinstance import PrivateLiftStudyInstance
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/instances',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=PrivateLiftStudyInstance,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=PrivateLiftStudyInstance, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_instance(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.privateliftstudyinstance import PrivateLiftStudyInstance
+        param_types = {
+            'breakdown_key': 'map',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/instances',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=PrivateLiftStudyInstance,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=PrivateLiftStudyInstance, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_objectives(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -250,6 +314,7 @@ class AdStudy(
         'cooldown_start_time': 'datetime',
         'created_by': 'User',
         'created_time': 'datetime',
+        'datasets_information': 'list<string>',
         'description': 'string',
         'end_time': 'datetime',
         'id': 'string',

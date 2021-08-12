@@ -229,6 +229,7 @@ class Post(
             'backdated_time_granularity': 'backdated_time_granularity_enum',
             'composer_session_id': 'string',
             'direct_share_status': 'unsigned int',
+            'explicitly_added_mentionee_ids': 'list<unsigned int>',
             'feed_story_visibility': 'feed_story_visibility_enum',
             'is_explicit_location': 'bool',
             'is_hidden': 'bool',
