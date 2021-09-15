@@ -2367,7 +2367,7 @@ class AdAccount(
             'is_snapshot': 'bool',
             'is_value_based': 'bool',
             'list_of_accounts': 'list<unsigned int>',
-            'lookalike_spec': 'string',
+            'lookalike_spec': 'map',
             'name': 'string',
             'opt_out_link': 'string',
             'origin_audience_id': 'string',
