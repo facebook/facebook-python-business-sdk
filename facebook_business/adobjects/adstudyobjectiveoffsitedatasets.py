@@ -19,6 +19,10 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
+from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
+from facebook_business.adobjects.objectparser import ObjectParser
+from facebook_business.api import FacebookRequest
+from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -28,36 +32,21 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class InvoiceCampaign(
-    AbstractObject,
+class AdStudyObjectiveOffsiteDatasets(
+    AbstractCrudObject,
 ):
 
-    def __init__(self, api=None):
-        super(InvoiceCampaign, self).__init__()
-        self._isInvoiceCampaign = True
-        self._api = api
+    def __init__(self, fbid=None, parent_id=None, api=None):
+        self._isAdStudyObjectiveOffsiteDatasets = True
+        super(AdStudyObjectiveOffsiteDatasets, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        ad_account_id = 'ad_account_id'
-        billed_amount_details = 'billed_amount_details'
-        campaign_id = 'campaign_id'
-        campaign_name = 'campaign_name'
-        clicks = 'clicks'
-        conversions = 'conversions'
-        description = 'description'
-        impressions = 'impressions'
-        tags = 'tags'
+        event_names = 'event_names'
+        id = 'id'
 
     _field_types = {
-        'ad_account_id': 'string',
-        'billed_amount_details': 'BilledAmountDetails',
-        'campaign_id': 'string',
-        'campaign_name': 'string',
-        'clicks': 'unsigned int',
-        'conversions': 'unsigned int',
-        'description': 'string',
-        'impressions': 'unsigned int',
-        'tags': 'list<string>',
+        'event_names': 'list<string>',
+        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

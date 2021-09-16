@@ -49,9 +49,9 @@ class AdStudyObjective(
         type = 'type'
 
     class Type:
-        aep_conversion = 'AEP_CONVERSION'
         brand = 'BRAND'
         brandlift = 'BRANDLIFT'
+        conversions = 'CONVERSIONS'
         ftl = 'FTL'
         mae = 'MAE'
         mai = 'MAI'
@@ -110,6 +110,7 @@ class AdStudyObjective(
             'is_primary': 'bool',
             'name': 'string',
             'offline_conversion_data_sets': 'list<Object>',
+            'offsite_datasets': 'list<Object>',
             'product_catalogs': 'list<Object>',
             'product_sets': 'list<Object>',
             'type': 'type_enum',

@@ -57,6 +57,7 @@ class Flight(
         origin_city = 'origin_city'
         price = 'price'
         sanitized_images = 'sanitized_images'
+        unit_price = 'unit_price'
         url = 'url'
 
     class ImageFetchStatus:
@@ -244,6 +245,7 @@ class Flight(
         'origin_city': 'string',
         'price': 'string',
         'sanitized_images': 'list<string>',
+        'unit_price': 'Object',
         'url': 'string',
     }
     @classmethod

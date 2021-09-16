@@ -80,6 +80,7 @@ class Vehicle(
         title = 'title'
         transmission = 'transmission'
         trim = 'trim'
+        unit_price = 'unit_price'
         url = 'url'
         vehicle_id = 'vehicle_id'
         vehicle_registration_plate = 'vehicle_registration_plate'
@@ -404,6 +405,7 @@ class Vehicle(
         'title': 'string',
         'transmission': 'string',
         'trim': 'string',
+        'unit_price': 'Object',
         'url': 'string',
         'vehicle_id': 'string',
         'vehicle_registration_plate': 'string',

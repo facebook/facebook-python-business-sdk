@@ -45,12 +45,14 @@ class BusinessAssetGroup(
         name = 'name'
 
     class AdaccountTasks:
+        aa_analyze = 'AA_ANALYZE'
         advertise = 'ADVERTISE'
         analyze = 'ANALYZE'
         draft = 'DRAFT'
         manage = 'MANAGE'
 
     class OfflineConversionDataSetTasks:
+        aa_analyze = 'AA_ANALYZE'
         advertise = 'ADVERTISE'
         manage = 'MANAGE'
         upload = 'UPLOAD'
@@ -77,12 +79,16 @@ class BusinessAssetGroup(
         profile_plus_manage = 'PROFILE_PLUS_MANAGE'
         profile_plus_messaging = 'PROFILE_PLUS_MESSAGING'
         profile_plus_moderate = 'PROFILE_PLUS_MODERATE'
+        profile_plus_revenue = 'PROFILE_PLUS_REVENUE'
         read_page_mailboxes = 'READ_PAGE_MAILBOXES'
         view_monetization_insights = 'VIEW_MONETIZATION_INSIGHTS'
 
     class PixelTasks:
+        aa_analyze = 'AA_ANALYZE'
+        advertise = 'ADVERTISE'
         analyze = 'ANALYZE'
         edit = 'EDIT'
+        upload = 'UPLOAD'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils

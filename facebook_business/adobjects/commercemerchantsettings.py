@@ -62,7 +62,6 @@ class CommerceMerchantSettings(
         privacy_url_by_locale = 'privacy_url_by_locale'
         review_rejection_messages = 'review_rejection_messages'
         review_rejection_reasons = 'review_rejection_reasons'
-        review_status = 'review_status'
         supported_card_types = 'supported_card_types'
         terms = 'terms'
         terms_url_by_locale = 'terms_url_by_locale'
@@ -552,7 +551,6 @@ class CommerceMerchantSettings(
         'privacy_url_by_locale': 'map<string, string>',
         'review_rejection_messages': 'list<string>',
         'review_rejection_reasons': 'list<string>',
-        'review_status': 'string',
         'supported_card_types': 'list<string>',
         'terms': 'string',
         'terms_url_by_locale': 'map<string, string>',

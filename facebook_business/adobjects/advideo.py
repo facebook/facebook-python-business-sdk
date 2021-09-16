@@ -71,6 +71,7 @@ class AdVideo(
         permalink_url = 'permalink_url'
         picture = 'picture'
         place = 'place'
+        post_views = 'post_views'
         premiere_living_room_status = 'premiere_living_room_status'
         privacy = 'privacy'
         published = 'published'
@@ -81,6 +82,7 @@ class AdVideo(
         title = 'title'
         universal_video_id = 'universal_video_id'
         updated_time = 'updated_time'
+        views = 'views'
         adaptive_type = 'adaptive_type'
         animated_effect_id = 'animated_effect_id'
         application_id = 'application_id'
@@ -161,6 +163,7 @@ class AdVideo(
         aloha_call_video = 'ALOHA_CALL_VIDEO'
         aloha_superframe = 'ALOHA_SUPERFRAME'
         app_review_screencast = 'APP_REVIEW_SCREENCAST'
+        asset_manager = 'ASSET_MANAGER'
         atlas_video = 'ATLAS_VIDEO'
         audio_broadcast = 'AUDIO_BROADCAST'
         broadcast = 'BROADCAST'
@@ -214,6 +217,7 @@ class AdVideo(
         instant_article = 'INSTANT_ARTICLE'
         instant_game_clip = 'INSTANT_GAME_CLIP'
         issue_module = 'ISSUE_MODULE'
+        jobs_careers = 'JOBS_CAREERS'
         jobs_visual_intro_entry = 'JOBS_VISUAL_INTRO_ENTRY'
         job_application_video = 'JOB_APPLICATION_VIDEO'
         job_opening_video = 'JOB_OPENING_VIDEO'
@@ -227,19 +231,26 @@ class AdVideo(
         marketplace_listing_video = 'MARKETPLACE_LISTING_VIDEO'
         marketplace_pre_recorded_video = 'MARKETPLACE_PRE_RECORDED_VIDEO'
         messenger_watch_together = 'MESSENGER_WATCH_TOGETHER'
+        moments_video = 'MOMENTS_VIDEO'
+        music_clip = 'MUSIC_CLIP'
+        music_clip_in_comment = 'MUSIC_CLIP_IN_COMMENT'
+        music_clip_in_poll_option = 'MUSIC_CLIP_IN_POLL_OPTION'
         neo_async_game_video = 'NEO_ASYNC_GAME_VIDEO'
         no_story = 'NO_STORY'
         no_story_with_entpost = 'NO_STORY_WITH_ENTPOST'
+        npe_collab_copyright_check = 'NPE_COLLAB_COPYRIGHT_CHECK'
         oculus_creator_portal = 'OCULUS_CREATOR_PORTAL'
         oculus_venues_broadcast = 'OCULUS_VENUES_BROADCAST'
         offers_video = 'OFFERS_VIDEO'
         pages_cover_video = 'PAGES_COVER_VIDEO'
         page_review_screencast = 'PAGE_REVIEW_SCREENCAST'
         page_slideshow_video = 'PAGE_SLIDESHOW_VIDEO'
+        paid_content_preview = 'PAID_CONTENT_PREVIEW'
         partner_directory_brand_media = 'PARTNER_DIRECTORY_BRAND_MEDIA'
         pixelcloud = 'PIXELCLOUD'
         podcast_highlight = 'PODCAST_HIGHLIGHT'
         podcast_rss = 'PODCAST_RSS'
+        podcast_rss_ephemeral = 'PODCAST_RSS_EPHEMERAL'
         podcast_rss_no_newsfeed_story = 'PODCAST_RSS_NO_NEWSFEED_STORY'
         podcast_voices = 'PODCAST_VOICES'
         podcast_voices_no_newsfeed_story = 'PODCAST_VOICES_NO_NEWSFEED_STORY'
@@ -653,6 +664,37 @@ class AdVideo(
             self.assure_call()
             return request.execute()
 
+    def create_gaming_clip_create(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'duration_seconds': 'float',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/gaming_clip_create',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdVideo,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdVideo, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_likes(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -1021,7 +1063,7 @@ class AdVideo(
         'created_time': 'datetime',
         'custom_labels': 'list<string>',
         'description': 'string',
-        'embed_html': 'string',
+        'embed_html': 'Object',
         'embeddable': 'bool',
         'event': 'Event',
         'expiration': 'Object',
@@ -1041,6 +1083,7 @@ class AdVideo(
         'permalink_url': 'Object',
         'picture': 'string',
         'place': 'Place',
+        'post_views': 'unsigned int',
         'premiere_living_room_status': 'string',
         'privacy': 'Privacy',
         'published': 'bool',
@@ -1051,6 +1094,7 @@ class AdVideo(
         'title': 'string',
         'universal_video_id': 'string',
         'updated_time': 'datetime',
+        'views': 'unsigned int',
         'adaptive_type': 'string',
         'animated_effect_id': 'unsigned int',
         'application_id': 'string',

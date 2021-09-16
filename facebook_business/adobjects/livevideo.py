@@ -111,11 +111,14 @@ class LiveVideo(
     class LiveCommentModerationSetting:
         value_default = 'DEFAULT'
         discussion = 'DISCUSSION'
+        followed = 'FOLLOWED'
         follower = 'FOLLOWER'
+        no_hyperlink = 'NO_HYPERLINK'
         protected_mode = 'PROTECTED_MODE'
         restricted = 'RESTRICTED'
         slow = 'SLOW'
         supporter = 'SUPPORTER'
+        tagged = 'TAGGED'
 
     class PersistentStreamKeyStatus:
         disable = 'DISABLE'
@@ -206,7 +209,6 @@ class LiveVideo(
             'og_phrase': 'string',
             'persistent_stream_key_status': 'persistent_stream_key_status_enum',
             'place': 'Object',
-            'planned_start_time': 'int',
             'privacy': 'string',
             'published': 'bool',
             'schedule_custom_profile_image': 'file',
@@ -551,7 +553,7 @@ class LiveVideo(
         'dash_ingest_url': 'string',
         'dash_preview_url': 'string',
         'description': 'string',
-        'embed_html': 'string',
+        'embed_html': 'Object',
         'from': 'Object',
         'id': 'string',
         'ingest_streams': 'list<LiveVideoInputStream>',

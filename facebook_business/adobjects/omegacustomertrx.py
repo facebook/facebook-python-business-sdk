@@ -42,6 +42,7 @@ class OmegaCustomerTrx(
 
     class Field(AbstractObject.Field):
         ad_account_ids = 'ad_account_ids'
+        advertiser_name = 'advertiser_name'
         amount = 'amount'
         amount_due = 'amount_due'
         billed_amount_details = 'billed_amount_details'
@@ -130,6 +131,7 @@ class OmegaCustomerTrx(
 
     _field_types = {
         'ad_account_ids': 'list<string>',
+        'advertiser_name': 'string',
         'amount': 'string',
         'amount_due': 'CurrencyAmount',
         'billed_amount_details': 'BilledAmountDetails',

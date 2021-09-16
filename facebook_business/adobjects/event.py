@@ -45,6 +45,7 @@ class Event(
         can_guests_invite = 'can_guests_invite'
         category = 'category'
         cover = 'cover'
+        created_time = 'created_time'
         declined_count = 'declined_count'
         description = 'description'
         discount_code_enabled = 'discount_code_enabled'
@@ -265,7 +266,6 @@ class Event(
             'is_spherical': 'bool',
             'live_encoders': 'list<string>',
             'original_fov': 'unsigned int',
-            'planned_start_time': 'int',
             'privacy': 'string',
             'projection': 'projection_enum',
             'published': 'bool',
@@ -496,6 +496,7 @@ class Event(
         'can_guests_invite': 'bool',
         'category': 'Category',
         'cover': 'CoverPhoto',
+        'created_time': 'datetime',
         'declined_count': 'int',
         'description': 'string',
         'discount_code_enabled': 'bool',
