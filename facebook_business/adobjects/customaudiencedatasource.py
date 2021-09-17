@@ -58,6 +58,7 @@ class CustomAudienceDataSource(
         expanded_audience = 'EXPANDED_AUDIENCE'
         external_ids = 'EXTERNAL_IDS'
         external_ids_mix = 'EXTERNAL_IDS_MIX'
+        facebook_wifi_events = 'FACEBOOK_WIFI_EVENTS'
         fb_event_signals = 'FB_EVENT_SIGNALS'
         fb_pixel_hits = 'FB_PIXEL_HITS'
         hashes = 'HASHES'

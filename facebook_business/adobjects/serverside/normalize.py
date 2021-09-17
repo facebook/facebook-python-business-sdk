@@ -20,15 +20,16 @@
 # DEALINGS IN THE SOFTWARE.
 
 import datetime
+import hashlib
 import pycountry
 import re
 
 # defined regex for normalization of data
 location_excluded_chars = re.compile(r"[0-9.\s\-()]")
 isocode_included_chars = re.compile(r"[^a-z]")
-email_pattern = re.compile("(^[a-z0-9_.+-]+@[a-z0-9-]+\.[a-z0-9-.]+$)")
-md5_pattern = re.compile(r"^[a-f0-9]{32}$");
-sha256_pattern = re.compile(r"^[a-f0-9]{64}$");
+email_pattern = re.compile(r".+@.+\..+")
+md5_pattern = re.compile(r"^[a-f0-9]{32}$")
+sha256_pattern = re.compile(r"^[a-f0-9]{64}$")
 year_pattern = re.compile(r"^[0-9]{4}$")
 
 class Normalize(object):
@@ -36,6 +37,14 @@ class Normalize(object):
 
     @staticmethod
     def normalize_field(field, data):
+        return Normalize.normalize(field, data, True)
+
+    @staticmethod
+    def normalize_field_skip_hashing(field, data):
+        return Normalize.normalize(field, data, False)
+
+    @staticmethod
+    def normalize(field, data, hash_field):
         """Computes the normalized value for the given field type and data.
 
         :param field: The field name that is being normalized.
@@ -86,10 +95,12 @@ class Normalize(object):
             # Removes the starting + and leading two 0's
             normalized_data = re.sub(r"^\+?0{0,2}", "", normalized_data)
 
-            international_number = Normalize.is_international_number(normalized_data)
+            international_number = Normalize.get_international_number(normalized_data)
 
-            if international_number is not None:
-                return international_number
+            if international_number is None:
+                raise ValueError("Invalid format for phone number:'" + normalized_data + "'. Please check passed phone number.")
+            else:
+                normalized_data = international_number
 
         elif field == "f5first" or field == "f5last":
             normalized_data = normalized_data[:5]
@@ -123,6 +134,9 @@ class Normalize(object):
             if not year_pattern.match(normalized_data):
                 raise ValueError("Invalid format for doby: '%s'. Year should be specified in 'YYYY' format." % data)
 
+        if hash_field:
+            normalized_data = Normalize.hash_sha_256(normalized_data)
+
         return normalized_data
 
     """
@@ -153,10 +167,17 @@ class Normalize(object):
         return True
 
     @staticmethod
-    def is_international_number(phone_number):
+    def hash_sha_256(input):
+        if input is None:
+            return None
+        input = input.encode('utf-8')
+        return hashlib.sha256(input).hexdigest()
+
+    @staticmethod
+    def get_international_number(phone_number):
 
         # Removes the + and leading two 0's
-        phone_number = re.sub(r"^\+?0{0,2}", "", phone_number);
+        phone_number = re.sub(r"^\+?0{0,2}", "", phone_number)
 
         if phone_number.startswith('0'):
             return None
@@ -164,7 +185,11 @@ class Normalize(object):
         # International Phone number with country calling code.
         international_number_regex = re.compile(r'^\d{1,4}\(?\d{2,3}\)?\d{4,}$')
 
-        return international_number_regex.match(phone_number).group()
+        matched_groups = international_number_regex.match(phone_number)
+        if matched_groups is None:
+            return None
+
+        return matched_groups.group()
 
     """
     Checks if the given country code is present in the ISO list
