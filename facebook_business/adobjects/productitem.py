@@ -72,6 +72,7 @@ class ProductItem(
         image_fetch_status = 'image_fetch_status'
         image_url = 'image_url'
         images = 'images'
+        invalidation_errors = 'invalidation_errors'
         inventory = 'inventory'
         manufacturer_part_number = 'manufacturer_part_number'
         marked_for_product_launch = 'marked_for_product_launch'
@@ -662,6 +663,7 @@ class ProductItem(
         'image_fetch_status': 'ImageFetchStatus',
         'image_url': 'string',
         'images': 'list<string>',
+        'invalidation_errors': 'list<Object>',
         'inventory': 'int',
         'manufacturer_part_number': 'string',
         'marked_for_product_launch': 'string',

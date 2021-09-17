@@ -47,6 +47,7 @@ class ProductSet(
         latest_metadata = 'latest_metadata'
         live_metadata = 'live_metadata'
         name = 'name'
+        ordering_info = 'ordering_info'
         product_catalog = 'product_catalog'
         product_count = 'product_count'
         retailer_id = 'retailer_id'
@@ -131,6 +132,7 @@ class ProductSet(
             'filter': 'Object',
             'metadata': 'map',
             'name': 'string',
+            'ordering_info': 'list<unsigned int>',
             'retailer_id': 'string',
         }
         enums = {
@@ -460,6 +462,7 @@ class ProductSet(
         'latest_metadata': 'ProductSetMetadata',
         'live_metadata': 'ProductSetMetadata',
         'name': 'string',
+        'ordering_info': 'list<int>',
         'product_catalog': 'ProductCatalog',
         'product_count': 'unsigned int',
         'retailer_id': 'string',

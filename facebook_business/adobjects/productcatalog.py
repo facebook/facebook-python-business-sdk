@@ -175,11 +175,11 @@ class ProductCatalog(
         enums = {
             'segment_use_cases_enum': [
                 'AFFILIATE_SELLER_STOREFRONT',
-                'AFFILIATE_TAGGED_ONLY',
                 'COLLAB_ADS',
                 'COLLAB_ADS_FOR_MARKETPLACE_PARTNER',
                 'COLLAB_ADS_SEGMENT_WITHOUT_SEGMENT_SYNCING',
                 'CREATORS_AS_SELLERS',
+                'FB_LIVE_SHOPPING',
                 'IG_SHOPPING',
                 'IG_SHOPPING_SUGGESTED_PRODUCTS',
                 'MARKETPLACE_SHOPS',
@@ -331,6 +331,38 @@ class ProductCatalog(
             target_class=ProductCatalog,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=ProductCatalog, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_ar_effects_batch_status(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.areffectsbatchstatus import AREffectsBatchStatus
+        param_types = {
+            'handle': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/ar_effects_batch_status',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AREffectsBatchStatus,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AREffectsBatchStatus, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -533,36 +565,6 @@ class ProductCatalog(
             target_class=AutomotiveModel,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=AutomotiveModel, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def get_autos(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/autos',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1557,6 +1559,7 @@ class ProductCatalog(
             'filter': 'Object',
             'metadata': 'map',
             'name': 'string',
+            'ordering_info': 'list<unsigned int>',
             'retailer_id': 'string',
         }
         enums = {

@@ -28,26 +28,32 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdAccountContentFilterLevelsInheritance(
+class ManagedPartnerBusiness(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(AdAccountContentFilterLevelsInheritance, self).__init__()
-        self._isAdAccountContentFilterLevelsInheritance = True
+        super(ManagedPartnerBusiness, self).__init__()
+        self._isManagedPartnerBusiness = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        an_business_ids = 'an_business_ids'
-        an_level = 'an_level'
-        facebook_business_ids = 'facebook_business_ids'
-        facebook_level = 'facebook_level'
+        ad_account = 'ad_account'
+        catalog_segment = 'catalog_segment'
+        extended_credit = 'extended_credit'
+        page = 'page'
+        seller_business_info = 'seller_business_info'
+        seller_business_status = 'seller_business_status'
+        template = 'template'
 
     _field_types = {
-        'an_business_ids': 'list<string>',
-        'an_level': 'string',
-        'facebook_business_ids': 'list<string>',
-        'facebook_level': 'string',
+        'ad_account': 'AdAccount',
+        'catalog_segment': 'ProductCatalog',
+        'extended_credit': 'ExtendedCredit',
+        'page': 'Page',
+        'seller_business_info': 'Object',
+        'seller_business_status': 'string',
+        'template': 'list<Object>',
     }
     @classmethod
     def _get_field_enum_info(cls):

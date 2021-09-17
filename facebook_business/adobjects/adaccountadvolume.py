@@ -58,6 +58,8 @@ class AdAccountAdVolume(
         aggregated_cost_limited = 'AGGREGATED_COST_LIMITED'
         auction_overlap = 'AUCTION_OVERLAP'
         creative_fatigue = 'CREATIVE_FATIGUE'
+        dead_link = 'DEAD_LINK'
+        ecosystem_bid_reduce_l1_cardinality = 'ECOSYSTEM_BID_REDUCE_L1_CARDINALITY'
         fragmentation = 'FRAGMENTATION'
         learning_limited = 'LEARNING_LIMITED'
         top_adsets_with_ads_under_cap = 'TOP_ADSETS_WITH_ADS_UNDER_CAP'

@@ -86,8 +86,11 @@ class AdsPixel(
         first_party_cookie_enabled = 'FIRST_PARTY_COOKIE_ENABLED'
 
     class Tasks:
+        aa_analyze = 'AA_ANALYZE'
+        advertise = 'ADVERTISE'
         analyze = 'ANALYZE'
         edit = 'EDIT'
+        upload = 'UPLOAD'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod

@@ -64,6 +64,7 @@ class AdgroupPlacementSpecificReviewFeedback(
         marketplace_motors = 'marketplace_motors'
         marketplace_shops = 'marketplace_shops'
         max_review_placements = 'max_review_placements'
+        neighborhoods = 'neighborhoods'
         page_admin = 'page_admin'
         product = 'product'
         product_service = 'product_service'
@@ -100,6 +101,7 @@ class AdgroupPlacementSpecificReviewFeedback(
         'marketplace_motors': 'map<string, string>',
         'marketplace_shops': 'map<string, string>',
         'max_review_placements': 'map<string, string>',
+        'neighborhoods': 'map<string, string>',
         'page_admin': 'map<string, string>',
         'product': 'map<string, string>',
         'product_service': 'map<string, string>',

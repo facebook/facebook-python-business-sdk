@@ -63,11 +63,6 @@ class AdAsyncRequestSet(
         off = 'OFF'
         on_complete = 'ON_COMPLETE'
 
-    class NotificationStatus:
-        not_sent = 'NOT_SENT'
-        sending = 'SENDING'
-        sent = 'SENT'
-
     # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
@@ -216,7 +211,7 @@ class AdAsyncRequestSet(
         'name': 'string',
         'notification_mode': 'NotificationMode',
         'notification_result': 'AdAsyncRequestSetNotificationResult',
-        'notification_status': 'NotificationStatus',
+        'notification_status': 'string',
         'notification_uri': 'string',
         'owner_id': 'string',
         'success_count': 'int',
@@ -228,7 +223,6 @@ class AdAsyncRequestSet(
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['NotificationMode'] = AdAsyncRequestSet.NotificationMode.__dict__.values()
-        field_enum_info['NotificationStatus'] = AdAsyncRequestSet.NotificationStatus.__dict__.values()
         return field_enum_info
 
 
