@@ -57,6 +57,10 @@ class UnifiedThread(
         updated_time = 'updated_time'
         wallpaper = 'wallpaper'
 
+    class Platform:
+        instagram = 'INSTAGRAM'
+        messenger = 'MESSENGER'
+
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -142,6 +146,7 @@ class UnifiedThread(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['Platform'] = UnifiedThread.Platform.__dict__.values()
         return field_enum_info
 
 
