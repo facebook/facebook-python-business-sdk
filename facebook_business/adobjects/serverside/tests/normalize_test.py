@@ -114,3 +114,30 @@ class NormalizeTest(TestCase):
     def test_normalize_field_skip_hashing_it_does_not_hash(self):
         value = ' USD '
         self.assertEqual(Normalize.normalize_field_skip_hashing('currency', value), 'usd')
+
+    def test_normalize_validates_email_throws_errors(self):
+        emails = [
+            'a',
+            'abc',
+            'a@b',
+            '@b.c',
+            '.c',
+            '@',
+        ]
+        for email in emails:
+            with self.assertRaisesRegex(TypeError, "Invalid email format for the passed email:%s" % email):
+                Normalize.normalize_field('em', email)
+
+    def test_normalize_validates_email_then_hashes(self):
+        emails = [
+            'a@b.c',
+            'foo@bar.co',
+            'foo@bar.com',
+            '"a b"@c.d',
+            'a\@b@c.d',
+            "f`oo@bar.com",
+            "fo'o@bar.com",
+            "f\'o\'o@bar.com",
+        ]
+        for email in emails:
+            self.assertEqual(len(Normalize.normalize_field('em', email)), 64)
