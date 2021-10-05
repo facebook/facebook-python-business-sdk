@@ -49,6 +49,7 @@ class CustomAudience(
         data_source = 'data_source'
         data_source_types = 'data_source_types'
         datafile_custom_audience_uploading_status = 'datafile_custom_audience_uploading_status'
+        delete_time = 'delete_time'
         delivery_status = 'delivery_status'
         description = 'description'
         excluded_custom_audiences = 'excluded_custom_audiences'
@@ -569,6 +570,7 @@ class CustomAudience(
         'data_source': 'CustomAudienceDataSource',
         'data_source_types': 'string',
         'datafile_custom_audience_uploading_status': 'string',
+        'delete_time': 'int',
         'delivery_status': 'CustomAudienceStatus',
         'description': 'string',
         'excluded_custom_audiences': 'list<CustomAudience>',

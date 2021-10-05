@@ -27,9 +27,9 @@ import re
 # defined regex for normalization of data
 location_excluded_chars = re.compile(r"[0-9.\s\-()]")
 isocode_included_chars = re.compile(r"[^a-z]")
-email_pattern = re.compile("(^[a-z0-9_.+-]+@[a-z0-9-]+\.[a-z0-9-.]+$)")
-md5_pattern = re.compile(r"^[a-f0-9]{32}$");
-sha256_pattern = re.compile(r"^[a-f0-9]{64}$");
+email_pattern = re.compile(r".+@.+\..+")
+md5_pattern = re.compile(r"^[a-f0-9]{32}$")
+sha256_pattern = re.compile(r"^[a-f0-9]{64}$")
 year_pattern = re.compile(r"^[0-9]{4}$")
 
 class Normalize(object):

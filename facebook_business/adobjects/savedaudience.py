@@ -44,10 +44,12 @@ class SavedAudience(
         account = 'account'
         approximate_count = 'approximate_count'
         approximate_count_64bit = 'approximate_count_64bit'
+        delete_time = 'delete_time'
         description = 'description'
         extra_info = 'extra_info'
         id = 'id'
         name = 'name'
+        operation_status = 'operation_status'
         permission_for_actions = 'permission_for_actions'
         run_status = 'run_status'
         sentence_lines = 'sentence_lines'
@@ -89,10 +91,12 @@ class SavedAudience(
         'account': 'AdAccount',
         'approximate_count': 'int',
         'approximate_count_64bit': 'int',
+        'delete_time': 'int',
         'description': 'string',
         'extra_info': 'string',
         'id': 'string',
         'name': 'string',
+        'operation_status': 'CustomAudienceStatus',
         'permission_for_actions': 'AudiencePermissionForActions',
         'run_status': 'string',
         'sentence_lines': 'list',

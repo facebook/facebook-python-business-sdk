@@ -41,7 +41,9 @@ class WhatsAppBusinessAccount(
         super(WhatsAppBusinessAccount, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        account_review_status = 'account_review_status'
         analytics = 'analytics'
+        creation_time = 'creation_time'
         currency = 'currency'
         id = 'id'
         message_template_namespace = 'message_template_namespace'
@@ -433,7 +435,9 @@ class WhatsAppBusinessAccount(
             return request.execute()
 
     _field_types = {
+        'account_review_status': 'string',
         'analytics': 'Object',
+        'creation_time': 'int',
         'currency': 'string',
         'id': 'string',
         'message_template_namespace': 'string',

@@ -32,29 +32,29 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class CPASParentCatalogSettings(
+class CanvasTemplate(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isCPASParentCatalogSettings = True
-        super(CPASParentCatalogSettings, self).__init__(fbid, parent_id, api)
+        self._isCanvasTemplate = True
+        super(CanvasTemplate, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        attribution_windows = 'attribution_windows'
-        default_currency = 'default_currency'
-        disable_use_as_parent_catalog = 'disable_use_as_parent_catalog'
+        channels = 'channels'
+        description = 'description'
+        document = 'document'
         id = 'id'
-
-    class AttributionWindows:
-        dda = 'DDA'
-        value_default = 'DEFAULT'
-        x1d_click = 'X1D_CLICK'
-        x1d_view = 'X1D_VIEW'
-        x28d_click = 'X28D_CLICK'
-        x28d_view = 'X28D_VIEW'
-        x7d_click = 'X7D_CLICK'
-        x7d_view = 'X7D_VIEW'
+        is_multi_tab_supportable = 'is_multi_tab_supportable'
+        is_new = 'is_new'
+        name = 'name'
+        objectives = 'objectives'
+        owner_id = 'owner_id'
+        required_capabilities = 'required_capabilities'
+        snapshot_photo = 'snapshot_photo'
+        status = 'status'
+        sub_verticals = 'sub_verticals'
+        verticals = 'verticals'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -70,39 +70,7 @@ class CPASParentCatalogSettings(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=CPASParentCatalogSettings,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'attribution_windows': 'list<attribution_windows_enum>',
-        }
-        enums = {
-            'attribution_windows_enum': CPASParentCatalogSettings.AttributionWindows.__dict__.values(),
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=CPASParentCatalogSettings,
+            target_class=CanvasTemplate,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -119,15 +87,24 @@ class CPASParentCatalogSettings(
             return request.execute()
 
     _field_types = {
-        'attribution_windows': 'list<string>',
-        'default_currency': 'string',
-        'disable_use_as_parent_catalog': 'bool',
+        'channels': 'map<string, map<string, string>>',
+        'description': 'string',
+        'document': 'Canvas',
         'id': 'string',
+        'is_multi_tab_supportable': 'bool',
+        'is_new': 'bool',
+        'name': 'string',
+        'objectives': 'map<Object, Object>',
+        'owner_id': 'User',
+        'required_capabilities': 'list<string>',
+        'snapshot_photo': 'Photo',
+        'status': 'string',
+        'sub_verticals': 'list<string>',
+        'verticals': 'map<string, string>',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['AttributionWindows'] = CPASParentCatalogSettings.AttributionWindows.__dict__.values()
         return field_enum_info
 
 
