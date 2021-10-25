@@ -49,17 +49,21 @@ class ProductFeed(
         encoding = 'encoding'
         file_name = 'file_name'
         id = 'id'
+        ingestion_source_type = 'ingestion_source_type'
         item_sub_type = 'item_sub_type'
         latest_upload = 'latest_upload'
         migrated_from_feed_id = 'migrated_from_feed_id'
         name = 'name'
         override_type = 'override_type'
+        primary_feeds = 'primary_feeds'
         product_count = 'product_count'
         quoted_fields_mode = 'quoted_fields_mode'
         schedule = 'schedule'
+        supplementary_feeds = 'supplementary_feeds'
         update_schedule = 'update_schedule'
         feed_type = 'feed_type'
         override_value = 'override_value'
+        primary_feed_ids = 'primary_feed_ids'
         rules = 'rules'
         selected_override_fields = 'selected_override_fields'
 
@@ -101,6 +105,10 @@ class ProductFeed(
         transactable_items = 'TRANSACTABLE_ITEMS'
         vehicles = 'VEHICLES'
         vehicle_offer = 'VEHICLE_OFFER'
+
+    class IngestionSourceType:
+        primary_feed = 'PRIMARY_FEED'
+        supplementary_feed = 'SUPPLEMENTARY_FEED'
 
     class ItemSubType:
         appliances = 'APPLIANCES'
@@ -575,6 +583,37 @@ class ProductFeed(
             self.assure_call()
             return request.execute()
 
+    def create_supplementary_feed_assoc(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'assoc_data': 'list<map>',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/supplementary_feed_assocs',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_upload_schedules(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -780,17 +819,21 @@ class ProductFeed(
         'encoding': 'string',
         'file_name': 'string',
         'id': 'string',
+        'ingestion_source_type': 'string',
         'item_sub_type': 'string',
         'latest_upload': 'ProductFeedUpload',
         'migrated_from_feed_id': 'string',
         'name': 'string',
         'override_type': 'string',
+        'primary_feeds': 'list<string>',
         'product_count': 'int',
         'quoted_fields_mode': 'QuotedFieldsMode',
         'schedule': 'ProductFeedSchedule',
+        'supplementary_feeds': 'list<string>',
         'update_schedule': 'ProductFeedSchedule',
         'feed_type': 'FeedType',
         'override_value': 'string',
+        'primary_feed_ids': 'list<string>',
         'rules': 'list<string>',
         'selected_override_fields': 'list<string>',
     }
@@ -801,6 +844,7 @@ class ProductFeed(
         field_enum_info['QuotedFieldsMode'] = ProductFeed.QuotedFieldsMode.__dict__.values()
         field_enum_info['Encoding'] = ProductFeed.Encoding.__dict__.values()
         field_enum_info['FeedType'] = ProductFeed.FeedType.__dict__.values()
+        field_enum_info['IngestionSourceType'] = ProductFeed.IngestionSourceType.__dict__.values()
         field_enum_info['ItemSubType'] = ProductFeed.ItemSubType.__dict__.values()
         field_enum_info['OverrideType'] = ProductFeed.OverrideType.__dict__.values()
         return field_enum_info

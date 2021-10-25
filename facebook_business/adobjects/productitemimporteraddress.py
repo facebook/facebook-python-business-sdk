@@ -28,26 +28,30 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdAccountReachEstimate(
+class ProductItemImporterAddress(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(AdAccountReachEstimate, self).__init__()
-        self._isAdAccountReachEstimate = True
+        super(ProductItemImporterAddress, self).__init__()
+        self._isProductItemImporterAddress = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        estimate_ready = 'estimate_ready'
-        users = 'users'
-        users_lower_bound = 'users_lower_bound'
-        users_upper_bound = 'users_upper_bound'
+        city = 'city'
+        country = 'country'
+        postal_code = 'postal_code'
+        region = 'region'
+        street1 = 'street1'
+        street2 = 'street2'
 
     _field_types = {
-        'estimate_ready': 'bool',
-        'users': 'int',
-        'users_lower_bound': 'int',
-        'users_upper_bound': 'int',
+        'city': 'string',
+        'country': 'string',
+        'postal_code': 'string',
+        'region': 'string',
+        'street1': 'string',
+        'street2': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

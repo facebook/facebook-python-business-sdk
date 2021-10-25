@@ -41,6 +41,7 @@ class LocalServiceBusiness(
         super(LocalServiceBusiness, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        address = 'address'
         applinks = 'applinks'
         brand = 'brand'
         category_specific_fields = 'category_specific_fields'
@@ -58,6 +59,7 @@ class LocalServiceBusiness(
         price = 'price'
         sanitized_images = 'sanitized_images'
         title = 'title'
+        unit_price = 'unit_price'
         url = 'url'
 
     class ImageFetchStatus:
@@ -130,6 +132,7 @@ class LocalServiceBusiness(
             return request.execute()
 
     _field_types = {
+        'address': 'Object',
         'applinks': 'CatalogItemAppLinks',
         'brand': 'string',
         'category_specific_fields': 'CatalogSubVerticalList',
@@ -147,6 +150,7 @@ class LocalServiceBusiness(
         'price': 'string',
         'sanitized_images': 'list<string>',
         'title': 'string',
+        'unit_price': 'Object',
         'url': 'string',
     }
     @classmethod

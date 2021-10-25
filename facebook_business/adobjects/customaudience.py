@@ -45,6 +45,8 @@ class CustomAudience(
     class Field(AbstractObject.Field):
         account_id = 'account_id'
         approximate_count = 'approximate_count'
+        approximate_count_lower_bound = 'approximate_count_lower_bound'
+        approximate_count_upper_bound = 'approximate_count_upper_bound'
         customer_file_source = 'customer_file_source'
         data_source = 'data_source'
         data_source_types = 'data_source_types'
@@ -568,6 +570,8 @@ class CustomAudience(
     _field_types = {
         'account_id': 'string',
         'approximate_count': 'int',
+        'approximate_count_lower_bound': 'int',
+        'approximate_count_upper_bound': 'int',
         'customer_file_source': 'string',
         'data_source': 'CustomAudienceDataSource',
         'data_source_types': 'string',

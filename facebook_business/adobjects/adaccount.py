@@ -852,7 +852,6 @@ class AdAccount(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.playablecontent import PlayableContent
         param_types = {
         }
         enums = {
@@ -863,9 +862,9 @@ class AdAccount(
             endpoint='/adplayables',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=PlayableContent,
+            target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=PlayableContent, api=self._api),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -883,7 +882,6 @@ class AdAccount(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.playablecontent import PlayableContent
         param_types = {
             'app_id': 'string',
             'name': 'string',
@@ -900,9 +898,9 @@ class AdAccount(
             endpoint='/adplayables',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=PlayableContent,
+            target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=PlayableContent, api=self._api),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -996,9 +994,11 @@ class AdAccount(
             'name': 'string',
             'schedule_spec': 'Object',
             'status': 'status_enum',
+            'ui_creation_source': 'ui_creation_source_enum',
         }
         enums = {
             'status_enum': AdRule.Status.__dict__.values(),
+            'ui_creation_source_enum': AdRule.UiCreationSource.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -1375,7 +1375,6 @@ class AdAccount(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.adspixel import AdsPixel
         param_types = {
             'name': 'string',
         }
@@ -1387,9 +1386,9 @@ class AdAccount(
             endpoint='/adspixels',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AdsPixel,
+            target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdsPixel, api=self._api),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

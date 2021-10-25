@@ -123,10 +123,12 @@ class Page(
         members = 'members'
         merchant_id = 'merchant_id'
         merchant_review_status = 'merchant_review_status'
+        messaging_feature_status = 'messaging_feature_status'
         messenger_ads_default_icebreakers = 'messenger_ads_default_icebreakers'
         messenger_ads_default_page_welcome_message = 'messenger_ads_default_page_welcome_message'
         messenger_ads_default_quick_replies = 'messenger_ads_default_quick_replies'
         messenger_ads_quick_replies_type = 'messenger_ads_quick_replies_type'
+        mini_shop_storefront = 'mini_shop_storefront'
         mission = 'mission'
         mpg = 'mpg'
         name = 'name'
@@ -1071,6 +1073,7 @@ class Page(
         param_types = {
             'data': 'list<string>',
             'partner_agent': 'string',
+            'processing_type': 'string',
         }
         enums = {
         }
@@ -1080,9 +1083,9 @@ class Page(
             endpoint='/business_data',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=Page,
+            target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=Page, api=self._api),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1635,6 +1638,7 @@ class Page(
                 'REQUEST_TAKEDOWN',
             ],
             'action_reason_enum': [
+                'ARTICLE_17_PREFLAGGING',
                 'ARTIST_OBJECTION',
                 'OBJECTIONABLE_CONTENT',
                 'PREMIUM_MUSIC_VIDEO',
@@ -5040,10 +5044,12 @@ class Page(
         'members': 'string',
         'merchant_id': 'string',
         'merchant_review_status': 'string',
+        'messaging_feature_status': 'MessagingFeatureStatus',
         'messenger_ads_default_icebreakers': 'list<string>',
         'messenger_ads_default_page_welcome_message': 'MessengerDestinationPageWelcomeMessage',
         'messenger_ads_default_quick_replies': 'list<string>',
         'messenger_ads_quick_replies_type': 'string',
+        'mini_shop_storefront': 'Shop',
         'mission': 'string',
         'mpg': 'string',
         'name': 'string',

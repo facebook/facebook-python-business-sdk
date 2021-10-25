@@ -60,6 +60,7 @@ class LiveVideo(
         overlay_url = 'overlay_url'
         permalink_url = 'permalink_url'
         planned_start_time = 'planned_start_time'
+        recommended_encoder_settings = 'recommended_encoder_settings'
         seconds_left = 'seconds_left'
         secure_stream_url = 'secure_stream_url'
         status = 'status'
@@ -69,10 +70,25 @@ class LiveVideo(
         total_views = 'total_views'
         video = 'video'
 
+    class BroadcastStatus:
+        live = 'LIVE'
+        live_stopped = 'LIVE_STOPPED'
+        processing = 'PROCESSING'
+        scheduled_canceled = 'SCHEDULED_CANCELED'
+        scheduled_expired = 'SCHEDULED_EXPIRED'
+        scheduled_live = 'SCHEDULED_LIVE'
+        scheduled_unpublished = 'SCHEDULED_UNPUBLISHED'
+        unpublished = 'UNPUBLISHED'
+        vod = 'VOD'
+
     class Projection:
         cubemap = 'CUBEMAP'
         equirectangular = 'EQUIRECTANGULAR'
         half_equirectangular = 'HALF_EQUIRECTANGULAR'
+
+    class Source:
+        owner = 'owner'
+        target = 'target'
 
     class SpatialAudioFormat:
         ambix_4 = 'ambiX_4'
@@ -92,21 +108,6 @@ class LiveVideo(
     class StreamType:
         ambient = 'AMBIENT'
         regular = 'REGULAR'
-
-    class BroadcastStatus:
-        live = 'LIVE'
-        live_stopped = 'LIVE_STOPPED'
-        processing = 'PROCESSING'
-        scheduled_canceled = 'SCHEDULED_CANCELED'
-        scheduled_expired = 'SCHEDULED_EXPIRED'
-        scheduled_live = 'SCHEDULED_LIVE'
-        scheduled_unpublished = 'SCHEDULED_UNPUBLISHED'
-        unpublished = 'UNPUBLISHED'
-        vod = 'VOD'
-
-    class Source:
-        owner = 'owner'
-        target = 'target'
 
     class LiveCommentModerationSetting:
         value_default = 'DEFAULT'
@@ -564,6 +565,7 @@ class LiveVideo(
         'overlay_url': 'string',
         'permalink_url': 'Object',
         'planned_start_time': 'datetime',
+        'recommended_encoder_settings': 'LiveVideoRecommendedEncoderSettings',
         'seconds_left': 'int',
         'secure_stream_url': 'string',
         'status': 'string',
@@ -576,13 +578,13 @@ class LiveVideo(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['BroadcastStatus'] = LiveVideo.BroadcastStatus.__dict__.values()
         field_enum_info['Projection'] = LiveVideo.Projection.__dict__.values()
+        field_enum_info['Source'] = LiveVideo.Source.__dict__.values()
         field_enum_info['SpatialAudioFormat'] = LiveVideo.SpatialAudioFormat.__dict__.values()
         field_enum_info['Status'] = LiveVideo.Status.__dict__.values()
         field_enum_info['StereoscopicMode'] = LiveVideo.StereoscopicMode.__dict__.values()
         field_enum_info['StreamType'] = LiveVideo.StreamType.__dict__.values()
-        field_enum_info['BroadcastStatus'] = LiveVideo.BroadcastStatus.__dict__.values()
-        field_enum_info['Source'] = LiveVideo.Source.__dict__.values()
         field_enum_info['LiveCommentModerationSetting'] = LiveVideo.LiveCommentModerationSetting.__dict__.values()
         field_enum_info['PersistentStreamKeyStatus'] = LiveVideo.PersistentStreamKeyStatus.__dict__.values()
         return field_enum_info

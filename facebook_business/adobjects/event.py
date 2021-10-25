@@ -68,6 +68,7 @@ class Event(
         place = 'place'
         scheduled_publish_time = 'scheduled_publish_time'
         start_time = 'start_time'
+        ticket_setting = 'ticket_setting'
         ticket_uri = 'ticket_uri'
         ticket_uri_start_sales_time = 'ticket_uri_start_sales_time'
         ticketing_privacy_uri = 'ticketing_privacy_uri'
@@ -116,6 +117,7 @@ class Event(
         group = 'group'
         private = 'private'
         public = 'public'
+        work_company = 'work_company'
 
     class EventStateFilter:
         canceled = 'canceled'
@@ -254,7 +256,6 @@ class Event(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.livevideo import LiveVideo
         param_types = {
             'content_tags': 'list<string>',
             'description': 'string',
@@ -278,21 +279,40 @@ class Event(
             'title': 'string',
         }
         enums = {
-            'projection_enum': LiveVideo.Projection.__dict__.values(),
-            'spatial_audio_format_enum': LiveVideo.SpatialAudioFormat.__dict__.values(),
-            'status_enum': LiveVideo.Status.__dict__.values(),
-            'stereoscopic_mode_enum': LiveVideo.StereoscopicMode.__dict__.values(),
-            'stream_type_enum': LiveVideo.StreamType.__dict__.values(),
+            'projection_enum': [
+                'CUBEMAP',
+                'EQUIRECTANGULAR',
+                'HALF_EQUIRECTANGULAR',
+            ],
+            'spatial_audio_format_enum': [
+                'ambiX_4',
+            ],
+            'status_enum': [
+                'LIVE_NOW',
+                'SCHEDULED_CANCELED',
+                'SCHEDULED_LIVE',
+                'SCHEDULED_UNPUBLISHED',
+                'UNPUBLISHED',
+            ],
+            'stereoscopic_mode_enum': [
+                'LEFT_RIGHT',
+                'MONO',
+                'TOP_BOTTOM',
+            ],
+            'stream_type_enum': [
+                'AMBIENT',
+                'REGULAR',
+            ],
         }
         request = FacebookRequest(
             node_id=self['id'],
             method='POST',
-            endpoint='/live_videos',
+            endpoint='/livevideos',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=LiveVideo,
+            target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=LiveVideo, api=self._api),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -519,6 +539,7 @@ class Event(
         'place': 'Place',
         'scheduled_publish_time': 'string',
         'start_time': 'string',
+        'ticket_setting': 'Object',
         'ticket_uri': 'string',
         'ticket_uri_start_sales_time': 'string',
         'ticketing_privacy_uri': 'string',

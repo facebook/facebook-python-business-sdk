@@ -32,33 +32,25 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class SavedAudience(
+class BusinessImage(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isSavedAudience = True
-        super(SavedAudience, self).__init__(fbid, parent_id, api)
+        self._isBusinessImage = True
+        super(BusinessImage, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        account = 'account'
-        approximate_count = 'approximate_count'
-        approximate_count_64bit = 'approximate_count_64bit'
-        approximate_count_lower_bound = 'approximate_count_lower_bound'
-        approximate_count_upper_bound = 'approximate_count_upper_bound'
-        delete_time = 'delete_time'
-        description = 'description'
-        extra_info = 'extra_info'
+        business = 'business'
+        creation_time = 'creation_time'
+        hash = 'hash'
+        height = 'height'
         id = 'id'
+        media_library_url = 'media_library_url'
         name = 'name'
-        operation_status = 'operation_status'
-        page_deletion_marked_delete_time = 'page_deletion_marked_delete_time'
-        permission_for_actions = 'permission_for_actions'
-        run_status = 'run_status'
-        sentence_lines = 'sentence_lines'
-        targeting = 'targeting'
-        time_created = 'time_created'
-        time_updated = 'time_updated'
+        url = 'url'
+        url_128 = 'url_128'
+        width = 'width'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -74,7 +66,7 @@ class SavedAudience(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=SavedAudience,
+            target_class=BusinessImage,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -91,24 +83,16 @@ class SavedAudience(
             return request.execute()
 
     _field_types = {
-        'account': 'AdAccount',
-        'approximate_count': 'int',
-        'approximate_count_64bit': 'int',
-        'approximate_count_lower_bound': 'int',
-        'approximate_count_upper_bound': 'int',
-        'delete_time': 'int',
-        'description': 'string',
-        'extra_info': 'string',
+        'business': 'Business',
+        'creation_time': 'datetime',
+        'hash': 'string',
+        'height': 'int',
         'id': 'string',
+        'media_library_url': 'string',
         'name': 'string',
-        'operation_status': 'CustomAudienceStatus',
-        'page_deletion_marked_delete_time': 'int',
-        'permission_for_actions': 'AudiencePermissionForActions',
-        'run_status': 'string',
-        'sentence_lines': 'list',
-        'targeting': 'Targeting',
-        'time_created': 'datetime',
-        'time_updated': 'datetime',
+        'url': 'string',
+        'url_128': 'string',
+        'width': 'int',
     }
     @classmethod
     def _get_field_enum_info(cls):

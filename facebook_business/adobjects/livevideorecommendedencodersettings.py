@@ -28,26 +28,24 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdAccountReachEstimate(
+class LiveVideoRecommendedEncoderSettings(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(AdAccountReachEstimate, self).__init__()
-        self._isAdAccountReachEstimate = True
+        super(LiveVideoRecommendedEncoderSettings, self).__init__()
+        self._isLiveVideoRecommendedEncoderSettings = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        estimate_ready = 'estimate_ready'
-        users = 'users'
-        users_lower_bound = 'users_lower_bound'
-        users_upper_bound = 'users_upper_bound'
+        audio_codec_settings = 'audio_codec_settings'
+        streaming_protocol = 'streaming_protocol'
+        video_codec_settings = 'video_codec_settings'
 
     _field_types = {
-        'estimate_ready': 'bool',
-        'users': 'int',
-        'users_lower_bound': 'int',
-        'users_upper_bound': 'int',
+        'audio_codec_settings': 'Object',
+        'streaming_protocol': 'string',
+        'video_codec_settings': 'Object',
     }
     @classmethod
     def _get_field_enum_info(cls):

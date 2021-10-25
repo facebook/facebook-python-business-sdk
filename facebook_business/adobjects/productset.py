@@ -52,6 +52,7 @@ class ProductSet(
         product_count = 'product_count'
         retailer_id = 'retailer_id'
         metadata = 'metadata'
+        publish_to_shops = 'publish_to_shops'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
@@ -133,6 +134,7 @@ class ProductSet(
             'metadata': 'map',
             'name': 'string',
             'ordering_info': 'list<unsigned int>',
+            'publish_to_shops': 'list<map>',
             'retailer_id': 'string',
         }
         enums = {
@@ -467,6 +469,7 @@ class ProductSet(
         'product_count': 'unsigned int',
         'retailer_id': 'string',
         'metadata': 'map',
+        'publish_to_shops': 'list<map>',
     }
     @classmethod
     def _get_field_enum_info(cls):
