@@ -21,7 +21,7 @@ class ReachFrequencyPredictionMixin:
             self.Field.action: self.Action.reserve,
         }
         # Filter out None values.
-        params = dict((k, v) for k, v in params.items() if v is not None)
+        params = {k: v for k, v in params.items() if v is not None}
 
         response = self.get_api_assured().call(
             'POST',

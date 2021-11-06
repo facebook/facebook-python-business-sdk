@@ -13,14 +13,12 @@ class AdImageMixin:
     @classmethod
     def remote_create_from_zip(cls, filename, parent_id, api=None):
         api = api or FacebookAdsApi.get_default_api()
-        open_file = open(filename, 'rb')
-        response = api.call(
-            'POST',
-            (parent_id, cls.get_endpoint()),
-            files={filename: open_file},
-        )
-        open_file.close()
-
+        with open(filename, 'rb') as open_file:
+            response = api.call(
+                'POST',
+                (parent_id, cls.get_endpoint()),
+                files={filename: open_file},
+            )
         data = response.json()
 
         objs = []
@@ -73,23 +71,23 @@ class AdImageMixin:
             }
         """
 
-        if 'images' in data:
-            _, data = data['images'].popitem()
-
-            for key in map(str, data):
-                self._data[key] = data[key]
-
-                # clear history due to the update
-                self._changes.pop(key, None)
-
-            self._data[self.Field.id] = '%s:%s' % (
-                self.get_parent_id_assured()[4:],
-                self[self.Field.hash],
-            )
-
-            return self
-        else:
+        if 'images' not in data:
             return AbstractCrudObject._set_data(self, data)
+
+        _, data = data['images'].popitem()
+
+        for key in map(str, data):
+            self._data[key] = data[key]
+
+            # clear history due to the update
+            self._changes.pop(key, None)
+
+        self._data[self.Field.id] = '%s:%s' % (
+            self.get_parent_id_assured()[4:],
+            self[self.Field.hash],
+        )
+
+        return self
 
     def remote_create(
         self,
