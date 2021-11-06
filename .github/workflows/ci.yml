@@ -18,6 +18,8 @@ jobs:
             tox-env: py37
           - python-version: 3.8
             tox-env: py38
+          - python-version: 3.9
+            tox-env: py39
 
     steps:
     - uses: actions/checkout@v1
