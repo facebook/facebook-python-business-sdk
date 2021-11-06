@@ -41,9 +41,8 @@ class Authentication():
 
     @classmethod
     def load_config(cls):
-        config_file = open(os.path.join(repo_dir, 'config.json'))
-        config = json.load(config_file)
-        config_file.close()
+        with open(os.path.join(repo_dir, 'config.json')) as config_file:
+            config = json.load(config_file)
         return config
 
     @classmethod
