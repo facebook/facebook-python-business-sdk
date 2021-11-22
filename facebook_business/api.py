@@ -287,7 +287,7 @@ class FacebookAdsApi(object):
 
         api_version = api_version or self._api_version
 
-        if api_version and not re.search('v[0-9]+\.[0-9]+', api_version):
+        if api_version and not re.search(r'v[0-9]+\.[0-9]+', api_version):
             raise FacebookBadObjectError(
                 'Please provide the API version in the following format: %s'
                 % self.API_VERSION,
