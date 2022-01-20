@@ -66,6 +66,8 @@ class AdsActionStats(
         inline = 'inline'
         interactive_component_sticker_id = 'interactive_component_sticker_id'
         interactive_component_sticker_response = 'interactive_component_sticker_response'
+        skan_click = 'skan_click'
+        skan_view = 'skan_view'
         value = 'value'
 
     _field_types = {
@@ -97,6 +99,8 @@ class AdsActionStats(
         'inline': 'string',
         'interactive_component_sticker_id': 'string',
         'interactive_component_sticker_response': 'string',
+        'skan_click': 'string',
+        'skan_view': 'string',
         'value': 'string',
     }
     @classmethod

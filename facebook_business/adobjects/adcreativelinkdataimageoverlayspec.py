@@ -74,6 +74,7 @@ class AdCreativeLinkDataImageOverlaySpec(
         roboto_medium = 'roboto_medium'
 
     class TextType:
+        automated_personalize = 'automated_personalize'
         custom = 'custom'
         disclaimer = 'disclaimer'
         from_price = 'from_price'

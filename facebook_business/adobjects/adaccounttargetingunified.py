@@ -42,6 +42,8 @@ class AdAccountTargetingUnified(
 
     class Field(AbstractObject.Field):
         audience_size = 'audience_size'
+        audience_size_lower_bound = 'audience_size_lower_bound'
+        audience_size_upper_bound = 'audience_size_upper_bound'
         conversion_lift = 'conversion_lift'
         description = 'description'
         id = 'id'
@@ -98,6 +100,7 @@ class AdAccountTargetingUnified(
         housing = 'HOUSING'
         issues_elections_politics = 'ISSUES_ELECTIONS_POLITICS'
         none = 'NONE'
+        online_gambling_and_gaming = 'ONLINE_GAMBLING_AND_GAMING'
 
     class WhitelistedTypes:
         adgroup_id = 'adgroup_id'
@@ -224,6 +227,11 @@ class AdAccountTargetingUnified(
 
     class AppStore:
         amazon_app_store = 'amazon_app_store'
+        apk_mirror = 'apk_mirror'
+        apk_monk = 'apk_monk'
+        apk_pure = 'apk_pure'
+        aptoide_a1_store = 'aptoide_a1_store'
+        bemobi_mobile_store = 'bemobi_mobile_store'
         does_not_exist = 'does_not_exist'
         fb_android_store = 'fb_android_store'
         fb_canvas = 'fb_canvas'
@@ -234,9 +242,13 @@ class AdAccountTargetingUnified(
         itunes = 'itunes'
         itunes_ipad = 'itunes_ipad'
         oculus_app_store = 'oculus_app_store'
+        oppo = 'oppo'
         roku_channel_store = 'roku_channel_store'
+        uptodown = 'uptodown'
+        vivo = 'vivo'
         windows_10_store = 'windows_10_store'
         windows_store = 'windows_store'
+        xiaomi = 'xiaomi'
 
     class Objective:
         app_installs = 'APP_INSTALLS'
@@ -263,6 +275,8 @@ class AdAccountTargetingUnified(
 
     _field_types = {
         'audience_size': 'unsigned int',
+        'audience_size_lower_bound': 'unsigned int',
+        'audience_size_upper_bound': 'unsigned int',
         'conversion_lift': 'float',
         'description': 'string',
         'id': 'string',

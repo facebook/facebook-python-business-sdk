@@ -145,6 +145,7 @@ class AdActivity(
     class DataSource:
         calypso = 'CALYPSO'
         tao = 'TAO'
+        tao_ad_account = 'TAO_AD_ACCOUNT'
 
     _field_types = {
         'actor_id': 'string',

@@ -32,33 +32,18 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class PlayableContent(
+class Shop(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isPlayableContent = True
-        super(PlayableContent, self).__init__(fbid, parent_id, api)
+        self._isShop = True
+        super(Shop, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        fb_sales_channel = 'fb_sales_channel'
         id = 'id'
-        name = 'name'
-        owner = 'owner'
-        app_id = 'app_id'
-        session_id = 'session_id'
-        source = 'source'
-        source_url = 'source_url'
-        source_zip = 'source_zip'
-
-    # @deprecated get_endpoint function is deprecated
-    @classmethod
-    def get_endpoint(cls):
-        return 'adplayables'
-
-    # @deprecated api_create is being deprecated
-    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.adobjects.adaccount import AdAccount
-        return AdAccount(api=self._api, fbid=parent_id).create_ad_playable(fields, params, batch, success, failure, pending)
+        ig_sales_channel = 'ig_sales_channel'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -74,7 +59,7 @@ class PlayableContent(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=PlayableContent,
+            target_class=Shop,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -91,14 +76,9 @@ class PlayableContent(
             return request.execute()
 
     _field_types = {
+        'fb_sales_channel': 'Object',
         'id': 'string',
-        'name': 'string',
-        'owner': 'Profile',
-        'app_id': 'string',
-        'session_id': 'string',
-        'source': 'file',
-        'source_url': 'string',
-        'source_zip': 'file',
+        'ig_sales_channel': 'Object',
     }
     @classmethod
     def _get_field_enum_info(cls):

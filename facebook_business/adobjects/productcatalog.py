@@ -175,11 +175,12 @@ class ProductCatalog(
         enums = {
             'segment_use_cases_enum': [
                 'AFFILIATE_SELLER_STOREFRONT',
-                'AFFILIATE_TAGGED_ONLY',
                 'COLLAB_ADS',
                 'COLLAB_ADS_FOR_MARKETPLACE_PARTNER',
                 'COLLAB_ADS_SEGMENT_WITHOUT_SEGMENT_SYNCING',
                 'CREATORS_AS_SELLERS',
+                'DIGITAL_CIRCULARS',
+                'FB_LIVE_SHOPPING',
                 'IG_SHOPPING',
                 'IG_SHOPPING_SUGGESTED_PRODUCTS',
                 'MARKETPLACE_SHOPS',
@@ -331,6 +332,38 @@ class ProductCatalog(
             target_class=ProductCatalog,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=ProductCatalog, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_ar_effects_batch_status(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.areffectsbatchstatus import AREffectsBatchStatus
+        param_types = {
+            'handle': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/ar_effects_batch_status',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AREffectsBatchStatus,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AREffectsBatchStatus, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -546,36 +579,6 @@ class ProductCatalog(
             self.assure_call()
             return request.execute()
 
-    def get_autos(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/autos',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def create_batch(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -596,6 +599,37 @@ class ProductCatalog(
             target_class=ProductCatalog,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=ProductCatalog, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_catalog_website_setting(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'is_allowed_to_crawl': 'bool',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/catalog_website_settings',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1408,11 +1442,13 @@ class ProductCatalog(
             'encoding': 'encoding_enum',
             'feed_type': 'feed_type_enum',
             'file_name': 'string',
+            'ingestion_source_type': 'ingestion_source_type_enum',
             'item_sub_type': 'item_sub_type_enum',
             'migrated_from_feed_id': 'string',
             'name': 'string',
             'override_type': 'override_type_enum',
             'override_value': 'string',
+            'primary_feed_ids': 'list<string>',
             'quoted_fields_mode': 'quoted_fields_mode_enum',
             'rules': 'list<string>',
             'schedule': 'string',
@@ -1423,6 +1459,7 @@ class ProductCatalog(
             'delimiter_enum': ProductFeed.Delimiter.__dict__.values(),
             'encoding_enum': ProductFeed.Encoding.__dict__.values(),
             'feed_type_enum': ProductFeed.FeedType.__dict__.values(),
+            'ingestion_source_type_enum': ProductFeed.IngestionSourceType.__dict__.values(),
             'item_sub_type_enum': ProductFeed.ItemSubType.__dict__.values(),
             'override_type_enum': ProductFeed.OverrideType.__dict__.values(),
             'quoted_fields_mode_enum': ProductFeed.QuotedFieldsMode.__dict__.values(),
@@ -1557,6 +1594,8 @@ class ProductCatalog(
             'filter': 'Object',
             'metadata': 'map',
             'name': 'string',
+            'ordering_info': 'list<unsigned int>',
+            'publish_to_shops': 'list<map>',
             'retailer_id': 'string',
         }
         enums = {
@@ -1683,6 +1722,8 @@ class ProductCatalog(
             'gender': 'gender_enum',
             'gtin': 'string',
             'image_url': 'string',
+            'importer_address': 'map',
+            'importer_name': 'string',
             'inventory': 'unsigned int',
             'ios_app_name': 'string',
             'ios_app_store_id': 'unsigned int',
@@ -1694,6 +1735,7 @@ class ProductCatalog(
             'iphone_app_store_id': 'unsigned int',
             'iphone_url': 'string',
             'launch_date': 'string',
+            'manufacturer_info': 'string',
             'manufacturer_part_number': 'string',
             'marked_for_product_launch': 'marked_for_product_launch_enum',
             'material': 'string',
@@ -1703,6 +1745,7 @@ class ProductCatalog(
             'offer_price_end_date': 'datetime',
             'offer_price_start_date': 'datetime',
             'ordering_index': 'unsigned int',
+            'origin_country': 'origin_country_enum',
             'pattern': 'string',
             'price': 'unsigned int',
             'product_type': 'string',
@@ -1728,6 +1771,7 @@ class ProductCatalog(
             'condition_enum': ProductItem.Condition.__dict__.values(),
             'gender_enum': ProductItem.Gender.__dict__.values(),
             'marked_for_product_launch_enum': ProductItem.MarkedForProductLaunch.__dict__.values(),
+            'origin_country_enum': ProductItem.OriginCountry.__dict__.values(),
             'visibility_enum': ProductItem.Visibility.__dict__.values(),
         }
         request = FacebookRequest(

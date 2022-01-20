@@ -32,36 +32,25 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdRuleExecutionSpec(
+class BusinessImage(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isAdRuleExecutionSpec = True
-        super(AdRuleExecutionSpec, self).__init__(fbid, parent_id, api)
+        self._isBusinessImage = True
+        super(BusinessImage, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        execution_options = 'execution_options'
-        execution_type = 'execution_type'
+        business = 'business'
+        creation_time = 'creation_time'
+        hash = 'hash'
+        height = 'height'
         id = 'id'
-
-    class ExecutionType:
-        add_interest_relaxation = 'ADD_INTEREST_RELAXATION'
-        add_questionnaire_interests = 'ADD_QUESTIONNAIRE_INTERESTS'
-        audience_consolidation = 'AUDIENCE_CONSOLIDATION'
-        change_bid = 'CHANGE_BID'
-        change_budget = 'CHANGE_BUDGET'
-        change_campaign_budget = 'CHANGE_CAMPAIGN_BUDGET'
-        increase_radius = 'INCREASE_RADIUS'
-        notification = 'NOTIFICATION'
-        pause = 'PAUSE'
-        ping_endpoint = 'PING_ENDPOINT'
-        rebalance_budget = 'REBALANCE_BUDGET'
-        rotate = 'ROTATE'
-        unpause = 'UNPAUSE'
-        update_creative = 'UPDATE_CREATIVE'
-        update_lax_budget = 'UPDATE_LAX_BUDGET'
-        update_lax_duration = 'UPDATE_LAX_DURATION'
+        media_library_url = 'media_library_url'
+        name = 'name'
+        url = 'url'
+        url_128 = 'url_128'
+        width = 'width'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -77,7 +66,7 @@ class AdRuleExecutionSpec(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AdRuleExecutionSpec,
+            target_class=BusinessImage,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -94,14 +83,20 @@ class AdRuleExecutionSpec(
             return request.execute()
 
     _field_types = {
-        'execution_options': 'list<AdRuleExecutionOptions>',
-        'execution_type': 'ExecutionType',
+        'business': 'Business',
+        'creation_time': 'datetime',
+        'hash': 'string',
+        'height': 'int',
         'id': 'string',
+        'media_library_url': 'string',
+        'name': 'string',
+        'url': 'string',
+        'url_128': 'string',
+        'width': 'int',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['ExecutionType'] = AdRuleExecutionSpec.ExecutionType.__dict__.values()
         return field_enum_info
 
 

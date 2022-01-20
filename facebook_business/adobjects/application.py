@@ -157,15 +157,18 @@ class Application(
         supplementary_images = 'SUPPLEMENTARY_IMAGES'
         web = 'WEB'
         windows = 'WINDOWS'
+        xiaomi = 'XIAOMI'
 
     class AnPlatforms:
         android = 'ANDROID'
         desktop = 'DESKTOP'
+        galaxy = 'GALAXY'
         instant_articles = 'INSTANT_ARTICLES'
         ios = 'IOS'
         mobile_web = 'MOBILE_WEB'
         oculus = 'OCULUS'
         unknown = 'UNKNOWN'
+        xiaomi = 'XIAOMI'
 
     class Platform:
         android = 'ANDROID'
@@ -468,6 +471,38 @@ class Application(
             target_class=AbstractCrudObject,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_ad_network_placements(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.adplacement import AdPlacement
+        param_types = {
+            'request_id': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/adnetwork_placements',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdPlacement,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdPlacement, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -830,98 +865,6 @@ class Application(
             self.assure_call()
             return request.execute()
 
-    def get_app_insights(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'aggregateBy': 'aggregateBy_enum',
-            'breakdowns': 'list<string>',
-            'ecosystem': 'ecosystem_enum',
-            'event_name': 'string',
-            'intervals_to_aggregate': 'int',
-            'metric_key': 'string',
-            'period': 'period_enum',
-            'since': 'datetime',
-            'until': 'datetime',
-        }
-        enums = {
-            'aggregateBy_enum': [
-                'AVERAGE_JOURNEY_LENGTH',
-                'CONVERTED_JOURNEY_PERCENT',
-                'COUNT',
-                'COUNT_IDENTIFIED_USERS',
-                'COUNT_PER_USER',
-                'DAU',
-                'EVENT_LATEST_FIRE_TIME',
-                'EVENT_SOURCE_IDS',
-                'JOURNEY_CHANNEL_INCLUSION',
-                'JOURNEY_INCLUSION',
-                'MAU',
-                'MEDIAN_JOURNEY_LENGTH',
-                'MEDIAN_VALUE',
-                'MEDIAN_VALUE_PER_USER',
-                'OVERLAP',
-                'PERCENTILES_COUNT',
-                'PERCENTILES_USD_VALUE',
-                'PERCENTILES_VALUE',
-                'SCORE',
-                'SESSIONS_PER_JOURNEY',
-                'SESSION_BOUNCE_RATE',
-                'SUM',
-                'SUM_IDENTIFIED_USERS',
-                'SUM_PER_EVENT',
-                'TOPK',
-                'UNKNOWN_USERS',
-                'USD_SUM',
-                'USD_SUM_IDENTIFIED_USERS',
-                'USD_SUM_PER_EVENT',
-                'USD_SUM_PER_USER',
-                'USD_VALUE_PER_USER',
-                'USERS',
-                'USER_PROPERTY_USER_COUNT',
-                'VALUE_PER_USER',
-                'WAU',
-            ],
-            'ecosystem_enum': [
-                'GAME',
-                'NON_GAME',
-            ],
-            'period_enum': [
-                'daily',
-                'days_28',
-                'days_60',
-                'days_90',
-                'hourly',
-                'lifetime',
-                'mins_15',
-                'monthly',
-                'range',
-                'weekly',
-            ],
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/app_insights',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def get_app_installed_groups(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -1132,40 +1075,6 @@ class Application(
             target_class=AbstractCrudObject,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_button_indexing(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'app_version': 'string',
-            'device_id': 'string',
-            'extinfo': 'string',
-            'indexed_button_list': 'list<map>',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/button_indexing',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=Application,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=Application, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1506,40 +1415,6 @@ class Application(
             self.assure_call()
             return request.execute()
 
-    def create_leaderboards_set_score(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'extra_data': 'string',
-            'name': 'string',
-            'player_id': 'string',
-            'score': 'unsigned int',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/leaderboards_set_score',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=Application,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=Application, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def create_mmp_auditing(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -1681,37 +1556,6 @@ class Application(
             target_class=Application,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=Application, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def delete_payment_currencies(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'currency_url': 'string',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='DELETE',
-            endpoint='/payment_currencies',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

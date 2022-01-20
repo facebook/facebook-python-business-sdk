@@ -61,6 +61,7 @@ class Hotel(
         sale_price = 'sale_price'
         sanitized_images = 'sanitized_images'
         star_rating = 'star_rating'
+        unit_price = 'unit_price'
         url = 'url'
         base_price = 'base_price'
 
@@ -327,6 +328,7 @@ class Hotel(
         'sale_price': 'string',
         'sanitized_images': 'list<string>',
         'star_rating': 'float',
+        'unit_price': 'Object',
         'url': 'string',
         'base_price': 'unsigned int',
     }

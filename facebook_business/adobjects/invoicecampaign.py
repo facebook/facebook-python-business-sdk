@@ -44,6 +44,7 @@ class InvoiceCampaign(
         campaign_name = 'campaign_name'
         clicks = 'clicks'
         conversions = 'conversions'
+        description = 'description'
         impressions = 'impressions'
         tags = 'tags'
 
@@ -54,6 +55,7 @@ class InvoiceCampaign(
         'campaign_name': 'string',
         'clicks': 'unsigned int',
         'conversions': 'unsigned int',
+        'description': 'string',
         'impressions': 'unsigned int',
         'tags': 'list<string>',
     }

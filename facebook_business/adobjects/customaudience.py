@@ -45,6 +45,8 @@ class CustomAudience(
     class Field(AbstractObject.Field):
         account_id = 'account_id'
         approximate_count = 'approximate_count'
+        approximate_count_lower_bound = 'approximate_count_lower_bound'
+        approximate_count_upper_bound = 'approximate_count_upper_bound'
         customer_file_source = 'customer_file_source'
         data_source = 'data_source'
         data_source_types = 'data_source_types'
@@ -65,6 +67,7 @@ class CustomAudience(
         name = 'name'
         operation_status = 'operation_status'
         opt_out_link = 'opt_out_link'
+        page_deletion_marked_delete_time = 'page_deletion_marked_delete_time'
         permission_for_actions = 'permission_for_actions'
         pixel_id = 'pixel_id'
         regulated_audience_spec = 'regulated_audience_spec'
@@ -115,6 +118,7 @@ class CustomAudience(
         flight = 'FLIGHT'
         home_listing = 'HOME_LISTING'
         hotel = 'HOTEL'
+        job = 'JOB'
         local_service_business = 'LOCAL_SERVICE_BUSINESS'
         location_based_item = 'LOCATION_BASED_ITEM'
         media_title = 'MEDIA_TITLE'
@@ -566,6 +570,8 @@ class CustomAudience(
     _field_types = {
         'account_id': 'string',
         'approximate_count': 'int',
+        'approximate_count_lower_bound': 'int',
+        'approximate_count_upper_bound': 'int',
         'customer_file_source': 'string',
         'data_source': 'CustomAudienceDataSource',
         'data_source_types': 'string',
@@ -586,6 +592,7 @@ class CustomAudience(
         'name': 'string',
         'operation_status': 'CustomAudienceStatus',
         'opt_out_link': 'string',
+        'page_deletion_marked_delete_time': 'int',
         'permission_for_actions': 'AudiencePermissionForActions',
         'pixel_id': 'string',
         'regulated_audience_spec': 'LookalikeSpec',

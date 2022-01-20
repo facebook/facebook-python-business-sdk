@@ -68,6 +68,7 @@ class AdSet(
         destination_type = 'destination_type'
         effective_status = 'effective_status'
         end_time = 'end_time'
+        existing_customer_budget_percentage = 'existing_customer_budget_percentage'
         frequency_control_specs = 'frequency_control_specs'
         full_funnel_exploration_mode = 'full_funnel_exploration_mode'
         id = 'id'
@@ -94,6 +95,7 @@ class AdSet(
         start_time = 'start_time'
         status = 'status'
         targeting = 'targeting'
+        targeting_optimization_types = 'targeting_optimization_types'
         time_based_ad_rotation_id_blocks = 'time_based_ad_rotation_id_blocks'
         time_based_ad_rotation_intervals = 'time_based_ad_rotation_intervals'
         updated_time = 'updated_time'
@@ -145,10 +147,9 @@ class AdSet(
 
     class OptimizationGoal:
         ad_recall_lift = 'AD_RECALL_LIFT'
-        app_downloads = 'APP_DOWNLOADS'
         app_installs = 'APP_INSTALLS'
-        brand_awareness = 'BRAND_AWARENESS'
-        clicks = 'CLICKS'
+        app_installs_and_offsite_conversions = 'APP_INSTALLS_AND_OFFSITE_CONVERSIONS'
+        conversations = 'CONVERSATIONS'
         derived_events = 'DERIVED_EVENTS'
         engaged_users = 'ENGAGED_USERS'
         event_responses = 'EVENT_RESPONSES'
@@ -157,18 +158,13 @@ class AdSet(
         lead_generation = 'LEAD_GENERATION'
         link_clicks = 'LINK_CLICKS'
         none = 'NONE'
-        offer_claims = 'OFFER_CLAIMS'
         offsite_conversions = 'OFFSITE_CONVERSIONS'
-        page_engagement = 'PAGE_ENGAGEMENT'
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
         quality_call = 'QUALITY_CALL'
         quality_lead = 'QUALITY_LEAD'
         reach = 'REACH'
-        replies = 'REPLIES'
-        social_impressions = 'SOCIAL_IMPRESSIONS'
         thruplay = 'THRUPLAY'
-        two_second_continuous_video_views = 'TWO_SECOND_CONTINUOUS_VIDEO_VIEWS'
         value = 'VALUE'
         visit_instagram_profile = 'VISIT_INSTAGRAM_PROFILE'
 
@@ -240,6 +236,7 @@ class AdSet(
         housing = 'HOUSING'
         issues_elections_politics = 'ISSUES_ELECTIONS_POLITICS'
         none = 'NONE'
+        online_gambling_and_gaming = 'ONLINE_GAMBLING_AND_GAMING'
 
     class Operator:
         all = 'ALL'
@@ -369,6 +366,7 @@ class AdSet(
             'destination_type': 'destination_type_enum',
             'end_time': 'datetime',
             'execution_options': 'list<execution_options_enum>',
+            'existing_customer_budget_percentage': 'unsigned int',
             'full_funnel_exploration_mode': 'full_funnel_exploration_mode_enum',
             'lifetime_budget': 'unsigned int',
             'lifetime_imps': 'unsigned int',
@@ -1023,6 +1021,7 @@ class AdSet(
         'destination_type': 'string',
         'effective_status': 'EffectiveStatus',
         'end_time': 'datetime',
+        'existing_customer_budget_percentage': 'unsigned int',
         'frequency_control_specs': 'list<AdCampaignFrequencyControlSpecs>',
         'full_funnel_exploration_mode': 'string',
         'id': 'string',
@@ -1049,6 +1048,7 @@ class AdSet(
         'start_time': 'datetime',
         'status': 'Status',
         'targeting': 'Targeting',
+        'targeting_optimization_types': 'map<string, int>',
         'time_based_ad_rotation_id_blocks': 'list<list<int>>',
         'time_based_ad_rotation_intervals': 'list<unsigned int>',
         'updated_time': 'datetime',

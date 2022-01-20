@@ -19,6 +19,10 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
+from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
+from facebook_business.adobjects.objectparser import ObjectParser
+from facebook_business.api import FacebookRequest
+from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -28,26 +32,21 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdAccountReachEstimate(
-    AbstractObject,
+class AdStudyObjectiveOffsiteDatasets(
+    AbstractCrudObject,
 ):
 
-    def __init__(self, api=None):
-        super(AdAccountReachEstimate, self).__init__()
-        self._isAdAccountReachEstimate = True
-        self._api = api
+    def __init__(self, fbid=None, parent_id=None, api=None):
+        self._isAdStudyObjectiveOffsiteDatasets = True
+        super(AdStudyObjectiveOffsiteDatasets, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        estimate_ready = 'estimate_ready'
-        users = 'users'
-        users_lower_bound = 'users_lower_bound'
-        users_upper_bound = 'users_upper_bound'
+        event_names = 'event_names'
+        id = 'id'
 
     _field_types = {
-        'estimate_ready': 'bool',
-        'users': 'int',
-        'users_lower_bound': 'int',
-        'users_upper_bound': 'int',
+        'event_names': 'list<string>',
+        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

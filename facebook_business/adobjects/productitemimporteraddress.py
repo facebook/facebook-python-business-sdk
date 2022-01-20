@@ -18,22 +18,44 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebook_business.adobjects.ad import Ad
-from facebook_business.adobjects.lead import Lead
-from facebook_business.api import FacebookAdsApi
+from facebook_business.adobjects.abstractobject import AbstractObject
 
-access_token = '<ACCESS_TOKEN>'
-app_secret = '<APP_SECRET>'
-app_id = '<APP_ID>'
-id = '<AD_GROUP_ID>'
-FacebookAdsApi.init(access_token=access_token)
+"""
+This class is auto-generated.
 
-fields = [
-]
-params = {
-  'filtering': [{'field':'time_created','operator':'GREATER_THAN','value':1626979823}],
-}
-print Ad(id).get_leads(
-  fields=fields,
-  params=params,
-)
+For any issues or feature requests related to this class, please let us know on
+github and we'll fix in our codegen framework. We'll not be able to accept
+pull request for this class.
+"""
+
+class ProductItemImporterAddress(
+    AbstractObject,
+):
+
+    def __init__(self, api=None):
+        super(ProductItemImporterAddress, self).__init__()
+        self._isProductItemImporterAddress = True
+        self._api = api
+
+    class Field(AbstractObject.Field):
+        city = 'city'
+        country = 'country'
+        postal_code = 'postal_code'
+        region = 'region'
+        street1 = 'street1'
+        street2 = 'street2'
+
+    _field_types = {
+        'city': 'string',
+        'country': 'string',
+        'postal_code': 'string',
+        'region': 'string',
+        'street1': 'string',
+        'street2': 'string',
+    }
+    @classmethod
+    def _get_field_enum_info(cls):
+        field_enum_info = {}
+        return field_enum_info
+
+

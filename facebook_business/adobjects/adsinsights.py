@@ -45,18 +45,12 @@ class AdsInsights(
         account_name = 'account_name'
         action_values = 'action_values'
         actions = 'actions'
-        ad_bid_type = 'ad_bid_type'
         ad_bid_value = 'ad_bid_value'
         ad_click_actions = 'ad_click_actions'
-        ad_delivery = 'ad_delivery'
         ad_id = 'ad_id'
         ad_impression_actions = 'ad_impression_actions'
         ad_name = 'ad_name'
-        adset_bid_type = 'adset_bid_type'
         adset_bid_value = 'adset_bid_value'
-        adset_budget_type = 'adset_budget_type'
-        adset_budget_value = 'adset_budget_value'
-        adset_delivery = 'adset_delivery'
         adset_end = 'adset_end'
         adset_id = 'adset_id'
         adset_name = 'adset_name'
@@ -144,6 +138,7 @@ class AdsInsights(
         reach = 'reach'
         social_spend = 'social_spend'
         spend = 'spend'
+        total_postbacks = 'total_postbacks'
         unique_actions = 'unique_actions'
         unique_clicks = 'unique_clicks'
         unique_conversions = 'unique_conversions'
@@ -206,6 +201,7 @@ class AdsInsights(
     class Breakdowns:
         ad_format_asset = 'ad_format_asset'
         age = 'age'
+        app_id = 'app_id'
         body_asset = 'body_asset'
         call_to_action_asset = 'call_to_action_asset'
         country = 'country'
@@ -224,6 +220,7 @@ class AdsInsights(
         product_id = 'product_id'
         publisher_platform = 'publisher_platform'
         region = 'region'
+        skan_conversion_id = 'skan_conversion_id'
         title_asset = 'title_asset'
         video_asset = 'video_asset'
 
@@ -277,18 +274,12 @@ class AdsInsights(
         'account_name': 'string',
         'action_values': 'list<AdsActionStats>',
         'actions': 'list<AdsActionStats>',
-        'ad_bid_type': 'string',
         'ad_bid_value': 'string',
         'ad_click_actions': 'list<AdsActionStats>',
-        'ad_delivery': 'string',
         'ad_id': 'string',
         'ad_impression_actions': 'list<AdsActionStats>',
         'ad_name': 'string',
-        'adset_bid_type': 'string',
         'adset_bid_value': 'string',
-        'adset_budget_type': 'string',
-        'adset_budget_value': 'string',
-        'adset_delivery': 'string',
         'adset_end': 'string',
         'adset_id': 'string',
         'adset_name': 'string',
@@ -376,6 +367,7 @@ class AdsInsights(
         'reach': 'string',
         'social_spend': 'string',
         'spend': 'string',
+        'total_postbacks': 'string',
         'unique_actions': 'list<AdsActionStats>',
         'unique_clicks': 'string',
         'unique_conversions': 'list<AdsActionStats>',
