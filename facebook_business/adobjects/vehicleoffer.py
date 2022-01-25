@@ -73,6 +73,7 @@ class VehicleOffer(
         term_qualifier = 'term_qualifier'
         title = 'title'
         trim = 'trim'
+        unit_price = 'unit_price'
         url = 'url'
         vehicle_offer_id = 'vehicle_offer_id'
         year = 'year'
@@ -239,6 +240,7 @@ class VehicleOffer(
         'term_qualifier': 'string',
         'title': 'string',
         'trim': 'string',
+        'unit_price': 'Object',
         'url': 'string',
         'vehicle_offer_id': 'string',
         'year': 'int',

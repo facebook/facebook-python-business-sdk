@@ -47,6 +47,8 @@ class ReachFrequencyPrediction(
         activity_status = 'activity_status'
         ad_formats = 'ad_formats'
         auction_entry_option_index = 'auction_entry_option_index'
+        audience_size_lower_bound = 'audience_size_lower_bound'
+        audience_size_upper_bound = 'audience_size_upper_bound'
         business_id = 'business_id'
         buying_type = 'buying_type'
         campaign_group_id = 'campaign_group_id'
@@ -216,6 +218,8 @@ class ReachFrequencyPrediction(
         'activity_status': 'ReachFrequencyActivity',
         'ad_formats': 'list<ReachFrequencyAdFormat>',
         'auction_entry_option_index': 'int',
+        'audience_size_lower_bound': 'unsigned int',
+        'audience_size_upper_bound': 'unsigned int',
         'business_id': 'int',
         'buying_type': 'string',
         'campaign_group_id': 'int',

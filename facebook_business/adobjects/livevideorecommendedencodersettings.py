@@ -28,22 +28,24 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class ProductFeedUploadDiagnosticsReport(
+class LiveVideoRecommendedEncoderSettings(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(ProductFeedUploadDiagnosticsReport, self).__init__()
-        self._isProductFeedUploadDiagnosticsReport = True
+        super(LiveVideoRecommendedEncoderSettings, self).__init__()
+        self._isLiveVideoRecommendedEncoderSettings = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        last_updated_time = 'last_updated_time'
-        report_url = 'report_url'
+        audio_codec_settings = 'audio_codec_settings'
+        streaming_protocol = 'streaming_protocol'
+        video_codec_settings = 'video_codec_settings'
 
     _field_types = {
-        'last_updated_time': 'string',
-        'report_url': 'string',
+        'audio_codec_settings': 'Object',
+        'streaming_protocol': 'string',
+        'video_codec_settings': 'Object',
     }
     @classmethod
     def _get_field_enum_info(cls):

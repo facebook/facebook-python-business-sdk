@@ -164,6 +164,7 @@ class Campaign(
         housing = 'HOUSING'
         issues_elections_politics = 'ISSUES_ELECTIONS_POLITICS'
         none = 'NONE'
+        online_gambling_and_gaming = 'ONLINE_GAMBLING_AND_GAMING'
 
     class SpecialAdCategoryCountry:
         ad = 'AD'
@@ -428,6 +429,7 @@ class Campaign(
         housing = 'HOUSING'
         issues_elections_politics = 'ISSUES_ELECTIONS_POLITICS'
         none = 'NONE'
+        online_gambling_and_gaming = 'ONLINE_GAMBLING_AND_GAMING'
 
     class StatusOption:
         active = 'ACTIVE'

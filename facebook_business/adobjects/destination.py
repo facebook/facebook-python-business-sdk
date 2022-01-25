@@ -55,6 +55,7 @@ class Destination(
         price_change = 'price_change'
         sanitized_images = 'sanitized_images'
         types = 'types'
+        unit_price = 'unit_price'
         url = 'url'
 
     class ImageFetchStatus:
@@ -201,6 +202,7 @@ class Destination(
         'price_change': 'string',
         'sanitized_images': 'list<string>',
         'types': 'list<string>',
+        'unit_price': 'Object',
         'url': 'string',
     }
     @classmethod

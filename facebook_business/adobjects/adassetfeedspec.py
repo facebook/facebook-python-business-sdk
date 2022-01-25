@@ -48,11 +48,14 @@ class AdAssetFeedSpec(
         captions = 'captions'
         carousels = 'carousels'
         descriptions = 'descriptions'
+        events = 'events'
         groups = 'groups'
         images = 'images'
         link_urls = 'link_urls'
+        offer_ids = 'offer_ids'
         onsite_destinations = 'onsite_destinations'
         optimization_type = 'optimization_type'
+        phone_data_ids = 'phone_data_ids'
         posts = 'posts'
         titles = 'titles'
         videos = 'videos'
@@ -66,6 +69,7 @@ class AdAssetFeedSpec(
         buy_tickets = 'BUY_TICKETS'
         call = 'CALL'
         call_me = 'CALL_ME'
+        call_now = 'CALL_NOW'
         contact = 'CONTACT'
         contact_us = 'CONTACT_US'
         donate = 'DONATE'
@@ -135,11 +139,14 @@ class AdAssetFeedSpec(
         'captions': 'list<AdAssetFeedSpecCaption>',
         'carousels': 'list<Object>',
         'descriptions': 'list<AdAssetFeedSpecDescription>',
+        'events': 'list<Object>',
         'groups': 'list<AdAssetFeedSpecGroupRule>',
         'images': 'list<AdAssetFeedSpecImage>',
         'link_urls': 'list<AdAssetFeedSpecLinkURL>',
+        'offer_ids': 'list<Object>',
         'onsite_destinations': 'list<Object>',
         'optimization_type': 'string',
+        'phone_data_ids': 'list<Object>',
         'posts': 'list<Object>',
         'titles': 'list<AdAssetFeedSpecTitle>',
         'videos': 'list<AdAssetFeedSpecVideo>',
