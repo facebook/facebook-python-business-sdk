@@ -1375,6 +1375,8 @@ class AdAccount(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
+
+        from facebook_business.adobjects.adspixel import AdsPixel
         param_types = {
             'name': 'string',
         }
@@ -1386,9 +1388,9 @@ class AdAccount(
             endpoint='/adspixels',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=AdsPixel,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=AdsPixel, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
