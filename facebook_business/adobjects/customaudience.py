@@ -65,6 +65,7 @@ class CustomAudience(
         name = 'name'
         operation_status = 'operation_status'
         opt_out_link = 'opt_out_link'
+        page_deletion_marked_delete_time = 'page_deletion_marked_delete_time'
         permission_for_actions = 'permission_for_actions'
         pixel_id = 'pixel_id'
         regulated_audience_spec = 'regulated_audience_spec'
@@ -115,6 +116,7 @@ class CustomAudience(
         flight = 'FLIGHT'
         home_listing = 'HOME_LISTING'
         hotel = 'HOTEL'
+        job = 'JOB'
         local_service_business = 'LOCAL_SERVICE_BUSINESS'
         location_based_item = 'LOCATION_BASED_ITEM'
         media_title = 'MEDIA_TITLE'
@@ -586,6 +588,7 @@ class CustomAudience(
         'name': 'string',
         'operation_status': 'CustomAudienceStatus',
         'opt_out_link': 'string',
+        'page_deletion_marked_delete_time': 'int',
         'permission_for_actions': 'AudiencePermissionForActions',
         'pixel_id': 'string',
         'regulated_audience_spec': 'LookalikeSpec',

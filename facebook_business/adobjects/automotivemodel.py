@@ -67,6 +67,7 @@ class AutomotiveModel(
         title = 'title'
         transmission = 'transmission'
         trim = 'trim'
+        unit_price = 'unit_price'
         url = 'url'
         year = 'year'
 
@@ -260,6 +261,7 @@ class AutomotiveModel(
         'title': 'string',
         'transmission': 'string',
         'trim': 'string',
+        'unit_price': 'Object',
         'url': 'string',
         'year': 'unsigned int',
     }

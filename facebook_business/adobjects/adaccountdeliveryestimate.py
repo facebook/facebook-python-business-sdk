@@ -42,6 +42,7 @@ class AdAccountDeliveryEstimate(
         estimate_dau = 'estimate_dau'
         estimate_mau = 'estimate_mau'
         estimate_ready = 'estimate_ready'
+        targeting_optimization_types = 'targeting_optimization_types'
 
     class OptimizationGoal:
         ad_recall_lift = 'AD_RECALL_LIFT'
@@ -77,6 +78,7 @@ class AdAccountDeliveryEstimate(
         'estimate_dau': 'int',
         'estimate_mau': 'int',
         'estimate_ready': 'bool',
+        'targeting_optimization_types': 'map<string, int>',
     }
     @classmethod
     def _get_field_enum_info(cls):

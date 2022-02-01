@@ -69,6 +69,7 @@ class AdoptablePet(
         shelter_phone = 'shelter_phone'
         size = 'size'
         tertiary_color = 'tertiary_color'
+        unit_price = 'unit_price'
         url = 'url'
 
     class ImageFetchStatus:
@@ -229,6 +230,7 @@ class AdoptablePet(
         'shelter_phone': 'string',
         'size': 'string',
         'tertiary_color': 'string',
+        'unit_price': 'Object',
         'url': 'string',
     }
     @classmethod

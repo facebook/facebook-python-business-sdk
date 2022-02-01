@@ -28,36 +28,42 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class InvoiceCampaign(
+class ChatPlugin(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(InvoiceCampaign, self).__init__()
-        self._isInvoiceCampaign = True
+        super(ChatPlugin, self).__init__()
+        self._isChatPlugin = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        ad_account_id = 'ad_account_id'
-        billed_amount_details = 'billed_amount_details'
-        campaign_id = 'campaign_id'
-        campaign_name = 'campaign_name'
-        clicks = 'clicks'
-        conversions = 'conversions'
-        description = 'description'
-        impressions = 'impressions'
-        tags = 'tags'
+        alignment = 'alignment'
+        desktop_bottom_spacing = 'desktop_bottom_spacing'
+        desktop_side_spacing = 'desktop_side_spacing'
+        entry_point_icon = 'entry_point_icon'
+        entry_point_label = 'entry_point_label'
+        greeting_dialog_display = 'greeting_dialog_display'
+        guest_chat_mode = 'guest_chat_mode'
+        mobile_bottom_spacing = 'mobile_bottom_spacing'
+        mobile_chat_display = 'mobile_chat_display'
+        mobile_side_spacing = 'mobile_side_spacing'
+        theme_color = 'theme_color'
+        welcome_screen_greeting = 'welcome_screen_greeting'
 
     _field_types = {
-        'ad_account_id': 'string',
-        'billed_amount_details': 'BilledAmountDetails',
-        'campaign_id': 'string',
-        'campaign_name': 'string',
-        'clicks': 'unsigned int',
-        'conversions': 'unsigned int',
-        'description': 'string',
-        'impressions': 'unsigned int',
-        'tags': 'list<string>',
+        'alignment': 'string',
+        'desktop_bottom_spacing': 'string',
+        'desktop_side_spacing': 'string',
+        'entry_point_icon': 'string',
+        'entry_point_label': 'string',
+        'greeting_dialog_display': 'string',
+        'guest_chat_mode': 'string',
+        'mobile_bottom_spacing': 'string',
+        'mobile_chat_display': 'string',
+        'mobile_side_spacing': 'string',
+        'theme_color': 'string',
+        'welcome_screen_greeting': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

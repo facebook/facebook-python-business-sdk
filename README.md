@@ -31,6 +31,11 @@ And remove the following folders:
 .github/workflows
 ```
 
+You can do it with:
+```
+git cherry-pick d33562c71e914e1ff736306f21a2c5fa07279cfe
+```
+
 And then commit and push the changes:
 
 ```
@@ -52,6 +57,9 @@ To deploy to artifactory:
 ```
 python setup.py sdist upload -r pip-adroll
 ```
+
+The thing in jFrog:
+https://adrollserv.jfrog.io/ui/packages/pypi:%2F%2Ffacebook_business?name=facebook&type=packages
 
 [![Build Status](https://travis-ci.org/facebook/facebook-python-business-sdk.svg)](https://travis-ci.org/facebook/facebook-python-business-sdk)
 

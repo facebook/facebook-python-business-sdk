@@ -32,47 +32,40 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class PageUserMessageThreadLabel(
+class JobsJob(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isPageUserMessageThreadLabel = True
-        super(PageUserMessageThreadLabel, self).__init__(fbid, parent_id, api)
+        self._isJobsJob = True
+        super(JobsJob, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        address = 'address'
+        applinks = 'applinks'
+        category_specific_fields = 'category_specific_fields'
+        custom_label_0 = 'custom_label_0'
+        custom_label_1 = 'custom_label_1'
+        custom_label_2 = 'custom_label_2'
+        custom_label_3 = 'custom_label_3'
+        custom_label_4 = 'custom_label_4'
+        custom_label_5 = 'custom_label_5'
+        custom_label_6 = 'custom_label_6'
         id = 'id'
-        page_label_name = 'page_label_name'
+        image_fetch_status = 'image_fetch_status'
+        images = 'images'
+        jobs_job_id = 'jobs_job_id'
+        sanitized_images = 'sanitized_images'
+        unit_price = 'unit_price'
+        url = 'url'
 
-    def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='DELETE',
-            endpoint='/',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
+    class ImageFetchStatus:
+        direct_upload = 'DIRECT_UPLOAD'
+        fetched = 'FETCHED'
+        fetch_failed = 'FETCH_FAILED'
+        no_status = 'NO_STATUS'
+        outdated = 'OUTDATED'
+        partial_fetch = 'PARTIAL_FETCH'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -88,7 +81,7 @@ class PageUserMessageThreadLabel(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=PageUserMessageThreadLabel,
+            target_class=JobsJob,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -104,19 +97,18 @@ class PageUserMessageThreadLabel(
             self.assure_call()
             return request.execute()
 
-    def delete_label(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def get_augmented_realities_metadata(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'user': 'int',
         }
         enums = {
         }
         request = FacebookRequest(
             node_id=self['id'],
-            method='DELETE',
-            endpoint='/label',
+            method='GET',
+            endpoint='/augmented_realities_metadata',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
@@ -135,24 +127,54 @@ class PageUserMessageThreadLabel(
             self.assure_call()
             return request.execute()
 
-    def create_label(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def get_channels_to_integrity_status(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.catalogitemchannelstointegritystatus import CatalogItemChannelsToIntegrityStatus
         param_types = {
-            'user': 'int',
         }
         enums = {
         }
         request = FacebookRequest(
             node_id=self['id'],
-            method='POST',
-            endpoint='/label',
+            method='GET',
+            endpoint='/channels_to_integrity_status',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=PageUserMessageThreadLabel,
+            target_class=CatalogItemChannelsToIntegrityStatus,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=PageUserMessageThreadLabel, api=self._api),
+            response_parser=ObjectParser(target_class=CatalogItemChannelsToIntegrityStatus, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_videos_metadata(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/videos_metadata',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -167,12 +189,28 @@ class PageUserMessageThreadLabel(
             return request.execute()
 
     _field_types = {
+        'address': 'Object',
+        'applinks': 'CatalogItemAppLinks',
+        'category_specific_fields': 'CatalogSubVerticalList',
+        'custom_label_0': 'string',
+        'custom_label_1': 'string',
+        'custom_label_2': 'string',
+        'custom_label_3': 'string',
+        'custom_label_4': 'string',
+        'custom_label_5': 'string',
+        'custom_label_6': 'string',
         'id': 'string',
-        'page_label_name': 'string',
+        'image_fetch_status': 'ImageFetchStatus',
+        'images': 'list<string>',
+        'jobs_job_id': 'string',
+        'sanitized_images': 'list<string>',
+        'unit_price': 'Object',
+        'url': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['ImageFetchStatus'] = JobsJob.ImageFetchStatus.__dict__.values()
         return field_enum_info
 
 
