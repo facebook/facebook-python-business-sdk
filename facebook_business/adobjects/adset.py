@@ -1048,7 +1048,7 @@ class AdSet(
         'start_time': 'datetime',
         'status': 'Status',
         'targeting': 'Targeting',
-        'targeting_optimization_types': 'map<string, int>',
+        'targeting_optimization_types': 'list<map>',
         'time_based_ad_rotation_id_blocks': 'list<list<int>>',
         'time_based_ad_rotation_intervals': 'list<unsigned int>',
         'updated_time': 'datetime',
