@@ -56,7 +56,6 @@ class IGMedia(
         thumbnail_url = 'thumbnail_url'
         timestamp = 'timestamp'
         username = 'username'
-        video_title = 'video_title'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -266,7 +265,6 @@ class IGMedia(
         'thumbnail_url': 'string',
         'timestamp': 'datetime',
         'username': 'string',
-        'video_title': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

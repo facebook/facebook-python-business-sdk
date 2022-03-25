@@ -43,7 +43,6 @@ class HomeListing(
     class Field(AbstractObject.Field):
         ac_type = 'ac_type'
         additional_fees_description = 'additional_fees_description'
-        address = 'address'
         agent_company = 'agent_company'
         agent_email = 'agent_email'
         agent_fb_page_id = 'agent_fb_page_id'
@@ -54,11 +53,9 @@ class HomeListing(
         area_unit = 'area_unit'
         availability = 'availability'
         category_specific_fields = 'category_specific_fields'
-        co_2_emission_rating_eu = 'co_2_emission_rating_eu'
         currency = 'currency'
         days_on_market = 'days_on_market'
         description = 'description'
-        energy_rating_eu = 'energy_rating_eu'
         furnish_type = 'furnish_type'
         group_id = 'group_id'
         heating_type = 'heating_type'
@@ -83,9 +80,9 @@ class HomeListing(
         price = 'price'
         property_type = 'property_type'
         sanitized_images = 'sanitized_images'
-        unit_price = 'unit_price'
         url = 'url'
         year_built = 'year_built'
+        address = 'address'
 
     class ImageFetchStatus:
         direct_upload = 'DIRECT_UPLOAD'
@@ -303,7 +300,6 @@ class HomeListing(
     _field_types = {
         'ac_type': 'string',
         'additional_fees_description': 'string',
-        'address': 'Object',
         'agent_company': 'string',
         'agent_email': 'string',
         'agent_fb_page_id': 'Page',
@@ -314,11 +310,9 @@ class HomeListing(
         'area_unit': 'string',
         'availability': 'string',
         'category_specific_fields': 'CatalogSubVerticalList',
-        'co_2_emission_rating_eu': 'Object',
         'currency': 'string',
         'days_on_market': 'unsigned int',
         'description': 'string',
-        'energy_rating_eu': 'Object',
         'furnish_type': 'string',
         'group_id': 'string',
         'heating_type': 'string',
@@ -343,9 +337,9 @@ class HomeListing(
         'price': 'string',
         'property_type': 'string',
         'sanitized_images': 'list<string>',
-        'unit_price': 'Object',
         'url': 'string',
         'year_built': 'int',
+        'address': 'Object',
     }
     @classmethod
     def _get_field_enum_info(cls):

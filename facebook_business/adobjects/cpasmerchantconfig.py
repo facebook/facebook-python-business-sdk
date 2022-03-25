@@ -32,33 +32,22 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class OracleTransaction(
+class CPASMerchantConfig(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isOracleTransaction = True
-        super(OracleTransaction, self).__init__(fbid, parent_id, api)
+        self._isCPASMerchantConfig = True
+        super(CPASMerchantConfig, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        ad_account_ids = 'ad_account_ids'
-        amount = 'amount'
-        amount_due = 'amount_due'
-        billed_amount_details = 'billed_amount_details'
-        billing_period = 'billing_period'
-        cdn_download_uri = 'cdn_download_uri'
-        currency = 'currency'
-        download_uri = 'download_uri'
-        due_date = 'due_date'
-        entity = 'entity'
+        accepted_tos = 'accepted_tos'
+        beta_features = 'beta_features'
+        business_outcomes_status = 'business_outcomes_status'
         id = 'id'
-        invoice_date = 'invoice_date'
-        invoice_id = 'invoice_id'
-        invoice_type = 'invoice_type'
-        liability_type = 'liability_type'
-        payment_status = 'payment_status'
-        payment_term = 'payment_term'
-        type = 'type'
+        is_test_merchant = 'is_test_merchant'
+        outcomes_compliance_status = 'outcomes_compliance_status'
+        qualified_to_onboard = 'qualified_to_onboard'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -74,7 +63,7 @@ class OracleTransaction(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=OracleTransaction,
+            target_class=CPASMerchantConfig,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -90,56 +79,14 @@ class OracleTransaction(
             self.assure_call()
             return request.execute()
 
-    def get_campaigns(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.invoicecampaign import InvoiceCampaign
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/campaigns',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=InvoiceCampaign,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=InvoiceCampaign, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     _field_types = {
-        'ad_account_ids': 'list<string>',
-        'amount': 'string',
-        'amount_due': 'CurrencyAmount',
-        'billed_amount_details': 'BilledAmountDetails',
-        'billing_period': 'string',
-        'cdn_download_uri': 'string',
-        'currency': 'string',
-        'download_uri': 'string',
-        'due_date': 'datetime',
-        'entity': 'string',
+        'accepted_tos': 'bool',
+        'beta_features': 'list<string>',
+        'business_outcomes_status': 'map<string, string>',
         'id': 'string',
-        'invoice_date': 'datetime',
-        'invoice_id': 'string',
-        'invoice_type': 'string',
-        'liability_type': 'string',
-        'payment_status': 'string',
-        'payment_term': 'string',
-        'type': 'string',
+        'is_test_merchant': 'bool',
+        'outcomes_compliance_status': 'map<string, Object>',
+        'qualified_to_onboard': 'bool',
     }
     @classmethod
     def _get_field_enum_info(cls):

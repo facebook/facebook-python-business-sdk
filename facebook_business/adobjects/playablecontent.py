@@ -32,31 +32,33 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class SavedAudience(
+class PlayableContent(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isSavedAudience = True
-        super(SavedAudience, self).__init__(fbid, parent_id, api)
+        self._isPlayableContent = True
+        super(PlayableContent, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        account = 'account'
-        approximate_count_lower_bound = 'approximate_count_lower_bound'
-        approximate_count_upper_bound = 'approximate_count_upper_bound'
-        delete_time = 'delete_time'
-        description = 'description'
-        extra_info = 'extra_info'
         id = 'id'
         name = 'name'
-        operation_status = 'operation_status'
-        page_deletion_marked_delete_time = 'page_deletion_marked_delete_time'
-        permission_for_actions = 'permission_for_actions'
-        run_status = 'run_status'
-        sentence_lines = 'sentence_lines'
-        targeting = 'targeting'
-        time_created = 'time_created'
-        time_updated = 'time_updated'
+        owner = 'owner'
+        app_id = 'app_id'
+        session_id = 'session_id'
+        source = 'source'
+        source_url = 'source_url'
+        source_zip = 'source_zip'
+
+    # @deprecated get_endpoint function is deprecated
+    @classmethod
+    def get_endpoint(cls):
+        return 'adplayables'
+
+    # @deprecated api_create is being deprecated
+    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.adobjects.adaccount import AdAccount
+        return AdAccount(api=self._api, fbid=parent_id).create_ad_playable(fields, params, batch, success, failure, pending)
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -72,7 +74,7 @@ class SavedAudience(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=SavedAudience,
+            target_class=PlayableContent,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -89,22 +91,14 @@ class SavedAudience(
             return request.execute()
 
     _field_types = {
-        'account': 'AdAccount',
-        'approximate_count_lower_bound': 'int',
-        'approximate_count_upper_bound': 'int',
-        'delete_time': 'int',
-        'description': 'string',
-        'extra_info': 'string',
         'id': 'string',
         'name': 'string',
-        'operation_status': 'CustomAudienceStatus',
-        'page_deletion_marked_delete_time': 'int',
-        'permission_for_actions': 'AudiencePermissionForActions',
-        'run_status': 'string',
-        'sentence_lines': 'list',
-        'targeting': 'Targeting',
-        'time_created': 'datetime',
-        'time_updated': 'datetime',
+        'owner': 'Profile',
+        'app_id': 'string',
+        'session_id': 'string',
+        'source': 'file',
+        'source_url': 'string',
+        'source_zip': 'file',
     }
     @classmethod
     def _get_field_enum_info(cls):

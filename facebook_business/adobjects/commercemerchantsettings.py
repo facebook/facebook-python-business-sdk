@@ -43,6 +43,7 @@ class CommerceMerchantSettings(
     class Field(AbstractObject.Field):
         braintree_merchant_id = 'braintree_merchant_id'
         checkout_message = 'checkout_message'
+        commerce_store = 'commerce_store'
         contact_email = 'contact_email'
         cta = 'cta'
         disable_checkout_urls = 'disable_checkout_urls'
@@ -564,6 +565,7 @@ class CommerceMerchantSettings(
     _field_types = {
         'braintree_merchant_id': 'string',
         'checkout_message': 'string',
+        'commerce_store': 'Object',
         'contact_email': 'string',
         'cta': 'string',
         'disable_checkout_urls': 'bool',

@@ -44,6 +44,7 @@ class AdPromotedObject(
         custom_event_type = 'custom_event_type'
         event_id = 'event_id'
         fundraiser_campaign_id = 'fundraiser_campaign_id'
+        mcme_conversion_id = 'mcme_conversion_id'
         object_store_url = 'object_store_url'
         offer_id = 'offer_id'
         offline_conversion_data_set_id = 'offline_conversion_data_set_id'
@@ -94,6 +95,7 @@ class AdPromotedObject(
         'custom_event_type': 'CustomEventType',
         'event_id': 'string',
         'fundraiser_campaign_id': 'string',
+        'mcme_conversion_id': 'string',
         'object_store_url': 'string',
         'offer_id': 'string',
         'offline_conversion_data_set_id': 'string',
