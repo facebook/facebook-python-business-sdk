@@ -92,6 +92,7 @@ class Page(
         global_brand_page_name = 'global_brand_page_name'
         global_brand_root_id = 'global_brand_root_id'
         has_added_app = 'has_added_app'
+        has_transitioned_to_new_page_experience = 'has_transitioned_to_new_page_experience'
         has_whatsapp_business_number = 'has_whatsapp_business_number'
         has_whatsapp_number = 'has_whatsapp_number'
         hometown = 'hometown'
@@ -122,10 +123,12 @@ class Page(
         members = 'members'
         merchant_id = 'merchant_id'
         merchant_review_status = 'merchant_review_status'
+        messaging_feature_status = 'messaging_feature_status'
         messenger_ads_default_icebreakers = 'messenger_ads_default_icebreakers'
         messenger_ads_default_page_welcome_message = 'messenger_ads_default_page_welcome_message'
         messenger_ads_default_quick_replies = 'messenger_ads_default_quick_replies'
         messenger_ads_quick_replies_type = 'messenger_ads_quick_replies_type'
+        mini_shop_storefront = 'mini_shop_storefront'
         mission = 'mission'
         mpg = 'mpg'
         name = 'name'
@@ -276,9 +279,12 @@ class Page(
         profile_plus_advertise = 'PROFILE_PLUS_ADVERTISE'
         profile_plus_analyze = 'PROFILE_PLUS_ANALYZE'
         profile_plus_create_content = 'PROFILE_PLUS_CREATE_CONTENT'
+        profile_plus_facebook_access = 'PROFILE_PLUS_FACEBOOK_ACCESS'
+        profile_plus_full_control = 'PROFILE_PLUS_FULL_CONTROL'
         profile_plus_manage = 'PROFILE_PLUS_MANAGE'
         profile_plus_messaging = 'PROFILE_PLUS_MESSAGING'
         profile_plus_moderate = 'PROFILE_PLUS_MODERATE'
+        profile_plus_revenue = 'PROFILE_PLUS_REVENUE'
         read_page_mailboxes = 'READ_PAGE_MAILBOXES'
         view_monetization_insights = 'VIEW_MONETIZATION_INSIGHTS'
 
@@ -298,57 +304,43 @@ class Page(
         profile_plus_advertise = 'PROFILE_PLUS_ADVERTISE'
         profile_plus_analyze = 'PROFILE_PLUS_ANALYZE'
         profile_plus_create_content = 'PROFILE_PLUS_CREATE_CONTENT'
+        profile_plus_facebook_access = 'PROFILE_PLUS_FACEBOOK_ACCESS'
+        profile_plus_full_control = 'PROFILE_PLUS_FULL_CONTROL'
         profile_plus_manage = 'PROFILE_PLUS_MANAGE'
         profile_plus_messaging = 'PROFILE_PLUS_MESSAGING'
         profile_plus_moderate = 'PROFILE_PLUS_MODERATE'
+        profile_plus_revenue = 'PROFILE_PLUS_REVENUE'
         read_page_mailboxes = 'READ_PAGE_MAILBOXES'
         view_monetization_insights = 'VIEW_MONETIZATION_INSIGHTS'
 
-    class BackdatedTimeGranularity:
-        day = 'day'
-        hour = 'hour'
-        min = 'min'
-        month = 'month'
-        none = 'none'
-        year = 'year'
+    class Alignment:
+        left = 'LEFT'
+        right = 'RIGHT'
 
-    class CheckinEntryPoint:
-        branding_checkin = 'BRANDING_CHECKIN'
-        branding_other = 'BRANDING_OTHER'
-        branding_photo = 'BRANDING_PHOTO'
-        branding_status = 'BRANDING_STATUS'
+    class EntryPointIcon:
+        chat_angular_icon = 'CHAT_ANGULAR_ICON'
+        chat_round_icon = 'CHAT_ROUND_ICON'
+        messenger_icon = 'MESSENGER_ICON'
+        none = 'NONE'
 
-    class Formatting:
-        markdown = 'MARKDOWN'
-        plaintext = 'PLAINTEXT'
+    class EntryPointLabel:
+        ask_us = 'ASK_US'
+        chat = 'CHAT'
+        help = 'HELP'
+        none = 'NONE'
 
-    class PlaceAttachmentSetting:
-        value_1 = '1'
-        value_2 = '2'
+    class GreetingDialogDisplay:
+        hide = 'HIDE'
+        show = 'SHOW'
+        welcome_message = 'WELCOME_MESSAGE'
 
-    class PostSurfacesBlacklist:
-        value_1 = '1'
-        value_2 = '2'
-        value_3 = '3'
-        value_4 = '4'
-        value_5 = '5'
+    class GuestChatMode:
+        disabled = 'DISABLED'
+        enabled = 'ENABLED'
 
-    class PostingToRedspace:
-        disabled = 'disabled'
-        enabled = 'enabled'
-
-    class TargetSurface:
-        story = 'STORY'
-        timeline = 'TIMELINE'
-
-    class UnpublishedContentType:
-        ads_post = 'ADS_POST'
-        draft = 'DRAFT'
-        inline_created = 'INLINE_CREATED'
-        published = 'PUBLISHED'
-        reviewable_branded_content = 'REVIEWABLE_BRANDED_CONTENT'
-        scheduled = 'SCHEDULED'
-        scheduled_recurring = 'SCHEDULED_RECURRING'
+    class MobileChatDisplay:
+        app_switch = 'APP_SWITCH'
+        chat_tab = 'CHAT_TAB'
 
     class PublishStatus:
         draft = 'DRAFT'
@@ -370,6 +362,10 @@ class Page(
         typing_off = 'TYPING_OFF'
         typing_on = 'TYPING_ON'
         unreact = 'UNREACT'
+
+    class Platform:
+        instagram = 'INSTAGRAM'
+        messenger = 'MESSENGER'
 
     class Model:
         arabic = 'ARABIC'
@@ -395,6 +391,10 @@ class Page(
         spanish = 'SPANISH'
         swedish = 'SWEDISH'
         vietnamese = 'VIETNAMESE'
+
+    class DeveloperAction:
+        enable_followup_message = 'ENABLE_FOLLOWUP_MESSAGE'
+        send_re_optin = 'SEND_RE_OPTIN'
 
     class SubscribedFields:
         affiliation = 'affiliation'
@@ -439,6 +439,7 @@ class Page(
         messaging_account_linking = 'messaging_account_linking'
         messaging_appointments = 'messaging_appointments'
         messaging_checkout_updates = 'messaging_checkout_updates'
+        messaging_customer_information = 'messaging_customer_information'
         messaging_direct_sends = 'messaging_direct_sends'
         messaging_fblogin_account_linking = 'messaging_fblogin_account_linking'
         messaging_feedback = 'messaging_feedback'
@@ -992,46 +993,6 @@ class Page(
             self.assure_call()
             return request.execute()
 
-    def delete_business_data(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'email': 'string',
-            'external_id': 'string',
-            'object_name': 'object_name_enum',
-            'order_id': 'string',
-            'order_item_id': 'string',
-        }
-        enums = {
-            'object_name_enum': [
-                'contact',
-                'order',
-                'order_item',
-            ],
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='DELETE',
-            endpoint='/business_data',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def create_business_datum(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -1039,6 +1000,7 @@ class Page(
         param_types = {
             'data': 'list<string>',
             'partner_agent': 'string',
+            'processing_type': 'string',
         }
         enums = {
         }
@@ -1048,9 +1010,9 @@ class Page(
             endpoint='/business_data',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=Page,
+            target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=Page, api=self._api),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1213,6 +1175,7 @@ class Page(
             'is_hidden': 'bool',
             'is_published': 'bool',
             'name': 'string',
+            'source_template_id': 'string',
         }
         enums = {
         }
@@ -1225,6 +1188,85 @@ class Page(
             target_class=Canvas,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=Canvas, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_chat_plugin(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.chatplugin import ChatPlugin
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/chat_plugin',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ChatPlugin,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ChatPlugin, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_chat_plugin(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'alignment': 'alignment_enum',
+            'desktop_bottom_spacing': 'unsigned int',
+            'desktop_side_spacing': 'unsigned int',
+            'entry_point_icon': 'entry_point_icon_enum',
+            'entry_point_label': 'entry_point_label_enum',
+            'greeting_dialog_display': 'greeting_dialog_display_enum',
+            'guest_chat_mode': 'guest_chat_mode_enum',
+            'mobile_bottom_spacing': 'unsigned int',
+            'mobile_chat_display': 'mobile_chat_display_enum',
+            'mobile_side_spacing': 'unsigned int',
+            'theme_color': 'string',
+            'welcome_screen_greeting': 'string',
+        }
+        enums = {
+            'alignment_enum': Page.Alignment.__dict__.values(),
+            'entry_point_icon_enum': Page.EntryPointIcon.__dict__.values(),
+            'entry_point_label_enum': Page.EntryPointLabel.__dict__.values(),
+            'greeting_dialog_display_enum': Page.GreetingDialogDisplay.__dict__.values(),
+            'guest_chat_mode_enum': Page.GuestChatMode.__dict__.values(),
+            'mobile_chat_display_enum': Page.MobileChatDisplay.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/chat_plugin',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Page,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Page, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1442,10 +1484,12 @@ class Page(
         from facebook_business.adobjects.unifiedthread import UnifiedThread
         param_types = {
             'folder': 'string',
+            'platform': 'platform_enum',
             'tags': 'list<string>',
             'user_id': 'string',
         }
         enums = {
+            'platform_enum': UnifiedThread.Platform.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -1490,6 +1534,7 @@ class Page(
                 'REQUEST_TAKEDOWN',
             ],
             'action_reason_enum': [
+                'ARTICLE_17_PREFLAGGING',
                 'ARTIST_OBJECTION',
                 'OBJECTIONABLE_CONTENT',
                 'PREMIUM_MUSIC_VIDEO',
@@ -1625,6 +1670,7 @@ class Page(
         from facebook_business.adobjects.pageusermessagethreadlabel import PageUserMessageThreadLabel
         param_types = {
             'name': 'string',
+            'page_label_name': 'string',
         }
         enums = {
         }
@@ -1951,7 +1997,6 @@ class Page(
             'ref': 'list<string>',
             'referenceable_image_ids': 'list<string>',
             'referral_id': 'string',
-            'sales_promo_id': 'unsigned int',
             'scheduled_publish_time': 'datetime',
             'source': 'string',
             'sponsor_id': 'string',
@@ -1975,14 +2020,52 @@ class Page(
             'width': 'unsigned int',
         }
         enums = {
-            'backdated_time_granularity_enum': Page.BackdatedTimeGranularity.__dict__.values(),
-            'checkin_entry_point_enum': Page.CheckinEntryPoint.__dict__.values(),
-            'formatting_enum': Page.Formatting.__dict__.values(),
-            'place_attachment_setting_enum': Page.PlaceAttachmentSetting.__dict__.values(),
-            'post_surfaces_blacklist_enum': Page.PostSurfacesBlacklist.__dict__.values(),
-            'posting_to_redspace_enum': Page.PostingToRedspace.__dict__.values(),
-            'target_surface_enum': Page.TargetSurface.__dict__.values(),
-            'unpublished_content_type_enum': Page.UnpublishedContentType.__dict__.values(),
+            'backdated_time_granularity_enum': [
+                'day',
+                'hour',
+                'min',
+                'month',
+                'none',
+                'year',
+            ],
+            'checkin_entry_point_enum': [
+                'BRANDING_CHECKIN',
+                'BRANDING_OTHER',
+                'BRANDING_PHOTO',
+                'BRANDING_STATUS',
+            ],
+            'formatting_enum': [
+                'MARKDOWN',
+                'PLAINTEXT',
+            ],
+            'place_attachment_setting_enum': [
+                '1',
+                '2',
+            ],
+            'post_surfaces_blacklist_enum': [
+                '1',
+                '2',
+                '3',
+                '4',
+                '5',
+            ],
+            'posting_to_redspace_enum': [
+                'disabled',
+                'enabled',
+            ],
+            'target_surface_enum': [
+                'STORY',
+                'TIMELINE',
+            ],
+            'unpublished_content_type_enum': [
+                'ADS_POST',
+                'DRAFT',
+                'INLINE_CREATED',
+                'PUBLISHED',
+                'REVIEWABLE_BRANDED_CONTENT',
+                'SCHEDULED',
+                'SCHEDULED_RECURRING',
+            ],
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -1990,9 +2073,9 @@ class Page(
             endpoint='/feed',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=Page,
+            target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=Page, api=self._api),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2023,6 +2106,39 @@ class Page(
             target_class=Page,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=Page, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_groups(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.group import Group
+        param_types = {
+            'admin_only': 'bool',
+            'parent': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/groups',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Group,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Group, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2350,6 +2466,41 @@ class Page(
             self.assure_call()
             return request.execute()
 
+    def get_instant_articles_stats(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.instantarticlesstats import InstantArticlesStats
+        param_types = {
+            'metrics_list': 'list<map>',
+            'page_list': 'list<string>',
+            'since': 'datetime',
+            'until': 'datetime',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/instant_articles_stats',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=InstantArticlesStats,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=InstantArticlesStats, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_lead_gen_forms(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -2459,73 +2610,6 @@ class Page(
             self.assure_call()
             return request.execute()
 
-    def get_live_encoders(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.liveencoder import LiveEncoder
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/live_encoders',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=LiveEncoder,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=LiveEncoder, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_live_encoder(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.liveencoder import LiveEncoder
-        param_types = {
-            'brand': 'string',
-            'device_id': 'string',
-            'model': 'string',
-            'name': 'string',
-            'version': 'string',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/live_encoders',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=LiveEncoder,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=LiveEncoder, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def get_live_videos(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -2578,7 +2662,6 @@ class Page(
             'game_show': 'map',
             'is_audio_only': 'bool',
             'is_spherical': 'bool',
-            'live_encoders': 'list<string>',
             'original_fov': 'unsigned int',
             'planned_start_time': 'int',
             'privacy': 'string',
@@ -2844,6 +2927,7 @@ class Page(
             'message': 'Object',
             'messaging_type': 'messaging_type_enum',
             'notification_type': 'notification_type_enum',
+            'payload': 'string',
             'persona_id': 'string',
             'recipient': 'Object',
             'sender_action': 'sender_action_enum',
@@ -2913,6 +2997,7 @@ class Page(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'fields': 'list<fields_enum>',
+            'platform': 'platform_enum',
         }
         enums = {
             'fields_enum': [
@@ -2928,6 +3013,7 @@ class Page(
                 'TARGET_AUDIENCE',
                 'WHITELISTED_DOMAINS',
             ],
+            'platform_enum': Page.Platform.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -2957,8 +3043,10 @@ class Page(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.messengerprofile import MessengerProfile
         param_types = {
+            'platform': 'platform_enum',
         }
         enums = {
+            'platform_enum': Page.Platform.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -2993,10 +3081,12 @@ class Page(
             'ice_breakers': 'list<map>',
             'payment_settings': 'Object',
             'persistent_menu': 'list<Object>',
+            'platform': 'platform_enum',
             'target_audience': 'Object',
             'whitelisted_domains': 'list<string>',
         }
         enums = {
+            'platform_enum': Page.Platform.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -3125,6 +3215,39 @@ class Page(
             node_id=self['id'],
             method='POST',
             endpoint='/nlp_configs',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Page,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Page, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_notification_messages_dev_support(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'developer_action': 'developer_action_enum',
+            'recipient': 'Object',
+        }
+        enums = {
+            'developer_action_enum': Page.DeveloperAction.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/notification_messages_dev_support',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
             target_class=Page,
@@ -3430,7 +3553,6 @@ class Page(
             'ios_bundle_id': 'string',
             'is_explicit_location': 'bool',
             'is_explicit_place': 'bool',
-            'is_visual_search': 'bool',
             'location_source_id': 'string',
             'manual_privacy': 'bool',
             'message': 'string',
@@ -3540,6 +3662,7 @@ class Page(
             'burn_media_effect': 'bool',
             'caption': 'string',
             'composer_session_id': 'string',
+            'frame_entrypoint': 'string',
             'has_umg': 'bool',
             'height': 'unsigned int',
             'ios_bundle_id': 'string',
@@ -3660,10 +3783,13 @@ class Page(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.pagepost import PagePost
         param_types = {
-            'since': 'datetime',
-            'until': 'datetime',
+            'include_hidden': 'bool',
+            'limit': 'unsigned int',
+            'show_expired': 'bool',
+            'with': 'with_enum',
         }
         enums = {
+            'with_enum': PagePost.With.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -3882,8 +4008,10 @@ class Page(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.application import Application
         param_types = {
+            'platform': 'platform_enum',
         }
         enums = {
+            'platform_enum': Application.Platform.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -4321,36 +4449,6 @@ class Page(
             self.assure_call()
             return request.execute()
 
-    def get_tours(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/tours',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def create_unlink_account(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -4420,7 +4518,6 @@ class Page(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.videocopyrightrule import VideoCopyrightRule
         param_types = {
             'condition_groups': 'list<Object>',
             'name': 'string',
@@ -4433,9 +4530,9 @@ class Page(
             endpoint='/video_copyright_rules',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=VideoCopyrightRule,
+            target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=VideoCopyrightRule, api=self._api),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -4453,7 +4550,6 @@ class Page(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.videocopyright import VideoCopyright
         param_types = {
             'attribution_id': 'string',
             'content_category': 'content_category_enum',
@@ -4470,8 +4566,16 @@ class Page(
             'whitelisted_ig_user_ids': 'list<string>',
         }
         enums = {
-            'content_category_enum': VideoCopyright.ContentCategory.__dict__.values(),
-            'monitoring_type_enum': VideoCopyright.MonitoringType.__dict__.values(),
+            'content_category_enum': [
+                'episode',
+                'movie',
+                'web',
+            ],
+            'monitoring_type_enum': [
+                'AUDIO_ONLY',
+                'VIDEO_AND_AUDIO',
+                'VIDEO_ONLY',
+            ],
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -4479,9 +4583,9 @@ class Page(
             endpoint='/video_copyrights',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=VideoCopyright,
+            target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=VideoCopyright, api=self._api),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -4630,7 +4734,6 @@ class Page(
             'reference_only': 'bool',
             'referenced_sticker_id': 'string',
             'replace_video_id': 'string',
-            'sales_promo_id': 'unsigned int',
             'scheduled_publish_time': 'unsigned int',
             'secret': 'bool',
             'slideshow_spec': 'map',
@@ -4776,6 +4879,7 @@ class Page(
         'global_brand_page_name': 'string',
         'global_brand_root_id': 'string',
         'has_added_app': 'bool',
+        'has_transitioned_to_new_page_experience': 'bool',
         'has_whatsapp_business_number': 'bool',
         'has_whatsapp_number': 'bool',
         'hometown': 'string',
@@ -4806,10 +4910,12 @@ class Page(
         'members': 'string',
         'merchant_id': 'string',
         'merchant_review_status': 'string',
+        'messaging_feature_status': 'MessagingFeatureStatus',
         'messenger_ads_default_icebreakers': 'list<string>',
         'messenger_ads_default_page_welcome_message': 'MessengerDestinationPageWelcomeMessage',
         'messenger_ads_default_quick_replies': 'list<string>',
         'messenger_ads_quick_replies_type': 'string',
+        'mini_shop_storefront': 'Shop',
         'mission': 'string',
         'mpg': 'string',
         'name': 'string',
@@ -4878,19 +4984,19 @@ class Page(
         field_enum_info['TemporaryStatus'] = Page.TemporaryStatus.__dict__.values()
         field_enum_info['PermittedTasks'] = Page.PermittedTasks.__dict__.values()
         field_enum_info['Tasks'] = Page.Tasks.__dict__.values()
-        field_enum_info['BackdatedTimeGranularity'] = Page.BackdatedTimeGranularity.__dict__.values()
-        field_enum_info['CheckinEntryPoint'] = Page.CheckinEntryPoint.__dict__.values()
-        field_enum_info['Formatting'] = Page.Formatting.__dict__.values()
-        field_enum_info['PlaceAttachmentSetting'] = Page.PlaceAttachmentSetting.__dict__.values()
-        field_enum_info['PostSurfacesBlacklist'] = Page.PostSurfacesBlacklist.__dict__.values()
-        field_enum_info['PostingToRedspace'] = Page.PostingToRedspace.__dict__.values()
-        field_enum_info['TargetSurface'] = Page.TargetSurface.__dict__.values()
-        field_enum_info['UnpublishedContentType'] = Page.UnpublishedContentType.__dict__.values()
+        field_enum_info['Alignment'] = Page.Alignment.__dict__.values()
+        field_enum_info['EntryPointIcon'] = Page.EntryPointIcon.__dict__.values()
+        field_enum_info['EntryPointLabel'] = Page.EntryPointLabel.__dict__.values()
+        field_enum_info['GreetingDialogDisplay'] = Page.GreetingDialogDisplay.__dict__.values()
+        field_enum_info['GuestChatMode'] = Page.GuestChatMode.__dict__.values()
+        field_enum_info['MobileChatDisplay'] = Page.MobileChatDisplay.__dict__.values()
         field_enum_info['PublishStatus'] = Page.PublishStatus.__dict__.values()
         field_enum_info['MessagingType'] = Page.MessagingType.__dict__.values()
         field_enum_info['NotificationType'] = Page.NotificationType.__dict__.values()
         field_enum_info['SenderAction'] = Page.SenderAction.__dict__.values()
+        field_enum_info['Platform'] = Page.Platform.__dict__.values()
         field_enum_info['Model'] = Page.Model.__dict__.values()
+        field_enum_info['DeveloperAction'] = Page.DeveloperAction.__dict__.values()
         field_enum_info['SubscribedFields'] = Page.SubscribedFields.__dict__.values()
         return field_enum_info
 

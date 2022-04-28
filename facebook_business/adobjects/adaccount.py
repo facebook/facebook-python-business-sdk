@@ -68,11 +68,13 @@ class AdAccount(
         disable_reason = 'disable_reason'
         end_advertiser = 'end_advertiser'
         end_advertiser_name = 'end_advertiser_name'
+        existing_customers = 'existing_customers'
         extended_credit_invoice_group = 'extended_credit_invoice_group'
         failed_delivery_checks = 'failed_delivery_checks'
         fb_entity = 'fb_entity'
         funding_source = 'funding_source'
         funding_source_details = 'funding_source_details'
+        has_advertiser_opted_in_odax = 'has_advertiser_opted_in_odax'
         has_migrated_permissions = 'has_migrated_permissions'
         has_page_authorized_adaccount = 'has_page_authorized_adaccount'
         id = 'id'
@@ -80,7 +82,6 @@ class AdAccount(
         is_attribution_spec_system_default = 'is_attribution_spec_system_default'
         is_direct_deals_enabled = 'is_direct_deals_enabled'
         is_in_3ds_authorization_enabled_market = 'is_in_3ds_authorization_enabled_market'
-        is_in_middle_of_local_entity_migration = 'is_in_middle_of_local_entity_migration'
         is_notifications_enabled = 'is_notifications_enabled'
         is_personal = 'is_personal'
         is_prepay_account = 'is_prepay_account'
@@ -150,7 +151,6 @@ class AdAccount(
         pyg = 'PYG'
         qar = 'QAR'
         ron = 'RON'
-        rub = 'RUB'
         sar = 'SAR'
         sek = 'SEK'
         sgd = 'SGD'
@@ -163,13 +163,8 @@ class AdAccount(
         vnd = 'VND'
         zar = 'ZAR'
 
-    class PermittedTasks:
-        advertise = 'ADVERTISE'
-        analyze = 'ANALYZE'
-        draft = 'DRAFT'
-        manage = 'MANAGE'
-
     class Tasks:
+        aa_analyze = 'AA_ANALYZE'
         advertise = 'ADVERTISE'
         analyze = 'ANALYZE'
         draft = 'DRAFT'
@@ -191,6 +186,7 @@ class AdAccount(
         flight = 'FLIGHT'
         home_listing = 'HOME_LISTING'
         hotel = 'HOTEL'
+        job = 'JOB'
         local_service_business = 'LOCAL_SERVICE_BUSINESS'
         location_based_item = 'LOCATION_BASED_ITEM'
         media_title = 'MEDIA_TITLE'
@@ -261,9 +257,11 @@ class AdAccount(
             'business_info': 'map',
             'currency': 'currency_enum',
             'end_advertiser': 'string',
+            'existing_customers': 'list<string>',
             'is_notifications_enabled': 'bool',
             'media_agency': 'string',
             'name': 'string',
+            'odax_opt_in': 'bool',
             'partner': 'string',
             'spend_cap': 'float',
             'spend_cap_action': 'string',
@@ -376,14 +374,12 @@ class AdAccount(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.adplacepageset import AdPlacePageSet
         param_types = {
-            'category': 'category_enum',
             'location_types': 'list<location_types_enum>',
             'name': 'string',
             'parent_page': 'string',
             'targeted_area_type': 'targeted_area_type_enum',
         }
         enums = {
-            'category_enum': AdPlacePageSet.Category.__dict__.values(),
             'location_types_enum': AdPlacePageSet.LocationTypes.__dict__.values(),
             'targeted_area_type_enum': AdPlacePageSet.TargetedAreaType.__dict__.values(),
         }
@@ -415,14 +411,12 @@ class AdAccount(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.adplacepageset import AdPlacePageSet
         param_types = {
-            'category': 'category_enum',
             'location_types': 'list<location_types_enum>',
             'name': 'string',
             'parent_page': 'string',
             'targeted_area_type': 'targeted_area_type_enum',
         }
         enums = {
-            'category_enum': AdPlacePageSet.Category.__dict__.values(),
             'location_types_enum': AdPlacePageSet.LocationTypes.__dict__.values(),
             'targeted_area_type_enum': AdPlacePageSet.TargetedAreaType.__dict__.values(),
         }
@@ -466,6 +460,37 @@ class AdAccount(
             target_class=AdStudy,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=AdStudy, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_ad_cloud_playables(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.cloudgame import CloudGame
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/adcloudplayables',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=CloudGame,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=CloudGame, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -549,6 +574,7 @@ class AdAccount(
             'object_story_spec': 'AdCreativeObjectStorySpec',
             'object_type': 'string',
             'object_url': 'string',
+            'omnichannel_link_spec': 'map',
             'place_page_set_id': 'string',
             'platform_customizations': 'Object',
             'playable_asset_id': 'string',
@@ -940,9 +966,11 @@ class AdAccount(
             'name': 'string',
             'schedule_spec': 'Object',
             'status': 'status_enum',
+            'ui_creation_source': 'ui_creation_source_enum',
         }
         enums = {
             'status_enum': AdRule.Status.__dict__.values(),
+            'ui_creation_source_enum': AdRule.UiCreationSource.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -1164,7 +1192,6 @@ class AdAccount(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.adset import AdSet
         param_types = {
             'adlabels': 'list<Object>',
             'adset_schedule': 'list<Object>',
@@ -1185,6 +1212,7 @@ class AdAccount(
             'destination_type': 'destination_type_enum',
             'end_time': 'datetime',
             'execution_options': 'list<execution_options_enum>',
+            'existing_customer_budget_percentage': 'unsigned int',
             'frequency_control_specs': 'list<Object>',
             'full_funnel_exploration_mode': 'full_funnel_exploration_mode_enum',
             'is_dynamic_creative': 'bool',
@@ -1214,16 +1242,97 @@ class AdAccount(
             'upstream_events': 'map',
         }
         enums = {
-            'bid_strategy_enum': AdSet.BidStrategy.__dict__.values(),
-            'billing_event_enum': AdSet.BillingEvent.__dict__.values(),
-            'destination_type_enum': AdSet.DestinationType.__dict__.values(),
-            'execution_options_enum': AdSet.ExecutionOptions.__dict__.values(),
-            'full_funnel_exploration_mode_enum': AdSet.FullFunnelExplorationMode.__dict__.values(),
-            'multi_optimization_goal_weight_enum': AdSet.MultiOptimizationGoalWeight.__dict__.values(),
-            'optimization_goal_enum': AdSet.OptimizationGoal.__dict__.values(),
-            'optimization_sub_event_enum': AdSet.OptimizationSubEvent.__dict__.values(),
-            'status_enum': AdSet.Status.__dict__.values(),
-            'tune_for_category_enum': AdSet.TuneForCategory.__dict__.values(),
+            'bid_strategy_enum': [
+                'COST_CAP',
+                'LOWEST_COST_WITHOUT_CAP',
+                'LOWEST_COST_WITH_BID_CAP',
+            ],
+            'billing_event_enum': [
+                'APP_INSTALLS',
+                'CLICKS',
+                'IMPRESSIONS',
+                'LINK_CLICKS',
+                'LISTING_INTERACTION',
+                'NONE',
+                'OFFER_CLAIMS',
+                'PAGE_LIKES',
+                'POST_ENGAGEMENT',
+                'PURCHASE',
+                'THRUPLAY',
+            ],
+            'destination_type_enum': [
+                'APP',
+                'APPLINKS_AUTOMATIC',
+                'FACEBOOK',
+                'MESSENGER',
+                'UNDEFINED',
+                'WEBSITE',
+            ],
+            'execution_options_enum': [
+                'include_recommendations',
+                'validate_only',
+            ],
+            'full_funnel_exploration_mode_enum': [
+                'EXTENDED_EXPLORATION',
+                'LIMITED_EXPLORATION',
+                'NONE_EXPLORATION',
+            ],
+            'multi_optimization_goal_weight_enum': [
+                'BALANCED',
+                'PREFER_EVENT',
+                'PREFER_INSTALL',
+                'UNDEFINED',
+            ],
+            'optimization_goal_enum': [
+                'AD_RECALL_LIFT',
+                'APP_INSTALLS',
+                'APP_INSTALLS_AND_OFFSITE_CONVERSIONS',
+                'CONVERSATIONS',
+                'DERIVED_EVENTS',
+                'ENGAGED_USERS',
+                'EVENT_RESPONSES',
+                'IMPRESSIONS',
+                'IN_APP_VALUE',
+                'LANDING_PAGE_VIEWS',
+                'LEAD_GENERATION',
+                'LINK_CLICKS',
+                'NONE',
+                'OFFSITE_CONVERSIONS',
+                'PAGE_LIKES',
+                'POST_ENGAGEMENT',
+                'QUALITY_CALL',
+                'QUALITY_LEAD',
+                'REACH',
+                'THRUPLAY',
+                'VALUE',
+                'VISIT_INSTAGRAM_PROFILE',
+            ],
+            'optimization_sub_event_enum': [
+                'NONE',
+                'TRAVEL_INTENT',
+                'TRAVEL_INTENT_BUCKET_01',
+                'TRAVEL_INTENT_BUCKET_02',
+                'TRAVEL_INTENT_BUCKET_03',
+                'TRAVEL_INTENT_BUCKET_04',
+                'TRAVEL_INTENT_BUCKET_05',
+                'TRAVEL_INTENT_NO_DESTINATION_INTENT',
+                'TRIP_CONSIDERATION',
+                'VIDEO_SOUND_ON',
+            ],
+            'status_enum': [
+                'ACTIVE',
+                'ARCHIVED',
+                'DELETED',
+                'PAUSED',
+            ],
+            'tune_for_category_enum': [
+                'CREDIT',
+                'EMPLOYMENT',
+                'HOUSING',
+                'ISSUES_ELECTIONS_POLITICS',
+                'NONE',
+                'ONLINE_GAMBLING_AND_GAMING',
+            ],
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -1231,9 +1340,9 @@ class AdAccount(
             endpoint='/adsets',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AdSet,
+            target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdSet, api=self._api),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1318,7 +1427,6 @@ class AdAccount(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.adspixel import AdsPixel
         param_types = {
             'name': 'string',
         }
@@ -1330,9 +1438,9 @@ class AdAccount(
             endpoint='/adspixels',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AdsPixel,
+            target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdsPixel, api=self._api),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1508,7 +1616,6 @@ class AdAccount(
             'react_mode_metadata': 'string',
             'referenced_sticker_id': 'string',
             'replace_video_id': 'string',
-            'sales_promo_id': 'unsigned int',
             'slideshow_spec': 'map',
             'source': 'file',
             'source_instagram_media_id': 'string',
@@ -1642,39 +1749,6 @@ class AdAccount(
             target_class=Business,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=Business, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_agency(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'business': 'string',
-            'permitted_tasks': 'list<permitted_tasks_enum>',
-        }
-        enums = {
-            'permitted_tasks_enum': AdAccount.PermittedTasks.__dict__.values(),
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/agencies',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AdAccount,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdAccount, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1951,38 +2025,6 @@ class AdAccount(
             self.assure_call()
             return request.execute()
 
-    def create_audience_replace(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'payload': 'Object',
-            'session': 'Object',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/audiencereplace',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def create_block_list_draft(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -2145,7 +2187,9 @@ class AdAccount(
             'special_ad_categories': 'list<special_ad_categories_enum>',
             'special_ad_category_country': 'list<special_ad_category_country_enum>',
             'spend_cap': 'unsigned int',
+            'start_time': 'datetime',
             'status': 'status_enum',
+            'stop_time': 'datetime',
             'topline_id': 'string',
             'upstream_events': 'map',
         }
@@ -2372,8 +2416,6 @@ class AdAccount(
             'event_sources': 'list<map>',
             'exclusions': 'list<Object>',
             'inclusions': 'list<Object>',
-            'is_household': 'bool',
-            'is_household_exclusion': 'bool',
             'is_snapshot': 'bool',
             'is_value_based': 'bool',
             'list_of_accounts': 'list<unsigned int>',
@@ -2391,9 +2433,7 @@ class AdAccount(
             'rev_share_policy_id': 'unsigned int',
             'rule': 'string',
             'rule_aggregation': 'string',
-            'seed_audience': 'unsigned int',
             'subtype': 'subtype_enum',
-            'tags': 'list<string>',
             'video_group_ids': 'list<string>',
         }
         enums = {
@@ -2860,6 +2900,93 @@ class AdAccount(
             self.assure_call()
             return request.execute()
 
+    def get_ios_fourteen_campaign_limits(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.adaccountiosfourteencampaignlimits import AdAccountIosFourteenCampaignLimits
+        param_types = {
+            'app_id': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/ios_fourteen_campaign_limits',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdAccountIosFourteenCampaignLimits,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdAccountIosFourteenCampaignLimits, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_managed_partner_ad(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'campaign_group_id': 'unsigned int',
+            'campaign_group_status': 'campaign_group_status_enum',
+            'conversion_domain': 'string',
+            'end_time': 'unsigned int',
+            'lifetime_budget': 'unsigned int',
+            'override_creative_text': 'string',
+            'override_targeting_countries': 'list<string>',
+            'product_set_id': 'string',
+            'start_time': 'unsigned int',
+            'use_marketplace_template': 'bool',
+            'use_seller_template': 'bool',
+        }
+        enums = {
+            'campaign_group_status_enum': [
+                'ACTIVE',
+                'ADSET_PAUSED',
+                'ARCHIVED',
+                'CAMPAIGN_PAUSED',
+                'DELETED',
+                'DISAPPROVED',
+                'IN_PROCESS',
+                'PAUSED',
+                'PENDING_BILLING_INFO',
+                'PENDING_REVIEW',
+                'PREAPPROVED',
+                'WITH_ISSUES',
+            ],
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/managed_partner_ads',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_matched_search_applications(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -3043,8 +3170,6 @@ class AdAccount(
             'event_sources': 'list<map>',
             'exclusions': 'list<Object>',
             'inclusions': 'list<Object>',
-            'is_household': 'bool',
-            'is_household_exclusion': 'bool',
             'is_snapshot': 'bool',
             'is_value_based': 'bool',
             'name': 'string',
@@ -3052,9 +3177,7 @@ class AdAccount(
             'parent_audience_id': 'unsigned int',
             'product_set_id': 'string',
             'rev_share_policy_id': 'unsigned int',
-            'seed_audience': 'unsigned int',
             'subtype': 'subtype_enum',
-            'tags': 'list<string>',
         }
         enums = {
             'claim_objective_enum': AdAccount.ClaimObjective.__dict__.values(),
@@ -3867,11 +3990,13 @@ class AdAccount(
         'disable_reason': 'unsigned int',
         'end_advertiser': 'string',
         'end_advertiser_name': 'string',
+        'existing_customers': 'list<string>',
         'extended_credit_invoice_group': 'ExtendedCreditInvoiceGroup',
         'failed_delivery_checks': 'list<DeliveryCheck>',
         'fb_entity': 'unsigned int',
         'funding_source': 'string',
         'funding_source_details': 'FundingSourceDetails',
+        'has_advertiser_opted_in_odax': 'bool',
         'has_migrated_permissions': 'bool',
         'has_page_authorized_adaccount': 'bool',
         'id': 'string',
@@ -3879,7 +4004,6 @@ class AdAccount(
         'is_attribution_spec_system_default': 'bool',
         'is_direct_deals_enabled': 'bool',
         'is_in_3ds_authorization_enabled_market': 'bool',
-        'is_in_middle_of_local_entity_migration': 'bool',
         'is_notifications_enabled': 'bool',
         'is_personal': 'unsigned int',
         'is_prepay_account': 'bool',
@@ -3909,7 +4033,6 @@ class AdAccount(
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['Currency'] = AdAccount.Currency.__dict__.values()
-        field_enum_info['PermittedTasks'] = AdAccount.PermittedTasks.__dict__.values()
         field_enum_info['Tasks'] = AdAccount.Tasks.__dict__.values()
         field_enum_info['ClaimObjective'] = AdAccount.ClaimObjective.__dict__.values()
         field_enum_info['ContentType'] = AdAccount.ContentType.__dict__.values()

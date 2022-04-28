@@ -46,13 +46,6 @@ class ProductFeedRule(
         params = 'params'
         rule_type = 'rule_type'
 
-    class RuleType:
-        fallback_rule = 'fallback_rule'
-        letter_case_rule = 'letter_case_rule'
-        mapping_rule = 'mapping_rule'
-        regex_replace_rule = 'regex_replace_rule'
-        value_mapping_rule = 'value_mapping_rule'
-
     def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -153,7 +146,6 @@ class ProductFeedRule(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['RuleType'] = ProductFeedRule.RuleType.__dict__.values()
         return field_enum_info
 
 

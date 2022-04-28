@@ -41,7 +41,9 @@ class WhatsAppBusinessAccount(
         super(WhatsAppBusinessAccount, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        account_review_status = 'account_review_status'
         analytics = 'analytics'
+        creation_time = 'creation_time'
         currency = 'currency'
         id = 'id'
         message_template_namespace = 'message_template_namespace'
@@ -58,6 +60,7 @@ class WhatsAppBusinessAccount(
         manage = 'MANAGE'
         manage_phone = 'MANAGE_PHONE'
         manage_templates = 'MANAGE_TEMPLATES'
+        messaging = 'MESSAGING'
         view_cost = 'VIEW_COST'
 
     class Category:
@@ -66,6 +69,7 @@ class WhatsAppBusinessAccount(
         appointment_update = 'APPOINTMENT_UPDATE'
         auto_reply = 'AUTO_REPLY'
         issue_resolution = 'ISSUE_RESOLUTION'
+        otp = 'OTP'
         payment_update = 'PAYMENT_UPDATE'
         personal_finance_update = 'PERSONAL_FINANCE_UPDATE'
         reservation_update = 'RESERVATION_UPDATE'
@@ -186,6 +190,73 @@ class WhatsAppBusinessAccount(
             target_class=WhatsAppBusinessAccount,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=WhatsAppBusinessAccount, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_conversation_analytics(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'conversation_directions': 'list<conversation_directions_enum>',
+            'conversation_types': 'list<conversation_types_enum>',
+            'country_codes': 'list<string>',
+            'dimensions': 'list<dimensions_enum>',
+            'end': 'unsigned int',
+            'granularity': 'granularity_enum',
+            'metric_types': 'list<metric_types_enum>',
+            'phone_numbers': 'list<string>',
+            'start': 'unsigned int',
+        }
+        enums = {
+            'conversation_directions_enum': [
+                'BUSINESS_INITIATED',
+                'UNKNOWN',
+                'USER_INITIATED',
+            ],
+            'conversation_types_enum': [
+                'FREE_ENTRY_POINT',
+                'FREE_TIER',
+                'REGULAR',
+                'UNKNOWN',
+            ],
+            'dimensions_enum': [
+                'CONVERSATION_DIRECTION',
+                'CONVERSATION_TYPE',
+                'COUNTRY',
+                'PHONE',
+                'UNKNOWN',
+            ],
+            'granularity_enum': [
+                'DAILY',
+                'HALF_HOUR',
+                'MONTHLY',
+            ],
+            'metric_types_enum': [
+                'CONVERSATION',
+                'COST',
+                'UNKNOWN',
+            ],
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/conversation_analytics',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -341,6 +412,133 @@ class WhatsAppBusinessAccount(
             self.assure_call()
             return request.execute()
 
+    def create_phone_number(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'cc': 'string',
+            'migrate_phone_number': 'bool',
+            'phone_number': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/phone_numbers',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def delete_product_catalogs(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'catalog_id': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='DELETE',
+            endpoint='/product_catalogs',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_product_catalogs(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.productcatalog import ProductCatalog
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/product_catalogs',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ProductCatalog,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ProductCatalog, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_product_catalog(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.productcatalog import ProductCatalog
+        param_types = {
+            'catalog_id': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/product_catalogs',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ProductCatalog,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ProductCatalog, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def delete_subscribed_apps(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -432,7 +630,9 @@ class WhatsAppBusinessAccount(
             return request.execute()
 
     _field_types = {
+        'account_review_status': 'string',
         'analytics': 'Object',
+        'creation_time': 'int',
         'currency': 'string',
         'id': 'string',
         'message_template_namespace': 'string',

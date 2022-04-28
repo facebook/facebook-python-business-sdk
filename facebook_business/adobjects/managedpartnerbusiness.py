@@ -28,34 +28,32 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AudienceInsightsStudySpec(
+class ManagedPartnerBusiness(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(AudienceInsightsStudySpec, self).__init__()
-        self._isAudienceInsightsStudySpec = True
+        super(ManagedPartnerBusiness, self).__init__()
+        self._isManagedPartnerBusiness = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        audience_definition = 'audience_definition'
-        author_info = 'author_info'
-        creation_time = 'creation_time'
-        end_time = 'end_time'
-        excluded_rules = 'excluded_rules'
-        included_rules = 'included_rules'
-        start_time = 'start_time'
-        status = 'status'
+        ad_account = 'ad_account'
+        catalog_segment = 'catalog_segment'
+        extended_credit = 'extended_credit'
+        page = 'page'
+        seller_business_info = 'seller_business_info'
+        seller_business_status = 'seller_business_status'
+        template = 'template'
 
     _field_types = {
-        'audience_definition': 'Object',
-        'author_info': 'Object',
-        'creation_time': 'int',
-        'end_time': 'int',
-        'excluded_rules': 'list<Object>',
-        'included_rules': 'list<Object>',
-        'start_time': 'int',
-        'status': 'string',
+        'ad_account': 'AdAccount',
+        'catalog_segment': 'ProductCatalog',
+        'extended_credit': 'ExtendedCredit',
+        'page': 'Page',
+        'seller_business_info': 'Object',
+        'seller_business_status': 'string',
+        'template': 'list<Object>',
     }
     @classmethod
     def _get_field_enum_info(cls):

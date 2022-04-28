@@ -32,37 +32,72 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class OracleTransaction(
+class LocalServiceBusiness(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isOracleTransaction = True
-        super(OracleTransaction, self).__init__(fbid, parent_id, api)
+        self._isLocalServiceBusiness = True
+        super(LocalServiceBusiness, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        ad_account_ids = 'ad_account_ids'
-        amount = 'amount'
-        amount_due = 'amount_due'
-        billed_amount_details = 'billed_amount_details'
-        billing_period = 'billing_period'
-        cdn_download_uri = 'cdn_download_uri'
+        address = 'address'
+        applinks = 'applinks'
+        availability = 'availability'
+        brand = 'brand'
+        category = 'category'
+        category_specific_fields = 'category_specific_fields'
+        condition = 'condition'
+        cuisine_type = 'cuisine_type'
         currency = 'currency'
-        download_uri = 'download_uri'
-        due_date = 'due_date'
-        entity = 'entity'
+        custom_label_0 = 'custom_label_0'
+        custom_label_1 = 'custom_label_1'
+        custom_label_2 = 'custom_label_2'
+        custom_label_3 = 'custom_label_3'
+        custom_label_4 = 'custom_label_4'
+        description = 'description'
+        expiration_date = 'expiration_date'
+        gtin = 'gtin'
         id = 'id'
-        invoice_date = 'invoice_date'
-        invoice_id = 'invoice_id'
-        invoice_type = 'invoice_type'
-        liability_type = 'liability_type'
-        payment_status = 'payment_status'
-        payment_term = 'payment_term'
-        type = 'type'
+        image_fetch_status = 'image_fetch_status'
+        images = 'images'
+        local_service_business_id = 'local_service_business_id'
+        phone = 'phone'
+        price = 'price'
+        price_range = 'price_range'
+        retailer_category = 'retailer_category'
+        sanitized_images = 'sanitized_images'
+        size = 'size'
+        title = 'title'
+        unit_price = 'unit_price'
+        url = 'url'
+        vendor_id = 'vendor_id'
 
-    class Type:
-        cm = 'CM'
-        inv = 'INV'
+    class Availability:
+        available_for_order = 'AVAILABLE_FOR_ORDER'
+        discontinued = 'DISCONTINUED'
+        in_stock = 'IN_STOCK'
+        out_of_stock = 'OUT_OF_STOCK'
+        pending = 'PENDING'
+        preorder = 'PREORDER'
+
+    class Condition:
+        pc_cpo = 'PC_CPO'
+        pc_new = 'PC_NEW'
+        pc_open_box_new = 'PC_OPEN_BOX_NEW'
+        pc_refurbished = 'PC_REFURBISHED'
+        pc_used = 'PC_USED'
+        pc_used_fair = 'PC_USED_FAIR'
+        pc_used_good = 'PC_USED_GOOD'
+        pc_used_like_new = 'PC_USED_LIKE_NEW'
+
+    class ImageFetchStatus:
+        direct_upload = 'DIRECT_UPLOAD'
+        fetched = 'FETCHED'
+        fetch_failed = 'FETCH_FAILED'
+        no_status = 'NO_STATUS'
+        outdated = 'OUTDATED'
+        partial_fetch = 'PARTIAL_FETCH'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -78,7 +113,7 @@ class OracleTransaction(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=OracleTransaction,
+            target_class=LocalServiceBusiness,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -94,11 +129,11 @@ class OracleTransaction(
             self.assure_call()
             return request.execute()
 
-    def get_campaigns(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def get_channels_to_integrity_status(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.invoicecampaign import InvoiceCampaign
+        from facebook_business.adobjects.catalogitemchannelstointegritystatus import CatalogItemChannelsToIntegrityStatus
         param_types = {
         }
         enums = {
@@ -106,12 +141,12 @@ class OracleTransaction(
         request = FacebookRequest(
             node_id=self['id'],
             method='GET',
-            endpoint='/campaigns',
+            endpoint='/channels_to_integrity_status',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=InvoiceCampaign,
+            target_class=CatalogItemChannelsToIntegrityStatus,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=InvoiceCampaign, api=self._api),
+            response_parser=ObjectParser(target_class=CatalogItemChannelsToIntegrityStatus, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -126,29 +161,44 @@ class OracleTransaction(
             return request.execute()
 
     _field_types = {
-        'ad_account_ids': 'list<string>',
-        'amount': 'string',
-        'amount_due': 'CurrencyAmount',
-        'billed_amount_details': 'BilledAmountDetails',
-        'billing_period': 'string',
-        'cdn_download_uri': 'string',
+        'address': 'Object',
+        'applinks': 'CatalogItemAppLinks',
+        'availability': 'Availability',
+        'brand': 'string',
+        'category': 'string',
+        'category_specific_fields': 'CatalogSubVerticalList',
+        'condition': 'Condition',
+        'cuisine_type': 'string',
         'currency': 'string',
-        'download_uri': 'string',
-        'due_date': 'datetime',
-        'entity': 'string',
+        'custom_label_0': 'string',
+        'custom_label_1': 'string',
+        'custom_label_2': 'string',
+        'custom_label_3': 'string',
+        'custom_label_4': 'string',
+        'description': 'string',
+        'expiration_date': 'string',
+        'gtin': 'string',
         'id': 'string',
-        'invoice_date': 'datetime',
-        'invoice_id': 'string',
-        'invoice_type': 'string',
-        'liability_type': 'string',
-        'payment_status': 'string',
-        'payment_term': 'string',
-        'type': 'string',
+        'image_fetch_status': 'ImageFetchStatus',
+        'images': 'list<string>',
+        'local_service_business_id': 'string',
+        'phone': 'string',
+        'price': 'string',
+        'price_range': 'string',
+        'retailer_category': 'string',
+        'sanitized_images': 'list<string>',
+        'size': 'string',
+        'title': 'string',
+        'unit_price': 'Object',
+        'url': 'string',
+        'vendor_id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['Type'] = OracleTransaction.Type.__dict__.values()
+        field_enum_info['Availability'] = LocalServiceBusiness.Availability.__dict__.values()
+        field_enum_info['Condition'] = LocalServiceBusiness.Condition.__dict__.values()
+        field_enum_info['ImageFetchStatus'] = LocalServiceBusiness.ImageFetchStatus.__dict__.values()
         return field_enum_info
 
 

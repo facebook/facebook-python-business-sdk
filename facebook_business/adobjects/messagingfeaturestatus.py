@@ -28,34 +28,20 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class InvoiceCampaign(
+class MessagingFeatureStatus(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(InvoiceCampaign, self).__init__()
-        self._isInvoiceCampaign = True
+        super(MessagingFeatureStatus, self).__init__()
+        self._isMessagingFeatureStatus = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        ad_account_id = 'ad_account_id'
-        billed_amount_details = 'billed_amount_details'
-        campaign_id = 'campaign_id'
-        campaign_name = 'campaign_name'
-        clicks = 'clicks'
-        conversions = 'conversions'
-        impressions = 'impressions'
-        tags = 'tags'
+        hop_v2 = 'hop_v2'
 
     _field_types = {
-        'ad_account_id': 'string',
-        'billed_amount_details': 'BilledAmountDetails',
-        'campaign_id': 'string',
-        'campaign_name': 'string',
-        'clicks': 'unsigned int',
-        'conversions': 'unsigned int',
-        'impressions': 'unsigned int',
-        'tags': 'list<string>',
+        'hop_v2': 'bool',
     }
     @classmethod
     def _get_field_enum_info(cls):

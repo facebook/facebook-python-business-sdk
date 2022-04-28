@@ -55,11 +55,11 @@ class LiveVideo(
         ingest_streams = 'ingest_streams'
         is_manual_mode = 'is_manual_mode'
         is_reference_only = 'is_reference_only'
-        live_encoders = 'live_encoders'
         live_views = 'live_views'
         overlay_url = 'overlay_url'
         permalink_url = 'permalink_url'
         planned_start_time = 'planned_start_time'
+        recommended_encoder_settings = 'recommended_encoder_settings'
         seconds_left = 'seconds_left'
         secure_stream_url = 'secure_stream_url'
         status = 'status'
@@ -69,10 +69,25 @@ class LiveVideo(
         total_views = 'total_views'
         video = 'video'
 
+    class BroadcastStatus:
+        live = 'LIVE'
+        live_stopped = 'LIVE_STOPPED'
+        processing = 'PROCESSING'
+        scheduled_canceled = 'SCHEDULED_CANCELED'
+        scheduled_expired = 'SCHEDULED_EXPIRED'
+        scheduled_live = 'SCHEDULED_LIVE'
+        scheduled_unpublished = 'SCHEDULED_UNPUBLISHED'
+        unpublished = 'UNPUBLISHED'
+        vod = 'VOD'
+
     class Projection:
         cubemap = 'CUBEMAP'
         equirectangular = 'EQUIRECTANGULAR'
         half_equirectangular = 'HALF_EQUIRECTANGULAR'
+
+    class Source:
+        owner = 'owner'
+        target = 'target'
 
     class SpatialAudioFormat:
         ambix_4 = 'ambiX_4'
@@ -93,28 +108,22 @@ class LiveVideo(
         ambient = 'AMBIENT'
         regular = 'REGULAR'
 
-    class BroadcastStatus:
-        live = 'LIVE'
-        live_stopped = 'LIVE_STOPPED'
-        processing = 'PROCESSING'
-        scheduled_canceled = 'SCHEDULED_CANCELED'
-        scheduled_expired = 'SCHEDULED_EXPIRED'
-        scheduled_live = 'SCHEDULED_LIVE'
-        scheduled_unpublished = 'SCHEDULED_UNPUBLISHED'
-        unpublished = 'UNPUBLISHED'
-        vod = 'VOD'
-
-    class Source:
-        owner = 'owner'
-        target = 'target'
-
     class LiveCommentModerationSetting:
+        value_default = 'DEFAULT'
         discussion = 'DISCUSSION'
+        followed = 'FOLLOWED'
         follower = 'FOLLOWER'
+        no_hyperlink = 'NO_HYPERLINK'
         protected_mode = 'PROTECTED_MODE'
         restricted = 'RESTRICTED'
         slow = 'SLOW'
         supporter = 'SUPPORTER'
+        tagged = 'TAGGED'
+
+    class PersistentStreamKeyStatus:
+        disable = 'DISABLE'
+        enable = 'ENABLE'
+        regenerate = 'REGENERATE'
 
     def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -184,6 +193,7 @@ class LiveVideo(
         param_types = {
             'allow_bm_crossposting': 'bool',
             'content_tags': 'list<string>',
+            'cross_share_to_group_ids': 'list<string>',
             'crossposting_actions': 'list<map>',
             'custom_labels': 'list<string>',
             'description': 'string',
@@ -193,12 +203,12 @@ class LiveVideo(
             'is_audio_only': 'bool',
             'is_manual_mode': 'bool',
             'live_comment_moderation_setting': 'list<live_comment_moderation_setting_enum>',
-            'live_encoders': 'list<string>',
             'master_ingest_stream_id': 'string',
             'og_icon_id': 'string',
             'og_phrase': 'string',
+            'persistent_stream_key_status': 'persistent_stream_key_status_enum',
             'place': 'Object',
-            'planned_start_time': 'int',
+            'planned_start_time': 'datetime',
             'privacy': 'string',
             'published': 'bool',
             'schedule_custom_profile_image': 'file',
@@ -213,6 +223,7 @@ class LiveVideo(
         }
         enums = {
             'live_comment_moderation_setting_enum': LiveVideo.LiveCommentModerationSetting.__dict__.values(),
+            'persistent_stream_key_status_enum': LiveVideo.PersistentStreamKeyStatus.__dict__.values(),
             'status_enum': LiveVideo.Status.__dict__.values(),
             'stream_type_enum': LiveVideo.StreamType.__dict__.values(),
         }
@@ -542,17 +553,17 @@ class LiveVideo(
         'dash_ingest_url': 'string',
         'dash_preview_url': 'string',
         'description': 'string',
-        'embed_html': 'string',
+        'embed_html': 'Object',
         'from': 'Object',
         'id': 'string',
         'ingest_streams': 'list<LiveVideoInputStream>',
         'is_manual_mode': 'bool',
         'is_reference_only': 'bool',
-        'live_encoders': 'list<LiveEncoder>',
         'live_views': 'unsigned int',
         'overlay_url': 'string',
-        'permalink_url': 'string',
+        'permalink_url': 'Object',
         'planned_start_time': 'datetime',
+        'recommended_encoder_settings': 'LiveVideoRecommendedEncoderSettings',
         'seconds_left': 'int',
         'secure_stream_url': 'string',
         'status': 'string',
@@ -565,14 +576,15 @@ class LiveVideo(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['BroadcastStatus'] = LiveVideo.BroadcastStatus.__dict__.values()
         field_enum_info['Projection'] = LiveVideo.Projection.__dict__.values()
+        field_enum_info['Source'] = LiveVideo.Source.__dict__.values()
         field_enum_info['SpatialAudioFormat'] = LiveVideo.SpatialAudioFormat.__dict__.values()
         field_enum_info['Status'] = LiveVideo.Status.__dict__.values()
         field_enum_info['StereoscopicMode'] = LiveVideo.StereoscopicMode.__dict__.values()
         field_enum_info['StreamType'] = LiveVideo.StreamType.__dict__.values()
-        field_enum_info['BroadcastStatus'] = LiveVideo.BroadcastStatus.__dict__.values()
-        field_enum_info['Source'] = LiveVideo.Source.__dict__.values()
         field_enum_info['LiveCommentModerationSetting'] = LiveVideo.LiveCommentModerationSetting.__dict__.values()
+        field_enum_info['PersistentStreamKeyStatus'] = LiveVideo.PersistentStreamKeyStatus.__dict__.values()
         return field_enum_info
 
 

@@ -38,9 +38,11 @@ class AdCreativePortraitCustomizations(
         self._api = api
 
     class Field(AbstractObject.Field):
+        carousel_delivery_mode = 'carousel_delivery_mode'
         specifications = 'specifications'
 
     _field_types = {
+        'carousel_delivery_mode': 'string',
         'specifications': 'list<Object>',
     }
     @classmethod

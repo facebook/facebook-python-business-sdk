@@ -47,6 +47,8 @@ class ReachFrequencyPrediction(
         activity_status = 'activity_status'
         ad_formats = 'ad_formats'
         auction_entry_option_index = 'auction_entry_option_index'
+        audience_size_lower_bound = 'audience_size_lower_bound'
+        audience_size_upper_bound = 'audience_size_upper_bound'
         business_id = 'business_id'
         buying_type = 'buying_type'
         campaign_group_id = 'campaign_group_id'
@@ -114,7 +116,6 @@ class ReachFrequencyPrediction(
         start_time = 'start_time'
         status = 'status'
         story_event_type = 'story_event_type'
-        target_audience_size = 'target_audience_size'
         target_cpm = 'target_cpm'
         target_spec = 'target_spec'
         time_created = 'time_created'
@@ -216,6 +217,8 @@ class ReachFrequencyPrediction(
         'activity_status': 'ReachFrequencyActivity',
         'ad_formats': 'list<ReachFrequencyAdFormat>',
         'auction_entry_option_index': 'int',
+        'audience_size_lower_bound': 'unsigned int',
+        'audience_size_upper_bound': 'unsigned int',
         'business_id': 'int',
         'buying_type': 'string',
         'campaign_group_id': 'int',
@@ -283,7 +286,6 @@ class ReachFrequencyPrediction(
         'start_time': 'datetime',
         'status': 'unsigned int',
         'story_event_type': 'unsigned int',
-        'target_audience_size': 'unsigned int',
         'target_cpm': 'unsigned int',
         'target_spec': 'Targeting',
         'time_created': 'datetime',

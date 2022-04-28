@@ -28,26 +28,24 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdAccountContentFilterLevelsInheritance(
+class LiveVideoRecommendedEncoderSettings(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(AdAccountContentFilterLevelsInheritance, self).__init__()
-        self._isAdAccountContentFilterLevelsInheritance = True
+        super(LiveVideoRecommendedEncoderSettings, self).__init__()
+        self._isLiveVideoRecommendedEncoderSettings = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        an_business_ids = 'an_business_ids'
-        an_level = 'an_level'
-        facebook_business_ids = 'facebook_business_ids'
-        facebook_level = 'facebook_level'
+        audio_codec_settings = 'audio_codec_settings'
+        streaming_protocol = 'streaming_protocol'
+        video_codec_settings = 'video_codec_settings'
 
     _field_types = {
-        'an_business_ids': 'list<string>',
-        'an_level': 'string',
-        'facebook_business_ids': 'list<string>',
-        'facebook_level': 'string',
+        'audio_codec_settings': 'Object',
+        'streaming_protocol': 'string',
+        'video_codec_settings': 'Object',
     }
     @classmethod
     def _get_field_enum_info(cls):

@@ -71,6 +71,7 @@ class AdVideo(
         permalink_url = 'permalink_url'
         picture = 'picture'
         place = 'place'
+        post_views = 'post_views'
         premiere_living_room_status = 'premiere_living_room_status'
         privacy = 'privacy'
         published = 'published'
@@ -81,6 +82,7 @@ class AdVideo(
         title = 'title'
         universal_video_id = 'universal_video_id'
         updated_time = 'updated_time'
+        views = 'views'
         adaptive_type = 'adaptive_type'
         animated_effect_id = 'animated_effect_id'
         application_id = 'application_id'
@@ -130,7 +132,6 @@ class AdVideo(
         react_mode_metadata = 'react_mode_metadata'
         referenced_sticker_id = 'referenced_sticker_id'
         replace_video_id = 'replace_video_id'
-        sales_promo_id = 'sales_promo_id'
         slideshow_spec = 'slideshow_spec'
         source_instagram_media_id = 'source_instagram_media_id'
         start_offset = 'start_offset'
@@ -160,21 +161,23 @@ class AdVideo(
         album_multimedia_post = 'ALBUM_MULTIMEDIA_POST'
         aloha_call_video = 'ALOHA_CALL_VIDEO'
         aloha_superframe = 'ALOHA_SUPERFRAME'
+        app_rereview_screencast = 'APP_REREVIEW_SCREENCAST'
         app_review_screencast = 'APP_REVIEW_SCREENCAST'
+        asset_manager = 'ASSET_MANAGER'
         atlas_video = 'ATLAS_VIDEO'
         audio_broadcast = 'AUDIO_BROADCAST'
-        bell_poll = 'BELL_POLL'
-        brand_equity_poll_video = 'BRAND_EQUITY_POLL_VIDEO'
+        audio_comment = 'AUDIO_COMMENT'
         broadcast = 'BROADCAST'
-        candidate_videos = 'CANDIDATE_VIDEOS'
+        bulletin_article_audio = 'BULLETIN_ARTICLE_AUDIO'
         canvas = 'CANVAS'
         cfc_video = 'CFC_VIDEO'
         cms_media_manager = 'CMS_MEDIA_MANAGER'
         contained_post_attachment = 'CONTAINED_POST_ATTACHMENT'
         contained_post_audio_broadcast = 'CONTAINED_POST_AUDIO_BROADCAST'
-        contained_post_broadcast = 'CONTAINED_POST_BROADCAST'
+        contained_post_copyright_reference_broadcast = 'CONTAINED_POST_COPYRIGHT_REFERENCE_BROADCAST'
         copyright_reference_broadcast = 'COPYRIGHT_REFERENCE_BROADCAST'
         copyright_reference_video = 'COPYRIGHT_REFERENCE_VIDEO'
+        creation_ml_precreation = 'CREATION_ML_PRECREATION'
         cultural_moment_deprecated = 'CULTURAL_MOMENT_DEPRECATED'
         dco_ad_asset_feed = 'DCO_AD_ASSET_FEED'
         dco_autogen_video = 'DCO_AUTOGEN_VIDEO'
@@ -191,7 +194,9 @@ class AdVideo(
         facecast_dvr = 'FACECAST_DVR'
         fb_shorts = 'FB_SHORTS'
         fb_shorts_group_post = 'FB_SHORTS_GROUP_POST'
+        fb_shorts_pmv_post = 'FB_SHORTS_PMV_POST'
         fb_shorts_post = 'FB_SHORTS_POST'
+        fb_shorts_remix_post = 'FB_SHORTS_REMIX_POST'
         fundraiser_cover_video = 'FUNDRAISER_COVER_VIDEO'
         game_clip = 'GAME_CLIP'
         gemstone = 'GEMSTONE'
@@ -202,9 +207,11 @@ class AdVideo(
         goodwill_video_share = 'GOODWILL_VIDEO_SHARE'
         goodwill_video_token_required = 'GOODWILL_VIDEO_TOKEN_REQUIRED'
         group_post = 'GROUP_POST'
+        hack_tv = 'HACK_TV'
         heuristic_cluster_video = 'HEURISTIC_CLUSTER_VIDEO'
         heuristic_preview = 'HEURISTIC_PREVIEW'
         highlight_clip_video = 'HIGHLIGHT_CLIP_VIDEO'
+        huddle_broadcast = 'HUDDLE_BROADCAST'
         ig_reels_xpv = 'IG_REELS_XPV'
         ig_stories_reader = 'IG_STORIES_READER'
         inspiration_video = 'INSPIRATION_VIDEO'
@@ -213,34 +220,60 @@ class AdVideo(
         instant_article = 'INSTANT_ARTICLE'
         instant_game_clip = 'INSTANT_GAME_CLIP'
         issue_module = 'ISSUE_MODULE'
+        jobs_careers = 'JOBS_CAREERS'
+        jobs_visual_intro_entry = 'JOBS_VISUAL_INTRO_ENTRY'
         job_application_video = 'JOB_APPLICATION_VIDEO'
         job_opening_video = 'JOB_OPENING_VIDEO'
         kototoro = 'KOTOTORO'
         learn = 'LEARN'
         legacy = 'LEGACY'
+        legacy_contained_post_broadcast = 'LEGACY_CONTAINED_POST_BROADCAST'
+        live_clip_preview = 'LIVE_CLIP_PREVIEW'
         live_creative_kit_video = 'LIVE_CREATIVE_KIT_VIDEO'
-        live_linear_video_channel_internal_broadcast = 'LIVE_LINEAR_VIDEO_CHANNEL_INTERNAL_BROADCAST'
         live_photo = 'LIVE_PHOTO'
         look_now_deprecated = 'LOOK_NOW_DEPRECATED'
         marketplace_listing_video = 'MARKETPLACE_LISTING_VIDEO'
         marketplace_pre_recorded_video = 'MARKETPLACE_PRE_RECORDED_VIDEO'
+        messenger_watch_together = 'MESSENGER_WATCH_TOGETHER'
         moments_video = 'MOMENTS_VIDEO'
+        music_clip = 'MUSIC_CLIP'
+        music_clip_in_comment = 'MUSIC_CLIP_IN_COMMENT'
+        music_clip_in_lightweight_status = 'MUSIC_CLIP_IN_LIGHTWEIGHT_STATUS'
+        music_clip_in_poll_option = 'MUSIC_CLIP_IN_POLL_OPTION'
+        music_clip_on_dating_profile = 'MUSIC_CLIP_ON_DATING_PROFILE'
         neo_async_game_video = 'NEO_ASYNC_GAME_VIDEO'
+        new_contained_post_broadcast = 'NEW_CONTAINED_POST_BROADCAST'
         no_story = 'NO_STORY'
         no_story_with_entpost = 'NO_STORY_WITH_ENTPOST'
+        npe_collab_copyright_check = 'NPE_COLLAB_COPYRIGHT_CHECK'
         oculus_creator_portal = 'OCULUS_CREATOR_PORTAL'
         oculus_venues_broadcast = 'OCULUS_VENUES_BROADCAST'
         offers_video = 'OFFERS_VIDEO'
         pages_cover_video = 'PAGES_COVER_VIDEO'
         page_review_screencast = 'PAGE_REVIEW_SCREENCAST'
         page_slideshow_video = 'PAGE_SLIDESHOW_VIDEO'
+        paid_content_preview = 'PAID_CONTENT_PREVIEW'
+        paid_content_video = 'PAID_CONTENT_VIDEO'
+        paid_content_video__post = 'PAID_CONTENT_VIDEO__POST'
+        partner_directory_brand_media = 'PARTNER_DIRECTORY_BRAND_MEDIA'
         pixelcloud = 'PIXELCLOUD'
+        podcast_highlight = 'PODCAST_HIGHLIGHT'
+        podcast_ml_preview = 'PODCAST_ML_PREVIEW'
+        podcast_ml_preview_no_newsfeed_story = 'PODCAST_ML_PREVIEW_NO_NEWSFEED_STORY'
+        podcast_rss = 'PODCAST_RSS'
+        podcast_rss_ephemeral = 'PODCAST_RSS_EPHEMERAL'
+        podcast_rss_no_newsfeed_story = 'PODCAST_RSS_NO_NEWSFEED_STORY'
+        podcast_voices = 'PODCAST_VOICES'
+        podcast_voices_no_newsfeed_story = 'PODCAST_VOICES_NO_NEWSFEED_STORY'
         premiere_source = 'PREMIERE_SOURCE'
+        premium_music_video_clip = 'PREMIUM_MUSIC_VIDEO_CLIP'
+        premium_music_video_cropped_clip = 'PREMIUM_MUSIC_VIDEO_CROPPED_CLIP'
+        premium_music_video_no_newsfeed_story = 'PREMIUM_MUSIC_VIDEO_NO_NEWSFEED_STORY'
+        premium_music_video_with_newsfeed_story = 'PREMIUM_MUSIC_VIDEO_WITH_NEWSFEED_STORY'
         private_gallery_video = 'PRIVATE_GALLERY_VIDEO'
         product_video = 'PRODUCT_VIDEO'
         profile_cover_video = 'PROFILE_COVER_VIDEO'
         profile_intro_card = 'PROFILE_INTRO_CARD'
-        profile_to_page_uploaded_video = 'PROFILE_TO_PAGE_UPLOADED_VIDEO'
         profile_video = 'PROFILE_VIDEO'
         proton = 'PROTON'
         quick_promotion = 'QUICK_PROMOTION'
@@ -252,7 +285,10 @@ class AdVideo(
         slideshow_shakr = 'SLIDESHOW_SHAKR'
         slideshow_variation_video = 'SLIDESHOW_VARIATION_VIDEO'
         sotto_content = 'SOTTO_CONTENT'
+        soundbites_video = 'SOUNDBITES_VIDEO'
         sound_platform_stream = 'SOUND_PLATFORM_STREAM'
+        srt_attachment = 'SRT_ATTACHMENT'
+        stages_broadcast = 'STAGES_BROADCAST'
         stories_video = 'STORIES_VIDEO'
         storyline = 'STORYLINE'
         storyline_with_external_music = 'STORYLINE_WITH_EXTERNAL_MUSIC'
@@ -260,11 +296,16 @@ class AdVideo(
         story_card_template = 'STORY_CARD_TEMPLATE'
         stream_highlights_video = 'STREAM_HIGHLIGHTS_VIDEO'
         tarot_digest = 'TAROT_DIGEST'
+        temporary_unlisted = 'TEMPORARY_UNLISTED'
         temp_multimedia_post = 'TEMP_MULTIMEDIA_POST'
         unlisted = 'UNLISTED'
+        unlisted_hack_tv = 'UNLISTED_HACK_TV'
+        unlisted_oculus = 'UNLISTED_OCULUS'
         video_comment = 'VIDEO_COMMENT'
+        video_composition_variation = 'VIDEO_COMPOSITION_VARIATION'
         video_creative_editor_autogen_ad_video = 'VIDEO_CREATIVE_EDITOR_AUTOGEN_AD_VIDEO'
         video_superres = 'VIDEO_SUPERRES'
+        voices_article_video = 'VOICES_ARTICLE_VIDEO'
         vu_generated_video = 'VU_GENERATED_VIDEO'
         woodhenge = 'WOODHENGE'
         work_knowledge_video = 'WORK_KNOWLEDGE_VIDEO'
@@ -623,6 +664,37 @@ class AdVideo(
             target_class=Page,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=Page, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_gaming_clip_create(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'duration_seconds': 'float',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/gaming_clip_create',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdVideo,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdVideo, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1004,7 +1076,7 @@ class AdVideo(
         'created_time': 'datetime',
         'custom_labels': 'list<string>',
         'description': 'string',
-        'embed_html': 'string',
+        'embed_html': 'Object',
         'embeddable': 'bool',
         'event': 'Event',
         'expiration': 'Object',
@@ -1021,9 +1093,10 @@ class AdVideo(
         'live_audience_count': 'unsigned int',
         'live_status': 'string',
         'music_video_copyright': 'MusicVideoCopyright',
-        'permalink_url': 'string',
+        'permalink_url': 'Object',
         'picture': 'string',
         'place': 'Place',
+        'post_views': 'unsigned int',
         'premiere_living_room_status': 'string',
         'privacy': 'Privacy',
         'published': 'bool',
@@ -1034,6 +1107,7 @@ class AdVideo(
         'title': 'string',
         'universal_video_id': 'string',
         'updated_time': 'datetime',
+        'views': 'unsigned int',
         'adaptive_type': 'string',
         'animated_effect_id': 'unsigned int',
         'application_id': 'string',
@@ -1083,7 +1157,6 @@ class AdVideo(
         'react_mode_metadata': 'string',
         'referenced_sticker_id': 'string',
         'replace_video_id': 'string',
-        'sales_promo_id': 'unsigned int',
         'slideshow_spec': 'map',
         'source_instagram_media_id': 'string',
         'start_offset': 'unsigned int',

@@ -38,6 +38,7 @@ class AdCreativeLinkData(
         self._api = api
 
     class Field(AbstractObject.Field):
+        ad_context = 'ad_context'
         additional_image_index = 'additional_image_index'
         app_link_spec = 'app_link_spec'
         attachment_style = 'attachment_style'
@@ -76,12 +77,14 @@ class AdCreativeLinkData(
         link = 'link'
 
     class FormatOption:
+        carousel_ar_effects = 'carousel_ar_effects'
         carousel_images_multi_items = 'carousel_images_multi_items'
         carousel_images_single_item = 'carousel_images_single_item'
         carousel_slideshows = 'carousel_slideshows'
         single_image = 'single_image'
 
     _field_types = {
+        'ad_context': 'string',
         'additional_image_index': 'int',
         'app_link_spec': 'AdCreativeLinkDataAppLinkSpec',
         'attachment_style': 'AttachmentStyle',

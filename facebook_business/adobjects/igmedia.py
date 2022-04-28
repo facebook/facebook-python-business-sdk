@@ -47,6 +47,7 @@ class IGMedia(
         ig_id = 'ig_id'
         is_comment_enabled = 'is_comment_enabled'
         like_count = 'like_count'
+        media_product_type = 'media_product_type'
         media_type = 'media_type'
         media_url = 'media_url'
         owner = 'owner'
@@ -255,6 +256,7 @@ class IGMedia(
         'ig_id': 'string',
         'is_comment_enabled': 'bool',
         'like_count': 'int',
+        'media_product_type': 'string',
         'media_type': 'string',
         'media_url': 'string',
         'owner': 'IGUser',

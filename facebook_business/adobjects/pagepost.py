@@ -187,6 +187,7 @@ class PagePost(
             'backdated_time_granularity': 'backdated_time_granularity_enum',
             'composer_session_id': 'string',
             'direct_share_status': 'unsigned int',
+            'explicitly_added_mentionee_ids': 'list<unsigned int>',
             'feed_story_visibility': 'feed_story_visibility_enum',
             'is_explicit_location': 'bool',
             'is_hidden': 'bool',
@@ -312,7 +313,6 @@ class PagePost(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.comment import Comment
         param_types = {
             'attachment_id': 'string',
             'attachment_share_url': 'string',
@@ -327,7 +327,19 @@ class PagePost(
             'tracking': 'string',
         }
         enums = {
-            'comment_privacy_value_enum': Comment.CommentPrivacyValue.__dict__.values(),
+            'comment_privacy_value_enum': [
+                'DECLINED_BY_ADMIN_ASSISTANT',
+                'DEFAULT_PRIVACY',
+                'FRIENDS_AND_POST_OWNER',
+                'FRIENDS_ONLY',
+                'GRAPHQL_MULTIPLE_VALUE_HACK_DO_NOT_USE',
+                'OWNER_OR_COMMENTER',
+                'PENDING_APPROVAL',
+                'REMOVED_BY_ADMIN_ASSISTANT',
+                'SIDE_CONVERSATION',
+                'SIDE_CONVERSATION_AND_POST_OWNER',
+                'SPOTLIGHT_TAB',
+            ],
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -335,9 +347,9 @@ class PagePost(
             endpoint='/comments',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=Comment,
+            target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=Comment, api=self._api),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

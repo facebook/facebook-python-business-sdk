@@ -32,18 +32,22 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class Domain(
+class CPASMerchantConfig(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isDomain = True
-        super(Domain, self).__init__(fbid, parent_id, api)
+        self._isCPASMerchantConfig = True
+        super(CPASMerchantConfig, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        accepted_tos = 'accepted_tos'
+        beta_features = 'beta_features'
+        business_outcomes_status = 'business_outcomes_status'
         id = 'id'
-        name = 'name'
-        url = 'url'
+        is_test_merchant = 'is_test_merchant'
+        outcomes_compliance_status = 'outcomes_compliance_status'
+        qualified_to_onboard = 'qualified_to_onboard'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -59,7 +63,7 @@ class Domain(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=Domain,
+            target_class=CPASMerchantConfig,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -76,9 +80,13 @@ class Domain(
             return request.execute()
 
     _field_types = {
+        'accepted_tos': 'bool',
+        'beta_features': 'list<string>',
+        'business_outcomes_status': 'map<string, string>',
         'id': 'string',
-        'name': 'string',
-        'url': 'string',
+        'is_test_merchant': 'bool',
+        'outcomes_compliance_status': 'map<string, Object>',
+        'qualified_to_onboard': 'bool',
     }
     @classmethod
     def _get_field_enum_info(cls):

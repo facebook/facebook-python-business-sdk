@@ -51,9 +51,11 @@ class AdStudyObjective(
     class Type:
         brand = 'BRAND'
         brandlift = 'BRANDLIFT'
+        conversions = 'CONVERSIONS'
         ftl = 'FTL'
         mae = 'MAE'
         mai = 'MAI'
+        mpc_conversion = 'MPC_CONVERSION'
         nonsales = 'NONSALES'
         partner = 'PARTNER'
         sales = 'SALES'
@@ -108,6 +110,7 @@ class AdStudyObjective(
             'is_primary': 'bool',
             'name': 'string',
             'offline_conversion_data_sets': 'list<Object>',
+            'offsite_datasets': 'list<Object>',
             'product_catalogs': 'list<Object>',
             'product_sets': 'list<Object>',
             'type': 'type_enum',
@@ -124,37 +127,6 @@ class AdStudyObjective(
             target_class=AdStudyObjective,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def get_ad_place_page_sets(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.adplacepageset import AdPlacePageSet
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/ad_place_page_sets',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AdPlacePageSet,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdPlacePageSet, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

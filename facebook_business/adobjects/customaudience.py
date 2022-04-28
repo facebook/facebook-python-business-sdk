@@ -44,11 +44,13 @@ class CustomAudience(
 
     class Field(AbstractObject.Field):
         account_id = 'account_id'
-        approximate_count = 'approximate_count'
+        approximate_count_lower_bound = 'approximate_count_lower_bound'
+        approximate_count_upper_bound = 'approximate_count_upper_bound'
         customer_file_source = 'customer_file_source'
         data_source = 'data_source'
         data_source_types = 'data_source_types'
         datafile_custom_audience_uploading_status = 'datafile_custom_audience_uploading_status'
+        delete_time = 'delete_time'
         delivery_status = 'delivery_status'
         description = 'description'
         excluded_custom_audiences = 'excluded_custom_audiences'
@@ -64,6 +66,7 @@ class CustomAudience(
         name = 'name'
         operation_status = 'operation_status'
         opt_out_link = 'opt_out_link'
+        page_deletion_marked_delete_time = 'page_deletion_marked_delete_time'
         permission_for_actions = 'permission_for_actions'
         pixel_id = 'pixel_id'
         regulated_audience_spec = 'regulated_audience_spec'
@@ -90,14 +93,12 @@ class CustomAudience(
         event_sources = 'event_sources'
         exclusions = 'exclusions'
         inclusions = 'inclusions'
-        is_household_exclusion = 'is_household_exclusion'
         list_of_accounts = 'list_of_accounts'
         origin_audience_id = 'origin_audience_id'
         parent_audience_id = 'parent_audience_id'
         partner_reference_key = 'partner_reference_key'
         prefill = 'prefill'
         product_set_id = 'product_set_id'
-        tags = 'tags'
         video_group_ids = 'video_group_ids'
 
     class ClaimObjective:
@@ -116,6 +117,7 @@ class CustomAudience(
         flight = 'FLIGHT'
         home_listing = 'HOME_LISTING'
         hotel = 'HOTEL'
+        job = 'JOB'
         local_service_business = 'LOCAL_SERVICE_BUSINESS'
         location_based_item = 'LOCATION_BASED_ITEM'
         media_title = 'MEDIA_TITLE'
@@ -144,6 +146,10 @@ class CustomAudience(
         regulated_categories_audience = 'REGULATED_CATEGORIES_AUDIENCE'
         study_rule_audience = 'STUDY_RULE_AUDIENCE'
         video = 'VIDEO'
+        website = 'WEBSITE'
+
+    class ActionSource:
+        physical_store = 'PHYSICAL_STORE'
         website = 'WEBSITE'
 
     # @deprecated get_endpoint function is deprecated
@@ -234,8 +240,6 @@ class CustomAudience(
             'event_sources': 'list<map>',
             'exclusions': 'list<Object>',
             'inclusions': 'list<Object>',
-            'is_household': 'bool',
-            'is_household_exclusion': 'bool',
             'lookalike_spec': 'string',
             'name': 'string',
             'opt_out_link': 'string',
@@ -245,7 +249,6 @@ class CustomAudience(
             'rev_share_policy_id': 'unsigned int',
             'rule': 'string',
             'rule_aggregation': 'string',
-            'seed_audience': 'unsigned int',
             'tags': 'list<string>',
         }
         enums = {
@@ -569,11 +572,13 @@ class CustomAudience(
 
     _field_types = {
         'account_id': 'string',
-        'approximate_count': 'int',
+        'approximate_count_lower_bound': 'int',
+        'approximate_count_upper_bound': 'int',
         'customer_file_source': 'string',
         'data_source': 'CustomAudienceDataSource',
         'data_source_types': 'string',
         'datafile_custom_audience_uploading_status': 'string',
+        'delete_time': 'int',
         'delivery_status': 'CustomAudienceStatus',
         'description': 'string',
         'excluded_custom_audiences': 'list<CustomAudience>',
@@ -589,6 +594,7 @@ class CustomAudience(
         'name': 'string',
         'operation_status': 'CustomAudienceStatus',
         'opt_out_link': 'string',
+        'page_deletion_marked_delete_time': 'int',
         'permission_for_actions': 'AudiencePermissionForActions',
         'pixel_id': 'string',
         'regulated_audience_spec': 'LookalikeSpec',
@@ -615,14 +621,12 @@ class CustomAudience(
         'event_sources': 'list<map>',
         'exclusions': 'list<Object>',
         'inclusions': 'list<Object>',
-        'is_household_exclusion': 'bool',
         'list_of_accounts': 'list<unsigned int>',
         'origin_audience_id': 'string',
         'parent_audience_id': 'unsigned int',
         'partner_reference_key': 'string',
         'prefill': 'bool',
         'product_set_id': 'string',
-        'tags': 'list<string>',
         'video_group_ids': 'list<string>',
     }
     @classmethod
@@ -632,6 +636,7 @@ class CustomAudience(
         field_enum_info['ContentType'] = CustomAudience.ContentType.__dict__.values()
         field_enum_info['CustomerFileSource'] = CustomAudience.CustomerFileSource.__dict__.values()
         field_enum_info['Subtype'] = CustomAudience.Subtype.__dict__.values()
+        field_enum_info['ActionSource'] = CustomAudience.ActionSource.__dict__.values()
         return field_enum_info
 
 

@@ -43,7 +43,6 @@ class HomeListing(
     class Field(AbstractObject.Field):
         ac_type = 'ac_type'
         additional_fees_description = 'additional_fees_description'
-        address = 'address'
         agent_company = 'agent_company'
         agent_email = 'agent_email'
         agent_fb_page_id = 'agent_fb_page_id'
@@ -54,16 +53,15 @@ class HomeListing(
         area_unit = 'area_unit'
         availability = 'availability'
         category_specific_fields = 'category_specific_fields'
-        co_2_emission_rating_eu = 'co_2_emission_rating_eu'
         currency = 'currency'
         days_on_market = 'days_on_market'
         description = 'description'
-        energy_rating_eu = 'energy_rating_eu'
         furnish_type = 'furnish_type'
         group_id = 'group_id'
         heating_type = 'heating_type'
         home_listing_id = 'home_listing_id'
         id = 'id'
+        image_fetch_status = 'image_fetch_status'
         images = 'images'
         laundry_type = 'laundry_type'
         listing_type = 'listing_type'
@@ -84,6 +82,15 @@ class HomeListing(
         sanitized_images = 'sanitized_images'
         url = 'url'
         year_built = 'year_built'
+        address = 'address'
+
+    class ImageFetchStatus:
+        direct_upload = 'DIRECT_UPLOAD'
+        fetched = 'FETCHED'
+        fetch_failed = 'FETCH_FAILED'
+        no_status = 'NO_STATUS'
+        outdated = 'OUTDATED'
+        partial_fetch = 'PARTIAL_FETCH'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
@@ -199,10 +206,100 @@ class HomeListing(
             self.assure_call()
             return request.execute()
 
+    def get_augmented_realities_metadata(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/augmented_realities_metadata',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_channels_to_integrity_status(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.catalogitemchannelstointegritystatus import CatalogItemChannelsToIntegrityStatus
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/channels_to_integrity_status',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=CatalogItemChannelsToIntegrityStatus,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=CatalogItemChannelsToIntegrityStatus, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_videos_metadata(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/videos_metadata',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     _field_types = {
         'ac_type': 'string',
         'additional_fees_description': 'string',
-        'address': 'Object',
         'agent_company': 'string',
         'agent_email': 'string',
         'agent_fb_page_id': 'Page',
@@ -213,16 +310,15 @@ class HomeListing(
         'area_unit': 'string',
         'availability': 'string',
         'category_specific_fields': 'CatalogSubVerticalList',
-        'co_2_emission_rating_eu': 'Object',
         'currency': 'string',
         'days_on_market': 'unsigned int',
         'description': 'string',
-        'energy_rating_eu': 'Object',
         'furnish_type': 'string',
         'group_id': 'string',
         'heating_type': 'string',
         'home_listing_id': 'string',
         'id': 'string',
+        'image_fetch_status': 'ImageFetchStatus',
         'images': 'list<string>',
         'laundry_type': 'string',
         'listing_type': 'string',
@@ -243,10 +339,12 @@ class HomeListing(
         'sanitized_images': 'list<string>',
         'url': 'string',
         'year_built': 'int',
+        'address': 'Object',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['ImageFetchStatus'] = HomeListing.ImageFetchStatus.__dict__.values()
         return field_enum_info
 
 

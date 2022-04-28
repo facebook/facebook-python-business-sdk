@@ -48,10 +48,10 @@ class AdAssetFeedSpec(
         captions = 'captions'
         carousels = 'carousels'
         descriptions = 'descriptions'
+        events = 'events'
         groups = 'groups'
         images = 'images'
         link_urls = 'link_urls'
-        onsite_destinations = 'onsite_destinations'
         optimization_type = 'optimization_type'
         posts = 'posts'
         titles = 'titles'
@@ -66,6 +66,7 @@ class AdAssetFeedSpec(
         buy_tickets = 'BUY_TICKETS'
         call = 'CALL'
         call_me = 'CALL_ME'
+        call_now = 'CALL_NOW'
         contact = 'CONTACT'
         contact_us = 'CONTACT_US'
         donate = 'DONATE'
@@ -96,6 +97,7 @@ class AdAssetFeedSpec(
         order_now = 'ORDER_NOW'
         pay_to_access = 'PAY_TO_ACCESS'
         play_game = 'PLAY_GAME'
+        play_game_on_facebook = 'PLAY_GAME_ON_FACEBOOK'
         purchase_gift_cards = 'PURCHASE_GIFT_CARDS'
         record_now = 'RECORD_NOW'
         refer_friends = 'REFER_FRIENDS'
@@ -135,10 +137,10 @@ class AdAssetFeedSpec(
         'captions': 'list<AdAssetFeedSpecCaption>',
         'carousels': 'list<Object>',
         'descriptions': 'list<AdAssetFeedSpecDescription>',
+        'events': 'list<Object>',
         'groups': 'list<AdAssetFeedSpecGroupRule>',
         'images': 'list<AdAssetFeedSpecImage>',
         'link_urls': 'list<AdAssetFeedSpecLinkURL>',
-        'onsite_destinations': 'list<Object>',
         'optimization_type': 'string',
         'posts': 'list<Object>',
         'titles': 'list<AdAssetFeedSpecTitle>',

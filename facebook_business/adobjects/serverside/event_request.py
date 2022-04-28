@@ -34,7 +34,7 @@ from facebook_business.session import FacebookSession
 
 class EventRequest(object):
     """
-    Server-Side Event Request.
+    Conversions API Event Request.
     """
 
     param_types = {
@@ -130,7 +130,7 @@ class EventRequest(object):
 
         Code used to verify that your server events are received correctly by Facebook.
         Use this code to test your server events in the Test Events feature in Events Manager.
-        See Test Events Tool (https://developers.facebook.com/docs/marketing-api/facebook-pixel/server-side-api/using-the-api#testEvents) for an example.
+        See Test Events Tool (https://developers.facebook.com/docs/marketing-api/conversions-api/using-the-api#testEvents) for an example.
 
         :return: The test_event_code.
         :rtype: str
@@ -143,7 +143,7 @@ class EventRequest(object):
 
         Code used to verify that your server events are received correctly by Facebook.
         Use this code to test your server events in the Test Events feature in Events Manager.
-        See Test Events Tool (https://developers.facebook.com/docs/marketing-api/facebook-pixel/server-side-api/using-the-api#testEvents) for an example.
+        See Test Events Tool (https://developers.facebook.com/docs/marketing-api/conversions-api/using-the-api#testEvents) for an example.
 
         :param test_event_code: The test_event_code.
         :type: str

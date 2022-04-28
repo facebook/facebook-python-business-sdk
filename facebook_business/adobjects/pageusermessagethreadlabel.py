@@ -42,7 +42,7 @@ class PageUserMessageThreadLabel(
 
     class Field(AbstractObject.Field):
         id = 'id'
-        name = 'name'
+        page_label_name = 'page_label_name'
 
     def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -168,7 +168,7 @@ class PageUserMessageThreadLabel(
 
     _field_types = {
         'id': 'string',
-        'name': 'string',
+        'page_label_name': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

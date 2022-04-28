@@ -71,6 +71,7 @@ class Group(
         value_2 = '2'
 
     class Purpose:
+        books = 'BOOKS'
         casual = 'CASUAL'
         close_friends = 'CLOSE_FRIENDS'
         club = 'CLUB'
@@ -81,6 +82,8 @@ class Group(
         ephemeral = 'EPHEMERAL'
         event_planning = 'EVENT_PLANNING'
         family = 'FAMILY'
+        fandom_radar = 'FANDOM_RADAR'
+        fantasy_league = 'FANTASY_LEAGUE'
         fitness = 'FITNESS'
         for_sale = 'FOR_SALE'
         for_work = 'FOR_WORK'
@@ -91,6 +94,7 @@ class Group(
         jobs = 'JOBS'
         learning = 'LEARNING'
         mentorship = 'MENTORSHIP'
+        music_casa_bundle = 'MUSIC_CASA_BUNDLE'
         neighbors = 'NEIGHBORS'
         none = 'NONE'
         oculus = 'OCULUS'
@@ -102,11 +106,13 @@ class Group(
         school_class = 'SCHOOL_CLASS'
         sorority = 'SORORITY'
         sports = 'SPORTS'
+        sports_activity = 'SPORTS_ACTIVITY'
         streamer = 'STREAMER'
         study_group = 'STUDY_GROUP'
         support = 'SUPPORT'
         teammates = 'TEAMMATES'
         theme = 'THEME'
+        together_vr = 'TOGETHER_VR'
         travel_planning = 'TRAVEL_PLANNING'
         work_announcement = 'WORK_ANNOUNCEMENT'
         work_demo_group = 'WORK_DEMO_GROUP'
@@ -115,17 +121,20 @@ class Group(
         work_feedback = 'WORK_FEEDBACK'
         work_for_sale = 'WORK_FOR_SALE'
         work_garden = 'WORK_GARDEN'
+        work_guest_group = 'WORK_GUEST_GROUP'
         work_learning = 'WORK_LEARNING'
         work_mentorship = 'WORK_MENTORSHIP'
         work_multi_company = 'WORK_MULTI_COMPANY'
         work_recruiting = 'WORK_RECRUITING'
         work_resume_review = 'WORK_RESUME_REVIEW'
         work_social = 'WORK_SOCIAL'
+        work_stages = 'WORK_STAGES'
         work_team = 'WORK_TEAM'
         work_teamwork = 'WORK_TEAMWORK'
         work_vc_call = 'WORK_VC_CALL'
 
     class GroupType:
+        books = 'BOOKS'
         casual = 'CASUAL'
         close_friends = 'CLOSE_FRIENDS'
         club = 'CLUB'
@@ -136,6 +145,8 @@ class Group(
         ephemeral = 'EPHEMERAL'
         event_planning = 'EVENT_PLANNING'
         family = 'FAMILY'
+        fandom_radar = 'FANDOM_RADAR'
+        fantasy_league = 'FANTASY_LEAGUE'
         fitness = 'FITNESS'
         for_sale = 'FOR_SALE'
         for_work = 'FOR_WORK'
@@ -146,6 +157,7 @@ class Group(
         jobs = 'JOBS'
         learning = 'LEARNING'
         mentorship = 'MENTORSHIP'
+        music_casa_bundle = 'MUSIC_CASA_BUNDLE'
         neighbors = 'NEIGHBORS'
         none = 'NONE'
         oculus = 'OCULUS'
@@ -157,11 +169,13 @@ class Group(
         school_class = 'SCHOOL_CLASS'
         sorority = 'SORORITY'
         sports = 'SPORTS'
+        sports_activity = 'SPORTS_ACTIVITY'
         streamer = 'STREAMER'
         study_group = 'STUDY_GROUP'
         support = 'SUPPORT'
         teammates = 'TEAMMATES'
         theme = 'THEME'
+        together_vr = 'TOGETHER_VR'
         travel_planning = 'TRAVEL_PLANNING'
         work_announcement = 'WORK_ANNOUNCEMENT'
         work_demo_group = 'WORK_DEMO_GROUP'
@@ -170,12 +184,14 @@ class Group(
         work_feedback = 'WORK_FEEDBACK'
         work_for_sale = 'WORK_FOR_SALE'
         work_garden = 'WORK_GARDEN'
+        work_guest_group = 'WORK_GUEST_GROUP'
         work_learning = 'WORK_LEARNING'
         work_mentorship = 'WORK_MENTORSHIP'
         work_multi_company = 'WORK_MULTI_COMPANY'
         work_recruiting = 'WORK_RECRUITING'
         work_resume_review = 'WORK_RESUME_REVIEW'
         work_social = 'WORK_SOCIAL'
+        work_stages = 'WORK_STAGES'
         work_team = 'WORK_TEAM'
         work_teamwork = 'WORK_TEAMWORK'
         work_vc_call = 'WORK_VC_CALL'
@@ -222,13 +238,13 @@ class Group(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'archive': 'bool',
             'cover': 'string',
             'cover_url': 'string',
             'description': 'string',
             'focus_x': 'float',
             'focus_y': 'float',
             'group_icon': 'string',
+            'is_official_group': 'bool',
             'join_setting': 'join_setting_enum',
             'name': 'string',
             'no_feed_story': 'bool',
@@ -595,7 +611,6 @@ class Group(
             'ref': 'list<string>',
             'referenceable_image_ids': 'list<string>',
             'referral_id': 'string',
-            'sales_promo_id': 'unsigned int',
             'scheduled_publish_time': 'datetime',
             'source': 'string',
             'sponsor_id': 'string',
@@ -803,7 +818,6 @@ class Group(
             'front_z_rotation': 'float',
             'is_audio_only': 'bool',
             'is_spherical': 'bool',
-            'live_encoders': 'list<string>',
             'original_fov': 'unsigned int',
             'planned_start_time': 'int',
             'privacy': 'string',
@@ -971,7 +985,6 @@ class Group(
             'ios_bundle_id': 'string',
             'is_explicit_location': 'bool',
             'is_explicit_place': 'bool',
-            'is_visual_search': 'bool',
             'manual_privacy': 'bool',
             'message': 'string',
             'name': 'string',
@@ -1054,6 +1067,44 @@ class Group(
             target_class=ProfilePictureSource,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=ProfilePictureSource, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_shift_setting(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'external_id': 'string',
+            'shift_feature_setting': 'shift_feature_setting_enum',
+        }
+        enums = {
+            'shift_feature_setting_enum': [
+                'ALL_FEATURES_OFF',
+                'ALL_FEATURES_ON',
+                'SHIFT_COVER_ONLY_ON',
+                'SHIFT_VIEWER_ONLY_ON',
+            ],
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/shift_settings',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1155,10 +1206,10 @@ class Group(
             'original_fov': 'unsigned int',
             'original_projection_type': 'original_projection_type_enum',
             'publish_event_id': 'unsigned int',
+            'published': 'bool',
             'react_mode_metadata': 'string',
             'referenced_sticker_id': 'string',
             'replace_video_id': 'string',
-            'sales_promo_id': 'unsigned int',
             'scheduled_publish_time': 'unsigned int',
             'slideshow_spec': 'map',
             'source': 'string',
