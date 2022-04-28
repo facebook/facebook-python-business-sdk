@@ -27,6 +27,8 @@ import hmac
 import requests
 import os
 
+from requests.cookies import cookiejar_from_dict
+
 
 class FacebookSession(object):
     """
@@ -75,7 +77,7 @@ class FacebookSession(object):
             self.requests.proxies.update(self.proxies)
 
         if self.cookies:
-            self.requests.cookies = self.cookies
+            self.requests.cookies = cookiejar_from_dict(self.cookies)
 
     def _gen_appsecret_proof(self):
         h = hmac.new(
