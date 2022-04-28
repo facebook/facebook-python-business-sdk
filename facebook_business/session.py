@@ -46,7 +46,7 @@ class FacebookSession(object):
     GRAPH = 'https://graph.facebook.com'
 
     def __init__(self, app_id=None, app_secret=None, access_token=None,
-                 proxies=None, timeout=None, debug=False):
+                 proxies=None, cookies=None, timeout=None, debug=False):
         """
         Initializes and populates the instance attributes with app_id,
         app_secret, access_token, appsecret_proof, proxies, timeout and requests
@@ -56,6 +56,7 @@ class FacebookSession(object):
         self.app_secret = app_secret
         self.access_token = access_token
         self.proxies = proxies
+        self.cookies = cookies
         self.timeout = timeout
         self.debug = debug
         self.requests = requests.Session()
@@ -72,6 +73,9 @@ class FacebookSession(object):
 
         if self.proxies:
             self.requests.proxies.update(self.proxies)
+
+        if self.cookies:
+            self.requests.cookies = self.cookies
 
     def _gen_appsecret_proof(self):
         h = hmac.new(
