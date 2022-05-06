@@ -41,7 +41,6 @@ class AdAccountTargetingUnified(
         super(AdAccountTargetingUnified, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        audience_size = 'audience_size'
         audience_size_lower_bound = 'audience_size_lower_bound'
         audience_size_upper_bound = 'audience_size_upper_bound'
         conversion_lift = 'conversion_lift'
@@ -274,7 +273,6 @@ class AdAccountTargetingUnified(
         suggestions = 'suggestions'
 
     _field_types = {
-        'audience_size': 'unsigned int',
         'audience_size_lower_bound': 'unsigned int',
         'audience_size_upper_bound': 'unsigned int',
         'conversion_lift': 'float',

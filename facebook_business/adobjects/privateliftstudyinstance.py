@@ -47,11 +47,13 @@ class PrivateLiftStudyInstance(
         latest_status_update_time = 'latest_status_update_time'
         server_ips = 'server_ips'
         status = 'status'
+        tier = 'tier'
 
     class Operation:
         aggregate = 'AGGREGATE'
         compute = 'COMPUTE'
         id_match = 'ID_MATCH'
+        next = 'NEXT'
         none = 'NONE'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
@@ -123,6 +125,7 @@ class PrivateLiftStudyInstance(
         'latest_status_update_time': 'datetime',
         'server_ips': 'list<string>',
         'status': 'string',
+        'tier': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

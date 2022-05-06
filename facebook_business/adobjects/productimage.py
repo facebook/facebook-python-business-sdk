@@ -32,18 +32,17 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class Domain(
+class ProductImage(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isDomain = True
-        super(Domain, self).__init__(fbid, parent_id, api)
+        self._isProductImage = True
+        super(ProductImage, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
         id = 'id'
-        name = 'name'
-        url = 'url'
+        image_url = 'image_url'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -59,7 +58,7 @@ class Domain(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=Domain,
+            target_class=ProductImage,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -77,8 +76,7 @@ class Domain(
 
     _field_types = {
         'id': 'string',
-        'name': 'string',
-        'url': 'string',
+        'image_url': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

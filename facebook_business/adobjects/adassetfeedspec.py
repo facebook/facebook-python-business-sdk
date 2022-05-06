@@ -52,10 +52,7 @@ class AdAssetFeedSpec(
         groups = 'groups'
         images = 'images'
         link_urls = 'link_urls'
-        offer_ids = 'offer_ids'
-        onsite_destinations = 'onsite_destinations'
         optimization_type = 'optimization_type'
-        phone_data_ids = 'phone_data_ids'
         posts = 'posts'
         titles = 'titles'
         videos = 'videos'
@@ -100,6 +97,7 @@ class AdAssetFeedSpec(
         order_now = 'ORDER_NOW'
         pay_to_access = 'PAY_TO_ACCESS'
         play_game = 'PLAY_GAME'
+        play_game_on_facebook = 'PLAY_GAME_ON_FACEBOOK'
         purchase_gift_cards = 'PURCHASE_GIFT_CARDS'
         record_now = 'RECORD_NOW'
         refer_friends = 'REFER_FRIENDS'
@@ -143,10 +141,7 @@ class AdAssetFeedSpec(
         'groups': 'list<AdAssetFeedSpecGroupRule>',
         'images': 'list<AdAssetFeedSpecImage>',
         'link_urls': 'list<AdAssetFeedSpecLinkURL>',
-        'offer_ids': 'list<Object>',
-        'onsite_destinations': 'list<Object>',
         'optimization_type': 'string',
-        'phone_data_ids': 'list<Object>',
         'posts': 'list<Object>',
         'titles': 'list<AdAssetFeedSpecTitle>',
         'videos': 'list<AdAssetFeedSpecVideo>',

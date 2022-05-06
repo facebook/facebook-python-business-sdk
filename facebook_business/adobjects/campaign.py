@@ -46,6 +46,7 @@ class Campaign(
 
     class Field(AbstractObject.Field):
         account_id = 'account_id'
+        ad_strategy_group_id = 'ad_strategy_group_id'
         ad_strategy_id = 'ad_strategy_id'
         adlabels = 'adlabels'
         bid_strategy = 'bid_strategy'
@@ -113,6 +114,7 @@ class Campaign(
         paused = 'PAUSED'
 
     class DatePreset:
+        data_maximum = 'data_maximum'
         last_14d = 'last_14d'
         last_28d = 'last_28d'
         last_30d = 'last_30d'
@@ -488,6 +490,7 @@ class Campaign(
         }
         enums = {
             'date_preset_enum': [
+                'data_maximum',
                 'last_14d',
                 'last_28d',
                 'last_30d',
@@ -1001,6 +1004,7 @@ class Campaign(
 
     _field_types = {
         'account_id': 'string',
+        'ad_strategy_group_id': 'string',
         'ad_strategy_id': 'string',
         'adlabels': 'list<AdLabel>',
         'bid_strategy': 'BidStrategy',

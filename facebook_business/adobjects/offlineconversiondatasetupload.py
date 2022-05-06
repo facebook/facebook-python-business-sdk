@@ -32,74 +32,48 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class PublisherBlockList(
+class OfflineConversionDataSetUpload(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isPublisherBlockList = True
-        super(PublisherBlockList, self).__init__(fbid, parent_id, api)
+        self._isOfflineConversionDataSetUpload = True
+        super(OfflineConversionDataSetUpload, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        app_publishers = 'app_publishers'
-        business_owner_id = 'business_owner_id'
+        api_calls = 'api_calls'
+        creation_time = 'creation_time'
+        duplicate_entries = 'duplicate_entries'
+        event_stats = 'event_stats'
+        event_time_max = 'event_time_max'
+        event_time_min = 'event_time_min'
+        first_upload_time = 'first_upload_time'
         id = 'id'
-        is_auto_blocking_on = 'is_auto_blocking_on'
-        is_eligible_at_campaign_level = 'is_eligible_at_campaign_level'
-        last_update_time = 'last_update_time'
-        last_update_user = 'last_update_user'
-        name = 'name'
-        owner_ad_account_id = 'owner_ad_account_id'
-        web_publishers = 'web_publishers'
+        is_excluded_for_lift = 'is_excluded_for_lift'
+        last_upload_time = 'last_upload_time'
+        match_rate_approx = 'match_rate_approx'
+        matched_entries = 'matched_entries'
+        upload_tag = 'upload_tag'
+        valid_entries = 'valid_entries'
 
-    # @deprecated get_endpoint function is deprecated
-    @classmethod
-    def get_endpoint(cls):
-        return 'publisher_block_lists'
+    class Order:
+        ascending = 'ASCENDING'
+        descending = 'DESCENDING'
 
-    # @deprecated api_create is being deprecated
-    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.adobjects.adaccount import AdAccount
-        return AdAccount(api=self._api, fbid=parent_id).create_publisher_block_list(fields, params, batch, success, failure, pending)
-
-    def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='DELETE',
-            endpoint='/',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
+    class SortBy:
+        api_calls = 'API_CALLS'
+        creation_time = 'CREATION_TIME'
+        event_time_max = 'EVENT_TIME_MAX'
+        event_time_min = 'EVENT_TIME_MIN'
+        first_upload_time = 'FIRST_UPLOAD_TIME'
+        is_excluded_for_lift = 'IS_EXCLUDED_FOR_LIFT'
+        last_upload_time = 'LAST_UPLOAD_TIME'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'account_id': 'unsigned int',
-            'business_id': 'string',
-            'draft_id': 'string',
         }
         enums = {
         }
@@ -109,7 +83,7 @@ class PublisherBlockList(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=PublisherBlockList,
+            target_class=OfflineConversionDataSetUpload,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -125,50 +99,18 @@ class PublisherBlockList(
             self.assure_call()
             return request.execute()
 
-    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def get_progress(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'spec': 'Object',
         }
         enums = {
         }
         request = FacebookRequest(
             node_id=self['id'],
-            method='POST',
-            endpoint='/',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=PublisherBlockList,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_app_end_publisher_url(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'publisher_urls': 'list<string>',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/append_publisher_urls',
+            method='GET',
+            endpoint='/progress',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
@@ -187,19 +129,18 @@ class PublisherBlockList(
             self.assure_call()
             return request.execute()
 
-    def get_paged_web_publishers(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def get_pull_sessions(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'draft_id': 'string',
         }
         enums = {
         }
         request = FacebookRequest(
             node_id=self['id'],
             method='GET',
-            endpoint='/paged_web_publishers',
+            endpoint='/pull_sessions',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
@@ -219,20 +160,26 @@ class PublisherBlockList(
             return request.execute()
 
     _field_types = {
-        'app_publishers': 'list<Object>',
-        'business_owner_id': 'string',
+        'api_calls': 'int',
+        'creation_time': 'int',
+        'duplicate_entries': 'int',
+        'event_stats': 'string',
+        'event_time_max': 'int',
+        'event_time_min': 'int',
+        'first_upload_time': 'int',
         'id': 'string',
-        'is_auto_blocking_on': 'bool',
-        'is_eligible_at_campaign_level': 'bool',
-        'last_update_time': 'datetime',
-        'last_update_user': 'string',
-        'name': 'string',
-        'owner_ad_account_id': 'string',
-        'web_publishers': 'list<Object>',
+        'is_excluded_for_lift': 'bool',
+        'last_upload_time': 'int',
+        'match_rate_approx': 'int',
+        'matched_entries': 'int',
+        'upload_tag': 'string',
+        'valid_entries': 'int',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['Order'] = OfflineConversionDataSetUpload.Order.__dict__.values()
+        field_enum_info['SortBy'] = OfflineConversionDataSetUpload.SortBy.__dict__.values()
         return field_enum_info
 
 

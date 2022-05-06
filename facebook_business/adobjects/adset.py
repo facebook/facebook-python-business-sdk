@@ -100,17 +100,6 @@ class AdSet(
         time_based_ad_rotation_intervals = 'time_based_ad_rotation_intervals'
         updated_time = 'updated_time'
         use_new_app_click = 'use_new_app_click'
-        campaign_spec = 'campaign_spec'
-        daily_imps = 'daily_imps'
-        date_format = 'date_format'
-        execution_options = 'execution_options'
-        line_number = 'line_number'
-        rb_prediction_id = 'rb_prediction_id'
-        time_start = 'time_start'
-        time_stop = 'time_stop'
-        topline_id = 'topline_id'
-        tune_for_category = 'tune_for_category'
-        upstream_events = 'upstream_events'
 
     class BidStrategy:
         cost_cap = 'COST_CAP'
@@ -154,6 +143,7 @@ class AdSet(
         engaged_users = 'ENGAGED_USERS'
         event_responses = 'EVENT_RESPONSES'
         impressions = 'IMPRESSIONS'
+        in_app_value = 'IN_APP_VALUE'
         landing_page_views = 'LANDING_PAGE_VIEWS'
         lead_generation = 'LEAD_GENERATION'
         link_clicks = 'LINK_CLICKS'
@@ -175,6 +165,7 @@ class AdSet(
         paused = 'PAUSED'
 
     class DatePreset:
+        data_maximum = 'data_maximum'
         last_14d = 'last_14d'
         last_28d = 'last_28d'
         last_30d = 'last_30d'
@@ -194,6 +185,10 @@ class AdSet(
         this_year = 'this_year'
         today = 'today'
         yesterday = 'yesterday'
+
+    class Operator:
+        all = 'ALL'
+        any = 'ANY'
 
     class DestinationType:
         app = 'APP'
@@ -238,10 +233,6 @@ class AdSet(
         none = 'NONE'
         online_gambling_and_gaming = 'ONLINE_GAMBLING_AND_GAMING'
 
-    class Operator:
-        all = 'ALL'
-        any = 'ANY'
-
     class StatusOption:
         active = 'ACTIVE'
         inherited_from_source = 'INHERITED_FROM_SOURCE'
@@ -251,11 +242,6 @@ class AdSet(
     @classmethod
     def get_endpoint(cls):
         return 'adsets'
-
-    # @deprecated api_create is being deprecated
-    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.adobjects.adaccount import AdAccount
-        return AdAccount(api=self._api, fbid=parent_id).create_ad_set(fields, params, batch, success, failure, pending)
 
     def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -299,6 +285,7 @@ class AdSet(
         }
         enums = {
             'date_preset_enum': [
+                'data_maximum',
                 'last_14d',
                 'last_28d',
                 'last_30d',
@@ -1053,17 +1040,6 @@ class AdSet(
         'time_based_ad_rotation_intervals': 'list<unsigned int>',
         'updated_time': 'datetime',
         'use_new_app_click': 'bool',
-        'campaign_spec': 'Object',
-        'daily_imps': 'unsigned int',
-        'date_format': 'string',
-        'execution_options': 'list<ExecutionOptions>',
-        'line_number': 'unsigned int',
-        'rb_prediction_id': 'string',
-        'time_start': 'datetime',
-        'time_stop': 'datetime',
-        'topline_id': 'string',
-        'tune_for_category': 'TuneForCategory',
-        'upstream_events': 'map',
     }
     @classmethod
     def _get_field_enum_info(cls):
@@ -1075,13 +1051,13 @@ class AdSet(
         field_enum_info['OptimizationGoal'] = AdSet.OptimizationGoal.__dict__.values()
         field_enum_info['Status'] = AdSet.Status.__dict__.values()
         field_enum_info['DatePreset'] = AdSet.DatePreset.__dict__.values()
+        field_enum_info['Operator'] = AdSet.Operator.__dict__.values()
         field_enum_info['DestinationType'] = AdSet.DestinationType.__dict__.values()
         field_enum_info['ExecutionOptions'] = AdSet.ExecutionOptions.__dict__.values()
         field_enum_info['FullFunnelExplorationMode'] = AdSet.FullFunnelExplorationMode.__dict__.values()
         field_enum_info['MultiOptimizationGoalWeight'] = AdSet.MultiOptimizationGoalWeight.__dict__.values()
         field_enum_info['OptimizationSubEvent'] = AdSet.OptimizationSubEvent.__dict__.values()
         field_enum_info['TuneForCategory'] = AdSet.TuneForCategory.__dict__.values()
-        field_enum_info['Operator'] = AdSet.Operator.__dict__.values()
         field_enum_info['StatusOption'] = AdSet.StatusOption.__dict__.values()
         return field_enum_info
 
