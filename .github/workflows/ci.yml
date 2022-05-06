@@ -1,31 +1,35 @@
-name: Tests
+# ===================== WORK4 =============================
+# /!\ COMMENTED BY WORK4 BECAUSE WE HAVE OUR OWN CCI CONFIG
+# ===================== WORK4 =============================
 
-on: [push, pull_request]
+# name: Tests
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        include:
-          - python-version: 2.7
-            tox-env: py27
-          - python-version: 3.5
-            tox-env: py35
-          - python-version: 3.6
-            tox-env: py36
-          - python-version: 3.7
-            tox-env: py37
-          - python-version: 3.8
-            tox-env: py38
+# on: [push, pull_request]
 
-    steps:
-    - uses: actions/checkout@v1
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Test with tox
-      run: |
-        pip install tox
-        tox -e ${{ matrix.tox-env }}
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     strategy:
+#       matrix:
+#         include:
+#           - python-version: 2.7
+#             tox-env: py27
+#           - python-version: 3.5
+#             tox-env: py35
+#           - python-version: 3.6
+#             tox-env: py36
+#           - python-version: 3.7
+#             tox-env: py37
+#           - python-version: 3.8
+#             tox-env: py38
+
+#     steps:
+#     - uses: actions/checkout@v1
+#     - name: Set up Python ${{ matrix.python-version }}
+#       uses: actions/setup-python@v2
+#       with:
+#         python-version: ${{ matrix.python-version }}
+#     - name: Test with tox
+#       run: |
+#         pip install tox
+#         tox -e ${{ matrix.tox-env }}
