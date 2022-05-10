@@ -81,6 +81,7 @@ class ContentDeliveryReport(
         oculus_twilight_feed = 'OCULUS_TWILIGHT_FEED'
         oculus_twilight_feed_spotlight = 'OCULUS_TWILIGHT_FEED_SPOTLIGHT'
         oculus_twilight_search = 'OCULUS_TWILIGHT_SEARCH'
+        oculus_twilight_search_null_state = 'OCULUS_TWILIGHT_SEARCH_NULL_STATE'
         oculus_vr_apps = 'OCULUS_VR_APPS'
         others = 'OTHERS'
         rewarded_video = 'REWARDED_VIDEO'

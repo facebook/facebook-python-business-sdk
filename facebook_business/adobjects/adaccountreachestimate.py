@@ -39,13 +39,11 @@ class AdAccountReachEstimate(
 
     class Field(AbstractObject.Field):
         estimate_ready = 'estimate_ready'
-        users = 'users'
         users_lower_bound = 'users_lower_bound'
         users_upper_bound = 'users_upper_bound'
 
     _field_types = {
         'estimate_ready': 'bool',
-        'users': 'int',
         'users_lower_bound': 'int',
         'users_upper_bound': 'int',
     }

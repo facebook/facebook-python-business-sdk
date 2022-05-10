@@ -62,6 +62,11 @@ class ProductItem(
         custom_label_2 = 'custom_label_2'
         custom_label_3 = 'custom_label_3'
         custom_label_4 = 'custom_label_4'
+        custom_number_0 = 'custom_number_0'
+        custom_number_1 = 'custom_number_1'
+        custom_number_2 = 'custom_number_2'
+        custom_number_3 = 'custom_number_3'
+        custom_number_4 = 'custom_number_4'
         description = 'description'
         expiration_date = 'expiration_date'
         fb_product_category = 'fb_product_category'
@@ -106,6 +111,7 @@ class ProductItem(
         start_date = 'start_date'
         url = 'url'
         visibility = 'visibility'
+        wa_compliance_category = 'wa_compliance_category'
         additional_uploaded_image_ids = 'additional_uploaded_image_ids'
         android_app_name = 'android_app_name'
         android_class = 'android_class'
@@ -284,7 +290,9 @@ class ProductItem(
         fb_elec_part = 'FB_ELEC_PART'
         fb_elec_print = 'FB_ELEC_PRINT'
         fb_elec_radar = 'FB_ELEC_RADAR'
+        fb_elec_sftwr = 'FB_ELEC_SFTWR'
         fb_elec_speed_rdr = 'FB_ELEC_SPEED_RDR'
+        fb_elec_television = 'FB_ELEC_TELEVISION'
         fb_elec_toll = 'FB_ELEC_TOLL'
         fb_elec_video = 'FB_ELEC_VIDEO'
         fb_elec_vid_gm_acc = 'FB_ELEC_VID_GM_ACC'
@@ -650,6 +658,10 @@ class ProductItem(
         zm = 'ZM'
         zw = 'ZW'
 
+    class WaComplianceCategory:
+        country_origin_exempt = 'COUNTRY_ORIGIN_EXEMPT'
+        value_default = 'DEFAULT'
+
     # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
@@ -752,6 +764,11 @@ class ProductItem(
             'custom_label_2': 'string',
             'custom_label_3': 'string',
             'custom_label_4': 'string',
+            'custom_number_0': 'unsigned int',
+            'custom_number_1': 'unsigned int',
+            'custom_number_2': 'unsigned int',
+            'custom_number_3': 'unsigned int',
+            'custom_number_4': 'unsigned int',
             'description': 'string',
             'expiration_date': 'string',
             'fb_product_category': 'string',
@@ -796,6 +813,7 @@ class ProductItem(
             'start_date': 'string',
             'url': 'string',
             'visibility': 'visibility_enum',
+            'wa_compliance_category': 'wa_compliance_category_enum',
             'windows_phone_app_id': 'string',
             'windows_phone_app_name': 'string',
             'windows_phone_url': 'string',
@@ -808,6 +826,7 @@ class ProductItem(
             'marked_for_product_launch_enum': ProductItem.MarkedForProductLaunch.__dict__.values(),
             'origin_country_enum': ProductItem.OriginCountry.__dict__.values(),
             'visibility_enum': ProductItem.Visibility.__dict__.values(),
+            'wa_compliance_category_enum': ProductItem.WaComplianceCategory.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -915,6 +934,11 @@ class ProductItem(
         'custom_label_2': 'string',
         'custom_label_3': 'string',
         'custom_label_4': 'string',
+        'custom_number_0': 'string',
+        'custom_number_1': 'string',
+        'custom_number_2': 'string',
+        'custom_number_3': 'string',
+        'custom_number_4': 'string',
         'description': 'string',
         'expiration_date': 'string',
         'fb_product_category': 'string',
@@ -959,6 +983,7 @@ class ProductItem(
         'start_date': 'string',
         'url': 'string',
         'visibility': 'Visibility',
+        'wa_compliance_category': 'string',
         'additional_uploaded_image_ids': 'list<string>',
         'android_app_name': 'string',
         'android_class': 'string',
@@ -998,6 +1023,7 @@ class ProductItem(
         field_enum_info['CommerceTaxCategory'] = ProductItem.CommerceTaxCategory.__dict__.values()
         field_enum_info['MarkedForProductLaunch'] = ProductItem.MarkedForProductLaunch.__dict__.values()
         field_enum_info['OriginCountry'] = ProductItem.OriginCountry.__dict__.values()
+        field_enum_info['WaComplianceCategory'] = ProductItem.WaComplianceCategory.__dict__.values()
         return field_enum_info
 
 

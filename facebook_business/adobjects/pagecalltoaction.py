@@ -206,14 +206,12 @@ class PageCallToAction(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'android_app_id': 'int',
-            'android_deeplink': 'string',
             'android_destination_type': 'android_destination_type_enum',
             'android_package_name': 'string',
             'android_url': 'string',
             'email_address': 'string',
             'intl_number_with_plus': 'string',
             'iphone_app_id': 'int',
-            'iphone_deeplink': 'string',
             'iphone_destination_type': 'iphone_destination_type_enum',
             'iphone_url': 'string',
             'type': 'type_enum',

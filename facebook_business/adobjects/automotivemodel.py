@@ -95,6 +95,7 @@ class AutomotiveModel(
         roadster = 'ROADSTER'
         saloon = 'SALOON'
         sedan = 'SEDAN'
+        small_car = 'SMALL_CAR'
         sportscar = 'SPORTSCAR'
         supercar = 'SUPERCAR'
         supermini = 'SUPERMINI'
@@ -263,7 +264,7 @@ class AutomotiveModel(
         'trim': 'string',
         'unit_price': 'Object',
         'url': 'string',
-        'year': 'unsigned int',
+        'year': 'int',
     }
     @classmethod
     def _get_field_enum_info(cls):

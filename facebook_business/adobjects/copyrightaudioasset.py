@@ -32,32 +32,19 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdReportSpec(
+class CopyrightAudioAsset(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isAdReportSpec = True
-        super(AdReportSpec, self).__init__(fbid, parent_id, api)
+        self._isCopyrightAudioAsset = True
+        super(CopyrightAudioAsset, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        account_id = 'account_id'
-        actions_group_by = 'actions_group_by'
-        creation_source = 'creation_source'
-        data_columns = 'data_columns'
-        date_preset = 'date_preset'
-        export_columns = 'export_columns'
-        filters = 'filters'
-        format_version = 'format_version'
+        creation_time = 'creation_time'
         id = 'id'
-        insights_section = 'insights_section'
-        name = 'name'
-        report_schedule_id = 'report_schedule_id'
-        sort_by = 'sort_by'
-        sort_dir = 'sort_dir'
-        time_increment = 'time_increment'
-        time_interval = 'time_interval'
-        time_ranges = 'time_ranges'
+        title = 'title'
+        update_time = 'update_time'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -73,7 +60,7 @@ class AdReportSpec(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AdReportSpec,
+            target_class=CopyrightAudioAsset,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -90,23 +77,10 @@ class AdReportSpec(
             return request.execute()
 
     _field_types = {
-        'account_id': 'string',
-        'actions_group_by': 'list<string>',
-        'creation_source': 'string',
-        'data_columns': 'list<string>',
-        'date_preset': 'string',
-        'export_columns': 'list<string>',
-        'filters': 'list<Object>',
-        'format_version': 'int',
+        'creation_time': 'datetime',
         'id': 'string',
-        'insights_section': 'Object',
-        'name': 'string',
-        'report_schedule_id': 'string',
-        'sort_by': 'string',
-        'sort_dir': 'string',
-        'time_increment': 'string',
-        'time_interval': 'Object',
-        'time_ranges': 'list<Object>',
+        'title': 'string',
+        'update_time': 'datetime',
     }
     @classmethod
     def _get_field_enum_info(cls):

@@ -66,6 +66,7 @@ class AdImage(
     class Status:
         active = 'ACTIVE'
         deleted = 'DELETED'
+        internal = 'INTERNAL'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod

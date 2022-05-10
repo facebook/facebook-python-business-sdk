@@ -32,24 +32,31 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class BusinessAgreement(
+class CPASBusinessSetupConfig(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isBusinessAgreement = True
-        super(BusinessAgreement, self).__init__(fbid, parent_id, api)
+        self._isCPASBusinessSetupConfig = True
+        super(CPASBusinessSetupConfig, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        accepted_collab_ads_tos = 'accepted_collab_ads_tos'
+        business = 'business'
+        business_capabilities_status = 'business_capabilities_status'
+        capabilities_compliance_status = 'capabilities_compliance_status'
         id = 'id'
-        request_status = 'request_status'
+        ad_accounts = 'ad_accounts'
 
-    class RequestStatus:
-        approve = 'APPROVE'
-        decline = 'DECLINE'
-        expired = 'EXPIRED'
-        in_progress = 'IN_PROGRESS'
-        pending = 'PENDING'
+    # @deprecated get_endpoint function is deprecated
+    @classmethod
+    def get_endpoint(cls):
+        return 'cpas_business_setup_config'
+
+    # @deprecated api_create is being deprecated
+    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.adobjects.business import Business
+        return Business(api=self._api, fbid=parent_id).create_cpas_business_setup_config(fields, params, batch, success, failure, pending)
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -65,7 +72,7 @@ class BusinessAgreement(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=BusinessAgreement,
+            target_class=CPASBusinessSetupConfig,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -86,11 +93,13 @@ class BusinessAgreement(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'asset_id': 'unsigned int',
-            'request_status': 'request_status_enum',
+            'accepted_collab_ads_tos': 'bool',
+            'ad_accounts': 'list<string>',
+            'business': 'string',
+            'business_capabilities_status': 'map',
+            'capabilities_compliance_status': 'map',
         }
         enums = {
-            'request_status_enum': BusinessAgreement.RequestStatus.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -98,7 +107,7 @@ class BusinessAgreement(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=BusinessAgreement,
+            target_class=CPASBusinessSetupConfig,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -114,14 +123,48 @@ class BusinessAgreement(
             self.assure_call()
             return request.execute()
 
+    def get_ad_accounts(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.adaccount import AdAccount
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/ad_accounts',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdAccount,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdAccount, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     _field_types = {
+        'accepted_collab_ads_tos': 'bool',
+        'business': 'Business',
+        'business_capabilities_status': 'map<string, string>',
+        'capabilities_compliance_status': 'map<string, Object>',
         'id': 'string',
-        'request_status': 'string',
+        'ad_accounts': 'list<string>',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['RequestStatus'] = BusinessAgreement.RequestStatus.__dict__.values()
         return field_enum_info
 
 
