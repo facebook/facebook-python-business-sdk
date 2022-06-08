@@ -848,7 +848,8 @@ class Cursor(object):
 
         if 'paging' in response and 'next' in response['paging']:
             self._path = response['paging']['next']
-            self.params = {}
+            # Comment line below because of the params bug present in FB end
+            # self.params = {}
         else:
             # Indicate if this was the last page
             self._finished_iteration = True
