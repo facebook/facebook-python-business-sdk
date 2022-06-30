@@ -48,6 +48,7 @@ class Group(
         email = 'email'
         icon = 'icon'
         id = 'id'
+        install = 'install'
         link = 'link'
         member_count = 'member_count'
         member_request_count = 'member_request_count'
@@ -103,6 +104,7 @@ class Group(
         project = 'PROJECT'
         real_world = 'REAL_WORLD'
         real_world_at_work = 'REAL_WORLD_AT_WORK'
+        restyle = 'RESTYLE'
         school_class = 'SCHOOL_CLASS'
         sorority = 'SORORITY'
         sports = 'SPORTS'
@@ -122,6 +124,7 @@ class Group(
         work_for_sale = 'WORK_FOR_SALE'
         work_garden = 'WORK_GARDEN'
         work_guest_group = 'WORK_GUEST_GROUP'
+        work_integrity = 'WORK_INTEGRITY'
         work_learning = 'WORK_LEARNING'
         work_mentorship = 'WORK_MENTORSHIP'
         work_multi_company = 'WORK_MULTI_COMPANY'
@@ -166,6 +169,7 @@ class Group(
         project = 'PROJECT'
         real_world = 'REAL_WORLD'
         real_world_at_work = 'REAL_WORLD_AT_WORK'
+        restyle = 'RESTYLE'
         school_class = 'SCHOOL_CLASS'
         sorority = 'SORORITY'
         sports = 'SPORTS'
@@ -185,6 +189,7 @@ class Group(
         work_for_sale = 'WORK_FOR_SALE'
         work_garden = 'WORK_GARDEN'
         work_guest_group = 'WORK_GUEST_GROUP'
+        work_integrity = 'WORK_INTEGRITY'
         work_learning = 'WORK_LEARNING'
         work_mentorship = 'WORK_MENTORSHIP'
         work_multi_company = 'WORK_MULTI_COMPANY'
@@ -417,6 +422,67 @@ class Group(
             self.assure_call()
             return request.execute()
 
+    def get_attachment_surfaces(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/attachment_surfaces',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_attachment_surface(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'title': 'map',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/attachment_surfaces',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_docs(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -465,6 +531,69 @@ class Group(
             target_class=Event,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=Event, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_featured_cards(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/featured_cards',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_featured_card(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'body': 'map',
+            'description': 'map',
+            'title': 'map',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/featured_cards',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -814,6 +943,7 @@ class Group(
             'description': 'string',
             'enable_backup_ingest': 'bool',
             'encoding_settings': 'string',
+            'event_params': 'Object',
             'fisheye_video_cropped': 'bool',
             'front_z_rotation': 'float',
             'is_audio_only': 'bool',
@@ -1271,6 +1401,7 @@ class Group(
         'email': 'string',
         'icon': 'string',
         'id': 'string',
+        'install': 'Object',
         'link': 'string',
         'member_count': 'unsigned int',
         'member_request_count': 'unsigned int',

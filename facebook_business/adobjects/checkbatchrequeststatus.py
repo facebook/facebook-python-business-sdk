@@ -46,6 +46,11 @@ class CheckBatchRequestStatus(
         warnings = 'warnings'
         warnings_total_count = 'warnings_total_count'
 
+    class ErrorPriority:
+        high = 'HIGH'
+        low = 'LOW'
+        medium = 'MEDIUM'
+
     _field_types = {
         'errors': 'list<Object>',
         'errors_total_count': 'int',
@@ -58,6 +63,7 @@ class CheckBatchRequestStatus(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['ErrorPriority'] = CheckBatchRequestStatus.ErrorPriority.__dict__.values()
         return field_enum_info
 
 

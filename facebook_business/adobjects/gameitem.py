@@ -32,20 +32,28 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class PageAdminNote(
+class GameItem(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isPageAdminNote = True
-        super(PageAdminNote, self).__init__(fbid, parent_id, api)
+        self._isGameItem = True
+        super(GameItem, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        body = 'body'
-        field_from = 'from'
+        count = 'count'
+        created = 'created'
+        ext_id = 'ext_id'
         id = 'id'
-        note_label = 'note_label'
-        user = 'user'
+        item_def = 'item_def'
+        owner = 'owner'
+        status = 'status'
+        updated = 'updated'
+
+    class Action:
+        consume = 'CONSUME'
+        drop = 'DROP'
+        mark = 'MARK'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -61,7 +69,7 @@ class PageAdminNote(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=PageAdminNote,
+            target_class=GameItem,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -78,15 +86,19 @@ class PageAdminNote(
             return request.execute()
 
     _field_types = {
-        'body': 'string',
-        'from': 'Page',
+        'count': 'int',
+        'created': 'datetime',
+        'ext_id': 'string',
         'id': 'string',
-        'note_label': 'string',
-        'user': 'User',
+        'item_def': 'string',
+        'owner': 'User',
+        'status': 'string',
+        'updated': 'datetime',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['Action'] = GameItem.Action.__dict__.values()
         return field_enum_info
 
 

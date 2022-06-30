@@ -28,30 +28,40 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class NativeOfferDiscount(
+class ShadowIGMediaProductTags(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(NativeOfferDiscount, self).__init__()
-        self._isNativeOfferDiscount = True
+        super(ShadowIGMediaProductTags, self).__init__()
+        self._isShadowIGMediaProductTags = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        currency = 'currency'
-        override = 'override'
-        text = 'text'
-        type = 'type'
-        value1 = 'value1'
-        value2 = 'value2'
+        image_url = 'image_url'
+        is_checkout = 'is_checkout'
+        merchant_id = 'merchant_id'
+        name = 'name'
+        price_string = 'price_string'
+        product_id = 'product_id'
+        review_status = 'review_status'
+        stripped_price_string = 'stripped_price_string'
+        stripped_sale_price_string = 'stripped_sale_price_string'
+        x = 'x'
+        y = 'y'
 
     _field_types = {
-        'currency': 'string',
-        'override': 'string',
-        'text': 'string',
-        'type': 'string',
-        'value1': 'float',
-        'value2': 'float',
+        'image_url': 'string',
+        'is_checkout': 'bool',
+        'merchant_id': 'int',
+        'name': 'string',
+        'price_string': 'string',
+        'product_id': 'int',
+        'review_status': 'string',
+        'stripped_price_string': 'string',
+        'stripped_sale_price_string': 'string',
+        'x': 'float',
+        'y': 'float',
     }
     @classmethod
     def _get_field_enum_info(cls):

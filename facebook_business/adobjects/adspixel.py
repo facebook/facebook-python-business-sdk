@@ -99,8 +99,8 @@ class AdsPixel(
 
     # @deprecated api_create is being deprecated
     def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.adobjects.business import Business
-        return Business(api=self._api, fbid=parent_id).create_ads_pixel(fields, params, batch, success, failure, pending)
+        from facebook_business.adobjects.adaccount import AdAccount
+        return AdAccount(api=self._api, fbid=parent_id).create_ads_pixel(fields, params, batch, success, failure, pending)
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -278,6 +278,7 @@ class AdsPixel(
             'data': 'list<string>',
             'namespace_id': 'string',
             'partner_agent': 'string',
+            'platforms': 'list<map>',
             'test_event_code': 'string',
             'trace': 'unsigned int',
             'upload_id': 'string',

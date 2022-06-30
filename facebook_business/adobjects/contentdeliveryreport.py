@@ -68,6 +68,7 @@ class ContentDeliveryReport(
         instagram_explore = 'INSTAGRAM_EXPLORE'
         instagram_igtv = 'INSTAGRAM_IGTV'
         instagram_reels = 'INSTAGRAM_REELS'
+        instagram_reels_overlay = 'INSTAGRAM_REELS_OVERLAY'
         instagram_shop = 'INSTAGRAM_SHOP'
         instagram_stories = 'INSTAGRAM_STORIES'
         instant_article = 'INSTANT_ARTICLE'

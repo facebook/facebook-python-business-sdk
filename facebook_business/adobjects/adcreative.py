@@ -134,6 +134,7 @@ class AdCreative(
         get_offer_view = 'GET_OFFER_VIEW'
         get_quote = 'GET_QUOTE'
         get_showtimes = 'GET_SHOWTIMES'
+        get_started = 'GET_STARTED'
         install_app = 'INSTALL_APP'
         install_mobile_app = 'INSTALL_MOBILE_APP'
         learn_more = 'LEARN_MORE'
