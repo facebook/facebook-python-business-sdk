@@ -106,7 +106,7 @@ class FacebookResponse(object):
             # Has body and no error
             if 'success' in json_body:
                 return json_body['success']
-            # API can retuen a success 200 when service unavailable occurs
+            # API can return a success 200 when service unavailable occurs
             return 'Service Unavailable' not in json_body
         elif self._http_status == http_client.NOT_MODIFIED:
             # ETAG Hit
