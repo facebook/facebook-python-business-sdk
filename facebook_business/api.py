@@ -33,7 +33,6 @@ from facebook_business.utils import urls
 from contextlib import contextmanager
 import copy
 from six.moves import http_client
-from urllib.parse import parse_qs, urlparse
 import os
 import json
 import six
@@ -849,13 +848,7 @@ class Cursor(object):
 
         if 'paging' in response and 'next' in response['paging']:
             self._path = response['paging']['next']
-            parsed_url = urlparse(self._path)
-            parsed_qs = parse_qs(parsed_url.query)
-
-            keys_in_pagination_url = list(parsed_qs.keys())
-
-            for key in keys_in_pagination_url:
-                self.params.pop(key, None)
+            self.params = {}
         else:
             # Indicate if this was the last page
             self._finished_iteration = True

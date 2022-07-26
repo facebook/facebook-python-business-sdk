@@ -48,6 +48,7 @@ class InstagramUser(
         is_private = 'is_private'
         is_published = 'is_published'
         media_count = 'media_count'
+        mini_shop_storefront = 'mini_shop_storefront'
         profile_pic = 'profile_pic'
         username = 'username'
 
@@ -185,6 +186,7 @@ class InstagramUser(
         'is_private': 'bool',
         'is_published': 'bool',
         'media_count': 'int',
+        'mini_shop_storefront': 'Shop',
         'profile_pic': 'string',
         'username': 'string',
     }

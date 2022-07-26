@@ -55,11 +55,11 @@ class LiveVideo(
         ingest_streams = 'ingest_streams'
         is_manual_mode = 'is_manual_mode'
         is_reference_only = 'is_reference_only'
-        live_encoders = 'live_encoders'
         live_views = 'live_views'
         overlay_url = 'overlay_url'
         permalink_url = 'permalink_url'
         planned_start_time = 'planned_start_time'
+        recommended_encoder_settings = 'recommended_encoder_settings'
         seconds_left = 'seconds_left'
         secure_stream_url = 'secure_stream_url'
         status = 'status'
@@ -200,15 +200,16 @@ class LiveVideo(
             'direct_share_status': 'unsigned int',
             'embeddable': 'bool',
             'end_live_video': 'bool',
+            'event_params': 'Object',
             'is_audio_only': 'bool',
             'is_manual_mode': 'bool',
             'live_comment_moderation_setting': 'list<live_comment_moderation_setting_enum>',
-            'live_encoders': 'list<string>',
             'master_ingest_stream_id': 'string',
             'og_icon_id': 'string',
             'og_phrase': 'string',
             'persistent_stream_key_status': 'persistent_stream_key_status_enum',
             'place': 'Object',
+            'planned_start_time': 'datetime',
             'privacy': 'string',
             'published': 'bool',
             'schedule_custom_profile_image': 'file',
@@ -559,11 +560,11 @@ class LiveVideo(
         'ingest_streams': 'list<LiveVideoInputStream>',
         'is_manual_mode': 'bool',
         'is_reference_only': 'bool',
-        'live_encoders': 'list<LiveEncoder>',
         'live_views': 'unsigned int',
         'overlay_url': 'string',
         'permalink_url': 'Object',
         'planned_start_time': 'datetime',
+        'recommended_encoder_settings': 'LiveVideoRecommendedEncoderSettings',
         'seconds_left': 'int',
         'secure_stream_url': 'string',
         'status': 'string',

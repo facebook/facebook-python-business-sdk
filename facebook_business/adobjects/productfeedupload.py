@@ -133,8 +133,10 @@ class ProductFeedUpload(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.productfeeduploaderror import ProductFeedUploadError
         param_types = {
+            'error_priority': 'error_priority_enum',
         }
         enums = {
+            'error_priority_enum': ProductFeedUploadError.ErrorPriority.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],

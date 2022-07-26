@@ -72,6 +72,7 @@ class AdgroupPlacementSpecificReviewFeedback(
         seller = 'seller'
         shops = 'shops'
         traffic_quality = 'traffic_quality'
+        unified_commerce_content = 'unified_commerce_content'
         whatsapp = 'whatsapp'
 
     _field_types = {
@@ -109,6 +110,7 @@ class AdgroupPlacementSpecificReviewFeedback(
         'seller': 'map<string, string>',
         'shops': 'map<string, string>',
         'traffic_quality': 'map<string, string>',
+        'unified_commerce_content': 'map<string, string>',
         'whatsapp': 'map<string, string>',
     }
     @classmethod

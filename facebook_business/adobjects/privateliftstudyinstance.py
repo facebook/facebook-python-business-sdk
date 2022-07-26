@@ -43,15 +43,18 @@ class PrivateLiftStudyInstance(
     class Field(AbstractObject.Field):
         breakdown_key = 'breakdown_key'
         created_time = 'created_time'
+        feature_list = 'feature_list'
         id = 'id'
         latest_status_update_time = 'latest_status_update_time'
         server_ips = 'server_ips'
         status = 'status'
+        tier = 'tier'
 
     class Operation:
         aggregate = 'AGGREGATE'
         compute = 'COMPUTE'
         id_match = 'ID_MATCH'
+        next = 'NEXT'
         none = 'NONE'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
@@ -119,10 +122,12 @@ class PrivateLiftStudyInstance(
     _field_types = {
         'breakdown_key': 'string',
         'created_time': 'datetime',
+        'feature_list': 'list<string>',
         'id': 'string',
         'latest_status_update_time': 'datetime',
         'server_ips': 'list<string>',
         'status': 'string',
+        'tier': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

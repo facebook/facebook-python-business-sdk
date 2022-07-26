@@ -42,8 +42,8 @@ class SavedAudience(
 
     class Field(AbstractObject.Field):
         account = 'account'
-        approximate_count = 'approximate_count'
-        approximate_count_64bit = 'approximate_count_64bit'
+        approximate_count_lower_bound = 'approximate_count_lower_bound'
+        approximate_count_upper_bound = 'approximate_count_upper_bound'
         delete_time = 'delete_time'
         description = 'description'
         extra_info = 'extra_info'
@@ -90,8 +90,8 @@ class SavedAudience(
 
     _field_types = {
         'account': 'AdAccount',
-        'approximate_count': 'int',
-        'approximate_count_64bit': 'int',
+        'approximate_count_lower_bound': 'int',
+        'approximate_count_upper_bound': 'int',
         'delete_time': 'int',
         'description': 'string',
         'extra_info': 'string',

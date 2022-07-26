@@ -43,6 +43,7 @@ class CommerceMerchantSettings(
     class Field(AbstractObject.Field):
         braintree_merchant_id = 'braintree_merchant_id'
         checkout_message = 'checkout_message'
+        commerce_store = 'commerce_store'
         contact_email = 'contact_email'
         cta = 'cta'
         disable_checkout_urls = 'disable_checkout_urls'
@@ -434,6 +435,7 @@ class CommerceMerchantSettings(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'handling_time': 'map',
+            'is_default': 'bool',
             'is_default_shipping_profile': 'bool',
             'name': 'string',
             'reference_id': 'string',
@@ -450,6 +452,37 @@ class CommerceMerchantSettings(
             target_class=AbstractCrudObject,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_shops(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.shop import Shop
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/shops',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Shop,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Shop, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -532,6 +565,7 @@ class CommerceMerchantSettings(
     _field_types = {
         'braintree_merchant_id': 'string',
         'checkout_message': 'string',
+        'commerce_store': 'Object',
         'contact_email': 'string',
         'cta': 'string',
         'disable_checkout_urls': 'bool',

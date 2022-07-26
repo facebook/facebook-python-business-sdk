@@ -68,6 +68,7 @@ class Event(
         place = 'place'
         scheduled_publish_time = 'scheduled_publish_time'
         start_time = 'start_time'
+        ticket_setting = 'ticket_setting'
         ticket_uri = 'ticket_uri'
         ticket_uri_start_sales_time = 'ticket_uri_start_sales_time'
         ticketing_privacy_uri = 'ticketing_privacy_uri'
@@ -116,6 +117,7 @@ class Event(
         group = 'group'
         private = 'private'
         public = 'public'
+        work_company = 'work_company'
 
     class EventStateFilter:
         canceled = 'canceled'
@@ -260,12 +262,13 @@ class Event(
             'description': 'string',
             'enable_backup_ingest': 'bool',
             'encoding_settings': 'string',
+            'event_params': 'Object',
             'fisheye_video_cropped': 'bool',
             'front_z_rotation': 'float',
             'is_audio_only': 'bool',
             'is_spherical': 'bool',
-            'live_encoders': 'list<string>',
             'original_fov': 'unsigned int',
+            'planned_start_time': 'int',
             'privacy': 'string',
             'projection': 'projection_enum',
             'published': 'bool',
@@ -519,6 +522,7 @@ class Event(
         'place': 'Place',
         'scheduled_publish_time': 'string',
         'start_time': 'string',
+        'ticket_setting': 'Object',
         'ticket_uri': 'string',
         'ticket_uri_start_sales_time': 'string',
         'ticketing_privacy_uri': 'string',
