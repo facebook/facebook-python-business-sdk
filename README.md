@@ -61,6 +61,40 @@ python setup.py sdist upload -r pip-adroll
 
 [![Build Status](https://travis-ci.org/facebook/facebook-python-business-sdk.svg)](https://travis-ci.org/facebook/facebook-python-business-sdk)
 
+## How test `facebook-python-business-sdk`
+
+Install `ipython` and execute
+
+```bash
+ipython
+```
+
+Then paste or type the following
+
+```python
+from facebook_business import FacebookSession
+from facebook_business import FacebookAdsApi
+from facebook_business.adobjects import adaccount
+
+# You can get these below from cats4gold
+session = FacebookSession(
+    cfg.FACEBOOK_APP_ID,
+    cfg.FACEBOOK_APP_SECRET,
+    cfg.FACEBOOK_ACCESS_TOKEN,
+)
+api = FacebookAdsApi(session)
+
+act = adaccount.AdAccount("act_1703098119930984", api=api)
+cursor = act.get_ad_creatives(fields=["thumbnail_url"], params={"limit": 1, "thumbnail_width": 1000, "thumbnail_height": 1000})
+
+c1 = next(cursor)
+c2 = next(cursor)
+c3 = next(cursor)
+# Make sure c1, c2, and c3 all have thumbnail_urls with a good size
+```
+
+---
+
 ### Introduction
 
 The Facebook <a href="https://developers.facebook.com/docs/business-sdk" target="_blank">Business SDK</a> is a one-stop shop to help our partners better serve their businesses. Partners are using multiple Facebook API's to server the needs of their clients. Adopting all these API's and keeping them up to date across the various platforms can be time consuming and ultimately prohibitive. For this reason Facebook has developed the Business SDK bundling many of its APIs into one SDK to ease implementation and upkeep. The Business SDK is an upgraded version of the Marketing API SDK that includes the Marketing API as well as many Facebook APIs from different platforms such as Pages, Business Manager, Instagram, etc.
