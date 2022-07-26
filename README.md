@@ -32,6 +32,11 @@ And remove the following folders:
 .github/workflows
 ```
 
+You can do it with:
+```
+git cherry-pick 00f83d2880334b7cf204e6023a40cbeb8f739b8b
+```
+
 And then commit and push the changes:
 
 ```
