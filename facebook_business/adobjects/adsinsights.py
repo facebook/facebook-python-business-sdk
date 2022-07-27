@@ -180,6 +180,8 @@ class AdsInsights(
         value_7d_view = '7d_view'
         dda = 'dda'
         value_default = 'default'
+        skan_click = 'skan_click'
+        skan_view = 'skan_view'
 
     class ActionBreakdowns:
         action_canvas_component_name = 'action_canvas_component_name'
@@ -225,6 +227,7 @@ class AdsInsights(
         video_asset = 'video_asset'
 
     class DatePreset:
+        data_maximum = 'data_maximum'
         last_14d = 'last_14d'
         last_28d = 'last_28d'
         last_30d = 'last_30d'

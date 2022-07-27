@@ -40,13 +40,11 @@ class ProductFeedMissingFeedItemReplacement(
     class Field(AbstractObject.Field):
         home_listing = 'home_listing'
         product_item = 'product_item'
-        store_product_item = 'store_product_item'
         vehicle = 'vehicle'
 
     _field_types = {
         'home_listing': 'Object',
         'product_item': 'Object',
-        'store_product_item': 'Object',
         'vehicle': 'Object',
     }
     @classmethod

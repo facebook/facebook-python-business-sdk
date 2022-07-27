@@ -9,9 +9,10 @@ git remote add upstream https://github.com/facebook/facebook-python-business-sdk
 git checkout main
 git checkout -b version-x
 
-git merge -s ours upstream/master
+git fetch upstream/main
+git merge -s ours upstream/main
 
-git checkout --detach upstream/master
+git checkout --detach upstream/main
 git reset --soft version-x
 
 git checkout version-x
@@ -33,7 +34,7 @@ And remove the following folders:
 
 You can do it with:
 ```
-git cherry-pick d33562c71e914e1ff736306f21a2c5fa07279cfe
+git cherry-pick 00f83d2880334b7cf204e6023a40cbeb8f739b8b
 ```
 
 And then commit and push the changes:
@@ -46,7 +47,7 @@ git push origin version-x
 
 You can verify that your new branch only applies the intended changes by checking:
 ```
-https://github.com/facebook/facebook-python-business-sdk/compare/master...SemanticSugar:version-x
+https://github.com/facebook/facebook-python-business-sdk/compare/main...SemanticSugar:version-x
 ```
 
 The only changes that should be there are the ones you manually added.
@@ -58,10 +59,41 @@ To deploy to artifactory:
 python setup.py sdist upload -r pip-adroll
 ```
 
-The thing in jFrog:
-https://adrollserv.jfrog.io/ui/packages/pypi:%2F%2Ffacebook_business?name=facebook&type=packages
-
 [![Build Status](https://travis-ci.org/facebook/facebook-python-business-sdk.svg)](https://travis-ci.org/facebook/facebook-python-business-sdk)
+
+## How test `facebook-python-business-sdk`
+
+Install `ipython` and execute
+
+```bash
+ipython
+```
+
+Then paste or type the following
+
+```python
+from facebook_business import FacebookSession
+from facebook_business import FacebookAdsApi
+from facebook_business.adobjects import adaccount
+
+# You can get these below from cats4gold
+session = FacebookSession(
+    cfg.FACEBOOK_APP_ID,
+    cfg.FACEBOOK_APP_SECRET,
+    cfg.FACEBOOK_ACCESS_TOKEN,
+)
+api = FacebookAdsApi(session)
+
+act = adaccount.AdAccount("act_1703098119930984", api=api)
+cursor = act.get_ad_creatives(fields=["thumbnail_url"], params={"limit": 1, "thumbnail_width": 1000, "thumbnail_height": 1000})
+
+c1 = next(cursor)
+c2 = next(cursor)
+c3 = next(cursor)
+# Make sure c1, c2, and c3 all have thumbnail_urls with a good size
+```
+
+---
 
 ### Introduction
 

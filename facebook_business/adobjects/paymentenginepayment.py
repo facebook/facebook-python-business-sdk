@@ -54,6 +54,7 @@ class PaymentEnginePayment(
         items = 'items'
         payout_foreign_exchange_rate = 'payout_foreign_exchange_rate'
         phone_support_eligible = 'phone_support_eligible'
+        platform = 'platform'
         refundable_amount = 'refundable_amount'
         request_id = 'request_id'
         tax = 'tax'
@@ -176,6 +177,7 @@ class PaymentEnginePayment(
         'items': 'list<Object>',
         'payout_foreign_exchange_rate': 'float',
         'phone_support_eligible': 'bool',
+        'platform': 'string',
         'refundable_amount': 'CurrencyAmount',
         'request_id': 'string',
         'tax': 'string',

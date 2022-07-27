@@ -46,7 +46,8 @@ class BroadTargetingCategories(
         name = 'name'
         parent_category = 'parent_category'
         path = 'path'
-        size = 'size'
+        size_lower_bound = 'size_lower_bound'
+        size_upper_bound = 'size_upper_bound'
         source = 'source'
         type = 'type'
         type_name = 'type_name'
@@ -64,7 +65,8 @@ class BroadTargetingCategories(
         'name': 'string',
         'parent_category': 'string',
         'path': 'list<string>',
-        'size': 'int',
+        'size_lower_bound': 'int',
+        'size_upper_bound': 'int',
         'source': 'string',
         'type': 'int',
         'type_name': 'string',

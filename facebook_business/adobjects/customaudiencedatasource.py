@@ -52,6 +52,7 @@ class CustomAudienceDataSource(
         conversion_pixel_hits = 'CONVERSION_PIXEL_HITS'
         copy_paste_email_hashes = 'COPY_PASTE_EMAIL_HASHES'
         custom_audience_users = 'CUSTOM_AUDIENCE_USERS'
+        custom_data_targeting = 'CUSTOM_DATA_TARGETING'
         data_file = 'DATA_FILE'
         dynamic_rule = 'DYNAMIC_RULE'
         engagement_event_users = 'ENGAGEMENT_EVENT_USERS'

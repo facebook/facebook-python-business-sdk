@@ -64,17 +64,9 @@ class WhatsAppBusinessAccount(
         view_cost = 'VIEW_COST'
 
     class Category:
-        account_update = 'ACCOUNT_UPDATE'
-        alert_update = 'ALERT_UPDATE'
-        appointment_update = 'APPOINTMENT_UPDATE'
-        auto_reply = 'AUTO_REPLY'
-        issue_resolution = 'ISSUE_RESOLUTION'
-        payment_update = 'PAYMENT_UPDATE'
-        personal_finance_update = 'PERSONAL_FINANCE_UPDATE'
-        reservation_update = 'RESERVATION_UPDATE'
-        shipping_update = 'SHIPPING_UPDATE'
-        ticket_update = 'TICKET_UPDATE'
-        transportation_update = 'TRANSPORTATION_UPDATE'
+        marketing = 'MARKETING'
+        otp = 'OTP'
+        transactional = 'TRANSACTIONAL'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -202,6 +194,73 @@ class WhatsAppBusinessAccount(
             self.assure_call()
             return request.execute()
 
+    def get_conversation_analytics(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'conversation_directions': 'list<conversation_directions_enum>',
+            'conversation_types': 'list<conversation_types_enum>',
+            'country_codes': 'list<string>',
+            'dimensions': 'list<dimensions_enum>',
+            'end': 'unsigned int',
+            'granularity': 'granularity_enum',
+            'metric_types': 'list<metric_types_enum>',
+            'phone_numbers': 'list<string>',
+            'start': 'unsigned int',
+        }
+        enums = {
+            'conversation_directions_enum': [
+                'BUSINESS_INITIATED',
+                'UNKNOWN',
+                'USER_INITIATED',
+            ],
+            'conversation_types_enum': [
+                'FREE_ENTRY_POINT',
+                'FREE_TIER',
+                'REGULAR',
+                'UNKNOWN',
+            ],
+            'dimensions_enum': [
+                'CONVERSATION_DIRECTION',
+                'CONVERSATION_TYPE',
+                'COUNTRY',
+                'PHONE',
+                'UNKNOWN',
+            ],
+            'granularity_enum': [
+                'DAILY',
+                'HALF_HOUR',
+                'MONTHLY',
+            ],
+            'metric_types_enum': [
+                'CONVERSATION',
+                'COST',
+                'UNKNOWN',
+            ],
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/conversation_analytics',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def delete_message_templates(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -243,15 +302,23 @@ class WhatsAppBusinessAccount(
             'language': 'list<string>',
             'name': 'string',
             'name_or_content': 'string',
+            'quality_score': 'list<quality_score_enum>',
             'status': 'list<status_enum>',
         }
         enums = {
             'category_enum': WhatsAppBusinessAccount.Category.__dict__.values(),
+            'quality_score_enum': [
+                'GREEN',
+                'RED',
+                'UNKNOWN',
+                'YELLOW',
+            ],
             'status_enum': [
                 'APPROVED',
                 'DELETED',
                 'DISABLED',
                 'IN_APPEAL',
+                'LOCKED',
                 'PENDING',
                 'PENDING_DELETION',
                 'REJECTED',

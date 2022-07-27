@@ -41,7 +41,8 @@ class AdAccountTargetingUnified(
         super(AdAccountTargetingUnified, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        audience_size = 'audience_size'
+        audience_size_lower_bound = 'audience_size_lower_bound'
+        audience_size_upper_bound = 'audience_size_upper_bound'
         conversion_lift = 'conversion_lift'
         description = 'description'
         id = 'id'
@@ -98,6 +99,7 @@ class AdAccountTargetingUnified(
         housing = 'HOUSING'
         issues_elections_politics = 'ISSUES_ELECTIONS_POLITICS'
         none = 'NONE'
+        online_gambling_and_gaming = 'ONLINE_GAMBLING_AND_GAMING'
 
     class WhitelistedTypes:
         adgroup_id = 'adgroup_id'
@@ -271,7 +273,8 @@ class AdAccountTargetingUnified(
         suggestions = 'suggestions'
 
     _field_types = {
-        'audience_size': 'unsigned int',
+        'audience_size_lower_bound': 'unsigned int',
+        'audience_size_upper_bound': 'unsigned int',
         'conversion_lift': 'float',
         'description': 'string',
         'id': 'string',

@@ -56,6 +56,7 @@ class AdCreative(
         call_to_action_type = 'call_to_action_type'
         categorization_criteria = 'categorization_criteria'
         category_media_source = 'category_media_source'
+        collaborative_ads_lsb_image_bank_id = 'collaborative_ads_lsb_image_bank_id'
         destination_set_id = 'destination_set_id'
         dynamic_ad_voice = 'dynamic_ad_voice'
         effective_authorization_category = 'effective_authorization_category'
@@ -85,6 +86,7 @@ class AdCreative(
         object_story_spec = 'object_story_spec'
         object_type = 'object_type'
         object_url = 'object_url'
+        omnichannel_link_spec = 'omnichannel_link_spec'
         place_page_set_id = 'place_page_set_id'
         platform_customizations = 'platform_customizations'
         playable_asset_id = 'playable_asset_id'
@@ -95,6 +97,7 @@ class AdCreative(
         status = 'status'
         template_url = 'template_url'
         template_url_spec = 'template_url_spec'
+        thumbnail_id = 'thumbnail_id'
         thumbnail_url = 'thumbnail_url'
         title = 'title'
         url_tags = 'url_tags'
@@ -131,6 +134,7 @@ class AdCreative(
         get_offer_view = 'GET_OFFER_VIEW'
         get_quote = 'GET_QUOTE'
         get_showtimes = 'GET_SHOWTIMES'
+        get_started = 'GET_STARTED'
         install_app = 'INSTALL_APP'
         install_mobile_app = 'INSTALL_MOBILE_APP'
         learn_more = 'LEARN_MORE'
@@ -145,6 +149,7 @@ class AdCreative(
         order_now = 'ORDER_NOW'
         pay_to_access = 'PAY_TO_ACCESS'
         play_game = 'PLAY_GAME'
+        play_game_on_facebook = 'PLAY_GAME_ON_FACEBOOK'
         purchase_gift_cards = 'PURCHASE_GIFT_CARDS'
         record_now = 'RECORD_NOW'
         refer_friends = 'REFER_FRIENDS'
@@ -461,6 +466,7 @@ class AdCreative(
         'call_to_action_type': 'CallToActionType',
         'categorization_criteria': 'string',
         'category_media_source': 'string',
+        'collaborative_ads_lsb_image_bank_id': 'string',
         'destination_set_id': 'string',
         'dynamic_ad_voice': 'string',
         'effective_authorization_category': 'string',
@@ -490,6 +496,7 @@ class AdCreative(
         'object_story_spec': 'AdCreativeObjectStorySpec',
         'object_type': 'ObjectType',
         'object_url': 'string',
+        'omnichannel_link_spec': 'AdCreativeOmnichannelLinkSpec',
         'place_page_set_id': 'string',
         'platform_customizations': 'AdCreativePlatformCustomization',
         'playable_asset_id': 'string',
@@ -500,6 +507,7 @@ class AdCreative(
         'status': 'Status',
         'template_url': 'string',
         'template_url_spec': 'AdCreativeTemplateURLSpec',
+        'thumbnail_id': 'string',
         'thumbnail_url': 'string',
         'title': 'string',
         'url_tags': 'string',
