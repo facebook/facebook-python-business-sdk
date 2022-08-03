@@ -2448,7 +2448,7 @@ class AdAccount(
             self.assure_call()
             return request.execute()
 
-    def create_custom_audiences_to(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def create_custom_audiences_tos(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
