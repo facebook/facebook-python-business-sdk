@@ -33,7 +33,7 @@ from facebook_business.utils import urls
 from contextlib import contextmanager
 import copy
 from six.moves import http_client
-from urllib.parse import parse_qs, urlparse
+
 import os
 import json
 import six
@@ -42,9 +42,11 @@ import re
 try:
   # Since python 3
   from six.moves import collections_abc
+  from urllib.parse import parse_qs, urlparse
 except ImportError:
   # Won't work after python 3.8
   import collections as collections_abc
+  from urlparse import urlparse, parse_qs
 
 from facebook_business.adobjects.objectparser import ObjectParser
 from facebook_business.typechecker import TypeChecker
