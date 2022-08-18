@@ -39,13 +39,15 @@ class Event(object):
         'data_processing_options_country': 'int',
         'data_processing_options_state': 'int',
         'action_source': 'ActionSource',
+        'advanced_measurement_table': 'str',
     }
 
     def __init__(self, event_name = None, event_time = None, event_source_url = None,
                  opt_out = None, event_id = None, user_data = None, custom_data = None,
                  data_processing_options = None, data_processing_options_country = None,
-                 data_processing_options_state = None, action_source = None):
-        # type: (str, int, str, bool, str, UserData, CustomData, list[str], int, int, ActionSource) -> None
+                 data_processing_options_state = None, action_source = None, 
+                 advanced_measurement_table = None):
+        # type: (str, int, str, bool, str, UserData, CustomData, list[str], int, int, ActionSource, int) -> None
 
         """Conversions API Event"""
         self._event_name = None
@@ -59,6 +61,7 @@ class Event(object):
         self._data_processing_options_country = None
         self._data_processing_options_state = None
         self._action_source = None
+        self._advanced_measurement_table = None
         self.event_name = event_name
         self.event_time = event_time
         if event_source_url is not None:
@@ -79,6 +82,8 @@ class Event(object):
             self.data_processing_options_state = data_processing_options_state
         if action_source is not None:
             self.action_source = action_source
+        if advanced_measurement_table is not None:
+            self.advanced_measurement_table = advanced_measurement_table
 
     @property
     def event_name(self):
@@ -349,13 +354,39 @@ class Event(object):
         """
 
         self._action_source = action_source
+    
+    @property
+    def advanced_measurement_table(self):
+        """Gets the advanced_measurement_table.
+
+        Allows you to specify the destination table of 
+        Advanced Measurement Data on Advanced Analytics.
+
+        :return: advanced_measurement_table.
+        :rtype: int
+        """
+        return self._advanced_measurement_table
+
+    @action_source.setter
+    def advanced_measurement_table(self, advanced_measurement_table):
+        """Sets the advanced_measurement_table.
+
+        Allows you to specify the destination table of 
+        Advanced Measurement Data on Advanced Analytics.
+
+        :param advanced_measurement_table: advanced_measurement_table.
+        :type: int
+        """
+
+        self._action_source = advanced_measurement_table
 
     def normalize(self):
         normalized_payload = {'event_name': self.event_name, 'event_time': self.event_time,
                               'event_source_url': self.event_source_url, 'opt_out': self.opt_out,
                               'event_id': self.event_id, 'data_processing_options': self.data_processing_options,
                               'data_processing_options_country' : self.data_processing_options_country,
-                              'data_processing_options_state': self.data_processing_options_state }
+                              'data_processing_options_state': self.data_processing_options_state,
+                              'advanced_measurement_table': self.advanced_measurement_table }
 
         if self.user_data is not None:
             normalized_payload['user_data'] = self.user_data.normalize()
