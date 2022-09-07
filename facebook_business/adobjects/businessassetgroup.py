@@ -45,14 +45,14 @@ class BusinessAssetGroup(
         name = 'name'
 
     class AdaccountTasks:
+        aa_analyze = 'AA_ANALYZE'
         advertise = 'ADVERTISE'
         analyze = 'ANALYZE'
-        creative = 'CREATIVE'
         draft = 'DRAFT'
-        fb_employee_dso_advertise = 'FB_EMPLOYEE_DSO_ADVERTISE'
         manage = 'MANAGE'
 
     class OfflineConversionDataSetTasks:
+        aa_analyze = 'AA_ANALYZE'
         advertise = 'ADVERTISE'
         manage = 'MANAGE'
         upload = 'UPLOAD'
@@ -61,23 +61,35 @@ class BusinessAssetGroup(
     class PageTasks:
         advertise = 'ADVERTISE'
         analyze = 'ANALYZE'
+        cashier_role = 'CASHIER_ROLE'
         create_content = 'CREATE_CONTENT'
         manage = 'MANAGE'
         manage_jobs = 'MANAGE_JOBS'
         manage_leads = 'MANAGE_LEADS'
+        messaging = 'MESSAGING'
         moderate = 'MODERATE'
         moderate_community = 'MODERATE_COMMUNITY'
         pages_messaging = 'PAGES_MESSAGING'
         pages_messaging_subscriptions = 'PAGES_MESSAGING_SUBSCRIPTIONS'
-        platform_manage_pages = 'PLATFORM_MANAGE_PAGES'
-        platform_pages_manage_instant_articles = 'PLATFORM_PAGES_MANAGE_INSTANT_ARTICLES'
-        platform_read_insights = 'PLATFORM_READ_INSIGHTS'
+        profile_plus_advertise = 'PROFILE_PLUS_ADVERTISE'
+        profile_plus_analyze = 'PROFILE_PLUS_ANALYZE'
+        profile_plus_create_content = 'PROFILE_PLUS_CREATE_CONTENT'
+        profile_plus_facebook_access = 'PROFILE_PLUS_FACEBOOK_ACCESS'
+        profile_plus_full_control = 'PROFILE_PLUS_FULL_CONTROL'
+        profile_plus_manage = 'PROFILE_PLUS_MANAGE'
+        profile_plus_messaging = 'PROFILE_PLUS_MESSAGING'
+        profile_plus_moderate = 'PROFILE_PLUS_MODERATE'
+        profile_plus_moderate_delegate_community = 'PROFILE_PLUS_MODERATE_DELEGATE_COMMUNITY'
+        profile_plus_revenue = 'PROFILE_PLUS_REVENUE'
         read_page_mailboxes = 'READ_PAGE_MAILBOXES'
         view_monetization_insights = 'VIEW_MONETIZATION_INSIGHTS'
 
     class PixelTasks:
+        aa_analyze = 'AA_ANALYZE'
+        advertise = 'ADVERTISE'
         analyze = 'ANALYZE'
         edit = 'EDIT'
+        upload = 'UPLOAD'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils

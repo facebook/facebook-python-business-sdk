@@ -54,6 +54,7 @@ class Ad(
         campaign = 'campaign'
         campaign_id = 'campaign_id'
         configured_status = 'configured_status'
+        conversion_domain = 'conversion_domain'
         conversion_specs = 'conversion_specs'
         created_time = 'created_time'
         creative = 'creative'
@@ -63,7 +64,6 @@ class Ad(
         engagement_audience = 'engagement_audience'
         failed_delivery_checks = 'failed_delivery_checks'
         id = 'id'
-        is_autobid = 'is_autobid'
         issues_info = 'issues_info'
         last_updated_by_app_id = 'last_updated_by_app_id'
         name = 'name'
@@ -119,6 +119,7 @@ class Ad(
         paused = 'PAUSED'
 
     class DatePreset:
+        data_maximum = 'data_maximum'
         last_14d = 'last_14d'
         last_28d = 'last_28d'
         last_30d = 'last_30d'
@@ -130,7 +131,7 @@ class Ad(
         last_week_mon_sun = 'last_week_mon_sun'
         last_week_sun_sat = 'last_week_sun_sat'
         last_year = 'last_year'
-        lifetime = 'lifetime'
+        maximum = 'maximum'
         this_month = 'this_month'
         this_quarter = 'this_quarter'
         this_week_mon_today = 'this_week_mon_today'
@@ -206,6 +207,7 @@ class Ad(
         }
         enums = {
             'date_preset_enum': [
+                'data_maximum',
                 'last_14d',
                 'last_28d',
                 'last_30d',
@@ -217,7 +219,7 @@ class Ad(
                 'last_week_mon_sun',
                 'last_week_sun_sat',
                 'last_year',
-                'lifetime',
+                'maximum',
                 'this_month',
                 'this_quarter',
                 'this_week_mon_today',
@@ -258,6 +260,7 @@ class Ad(
             'adset_spec': 'AdSet',
             'audience_id': 'string',
             'bid_amount': 'int',
+            'conversion_domain': 'string',
             'creative': 'AdCreative',
             'display_sequence': 'unsigned int',
             'draft_adgroup_id': 'string',
@@ -313,39 +316,6 @@ class Ad(
             target_class=AdCreative,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=AdCreative, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def delete_ad_labels(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'adlabels': 'list<Object>',
-            'execution_options': 'list<execution_options_enum>',
-        }
-        enums = {
-            'execution_options_enum': Ad.ExecutionOptions.__dict__.values(),
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='DELETE',
-            endpoint='/adlabels',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -431,7 +401,6 @@ class Ad(
         param_types = {
             'date_preset': 'date_preset_enum',
             'effective_status': 'list<string>',
-            'include_deleted': 'bool',
             'time_range': 'Object',
             'updated_since': 'int',
         }
@@ -522,6 +491,7 @@ class Ad(
             'time_range': 'Object',
             'time_ranges': 'list<Object>',
             'use_account_attribution_setting': 'bool',
+            'use_unified_attribution_setting': 'bool',
         }
         enums = {
             'action_attribution_windows_enum': AdsInsights.ActionAttributionWindows.__dict__.values(),
@@ -582,6 +552,7 @@ class Ad(
             'time_range': 'Object',
             'time_ranges': 'list<Object>',
             'use_account_attribution_setting': 'bool',
+            'use_unified_attribution_setting': 'bool',
         }
         enums = {
             'action_attribution_windows_enum': AdsInsights.ActionAttributionWindows.__dict__.values(),
@@ -592,6 +563,11 @@ class Ad(
             'level_enum': AdsInsights.Level.__dict__.values(),
             'summary_action_breakdowns_enum': AdsInsights.SummaryActionBreakdowns.__dict__.values(),
         }
+
+        if fields is not None:
+            params['fields'] = params.get('fields') if params.get('fields') is not None else list()
+            params['fields'].extend(field for field in fields if field not in params['fields'])
+
         request = FacebookRequest(
             node_id=self['id'],
             method='POST',
@@ -604,7 +580,6 @@ class Ad(
             include_summary=False,
         )
         request.add_params(params)
-        request.add_fields(fields)
 
         if batch is not None:
             request.add_to_batch(batch, success=success, failure=failure)
@@ -723,38 +698,6 @@ class Ad(
             self.assure_call()
             return request.execute()
 
-    def create_tracking_tag(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'add_template_param': 'bool',
-            'url': 'string',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/trackingtag',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     _field_types = {
         'account_id': 'string',
         'ad_review_feedback': 'AdgroupReviewFeedback',
@@ -767,6 +710,7 @@ class Ad(
         'campaign': 'Campaign',
         'campaign_id': 'string',
         'configured_status': 'ConfiguredStatus',
+        'conversion_domain': 'string',
         'conversion_specs': 'list<ConversionActionQuery>',
         'created_time': 'datetime',
         'creative': 'AdCreative',
@@ -776,7 +720,6 @@ class Ad(
         'engagement_audience': 'bool',
         'failed_delivery_checks': 'list<DeliveryCheck>',
         'id': 'string',
-        'is_autobid': 'bool',
         'issues_info': 'list<AdgroupIssuesInfo>',
         'last_updated_by_app_id': 'string',
         'name': 'string',

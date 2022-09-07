@@ -53,6 +53,9 @@ class ProfilePictureSource(
         small = 'small'
         thumbnail = 'thumbnail'
 
+    class BreakingChange:
+        profile_picture = 'PROFILE_PICTURE'
+
     _field_types = {
         'bottom': 'unsigned int',
         'cache_key': 'string',
@@ -68,6 +71,7 @@ class ProfilePictureSource(
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['Type'] = ProfilePictureSource.Type.__dict__.values()
+        field_enum_info['BreakingChange'] = ProfilePictureSource.BreakingChange.__dict__.values()
         return field_enum_info
 
 

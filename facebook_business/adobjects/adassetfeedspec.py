@@ -44,12 +44,16 @@ class AdAssetFeedSpec(
         autotranslate = 'autotranslate'
         bodies = 'bodies'
         call_to_action_types = 'call_to_action_types'
+        call_to_actions = 'call_to_actions'
         captions = 'captions'
+        carousels = 'carousels'
         descriptions = 'descriptions'
+        events = 'events'
         groups = 'groups'
         images = 'images'
         link_urls = 'link_urls'
         optimization_type = 'optimization_type'
+        posts = 'posts'
         titles = 'titles'
         videos = 'videos'
 
@@ -62,6 +66,7 @@ class AdAssetFeedSpec(
         buy_tickets = 'BUY_TICKETS'
         call = 'CALL'
         call_me = 'CALL_ME'
+        call_now = 'CALL_NOW'
         contact = 'CONTACT'
         contact_us = 'CONTACT_US'
         donate = 'DONATE'
@@ -71,11 +76,14 @@ class AdAssetFeedSpec(
         find_a_group = 'FIND_A_GROUP'
         find_your_groups = 'FIND_YOUR_GROUPS'
         follow_news_storyline = 'FOLLOW_NEWS_STORYLINE'
+        follow_page = 'FOLLOW_PAGE'
+        follow_user = 'FOLLOW_USER'
         get_directions = 'GET_DIRECTIONS'
         get_offer = 'GET_OFFER'
         get_offer_view = 'GET_OFFER_VIEW'
         get_quote = 'GET_QUOTE'
         get_showtimes = 'GET_SHOWTIMES'
+        get_started = 'GET_STARTED'
         install_app = 'INSTALL_APP'
         install_mobile_app = 'INSTALL_MOBILE_APP'
         learn_more = 'LEARN_MORE'
@@ -88,20 +96,31 @@ class AdAssetFeedSpec(
         no_button = 'NO_BUTTON'
         open_link = 'OPEN_LINK'
         order_now = 'ORDER_NOW'
+        pay_to_access = 'PAY_TO_ACCESS'
         play_game = 'PLAY_GAME'
+        play_game_on_facebook = 'PLAY_GAME_ON_FACEBOOK'
+        purchase_gift_cards = 'PURCHASE_GIFT_CARDS'
         record_now = 'RECORD_NOW'
+        refer_friends = 'REFER_FRIENDS'
+        request_time = 'REQUEST_TIME'
         say_thanks = 'SAY_THANKS'
         see_more = 'SEE_MORE'
         sell_now = 'SELL_NOW'
+        send_a_gift = 'SEND_A_GIFT'
+        send_gift_money = 'SEND_GIFT_MONEY'
         share = 'SHARE'
         shop_now = 'SHOP_NOW'
         sign_up = 'SIGN_UP'
         sotto_subscribe = 'SOTTO_SUBSCRIBE'
+        start_order = 'START_ORDER'
         subscribe = 'SUBSCRIBE'
+        swipe_up_product = 'SWIPE_UP_PRODUCT'
+        swipe_up_shop = 'SWIPE_UP_SHOP'
         update_app = 'UPDATE_APP'
         use_app = 'USE_APP'
         use_mobile_app = 'USE_MOBILE_APP'
         video_annotation = 'VIDEO_ANNOTATION'
+        video_call = 'VIDEO_CALL'
         visit_pages_feed = 'VISIT_PAGES_FEED'
         watch_more = 'WATCH_MORE'
         watch_video = 'WATCH_VIDEO'
@@ -115,12 +134,16 @@ class AdAssetFeedSpec(
         'autotranslate': 'list<string>',
         'bodies': 'list<AdAssetFeedSpecBody>',
         'call_to_action_types': 'list<CallToActionTypes>',
+        'call_to_actions': 'list<Object>',
         'captions': 'list<AdAssetFeedSpecCaption>',
+        'carousels': 'list<Object>',
         'descriptions': 'list<AdAssetFeedSpecDescription>',
+        'events': 'list<Object>',
         'groups': 'list<AdAssetFeedSpecGroupRule>',
         'images': 'list<AdAssetFeedSpecImage>',
         'link_urls': 'list<AdAssetFeedSpecLinkURL>',
         'optimization_type': 'string',
+        'posts': 'list<Object>',
         'titles': 'list<AdAssetFeedSpecTitle>',
         'videos': 'list<AdAssetFeedSpecVideo>',
     }

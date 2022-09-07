@@ -44,9 +44,15 @@ class ProductSet(
         auto_creation_url = 'auto_creation_url'
         filter = 'filter'
         id = 'id'
+        latest_metadata = 'latest_metadata'
+        live_metadata = 'live_metadata'
         name = 'name'
+        ordering_info = 'ordering_info'
         product_catalog = 'product_catalog'
         product_count = 'product_count'
+        retailer_id = 'retailer_id'
+        metadata = 'metadata'
+        publish_to_shops = 'publish_to_shops'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
@@ -63,6 +69,7 @@ class ProductSet(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'allow_live_product_set_deletion': 'bool',
         }
         enums = {
         }
@@ -124,7 +131,11 @@ class ProductSet(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'filter': 'Object',
+            'metadata': 'map',
             'name': 'string',
+            'ordering_info': 'list<unsigned int>',
+            'publish_to_shops': 'list<map>',
+            'retailer_id': 'string',
         }
         enums = {
         }
@@ -322,9 +333,13 @@ class ProductSet(
         from facebook_business.adobjects.productitem import ProductItem
         param_types = {
             'bulk_pagination': 'bool',
+            'error_priority': 'error_priority_enum',
+            'error_type': 'error_type_enum',
             'filter': 'Object',
         }
         enums = {
+            'error_priority_enum': ProductItem.ErrorPriority.__dict__.values(),
+            'error_type_enum': ProductItem.ErrorType.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -418,9 +433,15 @@ class ProductSet(
         'auto_creation_url': 'string',
         'filter': 'string',
         'id': 'string',
+        'latest_metadata': 'ProductSetMetadata',
+        'live_metadata': 'ProductSetMetadata',
         'name': 'string',
+        'ordering_info': 'list<int>',
         'product_catalog': 'ProductCatalog',
         'product_count': 'unsigned int',
+        'retailer_id': 'string',
+        'metadata': 'map',
+        'publish_to_shops': 'list<map>',
     }
     @classmethod
     def _get_field_enum_info(cls):

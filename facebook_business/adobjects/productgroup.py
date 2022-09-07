@@ -61,8 +61,13 @@ class ProductGroup(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'deletion_method': 'deletion_method_enum',
         }
         enums = {
+            'deletion_method_enum': [
+                'DELETE_ITEMS',
+                'ONLY_IF_EMPTY',
+            ],
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -205,8 +210,14 @@ class ProductGroup(
             'custom_label_2': 'string',
             'custom_label_3': 'string',
             'custom_label_4': 'string',
+            'custom_number_0': 'unsigned int',
+            'custom_number_1': 'unsigned int',
+            'custom_number_2': 'unsigned int',
+            'custom_number_3': 'unsigned int',
+            'custom_number_4': 'unsigned int',
             'description': 'string',
             'expiration_date': 'string',
+            'fb_product_category': 'string',
             'gender': 'gender_enum',
             'gtin': 'string',
             'image_url': 'string',
@@ -222,6 +233,7 @@ class ProductGroup(
             'iphone_url': 'string',
             'launch_date': 'string',
             'manufacturer_part_number': 'string',
+            'marked_for_product_launch': 'marked_for_product_launch_enum',
             'material': 'string',
             'mobile_link': 'string',
             'name': 'string',
@@ -232,6 +244,7 @@ class ProductGroup(
             'pattern': 'string',
             'price': 'unsigned int',
             'product_type': 'string',
+            'quantity_to_sell_on_facebook': 'unsigned int',
             'retailer_id': 'string',
             'return_policy_days': 'unsigned int',
             'sale_price': 'unsigned int',
@@ -251,6 +264,7 @@ class ProductGroup(
             'commerce_tax_category_enum': ProductItem.CommerceTaxCategory.__dict__.values(),
             'condition_enum': ProductItem.Condition.__dict__.values(),
             'gender_enum': ProductItem.Gender.__dict__.values(),
+            'marked_for_product_launch_enum': ProductItem.MarkedForProductLaunch.__dict__.values(),
             'visibility_enum': ProductItem.Visibility.__dict__.values(),
         }
         request = FacebookRequest(

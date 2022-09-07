@@ -66,6 +66,7 @@ class PagePost(
         is_eligible_for_promotion = 'is_eligible_for_promotion'
         is_expired = 'is_expired'
         is_hidden = 'is_hidden'
+        is_inline_created = 'is_inline_created'
         is_instagram_eligible = 'is_instagram_eligible'
         is_popular = 'is_popular'
         is_published = 'is_published'
@@ -96,6 +97,9 @@ class PagePost(
         video_buying_eligibility = 'video_buying_eligibility'
         width = 'width'
 
+    class With:
+        location = 'LOCATION'
+
     class BackdatedTimeGranularity:
         day = 'day'
         hour = 'hour'
@@ -103,47 +107,6 @@ class PagePost(
         month = 'month'
         none = 'none'
         year = 'year'
-
-    class CheckinEntryPoint:
-        branding_checkin = 'BRANDING_CHECKIN'
-        branding_other = 'BRANDING_OTHER'
-        branding_photo = 'BRANDING_PHOTO'
-        branding_status = 'BRANDING_STATUS'
-
-    class Formatting:
-        markdown = 'MARKDOWN'
-        plaintext = 'PLAINTEXT'
-
-    class PlaceAttachmentSetting:
-        value_1 = '1'
-        value_2 = '2'
-
-    class PostSurfacesBlacklist:
-        value_1 = '1'
-        value_2 = '2'
-        value_3 = '3'
-        value_4 = '4'
-        value_5 = '5'
-
-    class PostingToRedspace:
-        disabled = 'disabled'
-        enabled = 'enabled'
-
-    class TargetSurface:
-        story = 'STORY'
-        timeline = 'TIMELINE'
-
-    class UnpublishedContentType:
-        ads_post = 'ADS_POST'
-        draft = 'DRAFT'
-        inline_created = 'INLINE_CREATED'
-        published = 'PUBLISHED'
-        reviewable_branded_content = 'REVIEWABLE_BRANDED_CONTENT'
-        scheduled = 'SCHEDULED'
-        scheduled_recurring = 'SCHEDULED_RECURRING'
-
-    class With:
-        location = 'LOCATION'
 
     class FeedStoryVisibility:
         hidden = 'hidden'
@@ -224,6 +187,7 @@ class PagePost(
             'backdated_time_granularity': 'backdated_time_granularity_enum',
             'composer_session_id': 'string',
             'direct_share_status': 'unsigned int',
+            'explicitly_added_mentionee_ids': 'list<unsigned int>',
             'feed_story_visibility': 'feed_story_visibility_enum',
             'is_explicit_location': 'bool',
             'is_hidden': 'bool',
@@ -406,36 +370,6 @@ class PagePost(
             target_class=RTBDynamicPost,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=RTBDynamicPost, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def get_edit_actions(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/edit_actions',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -712,37 +646,6 @@ class PagePost(
             self.assure_call()
             return request.execute()
 
-    def get_with_tags(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.profile import Profile
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/with_tags',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=Profile,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=Profile, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     _field_types = {
         'actions': 'list',
         'admin_creator': 'Object',
@@ -769,6 +672,7 @@ class PagePost(
         'is_eligible_for_promotion': 'bool',
         'is_expired': 'bool',
         'is_hidden': 'bool',
+        'is_inline_created': 'bool',
         'is_instagram_eligible': 'bool',
         'is_popular': 'bool',
         'is_published': 'bool',
@@ -802,15 +706,8 @@ class PagePost(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['BackdatedTimeGranularity'] = PagePost.BackdatedTimeGranularity.__dict__.values()
-        field_enum_info['CheckinEntryPoint'] = PagePost.CheckinEntryPoint.__dict__.values()
-        field_enum_info['Formatting'] = PagePost.Formatting.__dict__.values()
-        field_enum_info['PlaceAttachmentSetting'] = PagePost.PlaceAttachmentSetting.__dict__.values()
-        field_enum_info['PostSurfacesBlacklist'] = PagePost.PostSurfacesBlacklist.__dict__.values()
-        field_enum_info['PostingToRedspace'] = PagePost.PostingToRedspace.__dict__.values()
-        field_enum_info['TargetSurface'] = PagePost.TargetSurface.__dict__.values()
-        field_enum_info['UnpublishedContentType'] = PagePost.UnpublishedContentType.__dict__.values()
         field_enum_info['With'] = PagePost.With.__dict__.values()
+        field_enum_info['BackdatedTimeGranularity'] = PagePost.BackdatedTimeGranularity.__dict__.values()
         field_enum_info['FeedStoryVisibility'] = PagePost.FeedStoryVisibility.__dict__.values()
         field_enum_info['TimelineVisibility'] = PagePost.TimelineVisibility.__dict__.values()
         return field_enum_info

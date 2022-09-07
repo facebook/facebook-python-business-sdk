@@ -57,8 +57,6 @@ class AdCampaignActivity(
         bid_type_old = 'bid_type_old'
         billing_event_new = 'billing_event_new'
         billing_event_old = 'billing_event_old'
-        brande_audience_id_new = 'brande_audience_id_new'
-        brande_audience_id_old = 'brande_audience_id_old'
         budget_limit_new = 'budget_limit_new'
         budget_limit_old = 'budget_limit_old'
         created_time = 'created_time'
@@ -83,6 +81,8 @@ class AdCampaignActivity(
         optimization_goal_old = 'optimization_goal_old'
         pacing_type_new = 'pacing_type_new'
         pacing_type_old = 'pacing_type_old'
+        promoted_object_id_new = 'promoted_object_id_new'
+        promoted_object_id_old = 'promoted_object_id_old'
         run_status_new = 'run_status_new'
         run_status_old = 'run_status_old'
         schedule_new = 'schedule_new'
@@ -95,96 +95,96 @@ class AdCampaignActivity(
         stop_time_old = 'stop_time_old'
         targeting_expansion_new = 'targeting_expansion_new'
         targeting_expansion_old = 'targeting_expansion_old'
+        targeting_new = 'targeting_new'
+        targeting_old = 'targeting_old'
         updated_time_new = 'updated_time_new'
         updated_time_old = 'updated_time_old'
 
     class BidStrategyNew:
+        cost_cap = 'COST_CAP'
         lowest_cost_without_cap = 'LOWEST_COST_WITHOUT_CAP'
         lowest_cost_with_bid_cap = 'LOWEST_COST_WITH_BID_CAP'
-        target_cost = 'TARGET_COST'
 
     class BidStrategyOld:
+        cost_cap = 'COST_CAP'
         lowest_cost_without_cap = 'LOWEST_COST_WITHOUT_CAP'
         lowest_cost_with_bid_cap = 'LOWEST_COST_WITH_BID_CAP'
-        target_cost = 'TARGET_COST'
 
     class BillingEventNew:
         app_installs = 'APP_INSTALLS'
         clicks = 'CLICKS'
         impressions = 'IMPRESSIONS'
         link_clicks = 'LINK_CLICKS'
+        listing_interaction = 'LISTING_INTERACTION'
         none = 'NONE'
         offer_claims = 'OFFER_CLAIMS'
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
+        purchase = 'PURCHASE'
         thruplay = 'THRUPLAY'
-        video_views = 'VIDEO_VIEWS'
 
     class BillingEventOld:
         app_installs = 'APP_INSTALLS'
         clicks = 'CLICKS'
         impressions = 'IMPRESSIONS'
         link_clicks = 'LINK_CLICKS'
+        listing_interaction = 'LISTING_INTERACTION'
         none = 'NONE'
         offer_claims = 'OFFER_CLAIMS'
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
+        purchase = 'PURCHASE'
         thruplay = 'THRUPLAY'
-        video_views = 'VIDEO_VIEWS'
 
     class OptimizationGoalNew:
         ad_recall_lift = 'AD_RECALL_LIFT'
-        app_downloads = 'APP_DOWNLOADS'
         app_installs = 'APP_INSTALLS'
-        brand_awareness = 'BRAND_AWARENESS'
-        clicks = 'CLICKS'
+        app_installs_and_offsite_conversions = 'APP_INSTALLS_AND_OFFSITE_CONVERSIONS'
+        conversations = 'CONVERSATIONS'
         derived_events = 'DERIVED_EVENTS'
         engaged_users = 'ENGAGED_USERS'
         event_responses = 'EVENT_RESPONSES'
         impressions = 'IMPRESSIONS'
+        in_app_value = 'IN_APP_VALUE'
         landing_page_views = 'LANDING_PAGE_VIEWS'
         lead_generation = 'LEAD_GENERATION'
         link_clicks = 'LINK_CLICKS'
+        messaging_purchase_conversion = 'MESSAGING_PURCHASE_CONVERSION'
         none = 'NONE'
-        offer_claims = 'OFFER_CLAIMS'
         offsite_conversions = 'OFFSITE_CONVERSIONS'
-        page_engagement = 'PAGE_ENGAGEMENT'
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
+        quality_call = 'QUALITY_CALL'
+        quality_lead = 'QUALITY_LEAD'
         reach = 'REACH'
-        replies = 'REPLIES'
-        social_impressions = 'SOCIAL_IMPRESSIONS'
         thruplay = 'THRUPLAY'
-        two_second_continuous_video_views = 'TWO_SECOND_CONTINUOUS_VIDEO_VIEWS'
         value = 'VALUE'
-        video_views = 'VIDEO_VIEWS'
+        visit_instagram_profile = 'VISIT_INSTAGRAM_PROFILE'
 
     class OptimizationGoalOld:
         ad_recall_lift = 'AD_RECALL_LIFT'
-        app_downloads = 'APP_DOWNLOADS'
         app_installs = 'APP_INSTALLS'
-        brand_awareness = 'BRAND_AWARENESS'
-        clicks = 'CLICKS'
+        app_installs_and_offsite_conversions = 'APP_INSTALLS_AND_OFFSITE_CONVERSIONS'
+        conversations = 'CONVERSATIONS'
         derived_events = 'DERIVED_EVENTS'
         engaged_users = 'ENGAGED_USERS'
         event_responses = 'EVENT_RESPONSES'
         impressions = 'IMPRESSIONS'
+        in_app_value = 'IN_APP_VALUE'
         landing_page_views = 'LANDING_PAGE_VIEWS'
         lead_generation = 'LEAD_GENERATION'
         link_clicks = 'LINK_CLICKS'
+        messaging_purchase_conversion = 'MESSAGING_PURCHASE_CONVERSION'
         none = 'NONE'
-        offer_claims = 'OFFER_CLAIMS'
         offsite_conversions = 'OFFSITE_CONVERSIONS'
-        page_engagement = 'PAGE_ENGAGEMENT'
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
+        quality_call = 'QUALITY_CALL'
+        quality_lead = 'QUALITY_LEAD'
         reach = 'REACH'
-        replies = 'REPLIES'
-        social_impressions = 'SOCIAL_IMPRESSIONS'
         thruplay = 'THRUPLAY'
-        two_second_continuous_video_views = 'TWO_SECOND_CONTINUOUS_VIDEO_VIEWS'
         value = 'VALUE'
-        video_views = 'VIDEO_VIEWS'
+        visit_instagram_profile = 'VISIT_INSTAGRAM_PROFILE'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -233,8 +233,6 @@ class AdCampaignActivity(
         'bid_type_old': 'string',
         'billing_event_new': 'BillingEventNew',
         'billing_event_old': 'BillingEventOld',
-        'brande_audience_id_new': 'string',
-        'brande_audience_id_old': 'string',
         'budget_limit_new': 'Object',
         'budget_limit_old': 'Object',
         'created_time': 'datetime',
@@ -259,6 +257,8 @@ class AdCampaignActivity(
         'optimization_goal_old': 'OptimizationGoalOld',
         'pacing_type_new': 'int',
         'pacing_type_old': 'int',
+        'promoted_object_id_new': 'string',
+        'promoted_object_id_old': 'string',
         'run_status_new': 'string',
         'run_status_old': 'string',
         'schedule_new': 'list<Object>',
@@ -271,6 +271,8 @@ class AdCampaignActivity(
         'stop_time_old': 'datetime',
         'targeting_expansion_new': 'Object',
         'targeting_expansion_old': 'Object',
+        'targeting_new': 'Object',
+        'targeting_old': 'Object',
         'updated_time_new': 'datetime',
         'updated_time_old': 'datetime',
     }

@@ -20,8 +20,6 @@
 
 import pprint
 import re
-from typing import List
-
 import six
 
 
@@ -32,8 +30,10 @@ class EventResponse(object):
         'fbtrace_id': 'str'
     }
 
-    def __init__(self, events_received: int = None, messages: List[str] = None, fbtrace_id: str = None):
-        """ServerSide Event Response"""
+    def __init__(self, events_received = None, messages = None, fbtrace_id = None):
+        # type: (int, List[str], str) -> None
+
+        """Conversions API Event Response"""
         self._events_received = None
         self._messages = None
         self._fbtrace_id = None
@@ -55,7 +55,7 @@ class EventResponse(object):
         return self._events_received
 
     @events_received.setter
-    def events_received(self, events_received: int):
+    def events_received(self, events_received):
         """Sets the count of events received.
 
 
@@ -76,7 +76,7 @@ class EventResponse(object):
         return self._messages
 
     @messages.setter
-    def messages(self, messages: List[str]):
+    def messages(self, messages):
         """Sets the messages.
 
 
@@ -97,7 +97,7 @@ class EventResponse(object):
         return self._fbtrace_id
 
     @fbtrace_id.setter
-    def fbtrace_id(self, fbtrace_id: str):
+    def fbtrace_id(self, fbtrace_id):
         """Sets the messages.
 
 
@@ -144,7 +144,7 @@ class EventResponse(object):
 
     def __eq__(self, other):
         """Returns true if both objects are equal"""
-        if not isinstance(other, ServerSidePixelEventResponseSucess):
+        if not isinstance(other, EventResponse):
             return False
 
         return self.__dict__ == other.__dict__

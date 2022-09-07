@@ -38,10 +38,9 @@ class SecuritySettings(
         self._api = api
 
     class Field(AbstractObject.Field):
-        secure_browsing = 'secure_browsing'
+        pass
 
     _field_types = {
-        'secure_browsing': 'Object',
     }
     @classmethod
     def _get_field_enum_info(cls):

@@ -117,11 +117,11 @@ class AppRequest(
         'application': 'Application',
         'created_time': 'datetime',
         'data': 'string',
-        'from': 'User',
+        'from': 'Object',
         'id': 'string',
         'message': 'string',
         'object': 'Object',
-        'to': 'User',
+        'to': 'Object',
     }
     @classmethod
     def _get_field_enum_info(cls):

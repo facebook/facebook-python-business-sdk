@@ -45,6 +45,7 @@ class AutomotiveModel(
         automotive_model_id = 'automotive_model_id'
         availability = 'availability'
         body_style = 'body_style'
+        category_specific_fields = 'category_specific_fields'
         currency = 'currency'
         custom_label_0 = 'custom_label_0'
         description = 'description'
@@ -55,6 +56,7 @@ class AutomotiveModel(
         fuel_type = 'fuel_type'
         generation = 'generation'
         id = 'id'
+        image_fetch_status = 'image_fetch_status'
         images = 'images'
         interior_color = 'interior_color'
         interior_upholstery = 'interior_upholstery'
@@ -65,8 +67,17 @@ class AutomotiveModel(
         title = 'title'
         transmission = 'transmission'
         trim = 'trim'
+        unit_price = 'unit_price'
         url = 'url'
         year = 'year'
+
+    class ImageFetchStatus:
+        direct_upload = 'DIRECT_UPLOAD'
+        fetched = 'FETCHED'
+        fetch_failed = 'FETCH_FAILED'
+        no_status = 'NO_STATUS'
+        outdated = 'OUTDATED'
+        partial_fetch = 'PARTIAL_FETCH'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -98,11 +109,103 @@ class AutomotiveModel(
             self.assure_call()
             return request.execute()
 
+    def get_augmented_realities_metadata(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/augmented_realities_metadata',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_channels_to_integrity_status(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.catalogitemchannelstointegritystatus import CatalogItemChannelsToIntegrityStatus
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/channels_to_integrity_status',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=CatalogItemChannelsToIntegrityStatus,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=CatalogItemChannelsToIntegrityStatus, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_videos_metadata(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/videos_metadata',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     _field_types = {
-        'applinks': 'AppLinks',
+        'applinks': 'CatalogItemAppLinks',
         'automotive_model_id': 'string',
         'availability': 'string',
         'body_style': 'string',
+        'category_specific_fields': 'CatalogSubVerticalList',
         'currency': 'string',
         'custom_label_0': 'string',
         'description': 'string',
@@ -113,6 +216,7 @@ class AutomotiveModel(
         'fuel_type': 'string',
         'generation': 'string',
         'id': 'string',
+        'image_fetch_status': 'ImageFetchStatus',
         'images': 'list<string>',
         'interior_color': 'string',
         'interior_upholstery': 'string',
@@ -123,12 +227,14 @@ class AutomotiveModel(
         'title': 'string',
         'transmission': 'string',
         'trim': 'string',
+        'unit_price': 'Object',
         'url': 'string',
-        'year': 'unsigned int',
+        'year': 'int',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['ImageFetchStatus'] = AutomotiveModel.ImageFetchStatus.__dict__.values()
         return field_enum_info
 
 

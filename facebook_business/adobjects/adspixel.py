@@ -51,6 +51,7 @@ class AdsPixel(
         first_party_cookie_status = 'first_party_cookie_status'
         id = 'id'
         is_created_by_business = 'is_created_by_business'
+        is_crm = 'is_crm'
         is_unavailable = 'is_unavailable'
         last_fired_time = 'last_fired_time'
         name = 'name'
@@ -62,8 +63,11 @@ class AdsPixel(
         name = 'NAME'
 
     class AutomaticMatchingFields:
+        country = 'country'
         ct = 'ct'
+        db = 'db'
         em = 'em'
+        external_id = 'external_id'
         fn = 'fn'
         ge = 'ge'
         ln = 'ln'
@@ -82,8 +86,11 @@ class AdsPixel(
         first_party_cookie_enabled = 'FIRST_PARTY_COOKIE_ENABLED'
 
     class Tasks:
+        aa_analyze = 'AA_ANALYZE'
+        advertise = 'ADVERTISE'
         analyze = 'ANALYZE'
         edit = 'EDIT'
+        upload = 'UPLOAD'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
@@ -135,7 +142,7 @@ class AdsPixel(
             'enable_automatic_matching': 'bool',
             'first_party_cookie_status': 'first_party_cookie_status_enum',
             'name': 'string',
-            'server_events_business_id': 'string',
+            'server_events_business_ids': 'list<string>',
         }
         enums = {
             'automatic_matching_fields_enum': AdsPixel.AutomaticMatchingFields.__dict__.values(),
@@ -151,37 +158,6 @@ class AdsPixel(
             target_class=AdsPixel,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def delete_assigned_users(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'user': 'int',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='DELETE',
-            endpoint='/assigned_users',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -260,38 +236,6 @@ class AdsPixel(
             self.assure_call()
             return request.execute()
 
-    def get_audiences(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.customaudience import CustomAudience
-        param_types = {
-            'ad_account': 'string',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/audiences',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=CustomAudience,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=CustomAudience, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def get_da_checks(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -299,8 +243,10 @@ class AdsPixel(
         from facebook_business.adobjects.dacheck import DACheck
         param_types = {
             'checks': 'list<string>',
+            'connection_method': 'connection_method_enum',
         }
         enums = {
+            'connection_method_enum': DACheck.ConnectionMethod.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -330,8 +276,14 @@ class AdsPixel(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'data': 'list<string>',
+            'namespace_id': 'string',
+            'partner_agent': 'string',
+            'platforms': 'list<map>',
             'test_event_code': 'string',
             'trace': 'unsigned int',
+            'upload_id': 'string',
+            'upload_source': 'string',
+            'upload_tag': 'string',
         }
         enums = {
         }
@@ -344,6 +296,36 @@ class AdsPixel(
             target_class=AdsPixel,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=AdsPixel, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_shadow_traffic_helper(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/shadowtraffichelper',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -521,6 +503,36 @@ class AdsPixel(
             self.assure_call()
             return request.execute()
 
+    def create_telemetry(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/telemetry',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     _field_types = {
         'automatic_matching_fields': 'list<string>',
         'can_proxy': 'bool',
@@ -532,6 +544,7 @@ class AdsPixel(
         'first_party_cookie_status': 'string',
         'id': 'string',
         'is_created_by_business': 'bool',
+        'is_crm': 'bool',
         'is_unavailable': 'bool',
         'last_fired_time': 'datetime',
         'name': 'string',

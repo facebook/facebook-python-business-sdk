@@ -235,13 +235,6 @@ class AbstractCrudObjectTestCase(unittest.TestCase):
                 except Exception as e:
                     self.fail("Could not instantiate " + str(obj) + "\n  " + str(e))
 
-    def test_inherits_account_id(self):
-        parent_id = 'act_19tg0j239g023jg9230j932'
-        api.FacebookAdsApi.set_default_account_id(parent_id)
-        ac = adaccount.AdAccount()
-        assert ac.get_parent_id() == parent_id
-        api.FacebookAdsApi._default_account_id = None
-
     def test_delitem_changes_history(self):
         account = adaccount.AdAccount()
         account['name'] = 'foo'
@@ -277,24 +270,11 @@ class AbstractCrudObjectTestCase(unittest.TestCase):
             adclass._assign_fields_to_params(fields, params)
             assert params == expected
 
-    def test_remote_create_uses_get_parent_id_assured_if_api_create_defined(self):
-        class MyObject(abstractcrudobject.AbstractCrudObject):
-            class Field:
-                id = 'id'
-
-            def api_create(self, parent_id, pending):
-                pass
-
-        obj = MyObject()
-        self.assertIsNone(obj._parent_id)
-        with self.assertRaises(exceptions.FacebookBadObjectError):
-            obj.remote_create()
-
 
 class AbstractObjectTestCase(unittest.TestCase):
     def test_export_nested_object(self):
         obj = specs.PagePostData()
-        obj2 = specs.UserData()
+        obj2 = {}
         obj2['id'] = 'id'
         obj2['name'] = 'foo'
         obj['from'] = obj2
@@ -315,14 +295,6 @@ class AbstractObjectTestCase(unittest.TestCase):
             'link_data': {
                 'link_data': 3
             }
-        }
-        assert obj.export_data() == expected
-
-    def test_export_scalar(self):
-        obj = specs.ObjectStorySpec()
-        obj['link_data'] = 3
-        expected = {
-            'link_data': 3
         }
         assert obj.export_data() == expected
 
@@ -359,7 +331,7 @@ class AbstractObjectTestCase(unittest.TestCase):
     def test_can_print(self):
         '''Must be able to print nested objects without serialization issues'''
         obj = specs.PagePostData()
-        obj2 = specs.UserData()
+        obj2 = {}
         obj2['id'] = 'id'
         obj2['name'] = 'foo'
         obj['from'] = obj2

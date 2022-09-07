@@ -62,7 +62,10 @@ class Profile(
 
     class Type:
         angry = 'ANGRY'
+        care = 'CARE'
+        fire = 'FIRE'
         haha = 'HAHA'
+        hundred = 'HUNDRED'
         like = 'LIKE'
         love = 'LOVE'
         none = 'NONE'
@@ -107,12 +110,14 @@ class Profile(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.profilepicturesource import ProfilePictureSource
         param_types = {
+            'breaking_change': 'breaking_change_enum',
             'height': 'int',
             'redirect': 'bool',
             'type': 'type_enum',
             'width': 'int',
         }
         enums = {
+            'breaking_change_enum': ProfilePictureSource.BreakingChange.__dict__.values(),
             'type_enum': ProfilePictureSource.Type.__dict__.values(),
         }
         request = FacebookRequest(

@@ -56,6 +56,7 @@ class ProductFeedUpload(
         warning_count = 'warning_count'
 
     class InputMethod:
+        google_sheets_fetch = 'Google Sheets Fetch'
         manual_upload = 'Manual Upload'
         reupload_last_file = 'Reupload Last File'
         server_fetch = 'Server Fetch'
@@ -132,8 +133,10 @@ class ProductFeedUpload(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.productfeeduploaderror import ProductFeedUploadError
         param_types = {
+            'error_priority': 'error_priority_enum',
         }
         enums = {
+            'error_priority_enum': ProductFeedUploadError.ErrorPriority.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],

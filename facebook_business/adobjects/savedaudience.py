@@ -42,47 +42,21 @@ class SavedAudience(
 
     class Field(AbstractObject.Field):
         account = 'account'
-        approximate_count = 'approximate_count'
+        approximate_count_lower_bound = 'approximate_count_lower_bound'
+        approximate_count_upper_bound = 'approximate_count_upper_bound'
+        delete_time = 'delete_time'
         description = 'description'
         extra_info = 'extra_info'
         id = 'id'
         name = 'name'
+        operation_status = 'operation_status'
+        page_deletion_marked_delete_time = 'page_deletion_marked_delete_time'
         permission_for_actions = 'permission_for_actions'
         run_status = 'run_status'
         sentence_lines = 'sentence_lines'
         targeting = 'targeting'
         time_created = 'time_created'
         time_updated = 'time_updated'
-
-    def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='DELETE',
-            endpoint='/',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -114,44 +88,17 @@ class SavedAudience(
             self.assure_call()
             return request.execute()
 
-    def get_ad_sets(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.adset import AdSet
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/adsets',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AdSet,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdSet, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     _field_types = {
         'account': 'AdAccount',
-        'approximate_count': 'int',
+        'approximate_count_lower_bound': 'int',
+        'approximate_count_upper_bound': 'int',
+        'delete_time': 'int',
         'description': 'string',
         'extra_info': 'string',
         'id': 'string',
         'name': 'string',
+        'operation_status': 'CustomAudienceStatus',
+        'page_deletion_marked_delete_time': 'int',
         'permission_for_actions': 'AudiencePermissionForActions',
         'run_status': 'string',
         'sentence_lines': 'list',

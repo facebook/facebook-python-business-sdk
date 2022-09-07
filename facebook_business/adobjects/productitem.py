@@ -46,10 +46,12 @@ class ProductItem(
         additional_variant_attributes = 'additional_variant_attributes'
         age_group = 'age_group'
         applinks = 'applinks'
+        ar_data = 'ar_data'
         availability = 'availability'
         brand = 'brand'
         capability_to_review_status = 'capability_to_review_status'
         category = 'category'
+        category_specific_fields = 'category_specific_fields'
         color = 'color'
         commerce_insights = 'commerce_insights'
         condition = 'condition'
@@ -60,25 +62,42 @@ class ProductItem(
         custom_label_2 = 'custom_label_2'
         custom_label_3 = 'custom_label_3'
         custom_label_4 = 'custom_label_4'
+        custom_number_0 = 'custom_number_0'
+        custom_number_1 = 'custom_number_1'
+        custom_number_2 = 'custom_number_2'
+        custom_number_3 = 'custom_number_3'
+        custom_number_4 = 'custom_number_4'
         description = 'description'
+        errors = 'errors'
         expiration_date = 'expiration_date'
+        fb_product_category = 'fb_product_category'
         gender = 'gender'
         gtin = 'gtin'
         id = 'id'
         image_cdn_urls = 'image_cdn_urls'
+        image_fetch_status = 'image_fetch_status'
         image_url = 'image_url'
+        images = 'images'
+        importer_address = 'importer_address'
+        importer_name = 'importer_name'
+        invalidation_errors = 'invalidation_errors'
         inventory = 'inventory'
+        manufacturer_info = 'manufacturer_info'
         manufacturer_part_number = 'manufacturer_part_number'
+        marked_for_product_launch = 'marked_for_product_launch'
         material = 'material'
         mobile_link = 'mobile_link'
         name = 'name'
         ordering_index = 'ordering_index'
+        origin_country = 'origin_country'
+        parent_product_id = 'parent_product_id'
         pattern = 'pattern'
         price = 'price'
         product_catalog = 'product_catalog'
         product_feed = 'product_feed'
         product_group = 'product_group'
         product_type = 'product_type'
+        quantity_to_sell_on_facebook = 'quantity_to_sell_on_facebook'
         retailer_id = 'retailer_id'
         retailer_product_group_id = 'retailer_product_group_id'
         review_rejection_reasons = 'review_rejection_reasons'
@@ -93,7 +112,8 @@ class ProductItem(
         start_date = 'start_date'
         url = 'url'
         visibility = 'visibility'
-        additional_image_files = 'additional_image_files'
+        wa_compliance_category = 'wa_compliance_category'
+        additional_uploaded_image_ids = 'additional_uploaded_image_ids'
         android_app_name = 'android_app_name'
         android_class = 'android_class'
         android_package = 'android_package'
@@ -150,6 +170,14 @@ class ProductItem(
         male = 'male'
         unisex = 'unisex'
 
+    class ImageFetchStatus:
+        direct_upload = 'DIRECT_UPLOAD'
+        fetched = 'FETCHED'
+        fetch_failed = 'FETCH_FAILED'
+        no_status = 'NO_STATUS'
+        outdated = 'OUTDATED'
+        partial_fetch = 'PARTIAL_FETCH'
+
     class ReviewStatus:
         approved = 'approved'
         outdated = 'outdated'
@@ -176,6 +204,7 @@ class ProductItem(
         fb_aprl_clothing = 'FB_APRL_CLOTHING'
         fb_aprl_costume = 'FB_APRL_COSTUME'
         fb_aprl_cstm = 'FB_APRL_CSTM'
+        fb_aprl_formal = 'FB_APRL_FORMAL'
         fb_aprl_handbag = 'FB_APRL_HANDBAG'
         fb_aprl_jewelry = 'FB_APRL_JEWELRY'
         fb_aprl_shoe = 'FB_APRL_SHOE'
@@ -262,7 +291,9 @@ class ProductItem(
         fb_elec_part = 'FB_ELEC_PART'
         fb_elec_print = 'FB_ELEC_PRINT'
         fb_elec_radar = 'FB_ELEC_RADAR'
+        fb_elec_sftwr = 'FB_ELEC_SFTWR'
         fb_elec_speed_rdr = 'FB_ELEC_SPEED_RDR'
+        fb_elec_television = 'FB_ELEC_TELEVISION'
         fb_elec_toll = 'FB_ELEC_TOLL'
         fb_elec_video = 'FB_ELEC_VIDEO'
         fb_elec_vid_gm_acc = 'FB_ELEC_VID_GM_ACC'
@@ -370,6 +401,340 @@ class ProductItem(
         fb_vehi = 'FB_VEHI'
         fb_vehi_part = 'FB_VEHI_PART'
 
+    class ErrorPriority:
+        high = 'HIGH'
+        low = 'LOW'
+        medium = 'MEDIUM'
+
+    class ErrorType:
+        ar_deleted_due_to_update = 'AR_DELETED_DUE_TO_UPDATE'
+        ar_policy_violated = 'AR_POLICY_VIOLATED'
+        available = 'AVAILABLE'
+        bad_quality_image = 'BAD_QUALITY_IMAGE'
+        cannot_edit_subscription_products = 'CANNOT_EDIT_SUBSCRIPTION_PRODUCTS'
+        crawled_availability_mismatch = 'CRAWLED_AVAILABILITY_MISMATCH'
+        digital_goods_not_available_for_checkout = 'DIGITAL_GOODS_NOT_AVAILABLE_FOR_CHECKOUT'
+        duplicate_images = 'DUPLICATE_IMAGES'
+        duplicate_title_and_description = 'DUPLICATE_TITLE_AND_DESCRIPTION'
+        generic_invalid_field = 'GENERIC_INVALID_FIELD'
+        hidden_until_product_launch = 'HIDDEN_UNTIL_PRODUCT_LAUNCH'
+        image_resolution_low = 'IMAGE_RESOLUTION_LOW'
+        inactive_shopify_product = 'INACTIVE_SHOPIFY_PRODUCT'
+        invalid_commerce_tax_category = 'INVALID_COMMERCE_TAX_CATEGORY'
+        invalid_images = 'INVALID_IMAGES'
+        invalid_monetizer_return_policy = 'INVALID_MONETIZER_RETURN_POLICY'
+        invalid_pre_order_params = 'INVALID_PRE_ORDER_PARAMS'
+        invalid_shipping_profile_params = 'INVALID_SHIPPING_PROFILE_PARAMS'
+        invalid_subscription_disable_params = 'INVALID_SUBSCRIPTION_DISABLE_PARAMS'
+        invalid_subscription_enable_params = 'INVALID_SUBSCRIPTION_ENABLE_PARAMS'
+        invalid_subscription_params = 'INVALID_SUBSCRIPTION_PARAMS'
+        inventory_zero_availability_in_stock = 'INVENTORY_ZERO_AVAILABILITY_IN_STOCK'
+        in_another_product_launch = 'IN_ANOTHER_PRODUCT_LAUNCH'
+        item_group_not_specified = 'ITEM_GROUP_NOT_SPECIFIED'
+        item_not_shippable_for_sca_shop = 'ITEM_NOT_SHIPPABLE_FOR_SCA_SHOP'
+        item_override_not_visible = 'ITEM_OVERRIDE_NOT_VISIBLE'
+        item_stale_out_of_stock = 'ITEM_STALE_OUT_OF_STOCK'
+        mini_shops_disabled_by_user = 'MINI_SHOPS_DISABLED_BY_USER'
+        missing_checkout = 'MISSING_CHECKOUT'
+        missing_checkout_currency = 'MISSING_CHECKOUT_CURRENCY'
+        missing_color = 'MISSING_COLOR'
+        missing_country_override_in_shipping_profile = 'MISSING_COUNTRY_OVERRIDE_IN_SHIPPING_PROFILE'
+        missing_india_compliance_fields = 'MISSING_INDIA_COMPLIANCE_FIELDS'
+        missing_shipping_profile = 'MISSING_SHIPPING_PROFILE'
+        missing_size = 'MISSING_SIZE'
+        missing_tax_category = 'MISSING_TAX_CATEGORY'
+        not_enough_images = 'NOT_ENOUGH_IMAGES'
+        part_of_product_launch = 'PART_OF_PRODUCT_LAUNCH'
+        product_expired = 'PRODUCT_EXPIRED'
+        product_item_not_visible = 'PRODUCT_ITEM_NOT_VISIBLE'
+        product_not_approved = 'PRODUCT_NOT_APPROVED'
+        product_not_dominant_currency = 'PRODUCT_NOT_DOMINANT_CURRENCY'
+        product_out_of_stock = 'PRODUCT_OUT_OF_STOCK'
+        product_url_equals_domain = 'PRODUCT_URL_EQUALS_DOMAIN'
+        property_price_currency_not_supported = 'PROPERTY_PRICE_CURRENCY_NOT_SUPPORTED'
+        property_price_too_high = 'PROPERTY_PRICE_TOO_HIGH'
+        property_price_too_low = 'PROPERTY_PRICE_TOO_LOW'
+        property_value_contains_html_tags = 'PROPERTY_VALUE_CONTAINS_HTML_TAGS'
+        property_value_description_contains_off_platform_link = 'PROPERTY_VALUE_DESCRIPTION_CONTAINS_OFF_PLATFORM_LINK'
+        property_value_format = 'PROPERTY_VALUE_FORMAT'
+        property_value_missing = 'PROPERTY_VALUE_MISSING'
+        property_value_missing_warning = 'PROPERTY_VALUE_MISSING_WARNING'
+        property_value_non_positive = 'PROPERTY_VALUE_NON_POSITIVE'
+        property_value_string_exceeds_length = 'PROPERTY_VALUE_STRING_EXCEEDS_LENGTH'
+        property_value_string_too_short = 'PROPERTY_VALUE_STRING_TOO_SHORT'
+        property_value_uppercase_warning = 'PROPERTY_VALUE_UPPERCASE_WARNING'
+        quality_duplicated_description = 'QUALITY_DUPLICATED_DESCRIPTION'
+        quality_item_link_broken = 'QUALITY_ITEM_LINK_BROKEN'
+        quality_item_link_redirecting = 'QUALITY_ITEM_LINK_REDIRECTING'
+        retailer_id_not_provided = 'RETAILER_ID_NOT_PROVIDED'
+        shopify_item_missing_shipping_profile = 'SHOPIFY_ITEM_MISSING_SHIPPING_PROFILE'
+        subscription_info_not_enabled_for_feed = 'SUBSCRIPTION_INFO_NOT_ENABLED_FOR_FEED'
+        tax_category_not_supported_in_uk = 'TAX_CATEGORY_NOT_SUPPORTED_IN_UK'
+        unsupported_product_category = 'UNSUPPORTED_PRODUCT_CATEGORY'
+        variant_attribute_issue = 'VARIANT_ATTRIBUTE_ISSUE'
+
+    class MarkedForProductLaunch:
+        value_default = 'default'
+        marked = 'marked'
+        not_marked = 'not_marked'
+
+    class OriginCountry:
+        ad = 'AD'
+        ae = 'AE'
+        af = 'AF'
+        ag = 'AG'
+        ai = 'AI'
+        al = 'AL'
+        am = 'AM'
+        an = 'AN'
+        ao = 'AO'
+        aq = 'AQ'
+        ar = 'AR'
+        value_as = 'AS'
+        at = 'AT'
+        au = 'AU'
+        aw = 'AW'
+        ax = 'AX'
+        az = 'AZ'
+        ba = 'BA'
+        bb = 'BB'
+        bd = 'BD'
+        be = 'BE'
+        bf = 'BF'
+        bg = 'BG'
+        bh = 'BH'
+        bi = 'BI'
+        bj = 'BJ'
+        bl = 'BL'
+        bm = 'BM'
+        bn = 'BN'
+        bo = 'BO'
+        bq = 'BQ'
+        br = 'BR'
+        bs = 'BS'
+        bt = 'BT'
+        bv = 'BV'
+        bw = 'BW'
+        by = 'BY'
+        bz = 'BZ'
+        ca = 'CA'
+        cc = 'CC'
+        cd = 'CD'
+        cf = 'CF'
+        cg = 'CG'
+        ch = 'CH'
+        ci = 'CI'
+        ck = 'CK'
+        cl = 'CL'
+        cm = 'CM'
+        cn = 'CN'
+        co = 'CO'
+        cr = 'CR'
+        cu = 'CU'
+        cv = 'CV'
+        cw = 'CW'
+        cx = 'CX'
+        cy = 'CY'
+        cz = 'CZ'
+        de = 'DE'
+        dj = 'DJ'
+        dk = 'DK'
+        dm = 'DM'
+        do = 'DO'
+        dz = 'DZ'
+        ec = 'EC'
+        ee = 'EE'
+        eg = 'EG'
+        eh = 'EH'
+        er = 'ER'
+        es = 'ES'
+        et = 'ET'
+        fi = 'FI'
+        fj = 'FJ'
+        fk = 'FK'
+        fm = 'FM'
+        fo = 'FO'
+        fr = 'FR'
+        ga = 'GA'
+        gb = 'GB'
+        gd = 'GD'
+        ge = 'GE'
+        gf = 'GF'
+        gg = 'GG'
+        gh = 'GH'
+        gi = 'GI'
+        gl = 'GL'
+        gm = 'GM'
+        gn = 'GN'
+        gp = 'GP'
+        gq = 'GQ'
+        gr = 'GR'
+        gs = 'GS'
+        gt = 'GT'
+        gu = 'GU'
+        gw = 'GW'
+        gy = 'GY'
+        hk = 'HK'
+        hm = 'HM'
+        hn = 'HN'
+        hr = 'HR'
+        ht = 'HT'
+        hu = 'HU'
+        id = 'ID'
+        ie = 'IE'
+        il = 'IL'
+        im = 'IM'
+        value_in = 'IN'
+        io = 'IO'
+        iq = 'IQ'
+        ir = 'IR'
+        value_is = 'IS'
+        it = 'IT'
+        je = 'JE'
+        jm = 'JM'
+        jo = 'JO'
+        jp = 'JP'
+        ke = 'KE'
+        kg = 'KG'
+        kh = 'KH'
+        ki = 'KI'
+        km = 'KM'
+        kn = 'KN'
+        kp = 'KP'
+        kr = 'KR'
+        kw = 'KW'
+        ky = 'KY'
+        kz = 'KZ'
+        la = 'LA'
+        lb = 'LB'
+        lc = 'LC'
+        li = 'LI'
+        lk = 'LK'
+        lr = 'LR'
+        ls = 'LS'
+        lt = 'LT'
+        lu = 'LU'
+        lv = 'LV'
+        ly = 'LY'
+        ma = 'MA'
+        mc = 'MC'
+        md = 'MD'
+        me = 'ME'
+        mf = 'MF'
+        mg = 'MG'
+        mh = 'MH'
+        mk = 'MK'
+        ml = 'ML'
+        mm = 'MM'
+        mn = 'MN'
+        mo = 'MO'
+        mp = 'MP'
+        mq = 'MQ'
+        mr = 'MR'
+        ms = 'MS'
+        mt = 'MT'
+        mu = 'MU'
+        mv = 'MV'
+        mw = 'MW'
+        mx = 'MX'
+        my = 'MY'
+        mz = 'MZ'
+        na = 'NA'
+        nc = 'NC'
+        ne = 'NE'
+        nf = 'NF'
+        ng = 'NG'
+        ni = 'NI'
+        nl = 'NL'
+        no = 'NO'
+        np = 'NP'
+        nr = 'NR'
+        nu = 'NU'
+        nz = 'NZ'
+        om = 'OM'
+        pa = 'PA'
+        pe = 'PE'
+        pf = 'PF'
+        pg = 'PG'
+        ph = 'PH'
+        pk = 'PK'
+        pl = 'PL'
+        pm = 'PM'
+        pn = 'PN'
+        pr = 'PR'
+        ps = 'PS'
+        pt = 'PT'
+        pw = 'PW'
+        py = 'PY'
+        qa = 'QA'
+        re = 'RE'
+        ro = 'RO'
+        rs = 'RS'
+        ru = 'RU'
+        rw = 'RW'
+        sa = 'SA'
+        sb = 'SB'
+        sc = 'SC'
+        sd = 'SD'
+        se = 'SE'
+        sg = 'SG'
+        sh = 'SH'
+        si = 'SI'
+        sj = 'SJ'
+        sk = 'SK'
+        sl = 'SL'
+        sm = 'SM'
+        sn = 'SN'
+        so = 'SO'
+        sr = 'SR'
+        ss = 'SS'
+        st = 'ST'
+        sv = 'SV'
+        sx = 'SX'
+        sy = 'SY'
+        sz = 'SZ'
+        tc = 'TC'
+        td = 'TD'
+        tf = 'TF'
+        tg = 'TG'
+        th = 'TH'
+        tj = 'TJ'
+        tk = 'TK'
+        tl = 'TL'
+        tm = 'TM'
+        tn = 'TN'
+        to = 'TO'
+        tr = 'TR'
+        tt = 'TT'
+        tv = 'TV'
+        tw = 'TW'
+        tz = 'TZ'
+        ua = 'UA'
+        ug = 'UG'
+        um = 'UM'
+        us = 'US'
+        uy = 'UY'
+        uz = 'UZ'
+        va = 'VA'
+        vc = 'VC'
+        ve = 'VE'
+        vg = 'VG'
+        vi = 'VI'
+        vn = 'VN'
+        vu = 'VU'
+        wf = 'WF'
+        ws = 'WS'
+        xk = 'XK'
+        ye = 'YE'
+        yt = 'YT'
+        za = 'ZA'
+        zm = 'ZM'
+        zw = 'ZW'
+
+    class WaComplianceCategory:
+        country_origin_exempt = 'COUNTRY_ORIGIN_EXEMPT'
+        value_default = 'DEFAULT'
+
     # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
@@ -415,8 +780,11 @@ class ProductItem(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'catalog_id': 'string',
             'image_height': 'unsigned int',
             'image_width': 'unsigned int',
+            'override_country': 'string',
+            'override_language': 'string',
         }
         enums = {
         }
@@ -447,8 +815,8 @@ class ProductItem(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'additional_image_files': 'list<file>',
             'additional_image_urls': 'list<string>',
+            'additional_uploaded_image_ids': 'list<string>',
             'additional_variant_attributes': 'map',
             'android_app_name': 'string',
             'android_class': 'string',
@@ -457,6 +825,7 @@ class ProductItem(
             'availability': 'availability_enum',
             'brand': 'string',
             'category': 'string',
+            'category_specific_fields': 'map',
             'checkout_url': 'string',
             'color': 'string',
             'commerce_tax_category': 'commerce_tax_category_enum',
@@ -468,11 +837,19 @@ class ProductItem(
             'custom_label_2': 'string',
             'custom_label_3': 'string',
             'custom_label_4': 'string',
+            'custom_number_0': 'unsigned int',
+            'custom_number_1': 'unsigned int',
+            'custom_number_2': 'unsigned int',
+            'custom_number_3': 'unsigned int',
+            'custom_number_4': 'unsigned int',
             'description': 'string',
             'expiration_date': 'string',
+            'fb_product_category': 'string',
             'gender': 'gender_enum',
             'gtin': 'string',
             'image_url': 'string',
+            'importer_address': 'map',
+            'importer_name': 'string',
             'inventory': 'unsigned int',
             'ios_app_name': 'string',
             'ios_app_store_id': 'unsigned int',
@@ -484,7 +861,9 @@ class ProductItem(
             'iphone_app_store_id': 'unsigned int',
             'iphone_url': 'string',
             'launch_date': 'string',
+            'manufacturer_info': 'string',
             'manufacturer_part_number': 'string',
+            'marked_for_product_launch': 'marked_for_product_launch_enum',
             'material': 'string',
             'mobile_link': 'string',
             'name': 'string',
@@ -492,9 +871,11 @@ class ProductItem(
             'offer_price_end_date': 'datetime',
             'offer_price_start_date': 'datetime',
             'ordering_index': 'unsigned int',
+            'origin_country': 'origin_country_enum',
             'pattern': 'string',
             'price': 'unsigned int',
             'product_type': 'string',
+            'quantity_to_sell_on_facebook': 'unsigned int',
             'retailer_id': 'string',
             'return_policy_days': 'unsigned int',
             'sale_price': 'unsigned int',
@@ -505,6 +886,7 @@ class ProductItem(
             'start_date': 'string',
             'url': 'string',
             'visibility': 'visibility_enum',
+            'wa_compliance_category': 'wa_compliance_category_enum',
             'windows_phone_app_id': 'string',
             'windows_phone_app_name': 'string',
             'windows_phone_url': 'string',
@@ -514,7 +896,10 @@ class ProductItem(
             'commerce_tax_category_enum': ProductItem.CommerceTaxCategory.__dict__.values(),
             'condition_enum': ProductItem.Condition.__dict__.values(),
             'gender_enum': ProductItem.Gender.__dict__.values(),
+            'marked_for_product_launch_enum': ProductItem.MarkedForProductLaunch.__dict__.values(),
+            'origin_country_enum': ProductItem.OriginCountry.__dict__.values(),
             'visibility_enum': ProductItem.Visibility.__dict__.values(),
+            'wa_compliance_category_enum': ProductItem.WaComplianceCategory.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -525,6 +910,37 @@ class ProductItem(
             target_class=ProductItem,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_channels_to_integrity_status(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.catalogitemchannelstointegritystatus import CatalogItemChannelsToIntegrityStatus
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/channels_to_integrity_status',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=CatalogItemChannelsToIntegrityStatus,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=CatalogItemChannelsToIntegrityStatus, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -574,11 +990,13 @@ class ProductItem(
         'additional_image_urls': 'list<string>',
         'additional_variant_attributes': 'map<string, string>',
         'age_group': 'AgeGroup',
-        'applinks': 'AppLinks',
+        'applinks': 'CatalogItemAppLinks',
+        'ar_data': 'ProductItemARData',
         'availability': 'Availability',
         'brand': 'string',
         'capability_to_review_status': 'map<Object, Object>',
         'category': 'string',
+        'category_specific_fields': 'CatalogSubVerticalList',
         'color': 'string',
         'commerce_insights': 'ProductItemCommerceInsights',
         'condition': 'Condition',
@@ -589,25 +1007,42 @@ class ProductItem(
         'custom_label_2': 'string',
         'custom_label_3': 'string',
         'custom_label_4': 'string',
+        'custom_number_0': 'string',
+        'custom_number_1': 'string',
+        'custom_number_2': 'string',
+        'custom_number_3': 'string',
+        'custom_number_4': 'string',
         'description': 'string',
+        'errors': 'list<ProductItemError>',
         'expiration_date': 'string',
+        'fb_product_category': 'string',
         'gender': 'Gender',
         'gtin': 'string',
         'id': 'string',
         'image_cdn_urls': 'map<string, string>',
+        'image_fetch_status': 'ImageFetchStatus',
         'image_url': 'string',
+        'images': 'list<string>',
+        'importer_address': 'ProductItemImporterAddress',
+        'importer_name': 'string',
+        'invalidation_errors': 'list<Object>',
         'inventory': 'int',
+        'manufacturer_info': 'string',
         'manufacturer_part_number': 'string',
+        'marked_for_product_launch': 'string',
         'material': 'string',
         'mobile_link': 'string',
         'name': 'string',
         'ordering_index': 'int',
+        'origin_country': 'string',
+        'parent_product_id': 'string',
         'pattern': 'string',
         'price': 'string',
         'product_catalog': 'ProductCatalog',
         'product_feed': 'ProductFeed',
         'product_group': 'ProductGroup',
         'product_type': 'string',
+        'quantity_to_sell_on_facebook': 'int',
         'retailer_id': 'string',
         'retailer_product_group_id': 'string',
         'review_rejection_reasons': 'list<string>',
@@ -622,7 +1057,8 @@ class ProductItem(
         'start_date': 'string',
         'url': 'string',
         'visibility': 'Visibility',
-        'additional_image_files': 'list<file>',
+        'wa_compliance_category': 'string',
+        'additional_uploaded_image_ids': 'list<string>',
         'android_app_name': 'string',
         'android_class': 'string',
         'android_package': 'string',
@@ -654,10 +1090,16 @@ class ProductItem(
         field_enum_info['Availability'] = ProductItem.Availability.__dict__.values()
         field_enum_info['Condition'] = ProductItem.Condition.__dict__.values()
         field_enum_info['Gender'] = ProductItem.Gender.__dict__.values()
+        field_enum_info['ImageFetchStatus'] = ProductItem.ImageFetchStatus.__dict__.values()
         field_enum_info['ReviewStatus'] = ProductItem.ReviewStatus.__dict__.values()
         field_enum_info['ShippingWeightUnit'] = ProductItem.ShippingWeightUnit.__dict__.values()
         field_enum_info['Visibility'] = ProductItem.Visibility.__dict__.values()
         field_enum_info['CommerceTaxCategory'] = ProductItem.CommerceTaxCategory.__dict__.values()
+        field_enum_info['ErrorPriority'] = ProductItem.ErrorPriority.__dict__.values()
+        field_enum_info['ErrorType'] = ProductItem.ErrorType.__dict__.values()
+        field_enum_info['MarkedForProductLaunch'] = ProductItem.MarkedForProductLaunch.__dict__.values()
+        field_enum_info['OriginCountry'] = ProductItem.OriginCountry.__dict__.values()
+        field_enum_info['WaComplianceCategory'] = ProductItem.WaComplianceCategory.__dict__.values()
         return field_enum_info
 
 

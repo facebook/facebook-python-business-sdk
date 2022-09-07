@@ -40,41 +40,43 @@ class AdAccountDeliveryEstimate(
     class Field(AbstractObject.Field):
         daily_outcomes_curve = 'daily_outcomes_curve'
         estimate_dau = 'estimate_dau'
-        estimate_mau = 'estimate_mau'
+        estimate_mau_lower_bound = 'estimate_mau_lower_bound'
+        estimate_mau_upper_bound = 'estimate_mau_upper_bound'
         estimate_ready = 'estimate_ready'
+        targeting_optimization_types = 'targeting_optimization_types'
 
     class OptimizationGoal:
         ad_recall_lift = 'AD_RECALL_LIFT'
-        app_downloads = 'APP_DOWNLOADS'
         app_installs = 'APP_INSTALLS'
-        brand_awareness = 'BRAND_AWARENESS'
-        clicks = 'CLICKS'
+        app_installs_and_offsite_conversions = 'APP_INSTALLS_AND_OFFSITE_CONVERSIONS'
+        conversations = 'CONVERSATIONS'
         derived_events = 'DERIVED_EVENTS'
         engaged_users = 'ENGAGED_USERS'
         event_responses = 'EVENT_RESPONSES'
         impressions = 'IMPRESSIONS'
+        in_app_value = 'IN_APP_VALUE'
         landing_page_views = 'LANDING_PAGE_VIEWS'
         lead_generation = 'LEAD_GENERATION'
         link_clicks = 'LINK_CLICKS'
+        messaging_purchase_conversion = 'MESSAGING_PURCHASE_CONVERSION'
         none = 'NONE'
-        offer_claims = 'OFFER_CLAIMS'
         offsite_conversions = 'OFFSITE_CONVERSIONS'
-        page_engagement = 'PAGE_ENGAGEMENT'
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
+        quality_call = 'QUALITY_CALL'
+        quality_lead = 'QUALITY_LEAD'
         reach = 'REACH'
-        replies = 'REPLIES'
-        social_impressions = 'SOCIAL_IMPRESSIONS'
         thruplay = 'THRUPLAY'
-        two_second_continuous_video_views = 'TWO_SECOND_CONTINUOUS_VIDEO_VIEWS'
         value = 'VALUE'
-        video_views = 'VIDEO_VIEWS'
+        visit_instagram_profile = 'VISIT_INSTAGRAM_PROFILE'
 
     _field_types = {
         'daily_outcomes_curve': 'list<OutcomePredictionPoint>',
         'estimate_dau': 'int',
-        'estimate_mau': 'int',
+        'estimate_mau_lower_bound': 'int',
+        'estimate_mau_upper_bound': 'int',
         'estimate_ready': 'bool',
+        'targeting_optimization_types': 'map<string, int>',
     }
     @classmethod
     def _get_field_enum_info(cls):

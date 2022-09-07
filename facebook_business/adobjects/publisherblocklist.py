@@ -156,19 +156,19 @@ class PublisherBlockList(
             self.assure_call()
             return request.execute()
 
-    def get_paged_app_publishers(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def create_app_end_publisher_url(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'draft_id': 'string',
+            'publisher_urls': 'list<string>',
         }
         enums = {
         }
         request = FacebookRequest(
             node_id=self['id'],
-            method='GET',
-            endpoint='/paged_app_publishers',
+            method='POST',
+            endpoint='/append_publisher_urls',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,

@@ -47,6 +47,8 @@ class ReachFrequencyPrediction(
         activity_status = 'activity_status'
         ad_formats = 'ad_formats'
         auction_entry_option_index = 'auction_entry_option_index'
+        audience_size_lower_bound = 'audience_size_lower_bound'
+        audience_size_upper_bound = 'audience_size_upper_bound'
         business_id = 'business_id'
         buying_type = 'buying_type'
         campaign_group_id = 'campaign_group_id'
@@ -60,7 +62,6 @@ class ReachFrequencyPrediction(
         daily_impression_curve = 'daily_impression_curve'
         daily_impression_curve_map = 'daily_impression_curve_map'
         day_parting_schedule = 'day_parting_schedule'
-        demo_breakdown = 'demo_breakdown'
         destination_id = 'destination_id'
         end_time = 'end_time'
         expiration_time = 'expiration_time'
@@ -73,10 +74,8 @@ class ReachFrequencyPrediction(
         external_minimum_impression = 'external_minimum_impression'
         external_minimum_reach = 'external_minimum_reach'
         external_reach = 'external_reach'
-        external_values_breakdown = 'external_values_breakdown'
         feed_ratio_0000 = 'feed_ratio_0000'
         frequency_cap = 'frequency_cap'
-        frequency_distribution = 'frequency_distribution'
         frequency_distribution_map = 'frequency_distribution_map'
         frequency_distribution_map_agg = 'frequency_distribution_map_agg'
         grp_audience_size = 'grp_audience_size'
@@ -105,6 +104,10 @@ class ReachFrequencyPrediction(
         name = 'name'
         objective = 'objective'
         objective_name = 'objective_name'
+        odax_objective = 'odax_objective'
+        odax_objective_name = 'odax_objective_name'
+        optimization_goal = 'optimization_goal'
+        optimization_goal_name = 'optimization_goal_name'
         pause_periods = 'pause_periods'
         placement_breakdown = 'placement_breakdown'
         placement_breakdown_map = 'placement_breakdown_map'
@@ -117,7 +120,6 @@ class ReachFrequencyPrediction(
         start_time = 'start_time'
         status = 'status'
         story_event_type = 'story_event_type'
-        target_audience_size = 'target_audience_size'
         target_cpm = 'target_cpm'
         target_spec = 'target_spec'
         time_created = 'time_created'
@@ -125,7 +127,6 @@ class ReachFrequencyPrediction(
         timezone_id = 'timezone_id'
         timezone_name = 'timezone_name'
         topline_id = 'topline_id'
-        tv_viewer_cluster_map = 'tv_viewer_cluster_map'
         video_view_length_constraint = 'video_view_length_constraint'
         viewtag = 'viewtag'
         action = 'action'
@@ -220,6 +221,8 @@ class ReachFrequencyPrediction(
         'activity_status': 'ReachFrequencyActivity',
         'ad_formats': 'list<ReachFrequencyAdFormat>',
         'auction_entry_option_index': 'int',
+        'audience_size_lower_bound': 'unsigned int',
+        'audience_size_upper_bound': 'unsigned int',
         'business_id': 'int',
         'buying_type': 'string',
         'campaign_group_id': 'int',
@@ -233,7 +236,6 @@ class ReachFrequencyPrediction(
         'daily_impression_curve': 'list<float>',
         'daily_impression_curve_map': 'map<unsigned int, list<float>>',
         'day_parting_schedule': 'list<ReachFrequencyDayPart>',
-        'demo_breakdown': 'ReachFrequencyEstimatesDemoBreakdown',
         'destination_id': 'string',
         'end_time': 'datetime',
         'expiration_time': 'datetime',
@@ -246,10 +248,8 @@ class ReachFrequencyPrediction(
         'external_minimum_impression': 'unsigned int',
         'external_minimum_reach': 'unsigned int',
         'external_reach': 'unsigned int',
-        'external_values_breakdown': 'string',
         'feed_ratio_0000': 'unsigned int',
         'frequency_cap': 'unsigned int',
-        'frequency_distribution': 'list<float>',
         'frequency_distribution_map': 'map<unsigned int, list<float>>',
         'frequency_distribution_map_agg': 'map<unsigned int, list<unsigned int>>',
         'grp_audience_size': 'float',
@@ -278,6 +278,10 @@ class ReachFrequencyPrediction(
         'name': 'string',
         'objective': 'unsigned int',
         'objective_name': 'string',
+        'odax_objective': 'unsigned int',
+        'odax_objective_name': 'string',
+        'optimization_goal': 'unsigned int',
+        'optimization_goal_name': 'string',
         'pause_periods': 'list<Object>',
         'placement_breakdown': 'ReachFrequencyEstimatesPlacementBreakdown',
         'placement_breakdown_map': 'map<unsigned int, ReachFrequencyEstimatesPlacementBreakdown>',
@@ -290,7 +294,6 @@ class ReachFrequencyPrediction(
         'start_time': 'datetime',
         'status': 'unsigned int',
         'story_event_type': 'unsigned int',
-        'target_audience_size': 'unsigned int',
         'target_cpm': 'unsigned int',
         'target_spec': 'Targeting',
         'time_created': 'datetime',
@@ -298,7 +301,6 @@ class ReachFrequencyPrediction(
         'timezone_id': 'unsigned int',
         'timezone_name': 'string',
         'topline_id': 'unsigned int',
-        'tv_viewer_cluster_map': 'map<unsigned int, Object>',
         'video_view_length_constraint': 'unsigned int',
         'viewtag': 'string',
         'action': 'Action',

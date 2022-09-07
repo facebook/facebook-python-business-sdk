@@ -55,10 +55,11 @@ class LiveVideo(
         ingest_streams = 'ingest_streams'
         is_manual_mode = 'is_manual_mode'
         is_reference_only = 'is_reference_only'
-        live_encoders = 'live_encoders'
         live_views = 'live_views'
+        overlay_url = 'overlay_url'
         permalink_url = 'permalink_url'
         planned_start_time = 'planned_start_time'
+        recommended_encoder_settings = 'recommended_encoder_settings'
         seconds_left = 'seconds_left'
         secure_stream_url = 'secure_stream_url'
         status = 'status'
@@ -108,12 +109,21 @@ class LiveVideo(
         target = 'target'
 
     class LiveCommentModerationSetting:
+        value_default = 'DEFAULT'
         discussion = 'DISCUSSION'
+        followed = 'FOLLOWED'
         follower = 'FOLLOWER'
+        no_hyperlink = 'NO_HYPERLINK'
         protected_mode = 'PROTECTED_MODE'
         restricted = 'RESTRICTED'
         slow = 'SLOW'
         supporter = 'SUPPORTER'
+        tagged = 'TAGGED'
+
+    class PersistentStreamKeyStatus:
+        disable = 'DISABLE'
+        enable = 'ENABLE'
+        regenerate = 'REGENERATE'
 
     def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -181,30 +191,25 @@ class LiveVideo(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'ad_break_drop_live_stream': 'bool',
-            'ad_break_duration': 'unsigned int',
-            'ad_break_encoder_drops_live_stream': 'bool',
-            'ad_break_intent': 'bool',
-            'ad_break_start_now': 'bool',
-            'ad_break_time_offset': 'float',
             'allow_bm_crossposting': 'bool',
-            'attribution_app_id': 'string',
-            'commercial_break_durations': 'list<unsigned int>',
             'content_tags': 'list<string>',
+            'cross_share_to_group_ids': 'list<string>',
             'crossposting_actions': 'list<map>',
             'custom_labels': 'list<string>',
             'description': 'string',
             'direct_share_status': 'unsigned int',
             'embeddable': 'bool',
             'end_live_video': 'bool',
+            'event_params': 'Object',
             'is_audio_only': 'bool',
             'is_manual_mode': 'bool',
             'live_comment_moderation_setting': 'list<live_comment_moderation_setting_enum>',
-            'live_encoders': 'list<string>',
+            'master_ingest_stream_id': 'string',
             'og_icon_id': 'string',
             'og_phrase': 'string',
+            'persistent_stream_key_status': 'persistent_stream_key_status_enum',
             'place': 'Object',
-            'planned_start_time': 'int',
+            'planned_start_time': 'datetime',
             'privacy': 'string',
             'published': 'bool',
             'schedule_custom_profile_image': 'file',
@@ -219,6 +224,7 @@ class LiveVideo(
         }
         enums = {
             'live_comment_moderation_setting_enum': LiveVideo.LiveCommentModerationSetting.__dict__.values(),
+            'persistent_stream_key_status_enum': LiveVideo.PersistentStreamKeyStatus.__dict__.values(),
             'status_enum': LiveVideo.Status.__dict__.values(),
             'stream_type_enum': LiveVideo.StreamType.__dict__.values(),
         }
@@ -437,37 +443,6 @@ class LiveVideo(
             self.assure_call()
             return request.execute()
 
-    def get_likes(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.profile import Profile
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/likes',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=Profile,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=Profile, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def get_polls(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -579,16 +554,17 @@ class LiveVideo(
         'dash_ingest_url': 'string',
         'dash_preview_url': 'string',
         'description': 'string',
-        'embed_html': 'string',
+        'embed_html': 'Object',
         'from': 'Object',
         'id': 'string',
         'ingest_streams': 'list<LiveVideoInputStream>',
         'is_manual_mode': 'bool',
         'is_reference_only': 'bool',
-        'live_encoders': 'list<LiveEncoder>',
         'live_views': 'unsigned int',
-        'permalink_url': 'string',
+        'overlay_url': 'string',
+        'permalink_url': 'Object',
         'planned_start_time': 'datetime',
+        'recommended_encoder_settings': 'LiveVideoRecommendedEncoderSettings',
         'seconds_left': 'int',
         'secure_stream_url': 'string',
         'status': 'string',
@@ -609,6 +585,7 @@ class LiveVideo(
         field_enum_info['BroadcastStatus'] = LiveVideo.BroadcastStatus.__dict__.values()
         field_enum_info['Source'] = LiveVideo.Source.__dict__.values()
         field_enum_info['LiveCommentModerationSetting'] = LiveVideo.LiveCommentModerationSetting.__dict__.values()
+        field_enum_info['PersistentStreamKeyStatus'] = LiveVideo.PersistentStreamKeyStatus.__dict__.values()
         return field_enum_info
 
 

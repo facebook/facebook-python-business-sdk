@@ -43,7 +43,7 @@ class WhatsAppBusinessProfile(
     class Field(AbstractObject.Field):
         id = 'id'
         name_verification = 'name_verification'
-        verified_name = 'verified_name'
+        whatsapp_business_api_data = 'whatsapp_business_api_data'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -80,7 +80,6 @@ class WhatsAppBusinessProfile(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'verified_name': 'string',
         }
         enums = {
         }
@@ -109,7 +108,7 @@ class WhatsAppBusinessProfile(
     _field_types = {
         'id': 'string',
         'name_verification': 'Object',
-        'verified_name': 'string',
+        'whatsapp_business_api_data': 'Object',
     }
     @classmethod
     def _get_field_enum_info(cls):

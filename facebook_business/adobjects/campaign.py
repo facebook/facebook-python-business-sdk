@@ -46,6 +46,8 @@ class Campaign(
 
     class Field(AbstractObject.Field):
         account_id = 'account_id'
+        ad_strategy_group_id = 'ad_strategy_group_id'
+        ad_strategy_id = 'ad_strategy_id'
         adlabels = 'adlabels'
         bid_strategy = 'bid_strategy'
         boosted_object_id = 'boosted_object_id'
@@ -60,6 +62,7 @@ class Campaign(
         daily_budget = 'daily_budget'
         effective_status = 'effective_status'
         id = 'id'
+        is_skadnetwork_attribution = 'is_skadnetwork_attribution'
         issues_info = 'issues_info'
         last_budget_toggling_time = 'last_budget_toggling_time'
         lifetime_budget = 'lifetime_budget'
@@ -68,9 +71,12 @@ class Campaign(
         pacing_type = 'pacing_type'
         promoted_object = 'promoted_object'
         recommendations = 'recommendations'
+        smart_promotion_type = 'smart_promotion_type'
         source_campaign = 'source_campaign'
         source_campaign_id = 'source_campaign_id'
+        special_ad_categories = 'special_ad_categories'
         special_ad_category = 'special_ad_category'
+        special_ad_category_country = 'special_ad_category_country'
         spend_cap = 'spend_cap'
         start_time = 'start_time'
         status = 'status'
@@ -83,9 +89,9 @@ class Campaign(
         upstream_events = 'upstream_events'
 
     class BidStrategy:
+        cost_cap = 'COST_CAP'
         lowest_cost_without_cap = 'LOWEST_COST_WITHOUT_CAP'
         lowest_cost_with_bid_cap = 'LOWEST_COST_WITH_BID_CAP'
-        target_cost = 'TARGET_COST'
 
     class ConfiguredStatus:
         active = 'ACTIVE'
@@ -108,6 +114,7 @@ class Campaign(
         paused = 'PAUSED'
 
     class DatePreset:
+        data_maximum = 'data_maximum'
         last_14d = 'last_14d'
         last_28d = 'last_28d'
         last_30d = 'last_30d'
@@ -119,7 +126,7 @@ class Campaign(
         last_week_mon_sun = 'last_week_mon_sun'
         last_week_sun_sat = 'last_week_sun_sat'
         last_year = 'last_year'
-        lifetime = 'lifetime'
+        maximum = 'maximum'
         this_month = 'this_month'
         this_quarter = 'this_quarter'
         this_week_mon_today = 'this_week_mon_today'
@@ -146,17 +153,285 @@ class Campaign(
         post_engagement = 'POST_ENGAGEMENT'
         product_catalog_sales = 'PRODUCT_CATALOG_SALES'
         reach = 'REACH'
+        store_visits = 'STORE_VISITS'
         video_views = 'VIDEO_VIEWS'
+
+    class SmartPromotionType:
+        guided_creation = 'GUIDED_CREATION'
+        smart_app_promotion = 'SMART_APP_PROMOTION'
+
+    class SpecialAdCategories:
+        credit = 'CREDIT'
+        employment = 'EMPLOYMENT'
+        housing = 'HOUSING'
+        issues_elections_politics = 'ISSUES_ELECTIONS_POLITICS'
+        none = 'NONE'
+        online_gambling_and_gaming = 'ONLINE_GAMBLING_AND_GAMING'
+
+    class SpecialAdCategoryCountry:
+        ad = 'AD'
+        ae = 'AE'
+        af = 'AF'
+        ag = 'AG'
+        ai = 'AI'
+        al = 'AL'
+        am = 'AM'
+        an = 'AN'
+        ao = 'AO'
+        aq = 'AQ'
+        ar = 'AR'
+        value_as = 'AS'
+        at = 'AT'
+        au = 'AU'
+        aw = 'AW'
+        ax = 'AX'
+        az = 'AZ'
+        ba = 'BA'
+        bb = 'BB'
+        bd = 'BD'
+        be = 'BE'
+        bf = 'BF'
+        bg = 'BG'
+        bh = 'BH'
+        bi = 'BI'
+        bj = 'BJ'
+        bl = 'BL'
+        bm = 'BM'
+        bn = 'BN'
+        bo = 'BO'
+        bq = 'BQ'
+        br = 'BR'
+        bs = 'BS'
+        bt = 'BT'
+        bv = 'BV'
+        bw = 'BW'
+        by = 'BY'
+        bz = 'BZ'
+        ca = 'CA'
+        cc = 'CC'
+        cd = 'CD'
+        cf = 'CF'
+        cg = 'CG'
+        ch = 'CH'
+        ci = 'CI'
+        ck = 'CK'
+        cl = 'CL'
+        cm = 'CM'
+        cn = 'CN'
+        co = 'CO'
+        cr = 'CR'
+        cu = 'CU'
+        cv = 'CV'
+        cw = 'CW'
+        cx = 'CX'
+        cy = 'CY'
+        cz = 'CZ'
+        de = 'DE'
+        dj = 'DJ'
+        dk = 'DK'
+        dm = 'DM'
+        do = 'DO'
+        dz = 'DZ'
+        ec = 'EC'
+        ee = 'EE'
+        eg = 'EG'
+        eh = 'EH'
+        er = 'ER'
+        es = 'ES'
+        et = 'ET'
+        fi = 'FI'
+        fj = 'FJ'
+        fk = 'FK'
+        fm = 'FM'
+        fo = 'FO'
+        fr = 'FR'
+        ga = 'GA'
+        gb = 'GB'
+        gd = 'GD'
+        ge = 'GE'
+        gf = 'GF'
+        gg = 'GG'
+        gh = 'GH'
+        gi = 'GI'
+        gl = 'GL'
+        gm = 'GM'
+        gn = 'GN'
+        gp = 'GP'
+        gq = 'GQ'
+        gr = 'GR'
+        gs = 'GS'
+        gt = 'GT'
+        gu = 'GU'
+        gw = 'GW'
+        gy = 'GY'
+        hk = 'HK'
+        hm = 'HM'
+        hn = 'HN'
+        hr = 'HR'
+        ht = 'HT'
+        hu = 'HU'
+        id = 'ID'
+        ie = 'IE'
+        il = 'IL'
+        im = 'IM'
+        value_in = 'IN'
+        io = 'IO'
+        iq = 'IQ'
+        ir = 'IR'
+        value_is = 'IS'
+        it = 'IT'
+        je = 'JE'
+        jm = 'JM'
+        jo = 'JO'
+        jp = 'JP'
+        ke = 'KE'
+        kg = 'KG'
+        kh = 'KH'
+        ki = 'KI'
+        km = 'KM'
+        kn = 'KN'
+        kp = 'KP'
+        kr = 'KR'
+        kw = 'KW'
+        ky = 'KY'
+        kz = 'KZ'
+        la = 'LA'
+        lb = 'LB'
+        lc = 'LC'
+        li = 'LI'
+        lk = 'LK'
+        lr = 'LR'
+        ls = 'LS'
+        lt = 'LT'
+        lu = 'LU'
+        lv = 'LV'
+        ly = 'LY'
+        ma = 'MA'
+        mc = 'MC'
+        md = 'MD'
+        me = 'ME'
+        mf = 'MF'
+        mg = 'MG'
+        mh = 'MH'
+        mk = 'MK'
+        ml = 'ML'
+        mm = 'MM'
+        mn = 'MN'
+        mo = 'MO'
+        mp = 'MP'
+        mq = 'MQ'
+        mr = 'MR'
+        ms = 'MS'
+        mt = 'MT'
+        mu = 'MU'
+        mv = 'MV'
+        mw = 'MW'
+        mx = 'MX'
+        my = 'MY'
+        mz = 'MZ'
+        na = 'NA'
+        nc = 'NC'
+        ne = 'NE'
+        nf = 'NF'
+        ng = 'NG'
+        ni = 'NI'
+        nl = 'NL'
+        no = 'NO'
+        np = 'NP'
+        nr = 'NR'
+        nu = 'NU'
+        nz = 'NZ'
+        om = 'OM'
+        pa = 'PA'
+        pe = 'PE'
+        pf = 'PF'
+        pg = 'PG'
+        ph = 'PH'
+        pk = 'PK'
+        pl = 'PL'
+        pm = 'PM'
+        pn = 'PN'
+        pr = 'PR'
+        ps = 'PS'
+        pt = 'PT'
+        pw = 'PW'
+        py = 'PY'
+        qa = 'QA'
+        re = 'RE'
+        ro = 'RO'
+        rs = 'RS'
+        ru = 'RU'
+        rw = 'RW'
+        sa = 'SA'
+        sb = 'SB'
+        sc = 'SC'
+        sd = 'SD'
+        se = 'SE'
+        sg = 'SG'
+        sh = 'SH'
+        si = 'SI'
+        sj = 'SJ'
+        sk = 'SK'
+        sl = 'SL'
+        sm = 'SM'
+        sn = 'SN'
+        so = 'SO'
+        sr = 'SR'
+        ss = 'SS'
+        st = 'ST'
+        sv = 'SV'
+        sx = 'SX'
+        sy = 'SY'
+        sz = 'SZ'
+        tc = 'TC'
+        td = 'TD'
+        tf = 'TF'
+        tg = 'TG'
+        th = 'TH'
+        tj = 'TJ'
+        tk = 'TK'
+        tl = 'TL'
+        tm = 'TM'
+        tn = 'TN'
+        to = 'TO'
+        tr = 'TR'
+        tt = 'TT'
+        tv = 'TV'
+        tw = 'TW'
+        tz = 'TZ'
+        ua = 'UA'
+        ug = 'UG'
+        um = 'UM'
+        us = 'US'
+        uy = 'UY'
+        uz = 'UZ'
+        va = 'VA'
+        vc = 'VC'
+        ve = 'VE'
+        vg = 'VG'
+        vi = 'VI'
+        vn = 'VN'
+        vu = 'VU'
+        wf = 'WF'
+        ws = 'WS'
+        xk = 'XK'
+        ye = 'YE'
+        yt = 'YT'
+        za = 'ZA'
+        zm = 'ZM'
+        zw = 'ZW'
+
+    class Operator:
+        all = 'ALL'
+        any = 'ANY'
 
     class SpecialAdCategory:
         credit = 'CREDIT'
         employment = 'EMPLOYMENT'
         housing = 'HOUSING'
+        issues_elections_politics = 'ISSUES_ELECTIONS_POLITICS'
         none = 'NONE'
-
-    class Operator:
-        all = 'ALL'
-        any = 'ANY'
+        online_gambling_and_gaming = 'ONLINE_GAMBLING_AND_GAMING'
 
     class StatusOption:
         active = 'ACTIVE'
@@ -215,6 +490,7 @@ class Campaign(
         }
         enums = {
             'date_preset_enum': [
+                'data_maximum',
                 'last_14d',
                 'last_28d',
                 'last_30d',
@@ -226,7 +502,7 @@ class Campaign(
                 'last_week_mon_sun',
                 'last_week_sun_sat',
                 'last_year',
-                'lifetime',
+                'maximum',
                 'this_month',
                 'this_quarter',
                 'this_week_mon_today',
@@ -270,22 +546,31 @@ class Campaign(
             'budget_rebalance_flag': 'bool',
             'daily_budget': 'unsigned int',
             'execution_options': 'list<execution_options_enum>',
+            'is_skadnetwork_attribution': 'bool',
             'iterative_split_test_configs': 'list<Object>',
             'lifetime_budget': 'unsigned int',
             'name': 'string',
             'objective': 'objective_enum',
             'pacing_type': 'list<string>',
             'promoted_object': 'Object',
+            'smart_promotion_type': 'smart_promotion_type_enum',
+            'special_ad_categories': 'list<special_ad_categories_enum>',
             'special_ad_category': 'special_ad_category_enum',
+            'special_ad_category_country': 'list<special_ad_category_country_enum>',
             'spend_cap': 'unsigned int',
+            'start_time': 'datetime',
             'status': 'status_enum',
+            'stop_time': 'datetime',
             'upstream_events': 'map',
         }
         enums = {
             'bid_strategy_enum': Campaign.BidStrategy.__dict__.values(),
             'execution_options_enum': Campaign.ExecutionOptions.__dict__.values(),
             'objective_enum': Campaign.Objective.__dict__.values(),
+            'smart_promotion_type_enum': Campaign.SmartPromotionType.__dict__.values(),
+            'special_ad_categories_enum': Campaign.SpecialAdCategories.__dict__.values(),
             'special_ad_category_enum': Campaign.SpecialAdCategory.__dict__.values(),
+            'special_ad_category_country_enum': Campaign.SpecialAdCategoryCountry.__dict__.values(),
             'status_enum': Campaign.Status.__dict__.values(),
         }
         request = FacebookRequest(
@@ -328,39 +613,6 @@ class Campaign(
             target_class=AdStudy,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=AdStudy, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def delete_ad_labels(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'adlabels': 'list<Object>',
-            'execution_options': 'list<execution_options_enum>',
-        }
-        enums = {
-            'execution_options_enum': Campaign.ExecutionOptions.__dict__.values(),
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='DELETE',
-            endpoint='/adlabels',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -445,11 +697,8 @@ class Campaign(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.ad import Ad
         param_types = {
-            'ad_draft_id': 'string',
             'date_preset': 'date_preset_enum',
             'effective_status': 'list<string>',
-            'include_deleted': 'bool',
-            'include_drafts': 'bool',
             'time_range': 'Object',
             'updated_since': 'int',
         }
@@ -484,10 +733,8 @@ class Campaign(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.adset import AdSet
         param_types = {
-            'ad_draft_id': 'string',
             'date_preset': 'date_preset_enum',
             'effective_status': 'list<effective_status_enum>',
-            'include_drafts': 'bool',
             'is_completed': 'bool',
             'time_range': 'Object',
         }
@@ -524,6 +771,7 @@ class Campaign(
         from facebook_business.adobjects.contentdeliveryreport import ContentDeliveryReport
         param_types = {
             'end_date': 'datetime',
+            'page_id': 'unsigned int',
             'platform': 'platform_enum',
             'position': 'position_enum',
             'start_date': 'datetime',
@@ -655,6 +903,7 @@ class Campaign(
             'time_range': 'Object',
             'time_ranges': 'list<Object>',
             'use_account_attribution_setting': 'bool',
+            'use_unified_attribution_setting': 'bool',
         }
         enums = {
             'action_attribution_windows_enum': AdsInsights.ActionAttributionWindows.__dict__.values(),
@@ -715,6 +964,7 @@ class Campaign(
             'time_range': 'Object',
             'time_ranges': 'list<Object>',
             'use_account_attribution_setting': 'bool',
+            'use_unified_attribution_setting': 'bool',
         }
         enums = {
             'action_attribution_windows_enum': AdsInsights.ActionAttributionWindows.__dict__.values(),
@@ -725,6 +975,11 @@ class Campaign(
             'level_enum': AdsInsights.Level.__dict__.values(),
             'summary_action_breakdowns_enum': AdsInsights.SummaryActionBreakdowns.__dict__.values(),
         }
+
+        if fields is not None:
+            params['fields'] = params.get('fields') if params.get('fields') is not None else list()
+            params['fields'].extend(field for field in fields if field not in params['fields'])
+
         request = FacebookRequest(
             node_id=self['id'],
             method='POST',
@@ -737,7 +992,6 @@ class Campaign(
             include_summary=False,
         )
         request.add_params(params)
-        request.add_fields(fields)
 
         if batch is not None:
             request.add_to_batch(batch, success=success, failure=failure)
@@ -750,6 +1004,8 @@ class Campaign(
 
     _field_types = {
         'account_id': 'string',
+        'ad_strategy_group_id': 'string',
+        'ad_strategy_id': 'string',
         'adlabels': 'list<AdLabel>',
         'bid_strategy': 'BidStrategy',
         'boosted_object_id': 'string',
@@ -764,6 +1020,7 @@ class Campaign(
         'daily_budget': 'string',
         'effective_status': 'EffectiveStatus',
         'id': 'string',
+        'is_skadnetwork_attribution': 'bool',
         'issues_info': 'list<AdCampaignIssuesInfo>',
         'last_budget_toggling_time': 'datetime',
         'lifetime_budget': 'string',
@@ -772,9 +1029,12 @@ class Campaign(
         'pacing_type': 'list<string>',
         'promoted_object': 'AdPromotedObject',
         'recommendations': 'list<AdRecommendation>',
+        'smart_promotion_type': 'string',
         'source_campaign': 'Campaign',
         'source_campaign_id': 'string',
+        'special_ad_categories': 'list<string>',
         'special_ad_category': 'string',
+        'special_ad_category_country': 'list<string>',
         'spend_cap': 'string',
         'start_time': 'datetime',
         'status': 'Status',
@@ -796,8 +1056,11 @@ class Campaign(
         field_enum_info['DatePreset'] = Campaign.DatePreset.__dict__.values()
         field_enum_info['ExecutionOptions'] = Campaign.ExecutionOptions.__dict__.values()
         field_enum_info['Objective'] = Campaign.Objective.__dict__.values()
-        field_enum_info['SpecialAdCategory'] = Campaign.SpecialAdCategory.__dict__.values()
+        field_enum_info['SmartPromotionType'] = Campaign.SmartPromotionType.__dict__.values()
+        field_enum_info['SpecialAdCategories'] = Campaign.SpecialAdCategories.__dict__.values()
+        field_enum_info['SpecialAdCategoryCountry'] = Campaign.SpecialAdCategoryCountry.__dict__.values()
         field_enum_info['Operator'] = Campaign.Operator.__dict__.values()
+        field_enum_info['SpecialAdCategory'] = Campaign.SpecialAdCategory.__dict__.values()
         field_enum_info['StatusOption'] = Campaign.StatusOption.__dict__.values()
         return field_enum_info
 

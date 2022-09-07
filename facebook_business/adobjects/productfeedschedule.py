@@ -44,13 +44,13 @@ class ProductFeedSchedule(
         day_of_month = 'day_of_month'
         day_of_week = 'day_of_week'
         hour = 'hour'
+        id = 'id'
         interval = 'interval'
         interval_count = 'interval_count'
         minute = 'minute'
         timezone = 'timezone'
         url = 'url'
         username = 'username'
-        id = 'id'
 
     class DayOfWeek:
         friday = 'FRIDAY'
@@ -101,13 +101,13 @@ class ProductFeedSchedule(
         'day_of_month': 'unsigned int',
         'day_of_week': 'DayOfWeek',
         'hour': 'unsigned int',
+        'id': 'string',
         'interval': 'Interval',
         'interval_count': 'unsigned int',
         'minute': 'unsigned int',
         'timezone': 'string',
         'url': 'string',
         'username': 'string',
-        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

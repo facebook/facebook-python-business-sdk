@@ -41,7 +41,8 @@ class AdAccountTargetingUnified(
         super(AdAccountTargetingUnified, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        audience_size = 'audience_size'
+        audience_size_lower_bound = 'audience_size_lower_bound'
+        audience_size_upper_bound = 'audience_size_upper_bound'
         conversion_lift = 'conversion_lift'
         description = 'description'
         id = 'id'
@@ -96,7 +97,9 @@ class AdAccountTargetingUnified(
         credit = 'CREDIT'
         employment = 'EMPLOYMENT'
         housing = 'HOUSING'
+        issues_elections_politics = 'ISSUES_ELECTIONS_POLITICS'
         none = 'NONE'
+        online_gambling_and_gaming = 'ONLINE_GAMBLING_AND_GAMING'
 
     class WhitelistedTypes:
         adgroup_id = 'adgroup_id'
@@ -110,6 +113,7 @@ class AdAccountTargetingUnified(
         brand_safety_content_severity_levels = 'brand_safety_content_severity_levels'
         catalog_based_targeting = 'catalog_based_targeting'
         cities = 'cities'
+        city_keys = 'city_keys'
         college_years = 'college_years'
         conjunctive_user_adclusters = 'conjunctive_user_adclusters'
         connections = 'connections'
@@ -129,6 +133,7 @@ class AdAccountTargetingUnified(
         effective_facebook_positions = 'effective_facebook_positions'
         effective_instagram_positions = 'effective_instagram_positions'
         effective_messenger_positions = 'effective_messenger_positions'
+        effective_oculus_positions = 'effective_oculus_positions'
         effective_publisher_platforms = 'effective_publisher_platforms'
         effective_whatsapp_positions = 'effective_whatsapp_positions'
         engagement_specs = 'engagement_specs'
@@ -167,7 +172,9 @@ class AdAccountTargetingUnified(
         id = 'id'
         income = 'income'
         industries = 'industries'
+        instagram_hashtags = 'instagram_hashtags'
         instagram_positions = 'instagram_positions'
+        instream_video_skippable_excluded = 'instream_video_skippable_excluded'
         instream_video_sponsorship_placements = 'instream_video_sponsorship_placements'
         interest_defaults_source = 'interest_defaults_source'
         interested_in = 'interested_in'
@@ -185,6 +192,7 @@ class AdAccountTargetingUnified(
         mobile_device_model = 'mobile_device_model'
         moms = 'moms'
         net_worth = 'net_worth'
+        oculus_positions = 'oculus_positions'
         office_type = 'office_type'
         page_types = 'page_types'
         place_page_set_ids = 'place_page_set_ids'
@@ -194,11 +202,13 @@ class AdAccountTargetingUnified(
         prospecting_audience = 'prospecting_audience'
         publisher_platforms = 'publisher_platforms'
         radius = 'radius'
+        region_keys = 'region_keys'
         regions = 'regions'
         relationship_statuses = 'relationship_statuses'
         rtb_flag = 'rtb_flag'
         site_category = 'site_category'
         targeting_optimization = 'targeting_optimization'
+        targeting_relaxation_types = 'targeting_relaxation_types'
         timezones = 'timezones'
         topic = 'topic'
         trending = 'trending'
@@ -214,11 +224,30 @@ class AdAccountTargetingUnified(
         work_positions = 'work_positions'
         zips = 'zips'
 
-    class Mode:
-        best_performing = 'best_performing'
-        recently_used = 'recently_used'
-        related = 'related'
-        suggestions = 'suggestions'
+    class AppStore:
+        amazon_app_store = 'amazon_app_store'
+        apk_mirror = 'apk_mirror'
+        apk_monk = 'apk_monk'
+        apk_pure = 'apk_pure'
+        aptoide_a1_store = 'aptoide_a1_store'
+        bemobi_mobile_store = 'bemobi_mobile_store'
+        does_not_exist = 'does_not_exist'
+        fb_android_store = 'fb_android_store'
+        fb_canvas = 'fb_canvas'
+        fb_gameroom = 'fb_gameroom'
+        galaxy_store = 'galaxy_store'
+        google_play = 'google_play'
+        instant_game = 'instant_game'
+        itunes = 'itunes'
+        itunes_ipad = 'itunes_ipad'
+        oculus_app_store = 'oculus_app_store'
+        oppo = 'oppo'
+        roku_channel_store = 'roku_channel_store'
+        uptodown = 'uptodown'
+        vivo = 'vivo'
+        windows_10_store = 'windows_10_store'
+        windows_store = 'windows_store'
+        xiaomi = 'xiaomi'
 
     class Objective:
         app_installs = 'APP_INSTALLS'
@@ -234,10 +263,18 @@ class AdAccountTargetingUnified(
         post_engagement = 'POST_ENGAGEMENT'
         product_catalog_sales = 'PRODUCT_CATALOG_SALES'
         reach = 'REACH'
+        store_visits = 'STORE_VISITS'
         video_views = 'VIDEO_VIEWS'
 
+    class Mode:
+        best_performing = 'best_performing'
+        recently_used = 'recently_used'
+        related = 'related'
+        suggestions = 'suggestions'
+
     _field_types = {
-        'audience_size': 'unsigned int',
+        'audience_size_lower_bound': 'unsigned int',
+        'audience_size_upper_bound': 'unsigned int',
         'conversion_lift': 'float',
         'description': 'string',
         'id': 'string',
@@ -266,8 +303,9 @@ class AdAccountTargetingUnified(
         field_enum_info['LimitType'] = AdAccountTargetingUnified.LimitType.__dict__.values()
         field_enum_info['RegulatedCategories'] = AdAccountTargetingUnified.RegulatedCategories.__dict__.values()
         field_enum_info['WhitelistedTypes'] = AdAccountTargetingUnified.WhitelistedTypes.__dict__.values()
-        field_enum_info['Mode'] = AdAccountTargetingUnified.Mode.__dict__.values()
+        field_enum_info['AppStore'] = AdAccountTargetingUnified.AppStore.__dict__.values()
         field_enum_info['Objective'] = AdAccountTargetingUnified.Objective.__dict__.values()
+        field_enum_info['Mode'] = AdAccountTargetingUnified.Mode.__dict__.values()
         return field_enum_info
 
 
