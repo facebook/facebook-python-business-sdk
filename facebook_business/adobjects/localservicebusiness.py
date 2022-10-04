@@ -55,6 +55,11 @@ class LocalServiceBusiness(
         custom_label_2 = 'custom_label_2'
         custom_label_3 = 'custom_label_3'
         custom_label_4 = 'custom_label_4'
+        custom_number_0 = 'custom_number_0'
+        custom_number_1 = 'custom_number_1'
+        custom_number_2 = 'custom_number_2'
+        custom_number_3 = 'custom_number_3'
+        custom_number_4 = 'custom_number_4'
         description = 'description'
         expiration_date = 'expiration_date'
         gtin = 'gtin'
@@ -175,6 +180,11 @@ class LocalServiceBusiness(
         'custom_label_2': 'string',
         'custom_label_3': 'string',
         'custom_label_4': 'string',
+        'custom_number_0': 'unsigned int',
+        'custom_number_1': 'unsigned int',
+        'custom_number_2': 'unsigned int',
+        'custom_number_3': 'unsigned int',
+        'custom_number_4': 'unsigned int',
         'description': 'string',
         'expiration_date': 'string',
         'gtin': 'string',

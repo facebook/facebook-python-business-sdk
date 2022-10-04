@@ -333,9 +333,13 @@ class ProductSet(
         from facebook_business.adobjects.productitem import ProductItem
         param_types = {
             'bulk_pagination': 'bool',
+            'error_priority': 'error_priority_enum',
+            'error_type': 'error_type_enum',
             'filter': 'Object',
         }
         enums = {
+            'error_priority_enum': ProductItem.ErrorPriority.__dict__.values(),
+            'error_type_enum': ProductItem.ErrorType.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],

@@ -84,7 +84,6 @@ class AdNetworkAnalyticsSyncQueryResult(
         fb_ad_network_request = 'FB_AD_NETWORK_REQUEST'
         fb_ad_network_revenue = 'FB_AD_NETWORK_REVENUE'
         fb_ad_network_show_rate = 'FB_AD_NETWORK_SHOW_RATE'
-        fb_ad_network_ua_spend = 'FB_AD_NETWORK_UA_SPEND'
         fb_ad_network_video_guarantee_revenue = 'FB_AD_NETWORK_VIDEO_GUARANTEE_REVENUE'
         fb_ad_network_video_mrc = 'FB_AD_NETWORK_VIDEO_MRC'
         fb_ad_network_video_mrc_rate = 'FB_AD_NETWORK_VIDEO_MRC_RATE'

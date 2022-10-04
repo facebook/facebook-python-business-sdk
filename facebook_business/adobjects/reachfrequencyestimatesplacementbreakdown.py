@@ -44,6 +44,7 @@ class ReachFrequencyEstimatesPlacementBreakdown(
         ig_android = 'ig_android'
         ig_ios = 'ig_ios'
         ig_other = 'ig_other'
+        ig_reels = 'ig_reels'
         ig_story = 'ig_story'
         instant_articles = 'instant_articles'
         instream_videos = 'instream_videos'
@@ -58,6 +59,7 @@ class ReachFrequencyEstimatesPlacementBreakdown(
         'ig_android': 'list<float>',
         'ig_ios': 'list<float>',
         'ig_other': 'list<float>',
+        'ig_reels': 'list<float>',
         'ig_story': 'list<float>',
         'instant_articles': 'list<float>',
         'instream_videos': 'list<float>',

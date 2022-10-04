@@ -32,35 +32,28 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class UnifiedThread(
+class PagePostExperiment(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isUnifiedThread = True
-        super(UnifiedThread, self).__init__(fbid, parent_id, api)
+        self._isPagePostExperiment = True
+        super(PagePostExperiment, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        can_reply = 'can_reply'
-        former_participants = 'former_participants'
+        auto_resolve_settings = 'auto_resolve_settings'
+        creation_time = 'creation_time'
+        creator = 'creator'
+        declared_winning_time = 'declared_winning_time'
+        description = 'description'
         id = 'id'
-        is_subscribed = 'is_subscribed'
-        link = 'link'
-        message_count = 'message_count'
+        insight_snapshots = 'insight_snapshots'
         name = 'name'
-        participants = 'participants'
-        scoped_thread_key = 'scoped_thread_key'
-        senders = 'senders'
-        snippet = 'snippet'
-        subject = 'subject'
-        unread_count = 'unread_count'
+        optimization_goal = 'optimization_goal'
+        publish_status = 'publish_status'
+        publish_time = 'publish_time'
+        scheduled_experiment_timestamp = 'scheduled_experiment_timestamp'
         updated_time = 'updated_time'
-        wallpaper = 'wallpaper'
-
-    class Platform:
-        instagram = 'INSTAGRAM'
-        messenger = 'MESSENGER'
-        whatsapp = 'WHATSAPP'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -76,7 +69,7 @@ class UnifiedThread(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=UnifiedThread,
+            target_class=PagePostExperiment,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -92,62 +85,24 @@ class UnifiedThread(
             self.assure_call()
             return request.execute()
 
-    def get_messages(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'source': 'source_enum',
-        }
-        enums = {
-            'source_enum': [
-                'ALL',
-                'PARTICIPANTS',
-            ],
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/messages',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     _field_types = {
-        'can_reply': 'bool',
-        'former_participants': 'Object',
+        'auto_resolve_settings': 'Object',
+        'creation_time': 'datetime',
+        'creator': 'User',
+        'declared_winning_time': 'datetime',
+        'description': 'string',
         'id': 'string',
-        'is_subscribed': 'bool',
-        'link': 'string',
-        'message_count': 'int',
+        'insight_snapshots': 'map<datetime, map<int, Object>>',
         'name': 'string',
-        'participants': 'Object',
-        'scoped_thread_key': 'string',
-        'senders': 'Object',
-        'snippet': 'string',
-        'subject': 'string',
-        'unread_count': 'int',
+        'optimization_goal': 'string',
+        'publish_status': 'string',
+        'publish_time': 'datetime',
+        'scheduled_experiment_timestamp': 'datetime',
         'updated_time': 'datetime',
-        'wallpaper': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['Platform'] = UnifiedThread.Platform.__dict__.values()
         return field_enum_info
 
 

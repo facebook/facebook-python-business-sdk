@@ -32,57 +32,37 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class DynamicContentSet(
+class ProductCatalogDataSource(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isDynamicContentSet = True
-        super(DynamicContentSet, self).__init__(fbid, parent_id, api)
+        self._isProductCatalogDataSource = True
+        super(ProductCatalogDataSource, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        business_id = 'business_id'
+        app_id = 'app_id'
         id = 'id'
+        ingestion_source_type = 'ingestion_source_type'
         name = 'name'
+        upload_type = 'upload_type'
 
-    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=DynamicContentSet,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
+    class IngestionSourceType:
+        all = 'ALL'
+        primary = 'PRIMARY'
+        supplementary = 'SUPPLEMENTARY'
 
     _field_types = {
-        'business_id': 'string',
+        'app_id': 'string',
         'id': 'string',
+        'ingestion_source_type': 'string',
         'name': 'string',
+        'upload_type': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['IngestionSourceType'] = ProductCatalogDataSource.IngestionSourceType.__dict__.values()
         return field_enum_info
 
 

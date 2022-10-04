@@ -43,6 +43,7 @@ class PrivateLiftStudyInstance(
     class Field(AbstractObject.Field):
         breakdown_key = 'breakdown_key'
         created_time = 'created_time'
+        feature_list = 'feature_list'
         id = 'id'
         latest_status_update_time = 'latest_status_update_time'
         server_ips = 'server_ips'
@@ -121,6 +122,7 @@ class PrivateLiftStudyInstance(
     _field_types = {
         'breakdown_key': 'string',
         'created_time': 'datetime',
+        'feature_list': 'list<string>',
         'id': 'string',
         'latest_status_update_time': 'datetime',
         'server_ips': 'list<string>',

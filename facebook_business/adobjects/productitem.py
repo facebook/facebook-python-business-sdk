@@ -68,6 +68,7 @@ class ProductItem(
         custom_number_3 = 'custom_number_3'
         custom_number_4 = 'custom_number_4'
         description = 'description'
+        errors = 'errors'
         expiration_date = 'expiration_date'
         fb_product_category = 'fb_product_category'
         gender = 'gender'
@@ -399,6 +400,78 @@ class ProductItem(
         fb_toys_toys = 'FB_TOYS_TOYS'
         fb_vehi = 'FB_VEHI'
         fb_vehi_part = 'FB_VEHI_PART'
+
+    class ErrorPriority:
+        high = 'HIGH'
+        low = 'LOW'
+        medium = 'MEDIUM'
+
+    class ErrorType:
+        ar_deleted_due_to_update = 'AR_DELETED_DUE_TO_UPDATE'
+        ar_policy_violated = 'AR_POLICY_VIOLATED'
+        available = 'AVAILABLE'
+        bad_quality_image = 'BAD_QUALITY_IMAGE'
+        cannot_edit_subscription_products = 'CANNOT_EDIT_SUBSCRIPTION_PRODUCTS'
+        crawled_availability_mismatch = 'CRAWLED_AVAILABILITY_MISMATCH'
+        digital_goods_not_available_for_checkout = 'DIGITAL_GOODS_NOT_AVAILABLE_FOR_CHECKOUT'
+        duplicate_images = 'DUPLICATE_IMAGES'
+        duplicate_title_and_description = 'DUPLICATE_TITLE_AND_DESCRIPTION'
+        generic_invalid_field = 'GENERIC_INVALID_FIELD'
+        hidden_until_product_launch = 'HIDDEN_UNTIL_PRODUCT_LAUNCH'
+        image_resolution_low = 'IMAGE_RESOLUTION_LOW'
+        inactive_shopify_product = 'INACTIVE_SHOPIFY_PRODUCT'
+        invalid_commerce_tax_category = 'INVALID_COMMERCE_TAX_CATEGORY'
+        invalid_images = 'INVALID_IMAGES'
+        invalid_monetizer_return_policy = 'INVALID_MONETIZER_RETURN_POLICY'
+        invalid_pre_order_params = 'INVALID_PRE_ORDER_PARAMS'
+        invalid_shipping_profile_params = 'INVALID_SHIPPING_PROFILE_PARAMS'
+        invalid_subscription_disable_params = 'INVALID_SUBSCRIPTION_DISABLE_PARAMS'
+        invalid_subscription_enable_params = 'INVALID_SUBSCRIPTION_ENABLE_PARAMS'
+        invalid_subscription_params = 'INVALID_SUBSCRIPTION_PARAMS'
+        inventory_zero_availability_in_stock = 'INVENTORY_ZERO_AVAILABILITY_IN_STOCK'
+        in_another_product_launch = 'IN_ANOTHER_PRODUCT_LAUNCH'
+        item_group_not_specified = 'ITEM_GROUP_NOT_SPECIFIED'
+        item_not_shippable_for_sca_shop = 'ITEM_NOT_SHIPPABLE_FOR_SCA_SHOP'
+        item_override_not_visible = 'ITEM_OVERRIDE_NOT_VISIBLE'
+        item_stale_out_of_stock = 'ITEM_STALE_OUT_OF_STOCK'
+        mini_shops_disabled_by_user = 'MINI_SHOPS_DISABLED_BY_USER'
+        missing_checkout = 'MISSING_CHECKOUT'
+        missing_checkout_currency = 'MISSING_CHECKOUT_CURRENCY'
+        missing_color = 'MISSING_COLOR'
+        missing_country_override_in_shipping_profile = 'MISSING_COUNTRY_OVERRIDE_IN_SHIPPING_PROFILE'
+        missing_india_compliance_fields = 'MISSING_INDIA_COMPLIANCE_FIELDS'
+        missing_shipping_profile = 'MISSING_SHIPPING_PROFILE'
+        missing_size = 'MISSING_SIZE'
+        missing_tax_category = 'MISSING_TAX_CATEGORY'
+        not_enough_images = 'NOT_ENOUGH_IMAGES'
+        part_of_product_launch = 'PART_OF_PRODUCT_LAUNCH'
+        product_expired = 'PRODUCT_EXPIRED'
+        product_item_not_visible = 'PRODUCT_ITEM_NOT_VISIBLE'
+        product_not_approved = 'PRODUCT_NOT_APPROVED'
+        product_not_dominant_currency = 'PRODUCT_NOT_DOMINANT_CURRENCY'
+        product_out_of_stock = 'PRODUCT_OUT_OF_STOCK'
+        product_url_equals_domain = 'PRODUCT_URL_EQUALS_DOMAIN'
+        property_price_currency_not_supported = 'PROPERTY_PRICE_CURRENCY_NOT_SUPPORTED'
+        property_price_too_high = 'PROPERTY_PRICE_TOO_HIGH'
+        property_price_too_low = 'PROPERTY_PRICE_TOO_LOW'
+        property_value_contains_html_tags = 'PROPERTY_VALUE_CONTAINS_HTML_TAGS'
+        property_value_description_contains_off_platform_link = 'PROPERTY_VALUE_DESCRIPTION_CONTAINS_OFF_PLATFORM_LINK'
+        property_value_format = 'PROPERTY_VALUE_FORMAT'
+        property_value_missing = 'PROPERTY_VALUE_MISSING'
+        property_value_missing_warning = 'PROPERTY_VALUE_MISSING_WARNING'
+        property_value_non_positive = 'PROPERTY_VALUE_NON_POSITIVE'
+        property_value_string_exceeds_length = 'PROPERTY_VALUE_STRING_EXCEEDS_LENGTH'
+        property_value_string_too_short = 'PROPERTY_VALUE_STRING_TOO_SHORT'
+        property_value_uppercase_warning = 'PROPERTY_VALUE_UPPERCASE_WARNING'
+        quality_duplicated_description = 'QUALITY_DUPLICATED_DESCRIPTION'
+        quality_item_link_broken = 'QUALITY_ITEM_LINK_BROKEN'
+        quality_item_link_redirecting = 'QUALITY_ITEM_LINK_REDIRECTING'
+        retailer_id_not_provided = 'RETAILER_ID_NOT_PROVIDED'
+        shopify_item_missing_shipping_profile = 'SHOPIFY_ITEM_MISSING_SHIPPING_PROFILE'
+        subscription_info_not_enabled_for_feed = 'SUBSCRIPTION_INFO_NOT_ENABLED_FOR_FEED'
+        tax_category_not_supported_in_uk = 'TAX_CATEGORY_NOT_SUPPORTED_IN_UK'
+        unsupported_product_category = 'UNSUPPORTED_PRODUCT_CATEGORY'
+        variant_attribute_issue = 'VARIANT_ATTRIBUTE_ISSUE'
 
     class MarkedForProductLaunch:
         value_default = 'default'
@@ -940,6 +1013,7 @@ class ProductItem(
         'custom_number_3': 'string',
         'custom_number_4': 'string',
         'description': 'string',
+        'errors': 'list<ProductItemError>',
         'expiration_date': 'string',
         'fb_product_category': 'string',
         'gender': 'Gender',
@@ -1021,6 +1095,8 @@ class ProductItem(
         field_enum_info['ShippingWeightUnit'] = ProductItem.ShippingWeightUnit.__dict__.values()
         field_enum_info['Visibility'] = ProductItem.Visibility.__dict__.values()
         field_enum_info['CommerceTaxCategory'] = ProductItem.CommerceTaxCategory.__dict__.values()
+        field_enum_info['ErrorPriority'] = ProductItem.ErrorPriority.__dict__.values()
+        field_enum_info['ErrorType'] = ProductItem.ErrorType.__dict__.values()
         field_enum_info['MarkedForProductLaunch'] = ProductItem.MarkedForProductLaunch.__dict__.values()
         field_enum_info['OriginCountry'] = ProductItem.OriginCountry.__dict__.values()
         field_enum_info['WaComplianceCategory'] = ProductItem.WaComplianceCategory.__dict__.values()

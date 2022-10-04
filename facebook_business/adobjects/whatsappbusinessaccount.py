@@ -64,18 +64,9 @@ class WhatsAppBusinessAccount(
         view_cost = 'VIEW_COST'
 
     class Category:
-        account_update = 'ACCOUNT_UPDATE'
-        alert_update = 'ALERT_UPDATE'
-        appointment_update = 'APPOINTMENT_UPDATE'
-        auto_reply = 'AUTO_REPLY'
-        issue_resolution = 'ISSUE_RESOLUTION'
+        marketing = 'MARKETING'
         otp = 'OTP'
-        payment_update = 'PAYMENT_UPDATE'
-        personal_finance_update = 'PERSONAL_FINANCE_UPDATE'
-        reservation_update = 'RESERVATION_UPDATE'
-        shipping_update = 'SHIPPING_UPDATE'
-        ticket_update = 'TICKET_UPDATE'
-        transportation_update = 'TRANSPORTATION_UPDATE'
+        transactional = 'TRANSACTIONAL'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -311,15 +302,23 @@ class WhatsAppBusinessAccount(
             'language': 'list<string>',
             'name': 'string',
             'name_or_content': 'string',
+            'quality_score': 'list<quality_score_enum>',
             'status': 'list<status_enum>',
         }
         enums = {
             'category_enum': WhatsAppBusinessAccount.Category.__dict__.values(),
+            'quality_score_enum': [
+                'GREEN',
+                'RED',
+                'UNKNOWN',
+                'YELLOW',
+            ],
             'status_enum': [
                 'APPROVED',
                 'DELETED',
                 'DISABLED',
                 'IN_APPEAL',
+                'LOCKED',
                 'PENDING',
                 'PENDING_DELETION',
                 'REJECTED',

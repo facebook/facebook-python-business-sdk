@@ -54,6 +54,7 @@ class BusinessAssetSharingAgreement(
         expired = 'EXPIRED'
         in_progress = 'IN_PROGRESS'
         pending = 'PENDING'
+        pending_integrity_review = 'PENDING_INTEGRITY_REVIEW'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils

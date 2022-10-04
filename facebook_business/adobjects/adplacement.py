@@ -47,6 +47,7 @@ class AdPlacement(
         google_display_format = 'google_display_format'
         id = 'id'
         name = 'name'
+        placement_group = 'placement_group'
         platform = 'platform'
         status = 'status'
 
@@ -87,6 +88,7 @@ class AdPlacement(
         'google_display_format': 'string',
         'id': 'string',
         'name': 'string',
+        'placement_group': 'Object',
         'platform': 'string',
         'status': 'string',
     }
