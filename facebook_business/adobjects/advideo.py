@@ -42,6 +42,7 @@ class AdVideo(
 
     class Field(AbstractObject.Field):
         ad_breaks = 'ad_breaks'
+        audio_isrc = 'audio_isrc'
         backdated_time = 'backdated_time'
         backdated_time_granularity = 'backdated_time_granularity'
         content_category = 'content_category'
@@ -155,6 +156,7 @@ class AdVideo(
     class ContainerType:
         aco_autoextracted_video = 'ACO_AUTOEXTRACTED_VIDEO'
         aco_video_variation = 'ACO_VIDEO_VARIATION'
+        ads_ai_generated = 'ADS_AI_GENERATED'
         ad_break_preview = 'AD_BREAK_PREVIEW'
         ad_derivative = 'AD_DERIVATIVE'
         age_up = 'AGE_UP'
@@ -165,6 +167,7 @@ class AdVideo(
         app_review_screencast = 'APP_REVIEW_SCREENCAST'
         asset_manager = 'ASSET_MANAGER'
         atlas_video = 'ATLAS_VIDEO'
+        audio_brief = 'AUDIO_BRIEF'
         audio_broadcast = 'AUDIO_BROADCAST'
         audio_comment = 'AUDIO_COMMENT'
         broadcast = 'BROADCAST'
@@ -178,7 +181,6 @@ class AdVideo(
         copyright_reference_broadcast = 'COPYRIGHT_REFERENCE_BROADCAST'
         copyright_reference_video = 'COPYRIGHT_REFERENCE_VIDEO'
         creation_ml_precreation = 'CREATION_ML_PRECREATION'
-        cultural_moment_deprecated = 'CULTURAL_MOMENT_DEPRECATED'
         dco_ad_asset_feed = 'DCO_AD_ASSET_FEED'
         dco_autogen_video = 'DCO_AUTOGEN_VIDEO'
         dco_trimmed_video = 'DCO_TRIMMED_VIDEO'
@@ -192,7 +194,10 @@ class AdVideo(
         event_cover_video = 'EVENT_COVER_VIDEO'
         event_tour = 'EVENT_TOUR'
         facecast_dvr = 'FACECAST_DVR'
+        fb_collectible_video = 'FB_COLLECTIBLE_VIDEO'
         fb_shorts = 'FB_SHORTS'
+        fb_shorts_content_remixable = 'FB_SHORTS_CONTENT_REMIXABLE'
+        fb_shorts_cross_meta_post = 'FB_SHORTS_CROSS_META_POST'
         fb_shorts_group_post = 'FB_SHORTS_GROUP_POST'
         fb_shorts_pmv_post = 'FB_SHORTS_PMV_POST'
         fb_shorts_post = 'FB_SHORTS_POST'
@@ -200,6 +205,7 @@ class AdVideo(
         fundraiser_cover_video = 'FUNDRAISER_COVER_VIDEO'
         game_clip = 'GAME_CLIP'
         gemstone = 'GEMSTONE'
+        gif_to_video = 'GIF_TO_VIDEO'
         goodwill_anniversary_deprecated = 'GOODWILL_ANNIVERSARY_DEPRECATED'
         goodwill_anniversary_promotion_deprecated = 'GOODWILL_ANNIVERSARY_PROMOTION_DEPRECATED'
         goodwill_video_contained_share = 'GOODWILL_VIDEO_CONTAINED_SHARE'
@@ -214,6 +220,7 @@ class AdVideo(
         huddle_broadcast = 'HUDDLE_BROADCAST'
         ig_reels_xpv = 'IG_REELS_XPV'
         ig_stories_reader = 'IG_STORIES_READER'
+        injectable = 'INJECTABLE'
         inspiration_video = 'INSPIRATION_VIDEO'
         instagram_video_copy = 'INSTAGRAM_VIDEO_COPY'
         instant_application_preview = 'INSTANT_APPLICATION_PREVIEW'
@@ -228,6 +235,7 @@ class AdVideo(
         learn = 'LEARN'
         legacy = 'LEGACY'
         legacy_contained_post_broadcast = 'LEGACY_CONTAINED_POST_BROADCAST'
+        live_audio_room_broadcast = 'LIVE_AUDIO_ROOM_BROADCAST'
         live_clip_preview = 'LIVE_CLIP_PREVIEW'
         live_creative_kit_video = 'LIVE_CREATIVE_KIT_VIDEO'
         live_photo = 'LIVE_PHOTO'
@@ -237,6 +245,7 @@ class AdVideo(
         messenger_watch_together = 'MESSENGER_WATCH_TOGETHER'
         moments_video = 'MOMENTS_VIDEO'
         music_clip = 'MUSIC_CLIP'
+        music_clip_in_audio_digest = 'MUSIC_CLIP_IN_AUDIO_DIGEST'
         music_clip_in_comment = 'MUSIC_CLIP_IN_COMMENT'
         music_clip_in_lightweight_status = 'MUSIC_CLIP_IN_LIGHTWEIGHT_STATUS'
         music_clip_in_poll_option = 'MUSIC_CLIP_IN_POLL_OPTION'
@@ -255,7 +264,6 @@ class AdVideo(
         paid_content_preview = 'PAID_CONTENT_PREVIEW'
         paid_content_video = 'PAID_CONTENT_VIDEO'
         paid_content_video__post = 'PAID_CONTENT_VIDEO__POST'
-        partner_directory_brand_media = 'PARTNER_DIRECTORY_BRAND_MEDIA'
         pixelcloud = 'PIXELCLOUD'
         podcast_highlight = 'PODCAST_HIGHLIGHT'
         podcast_ml_preview = 'PODCAST_ML_PREVIEW'
@@ -290,6 +298,7 @@ class AdVideo(
         srt_attachment = 'SRT_ATTACHMENT'
         stages_broadcast = 'STAGES_BROADCAST'
         stories_video = 'STORIES_VIDEO'
+        stories_wearable = 'STORIES_WEARABLE'
         storyline = 'STORYLINE'
         storyline_with_external_music = 'STORYLINE_WITH_EXTERNAL_MUSIC'
         story_archive_video = 'STORY_ARCHIVE_VIDEO'
@@ -300,6 +309,7 @@ class AdVideo(
         temp_multimedia_post = 'TEMP_MULTIMEDIA_POST'
         unlisted = 'UNLISTED'
         unlisted_hack_tv = 'UNLISTED_HACK_TV'
+        unlisted_horizon = 'UNLISTED_HORIZON'
         unlisted_oculus = 'UNLISTED_OCULUS'
         video_comment = 'VIDEO_COMMENT'
         video_composition_variation = 'VIDEO_COMPOSITION_VARIATION'
@@ -1067,6 +1077,7 @@ class AdVideo(
 
     _field_types = {
         'ad_breaks': 'list<int>',
+        'audio_isrc': 'Object',
         'backdated_time': 'datetime',
         'backdated_time_granularity': 'string',
         'content_category': 'string',

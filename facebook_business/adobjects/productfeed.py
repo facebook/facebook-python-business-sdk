@@ -75,6 +75,10 @@ class ProductFeed(
         tab = 'TAB'
         tilde = 'TILDE'
 
+    class IngestionSourceType:
+        primary_feed = 'primary_feed'
+        supplementary_feed = 'supplementary_feed'
+
     class QuotedFieldsMode:
         autodetect = 'AUTODETECT'
         off = 'OFF'
@@ -105,10 +109,6 @@ class ProductFeed(
         transactable_items = 'TRANSACTABLE_ITEMS'
         vehicles = 'VEHICLES'
         vehicle_offer = 'VEHICLE_OFFER'
-
-    class IngestionSourceType:
-        primary_feed = 'PRIMARY_FEED'
-        supplementary_feed = 'SUPPLEMENTARY_FEED'
 
     class ItemSubType:
         appliances = 'APPLIANCES'
@@ -429,9 +429,13 @@ class ProductFeed(
         from facebook_business.adobjects.productitem import ProductItem
         param_types = {
             'bulk_pagination': 'bool',
+            'error_priority': 'error_priority_enum',
+            'error_type': 'error_type_enum',
             'filter': 'Object',
         }
         enums = {
+            'error_priority_enum': ProductItem.ErrorPriority.__dict__.values(),
+            'error_type_enum': ProductItem.ErrorType.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -490,19 +494,14 @@ class ProductFeed(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.productfeedrule import ProductFeedRule
         param_types = {
             'attribute': 'string',
             'params': 'map',
             'rule_type': 'rule_type_enum',
         }
         enums = {
-            'rule_type_enum': [
-                'fallback_rule',
-                'letter_case_rule',
-                'mapping_rule',
-                'regex_replace_rule',
-                'value_mapping_rule',
-            ],
+            'rule_type_enum': ProductFeedRule.RuleType.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -510,9 +509,9 @@ class ProductFeed(
             endpoint='/rules',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=ProductFeedRule,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=ProductFeedRule, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -762,7 +761,7 @@ class ProductFeed(
         'encoding': 'string',
         'file_name': 'string',
         'id': 'string',
-        'ingestion_source_type': 'string',
+        'ingestion_source_type': 'IngestionSourceType',
         'item_sub_type': 'string',
         'latest_upload': 'ProductFeedUpload',
         'migrated_from_feed_id': 'string',
@@ -784,10 +783,10 @@ class ProductFeed(
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['Delimiter'] = ProductFeed.Delimiter.__dict__.values()
+        field_enum_info['IngestionSourceType'] = ProductFeed.IngestionSourceType.__dict__.values()
         field_enum_info['QuotedFieldsMode'] = ProductFeed.QuotedFieldsMode.__dict__.values()
         field_enum_info['Encoding'] = ProductFeed.Encoding.__dict__.values()
         field_enum_info['FeedType'] = ProductFeed.FeedType.__dict__.values()
-        field_enum_info['IngestionSourceType'] = ProductFeed.IngestionSourceType.__dict__.values()
         field_enum_info['ItemSubType'] = ProductFeed.ItemSubType.__dict__.values()
         field_enum_info['OverrideType'] = ProductFeed.OverrideType.__dict__.values()
         return field_enum_info

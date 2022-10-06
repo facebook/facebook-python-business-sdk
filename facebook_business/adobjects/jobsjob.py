@@ -51,6 +51,13 @@ class JobsJob(
         custom_label_4 = 'custom_label_4'
         custom_label_5 = 'custom_label_5'
         custom_label_6 = 'custom_label_6'
+        custom_number_0 = 'custom_number_0'
+        custom_number_1 = 'custom_number_1'
+        custom_number_2 = 'custom_number_2'
+        custom_number_3 = 'custom_number_3'
+        custom_number_4 = 'custom_number_4'
+        custom_number_5 = 'custom_number_5'
+        custom_number_6 = 'custom_number_6'
         id = 'id'
         image_fetch_status = 'image_fetch_status'
         images = 'images'
@@ -199,6 +206,13 @@ class JobsJob(
         'custom_label_4': 'string',
         'custom_label_5': 'string',
         'custom_label_6': 'string',
+        'custom_number_0': 'unsigned int',
+        'custom_number_1': 'unsigned int',
+        'custom_number_2': 'unsigned int',
+        'custom_number_3': 'unsigned int',
+        'custom_number_4': 'unsigned int',
+        'custom_number_5': 'unsigned int',
+        'custom_number_6': 'unsigned int',
         'id': 'string',
         'image_fetch_status': 'ImageFetchStatus',
         'images': 'list<string>',

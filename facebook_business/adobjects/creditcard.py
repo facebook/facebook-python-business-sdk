@@ -32,44 +32,36 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdAccountActivity(
+class CreditCard(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isAdAccountActivity = True
-        super(AdAccountActivity, self).__init__(fbid, parent_id, api)
+        self._isCreditCard = True
+        super(CreditCard, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        created_by = 'created_by'
-        created_time = 'created_time'
-        credit_new = 'credit_new'
-        credit_old = 'credit_old'
-        currency_new = 'currency_new'
-        currency_old = 'currency_old'
-        daily_spend_limit_new = 'daily_spend_limit_new'
-        daily_spend_limit_old = 'daily_spend_limit_old'
-        event_time = 'event_time'
-        event_type = 'event_type'
-        funding_id_new = 'funding_id_new'
-        funding_id_old = 'funding_id_old'
-        grace_period_time_new = 'grace_period_time_new'
-        grace_period_time_old = 'grace_period_time_old'
+        billing_address = 'billing_address'
+        card_cobadging = 'card_cobadging'
+        card_holder_name = 'card_holder_name'
+        card_type = 'card_type'
+        credential_id = 'credential_id'
+        default_receiving_method_products = 'default_receiving_method_products'
+        expiry_month = 'expiry_month'
+        expiry_year = 'expiry_year'
         id = 'id'
-        manager_id_new = 'manager_id_new'
-        manager_id_old = 'manager_id_old'
-        name_new = 'name_new'
-        name_old = 'name_old'
-        spend_cap_new = 'spend_cap_new'
-        spend_cap_old = 'spend_cap_old'
-        status_new = 'status_new'
-        status_old = 'status_old'
-        terms_new = 'terms_new'
-        terms_old = 'terms_old'
-        tier_new = 'tier_new'
-        tier_old = 'tier_old'
-        time_updated_new = 'time_updated_new'
-        time_updated_old = 'time_updated_old'
+        is_cvv_tricky_bin = 'is_cvv_tricky_bin'
+        is_enabled = 'is_enabled'
+        is_last_used = 'is_last_used'
+        is_network_tokenized_in_india = 'is_network_tokenized_in_india'
+        is_soft_disabled = 'is_soft_disabled'
+        is_user_verified = 'is_user_verified'
+        is_zip_verified = 'is_zip_verified'
+        last4 = 'last4'
+        readable_card_type = 'readable_card_type'
+        time_created = 'time_created'
+        time_created_ts = 'time_created_ts'
+        type = 'type'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -85,7 +77,7 @@ class AdAccountActivity(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AdAccountActivity,
+            target_class=CreditCard,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -102,35 +94,27 @@ class AdAccountActivity(
             return request.execute()
 
     _field_types = {
-        'created_by': 'Profile',
-        'created_time': 'datetime',
-        'credit_new': 'Object',
-        'credit_old': 'Object',
-        'currency_new': 'string',
-        'currency_old': 'string',
-        'daily_spend_limit_new': 'Object',
-        'daily_spend_limit_old': 'Object',
-        'event_time': 'datetime',
-        'event_type': 'string',
-        'funding_id_new': 'string',
-        'funding_id_old': 'string',
-        'grace_period_time_new': 'int',
-        'grace_period_time_old': 'int',
+        'billing_address': 'Object',
+        'card_cobadging': 'string',
+        'card_holder_name': 'string',
+        'card_type': 'string',
+        'credential_id': 'int',
+        'default_receiving_method_products': 'list<string>',
+        'expiry_month': 'string',
+        'expiry_year': 'string',
         'id': 'string',
-        'manager_id_new': 'Profile',
-        'manager_id_old': 'Profile',
-        'name_new': 'string',
-        'name_old': 'string',
-        'spend_cap_new': 'Object',
-        'spend_cap_old': 'Object',
-        'status_new': 'string',
-        'status_old': 'string',
-        'terms_new': 'int',
-        'terms_old': 'int',
-        'tier_new': 'string',
-        'tier_old': 'string',
-        'time_updated_new': 'datetime',
-        'time_updated_old': 'datetime',
+        'is_cvv_tricky_bin': 'bool',
+        'is_enabled': 'bool',
+        'is_last_used': 'bool',
+        'is_network_tokenized_in_india': 'bool',
+        'is_soft_disabled': 'bool',
+        'is_user_verified': 'bool',
+        'is_zip_verified': 'bool',
+        'last4': 'string',
+        'readable_card_type': 'string',
+        'time_created': 'datetime',
+        'time_created_ts': 'int',
+        'type': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

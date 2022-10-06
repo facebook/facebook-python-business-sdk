@@ -13,12 +13,6 @@ shared: &shared
       - run: venv/bin/python -m facebook_business.test.unit
 
 jobs:
-  # Note: no 3.3 image from CCi readily available – not that we care about that version anyway.
-  python-2.7:
-    <<: *shared
-    docker:
-      - image: circleci/python:2.7-stretch-node
-
   python-3.7:  # Not specified in tox.ini
     <<: *shared
     docker:
@@ -28,7 +22,6 @@ jobs:
 
 all_jobs: &all_jobs
     jobs:
-      - python-2.7
       - python-3.7
 
 workflows:

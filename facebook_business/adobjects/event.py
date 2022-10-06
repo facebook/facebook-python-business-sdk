@@ -256,11 +256,13 @@ class Event(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.livevideo import LiveVideo
         param_types = {
             'content_tags': 'list<string>',
             'description': 'string',
             'enable_backup_ingest': 'bool',
             'encoding_settings': 'string',
+            'event_params': 'Object',
             'fisheye_video_cropped': 'bool',
             'front_z_rotation': 'float',
             'is_audio_only': 'bool',
@@ -279,40 +281,21 @@ class Event(
             'title': 'string',
         }
         enums = {
-            'projection_enum': [
-                'CUBEMAP',
-                'EQUIRECTANGULAR',
-                'HALF_EQUIRECTANGULAR',
-            ],
-            'spatial_audio_format_enum': [
-                'ambiX_4',
-            ],
-            'status_enum': [
-                'LIVE_NOW',
-                'SCHEDULED_CANCELED',
-                'SCHEDULED_LIVE',
-                'SCHEDULED_UNPUBLISHED',
-                'UNPUBLISHED',
-            ],
-            'stereoscopic_mode_enum': [
-                'LEFT_RIGHT',
-                'MONO',
-                'TOP_BOTTOM',
-            ],
-            'stream_type_enum': [
-                'AMBIENT',
-                'REGULAR',
-            ],
+            'projection_enum': LiveVideo.Projection.__dict__.values(),
+            'spatial_audio_format_enum': LiveVideo.SpatialAudioFormat.__dict__.values(),
+            'status_enum': LiveVideo.Status.__dict__.values(),
+            'stereoscopic_mode_enum': LiveVideo.StereoscopicMode.__dict__.values(),
+            'stream_type_enum': LiveVideo.StreamType.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
             method='POST',
-            endpoint='/livevideos',
+            endpoint='/live_videos',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=LiveVideo,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=LiveVideo, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

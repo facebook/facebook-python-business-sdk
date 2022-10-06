@@ -46,7 +46,6 @@ class Business(
         block_offline_analytics = 'block_offline_analytics'
         collaborative_ads_managed_partner_business_info = 'collaborative_ads_managed_partner_business_info'
         collaborative_ads_managed_partner_eligibility = 'collaborative_ads_managed_partner_eligibility'
-        cpas_business_setup_config = 'cpas_business_setup_config'
         created_by = 'created_by'
         created_time = 'created_time'
         extended_updated_time = 'extended_updated_time'
@@ -115,6 +114,7 @@ class Business(
         profile_plus_manage = 'PROFILE_PLUS_MANAGE'
         profile_plus_messaging = 'PROFILE_PLUS_MESSAGING'
         profile_plus_moderate = 'PROFILE_PLUS_MODERATE'
+        profile_plus_moderate_delegate_community = 'PROFILE_PLUS_MODERATE_DELEGATE_COMMUNITY'
         profile_plus_revenue = 'PROFILE_PLUS_REVENUE'
         read_page_mailboxes = 'READ_PAGE_MAILBOXES'
         view_monetization_insights = 'VIEW_MONETIZATION_INSIGHTS'
@@ -146,6 +146,7 @@ class Business(
         profile_plus_manage = 'PROFILE_PLUS_MANAGE'
         profile_plus_messaging = 'PROFILE_PLUS_MESSAGING'
         profile_plus_moderate = 'PROFILE_PLUS_MODERATE'
+        profile_plus_moderate_delegate_community = 'PROFILE_PLUS_MODERATE_DELEGATE_COMMUNITY'
         profile_plus_revenue = 'PROFILE_PLUS_REVENUE'
         read_page_mailboxes = 'READ_PAGE_MAILBOXES'
         view_monetization_insights = 'VIEW_MONETIZATION_INSIGHTS'
@@ -1427,6 +1428,37 @@ class Business(
             self.assure_call()
             return request.execute()
 
+    def get_cpas_business_setup_config(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.cpasbusinesssetupconfig import CPASBusinessSetupConfig
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/cpas_business_setup_config',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=CPASBusinessSetupConfig,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=CPASBusinessSetupConfig, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def create_cpas_business_setup_config(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -1513,6 +1545,37 @@ class Business(
             target_class=AbstractCrudObject,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_credit_cards(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.creditcard import CreditCard
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/creditcards',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=CreditCard,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=CreditCard, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2954,7 +3017,7 @@ class Business(
         request = FacebookRequest(
             node_id=self['id'],
             method='POST',
-            endpoint='/pixeltos',
+            endpoint='/pixel_tos',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
@@ -3108,7 +3171,6 @@ class Business(
         'block_offline_analytics': 'bool',
         'collaborative_ads_managed_partner_business_info': 'ManagedPartnerBusiness',
         'collaborative_ads_managed_partner_eligibility': 'BusinessManagedPartnerEligibility',
-        'cpas_business_setup_config': 'CPASBusinessSetupConfig',
         'created_by': 'Object',
         'created_time': 'datetime',
         'extended_updated_time': 'datetime',

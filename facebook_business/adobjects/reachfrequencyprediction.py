@@ -104,6 +104,10 @@ class ReachFrequencyPrediction(
         name = 'name'
         objective = 'objective'
         objective_name = 'objective_name'
+        odax_objective = 'odax_objective'
+        odax_objective_name = 'odax_objective_name'
+        optimization_goal = 'optimization_goal'
+        optimization_goal_name = 'optimization_goal_name'
         pause_periods = 'pause_periods'
         placement_breakdown = 'placement_breakdown'
         placement_breakdown_map = 'placement_breakdown_map'
@@ -274,6 +278,10 @@ class ReachFrequencyPrediction(
         'name': 'string',
         'objective': 'unsigned int',
         'objective_name': 'string',
+        'odax_objective': 'unsigned int',
+        'odax_objective_name': 'string',
+        'optimization_goal': 'unsigned int',
+        'optimization_goal_name': 'string',
         'pause_periods': 'list<Object>',
         'placement_breakdown': 'ReachFrequencyEstimatesPlacementBreakdown',
         'placement_breakdown_map': 'map<unsigned int, ReachFrequencyEstimatesPlacementBreakdown>',

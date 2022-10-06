@@ -41,6 +41,7 @@ class CopyrightAudioAsset(
         super(CopyrightAudioAsset, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        copyright = 'copyright'
         creation_time = 'creation_time'
         id = 'id'
         title = 'title'
@@ -77,6 +78,7 @@ class CopyrightAudioAsset(
             return request.execute()
 
     _field_types = {
+        'copyright': 'AudioCopyright',
         'creation_time': 'datetime',
         'id': 'string',
         'title': 'string',
