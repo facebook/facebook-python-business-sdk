@@ -44,15 +44,17 @@ class ProductCatalog(
 
     class Field(AbstractObject.Field):
         business = 'business'
+        catalog_store = 'catalog_store'
         commerce_merchant_settings = 'commerce_merchant_settings'
+        creator_user = 'creator_user'
         da_display_settings = 'da_display_settings'
         default_image_url = 'default_image_url'
         fallback_image_url = 'fallback_image_url'
         feed_count = 'feed_count'
         id = 'id'
         is_catalog_segment = 'is_catalog_segment'
-        latest_feed_upload_session = 'latest_feed_upload_session'
         name = 'name'
+        owner_business = 'owner_business'
         product_count = 'product_count'
         store_catalog_settings = 'store_catalog_settings'
         vertical = 'vertical'
@@ -1326,10 +1328,44 @@ class ProductCatalog(
             self.assure_call()
             return request.execute()
 
+    def get_media_titles(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.mediatitle import MediaTitle
+        param_types = {
+            'bulk_pagination': 'bool',
+            'filter': 'Object',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/media_titles',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=MediaTitle,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=MediaTitle, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def create_media_title(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.mediatitle import MediaTitle
         param_types = {
             'applinks': 'Object',
             'content_category': 'content_category_enum',
@@ -1346,11 +1382,7 @@ class ProductCatalog(
             'url': 'string',
         }
         enums = {
-            'content_category_enum': [
-                'MOVIE',
-                'MUSIC',
-                'TV_SHOW',
-            ],
+            'content_category_enum': MediaTitle.ContentCategory.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -1358,9 +1390,9 @@ class ProductCatalog(
             endpoint='/media_titles',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=MediaTitle,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=MediaTitle, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1989,15 +2021,17 @@ class ProductCatalog(
 
     _field_types = {
         'business': 'Business',
+        'catalog_store': 'StoreCatalogSettings',
         'commerce_merchant_settings': 'CommerceMerchantSettings',
+        'creator_user': 'User',
         'da_display_settings': 'ProductCatalogImageSettings',
         'default_image_url': 'string',
         'fallback_image_url': 'list<string>',
         'feed_count': 'int',
         'id': 'string',
         'is_catalog_segment': 'bool',
-        'latest_feed_upload_session': 'ProductFeedUpload',
         'name': 'string',
+        'owner_business': 'Business',
         'product_count': 'int',
         'store_catalog_settings': 'StoreCatalogSettings',
         'vertical': 'string',
