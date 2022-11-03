@@ -28,26 +28,24 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class BilledAmountDetails(
+class BusinessPartnerPremiumOptions(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(BilledAmountDetails, self).__init__()
-        self._isBilledAmountDetails = True
+        super(BusinessPartnerPremiumOptions, self).__init__()
+        self._isBusinessPartnerPremiumOptions = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        currency = 'currency'
-        net_amount = 'net_amount'
-        tax_amount = 'tax_amount'
-        total_amount = 'total_amount'
+        enable_basket_insight = 'enable_basket_insight'
+        enable_extended_audience_retargeting = 'enable_extended_audience_retargeting'
+        retailer_custom_audience_config = 'retailer_custom_audience_config'
 
     _field_types = {
-        'currency': 'string',
-        'net_amount': 'string',
-        'tax_amount': 'string',
-        'total_amount': 'string',
+        'enable_basket_insight': 'bool',
+        'enable_extended_audience_retargeting': 'bool',
+        'retailer_custom_audience_config': 'Object',
     }
     @classmethod
     def _get_field_enum_info(cls):

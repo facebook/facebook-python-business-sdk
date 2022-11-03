@@ -32,67 +32,58 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdRule(
+class MediaTitle(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isAdRule = True
-        super(AdRule, self).__init__(fbid, parent_id, api)
+        self._isMediaTitle = True
+        super(MediaTitle, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        account_id = 'account_id'
-        created_by = 'created_by'
-        created_time = 'created_time'
-        evaluation_spec = 'evaluation_spec'
-        execution_spec = 'execution_spec'
+        applinks = 'applinks'
+        category_specific_fields = 'category_specific_fields'
+        content_category = 'content_category'
+        currency = 'currency'
+        description = 'description'
+        fb_page_alias = 'fb_page_alias'
+        fb_page_id = 'fb_page_id'
+        genres = 'genres'
         id = 'id'
-        name = 'name'
-        schedule_spec = 'schedule_spec'
-        status = 'status'
-        updated_time = 'updated_time'
-        ui_creation_source = 'ui_creation_source'
+        image_fetch_status = 'image_fetch_status'
+        images = 'images'
+        kg_fb_id = 'kg_fb_id'
+        media_title_id = 'media_title_id'
+        price = 'price'
+        sanitized_images = 'sanitized_images'
+        title = 'title'
+        title_display_name = 'title_display_name'
+        unit_price = 'unit_price'
+        url = 'url'
+        wiki_data_item = 'wiki_data_item'
 
-    class Status:
-        deleted = 'DELETED'
-        disabled = 'DISABLED'
-        enabled = 'ENABLED'
-        has_issues = 'HAS_ISSUES'
+    class ImageFetchStatus:
+        direct_upload = 'DIRECT_UPLOAD'
+        fetched = 'FETCHED'
+        fetch_failed = 'FETCH_FAILED'
+        no_status = 'NO_STATUS'
+        outdated = 'OUTDATED'
+        partial_fetch = 'PARTIAL_FETCH'
 
-    class UiCreationSource:
-        am_account_overview_recommendations = 'AM_ACCOUNT_OVERVIEW_RECOMMENDATIONS'
-        am_activity_history_table = 'AM_ACTIVITY_HISTORY_TABLE'
-        am_ad_object_name_card = 'AM_AD_OBJECT_NAME_CARD'
-        am_amfe_l3_recommendation = 'AM_AMFE_L3_RECOMMENDATION'
-        am_auto_apply_widget = 'AM_AUTO_APPLY_WIDGET'
-        am_editor_card = 'AM_EDITOR_CARD'
-        am_info_card = 'AM_INFO_CARD'
-        am_name_cell_dropdown = 'AM_NAME_CELL_DROPDOWN'
-        am_performance_summary = 'AM_PERFORMANCE_SUMMARY'
-        am_rule_landing_page_banner = 'AM_RULE_LANDING_PAGE_BANNER'
-        am_toolbar_create_rule_dropdown = 'AM_TOOLBAR_CREATE_RULE_DROPDOWN'
-        pe_campaign_structure_menu = 'PE_CAMPAIGN_STRUCTURE_MENU'
-        pe_editor_card = 'PE_EDITOR_CARD'
-        pe_info_card = 'PE_INFO_CARD'
-        pe_toolbar_create_rule_dropdown = 'PE_TOOLBAR_CREATE_RULE_DROPDOWN'
-        rules_management_page_action_dropdown = 'RULES_MANAGEMENT_PAGE_ACTION_DROPDOWN'
-        rules_management_page_rule_group = 'RULES_MANAGEMENT_PAGE_RULE_GROUP'
-        rules_management_page_rule_name = 'RULES_MANAGEMENT_PAGE_RULE_NAME'
-        rules_management_page_top_nav = 'RULES_MANAGEMENT_PAGE_TOP_NAV'
-        rules_view_active_rules_dialog = 'RULES_VIEW_ACTIVE_RULES_DIALOG'
-        rule_creation_success_dialog = 'RULE_CREATION_SUCCESS_DIALOG'
-        rule_syd_redirect = 'RULE_SYD_REDIRECT'
-        rule_templates_dialog = 'RULE_TEMPLATES_DIALOG'
+    class ContentCategory:
+        movie = 'MOVIE'
+        music = 'MUSIC'
+        tv_show = 'TV_SHOW'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
-        return 'adrules_library'
+        return 'media_titles'
 
     # @deprecated api_create is being deprecated
     def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.adobjects.adaccount import AdAccount
-        return AdAccount(api=self._api, fbid=parent_id).create_ad_rules_library(fields, params, batch, success, failure, pending)
+        from facebook_business.adobjects.productcatalog import ProductCatalog
+        return ProductCatalog(api=self._api, fbid=parent_id).create_media_title(fields, params, batch, success, failure, pending)
 
     def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -138,7 +129,7 @@ class AdRule(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AdRule,
+            target_class=MediaTitle,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -159,14 +150,21 @@ class AdRule(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'evaluation_spec': 'Object',
-            'execution_spec': 'Object',
-            'name': 'string',
-            'schedule_spec': 'Object',
-            'status': 'status_enum',
+            'applinks': 'Object',
+            'content_category': 'content_category_enum',
+            'currency': 'string',
+            'description': 'string',
+            'fb_page_id': 'string',
+            'genres': 'list<string>',
+            'images': 'list<Object>',
+            'kg_fb_id': 'string',
+            'price': 'unsigned int',
+            'title': 'string',
+            'title_display_name': 'string',
+            'url': 'string',
         }
         enums = {
-            'status_enum': AdRule.Status.__dict__.values(),
+            'content_category_enum': MediaTitle.ContentCategory.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -174,7 +172,7 @@ class AdRule(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AdRule,
+            target_class=MediaTitle,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -190,7 +188,7 @@ class AdRule(
             self.assure_call()
             return request.execute()
 
-    def create_execute(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def get_augmented_realities_metadata(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
@@ -200,8 +198,8 @@ class AdRule(
         }
         request = FacebookRequest(
             node_id=self['id'],
-            method='POST',
-            endpoint='/execute',
+            method='GET',
+            endpoint='/augmented_realities_metadata',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
@@ -220,28 +218,24 @@ class AdRule(
             self.assure_call()
             return request.execute()
 
-    def get_history(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def get_channels_to_integrity_status(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.adrulehistory import AdRuleHistory
+        from facebook_business.adobjects.catalogitemchannelstointegritystatus import CatalogItemChannelsToIntegrityStatus
         param_types = {
-            'action': 'action_enum',
-            'hide_no_changes': 'bool',
-            'object_id': 'string',
         }
         enums = {
-            'action_enum': AdRuleHistory.Action.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
             method='GET',
-            endpoint='/history',
+            endpoint='/channels_to_integrity_status',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AdRuleHistory,
+            target_class=CatalogItemChannelsToIntegrityStatus,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdRuleHistory, api=self._api),
+            response_parser=ObjectParser(target_class=CatalogItemChannelsToIntegrityStatus, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -255,7 +249,7 @@ class AdRule(
             self.assure_call()
             return request.execute()
 
-    def create_preview(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def get_videos_metadata(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
@@ -265,13 +259,13 @@ class AdRule(
         }
         request = FacebookRequest(
             node_id=self['id'],
-            method='POST',
-            endpoint='/preview',
+            method='GET',
+            endpoint='/videos_metadata',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AdRule,
+            target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdRule, api=self._api),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -286,23 +280,32 @@ class AdRule(
             return request.execute()
 
     _field_types = {
-        'account_id': 'string',
-        'created_by': 'User',
-        'created_time': 'datetime',
-        'evaluation_spec': 'AdRuleEvaluationSpec',
-        'execution_spec': 'AdRuleExecutionSpec',
+        'applinks': 'CatalogItemAppLinks',
+        'category_specific_fields': 'CatalogSubVerticalList',
+        'content_category': 'string',
+        'currency': 'string',
+        'description': 'string',
+        'fb_page_alias': 'string',
+        'fb_page_id': 'Page',
+        'genres': 'list<string>',
         'id': 'string',
-        'name': 'string',
-        'schedule_spec': 'AdRuleScheduleSpec',
-        'status': 'string',
-        'updated_time': 'datetime',
-        'ui_creation_source': 'UiCreationSource',
+        'image_fetch_status': 'ImageFetchStatus',
+        'images': 'list<string>',
+        'kg_fb_id': 'string',
+        'media_title_id': 'string',
+        'price': 'string',
+        'sanitized_images': 'list<string>',
+        'title': 'string',
+        'title_display_name': 'string',
+        'unit_price': 'Object',
+        'url': 'string',
+        'wiki_data_item': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['Status'] = AdRule.Status.__dict__.values()
-        field_enum_info['UiCreationSource'] = AdRule.UiCreationSource.__dict__.values()
+        field_enum_info['ImageFetchStatus'] = MediaTitle.ImageFetchStatus.__dict__.values()
+        field_enum_info['ContentCategory'] = MediaTitle.ContentCategory.__dict__.values()
         return field_enum_info
 
 

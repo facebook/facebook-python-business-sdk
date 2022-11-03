@@ -60,6 +60,7 @@ class UnifiedThread(
     class Platform:
         instagram = 'INSTAGRAM'
         messenger = 'MESSENGER'
+        whatsapp = 'WHATSAPP'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils

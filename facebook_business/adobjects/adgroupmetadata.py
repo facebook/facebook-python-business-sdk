@@ -28,44 +28,28 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class ReachFrequencyEstimatesPlacementBreakdown(
+class AdgroupMetadata(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(ReachFrequencyEstimatesPlacementBreakdown, self).__init__()
-        self._isReachFrequencyEstimatesPlacementBreakdown = True
+        super(AdgroupMetadata, self).__init__()
+        self._isAdgroupMetadata = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        android = 'android'
-        audience_network = 'audience_network'
-        desktop = 'desktop'
-        ig_android = 'ig_android'
-        ig_ios = 'ig_ios'
-        ig_other = 'ig_other'
-        ig_reels = 'ig_reels'
-        ig_story = 'ig_story'
-        instant_articles = 'instant_articles'
-        instream_videos = 'instream_videos'
-        ios = 'ios'
-        msite = 'msite'
-        suggested_videos = 'suggested_videos'
+        ad_standard_enhancements_edit_source = 'ad_standard_enhancements_edit_source'
+        adgroup_creation_source = 'adgroup_creation_source'
+        adgroup_edit_source = 'adgroup_edit_source'
+        carousel_style = 'carousel_style'
+        carousel_with_static_card_style = 'carousel_with_static_card_style'
 
     _field_types = {
-        'android': 'list<float>',
-        'audience_network': 'list<float>',
-        'desktop': 'list<float>',
-        'ig_android': 'list<float>',
-        'ig_ios': 'list<float>',
-        'ig_other': 'list<float>',
-        'ig_reels': 'list<float>',
-        'ig_story': 'list<float>',
-        'instant_articles': 'list<float>',
-        'instream_videos': 'list<float>',
-        'ios': 'list<float>',
-        'msite': 'list<float>',
-        'suggested_videos': 'list<float>',
+        'ad_standard_enhancements_edit_source': 'int',
+        'adgroup_creation_source': 'string',
+        'adgroup_edit_source': 'string',
+        'carousel_style': 'string',
+        'carousel_with_static_card_style': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

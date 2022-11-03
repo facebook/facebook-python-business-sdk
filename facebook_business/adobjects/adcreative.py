@@ -56,6 +56,7 @@ class AdCreative(
         call_to_action_type = 'call_to_action_type'
         categorization_criteria = 'categorization_criteria'
         category_media_source = 'category_media_source'
+        collaborative_ads_lsb_image_bank_id = 'collaborative_ads_lsb_image_bank_id'
         destination_set_id = 'destination_set_id'
         dynamic_ad_voice = 'dynamic_ad_voice'
         effective_authorization_category = 'effective_authorization_category'
@@ -85,6 +86,7 @@ class AdCreative(
         object_story_spec = 'object_story_spec'
         object_type = 'object_type'
         object_url = 'object_url'
+        omnichannel_link_spec = 'omnichannel_link_spec'
         place_page_set_id = 'place_page_set_id'
         platform_customizations = 'platform_customizations'
         playable_asset_id = 'playable_asset_id'
@@ -95,6 +97,7 @@ class AdCreative(
         status = 'status'
         template_url = 'template_url'
         template_url_spec = 'template_url_spec'
+        thumbnail_id = 'thumbnail_id'
         thumbnail_url = 'thumbnail_url'
         title = 'title'
         url_tags = 'url_tags'
@@ -102,7 +105,6 @@ class AdCreative(
         video_id = 'video_id'
         call_to_action = 'call_to_action'
         image_file = 'image_file'
-        instant_checkout_setting = 'instant_checkout_setting'
         is_dco_internal = 'is_dco_internal'
 
     class CallToActionType:
@@ -131,6 +133,7 @@ class AdCreative(
         get_offer_view = 'GET_OFFER_VIEW'
         get_quote = 'GET_QUOTE'
         get_showtimes = 'GET_SHOWTIMES'
+        get_started = 'GET_STARTED'
         install_app = 'INSTALL_APP'
         install_mobile_app = 'INSTALL_MOBILE_APP'
         learn_more = 'LEARN_MORE'
@@ -141,11 +144,14 @@ class AdCreative(
         mobile_download = 'MOBILE_DOWNLOAD'
         moments = 'MOMENTS'
         no_button = 'NO_BUTTON'
+        open_instant_app = 'OPEN_INSTANT_APP'
         open_link = 'OPEN_LINK'
         order_now = 'ORDER_NOW'
         pay_to_access = 'PAY_TO_ACCESS'
         play_game = 'PLAY_GAME'
+        play_game_on_facebook = 'PLAY_GAME_ON_FACEBOOK'
         purchase_gift_cards = 'PURCHASE_GIFT_CARDS'
+        raise_money = 'RAISE_MONEY'
         record_now = 'RECORD_NOW'
         refer_friends = 'REFER_FRIENDS'
         request_time = 'REQUEST_TIME'
@@ -218,10 +224,6 @@ class AdCreative(
     class DynamicAdVoice:
         dynamic = 'DYNAMIC'
         story_owner = 'STORY_OWNER'
-
-    class InstantCheckoutSetting:
-        off = 'off'
-        on = 'on'
 
     class Operator:
         all = 'ALL'
@@ -401,7 +403,7 @@ class AdCreative(
             self.assure_call()
             return request.execute()
 
-    def get_previews(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def get_pre_views(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
@@ -461,6 +463,7 @@ class AdCreative(
         'call_to_action_type': 'CallToActionType',
         'categorization_criteria': 'string',
         'category_media_source': 'string',
+        'collaborative_ads_lsb_image_bank_id': 'string',
         'destination_set_id': 'string',
         'dynamic_ad_voice': 'string',
         'effective_authorization_category': 'string',
@@ -490,6 +493,7 @@ class AdCreative(
         'object_story_spec': 'AdCreativeObjectStorySpec',
         'object_type': 'ObjectType',
         'object_url': 'string',
+        'omnichannel_link_spec': 'AdCreativeOmnichannelLinkSpec',
         'place_page_set_id': 'string',
         'platform_customizations': 'AdCreativePlatformCustomization',
         'playable_asset_id': 'string',
@@ -500,6 +504,7 @@ class AdCreative(
         'status': 'Status',
         'template_url': 'string',
         'template_url_spec': 'AdCreativeTemplateURLSpec',
+        'thumbnail_id': 'string',
         'thumbnail_url': 'string',
         'title': 'string',
         'url_tags': 'string',
@@ -507,7 +512,6 @@ class AdCreative(
         'video_id': 'string',
         'call_to_action': 'Object',
         'image_file': 'string',
-        'instant_checkout_setting': 'InstantCheckoutSetting',
         'is_dco_internal': 'bool',
     }
     @classmethod
@@ -521,7 +525,6 @@ class AdCreative(
         field_enum_info['CategorizationCriteria'] = AdCreative.CategorizationCriteria.__dict__.values()
         field_enum_info['CategoryMediaSource'] = AdCreative.CategoryMediaSource.__dict__.values()
         field_enum_info['DynamicAdVoice'] = AdCreative.DynamicAdVoice.__dict__.values()
-        field_enum_info['InstantCheckoutSetting'] = AdCreative.InstantCheckoutSetting.__dict__.values()
         field_enum_info['Operator'] = AdCreative.Operator.__dict__.values()
         return field_enum_info
 

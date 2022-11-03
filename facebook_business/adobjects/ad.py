@@ -119,6 +119,7 @@ class Ad(
         paused = 'PAUSED'
 
     class DatePreset:
+        data_maximum = 'data_maximum'
         last_14d = 'last_14d'
         last_28d = 'last_28d'
         last_30d = 'last_30d'
@@ -206,6 +207,7 @@ class Ad(
         }
         enums = {
             'date_preset_enum': [
+                'data_maximum',
                 'last_14d',
                 'last_28d',
                 'last_30d',
@@ -619,7 +621,7 @@ class Ad(
             self.assure_call()
             return request.execute()
 
-    def get_previews(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def get_pre_views(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')

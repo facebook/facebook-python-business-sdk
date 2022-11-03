@@ -99,6 +99,7 @@ class AdCampaignActivity(
         targeting_old = 'targeting_old'
         updated_time_new = 'updated_time_new'
         updated_time_old = 'updated_time_old'
+        user = 'user'
 
     class BidStrategyNew:
         cost_cap = 'COST_CAP'
@@ -145,9 +146,11 @@ class AdCampaignActivity(
         engaged_users = 'ENGAGED_USERS'
         event_responses = 'EVENT_RESPONSES'
         impressions = 'IMPRESSIONS'
+        in_app_value = 'IN_APP_VALUE'
         landing_page_views = 'LANDING_PAGE_VIEWS'
         lead_generation = 'LEAD_GENERATION'
         link_clicks = 'LINK_CLICKS'
+        messaging_purchase_conversion = 'MESSAGING_PURCHASE_CONVERSION'
         none = 'NONE'
         offsite_conversions = 'OFFSITE_CONVERSIONS'
         page_likes = 'PAGE_LIKES'
@@ -168,9 +171,11 @@ class AdCampaignActivity(
         engaged_users = 'ENGAGED_USERS'
         event_responses = 'EVENT_RESPONSES'
         impressions = 'IMPRESSIONS'
+        in_app_value = 'IN_APP_VALUE'
         landing_page_views = 'LANDING_PAGE_VIEWS'
         lead_generation = 'LEAD_GENERATION'
         link_clicks = 'LINK_CLICKS'
+        messaging_purchase_conversion = 'MESSAGING_PURCHASE_CONVERSION'
         none = 'NONE'
         offsite_conversions = 'OFFSITE_CONVERSIONS'
         page_likes = 'PAGE_LIKES'
@@ -271,6 +276,7 @@ class AdCampaignActivity(
         'targeting_old': 'Object',
         'updated_time_new': 'datetime',
         'updated_time_old': 'datetime',
+        'user': 'User',
     }
     @classmethod
     def _get_field_enum_info(cls):

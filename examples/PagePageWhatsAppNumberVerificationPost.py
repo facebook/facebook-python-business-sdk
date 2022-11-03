@@ -18,20 +18,22 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebook_business.adobjects.adaccountactivity import AdAccountActivity
+from facebook_business.adobjects.page import Page
 from facebook_business.api import FacebookAdsApi
 
 access_token = '<ACCESS_TOKEN>'
 app_secret = '<APP_SECRET>'
 app_id = '<APP_ID>'
-id = '<ACTIVITY_ID>'
+id = '<PAGE_ID>'
 FacebookAdsApi.init(access_token=access_token)
 
 fields = [
 ]
 params = {
+  'whatsapp_number': '123456789',
+  'verification_code': '12345',
 }
-print AdAccountActivity(id).get(
+print Page(id).create_page_whatsapp_number_verification(
   fields=fields,
   params=params,
 )

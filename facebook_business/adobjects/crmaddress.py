@@ -32,18 +32,29 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class DynamicContentSet(
+class CRMAddress(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isDynamicContentSet = True
-        super(DynamicContentSet, self).__init__(fbid, parent_id, api)
+        self._isCRMAddress = True
+        super(CRMAddress, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        business_id = 'business_id'
+        city = 'city'
+        cnpj_tax_id = 'cnpj_tax_id'
+        country = 'country'
         id = 'id'
-        name = 'name'
+        postal_code = 'postal_code'
+        registration_label = 'registration_label'
+        registration_number = 'registration_number'
+        state = 'state'
+        street1 = 'street1'
+        street2 = 'street2'
+        street3 = 'street3'
+        street4 = 'street4'
+        validation_status = 'validation_status'
+        vat_tax_id = 'vat_tax_id'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -59,7 +70,7 @@ class DynamicContentSet(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=DynamicContentSet,
+            target_class=CRMAddress,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -76,9 +87,20 @@ class DynamicContentSet(
             return request.execute()
 
     _field_types = {
-        'business_id': 'string',
+        'city': 'string',
+        'cnpj_tax_id': 'string',
+        'country': 'string',
         'id': 'string',
-        'name': 'string',
+        'postal_code': 'string',
+        'registration_label': 'string',
+        'registration_number': 'string',
+        'state': 'string',
+        'street1': 'string',
+        'street2': 'string',
+        'street3': 'string',
+        'street4': 'string',
+        'validation_status': 'string',
+        'vat_tax_id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

@@ -28,44 +28,40 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class ReachFrequencyEstimatesPlacementBreakdown(
+class ShadowIGMediaProductTags(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(ReachFrequencyEstimatesPlacementBreakdown, self).__init__()
-        self._isReachFrequencyEstimatesPlacementBreakdown = True
+        super(ShadowIGMediaProductTags, self).__init__()
+        self._isShadowIGMediaProductTags = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        android = 'android'
-        audience_network = 'audience_network'
-        desktop = 'desktop'
-        ig_android = 'ig_android'
-        ig_ios = 'ig_ios'
-        ig_other = 'ig_other'
-        ig_reels = 'ig_reels'
-        ig_story = 'ig_story'
-        instant_articles = 'instant_articles'
-        instream_videos = 'instream_videos'
-        ios = 'ios'
-        msite = 'msite'
-        suggested_videos = 'suggested_videos'
+        image_url = 'image_url'
+        is_checkout = 'is_checkout'
+        merchant_id = 'merchant_id'
+        name = 'name'
+        price_string = 'price_string'
+        product_id = 'product_id'
+        review_status = 'review_status'
+        stripped_price_string = 'stripped_price_string'
+        stripped_sale_price_string = 'stripped_sale_price_string'
+        x = 'x'
+        y = 'y'
 
     _field_types = {
-        'android': 'list<float>',
-        'audience_network': 'list<float>',
-        'desktop': 'list<float>',
-        'ig_android': 'list<float>',
-        'ig_ios': 'list<float>',
-        'ig_other': 'list<float>',
-        'ig_reels': 'list<float>',
-        'ig_story': 'list<float>',
-        'instant_articles': 'list<float>',
-        'instream_videos': 'list<float>',
-        'ios': 'list<float>',
-        'msite': 'list<float>',
-        'suggested_videos': 'list<float>',
+        'image_url': 'string',
+        'is_checkout': 'bool',
+        'merchant_id': 'int',
+        'name': 'string',
+        'price_string': 'string',
+        'product_id': 'int',
+        'review_status': 'string',
+        'stripped_price_string': 'string',
+        'stripped_sale_price_string': 'string',
+        'x': 'float',
+        'y': 'float',
     }
     @classmethod
     def _get_field_enum_info(cls):

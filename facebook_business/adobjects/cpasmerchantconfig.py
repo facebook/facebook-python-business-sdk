@@ -32,29 +32,22 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class CanvasTemplate(
+class CPASMerchantConfig(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isCanvasTemplate = True
-        super(CanvasTemplate, self).__init__(fbid, parent_id, api)
+        self._isCPASMerchantConfig = True
+        super(CPASMerchantConfig, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        channels = 'channels'
-        description = 'description'
-        document = 'document'
+        accepted_tos = 'accepted_tos'
+        beta_features = 'beta_features'
+        business_outcomes_status = 'business_outcomes_status'
         id = 'id'
-        is_multi_tab_supportable = 'is_multi_tab_supportable'
-        is_new = 'is_new'
-        name = 'name'
-        objectives = 'objectives'
-        owner_id = 'owner_id'
-        required_capabilities = 'required_capabilities'
-        snapshot_photo = 'snapshot_photo'
-        status = 'status'
-        sub_verticals = 'sub_verticals'
-        verticals = 'verticals'
+        is_test_merchant = 'is_test_merchant'
+        outcomes_compliance_status = 'outcomes_compliance_status'
+        qualified_to_onboard = 'qualified_to_onboard'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -70,7 +63,7 @@ class CanvasTemplate(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=CanvasTemplate,
+            target_class=CPASMerchantConfig,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -87,20 +80,13 @@ class CanvasTemplate(
             return request.execute()
 
     _field_types = {
-        'channels': 'map<string, map<string, string>>',
-        'description': 'string',
-        'document': 'Canvas',
+        'accepted_tos': 'bool',
+        'beta_features': 'list<string>',
+        'business_outcomes_status': 'map<string, string>',
         'id': 'string',
-        'is_multi_tab_supportable': 'bool',
-        'is_new': 'bool',
-        'name': 'string',
-        'objectives': 'map<Object, Object>',
-        'owner_id': 'User',
-        'required_capabilities': 'list<string>',
-        'snapshot_photo': 'Photo',
-        'status': 'string',
-        'sub_verticals': 'list<string>',
-        'verticals': 'map<string, string>',
+        'is_test_merchant': 'bool',
+        'outcomes_compliance_status': 'map<string, Object>',
+        'qualified_to_onboard': 'bool',
     }
     @classmethod
     def _get_field_enum_info(cls):

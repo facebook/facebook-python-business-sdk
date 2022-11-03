@@ -44,6 +44,7 @@ class OfflineConversionDataSet(
         business = 'business'
         config = 'config'
         creation_time = 'creation_time'
+        creator = 'creator'
         description = 'description'
         duplicate_entries = 'duplicate_entries'
         enable_auto_assign_to_accounts = 'enable_auto_assign_to_accounts'
@@ -59,6 +60,7 @@ class OfflineConversionDataSet(
         match_rate_approx = 'match_rate_approx'
         matched_entries = 'matched_entries'
         name = 'name'
+        owner_business = 'owner_business'
         usage = 'usage'
         valid_entries = 'valid_entries'
         auto_assign_to_new_accounts_only = 'auto_assign_to_new_accounts_only'
@@ -317,9 +319,11 @@ class OfflineConversionDataSet(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.customaudience import CustomAudience
         param_types = {
+            'action_source': 'action_source_enum',
             'ad_account': 'string',
         }
         enums = {
+            'action_source_enum': CustomAudience.ActionSource.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -460,6 +464,7 @@ class OfflineConversionDataSet(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.offlineconversiondatasetupload import OfflineConversionDataSetUpload
         param_types = {
             'end_time': 'datetime',
             'order': 'order_enum',
@@ -468,19 +473,8 @@ class OfflineConversionDataSet(
             'upload_tag': 'string',
         }
         enums = {
-            'order_enum': [
-                'ASCENDING',
-                'DESCENDING',
-            ],
-            'sort_by_enum': [
-                'API_CALLS',
-                'CREATION_TIME',
-                'EVENT_TIME_MAX',
-                'EVENT_TIME_MIN',
-                'FIRST_UPLOAD_TIME',
-                'IS_EXCLUDED_FOR_LIFT',
-                'LAST_UPLOAD_TIME',
-            ],
+            'order_enum': OfflineConversionDataSetUpload.Order.__dict__.values(),
+            'sort_by_enum': OfflineConversionDataSetUpload.SortBy.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -488,9 +482,9 @@ class OfflineConversionDataSet(
             endpoint='/uploads',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=OfflineConversionDataSetUpload,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=OfflineConversionDataSetUpload, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -508,6 +502,7 @@ class OfflineConversionDataSet(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.offlineconversiondatasetupload import OfflineConversionDataSetUpload
         param_types = {
             'upload_tag': 'string',
         }
@@ -519,9 +514,9 @@ class OfflineConversionDataSet(
             endpoint='/uploads',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=OfflineConversionDataSetUpload,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=OfflineConversionDataSetUpload, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -571,6 +566,7 @@ class OfflineConversionDataSet(
         'business': 'Business',
         'config': 'string',
         'creation_time': 'datetime',
+        'creator': 'User',
         'description': 'string',
         'duplicate_entries': 'int',
         'enable_auto_assign_to_accounts': 'bool',
@@ -586,7 +582,8 @@ class OfflineConversionDataSet(
         'match_rate_approx': 'int',
         'matched_entries': 'int',
         'name': 'string',
-        'usage': 'Object',
+        'owner_business': 'Business',
+        'usage': 'OfflineConversionDataSetUsage',
         'valid_entries': 'int',
         'auto_assign_to_new_accounts_only': 'bool',
     }

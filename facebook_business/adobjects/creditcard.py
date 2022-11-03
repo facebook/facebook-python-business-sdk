@@ -32,24 +32,36 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class BusinessAgreement(
+class CreditCard(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isBusinessAgreement = True
-        super(BusinessAgreement, self).__init__(fbid, parent_id, api)
+        self._isCreditCard = True
+        super(CreditCard, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        billing_address = 'billing_address'
+        card_cobadging = 'card_cobadging'
+        card_holder_name = 'card_holder_name'
+        card_type = 'card_type'
+        credential_id = 'credential_id'
+        default_receiving_method_products = 'default_receiving_method_products'
+        expiry_month = 'expiry_month'
+        expiry_year = 'expiry_year'
         id = 'id'
-        request_status = 'request_status'
-
-    class RequestStatus:
-        approve = 'APPROVE'
-        decline = 'DECLINE'
-        expired = 'EXPIRED'
-        in_progress = 'IN_PROGRESS'
-        pending = 'PENDING'
+        is_cvv_tricky_bin = 'is_cvv_tricky_bin'
+        is_enabled = 'is_enabled'
+        is_last_used = 'is_last_used'
+        is_network_tokenized_in_india = 'is_network_tokenized_in_india'
+        is_soft_disabled = 'is_soft_disabled'
+        is_user_verified = 'is_user_verified'
+        is_zip_verified = 'is_zip_verified'
+        last4 = 'last4'
+        readable_card_type = 'readable_card_type'
+        time_created = 'time_created'
+        time_created_ts = 'time_created_ts'
+        type = 'type'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -65,40 +77,7 @@ class BusinessAgreement(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=BusinessAgreement,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'asset_id': 'unsigned int',
-            'request_status': 'request_status_enum',
-        }
-        enums = {
-            'request_status_enum': BusinessAgreement.RequestStatus.__dict__.values(),
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=BusinessAgreement,
+            target_class=CreditCard,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -115,13 +94,31 @@ class BusinessAgreement(
             return request.execute()
 
     _field_types = {
+        'billing_address': 'Object',
+        'card_cobadging': 'string',
+        'card_holder_name': 'string',
+        'card_type': 'string',
+        'credential_id': 'int',
+        'default_receiving_method_products': 'list<string>',
+        'expiry_month': 'string',
+        'expiry_year': 'string',
         'id': 'string',
-        'request_status': 'string',
+        'is_cvv_tricky_bin': 'bool',
+        'is_enabled': 'bool',
+        'is_last_used': 'bool',
+        'is_network_tokenized_in_india': 'bool',
+        'is_soft_disabled': 'bool',
+        'is_user_verified': 'bool',
+        'is_zip_verified': 'bool',
+        'last4': 'string',
+        'readable_card_type': 'string',
+        'time_created': 'datetime',
+        'time_created_ts': 'int',
+        'type': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['RequestStatus'] = BusinessAgreement.RequestStatus.__dict__.values()
         return field_enum_info
 
 
