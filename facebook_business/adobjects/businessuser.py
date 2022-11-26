@@ -42,7 +42,6 @@ class BusinessUser(
 
     class Field(AbstractObject.Field):
         business = 'business'
-        business_role_request = 'business_role_request'
         email = 'email'
         finance_permission = 'finance_permission'
         first_name = 'first_name'
@@ -308,7 +307,6 @@ class BusinessUser(
 
     _field_types = {
         'business': 'Business',
-        'business_role_request': 'BusinessRoleRequest',
         'email': 'string',
         'finance_permission': 'string',
         'first_name': 'string',

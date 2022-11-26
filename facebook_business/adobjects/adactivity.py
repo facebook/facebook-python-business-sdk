@@ -88,7 +88,6 @@ class AdActivity(
         funding_event_initiated = 'funding_event_initiated'
         funding_event_successful = 'funding_event_successful'
         lifetime_budget_spent = 'lifetime_budget_spent'
-        merge_campaigns = 'merge_campaigns'
         receive_audience = 'receive_audience'
         remove_funding_source = 'remove_funding_source'
         remove_shared_audience = 'remove_shared_audience'

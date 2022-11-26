@@ -38,7 +38,6 @@ class AdNetworkAnalyticsSyncQueryResult(
         self._api = api
 
     class Field(AbstractObject.Field):
-        omitted_results = 'omitted_results'
         query_id = 'query_id'
         results = 'results'
 
@@ -101,7 +100,6 @@ class AdNetworkAnalyticsSyncQueryResult(
         descending = 'DESCENDING'
 
     _field_types = {
-        'omitted_results': 'list<Object>',
         'query_id': 'string',
         'results': 'list<Object>',
     }

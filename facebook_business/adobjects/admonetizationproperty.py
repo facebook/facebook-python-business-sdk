@@ -41,7 +41,6 @@ class AdMonetizationProperty(
         super(AdMonetizationProperty, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        owner_business = 'owner_business'
         id = 'id'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
@@ -197,7 +196,6 @@ class AdMonetizationProperty(
             return request.execute()
 
     _field_types = {
-        'owner_business': 'Business',
         'id': 'string',
     }
     @classmethod

@@ -42,14 +42,11 @@ class ExtendedCreditInvoiceGroup(
 
     class Field(AbstractObject.Field):
         auto_enroll = 'auto_enroll'
-        bill_to_address = 'bill_to_address'
         customer_po_number = 'customer_po_number'
         email = 'email'
         emails = 'emails'
         id = 'id'
-        liable_address = 'liable_address'
         name = 'name'
-        sold_to_address = 'sold_to_address'
 
     def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -239,14 +236,11 @@ class ExtendedCreditInvoiceGroup(
 
     _field_types = {
         'auto_enroll': 'bool',
-        'bill_to_address': 'CRMAddress',
         'customer_po_number': 'string',
         'email': 'Object',
         'emails': 'list<string>',
         'id': 'string',
-        'liable_address': 'CRMAddress',
         'name': 'string',
-        'sold_to_address': 'CRMAddress',
     }
     @classmethod
     def _get_field_enum_info(cls):

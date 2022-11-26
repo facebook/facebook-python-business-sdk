@@ -49,7 +49,6 @@ class WhatsAppBusinessAccount(
         message_template_namespace = 'message_template_namespace'
         name = 'name'
         on_behalf_of_business_info = 'on_behalf_of_business_info'
-        owner_business = 'owner_business'
         owner_business_info = 'owner_business_info'
         primary_funding_id = 'primary_funding_id'
         purchase_order_number = 'purchase_order_number'
@@ -58,7 +57,6 @@ class WhatsAppBusinessAccount(
 
     class Tasks:
         develop = 'DEVELOP'
-        full_control = 'FULL_CONTROL'
         manage = 'MANAGE'
         manage_phone = 'MANAGE_PHONE'
         manage_templates = 'MANAGE_TEMPLATES'
@@ -196,36 +194,6 @@ class WhatsAppBusinessAccount(
             self.assure_call()
             return request.execute()
 
-    def get_audiences(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/audiences',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def get_conversation_analytics(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -350,8 +318,7 @@ class WhatsAppBusinessAccount(
                 'DELETED',
                 'DISABLED',
                 'IN_APPEAL',
-                'LIMIT_EXCEEDED',
-                'PAUSED',
+                'LOCKED',
                 'PENDING',
                 'PENDING_DELETION',
                 'REJECTED',
@@ -636,8 +603,6 @@ class WhatsAppBusinessAccount(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'override_callback_uri': 'string',
-            'verify_token': 'string',
         }
         enums = {
         }
@@ -672,7 +637,6 @@ class WhatsAppBusinessAccount(
         'message_template_namespace': 'string',
         'name': 'string',
         'on_behalf_of_business_info': 'Object',
-        'owner_business': 'Business',
         'owner_business_info': 'Object',
         'primary_funding_id': 'string',
         'purchase_order_number': 'string',

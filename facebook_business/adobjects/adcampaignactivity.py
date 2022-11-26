@@ -99,7 +99,6 @@ class AdCampaignActivity(
         targeting_old = 'targeting_old'
         updated_time_new = 'updated_time_new'
         updated_time_old = 'updated_time_old'
-        user = 'user'
 
     class BidStrategyNew:
         cost_cap = 'COST_CAP'
@@ -276,7 +275,6 @@ class AdCampaignActivity(
         'targeting_old': 'Object',
         'updated_time_new': 'datetime',
         'updated_time_old': 'datetime',
-        'user': 'User',
     }
     @classmethod
     def _get_field_enum_info(cls):

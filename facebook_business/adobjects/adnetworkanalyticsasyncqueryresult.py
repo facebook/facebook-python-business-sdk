@@ -40,7 +40,6 @@ class AdNetworkAnalyticsAsyncQueryResult(
     class Field(AbstractObject.Field):
         data = 'data'
         error = 'error'
-        omitted_results = 'omitted_results'
         query_id = 'query_id'
         results = 'results'
         status = 'status'
@@ -48,7 +47,6 @@ class AdNetworkAnalyticsAsyncQueryResult(
     _field_types = {
         'data': 'Object',
         'error': 'Object',
-        'omitted_results': 'list<Object>',
         'query_id': 'string',
         'results': 'list<Object>',
         'status': 'string',

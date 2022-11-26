@@ -43,7 +43,6 @@ class BusinessAssetGroup(
     class Field(AbstractObject.Field):
         id = 'id'
         name = 'name'
-        owner_business = 'owner_business'
 
     class AdaccountTasks:
         aa_analyze = 'AA_ANALYZE'
@@ -1002,7 +1001,6 @@ class BusinessAssetGroup(
     _field_types = {
         'id': 'string',
         'name': 'string',
-        'owner_business': 'Business',
     }
     @classmethod
     def _get_field_enum_info(cls):

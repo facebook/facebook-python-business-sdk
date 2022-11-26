@@ -42,7 +42,6 @@ class AdVideo(
 
     class Field(AbstractObject.Field):
         ad_breaks = 'ad_breaks'
-        admin_creator = 'admin_creator'
         audio_isrc = 'audio_isrc'
         backdated_time = 'backdated_time'
         backdated_time_granularity = 'backdated_time_granularity'
@@ -173,7 +172,6 @@ class AdVideo(
         audio_comment = 'AUDIO_COMMENT'
         broadcast = 'BROADCAST'
         bulletin_article_audio = 'BULLETIN_ARTICLE_AUDIO'
-        candidate_videos_deleted = 'CANDIDATE_VIDEOS_DELETED'
         canvas = 'CANVAS'
         cfc_video = 'CFC_VIDEO'
         cms_media_manager = 'CMS_MEDIA_MANAGER'
@@ -190,7 +188,6 @@ class AdVideo(
         directed_post_attachment = 'DIRECTED_POST_ATTACHMENT'
         direct_inbox = 'DIRECT_INBOX'
         direct_inbox_reaction = 'DIRECT_INBOX_REACTION'
-        drops_shopping_event_page = 'DROPS_SHOPPING_EVENT_PAGE'
         dynamic_item_display_bundle = 'DYNAMIC_ITEM_DISPLAY_BUNDLE'
         dynamic_item_video = 'DYNAMIC_ITEM_VIDEO'
         dynamic_template_video = 'DYNAMIC_TEMPLATE_VIDEO'
@@ -203,7 +200,6 @@ class AdVideo(
         fb_shorts_cross_meta_post = 'FB_SHORTS_CROSS_META_POST'
         fb_shorts_group_post = 'FB_SHORTS_GROUP_POST'
         fb_shorts_pmv_post = 'FB_SHORTS_PMV_POST'
-        fb_shorts_pmv_post_no_newsfeed_nor_timeline = 'FB_SHORTS_PMV_POST_NO_NEWSFEED_NOR_TIMELINE'
         fb_shorts_post = 'FB_SHORTS_POST'
         fb_shorts_remix_post = 'FB_SHORTS_REMIX_POST'
         fundraiser_cover_video = 'FUNDRAISER_COVER_VIDEO'
@@ -268,8 +264,6 @@ class AdVideo(
         paid_content_preview = 'PAID_CONTENT_PREVIEW'
         paid_content_video = 'PAID_CONTENT_VIDEO'
         paid_content_video__post = 'PAID_CONTENT_VIDEO__POST'
-        paper_document_audio = 'PAPER_DOCUMENT_AUDIO'
-        paper_document_video = 'PAPER_DOCUMENT_VIDEO'
         pixelcloud = 'PIXELCLOUD'
         podcast_highlight = 'PODCAST_HIGHLIGHT'
         podcast_ml_preview = 'PODCAST_ML_PREVIEW'
@@ -377,11 +371,6 @@ class AdVideo(
     class Type:
         tagged = 'tagged'
         uploaded = 'uploaded'
-
-    class VideoState:
-        draft = 'DRAFT'
-        published = 'PUBLISHED'
-        scheduled = 'SCHEDULED'
 
     class BackdatedTimeGranularity:
         day = 'day'
@@ -1088,7 +1077,6 @@ class AdVideo(
 
     _field_types = {
         'ad_breaks': 'list<int>',
-        'admin_creator': 'User',
         'audio_isrc': 'Object',
         'backdated_time': 'datetime',
         'backdated_time_granularity': 'string',
@@ -1210,7 +1198,6 @@ class AdVideo(
         field_enum_info['UnpublishedContentType'] = AdVideo.UnpublishedContentType.__dict__.values()
         field_enum_info['UploadPhase'] = AdVideo.UploadPhase.__dict__.values()
         field_enum_info['Type'] = AdVideo.Type.__dict__.values()
-        field_enum_info['VideoState'] = AdVideo.VideoState.__dict__.values()
         field_enum_info['BackdatedTimeGranularity'] = AdVideo.BackdatedTimeGranularity.__dict__.values()
         return field_enum_info
 

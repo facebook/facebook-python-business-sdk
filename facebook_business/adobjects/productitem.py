@@ -92,7 +92,6 @@ class ProductItem(
         origin_country = 'origin_country'
         parent_product_id = 'parent_product_id'
         pattern = 'pattern'
-        post_conversion_signal_based_enforcement_appeal_eligibility = 'post_conversion_signal_based_enforcement_appeal_eligibility'
         price = 'price'
         product_catalog = 'product_catalog'
         product_feed = 'product_feed'
@@ -419,12 +418,6 @@ class ProductItem(
         duplicate_title_and_description = 'DUPLICATE_TITLE_AND_DESCRIPTION'
         generic_invalid_field = 'GENERIC_INVALID_FIELD'
         hidden_until_product_launch = 'HIDDEN_UNTIL_PRODUCT_LAUNCH'
-        image_fetch_failed = 'IMAGE_FETCH_FAILED'
-        image_fetch_failed_bad_gateway = 'IMAGE_FETCH_FAILED_BAD_GATEWAY'
-        image_fetch_failed_file_size_exceeded = 'IMAGE_FETCH_FAILED_FILE_SIZE_EXCEEDED'
-        image_fetch_failed_forbidden = 'IMAGE_FETCH_FAILED_FORBIDDEN'
-        image_fetch_failed_link_broken = 'IMAGE_FETCH_FAILED_LINK_BROKEN'
-        image_fetch_failed_timed_out = 'IMAGE_FETCH_FAILED_TIMED_OUT'
         image_resolution_low = 'IMAGE_RESOLUTION_LOW'
         inactive_shopify_product = 'INACTIVE_SHOPIFY_PRODUCT'
         invalid_commerce_tax_category = 'INVALID_COMMERCE_TAX_CATEGORY'
@@ -450,12 +443,9 @@ class ProductItem(
         missing_shipping_profile = 'MISSING_SHIPPING_PROFILE'
         missing_size = 'MISSING_SIZE'
         missing_tax_category = 'MISSING_TAX_CATEGORY'
-        negative_community_feedback = 'NEGATIVE_COMMUNITY_FEEDBACK'
         not_enough_images = 'NOT_ENOUGH_IMAGES'
         part_of_product_launch = 'PART_OF_PRODUCT_LAUNCH'
         product_expired = 'PRODUCT_EXPIRED'
-        product_item_hidden_from_all_shops = 'PRODUCT_ITEM_HIDDEN_FROM_ALL_SHOPS'
-        product_item_not_included_in_any_shop = 'PRODUCT_ITEM_NOT_INCLUDED_IN_ANY_SHOP'
         product_item_not_visible = 'PRODUCT_ITEM_NOT_VISIBLE'
         product_not_approved = 'PRODUCT_NOT_APPROVED'
         product_not_dominant_currency = 'PRODUCT_NOT_DOMINANT_CURRENCY'
@@ -1047,7 +1037,6 @@ class ProductItem(
         'origin_country': 'string',
         'parent_product_id': 'string',
         'pattern': 'string',
-        'post_conversion_signal_based_enforcement_appeal_eligibility': 'bool',
         'price': 'string',
         'product_catalog': 'ProductCatalog',
         'product_feed': 'ProductFeed',

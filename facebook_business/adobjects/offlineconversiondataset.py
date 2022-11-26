@@ -44,7 +44,6 @@ class OfflineConversionDataSet(
         business = 'business'
         config = 'config'
         creation_time = 'creation_time'
-        creator = 'creator'
         description = 'description'
         duplicate_entries = 'duplicate_entries'
         enable_auto_assign_to_accounts = 'enable_auto_assign_to_accounts'
@@ -60,7 +59,6 @@ class OfflineConversionDataSet(
         match_rate_approx = 'match_rate_approx'
         matched_entries = 'matched_entries'
         name = 'name'
-        owner_business = 'owner_business'
         usage = 'usage'
         valid_entries = 'valid_entries'
         auto_assign_to_new_accounts_only = 'auto_assign_to_new_accounts_only'
@@ -566,7 +564,6 @@ class OfflineConversionDataSet(
         'business': 'Business',
         'config': 'string',
         'creation_time': 'datetime',
-        'creator': 'User',
         'description': 'string',
         'duplicate_entries': 'int',
         'enable_auto_assign_to_accounts': 'bool',
@@ -582,7 +579,6 @@ class OfflineConversionDataSet(
         'match_rate_approx': 'int',
         'matched_entries': 'int',
         'name': 'string',
-        'owner_business': 'Business',
         'usage': 'OfflineConversionDataSetUsage',
         'valid_entries': 'int',
         'auto_assign_to_new_accounts_only': 'bool',

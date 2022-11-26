@@ -44,7 +44,6 @@ class Shop(
         fb_sales_channel = 'fb_sales_channel'
         id = 'id'
         ig_sales_channel = 'ig_sales_channel'
-        workspace = 'workspace'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -80,7 +79,6 @@ class Shop(
         'fb_sales_channel': 'Object',
         'id': 'string',
         'ig_sales_channel': 'Object',
-        'workspace': 'Object',
     }
     @classmethod
     def _get_field_enum_info(cls):

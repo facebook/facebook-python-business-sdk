@@ -57,13 +57,12 @@ class InstagramInsightsResult(
         comments = 'comments'
         engagement = 'engagement'
         exits = 'exits'
-        follows = 'follows'
+        follows_from_impressions = 'follows_from_impressions'
         impressions = 'impressions'
         likes = 'likes'
         navigation = 'navigation'
         plays = 'plays'
-        profile_activity = 'profile_activity'
-        profile_visits = 'profile_visits'
+        profile_views_from_impressions = 'profile_views_from_impressions'
         reach = 'reach'
         replies = 'replies'
         saved = 'saved'
@@ -71,6 +70,7 @@ class InstagramInsightsResult(
         taps_back = 'taps_back'
         taps_forward = 'taps_forward'
         total_interactions = 'total_interactions'
+        total_media_attributed_actions = 'total_media_attributed_actions'
         video_views = 'video_views'
 
     class Period:

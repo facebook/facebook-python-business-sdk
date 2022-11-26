@@ -53,7 +53,6 @@ class AdAccountAdRulesHistory(
         changed_bid = 'CHANGED_BID'
         changed_budget = 'CHANGED_BUDGET'
         email = 'EMAIL'
-        enable_autoflow = 'ENABLE_AUTOFLOW'
         endpoint_pinged = 'ENDPOINT_PINGED'
         error = 'ERROR'
         facebook_notification_sent = 'FACEBOOK_NOTIFICATION_SENT'
