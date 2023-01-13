@@ -207,6 +207,7 @@ class AdAccountTargetingUnified(
         relationship_statuses = 'relationship_statuses'
         rtb_flag = 'rtb_flag'
         site_category = 'site_category'
+        targeting_automation = 'targeting_automation'
         targeting_optimization = 'targeting_optimization'
         targeting_relaxation_types = 'targeting_relaxation_types'
         timezones = 'timezones'

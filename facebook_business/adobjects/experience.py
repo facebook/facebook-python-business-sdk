@@ -49,7 +49,7 @@ class Experience(
 
     _field_types = {
         'description': 'string',
-        'from': 'User',
+        'from': 'Object',
         'id': 'string',
         'name': 'string',
         'with': 'list<User>',

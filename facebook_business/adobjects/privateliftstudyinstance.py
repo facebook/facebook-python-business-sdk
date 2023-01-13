@@ -46,12 +46,14 @@ class PrivateLiftStudyInstance(
         feature_list = 'feature_list'
         id = 'id'
         latest_status_update_time = 'latest_status_update_time'
+        run_id = 'run_id'
         server_ips = 'server_ips'
         status = 'status'
         tier = 'tier'
 
     class Operation:
         aggregate = 'AGGREGATE'
+        cancel = 'CANCEL'
         compute = 'COMPUTE'
         id_match = 'ID_MATCH'
         next = 'NEXT'
@@ -125,6 +127,7 @@ class PrivateLiftStudyInstance(
         'feature_list': 'list<string>',
         'id': 'string',
         'latest_status_update_time': 'datetime',
+        'run_id': 'string',
         'server_ips': 'list<string>',
         'status': 'string',
         'tier': 'string',
