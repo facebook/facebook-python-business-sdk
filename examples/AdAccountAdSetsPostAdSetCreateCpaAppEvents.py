@@ -1,4 +1,5 @@
-# Copyright 2014 Facebook, Inc.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
 
 # You are hereby granted a non-exclusive, worldwide, royalty-free license to
 # use, copy, modify, and distribute this software in source code or binary
@@ -34,8 +35,8 @@ params = {
   'name': 'A CPA Ad Set optimized for App Events',
   'campaign_id': '<adCampaignAppInstallsID>',
   'daily_budget': '300',
-  'start_time': '2022-09-26T21:39:28-0700',
-  'end_time': '2022-10-03T21:39:28-0700',
+  'start_time': '2023-01-16T15:02:32-0800',
+  'end_time': '2023-01-23T15:02:32-0800',
   'billing_event': 'IMPRESSIONS',
   'optimization_goal': 'OFFSITE_CONVERSIONS',
   'bid_amount': '100',

@@ -1,4 +1,5 @@
-# Copyright 2014 Facebook, Inc.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
 
 # You are hereby granted a non-exclusive, worldwide, royalty-free license to
 # use, copy, modify, and distribute this software in source code or binary
