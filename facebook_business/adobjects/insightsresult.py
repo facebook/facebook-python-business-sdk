@@ -76,6 +76,7 @@ class InsightsResult(
         days_28 = 'days_28'
         lifetime = 'lifetime'
         month = 'month'
+        total_over_range = 'total_over_range'
         week = 'week'
 
     _field_types = {

@@ -49,7 +49,6 @@ class Campaign(
         ad_strategy_group_id = 'ad_strategy_group_id'
         ad_strategy_id = 'ad_strategy_id'
         adlabels = 'adlabels'
-        benchmark_report_count = 'benchmark_report_count'
         bid_strategy = 'bid_strategy'
         boosted_object_id = 'boosted_object_id'
         brand_lift_studies = 'brand_lift_studies'
@@ -152,6 +151,12 @@ class Campaign(
         local_awareness = 'LOCAL_AWARENESS'
         messages = 'MESSAGES'
         offer_claims = 'OFFER_CLAIMS'
+        outcome_app_promotion = 'OUTCOME_APP_PROMOTION'
+        outcome_awareness = 'OUTCOME_AWARENESS'
+        outcome_engagement = 'OUTCOME_ENGAGEMENT'
+        outcome_leads = 'OUTCOME_LEADS'
+        outcome_sales = 'OUTCOME_SALES'
+        outcome_traffic = 'OUTCOME_TRAFFIC'
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
         product_catalog_sales = 'PRODUCT_CATALOG_SALES'
@@ -971,7 +976,6 @@ class Campaign(
         'ad_strategy_group_id': 'string',
         'ad_strategy_id': 'string',
         'adlabels': 'list<AdLabel>',
-        'benchmark_report_count': 'int',
         'bid_strategy': 'BidStrategy',
         'boosted_object_id': 'string',
         'brand_lift_studies': 'list<AdStudy>',

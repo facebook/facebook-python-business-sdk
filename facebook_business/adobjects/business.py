@@ -113,6 +113,7 @@ class Business(
         profile_plus_facebook_access = 'PROFILE_PLUS_FACEBOOK_ACCESS'
         profile_plus_full_control = 'PROFILE_PLUS_FULL_CONTROL'
         profile_plus_manage = 'PROFILE_PLUS_MANAGE'
+        profile_plus_manage_leads = 'PROFILE_PLUS_MANAGE_LEADS'
         profile_plus_messaging = 'PROFILE_PLUS_MESSAGING'
         profile_plus_moderate = 'PROFILE_PLUS_MODERATE'
         profile_plus_moderate_delegate_community = 'PROFILE_PLUS_MODERATE_DELEGATE_COMMUNITY'
@@ -145,6 +146,7 @@ class Business(
         profile_plus_facebook_access = 'PROFILE_PLUS_FACEBOOK_ACCESS'
         profile_plus_full_control = 'PROFILE_PLUS_FULL_CONTROL'
         profile_plus_manage = 'PROFILE_PLUS_MANAGE'
+        profile_plus_manage_leads = 'PROFILE_PLUS_MANAGE_LEADS'
         profile_plus_messaging = 'PROFILE_PLUS_MESSAGING'
         profile_plus_moderate = 'PROFILE_PLUS_MODERATE'
         profile_plus_moderate_delegate_community = 'PROFILE_PLUS_MODERATE_DELEGATE_COMMUNITY'
@@ -570,6 +572,36 @@ class Business(
             node_id=self['id'],
             method='GET',
             endpoint='/ads_reporting_mmm_reports',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_ads_reporting_mmm_schedulers(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/ads_reporting_mmm_schedulers',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
@@ -2094,39 +2126,6 @@ class Business(
             self.assure_call()
             return request.execute()
 
-    def create_managed_partner_child_business_asset(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'child_business_id': 'string',
-            'credit_limit': 'unsigned int',
-            'line_of_credit_id': 'string',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/managed_partner_child_business_assets',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=Business,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=Business, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def get_negative_keyword_lists(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -2753,6 +2752,7 @@ class Business(
             'catalog_segment_id': 'string',
             'enable_basket_insight': 'bool',
             'enable_extended_audience_retargeting': 'bool',
+            'partner_business_id': 'string',
             'retailer_custom_audience_config': 'map',
             'vendor_id': 'string',
         }
@@ -3152,6 +3152,36 @@ class Business(
             target_class=SystemUser,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=SystemUser, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_third_party_measurement_report_dataset(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/third_party_measurement_report_dataset',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

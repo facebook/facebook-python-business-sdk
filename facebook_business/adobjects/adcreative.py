@@ -57,6 +57,7 @@ class AdCreative(
         categorization_criteria = 'categorization_criteria'
         category_media_source = 'category_media_source'
         collaborative_ads_lsb_image_bank_id = 'collaborative_ads_lsb_image_bank_id'
+        degrees_of_freedom_spec = 'degrees_of_freedom_spec'
         destination_set_id = 'destination_set_id'
         dynamic_ad_voice = 'dynamic_ad_voice'
         effective_authorization_category = 'effective_authorization_category'
@@ -110,6 +111,7 @@ class AdCreative(
     class CallToActionType:
         add_to_cart = 'ADD_TO_CART'
         apply_now = 'APPLY_NOW'
+        audio_call = 'AUDIO_CALL'
         book_travel = 'BOOK_TRAVEL'
         buy = 'BUY'
         buy_now = 'BUY_NOW'
@@ -160,6 +162,7 @@ class AdCreative(
         sell_now = 'SELL_NOW'
         send_a_gift = 'SEND_A_GIFT'
         send_gift_money = 'SEND_GIFT_MONEY'
+        send_updates = 'SEND_UPDATES'
         share = 'SHARE'
         shop_now = 'SHOP_NOW'
         sign_up = 'SIGN_UP'
@@ -403,7 +406,7 @@ class AdCreative(
             self.assure_call()
             return request.execute()
 
-    def get_pre_views(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def get_previews(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
@@ -464,6 +467,7 @@ class AdCreative(
         'categorization_criteria': 'string',
         'category_media_source': 'string',
         'collaborative_ads_lsb_image_bank_id': 'string',
+        'degrees_of_freedom_spec': 'AdCreativeDegreesOfFreedomSpec',
         'destination_set_id': 'string',
         'dynamic_ad_voice': 'string',
         'effective_authorization_category': 'string',

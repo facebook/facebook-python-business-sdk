@@ -78,6 +78,7 @@ class BusinessAssetGroup(
         profile_plus_facebook_access = 'PROFILE_PLUS_FACEBOOK_ACCESS'
         profile_plus_full_control = 'PROFILE_PLUS_FULL_CONTROL'
         profile_plus_manage = 'PROFILE_PLUS_MANAGE'
+        profile_plus_manage_leads = 'PROFILE_PLUS_MANAGE_LEADS'
         profile_plus_messaging = 'PROFILE_PLUS_MESSAGING'
         profile_plus_moderate = 'PROFILE_PLUS_MODERATE'
         profile_plus_moderate_delegate_community = 'PROFILE_PLUS_MODERATE_DELEGATE_COMMUNITY'
