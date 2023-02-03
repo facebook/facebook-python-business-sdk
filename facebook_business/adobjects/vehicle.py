@@ -49,7 +49,6 @@ class Vehicle(
         condition = 'condition'
         currency = 'currency'
         custom_label_0 = 'custom_label_0'
-        custom_number_0 = 'custom_number_0'
         date_first_on_lot = 'date_first_on_lot'
         dealer_communication_channel = 'dealer_communication_channel'
         dealer_email = 'dealer_email'
@@ -390,7 +389,6 @@ class Vehicle(
         'condition': 'string',
         'currency': 'string',
         'custom_label_0': 'string',
-        'custom_number_0': 'unsigned int',
         'date_first_on_lot': 'string',
         'dealer_communication_channel': 'string',
         'dealer_email': 'string',

@@ -240,6 +240,7 @@ class User(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'business_app': 'int',
+            'is_permanent_token': 'bool',
             'page_id': 'string',
             'scope': 'list<Permission>',
         }
@@ -1656,6 +1657,7 @@ class User(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'bot_message_payload_elements': 'string',
             'filtering': 'list<filtering_enum>',
             'href': 'Object',
             'label': 'string',

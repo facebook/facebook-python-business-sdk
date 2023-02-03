@@ -63,16 +63,16 @@ class WhatsAppBusinessAccount(
         develop = 'DEVELOP'
         full_control = 'FULL_CONTROL'
         manage = 'MANAGE'
+        manage_extensions = 'MANAGE_EXTENSIONS'
         manage_phone = 'MANAGE_PHONE'
         manage_templates = 'MANAGE_TEMPLATES'
-        manage_templates_and_phone = 'MANAGE_TEMPLATES_AND_PHONE'
         messaging = 'MESSAGING'
         view_cost = 'VIEW_COST'
 
     class Category:
+        authentication = 'AUTHENTICATION'
         marketing = 'MARKETING'
-        otp = 'OTP'
-        transactional = 'TRANSACTIONAL'
+        utility = 'UTILITY'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
