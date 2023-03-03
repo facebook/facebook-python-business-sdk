@@ -54,6 +54,7 @@ class User(
         gender = 'gender'
         hometown = 'hometown'
         id = 'id'
+        id_for_avatars = 'id_for_avatars'
         inspirational_people = 'inspirational_people'
         install_type = 'install_type'
         installed = 'installed'
@@ -239,6 +240,7 @@ class User(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'business_app': 'int',
+            'is_permanent_token': 'bool',
             'page_id': 'string',
             'scope': 'list<Permission>',
         }
@@ -645,6 +647,7 @@ class User(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.page import Page
         param_types = {
+            'pages': 'list<unsigned int>',
         }
         enums = {
         }
@@ -1587,6 +1590,36 @@ class User(
             self.assure_call()
             return request.execute()
 
+    def create_messenger_desktop_performance_trace(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/messenger_desktop_performance_traces',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=User,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=User, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_music(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -1624,6 +1657,7 @@ class User(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'bot_message_payload_elements': 'string',
             'filtering': 'list<filtering_enum>',
             'href': 'Object',
             'label': 'string',
@@ -1632,7 +1666,7 @@ class User(
             'payload': 'string',
             'read': 'bool',
             'ref': 'string',
-            'scheduleInterval': 'unsigned int',
+            'schedule_interval': 'unsigned int',
             'seen': 'bool',
             'template': 'Object',
             'type': 'type_enum',
@@ -2206,6 +2240,7 @@ class User(
         'gender': 'string',
         'hometown': 'Page',
         'id': 'string',
+        'id_for_avatars': 'string',
         'inspirational_people': 'list<Experience>',
         'install_type': 'string',
         'installed': 'bool',

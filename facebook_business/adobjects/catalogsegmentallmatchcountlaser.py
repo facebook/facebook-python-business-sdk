@@ -28,22 +28,30 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class TargetingRelaxation(
+class CatalogSegmentAllMatchCountLaser(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(TargetingRelaxation, self).__init__()
-        self._isTargetingRelaxation = True
+        super(CatalogSegmentAllMatchCountLaser, self).__init__()
+        self._isCatalogSegmentAllMatchCountLaser = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        custom_audience = 'custom_audience'
-        lookalike = 'lookalike'
+        date_start = 'date_start'
+        date_stop = 'date_stop'
+        event = 'event'
+        source = 'source'
+        total_matched_content_ids = 'total_matched_content_ids'
+        unique_matched_content_ids = 'unique_matched_content_ids'
 
     _field_types = {
-        'custom_audience': 'unsigned int',
-        'lookalike': 'unsigned int',
+        'date_start': 'string',
+        'date_stop': 'string',
+        'event': 'string',
+        'source': 'ExternalEventSource',
+        'total_matched_content_ids': 'int',
+        'unique_matched_content_ids': 'int',
     }
     @classmethod
     def _get_field_enum_info(cls):

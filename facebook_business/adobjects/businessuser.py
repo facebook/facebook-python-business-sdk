@@ -250,6 +250,7 @@ class BusinessUser(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.page import Page
         param_types = {
+            'pages': 'list<unsigned int>',
         }
         enums = {
         }

@@ -43,6 +43,8 @@ class ProductCatalog(
         super(ProductCatalog, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        ad_account_to_collaborative_ads_share_settings = 'ad_account_to_collaborative_ads_share_settings'
+        agency_collaborative_ads_share_settings = 'agency_collaborative_ads_share_settings'
         business = 'business'
         catalog_store = 'catalog_store'
         commerce_merchant_settings = 'commerce_merchant_settings'
@@ -543,24 +545,25 @@ class ProductCatalog(
             self.assure_call()
             return request.execute()
 
-    def create_catalog_website_setting(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def create_catalog_store(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.storecatalogsettings import StoreCatalogSettings
         param_types = {
-            'is_allowed_to_crawl': 'bool',
+            'page': 'int',
         }
         enums = {
         }
         request = FacebookRequest(
             node_id=self['id'],
             method='POST',
-            endpoint='/catalog_website_settings',
+            endpoint='/catalog_store',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=StoreCatalogSettings,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=StoreCatalogSettings, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -662,6 +665,37 @@ class ProductCatalog(
             target_class=CheckBatchRequestStatus,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=CheckBatchRequestStatus, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_collaborative_ads_event_stats(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.catalogsegmentallmatchcountlaser import CatalogSegmentAllMatchCountLaser
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/collaborative_ads_event_stats',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=CatalogSegmentAllMatchCountLaser,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=CatalogSegmentAllMatchCountLaser, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2020,6 +2054,8 @@ class ProductCatalog(
             return request.execute()
 
     _field_types = {
+        'ad_account_to_collaborative_ads_share_settings': 'CollaborativeAdsShareSettings',
+        'agency_collaborative_ads_share_settings': 'CollaborativeAdsShareSettings',
         'business': 'Business',
         'catalog_store': 'StoreCatalogSettings',
         'commerce_merchant_settings': 'CommerceMerchantSettings',

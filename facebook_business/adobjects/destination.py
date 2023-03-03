@@ -57,6 +57,7 @@ class Destination(
         types = 'types'
         unit_price = 'unit_price'
         url = 'url'
+        visibility = 'visibility'
 
     class ImageFetchStatus:
         direct_upload = 'DIRECT_UPLOAD'
@@ -65,6 +66,10 @@ class Destination(
         no_status = 'NO_STATUS'
         outdated = 'OUTDATED'
         partial_fetch = 'PARTIAL_FETCH'
+
+    class Visibility:
+        published = 'PUBLISHED'
+        staging = 'STAGING'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -204,11 +209,13 @@ class Destination(
         'types': 'list<string>',
         'unit_price': 'Object',
         'url': 'string',
+        'visibility': 'Visibility',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['ImageFetchStatus'] = Destination.ImageFetchStatus.__dict__.values()
+        field_enum_info['Visibility'] = Destination.Visibility.__dict__.values()
         return field_enum_info
 
 

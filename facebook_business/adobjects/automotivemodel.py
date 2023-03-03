@@ -69,6 +69,7 @@ class AutomotiveModel(
         trim = 'trim'
         unit_price = 'unit_price'
         url = 'url'
+        visibility = 'visibility'
         year = 'year'
 
     class ImageFetchStatus:
@@ -78,6 +79,10 @@ class AutomotiveModel(
         no_status = 'NO_STATUS'
         outdated = 'OUTDATED'
         partial_fetch = 'PARTIAL_FETCH'
+
+    class Visibility:
+        published = 'PUBLISHED'
+        staging = 'STAGING'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -229,12 +234,14 @@ class AutomotiveModel(
         'trim': 'string',
         'unit_price': 'Object',
         'url': 'string',
+        'visibility': 'Visibility',
         'year': 'int',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['ImageFetchStatus'] = AutomotiveModel.ImageFetchStatus.__dict__.values()
+        field_enum_info['Visibility'] = AutomotiveModel.Visibility.__dict__.values()
         return field_enum_info
 
 

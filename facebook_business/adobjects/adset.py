@@ -58,6 +58,7 @@ class AdSet(
         billing_event = 'billing_event'
         budget_remaining = 'budget_remaining'
         campaign = 'campaign'
+        campaign_attribution = 'campaign_attribution'
         campaign_id = 'campaign_id'
         configured_status = 'configured_status'
         created_time = 'created_time'
@@ -158,6 +159,7 @@ class AdSet(
         landing_page_views = 'LANDING_PAGE_VIEWS'
         lead_generation = 'LEAD_GENERATION'
         link_clicks = 'LINK_CLICKS'
+        messaging_appointment_conversion = 'MESSAGING_APPOINTMENT_CONVERSION'
         messaging_purchase_conversion = 'MESSAGING_PURCHASE_CONVERSION'
         none = 'NONE'
         offsite_conversions = 'OFFSITE_CONVERSIONS'
@@ -977,6 +979,7 @@ class AdSet(
         'billing_event': 'BillingEvent',
         'budget_remaining': 'string',
         'campaign': 'Campaign',
+        'campaign_attribution': 'string',
         'campaign_id': 'string',
         'configured_status': 'ConfiguredStatus',
         'created_time': 'datetime',

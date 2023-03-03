@@ -32,18 +32,17 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class WhatsAppBusinessPreVerifiedPhoneNumber(
+class CommerceMerchantTOSAcceptance(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isWhatsAppBusinessPreVerifiedPhoneNumber = True
-        super(WhatsAppBusinessPreVerifiedPhoneNumber, self).__init__(fbid, parent_id, api)
+        self._isCommerceMerchantTOSAcceptance = True
+        super(CommerceMerchantTOSAcceptance, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        code_verification_status = 'code_verification_status'
+        business = 'business'
         id = 'id'
-        phone_number = 'phone_number'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -59,7 +58,7 @@ class WhatsAppBusinessPreVerifiedPhoneNumber(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=WhatsAppBusinessPreVerifiedPhoneNumber,
+            target_class=CommerceMerchantTOSAcceptance,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -76,9 +75,8 @@ class WhatsAppBusinessPreVerifiedPhoneNumber(
             return request.execute()
 
     _field_types = {
-        'code_verification_status': 'string',
+        'business': 'Business',
         'id': 'string',
-        'phone_number': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

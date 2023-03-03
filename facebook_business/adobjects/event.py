@@ -66,6 +66,7 @@ class Event(
         owner = 'owner'
         parent_group = 'parent_group'
         place = 'place'
+        registration_setting = 'registration_setting'
         scheduled_publish_time = 'scheduled_publish_time'
         start_time = 'start_time'
         ticket_setting = 'ticket_setting'
@@ -516,6 +517,7 @@ class Event(
         'owner': 'Object',
         'parent_group': 'Group',
         'place': 'Place',
+        'registration_setting': 'Object',
         'scheduled_publish_time': 'string',
         'start_time': 'string',
         'ticket_setting': 'Object',

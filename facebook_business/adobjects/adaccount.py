@@ -219,6 +219,10 @@ class AdAccount(
         video = 'VIDEO'
         website = 'WEBSITE'
 
+    class ActionSource:
+        physical_store = 'PHYSICAL_STORE'
+        website = 'WEBSITE'
+
     # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
@@ -591,6 +595,7 @@ class AdAccount(
             'call_to_action': 'Object',
             'categorization_criteria': 'categorization_criteria_enum',
             'category_media_source': 'category_media_source_enum',
+            'degrees_of_freedom_spec': 'map',
             'destination_set_id': 'string',
             'dynamic_ad_voice': 'dynamic_ad_voice_enum',
             'enable_launch_instant_app': 'bool',
@@ -1133,6 +1138,36 @@ class AdAccount(
             node_id=self['id'],
             method='GET',
             endpoint='/ads_reporting_mmm_reports',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_ads_reporting_mmm_schedulers(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/ads_reporting_mmm_schedulers',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
@@ -2078,6 +2113,37 @@ class AdAccount(
             self.assure_call()
             return request.execute()
 
+    def get_business_projects(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'business': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/businessprojects',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def delete_campaigns(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -2582,7 +2648,7 @@ class AdAccount(
             self.assure_call()
             return request.execute()
 
-    def get_generate_pre_views(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def get_generate_previews(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
@@ -3902,6 +3968,7 @@ class AdAccount(
         field_enum_info['ClaimObjective'] = AdAccount.ClaimObjective.__dict__.values()
         field_enum_info['ContentType'] = AdAccount.ContentType.__dict__.values()
         field_enum_info['Subtype'] = AdAccount.Subtype.__dict__.values()
+        field_enum_info['ActionSource'] = AdAccount.ActionSource.__dict__.values()
         return field_enum_info
 
 

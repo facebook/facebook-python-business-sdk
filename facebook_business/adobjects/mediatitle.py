@@ -60,6 +60,7 @@ class MediaTitle(
         title_display_name = 'title_display_name'
         unit_price = 'unit_price'
         url = 'url'
+        visibility = 'visibility'
         wiki_data_item = 'wiki_data_item'
 
     class ImageFetchStatus:
@@ -69,6 +70,10 @@ class MediaTitle(
         no_status = 'NO_STATUS'
         outdated = 'OUTDATED'
         partial_fetch = 'PARTIAL_FETCH'
+
+    class Visibility:
+        published = 'PUBLISHED'
+        staging = 'STAGING'
 
     class ContentCategory:
         movie = 'MOVIE'
@@ -299,12 +304,14 @@ class MediaTitle(
         'title_display_name': 'string',
         'unit_price': 'Object',
         'url': 'string',
+        'visibility': 'Visibility',
         'wiki_data_item': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['ImageFetchStatus'] = MediaTitle.ImageFetchStatus.__dict__.values()
+        field_enum_info['Visibility'] = MediaTitle.Visibility.__dict__.values()
         field_enum_info['ContentCategory'] = MediaTitle.ContentCategory.__dict__.values()
         return field_enum_info
 
