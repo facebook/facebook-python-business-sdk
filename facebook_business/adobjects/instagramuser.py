@@ -49,6 +49,7 @@ class InstagramUser(
         is_published = 'is_published'
         media_count = 'media_count'
         mini_shop_storefront = 'mini_shop_storefront'
+        owner_business = 'owner_business'
         profile_pic = 'profile_pic'
         username = 'username'
 
@@ -187,6 +188,7 @@ class InstagramUser(
         'is_published': 'bool',
         'media_count': 'int',
         'mini_shop_storefront': 'Shop',
+        'owner_business': 'Business',
         'profile_pic': 'string',
         'username': 'string',
     }

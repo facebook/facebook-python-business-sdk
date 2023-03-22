@@ -51,6 +51,7 @@ class IGUser(
         mentioned_comment = 'mentioned_comment'
         mentioned_media = 'mentioned_media'
         name = 'name'
+        owner_business = 'owner_business'
         profile_picture_url = 'profile_picture_url'
         shopping_product_tag_eligibility = 'shopping_product_tag_eligibility'
         shopping_review_status = 'shopping_review_status'
@@ -189,14 +190,20 @@ class IGUser(
         if is_async:
           return self.get_insights_async(fields, params, batch, success, failure, pending)
         param_types = {
+            'breakdown': 'list<breakdown_enum>',
             'metric': 'list<metric_enum>',
+            'metric_type': 'metric_type_enum',
             'period': 'list<period_enum>',
             'since': 'datetime',
+            'timeframe': 'timeframe_enum',
             'until': 'datetime',
         }
         enums = {
+            'breakdown_enum': InstagramInsightsResult.Breakdown.__dict__.values(),
             'metric_enum': InstagramInsightsResult.Metric.__dict__.values(),
+            'metric_type_enum': InstagramInsightsResult.MetricType.__dict__.values(),
             'period_enum': InstagramInsightsResult.Period.__dict__.values(),
+            'timeframe_enum': InstagramInsightsResult.Timeframe.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -295,6 +302,7 @@ class IGUser(
         param_types = {
             'caption': 'string',
             'children': 'list<string>',
+            'cover_url': 'string',
             'image_url': 'string',
             'is_carousel_item': 'bool',
             'location_id': 'string',
@@ -560,6 +568,7 @@ class IGUser(
         'mentioned_comment': 'IGComment',
         'mentioned_media': 'IGMedia',
         'name': 'string',
+        'owner_business': 'Business',
         'profile_picture_url': 'string',
         'shopping_product_tag_eligibility': 'bool',
         'shopping_review_status': 'string',

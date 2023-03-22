@@ -42,6 +42,7 @@ class BusinessUser(
 
     class Field(AbstractObject.Field):
         business = 'business'
+        business_role_request = 'business_role_request'
         email = 'email'
         finance_permission = 'finance_permission'
         first_name = 'first_name'
@@ -249,6 +250,7 @@ class BusinessUser(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.page import Page
         param_types = {
+            'pages': 'list<unsigned int>',
         }
         enums = {
         }
@@ -307,6 +309,7 @@ class BusinessUser(
 
     _field_types = {
         'business': 'Business',
+        'business_role_request': 'BusinessRoleRequest',
         'email': 'string',
         'finance_permission': 'string',
         'first_name': 'string',
