@@ -1,5 +1,5 @@
 requests >= 2.3.0
-httpx >= 0.13.3
+httpx < 0.18.0
 six >= 1.7.3
 curlify >= 2.1.0
 pycountry >= 19.8.18
