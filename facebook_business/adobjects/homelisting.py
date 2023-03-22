@@ -85,6 +85,7 @@ class HomeListing(
         sanitized_images = 'sanitized_images'
         unit_price = 'unit_price'
         url = 'url'
+        visibility = 'visibility'
         year_built = 'year_built'
 
     class ImageFetchStatus:
@@ -94,6 +95,10 @@ class HomeListing(
         no_status = 'NO_STATUS'
         outdated = 'OUTDATED'
         partial_fetch = 'PARTIAL_FETCH'
+
+    class Visibility:
+        published = 'PUBLISHED'
+        staging = 'STAGING'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
@@ -345,12 +350,14 @@ class HomeListing(
         'sanitized_images': 'list<string>',
         'unit_price': 'Object',
         'url': 'string',
+        'visibility': 'Visibility',
         'year_built': 'int',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['ImageFetchStatus'] = HomeListing.ImageFetchStatus.__dict__.values()
+        field_enum_info['Visibility'] = HomeListing.Visibility.__dict__.values()
         return field_enum_info
 
 

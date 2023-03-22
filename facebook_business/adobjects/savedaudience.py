@@ -50,6 +50,7 @@ class SavedAudience(
         id = 'id'
         name = 'name'
         operation_status = 'operation_status'
+        owner_business = 'owner_business'
         page_deletion_marked_delete_time = 'page_deletion_marked_delete_time'
         permission_for_actions = 'permission_for_actions'
         run_status = 'run_status'
@@ -98,6 +99,7 @@ class SavedAudience(
         'id': 'string',
         'name': 'string',
         'operation_status': 'CustomAudienceStatus',
+        'owner_business': 'Business',
         'page_deletion_marked_delete_time': 'int',
         'permission_for_actions': 'AudiencePermissionForActions',
         'run_status': 'string',

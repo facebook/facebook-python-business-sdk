@@ -158,6 +158,7 @@ class AdSet(
         landing_page_views = 'LANDING_PAGE_VIEWS'
         lead_generation = 'LEAD_GENERATION'
         link_clicks = 'LINK_CLICKS'
+        messaging_appointment_conversion = 'MESSAGING_APPOINTMENT_CONVERSION'
         messaging_purchase_conversion = 'MESSAGING_PURCHASE_CONVERSION'
         none = 'NONE'
         offsite_conversions = 'OFFSITE_CONVERSIONS'
@@ -683,44 +684,6 @@ class AdSet(
             target_class=AdAsyncRequest,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=AdAsyncRequest, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def get_content_delivery_report(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.contentdeliveryreport import ContentDeliveryReport
-        param_types = {
-            'end_date': 'datetime',
-            'platform': 'platform_enum',
-            'position': 'position_enum',
-            'start_date': 'datetime',
-            'summary': 'bool',
-        }
-        enums = {
-            'platform_enum': ContentDeliveryReport.Platform.__dict__.values(),
-            'position_enum': ContentDeliveryReport.Position.__dict__.values(),
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/content_delivery_report',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=ContentDeliveryReport,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=ContentDeliveryReport, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

@@ -32,29 +32,18 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class CanvasTemplate(
+class IGBCAdsPermission(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isCanvasTemplate = True
-        super(CanvasTemplate, self).__init__(fbid, parent_id, api)
+        self._isIGBCAdsPermission = True
+        super(IGBCAdsPermission, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        channels = 'channels'
-        description = 'description'
-        document = 'document'
         id = 'id'
-        is_multi_tab_supportable = 'is_multi_tab_supportable'
-        is_new = 'is_new'
-        name = 'name'
-        objectives = 'objectives'
-        owner_id = 'owner_id'
-        required_capabilities = 'required_capabilities'
-        snapshot_photo = 'snapshot_photo'
+        permission_type = 'permission_type'
         status = 'status'
-        sub_verticals = 'sub_verticals'
-        verticals = 'verticals'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -70,7 +59,7 @@ class CanvasTemplate(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=CanvasTemplate,
+            target_class=IGBCAdsPermission,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -87,20 +76,9 @@ class CanvasTemplate(
             return request.execute()
 
     _field_types = {
-        'channels': 'map<string, map<string, string>>',
-        'description': 'string',
-        'document': 'Canvas',
         'id': 'string',
-        'is_multi_tab_supportable': 'bool',
-        'is_new': 'bool',
-        'name': 'string',
-        'objectives': 'map<Object, Object>',
-        'owner_id': 'User',
-        'required_capabilities': 'list<string>',
-        'snapshot_photo': 'Photo',
+        'permission_type': 'string',
         'status': 'string',
-        'sub_verticals': 'list<string>',
-        'verticals': 'map<string, string>',
     }
     @classmethod
     def _get_field_enum_info(cls):

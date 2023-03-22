@@ -42,6 +42,7 @@ class UnifiedThread(
 
     class Field(AbstractObject.Field):
         can_reply = 'can_reply'
+        folder = 'folder'
         former_participants = 'former_participants'
         id = 'id'
         is_subscribed = 'is_subscribed'
@@ -60,7 +61,6 @@ class UnifiedThread(
     class Platform:
         instagram = 'INSTAGRAM'
         messenger = 'MESSENGER'
-        whatsapp = 'WHATSAPP'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -129,6 +129,7 @@ class UnifiedThread(
 
     _field_types = {
         'can_reply': 'bool',
+        'folder': 'string',
         'former_participants': 'Object',
         'id': 'string',
         'is_subscribed': 'bool',

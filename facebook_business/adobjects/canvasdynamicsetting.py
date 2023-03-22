@@ -32,20 +32,18 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class CopyrightAudioAsset(
+class CanvasDynamicSetting(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isCopyrightAudioAsset = True
-        super(CopyrightAudioAsset, self).__init__(fbid, parent_id, api)
+        self._isCanvasDynamicSetting = True
+        super(CanvasDynamicSetting, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        copyright = 'copyright'
-        creation_time = 'creation_time'
+        child_documents = 'child_documents'
+        product_set_id = 'product_set_id'
         id = 'id'
-        title = 'title'
-        update_time = 'update_time'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -61,7 +59,7 @@ class CopyrightAudioAsset(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=CopyrightAudioAsset,
+            target_class=CanvasDynamicSetting,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -78,11 +76,9 @@ class CopyrightAudioAsset(
             return request.execute()
 
     _field_types = {
-        'copyright': 'AudioCopyright',
-        'creation_time': 'datetime',
+        'child_documents': 'list<Canvas>',
+        'product_set_id': 'string',
         'id': 'string',
-        'title': 'string',
-        'update_time': 'datetime',
     }
     @classmethod
     def _get_field_enum_info(cls):
