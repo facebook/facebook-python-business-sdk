@@ -24,8 +24,7 @@ utilities.
 """
 import hashlib
 import hmac
-# import requests
-import httpx
+import requests
 import os
 
 from requests.cookies import cookiejar_from_dict
@@ -62,8 +61,7 @@ class FacebookSession(object):
         self.cookies = cookies
         self.timeout = timeout
         self.debug = debug
-        self.requests = httpx.Client()
-        # self.requests = requests.Session()
+        self.requests = requests.Session()
         # self.requests.verify = os.path.join(
         #     os.path.dirname(__file__),
         #     'fb_ca_chain_bundle.crt',
