@@ -41,24 +41,36 @@ class OfflineConversionDataSet(
         super(OfflineConversionDataSet, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        automatic_matching_fields = 'automatic_matching_fields'
         business = 'business'
+        can_proxy = 'can_proxy'
         config = 'config'
         creation_time = 'creation_time'
+        creator = 'creator'
+        data_use_setting = 'data_use_setting'
         description = 'description'
         duplicate_entries = 'duplicate_entries'
         enable_auto_assign_to_accounts = 'enable_auto_assign_to_accounts'
+        enable_automatic_matching = 'enable_automatic_matching'
         event_stats = 'event_stats'
         event_time_max = 'event_time_max'
         event_time_min = 'event_time_min'
+        first_party_cookie_status = 'first_party_cookie_status'
         id = 'id'
+        is_consolidated_container = 'is_consolidated_container'
+        is_created_by_business = 'is_created_by_business'
+        is_crm = 'is_crm'
         is_mta_use = 'is_mta_use'
         is_restricted_use = 'is_restricted_use'
         is_unavailable = 'is_unavailable'
+        last_fired_time = 'last_fired_time'
         last_upload_app = 'last_upload_app'
         last_upload_app_changed_time = 'last_upload_app_changed_time'
         match_rate_approx = 'match_rate_approx'
         matched_entries = 'matched_entries'
         name = 'name'
+        owner_ad_account = 'owner_ad_account'
+        owner_business = 'owner_business'
         usage = 'usage'
         valid_entries = 'valid_entries'
         auto_assign_to_new_accounts_only = 'auto_assign_to_new_accounts_only'
@@ -413,6 +425,104 @@ class OfflineConversionDataSet(
             self.assure_call()
             return request.execute()
 
+    def get_server_events_permitted_business(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.business import Business
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/server_events_permitted_business',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Business,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Business, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_shared_accounts(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.adaccount import AdAccount
+        param_types = {
+            'action_source': 'action_source_enum',
+            'business': 'string',
+        }
+        enums = {
+            'action_source_enum': AdAccount.ActionSource.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/shared_accounts',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdAccount,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdAccount, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_shared_agencies(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.business import Business
+        param_types = {
+            'action_source': 'action_source_enum',
+        }
+        enums = {
+            'action_source_enum': Business.ActionSource.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/shared_agencies',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Business,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Business, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_stats(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -561,24 +671,36 @@ class OfflineConversionDataSet(
             return request.execute()
 
     _field_types = {
+        'automatic_matching_fields': 'list<string>',
         'business': 'Business',
+        'can_proxy': 'bool',
         'config': 'string',
         'creation_time': 'datetime',
+        'creator': 'User',
+        'data_use_setting': 'string',
         'description': 'string',
         'duplicate_entries': 'int',
         'enable_auto_assign_to_accounts': 'bool',
+        'enable_automatic_matching': 'bool',
         'event_stats': 'string',
         'event_time_max': 'int',
         'event_time_min': 'int',
+        'first_party_cookie_status': 'string',
         'id': 'string',
+        'is_consolidated_container': 'bool',
+        'is_created_by_business': 'bool',
+        'is_crm': 'bool',
         'is_mta_use': 'bool',
         'is_restricted_use': 'bool',
         'is_unavailable': 'bool',
+        'last_fired_time': 'datetime',
         'last_upload_app': 'string',
         'last_upload_app_changed_time': 'int',
         'match_rate_approx': 'int',
         'matched_entries': 'int',
         'name': 'string',
+        'owner_ad_account': 'AdAccount',
+        'owner_business': 'Business',
         'usage': 'OfflineConversionDataSetUsage',
         'valid_entries': 'int',
         'auto_assign_to_new_accounts_only': 'bool',

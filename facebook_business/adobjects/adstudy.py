@@ -43,21 +43,23 @@ class AdStudy(
     class Field(AbstractObject.Field):
         business = 'business'
         canceled_time = 'canceled_time'
+        client_business = 'client_business'
         cooldown_start_time = 'cooldown_start_time'
         created_by = 'created_by'
         created_time = 'created_time'
         description = 'description'
         end_time = 'end_time'
         id = 'id'
+        measurement_contact = 'measurement_contact'
         name = 'name'
         observation_end_time = 'observation_end_time'
         results_first_available_date = 'results_first_available_date'
+        sales_contact = 'sales_contact'
         start_time = 'start_time'
         type = 'type'
         updated_by = 'updated_by'
         updated_time = 'updated_time'
         cells = 'cells'
-        client_business = 'client_business'
         confidence_level = 'confidence_level'
         objectives = 'objectives'
         viewers = 'viewers'
@@ -212,6 +214,41 @@ class AdStudy(
             self.assure_call()
             return request.execute()
 
+    def create_check_point(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'checkpoint_data': 'string',
+            'checkpoint_name': 'string',
+            'component': 'string',
+            'instance_id': 'string',
+            'run_id': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/checkpoint',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdStudy,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdStudy, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_instances(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -250,6 +287,7 @@ class AdStudy(
         from facebook_business.adobjects.privateliftstudyinstance import PrivateLiftStudyInstance
         param_types = {
             'breakdown_key': 'map',
+            'run_id': 'string',
         }
         enums = {
         }
@@ -309,21 +347,23 @@ class AdStudy(
     _field_types = {
         'business': 'Business',
         'canceled_time': 'datetime',
+        'client_business': 'Business',
         'cooldown_start_time': 'datetime',
         'created_by': 'User',
         'created_time': 'datetime',
         'description': 'string',
         'end_time': 'datetime',
         'id': 'string',
+        'measurement_contact': 'User',
         'name': 'string',
         'observation_end_time': 'datetime',
         'results_first_available_date': 'string',
+        'sales_contact': 'User',
         'start_time': 'datetime',
         'type': 'string',
         'updated_by': 'User',
         'updated_time': 'datetime',
         'cells': 'list<Object>',
-        'client_business': 'string',
         'confidence_level': 'float',
         'objectives': 'list<Object>',
         'viewers': 'list<int>',

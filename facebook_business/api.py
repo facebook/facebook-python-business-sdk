@@ -33,7 +33,6 @@ from facebook_business.utils import urls
 from contextlib import contextmanager
 import copy
 from six.moves import http_client
-
 import os
 import json
 import six
@@ -42,11 +41,9 @@ import re
 try:
   # Since python 3
   from six.moves import collections_abc
-  from urllib.parse import parse_qs, urlparse
 except ImportError:
   # Won't work after python 3.8
   import collections as collections_abc
-  from urlparse import urlparse, parse_qs
 
 from facebook_business.adobjects.objectparser import ObjectParser
 from facebook_business.typechecker import TypeChecker
@@ -851,13 +848,7 @@ class Cursor(object):
 
         if 'paging' in response and 'next' in response['paging']:
             self._path = response['paging']['next']
-            parsed_url = urlparse(self._path)
-            parsed_qs = parse_qs(parsed_url.query)
-
-            keys_in_pagination_url = list(parsed_qs.keys())
-
-            for key in keys_in_pagination_url:
-                self.params.pop(key, None)
+            self.params = {}
         else:
             # Indicate if this was the last page
             self._finished_iteration = True

@@ -119,6 +119,7 @@ class Targeting(
         relationship_statuses = 'relationship_statuses'
         site_category = 'site_category'
         targeting_optimization = 'targeting_optimization'
+        targeting_relaxation_types = 'targeting_relaxation_types'
         user_adclusters = 'user_adclusters'
         user_device = 'user_device'
         user_event = 'user_event'
@@ -218,6 +219,7 @@ class Targeting(
         'relationship_statuses': 'list<unsigned int>',
         'site_category': 'list<string>',
         'targeting_optimization': 'string',
+        'targeting_relaxation_types': 'TargetingRelaxation',
         'user_adclusters': 'list<IDName>',
         'user_device': 'list<string>',
         'user_event': 'list<unsigned int>',

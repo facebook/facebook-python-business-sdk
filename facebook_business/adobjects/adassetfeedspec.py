@@ -53,13 +53,13 @@ class AdAssetFeedSpec(
         images = 'images'
         link_urls = 'link_urls'
         optimization_type = 'optimization_type'
-        posts = 'posts'
         titles = 'titles'
         videos = 'videos'
 
     class CallToActionTypes:
         add_to_cart = 'ADD_TO_CART'
         apply_now = 'APPLY_NOW'
+        audio_call = 'AUDIO_CALL'
         book_travel = 'BOOK_TRAVEL'
         buy = 'BUY'
         buy_now = 'BUY_NOW'
@@ -94,12 +94,14 @@ class AdAssetFeedSpec(
         mobile_download = 'MOBILE_DOWNLOAD'
         moments = 'MOMENTS'
         no_button = 'NO_BUTTON'
+        open_instant_app = 'OPEN_INSTANT_APP'
         open_link = 'OPEN_LINK'
         order_now = 'ORDER_NOW'
         pay_to_access = 'PAY_TO_ACCESS'
         play_game = 'PLAY_GAME'
         play_game_on_facebook = 'PLAY_GAME_ON_FACEBOOK'
         purchase_gift_cards = 'PURCHASE_GIFT_CARDS'
+        raise_money = 'RAISE_MONEY'
         record_now = 'RECORD_NOW'
         refer_friends = 'REFER_FRIENDS'
         request_time = 'REQUEST_TIME'
@@ -108,6 +110,7 @@ class AdAssetFeedSpec(
         sell_now = 'SELL_NOW'
         send_a_gift = 'SEND_A_GIFT'
         send_gift_money = 'SEND_GIFT_MONEY'
+        send_updates = 'SEND_UPDATES'
         share = 'SHARE'
         shop_now = 'SHOP_NOW'
         sign_up = 'SIGN_UP'
@@ -143,7 +146,6 @@ class AdAssetFeedSpec(
         'images': 'list<AdAssetFeedSpecImage>',
         'link_urls': 'list<AdAssetFeedSpecLinkURL>',
         'optimization_type': 'string',
-        'posts': 'list<Object>',
         'titles': 'list<AdAssetFeedSpecTitle>',
         'videos': 'list<AdAssetFeedSpecVideo>',
     }

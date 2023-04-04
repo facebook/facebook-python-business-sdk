@@ -48,6 +48,7 @@ class Canvas(
         collection_hero_image = 'collection_hero_image'
         collection_hero_video = 'collection_hero_video'
         collection_thumbnails = 'collection_thumbnails'
+        dynamic_setting = 'dynamic_setting'
         element_payload = 'element_payload'
         elements = 'elements'
         fb_body_elements = 'fb_body_elements'
@@ -175,6 +176,7 @@ class Canvas(
         'collection_hero_image': 'Photo',
         'collection_hero_video': 'AdVideo',
         'collection_thumbnails': 'list<CanvasCollectionThumbnail>',
+        'dynamic_setting': 'CanvasDynamicSetting',
         'element_payload': 'string',
         'elements': 'list<RichMediaElement>',
         'fb_body_elements': 'list<Object>',
@@ -186,7 +188,7 @@ class Canvas(
         'name': 'string',
         'owner': 'Page',
         'property_list': 'list<string>',
-        'source_template': 'CanvasTemplate',
+        'source_template': 'Object',
         'store_url': 'string',
         'style_list': 'list<string>',
         'tags': 'list<string>',

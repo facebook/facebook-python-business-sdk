@@ -32,20 +32,18 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class CopyrightAudioAsset(
+class IGBCAdsPermission(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isCopyrightAudioAsset = True
-        super(CopyrightAudioAsset, self).__init__(fbid, parent_id, api)
+        self._isIGBCAdsPermission = True
+        super(IGBCAdsPermission, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        copyright = 'copyright'
-        creation_time = 'creation_time'
         id = 'id'
-        title = 'title'
-        update_time = 'update_time'
+        permission_type = 'permission_type'
+        status = 'status'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -61,7 +59,7 @@ class CopyrightAudioAsset(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=CopyrightAudioAsset,
+            target_class=IGBCAdsPermission,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -78,11 +76,9 @@ class CopyrightAudioAsset(
             return request.execute()
 
     _field_types = {
-        'copyright': 'AudioCopyright',
-        'creation_time': 'datetime',
         'id': 'string',
-        'title': 'string',
-        'update_time': 'datetime',
+        'permission_type': 'string',
+        'status': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

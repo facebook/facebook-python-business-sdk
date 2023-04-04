@@ -77,6 +77,7 @@ class LocalServiceBusiness(
         unit_price = 'unit_price'
         url = 'url'
         vendor_id = 'vendor_id'
+        visibility = 'visibility'
 
     class Availability:
         available_for_order = 'AVAILABLE_FOR_ORDER'
@@ -103,6 +104,10 @@ class LocalServiceBusiness(
         no_status = 'NO_STATUS'
         outdated = 'OUTDATED'
         partial_fetch = 'PARTIAL_FETCH'
+
+    class Visibility:
+        published = 'PUBLISHED'
+        staging = 'STAGING'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -202,6 +207,7 @@ class LocalServiceBusiness(
         'unit_price': 'Object',
         'url': 'string',
         'vendor_id': 'string',
+        'visibility': 'Visibility',
     }
     @classmethod
     def _get_field_enum_info(cls):
@@ -209,6 +215,7 @@ class LocalServiceBusiness(
         field_enum_info['Availability'] = LocalServiceBusiness.Availability.__dict__.values()
         field_enum_info['Condition'] = LocalServiceBusiness.Condition.__dict__.values()
         field_enum_info['ImageFetchStatus'] = LocalServiceBusiness.ImageFetchStatus.__dict__.values()
+        field_enum_info['Visibility'] = LocalServiceBusiness.Visibility.__dict__.values()
         return field_enum_info
 
 
