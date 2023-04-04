@@ -87,6 +87,7 @@ class Vehicle(
         vehicle_specifications = 'vehicle_specifications'
         vehicle_type = 'vehicle_type'
         vin = 'vin'
+        visibility = 'visibility'
         year = 'year'
 
     class ImageFetchStatus:
@@ -96,6 +97,10 @@ class Vehicle(
         no_status = 'NO_STATUS'
         outdated = 'OUTDATED'
         partial_fetch = 'PARTIAL_FETCH'
+
+    class Visibility:
+        published = 'PUBLISHED'
+        staging = 'STAGING'
 
     class Availability:
         available = 'AVAILABLE'
@@ -422,12 +427,14 @@ class Vehicle(
         'vehicle_specifications': 'list<Object>',
         'vehicle_type': 'string',
         'vin': 'string',
+        'visibility': 'Visibility',
         'year': 'unsigned int',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['ImageFetchStatus'] = Vehicle.ImageFetchStatus.__dict__.values()
+        field_enum_info['Visibility'] = Vehicle.Visibility.__dict__.values()
         field_enum_info['Availability'] = Vehicle.Availability.__dict__.values()
         field_enum_info['BodyStyle'] = Vehicle.BodyStyle.__dict__.values()
         field_enum_info['Condition'] = Vehicle.Condition.__dict__.values()

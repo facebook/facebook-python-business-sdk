@@ -57,6 +57,7 @@ class AdCreative(
         categorization_criteria = 'categorization_criteria'
         category_media_source = 'category_media_source'
         collaborative_ads_lsb_image_bank_id = 'collaborative_ads_lsb_image_bank_id'
+        degrees_of_freedom_spec = 'degrees_of_freedom_spec'
         destination_set_id = 'destination_set_id'
         dynamic_ad_voice = 'dynamic_ad_voice'
         effective_authorization_category = 'effective_authorization_category'
@@ -105,12 +106,12 @@ class AdCreative(
         video_id = 'video_id'
         call_to_action = 'call_to_action'
         image_file = 'image_file'
-        instant_checkout_setting = 'instant_checkout_setting'
         is_dco_internal = 'is_dco_internal'
 
     class CallToActionType:
         add_to_cart = 'ADD_TO_CART'
         apply_now = 'APPLY_NOW'
+        audio_call = 'AUDIO_CALL'
         book_travel = 'BOOK_TRAVEL'
         buy = 'BUY'
         buy_now = 'BUY_NOW'
@@ -145,12 +146,14 @@ class AdCreative(
         mobile_download = 'MOBILE_DOWNLOAD'
         moments = 'MOMENTS'
         no_button = 'NO_BUTTON'
+        open_instant_app = 'OPEN_INSTANT_APP'
         open_link = 'OPEN_LINK'
         order_now = 'ORDER_NOW'
         pay_to_access = 'PAY_TO_ACCESS'
         play_game = 'PLAY_GAME'
         play_game_on_facebook = 'PLAY_GAME_ON_FACEBOOK'
         purchase_gift_cards = 'PURCHASE_GIFT_CARDS'
+        raise_money = 'RAISE_MONEY'
         record_now = 'RECORD_NOW'
         refer_friends = 'REFER_FRIENDS'
         request_time = 'REQUEST_TIME'
@@ -159,6 +162,7 @@ class AdCreative(
         sell_now = 'SELL_NOW'
         send_a_gift = 'SEND_A_GIFT'
         send_gift_money = 'SEND_GIFT_MONEY'
+        send_updates = 'SEND_UPDATES'
         share = 'SHARE'
         shop_now = 'SHOP_NOW'
         sign_up = 'SIGN_UP'
@@ -223,10 +227,6 @@ class AdCreative(
     class DynamicAdVoice:
         dynamic = 'DYNAMIC'
         story_owner = 'STORY_OWNER'
-
-    class InstantCheckoutSetting:
-        off = 'off'
-        on = 'on'
 
     class Operator:
         all = 'ALL'
@@ -467,6 +467,7 @@ class AdCreative(
         'categorization_criteria': 'string',
         'category_media_source': 'string',
         'collaborative_ads_lsb_image_bank_id': 'string',
+        'degrees_of_freedom_spec': 'AdCreativeDegreesOfFreedomSpec',
         'destination_set_id': 'string',
         'dynamic_ad_voice': 'string',
         'effective_authorization_category': 'string',
@@ -515,7 +516,6 @@ class AdCreative(
         'video_id': 'string',
         'call_to_action': 'Object',
         'image_file': 'string',
-        'instant_checkout_setting': 'InstantCheckoutSetting',
         'is_dco_internal': 'bool',
     }
     @classmethod
@@ -529,7 +529,6 @@ class AdCreative(
         field_enum_info['CategorizationCriteria'] = AdCreative.CategorizationCriteria.__dict__.values()
         field_enum_info['CategoryMediaSource'] = AdCreative.CategoryMediaSource.__dict__.values()
         field_enum_info['DynamicAdVoice'] = AdCreative.DynamicAdVoice.__dict__.values()
-        field_enum_info['InstantCheckoutSetting'] = AdCreative.InstantCheckoutSetting.__dict__.values()
         field_enum_info['Operator'] = AdCreative.Operator.__dict__.values()
         return field_enum_info
 

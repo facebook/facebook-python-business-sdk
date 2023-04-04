@@ -72,50 +72,18 @@ class Group(
         value_2 = '2'
 
     class Purpose:
-        books = 'BOOKS'
         casual = 'CASUAL'
-        close_friends = 'CLOSE_FRIENDS'
-        club = 'CLUB'
-        couple = 'COUPLE'
         coworkers = 'COWORKERS'
         custom = 'CUSTOM'
-        deals = 'DEALS'
-        ephemeral = 'EPHEMERAL'
-        event_planning = 'EVENT_PLANNING'
-        family = 'FAMILY'
-        fandom_radar = 'FANDOM_RADAR'
-        fantasy_league = 'FANTASY_LEAGUE'
-        fitness = 'FITNESS'
         for_sale = 'FOR_SALE'
         for_work = 'FOR_WORK'
-        fraternity = 'FRATERNITY'
         game = 'GAME'
         health_support = 'HEALTH_SUPPORT'
-        high_school_forum = 'HIGH_SCHOOL_FORUM'
         jobs = 'JOBS'
         learning = 'LEARNING'
-        mentorship = 'MENTORSHIP'
-        music_casa_bundle = 'MUSIC_CASA_BUNDLE'
-        neighbors = 'NEIGHBORS'
         none = 'NONE'
-        oculus = 'OCULUS'
         parenting = 'PARENTING'
-        parents = 'PARENTS'
-        project = 'PROJECT'
-        real_world = 'REAL_WORLD'
-        real_world_at_work = 'REAL_WORLD_AT_WORK'
-        restyle = 'RESTYLE'
-        school_class = 'SCHOOL_CLASS'
-        sorority = 'SORORITY'
-        sports = 'SPORTS'
-        sports_activity = 'SPORTS_ACTIVITY'
         streamer = 'STREAMER'
-        study_group = 'STUDY_GROUP'
-        support = 'SUPPORT'
-        teammates = 'TEAMMATES'
-        theme = 'THEME'
-        together_vr = 'TOGETHER_VR'
-        travel_planning = 'TRAVEL_PLANNING'
         work_announcement = 'WORK_ANNOUNCEMENT'
         work_demo_group = 'WORK_DEMO_GROUP'
         work_discussion = 'WORK_DISCUSSION'
@@ -123,64 +91,29 @@ class Group(
         work_feedback = 'WORK_FEEDBACK'
         work_for_sale = 'WORK_FOR_SALE'
         work_garden = 'WORK_GARDEN'
-        work_guest_group = 'WORK_GUEST_GROUP'
         work_integrity = 'WORK_INTEGRITY'
         work_learning = 'WORK_LEARNING'
         work_mentorship = 'WORK_MENTORSHIP'
         work_multi_company = 'WORK_MULTI_COMPANY'
         work_recruiting = 'WORK_RECRUITING'
-        work_resume_review = 'WORK_RESUME_REVIEW'
         work_social = 'WORK_SOCIAL'
         work_stages = 'WORK_STAGES'
         work_team = 'WORK_TEAM'
         work_teamwork = 'WORK_TEAMWORK'
-        work_vc_call = 'WORK_VC_CALL'
 
     class GroupType:
-        books = 'BOOKS'
         casual = 'CASUAL'
-        close_friends = 'CLOSE_FRIENDS'
-        club = 'CLUB'
-        couple = 'COUPLE'
         coworkers = 'COWORKERS'
         custom = 'CUSTOM'
-        deals = 'DEALS'
-        ephemeral = 'EPHEMERAL'
-        event_planning = 'EVENT_PLANNING'
-        family = 'FAMILY'
-        fandom_radar = 'FANDOM_RADAR'
-        fantasy_league = 'FANTASY_LEAGUE'
-        fitness = 'FITNESS'
         for_sale = 'FOR_SALE'
         for_work = 'FOR_WORK'
-        fraternity = 'FRATERNITY'
         game = 'GAME'
         health_support = 'HEALTH_SUPPORT'
-        high_school_forum = 'HIGH_SCHOOL_FORUM'
         jobs = 'JOBS'
         learning = 'LEARNING'
-        mentorship = 'MENTORSHIP'
-        music_casa_bundle = 'MUSIC_CASA_BUNDLE'
-        neighbors = 'NEIGHBORS'
         none = 'NONE'
-        oculus = 'OCULUS'
         parenting = 'PARENTING'
-        parents = 'PARENTS'
-        project = 'PROJECT'
-        real_world = 'REAL_WORLD'
-        real_world_at_work = 'REAL_WORLD_AT_WORK'
-        restyle = 'RESTYLE'
-        school_class = 'SCHOOL_CLASS'
-        sorority = 'SORORITY'
-        sports = 'SPORTS'
-        sports_activity = 'SPORTS_ACTIVITY'
         streamer = 'STREAMER'
-        study_group = 'STUDY_GROUP'
-        support = 'SUPPORT'
-        teammates = 'TEAMMATES'
-        theme = 'THEME'
-        together_vr = 'TOGETHER_VR'
-        travel_planning = 'TRAVEL_PLANNING'
         work_announcement = 'WORK_ANNOUNCEMENT'
         work_demo_group = 'WORK_DEMO_GROUP'
         work_discussion = 'WORK_DISCUSSION'
@@ -188,18 +121,15 @@ class Group(
         work_feedback = 'WORK_FEEDBACK'
         work_for_sale = 'WORK_FOR_SALE'
         work_garden = 'WORK_GARDEN'
-        work_guest_group = 'WORK_GUEST_GROUP'
         work_integrity = 'WORK_INTEGRITY'
         work_learning = 'WORK_LEARNING'
         work_mentorship = 'WORK_MENTORSHIP'
         work_multi_company = 'WORK_MULTI_COMPANY'
         work_recruiting = 'WORK_RECRUITING'
-        work_resume_review = 'WORK_RESUME_REVIEW'
         work_social = 'WORK_SOCIAL'
         work_stages = 'WORK_STAGES'
         work_team = 'WORK_TEAM'
         work_teamwork = 'WORK_TEAMWORK'
-        work_vc_call = 'WORK_VC_CALL'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -531,69 +461,6 @@ class Group(
             target_class=Event,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=Event, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def get_featured_cards(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/featured_cards',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_featured_card(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'body': 'map',
-            'description': 'map',
-            'title': 'map',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/featured_cards',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -949,7 +816,6 @@ class Group(
             'is_audio_only': 'bool',
             'is_spherical': 'bool',
             'original_fov': 'unsigned int',
-            'planned_start_time': 'int',
             'privacy': 'string',
             'projection': 'projection_enum',
             'published': 'bool',

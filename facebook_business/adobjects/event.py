@@ -66,6 +66,7 @@ class Event(
         owner = 'owner'
         parent_group = 'parent_group'
         place = 'place'
+        registration_setting = 'registration_setting'
         scheduled_publish_time = 'scheduled_publish_time'
         start_time = 'start_time'
         ticket_setting = 'ticket_setting'
@@ -78,31 +79,28 @@ class Event(
         updated_time = 'updated_time'
 
     class Category:
-        art_event = 'ART_EVENT'
-        book_event = 'BOOK_EVENT'
-        class_event = 'CLASS_EVENT'
-        comedy_event = 'COMEDY_EVENT'
-        conference_event = 'CONFERENCE_EVENT'
-        dance_event = 'DANCE_EVENT'
-        dining_event = 'DINING_EVENT'
-        family_event = 'FAMILY_EVENT'
-        festival_event = 'FESTIVAL_EVENT'
-        fitness = 'FITNESS'
-        food_tasting = 'FOOD_TASTING'
-        fundraiser = 'FUNDRAISER'
-        lecture = 'LECTURE'
-        meetup = 'MEETUP'
-        movie_event = 'MOVIE_EVENT'
-        music_event = 'MUSIC_EVENT'
-        neighborhood = 'NEIGHBORHOOD'
-        nightlife = 'NIGHTLIFE'
-        other = 'OTHER'
-        religious_event = 'RELIGIOUS_EVENT'
-        shopping = 'SHOPPING'
-        sports_event = 'SPORTS_EVENT'
-        theater_event = 'THEATER_EVENT'
-        volunteering = 'VOLUNTEERING'
-        workshop = 'WORKSHOP'
+        classic_literature = 'CLASSIC_LITERATURE'
+        comedy = 'COMEDY'
+        crafts = 'CRAFTS'
+        dance = 'DANCE'
+        drinks = 'DRINKS'
+        fitness_and_workouts = 'FITNESS_AND_WORKOUTS'
+        foods = 'FOODS'
+        games = 'GAMES'
+        gardening = 'GARDENING'
+        healthy_living_and_self_care = 'HEALTHY_LIVING_AND_SELF_CARE'
+        health_and_medical = 'HEALTH_AND_MEDICAL'
+        home_and_garden = 'HOME_AND_GARDEN'
+        music_and_audio = 'MUSIC_AND_AUDIO'
+        parties = 'PARTIES'
+        professional_networking = 'PROFESSIONAL_NETWORKING'
+        religions = 'RELIGIONS'
+        shopping_event = 'SHOPPING_EVENT'
+        social_issues = 'SOCIAL_ISSUES'
+        sports = 'SPORTS'
+        theater = 'THEATER'
+        tv_and_movies = 'TV_AND_MOVIES'
+        visual_arts = 'VISUAL_ARTS'
 
     class OnlineEventFormat:
         fb_live = 'fb_live'
@@ -268,7 +266,6 @@ class Event(
             'is_audio_only': 'bool',
             'is_spherical': 'bool',
             'original_fov': 'unsigned int',
-            'planned_start_time': 'int',
             'privacy': 'string',
             'projection': 'projection_enum',
             'published': 'bool',
@@ -520,6 +517,7 @@ class Event(
         'owner': 'Object',
         'parent_group': 'Group',
         'place': 'Place',
+        'registration_setting': 'Object',
         'scheduled_publish_time': 'string',
         'start_time': 'string',
         'ticket_setting': 'Object',

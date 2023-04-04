@@ -220,10 +220,12 @@ class IGMedia(
         if is_async:
           return self.get_insights_async(fields, params, batch, success, failure, pending)
         param_types = {
+            'breakdown': 'list<breakdown_enum>',
             'metric': 'list<metric_enum>',
             'period': 'list<period_enum>',
         }
         enums = {
+            'breakdown_enum': InstagramInsightsResult.Breakdown.__dict__.values(),
             'metric_enum': InstagramInsightsResult.Metric.__dict__.values(),
             'period_enum': InstagramInsightsResult.Period.__dict__.values(),
         }

@@ -45,6 +45,7 @@ class EventSourceGroup(
         event_sources = 'event_sources'
         id = 'id'
         name = 'name'
+        owner_business = 'owner_business'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
@@ -185,6 +186,7 @@ class EventSourceGroup(
         'event_sources': 'list<ExternalEventSource>',
         'id': 'string',
         'name': 'string',
+        'owner_business': 'Business',
     }
     @classmethod
     def _get_field_enum_info(cls):

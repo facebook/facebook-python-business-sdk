@@ -45,13 +45,17 @@ class PrivateLiftStudyInstance(
         created_time = 'created_time'
         feature_list = 'feature_list'
         id = 'id'
+        issuer_certificate = 'issuer_certificate'
         latest_status_update_time = 'latest_status_update_time'
+        run_id = 'run_id'
+        server_hostnames = 'server_hostnames'
         server_ips = 'server_ips'
         status = 'status'
         tier = 'tier'
 
     class Operation:
         aggregate = 'AGGREGATE'
+        cancel = 'CANCEL'
         compute = 'COMPUTE'
         id_match = 'ID_MATCH'
         next = 'NEXT'
@@ -124,7 +128,10 @@ class PrivateLiftStudyInstance(
         'created_time': 'datetime',
         'feature_list': 'list<string>',
         'id': 'string',
+        'issuer_certificate': 'string',
         'latest_status_update_time': 'datetime',
+        'run_id': 'string',
+        'server_hostnames': 'list<string>',
         'server_ips': 'list<string>',
         'status': 'string',
         'tier': 'string',
