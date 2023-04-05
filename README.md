@@ -59,9 +59,6 @@ To deploy to artifactory:
 python setup.py sdist upload -r pip-adroll
 ```
 
-The thing in jFrog:
-https://adrollserv.jfrog.io/ui/packages/pypi:%2F%2Ffacebook_business?name=facebook&type=packages
-
 [![Build Status](https://travis-ci.org/facebook/facebook-python-business-sdk.svg)](https://travis-ci.org/facebook/facebook-python-business-sdk)
 
 ## How test `facebook-python-business-sdk`
