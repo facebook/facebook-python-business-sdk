@@ -1,4 +1,5 @@
-# Copyright 2014 Facebook, Inc.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
 
 # You are hereby granted a non-exclusive, worldwide, royalty-free license to
 # use, copy, modify, and distribute this software in source code or binary
@@ -33,8 +34,8 @@ fields = [
 params = {
   'name': 'My Offer Claim AdSet',
   'lifetime_budget': '56000',
-  'start_time': '2021-07-29T11:39:27-0700',
-  'end_time': '2021-08-05T11:39:27-0700',
+  'start_time': '2022-05-23T13:26:58-0700',
+  'end_time': '2022-05-30T13:26:58-0700',
   'campaign_id': '<adCampaignLinkClicksID>',
   'billing_event': 'LINK_CLICKS',
   'optimization_goal': 'LINK_CLICKS',

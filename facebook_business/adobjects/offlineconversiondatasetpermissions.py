@@ -28,30 +28,26 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class NativeOfferDiscount(
+class OfflineConversionDataSetPermissions(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(NativeOfferDiscount, self).__init__()
-        self._isNativeOfferDiscount = True
+        super(OfflineConversionDataSetPermissions, self).__init__()
+        self._isOfflineConversionDataSetPermissions = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        currency = 'currency'
-        override = 'override'
-        text = 'text'
-        type = 'type'
-        value1 = 'value1'
-        value2 = 'value2'
+        can_edit = 'can_edit'
+        can_edit_or_upload = 'can_edit_or_upload'
+        can_upload = 'can_upload'
+        should_block_vanilla_business_employee_access = 'should_block_vanilla_business_employee_access'
 
     _field_types = {
-        'currency': 'string',
-        'override': 'string',
-        'text': 'string',
-        'type': 'string',
-        'value1': 'float',
-        'value2': 'float',
+        'can_edit': 'bool',
+        'can_edit_or_upload': 'bool',
+        'can_upload': 'bool',
+        'should_block_vanilla_business_employee_access': 'bool',
     }
     @classmethod
     def _get_field_enum_info(cls):

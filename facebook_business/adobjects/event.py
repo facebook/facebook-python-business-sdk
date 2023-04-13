@@ -66,6 +66,7 @@ class Event(
         owner = 'owner'
         parent_group = 'parent_group'
         place = 'place'
+        registration_setting = 'registration_setting'
         scheduled_publish_time = 'scheduled_publish_time'
         start_time = 'start_time'
         ticket_setting = 'ticket_setting'
@@ -78,31 +79,28 @@ class Event(
         updated_time = 'updated_time'
 
     class Category:
-        art_event = 'ART_EVENT'
-        book_event = 'BOOK_EVENT'
-        class_event = 'CLASS_EVENT'
-        comedy_event = 'COMEDY_EVENT'
-        conference_event = 'CONFERENCE_EVENT'
-        dance_event = 'DANCE_EVENT'
-        dining_event = 'DINING_EVENT'
-        family_event = 'FAMILY_EVENT'
-        festival_event = 'FESTIVAL_EVENT'
-        fitness = 'FITNESS'
-        food_tasting = 'FOOD_TASTING'
-        fundraiser = 'FUNDRAISER'
-        lecture = 'LECTURE'
-        meetup = 'MEETUP'
-        movie_event = 'MOVIE_EVENT'
-        music_event = 'MUSIC_EVENT'
-        neighborhood = 'NEIGHBORHOOD'
-        nightlife = 'NIGHTLIFE'
-        other = 'OTHER'
-        religious_event = 'RELIGIOUS_EVENT'
-        shopping = 'SHOPPING'
-        sports_event = 'SPORTS_EVENT'
-        theater_event = 'THEATER_EVENT'
-        volunteering = 'VOLUNTEERING'
-        workshop = 'WORKSHOP'
+        classic_literature = 'CLASSIC_LITERATURE'
+        comedy = 'COMEDY'
+        crafts = 'CRAFTS'
+        dance = 'DANCE'
+        drinks = 'DRINKS'
+        fitness_and_workouts = 'FITNESS_AND_WORKOUTS'
+        foods = 'FOODS'
+        games = 'GAMES'
+        gardening = 'GARDENING'
+        healthy_living_and_self_care = 'HEALTHY_LIVING_AND_SELF_CARE'
+        health_and_medical = 'HEALTH_AND_MEDICAL'
+        home_and_garden = 'HOME_AND_GARDEN'
+        music_and_audio = 'MUSIC_AND_AUDIO'
+        parties = 'PARTIES'
+        professional_networking = 'PROFESSIONAL_NETWORKING'
+        religions = 'RELIGIONS'
+        shopping_event = 'SHOPPING_EVENT'
+        social_issues = 'SOCIAL_ISSUES'
+        sports = 'SPORTS'
+        theater = 'THEATER'
+        tv_and_movies = 'TV_AND_MOVIES'
+        visual_arts = 'VISUAL_ARTS'
 
     class OnlineEventFormat:
         fb_live = 'fb_live'
@@ -256,16 +254,17 @@ class Event(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.livevideo import LiveVideo
         param_types = {
             'content_tags': 'list<string>',
             'description': 'string',
             'enable_backup_ingest': 'bool',
             'encoding_settings': 'string',
+            'event_params': 'Object',
             'fisheye_video_cropped': 'bool',
             'front_z_rotation': 'float',
             'is_audio_only': 'bool',
             'is_spherical': 'bool',
-            'live_encoders': 'list<string>',
             'original_fov': 'unsigned int',
             'privacy': 'string',
             'projection': 'projection_enum',
@@ -279,40 +278,21 @@ class Event(
             'title': 'string',
         }
         enums = {
-            'projection_enum': [
-                'CUBEMAP',
-                'EQUIRECTANGULAR',
-                'HALF_EQUIRECTANGULAR',
-            ],
-            'spatial_audio_format_enum': [
-                'ambiX_4',
-            ],
-            'status_enum': [
-                'LIVE_NOW',
-                'SCHEDULED_CANCELED',
-                'SCHEDULED_LIVE',
-                'SCHEDULED_UNPUBLISHED',
-                'UNPUBLISHED',
-            ],
-            'stereoscopic_mode_enum': [
-                'LEFT_RIGHT',
-                'MONO',
-                'TOP_BOTTOM',
-            ],
-            'stream_type_enum': [
-                'AMBIENT',
-                'REGULAR',
-            ],
+            'projection_enum': LiveVideo.Projection.__dict__.values(),
+            'spatial_audio_format_enum': LiveVideo.SpatialAudioFormat.__dict__.values(),
+            'status_enum': LiveVideo.Status.__dict__.values(),
+            'stereoscopic_mode_enum': LiveVideo.StereoscopicMode.__dict__.values(),
+            'stream_type_enum': LiveVideo.StreamType.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
             method='POST',
-            endpoint='/livevideos',
+            endpoint='/live_videos',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=LiveVideo,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=LiveVideo, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -537,6 +517,7 @@ class Event(
         'owner': 'Object',
         'parent_group': 'Group',
         'place': 'Place',
+        'registration_setting': 'Object',
         'scheduled_publish_time': 'string',
         'start_time': 'string',
         'ticket_setting': 'Object',

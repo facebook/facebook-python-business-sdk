@@ -32,24 +32,28 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class BusinessAgreement(
+class GameItem(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isBusinessAgreement = True
-        super(BusinessAgreement, self).__init__(fbid, parent_id, api)
+        self._isGameItem = True
+        super(GameItem, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        count = 'count'
+        created = 'created'
+        ext_id = 'ext_id'
         id = 'id'
-        request_status = 'request_status'
+        item_def = 'item_def'
+        owner = 'owner'
+        status = 'status'
+        updated = 'updated'
 
-    class RequestStatus:
-        approve = 'APPROVE'
-        decline = 'DECLINE'
-        expired = 'EXPIRED'
-        in_progress = 'IN_PROGRESS'
-        pending = 'PENDING'
+    class Action:
+        consume = 'CONSUME'
+        drop = 'DROP'
+        mark = 'MARK'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -65,40 +69,7 @@ class BusinessAgreement(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=BusinessAgreement,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'asset_id': 'unsigned int',
-            'request_status': 'request_status_enum',
-        }
-        enums = {
-            'request_status_enum': BusinessAgreement.RequestStatus.__dict__.values(),
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=BusinessAgreement,
+            target_class=GameItem,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -115,13 +86,19 @@ class BusinessAgreement(
             return request.execute()
 
     _field_types = {
+        'count': 'int',
+        'created': 'datetime',
+        'ext_id': 'string',
         'id': 'string',
-        'request_status': 'string',
+        'item_def': 'string',
+        'owner': 'User',
+        'status': 'string',
+        'updated': 'datetime',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['RequestStatus'] = BusinessAgreement.RequestStatus.__dict__.values()
+        field_enum_info['Action'] = GameItem.Action.__dict__.values()
         return field_enum_info
 
 

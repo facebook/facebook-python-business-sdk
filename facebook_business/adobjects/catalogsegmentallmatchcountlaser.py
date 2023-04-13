@@ -28,36 +28,30 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class InvoiceCampaign(
+class CatalogSegmentAllMatchCountLaser(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(InvoiceCampaign, self).__init__()
-        self._isInvoiceCampaign = True
+        super(CatalogSegmentAllMatchCountLaser, self).__init__()
+        self._isCatalogSegmentAllMatchCountLaser = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        ad_account_id = 'ad_account_id'
-        billed_amount_details = 'billed_amount_details'
-        campaign_id = 'campaign_id'
-        campaign_name = 'campaign_name'
-        clicks = 'clicks'
-        conversions = 'conversions'
-        description = 'description'
-        impressions = 'impressions'
-        tags = 'tags'
+        date_start = 'date_start'
+        date_stop = 'date_stop'
+        event = 'event'
+        source = 'source'
+        total_matched_content_ids = 'total_matched_content_ids'
+        unique_matched_content_ids = 'unique_matched_content_ids'
 
     _field_types = {
-        'ad_account_id': 'string',
-        'billed_amount_details': 'BilledAmountDetails',
-        'campaign_id': 'string',
-        'campaign_name': 'string',
-        'clicks': 'unsigned int',
-        'conversions': 'unsigned int',
-        'description': 'string',
-        'impressions': 'unsigned int',
-        'tags': 'list<string>',
+        'date_start': 'string',
+        'date_stop': 'string',
+        'event': 'string',
+        'source': 'ExternalEventSource',
+        'total_matched_content_ids': 'int',
+        'unique_matched_content_ids': 'int',
     }
     @classmethod
     def _get_field_enum_info(cls):

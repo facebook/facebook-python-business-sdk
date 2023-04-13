@@ -53,6 +53,7 @@ class AdImage(
         name = 'name'
         original_height = 'original_height'
         original_width = 'original_width'
+        owner_business = 'owner_business'
         permalink_url = 'permalink_url'
         status = 'status'
         updated_time = 'updated_time'
@@ -66,6 +67,7 @@ class AdImage(
     class Status:
         active = 'ACTIVE'
         deleted = 'DELETED'
+        internal = 'INTERNAL'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
@@ -118,6 +120,7 @@ class AdImage(
         'name': 'string',
         'original_height': 'unsigned int',
         'original_width': 'unsigned int',
+        'owner_business': 'Business',
         'permalink_url': 'string',
         'status': 'Status',
         'updated_time': 'datetime',

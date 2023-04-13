@@ -50,6 +50,7 @@ class InsightsResult(
         values = 'values'
 
     class DatePreset:
+        data_maximum = 'data_maximum'
         last_14d = 'last_14d'
         last_28d = 'last_28d'
         last_30d = 'last_30d'
@@ -75,6 +76,7 @@ class InsightsResult(
         days_28 = 'days_28'
         lifetime = 'lifetime'
         month = 'month'
+        total_over_range = 'total_over_range'
         week = 'week'
 
     _field_types = {

@@ -63,6 +63,7 @@ class Hotel(
         star_rating = 'star_rating'
         unit_price = 'unit_price'
         url = 'url'
+        visibility = 'visibility'
         base_price = 'base_price'
 
     class ImageFetchStatus:
@@ -72,6 +73,10 @@ class Hotel(
         no_status = 'NO_STATUS'
         outdated = 'OUTDATED'
         partial_fetch = 'PARTIAL_FETCH'
+
+    class Visibility:
+        published = 'PUBLISHED'
+        staging = 'STAGING'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
@@ -330,12 +335,14 @@ class Hotel(
         'star_rating': 'float',
         'unit_price': 'Object',
         'url': 'string',
+        'visibility': 'Visibility',
         'base_price': 'unsigned int',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['ImageFetchStatus'] = Hotel.ImageFetchStatus.__dict__.values()
+        field_enum_info['Visibility'] = Hotel.Visibility.__dict__.values()
         return field_enum_info
 
 

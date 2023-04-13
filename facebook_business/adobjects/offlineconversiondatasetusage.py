@@ -28,34 +28,20 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AudienceInsightsStudySpec(
+class OfflineConversionDataSetUsage(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(AudienceInsightsStudySpec, self).__init__()
-        self._isAudienceInsightsStudySpec = True
+        super(OfflineConversionDataSetUsage, self).__init__()
+        self._isOfflineConversionDataSetUsage = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        audience_definition = 'audience_definition'
-        author_info = 'author_info'
-        creation_time = 'creation_time'
-        end_time = 'end_time'
-        excluded_rules = 'excluded_rules'
-        included_rules = 'included_rules'
-        start_time = 'start_time'
-        status = 'status'
+        num_lift_studies = 'num_lift_studies'
 
     _field_types = {
-        'audience_definition': 'Object',
-        'author_info': 'Object',
-        'creation_time': 'int',
-        'end_time': 'int',
-        'excluded_rules': 'list<Object>',
-        'included_rules': 'list<Object>',
-        'start_time': 'int',
-        'status': 'string',
+        'num_lift_studies': 'int',
     }
     @classmethod
     def _get_field_enum_info(cls):
