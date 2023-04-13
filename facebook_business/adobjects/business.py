@@ -46,6 +46,7 @@ class Business(
         block_offline_analytics = 'block_offline_analytics'
         collaborative_ads_managed_partner_business_info = 'collaborative_ads_managed_partner_business_info'
         collaborative_ads_managed_partner_eligibility = 'collaborative_ads_managed_partner_eligibility'
+        collaborative_ads_partner_premium_options = 'collaborative_ads_partner_premium_options'
         created_by = 'created_by'
         created_time = 'created_time'
         extended_updated_time = 'extended_updated_time'
@@ -112,8 +113,10 @@ class Business(
         profile_plus_facebook_access = 'PROFILE_PLUS_FACEBOOK_ACCESS'
         profile_plus_full_control = 'PROFILE_PLUS_FULL_CONTROL'
         profile_plus_manage = 'PROFILE_PLUS_MANAGE'
+        profile_plus_manage_leads = 'PROFILE_PLUS_MANAGE_LEADS'
         profile_plus_messaging = 'PROFILE_PLUS_MESSAGING'
         profile_plus_moderate = 'PROFILE_PLUS_MODERATE'
+        profile_plus_moderate_delegate_community = 'PROFILE_PLUS_MODERATE_DELEGATE_COMMUNITY'
         profile_plus_revenue = 'PROFILE_PLUS_REVENUE'
         read_page_mailboxes = 'READ_PAGE_MAILBOXES'
         view_monetization_insights = 'VIEW_MONETIZATION_INSIGHTS'
@@ -143,11 +146,215 @@ class Business(
         profile_plus_facebook_access = 'PROFILE_PLUS_FACEBOOK_ACCESS'
         profile_plus_full_control = 'PROFILE_PLUS_FULL_CONTROL'
         profile_plus_manage = 'PROFILE_PLUS_MANAGE'
+        profile_plus_manage_leads = 'PROFILE_PLUS_MANAGE_LEADS'
         profile_plus_messaging = 'PROFILE_PLUS_MESSAGING'
         profile_plus_moderate = 'PROFILE_PLUS_MODERATE'
+        profile_plus_moderate_delegate_community = 'PROFILE_PLUS_MODERATE_DELEGATE_COMMUNITY'
         profile_plus_revenue = 'PROFILE_PLUS_REVENUE'
         read_page_mailboxes = 'READ_PAGE_MAILBOXES'
         view_monetization_insights = 'VIEW_MONETIZATION_INSIGHTS'
+
+    class SubverticalV2:
+        accounting_and_tax = 'ACCOUNTING_AND_TAX'
+        activities_and_leisure = 'ACTIVITIES_AND_LEISURE'
+        air = 'AIR'
+        apparel_and_accessories = 'APPAREL_AND_ACCESSORIES'
+        arts_and_heritage_and_education = 'ARTS_AND_HERITAGE_AND_EDUCATION'
+        ar_or_vr_gaming = 'AR_OR_VR_GAMING'
+        audio_streaming = 'AUDIO_STREAMING'
+        auto = 'AUTO'
+        auto_insurance = 'AUTO_INSURANCE'
+        auto_rental = 'AUTO_RENTAL'
+        baby = 'BABY'
+        ballot_initiative_or_referendum = 'BALLOT_INITIATIVE_OR_REFERENDUM'
+        beauty = 'BEAUTY'
+        beauty_and_fashion = 'BEAUTY_AND_FASHION'
+        beer_and_wine_and_liquor_and_malt_beverages = 'BEER_AND_WINE_AND_LIQUOR_AND_MALT_BEVERAGES'
+        bookstores = 'BOOKSTORES'
+        broadcast_television = 'BROADCAST_TELEVISION'
+        business_consultants = 'BUSINESS_CONSULTANTS'
+        buying_agency = 'BUYING_AGENCY'
+        cable_and_satellite = 'CABLE_AND_SATELLITE'
+        cable_television = 'CABLE_TELEVISION'
+        call_center_and_messaging_services = 'CALL_CENTER_AND_MESSAGING_SERVICES'
+        candidate_or_politician = 'CANDIDATE_OR_POLITICIAN'
+        career = 'CAREER'
+        career_and_tech = 'CAREER_AND_TECH'
+        casual_dining = 'CASUAL_DINING'
+        chronic_conditions_and_medical_causes = 'CHRONIC_CONDITIONS_AND_MEDICAL_CAUSES'
+        civic_influencers = 'CIVIC_INFLUENCERS'
+        clinical_trials = 'CLINICAL_TRIALS'
+        coffee = 'COFFEE'
+        computer_and_software_and_hardware = 'COMPUTER_AND_SOFTWARE_AND_HARDWARE'
+        console_and_cross_platform_gaming = 'CONSOLE_AND_CROSS_PLATFORM_GAMING'
+        consulting = 'CONSULTING'
+        consumer_electronics = 'CONSUMER_ELECTRONICS'
+        counseling_and_psychotherapy = 'COUNSELING_AND_PSYCHOTHERAPY'
+        creative_agency = 'CREATIVE_AGENCY'
+        credit_and_financing_and_mortages = 'CREDIT_AND_FINANCING_AND_MORTAGES'
+        cruises_and_marine = 'CRUISES_AND_MARINE'
+        culture_and_lifestyle = 'CULTURE_AND_LIFESTYLE'
+        data_analytics_and_data_management = 'DATA_ANALYTICS_AND_DATA_MANAGEMENT'
+        dating_and_technology_apps = 'DATING_AND_TECHNOLOGY_APPS'
+        department_store = 'DEPARTMENT_STORE'
+        desktop_software = 'DESKTOP_SOFTWARE'
+        dieting_and_fitness_programs = 'DIETING_AND_FITNESS_PROGRAMS'
+        digital_native_education_or_training = 'DIGITAL_NATIVE_EDUCATION_OR_TRAINING'
+        drinking_places = 'DRINKING_PLACES'
+        education_resources = 'EDUCATION_RESOURCES'
+        ed_tech = 'ED_TECH'
+        elearning_and_massive_online_open_courses = 'ELEARNING_AND_MASSIVE_ONLINE_OPEN_COURSES'
+        election_commission = 'ELECTION_COMMISSION'
+        electronics_and_appliances = 'ELECTRONICS_AND_APPLIANCES'
+        engineering_and_design = 'ENGINEERING_AND_DESIGN'
+        environment_and_animal_welfare = 'ENVIRONMENT_AND_ANIMAL_WELFARE'
+        esports = 'ESPORTS'
+        events = 'EVENTS'
+        farming_and_ranching = 'FARMING_AND_RANCHING'
+        file_storage_and_cloud_and_data_services = 'FILE_STORAGE_AND_CLOUD_AND_DATA_SERVICES'
+        finance = 'FINANCE'
+        fin_tech = 'FIN_TECH'
+        fishing_and_hunting_and_forestry_and_logging = 'FISHING_AND_HUNTING_AND_FORESTRY_AND_LOGGING'
+        fitness = 'FITNESS'
+        food = 'FOOD'
+        footwear = 'FOOTWEAR'
+        for_profit_colleges_and_universities = 'FOR_PROFIT_COLLEGES_AND_UNIVERSITIES'
+        full_service_agency = 'FULL_SERVICE_AGENCY'
+        government_controlled_entity = 'GOVERNMENT_CONTROLLED_ENTITY'
+        government_department_or_agency = 'GOVERNMENT_DEPARTMENT_OR_AGENCY'
+        government_official = 'GOVERNMENT_OFFICIAL'
+        government_owned_media = 'GOVERNMENT_OWNED_MEDIA'
+        grocery_and_drug_and_convenience = 'GROCERY_AND_DRUG_AND_CONVENIENCE'
+        head_of_state = 'HEAD_OF_STATE'
+        health_insurance = 'HEALTH_INSURANCE'
+        health_systems_and_practitioners = 'HEALTH_SYSTEMS_AND_PRACTITIONERS'
+        health_tech = 'HEALTH_TECH'
+        home_and_furniture_and_office = 'HOME_AND_FURNITURE_AND_OFFICE'
+        home_improvement = 'HOME_IMPROVEMENT'
+        home_insurance = 'HOME_INSURANCE'
+        home_tech = 'HOME_TECH'
+        hotel_and_accomodation = 'HOTEL_AND_ACCOMODATION'
+        household_goods_durable = 'HOUSEHOLD_GOODS_DURABLE'
+        household_goods_non_durable = 'HOUSEHOLD_GOODS_NON_DURABLE'
+        hr_and_financial_management = 'HR_AND_FINANCIAL_MANAGEMENT'
+        humanitarian_or_disaster_relief = 'HUMANITARIAN_OR_DISASTER_RELIEF'
+        independent_expenditure_group = 'INDEPENDENT_EXPENDITURE_GROUP'
+        insurance_tech = 'INSURANCE_TECH'
+        international_organizaton = 'INTERNATIONAL_ORGANIZATON'
+        investment_bank_and_brokerage = 'INVESTMENT_BANK_AND_BROKERAGE'
+        issue_advocacy = 'ISSUE_ADVOCACY'
+        legal = 'LEGAL'
+        life_insurance = 'LIFE_INSURANCE'
+        logistics_and_transportation_and_fleet_management = 'LOGISTICS_AND_TRANSPORTATION_AND_FLEET_MANAGEMENT'
+        manufacturing = 'MANUFACTURING'
+        medical_devices_and_supplies_and_equipment = 'MEDICAL_DEVICES_AND_SUPPLIES_AND_EQUIPMENT'
+        medspa_and_elective_surgeries_and_alternative_medicine = 'MEDSPA_AND_ELECTIVE_SURGERIES_AND_ALTERNATIVE_MEDICINE'
+        mining_and_quarrying = 'MINING_AND_QUARRYING'
+        mobile_gaming = 'MOBILE_GAMING'
+        movies = 'MOVIES'
+        museums_and_parks_and_libraries = 'MUSEUMS_AND_PARKS_AND_LIBRARIES'
+        music = 'MUSIC'
+        network_security_products = 'NETWORK_SECURITY_PRODUCTS'
+        news_and_current_events = 'NEWS_AND_CURRENT_EVENTS'
+        non_prescription = 'NON_PRESCRIPTION'
+        not_for_profit_colleges_and_universities = 'NOT_FOR_PROFIT_COLLEGES_AND_UNIVERSITIES'
+        office = 'OFFICE'
+        office_or_business_supplies = 'OFFICE_OR_BUSINESS_SUPPLIES'
+        oil_and_gas_and_consumable_fuel = 'OIL_AND_GAS_AND_CONSUMABLE_FUEL'
+        online_only_publications = 'ONLINE_ONLY_PUBLICATIONS'
+        package_or_freight_delivery = 'PACKAGE_OR_FREIGHT_DELIVERY'
+        party_independent_expenditure_group_us = 'PARTY_INDEPENDENT_EXPENDITURE_GROUP_US'
+        payment_processing_and_gateway_solutions = 'PAYMENT_PROCESSING_AND_GATEWAY_SOLUTIONS'
+        pc_gaming = 'PC_GAMING'
+        people = 'PEOPLE'
+        personal_care = 'PERSONAL_CARE'
+        pet = 'PET'
+        photography_and_filming_services = 'PHOTOGRAPHY_AND_FILMING_SERVICES'
+        pizza = 'PIZZA'
+        planning_agency = 'PLANNING_AGENCY'
+        political_party_or_committee = 'POLITICAL_PARTY_OR_COMMITTEE'
+        prescription = 'PRESCRIPTION'
+        professional_associations = 'PROFESSIONAL_ASSOCIATIONS'
+        property_and_casualty = 'PROPERTY_AND_CASUALTY'
+        quick_service = 'QUICK_SERVICE'
+        radio = 'RADIO'
+        railroads = 'RAILROADS'
+        real_estate = 'REAL_ESTATE'
+        real_money_gaming = 'REAL_MONEY_GAMING'
+        recreational = 'RECREATIONAL'
+        religious = 'RELIGIOUS'
+        reseller = 'RESELLER'
+        residential_and_long_term_care_facilities_and_outpatient_care_centers = 'RESIDENTIAL_AND_LONG_TERM_CARE_FACILITIES_AND_OUTPATIENT_CARE_CENTERS'
+        retail_and_credit_union_and_commercial_bank = 'RETAIL_AND_CREDIT_UNION_AND_COMMERCIAL_BANK'
+        ride_sharing_or_taxi_services = 'RIDE_SHARING_OR_TAXI_SERVICES'
+        safety_services = 'SAFETY_SERVICES'
+        scholarly = 'SCHOLARLY'
+        school_and_early_children_edcation = 'SCHOOL_AND_EARLY_CHILDREN_EDCATION'
+        social_media = 'SOCIAL_MEDIA'
+        software_as_a_service = 'SOFTWARE_AS_A_SERVICE'
+        sporting = 'SPORTING'
+        sporting_and_outdoor = 'SPORTING_AND_OUTDOOR'
+        sports = 'SPORTS'
+        superstores = 'SUPERSTORES'
+        t1_automotive_manufacturer = 'T1_AUTOMOTIVE_MANUFACTURER'
+        t1_motorcycle = 'T1_MOTORCYCLE'
+        t2_dealer_associations = 'T2_DEALER_ASSOCIATIONS'
+        t3_auto_agency = 'T3_AUTO_AGENCY'
+        t3_auto_resellers = 'T3_AUTO_RESELLERS'
+        t3_dealer_groups = 'T3_DEALER_GROUPS'
+        t3_franchise_dealer = 'T3_FRANCHISE_DEALER'
+        t3_independent_dealer = 'T3_INDEPENDENT_DEALER'
+        t3_parts_and_services = 'T3_PARTS_AND_SERVICES'
+        t3_portals = 'T3_PORTALS'
+        telecommunications_equipment_and_accessories = 'TELECOMMUNICATIONS_EQUIPMENT_AND_ACCESSORIES'
+        telephone_service_providers_and_carriers = 'TELEPHONE_SERVICE_PROVIDERS_AND_CARRIERS'
+        ticketing = 'TICKETING'
+        tobacco = 'TOBACCO'
+        tourism_and_travel_services = 'TOURISM_AND_TRAVEL_SERVICES'
+        tourism_board = 'TOURISM_BOARD'
+        toy_and_hobby = 'TOY_AND_HOBBY'
+        trade_school = 'TRADE_SCHOOL'
+        travel_agencies_and_guides_and_otas = 'TRAVEL_AGENCIES_AND_GUIDES_AND_OTAS'
+        utilities_and_energy_equipment_and_services = 'UTILITIES_AND_ENERGY_EQUIPMENT_AND_SERVICES'
+        veterinary_clinics_and_services = 'VETERINARY_CLINICS_AND_SERVICES'
+        video_streaming = 'VIDEO_STREAMING'
+        virtual_services = 'VIRTUAL_SERVICES'
+        vitamins_or_wellness = 'VITAMINS_OR_WELLNESS'
+        warehousing_and_storage = 'WAREHOUSING_AND_STORAGE'
+        water_and_soft_drink_and_baverage = 'WATER_AND_SOFT_DRINK_AND_BAVERAGE'
+        website_designers_or_graphic_designers = 'WEBSITE_DESIGNERS_OR_GRAPHIC_DESIGNERS'
+        wholesale = 'WHOLESALE'
+        wireless_services = 'WIRELESS_SERVICES'
+
+    class VerticalV2:
+        advertising_and_marketing = 'ADVERTISING_AND_MARKETING'
+        agriculture = 'AGRICULTURE'
+        automotive = 'AUTOMOTIVE'
+        banking_and_credit_cards = 'BANKING_AND_CREDIT_CARDS'
+        business_to_business = 'BUSINESS_TO_BUSINESS'
+        consumer_packaged_goods = 'CONSUMER_PACKAGED_GOODS'
+        ecommerce = 'ECOMMERCE'
+        education = 'EDUCATION'
+        energy_and_natural_resources_and_utilities = 'ENERGY_AND_NATURAL_RESOURCES_AND_UTILITIES'
+        entertainment_and_media = 'ENTERTAINMENT_AND_MEDIA'
+        gaming = 'GAMING'
+        government = 'GOVERNMENT'
+        healthcare_and_pharmaceuticals_and_biotech = 'HEALTHCARE_AND_PHARMACEUTICALS_AND_BIOTECH'
+        insurance = 'INSURANCE'
+        non_profit = 'NON_PROFIT'
+        organizations_and_associations = 'ORGANIZATIONS_AND_ASSOCIATIONS'
+        politics = 'POLITICS'
+        professional_services = 'PROFESSIONAL_SERVICES'
+        publishing = 'PUBLISHING'
+        restaurants = 'RESTAURANTS'
+        retail = 'RETAIL'
+        technology = 'TECHNOLOGY'
+        telecom = 'TELECOM'
+        travel = 'TRAVEL'
+
+    class ActionSource:
+        physical_store = 'PHYSICAL_STORE'
+        website = 'WEBSITE'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -400,6 +607,38 @@ class Business(
             self.assure_call()
             return request.execute()
 
+    def create_ad_network_application(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.application import Application
+        param_types = {
+            'name': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/adnetwork_applications',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Application,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Application, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_ad_network_analytics(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -509,6 +748,67 @@ class Business(
             target_class=AdNetworkAnalyticsAsyncQueryResult,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=AdNetworkAnalyticsAsyncQueryResult, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_ads_reporting_mmm_reports(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'filtering': 'list<map>',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/ads_reporting_mmm_reports',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_ads_reporting_mmm_schedulers(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/ads_reporting_mmm_schedulers',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -783,69 +1083,6 @@ class Business(
             self.assure_call()
             return request.execute()
 
-    def get_business_units(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.businessunit import BusinessUnit
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/business_units',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=BusinessUnit,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=BusinessUnit, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_business_unit(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.businessunit import BusinessUnit
-        param_types = {
-            'business_units': 'list<Object>',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/business_units',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=BusinessUnit,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=BusinessUnit, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def get_business_users(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -979,6 +1216,7 @@ class Business(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.adaccount import AdAccount
         param_types = {
+            'search_query': 'string',
         }
         enums = {
         }
@@ -1053,6 +1291,36 @@ class Business(
             target_class=Business,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=Business, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_client_offsite_signal_container_business_objects(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/client_offsite_signal_container_business_objects',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1418,32 +1686,24 @@ class Business(
             self.assure_call()
             return request.execute()
 
-    def get_content_delivery_report(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def get_cpas_business_setup_config(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.contentdeliveryreport import ContentDeliveryReport
+        from facebook_business.adobjects.cpasbusinesssetupconfig import CPASBusinessSetupConfig
         param_types = {
-            'end_date': 'datetime',
-            'page_id': 'unsigned int',
-            'platform': 'platform_enum',
-            'position': 'position_enum',
-            'start_date': 'datetime',
-            'summary': 'bool',
         }
         enums = {
-            'platform_enum': ContentDeliveryReport.Platform.__dict__.values(),
-            'position_enum': ContentDeliveryReport.Position.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
             method='GET',
-            endpoint='/content_delivery_report',
+            endpoint='/cpas_business_setup_config',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=ContentDeliveryReport,
+            target_class=CPASBusinessSetupConfig,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ContentDeliveryReport, api=self._api),
+            response_parser=ObjectParser(target_class=CPASBusinessSetupConfig, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1457,26 +1717,90 @@ class Business(
             self.assure_call()
             return request.execute()
 
-    def create_create_and_apply_publisher_block_list(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def create_cpas_business_setup_config(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.cpasbusinesssetupconfig import CPASBusinessSetupConfig
         param_types = {
-            'is_auto_blocking_on': 'bool',
-            'name': 'string',
-            'publisher_urls': 'list<string>',
+            'accepted_collab_ads_tos': 'bool',
+            'ad_accounts': 'list<string>',
+            'business_capabilities_status': 'map',
+            'capabilities_compliance_status': 'map',
         }
         enums = {
         }
         request = FacebookRequest(
             node_id=self['id'],
             method='POST',
-            endpoint='/create_and_apply_publisher_block_list',
+            endpoint='/cpas_business_setup_config',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=CPASBusinessSetupConfig,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=CPASBusinessSetupConfig, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_cpas_merchant_config(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.cpasmerchantconfig import CPASMerchantConfig
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/cpas_merchant_config',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=CPASMerchantConfig,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=CPASMerchantConfig, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_credit_cards(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.creditcard import CreditCard
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/creditcards',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=CreditCard,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=CreditCard, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1721,40 +2045,6 @@ class Business(
             self.assure_call()
             return request.execute()
 
-    def get_initiated_sharing_agreements(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.businessagreement import BusinessAgreement
-        param_types = {
-            'receiving_business_id': 'string',
-            'request_status': 'request_status_enum',
-        }
-        enums = {
-            'request_status_enum': BusinessAgreement.RequestStatus.__dict__.values(),
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/initiated_sharing_agreements',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=BusinessAgreement,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=BusinessAgreement, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def delete_instagram_accounts(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -1957,6 +2247,38 @@ class Business(
             self.assure_call()
             return request.execute()
 
+    def delete_managed_partner_businesses(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'child_business_external_id': 'string',
+            'child_business_id': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='DELETE',
+            endpoint='/managed_partner_businesses',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def create_managed_partner_business(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -2023,71 +2345,6 @@ class Business(
             target_class=AbstractCrudObject,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_managed_partner_child_business_asset(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'child_business_id': 'string',
-            'credit_limit': 'unsigned int',
-            'line_of_credit_id': 'string',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/managed_partner_child_business_assets',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=Business,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=Business, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_move_asset(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'asset_id': 'string',
-            'client_id': 'string',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/move_asset',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=Business,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=Business, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2204,6 +2461,7 @@ class Business(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.adaccount import AdAccount
         param_types = {
+            'search_query': 'string',
         }
         enums = {
         }
@@ -2459,6 +2717,36 @@ class Business(
             self.assure_call()
             return request.execute()
 
+    def get_owned_offsite_signal_container_business_objects(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/owned_offsite_signal_container_business_objects',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_owned_pages(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -2688,6 +2976,42 @@ class Business(
             self.assure_call()
             return request.execute()
 
+    def create_partner_premium_option(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'catalog_segment_id': 'string',
+            'enable_basket_insight': 'bool',
+            'enable_extended_audience_retargeting': 'bool',
+            'partner_business_id': 'string',
+            'retailer_custom_audience_config': 'map',
+            'vendor_id': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/partner_premium_options',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_pending_client_ad_accounts(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -2843,6 +3167,36 @@ class Business(
             self.assure_call()
             return request.execute()
 
+    def get_pending_shared_offsite_signal_container_business_objects(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/pending_shared_offsite_signal_container_business_objects',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_pending_users(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -2977,57 +3331,30 @@ class Business(
             self.assure_call()
             return request.execute()
 
-    def get_received_sharing_agreements(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.businessagreement import BusinessAgreement
-        param_types = {
-            'request_status': 'request_status_enum',
-            'requesting_business_id': 'string',
-        }
-        enums = {
-            'request_status_enum': BusinessAgreement.RequestStatus.__dict__.values(),
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/received_sharing_agreements',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=BusinessAgreement,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=BusinessAgreement, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def get_spaco_data_set_collections(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def create_setup_managed_partner_ad_account(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'credit_line_id': 'string',
+            'marketplace_business_id': 'string',
+            'subvertical_v2': 'subvertical_v2_enum',
+            'vendor_id': 'string',
+            'vertical_v2': 'vertical_v2_enum',
         }
         enums = {
+            'subvertical_v2_enum': Business.SubverticalV2.__dict__.values(),
+            'vertical_v2_enum': Business.VerticalV2.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
-            method='GET',
-            endpoint='/spaco_dataset_collections',
+            method='POST',
+            endpoint='/setup_managed_partner_adaccounts',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=Business,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=Business, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -3111,7 +3438,6 @@ class Business(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.thirdpartymeasurementreportdataset import ThirdPartyMeasurementReportDataset
         param_types = {
         }
         enums = {
@@ -3122,9 +3448,9 @@ class Business(
             endpoint='/third_party_measurement_report_dataset',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=ThirdPartyMeasurementReportDataset,
+            target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ThirdPartyMeasurementReportDataset, api=self._api),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -3142,6 +3468,7 @@ class Business(
         'block_offline_analytics': 'bool',
         'collaborative_ads_managed_partner_business_info': 'ManagedPartnerBusiness',
         'collaborative_ads_managed_partner_eligibility': 'BusinessManagedPartnerEligibility',
+        'collaborative_ads_partner_premium_options': 'BusinessPartnerPremiumOptions',
         'created_by': 'Object',
         'created_time': 'datetime',
         'extended_updated_time': 'datetime',
@@ -3168,6 +3495,9 @@ class Business(
         field_enum_info['PermittedTasks'] = Business.PermittedTasks.__dict__.values()
         field_enum_info['SurveyBusinessType'] = Business.SurveyBusinessType.__dict__.values()
         field_enum_info['PagePermittedTasks'] = Business.PagePermittedTasks.__dict__.values()
+        field_enum_info['SubverticalV2'] = Business.SubverticalV2.__dict__.values()
+        field_enum_info['VerticalV2'] = Business.VerticalV2.__dict__.values()
+        field_enum_info['ActionSource'] = Business.ActionSource.__dict__.values()
         return field_enum_info
 
 

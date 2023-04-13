@@ -75,6 +75,10 @@ class ProductFeed(
         tab = 'TAB'
         tilde = 'TILDE'
 
+    class IngestionSourceType:
+        primary_feed = 'primary_feed'
+        supplementary_feed = 'supplementary_feed'
+
     class QuotedFieldsMode:
         autodetect = 'AUTODETECT'
         off = 'OFF'
@@ -90,7 +94,6 @@ class ProductFeed(
         utf8 = 'UTF8'
 
     class FeedType:
-        auto = 'AUTO'
         automotive_model = 'AUTOMOTIVE_MODEL'
         destination = 'DESTINATION'
         flight = 'FLIGHT'
@@ -98,17 +101,12 @@ class ProductFeed(
         hotel = 'HOTEL'
         hotel_room = 'HOTEL_ROOM'
         local_inventory = 'LOCAL_INVENTORY'
-        market = 'MARKET'
         media_title = 'MEDIA_TITLE'
         offer = 'OFFER'
         products = 'PRODUCTS'
         transactable_items = 'TRANSACTABLE_ITEMS'
         vehicles = 'VEHICLES'
         vehicle_offer = 'VEHICLE_OFFER'
-
-    class IngestionSourceType:
-        primary_feed = 'PRIMARY_FEED'
-        supplementary_feed = 'SUPPLEMENTARY_FEED'
 
     class ItemSubType:
         appliances = 'APPLIANCES'
@@ -139,6 +137,7 @@ class ProductFeed(
         watches = 'WATCHES'
 
     class OverrideType:
+        batch_api_language_or_country = 'BATCH_API_LANGUAGE_OR_COUNTRY'
         catalog_segment_customize_default = 'CATALOG_SEGMENT_CUSTOMIZE_DEFAULT'
         country = 'COUNTRY'
         language = 'LANGUAGE'
@@ -244,36 +243,6 @@ class ProductFeed(
             target_class=ProductFeed,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def get_auto_markets(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/auto_markets',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -456,6 +425,7 @@ class ProductFeed(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.mediatitle import MediaTitle
         param_types = {
             'bulk_pagination': 'bool',
             'filter': 'Object',
@@ -468,9 +438,9 @@ class ProductFeed(
             endpoint='/media_titles',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=MediaTitle,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=MediaTitle, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -491,9 +461,13 @@ class ProductFeed(
         from facebook_business.adobjects.productitem import ProductItem
         param_types = {
             'bulk_pagination': 'bool',
+            'error_priority': 'error_priority_enum',
+            'error_type': 'error_type_enum',
             'filter': 'Object',
         }
         enums = {
+            'error_priority_enum': ProductItem.ErrorPriority.__dict__.values(),
+            'error_type_enum': ProductItem.ErrorType.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -819,7 +793,7 @@ class ProductFeed(
         'encoding': 'string',
         'file_name': 'string',
         'id': 'string',
-        'ingestion_source_type': 'string',
+        'ingestion_source_type': 'IngestionSourceType',
         'item_sub_type': 'string',
         'latest_upload': 'ProductFeedUpload',
         'migrated_from_feed_id': 'string',
@@ -841,10 +815,10 @@ class ProductFeed(
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['Delimiter'] = ProductFeed.Delimiter.__dict__.values()
+        field_enum_info['IngestionSourceType'] = ProductFeed.IngestionSourceType.__dict__.values()
         field_enum_info['QuotedFieldsMode'] = ProductFeed.QuotedFieldsMode.__dict__.values()
         field_enum_info['Encoding'] = ProductFeed.Encoding.__dict__.values()
         field_enum_info['FeedType'] = ProductFeed.FeedType.__dict__.values()
-        field_enum_info['IngestionSourceType'] = ProductFeed.IngestionSourceType.__dict__.values()
         field_enum_info['ItemSubType'] = ProductFeed.ItemSubType.__dict__.values()
         field_enum_info['OverrideType'] = ProductFeed.OverrideType.__dict__.values()
         return field_enum_info

@@ -49,6 +49,7 @@ class AdRuleExecutionSpec(
         add_interest_relaxation = 'ADD_INTEREST_RELAXATION'
         add_questionnaire_interests = 'ADD_QUESTIONNAIRE_INTERESTS'
         audience_consolidation = 'AUDIENCE_CONSOLIDATION'
+        audience_consolidation_ask_first = 'AUDIENCE_CONSOLIDATION_ASK_FIRST'
         change_bid = 'CHANGE_BID'
         change_budget = 'CHANGE_BUDGET'
         change_campaign_budget = 'CHANGE_CAMPAIGN_BUDGET'

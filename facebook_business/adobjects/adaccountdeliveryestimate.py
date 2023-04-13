@@ -40,7 +40,6 @@ class AdAccountDeliveryEstimate(
     class Field(AbstractObject.Field):
         daily_outcomes_curve = 'daily_outcomes_curve'
         estimate_dau = 'estimate_dau'
-        estimate_mau = 'estimate_mau'
         estimate_mau_lower_bound = 'estimate_mau_lower_bound'
         estimate_mau_upper_bound = 'estimate_mau_upper_bound'
         estimate_ready = 'estimate_ready'
@@ -55,9 +54,12 @@ class AdAccountDeliveryEstimate(
         engaged_users = 'ENGAGED_USERS'
         event_responses = 'EVENT_RESPONSES'
         impressions = 'IMPRESSIONS'
+        in_app_value = 'IN_APP_VALUE'
         landing_page_views = 'LANDING_PAGE_VIEWS'
         lead_generation = 'LEAD_GENERATION'
         link_clicks = 'LINK_CLICKS'
+        messaging_appointment_conversion = 'MESSAGING_APPOINTMENT_CONVERSION'
+        messaging_purchase_conversion = 'MESSAGING_PURCHASE_CONVERSION'
         none = 'NONE'
         offsite_conversions = 'OFFSITE_CONVERSIONS'
         page_likes = 'PAGE_LIKES'
@@ -72,7 +74,6 @@ class AdAccountDeliveryEstimate(
     _field_types = {
         'daily_outcomes_curve': 'list<OutcomePredictionPoint>',
         'estimate_dau': 'int',
-        'estimate_mau': 'int',
         'estimate_mau_lower_bound': 'int',
         'estimate_mau_upper_bound': 'int',
         'estimate_ready': 'bool',

@@ -42,6 +42,7 @@ class UnifiedThread(
 
     class Field(AbstractObject.Field):
         can_reply = 'can_reply'
+        folder = 'folder'
         former_participants = 'former_participants'
         id = 'id'
         is_subscribed = 'is_subscribed'
@@ -128,6 +129,7 @@ class UnifiedThread(
 
     _field_types = {
         'can_reply': 'bool',
+        'folder': 'string',
         'former_participants': 'Object',
         'id': 'string',
         'is_subscribed': 'bool',

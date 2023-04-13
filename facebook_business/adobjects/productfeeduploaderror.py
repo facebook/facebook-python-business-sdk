@@ -58,6 +58,11 @@ class ProductFeedUploadError(
         fatal = 'fatal'
         warning = 'warning'
 
+    class ErrorPriority:
+        high = 'HIGH'
+        low = 'LOW'
+        medium = 'MEDIUM'
+
     # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
@@ -169,6 +174,7 @@ class ProductFeedUploadError(
         field_enum_info = {}
         field_enum_info['AffectedSurfaces'] = ProductFeedUploadError.AffectedSurfaces.__dict__.values()
         field_enum_info['Severity'] = ProductFeedUploadError.Severity.__dict__.values()
+        field_enum_info['ErrorPriority'] = ProductFeedUploadError.ErrorPriority.__dict__.values()
         return field_enum_info
 
 

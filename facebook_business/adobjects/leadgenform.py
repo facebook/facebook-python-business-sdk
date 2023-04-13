@@ -45,6 +45,7 @@ class LeadgenForm(
         block_display_for_non_targeted_viewer = 'block_display_for_non_targeted_viewer'
         context_card = 'context_card'
         created_time = 'created_time'
+        creator = 'creator'
         expired_leads_count = 'expired_leads_count'
         follow_up_action_text = 'follow_up_action_text'
         follow_up_action_url = 'follow_up_action_url'
@@ -75,6 +76,7 @@ class LeadgenForm(
         cs_cz = 'CS_CZ'
         da_dk = 'DA_DK'
         de_de = 'DE_DE'
+        el_gr = 'EL_GR'
         en_gb = 'EN_GB'
         en_us = 'EN_US'
         es_es = 'ES_ES'
@@ -270,6 +272,7 @@ class LeadgenForm(
         'block_display_for_non_targeted_viewer': 'bool',
         'context_card': 'Object',
         'created_time': 'datetime',
+        'creator': 'User',
         'expired_leads_count': 'unsigned int',
         'follow_up_action_text': 'string',
         'follow_up_action_url': 'string',

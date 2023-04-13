@@ -52,17 +52,14 @@ class AdAssetFeedSpec(
         groups = 'groups'
         images = 'images'
         link_urls = 'link_urls'
-        offer_ids = 'offer_ids'
-        onsite_destinations = 'onsite_destinations'
         optimization_type = 'optimization_type'
-        phone_data_ids = 'phone_data_ids'
-        posts = 'posts'
         titles = 'titles'
         videos = 'videos'
 
     class CallToActionTypes:
         add_to_cart = 'ADD_TO_CART'
         apply_now = 'APPLY_NOW'
+        audio_call = 'AUDIO_CALL'
         book_travel = 'BOOK_TRAVEL'
         buy = 'BUY'
         buy_now = 'BUY_NOW'
@@ -86,6 +83,7 @@ class AdAssetFeedSpec(
         get_offer_view = 'GET_OFFER_VIEW'
         get_quote = 'GET_QUOTE'
         get_showtimes = 'GET_SHOWTIMES'
+        get_started = 'GET_STARTED'
         install_app = 'INSTALL_APP'
         install_mobile_app = 'INSTALL_MOBILE_APP'
         learn_more = 'LEARN_MORE'
@@ -96,11 +94,14 @@ class AdAssetFeedSpec(
         mobile_download = 'MOBILE_DOWNLOAD'
         moments = 'MOMENTS'
         no_button = 'NO_BUTTON'
+        open_instant_app = 'OPEN_INSTANT_APP'
         open_link = 'OPEN_LINK'
         order_now = 'ORDER_NOW'
         pay_to_access = 'PAY_TO_ACCESS'
         play_game = 'PLAY_GAME'
+        play_game_on_facebook = 'PLAY_GAME_ON_FACEBOOK'
         purchase_gift_cards = 'PURCHASE_GIFT_CARDS'
+        raise_money = 'RAISE_MONEY'
         record_now = 'RECORD_NOW'
         refer_friends = 'REFER_FRIENDS'
         request_time = 'REQUEST_TIME'
@@ -109,6 +110,7 @@ class AdAssetFeedSpec(
         sell_now = 'SELL_NOW'
         send_a_gift = 'SEND_A_GIFT'
         send_gift_money = 'SEND_GIFT_MONEY'
+        send_updates = 'SEND_UPDATES'
         share = 'SHARE'
         shop_now = 'SHOP_NOW'
         sign_up = 'SIGN_UP'
@@ -143,11 +145,7 @@ class AdAssetFeedSpec(
         'groups': 'list<AdAssetFeedSpecGroupRule>',
         'images': 'list<AdAssetFeedSpecImage>',
         'link_urls': 'list<AdAssetFeedSpecLinkURL>',
-        'offer_ids': 'list<Object>',
-        'onsite_destinations': 'list<Object>',
         'optimization_type': 'string',
-        'phone_data_ids': 'list<Object>',
-        'posts': 'list<Object>',
         'titles': 'list<AdAssetFeedSpecTitle>',
         'videos': 'list<AdAssetFeedSpecVideo>',
     }

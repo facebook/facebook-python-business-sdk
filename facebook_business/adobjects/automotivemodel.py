@@ -69,6 +69,7 @@ class AutomotiveModel(
         trim = 'trim'
         unit_price = 'unit_price'
         url = 'url'
+        visibility = 'visibility'
         year = 'year'
 
     class ImageFetchStatus:
@@ -79,39 +80,9 @@ class AutomotiveModel(
         outdated = 'OUTDATED'
         partial_fetch = 'PARTIAL_FETCH'
 
-    class BodyStyle:
-        convertible = 'CONVERTIBLE'
-        coupe = 'COUPE'
-        crossover = 'CROSSOVER'
-        estate = 'ESTATE'
-        grandtourer = 'GRANDTOURER'
-        hatchback = 'HATCHBACK'
-        minibus = 'MINIBUS'
-        minivan = 'MINIVAN'
-        mpv = 'MPV'
-        none = 'NONE'
-        other = 'OTHER'
-        pickup = 'PICKUP'
-        roadster = 'ROADSTER'
-        saloon = 'SALOON'
-        sedan = 'SEDAN'
-        sportscar = 'SPORTSCAR'
-        supercar = 'SUPERCAR'
-        supermini = 'SUPERMINI'
-        suv = 'SUV'
-        truck = 'TRUCK'
-        van = 'VAN'
-        wagon = 'WAGON'
-
-    # @deprecated get_endpoint function is deprecated
-    @classmethod
-    def get_endpoint(cls):
-        return 'automotive_models'
-
-    # @deprecated api_create is being deprecated
-    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.adobjects.productcatalog import ProductCatalog
-        return ProductCatalog(api=self._api, fbid=parent_id).create_automotive_model(fields, params, batch, success, failure, pending)
+    class Visibility:
+        published = 'PUBLISHED'
+        staging = 'STAGING'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -263,13 +234,14 @@ class AutomotiveModel(
         'trim': 'string',
         'unit_price': 'Object',
         'url': 'string',
-        'year': 'unsigned int',
+        'visibility': 'Visibility',
+        'year': 'int',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['ImageFetchStatus'] = AutomotiveModel.ImageFetchStatus.__dict__.values()
-        field_enum_info['BodyStyle'] = AutomotiveModel.BodyStyle.__dict__.values()
+        field_enum_info['Visibility'] = AutomotiveModel.Visibility.__dict__.values()
         return field_enum_info
 
 

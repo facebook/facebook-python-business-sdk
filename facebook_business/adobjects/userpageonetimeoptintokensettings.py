@@ -32,44 +32,26 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdAccountActivity(
+class UserPageOneTimeOptInTokenSettings(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isAdAccountActivity = True
-        super(AdAccountActivity, self).__init__(fbid, parent_id, api)
+        self._isUserPageOneTimeOptInTokenSettings = True
+        super(UserPageOneTimeOptInTokenSettings, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        created_by = 'created_by'
-        created_time = 'created_time'
-        credit_new = 'credit_new'
-        credit_old = 'credit_old'
-        currency_new = 'currency_new'
-        currency_old = 'currency_old'
-        daily_spend_limit_new = 'daily_spend_limit_new'
-        daily_spend_limit_old = 'daily_spend_limit_old'
-        event_time = 'event_time'
-        event_type = 'event_type'
-        funding_id_new = 'funding_id_new'
-        funding_id_old = 'funding_id_old'
-        grace_period_time_new = 'grace_period_time_new'
-        grace_period_time_old = 'grace_period_time_old'
+        creation_timestamp = 'creation_timestamp'
+        next_eligible_time = 'next_eligible_time'
+        notification_messages_frequency = 'notification_messages_frequency'
+        notification_messages_reoptin = 'notification_messages_reoptin'
+        notification_messages_timezone = 'notification_messages_timezone'
+        notification_messages_token = 'notification_messages_token'
+        recipient_id = 'recipient_id'
+        token_expiry_timestamp = 'token_expiry_timestamp'
+        topic_title = 'topic_title'
+        user_token_status = 'user_token_status'
         id = 'id'
-        manager_id_new = 'manager_id_new'
-        manager_id_old = 'manager_id_old'
-        name_new = 'name_new'
-        name_old = 'name_old'
-        spend_cap_new = 'spend_cap_new'
-        spend_cap_old = 'spend_cap_old'
-        status_new = 'status_new'
-        status_old = 'status_old'
-        terms_new = 'terms_new'
-        terms_old = 'terms_old'
-        tier_new = 'tier_new'
-        tier_old = 'tier_old'
-        time_updated_new = 'time_updated_new'
-        time_updated_old = 'time_updated_old'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -85,7 +67,7 @@ class AdAccountActivity(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AdAccountActivity,
+            target_class=UserPageOneTimeOptInTokenSettings,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -102,35 +84,17 @@ class AdAccountActivity(
             return request.execute()
 
     _field_types = {
-        'created_by': 'Profile',
-        'created_time': 'datetime',
-        'credit_new': 'Object',
-        'credit_old': 'Object',
-        'currency_new': 'string',
-        'currency_old': 'string',
-        'daily_spend_limit_new': 'Object',
-        'daily_spend_limit_old': 'Object',
-        'event_time': 'datetime',
-        'event_type': 'string',
-        'funding_id_new': 'string',
-        'funding_id_old': 'string',
-        'grace_period_time_new': 'int',
-        'grace_period_time_old': 'int',
+        'creation_timestamp': 'int',
+        'next_eligible_time': 'int',
+        'notification_messages_frequency': 'string',
+        'notification_messages_reoptin': 'string',
+        'notification_messages_timezone': 'string',
+        'notification_messages_token': 'string',
+        'recipient_id': 'string',
+        'token_expiry_timestamp': 'int',
+        'topic_title': 'string',
+        'user_token_status': 'string',
         'id': 'string',
-        'manager_id_new': 'Profile',
-        'manager_id_old': 'Profile',
-        'name_new': 'string',
-        'name_old': 'string',
-        'spend_cap_new': 'Object',
-        'spend_cap_old': 'Object',
-        'status_new': 'string',
-        'status_old': 'string',
-        'terms_new': 'int',
-        'terms_old': 'int',
-        'tier_new': 'string',
-        'tier_old': 'string',
-        'time_updated_new': 'datetime',
-        'time_updated_old': 'datetime',
     }
     @classmethod
     def _get_field_enum_info(cls):

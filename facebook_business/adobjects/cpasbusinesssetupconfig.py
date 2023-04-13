@@ -32,18 +32,31 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class NativeOfferView(
+class CPASBusinessSetupConfig(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isNativeOfferView = True
-        super(NativeOfferView, self).__init__(fbid, parent_id, api)
+        self._isCPASBusinessSetupConfig = True
+        super(CPASBusinessSetupConfig, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        accepted_collab_ads_tos = 'accepted_collab_ads_tos'
+        business = 'business'
+        business_capabilities_status = 'business_capabilities_status'
+        capabilities_compliance_status = 'capabilities_compliance_status'
         id = 'id'
-        offer = 'offer'
-        save_count = 'save_count'
+        ad_accounts = 'ad_accounts'
+
+    # @deprecated get_endpoint function is deprecated
+    @classmethod
+    def get_endpoint(cls):
+        return 'cpas_business_setup_config'
+
+    # @deprecated api_create is being deprecated
+    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.adobjects.business import Business
+        return Business(api=self._api, fbid=parent_id).create_cpas_business_setup_config(fields, params, batch, success, failure, pending)
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -59,7 +72,7 @@ class NativeOfferView(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=NativeOfferView,
+            target_class=CPASBusinessSetupConfig,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -75,93 +88,24 @@ class NativeOfferView(
             self.assure_call()
             return request.execute()
 
-    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def get_ad_accounts(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.adaccount import AdAccount
         param_types = {
-            'message': 'string',
-            'published': 'bool',
-            'published_ads': 'bool',
         }
         enums = {
         }
         request = FacebookRequest(
             node_id=self['id'],
-            method='POST',
-            endpoint='/',
+            method='GET',
+            endpoint='/ad_accounts',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=NativeOfferView,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_photo(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'ad_account': 'string',
-            'ad_image_hashes': 'list<string>',
-            'file': 'file',
-            'image_crops': 'list<map>',
-            'photos': 'list<string>',
-            'urls': 'list<string>',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/photos',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=NativeOfferView,
+            target_class=AdAccount,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=NativeOfferView, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_video(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'videos': 'list<string>',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/videos',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=NativeOfferView,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=NativeOfferView, api=self._api),
+            response_parser=ObjectParser(target_class=AdAccount, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -176,9 +120,12 @@ class NativeOfferView(
             return request.execute()
 
     _field_types = {
+        'accepted_collab_ads_tos': 'bool',
+        'business': 'Business',
+        'business_capabilities_status': 'map<string, string>',
+        'capabilities_compliance_status': 'map<string, Object>',
         'id': 'string',
-        'offer': 'NativeOffer',
-        'save_count': 'unsigned int',
+        'ad_accounts': 'list<string>',
     }
     @classmethod
     def _get_field_enum_info(cls):

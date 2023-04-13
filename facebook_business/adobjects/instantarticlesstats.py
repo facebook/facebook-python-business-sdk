@@ -18,21 +18,42 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebook_business.adobjects.campaign import Campaign
-from facebook_business.api import FacebookAdsApi
+from facebook_business.adobjects.abstractobject import AbstractObject
 
-access_token = '<ACCESS_TOKEN>'
-app_secret = '<APP_SECRET>'
-app_id = '<APP_ID>'
-id = '<ACTIVITY_ID>'
-FacebookAdsApi.init(access_token=access_token)
+"""
+This class is auto-generated.
 
-fields = [
-  'time_created',
-]
-params = {
-}
-print Campaign(id).get(
-  fields=fields,
-  params=params,
-)
+For any issues or feature requests related to this class, please let us know on
+github and we'll fix in our codegen framework. We'll not be able to accept
+pull request for this class.
+"""
+
+class InstantArticlesStats(
+    AbstractObject,
+):
+
+    def __init__(self, api=None):
+        super(InstantArticlesStats, self).__init__()
+        self._isInstantArticlesStats = True
+        self._api = api
+
+    class Field(AbstractObject.Field):
+        error = 'error'
+        metadata = 'metadata'
+        metric = 'metric'
+        totals = 'totals'
+        x_axis_breakdown = 'x_axis_breakdown'
+
+    _field_types = {
+        'error': 'string',
+        'metadata': 'map<string, Object>',
+        'metric': 'Object',
+        'totals': 'map<string, Object>',
+        'x_axis_breakdown': 'list<map<string, Object>>',
+    }
+    @classmethod
+    def _get_field_enum_info(cls):
+        field_enum_info = {}
+        return field_enum_info
+
+

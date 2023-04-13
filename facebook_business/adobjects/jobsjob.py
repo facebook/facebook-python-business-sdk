@@ -51,6 +51,13 @@ class JobsJob(
         custom_label_4 = 'custom_label_4'
         custom_label_5 = 'custom_label_5'
         custom_label_6 = 'custom_label_6'
+        custom_number_0 = 'custom_number_0'
+        custom_number_1 = 'custom_number_1'
+        custom_number_2 = 'custom_number_2'
+        custom_number_3 = 'custom_number_3'
+        custom_number_4 = 'custom_number_4'
+        custom_number_5 = 'custom_number_5'
+        custom_number_6 = 'custom_number_6'
         id = 'id'
         image_fetch_status = 'image_fetch_status'
         images = 'images'
@@ -58,6 +65,7 @@ class JobsJob(
         sanitized_images = 'sanitized_images'
         unit_price = 'unit_price'
         url = 'url'
+        visibility = 'visibility'
 
     class ImageFetchStatus:
         direct_upload = 'DIRECT_UPLOAD'
@@ -66,6 +74,10 @@ class JobsJob(
         no_status = 'NO_STATUS'
         outdated = 'OUTDATED'
         partial_fetch = 'PARTIAL_FETCH'
+
+    class Visibility:
+        published = 'PUBLISHED'
+        staging = 'STAGING'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -199,6 +211,13 @@ class JobsJob(
         'custom_label_4': 'string',
         'custom_label_5': 'string',
         'custom_label_6': 'string',
+        'custom_number_0': 'unsigned int',
+        'custom_number_1': 'unsigned int',
+        'custom_number_2': 'unsigned int',
+        'custom_number_3': 'unsigned int',
+        'custom_number_4': 'unsigned int',
+        'custom_number_5': 'unsigned int',
+        'custom_number_6': 'unsigned int',
         'id': 'string',
         'image_fetch_status': 'ImageFetchStatus',
         'images': 'list<string>',
@@ -206,11 +225,13 @@ class JobsJob(
         'sanitized_images': 'list<string>',
         'unit_price': 'Object',
         'url': 'string',
+        'visibility': 'Visibility',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['ImageFetchStatus'] = JobsJob.ImageFetchStatus.__dict__.values()
+        field_enum_info['Visibility'] = JobsJob.Visibility.__dict__.values()
         return field_enum_info
 
 

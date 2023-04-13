@@ -28,26 +28,34 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdgroupRelevanceScore(
+class AdCreativeDegreesOfFreedomSpec(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(AdgroupRelevanceScore, self).__init__()
-        self._isAdgroupRelevanceScore = True
+        super(AdCreativeDegreesOfFreedomSpec, self).__init__()
+        self._isAdCreativeDegreesOfFreedomSpec = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        negative_feedback = 'negative_feedback'
-        positive_feedback = 'positive_feedback'
-        score = 'score'
-        status = 'status'
+        ad_handle_type = 'ad_handle_type'
+        creative_features_spec = 'creative_features_spec'
+        degrees_of_freedom_type = 'degrees_of_freedom_type'
+        image_transformation_types = 'image_transformation_types'
+        multi_media_transformation_type = 'multi_media_transformation_type'
+        stories_transformation_types = 'stories_transformation_types'
+        text_transformation_types = 'text_transformation_types'
+        video_transformation_types = 'video_transformation_types'
 
     _field_types = {
-        'negative_feedback': 'string',
-        'positive_feedback': 'string',
-        'score': 'string',
-        'status': 'string',
+        'ad_handle_type': 'string',
+        'creative_features_spec': 'Object',
+        'degrees_of_freedom_type': 'string',
+        'image_transformation_types': 'list<string>',
+        'multi_media_transformation_type': 'string',
+        'stories_transformation_types': 'list<string>',
+        'text_transformation_types': 'list<string>',
+        'video_transformation_types': 'list<string>',
     }
     @classmethod
     def _get_field_enum_info(cls):

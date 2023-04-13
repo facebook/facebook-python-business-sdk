@@ -46,6 +46,7 @@ class Campaign(
 
     class Field(AbstractObject.Field):
         account_id = 'account_id'
+        ad_strategy_group_id = 'ad_strategy_group_id'
         ad_strategy_id = 'ad_strategy_id'
         adlabels = 'adlabels'
         bid_strategy = 'bid_strategy'
@@ -60,6 +61,7 @@ class Campaign(
         created_time = 'created_time'
         daily_budget = 'daily_budget'
         effective_status = 'effective_status'
+        has_secondary_skadnetwork_reporting = 'has_secondary_skadnetwork_reporting'
         id = 'id'
         is_skadnetwork_attribution = 'is_skadnetwork_attribution'
         issues_info = 'issues_info'
@@ -68,6 +70,7 @@ class Campaign(
         name = 'name'
         objective = 'objective'
         pacing_type = 'pacing_type'
+        primary_attribution = 'primary_attribution'
         promoted_object = 'promoted_object'
         recommendations = 'recommendations'
         smart_promotion_type = 'smart_promotion_type'
@@ -113,6 +116,7 @@ class Campaign(
         paused = 'PAUSED'
 
     class DatePreset:
+        data_maximum = 'data_maximum'
         last_14d = 'last_14d'
         last_28d = 'last_28d'
         last_30d = 'last_30d'
@@ -147,6 +151,12 @@ class Campaign(
         local_awareness = 'LOCAL_AWARENESS'
         messages = 'MESSAGES'
         offer_claims = 'OFFER_CLAIMS'
+        outcome_app_promotion = 'OUTCOME_APP_PROMOTION'
+        outcome_awareness = 'OUTCOME_AWARENESS'
+        outcome_engagement = 'OUTCOME_ENGAGEMENT'
+        outcome_leads = 'OUTCOME_LEADS'
+        outcome_sales = 'OUTCOME_SALES'
+        outcome_traffic = 'OUTCOME_TRAFFIC'
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
         product_catalog_sales = 'PRODUCT_CATALOG_SALES'
@@ -488,6 +498,7 @@ class Campaign(
         }
         enums = {
             'date_preset_enum': [
+                'data_maximum',
                 'last_14d',
                 'last_28d',
                 'last_30d',
@@ -761,45 +772,6 @@ class Campaign(
             self.assure_call()
             return request.execute()
 
-    def get_content_delivery_report(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.contentdeliveryreport import ContentDeliveryReport
-        param_types = {
-            'end_date': 'datetime',
-            'page_id': 'unsigned int',
-            'platform': 'platform_enum',
-            'position': 'position_enum',
-            'start_date': 'datetime',
-            'summary': 'bool',
-        }
-        enums = {
-            'platform_enum': ContentDeliveryReport.Platform.__dict__.values(),
-            'position_enum': ContentDeliveryReport.Position.__dict__.values(),
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/content_delivery_report',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=ContentDeliveryReport,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=ContentDeliveryReport, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def get_copies(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -1001,6 +973,7 @@ class Campaign(
 
     _field_types = {
         'account_id': 'string',
+        'ad_strategy_group_id': 'string',
         'ad_strategy_id': 'string',
         'adlabels': 'list<AdLabel>',
         'bid_strategy': 'BidStrategy',
@@ -1015,6 +988,7 @@ class Campaign(
         'created_time': 'datetime',
         'daily_budget': 'string',
         'effective_status': 'EffectiveStatus',
+        'has_secondary_skadnetwork_reporting': 'bool',
         'id': 'string',
         'is_skadnetwork_attribution': 'bool',
         'issues_info': 'list<AdCampaignIssuesInfo>',
@@ -1023,6 +997,7 @@ class Campaign(
         'name': 'string',
         'objective': 'string',
         'pacing_type': 'list<string>',
+        'primary_attribution': 'string',
         'promoted_object': 'AdPromotedObject',
         'recommendations': 'list<AdRecommendation>',
         'smart_promotion_type': 'string',

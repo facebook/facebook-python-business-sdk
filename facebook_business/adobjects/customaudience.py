@@ -44,7 +44,6 @@ class CustomAudience(
 
     class Field(AbstractObject.Field):
         account_id = 'account_id'
-        approximate_count = 'approximate_count'
         approximate_count_lower_bound = 'approximate_count_lower_bound'
         approximate_count_upper_bound = 'approximate_count_upper_bound'
         customer_file_source = 'customer_file_source'
@@ -67,6 +66,7 @@ class CustomAudience(
         name = 'name'
         operation_status = 'operation_status'
         opt_out_link = 'opt_out_link'
+        owner_business = 'owner_business'
         page_deletion_marked_delete_time = 'page_deletion_marked_delete_time'
         permission_for_actions = 'permission_for_actions'
         pixel_id = 'pixel_id'
@@ -147,6 +147,10 @@ class CustomAudience(
         regulated_categories_audience = 'REGULATED_CATEGORIES_AUDIENCE'
         study_rule_audience = 'STUDY_RULE_AUDIENCE'
         video = 'VIDEO'
+        website = 'WEBSITE'
+
+    class ActionSource:
+        physical_store = 'PHYSICAL_STORE'
         website = 'WEBSITE'
 
     # @deprecated get_endpoint function is deprecated
@@ -569,7 +573,6 @@ class CustomAudience(
 
     _field_types = {
         'account_id': 'string',
-        'approximate_count': 'int',
         'approximate_count_lower_bound': 'int',
         'approximate_count_upper_bound': 'int',
         'customer_file_source': 'string',
@@ -592,6 +595,7 @@ class CustomAudience(
         'name': 'string',
         'operation_status': 'CustomAudienceStatus',
         'opt_out_link': 'string',
+        'owner_business': 'Business',
         'page_deletion_marked_delete_time': 'int',
         'permission_for_actions': 'AudiencePermissionForActions',
         'pixel_id': 'string',
@@ -634,6 +638,7 @@ class CustomAudience(
         field_enum_info['ContentType'] = CustomAudience.ContentType.__dict__.values()
         field_enum_info['CustomerFileSource'] = CustomAudience.CustomerFileSource.__dict__.values()
         field_enum_info['Subtype'] = CustomAudience.Subtype.__dict__.values()
+        field_enum_info['ActionSource'] = CustomAudience.ActionSource.__dict__.values()
         return field_enum_info
 
 

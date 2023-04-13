@@ -1,4 +1,5 @@
-# Copyright 2014 Facebook, Inc.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
 
 # You are hereby granted a non-exclusive, worldwide, royalty-free license to
 # use, copy, modify, and distribute this software in source code or binary
@@ -18,23 +19,22 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebook_business.adobjects.business import Business
-from facebook_business.adobjects.productcatalog import ProductCatalog
+from facebook_business.adobjects.page import Page
 from facebook_business.api import FacebookAdsApi
 
 access_token = '<ACCESS_TOKEN>'
 app_secret = '<APP_SECRET>'
 app_id = '<APP_ID>'
-id = '<BUSINESS_ID>'
+id = '<PAGE_ID>'
 FacebookAdsApi.init(access_token=access_token)
 
 fields = [
 ]
 params = {
-  'name': 'Test Flight Catalog',
-  'vertical': 'flights',
+  'whatsapp_number': '123456789',
+  'verification_code': '12345',
 }
-print Business(id).create_owned_product_catalog(
+print Page(id).create_page_whatsapp_number_verification(
   fields=fields,
   params=params,
 )
