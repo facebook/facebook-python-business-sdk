@@ -54,6 +54,7 @@ class Ad(
         campaign = 'campaign'
         campaign_id = 'campaign_id'
         configured_status = 'configured_status'
+        conversion_domain = 'conversion_domain'
         conversion_specs = 'conversion_specs'
         created_time = 'created_time'
         creative = 'creative'
@@ -118,6 +119,7 @@ class Ad(
         paused = 'PAUSED'
 
     class DatePreset:
+        data_maximum = 'data_maximum'
         last_14d = 'last_14d'
         last_28d = 'last_28d'
         last_30d = 'last_30d'
@@ -129,7 +131,7 @@ class Ad(
         last_week_mon_sun = 'last_week_mon_sun'
         last_week_sun_sat = 'last_week_sun_sat'
         last_year = 'last_year'
-        lifetime = 'lifetime'
+        maximum = 'maximum'
         this_month = 'this_month'
         this_quarter = 'this_quarter'
         this_week_mon_today = 'this_week_mon_today'
@@ -205,6 +207,7 @@ class Ad(
         }
         enums = {
             'date_preset_enum': [
+                'data_maximum',
                 'last_14d',
                 'last_28d',
                 'last_30d',
@@ -216,7 +219,7 @@ class Ad(
                 'last_week_mon_sun',
                 'last_week_sun_sat',
                 'last_year',
-                'lifetime',
+                'maximum',
                 'this_month',
                 'this_quarter',
                 'this_week_mon_today',
@@ -257,6 +260,7 @@ class Ad(
             'adset_spec': 'AdSet',
             'audience_id': 'string',
             'bid_amount': 'int',
+            'conversion_domain': 'string',
             'creative': 'AdCreative',
             'display_sequence': 'unsigned int',
             'draft_adgroup_id': 'string',
@@ -487,6 +491,7 @@ class Ad(
             'time_range': 'Object',
             'time_ranges': 'list<Object>',
             'use_account_attribution_setting': 'bool',
+            'use_unified_attribution_setting': 'bool',
         }
         enums = {
             'action_attribution_windows_enum': AdsInsights.ActionAttributionWindows.__dict__.values(),
@@ -547,6 +552,7 @@ class Ad(
             'time_range': 'Object',
             'time_ranges': 'list<Object>',
             'use_account_attribution_setting': 'bool',
+            'use_unified_attribution_setting': 'bool',
         }
         enums = {
             'action_attribution_windows_enum': AdsInsights.ActionAttributionWindows.__dict__.values(),
@@ -704,6 +710,7 @@ class Ad(
         'campaign': 'Campaign',
         'campaign_id': 'string',
         'configured_status': 'ConfiguredStatus',
+        'conversion_domain': 'string',
         'conversion_specs': 'list<ConversionActionQuery>',
         'created_time': 'datetime',
         'creative': 'AdCreative',

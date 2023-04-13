@@ -39,17 +39,72 @@ class AdAccountAdVolume(
 
     class Field(AbstractObject.Field):
         actor_id = 'actor_id'
+        actor_name = 'actor_name'
+        ad_limit_scope_business = 'ad_limit_scope_business'
+        ad_limit_scope_business_manager_id = 'ad_limit_scope_business_manager_id'
+        ad_limit_set_by_page_admin = 'ad_limit_set_by_page_admin'
         ads_running_or_in_review_count = 'ads_running_or_in_review_count'
+        ads_running_or_in_review_count_subject_to_limit_set_by_page = 'ads_running_or_in_review_count_subject_to_limit_set_by_page'
         current_account_ads_running_or_in_review_count = 'current_account_ads_running_or_in_review_count'
+        future_limit_activation_date = 'future_limit_activation_date'
+        future_limit_on_ads_running_or_in_review = 'future_limit_on_ads_running_or_in_review'
+        limit_on_ads_running_or_in_review = 'limit_on_ads_running_or_in_review'
+        recommendations = 'recommendations'
+
+    class RecommendationType:
+        aco_toggle = 'ACO_TOGGLE'
+        aggregated_bid_limited = 'AGGREGATED_BID_LIMITED'
+        aggregated_budget_limited = 'AGGREGATED_BUDGET_LIMITED'
+        aggregated_cost_limited = 'AGGREGATED_COST_LIMITED'
+        auction_overlap = 'AUCTION_OVERLAP'
+        auction_overlap_consolidation = 'AUCTION_OVERLAP_CONSOLIDATION'
+        audience_expansion = 'AUDIENCE_EXPANSION'
+        autoflow_opt_in = 'AUTOFLOW_OPT_IN'
+        automatic_placements = 'AUTOMATIC_PLACEMENTS'
+        capi = 'CAPI'
+        cost_goal = 'COST_GOAL'
+        cost_goal_budget_limited = 'COST_GOAL_BUDGET_LIMITED'
+        cost_goal_cpa_limited = 'COST_GOAL_CPA_LIMITED'
+        creative_badge = 'CREATIVE_BADGE'
+        creative_fatigue = 'CREATIVE_FATIGUE'
+        creative_limited = 'CREATIVE_LIMITED'
+        dead_link = 'DEAD_LINK'
+        ecosystem_bid_reduce_l1_cardinality = 'ECOSYSTEM_BID_REDUCE_L1_CARDINALITY'
+        fragmentation = 'FRAGMENTATION'
+        learning_limited = 'LEARNING_LIMITED'
+        low_outcome = 'LOW_OUTCOME'
+        mmt_carousel_to_video = 'MMT_CAROUSEL_TO_VIDEO'
+        multi_text = 'MULTI_TEXT'
+        music = 'MUSIC'
+        predictive_creative_limited = 'PREDICTIVE_CREATIVE_LIMITED'
+        revert = 'REVERT'
+        semantic_based_audience_expansion = 'SEMANTIC_BASED_AUDIENCE_EXPANSION'
+        signals_growth_capi = 'SIGNALS_GROWTH_CAPI'
+        syd_test_mode = 'SYD_TEST_MODE'
+        top_adsets_with_ads_under_cap = 'TOP_ADSETS_WITH_ADS_UNDER_CAP'
+        top_campaigns_with_ads_under_cap = 'TOP_CAMPAIGNS_WITH_ADS_UNDER_CAP'
+        uneconomical_ads_throttling = 'UNECONOMICAL_ADS_THROTTLING'
+        unused_budget = 'UNUSED_BUDGET'
+        zero_impression = 'ZERO_IMPRESSION'
 
     _field_types = {
         'actor_id': 'string',
+        'actor_name': 'string',
+        'ad_limit_scope_business': 'Business',
+        'ad_limit_scope_business_manager_id': 'string',
+        'ad_limit_set_by_page_admin': 'unsigned int',
         'ads_running_or_in_review_count': 'unsigned int',
+        'ads_running_or_in_review_count_subject_to_limit_set_by_page': 'unsigned int',
         'current_account_ads_running_or_in_review_count': 'unsigned int',
+        'future_limit_activation_date': 'string',
+        'future_limit_on_ads_running_or_in_review': 'unsigned int',
+        'limit_on_ads_running_or_in_review': 'unsigned int',
+        'recommendations': 'list<Object>',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['RecommendationType'] = AdAccountAdVolume.RecommendationType.__dict__.values()
         return field_enum_info
 
 

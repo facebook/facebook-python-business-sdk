@@ -45,6 +45,12 @@ class DACheck(
         title = 'title'
         user_message = 'user_message'
 
+    class ConnectionMethod:
+        all = 'ALL'
+        app = 'APP'
+        browser = 'BROWSER'
+        server = 'SERVER'
+
     _field_types = {
         'action_uri': 'string',
         'description': 'string',
@@ -56,6 +62,7 @@ class DACheck(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['ConnectionMethod'] = DACheck.ConnectionMethod.__dict__.values()
         return field_enum_info
 
 

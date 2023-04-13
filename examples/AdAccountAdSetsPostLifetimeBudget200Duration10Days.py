@@ -1,4 +1,5 @@
-# Copyright 2014 Facebook, Inc.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
 
 # You are hereby granted a non-exclusive, worldwide, royalty-free license to
 # use, copy, modify, and distribute this software in source code or binary
@@ -33,8 +34,8 @@ fields = [
 params = {
   'name': 'My First Adset',
   'lifetime_budget': '20000',
-  'start_time': '2019-12-05T23:43:17-0800',
-  'end_time': '2019-12-15T23:43:17-0800',
+  'start_time': '2023-03-07T15:27:53-0800',
+  'end_time': '2023-03-17T15:27:53-0700',
   'campaign_id': '<adCampaignLinkClicksID>',
   'bid_amount': '100',
   'billing_event': 'LINK_CLICKS',

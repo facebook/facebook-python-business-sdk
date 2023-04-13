@@ -58,6 +58,7 @@ class AdSet(
         billing_event = 'billing_event'
         budget_remaining = 'budget_remaining'
         campaign = 'campaign'
+        campaign_attribution = 'campaign_attribution'
         campaign_id = 'campaign_id'
         configured_status = 'configured_status'
         created_time = 'created_time'
@@ -68,6 +69,7 @@ class AdSet(
         destination_type = 'destination_type'
         effective_status = 'effective_status'
         end_time = 'end_time'
+        existing_customer_budget_percentage = 'existing_customer_budget_percentage'
         frequency_control_specs = 'frequency_control_specs'
         full_funnel_exploration_mode = 'full_funnel_exploration_mode'
         id = 'id'
@@ -94,6 +96,7 @@ class AdSet(
         start_time = 'start_time'
         status = 'status'
         targeting = 'targeting'
+        targeting_optimization_types = 'targeting_optimization_types'
         time_based_ad_rotation_id_blocks = 'time_based_ad_rotation_id_blocks'
         time_based_ad_rotation_intervals = 'time_based_ad_rotation_intervals'
         updated_time = 'updated_time'
@@ -114,17 +117,18 @@ class AdSet(
         cost_cap = 'COST_CAP'
         lowest_cost_without_cap = 'LOWEST_COST_WITHOUT_CAP'
         lowest_cost_with_bid_cap = 'LOWEST_COST_WITH_BID_CAP'
-        target_cost = 'TARGET_COST'
 
     class BillingEvent:
         app_installs = 'APP_INSTALLS'
         clicks = 'CLICKS'
         impressions = 'IMPRESSIONS'
         link_clicks = 'LINK_CLICKS'
+        listing_interaction = 'LISTING_INTERACTION'
         none = 'NONE'
         offer_claims = 'OFFER_CLAIMS'
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
+        purchase = 'PURCHASE'
         thruplay = 'THRUPLAY'
 
     class ConfiguredStatus:
@@ -144,29 +148,27 @@ class AdSet(
 
     class OptimizationGoal:
         ad_recall_lift = 'AD_RECALL_LIFT'
-        app_downloads = 'APP_DOWNLOADS'
         app_installs = 'APP_INSTALLS'
-        brand_awareness = 'BRAND_AWARENESS'
-        clicks = 'CLICKS'
+        app_installs_and_offsite_conversions = 'APP_INSTALLS_AND_OFFSITE_CONVERSIONS'
+        conversations = 'CONVERSATIONS'
         derived_events = 'DERIVED_EVENTS'
         engaged_users = 'ENGAGED_USERS'
         event_responses = 'EVENT_RESPONSES'
         impressions = 'IMPRESSIONS'
+        in_app_value = 'IN_APP_VALUE'
         landing_page_views = 'LANDING_PAGE_VIEWS'
         lead_generation = 'LEAD_GENERATION'
         link_clicks = 'LINK_CLICKS'
+        messaging_appointment_conversion = 'MESSAGING_APPOINTMENT_CONVERSION'
+        messaging_purchase_conversion = 'MESSAGING_PURCHASE_CONVERSION'
         none = 'NONE'
-        offer_claims = 'OFFER_CLAIMS'
         offsite_conversions = 'OFFSITE_CONVERSIONS'
-        page_engagement = 'PAGE_ENGAGEMENT'
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
+        quality_call = 'QUALITY_CALL'
         quality_lead = 'QUALITY_LEAD'
         reach = 'REACH'
-        replies = 'REPLIES'
-        social_impressions = 'SOCIAL_IMPRESSIONS'
         thruplay = 'THRUPLAY'
-        two_second_continuous_video_views = 'TWO_SECOND_CONTINUOUS_VIDEO_VIEWS'
         value = 'VALUE'
         visit_instagram_profile = 'VISIT_INSTAGRAM_PROFILE'
 
@@ -177,6 +179,7 @@ class AdSet(
         paused = 'PAUSED'
 
     class DatePreset:
+        data_maximum = 'data_maximum'
         last_14d = 'last_14d'
         last_28d = 'last_28d'
         last_30d = 'last_30d'
@@ -188,7 +191,7 @@ class AdSet(
         last_week_mon_sun = 'last_week_mon_sun'
         last_week_sun_sat = 'last_week_sun_sat'
         last_year = 'last_year'
-        lifetime = 'lifetime'
+        maximum = 'maximum'
         this_month = 'this_month'
         this_quarter = 'this_quarter'
         this_week_mon_today = 'this_week_mon_today'
@@ -238,6 +241,7 @@ class AdSet(
         housing = 'HOUSING'
         issues_elections_politics = 'ISSUES_ELECTIONS_POLITICS'
         none = 'NONE'
+        online_gambling_and_gaming = 'ONLINE_GAMBLING_AND_GAMING'
 
     class Operator:
         all = 'ALL'
@@ -300,6 +304,7 @@ class AdSet(
         }
         enums = {
             'date_preset_enum': [
+                'data_maximum',
                 'last_14d',
                 'last_28d',
                 'last_30d',
@@ -311,7 +316,7 @@ class AdSet(
                 'last_week_mon_sun',
                 'last_week_sun_sat',
                 'last_year',
-                'lifetime',
+                'maximum',
                 'this_month',
                 'this_quarter',
                 'this_week_mon_today',
@@ -367,6 +372,7 @@ class AdSet(
             'destination_type': 'destination_type_enum',
             'end_time': 'datetime',
             'execution_options': 'list<execution_options_enum>',
+            'existing_customer_budget_percentage': 'unsigned int',
             'full_funnel_exploration_mode': 'full_funnel_exploration_mode_enum',
             'lifetime_budget': 'unsigned int',
             'lifetime_imps': 'unsigned int',
@@ -692,44 +698,6 @@ class AdSet(
             self.assure_call()
             return request.execute()
 
-    def get_content_delivery_report(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.contentdeliveryreport import ContentDeliveryReport
-        param_types = {
-            'end_date': 'datetime',
-            'platform': 'platform_enum',
-            'position': 'position_enum',
-            'start_date': 'datetime',
-            'summary': 'bool',
-        }
-        enums = {
-            'platform_enum': ContentDeliveryReport.Platform.__dict__.values(),
-            'position_enum': ContentDeliveryReport.Position.__dict__.values(),
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/content_delivery_report',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=ContentDeliveryReport,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=ContentDeliveryReport, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def get_copies(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -867,6 +835,7 @@ class AdSet(
             'time_range': 'Object',
             'time_ranges': 'list<Object>',
             'use_account_attribution_setting': 'bool',
+            'use_unified_attribution_setting': 'bool',
         }
         enums = {
             'action_attribution_windows_enum': AdsInsights.ActionAttributionWindows.__dict__.values(),
@@ -927,6 +896,7 @@ class AdSet(
             'time_range': 'Object',
             'time_ranges': 'list<Object>',
             'use_account_attribution_setting': 'bool',
+            'use_unified_attribution_setting': 'bool',
         }
         enums = {
             'action_attribution_windows_enum': AdsInsights.ActionAttributionWindows.__dict__.values(),
@@ -1009,6 +979,7 @@ class AdSet(
         'billing_event': 'BillingEvent',
         'budget_remaining': 'string',
         'campaign': 'Campaign',
+        'campaign_attribution': 'string',
         'campaign_id': 'string',
         'configured_status': 'ConfiguredStatus',
         'created_time': 'datetime',
@@ -1019,6 +990,7 @@ class AdSet(
         'destination_type': 'string',
         'effective_status': 'EffectiveStatus',
         'end_time': 'datetime',
+        'existing_customer_budget_percentage': 'unsigned int',
         'frequency_control_specs': 'list<AdCampaignFrequencyControlSpecs>',
         'full_funnel_exploration_mode': 'string',
         'id': 'string',
@@ -1045,6 +1017,7 @@ class AdSet(
         'start_time': 'datetime',
         'status': 'Status',
         'targeting': 'Targeting',
+        'targeting_optimization_types': 'map<string, int>',
         'time_based_ad_rotation_id_blocks': 'list<list<int>>',
         'time_based_ad_rotation_intervals': 'list<unsigned int>',
         'updated_time': 'datetime',

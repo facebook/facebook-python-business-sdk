@@ -38,6 +38,7 @@ class AdNetworkAnalyticsSyncQueryResult(
         self._api = api
 
     class Field(AbstractObject.Field):
+        omitted_results = 'omitted_results'
         query_id = 'query_id'
         results = 'results'
 
@@ -61,6 +62,7 @@ class AdNetworkAnalyticsSyncQueryResult(
         gender = 'GENDER'
         instant_article_id = 'INSTANT_ARTICLE_ID'
         instant_article_page_id = 'INSTANT_ARTICLE_PAGE_ID'
+        is_deal_backfill = 'IS_DEAL_BACKFILL'
         placement = 'PLACEMENT'
         placement_name = 'PLACEMENT_NAME'
         platform = 'PLATFORM'
@@ -99,6 +101,7 @@ class AdNetworkAnalyticsSyncQueryResult(
         descending = 'DESCENDING'
 
     _field_types = {
+        'omitted_results': 'list<Object>',
         'query_id': 'string',
         'results': 'list<Object>',
     }

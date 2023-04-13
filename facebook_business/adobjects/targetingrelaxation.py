@@ -38,9 +38,11 @@ class TargetingRelaxation(
         self._api = api
 
     class Field(AbstractObject.Field):
+        custom_audience = 'custom_audience'
         lookalike = 'lookalike'
 
     _field_types = {
+        'custom_audience': 'unsigned int',
         'lookalike': 'unsigned int',
     }
     @classmethod

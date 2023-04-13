@@ -47,9 +47,12 @@ class ProductSet(
         latest_metadata = 'latest_metadata'
         live_metadata = 'live_metadata'
         name = 'name'
+        ordering_info = 'ordering_info'
         product_catalog = 'product_catalog'
         product_count = 'product_count'
+        retailer_id = 'retailer_id'
         metadata = 'metadata'
+        publish_to_shops = 'publish_to_shops'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
@@ -66,6 +69,7 @@ class ProductSet(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'allow_live_product_set_deletion': 'bool',
         }
         enums = {
         }
@@ -129,6 +133,9 @@ class ProductSet(
             'filter': 'Object',
             'metadata': 'map',
             'name': 'string',
+            'ordering_info': 'list<unsigned int>',
+            'publish_to_shops': 'list<map>',
+            'retailer_id': 'string',
         }
         enums = {
         }
@@ -319,6 +326,39 @@ class ProductSet(
             self.assure_call()
             return request.execute()
 
+    def get_media_titles(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.mediatitle import MediaTitle
+        param_types = {
+            'bulk_pagination': 'bool',
+            'filter': 'Object',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/media_titles',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=MediaTitle,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=MediaTitle, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_products(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -326,9 +366,13 @@ class ProductSet(
         from facebook_business.adobjects.productitem import ProductItem
         param_types = {
             'bulk_pagination': 'bool',
+            'error_priority': 'error_priority_enum',
+            'error_type': 'error_type_enum',
             'filter': 'Object',
         }
         enums = {
+            'error_priority_enum': ProductItem.ErrorPriority.__dict__.values(),
+            'error_type_enum': ProductItem.ErrorType.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -425,9 +469,12 @@ class ProductSet(
         'latest_metadata': 'ProductSetMetadata',
         'live_metadata': 'ProductSetMetadata',
         'name': 'string',
+        'ordering_info': 'list<int>',
         'product_catalog': 'ProductCatalog',
         'product_count': 'unsigned int',
+        'retailer_id': 'string',
         'metadata': 'map',
+        'publish_to_shops': 'list<map>',
     }
     @classmethod
     def _get_field_enum_info(cls):

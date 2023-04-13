@@ -44,6 +44,7 @@ class MessengerProfile(
         ice_breakers = 'ice_breakers'
         payment_settings = 'payment_settings'
         persistent_menu = 'persistent_menu'
+        subject_to_new_eu_privacy_rules = 'subject_to_new_eu_privacy_rules'
         target_audience = 'target_audience'
         whitelisted_domains = 'whitelisted_domains'
 
@@ -54,6 +55,7 @@ class MessengerProfile(
         'ice_breakers': 'list<Object>',
         'payment_settings': 'Object',
         'persistent_menu': 'list<Object>',
+        'subject_to_new_eu_privacy_rules': 'bool',
         'target_audience': 'Object',
         'whitelisted_domains': 'list<string>',
     }

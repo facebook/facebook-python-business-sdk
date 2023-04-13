@@ -38,9 +38,11 @@ class AdCreativeInteractiveComponentsSpec(
         self._api = api
 
     class Field(AbstractObject.Field):
+        child_attachments = 'child_attachments'
         components = 'components'
 
     _field_types = {
+        'child_attachments': 'list<Object>',
         'components': 'list<Object>',
     }
     @classmethod

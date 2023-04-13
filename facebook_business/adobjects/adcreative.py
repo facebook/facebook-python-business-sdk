@@ -56,6 +56,8 @@ class AdCreative(
         call_to_action_type = 'call_to_action_type'
         categorization_criteria = 'categorization_criteria'
         category_media_source = 'category_media_source'
+        collaborative_ads_lsb_image_bank_id = 'collaborative_ads_lsb_image_bank_id'
+        degrees_of_freedom_spec = 'degrees_of_freedom_spec'
         destination_set_id = 'destination_set_id'
         dynamic_ad_voice = 'dynamic_ad_voice'
         effective_authorization_category = 'effective_authorization_category'
@@ -71,6 +73,7 @@ class AdCreative(
         instagram_actor_id = 'instagram_actor_id'
         instagram_permalink_url = 'instagram_permalink_url'
         instagram_story_id = 'instagram_story_id'
+        instagram_user_id = 'instagram_user_id'
         interactive_components_spec = 'interactive_components_spec'
         link_deep_link_url = 'link_deep_link_url'
         link_destination_display_url = 'link_destination_display_url'
@@ -84,15 +87,18 @@ class AdCreative(
         object_story_spec = 'object_story_spec'
         object_type = 'object_type'
         object_url = 'object_url'
+        omnichannel_link_spec = 'omnichannel_link_spec'
         place_page_set_id = 'place_page_set_id'
         platform_customizations = 'platform_customizations'
         playable_asset_id = 'playable_asset_id'
         portrait_customizations = 'portrait_customizations'
         product_set_id = 'product_set_id'
         recommender_settings = 'recommender_settings'
+        source_instagram_media_id = 'source_instagram_media_id'
         status = 'status'
         template_url = 'template_url'
         template_url_spec = 'template_url_spec'
+        thumbnail_id = 'thumbnail_id'
         thumbnail_url = 'thumbnail_url'
         title = 'title'
         url_tags = 'url_tags'
@@ -100,23 +106,19 @@ class AdCreative(
         video_id = 'video_id'
         call_to_action = 'call_to_action'
         image_file = 'image_file'
-        instant_checkout_setting = 'instant_checkout_setting'
         is_dco_internal = 'is_dco_internal'
-
-    class ApplinkTreatment:
-        deeplink_with_appstore_fallback = 'deeplink_with_appstore_fallback'
-        deeplink_with_web_fallback = 'deeplink_with_web_fallback'
-        web_only = 'web_only'
 
     class CallToActionType:
         add_to_cart = 'ADD_TO_CART'
         apply_now = 'APPLY_NOW'
+        audio_call = 'AUDIO_CALL'
         book_travel = 'BOOK_TRAVEL'
         buy = 'BUY'
         buy_now = 'BUY_NOW'
         buy_tickets = 'BUY_TICKETS'
         call = 'CALL'
         call_me = 'CALL_ME'
+        call_now = 'CALL_NOW'
         contact = 'CONTACT'
         contact_us = 'CONTACT_US'
         donate = 'DONATE'
@@ -133,6 +135,7 @@ class AdCreative(
         get_offer_view = 'GET_OFFER_VIEW'
         get_quote = 'GET_QUOTE'
         get_showtimes = 'GET_SHOWTIMES'
+        get_started = 'GET_STARTED'
         install_app = 'INSTALL_APP'
         install_mobile_app = 'INSTALL_MOBILE_APP'
         learn_more = 'LEARN_MORE'
@@ -143,26 +146,36 @@ class AdCreative(
         mobile_download = 'MOBILE_DOWNLOAD'
         moments = 'MOMENTS'
         no_button = 'NO_BUTTON'
+        open_instant_app = 'OPEN_INSTANT_APP'
         open_link = 'OPEN_LINK'
         order_now = 'ORDER_NOW'
         pay_to_access = 'PAY_TO_ACCESS'
         play_game = 'PLAY_GAME'
+        play_game_on_facebook = 'PLAY_GAME_ON_FACEBOOK'
         purchase_gift_cards = 'PURCHASE_GIFT_CARDS'
+        raise_money = 'RAISE_MONEY'
         record_now = 'RECORD_NOW'
+        refer_friends = 'REFER_FRIENDS'
         request_time = 'REQUEST_TIME'
         say_thanks = 'SAY_THANKS'
         see_more = 'SEE_MORE'
         sell_now = 'SELL_NOW'
         send_a_gift = 'SEND_A_GIFT'
+        send_gift_money = 'SEND_GIFT_MONEY'
+        send_updates = 'SEND_UPDATES'
         share = 'SHARE'
         shop_now = 'SHOP_NOW'
         sign_up = 'SIGN_UP'
         sotto_subscribe = 'SOTTO_SUBSCRIBE'
+        start_order = 'START_ORDER'
         subscribe = 'SUBSCRIBE'
+        swipe_up_product = 'SWIPE_UP_PRODUCT'
+        swipe_up_shop = 'SWIPE_UP_SHOP'
         update_app = 'UPDATE_APP'
         use_app = 'USE_APP'
         use_mobile_app = 'USE_MOBILE_APP'
         video_annotation = 'VIDEO_ANNOTATION'
+        video_call = 'VIDEO_CALL'
         visit_pages_feed = 'VISIT_PAGES_FEED'
         watch_more = 'WATCH_MORE'
         watch_video = 'WATCH_VIDEO'
@@ -190,6 +203,12 @@ class AdCreative(
         in_process = 'IN_PROCESS'
         with_issues = 'WITH_ISSUES'
 
+    class ApplinkTreatment:
+        automatic = 'automatic'
+        deeplink_with_appstore_fallback = 'deeplink_with_appstore_fallback'
+        deeplink_with_web_fallback = 'deeplink_with_web_fallback'
+        web_only = 'web_only'
+
     class AuthorizationCategory:
         none = 'NONE'
         political = 'POLITICAL'
@@ -208,10 +227,6 @@ class AdCreative(
     class DynamicAdVoice:
         dynamic = 'DYNAMIC'
         story_owner = 'STORY_OWNER'
-
-    class InstantCheckoutSetting:
-        off = 'off'
-        on = 'on'
 
     class Operator:
         all = 'ALL'
@@ -441,7 +456,7 @@ class AdCreative(
         'account_id': 'string',
         'actor_id': 'string',
         'adlabels': 'list<AdLabel>',
-        'applink_treatment': 'ApplinkTreatment',
+        'applink_treatment': 'string',
         'asset_feed_spec': 'AdAssetFeedSpec',
         'authorization_category': 'string',
         'auto_update': 'bool',
@@ -451,6 +466,8 @@ class AdCreative(
         'call_to_action_type': 'CallToActionType',
         'categorization_criteria': 'string',
         'category_media_source': 'string',
+        'collaborative_ads_lsb_image_bank_id': 'string',
+        'degrees_of_freedom_spec': 'AdCreativeDegreesOfFreedomSpec',
         'destination_set_id': 'string',
         'dynamic_ad_voice': 'string',
         'effective_authorization_category': 'string',
@@ -466,6 +483,7 @@ class AdCreative(
         'instagram_actor_id': 'string',
         'instagram_permalink_url': 'string',
         'instagram_story_id': 'string',
+        'instagram_user_id': 'string',
         'interactive_components_spec': 'AdCreativeInteractiveComponentsSpec',
         'link_deep_link_url': 'string',
         'link_destination_display_url': 'string',
@@ -479,15 +497,18 @@ class AdCreative(
         'object_story_spec': 'AdCreativeObjectStorySpec',
         'object_type': 'ObjectType',
         'object_url': 'string',
+        'omnichannel_link_spec': 'AdCreativeOmnichannelLinkSpec',
         'place_page_set_id': 'string',
         'platform_customizations': 'AdCreativePlatformCustomization',
         'playable_asset_id': 'string',
         'portrait_customizations': 'AdCreativePortraitCustomizations',
         'product_set_id': 'string',
         'recommender_settings': 'AdCreativeRecommenderSettings',
+        'source_instagram_media_id': 'string',
         'status': 'Status',
         'template_url': 'string',
         'template_url_spec': 'AdCreativeTemplateURLSpec',
+        'thumbnail_id': 'string',
         'thumbnail_url': 'string',
         'title': 'string',
         'url_tags': 'string',
@@ -495,21 +516,19 @@ class AdCreative(
         'video_id': 'string',
         'call_to_action': 'Object',
         'image_file': 'string',
-        'instant_checkout_setting': 'InstantCheckoutSetting',
         'is_dco_internal': 'bool',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['ApplinkTreatment'] = AdCreative.ApplinkTreatment.__dict__.values()
         field_enum_info['CallToActionType'] = AdCreative.CallToActionType.__dict__.values()
         field_enum_info['ObjectType'] = AdCreative.ObjectType.__dict__.values()
         field_enum_info['Status'] = AdCreative.Status.__dict__.values()
+        field_enum_info['ApplinkTreatment'] = AdCreative.ApplinkTreatment.__dict__.values()
         field_enum_info['AuthorizationCategory'] = AdCreative.AuthorizationCategory.__dict__.values()
         field_enum_info['CategorizationCriteria'] = AdCreative.CategorizationCriteria.__dict__.values()
         field_enum_info['CategoryMediaSource'] = AdCreative.CategoryMediaSource.__dict__.values()
         field_enum_info['DynamicAdVoice'] = AdCreative.DynamicAdVoice.__dict__.values()
-        field_enum_info['InstantCheckoutSetting'] = AdCreative.InstantCheckoutSetting.__dict__.values()
         field_enum_info['Operator'] = AdCreative.Operator.__dict__.values()
         return field_enum_info
 

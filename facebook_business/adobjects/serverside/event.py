@@ -21,6 +21,7 @@
 import pprint
 import six
 
+from facebook_business.adobjects.serverside.action_source import ActionSource
 from facebook_business.adobjects.serverside.custom_data import CustomData
 from facebook_business.adobjects.serverside.user_data import UserData
 
@@ -36,15 +37,17 @@ class Event(object):
         'custom_data': 'CustomData',
         'data_processing_options': 'list[str]',
         'data_processing_options_country': 'int',
-        'data_processing_options_state': 'int'
+        'data_processing_options_state': 'int',
+        'action_source': 'ActionSource',
     }
 
     def __init__(self, event_name = None, event_time = None, event_source_url = None,
                  opt_out = None, event_id = None, user_data = None, custom_data = None,
-                 data_processing_options = None, data_processing_options_country = None, data_processing_options_state = None):
-        # type: (str, int, str, bool, str, UserData, CustomData, list[str], int, int) -> None
+                 data_processing_options = None, data_processing_options_country = None,
+                 data_processing_options_state = None, action_source = None):
+        # type: (str, int, str, bool, str, UserData, CustomData, list[str], int, int, ActionSource) -> None
 
-        """Server-Side Event"""
+        """Conversions API Event"""
         self._event_name = None
         self._event_time = None
         self._event_source_url = None
@@ -55,6 +58,7 @@ class Event(object):
         self._data_processing_options = None
         self._data_processing_options_country = None
         self._data_processing_options_state = None
+        self._action_source = None
         self.event_name = event_name
         self.event_time = event_time
         if event_source_url is not None:
@@ -73,6 +77,8 @@ class Event(object):
             self.data_processing_options_country = data_processing_options_country
         if data_processing_options_state is not None:
             self.data_processing_options_state = data_processing_options_state
+        if action_source is not None:
+            self.action_source = action_source
 
     @property
     def event_name(self):
@@ -321,6 +327,28 @@ class Event(object):
 
         self._data_processing_options_state = data_processing_options_state
 
+    @property
+    def action_source(self):
+        """Gets the action_source.
+
+        Allows you to specify where the conversion occurred.
+
+        :return: The action_source.
+        :rtype: ActionSource
+        """
+        return self._action_source
+
+    @action_source.setter
+    def action_source(self, action_source):
+        """Sets the action_source.
+
+        Allows you to specify where the conversion occurred.
+
+        :param action_source: The action_source.
+        :type: ActionSource
+        """
+
+        self._action_source = action_source
 
     def normalize(self):
         normalized_payload = {'event_name': self.event_name, 'event_time': self.event_time,
@@ -335,8 +363,18 @@ class Event(object):
         if self.custom_data is not None:
             normalized_payload['custom_data'] = self.custom_data.normalize()
 
+        if self.action_source is not None:
+            self.validate_action_source(self.action_source)
+            normalized_payload['action_source'] = self.action_source.value
+
         normalized_payload = {k: v for k, v in normalized_payload.items() if v is not None}
         return normalized_payload
+
+    def validate_action_source(self, action_source):
+        if not type(action_source) == ActionSource:
+            raise TypeError(
+                'action_source must be an ActionSource. TypeError on value: %s' % action_source
+            )
 
     def to_dict(self):
         """Returns the model properties as a dict"""

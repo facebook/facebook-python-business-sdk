@@ -84,8 +84,38 @@ class CustomDataTest(TestCase):
             delivery_category=delivery_category,
         )
 
-        expected_exception_message = 'delivery_category must be of type DeliveryCategory. Passed invalid category: ' + delivery_category;
+        expected_exception_message = 'delivery_category must be of type DeliveryCategory. Passed invalid category: ' + delivery_category
         self.assertTrue(expected_exception_message in str(context.exception))
+
+    def test_validate_value(self):
+        bad_value = 'bad-value'
+
+        with self.assertRaises(TypeError) as context:
+            CustomData(
+                value=bad_value,
+            )
+
+        expected_exception_message = 'CustomData.value must be a float or int. TypeError on value: ' + bad_value
+        self.assertTrue(expected_exception_message in str(context.exception))
+
+    def test_normalize_int_and_float_values_work(self):
+        self.assertEqual(CustomData(value=123).normalize(), {'value': 123})
+        self.assertEqual(CustomData(value=123.45).normalize(), {'value': 123.45})
+
+    def test_validate_predicted_ltv(self):
+        bad_predicted_ltv = 'bad-predicted_ltv'
+
+        with self.assertRaises(TypeError) as context:
+            CustomData(
+                predicted_ltv=bad_predicted_ltv,
+            )
+
+        expected_exception_message = 'CustomData.predicted_ltv must be a float or int. TypeError on predicted_ltv: ' + bad_predicted_ltv
+        self.assertTrue(expected_exception_message in str(context.exception))
+
+    def test_normalize_int_and_float_predicted_ltvs_work(self):
+        self.assertEqual(CustomData(predicted_ltv=123).normalize(), {'predicted_ltv': 123})
+        self.assertEqual(CustomData(predicted_ltv=123.45).normalize(), {'predicted_ltv': 123.45})
 
     # custom data doesn't have mandatory fields, hence normalizing empty custom_data should return empty {}.
     def test_emptyobject_normalize(self):

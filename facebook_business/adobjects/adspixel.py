@@ -44,26 +44,46 @@ class AdsPixel(
         automatic_matching_fields = 'automatic_matching_fields'
         can_proxy = 'can_proxy'
         code = 'code'
+        config = 'config'
         creation_time = 'creation_time'
         creator = 'creator'
         data_use_setting = 'data_use_setting'
+        description = 'description'
+        duplicate_entries = 'duplicate_entries'
+        enable_auto_assign_to_accounts = 'enable_auto_assign_to_accounts'
         enable_automatic_matching = 'enable_automatic_matching'
+        event_stats = 'event_stats'
+        event_time_max = 'event_time_max'
+        event_time_min = 'event_time_min'
         first_party_cookie_status = 'first_party_cookie_status'
         id = 'id'
+        is_consolidated_container = 'is_consolidated_container'
         is_created_by_business = 'is_created_by_business'
+        is_crm = 'is_crm'
+        is_mta_use = 'is_mta_use'
+        is_restricted_use = 'is_restricted_use'
         is_unavailable = 'is_unavailable'
         last_fired_time = 'last_fired_time'
+        last_upload_app = 'last_upload_app'
+        last_upload_app_changed_time = 'last_upload_app_changed_time'
+        match_rate_approx = 'match_rate_approx'
+        matched_entries = 'matched_entries'
         name = 'name'
         owner_ad_account = 'owner_ad_account'
         owner_business = 'owner_business'
+        usage = 'usage'
+        valid_entries = 'valid_entries'
 
     class SortBy:
         last_fired_time = 'LAST_FIRED_TIME'
         name = 'NAME'
 
     class AutomaticMatchingFields:
+        country = 'country'
         ct = 'ct'
+        db = 'db'
         em = 'em'
+        external_id = 'external_id'
         fn = 'fn'
         ge = 'ge'
         ln = 'ln'
@@ -82,8 +102,11 @@ class AdsPixel(
         first_party_cookie_enabled = 'FIRST_PARTY_COOKIE_ENABLED'
 
     class Tasks:
+        aa_analyze = 'AA_ANALYZE'
+        advertise = 'ADVERTISE'
         analyze = 'ANALYZE'
         edit = 'EDIT'
+        upload = 'UPLOAD'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
@@ -151,6 +174,69 @@ class AdsPixel(
             target_class=AdsPixel,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_ad_accounts(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.adaccount import AdAccount
+        param_types = {
+            'business': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/adaccounts',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdAccount,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdAccount, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_agencies(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.business import Business
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/agencies',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Business,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Business, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -236,8 +322,10 @@ class AdsPixel(
         from facebook_business.adobjects.dacheck import DACheck
         param_types = {
             'checks': 'list<string>',
+            'connection_method': 'connection_method_enum',
         }
         enums = {
+            'connection_method_enum': DACheck.ConnectionMethod.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -269,6 +357,7 @@ class AdsPixel(
             'data': 'list<string>',
             'namespace_id': 'string',
             'partner_agent': 'string',
+            'platforms': 'list<map>',
             'test_event_code': 'string',
             'trace': 'unsigned int',
             'upload_id': 'string',
@@ -283,9 +372,107 @@ class AdsPixel(
             endpoint='/events',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AdsPixel,
+            target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdsPixel, api=self._api),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_meapitocapiconsolidationhelper(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/meapitocapiconsolidationhelper',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_offline_event_uploads(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.offlineconversiondatasetupload import OfflineConversionDataSetUpload
+        param_types = {
+            'end_time': 'datetime',
+            'order': 'order_enum',
+            'sort_by': 'sort_by_enum',
+            'start_time': 'datetime',
+            'upload_tag': 'string',
+        }
+        enums = {
+            'order_enum': OfflineConversionDataSetUpload.Order.__dict__.values(),
+            'sort_by_enum': OfflineConversionDataSetUpload.SortBy.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/offline_event_uploads',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=OfflineConversionDataSetUpload,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=OfflineConversionDataSetUpload, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_shadow_traffic_helper(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/shadowtraffichelper',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -463,22 +650,69 @@ class AdsPixel(
             self.assure_call()
             return request.execute()
 
+    def create_telemetry(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/telemetry',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     _field_types = {
         'automatic_matching_fields': 'list<string>',
         'can_proxy': 'bool',
         'code': 'string',
+        'config': 'string',
         'creation_time': 'datetime',
         'creator': 'User',
         'data_use_setting': 'string',
+        'description': 'string',
+        'duplicate_entries': 'int',
+        'enable_auto_assign_to_accounts': 'bool',
         'enable_automatic_matching': 'bool',
+        'event_stats': 'string',
+        'event_time_max': 'int',
+        'event_time_min': 'int',
         'first_party_cookie_status': 'string',
         'id': 'string',
+        'is_consolidated_container': 'bool',
         'is_created_by_business': 'bool',
+        'is_crm': 'bool',
+        'is_mta_use': 'bool',
+        'is_restricted_use': 'bool',
         'is_unavailable': 'bool',
         'last_fired_time': 'datetime',
+        'last_upload_app': 'string',
+        'last_upload_app_changed_time': 'int',
+        'match_rate_approx': 'int',
+        'matched_entries': 'int',
         'name': 'string',
         'owner_ad_account': 'AdAccount',
         'owner_business': 'Business',
+        'usage': 'OfflineConversionDataSetUsage',
+        'valid_entries': 'int',
     }
     @classmethod
     def _get_field_enum_info(cls):

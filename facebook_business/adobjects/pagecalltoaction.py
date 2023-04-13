@@ -68,8 +68,10 @@ class PageCallToAction(
         facebook_app = 'FACEBOOK_APP'
         follow = 'FOLLOW'
         marketplace_inventory_page = 'MARKETPLACE_INVENTORY_PAGE'
+        menu_on_facebook = 'MENU_ON_FACEBOOK'
         messenger = 'MESSENGER'
         mini_shop = 'MINI_SHOP'
+        mobile_center = 'MOBILE_CENTER'
         none = 'NONE'
         phone_call = 'PHONE_CALL'
         shop_on_facebook = 'SHOP_ON_FACEBOOK'
@@ -82,6 +84,7 @@ class PageCallToAction(
         facebook_app = 'FACEBOOK_APP'
         follow = 'FOLLOW'
         marketplace_inventory_page = 'MARKETPLACE_INVENTORY_PAGE'
+        menu_on_facebook = 'MENU_ON_FACEBOOK'
         messenger = 'MESSENGER'
         mini_shop = 'MINI_SHOP'
         none = 'NONE'
@@ -108,6 +111,7 @@ class PageCallToAction(
         listen = 'LISTEN'
         local_dev_platform = 'LOCAL_DEV_PLATFORM'
         message = 'MESSAGE'
+        mobile_center = 'MOBILE_CENTER'
         open_app = 'OPEN_APP'
         order_food = 'ORDER_FOOD'
         play_music = 'PLAY_MUSIC'
@@ -119,6 +123,7 @@ class PageCallToAction(
         shop_on_facebook = 'SHOP_ON_FACEBOOK'
         sign_up = 'SIGN_UP'
         view_inventory = 'VIEW_INVENTORY'
+        view_menu = 'VIEW_MENU'
         view_shop = 'VIEW_SHOP'
         visit_group = 'VISIT_GROUP'
         watch_now = 'WATCH_NOW'
@@ -130,6 +135,7 @@ class PageCallToAction(
         email = 'EMAIL'
         follow = 'FOLLOW'
         messenger = 'MESSENGER'
+        mobile_center = 'MOBILE_CENTER'
         none = 'NONE'
         shop_on_facebook = 'SHOP_ON_FACEBOOK'
         website = 'WEBSITE'
@@ -200,14 +206,12 @@ class PageCallToAction(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'android_app_id': 'int',
-            'android_deeplink': 'string',
             'android_destination_type': 'android_destination_type_enum',
             'android_package_name': 'string',
             'android_url': 'string',
             'email_address': 'string',
             'intl_number_with_plus': 'string',
             'iphone_app_id': 'int',
-            'iphone_deeplink': 'string',
             'iphone_destination_type': 'iphone_destination_type_enum',
             'iphone_url': 'string',
             'type': 'type_enum',

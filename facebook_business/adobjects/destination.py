@@ -43,17 +43,33 @@ class Destination(
     class Field(AbstractObject.Field):
         address = 'address'
         applinks = 'applinks'
+        category_specific_fields = 'category_specific_fields'
         currency = 'currency'
         description = 'description'
         destination_id = 'destination_id'
         id = 'id'
+        image_fetch_status = 'image_fetch_status'
         images = 'images'
         name = 'name'
         price = 'price'
         price_change = 'price_change'
         sanitized_images = 'sanitized_images'
         types = 'types'
+        unit_price = 'unit_price'
         url = 'url'
+        visibility = 'visibility'
+
+    class ImageFetchStatus:
+        direct_upload = 'DIRECT_UPLOAD'
+        fetched = 'FETCHED'
+        fetch_failed = 'FETCH_FAILED'
+        no_status = 'NO_STATUS'
+        outdated = 'OUTDATED'
+        partial_fetch = 'PARTIAL_FETCH'
+
+    class Visibility:
+        published = 'PUBLISHED'
+        staging = 'STAGING'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -85,24 +101,121 @@ class Destination(
             self.assure_call()
             return request.execute()
 
+    def get_augmented_realities_metadata(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/augmented_realities_metadata',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_channels_to_integrity_status(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.catalogitemchannelstointegritystatus import CatalogItemChannelsToIntegrityStatus
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/channels_to_integrity_status',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=CatalogItemChannelsToIntegrityStatus,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=CatalogItemChannelsToIntegrityStatus, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_videos_metadata(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/videos_metadata',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     _field_types = {
         'address': 'string',
         'applinks': 'CatalogItemAppLinks',
+        'category_specific_fields': 'CatalogSubVerticalList',
         'currency': 'string',
         'description': 'string',
         'destination_id': 'string',
         'id': 'string',
+        'image_fetch_status': 'ImageFetchStatus',
         'images': 'list<string>',
         'name': 'string',
         'price': 'string',
         'price_change': 'string',
         'sanitized_images': 'list<string>',
         'types': 'list<string>',
+        'unit_price': 'Object',
         'url': 'string',
+        'visibility': 'Visibility',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['ImageFetchStatus'] = Destination.ImageFetchStatus.__dict__.values()
+        field_enum_info['Visibility'] = Destination.Visibility.__dict__.values()
         return field_enum_info
 
 

@@ -1,4 +1,5 @@
-# Copyright 2014 Facebook, Inc.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
 
 # You are hereby granted a non-exclusive, worldwide, royalty-free license to
 # use, copy, modify, and distribute this software in source code or binary
@@ -19,7 +20,7 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.adaccount import AdAccount
-from facebook_business.adobjects.reachestimate import ReachEstimate
+from facebook_business.adobjects.adaccountreachestimate import AdAccountReachEstimate
 from facebook_business.api import FacebookAdsApi
 
 access_token = '<ACCESS_TOKEN>'

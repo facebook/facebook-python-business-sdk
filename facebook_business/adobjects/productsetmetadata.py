@@ -40,11 +40,13 @@ class ProductSetMetadata(
     class Field(AbstractObject.Field):
         cover_image_url = 'cover_image_url'
         description = 'description'
+        external_url = 'external_url'
         integrity_review_status = 'integrity_review_status'
 
     _field_types = {
         'cover_image_url': 'string',
         'description': 'string',
+        'external_url': 'string',
         'integrity_review_status': 'string',
     }
     @classmethod
