@@ -128,22 +128,27 @@ class HasObjective(object):
     """
 
     class Objective(object):
+        app_installs = 'APP_INSTALLS'
         brand_awareness = 'BRAND_AWARENESS'
-        canvas_app_engagement = 'CANVAS_APP_ENGAGEMENT'
-        canvas_app_installs = 'CANVAS_APP_INSTALLS'
+        conversions = 'CONVERSIONS'
         event_responses = 'EVENT_RESPONSES'
         lead_generation = 'LEAD_GENERATION'
+        link_clicks = 'LINK_CLICKS'
         local_awareness = 'LOCAL_AWARENESS'
-        mobile_app_engagement = 'MOBILE_APP_ENGAGEMENT'
-        mobile_app_installs = 'MOBILE_APP_INSTALLS'
-        none = 'NONE'
+        messages = 'MESSAGES'
         offer_claims = 'OFFER_CLAIMS'
+        outcome_app_promotion = 'OUTCOME_APP_PROMOTION'
+        outcome_awareness = 'OUTCOME_AWARENESS'
+        outcome_engagement = 'OUTCOME_ENGAGEMENT'
+        outcome_leads = 'OUTCOME_LEADS'
+        outcome_sales = 'OUTCOME_SALES'
+        outcome_traffic = 'OUTCOME_TRAFFIC'
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
-        link_clicks = 'LINK_CLICKS'
-        conversions = 'CONVERSIONS'
-        video_views = 'VIDEO_VIEWS'
         product_catalog_sales = 'PRODUCT_CATALOG_SALES'
+        reach = 'REACH'
+        store_visits = 'STORE_VISITS'
+        video_views = 'VIDEO_VIEWS'
 
 # @deprecated HasStatus is being deprecated
 class HasStatus(object):

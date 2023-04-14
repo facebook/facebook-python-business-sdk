@@ -119,6 +119,7 @@ class Targeting(
         relationship_statuses = 'relationship_statuses'
         site_category = 'site_category'
         targeting_optimization = 'targeting_optimization'
+        targeting_relaxation_types = 'targeting_relaxation_types'
         user_adclusters = 'user_adclusters'
         user_device = 'user_device'
         user_event = 'user_event'
@@ -129,12 +130,10 @@ class Targeting(
         zips = 'zips'
 
     class DevicePlatforms:
-        connected_tv = 'connected_tv'
         desktop = 'desktop'
         mobile = 'mobile'
 
     class EffectiveDevicePlatforms:
-        connected_tv = 'connected_tv'
         desktop = 'desktop'
         mobile = 'mobile'
 
@@ -150,7 +149,7 @@ class Targeting(
         'catalog_based_targeting': 'CatalogBasedTargeting',
         'cities': 'list<IDName>',
         'college_years': 'list<unsigned int>',
-        'connections': 'list<IDName>',
+        'connections': 'list<ConnectionsTargeting>',
         'contextual_targeting_categories': 'list<IDName>',
         'countries': 'list<string>',
         'country': 'list<string>',
@@ -172,7 +171,7 @@ class Targeting(
         'ethnic_affinity': 'list<IDName>',
         'exclude_reached_since': 'list<string>',
         'excluded_brand_safety_content_types': 'list<string>',
-        'excluded_connections': 'list<IDName>',
+        'excluded_connections': 'list<ConnectionsTargeting>',
         'excluded_custom_audiences': 'list<RawCustomAudience>',
         'excluded_dynamic_audience_ids': 'list<string>',
         'excluded_engagement_specs': 'list<TargetingDynamicRule>',
@@ -187,7 +186,7 @@ class Targeting(
         'family_statuses': 'list<IDName>',
         'fb_deal_id': 'string',
         'flexible_spec': 'list<FlexibleTargeting>',
-        'friends_of_connections': 'list<IDName>',
+        'friends_of_connections': 'list<ConnectionsTargeting>',
         'genders': 'list<unsigned int>',
         'generation': 'list<IDName>',
         'geo_locations': 'TargetingGeoLocation',
@@ -220,6 +219,7 @@ class Targeting(
         'relationship_statuses': 'list<unsigned int>',
         'site_category': 'list<string>',
         'targeting_optimization': 'string',
+        'targeting_relaxation_types': 'TargetingRelaxation',
         'user_adclusters': 'list<IDName>',
         'user_device': 'list<string>',
         'user_event': 'list<unsigned int>',

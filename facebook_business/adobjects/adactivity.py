@@ -88,6 +88,7 @@ class AdActivity(
         funding_event_initiated = 'funding_event_initiated'
         funding_event_successful = 'funding_event_successful'
         lifetime_budget_spent = 'lifetime_budget_spent'
+        merge_campaigns = 'merge_campaigns'
         receive_audience = 'receive_audience'
         remove_funding_source = 'remove_funding_source'
         remove_shared_audience = 'remove_shared_audience'
@@ -121,7 +122,6 @@ class AdActivity(
         update_campaign_budget = 'update_campaign_budget'
         update_campaign_budget_optimization_toggling_status = 'update_campaign_budget_optimization_toggling_status'
         update_campaign_delivery_type = 'update_campaign_delivery_type'
-        update_campaign_duration = 'update_campaign_duration'
         update_campaign_group_ad_scheduling = 'update_campaign_group_ad_scheduling'
         update_campaign_group_delivery_type = 'update_campaign_group_delivery_type'
         update_campaign_group_spend_cap = 'update_campaign_group_spend_cap'
@@ -146,6 +146,8 @@ class AdActivity(
     class DataSource:
         calypso = 'CALYPSO'
         tao = 'TAO'
+        tao_ad_account = 'TAO_AD_ACCOUNT'
+        tao_ad_status = 'TAO_AD_STATUS'
 
     _field_types = {
         'actor_id': 'string',

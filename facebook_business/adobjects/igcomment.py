@@ -41,10 +41,12 @@ class IGComment(
         super(IGComment, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        field_from = 'from'
         hidden = 'hidden'
         id = 'id'
         like_count = 'like_count'
         media = 'media'
+        parent_id = 'parent_id'
         text = 'text'
         timestamp = 'timestamp'
         user = 'user'
@@ -203,10 +205,12 @@ class IGComment(
             return request.execute()
 
     _field_types = {
+        'from': 'Object',
         'hidden': 'bool',
         'id': 'string',
         'like_count': 'int',
         'media': 'IGMedia',
+        'parent_id': 'string',
         'text': 'string',
         'timestamp': 'datetime',
         'user': 'IGUser',

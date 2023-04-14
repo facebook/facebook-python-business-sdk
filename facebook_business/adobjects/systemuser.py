@@ -53,10 +53,14 @@ class SystemUser(
     class Role:
         admin = 'ADMIN'
         ads_rights_reviewer = 'ADS_RIGHTS_REVIEWER'
+        value_default = 'DEFAULT'
         developer = 'DEVELOPER'
         employee = 'EMPLOYEE'
         finance_analyst = 'FINANCE_ANALYST'
+        finance_edit = 'FINANCE_EDIT'
         finance_editor = 'FINANCE_EDITOR'
+        finance_view = 'FINANCE_VIEW'
+        manage = 'MANAGE'
         partner_center_admin = 'PARTNER_CENTER_ADMIN'
         partner_center_analyst = 'PARTNER_CENTER_ANALYST'
         partner_center_education = 'PARTNER_CENTER_EDUCATION'
@@ -172,6 +176,7 @@ class SystemUser(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.page import Page
         param_types = {
+            'pages': 'list<unsigned int>',
         }
         enums = {
         }

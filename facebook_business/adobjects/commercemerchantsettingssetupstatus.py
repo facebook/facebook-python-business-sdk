@@ -42,6 +42,7 @@ class CommerceMerchantSettingsSetupStatus(
         marketplace_approval_status = 'marketplace_approval_status'
         marketplace_approval_status_details = 'marketplace_approval_status_details'
         payment_setup = 'payment_setup'
+        review_status = 'review_status'
         shop_setup = 'shop_setup'
 
     _field_types = {
@@ -49,6 +50,7 @@ class CommerceMerchantSettingsSetupStatus(
         'marketplace_approval_status': 'string',
         'marketplace_approval_status_details': 'Object',
         'payment_setup': 'string',
+        'review_status': 'Object',
         'shop_setup': 'string',
     }
     @classmethod

@@ -1,4 +1,5 @@
-# Copyright 2014 Facebook, Inc.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
 
 # You are hereby granted a non-exclusive, worldwide, royalty-free license to
 # use, copy, modify, and distribute this software in source code or binary
@@ -18,15 +19,15 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebookads.adobjects.user import User
-from facebookads.adobjects.page import Page
-from facebookads.adobjects.pagepost import PagePost
-from facebookads.adobjects.adaccount import AdAccount
-from facebookads.adobjects.campaign import Campaign
-from facebookads.adobjects.adset import AdSet
-from facebookads.adobjects.adcreative import AdCreative
-from facebookads.adobjects.ad import Ad
-from facebookads.api import FacebookAdsApi
+from facebook_business.adobjects.user import User
+from facebook_business.adobjects.page import Page
+from facebook_business.adobjects.pagepost import PagePost
+from facebook_business.adobjects.adaccount import AdAccount
+from facebook_business.adobjects.campaign import Campaign
+from facebook_business.adobjects.adset import AdSet
+from facebook_business.adobjects.adcreative import AdCreative
+from facebook_business.adobjects.ad import Ad
+from facebook_business.api import FacebookAdsApi
 
 access_token = '<ACCESS_TOKEN>'
 app_secret = '<APP_SECRET>'
@@ -99,6 +100,7 @@ params = {
   'name': 'My campaign',
   'objective': 'LINK_CLICKS',
   'status': 'PAUSED',
+  'special_ad_categories': [],
 }
 adcampaign = AdAccount(adaccount_id).create_campaign(
   fields=fields,
@@ -118,7 +120,7 @@ params = {
   'bid_amount': '2',
   'daily_budget': '1000',
   'campaign_id': adcampaign_id,
-  'targeting': {'geo_locations':{'countries':['US']}},
+  'targeting': {'geo_locations':{'countries':['US']},'facebook_positions':['feed']},
   'status': 'PAUSED',
   'promoted_object': {'page_id':page_id},
 }

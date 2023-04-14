@@ -47,6 +47,8 @@ class ReachFrequencyPrediction(
         activity_status = 'activity_status'
         ad_formats = 'ad_formats'
         auction_entry_option_index = 'auction_entry_option_index'
+        audience_size_lower_bound = 'audience_size_lower_bound'
+        audience_size_upper_bound = 'audience_size_upper_bound'
         business_id = 'business_id'
         buying_type = 'buying_type'
         campaign_group_id = 'campaign_group_id'
@@ -102,6 +104,10 @@ class ReachFrequencyPrediction(
         name = 'name'
         objective = 'objective'
         objective_name = 'objective_name'
+        odax_objective = 'odax_objective'
+        odax_objective_name = 'odax_objective_name'
+        optimization_goal = 'optimization_goal'
+        optimization_goal_name = 'optimization_goal_name'
         pause_periods = 'pause_periods'
         placement_breakdown = 'placement_breakdown'
         placement_breakdown_map = 'placement_breakdown_map'
@@ -114,7 +120,6 @@ class ReachFrequencyPrediction(
         start_time = 'start_time'
         status = 'status'
         story_event_type = 'story_event_type'
-        target_audience_size = 'target_audience_size'
         target_cpm = 'target_cpm'
         target_spec = 'target_spec'
         time_created = 'time_created'
@@ -216,6 +221,8 @@ class ReachFrequencyPrediction(
         'activity_status': 'ReachFrequencyActivity',
         'ad_formats': 'list<ReachFrequencyAdFormat>',
         'auction_entry_option_index': 'int',
+        'audience_size_lower_bound': 'unsigned int',
+        'audience_size_upper_bound': 'unsigned int',
         'business_id': 'int',
         'buying_type': 'string',
         'campaign_group_id': 'int',
@@ -271,6 +278,10 @@ class ReachFrequencyPrediction(
         'name': 'string',
         'objective': 'unsigned int',
         'objective_name': 'string',
+        'odax_objective': 'unsigned int',
+        'odax_objective_name': 'string',
+        'optimization_goal': 'unsigned int',
+        'optimization_goal_name': 'string',
         'pause_periods': 'list<Object>',
         'placement_breakdown': 'ReachFrequencyEstimatesPlacementBreakdown',
         'placement_breakdown_map': 'map<unsigned int, ReachFrequencyEstimatesPlacementBreakdown>',
@@ -283,7 +294,6 @@ class ReachFrequencyPrediction(
         'start_time': 'datetime',
         'status': 'unsigned int',
         'story_event_type': 'unsigned int',
-        'target_audience_size': 'unsigned int',
         'target_cpm': 'unsigned int',
         'target_spec': 'Targeting',
         'time_created': 'datetime',

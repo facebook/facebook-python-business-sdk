@@ -42,6 +42,7 @@ class UnifiedThread(
 
     class Field(AbstractObject.Field):
         can_reply = 'can_reply'
+        folder = 'folder'
         former_participants = 'former_participants'
         id = 'id'
         is_subscribed = 'is_subscribed'
@@ -56,6 +57,10 @@ class UnifiedThread(
         unread_count = 'unread_count'
         updated_time = 'updated_time'
         wallpaper = 'wallpaper'
+
+    class Platform:
+        instagram = 'INSTAGRAM'
+        messenger = 'MESSENGER'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -124,6 +129,7 @@ class UnifiedThread(
 
     _field_types = {
         'can_reply': 'bool',
+        'folder': 'string',
         'former_participants': 'Object',
         'id': 'string',
         'is_subscribed': 'bool',
@@ -142,6 +148,7 @@ class UnifiedThread(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['Platform'] = UnifiedThread.Platform.__dict__.values()
         return field_enum_info
 
 
