@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+### Added
+- `advanced_measurement_table` field to Event for Conversion API
+
 ## v11.0.0
 
 
@@ -121,4 +124,3 @@ All notable changes to this project will be documented in this file.
 ### Deprecated
 - `parent_id` in `AbstractCrudObject`.
 - Function `remote_create`, `remote_read`, `remote_update` and `remote_delete` for `AbstractCrudObject`. Check out our [recommended way](https://github.com/facebook/facebook-python-business-sdk#exploring-the-graph) to make API call with python SDK.
-
