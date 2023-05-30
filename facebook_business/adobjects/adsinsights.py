@@ -45,12 +45,10 @@ class AdsInsights(
         account_name = 'account_name'
         action_values = 'action_values'
         actions = 'actions'
-        ad_bid_value = 'ad_bid_value'
         ad_click_actions = 'ad_click_actions'
         ad_id = 'ad_id'
         ad_impression_actions = 'ad_impression_actions'
         ad_name = 'ad_name'
-        adset_bid_value = 'adset_bid_value'
         adset_end = 'adset_end'
         adset_id = 'adset_id'
         adset_name = 'adset_name'
@@ -97,6 +95,7 @@ class AdsInsights(
         cpm = 'cpm'
         cpp = 'cpp'
         created_time = 'created_time'
+        creative_media_type = 'creative_media_type'
         ctr = 'ctr'
         date_start = 'date_start'
         date_stop = 'date_stop'
@@ -117,6 +116,7 @@ class AdsInsights(
         inline_link_click_ctr = 'inline_link_click_ctr'
         inline_link_clicks = 'inline_link_clicks'
         inline_post_engagement = 'inline_post_engagement'
+        instagram_upcoming_event_reminders_set = 'instagram_upcoming_event_reminders_set'
         instant_experience_clicks_to_open = 'instant_experience_clicks_to_open'
         instant_experience_clicks_to_start = 'instant_experience_clicks_to_start'
         instant_experience_outbound_clicks = 'instant_experience_outbound_clicks'
@@ -140,6 +140,7 @@ class AdsInsights(
         spend = 'spend'
         total_postbacks = 'total_postbacks'
         total_postbacks_detailed = 'total_postbacks_detailed'
+        total_postbacks_detailed_v4 = 'total_postbacks_detailed_v4'
         unique_actions = 'unique_actions'
         unique_clicks = 'unique_clicks'
         unique_conversions = 'unique_conversions'
@@ -207,14 +208,17 @@ class AdsInsights(
         app_id = 'app_id'
         body_asset = 'body_asset'
         call_to_action_asset = 'call_to_action_asset'
+        coarse_conversion_value = 'coarse_conversion_value'
         country = 'country'
         description_asset = 'description_asset'
         device_platform = 'device_platform'
         dma = 'dma'
+        fidelity_type = 'fidelity_type'
         frequency_value = 'frequency_value'
         gender = 'gender'
         hourly_stats_aggregated_by_advertiser_time_zone = 'hourly_stats_aggregated_by_advertiser_time_zone'
         hourly_stats_aggregated_by_audience_time_zone = 'hourly_stats_aggregated_by_audience_time_zone'
+        hsid = 'hsid'
         image_asset = 'image_asset'
         impression_device = 'impression_device'
         is_conversion_id_modeled = 'is_conversion_id_modeled'
@@ -222,8 +226,10 @@ class AdsInsights(
         mmm = 'mmm'
         place_page_id = 'place_page_id'
         platform_position = 'platform_position'
+        postback_sequence_index = 'postback_sequence_index'
         product_id = 'product_id'
         publisher_platform = 'publisher_platform'
+        redownload = 'redownload'
         region = 'region'
         skan_campaign_id = 'skan_campaign_id'
         skan_conversion_id = 'skan_conversion_id'
@@ -281,12 +287,10 @@ class AdsInsights(
         'account_name': 'string',
         'action_values': 'list<AdsActionStats>',
         'actions': 'list<AdsActionStats>',
-        'ad_bid_value': 'string',
         'ad_click_actions': 'list<AdsActionStats>',
         'ad_id': 'string',
         'ad_impression_actions': 'list<AdsActionStats>',
         'ad_name': 'string',
-        'adset_bid_value': 'string',
         'adset_end': 'string',
         'adset_id': 'string',
         'adset_name': 'string',
@@ -333,6 +337,7 @@ class AdsInsights(
         'cpm': 'string',
         'cpp': 'string',
         'created_time': 'string',
+        'creative_media_type': 'string',
         'ctr': 'string',
         'date_start': 'string',
         'date_stop': 'string',
@@ -353,6 +358,7 @@ class AdsInsights(
         'inline_link_click_ctr': 'string',
         'inline_link_clicks': 'string',
         'inline_post_engagement': 'string',
+        'instagram_upcoming_event_reminders_set': 'string',
         'instant_experience_clicks_to_open': 'string',
         'instant_experience_clicks_to_start': 'string',
         'instant_experience_outbound_clicks': 'list<AdsActionStats>',
@@ -376,6 +382,7 @@ class AdsInsights(
         'spend': 'string',
         'total_postbacks': 'string',
         'total_postbacks_detailed': 'list<AdsActionStats>',
+        'total_postbacks_detailed_v4': 'string',
         'unique_actions': 'list<AdsActionStats>',
         'unique_clicks': 'string',
         'unique_conversions': 'list<AdsActionStats>',

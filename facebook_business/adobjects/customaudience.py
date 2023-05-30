@@ -100,6 +100,7 @@ class CustomAudience(
         partner_reference_key = 'partner_reference_key'
         prefill = 'prefill'
         product_set_id = 'product_set_id'
+        use_in_campaigns = 'use_in_campaigns'
         video_group_ids = 'video_group_ids'
 
     class ClaimObjective:
@@ -135,6 +136,7 @@ class CustomAudience(
     class Subtype:
         app = 'APP'
         bag_of_accounts = 'BAG_OF_ACCOUNTS'
+        bidding = 'BIDDING'
         claim = 'CLAIM'
         custom = 'CUSTOM'
         engagement = 'ENGAGEMENT'
@@ -144,6 +146,7 @@ class CustomAudience(
         measurement = 'MEASUREMENT'
         offline_conversion = 'OFFLINE_CONVERSION'
         partner = 'PARTNER'
+        primary = 'PRIMARY'
         regulated_categories_audience = 'REGULATED_CATEGORIES_AUDIENCE'
         study_rule_audience = 'STUDY_RULE_AUDIENCE'
         video = 'VIDEO'
@@ -251,6 +254,7 @@ class CustomAudience(
             'rule': 'string',
             'rule_aggregation': 'string',
             'tags': 'list<string>',
+            'use_in_campaigns': 'bool',
         }
         enums = {
             'claim_objective_enum': CustomAudience.ClaimObjective.__dict__.values(),
@@ -629,6 +633,7 @@ class CustomAudience(
         'partner_reference_key': 'string',
         'prefill': 'bool',
         'product_set_id': 'string',
+        'use_in_campaigns': 'bool',
         'video_group_ids': 'list<string>',
     }
     @classmethod

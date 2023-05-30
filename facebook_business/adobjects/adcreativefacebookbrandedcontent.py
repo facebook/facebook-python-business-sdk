@@ -28,24 +28,24 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdAccountCustomAudience(
+class AdCreativeFacebookBrandedContent(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(AdAccountCustomAudience, self).__init__()
-        self._isAdAccountCustomAudience = True
+        super(AdCreativeFacebookBrandedContent, self).__init__()
+        self._isAdCreativeFacebookBrandedContent = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        audience_type_param_name = 'audience_type_param_name'
-        existing_customer_tag = 'existing_customer_tag'
-        new_customer_tag = 'new_customer_tag'
+        shared_to_sponsor_status = 'shared_to_sponsor_status'
+        sponsor_page_id = 'sponsor_page_id'
+        sponsor_relationship = 'sponsor_relationship'
 
     _field_types = {
-        'audience_type_param_name': 'string',
-        'existing_customer_tag': 'string',
-        'new_customer_tag': 'string',
+        'shared_to_sponsor_status': 'string',
+        'sponsor_page_id': 'string',
+        'sponsor_relationship': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

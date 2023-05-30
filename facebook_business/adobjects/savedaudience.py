@@ -46,7 +46,6 @@ class SavedAudience(
         approximate_count_upper_bound = 'approximate_count_upper_bound'
         delete_time = 'delete_time'
         description = 'description'
-        extra_info = 'extra_info'
         id = 'id'
         name = 'name'
         operation_status = 'operation_status'
@@ -95,7 +94,6 @@ class SavedAudience(
         'approximate_count_upper_bound': 'int',
         'delete_time': 'int',
         'description': 'string',
-        'extra_info': 'string',
         'id': 'string',
         'name': 'string',
         'operation_status': 'CustomAudienceStatus',

@@ -41,6 +41,9 @@ class ReachFrequencyEstimatesPlacementBreakdown(
         android = 'android'
         audience_network = 'audience_network'
         desktop = 'desktop'
+        facebook_search = 'facebook_search'
+        fb_reels = 'fb_reels'
+        fb_reels_overlay = 'fb_reels_overlay'
         ig_android = 'ig_android'
         ig_ios = 'ig_ios'
         ig_other = 'ig_other'
@@ -56,6 +59,9 @@ class ReachFrequencyEstimatesPlacementBreakdown(
         'android': 'list<float>',
         'audience_network': 'list<float>',
         'desktop': 'list<float>',
+        'facebook_search': 'list<float>',
+        'fb_reels': 'list<float>',
+        'fb_reels_overlay': 'list<float>',
         'ig_android': 'list<float>',
         'ig_ios': 'list<float>',
         'ig_other': 'list<float>',

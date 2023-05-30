@@ -41,6 +41,7 @@ class AdPreview(
 
     class Field(AbstractObject.Field):
         body = 'body'
+        transformation_spec = 'transformation_spec'
 
     class AdFormat:
         audience_network_instream_video = 'AUDIENCE_NETWORK_INSTREAM_VIDEO'
@@ -66,9 +67,9 @@ class AdPreview(
         instagram_reels_overlay = 'INSTAGRAM_REELS_OVERLAY'
         instagram_search_chain = 'INSTAGRAM_SEARCH_CHAIN'
         instagram_search_grid = 'INSTAGRAM_SEARCH_GRID'
-        instagram_shop = 'INSTAGRAM_SHOP'
         instagram_standard = 'INSTAGRAM_STANDARD'
         instagram_story = 'INSTAGRAM_STORY'
+        instagram_story_camera_tray = 'INSTAGRAM_STORY_CAMERA_TRAY'
         instagram_story_web = 'INSTAGRAM_STORY_WEB'
         instagram_story_web_m_site = 'INSTAGRAM_STORY_WEB_M_SITE'
         instant_article_recirculation_ad = 'INSTANT_ARTICLE_RECIRCULATION_AD'
@@ -96,6 +97,9 @@ class AdPreview(
         watch_feed_home = 'WATCH_FEED_HOME'
         watch_feed_mobile = 'WATCH_FEED_MOBILE'
 
+    class CreativeFeature:
+        profile_card = 'profile_card'
+
     class RenderType:
         fallback = 'FALLBACK'
 
@@ -106,11 +110,13 @@ class AdPreview(
 
     _field_types = {
         'body': 'string',
+        'transformation_spec': 'Object',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['AdFormat'] = AdPreview.AdFormat.__dict__.values()
+        field_enum_info['CreativeFeature'] = AdPreview.CreativeFeature.__dict__.values()
         field_enum_info['RenderType'] = AdPreview.RenderType.__dict__.values()
         return field_enum_info
 

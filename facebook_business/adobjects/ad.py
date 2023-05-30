@@ -66,6 +66,7 @@ class Ad(
         id = 'id'
         issues_info = 'issues_info'
         last_updated_by_app_id = 'last_updated_by_app_id'
+        meta_reward_adgroup_status = 'meta_reward_adgroup_status'
         name = 'name'
         preview_shareable_link = 'preview_shareable_link'
         priority = 'priority'
@@ -144,6 +145,10 @@ class Ad(
         include_recommendations = 'include_recommendations'
         synchronous_ad_review = 'synchronous_ad_review'
         validate_only = 'validate_only'
+
+    class MetaRewardAdgroupStatus:
+        active = 'ACTIVE'
+        inactive = 'INACTIVE'
 
     class Operator:
         all = 'ALL'
@@ -267,6 +272,7 @@ class Ad(
             'engagement_audience': 'bool',
             'execution_options': 'list<execution_options_enum>',
             'include_demolink_hashes': 'bool',
+            'meta_reward_adgroup_status': 'meta_reward_adgroup_status_enum',
             'name': 'string',
             'priority': 'unsigned int',
             'status': 'status_enum',
@@ -274,6 +280,7 @@ class Ad(
         }
         enums = {
             'execution_options_enum': Ad.ExecutionOptions.__dict__.values(),
+            'meta_reward_adgroup_status_enum': Ad.MetaRewardAdgroupStatus.__dict__.values(),
             'status_enum': Ad.Status.__dict__.values(),
         }
         request = FacebookRequest(
@@ -621,13 +628,14 @@ class Ad(
             self.assure_call()
             return request.execute()
 
-    def get_previews(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def get_pre_views(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.adpreview import AdPreview
         param_types = {
             'ad_format': 'ad_format_enum',
+            'creative_feature': 'creative_feature_enum',
             'dynamic_asset_label': 'string',
             'dynamic_creative_spec': 'Object',
             'dynamic_customization': 'Object',
@@ -643,6 +651,7 @@ class Ad(
         }
         enums = {
             'ad_format_enum': AdPreview.AdFormat.__dict__.values(),
+            'creative_feature_enum': AdPreview.CreativeFeature.__dict__.values(),
             'render_type_enum': AdPreview.RenderType.__dict__.values(),
         }
         request = FacebookRequest(
@@ -722,6 +731,7 @@ class Ad(
         'id': 'string',
         'issues_info': 'list<AdgroupIssuesInfo>',
         'last_updated_by_app_id': 'string',
+        'meta_reward_adgroup_status': 'string',
         'name': 'string',
         'preview_shareable_link': 'string',
         'priority': 'unsigned int',
@@ -750,6 +760,7 @@ class Ad(
         field_enum_info['Status'] = Ad.Status.__dict__.values()
         field_enum_info['DatePreset'] = Ad.DatePreset.__dict__.values()
         field_enum_info['ExecutionOptions'] = Ad.ExecutionOptions.__dict__.values()
+        field_enum_info['MetaRewardAdgroupStatus'] = Ad.MetaRewardAdgroupStatus.__dict__.values()
         field_enum_info['Operator'] = Ad.Operator.__dict__.values()
         field_enum_info['StatusOption'] = Ad.StatusOption.__dict__.values()
         return field_enum_info

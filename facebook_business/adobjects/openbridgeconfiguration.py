@@ -32,24 +32,32 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class InstantArticle(
+class OpenBridgeConfiguration(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isInstantArticle = True
-        super(InstantArticle, self).__init__(fbid, parent_id, api)
+        self._isOpenBridgeConfiguration = True
+        super(OpenBridgeConfiguration, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        canonical_url = 'canonical_url'
-        development_mode = 'development_mode'
-        html_source = 'html_source'
+        access_key = 'access_key'
+        active = 'active'
+        endpoint = 'endpoint'
+        host_business_id = 'host_business_id'
+        host_external_id = 'host_external_id'
         id = 'id'
-        most_recent_import_status = 'most_recent_import_status'
-        photos = 'photos'
-        publish_status = 'publish_status'
-        published = 'published'
-        videos = 'videos'
+        pixel_id = 'pixel_id'
+
+    # @deprecated get_endpoint function is deprecated
+    @classmethod
+    def get_endpoint(cls):
+        return 'openbridge_configurations'
+
+    # @deprecated api_create is being deprecated
+    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.adobjects.business import Business
+        return Business(api=self._api, fbid=parent_id).create_open_bridge_configuration(fields, params, batch, success, failure, pending)
 
     def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -95,7 +103,7 @@ class InstantArticle(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=InstantArticle,
+            target_class=OpenBridgeConfiguration,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -111,34 +119,28 @@ class InstantArticle(
             self.assure_call()
             return request.execute()
 
-    def get_insights(self, fields=None, params=None, is_async=False, batch=None, success=None, failure=None, pending=False):
+    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.instantarticleinsightsqueryresult import InstantArticleInsightsQueryResult
-        if is_async:
-          return self.get_insights_async(fields, params, batch, success, failure, pending)
         param_types = {
-            'breakdown': 'breakdown_enum',
-            'metric': 'list<Object>',
-            'period': 'period_enum',
-            'since': 'datetime',
-            'until': 'datetime',
+            'access_key': 'string',
+            'active': 'bool',
+            'endpoint': 'string',
+            'host_business_id': 'unsigned int',
+            'host_external_id': 'string',
         }
         enums = {
-            'breakdown_enum': InstantArticleInsightsQueryResult.Breakdown.__dict__.values(),
-            'period_enum': InstantArticleInsightsQueryResult.Period.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
-            method='GET',
-            endpoint='/insights',
+            method='POST',
+            endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=InstantArticleInsightsQueryResult,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=InstantArticleInsightsQueryResult, api=self._api),
-            include_summary=False,
+            target_class=OpenBridgeConfiguration,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -153,15 +155,13 @@ class InstantArticle(
             return request.execute()
 
     _field_types = {
-        'canonical_url': 'string',
-        'development_mode': 'bool',
-        'html_source': 'string',
+        'access_key': 'string',
+        'active': 'bool',
+        'endpoint': 'string',
+        'host_business_id': 'string',
+        'host_external_id': 'string',
         'id': 'string',
-        'most_recent_import_status': 'Object',
-        'photos': 'list<Object>',
-        'publish_status': 'string',
-        'published': 'bool',
-        'videos': 'list<Object>',
+        'pixel_id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

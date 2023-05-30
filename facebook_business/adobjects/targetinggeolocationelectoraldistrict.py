@@ -39,12 +39,14 @@ class TargetingGeoLocationElectoralDistrict(
 
     class Field(AbstractObject.Field):
         country = 'country'
+        deprecation_code = 'deprecation_code'
         electoral_district = 'electoral_district'
         key = 'key'
         name = 'name'
 
     _field_types = {
         'country': 'string',
+        'deprecation_code': 'string',
         'electoral_district': 'string',
         'key': 'string',
         'name': 'string',

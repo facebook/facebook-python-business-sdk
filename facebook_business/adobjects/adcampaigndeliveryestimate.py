@@ -67,6 +67,7 @@ class AdCampaignDeliveryEstimate(
         quality_call = 'QUALITY_CALL'
         quality_lead = 'QUALITY_LEAD'
         reach = 'REACH'
+        subscribers = 'SUBSCRIBERS'
         thruplay = 'THRUPLAY'
         value = 'VALUE'
         visit_instagram_profile = 'VISIT_INSTAGRAM_PROFILE'
@@ -77,7 +78,7 @@ class AdCampaignDeliveryEstimate(
         'estimate_mau_lower_bound': 'int',
         'estimate_mau_upper_bound': 'int',
         'estimate_ready': 'bool',
-        'targeting_optimization_types': 'map<string, int>',
+        'targeting_optimization_types': 'list<map<string, int>>',
     }
     @classmethod
     def _get_field_enum_info(cls):

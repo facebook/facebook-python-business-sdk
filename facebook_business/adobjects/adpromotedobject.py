@@ -39,6 +39,7 @@ class AdPromotedObject(
 
     class Field(AbstractObject.Field):
         application_id = 'application_id'
+        conversion_goal_id = 'conversion_goal_id'
         custom_conversion_id = 'custom_conversion_id'
         custom_event_str = 'custom_event_str'
         custom_event_type = 'custom_event_type'
@@ -53,6 +54,7 @@ class AdPromotedObject(
         pixel_aggregation_rule = 'pixel_aggregation_rule'
         pixel_id = 'pixel_id'
         pixel_rule = 'pixel_rule'
+        place_page_set = 'place_page_set'
         place_page_set_id = 'place_page_set_id'
         product_catalog_id = 'product_catalog_id'
         product_item_id = 'product_item_id'
@@ -91,6 +93,7 @@ class AdPromotedObject(
 
     _field_types = {
         'application_id': 'string',
+        'conversion_goal_id': 'string',
         'custom_conversion_id': 'string',
         'custom_event_str': 'string',
         'custom_event_type': 'CustomEventType',
@@ -105,6 +108,7 @@ class AdPromotedObject(
         'pixel_aggregation_rule': 'string',
         'pixel_id': 'string',
         'pixel_rule': 'string',
+        'place_page_set': 'AdPlacePageSet',
         'place_page_set_id': 'string',
         'product_catalog_id': 'string',
         'product_item_id': 'string',

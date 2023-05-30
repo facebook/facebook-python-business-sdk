@@ -32,28 +32,68 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class PagePostExperiment(
+class JobOpening(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isPagePostExperiment = True
-        super(PagePostExperiment, self).__init__(fbid, parent_id, api)
+        self._isJobOpening = True
+        super(JobOpening, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        auto_resolve_settings = 'auto_resolve_settings'
-        creation_time = 'creation_time'
-        creator = 'creator'
-        declared_winning_time = 'declared_winning_time'
+        address = 'address'
+        application_callback_url = 'application_callback_url'
+        created_time = 'created_time'
         description = 'description'
+        errors = 'errors'
+        external_company_facebook_url = 'external_company_facebook_url'
+        external_company_full_address = 'external_company_full_address'
+        external_company_id = 'external_company_id'
+        external_company_name = 'external_company_name'
+        external_id = 'external_id'
         id = 'id'
-        insight_snapshots = 'insight_snapshots'
-        name = 'name'
-        optimization_goal = 'optimization_goal'
-        publish_status = 'publish_status'
-        publish_time = 'publish_time'
-        scheduled_experiment_timestamp = 'scheduled_experiment_timestamp'
-        updated_time = 'updated_time'
+        job_status = 'job_status'
+        latitude = 'latitude'
+        longitude = 'longitude'
+        offsite_application_url = 'offsite_application_url'
+        page = 'page'
+        photo = 'photo'
+        platform_review_status = 'platform_review_status'
+        post = 'post'
+        remote_type = 'remote_type'
+        review_rejection_reasons = 'review_rejection_reasons'
+        title = 'title'
+        type = 'type'
+
+    class JobStatus:
+        closed = 'CLOSED'
+        draft = 'DRAFT'
+        open = 'OPEN'
+        provisional = 'PROVISIONAL'
+
+    class PlatformReviewStatus:
+        approved = 'APPROVED'
+        pending = 'PENDING'
+        rejected = 'REJECTED'
+
+    class ReviewRejectionReasons:
+        adult_content = 'ADULT_CONTENT'
+        discrimination = 'DISCRIMINATION'
+        drugs = 'DRUGS'
+        generic_default = 'GENERIC_DEFAULT'
+        illegal = 'ILLEGAL'
+        impersonation = 'IMPERSONATION'
+        misleading = 'MISLEADING'
+        multilevel_marketing = 'MULTILEVEL_MARKETING'
+        personal_info = 'PERSONAL_INFO'
+        sexual = 'SEXUAL'
+
+    class Type:
+        contract = 'CONTRACT'
+        full_time = 'FULL_TIME'
+        internship = 'INTERNSHIP'
+        part_time = 'PART_TIME'
+        volunteer = 'VOLUNTEER'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -69,7 +109,7 @@ class PagePostExperiment(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=PagePostExperiment,
+            target_class=JobOpening,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -86,23 +126,37 @@ class PagePostExperiment(
             return request.execute()
 
     _field_types = {
-        'auto_resolve_settings': 'Object',
-        'creation_time': 'datetime',
-        'creator': 'User',
-        'declared_winning_time': 'datetime',
+        'address': 'string',
+        'application_callback_url': 'string',
+        'created_time': 'datetime',
         'description': 'string',
+        'errors': 'list<string>',
+        'external_company_facebook_url': 'string',
+        'external_company_full_address': 'string',
+        'external_company_id': 'string',
+        'external_company_name': 'string',
+        'external_id': 'string',
         'id': 'string',
-        'insight_snapshots': 'list<map<datetime, list<map<int, Object>>>>',
-        'name': 'string',
-        'optimization_goal': 'string',
-        'publish_status': 'string',
-        'publish_time': 'datetime',
-        'scheduled_experiment_timestamp': 'datetime',
-        'updated_time': 'datetime',
+        'job_status': 'JobStatus',
+        'latitude': 'float',
+        'longitude': 'float',
+        'offsite_application_url': 'string',
+        'page': 'Page',
+        'photo': 'Photo',
+        'platform_review_status': 'PlatformReviewStatus',
+        'post': 'Post',
+        'remote_type': 'string',
+        'review_rejection_reasons': 'list<ReviewRejectionReasons>',
+        'title': 'string',
+        'type': 'Type',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['JobStatus'] = JobOpening.JobStatus.__dict__.values()
+        field_enum_info['PlatformReviewStatus'] = JobOpening.PlatformReviewStatus.__dict__.values()
+        field_enum_info['ReviewRejectionReasons'] = JobOpening.ReviewRejectionReasons.__dict__.values()
+        field_enum_info['Type'] = JobOpening.Type.__dict__.values()
         return field_enum_info
 
 

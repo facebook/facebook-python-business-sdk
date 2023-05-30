@@ -52,15 +52,6 @@ class ProductFeedSchedule(
         url = 'url'
         username = 'username'
 
-    class DayOfWeek:
-        friday = 'FRIDAY'
-        monday = 'MONDAY'
-        saturday = 'SATURDAY'
-        sunday = 'SUNDAY'
-        thursday = 'THURSDAY'
-        tuesday = 'TUESDAY'
-        wednesday = 'WEDNESDAY'
-
     class Interval:
         daily = 'DAILY'
         hourly = 'HOURLY'
@@ -99,7 +90,7 @@ class ProductFeedSchedule(
 
     _field_types = {
         'day_of_month': 'unsigned int',
-        'day_of_week': 'DayOfWeek',
+        'day_of_week': 'string',
         'hour': 'unsigned int',
         'id': 'string',
         'interval': 'Interval',
@@ -112,7 +103,6 @@ class ProductFeedSchedule(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['DayOfWeek'] = ProductFeedSchedule.DayOfWeek.__dict__.values()
         field_enum_info['Interval'] = ProductFeedSchedule.Interval.__dict__.values()
         return field_enum_info
 

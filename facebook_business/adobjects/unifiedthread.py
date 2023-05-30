@@ -47,6 +47,7 @@ class UnifiedThread(
         id = 'id'
         is_subscribed = 'is_subscribed'
         link = 'link'
+        linked_group = 'linked_group'
         message_count = 'message_count'
         name = 'name'
         participants = 'participants'
@@ -134,6 +135,7 @@ class UnifiedThread(
         'id': 'string',
         'is_subscribed': 'bool',
         'link': 'string',
+        'linked_group': 'Group',
         'message_count': 'int',
         'name': 'string',
         'participants': 'Object',

@@ -51,6 +51,7 @@ class AdCreative(
         authorization_category = 'authorization_category'
         auto_update = 'auto_update'
         body = 'body'
+        branded_content = 'branded_content'
         branded_content_sponsor_page_id = 'branded_content_sponsor_page_id'
         bundle_folder_id = 'bundle_folder_id'
         call_to_action_type = 'call_to_action_type'
@@ -66,11 +67,13 @@ class AdCreative(
         effective_object_story_id = 'effective_object_story_id'
         enable_direct_install = 'enable_direct_install'
         enable_launch_instant_app = 'enable_launch_instant_app'
+        facebook_branded_content = 'facebook_branded_content'
         id = 'id'
         image_crops = 'image_crops'
         image_hash = 'image_hash'
         image_url = 'image_url'
         instagram_actor_id = 'instagram_actor_id'
+        instagram_branded_content = 'instagram_branded_content'
         instagram_permalink_url = 'instagram_permalink_url'
         instagram_story_id = 'instagram_story_id'
         instagram_user_id = 'instagram_user_id'
@@ -133,9 +136,11 @@ class AdCreative(
         get_directions = 'GET_DIRECTIONS'
         get_offer = 'GET_OFFER'
         get_offer_view = 'GET_OFFER_VIEW'
+        get_promotions = 'GET_PROMOTIONS'
         get_quote = 'GET_QUOTE'
         get_showtimes = 'GET_SHOWTIMES'
         get_started = 'GET_STARTED'
+        inquire_now = 'INQUIRE_NOW'
         install_app = 'INSTALL_APP'
         install_mobile_app = 'INSTALL_MOBILE_APP'
         learn_more = 'LEARN_MORE'
@@ -406,13 +411,14 @@ class AdCreative(
             self.assure_call()
             return request.execute()
 
-    def get_previews(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def get_pre_views(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.adpreview import AdPreview
         param_types = {
             'ad_format': 'ad_format_enum',
+            'creative_feature': 'creative_feature_enum',
             'dynamic_asset_label': 'string',
             'dynamic_creative_spec': 'Object',
             'dynamic_customization': 'Object',
@@ -428,6 +434,7 @@ class AdCreative(
         }
         enums = {
             'ad_format_enum': AdPreview.AdFormat.__dict__.values(),
+            'creative_feature_enum': AdPreview.CreativeFeature.__dict__.values(),
             'render_type_enum': AdPreview.RenderType.__dict__.values(),
         }
         request = FacebookRequest(
@@ -461,6 +468,7 @@ class AdCreative(
         'authorization_category': 'string',
         'auto_update': 'bool',
         'body': 'string',
+        'branded_content': 'AdCreativeBrandedContentAds',
         'branded_content_sponsor_page_id': 'string',
         'bundle_folder_id': 'string',
         'call_to_action_type': 'CallToActionType',
@@ -476,11 +484,13 @@ class AdCreative(
         'effective_object_story_id': 'string',
         'enable_direct_install': 'bool',
         'enable_launch_instant_app': 'bool',
+        'facebook_branded_content': 'AdCreativeFacebookBrandedContent',
         'id': 'string',
         'image_crops': 'AdsImageCrops',
         'image_hash': 'string',
         'image_url': 'string',
         'instagram_actor_id': 'string',
+        'instagram_branded_content': 'AdCreativeInstagramBrandedContent',
         'instagram_permalink_url': 'string',
         'instagram_story_id': 'string',
         'instagram_user_id': 'string',

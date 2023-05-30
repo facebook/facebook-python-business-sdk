@@ -46,8 +46,6 @@ class Campaign(
 
     class Field(AbstractObject.Field):
         account_id = 'account_id'
-        ad_strategy_group_id = 'ad_strategy_group_id'
-        ad_strategy_id = 'ad_strategy_id'
         adlabels = 'adlabels'
         bid_strategy = 'bid_strategy'
         boosted_object_id = 'boosted_object_id'
@@ -88,7 +86,6 @@ class Campaign(
         adbatch = 'adbatch'
         execution_options = 'execution_options'
         iterative_split_test_configs = 'iterative_split_test_configs'
-        upstream_events = 'upstream_events'
 
     class BidStrategy:
         cost_cap = 'COST_CAP'
@@ -569,7 +566,6 @@ class Campaign(
             'start_time': 'datetime',
             'status': 'status_enum',
             'stop_time': 'datetime',
-            'upstream_events': 'map',
         }
         enums = {
             'bid_strategy_enum': Campaign.BidStrategy.__dict__.values(),
@@ -973,8 +969,6 @@ class Campaign(
 
     _field_types = {
         'account_id': 'string',
-        'ad_strategy_group_id': 'string',
-        'ad_strategy_id': 'string',
         'adlabels': 'list<AdLabel>',
         'bid_strategy': 'BidStrategy',
         'boosted_object_id': 'string',
@@ -1015,7 +1009,6 @@ class Campaign(
         'adbatch': 'list<Object>',
         'execution_options': 'list<ExecutionOptions>',
         'iterative_split_test_configs': 'list<Object>',
-        'upstream_events': 'map',
     }
     @classmethod
     def _get_field_enum_info(cls):

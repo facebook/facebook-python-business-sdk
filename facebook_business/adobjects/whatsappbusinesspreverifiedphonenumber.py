@@ -32,54 +32,27 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class JobsJob(
+class WhatsAppBusinessPreVerifiedPhoneNumber(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isJobsJob = True
-        super(JobsJob, self).__init__(fbid, parent_id, api)
+        self._isWhatsAppBusinessPreVerifiedPhoneNumber = True
+        super(WhatsAppBusinessPreVerifiedPhoneNumber, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        address = 'address'
-        applinks = 'applinks'
-        category_specific_fields = 'category_specific_fields'
-        custom_label_0 = 'custom_label_0'
-        custom_label_1 = 'custom_label_1'
-        custom_label_2 = 'custom_label_2'
-        custom_label_3 = 'custom_label_3'
-        custom_label_4 = 'custom_label_4'
-        custom_label_5 = 'custom_label_5'
-        custom_label_6 = 'custom_label_6'
-        custom_number_0 = 'custom_number_0'
-        custom_number_1 = 'custom_number_1'
-        custom_number_2 = 'custom_number_2'
-        custom_number_3 = 'custom_number_3'
-        custom_number_4 = 'custom_number_4'
-        custom_number_5 = 'custom_number_5'
-        custom_number_6 = 'custom_number_6'
+        code_verification_status = 'code_verification_status'
+        code_verification_time = 'code_verification_time'
         id = 'id'
-        image_fetch_status = 'image_fetch_status'
-        images = 'images'
-        jobs_job_id = 'jobs_job_id'
-        sanitized_images = 'sanitized_images'
-        unit_price = 'unit_price'
-        url = 'url'
-        visibility = 'visibility'
+        phone_number = 'phone_number'
+        verification_expiry_time = 'verification_expiry_time'
 
-    class ImageFetchStatus:
-        direct_upload = 'DIRECT_UPLOAD'
-        fetched = 'FETCHED'
-        fetch_failed = 'FETCH_FAILED'
-        no_status = 'NO_STATUS'
-        outdated = 'OUTDATED'
-        partial_fetch = 'PARTIAL_FETCH'
+    class CodeVerificationStatus:
+        expired = 'EXPIRED'
+        not_verified = 'NOT_VERIFIED'
+        verified = 'VERIFIED'
 
-    class Visibility:
-        published = 'PUBLISHED'
-        staging = 'STAGING'
-
-    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
@@ -89,11 +62,11 @@ class JobsJob(
         }
         request = FacebookRequest(
             node_id=self['id'],
-            method='GET',
+            method='DELETE',
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=JobsJob,
+            target_class=AbstractCrudObject,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -109,7 +82,7 @@ class JobsJob(
             self.assure_call()
             return request.execute()
 
-    def get_augmented_realities_metadata(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
@@ -120,7 +93,43 @@ class JobsJob(
         request = FacebookRequest(
             node_id=self['id'],
             method='GET',
-            endpoint='/augmented_realities_metadata',
+            endpoint='/',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=WhatsAppBusinessPreVerifiedPhoneNumber,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_request_code(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'code_method': 'code_method_enum',
+            'language': 'Object',
+        }
+        enums = {
+            'code_method_enum': [
+                'SMS',
+                'VOICE',
+            ],
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/request_code',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
@@ -139,49 +148,19 @@ class JobsJob(
             self.assure_call()
             return request.execute()
 
-    def get_channels_to_integrity_status(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def create_verify_code(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.catalogitemchannelstointegritystatus import CatalogItemChannelsToIntegrityStatus
         param_types = {
+            'code': 'string',
         }
         enums = {
         }
         request = FacebookRequest(
             node_id=self['id'],
-            method='GET',
-            endpoint='/channels_to_integrity_status',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=CatalogItemChannelsToIntegrityStatus,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=CatalogItemChannelsToIntegrityStatus, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def get_videos_metadata(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/videos_metadata',
+            method='POST',
+            endpoint='/verify_code',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
@@ -201,37 +180,16 @@ class JobsJob(
             return request.execute()
 
     _field_types = {
-        'address': 'Object',
-        'applinks': 'CatalogItemAppLinks',
-        'category_specific_fields': 'CatalogSubVerticalList',
-        'custom_label_0': 'string',
-        'custom_label_1': 'string',
-        'custom_label_2': 'string',
-        'custom_label_3': 'string',
-        'custom_label_4': 'string',
-        'custom_label_5': 'string',
-        'custom_label_6': 'string',
-        'custom_number_0': 'unsigned int',
-        'custom_number_1': 'unsigned int',
-        'custom_number_2': 'unsigned int',
-        'custom_number_3': 'unsigned int',
-        'custom_number_4': 'unsigned int',
-        'custom_number_5': 'unsigned int',
-        'custom_number_6': 'unsigned int',
+        'code_verification_status': 'string',
+        'code_verification_time': 'datetime',
         'id': 'string',
-        'image_fetch_status': 'ImageFetchStatus',
-        'images': 'list<string>',
-        'jobs_job_id': 'string',
-        'sanitized_images': 'list<string>',
-        'unit_price': 'Object',
-        'url': 'string',
-        'visibility': 'Visibility',
+        'phone_number': 'string',
+        'verification_expiry_time': 'datetime',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['ImageFetchStatus'] = JobsJob.ImageFetchStatus.__dict__.values()
-        field_enum_info['Visibility'] = JobsJob.Visibility.__dict__.values()
+        field_enum_info['CodeVerificationStatus'] = WhatsAppBusinessPreVerifiedPhoneNumber.CodeVerificationStatus.__dict__.values()
         return field_enum_info
 
 

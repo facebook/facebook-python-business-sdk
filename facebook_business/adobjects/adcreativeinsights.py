@@ -41,7 +41,7 @@ class AdCreativeInsights(
         aesthetics = 'aesthetics'
 
     _field_types = {
-        'aesthetics': 'map<string, string>',
+        'aesthetics': 'list<map<string, string>>',
     }
     @classmethod
     def _get_field_enum_info(cls):

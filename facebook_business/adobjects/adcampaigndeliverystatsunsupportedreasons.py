@@ -42,7 +42,7 @@ class AdCampaignDeliveryStatsUnsupportedReasons(
         reason_type = 'reason_type'
 
     _field_types = {
-        'reason_data': 'map<string, string>',
+        'reason_data': 'list<map<string, string>>',
         'reason_type': 'string',
     }
     @classmethod

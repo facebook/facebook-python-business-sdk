@@ -520,6 +520,7 @@ class ProductCatalog(
             'allow_upsert': 'bool',
             'fbe_external_business_id': 'string',
             'requests': 'list<map>',
+            'version': 'unsigned int',
         }
         enums = {
         }
@@ -1303,6 +1304,7 @@ class ProductCatalog(
             'item_sub_type': 'item_sub_type_enum',
             'item_type': 'string',
             'requests': 'map',
+            'version': 'unsigned int',
         }
         enums = {
             'item_sub_type_enum': ProductCatalog.ItemSubType.__dict__.values(),
@@ -1337,6 +1339,7 @@ class ProductCatalog(
             'allow_upsert': 'bool',
             'item_type': 'string',
             'requests': 'map',
+            'version': 'unsigned int',
         }
         enums = {
         }
@@ -1349,84 +1352,6 @@ class ProductCatalog(
             target_class=ProductCatalog,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=ProductCatalog, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def get_media_titles(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.mediatitle import MediaTitle
-        param_types = {
-            'bulk_pagination': 'bool',
-            'filter': 'Object',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/media_titles',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=MediaTitle,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=MediaTitle, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_media_title(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.mediatitle import MediaTitle
-        param_types = {
-            'applinks': 'Object',
-            'content_category': 'content_category_enum',
-            'currency': 'string',
-            'description': 'string',
-            'fb_page_id': 'string',
-            'genres': 'list<string>',
-            'images': 'list<Object>',
-            'kg_fb_id': 'string',
-            'media_title_id': 'string',
-            'price': 'unsigned int',
-            'title': 'string',
-            'title_display_name': 'string',
-            'url': 'string',
-        }
-        enums = {
-            'content_category_enum': MediaTitle.ContentCategory.__dict__.values(),
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/media_titles',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=MediaTitle,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=MediaTitle, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

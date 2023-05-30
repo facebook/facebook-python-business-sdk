@@ -46,6 +46,7 @@ class VehicleOffer(
         amount_price = 'amount_price'
         amount_qualifier = 'amount_qualifier'
         applinks = 'applinks'
+        availability = 'availability'
         body_style = 'body_style'
         cashback_currency = 'cashback_currency'
         cashback_price = 'cashback_price'
@@ -55,11 +56,17 @@ class VehicleOffer(
         downpayment_currency = 'downpayment_currency'
         downpayment_price = 'downpayment_price'
         downpayment_qualifier = 'downpayment_qualifier'
+        drivetrain = 'drivetrain'
         end_date = 'end_date'
         end_time = 'end_time'
+        exterior_color = 'exterior_color'
+        fuel_type = 'fuel_type'
+        generation = 'generation'
         id = 'id'
         image_fetch_status = 'image_fetch_status'
         images = 'images'
+        interior_color = 'interior_color'
+        interior_upholstery = 'interior_upholstery'
         make = 'make'
         model = 'model'
         offer_description = 'offer_description'
@@ -72,6 +79,7 @@ class VehicleOffer(
         term_length = 'term_length'
         term_qualifier = 'term_qualifier'
         title = 'title'
+        transmission = 'transmission'
         trim = 'trim'
         unit_price = 'unit_price'
         url = 'url'
@@ -218,6 +226,7 @@ class VehicleOffer(
         'amount_price': 'string',
         'amount_qualifier': 'string',
         'applinks': 'CatalogItemAppLinks',
+        'availability': 'string',
         'body_style': 'string',
         'cashback_currency': 'string',
         'cashback_price': 'string',
@@ -227,11 +236,17 @@ class VehicleOffer(
         'downpayment_currency': 'string',
         'downpayment_price': 'string',
         'downpayment_qualifier': 'string',
+        'drivetrain': 'string',
         'end_date': 'string',
         'end_time': 'int',
+        'exterior_color': 'string',
+        'fuel_type': 'string',
+        'generation': 'string',
         'id': 'string',
         'image_fetch_status': 'ImageFetchStatus',
         'images': 'list<string>',
+        'interior_color': 'string',
+        'interior_upholstery': 'string',
         'make': 'string',
         'model': 'string',
         'offer_description': 'string',
@@ -244,6 +259,7 @@ class VehicleOffer(
         'term_length': 'unsigned int',
         'term_qualifier': 'string',
         'title': 'string',
+        'transmission': 'string',
         'trim': 'string',
         'unit_price': 'Object',
         'url': 'string',

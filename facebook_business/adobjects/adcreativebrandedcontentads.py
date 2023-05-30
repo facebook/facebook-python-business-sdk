@@ -28,51 +28,32 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class InstantArticleInsightsQueryResult(
+class AdCreativeBrandedContentAds(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(InstantArticleInsightsQueryResult, self).__init__()
-        self._isInstantArticleInsightsQueryResult = True
+        super(AdCreativeBrandedContentAds, self).__init__()
+        self._isAdCreativeBrandedContentAds = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        breakdowns = 'breakdowns'
-        name = 'name'
-        time = 'time'
-        value = 'value'
-
-    class Breakdown:
-        age = 'age'
-        country = 'country'
-        gender = 'gender'
-        gender_and_age = 'gender_and_age'
-        is_organic = 'is_organic'
-        is_shared_by_ia_owner = 'is_shared_by_ia_owner'
-        no_breakdown = 'no_breakdown'
-        platform = 'platform'
-        region = 'region'
-
-    class Period:
-        day = 'day'
-        days_28 = 'days_28'
-        lifetime = 'lifetime'
-        month = 'month'
-        total_over_range = 'total_over_range'
-        week = 'week'
+        ad_format = 'ad_format'
+        creator_ad_permission_type = 'creator_ad_permission_type'
+        instagram_boost_post_access_token = 'instagram_boost_post_access_token'
+        partners = 'partners'
+        ui_version = 'ui_version'
 
     _field_types = {
-        'breakdowns': 'map<string, string>',
-        'name': 'string',
-        'time': 'datetime',
-        'value': 'string',
+        'ad_format': 'int',
+        'creator_ad_permission_type': 'string',
+        'instagram_boost_post_access_token': 'string',
+        'partners': 'list<Object>',
+        'ui_version': 'int',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['Breakdown'] = InstantArticleInsightsQueryResult.Breakdown.__dict__.values()
-        field_enum_info['Period'] = InstantArticleInsightsQueryResult.Period.__dict__.values()
         return field_enum_info
 
 

@@ -32,17 +32,36 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class CommerceMerchantTOSAcceptance(
+class BrandRequest(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isCommerceMerchantTOSAcceptance = True
-        super(CommerceMerchantTOSAcceptance, self).__init__(fbid, parent_id, api)
+        self._isBrandRequest = True
+        super(BrandRequest, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        business = 'business'
+        ad_countries = 'ad_countries'
+        additional_contacts = 'additional_contacts'
+        approval_level = 'approval_level'
+        cells = 'cells'
+        countries = 'countries'
+        deny_reason = 'deny_reason'
+        end_time = 'end_time'
+        estimated_reach = 'estimated_reach'
         id = 'id'
+        is_multicell = 'is_multicell'
+        locale = 'locale'
+        max_age = 'max_age'
+        min_age = 'min_age'
+        questions = 'questions'
+        region = 'region'
+        request_status = 'request_status'
+        review_date = 'review_date'
+        start_time = 'start_time'
+        status = 'status'
+        submit_date = 'submit_date'
+        total_budget = 'total_budget'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -58,7 +77,7 @@ class CommerceMerchantTOSAcceptance(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=CommerceMerchantTOSAcceptance,
+            target_class=BrandRequest,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -75,8 +94,27 @@ class CommerceMerchantTOSAcceptance(
             return request.execute()
 
     _field_types = {
-        'business': 'Business',
+        'ad_countries': 'list<string>',
+        'additional_contacts': 'list<string>',
+        'approval_level': 'unsigned int',
+        'cells': 'list<Object>',
+        'countries': 'list<string>',
+        'deny_reason': 'string',
+        'end_time': 'datetime',
+        'estimated_reach': 'unsigned int',
         'id': 'string',
+        'is_multicell': 'bool',
+        'locale': 'string',
+        'max_age': 'unsigned int',
+        'min_age': 'unsigned int',
+        'questions': 'list<Object>',
+        'region': 'string',
+        'request_status': 'string',
+        'review_date': 'datetime',
+        'start_time': 'datetime',
+        'status': 'string',
+        'submit_date': 'datetime',
+        'total_budget': 'unsigned int',
     }
     @classmethod
     def _get_field_enum_info(cls):

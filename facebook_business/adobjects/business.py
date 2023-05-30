@@ -607,6 +607,37 @@ class Business(
             self.assure_call()
             return request.execute()
 
+    def create_add_phone_number(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'phone_number': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/add_phone_numbers',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Business,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Business, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def create_ad_network_application(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -2455,6 +2486,74 @@ class Business(
             self.assure_call()
             return request.execute()
 
+    def get_open_bridge_configurations(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.openbridgeconfiguration import OpenBridgeConfiguration
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/openbridge_configurations',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=OpenBridgeConfiguration,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=OpenBridgeConfiguration, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_open_bridge_configuration(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.openbridgeconfiguration import OpenBridgeConfiguration
+        param_types = {
+            'access_key': 'string',
+            'active': 'bool',
+            'endpoint': 'string',
+            'host_business_id': 'unsigned int',
+            'host_external_id': 'string',
+            'pixel_id': 'unsigned int',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/openbridge_configurations',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=OpenBridgeConfiguration,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=OpenBridgeConfiguration, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_owned_ad_accounts(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -3284,6 +3383,40 @@ class Business(
             target_class=AbstractCrudObject,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_pre_verified_numbers(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.whatsappbusinesspreverifiedphonenumber import WhatsAppBusinessPreVerifiedPhoneNumber
+        param_types = {
+            'code_verification_status': 'code_verification_status_enum',
+            'phone_number': 'string',
+        }
+        enums = {
+            'code_verification_status_enum': WhatsAppBusinessPreVerifiedPhoneNumber.CodeVerificationStatus.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/preverified_numbers',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=WhatsAppBusinessPreVerifiedPhoneNumber,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=WhatsAppBusinessPreVerifiedPhoneNumber, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

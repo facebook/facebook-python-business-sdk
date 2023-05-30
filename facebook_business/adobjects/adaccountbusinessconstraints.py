@@ -19,6 +19,10 @@
 # DEALINGS IN THE SOFTWARE.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
+from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
+from facebook_business.adobjects.objectparser import ObjectParser
+from facebook_business.api import FacebookRequest
+from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -28,24 +32,29 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdCreativeLinkDataTemplateVideoSpec(
-    AbstractObject,
+class AdAccountBusinessConstraints(
+    AbstractCrudObject,
 ):
 
-    def __init__(self, api=None):
-        super(AdCreativeLinkDataTemplateVideoSpec, self).__init__()
-        self._isAdCreativeLinkDataTemplateVideoSpec = True
-        self._api = api
+    def __init__(self, fbid=None, parent_id=None, api=None):
+        self._isAdAccountBusinessConstraints = True
+        super(AdAccountBusinessConstraints, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        categorization_criteria = 'categorization_criteria'
-        customization = 'customization'
-        template_id = 'template_id'
+        audience_controls = 'audience_controls'
+
+    # @deprecated get_endpoint function is deprecated
+    @classmethod
+    def get_endpoint(cls):
+        return 'account_controls'
+
+    # @deprecated api_create is being deprecated
+    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.adobjects.adaccount import AdAccount
+        return AdAccount(api=self._api, fbid=parent_id).create_account_control(fields, params, batch, success, failure, pending)
 
     _field_types = {
-        'categorization_criteria': 'string',
-        'customization': 'list<map<string, string>>',
-        'template_id': 'string',
+        'audience_controls': 'Object',
     }
     @classmethod
     def _get_field_enum_info(cls):

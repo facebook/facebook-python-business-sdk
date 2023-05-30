@@ -44,7 +44,7 @@ class ProductFeedRuleSuggestion(
 
     _field_types = {
         'attribute': 'string',
-        'params': 'map<string, string>',
+        'params': 'list<map<string, string>>',
         'type': 'string',
     }
     @classmethod

@@ -41,10 +41,8 @@ class URL(
         super(URL, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        development_instant_article = 'development_instant_article'
         engagement = 'engagement'
         id = 'id'
-        instant_article = 'instant_article'
         og_object = 'og_object'
         ownership_permissions = 'ownership_permissions'
         scopes = 'scopes'
@@ -121,10 +119,8 @@ class URL(
             return request.execute()
 
     _field_types = {
-        'development_instant_article': 'InstantArticle',
         'engagement': 'Object',
         'id': 'string',
-        'instant_article': 'InstantArticle',
         'og_object': 'Object',
         'ownership_permissions': 'Object',
         'scopes': 'Object',

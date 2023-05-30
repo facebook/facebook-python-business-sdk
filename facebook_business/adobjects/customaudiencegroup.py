@@ -1,5 +1,4 @@
-# Copyright (c) Meta Platforms, Inc. and affiliates.
-# All rights reserved.
+# Copyright 2014 Facebook, Inc.
 
 # You are hereby granted a non-exclusive, worldwide, royalty-free license to
 # use, copy, modify, and distribute this software in source code or binary
@@ -19,22 +18,38 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
-from facebook_business.adobjects.adcreative import AdCreative
-from facebook_business.adobjects.adcreativeinsights import AdCreativeInsights
-from facebook_business.api import FacebookAdsApi
+from facebook_business.adobjects.abstractobject import AbstractObject
 
-access_token = '<ACCESS_TOKEN>'
-app_secret = '<APP_SECRET>'
-app_id = '<APP_ID>'
-id = '<CREATIVE_ID>'
-FacebookAdsApi.init(access_token=access_token)
+"""
+This class is auto-generated.
 
-fields = [
-  'creative_compass_scores',
-]
-params = {
-}
-print AdCreative(id).get_creative_insights(
-  fields=fields,
-  params=params,
-)
+For any issues or feature requests related to this class, please let us know on
+github and we'll fix in our codegen framework. We'll not be able to accept
+pull request for this class.
+"""
+
+class CustomAudienceGroup(
+    AbstractObject,
+):
+
+    def __init__(self, api=None):
+        super(CustomAudienceGroup, self).__init__()
+        self._isCustomAudienceGroup = True
+        self._api = api
+
+    class Field(AbstractObject.Field):
+        audience_type_param_name = 'audience_type_param_name'
+        existing_customer_tag = 'existing_customer_tag'
+        new_customer_tag = 'new_customer_tag'
+
+    _field_types = {
+        'audience_type_param_name': 'string',
+        'existing_customer_tag': 'string',
+        'new_customer_tag': 'string',
+    }
+    @classmethod
+    def _get_field_enum_info(cls):
+        field_enum_info = {}
+        return field_enum_info
+
+

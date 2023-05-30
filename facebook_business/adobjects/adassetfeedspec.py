@@ -40,6 +40,7 @@ class AdAssetFeedSpec(
     class Field(AbstractObject.Field):
         ad_formats = 'ad_formats'
         additional_data = 'additional_data'
+        app_product_page_id = 'app_product_page_id'
         asset_customization_rules = 'asset_customization_rules'
         autotranslate = 'autotranslate'
         bodies = 'bodies'
@@ -81,9 +82,11 @@ class AdAssetFeedSpec(
         get_directions = 'GET_DIRECTIONS'
         get_offer = 'GET_OFFER'
         get_offer_view = 'GET_OFFER_VIEW'
+        get_promotions = 'GET_PROMOTIONS'
         get_quote = 'GET_QUOTE'
         get_showtimes = 'GET_SHOWTIMES'
         get_started = 'GET_STARTED'
+        inquire_now = 'INQUIRE_NOW'
         install_app = 'INSTALL_APP'
         install_mobile_app = 'INSTALL_MOBILE_APP'
         learn_more = 'LEARN_MORE'
@@ -133,6 +136,7 @@ class AdAssetFeedSpec(
     _field_types = {
         'ad_formats': 'list<string>',
         'additional_data': 'Object',
+        'app_product_page_id': 'string',
         'asset_customization_rules': 'list<Object>',
         'autotranslate': 'list<string>',
         'bodies': 'list<AdAssetFeedSpecBody>',

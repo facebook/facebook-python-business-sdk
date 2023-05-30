@@ -644,12 +644,12 @@ class CommerceMerchantSettings(
         'merchant_status': 'string',
         'onsite_commerce_merchant': 'Object',
         'payment_provider': 'string',
-        'privacy_url_by_locale': 'map<string, string>',
+        'privacy_url_by_locale': 'list<map<string, string>>',
         'review_rejection_messages': 'list<string>',
         'review_rejection_reasons': 'list<string>',
         'supported_card_types': 'list<string>',
         'terms': 'string',
-        'terms_url_by_locale': 'map<string, string>',
+        'terms_url_by_locale': 'list<map<string, string>>',
         'whatsapp_channel': 'Object',
     }
     @classmethod
