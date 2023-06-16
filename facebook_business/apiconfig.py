@@ -20,6 +20,6 @@
 
 ads_api_config = {
   'API_VERSION': 'v17.0',
-  'SDK_VERSION': 'v17.0.0',
+  'SDK_VERSION': 'v17.0.1',
   'STRICT_MODE': False
 }
