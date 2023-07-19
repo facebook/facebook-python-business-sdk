@@ -48,6 +48,7 @@ class Ad(
         adlabels = 'adlabels'
         adset = 'adset'
         adset_id = 'adset_id'
+        ad_active_time = 'ad_active_time'
         bid_amount = 'bid_amount'
         bid_info = 'bid_info'
         bid_type = 'bid_type'
@@ -713,6 +714,7 @@ class Ad(
         'adlabels': 'list<AdLabel>',
         'adset': 'AdSet',
         'adset_id': 'string',
+        'ad_active_time','string',
         'bid_amount': 'int',
         'bid_info': 'map<string, unsigned int>',
         'bid_type': 'BidType',
