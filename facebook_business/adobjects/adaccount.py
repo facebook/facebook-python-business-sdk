@@ -66,6 +66,8 @@ class AdAccount(
         created_time = 'created_time'
         currency = 'currency'
         custom_audience_info = 'custom_audience_info'
+        default_dsa_beneficiary = 'default_dsa_beneficiary'
+        default_dsa_payor = 'default_dsa_payor'
         disable_reason = 'disable_reason'
         end_advertiser = 'end_advertiser'
         end_advertiser_name = 'end_advertiser_name'
@@ -269,6 +271,8 @@ class AdAccount(
             'business_info': 'map',
             'currency': 'currency_enum',
             'custom_audience_info': 'map',
+            'default_dsa_beneficiary': 'string',
+            'default_dsa_payor': 'string',
             'end_advertiser': 'string',
             'existing_customers': 'list<string>',
             'is_notifications_enabled': 'bool',
@@ -4055,6 +4059,8 @@ class AdAccount(
         'created_time': 'datetime',
         'currency': 'string',
         'custom_audience_info': 'CustomAudienceGroup',
+        'default_dsa_beneficiary': 'string',
+        'default_dsa_payor': 'string',
         'disable_reason': 'unsigned int',
         'end_advertiser': 'string',
         'end_advertiser_name': 'string',
