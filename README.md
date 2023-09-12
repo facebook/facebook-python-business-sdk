@@ -170,7 +170,7 @@ API using a specific api object instead of the default, you can specify the
 ### Edges
 
 Look at the methods of an object to see what associations over which we can
-iterate. For example an ``AdUser`` object has a method ``get_ad_accounts`` which
+iterate. For example an ``User`` object has a method ``get_ad_accounts`` which
 returns an iterator of ``AdAccount`` objects.
 
 ### Ad Account
@@ -183,7 +183,8 @@ Let's get all the ad accounts for the user with the given access token. I only
 have one account so the following is printed:
 
 ```python
->>> me = adobjects.AdUser(fbid='me')
+>>> from facebook_business.adobjects.user import User
+>>> me = adobjects.User(fbid='me')
 >>> my_accounts = list(me.get_ad_accounts())
 >>> print(my_accounts)
 [{   'account_id': u'17842443', 'id': u'act_17842443'}]
@@ -192,7 +193,7 @@ have one account so the following is printed:
 ```
 
 **WARNING**: We do not specify a keyword argument ``api=api`` when instantiating
-the ``AdUser`` object here because we've already set the default api when
+the ``User`` object here because we've already set the default api when
 bootstrapping.
 
 **NOTE**: We wrap the return value of ``get_ad_accounts`` with ``list()``
