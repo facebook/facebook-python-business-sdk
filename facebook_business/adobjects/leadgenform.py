@@ -1,22 +1,8 @@
-# Copyright 2014 Facebook, Inc.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
 
-# You are hereby granted a non-exclusive, worldwide, royalty-free license to
-# use, copy, modify, and distribute this software in source code or binary
-# form for use in connection with the web services and APIs provided by
-# Facebook.
-
-# As with any software that integrates with the Facebook platform, your use
-# of this software is subject to the Facebook Developer Principles and
-# Policies [http://developers.facebook.com/policy/]. This copyright notice
-# shall be included in all copies or substantial portions of the software.
-
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-# DEALINGS IN THE SOFTWARE.
+# This source code is licensed under the license found in the
+# LICENSE file in the root directory of this source tree.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
 from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
@@ -45,6 +31,7 @@ class LeadgenForm(
         block_display_for_non_targeted_viewer = 'block_display_for_non_targeted_viewer'
         context_card = 'context_card'
         created_time = 'created_time'
+        creator = 'creator'
         expired_leads_count = 'expired_leads_count'
         follow_up_action_text = 'follow_up_action_text'
         follow_up_action_url = 'follow_up_action_url'
@@ -75,6 +62,7 @@ class LeadgenForm(
         cs_cz = 'CS_CZ'
         da_dk = 'DA_DK'
         de_de = 'DE_DE'
+        el_gr = 'EL_GR'
         en_gb = 'EN_GB'
         en_us = 'EN_US'
         es_es = 'ES_ES'
@@ -270,6 +258,7 @@ class LeadgenForm(
         'block_display_for_non_targeted_viewer': 'bool',
         'context_card': 'Object',
         'created_time': 'datetime',
+        'creator': 'User',
         'expired_leads_count': 'unsigned int',
         'follow_up_action_text': 'string',
         'follow_up_action_url': 'string',
@@ -287,7 +276,7 @@ class LeadgenForm(
         'questions': 'list<LeadGenQuestion>',
         'status': 'string',
         'thank_you_page': 'Object',
-        'tracking_parameters': 'map<string, string>',
+        'tracking_parameters': 'list<map<string, string>>',
     }
     @classmethod
     def _get_field_enum_info(cls):

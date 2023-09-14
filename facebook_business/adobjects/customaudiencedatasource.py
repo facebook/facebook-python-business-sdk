@@ -1,22 +1,8 @@
-# Copyright 2014 Facebook, Inc.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
 
-# You are hereby granted a non-exclusive, worldwide, royalty-free license to
-# use, copy, modify, and distribute this software in source code or binary
-# form for use in connection with the web services and APIs provided by
-# Facebook.
-
-# As with any software that integrates with the Facebook platform, your use
-# of this software is subject to the Facebook Developer Principles and
-# Policies [http://developers.facebook.com/policy/]. This copyright notice
-# shall be included in all copies or substantial portions of the software.
-
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-# DEALINGS IN THE SOFTWARE.
+# This source code is licensed under the license found in the
+# LICENSE file in the root directory of this source tree.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
 
@@ -45,6 +31,8 @@ class CustomAudienceDataSource(
     class SubType:
         anything = 'ANYTHING'
         app_users = 'APP_USERS'
+        ar_effects_events = 'AR_EFFECTS_EVENTS'
+        ar_experience_events = 'AR_EXPERIENCE_EVENTS'
         campaign_conversions = 'CAMPAIGN_CONVERSIONS'
         combination_custom_audience_users = 'COMBINATION_CUSTOM_AUDIENCE_USERS'
         constant_contacts_email_hashes = 'CONSTANT_CONTACTS_EMAIL_HASHES'
@@ -52,6 +40,7 @@ class CustomAudienceDataSource(
         conversion_pixel_hits = 'CONVERSION_PIXEL_HITS'
         copy_paste_email_hashes = 'COPY_PASTE_EMAIL_HASHES'
         custom_audience_users = 'CUSTOM_AUDIENCE_USERS'
+        custom_data_targeting = 'CUSTOM_DATA_TARGETING'
         data_file = 'DATA_FILE'
         dynamic_rule = 'DYNAMIC_RULE'
         engagement_event_users = 'ENGAGEMENT_EVENT_USERS'
@@ -89,6 +78,7 @@ class CustomAudienceDataSource(
         signal_source = 'SIGNAL_SOURCE'
         smart_audience = 'SMART_AUDIENCE'
         store_visit_events = 'STORE_VISIT_EVENTS'
+        subscriber_list = 'SUBSCRIBER_LIST'
         s_expr = 'S_EXPR'
         tokens = 'TOKENS'
         user_ids = 'USER_IDS'

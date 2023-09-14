@@ -1,22 +1,8 @@
-# Copyright 2014 Facebook, Inc.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
 
-# You are hereby granted a non-exclusive, worldwide, royalty-free license to
-# use, copy, modify, and distribute this software in source code or binary
-# form for use in connection with the web services and APIs provided by
-# Facebook.
-
-# As with any software that integrates with the Facebook platform, your use
-# of this software is subject to the Facebook Developer Principles and
-# Policies [http://developers.facebook.com/policy/]. This copyright notice
-# shall be included in all copies or substantial portions of the software.
-
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-# DEALINGS IN THE SOFTWARE.
+# This source code is licensed under the license found in the
+# LICENSE file in the root directory of this source tree.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
 from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
@@ -49,17 +35,21 @@ class ProductFeed(
         encoding = 'encoding'
         file_name = 'file_name'
         id = 'id'
+        ingestion_source_type = 'ingestion_source_type'
         item_sub_type = 'item_sub_type'
         latest_upload = 'latest_upload'
         migrated_from_feed_id = 'migrated_from_feed_id'
         name = 'name'
         override_type = 'override_type'
+        primary_feeds = 'primary_feeds'
         product_count = 'product_count'
         quoted_fields_mode = 'quoted_fields_mode'
         schedule = 'schedule'
+        supplementary_feeds = 'supplementary_feeds'
         update_schedule = 'update_schedule'
         feed_type = 'feed_type'
         override_value = 'override_value'
+        primary_feed_ids = 'primary_feed_ids'
         rules = 'rules'
         selected_override_fields = 'selected_override_fields'
 
@@ -70,6 +60,10 @@ class ProductFeed(
         semicolon = 'SEMICOLON'
         tab = 'TAB'
         tilde = 'TILDE'
+
+    class IngestionSourceType:
+        primary_feed = 'primary_feed'
+        supplementary_feed = 'supplementary_feed'
 
     class QuotedFieldsMode:
         autodetect = 'AUTODETECT'
@@ -86,7 +80,6 @@ class ProductFeed(
         utf8 = 'UTF8'
 
     class FeedType:
-        auto = 'AUTO'
         automotive_model = 'AUTOMOTIVE_MODEL'
         destination = 'DESTINATION'
         flight = 'FLIGHT'
@@ -94,7 +87,6 @@ class ProductFeed(
         hotel = 'HOTEL'
         hotel_room = 'HOTEL_ROOM'
         local_inventory = 'LOCAL_INVENTORY'
-        market = 'MARKET'
         media_title = 'MEDIA_TITLE'
         offer = 'OFFER'
         products = 'PRODUCTS'
@@ -131,6 +123,7 @@ class ProductFeed(
         watches = 'WATCHES'
 
     class OverrideType:
+        batch_api_language_or_country = 'BATCH_API_LANGUAGE_OR_COUNTRY'
         catalog_segment_customize_default = 'CATALOG_SEGMENT_CUSTOMIZE_DEFAULT'
         country = 'COUNTRY'
         language = 'LANGUAGE'
@@ -249,36 +242,6 @@ class ProductFeed(
             self.assure_call()
             return request.execute()
 
-    def get_auto_markets(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/auto_markets',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def get_automotive_models(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -299,36 +262,6 @@ class ProductFeed(
             target_class=AutomotiveModel,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=AutomotiveModel, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def get_autos(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/autos',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -478,6 +411,7 @@ class ProductFeed(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.mediatitle import MediaTitle
         param_types = {
             'bulk_pagination': 'bool',
             'filter': 'Object',
@@ -490,9 +424,9 @@ class ProductFeed(
             endpoint='/media_titles',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=MediaTitle,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=MediaTitle, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -513,9 +447,13 @@ class ProductFeed(
         from facebook_business.adobjects.productitem import ProductItem
         param_types = {
             'bulk_pagination': 'bool',
+            'error_priority': 'error_priority_enum',
+            'error_type': 'error_type_enum',
             'filter': 'Object',
         }
         enums = {
+            'error_priority_enum': ProductItem.ErrorPriority.__dict__.values(),
+            'error_type_enum': ProductItem.ErrorType.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -592,6 +530,37 @@ class ProductFeed(
             target_class=ProductFeedRule,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=ProductFeedRule, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_supplementary_feed_assoc(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'assoc_data': 'list<map>',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/supplementary_feed_assocs',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -810,17 +779,21 @@ class ProductFeed(
         'encoding': 'string',
         'file_name': 'string',
         'id': 'string',
+        'ingestion_source_type': 'IngestionSourceType',
         'item_sub_type': 'string',
         'latest_upload': 'ProductFeedUpload',
         'migrated_from_feed_id': 'string',
         'name': 'string',
         'override_type': 'string',
+        'primary_feeds': 'list<string>',
         'product_count': 'int',
         'quoted_fields_mode': 'QuotedFieldsMode',
         'schedule': 'ProductFeedSchedule',
+        'supplementary_feeds': 'list<string>',
         'update_schedule': 'ProductFeedSchedule',
         'feed_type': 'FeedType',
         'override_value': 'string',
+        'primary_feed_ids': 'list<string>',
         'rules': 'list<string>',
         'selected_override_fields': 'list<string>',
     }
@@ -828,6 +801,7 @@ class ProductFeed(
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['Delimiter'] = ProductFeed.Delimiter.__dict__.values()
+        field_enum_info['IngestionSourceType'] = ProductFeed.IngestionSourceType.__dict__.values()
         field_enum_info['QuotedFieldsMode'] = ProductFeed.QuotedFieldsMode.__dict__.values()
         field_enum_info['Encoding'] = ProductFeed.Encoding.__dict__.values()
         field_enum_info['FeedType'] = ProductFeed.FeedType.__dict__.values()

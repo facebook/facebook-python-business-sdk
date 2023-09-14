@@ -1,22 +1,8 @@
-# Copyright 2014 Facebook, Inc.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
 
-# You are hereby granted a non-exclusive, worldwide, royalty-free license to
-# use, copy, modify, and distribute this software in source code or binary
-# form for use in connection with the web services and APIs provided by
-# Facebook.
-
-# As with any software that integrates with the Facebook platform, your use
-# of this software is subject to the Facebook Developer Principles and
-# Policies [http://developers.facebook.com/policy/]. This copyright notice
-# shall be included in all copies or substantial portions of the software.
-
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-# DEALINGS IN THE SOFTWARE.
+# This source code is licensed under the license found in the
+# LICENSE file in the root directory of this source tree.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
 from facebook_business.adobjects.helpers.adsinsightsmixin import AdsInsightsMixin
@@ -45,18 +31,10 @@ class AdsInsights(
         account_name = 'account_name'
         action_values = 'action_values'
         actions = 'actions'
-        ad_bid_type = 'ad_bid_type'
-        ad_bid_value = 'ad_bid_value'
         ad_click_actions = 'ad_click_actions'
-        ad_delivery = 'ad_delivery'
         ad_id = 'ad_id'
         ad_impression_actions = 'ad_impression_actions'
         ad_name = 'ad_name'
-        adset_bid_type = 'adset_bid_type'
-        adset_bid_value = 'adset_bid_value'
-        adset_budget_type = 'adset_budget_type'
-        adset_budget_value = 'adset_budget_value'
-        adset_delivery = 'adset_delivery'
         adset_end = 'adset_end'
         adset_id = 'adset_id'
         adset_name = 'adset_name'
@@ -103,6 +81,7 @@ class AdsInsights(
         cpm = 'cpm'
         cpp = 'cpp'
         created_time = 'created_time'
+        creative_media_type = 'creative_media_type'
         ctr = 'ctr'
         date_start = 'date_start'
         date_stop = 'date_stop'
@@ -123,6 +102,7 @@ class AdsInsights(
         inline_link_click_ctr = 'inline_link_click_ctr'
         inline_link_clicks = 'inline_link_clicks'
         inline_post_engagement = 'inline_post_engagement'
+        instagram_upcoming_event_reminders_set = 'instagram_upcoming_event_reminders_set'
         instant_experience_clicks_to_open = 'instant_experience_clicks_to_open'
         instant_experience_clicks_to_start = 'instant_experience_clicks_to_start'
         instant_experience_outbound_clicks = 'instant_experience_outbound_clicks'
@@ -144,6 +124,9 @@ class AdsInsights(
         reach = 'reach'
         social_spend = 'social_spend'
         spend = 'spend'
+        total_postbacks = 'total_postbacks'
+        total_postbacks_detailed = 'total_postbacks_detailed'
+        total_postbacks_detailed_v4 = 'total_postbacks_detailed_v4'
         unique_actions = 'unique_actions'
         unique_clicks = 'unique_clicks'
         unique_conversions = 'unique_conversions'
@@ -185,6 +168,8 @@ class AdsInsights(
         value_7d_view = '7d_view'
         dda = 'dda'
         value_default = 'default'
+        skan_click = 'skan_click'
+        skan_view = 'skan_view'
 
     class ActionBreakdowns:
         action_canvas_component_name = 'action_canvas_component_name'
@@ -206,28 +191,39 @@ class AdsInsights(
     class Breakdowns:
         ad_format_asset = 'ad_format_asset'
         age = 'age'
+        app_id = 'app_id'
         body_asset = 'body_asset'
         call_to_action_asset = 'call_to_action_asset'
+        coarse_conversion_value = 'coarse_conversion_value'
         country = 'country'
         description_asset = 'description_asset'
         device_platform = 'device_platform'
         dma = 'dma'
+        fidelity_type = 'fidelity_type'
         frequency_value = 'frequency_value'
         gender = 'gender'
         hourly_stats_aggregated_by_advertiser_time_zone = 'hourly_stats_aggregated_by_advertiser_time_zone'
         hourly_stats_aggregated_by_audience_time_zone = 'hourly_stats_aggregated_by_audience_time_zone'
+        hsid = 'hsid'
         image_asset = 'image_asset'
         impression_device = 'impression_device'
+        is_conversion_id_modeled = 'is_conversion_id_modeled'
         link_url_asset = 'link_url_asset'
+        mmm = 'mmm'
         place_page_id = 'place_page_id'
         platform_position = 'platform_position'
+        postback_sequence_index = 'postback_sequence_index'
         product_id = 'product_id'
         publisher_platform = 'publisher_platform'
+        redownload = 'redownload'
         region = 'region'
+        skan_campaign_id = 'skan_campaign_id'
+        skan_conversion_id = 'skan_conversion_id'
         title_asset = 'title_asset'
         video_asset = 'video_asset'
 
     class DatePreset:
+        data_maximum = 'data_maximum'
         last_14d = 'last_14d'
         last_28d = 'last_28d'
         last_30d = 'last_30d'
@@ -277,18 +273,10 @@ class AdsInsights(
         'account_name': 'string',
         'action_values': 'list<AdsActionStats>',
         'actions': 'list<AdsActionStats>',
-        'ad_bid_type': 'string',
-        'ad_bid_value': 'string',
         'ad_click_actions': 'list<AdsActionStats>',
-        'ad_delivery': 'string',
         'ad_id': 'string',
         'ad_impression_actions': 'list<AdsActionStats>',
         'ad_name': 'string',
-        'adset_bid_type': 'string',
-        'adset_bid_value': 'string',
-        'adset_budget_type': 'string',
-        'adset_budget_value': 'string',
-        'adset_delivery': 'string',
         'adset_end': 'string',
         'adset_id': 'string',
         'adset_name': 'string',
@@ -335,6 +323,7 @@ class AdsInsights(
         'cpm': 'string',
         'cpp': 'string',
         'created_time': 'string',
+        'creative_media_type': 'string',
         'ctr': 'string',
         'date_start': 'string',
         'date_stop': 'string',
@@ -355,6 +344,7 @@ class AdsInsights(
         'inline_link_click_ctr': 'string',
         'inline_link_clicks': 'string',
         'inline_post_engagement': 'string',
+        'instagram_upcoming_event_reminders_set': 'string',
         'instant_experience_clicks_to_open': 'string',
         'instant_experience_clicks_to_start': 'string',
         'instant_experience_outbound_clicks': 'list<AdsActionStats>',
@@ -376,6 +366,9 @@ class AdsInsights(
         'reach': 'string',
         'social_spend': 'string',
         'spend': 'string',
+        'total_postbacks': 'string',
+        'total_postbacks_detailed': 'list<AdsActionStats>',
+        'total_postbacks_detailed_v4': 'string',
         'unique_actions': 'list<AdsActionStats>',
         'unique_clicks': 'string',
         'unique_conversions': 'list<AdsActionStats>',

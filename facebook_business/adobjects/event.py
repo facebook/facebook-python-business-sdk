@@ -1,22 +1,8 @@
-# Copyright 2014 Facebook, Inc.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
 
-# You are hereby granted a non-exclusive, worldwide, royalty-free license to
-# use, copy, modify, and distribute this software in source code or binary
-# form for use in connection with the web services and APIs provided by
-# Facebook.
-
-# As with any software that integrates with the Facebook platform, your use
-# of this software is subject to the Facebook Developer Principles and
-# Policies [http://developers.facebook.com/policy/]. This copyright notice
-# shall be included in all copies or substantial portions of the software.
-
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-# DEALINGS IN THE SOFTWARE.
+# This source code is licensed under the license found in the
+# LICENSE file in the root directory of this source tree.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
 from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
@@ -45,6 +31,7 @@ class Event(
         can_guests_invite = 'can_guests_invite'
         category = 'category'
         cover = 'cover'
+        created_time = 'created_time'
         declined_count = 'declined_count'
         description = 'description'
         discount_code_enabled = 'discount_code_enabled'
@@ -65,8 +52,10 @@ class Event(
         owner = 'owner'
         parent_group = 'parent_group'
         place = 'place'
+        registration_setting = 'registration_setting'
         scheduled_publish_time = 'scheduled_publish_time'
         start_time = 'start_time'
+        ticket_setting = 'ticket_setting'
         ticket_uri = 'ticket_uri'
         ticket_uri_start_sales_time = 'ticket_uri_start_sales_time'
         ticketing_privacy_uri = 'ticketing_privacy_uri'
@@ -76,31 +65,28 @@ class Event(
         updated_time = 'updated_time'
 
     class Category:
-        art_event = 'ART_EVENT'
-        book_event = 'BOOK_EVENT'
-        class_event = 'CLASS_EVENT'
-        comedy_event = 'COMEDY_EVENT'
-        conference_event = 'CONFERENCE_EVENT'
-        dance_event = 'DANCE_EVENT'
-        dining_event = 'DINING_EVENT'
-        family_event = 'FAMILY_EVENT'
-        festival_event = 'FESTIVAL_EVENT'
-        fitness = 'FITNESS'
-        food_tasting = 'FOOD_TASTING'
-        fundraiser = 'FUNDRAISER'
-        lecture = 'LECTURE'
-        meetup = 'MEETUP'
-        movie_event = 'MOVIE_EVENT'
-        music_event = 'MUSIC_EVENT'
-        neighborhood = 'NEIGHBORHOOD'
-        nightlife = 'NIGHTLIFE'
-        other = 'OTHER'
-        religious_event = 'RELIGIOUS_EVENT'
-        shopping = 'SHOPPING'
-        sports_event = 'SPORTS_EVENT'
-        theater_event = 'THEATER_EVENT'
-        volunteering = 'VOLUNTEERING'
-        workshop = 'WORKSHOP'
+        classic_literature = 'CLASSIC_LITERATURE'
+        comedy = 'COMEDY'
+        crafts = 'CRAFTS'
+        dance = 'DANCE'
+        drinks = 'DRINKS'
+        fitness_and_workouts = 'FITNESS_AND_WORKOUTS'
+        foods = 'FOODS'
+        games = 'GAMES'
+        gardening = 'GARDENING'
+        healthy_living_and_self_care = 'HEALTHY_LIVING_AND_SELF_CARE'
+        health_and_medical = 'HEALTH_AND_MEDICAL'
+        home_and_garden = 'HOME_AND_GARDEN'
+        music_and_audio = 'MUSIC_AND_AUDIO'
+        parties = 'PARTIES'
+        professional_networking = 'PROFESSIONAL_NETWORKING'
+        religions = 'RELIGIONS'
+        shopping_event = 'SHOPPING_EVENT'
+        social_issues = 'SOCIAL_ISSUES'
+        sports = 'SPORTS'
+        theater = 'THEATER'
+        tv_and_movies = 'TV_AND_MOVIES'
+        visual_arts = 'VISUAL_ARTS'
 
     class OnlineEventFormat:
         fb_live = 'fb_live'
@@ -115,6 +101,7 @@ class Event(
         group = 'group'
         private = 'private'
         public = 'public'
+        work_company = 'work_company'
 
     class EventStateFilter:
         canceled = 'canceled'
@@ -259,13 +246,12 @@ class Event(
             'description': 'string',
             'enable_backup_ingest': 'bool',
             'encoding_settings': 'string',
+            'event_params': 'Object',
             'fisheye_video_cropped': 'bool',
             'front_z_rotation': 'float',
             'is_audio_only': 'bool',
             'is_spherical': 'bool',
-            'live_encoders': 'list<string>',
             'original_fov': 'unsigned int',
-            'planned_start_time': 'int',
             'privacy': 'string',
             'projection': 'projection_enum',
             'published': 'bool',
@@ -496,6 +482,7 @@ class Event(
         'can_guests_invite': 'bool',
         'category': 'Category',
         'cover': 'CoverPhoto',
+        'created_time': 'datetime',
         'declined_count': 'int',
         'description': 'string',
         'discount_code_enabled': 'bool',
@@ -516,8 +503,10 @@ class Event(
         'owner': 'Object',
         'parent_group': 'Group',
         'place': 'Place',
+        'registration_setting': 'Object',
         'scheduled_publish_time': 'string',
         'start_time': 'string',
+        'ticket_setting': 'Object',
         'ticket_uri': 'string',
         'ticket_uri_start_sales_time': 'string',
         'ticketing_privacy_uri': 'string',
