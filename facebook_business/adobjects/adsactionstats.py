@@ -25,6 +25,7 @@ class AdsActionStats(
 
     class Field(AbstractObject.Field):
         field_1d_click = '1d_click'
+        field_1d_ev = '1d_ev'
         field_1d_view = '1d_view'
         field_28d_click = '28d_click'
         field_28d_view = '28d_view'
@@ -58,6 +59,7 @@ class AdsActionStats(
 
     _field_types = {
         '1d_click': 'string',
+        '1d_ev': 'string',
         '1d_view': 'string',
         '28d_click': 'string',
         '28d_view': 'string',

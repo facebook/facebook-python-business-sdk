@@ -40,6 +40,7 @@ class AdAccountMatchedSearchApplicationsEdgeData(
         apk_pure = 'APK_PURE'
         aptoide_a1_store = 'APTOIDE_A1_STORE'
         bemobi_mobile_store = 'BEMOBI_MOBILE_STORE'
+        digital_turbine_store = 'DIGITAL_TURBINE_STORE'
         does_not_exist = 'DOES_NOT_EXIST'
         fb_android_store = 'FB_ANDROID_STORE'
         fb_canvas = 'FB_CANVAS'

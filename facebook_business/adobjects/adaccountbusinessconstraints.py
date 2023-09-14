@@ -28,6 +28,7 @@ class AdAccountBusinessConstraints(
 
     class Field(AbstractObject.Field):
         audience_controls = 'audience_controls'
+        placement_controls = 'placement_controls'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
@@ -41,6 +42,7 @@ class AdAccountBusinessConstraints(
 
     _field_types = {
         'audience_controls': 'Object',
+        'placement_controls': 'Object',
     }
     @classmethod
     def _get_field_enum_info(cls):

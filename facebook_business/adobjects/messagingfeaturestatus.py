@@ -25,9 +25,13 @@ class MessagingFeatureStatus(
 
     class Field(AbstractObject.Field):
         hop_v2 = 'hop_v2'
+        ig_multi_app = 'ig_multi_app'
+        msgr_multi_app = 'msgr_multi_app'
 
     _field_types = {
         'hop_v2': 'bool',
+        'ig_multi_app': 'bool',
+        'msgr_multi_app': 'bool',
     }
     @classmethod
     def _get_field_enum_info(cls):

@@ -29,6 +29,7 @@ class User(
     class Field(AbstractObject.Field):
         about = 'about'
         age_range = 'age_range'
+        avatar_2d_profile_picture = 'avatar_2d_profile_picture'
         birthday = 'birthday'
         community = 'community'
         cover = 'cover'
@@ -46,6 +47,7 @@ class User(
         install_type = 'install_type'
         installed = 'installed'
         is_guest_user = 'is_guest_user'
+        is_work_account = 'is_work_account'
         languages = 'languages'
         last_name = 'last_name'
         link = 'link'
@@ -694,6 +696,7 @@ class User(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.avatar import Avatar
         param_types = {
         }
         enums = {
@@ -704,9 +707,9 @@ class User(
             endpoint='/avatars',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=Avatar,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=Avatar, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -863,10 +866,12 @@ class User(
         from facebook_business.adobjects.unifiedthread import UnifiedThread
         param_types = {
             'folder': 'string',
+            'platform': 'platform_enum',
             'tags': 'list<string>',
             'user_id': 'string',
         }
         enums = {
+            'platform_enum': UnifiedThread.Platform.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -1014,7 +1019,6 @@ class User(
             'backdated_time_granularity': 'backdated_time_granularity_enum',
             'call_to_action': 'Object',
             'caption': 'string',
-            'checkin_entry_point': 'checkin_entry_point_enum',
             'child_attachments': 'list<Object>',
             'client_mutation_id': 'string',
             'composer_entry_picker': 'string',
@@ -1112,7 +1116,6 @@ class User(
         }
         enums = {
             'backdated_time_granularity_enum': Post.BackdatedTimeGranularity.__dict__.values(),
-            'checkin_entry_point_enum': Post.CheckinEntryPoint.__dict__.values(),
             'formatting_enum': Post.Formatting.__dict__.values(),
             'place_attachment_setting_enum': Post.PlaceAttachmentSetting.__dict__.values(),
             'post_surfaces_blacklist_enum': Post.PostSurfacesBlacklist.__dict__.values(),
@@ -2215,6 +2218,7 @@ class User(
     _field_types = {
         'about': 'string',
         'age_range': 'AgeRange',
+        'avatar_2d_profile_picture': 'AvatarProfilePicture',
         'birthday': 'string',
         'community': 'Group',
         'cover': 'UserCoverPhoto',
@@ -2232,6 +2236,7 @@ class User(
         'install_type': 'string',
         'installed': 'bool',
         'is_guest_user': 'bool',
+        'is_work_account': 'bool',
         'languages': 'list<Experience>',
         'last_name': 'string',
         'link': 'string',
@@ -2248,7 +2253,7 @@ class User(
         'profile_pic': 'string',
         'quotes': 'string',
         'relationship_status': 'string',
-        'shared_login_upgrade_required_by': 'Object',
+        'shared_login_upgrade_required_by': 'datetime',
         'short_name': 'string',
         'significant_other': 'User',
         'sports': 'list<Experience>',

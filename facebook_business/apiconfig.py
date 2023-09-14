@@ -5,7 +5,7 @@
 # LICENSE file in the root directory of this source tree.
 
 ads_api_config = {
-  'API_VERSION': 'v17.0',
-  'SDK_VERSION': 'v17.0.4',
+  'API_VERSION': 'v18.0',
+  'SDK_VERSION': 'v18.0.0',
   'STRICT_MODE': False
 }

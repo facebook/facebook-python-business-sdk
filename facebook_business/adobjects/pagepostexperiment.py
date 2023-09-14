@@ -28,10 +28,13 @@ class PagePostExperiment(
 
     class Field(AbstractObject.Field):
         auto_resolve_settings = 'auto_resolve_settings'
+        control_video_id = 'control_video_id'
         creation_time = 'creation_time'
         creator = 'creator'
         declared_winning_time = 'declared_winning_time'
+        declared_winning_video_id = 'declared_winning_video_id'
         description = 'description'
+        experiment_video_ids = 'experiment_video_ids'
         id = 'id'
         insight_snapshots = 'insight_snapshots'
         name = 'name'
@@ -71,12 +74,45 @@ class PagePostExperiment(
             self.assure_call()
             return request.execute()
 
+    def get_video_insights(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/video_insights',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     _field_types = {
         'auto_resolve_settings': 'Object',
+        'control_video_id': 'string',
         'creation_time': 'datetime',
         'creator': 'User',
         'declared_winning_time': 'datetime',
+        'declared_winning_video_id': 'string',
         'description': 'string',
+        'experiment_video_ids': 'list<string>',
         'id': 'string',
         'insight_snapshots': 'list<map<datetime, list<map<int, Object>>>>',
         'name': 'string',

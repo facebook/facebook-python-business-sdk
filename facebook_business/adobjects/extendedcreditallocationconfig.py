@@ -46,6 +46,7 @@ class ExtendedCreditAllocationConfig(
     class PartitionType:
         auth = 'AUTH'
         fixed = 'FIXED'
+        fixed_without_partition = 'FIXED_WITHOUT_PARTITION'
 
     class SendBillTo:
         advertiser = 'Advertiser'

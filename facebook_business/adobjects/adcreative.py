@@ -101,6 +101,7 @@ class AdCreative(
         add_to_cart = 'ADD_TO_CART'
         apply_now = 'APPLY_NOW'
         audio_call = 'AUDIO_CALL'
+        book_now = 'BOOK_NOW'
         book_travel = 'BOOK_TRAVEL'
         buy = 'BUY'
         buy_now = 'BUY_NOW'

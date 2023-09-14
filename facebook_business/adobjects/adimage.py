@@ -113,7 +113,7 @@ class AdImage(
         'url': 'string',
         'url_128': 'string',
         'width': 'unsigned int',
-        'bytes': 'Object',
+        'bytes': 'string',
         'copy_from': 'Object',
         'filename': 'file'
     }

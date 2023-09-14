@@ -51,6 +51,8 @@ class InstagramInsightsResult(
         engagement = 'engagement'
         exits = 'exits'
         follows = 'follows'
+        ig_reels_avg_watch_time = 'ig_reels_avg_watch_time'
+        ig_reels_video_view_total_time = 'ig_reels_video_view_total_time'
         impressions = 'impressions'
         likes = 'likes'
         navigation = 'navigation'

@@ -59,6 +59,7 @@ class AdVideo(
         permalink_url = 'permalink_url'
         picture = 'picture'
         place = 'place'
+        post_id = 'post_id'
         post_views = 'post_views'
         premiere_living_room_status = 'premiere_living_room_status'
         privacy = 'privacy'
@@ -137,6 +138,9 @@ class AdVideo(
         video_id_original = 'video_id_original'
         video_start_time_ms = 'video_start_time_ms'
         waterfall_id = 'waterfall_id'
+        ad_placements_validation_only = 'ad_placements_validation_only'
+        creative_folder_id = 'creative_folder_id'
+        validation_ad_placements = 'validation_ad_placements'
         filename = 'filename'
         filepath = 'filepath'
 
@@ -160,7 +164,6 @@ class AdVideo(
         audio_comment = 'AUDIO_COMMENT'
         broadcast = 'BROADCAST'
         bulletin_article_audio = 'BULLETIN_ARTICLE_AUDIO'
-        candidate_videos_deleted = 'CANDIDATE_VIDEOS_DELETED'
         canvas = 'CANVAS'
         cfc_video = 'CFC_VIDEO'
         cms_media_manager = 'CMS_MEDIA_MANAGER'
@@ -207,7 +210,6 @@ class AdVideo(
         group_post = 'GROUP_POST'
         hack_tv = 'HACK_TV'
         heuristic_cluster_video = 'HEURISTIC_CLUSTER_VIDEO'
-        heuristic_preview = 'HEURISTIC_PREVIEW'
         highlight_clip_video = 'HIGHLIGHT_CLIP_VIDEO'
         huddle_broadcast = 'HUDDLE_BROADCAST'
         ig_reels_xpv = 'IG_REELS_XPV'
@@ -223,7 +225,6 @@ class AdVideo(
         jobs_visual_intro_entry = 'JOBS_VISUAL_INTRO_ENTRY'
         job_application_video = 'JOB_APPLICATION_VIDEO'
         job_opening_video = 'JOB_OPENING_VIDEO'
-        kototoro = 'KOTOTORO'
         learn = 'LEARN'
         legacy = 'LEGACY'
         legacy_contained_post_broadcast = 'LEGACY_CONTAINED_POST_BROADCAST'
@@ -279,6 +280,7 @@ class AdVideo(
         profile_intro_card = 'PROFILE_INTRO_CARD'
         profile_video = 'PROFILE_VIDEO'
         proton = 'PROTON'
+        quick_clip_workplace_post = 'QUICK_CLIP_WORKPLACE_POST'
         quick_promotion = 'QUICK_PROMOTION'
         replace_video = 'REPLACE_VIDEO'
         sales_client_interaction = 'SALES_CLIENT_INTERACTION'
@@ -287,7 +289,6 @@ class AdVideo(
         slideshow_animoto = 'SLIDESHOW_ANIMOTO'
         slideshow_shakr = 'SLIDESHOW_SHAKR'
         slideshow_variation_video = 'SLIDESHOW_VARIATION_VIDEO'
-        sotto_content = 'SOTTO_CONTENT'
         soundbites_video = 'SOUNDBITES_VIDEO'
         sound_platform_stream = 'SOUND_PLATFORM_STREAM'
         srt_attachment = 'SRT_ATTACHMENT'
@@ -362,6 +363,31 @@ class AdVideo(
         finish = 'finish'
         start = 'start'
         transfer = 'transfer'
+
+    class ValidationAdPlacements:
+        audience_network_instream_video = 'AUDIENCE_NETWORK_INSTREAM_VIDEO'
+        audience_network_instream_video_mobile = 'AUDIENCE_NETWORK_INSTREAM_VIDEO_MOBILE'
+        audience_network_rewarded_video = 'AUDIENCE_NETWORK_REWARDED_VIDEO'
+        desktop_feed_standard = 'DESKTOP_FEED_STANDARD'
+        facebook_story_mobile = 'FACEBOOK_STORY_MOBILE'
+        facebook_story_sticker_mobile = 'FACEBOOK_STORY_STICKER_MOBILE'
+        instagram_standard = 'INSTAGRAM_STANDARD'
+        instagram_story = 'INSTAGRAM_STORY'
+        instant_article_standard = 'INSTANT_ARTICLE_STANDARD'
+        instream_banner_desktop = 'INSTREAM_BANNER_DESKTOP'
+        instream_banner_mobile = 'INSTREAM_BANNER_MOBILE'
+        instream_video_desktop = 'INSTREAM_VIDEO_DESKTOP'
+        instream_video_image = 'INSTREAM_VIDEO_IMAGE'
+        instream_video_mobile = 'INSTREAM_VIDEO_MOBILE'
+        messenger_mobile_inbox_media = 'MESSENGER_MOBILE_INBOX_MEDIA'
+        messenger_mobile_story_media = 'MESSENGER_MOBILE_STORY_MEDIA'
+        mobile_feed_standard = 'MOBILE_FEED_STANDARD'
+        mobile_fullwidth = 'MOBILE_FULLWIDTH'
+        mobile_interstitial = 'MOBILE_INTERSTITIAL'
+        mobile_medium_rectangle = 'MOBILE_MEDIUM_RECTANGLE'
+        mobile_native = 'MOBILE_NATIVE'
+        right_column_standard = 'RIGHT_COLUMN_STANDARD'
+        suggested_video_mobile = 'SUGGESTED_VIDEO_MOBILE'
 
     class Type:
         tagged = 'tagged'
@@ -1166,9 +1192,10 @@ class AdVideo(
         'live_audience_count': 'unsigned int',
         'live_status': 'string',
         'music_video_copyright': 'MusicVideoCopyright',
-        'permalink_url': 'Object',
+        'permalink_url': 'string',
         'picture': 'string',
         'place': 'Place',
+        'post_id': 'string',
         'post_views': 'unsigned int',
         'premiere_living_room_status': 'string',
         'privacy': 'Privacy',
@@ -1247,6 +1274,9 @@ class AdVideo(
         'video_id_original': 'string',
         'video_start_time_ms': 'unsigned int',
         'waterfall_id': 'string',
+        'ad_placements_validation_only': 'bool',
+        'creative_folder_id': 'string',
+        'validation_ad_placements': 'list<ValidationAdPlacements>',
         'filename': 'file'
     }
     @classmethod
@@ -1259,6 +1289,7 @@ class AdVideo(
         field_enum_info['SwapMode'] = AdVideo.SwapMode.__dict__.values()
         field_enum_info['UnpublishedContentType'] = AdVideo.UnpublishedContentType.__dict__.values()
         field_enum_info['UploadPhase'] = AdVideo.UploadPhase.__dict__.values()
+        field_enum_info['ValidationAdPlacements'] = AdVideo.ValidationAdPlacements.__dict__.values()
         field_enum_info['Type'] = AdVideo.Type.__dict__.values()
         field_enum_info['VideoState'] = AdVideo.VideoState.__dict__.values()
         field_enum_info['BackdatedTimeGranularity'] = AdVideo.BackdatedTimeGranularity.__dict__.values()

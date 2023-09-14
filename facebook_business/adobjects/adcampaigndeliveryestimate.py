@@ -53,6 +53,7 @@ class AdCampaignDeliveryEstimate(
         quality_call = 'QUALITY_CALL'
         quality_lead = 'QUALITY_LEAD'
         reach = 'REACH'
+        reminders_set = 'REMINDERS_SET'
         subscribers = 'SUBSCRIBERS'
         thruplay = 'THRUPLAY'
         value = 'VALUE'

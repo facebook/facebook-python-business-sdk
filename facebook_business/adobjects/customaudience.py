@@ -135,6 +135,7 @@ class CustomAudience(
         primary = 'PRIMARY'
         regulated_categories_audience = 'REGULATED_CATEGORIES_AUDIENCE'
         study_rule_audience = 'STUDY_RULE_AUDIENCE'
+        subscriber_segment = 'SUBSCRIBER_SEGMENT'
         video = 'VIDEO'
         website = 'WEBSITE'
 

@@ -36,6 +36,7 @@ class AdAccount(
         ad_account_promotable_objects = 'ad_account_promotable_objects'
         age = 'age'
         agency_client_declaration = 'agency_client_declaration'
+        all_capabilities = 'all_capabilities'
         amount_spent = 'amount_spent'
         attribution_spec = 'attribution_spec'
         balance = 'balance'
@@ -96,6 +97,7 @@ class AdAccount(
         timezone_name = 'timezone_name'
         timezone_offset_hours_utc = 'timezone_offset_hours_utc'
         tos_accepted = 'tos_accepted'
+        user_access_expire_time = 'user_access_expire_time'
         user_tasks = 'user_tasks'
         user_tos_accepted = 'user_tos_accepted'
         viewable_business = 'viewable_business'
@@ -205,6 +207,7 @@ class AdAccount(
         primary = 'PRIMARY'
         regulated_categories_audience = 'REGULATED_CATEGORIES_AUDIENCE'
         study_rule_audience = 'STUDY_RULE_AUDIENCE'
+        subscriber_segment = 'SUBSCRIBER_SEGMENT'
         video = 'VIDEO'
         website = 'WEBSITE'
 
@@ -333,6 +336,7 @@ class AdAccount(
         from facebook_business.adobjects.adaccountbusinessconstraints import AdAccountBusinessConstraints
         param_types = {
             'audience_controls': 'Object',
+            'placement_controls': 'Object',
         }
         enums = {
         }
@@ -682,7 +686,7 @@ class AdAccount(
             'recommender_settings': 'map',
             'source_instagram_media_id': 'string',
             'template_url': 'string',
-            'template_url_spec': 'Object',
+            'template_url_spec': 'string',
             'thumbnail_url': 'string',
             'title': 'string',
             'url_tags': 'string',
@@ -826,7 +830,7 @@ class AdAccount(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.adimage import AdImage
         param_types = {
-            'bytes': 'Object',
+            'bytes': 'string',
             'copy_from': 'Object',
         }
         enums = {
@@ -1101,7 +1105,7 @@ class AdAccount(
         param_types = {
             'date_preset': 'date_preset_enum',
             'effective_status': 'list<string>',
-            'time_range': 'Object',
+            'time_range': 'map',
             'updated_since': 'int',
         }
         enums = {
@@ -1135,6 +1139,8 @@ class AdAccount(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.ad import Ad
         param_types = {
+            'ad_schedule_end_time': 'datetime',
+            'ad_schedule_start_time': 'datetime',
             'adlabels': 'list<Object>',
             'adset_id': 'unsigned int',
             'adset_spec': 'AdSet',
@@ -1188,11 +1194,82 @@ class AdAccount(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'conversion_event_value_source': 'conversion_event_value_source_enum',
             'description': 'string',
+            'goal_creation_method': 'goal_creation_method_enum',
             'goal_name': 'string',
+            'performance_goal': 'performance_goal_enum',
             'single_channel_conversion_events': 'list<map>',
+            'value_adjustment_rule': 'map',
         }
         enums = {
+            'conversion_event_value_source_enum': [
+                'DATA_SOURCE',
+                'VALUE_RULE',
+            ],
+            'goal_creation_method_enum': [
+                'ADVERTISER_CREATED_UI',
+                'AUTO_MIGRATION',
+                'L2_ENHANCE_API_MIGRATION',
+            ],
+            'performance_goal_enum': [
+                'AD_OPTIMIZATION_GOAL_AD_RECALL_LIFT',
+                'AD_OPTIMIZATION_GOAL_APP_DOWNLOADS',
+                'AD_OPTIMIZATION_GOAL_APP_INSTALLS',
+                'AD_OPTIMIZATION_GOAL_APP_INSTALLS_AND_OFFSITE_CONVERSIONS',
+                'AD_OPTIMIZATION_GOAL_BRAND_AWARENESS',
+                'AD_OPTIMIZATION_GOAL_CLICKS',
+                'AD_OPTIMIZATION_GOAL_COMPLETED_VIDEO_VIEWS',
+                'AD_OPTIMIZATION_GOAL_CONVERSATIONS',
+                'AD_OPTIMIZATION_GOAL_DERIVED_EVENTS',
+                'AD_OPTIMIZATION_GOAL_DWELLS',
+                'AD_OPTIMIZATION_GOAL_ENGAGED_REACH',
+                'AD_OPTIMIZATION_GOAL_ENGAGED_USERS',
+                'AD_OPTIMIZATION_GOAL_EVENT_RESPONSES',
+                'AD_OPTIMIZATION_GOAL_EXTERNAL',
+                'AD_OPTIMIZATION_GOAL_IMPRESSIONS',
+                'AD_OPTIMIZATION_GOAL_INCREMENTAL_OFFSITE_CONVERSIONS',
+                'AD_OPTIMIZATION_GOAL_IN_APP_VALUE',
+                'AD_OPTIMIZATION_GOAL_JOB_APPLICATIONS',
+                'AD_OPTIMIZATION_GOAL_LANDING_PAGE_VIEWS',
+                'AD_OPTIMIZATION_GOAL_LEAD_GENERATION',
+                'AD_OPTIMIZATION_GOAL_MEDIA_DOWNLOADS',
+                'AD_OPTIMIZATION_GOAL_MESSAGING_APPOINTMENT_CONVERSION',
+                'AD_OPTIMIZATION_GOAL_MESSAGING_DEEP_CONVERSATION_AND_FOLLOW',
+                'AD_OPTIMIZATION_GOAL_MESSAGING_DEEP_CONVERSATION_AND_REPLY',
+                'AD_OPTIMIZATION_GOAL_MESSAGING_PURCHASE_CONVERSION',
+                'AD_OPTIMIZATION_GOAL_MID_FUNNEL_EVENT',
+                'AD_OPTIMIZATION_GOAL_MRC_VIDEO_VIEWS',
+                'AD_OPTIMIZATION_GOAL_MULTI_CONVERSIONS',
+                'AD_OPTIMIZATION_GOAL_NONE',
+                'AD_OPTIMIZATION_GOAL_OFFER_CLAIMS',
+                'AD_OPTIMIZATION_GOAL_OFFLINE_CONVERSIONS',
+                'AD_OPTIMIZATION_GOAL_OFFSITE_CLICKS',
+                'AD_OPTIMIZATION_GOAL_OFFSITE_CONVERSIONS',
+                'AD_OPTIMIZATION_GOAL_ONSITE_CONVERSIONS',
+                'AD_OPTIMIZATION_GOAL_PAGE_ENGAGEMENT',
+                'AD_OPTIMIZATION_GOAL_PAGE_FOLLOWS',
+                'AD_OPTIMIZATION_GOAL_PAGE_LIKES',
+                'AD_OPTIMIZATION_GOAL_POST_ENGAGEMENT',
+                'AD_OPTIMIZATION_GOAL_QUALITY_CALL',
+                'AD_OPTIMIZATION_GOAL_QUALITY_LEAD',
+                'AD_OPTIMIZATION_GOAL_REACH',
+                'AD_OPTIMIZATION_GOAL_REMINDERS_SET',
+                'AD_OPTIMIZATION_GOAL_REPLIES',
+                'AD_OPTIMIZATION_GOAL_RESEARCH_POLL_RESPONSES',
+                'AD_OPTIMIZATION_GOAL_RETENTION',
+                'AD_OPTIMIZATION_GOAL_RETURN_ON_AD_SPEND',
+                'AD_OPTIMIZATION_GOAL_SOCIAL_IMPRESSIONS',
+                'AD_OPTIMIZATION_GOAL_STORE_VISITS',
+                'AD_OPTIMIZATION_GOAL_SUBSCRIBERS',
+                'AD_OPTIMIZATION_GOAL_TICKET_PURCHASE',
+                'AD_OPTIMIZATION_GOAL_VALUE',
+                'AD_OPTIMIZATION_GOAL_VIDEO_LONG_VIEWS',
+                'AD_OPTIMIZATION_GOAL_VIDEO_VIEWS',
+                'AD_OPTIMIZATION_GOAL_VIDEO_VIEWS_15S',
+                'AD_OPTIMIZATION_GOAL_VISIT_INSTAGRAM_PROFILE',
+                'AD_OPTIMIZATION_GOAL_VISIT_INSTAGRAM_PROFILE_AND_PROFILE_ACTIONS',
+            ],
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -1355,7 +1432,7 @@ class AdAccount(
             'date_preset': 'date_preset_enum',
             'effective_status': 'list<effective_status_enum>',
             'is_completed': 'bool',
-            'time_range': 'Object',
+            'time_range': 'map',
             'updated_since': 'int',
         }
         enums = {
@@ -1398,6 +1475,7 @@ class AdAccount(
             'bid_constraints': 'map<string, Object>',
             'bid_strategy': 'bid_strategy_enum',
             'billing_event': 'billing_event_enum',
+            'campaign_attribution': 'Object',
             'campaign_id': 'string',
             'campaign_spec': 'Object',
             'creative_sequence': 'list<string>',
@@ -2285,7 +2363,7 @@ class AdAccount(
             'date_preset': 'date_preset_enum',
             'effective_status': 'list<effective_status_enum>',
             'is_completed': 'bool',
-            'time_range': 'Object',
+            'time_range': 'map',
         }
         enums = {
             'date_preset_enum': Campaign.DatePreset.__dict__.values(),
@@ -2772,6 +2850,37 @@ class AdAccount(
             self.assure_call()
             return request.execute()
 
+    def get_dsa_recommendations(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.adaccountdsarecommendations import AdAccountDsaRecommendations
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/dsa_recommendations',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdAccountDsaRecommendations,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdAccountDsaRecommendations, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_generate_previews(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -2877,8 +2986,8 @@ class AdAccount(
             'summary': 'list<string>',
             'summary_action_breakdowns': 'list<summary_action_breakdowns_enum>',
             'time_increment': 'string',
-            'time_range': 'Object',
-            'time_ranges': 'list<Object>',
+            'time_range': 'map',
+            'time_ranges': 'list<map>',
             'use_account_attribution_setting': 'bool',
             'use_unified_attribution_setting': 'bool',
         }
@@ -2938,8 +3047,8 @@ class AdAccount(
             'summary': 'list<string>',
             'summary_action_breakdowns': 'list<summary_action_breakdowns_enum>',
             'time_increment': 'string',
-            'time_range': 'Object',
-            'time_ranges': 'list<Object>',
+            'time_range': 'map',
+            'time_ranges': 'list<map>',
             'use_account_attribution_setting': 'bool',
             'use_unified_attribution_setting': 'bool',
         }
@@ -3051,6 +3160,9 @@ class AdAccount(
             'campaign_group_status': 'campaign_group_status_enum',
             'conversion_domain': 'string',
             'custom_event_type': 'custom_event_type_enum',
+            'daily_budget': 'unsigned int',
+            'dsa_beneficiary': 'string',
+            'dsa_payor': 'string',
             'end_time': 'unsigned int',
             'lifetime_budget': 'unsigned int',
             'override_creative_text': 'string',
@@ -3510,6 +3622,7 @@ class AdAccount(
             'impression': 'unsigned int',
             'instream_packages': 'list<instream_packages_enum>',
             'interval_frequency_cap_reset_period': 'unsigned int',
+            'is_balanced_frequency': 'bool',
             'is_bonus_media': 'bool',
             'is_conversion_goal': 'bool',
             'is_full_view': 'bool',
@@ -3528,6 +3641,8 @@ class AdAccount(
             'stop_time': 'unsigned int',
             'story_event_type': 'unsigned int',
             'target_cpm': 'unsigned int',
+            'target_frequency': 'unsigned int',
+            'target_frequency_reset_period': 'unsigned int',
             'target_spec': 'Targeting',
             'video_view_length_constraint': 'unsigned int',
         }
@@ -4023,12 +4138,43 @@ class AdAccount(
             self.assure_call()
             return request.execute()
 
+    def get_value_adjustment_rules(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/value_adjustment_rules',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     _field_types = {
         'account_id': 'string',
         'account_status': 'unsigned int',
         'ad_account_promotable_objects': 'AdAccountPromotableObjects',
         'age': 'float',
         'agency_client_declaration': 'AgencyClientDeclaration',
+        'all_capabilities': 'list<string>',
         'amount_spent': 'string',
         'attribution_spec': 'list<AttributionSpec>',
         'balance': 'string',
@@ -4089,6 +4235,7 @@ class AdAccount(
         'timezone_name': 'string',
         'timezone_offset_hours_utc': 'float',
         'tos_accepted': 'map<string, int>',
+        'user_access_expire_time': 'datetime',
         'user_tasks': 'list<string>',
         'user_tos_accepted': 'map<string, int>',
         'viewable_business': 'Business',

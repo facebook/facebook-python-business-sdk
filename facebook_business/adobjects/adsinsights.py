@@ -109,6 +109,9 @@ class AdsInsights(
         interactive_component_tap = 'interactive_component_tap'
         labels = 'labels'
         location = 'location'
+        marketing_messages_cost_per_delivered = 'marketing_messages_cost_per_delivered'
+        marketing_messages_cost_per_link_btn_click = 'marketing_messages_cost_per_link_btn_click'
+        marketing_messages_spend = 'marketing_messages_spend'
         mobile_app_purchase_roas = 'mobile_app_purchase_roas'
         objective = 'objective'
         optimization_goal = 'optimization_goal'
@@ -118,9 +121,6 @@ class AdsInsights(
         purchase_roas = 'purchase_roas'
         qualifying_question_qualify_answer_rate = 'qualifying_question_qualify_answer_rate'
         quality_ranking = 'quality_ranking'
-        quality_score_ectr = 'quality_score_ectr'
-        quality_score_ecvr = 'quality_score_ecvr'
-        quality_score_organic = 'quality_score_organic'
         reach = 'reach'
         social_spend = 'social_spend'
         spend = 'spend'
@@ -161,6 +161,7 @@ class AdsInsights(
 
     class ActionAttributionWindows:
         value_1d_click = '1d_click'
+        value_1d_ev = '1d_ev'
         value_1d_view = '1d_view'
         value_28d_click = '28d_click'
         value_28d_view = '28d_view'
@@ -182,6 +183,7 @@ class AdsInsights(
         action_type = 'action_type'
         action_video_sound = 'action_video_sound'
         action_video_type = 'action_video_type'
+        standard_event_content_type = 'standard_event_content_type'
 
     class ActionReportTime:
         conversion = 'conversion'
@@ -209,6 +211,7 @@ class AdsInsights(
         impression_device = 'impression_device'
         is_conversion_id_modeled = 'is_conversion_id_modeled'
         link_url_asset = 'link_url_asset'
+        marketing_messages_btn_name = 'marketing_messages_btn_name'
         mmm = 'mmm'
         place_page_id = 'place_page_id'
         platform_position = 'platform_position'
@@ -219,6 +222,8 @@ class AdsInsights(
         region = 'region'
         skan_campaign_id = 'skan_campaign_id'
         skan_conversion_id = 'skan_conversion_id'
+        skan_version = 'skan_version'
+        standard_event_content_type = 'standard_event_content_type'
         title_asset = 'title_asset'
         video_asset = 'video_asset'
 
@@ -261,6 +266,7 @@ class AdsInsights(
         action_type = 'action_type'
         action_video_sound = 'action_video_sound'
         action_video_type = 'action_video_type'
+        standard_event_content_type = 'standard_event_content_type'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
@@ -351,6 +357,9 @@ class AdsInsights(
         'interactive_component_tap': 'list<AdsActionStats>',
         'labels': 'string',
         'location': 'string',
+        'marketing_messages_cost_per_delivered': 'string',
+        'marketing_messages_cost_per_link_btn_click': 'string',
+        'marketing_messages_spend': 'string',
         'mobile_app_purchase_roas': 'list<AdsActionStats>',
         'objective': 'string',
         'optimization_goal': 'string',
@@ -360,15 +369,12 @@ class AdsInsights(
         'purchase_roas': 'list<AdsActionStats>',
         'qualifying_question_qualify_answer_rate': 'string',
         'quality_ranking': 'string',
-        'quality_score_ectr': 'string',
-        'quality_score_ecvr': 'string',
-        'quality_score_organic': 'string',
         'reach': 'string',
         'social_spend': 'string',
         'spend': 'string',
         'total_postbacks': 'string',
         'total_postbacks_detailed': 'list<AdsActionStats>',
-        'total_postbacks_detailed_v4': 'string',
+        'total_postbacks_detailed_v4': 'list<AdsActionStats>',
         'unique_actions': 'list<AdsActionStats>',
         'unique_clicks': 'string',
         'unique_conversions': 'list<AdsActionStats>',
@@ -391,10 +397,10 @@ class AdsInsights(
         'video_p75_watched_actions': 'list<AdsActionStats>',
         'video_p95_watched_actions': 'list<AdsActionStats>',
         'video_play_actions': 'list<AdsActionStats>',
-        'video_play_curve_actions': 'list<Object>',
-        'video_play_retention_0_to_15s_actions': 'list<Object>',
-        'video_play_retention_20_to_60s_actions': 'list<Object>',
-        'video_play_retention_graph_actions': 'list<Object>',
+        'video_play_curve_actions': 'list<AdsHistogramStats>',
+        'video_play_retention_0_to_15s_actions': 'list<AdsHistogramStats>',
+        'video_play_retention_20_to_60s_actions': 'list<AdsHistogramStats>',
+        'video_play_retention_graph_actions': 'list<AdsHistogramStats>',
         'video_thruplay_watched_actions': 'list<AdsActionStats>',
         'video_time_watched_actions': 'list<AdsActionStats>',
         'website_ctr': 'list<AdsActionStats>',

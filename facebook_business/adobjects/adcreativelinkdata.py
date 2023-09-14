@@ -58,10 +58,6 @@ class AdCreativeLinkData(
         static_fallback_spec = 'static_fallback_spec'
         use_flexible_image_aspect_ratio = 'use_flexible_image_aspect_ratio'
 
-    class AttachmentStyle:
-        value_default = 'default'
-        link = 'link'
-
     class FormatOption:
         carousel_ar_effects = 'carousel_ar_effects'
         carousel_images_multi_items = 'carousel_images_multi_items'
@@ -73,7 +69,7 @@ class AdCreativeLinkData(
         'ad_context': 'string',
         'additional_image_index': 'int',
         'app_link_spec': 'AdCreativeLinkDataAppLinkSpec',
-        'attachment_style': 'AttachmentStyle',
+        'attachment_style': 'string',
         'branded_content_shared_to_sponsor_status': 'string',
         'branded_content_sponsor_page_id': 'string',
         'call_to_action': 'AdCreativeLinkDataCallToAction',
@@ -107,7 +103,6 @@ class AdCreativeLinkData(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['AttachmentStyle'] = AdCreativeLinkData.AttachmentStyle.__dict__.values()
         field_enum_info['FormatOption'] = AdCreativeLinkData.FormatOption.__dict__.values()
         return field_enum_info
 

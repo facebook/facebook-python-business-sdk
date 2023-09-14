@@ -242,7 +242,7 @@ class LiveVideo(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.user import User
         param_types = {
-            'uid': 'Object',
+            'uid': 'string',
         }
         enums = {
         }
@@ -548,7 +548,7 @@ class LiveVideo(
         'is_reference_only': 'bool',
         'live_views': 'unsigned int',
         'overlay_url': 'string',
-        'permalink_url': 'Object',
+        'permalink_url': 'string',
         'planned_start_time': 'datetime',
         'recommended_encoder_settings': 'LiveVideoRecommendedEncoderSettings',
         'seconds_left': 'int',

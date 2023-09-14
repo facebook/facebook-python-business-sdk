@@ -14,24 +14,28 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AREffectsBatchStatus(
+class PageAboutStoryComposedBlock(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(AREffectsBatchStatus, self).__init__()
-        self._isAREffectsBatchStatus = True
+        super(PageAboutStoryComposedBlock, self).__init__()
+        self._isPageAboutStoryComposedBlock = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        errors = 'errors'
-        product_groups = 'product_groups'
-        status = 'status'
+        depth = 'depth'
+        entity_ranges = 'entity_ranges'
+        inline_style_ranges = 'inline_style_ranges'
+        text = 'text'
+        type = 'type'
 
     _field_types = {
-        'errors': 'list<string>',
-        'product_groups': 'list<Object>',
-        'status': 'string',
+        'depth': 'int',
+        'entity_ranges': 'list<PageAboutStoryComposedBlockEntityRanges>',
+        'inline_style_ranges': 'list<PageAboutStoryComposedBlockInlineStyle>',
+        'text': 'string',
+        'type': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

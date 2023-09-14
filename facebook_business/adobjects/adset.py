@@ -44,6 +44,7 @@ class AdSet(
         billing_event = 'billing_event'
         budget_remaining = 'budget_remaining'
         campaign = 'campaign'
+        campaign_active_time = 'campaign_active_time'
         campaign_attribution = 'campaign_attribution'
         campaign_id = 'campaign_id'
         configured_status = 'configured_status'
@@ -62,6 +63,7 @@ class AdSet(
         full_funnel_exploration_mode = 'full_funnel_exploration_mode'
         id = 'id'
         instagram_actor_id = 'instagram_actor_id'
+        is_budget_schedule_enabled = 'is_budget_schedule_enabled'
         is_dynamic_creative = 'is_dynamic_creative'
         issues_info = 'issues_info'
         learning_stage_info = 'learning_stage_info'
@@ -155,6 +157,7 @@ class AdSet(
         quality_call = 'QUALITY_CALL'
         quality_lead = 'QUALITY_LEAD'
         reach = 'REACH'
+        reminders_set = 'REMINDERS_SET'
         subscribers = 'SUBSCRIBERS'
         thruplay = 'THRUPLAY'
         value = 'VALUE'
@@ -288,7 +291,7 @@ class AdSet(
             'am_call_tags': 'map',
             'date_preset': 'date_preset_enum',
             'from_adtable': 'bool',
-            'time_range': 'Object',
+            'time_range': 'map',
         }
         enums = {
             'date_preset_enum': [
@@ -350,6 +353,7 @@ class AdSet(
             'bid_constraints': 'map<string, Object>',
             'bid_strategy': 'bid_strategy_enum',
             'billing_event': 'billing_event_enum',
+            'campaign_attribution': 'Object',
             'campaign_spec': 'Object',
             'creative_sequence': 'list<string>',
             'daily_budget': 'unsigned int',
@@ -626,7 +630,7 @@ class AdSet(
         param_types = {
             'date_preset': 'date_preset_enum',
             'effective_status': 'list<string>',
-            'time_range': 'Object',
+            'time_range': 'map',
             'updated_since': 'int',
         }
         enums = {
@@ -695,7 +699,7 @@ class AdSet(
             'date_preset': 'date_preset_enum',
             'effective_status': 'list<effective_status_enum>',
             'is_completed': 'bool',
-            'time_range': 'Object',
+            'time_range': 'map',
         }
         enums = {
             'date_preset_enum': AdSet.DatePreset.__dict__.values(),
@@ -821,8 +825,8 @@ class AdSet(
             'summary': 'list<string>',
             'summary_action_breakdowns': 'list<summary_action_breakdowns_enum>',
             'time_increment': 'string',
-            'time_range': 'Object',
-            'time_ranges': 'list<Object>',
+            'time_range': 'map',
+            'time_ranges': 'list<map>',
             'use_account_attribution_setting': 'bool',
             'use_unified_attribution_setting': 'bool',
         }
@@ -882,8 +886,8 @@ class AdSet(
             'summary': 'list<string>',
             'summary_action_breakdowns': 'list<summary_action_breakdowns_enum>',
             'time_increment': 'string',
-            'time_range': 'Object',
-            'time_ranges': 'list<Object>',
+            'time_range': 'map',
+            'time_ranges': 'list<map>',
             'use_account_attribution_setting': 'bool',
             'use_unified_attribution_setting': 'bool',
         }
@@ -968,6 +972,7 @@ class AdSet(
         'billing_event': 'BillingEvent',
         'budget_remaining': 'string',
         'campaign': 'Campaign',
+        'campaign_active_time': 'string',
         'campaign_attribution': 'string',
         'campaign_id': 'string',
         'configured_status': 'ConfiguredStatus',
@@ -986,6 +991,7 @@ class AdSet(
         'full_funnel_exploration_mode': 'string',
         'id': 'string',
         'instagram_actor_id': 'string',
+        'is_budget_schedule_enabled': 'bool',
         'is_dynamic_creative': 'bool',
         'issues_info': 'list<AdCampaignIssuesInfo>',
         'learning_stage_info': 'AdCampaignLearningStageInfo',

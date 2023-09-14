@@ -18,17 +18,22 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class ShopOrder(
+class PageAboutStory(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isShopOrder = True
-        super(ShopOrder, self).__init__(fbid, parent_id, api)
+        self._isPageAboutStory = True
+        super(PageAboutStory, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        creation_time = 'creation_time'
+        composed_text = 'composed_text'
+        cover_photo = 'cover_photo'
+        entity_map = 'entity_map'
         id = 'id'
+        is_published = 'is_published'
+        page_id = 'page_id'
+        title = 'title'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -44,7 +49,7 @@ class ShopOrder(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=ShopOrder,
+            target_class=PageAboutStory,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -61,8 +66,13 @@ class ShopOrder(
             return request.execute()
 
     _field_types = {
-        'creation_time': 'datetime',
+        'composed_text': 'list<PageAboutStoryComposedBlock>',
+        'cover_photo': 'Photo',
+        'entity_map': 'list<Object>',
         'id': 'string',
+        'is_published': 'bool',
+        'page_id': 'string',
+        'title': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

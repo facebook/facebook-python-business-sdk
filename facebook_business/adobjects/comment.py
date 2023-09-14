@@ -403,7 +403,7 @@ class Comment(
         'message_tags': 'list<EntityAtTextRange>',
         'object': 'Object',
         'parent': 'Comment',
-        'permalink_url': 'Object',
+        'permalink_url': 'string',
         'private_reply_conversation': 'Object',
         'user_likes': 'bool',
     }

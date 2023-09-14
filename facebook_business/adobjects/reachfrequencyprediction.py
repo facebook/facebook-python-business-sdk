@@ -123,6 +123,7 @@ class ReachFrequencyPrediction(
         existing_campaign_id = 'existing_campaign_id'
         grp_buying = 'grp_buying'
         impression = 'impression'
+        is_balanced_frequency = 'is_balanced_frequency'
         is_full_view = 'is_full_view'
         is_reach_and_frequency_io_buying = 'is_reach_and_frequency_io_buying'
         num_curve_points = 'num_curve_points'
@@ -131,6 +132,8 @@ class ReachFrequencyPrediction(
         rf_prediction_id_to_release = 'rf_prediction_id_to_release'
         rf_prediction_id_to_share = 'rf_prediction_id_to_share'
         stop_time = 'stop_time'
+        target_frequency = 'target_frequency'
+        target_frequency_reset_period = 'target_frequency_reset_period'
 
     class Action:
         cancel = 'cancel'
@@ -297,6 +300,7 @@ class ReachFrequencyPrediction(
         'existing_campaign_id': 'string',
         'grp_buying': 'bool',
         'impression': 'unsigned int',
+        'is_balanced_frequency': 'bool',
         'is_full_view': 'bool',
         'is_reach_and_frequency_io_buying': 'bool',
         'num_curve_points': 'unsigned int',
@@ -305,6 +309,8 @@ class ReachFrequencyPrediction(
         'rf_prediction_id_to_release': 'string',
         'rf_prediction_id_to_share': 'string',
         'stop_time': 'unsigned int',
+        'target_frequency': 'unsigned int',
+        'target_frequency_reset_period': 'unsigned int',
     }
     @classmethod
     def _get_field_enum_info(cls):

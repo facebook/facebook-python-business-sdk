@@ -104,6 +104,7 @@ class Application(
         privacy_policy_url = 'privacy_policy_url'
         profile_section_url = 'profile_section_url'
         property_id = 'property_id'
+        protected_mode_rules = 'protected_mode_rules'
         real_time_mode_devices = 'real_time_mode_devices'
         restrictions = 'restrictions'
         restrictive_data_filter_params = 'restrictive_data_filter_params'
@@ -436,6 +437,7 @@ class Application(
             'url_schemes': 'list<string>',
             'user_id': 'string',
             'user_id_type': 'user_id_type_enum',
+            'vendor_id': 'string',
             'windows_attribution_id': 'string',
         }
         enums = {
@@ -787,6 +789,7 @@ class Application(
         param_types = {
             'app_id': 'int',
             'is_aem_ready': 'bool',
+            'is_app_aem_install_ready': 'bool',
             'is_app_aem_ready': 'bool',
             'is_skan_ready': 'bool',
             'message': 'string',
@@ -1188,6 +1191,38 @@ class Application(
             target_class=AdAccount,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=AdAccount, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_banned(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.user import User
+        param_types = {
+            'uid': 'int',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/banned',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=User,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=User, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1866,6 +1901,36 @@ class Application(
             self.assure_call()
             return request.execute()
 
+    def get_server_domain_infos(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/server_domain_infos',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_subscribed_domains(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -2172,6 +2237,7 @@ class Application(
         'privacy_policy_url': 'string',
         'profile_section_url': 'string',
         'property_id': 'string',
+        'protected_mode_rules': 'Object',
         'real_time_mode_devices': 'list<string>',
         'restrictions': 'Object',
         'restrictive_data_filter_params': 'string',

@@ -32,7 +32,6 @@ class ProductItem(
         additional_variant_attributes = 'additional_variant_attributes'
         age_group = 'age_group'
         applinks = 'applinks'
-        ar_data = 'ar_data'
         availability = 'availability'
         brand = 'brand'
         capability_to_review_status = 'capability_to_review_status'
@@ -83,6 +82,7 @@ class ProductItem(
         product_catalog = 'product_catalog'
         product_feed = 'product_feed'
         product_group = 'product_group'
+        product_local_info = 'product_local_info'
         product_type = 'product_type'
         quantity_to_sell_on_facebook = 'quantity_to_sell_on_facebook'
         retailer_id = 'retailer_id'
@@ -138,6 +138,7 @@ class ProductItem(
         available_for_order = 'available for order'
         discontinued = 'discontinued'
         in_stock = 'in stock'
+        mark_as_sold = 'mark_as_sold'
         out_of_stock = 'out of stock'
         pending = 'pending'
         preorder = 'preorder'
@@ -400,10 +401,16 @@ class ProductItem(
         bad_quality_image = 'BAD_QUALITY_IMAGE'
         cannot_edit_subscription_products = 'CANNOT_EDIT_SUBSCRIPTION_PRODUCTS'
         crawled_availability_mismatch = 'CRAWLED_AVAILABILITY_MISMATCH'
+        da_disabled_by_user = 'DA_DISABLED_BY_USER'
+        da_policy_violation = 'DA_POLICY_VIOLATION'
         digital_goods_not_available_for_checkout = 'DIGITAL_GOODS_NOT_AVAILABLE_FOR_CHECKOUT'
         duplicate_images = 'DUPLICATE_IMAGES'
         duplicate_title_and_description = 'DUPLICATE_TITLE_AND_DESCRIPTION'
+        empty_availability = 'EMPTY_AVAILABILITY'
+        empty_condition = 'EMPTY_CONDITION'
         empty_description = 'EMPTY_DESCRIPTION'
+        empty_product_url = 'EMPTY_PRODUCT_URL'
+        empty_seller_description = 'EMPTY_SELLER_DESCRIPTION'
         generic_invalid_field = 'GENERIC_INVALID_FIELD'
         hidden_until_product_launch = 'HIDDEN_UNTIL_PRODUCT_LAUNCH'
         image_fetch_failed = 'IMAGE_FETCH_FAILED'
@@ -426,6 +433,8 @@ class ProductItem(
         in_another_product_launch = 'IN_ANOTHER_PRODUCT_LAUNCH'
         item_group_not_specified = 'ITEM_GROUP_NOT_SPECIFIED'
         item_not_shippable_for_sca_shop = 'ITEM_NOT_SHIPPABLE_FOR_SCA_SHOP'
+        item_override_empty_availability = 'ITEM_OVERRIDE_EMPTY_AVAILABILITY'
+        item_override_empty_price = 'ITEM_OVERRIDE_EMPTY_PRICE'
         item_override_not_visible = 'ITEM_OVERRIDE_NOT_VISIBLE'
         item_stale_out_of_stock = 'ITEM_STALE_OUT_OF_STOCK'
         mini_shops_disabled_by_user = 'MINI_SHOPS_DISABLED_BY_USER'
@@ -451,6 +460,7 @@ class ProductItem(
         property_price_currency_not_supported = 'PROPERTY_PRICE_CURRENCY_NOT_SUPPORTED'
         property_price_too_high = 'PROPERTY_PRICE_TOO_HIGH'
         property_price_too_low = 'PROPERTY_PRICE_TOO_LOW'
+        property_unit_price_currency_mismatch_item_price_currency = 'PROPERTY_UNIT_PRICE_CURRENCY_MISMATCH_ITEM_PRICE_CURRENCY'
         property_value_contains_html_tags = 'PROPERTY_VALUE_CONTAINS_HTML_TAGS'
         property_value_description_contains_off_platform_link = 'PROPERTY_VALUE_DESCRIPTION_CONTAINS_OFF_PLATFORM_LINK'
         property_value_format = 'PROPERTY_VALUE_FORMAT'
@@ -459,16 +469,25 @@ class ProductItem(
         property_value_non_positive = 'PROPERTY_VALUE_NON_POSITIVE'
         property_value_string_exceeds_length = 'PROPERTY_VALUE_STRING_EXCEEDS_LENGTH'
         property_value_string_too_short = 'PROPERTY_VALUE_STRING_TOO_SHORT'
+        property_value_uppercase = 'PROPERTY_VALUE_UPPERCASE'
         property_value_uppercase_warning = 'PROPERTY_VALUE_UPPERCASE_WARNING'
         quality_duplicated_description = 'QUALITY_DUPLICATED_DESCRIPTION'
         quality_item_link_broken = 'QUALITY_ITEM_LINK_BROKEN'
         quality_item_link_redirecting = 'QUALITY_ITEM_LINK_REDIRECTING'
         retailer_id_not_provided = 'RETAILER_ID_NOT_PROVIDED'
         shopify_item_missing_shipping_profile = 'SHOPIFY_ITEM_MISSING_SHIPPING_PROFILE'
+        shops_policy_violation = 'SHOPS_POLICY_VIOLATION'
         subscription_info_not_enabled_for_feed = 'SUBSCRIPTION_INFO_NOT_ENABLED_FOR_FEED'
         tax_category_not_supported_in_uk = 'TAX_CATEGORY_NOT_SUPPORTED_IN_UK'
         unsupported_product_category = 'UNSUPPORTED_PRODUCT_CATEGORY'
         variant_attribute_issue = 'VARIANT_ATTRIBUTE_ISSUE'
+        video_fetch_failed = 'VIDEO_FETCH_FAILED'
+        video_fetch_failed_bad_gateway = 'VIDEO_FETCH_FAILED_BAD_GATEWAY'
+        video_fetch_failed_file_size_exceeded = 'VIDEO_FETCH_FAILED_FILE_SIZE_EXCEEDED'
+        video_fetch_failed_forbidden = 'VIDEO_FETCH_FAILED_FORBIDDEN'
+        video_fetch_failed_link_broken = 'VIDEO_FETCH_FAILED_LINK_BROKEN'
+        video_fetch_failed_timed_out = 'VIDEO_FETCH_FAILED_TIMED_OUT'
+        video_not_downloadable = 'VIDEO_NOT_DOWNLOADABLE'
 
     class MarkedForProductLaunch:
         value_default = 'default'
@@ -1018,7 +1037,6 @@ class ProductItem(
         'additional_variant_attributes': 'list<map<string, string>>',
         'age_group': 'AgeGroup',
         'applinks': 'CatalogItemAppLinks',
-        'ar_data': 'ProductItemARData',
         'availability': 'Availability',
         'brand': 'string',
         'capability_to_review_status': 'list<map<Object, Object>>',
@@ -1069,6 +1087,7 @@ class ProductItem(
         'product_catalog': 'ProductCatalog',
         'product_feed': 'ProductFeed',
         'product_group': 'ProductGroup',
+        'product_local_info': 'ProductItemLocalInfo',
         'product_type': 'string',
         'quantity_to_sell_on_facebook': 'int',
         'retailer_id': 'string',

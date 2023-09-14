@@ -52,7 +52,9 @@ class LocalServiceBusiness(
         id = 'id'
         image_fetch_status = 'image_fetch_status'
         images = 'images'
+        local_info = 'local_info'
         local_service_business_id = 'local_service_business_id'
+        main_local_info = 'main_local_info'
         phone = 'phone'
         price = 'price'
         price_range = 'price_range'
@@ -69,6 +71,7 @@ class LocalServiceBusiness(
         available_for_order = 'AVAILABLE_FOR_ORDER'
         discontinued = 'DISCONTINUED'
         in_stock = 'IN_STOCK'
+        mark_as_sold = 'MARK_AS_SOLD'
         out_of_stock = 'OUT_OF_STOCK'
         pending = 'PENDING'
         preorder = 'PREORDER'
@@ -182,7 +185,9 @@ class LocalServiceBusiness(
         'id': 'string',
         'image_fetch_status': 'ImageFetchStatus',
         'images': 'list<string>',
+        'local_info': 'ProductItemLocalInfo',
         'local_service_business_id': 'string',
+        'main_local_info': 'ProductItemLocalInfo',
         'phone': 'string',
         'price': 'string',
         'price_range': 'string',

@@ -47,6 +47,7 @@ class Campaign(
         effective_status = 'effective_status'
         has_secondary_skadnetwork_reporting = 'has_secondary_skadnetwork_reporting'
         id = 'id'
+        is_budget_schedule_enabled = 'is_budget_schedule_enabled'
         is_skadnetwork_attribution = 'is_skadnetwork_attribution'
         issues_info = 'issues_info'
         last_budget_toggling_time = 'last_budget_toggling_time'
@@ -477,7 +478,7 @@ class Campaign(
             'am_call_tags': 'map',
             'date_preset': 'date_preset_enum',
             'from_adtable': 'bool',
-            'time_range': 'Object',
+            'time_range': 'map',
         }
         enums = {
             'date_preset_enum': [
@@ -689,7 +690,7 @@ class Campaign(
         param_types = {
             'date_preset': 'date_preset_enum',
             'effective_status': 'list<string>',
-            'time_range': 'Object',
+            'time_range': 'map',
             'updated_since': 'int',
         }
         enums = {
@@ -726,7 +727,7 @@ class Campaign(
             'date_preset': 'date_preset_enum',
             'effective_status': 'list<effective_status_enum>',
             'is_completed': 'bool',
-            'time_range': 'Object',
+            'time_range': 'map',
         }
         enums = {
             'date_preset_enum': AdSet.DatePreset.__dict__.values(),
@@ -762,7 +763,7 @@ class Campaign(
             'date_preset': 'date_preset_enum',
             'effective_status': 'list<effective_status_enum>',
             'is_completed': 'bool',
-            'time_range': 'Object',
+            'time_range': 'map',
         }
         enums = {
             'date_preset_enum': Campaign.DatePreset.__dict__.values(),
@@ -851,8 +852,8 @@ class Campaign(
             'summary': 'list<string>',
             'summary_action_breakdowns': 'list<summary_action_breakdowns_enum>',
             'time_increment': 'string',
-            'time_range': 'Object',
-            'time_ranges': 'list<Object>',
+            'time_range': 'map',
+            'time_ranges': 'list<map>',
             'use_account_attribution_setting': 'bool',
             'use_unified_attribution_setting': 'bool',
         }
@@ -912,8 +913,8 @@ class Campaign(
             'summary': 'list<string>',
             'summary_action_breakdowns': 'list<summary_action_breakdowns_enum>',
             'time_increment': 'string',
-            'time_range': 'Object',
-            'time_ranges': 'list<Object>',
+            'time_range': 'map',
+            'time_ranges': 'list<map>',
             'use_account_attribution_setting': 'bool',
             'use_unified_attribution_setting': 'bool',
         }
@@ -970,6 +971,7 @@ class Campaign(
         'effective_status': 'EffectiveStatus',
         'has_secondary_skadnetwork_reporting': 'bool',
         'id': 'string',
+        'is_budget_schedule_enabled': 'bool',
         'is_skadnetwork_attribution': 'bool',
         'issues_info': 'list<AdCampaignIssuesInfo>',
         'last_budget_toggling_time': 'datetime',

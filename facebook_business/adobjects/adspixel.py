@@ -58,6 +58,7 @@ class AdsPixel(
         owner_ad_account = 'owner_ad_account'
         owner_business = 'owner_business'
         usage = 'usage'
+        user_access_expire_time = 'user_access_expire_time'
         valid_entries = 'valid_entries'
 
     class SortBy:
@@ -729,6 +730,7 @@ class AdsPixel(
         'owner_ad_account': 'AdAccount',
         'owner_business': 'Business',
         'usage': 'OfflineConversionDataSetUsage',
+        'user_access_expire_time': 'datetime',
         'valid_entries': 'int',
     }
     @classmethod

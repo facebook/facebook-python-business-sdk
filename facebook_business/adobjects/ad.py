@@ -30,7 +30,10 @@ class Ad(
 
     class Field(AbstractObject.Field):
         account_id = 'account_id'
+        ad_active_time = 'ad_active_time'
         ad_review_feedback = 'ad_review_feedback'
+        ad_schedule_end_time = 'ad_schedule_end_time'
+        ad_schedule_start_time = 'ad_schedule_start_time'
         adlabels = 'adlabels'
         adset = 'adset'
         adset_id = 'adset_id'
@@ -194,7 +197,7 @@ class Ad(
             'date_preset': 'date_preset_enum',
             'from_adtable': 'bool',
             'review_feedback_breakdown': 'bool',
-            'time_range': 'Object',
+            'time_range': 'map',
         }
         enums = {
             'date_preset_enum': [
@@ -247,6 +250,8 @@ class Ad(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'ad_schedule_end_time': 'datetime',
+            'ad_schedule_start_time': 'datetime',
             'adlabels': 'list<Object>',
             'adset_spec': 'AdSet',
             'audience_id': 'string',
@@ -394,7 +399,7 @@ class Ad(
         param_types = {
             'date_preset': 'date_preset_enum',
             'effective_status': 'list<string>',
-            'time_range': 'Object',
+            'time_range': 'map',
             'updated_since': 'int',
         }
         enums = {
@@ -481,8 +486,8 @@ class Ad(
             'summary': 'list<string>',
             'summary_action_breakdowns': 'list<summary_action_breakdowns_enum>',
             'time_increment': 'string',
-            'time_range': 'Object',
-            'time_ranges': 'list<Object>',
+            'time_range': 'map',
+            'time_ranges': 'list<map>',
             'use_account_attribution_setting': 'bool',
             'use_unified_attribution_setting': 'bool',
         }
@@ -542,8 +547,8 @@ class Ad(
             'summary': 'list<string>',
             'summary_action_breakdowns': 'list<summary_action_breakdowns_enum>',
             'time_increment': 'string',
-            'time_range': 'Object',
-            'time_ranges': 'list<Object>',
+            'time_range': 'map',
+            'time_ranges': 'list<map>',
             'use_account_attribution_setting': 'bool',
             'use_unified_attribution_setting': 'bool',
         }
@@ -695,7 +700,10 @@ class Ad(
 
     _field_types = {
         'account_id': 'string',
+        'ad_active_time': 'string',
         'ad_review_feedback': 'AdgroupReviewFeedback',
+        'ad_schedule_end_time': 'datetime',
+        'ad_schedule_start_time': 'datetime',
         'adlabels': 'list<AdLabel>',
         'adset': 'AdSet',
         'adset_id': 'string',

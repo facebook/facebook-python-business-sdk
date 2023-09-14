@@ -98,12 +98,6 @@ class Post(
         none = 'none'
         year = 'year'
 
-    class CheckinEntryPoint:
-        branding_checkin = 'BRANDING_CHECKIN'
-        branding_other = 'BRANDING_OTHER'
-        branding_photo = 'BRANDING_PHOTO'
-        branding_status = 'BRANDING_STATUS'
-
     class Formatting:
         markdown = 'MARKDOWN'
         plaintext = 'PLAINTEXT'
@@ -675,7 +669,7 @@ class Post(
         'is_popular': 'bool',
         'is_published': 'bool',
         'is_spherical': 'bool',
-        'link': 'Object',
+        'link': 'string',
         'message': 'string',
         'message_tags': 'list',
         'multi_share_end_card': 'bool',
@@ -683,7 +677,7 @@ class Post(
         'name': 'string',
         'object_id': 'string',
         'parent_id': 'string',
-        'permalink_url': 'Object',
+        'permalink_url': 'string',
         'picture': 'string',
         'place': 'Place',
         'privacy': 'Privacy',
@@ -710,7 +704,6 @@ class Post(
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['BackdatedTimeGranularity'] = Post.BackdatedTimeGranularity.__dict__.values()
-        field_enum_info['CheckinEntryPoint'] = Post.CheckinEntryPoint.__dict__.values()
         field_enum_info['Formatting'] = Post.Formatting.__dict__.values()
         field_enum_info['PlaceAttachmentSetting'] = Post.PlaceAttachmentSetting.__dict__.values()
         field_enum_info['PostSurfacesBlacklist'] = Post.PostSurfacesBlacklist.__dict__.values()

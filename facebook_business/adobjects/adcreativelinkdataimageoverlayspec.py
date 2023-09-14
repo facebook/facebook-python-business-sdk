@@ -70,6 +70,7 @@ class AdCreativeLinkDataImageOverlaySpec(
         price = 'price'
         star_rating = 'star_rating'
         strikethrough_price = 'strikethrough_price'
+        sustainable = 'sustainable'
 
     class ThemeColor:
         background_000000_text_ffffff = 'background_000000_text_ffffff'

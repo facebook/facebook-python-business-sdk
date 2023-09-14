@@ -27,8 +27,10 @@ class ProductImage(
         super(ProductImage, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        height = 'height'
         id = 'id'
         image_url = 'image_url'
+        width = 'width'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -61,8 +63,10 @@ class ProductImage(
             return request.execute()
 
     _field_types = {
+        'height': 'int',
         'id': 'string',
         'image_url': 'string',
+        'width': 'int',
     }
     @classmethod
     def _get_field_enum_info(cls):

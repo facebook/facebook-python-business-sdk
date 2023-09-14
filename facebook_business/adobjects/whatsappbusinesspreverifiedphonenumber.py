@@ -30,6 +30,7 @@ class WhatsAppBusinessPreVerifiedPhoneNumber(
         code_verification_status = 'code_verification_status'
         code_verification_time = 'code_verification_time'
         id = 'id'
+        owner_business = 'owner_business'
         phone_number = 'phone_number'
         verification_expiry_time = 'verification_expiry_time'
 
@@ -98,13 +99,44 @@ class WhatsAppBusinessPreVerifiedPhoneNumber(
             self.assure_call()
             return request.execute()
 
+    def get_partners(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.business import Business
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/partners',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Business,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Business, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def create_request_code(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'code_method': 'code_method_enum',
-            'language': 'Object',
+            'language': 'string',
         }
         enums = {
             'code_method_enum': [
@@ -169,6 +201,7 @@ class WhatsAppBusinessPreVerifiedPhoneNumber(
         'code_verification_status': 'string',
         'code_verification_time': 'datetime',
         'id': 'string',
+        'owner_business': 'Business',
         'phone_number': 'string',
         'verification_expiry_time': 'datetime',
     }

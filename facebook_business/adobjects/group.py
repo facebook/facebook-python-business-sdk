@@ -311,6 +311,7 @@ class Group(
             'name': 'string',
             'place': 'Object',
             'privacy': 'string',
+            'session_id': 'string',
             'tags': 'list<int>',
             'visible': 'string',
         }
@@ -519,7 +520,6 @@ class Group(
             'backdated_time_granularity': 'backdated_time_granularity_enum',
             'call_to_action': 'Object',
             'caption': 'string',
-            'checkin_entry_point': 'checkin_entry_point_enum',
             'child_attachments': 'list<Object>',
             'client_mutation_id': 'string',
             'composer_entry_picker': 'string',
@@ -617,7 +617,6 @@ class Group(
         }
         enums = {
             'backdated_time_granularity_enum': Post.BackdatedTimeGranularity.__dict__.values(),
-            'checkin_entry_point_enum': Post.CheckinEntryPoint.__dict__.values(),
             'formatting_enum': Post.Formatting.__dict__.values(),
             'place_attachment_setting_enum': Post.PlaceAttachmentSetting.__dict__.values(),
             'post_surfaces_blacklist_enum': Post.PostSurfacesBlacklist.__dict__.values(),
@@ -714,11 +713,11 @@ class Group(
         param_types = {
             'admin': 'int',
             'description': 'string',
-            'group_icon_id': 'Object',
+            'group_icon_id': 'string',
             'group_type': 'group_type_enum',
             'join_setting': 'join_setting_enum',
             'name': 'string',
-            'parent_id': 'Object',
+            'parent_id': 'string',
             'post_permissions': 'post_permissions_enum',
             'post_requires_admin_approval': 'bool',
             'privacy': 'string',
