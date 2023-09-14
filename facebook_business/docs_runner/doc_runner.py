@@ -39,14 +39,14 @@ if __name__ == '__main__':
             exec(code)
         except Exception as err:
             if isinstance(err, FacebookRequestError):
-                # Check if the error was trasient
+                # Check if the error was transient
                 if err.api_transient_error() is True:
                     exit_code = ExitCodesEnum.EXTERNAL_ERROR
                 else:
                     exit_code = ExitCodesEnum.USER_ERROR
 
                 # String match for service errors. In these cases even
-                # if tranient flag is not set, mark it as external error
+                # if transient flag is not set, mark it as external error
                 for exp in reg_exp:
                     if re.findall(exp, err.get_message().lower()):
                         exit_code = ExitCodesEnum.EXTERNAL_ERROR

@@ -22,7 +22,7 @@ class ObjectParser:
         custom_parse_method=None,
     ):
         """ Initialize an ObjectParser.
-        To Initialize, you need to provide either a resuse_object, target_class,
+        To Initialize, you need to provide either a reuse_object, target_class,
         or an custom_parse_method.
         Args:
             api: FacebookAdsApi object.

@@ -219,7 +219,7 @@ class VideoUploadTransferRequestManager(VideoUploadRequestManager):
                 subcode = e.api_error_subcode()
                 body = e.body()
                 if subcode == 1363037:
-                    # existing issue, try again immedidately
+                    # existing issue, try again immediately
                     if (body and 'error' in body and
                             'error_data' in body['error'] and
                             'start_offset' in body['error']['error_data'] and
