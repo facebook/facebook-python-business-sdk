@@ -58,6 +58,11 @@ class WhatsAppBusinessAccount(
         marketing = 'MARKETING'
         utility = 'UTILITY'
 
+    class SubCategory:
+        custom = 'CUSTOM'
+        order_details = 'ORDER_DETAILS'
+        order_status = 'ORDER_STATUS'
+
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -352,6 +357,40 @@ class WhatsAppBusinessAccount(
             self.assure_call()
             return request.execute()
 
+    def create_extension(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'clone_extension_id': 'string',
+            'clone_template': 'string',
+            'data_channel_uri': 'string',
+            'name': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/extensions',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_flows(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -363,6 +402,40 @@ class WhatsAppBusinessAccount(
         request = FacebookRequest(
             node_id=self['id'],
             method='GET',
+            endpoint='/flows',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_flow(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'clone_flow_id': 'string',
+            'clone_template': 'string',
+            'data_channel_uri': 'string',
+            'name': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
             endpoint='/flows',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
@@ -552,10 +625,11 @@ class WhatsAppBusinessAccount(
             'language': 'string',
             'message_send_ttl_seconds': 'unsigned int',
             'name': 'string',
-            'sub_category': 'Object',
+            'sub_category': 'sub_category_enum',
         }
         enums = {
             'category_enum': WhatsAppBusinessAccount.Category.__dict__.values(),
+            'sub_category_enum': WhatsAppBusinessAccount.SubCategory.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -1029,6 +1103,7 @@ class WhatsAppBusinessAccount(
         field_enum_info = {}
         field_enum_info['Tasks'] = WhatsAppBusinessAccount.Tasks.__dict__.values()
         field_enum_info['Category'] = WhatsAppBusinessAccount.Category.__dict__.values()
+        field_enum_info['SubCategory'] = WhatsAppBusinessAccount.SubCategory.__dict__.values()
         return field_enum_info
 
 

@@ -79,6 +79,7 @@ class IGUser(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.useravailablecatalogs import UserAvailableCatalogs
         param_types = {
         }
         enums = {
@@ -89,9 +90,9 @@ class IGUser(
             endpoint='/available_catalogs',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=UserAvailableCatalogs,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=UserAvailableCatalogs, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -109,6 +110,7 @@ class IGUser(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.shadowigusercatalogproductsearch import ShadowIGUserCatalogProductSearch
         param_types = {
             'catalog_id': 'string',
             'q': 'string',
@@ -121,9 +123,9 @@ class IGUser(
             endpoint='/catalog_product_search',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=ShadowIGUserCatalogProductSearch,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=ShadowIGUserCatalogProductSearch, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -141,6 +143,7 @@ class IGUser(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.contentpublishinglimitresponse import ContentPublishingLimitResponse
         param_types = {
             'since': 'datetime',
         }
@@ -152,9 +155,9 @@ class IGUser(
             endpoint='/content_publishing_limit',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=ContentPublishingLimitResponse,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=ContentPublishingLimitResponse, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -456,6 +459,7 @@ class IGUser(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.igshoppingproductappeal import IGShoppingProductAppeal
         param_types = {
             'product_id': 'string',
         }
@@ -467,9 +471,9 @@ class IGUser(
             endpoint='/product_appeal',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=IGShoppingProductAppeal,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=IGShoppingProductAppeal, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -487,6 +491,7 @@ class IGUser(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.igshoppingproductappeal import IGShoppingProductAppeal
         param_types = {
             'appeal_reason': 'string',
             'product_id': 'string',
@@ -499,9 +504,9 @@ class IGUser(
             endpoint='/product_appeal',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=IGShoppingProductAppeal,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=IGShoppingProductAppeal, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -519,6 +524,7 @@ class IGUser(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.shadowighashtag import ShadowIGHashtag
         param_types = {
         }
         enums = {
@@ -529,9 +535,9 @@ class IGUser(
             endpoint='/recently_searched_hashtags',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=ShadowIGHashtag,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=ShadowIGHashtag, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

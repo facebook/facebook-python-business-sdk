@@ -47,6 +47,7 @@ class AdPromotedObject(
         product_item_id = 'product_item_id'
         product_set_id = 'product_set_id'
         retention_days = 'retention_days'
+        whats_app_business_phone_number_id = 'whats_app_business_phone_number_id'
 
     class CustomEventType:
         achievement_unlocked = 'ACHIEVEMENT_UNLOCKED'
@@ -102,6 +103,7 @@ class AdPromotedObject(
         'product_item_id': 'string',
         'product_set_id': 'string',
         'retention_days': 'string',
+        'whats_app_business_phone_number_id': 'Object',
     }
     @classmethod
     def _get_field_enum_info(cls):

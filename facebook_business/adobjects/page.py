@@ -4144,8 +4144,12 @@ class Page(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.stories import Stories
         param_types = {
+            'since': 'datetime',
+            'status': 'list<status_enum>',
+            'until': 'datetime',
         }
         enums = {
+            'status_enum': Stories.Status.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],

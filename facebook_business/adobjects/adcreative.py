@@ -44,6 +44,7 @@ class AdCreative(
         categorization_criteria = 'categorization_criteria'
         category_media_source = 'category_media_source'
         collaborative_ads_lsb_image_bank_id = 'collaborative_ads_lsb_image_bank_id'
+        creative_sourcing_spec = 'creative_sourcing_spec'
         degrees_of_freedom_spec = 'degrees_of_freedom_spec'
         destination_set_id = 'destination_set_id'
         dynamic_ad_voice = 'dynamic_ad_voice'
@@ -462,6 +463,7 @@ class AdCreative(
         'categorization_criteria': 'string',
         'category_media_source': 'string',
         'collaborative_ads_lsb_image_bank_id': 'string',
+        'creative_sourcing_spec': 'AdCreativeSourcingSpec',
         'degrees_of_freedom_spec': 'AdCreativeDegreesOfFreedomSpec',
         'destination_set_id': 'string',
         'dynamic_ad_voice': 'string',

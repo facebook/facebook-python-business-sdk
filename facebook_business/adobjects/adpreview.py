@@ -87,6 +87,7 @@ class AdPreview(
         watch_feed_mobile = 'WATCH_FEED_MOBILE'
 
     class CreativeFeature:
+        product_metadata_automation = 'product_metadata_automation'
         profile_card = 'profile_card'
         standard_enhancements_catalog = 'standard_enhancements_catalog'
 

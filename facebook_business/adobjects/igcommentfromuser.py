@@ -5,6 +5,10 @@
 # LICENSE file in the root directory of this source tree.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
+from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
+from facebook_business.adobjects.objectparser import ObjectParser
+from facebook_business.api import FacebookRequest
+from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -14,39 +18,25 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class Stories(
-    AbstractObject,
+class IGCommentFromUser(
+    AbstractCrudObject,
 ):
 
-    def __init__(self, api=None):
-        super(Stories, self).__init__()
-        self._isStories = True
-        self._api = api
+    def __init__(self, fbid=None, parent_id=None, api=None):
+        self._isIGCommentFromUser = True
+        super(IGCommentFromUser, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        creation_time = 'creation_time'
-        media_id = 'media_id'
-        media_type = 'media_type'
-        post_id = 'post_id'
-        status = 'status'
-        url = 'url'
-
-    class Status:
-        archived = 'ARCHIVED'
-        published = 'PUBLISHED'
+        id = 'id'
+        username = 'username'
 
     _field_types = {
-        'creation_time': 'string',
-        'media_id': 'string',
-        'media_type': 'string',
-        'post_id': 'string',
-        'status': 'string',
-        'url': 'string',
+        'id': 'string',
+        'username': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['Status'] = Stories.Status.__dict__.values()
         return field_enum_info
 
 

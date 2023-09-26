@@ -35,6 +35,7 @@ class AdVideo(
         content_category = 'content_category'
         content_tags = 'content_tags'
         copyright = 'copyright'
+        copyright_check_information = 'copyright_check_information'
         copyright_monitoring_status = 'copyright_monitoring_status'
         created_time = 'created_time'
         custom_labels = 'custom_labels'
@@ -1171,6 +1172,7 @@ class AdVideo(
         'content_category': 'string',
         'content_tags': 'list<string>',
         'copyright': 'VideoCopyright',
+        'copyright_check_information': 'Object',
         'copyright_monitoring_status': 'string',
         'created_time': 'datetime',
         'custom_labels': 'list<string>',

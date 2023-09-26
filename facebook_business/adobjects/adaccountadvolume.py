@@ -54,6 +54,7 @@ class AdAccountAdVolume(
         auction_overlap = 'AUCTION_OVERLAP'
         auction_overlap_consolidation = 'AUCTION_OVERLAP_CONSOLIDATION'
         audience_expansion = 'AUDIENCE_EXPANSION'
+        audience_expansion_retargeting = 'AUDIENCE_EXPANSION_RETARGETING'
         autoflow_opt_in = 'AUTOFLOW_OPT_IN'
         autoflow_opt_in_fallback_duplication_flow = 'AUTOFLOW_OPT_IN_FALLBACK_DUPLICATION_FLOW'
         automatic_placements = 'AUTOMATIC_PLACEMENTS'

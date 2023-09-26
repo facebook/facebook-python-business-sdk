@@ -35,7 +35,7 @@ class AdCreativeDegreesOfFreedomSpec(
 
     _field_types = {
         'ad_handle_type': 'string',
-        'creative_features_spec': 'Object',
+        'creative_features_spec': 'AdCreativeFeaturesSpec',
         'degrees_of_freedom_type': 'string',
         'image_transformation_types': 'list<string>',
         'multi_media_transformation_type': 'string',

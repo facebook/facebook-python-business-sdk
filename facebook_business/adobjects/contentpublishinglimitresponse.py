@@ -14,39 +14,26 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class Stories(
+class ContentPublishingLimitResponse(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(Stories, self).__init__()
-        self._isStories = True
+        super(ContentPublishingLimitResponse, self).__init__()
+        self._isContentPublishingLimitResponse = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        creation_time = 'creation_time'
-        media_id = 'media_id'
-        media_type = 'media_type'
-        post_id = 'post_id'
-        status = 'status'
-        url = 'url'
-
-    class Status:
-        archived = 'ARCHIVED'
-        published = 'PUBLISHED'
+        config = 'config'
+        quota_usage = 'quota_usage'
 
     _field_types = {
-        'creation_time': 'string',
-        'media_id': 'string',
-        'media_type': 'string',
-        'post_id': 'string',
-        'status': 'string',
-        'url': 'string',
+        'config': 'Object',
+        'quota_usage': 'int',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['Status'] = Stories.Status.__dict__.values()
         return field_enum_info
 
 

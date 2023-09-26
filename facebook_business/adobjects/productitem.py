@@ -98,6 +98,7 @@ class ProductItem(
         size = 'size'
         start_date = 'start_date'
         url = 'url'
+        video_fetch_status = 'video_fetch_status'
         visibility = 'visibility'
         wa_compliance_category = 'wa_compliance_category'
         additional_uploaded_image_ids = 'additional_uploaded_image_ids'
@@ -177,6 +178,14 @@ class ProductItem(
         kg = 'kg'
         lb = 'lb'
         oz = 'oz'
+
+    class VideoFetchStatus:
+        direct_upload = 'DIRECT_UPLOAD'
+        fetched = 'FETCHED'
+        fetch_failed = 'FETCH_FAILED'
+        no_status = 'NO_STATUS'
+        outdated = 'OUTDATED'
+        partial_fetch = 'PARTIAL_FETCH'
 
     class Visibility:
         published = 'published'
@@ -1005,6 +1014,7 @@ class ProductItem(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.dynamicvideometadata import DynamicVideoMetadata
         param_types = {
         }
         enums = {
@@ -1015,9 +1025,9 @@ class ProductItem(
             endpoint='/videos_metadata',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=DynamicVideoMetadata,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=DynamicVideoMetadata, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1103,6 +1113,7 @@ class ProductItem(
         'size': 'string',
         'start_date': 'string',
         'url': 'string',
+        'video_fetch_status': 'VideoFetchStatus',
         'visibility': 'Visibility',
         'wa_compliance_category': 'string',
         'additional_uploaded_image_ids': 'list<string>',
@@ -1140,6 +1151,7 @@ class ProductItem(
         field_enum_info['ImageFetchStatus'] = ProductItem.ImageFetchStatus.__dict__.values()
         field_enum_info['ReviewStatus'] = ProductItem.ReviewStatus.__dict__.values()
         field_enum_info['ShippingWeightUnit'] = ProductItem.ShippingWeightUnit.__dict__.values()
+        field_enum_info['VideoFetchStatus'] = ProductItem.VideoFetchStatus.__dict__.values()
         field_enum_info['Visibility'] = ProductItem.Visibility.__dict__.values()
         field_enum_info['CommerceTaxCategory'] = ProductItem.CommerceTaxCategory.__dict__.values()
         field_enum_info['ErrorPriority'] = ProductItem.ErrorPriority.__dict__.values()

@@ -14,39 +14,32 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class Stories(
+class IGShoppingProductAppeal(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(Stories, self).__init__()
-        self._isStories = True
+        super(IGShoppingProductAppeal, self).__init__()
+        self._isIGShoppingProductAppeal = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        creation_time = 'creation_time'
-        media_id = 'media_id'
-        media_type = 'media_type'
-        post_id = 'post_id'
-        status = 'status'
-        url = 'url'
-
-    class Status:
-        archived = 'ARCHIVED'
-        published = 'PUBLISHED'
+        eligible_for_appeal = 'eligible_for_appeal'
+        product_appeal_status = 'product_appeal_status'
+        product_id = 'product_id'
+        rejection_reasons = 'rejection_reasons'
+        review_status = 'review_status'
 
     _field_types = {
-        'creation_time': 'string',
-        'media_id': 'string',
-        'media_type': 'string',
-        'post_id': 'string',
-        'status': 'string',
-        'url': 'string',
+        'eligible_for_appeal': 'bool',
+        'product_appeal_status': 'string',
+        'product_id': 'int',
+        'rejection_reasons': 'list<string>',
+        'review_status': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['Status'] = Stories.Status.__dict__.values()
         return field_enum_info
 
 
