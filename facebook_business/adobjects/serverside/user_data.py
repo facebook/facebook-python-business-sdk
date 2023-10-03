@@ -53,6 +53,8 @@ class UserData(object):
         'dobd': 'str',
         'dobm': 'str',
         'doby': 'str',
+        'madid': 'str',
+        'anon_id': 'str',
     }
 
     def __init__(
@@ -92,8 +94,10 @@ class UserData(object):
         country_codes=None,
         zip_codes=None,
         external_ids=None,
+        madid=None,
+        anon_id=None,
     ):
-        # type: (str, str, Gender, str, str, str, str, str, str, str, str, str, str, str, str, str, str, str, str, str, str, str, str, str, list[str], list[str], list[Gender], list[str], list[str], list[str], list[str], list[str], list[str], list[str], list[str]) -> None
+        # type: (str, str, Gender, str, str, str, str, str, str, str, str, str, str, str, str, str, str, str, str, str, str, str, str, str, list[str], list[str], list[Gender], list[str], list[str], list[str], list[str], list[str], list[str], list[str], list[str], str, str) -> None
 
         """UserData is a set of identifiers Facebook can use for targeted attribution"""
         self._emails = None
@@ -120,6 +124,8 @@ class UserData(object):
         self._dobd = None
         self._dobm = None
         self._doby = None
+        self._madid = None
+        self._anon_id = None
 
         if email is not None and emails is not None:
             raise ValueError(UserData.multi_value_constructor_err.format('email', 'emails'))
@@ -215,6 +221,10 @@ class UserData(object):
             self.dobm = dobm
         if doby is not None:
             self.doby = doby
+        if madid is not None:
+            self.madid = madid
+        if anon_id is not None:
+            self.anon_id = anon_id
 
     @property
     def email(self):
@@ -1053,6 +1063,22 @@ class UserData(object):
 
         self._doby = doby
 
+    @property
+    def madid(self):
+        return self._madid
+
+    @madid.setter
+    def madid(self, madid):
+        self._madid = madid
+
+    @property
+    def anon_id(self):
+        return self._anon_id
+
+    @anon_id.setter
+    def anon_id(self, anon_id):
+        self._anon_id = anon_id
+
     def normalize(self):
         normalized_payload = {'em': self.__normalize_list('em', self.emails),
                               'ph': self.__normalize_list('ph', self.phones),
@@ -1077,6 +1103,8 @@ class UserData(object):
                               'dobd': Normalize.normalize_field('dobd', self.dobd),
                               'dobm': Normalize.normalize_field('dobm', self.dobm),
                               'doby': Normalize.normalize_field('doby', self.doby),
+                              'madid': self.madid,
+                              'anon_id': self.anon_id,
                               }
         if self.genders:
             normalized_payload['ge'] = self.__normalize_list('ge', list(map(lambda g: g.value, self.genders)))

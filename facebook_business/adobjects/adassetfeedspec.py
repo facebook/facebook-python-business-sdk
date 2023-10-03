@@ -1,22 +1,8 @@
-# Copyright 2014 Facebook, Inc.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
 
-# You are hereby granted a non-exclusive, worldwide, royalty-free license to
-# use, copy, modify, and distribute this software in source code or binary
-# form for use in connection with the web services and APIs provided by
-# Facebook.
-
-# As with any software that integrates with the Facebook platform, your use
-# of this software is subject to the Facebook Developer Principles and
-# Policies [http://developers.facebook.com/policy/]. This copyright notice
-# shall be included in all copies or substantial portions of the software.
-
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-# DEALINGS IN THE SOFTWARE.
+# This source code is licensed under the license found in the
+# LICENSE file in the root directory of this source tree.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
 
@@ -40,6 +26,7 @@ class AdAssetFeedSpec(
     class Field(AbstractObject.Field):
         ad_formats = 'ad_formats'
         additional_data = 'additional_data'
+        app_product_page_id = 'app_product_page_id'
         asset_customization_rules = 'asset_customization_rules'
         autotranslate = 'autotranslate'
         bodies = 'bodies'
@@ -52,17 +39,16 @@ class AdAssetFeedSpec(
         groups = 'groups'
         images = 'images'
         link_urls = 'link_urls'
-        offer_ids = 'offer_ids'
-        onsite_destinations = 'onsite_destinations'
+        message_extensions = 'message_extensions'
         optimization_type = 'optimization_type'
-        phone_data_ids = 'phone_data_ids'
-        posts = 'posts'
         titles = 'titles'
         videos = 'videos'
 
     class CallToActionTypes:
         add_to_cart = 'ADD_TO_CART'
         apply_now = 'APPLY_NOW'
+        audio_call = 'AUDIO_CALL'
+        book_now = 'BOOK_NOW'
         book_travel = 'BOOK_TRAVEL'
         buy = 'BUY'
         buy_now = 'BUY_NOW'
@@ -84,8 +70,11 @@ class AdAssetFeedSpec(
         get_directions = 'GET_DIRECTIONS'
         get_offer = 'GET_OFFER'
         get_offer_view = 'GET_OFFER_VIEW'
+        get_promotions = 'GET_PROMOTIONS'
         get_quote = 'GET_QUOTE'
         get_showtimes = 'GET_SHOWTIMES'
+        get_started = 'GET_STARTED'
+        inquire_now = 'INQUIRE_NOW'
         install_app = 'INSTALL_APP'
         install_mobile_app = 'INSTALL_MOBILE_APP'
         learn_more = 'LEARN_MORE'
@@ -96,11 +85,14 @@ class AdAssetFeedSpec(
         mobile_download = 'MOBILE_DOWNLOAD'
         moments = 'MOMENTS'
         no_button = 'NO_BUTTON'
+        open_instant_app = 'OPEN_INSTANT_APP'
         open_link = 'OPEN_LINK'
         order_now = 'ORDER_NOW'
         pay_to_access = 'PAY_TO_ACCESS'
         play_game = 'PLAY_GAME'
+        play_game_on_facebook = 'PLAY_GAME_ON_FACEBOOK'
         purchase_gift_cards = 'PURCHASE_GIFT_CARDS'
+        raise_money = 'RAISE_MONEY'
         record_now = 'RECORD_NOW'
         refer_friends = 'REFER_FRIENDS'
         request_time = 'REQUEST_TIME'
@@ -109,6 +101,7 @@ class AdAssetFeedSpec(
         sell_now = 'SELL_NOW'
         send_a_gift = 'SEND_A_GIFT'
         send_gift_money = 'SEND_GIFT_MONEY'
+        send_updates = 'SEND_UPDATES'
         share = 'SHARE'
         shop_now = 'SHOP_NOW'
         sign_up = 'SIGN_UP'
@@ -131,7 +124,8 @@ class AdAssetFeedSpec(
     _field_types = {
         'ad_formats': 'list<string>',
         'additional_data': 'Object',
-        'asset_customization_rules': 'list<Object>',
+        'app_product_page_id': 'string',
+        'asset_customization_rules': 'list<AdAssetFeedSpecAssetCustomizationRule>',
         'autotranslate': 'list<string>',
         'bodies': 'list<AdAssetFeedSpecBody>',
         'call_to_action_types': 'list<CallToActionTypes>',
@@ -143,11 +137,8 @@ class AdAssetFeedSpec(
         'groups': 'list<AdAssetFeedSpecGroupRule>',
         'images': 'list<AdAssetFeedSpecImage>',
         'link_urls': 'list<AdAssetFeedSpecLinkURL>',
-        'offer_ids': 'list<Object>',
-        'onsite_destinations': 'list<Object>',
+        'message_extensions': 'list<AdAssetMessageExtensions>',
         'optimization_type': 'string',
-        'phone_data_ids': 'list<Object>',
-        'posts': 'list<Object>',
         'titles': 'list<AdAssetFeedSpecTitle>',
         'videos': 'list<AdAssetFeedSpecVideo>',
     }

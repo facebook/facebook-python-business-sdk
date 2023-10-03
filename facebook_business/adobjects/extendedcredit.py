@@ -1,22 +1,8 @@
-# Copyright 2014 Facebook, Inc.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
 
-# You are hereby granted a non-exclusive, worldwide, royalty-free license to
-# use, copy, modify, and distribute this software in source code or binary
-# form for use in connection with the web services and APIs provided by
-# Facebook.
-
-# As with any software that integrates with the Facebook platform, your use
-# of this software is subject to the Facebook Developer Principles and
-# Policies [http://developers.facebook.com/policy/]. This copyright notice
-# shall be included in all copies or substantial portions of the software.
-
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-# DEALINGS IN THE SOFTWARE.
+# This source code is licensed under the license found in the
+# LICENSE file in the root directory of this source tree.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
 from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
@@ -49,6 +35,7 @@ class ExtendedCredit(
         is_access_revoked = 'is_access_revoked'
         is_automated_experience = 'is_automated_experience'
         legal_entity_name = 'legal_entity_name'
+        liable_address = 'liable_address'
         liable_biz_name = 'liable_biz_name'
         max_balance = 'max_balance'
         online_max_balance = 'online_max_balance'
@@ -56,7 +43,9 @@ class ExtendedCredit(
         owner_business_name = 'owner_business_name'
         partition_from = 'partition_from'
         receiving_credit_allocation_config = 'receiving_credit_allocation_config'
+        send_bill_to_address = 'send_bill_to_address'
         send_bill_to_biz_name = 'send_bill_to_biz_name'
+        sold_to_address = 'sold_to_address'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -264,6 +253,7 @@ class ExtendedCredit(
         'is_access_revoked': 'bool',
         'is_automated_experience': 'bool',
         'legal_entity_name': 'string',
+        'liable_address': 'CRMAddress',
         'liable_biz_name': 'string',
         'max_balance': 'CurrencyAmount',
         'online_max_balance': 'CurrencyAmount',
@@ -271,7 +261,9 @@ class ExtendedCredit(
         'owner_business_name': 'string',
         'partition_from': 'string',
         'receiving_credit_allocation_config': 'ExtendedCreditAllocationConfig',
+        'send_bill_to_address': 'CRMAddress',
         'send_bill_to_biz_name': 'string',
+        'sold_to_address': 'CRMAddress',
     }
     @classmethod
     def _get_field_enum_info(cls):

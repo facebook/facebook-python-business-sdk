@@ -1,22 +1,8 @@
-# Copyright 2014 Facebook, Inc.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
 
-# You are hereby granted a non-exclusive, worldwide, royalty-free license to
-# use, copy, modify, and distribute this software in source code or binary
-# form for use in connection with the web services and APIs provided by
-# Facebook.
-
-# As with any software that integrates with the Facebook platform, your use
-# of this software is subject to the Facebook Developer Principles and
-# Policies [http://developers.facebook.com/policy/]. This copyright notice
-# shall be included in all copies or substantial portions of the software.
-
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-# DEALINGS IN THE SOFTWARE.
+# This source code is licensed under the license found in the
+# LICENSE file in the root directory of this source tree.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
 from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
@@ -104,6 +90,10 @@ class ReachFrequencyPrediction(
         name = 'name'
         objective = 'objective'
         objective_name = 'objective_name'
+        odax_objective = 'odax_objective'
+        odax_objective_name = 'odax_objective_name'
+        optimization_goal = 'optimization_goal'
+        optimization_goal_name = 'optimization_goal_name'
         pause_periods = 'pause_periods'
         placement_breakdown = 'placement_breakdown'
         placement_breakdown_map = 'placement_breakdown_map'
@@ -116,7 +106,6 @@ class ReachFrequencyPrediction(
         start_time = 'start_time'
         status = 'status'
         story_event_type = 'story_event_type'
-        target_audience_size = 'target_audience_size'
         target_cpm = 'target_cpm'
         target_spec = 'target_spec'
         time_created = 'time_created'
@@ -134,6 +123,7 @@ class ReachFrequencyPrediction(
         existing_campaign_id = 'existing_campaign_id'
         grp_buying = 'grp_buying'
         impression = 'impression'
+        is_balanced_frequency = 'is_balanced_frequency'
         is_full_view = 'is_full_view'
         is_reach_and_frequency_io_buying = 'is_reach_and_frequency_io_buying'
         num_curve_points = 'num_curve_points'
@@ -142,6 +132,8 @@ class ReachFrequencyPrediction(
         rf_prediction_id_to_release = 'rf_prediction_id_to_release'
         rf_prediction_id_to_share = 'rf_prediction_id_to_share'
         stop_time = 'stop_time'
+        target_frequency = 'target_frequency'
+        target_frequency_reset_period = 'target_frequency_reset_period'
 
     class Action:
         cancel = 'cancel'
@@ -231,7 +223,7 @@ class ReachFrequencyPrediction(
         'curve_reach': 'list<unsigned int>',
         'daily_grp_curve': 'list<float>',
         'daily_impression_curve': 'list<float>',
-        'daily_impression_curve_map': 'map<unsigned int, list<float>>',
+        'daily_impression_curve_map': 'list<map<unsigned int, list<float>>>',
         'day_parting_schedule': 'list<ReachFrequencyDayPart>',
         'destination_id': 'string',
         'end_time': 'datetime',
@@ -247,8 +239,8 @@ class ReachFrequencyPrediction(
         'external_reach': 'unsigned int',
         'feed_ratio_0000': 'unsigned int',
         'frequency_cap': 'unsigned int',
-        'frequency_distribution_map': 'map<unsigned int, list<float>>',
-        'frequency_distribution_map_agg': 'map<unsigned int, list<unsigned int>>',
+        'frequency_distribution_map': 'list<map<unsigned int, list<float>>>',
+        'frequency_distribution_map_agg': 'list<map<unsigned int, list<unsigned int>>>',
         'grp_audience_size': 'float',
         'grp_avg_probability_map': 'string',
         'grp_country_audience_size': 'float',
@@ -275,9 +267,13 @@ class ReachFrequencyPrediction(
         'name': 'string',
         'objective': 'unsigned int',
         'objective_name': 'string',
+        'odax_objective': 'unsigned int',
+        'odax_objective_name': 'string',
+        'optimization_goal': 'unsigned int',
+        'optimization_goal_name': 'string',
         'pause_periods': 'list<Object>',
         'placement_breakdown': 'ReachFrequencyEstimatesPlacementBreakdown',
-        'placement_breakdown_map': 'map<unsigned int, ReachFrequencyEstimatesPlacementBreakdown>',
+        'placement_breakdown_map': 'list<map<unsigned int, ReachFrequencyEstimatesPlacementBreakdown>>',
         'plan_name': 'string',
         'plan_type': 'string',
         'prediction_mode': 'unsigned int',
@@ -287,7 +283,6 @@ class ReachFrequencyPrediction(
         'start_time': 'datetime',
         'status': 'unsigned int',
         'story_event_type': 'unsigned int',
-        'target_audience_size': 'unsigned int',
         'target_cpm': 'unsigned int',
         'target_spec': 'Targeting',
         'time_created': 'datetime',
@@ -305,6 +300,7 @@ class ReachFrequencyPrediction(
         'existing_campaign_id': 'string',
         'grp_buying': 'bool',
         'impression': 'unsigned int',
+        'is_balanced_frequency': 'bool',
         'is_full_view': 'bool',
         'is_reach_and_frequency_io_buying': 'bool',
         'num_curve_points': 'unsigned int',
@@ -313,6 +309,8 @@ class ReachFrequencyPrediction(
         'rf_prediction_id_to_release': 'string',
         'rf_prediction_id_to_share': 'string',
         'stop_time': 'unsigned int',
+        'target_frequency': 'unsigned int',
+        'target_frequency_reset_period': 'unsigned int',
     }
     @classmethod
     def _get_field_enum_info(cls):

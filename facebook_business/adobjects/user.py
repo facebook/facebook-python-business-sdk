@@ -1,22 +1,8 @@
-# Copyright 2014 Facebook, Inc.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
 
-# You are hereby granted a non-exclusive, worldwide, royalty-free license to
-# use, copy, modify, and distribute this software in source code or binary
-# form for use in connection with the web services and APIs provided by
-# Facebook.
-
-# As with any software that integrates with the Facebook platform, your use
-# of this software is subject to the Facebook Developer Principles and
-# Policies [http://developers.facebook.com/policy/]. This copyright notice
-# shall be included in all copies or substantial portions of the software.
-
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-# DEALINGS IN THE SOFTWARE.
+# This source code is licensed under the license found in the
+# LICENSE file in the root directory of this source tree.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
 from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
@@ -43,7 +29,9 @@ class User(
     class Field(AbstractObject.Field):
         about = 'about'
         age_range = 'age_range'
+        avatar_2d_profile_picture = 'avatar_2d_profile_picture'
         birthday = 'birthday'
+        community = 'community'
         cover = 'cover'
         currency = 'currency'
         education = 'education'
@@ -54,12 +42,12 @@ class User(
         gender = 'gender'
         hometown = 'hometown'
         id = 'id'
+        id_for_avatars = 'id_for_avatars'
         inspirational_people = 'inspirational_people'
         install_type = 'install_type'
         installed = 'installed'
-        interested_in = 'interested_in'
         is_guest_user = 'is_guest_user'
-        is_verified = 'is_verified'
+        is_work_account = 'is_work_account'
         languages = 'languages'
         last_name = 'last_name'
         link = 'link'
@@ -76,7 +64,6 @@ class User(
         profile_pic = 'profile_pic'
         quotes = 'quotes'
         relationship_status = 'relationship_status'
-        religion = 'religion'
         shared_login_upgrade_required_by = 'shared_login_upgrade_required_by'
         short_name = 'short_name'
         significant_other = 'significant_other'
@@ -244,6 +231,7 @@ class User(
             'business_app': 'int',
             'page_id': 'string',
             'scope': 'list<Permission>',
+            'set_token_expires_in_60_days': 'bool',
         }
         enums = {
         }
@@ -306,7 +294,6 @@ class User(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.page import Page
         param_types = {
             'about': 'string',
             'address': 'string',
@@ -333,9 +320,9 @@ class User(
             endpoint='/accounts',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=Page,
+            target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=Page, api=self._api),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -648,6 +635,7 @@ class User(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.page import Page
         param_types = {
+            'pages': 'list<unsigned int>',
         }
         enums = {
         }
@@ -691,6 +679,37 @@ class User(
             target_class=ProductCatalog,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=ProductCatalog, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_avatars(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.avatar import Avatar
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/avatars',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Avatar,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Avatar, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -847,10 +866,12 @@ class User(
         from facebook_business.adobjects.unifiedthread import UnifiedThread
         param_types = {
             'folder': 'string',
+            'platform': 'platform_enum',
             'tags': 'list<string>',
             'user_id': 'string',
         }
         enums = {
+            'platform_enum': UnifiedThread.Platform.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -998,7 +1019,6 @@ class User(
             'backdated_time_granularity': 'backdated_time_granularity_enum',
             'call_to_action': 'Object',
             'caption': 'string',
-            'checkin_entry_point': 'checkin_entry_point_enum',
             'child_attachments': 'list<Object>',
             'client_mutation_id': 'string',
             'composer_entry_picker': 'string',
@@ -1072,7 +1092,6 @@ class User(
             'ref': 'list<string>',
             'referenceable_image_ids': 'list<string>',
             'referral_id': 'string',
-            'sales_promo_id': 'unsigned int',
             'scheduled_publish_time': 'datetime',
             'source': 'string',
             'sponsor_id': 'string',
@@ -1097,7 +1116,6 @@ class User(
         }
         enums = {
             'backdated_time_granularity_enum': Post.BackdatedTimeGranularity.__dict__.values(),
-            'checkin_entry_point_enum': Post.CheckinEntryPoint.__dict__.values(),
             'formatting_enum': Post.Formatting.__dict__.values(),
             'place_attachment_setting_enum': Post.PlaceAttachmentSetting.__dict__.values(),
             'post_surfaces_blacklist_enum': Post.PostSurfacesBlacklist.__dict__.values(),
@@ -1158,10 +1176,88 @@ class User(
             self.assure_call()
             return request.execute()
 
+    def get_fundraisers(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.fundraiserpersontocharity import FundraiserPersonToCharity
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/fundraisers',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=FundraiserPersonToCharity,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=FundraiserPersonToCharity, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_fundraiser(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.fundraiserpersontocharity import FundraiserPersonToCharity
+        param_types = {
+            'charity_id': 'string',
+            'cover_photo': 'file',
+            'currency': 'string',
+            'description': 'string',
+            'end_time': 'int',
+            'external_event_name': 'string',
+            'external_event_start_time': 'int',
+            'external_event_uri': 'string',
+            'external_fundraiser_uri': 'string',
+            'external_id': 'string',
+            'fundraiser_type': 'fundraiser_type_enum',
+            'goal_amount': 'int',
+            'name': 'string',
+            'page_id': 'string',
+        }
+        enums = {
+            'fundraiser_type_enum': FundraiserPersonToCharity.FundraiserType.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/fundraisers',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=FundraiserPersonToCharity,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=FundraiserPersonToCharity, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def create_game_item(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.gameitem import GameItem
         param_types = {
             'action': 'action_enum',
             'app_id': 'string',
@@ -1171,11 +1267,7 @@ class User(
             'quantity': 'unsigned int',
         }
         enums = {
-            'action_enum': [
-                'CONSUME',
-                'DROP',
-                'MARK',
-            ],
+            'action_enum': GameItem.Action.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -1183,9 +1275,9 @@ class User(
             endpoint='/game_items',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=GameItem,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=GameItem, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1396,73 +1488,6 @@ class User(
             self.assure_call()
             return request.execute()
 
-    def get_live_encoders(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.liveencoder import LiveEncoder
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/live_encoders',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=LiveEncoder,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=LiveEncoder, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_live_encoder(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.liveencoder import LiveEncoder
-        param_types = {
-            'brand': 'string',
-            'device_id': 'string',
-            'model': 'string',
-            'name': 'string',
-            'version': 'string',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/live_encoders',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=LiveEncoder,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=LiveEncoder, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def get_live_videos(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -1508,11 +1533,11 @@ class User(
             'description': 'string',
             'enable_backup_ingest': 'bool',
             'encoding_settings': 'string',
+            'event_params': 'Object',
             'fisheye_video_cropped': 'bool',
             'front_z_rotation': 'float',
             'is_audio_only': 'bool',
             'is_spherical': 'bool',
-            'live_encoders': 'list<string>',
             'original_fov': 'unsigned int',
             'privacy': 'string',
             'projection': 'projection_enum',
@@ -1541,6 +1566,36 @@ class User(
             target_class=LiveVideo,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=LiveVideo, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_messenger_desktop_performance_trace(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/messenger_desktop_performance_traces',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=User,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=User, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1591,11 +1646,16 @@ class User(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'bot_message_payload_elements': 'string',
             'filtering': 'list<filtering_enum>',
             'href': 'Object',
+            'label': 'string',
+            'message': 'map',
             'notif_ids': 'list<string>',
+            'payload': 'string',
             'read': 'bool',
             'ref': 'string',
+            'schedule_interval': 'unsigned int',
             'seen': 'bool',
             'template': 'Object',
             'type': 'type_enum',
@@ -1813,7 +1873,6 @@ class User(
             'ios_bundle_id': 'string',
             'is_explicit_location': 'bool',
             'is_explicit_place': 'bool',
-            'is_visual_search': 'bool',
             'manual_privacy': 'bool',
             'message': 'string',
             'name': 'string',
@@ -2103,7 +2162,6 @@ class User(
             'react_mode_metadata': 'string',
             'referenced_sticker_id': 'string',
             'replace_video_id': 'string',
-            'sales_promo_id': 'unsigned int',
             'slideshow_spec': 'map',
             'source': 'string',
             'source_instagram_media_id': 'string',
@@ -2160,7 +2218,9 @@ class User(
     _field_types = {
         'about': 'string',
         'age_range': 'AgeRange',
+        'avatar_2d_profile_picture': 'AvatarProfilePicture',
         'birthday': 'string',
+        'community': 'Group',
         'cover': 'UserCoverPhoto',
         'currency': 'Currency',
         'education': 'list<Object>',
@@ -2171,12 +2231,12 @@ class User(
         'gender': 'string',
         'hometown': 'Page',
         'id': 'string',
+        'id_for_avatars': 'string',
         'inspirational_people': 'list<Experience>',
         'install_type': 'string',
         'installed': 'bool',
-        'interested_in': 'list<string>',
         'is_guest_user': 'bool',
-        'is_verified': 'bool',
+        'is_work_account': 'bool',
         'languages': 'list<Experience>',
         'last_name': 'string',
         'link': 'string',
@@ -2193,7 +2253,6 @@ class User(
         'profile_pic': 'string',
         'quotes': 'string',
         'relationship_status': 'string',
-        'religion': 'string',
         'shared_login_upgrade_required_by': 'datetime',
         'short_name': 'string',
         'significant_other': 'User',

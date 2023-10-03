@@ -1,22 +1,8 @@
-# Copyright 2014 Facebook, Inc.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
 
-# You are hereby granted a non-exclusive, worldwide, royalty-free license to
-# use, copy, modify, and distribute this software in source code or binary
-# form for use in connection with the web services and APIs provided by
-# Facebook.
-
-# As with any software that integrates with the Facebook platform, your use
-# of this software is subject to the Facebook Developer Principles and
-# Policies [http://developers.facebook.com/policy/]. This copyright notice
-# shall be included in all copies or substantial portions of the software.
-
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-# DEALINGS IN THE SOFTWARE.
+# This source code is licensed under the license found in the
+# LICENSE file in the root directory of this source tree.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
 from facebook_business.adobjects.helpers.adpreviewmixin import AdPreviewMixin
@@ -41,6 +27,7 @@ class AdPreview(
 
     class Field(AbstractObject.Field):
         body = 'body'
+        transformation_spec = 'transformation_spec'
 
     class AdFormat:
         audience_network_instream_video = 'AUDIENCE_NETWORK_INSTREAM_VIDEO'
@@ -49,17 +36,31 @@ class AdPreview(
         audience_network_rewarded_video = 'AUDIENCE_NETWORK_REWARDED_VIDEO'
         biz_disco_feed_mobile = 'BIZ_DISCO_FEED_MOBILE'
         desktop_feed_standard = 'DESKTOP_FEED_STANDARD'
+        facebook_profile_feed_desktop = 'FACEBOOK_PROFILE_FEED_DESKTOP'
+        facebook_profile_feed_mobile = 'FACEBOOK_PROFILE_FEED_MOBILE'
         facebook_reels_banner = 'FACEBOOK_REELS_BANNER'
+        facebook_reels_banner_desktop = 'FACEBOOK_REELS_BANNER_DESKTOP'
         facebook_reels_mobile = 'FACEBOOK_REELS_MOBILE'
+        facebook_reels_postloop = 'FACEBOOK_REELS_POSTLOOP'
         facebook_reels_sticker = 'FACEBOOK_REELS_STICKER'
         facebook_story_mobile = 'FACEBOOK_STORY_MOBILE'
         facebook_story_sticker_mobile = 'FACEBOOK_STORY_STICKER_MOBILE'
         instagram_explore_contextual = 'INSTAGRAM_EXPLORE_CONTEXTUAL'
+        instagram_explore_grid_home = 'INSTAGRAM_EXPLORE_GRID_HOME'
         instagram_explore_immersive = 'INSTAGRAM_EXPLORE_IMMERSIVE'
+        instagram_feed_web = 'INSTAGRAM_FEED_WEB'
+        instagram_feed_web_m_site = 'INSTAGRAM_FEED_WEB_M_SITE'
+        instagram_profile_feed = 'INSTAGRAM_PROFILE_FEED'
+        instagram_profile_reels = 'INSTAGRAM_PROFILE_REELS'
         instagram_reels = 'INSTAGRAM_REELS'
-        instagram_shop = 'INSTAGRAM_SHOP'
+        instagram_reels_overlay = 'INSTAGRAM_REELS_OVERLAY'
+        instagram_search_chain = 'INSTAGRAM_SEARCH_CHAIN'
+        instagram_search_grid = 'INSTAGRAM_SEARCH_GRID'
         instagram_standard = 'INSTAGRAM_STANDARD'
         instagram_story = 'INSTAGRAM_STORY'
+        instagram_story_effect_tray = 'INSTAGRAM_STORY_EFFECT_TRAY'
+        instagram_story_web = 'INSTAGRAM_STORY_WEB'
+        instagram_story_web_m_site = 'INSTAGRAM_STORY_WEB_M_SITE'
         instant_article_recirculation_ad = 'INSTANT_ARTICLE_RECIRCULATION_AD'
         instant_article_standard = 'INSTANT_ARTICLE_STANDARD'
         instream_banner_desktop = 'INSTREAM_BANNER_DESKTOP'
@@ -85,6 +86,11 @@ class AdPreview(
         watch_feed_home = 'WATCH_FEED_HOME'
         watch_feed_mobile = 'WATCH_FEED_MOBILE'
 
+    class CreativeFeature:
+        product_metadata_automation = 'product_metadata_automation'
+        profile_card = 'profile_card'
+        standard_enhancements_catalog = 'standard_enhancements_catalog'
+
     class RenderType:
         fallback = 'FALLBACK'
 
@@ -95,11 +101,13 @@ class AdPreview(
 
     _field_types = {
         'body': 'string',
+        'transformation_spec': 'Object',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['AdFormat'] = AdPreview.AdFormat.__dict__.values()
+        field_enum_info['CreativeFeature'] = AdPreview.CreativeFeature.__dict__.values()
         field_enum_info['RenderType'] = AdPreview.RenderType.__dict__.values()
         return field_enum_info
 

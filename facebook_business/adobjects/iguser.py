@@ -1,22 +1,8 @@
-# Copyright 2014 Facebook, Inc.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
 
-# You are hereby granted a non-exclusive, worldwide, royalty-free license to
-# use, copy, modify, and distribute this software in source code or binary
-# form for use in connection with the web services and APIs provided by
-# Facebook.
-
-# As with any software that integrates with the Facebook platform, your use
-# of this software is subject to the Facebook Developer Principles and
-# Policies [http://developers.facebook.com/policy/]. This copyright notice
-# shall be included in all copies or substantial portions of the software.
-
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-# DEALINGS IN THE SOFTWARE.
+# This source code is licensed under the license found in the
+# LICENSE file in the root directory of this source tree.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
 from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
@@ -51,7 +37,9 @@ class IGUser(
         mentioned_comment = 'mentioned_comment'
         mentioned_media = 'mentioned_media'
         name = 'name'
+        owner_business = 'owner_business'
         profile_picture_url = 'profile_picture_url'
+        shopping_product_tag_eligibility = 'shopping_product_tag_eligibility'
         shopping_review_status = 'shopping_review_status'
         username = 'username'
         website = 'website'
@@ -87,10 +75,75 @@ class IGUser(
             self.assure_call()
             return request.execute()
 
+    def get_available_catalogs(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.useravailablecatalogs import UserAvailableCatalogs
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/available_catalogs',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=UserAvailableCatalogs,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=UserAvailableCatalogs, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_catalog_product_search(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.shadowigusercatalogproductsearch import ShadowIGUserCatalogProductSearch
+        param_types = {
+            'catalog_id': 'string',
+            'q': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/catalog_product_search',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ShadowIGUserCatalogProductSearch,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ShadowIGUserCatalogProductSearch, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_content_publishing_limit(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.contentpublishinglimitresponse import ContentPublishingLimitResponse
         param_types = {
             'since': 'datetime',
         }
@@ -102,9 +155,40 @@ class IGUser(
             endpoint='/content_publishing_limit',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=ContentPublishingLimitResponse,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=ContentPublishingLimitResponse, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_dataset(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.dataset import Dataset
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/dataset',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Dataset,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Dataset, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -126,14 +210,20 @@ class IGUser(
         if is_async:
           return self.get_insights_async(fields, params, batch, success, failure, pending)
         param_types = {
+            'breakdown': 'list<breakdown_enum>',
             'metric': 'list<metric_enum>',
+            'metric_type': 'metric_type_enum',
             'period': 'list<period_enum>',
             'since': 'datetime',
+            'timeframe': 'timeframe_enum',
             'until': 'datetime',
         }
         enums = {
+            'breakdown_enum': InstagramInsightsResult.Breakdown.__dict__.values(),
             'metric_enum': InstagramInsightsResult.Metric.__dict__.values(),
+            'metric_type_enum': InstagramInsightsResult.MetricType.__dict__.values(),
             'period_enum': InstagramInsightsResult.Period.__dict__.values(),
+            'timeframe_enum': InstagramInsightsResult.Timeframe.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -145,6 +235,39 @@ class IGUser(
             api_type='EDGE',
             response_parser=ObjectParser(target_class=InstagramInsightsResult, api=self._api),
             include_summary=False,
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_live_media(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.igmedia import IGMedia
+        param_types = {
+            'since': 'datetime',
+            'until': 'datetime',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/live_media',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=IGMedia,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=IGMedia, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -197,10 +320,17 @@ class IGUser(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.igmedia import IGMedia
         param_types = {
+            'audio_name': 'string',
             'caption': 'string',
+            'children': 'list<string>',
+            'collaborators': 'list<string>',
+            'cover_url': 'string',
             'image_url': 'string',
+            'is_carousel_item': 'bool',
             'location_id': 'string',
             'media_type': 'string',
+            'product_tags': 'list<map>',
+            'share_to_feed': 'bool',
             'thumb_offset': 'string',
             'user_tags': 'list<map>',
             'video_url': 'string',
@@ -294,10 +424,107 @@ class IGUser(
             self.assure_call()
             return request.execute()
 
+    def get_notification_message_tokens(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.userpageonetimeoptintokensettings import UserPageOneTimeOptInTokenSettings
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/notification_message_tokens',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=UserPageOneTimeOptInTokenSettings,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=UserPageOneTimeOptInTokenSettings, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_product_appeal(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.igshoppingproductappeal import IGShoppingProductAppeal
+        param_types = {
+            'product_id': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/product_appeal',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=IGShoppingProductAppeal,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=IGShoppingProductAppeal, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_product_appeal(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.igshoppingproductappeal import IGShoppingProductAppeal
+        param_types = {
+            'appeal_reason': 'string',
+            'product_id': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/product_appeal',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=IGShoppingProductAppeal,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=IGShoppingProductAppeal, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_recently_searched_hashtags(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.shadowighashtag import ShadowIGHashtag
         param_types = {
         }
         enums = {
@@ -308,9 +535,9 @@ class IGUser(
             endpoint='/recently_searched_hashtags',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=ShadowIGHashtag,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=ShadowIGHashtag, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -397,7 +624,9 @@ class IGUser(
         'mentioned_comment': 'IGComment',
         'mentioned_media': 'IGMedia',
         'name': 'string',
+        'owner_business': 'Business',
         'profile_picture_url': 'string',
+        'shopping_product_tag_eligibility': 'bool',
         'shopping_review_status': 'string',
         'username': 'string',
         'website': 'string',

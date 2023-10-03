@@ -1,22 +1,8 @@
-# Copyright 2014 Facebook, Inc.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
 
-# You are hereby granted a non-exclusive, worldwide, royalty-free license to
-# use, copy, modify, and distribute this software in source code or binary
-# form for use in connection with the web services and APIs provided by
-# Facebook.
-
-# As with any software that integrates with the Facebook platform, your use
-# of this software is subject to the Facebook Developer Principles and
-# Policies [http://developers.facebook.com/policy/]. This copyright notice
-# shall be included in all copies or substantial portions of the software.
-
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-# DEALINGS IN THE SOFTWARE.
+# This source code is licensed under the license found in the
+# LICENSE file in the root directory of this source tree.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
 from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
@@ -58,6 +44,8 @@ class AdSet(
         billing_event = 'billing_event'
         budget_remaining = 'budget_remaining'
         campaign = 'campaign'
+        campaign_active_time = 'campaign_active_time'
+        campaign_attribution = 'campaign_attribution'
         campaign_id = 'campaign_id'
         configured_status = 'configured_status'
         created_time = 'created_time'
@@ -66,6 +54,8 @@ class AdSet(
         daily_min_spend_target = 'daily_min_spend_target'
         daily_spend_cap = 'daily_spend_cap'
         destination_type = 'destination_type'
+        dsa_beneficiary = 'dsa_beneficiary'
+        dsa_payor = 'dsa_payor'
         effective_status = 'effective_status'
         end_time = 'end_time'
         existing_customer_budget_percentage = 'existing_customer_budget_percentage'
@@ -73,6 +63,7 @@ class AdSet(
         full_funnel_exploration_mode = 'full_funnel_exploration_mode'
         id = 'id'
         instagram_actor_id = 'instagram_actor_id'
+        is_budget_schedule_enabled = 'is_budget_schedule_enabled'
         is_dynamic_creative = 'is_dynamic_creative'
         issues_info = 'issues_info'
         learning_stage_info = 'learning_stage_info'
@@ -110,7 +101,6 @@ class AdSet(
         time_stop = 'time_stop'
         topline_id = 'topline_id'
         tune_for_category = 'tune_for_category'
-        upstream_events = 'upstream_events'
 
     class BidStrategy:
         cost_cap = 'COST_CAP'
@@ -154,9 +144,12 @@ class AdSet(
         engaged_users = 'ENGAGED_USERS'
         event_responses = 'EVENT_RESPONSES'
         impressions = 'IMPRESSIONS'
+        in_app_value = 'IN_APP_VALUE'
         landing_page_views = 'LANDING_PAGE_VIEWS'
         lead_generation = 'LEAD_GENERATION'
         link_clicks = 'LINK_CLICKS'
+        messaging_appointment_conversion = 'MESSAGING_APPOINTMENT_CONVERSION'
+        messaging_purchase_conversion = 'MESSAGING_PURCHASE_CONVERSION'
         none = 'NONE'
         offsite_conversions = 'OFFSITE_CONVERSIONS'
         page_likes = 'PAGE_LIKES'
@@ -164,6 +157,8 @@ class AdSet(
         quality_call = 'QUALITY_CALL'
         quality_lead = 'QUALITY_LEAD'
         reach = 'REACH'
+        reminders_set = 'REMINDERS_SET'
+        subscribers = 'SUBSCRIBERS'
         thruplay = 'THRUPLAY'
         value = 'VALUE'
         visit_instagram_profile = 'VISIT_INSTAGRAM_PROFILE'
@@ -175,6 +170,7 @@ class AdSet(
         paused = 'PAUSED'
 
     class DatePreset:
+        data_maximum = 'data_maximum'
         last_14d = 'last_14d'
         last_28d = 'last_28d'
         last_30d = 'last_30d'
@@ -295,10 +291,11 @@ class AdSet(
             'am_call_tags': 'map',
             'date_preset': 'date_preset_enum',
             'from_adtable': 'bool',
-            'time_range': 'Object',
+            'time_range': 'map',
         }
         enums = {
             'date_preset_enum': [
+                'data_maximum',
                 'last_14d',
                 'last_28d',
                 'last_30d',
@@ -356,6 +353,7 @@ class AdSet(
             'bid_constraints': 'map<string, Object>',
             'bid_strategy': 'bid_strategy_enum',
             'billing_event': 'billing_event_enum',
+            'campaign_attribution': 'Object',
             'campaign_spec': 'Object',
             'creative_sequence': 'list<string>',
             'daily_budget': 'unsigned int',
@@ -364,6 +362,8 @@ class AdSet(
             'daily_spend_cap': 'unsigned int',
             'date_format': 'string',
             'destination_type': 'destination_type_enum',
+            'dsa_beneficiary': 'string',
+            'dsa_payor': 'string',
             'end_time': 'datetime',
             'execution_options': 'list<execution_options_enum>',
             'existing_customer_budget_percentage': 'unsigned int',
@@ -388,7 +388,6 @@ class AdSet(
             'time_start': 'datetime',
             'time_stop': 'datetime',
             'tune_for_category': 'tune_for_category_enum',
-            'upstream_events': 'map',
         }
         enums = {
             'bid_strategy_enum': AdSet.BidStrategy.__dict__.values(),
@@ -631,7 +630,7 @@ class AdSet(
         param_types = {
             'date_preset': 'date_preset_enum',
             'effective_status': 'list<string>',
-            'time_range': 'Object',
+            'time_range': 'map',
             'updated_since': 'int',
         }
         enums = {
@@ -692,44 +691,6 @@ class AdSet(
             self.assure_call()
             return request.execute()
 
-    def get_content_delivery_report(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.contentdeliveryreport import ContentDeliveryReport
-        param_types = {
-            'end_date': 'datetime',
-            'platform': 'platform_enum',
-            'position': 'position_enum',
-            'start_date': 'datetime',
-            'summary': 'bool',
-        }
-        enums = {
-            'platform_enum': ContentDeliveryReport.Platform.__dict__.values(),
-            'position_enum': ContentDeliveryReport.Position.__dict__.values(),
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/content_delivery_report',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=ContentDeliveryReport,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=ContentDeliveryReport, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def get_copies(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -738,7 +699,7 @@ class AdSet(
             'date_preset': 'date_preset_enum',
             'effective_status': 'list<effective_status_enum>',
             'is_completed': 'bool',
-            'time_range': 'Object',
+            'time_range': 'map',
         }
         enums = {
             'date_preset_enum': AdSet.DatePreset.__dict__.values(),
@@ -864,8 +825,8 @@ class AdSet(
             'summary': 'list<string>',
             'summary_action_breakdowns': 'list<summary_action_breakdowns_enum>',
             'time_increment': 'string',
-            'time_range': 'Object',
-            'time_ranges': 'list<Object>',
+            'time_range': 'map',
+            'time_ranges': 'list<map>',
             'use_account_attribution_setting': 'bool',
             'use_unified_attribution_setting': 'bool',
         }
@@ -925,8 +886,8 @@ class AdSet(
             'summary': 'list<string>',
             'summary_action_breakdowns': 'list<summary_action_breakdowns_enum>',
             'time_increment': 'string',
-            'time_range': 'Object',
-            'time_ranges': 'list<Object>',
+            'time_range': 'map',
+            'time_ranges': 'list<map>',
             'use_account_attribution_setting': 'bool',
             'use_unified_attribution_setting': 'bool',
         }
@@ -1011,6 +972,8 @@ class AdSet(
         'billing_event': 'BillingEvent',
         'budget_remaining': 'string',
         'campaign': 'Campaign',
+        'campaign_active_time': 'string',
+        'campaign_attribution': 'string',
         'campaign_id': 'string',
         'configured_status': 'ConfiguredStatus',
         'created_time': 'datetime',
@@ -1019,6 +982,8 @@ class AdSet(
         'daily_min_spend_target': 'string',
         'daily_spend_cap': 'string',
         'destination_type': 'string',
+        'dsa_beneficiary': 'string',
+        'dsa_payor': 'string',
         'effective_status': 'EffectiveStatus',
         'end_time': 'datetime',
         'existing_customer_budget_percentage': 'unsigned int',
@@ -1026,6 +991,7 @@ class AdSet(
         'full_funnel_exploration_mode': 'string',
         'id': 'string',
         'instagram_actor_id': 'string',
+        'is_budget_schedule_enabled': 'bool',
         'is_dynamic_creative': 'bool',
         'issues_info': 'list<AdCampaignIssuesInfo>',
         'learning_stage_info': 'AdCampaignLearningStageInfo',
@@ -1048,7 +1014,7 @@ class AdSet(
         'start_time': 'datetime',
         'status': 'Status',
         'targeting': 'Targeting',
-        'targeting_optimization_types': 'map<string, int>',
+        'targeting_optimization_types': 'list<map<string, int>>',
         'time_based_ad_rotation_id_blocks': 'list<list<int>>',
         'time_based_ad_rotation_intervals': 'list<unsigned int>',
         'updated_time': 'datetime',
@@ -1063,7 +1029,6 @@ class AdSet(
         'time_stop': 'datetime',
         'topline_id': 'string',
         'tune_for_category': 'TuneForCategory',
-        'upstream_events': 'map',
     }
     @classmethod
     def _get_field_enum_info(cls):
