@@ -40,9 +40,7 @@ class AdAccountMixin:
         me = AdAccountUser(fbid='me', api=api)
 
         # Get first account connected to the user
-        my_account = me.edge_object(cls)
-
-        return my_account
+        return me.edge_object(cls)
 
     def opt_out_user_from_targeting(self,
                                     schema,

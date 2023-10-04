@@ -282,10 +282,9 @@ class EventRequest(object):
             fields=[],
             params=params,
         )
-        event_response = EventResponse(events_received=response['events_received'],
+        return EventResponse(events_received=response['events_received'],
                                        fbtrace_id=response['fbtrace_id'],
                                        messages=response['messages'])
-        return event_response
 
     def execute_with_client(self, params):
         url = '/'.join([
