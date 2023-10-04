@@ -37,9 +37,7 @@ class TypeChecker:
         elif primitive_type in ("unsigned int", "int"):
             return int(value)
         elif primitive_type == "bool":
-            if value in ("false", "0", "null"):
-                return False
-            return True
+            return value not in ("false", "0", "null")
         elif primitive_type == "float":
             return float(value)
         elif primitive_type == "datetime":
@@ -98,15 +96,15 @@ class TypeChecker:
             if not isinstance(value, list):
                 return False
             sub_type = self.get_type_from_collection(value_type, 'list')[0]
-            return all([self.is_type(sub_type, item) for item in value])
+            return all(self.is_type(sub_type, item) for item in value)
         if self.is_type_collection(value_type, 'map'):
             if not isinstance(value, dict):
                 return False
             sub_types = self.get_type_from_collection(value_type, 'map')
             sub_type_key = sub_types[0]
             sub_type_value = sub_types[1]
-            return all([self.is_type(sub_type_key, k) and
-                self.is_type(sub_type_value, v) for k, v in value.items()])
+            return all(self.is_type(sub_type_key, k) and
+                self.is_type(sub_type_value, v) for k, v in value.items())
 
         if (type(value).__name__ == value_type or
                     hasattr(value, '_is' + value_type)):
@@ -164,11 +162,13 @@ class TypeChecker:
             else:
                 sub_type_key = 'string'
                 sub_type_value = sub_types[0]
-            typed_value = dict(
-                (self.get_typed_value(sub_type_key, k),
-                self.get_typed_value(sub_type_value, v))
+            typed_value = {
+                self.get_typed_value(sub_type_key, k): self.get_typed_value(
+                    sub_type_value, v
+                )
                 for (k, v) in value.items()
-            )
+            }
+
         elif isinstance(value, dict):
             try:
                 typed_value = self._create_field_object(field_type, value)
