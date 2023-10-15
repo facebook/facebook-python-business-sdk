@@ -378,6 +378,7 @@ class Business(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'entry_point': 'string',
             'name': 'string',
             'primary_page': 'string',
             'timezone_id': 'unsigned int',
@@ -2590,6 +2591,8 @@ class Business(
             'access_key': 'string',
             'active': 'bool',
             'endpoint': 'string',
+            'fallback_domain': 'string',
+            'fallback_domain_enabled': 'bool',
             'host_business_id': 'unsigned int',
             'host_external_id': 'string',
             'pixel_id': 'unsigned int',
@@ -2947,6 +2950,7 @@ class Business(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'code': 'string',
+            'entry_point': 'string',
             'page_id': 'int',
         }
         enums = {

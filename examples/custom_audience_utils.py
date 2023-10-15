@@ -41,6 +41,7 @@ config_filename = os.path.join(this_dir, 'config.json')
 
 with open(config_filename) as config_file:
     config = json.load(config_file)
+
 auth_info = (
     config['app_id'],
     config['app_secret'],

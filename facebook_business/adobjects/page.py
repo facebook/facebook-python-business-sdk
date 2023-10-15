@@ -64,6 +64,7 @@ class Page(
         directed_by = 'directed_by'
         display_subtext = 'display_subtext'
         displayed_message_response_time = 'displayed_message_response_time'
+        does_viewer_have_page_permission_link_ig = 'does_viewer_have_page_permission_link_ig'
         emails = 'emails'
         engagement = 'engagement'
         fan_count = 'fan_count'
@@ -92,6 +93,7 @@ class Page(
         is_chain = 'is_chain'
         is_community_page = 'is_community_page'
         is_eligible_for_branded_content = 'is_eligible_for_branded_content'
+        is_eligible_for_disable_connect_ig_btn_for_non_page_admin_am_web = 'is_eligible_for_disable_connect_ig_btn_for_non_page_admin_am_web'
         is_messenger_bot_get_started_enabled = 'is_messenger_bot_get_started_enabled'
         is_messenger_platform_bot = 'is_messenger_platform_bot'
         is_owned = 'is_owned'
@@ -111,7 +113,6 @@ class Page(
         merchant_review_status = 'merchant_review_status'
         messaging_feature_status = 'messaging_feature_status'
         messenger_ads_default_icebreakers = 'messenger_ads_default_icebreakers'
-        messenger_ads_default_page_welcome_message = 'messenger_ads_default_page_welcome_message'
         messenger_ads_default_quick_replies = 'messenger_ads_default_quick_replies'
         messenger_ads_quick_replies_type = 'messenger_ads_quick_replies_type'
         mini_shop_storefront = 'mini_shop_storefront'
@@ -2664,8 +2665,8 @@ class Page(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'location_page_id': 'string',
-            'store_number': 'unsigned int',
+            'location_page_ids': 'list<string>',
+            'store_numbers': 'list<unsigned int>',
         }
         enums = {
         }
@@ -4998,6 +4999,7 @@ class Page(
         'directed_by': 'string',
         'display_subtext': 'string',
         'displayed_message_response_time': 'string',
+        'does_viewer_have_page_permission_link_ig': 'bool',
         'emails': 'list<string>',
         'engagement': 'Engagement',
         'fan_count': 'unsigned int',
@@ -5026,6 +5028,7 @@ class Page(
         'is_chain': 'bool',
         'is_community_page': 'bool',
         'is_eligible_for_branded_content': 'bool',
+        'is_eligible_for_disable_connect_ig_btn_for_non_page_admin_am_web': 'bool',
         'is_messenger_bot_get_started_enabled': 'bool',
         'is_messenger_platform_bot': 'bool',
         'is_owned': 'bool',
@@ -5045,7 +5048,6 @@ class Page(
         'merchant_review_status': 'string',
         'messaging_feature_status': 'MessagingFeatureStatus',
         'messenger_ads_default_icebreakers': 'list<string>',
-        'messenger_ads_default_page_welcome_message': 'MessengerDestinationPageWelcomeMessage',
         'messenger_ads_default_quick_replies': 'list<string>',
         'messenger_ads_quick_replies_type': 'string',
         'mini_shop_storefront': 'Shop',

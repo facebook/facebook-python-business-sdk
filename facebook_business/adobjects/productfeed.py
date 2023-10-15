@@ -129,6 +129,7 @@ class ProductFeed(
         language = 'LANGUAGE'
         language_and_country = 'LANGUAGE_AND_COUNTRY'
         local = 'LOCAL'
+        smart_pixel_language_or_country = 'SMART_PIXEL_LANGUAGE_OR_COUNTRY'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod

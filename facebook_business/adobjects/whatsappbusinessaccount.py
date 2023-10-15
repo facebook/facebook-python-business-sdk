@@ -51,7 +51,11 @@ class WhatsAppBusinessAccount(
         manage = 'MANAGE'
         manage_extensions = 'MANAGE_EXTENSIONS'
         manage_phone = 'MANAGE_PHONE'
+        manage_phone_assets = 'MANAGE_PHONE_ASSETS'
+        manage_templates = 'MANAGE_TEMPLATES'
         view_cost = 'VIEW_COST'
+        view_phone_assets = 'VIEW_PHONE_ASSETS'
+        view_templates = 'VIEW_TEMPLATES'
 
     class Category:
         authentication = 'AUTHENTICATION'
@@ -362,12 +366,23 @@ class WhatsAppBusinessAccount(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'categories': 'list<categories_enum>',
             'clone_extension_id': 'string',
             'clone_template': 'string',
             'data_channel_uri': 'string',
             'name': 'string',
         }
         enums = {
+            'categories_enum': [
+                'APPOINTMENT_BOOKING',
+                'CONTACT_US',
+                'CUSTOMER_SUPPORT',
+                'LEAD_GENERATION',
+                'OTHER',
+                'SIGN_IN',
+                'SIGN_UP',
+                'SURVEY',
+            ],
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -426,12 +441,23 @@ class WhatsAppBusinessAccount(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'categories': 'list<categories_enum>',
             'clone_flow_id': 'string',
             'clone_template': 'string',
             'data_channel_uri': 'string',
             'name': 'string',
         }
         enums = {
+            'categories_enum': [
+                'APPOINTMENT_BOOKING',
+                'CONTACT_US',
+                'CUSTOMER_SUPPORT',
+                'LEAD_GENERATION',
+                'OTHER',
+                'SIGN_IN',
+                'SIGN_UP',
+                'SURVEY',
+            ],
         }
         request = FacebookRequest(
             node_id=self['id'],

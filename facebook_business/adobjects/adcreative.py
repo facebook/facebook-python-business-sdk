@@ -110,6 +110,7 @@ class AdCreative(
         call = 'CALL'
         call_me = 'CALL_ME'
         call_now = 'CALL_NOW'
+        confirm = 'CONFIRM'
         contact = 'CONTACT'
         contact_us = 'CONTACT_US'
         donate = 'DONATE'

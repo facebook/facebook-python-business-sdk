@@ -108,6 +108,7 @@ class AdActivity(
         update_campaign_budget = 'update_campaign_budget'
         update_campaign_budget_optimization_toggling_status = 'update_campaign_budget_optimization_toggling_status'
         update_campaign_budget_scheduling_state = 'update_campaign_budget_scheduling_state'
+        update_campaign_conversion_goal = 'update_campaign_conversion_goal'
         update_campaign_delivery_type = 'update_campaign_delivery_type'
         update_campaign_group_ad_scheduling = 'update_campaign_group_ad_scheduling'
         update_campaign_group_budget_scheduling_state = 'update_campaign_group_budget_scheduling_state'

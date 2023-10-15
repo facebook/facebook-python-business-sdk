@@ -27,6 +27,7 @@ class ShadowIGMediaBuilder(
         super(ShadowIGMediaBuilder, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        copyright_check_status = 'copyright_check_status'
         id = 'id'
         status = 'status'
         status_code = 'status_code'
@@ -62,6 +63,7 @@ class ShadowIGMediaBuilder(
             return request.execute()
 
     _field_types = {
+        'copyright_check_status': 'IGVideoCopyrightCheckStatus',
         'id': 'string',
         'status': 'string',
         'status_code': 'string',

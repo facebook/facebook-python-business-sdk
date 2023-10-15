@@ -39,6 +39,7 @@ config_filename = os.path.join(this_dir, 'config.json')
 
 with open(config_filename) as config_file:
     config = json.load(config_file)
+
 ### Setup session and api objects
 session = FacebookSession(
     config['app_id'],

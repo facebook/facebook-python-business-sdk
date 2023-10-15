@@ -18,29 +18,23 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class MessengerDestinationPageWelcomeMessage(
+class ShadowIGMediaCollaborators(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isMessengerDestinationPageWelcomeMessage = True
-        super(MessengerDestinationPageWelcomeMessage, self).__init__(fbid, parent_id, api)
+        self._isShadowIGMediaCollaborators = True
+        super(ShadowIGMediaCollaborators, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
         id = 'id'
-        page_welcome_message_body = 'page_welcome_message_body'
-        page_welcome_message_type = 'page_welcome_message_type'
-        template_name = 'template_name'
-        time_created = 'time_created'
-        time_last_used = 'time_last_used'
+        invite_status = 'invite_status'
+        username = 'username'
 
     _field_types = {
         'id': 'string',
-        'page_welcome_message_body': 'string',
-        'page_welcome_message_type': 'string',
-        'template_name': 'string',
-        'time_created': 'datetime',
-        'time_last_used': 'datetime',
+        'invite_status': 'string',
+        'username': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

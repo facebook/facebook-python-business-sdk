@@ -30,6 +30,8 @@ class OpenBridgeConfiguration(
         access_key = 'access_key'
         active = 'active'
         endpoint = 'endpoint'
+        fallback_domain = 'fallback_domain'
+        fallback_domain_enabled = 'fallback_domain_enabled'
         host_business_id = 'host_business_id'
         host_external_id = 'host_external_id'
         id = 'id'
@@ -113,6 +115,8 @@ class OpenBridgeConfiguration(
             'access_key': 'string',
             'active': 'bool',
             'endpoint': 'string',
+            'fallback_domain': 'string',
+            'fallback_domain_enabled': 'bool',
             'host_business_id': 'unsigned int',
             'host_external_id': 'string',
         }
@@ -144,6 +148,8 @@ class OpenBridgeConfiguration(
         'access_key': 'string',
         'active': 'bool',
         'endpoint': 'string',
+        'fallback_domain': 'string',
+        'fallback_domain_enabled': 'bool',
         'host_business_id': 'string',
         'host_external_id': 'string',
         'id': 'string',

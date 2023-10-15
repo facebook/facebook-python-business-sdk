@@ -34,6 +34,7 @@ class InstagramComment(
         instagram_user = 'instagram_user'
         mentioned_instagram_users = 'mentioned_instagram_users'
         message = 'message'
+        username = 'username'
 
     def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -198,6 +199,7 @@ class InstagramComment(
         'instagram_user': 'InstagramUser',
         'mentioned_instagram_users': 'list<InstagramUser>',
         'message': 'string',
+        'username': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

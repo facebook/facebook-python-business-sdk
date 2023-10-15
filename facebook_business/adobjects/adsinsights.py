@@ -212,6 +212,7 @@ class AdsInsights(
         is_conversion_id_modeled = 'is_conversion_id_modeled'
         link_url_asset = 'link_url_asset'
         marketing_messages_btn_name = 'marketing_messages_btn_name'
+        mdsa_landing_destination = 'mdsa_landing_destination'
         media_asset_url = 'media_asset_url'
         media_creator = 'media_creator'
         media_destination_url = 'media_destination_url'
