@@ -58,6 +58,7 @@ class CustomAudienceDataSource(
         instant_article_events = 'INSTANT_ARTICLE_EVENTS'
         lookalike_platform = 'LOOKALIKE_PLATFORM'
         mail_chimp_email_hashes = 'MAIL_CHIMP_EMAIL_HASHES'
+        messenger_onsite_subscription = 'MESSENGER_ONSITE_SUBSCRIPTION'
         mobile_advertiser_ids = 'MOBILE_ADVERTISER_IDS'
         mobile_app_combination_events = 'MOBILE_APP_COMBINATION_EVENTS'
         mobile_app_custom_audience_users = 'MOBILE_APP_CUSTOM_AUDIENCE_USERS'

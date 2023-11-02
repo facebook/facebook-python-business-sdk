@@ -27,6 +27,7 @@ class AdCreativeBrandedContentAds(
         ad_format = 'ad_format'
         creator_ad_permission_type = 'creator_ad_permission_type'
         instagram_boost_post_access_token = 'instagram_boost_post_access_token'
+        is_mca_internal = 'is_mca_internal'
         partners = 'partners'
         ui_version = 'ui_version'
 
@@ -34,6 +35,7 @@ class AdCreativeBrandedContentAds(
         'ad_format': 'int',
         'creator_ad_permission_type': 'string',
         'instagram_boost_post_access_token': 'string',
+        'is_mca_internal': 'bool',
         'partners': 'list<Object>',
         'ui_version': 'int',
     }

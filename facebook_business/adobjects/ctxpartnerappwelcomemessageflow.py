@@ -18,21 +18,22 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class Shop(
+class CTXPartnerAppWelcomeMessageFlow(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isShop = True
-        super(Shop, self).__init__(fbid, parent_id, api)
+        self._isCTXPartnerAppWelcomeMessageFlow = True
+        super(CTXPartnerAppWelcomeMessageFlow, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        fb_sales_channel = 'fb_sales_channel'
+        compatible_platforms = 'compatible_platforms'
+        eligible_platforms = 'eligible_platforms'
         id = 'id'
-        ig_sales_channel = 'ig_sales_channel'
-        is_onsite_enabled = 'is_onsite_enabled'
-        shop_status = 'shop_status'
-        workspace = 'workspace'
+        is_used_in_ad = 'is_used_in_ad'
+        last_update_time = 'last_update_time'
+        name = 'name'
+        welcome_message_flow = 'welcome_message_flow'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -48,7 +49,7 @@ class Shop(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=Shop,
+            target_class=CTXPartnerAppWelcomeMessageFlow,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -65,12 +66,13 @@ class Shop(
             return request.execute()
 
     _field_types = {
-        'fb_sales_channel': 'Object',
+        'compatible_platforms': 'list<string>',
+        'eligible_platforms': 'list<string>',
         'id': 'string',
-        'ig_sales_channel': 'Object',
-        'is_onsite_enabled': 'bool',
-        'shop_status': 'string',
-        'workspace': 'Object',
+        'is_used_in_ad': 'bool',
+        'last_update_time': 'datetime',
+        'name': 'string',
+        'welcome_message_flow': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

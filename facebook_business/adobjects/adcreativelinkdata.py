@@ -28,6 +28,7 @@ class AdCreativeLinkData(
         additional_image_index = 'additional_image_index'
         app_link_spec = 'app_link_spec'
         attachment_style = 'attachment_style'
+        automated_product_tags = 'automated_product_tags'
         branded_content_shared_to_sponsor_status = 'branded_content_shared_to_sponsor_status'
         branded_content_sponsor_page_id = 'branded_content_sponsor_page_id'
         call_to_action = 'call_to_action'
@@ -70,6 +71,7 @@ class AdCreativeLinkData(
         'additional_image_index': 'int',
         'app_link_spec': 'AdCreativeLinkDataAppLinkSpec',
         'attachment_style': 'string',
+        'automated_product_tags': 'bool',
         'branded_content_shared_to_sponsor_status': 'string',
         'branded_content_sponsor_page_id': 'string',
         'call_to_action': 'AdCreativeLinkDataCallToAction',

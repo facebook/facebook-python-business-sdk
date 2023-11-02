@@ -33,6 +33,7 @@ class WhatsAppBusinessAccount(
         country = 'country'
         creation_time = 'creation_time'
         currency = 'currency'
+        health_status = 'health_status'
         id = 'id'
         is_enabled_for_insights = 'is_enabled_for_insights'
         message_template_namespace = 'message_template_namespace'
@@ -313,81 +314,6 @@ class WhatsAppBusinessAccount(
             node_id=self['id'],
             method='GET',
             endpoint='/conversation_analytics',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def get_extensions(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/extensions',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_extension(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'categories': 'list<categories_enum>',
-            'clone_extension_id': 'string',
-            'clone_template': 'string',
-            'data_channel_uri': 'string',
-            'name': 'string',
-        }
-        enums = {
-            'categories_enum': [
-                'APPOINTMENT_BOOKING',
-                'CONTACT_US',
-                'CUSTOMER_SUPPORT',
-                'LEAD_GENERATION',
-                'OTHER',
-                'SIGN_IN',
-                'SIGN_UP',
-                'SURVEY',
-            ],
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/extensions',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
@@ -1111,6 +1037,7 @@ class WhatsAppBusinessAccount(
         'country': 'string',
         'creation_time': 'int',
         'currency': 'string',
+        'health_status': 'Object',
         'id': 'string',
         'is_enabled_for_insights': 'bool',
         'message_template_namespace': 'string',

@@ -1154,7 +1154,6 @@ class AdAccount(
             'engagement_audience': 'bool',
             'execution_options': 'list<execution_options_enum>',
             'include_demolink_hashes': 'bool',
-            'meta_reward_adgroup_status': 'meta_reward_adgroup_status_enum',
             'name': 'string',
             'priority': 'unsigned int',
             'source_ad_id': 'string',
@@ -1163,7 +1162,6 @@ class AdAccount(
         }
         enums = {
             'execution_options_enum': Ad.ExecutionOptions.__dict__.values(),
-            'meta_reward_adgroup_status_enum': Ad.MetaRewardAdgroupStatus.__dict__.values(),
             'status_enum': Ad.Status.__dict__.values(),
         }
         request = FacebookRequest(
@@ -2517,6 +2515,7 @@ class AdAccount(
             'subtype': 'subtype_enum',
             'use_in_campaigns': 'bool',
             'video_group_ids': 'list<string>',
+            'whats_app_business_phone_number_id': 'string',
         }
         enums = {
             'claim_objective_enum': CustomAudience.ClaimObjective.__dict__.values(),

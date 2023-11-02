@@ -55,6 +55,7 @@ class AdsInsights(
         catalog_segment_value_omni_purchase_roas = 'catalog_segment_value_omni_purchase_roas'
         catalog_segment_value_website_purchase_roas = 'catalog_segment_value_website_purchase_roas'
         clicks = 'clicks'
+        conversion_lead_rate = 'conversion_lead_rate'
         conversion_rate_ranking = 'conversion_rate_ranking'
         conversion_values = 'conversion_values'
         conversions = 'conversions'
@@ -65,6 +66,7 @@ class AdsInsights(
         cost_per_action_type = 'cost_per_action_type'
         cost_per_ad_click = 'cost_per_ad_click'
         cost_per_conversion = 'cost_per_conversion'
+        cost_per_conversion_lead = 'cost_per_conversion_lead'
         cost_per_dda_countby_convs = 'cost_per_dda_countby_convs'
         cost_per_estimated_ad_recallers = 'cost_per_estimated_ad_recallers'
         cost_per_inline_link_click = 'cost_per_inline_link_click'
@@ -310,6 +312,7 @@ class AdsInsights(
         'catalog_segment_value_omni_purchase_roas': 'list<AdsActionStats>',
         'catalog_segment_value_website_purchase_roas': 'list<AdsActionStats>',
         'clicks': 'string',
+        'conversion_lead_rate': 'string',
         'conversion_rate_ranking': 'string',
         'conversion_values': 'list<AdsActionStats>',
         'conversions': 'list<AdsActionStats>',
@@ -320,6 +323,7 @@ class AdsInsights(
         'cost_per_action_type': 'list<AdsActionStats>',
         'cost_per_ad_click': 'list<AdsActionStats>',
         'cost_per_conversion': 'list<AdsActionStats>',
+        'cost_per_conversion_lead': 'string',
         'cost_per_dda_countby_convs': 'string',
         'cost_per_estimated_ad_recallers': 'string',
         'cost_per_inline_link_click': 'string',

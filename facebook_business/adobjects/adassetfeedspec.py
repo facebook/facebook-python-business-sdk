@@ -40,7 +40,10 @@ class AdAssetFeedSpec(
         images = 'images'
         link_urls = 'link_urls'
         message_extensions = 'message_extensions'
+        onsite_destinations = 'onsite_destinations'
         optimization_type = 'optimization_type'
+        reasons_to_shop = 'reasons_to_shop'
+        shops_bundle = 'shops_bundle'
         titles = 'titles'
         videos = 'videos'
 
@@ -84,7 +87,6 @@ class AdAssetFeedSpec(
         listen_now = 'LISTEN_NOW'
         message_page = 'MESSAGE_PAGE'
         mobile_download = 'MOBILE_DOWNLOAD'
-        moments = 'MOMENTS'
         no_button = 'NO_BUTTON'
         open_instant_app = 'OPEN_INSTANT_APP'
         open_link = 'OPEN_LINK'
@@ -139,7 +141,10 @@ class AdAssetFeedSpec(
         'images': 'list<AdAssetFeedSpecImage>',
         'link_urls': 'list<AdAssetFeedSpecLinkURL>',
         'message_extensions': 'list<AdAssetMessageExtensions>',
+        'onsite_destinations': 'list<Object>',
         'optimization_type': 'string',
+        'reasons_to_shop': 'bool',
+        'shops_bundle': 'bool',
         'titles': 'list<AdAssetFeedSpecTitle>',
         'videos': 'list<AdAssetFeedSpecVideo>',
     }

@@ -88,6 +88,7 @@ class CustomAudience(
         product_set_id = 'product_set_id'
         use_in_campaigns = 'use_in_campaigns'
         video_group_ids = 'video_group_ids'
+        whats_app_business_phone_number_id = 'whats_app_business_phone_number_id'
 
     class ClaimObjective:
         automotive_model = 'AUTOMOTIVE_MODEL'
@@ -622,6 +623,7 @@ class CustomAudience(
         'product_set_id': 'string',
         'use_in_campaigns': 'bool',
         'video_group_ids': 'list<string>',
+        'whats_app_business_phone_number_id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

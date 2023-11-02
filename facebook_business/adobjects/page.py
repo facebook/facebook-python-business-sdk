@@ -79,6 +79,7 @@ class Page(
         global_brand_page_name = 'global_brand_page_name'
         global_brand_root_id = 'global_brand_root_id'
         has_added_app = 'has_added_app'
+        has_lead_access = 'has_lead_access'
         has_transitioned_to_new_page_experience = 'has_transitioned_to_new_page_experience'
         has_whatsapp_business_number = 'has_whatsapp_business_number'
         has_whatsapp_enterprise_number_using_cloud_api = 'has_whatsapp_enterprise_number_using_cloud_api'
@@ -653,6 +654,45 @@ class Page(
         request = FacebookRequest(
             node_id=self['id'],
             method='GET',
+            endpoint='/ab_tests',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=PagePostExperiment,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=PagePostExperiment, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_ab_test(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.pagepostexperiment import PagePostExperiment
+        param_types = {
+            'control_video_id': 'string',
+            'description': 'string',
+            'duration': 'unsigned int',
+            'experiment_video_ids': 'list<string>',
+            'name': 'string',
+            'optimization_goal': 'optimization_goal_enum',
+            'scheduled_experiment_timestamp': 'unsigned int',
+        }
+        enums = {
+            'optimization_goal_enum': PagePostExperiment.OptimizationGoal.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
             endpoint='/ab_tests',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
@@ -3037,6 +3077,8 @@ class Page(
         enums = {
             'fields_enum': [
                 'ACCOUNT_LINKING_URL',
+                'COMMANDS',
+                'DESCRIPTION',
                 'GET_STARTED',
                 'GREETING',
                 'HOME_URL',
@@ -3046,6 +3088,7 @@ class Page(
                 'PLATFORM',
                 'SUBJECT_TO_NEW_EU_PRIVACY_RULES',
                 'TARGET_AUDIENCE',
+                'TITLE',
                 'WHITELISTED_DOMAINS',
             ],
             'platform_enum': Page.Platform.__dict__.values(),
@@ -3111,6 +3154,8 @@ class Page(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'account_linking_url': 'string',
+            'commands': 'list<Object>',
+            'description': 'list<Object>',
             'get_started': 'Object',
             'greeting': 'list<Object>',
             'ice_breakers': 'list<map>',
@@ -3118,6 +3163,7 @@ class Page(
             'persistent_menu': 'list<Object>',
             'platform': 'platform_enum',
             'target_audience': 'Object',
+            'title': 'list<Object>',
             'whitelisted_domains': 'list<string>',
         }
         enums = {
@@ -4929,10 +4975,42 @@ class Page(
             self.assure_call()
             return request.execute()
 
+    def delete_welcome_message_flows(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'flow_id': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='DELETE',
+            endpoint='/welcome_message_flows',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_welcome_message_flows(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.ctxpartnerappwelcomemessageflow import CTXPartnerAppWelcomeMessageFlow
         param_types = {
             'app_id': 'string',
             'flow_id': 'string',
@@ -4942,6 +5020,44 @@ class Page(
         request = FacebookRequest(
             node_id=self['id'],
             method='GET',
+            endpoint='/welcome_message_flows',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=CTXPartnerAppWelcomeMessageFlow,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=CTXPartnerAppWelcomeMessageFlow, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_welcome_message_flow(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'eligible_platforms': 'list<eligible_platforms_enum>',
+            'flow_id': 'string',
+            'name': 'string',
+            'welcome_message_flow': 'list<Object>',
+        }
+        enums = {
+            'eligible_platforms_enum': [
+                'INSTAGRAM',
+                'MESSENGER',
+            ],
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
             endpoint='/welcome_message_flows',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
@@ -5014,6 +5130,7 @@ class Page(
         'global_brand_page_name': 'string',
         'global_brand_root_id': 'string',
         'has_added_app': 'bool',
+        'has_lead_access': 'HasLeadAccess',
         'has_transitioned_to_new_page_experience': 'bool',
         'has_whatsapp_business_number': 'bool',
         'has_whatsapp_enterprise_number_using_cloud_api': 'bool',

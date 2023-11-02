@@ -35,7 +35,7 @@ class ManagedPartnerBusiness(
     _field_types = {
         'ad_account': 'AdAccount',
         'catalog_segment': 'ProductCatalog',
-        'extended_credit': 'ExtendedCredit',
+        'extended_credit': 'ManagedPartnerExtendedCredit',
         'page': 'Page',
         'seller_business_info': 'Object',
         'seller_business_status': 'string',

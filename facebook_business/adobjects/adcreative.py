@@ -78,6 +78,7 @@ class AdCreative(
         object_type = 'object_type'
         object_url = 'object_url'
         omnichannel_link_spec = 'omnichannel_link_spec'
+        photo_album_source_object_story_id = 'photo_album_source_object_story_id'
         place_page_set_id = 'place_page_set_id'
         platform_customizations = 'platform_customizations'
         playable_asset_id = 'playable_asset_id'
@@ -138,7 +139,6 @@ class AdCreative(
         listen_now = 'LISTEN_NOW'
         message_page = 'MESSAGE_PAGE'
         mobile_download = 'MOBILE_DOWNLOAD'
-        moments = 'MOMENTS'
         no_button = 'NO_BUTTON'
         open_instant_app = 'OPEN_INSTANT_APP'
         open_link = 'OPEN_LINK'
@@ -498,6 +498,7 @@ class AdCreative(
         'object_type': 'ObjectType',
         'object_url': 'string',
         'omnichannel_link_spec': 'AdCreativeOmnichannelLinkSpec',
+        'photo_album_source_object_story_id': 'string',
         'place_page_set_id': 'string',
         'platform_customizations': 'AdCreativePlatformCustomization',
         'playable_asset_id': 'string',

@@ -109,6 +109,8 @@ class Application(
         restrictions = 'restrictions'
         restrictive_data_filter_params = 'restrictive_data_filter_params'
         restrictive_data_filter_rules = 'restrictive_data_filter_rules'
+        sdk_auto_logging_default_value = 'sdk_auto_logging_default_value'
+        sdk_auto_logging_override_value = 'sdk_auto_logging_override_value'
         sdk_update_message = 'sdk_update_message'
         seamless_login = 'seamless_login'
         secure_canvas_url = 'secure_canvas_url'
@@ -2304,6 +2306,8 @@ class Application(
         'restrictions': 'Object',
         'restrictive_data_filter_params': 'string',
         'restrictive_data_filter_rules': 'string',
+        'sdk_auto_logging_default_value': 'bool',
+        'sdk_auto_logging_override_value': 'bool',
         'sdk_update_message': 'string',
         'seamless_login': 'int',
         'secure_canvas_url': 'string',

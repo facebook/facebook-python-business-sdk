@@ -2389,6 +2389,7 @@ class Business(
             'sales_rep_email': 'string',
             'seller_external_website_url': 'string',
             'seller_targeting_countries': 'list<string>',
+            'skip_partner_page_creation': 'bool',
             'survey_business_type': 'survey_business_type_enum',
             'survey_num_assets': 'unsigned int',
             'survey_num_people': 'unsigned int',
