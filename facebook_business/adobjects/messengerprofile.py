@@ -25,6 +25,7 @@ class MessengerProfile(
 
     class Field(AbstractObject.Field):
         account_linking_url = 'account_linking_url'
+        commands = 'commands'
         get_started = 'get_started'
         greeting = 'greeting'
         ice_breakers = 'ice_breakers'
@@ -36,6 +37,7 @@ class MessengerProfile(
 
     _field_types = {
         'account_linking_url': 'string',
+        'commands': 'list<Object>',
         'get_started': 'Object',
         'greeting': 'list<Object>',
         'ice_breakers': 'list<Object>',

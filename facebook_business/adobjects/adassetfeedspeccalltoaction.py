@@ -14,30 +14,24 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdCreativeBrandedContentAds(
+class AdAssetFeedSpecCallToAction(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(AdCreativeBrandedContentAds, self).__init__()
-        self._isAdCreativeBrandedContentAds = True
+        super(AdAssetFeedSpecCallToAction, self).__init__()
+        self._isAdAssetFeedSpecCallToAction = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        ad_format = 'ad_format'
-        creator_ad_permission_type = 'creator_ad_permission_type'
-        instagram_boost_post_access_token = 'instagram_boost_post_access_token'
-        is_mca_internal = 'is_mca_internal'
-        partners = 'partners'
-        ui_version = 'ui_version'
+        adlabels = 'adlabels'
+        type = 'type'
+        value = 'value'
 
     _field_types = {
-        'ad_format': 'int',
-        'creator_ad_permission_type': 'string',
-        'instagram_boost_post_access_token': 'string',
-        'is_mca_internal': 'bool',
-        'partners': 'list<AdCreativeBrandedContentAdsPartners>',
-        'ui_version': 'int',
+        'adlabels': 'list<AdAssetFeedSpecAssetLabel>',
+        'type': 'string',
+        'value': 'AdCreativeLinkDataCallToActionValue',
     }
     @classmethod
     def _get_field_enum_info(cls):

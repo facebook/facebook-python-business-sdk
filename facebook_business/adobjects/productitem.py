@@ -97,6 +97,7 @@ class ProductItem(
         short_description = 'short_description'
         size = 'size'
         start_date = 'start_date'
+        tags = 'tags'
         url = 'url'
         video_fetch_status = 'video_fetch_status'
         visibility = 'visibility'
@@ -409,6 +410,7 @@ class ProductItem(
         available = 'AVAILABLE'
         bad_quality_image = 'BAD_QUALITY_IMAGE'
         cannot_edit_subscription_products = 'CANNOT_EDIT_SUBSCRIPTION_PRODUCTS'
+        checkout_disabled_by_user = 'CHECKOUT_DISABLED_BY_USER'
         commerce_account_not_legally_compliant = 'COMMERCE_ACCOUNT_NOT_LEGALLY_COMPLIANT'
         crawled_availability_mismatch = 'CRAWLED_AVAILABILITY_MISMATCH'
         da_disabled_by_user = 'DA_DISABLED_BY_USER'
@@ -448,6 +450,7 @@ class ProductItem(
         item_override_empty_price = 'ITEM_OVERRIDE_EMPTY_PRICE'
         item_override_not_visible = 'ITEM_OVERRIDE_NOT_VISIBLE'
         item_stale_out_of_stock = 'ITEM_STALE_OUT_OF_STOCK'
+        marketplace_disabled_by_user = 'MARKETPLACE_DISABLED_BY_USER'
         mini_shops_disabled_by_user = 'MINI_SHOPS_DISABLED_BY_USER'
         missing_checkout = 'MISSING_CHECKOUT'
         missing_checkout_currency = 'MISSING_CHECKOUT_CURRENCY'
@@ -1117,6 +1120,7 @@ class ProductItem(
         'short_description': 'string',
         'size': 'string',
         'start_date': 'string',
+        'tags': 'list<string>',
         'url': 'string',
         'video_fetch_status': 'VideoFetchStatus',
         'visibility': 'Visibility',

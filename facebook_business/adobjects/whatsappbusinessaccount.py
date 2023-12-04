@@ -332,6 +332,36 @@ class WhatsAppBusinessAccount(
             self.assure_call()
             return request.execute()
 
+    def get_dcc_config(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/dcc_config',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_flows(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -370,7 +400,7 @@ class WhatsAppBusinessAccount(
             'categories': 'list<categories_enum>',
             'clone_flow_id': 'string',
             'clone_template': 'string',
-            'data_channel_uri': 'string',
+            'endpoint_uri': 'string',
             'name': 'string',
         }
         enums = {
@@ -1037,7 +1067,7 @@ class WhatsAppBusinessAccount(
         'country': 'string',
         'creation_time': 'int',
         'currency': 'string',
-        'health_status': 'Object',
+        'health_status': 'WhatsAppBusinessHealthStatusForMessageSend',
         'id': 'string',
         'is_enabled_for_insights': 'bool',
         'message_template_namespace': 'string',

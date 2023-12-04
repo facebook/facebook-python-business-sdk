@@ -14,30 +14,26 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdCreativeBrandedContentAds(
+class AdAssetOnsiteDestinations(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(AdCreativeBrandedContentAds, self).__init__()
-        self._isAdCreativeBrandedContentAds = True
+        super(AdAssetOnsiteDestinations, self).__init__()
+        self._isAdAssetOnsiteDestinations = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        ad_format = 'ad_format'
-        creator_ad_permission_type = 'creator_ad_permission_type'
-        instagram_boost_post_access_token = 'instagram_boost_post_access_token'
-        is_mca_internal = 'is_mca_internal'
-        partners = 'partners'
-        ui_version = 'ui_version'
+        auto_optimization = 'auto_optimization'
+        details_page_product_id = 'details_page_product_id'
+        shop_collection_product_set_id = 'shop_collection_product_set_id'
+        storefront_shop_id = 'storefront_shop_id'
 
     _field_types = {
-        'ad_format': 'int',
-        'creator_ad_permission_type': 'string',
-        'instagram_boost_post_access_token': 'string',
-        'is_mca_internal': 'bool',
-        'partners': 'list<AdCreativeBrandedContentAdsPartners>',
-        'ui_version': 'int',
+        'auto_optimization': 'string',
+        'details_page_product_id': 'string',
+        'shop_collection_product_set_id': 'string',
+        'storefront_shop_id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

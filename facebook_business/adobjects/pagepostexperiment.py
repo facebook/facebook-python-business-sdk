@@ -39,7 +39,6 @@ class PagePostExperiment(
         insight_snapshots = 'insight_snapshots'
         name = 'name'
         optimization_goal = 'optimization_goal'
-        post_variant_fields = 'post_variant_fields'
         publish_status = 'publish_status'
         publish_time = 'publish_time'
         scheduled_experiment_timestamp = 'scheduled_experiment_timestamp'
@@ -161,7 +160,6 @@ class PagePostExperiment(
         'insight_snapshots': 'list<map<datetime, list<map<int, Object>>>>',
         'name': 'string',
         'optimization_goal': 'string',
-        'post_variant_fields': 'list<string>',
         'publish_status': 'string',
         'publish_time': 'datetime',
         'scheduled_experiment_timestamp': 'datetime',

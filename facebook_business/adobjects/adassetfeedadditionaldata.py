@@ -14,30 +14,28 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdCreativeBrandedContentAds(
+class AdAssetFeedAdditionalData(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(AdCreativeBrandedContentAds, self).__init__()
-        self._isAdCreativeBrandedContentAds = True
+        super(AdAssetFeedAdditionalData, self).__init__()
+        self._isAdAssetFeedAdditionalData = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        ad_format = 'ad_format'
-        creator_ad_permission_type = 'creator_ad_permission_type'
-        instagram_boost_post_access_token = 'instagram_boost_post_access_token'
-        is_mca_internal = 'is_mca_internal'
-        partners = 'partners'
-        ui_version = 'ui_version'
+        automated_product_tags = 'automated_product_tags'
+        brand_page_id = 'brand_page_id'
+        is_click_to_message = 'is_click_to_message'
+        multi_share_end_card = 'multi_share_end_card'
+        page_welcome_message = 'page_welcome_message'
 
     _field_types = {
-        'ad_format': 'int',
-        'creator_ad_permission_type': 'string',
-        'instagram_boost_post_access_token': 'string',
-        'is_mca_internal': 'bool',
-        'partners': 'list<AdCreativeBrandedContentAdsPartners>',
-        'ui_version': 'int',
+        'automated_product_tags': 'bool',
+        'brand_page_id': 'string',
+        'is_click_to_message': 'bool',
+        'multi_share_end_card': 'bool',
+        'page_welcome_message': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

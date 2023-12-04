@@ -220,6 +220,7 @@ class AdVideo(
         instagram_video_copy = 'INSTAGRAM_VIDEO_COPY'
         instant_application_preview = 'INSTANT_APPLICATION_PREVIEW'
         instant_article = 'INSTANT_ARTICLE'
+        instant_games_promo = 'INSTANT_GAMES_PROMO'
         instant_game_clip = 'INSTANT_GAME_CLIP'
         issue_module = 'ISSUE_MODULE'
         jobs_careers = 'JOBS_CAREERS'
