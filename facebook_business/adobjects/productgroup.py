@@ -1,22 +1,8 @@
-# Copyright 2014 Facebook, Inc.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
 
-# You are hereby granted a non-exclusive, worldwide, royalty-free license to
-# use, copy, modify, and distribute this software in source code or binary
-# form for use in connection with the web services and APIs provided by
-# Facebook.
-
-# As with any software that integrates with the Facebook platform, your use
-# of this software is subject to the Facebook Developer Principles and
-# Policies [http://developers.facebook.com/policy/]. This copyright notice
-# shall be included in all copies or substantial portions of the software.
-
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-# DEALINGS IN THE SOFTWARE.
+# This source code is licensed under the license found in the
+# LICENSE file in the root directory of this source tree.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
 from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
@@ -61,8 +47,13 @@ class ProductGroup(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'deletion_method': 'deletion_method_enum',
         }
         enums = {
+            'deletion_method_enum': [
+                'DELETE_ITEMS',
+                'ONLY_IF_EMPTY',
+            ],
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -205,6 +196,11 @@ class ProductGroup(
             'custom_label_2': 'string',
             'custom_label_3': 'string',
             'custom_label_4': 'string',
+            'custom_number_0': 'unsigned int',
+            'custom_number_1': 'unsigned int',
+            'custom_number_2': 'unsigned int',
+            'custom_number_3': 'unsigned int',
+            'custom_number_4': 'unsigned int',
             'description': 'string',
             'expiration_date': 'string',
             'fb_product_category': 'string',
@@ -223,6 +219,7 @@ class ProductGroup(
             'iphone_url': 'string',
             'launch_date': 'string',
             'manufacturer_part_number': 'string',
+            'marked_for_product_launch': 'marked_for_product_launch_enum',
             'material': 'string',
             'mobile_link': 'string',
             'name': 'string',
@@ -233,6 +230,7 @@ class ProductGroup(
             'pattern': 'string',
             'price': 'unsigned int',
             'product_type': 'string',
+            'quantity_to_sell_on_facebook': 'unsigned int',
             'retailer_id': 'string',
             'return_policy_days': 'unsigned int',
             'sale_price': 'unsigned int',
@@ -252,6 +250,7 @@ class ProductGroup(
             'commerce_tax_category_enum': ProductItem.CommerceTaxCategory.__dict__.values(),
             'condition_enum': ProductItem.Condition.__dict__.values(),
             'gender_enum': ProductItem.Gender.__dict__.values(),
+            'marked_for_product_launch_enum': ProductItem.MarkedForProductLaunch.__dict__.values(),
             'visibility_enum': ProductItem.Visibility.__dict__.values(),
         }
         request = FacebookRequest(

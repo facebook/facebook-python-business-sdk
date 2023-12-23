@@ -1,22 +1,8 @@
-# Copyright 2014 Facebook, Inc.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
 
-# You are hereby granted a non-exclusive, worldwide, royalty-free license to
-# use, copy, modify, and distribute this software in source code or binary
-# form for use in connection with the web services and APIs provided by
-# Facebook.
-
-# As with any software that integrates with the Facebook platform, your use
-# of this software is subject to the Facebook Developer Principles and
-# Policies [http://developers.facebook.com/policy/]. This copyright notice
-# shall be included in all copies or substantial portions of the software.
-
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-# DEALINGS IN THE SOFTWARE.
+# This source code is licensed under the license found in the
+# LICENSE file in the root directory of this source tree.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
 
@@ -49,6 +35,12 @@ class AdAccountMatchedSearchApplicationsEdgeData(
 
     class AppStore:
         amazon_app_store = 'AMAZON_APP_STORE'
+        apk_mirror = 'APK_MIRROR'
+        apk_monk = 'APK_MONK'
+        apk_pure = 'APK_PURE'
+        aptoide_a1_store = 'APTOIDE_A1_STORE'
+        bemobi_mobile_store = 'BEMOBI_MOBILE_STORE'
+        digital_turbine_store = 'DIGITAL_TURBINE_STORE'
         does_not_exist = 'DOES_NOT_EXIST'
         fb_android_store = 'FB_ANDROID_STORE'
         fb_canvas = 'FB_CANVAS'
@@ -58,10 +50,16 @@ class AdAccountMatchedSearchApplicationsEdgeData(
         instant_game = 'INSTANT_GAME'
         itunes = 'ITUNES'
         itunes_ipad = 'ITUNES_IPAD'
+        neon_android_store = 'NEON_ANDROID_STORE'
+        none = 'NONE'
         oculus_app_store = 'OCULUS_APP_STORE'
+        oppo = 'OPPO'
         roku_store = 'ROKU_STORE'
+        uptodown = 'UPTODOWN'
+        vivo = 'VIVO'
         windows_10_store = 'WINDOWS_10_STORE'
         windows_store = 'WINDOWS_STORE'
+        xiaomi = 'XIAOMI'
 
     _field_types = {
         'app_id': 'string',

@@ -22,6 +22,7 @@
 Creates an ad through a utility function.
 """
 
+
 from facebook_business import FacebookSession
 from facebook_business import FacebookAdsApi
 from facebook_business.adobjects.adaccount import AdAccount
@@ -36,9 +37,8 @@ import os
 this_dir = os.path.dirname(__file__)
 config_filename = os.path.join(this_dir, 'config.json')
 
-config_file = open(config_filename)
-config = json.load(config_file)
-config_file.close()
+with open(config_filename) as config_file:
+    config = json.load(config_file)
 
 ### Setup session and api objects
 session = FacebookSession(
@@ -88,10 +88,9 @@ if __name__ == '__main__':
         'ad_format': AdPreview.AdFormat.right_column_standard
     })
     preview_filename = os.path.join(this_dir, 'preview_ad.html')
-    preview_file = open(preview_filename, 'w')
-    preview_file.write(
-        "<html><head><title>Facebook Ad Preview</title><body>%s</body></html>"
-        % preview.get_html()
-    )
-    preview_file.close()
+    with open(preview_filename, 'w') as preview_file:
+        preview_file.write(
+            "<html><head><title>Facebook Ad Preview</title><body>%s</body></html>"
+            % preview.get_html()
+        )
     print('**** %s has been created!' % preview_filename)

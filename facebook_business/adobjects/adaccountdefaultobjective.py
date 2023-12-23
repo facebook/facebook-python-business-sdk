@@ -1,22 +1,8 @@
-# Copyright 2014 Facebook, Inc.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
 
-# You are hereby granted a non-exclusive, worldwide, royalty-free license to
-# use, copy, modify, and distribute this software in source code or binary
-# form for use in connection with the web services and APIs provided by
-# Facebook.
-
-# As with any software that integrates with the Facebook platform, your use
-# of this software is subject to the Facebook Developer Principles and
-# Policies [http://developers.facebook.com/policy/]. This copyright notice
-# shall be included in all copies or substantial portions of the software.
-
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-# DEALINGS IN THE SOFTWARE.
+# This source code is licensed under the license found in the
+# LICENSE file in the root directory of this source tree.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
 
@@ -44,40 +30,46 @@ class AdAccountDefaultObjective(
     class DefaultObjectiveForUser:
         app_installs = 'APP_INSTALLS'
         brand_awareness = 'BRAND_AWARENESS'
-        canvas_app_engagement = 'CANVAS_APP_ENGAGEMENT'
-        canvas_app_installs = 'CANVAS_APP_INSTALLS'
         event_responses = 'EVENT_RESPONSES'
         lead_generation = 'LEAD_GENERATION'
         link_clicks = 'LINK_CLICKS'
         local_awareness = 'LOCAL_AWARENESS'
         messages = 'MESSAGES'
-        mobile_app_engagement = 'MOBILE_APP_ENGAGEMENT'
-        mobile_app_installs = 'MOBILE_APP_INSTALLS'
-        none = 'NONE'
         offer_claims = 'OFFER_CLAIMS'
+        outcome_app_promotion = 'OUTCOME_APP_PROMOTION'
+        outcome_awareness = 'OUTCOME_AWARENESS'
+        outcome_engagement = 'OUTCOME_ENGAGEMENT'
+        outcome_leads = 'OUTCOME_LEADS'
+        outcome_sales = 'OUTCOME_SALES'
+        outcome_traffic = 'OUTCOME_TRAFFIC'
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
         product_catalog_sales = 'PRODUCT_CATALOG_SALES'
+        reach = 'REACH'
+        store_visits = 'STORE_VISITS'
         video_views = 'VIDEO_VIEWS'
         website_conversions = 'WEBSITE_CONVERSIONS'
 
     class ObjectiveForLevel:
         app_installs = 'APP_INSTALLS'
         brand_awareness = 'BRAND_AWARENESS'
-        canvas_app_engagement = 'CANVAS_APP_ENGAGEMENT'
-        canvas_app_installs = 'CANVAS_APP_INSTALLS'
         event_responses = 'EVENT_RESPONSES'
         lead_generation = 'LEAD_GENERATION'
         link_clicks = 'LINK_CLICKS'
         local_awareness = 'LOCAL_AWARENESS'
         messages = 'MESSAGES'
-        mobile_app_engagement = 'MOBILE_APP_ENGAGEMENT'
-        mobile_app_installs = 'MOBILE_APP_INSTALLS'
-        none = 'NONE'
         offer_claims = 'OFFER_CLAIMS'
+        outcome_app_promotion = 'OUTCOME_APP_PROMOTION'
+        outcome_awareness = 'OUTCOME_AWARENESS'
+        outcome_engagement = 'OUTCOME_ENGAGEMENT'
+        outcome_leads = 'OUTCOME_LEADS'
+        outcome_sales = 'OUTCOME_SALES'
+        outcome_traffic = 'OUTCOME_TRAFFIC'
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
         product_catalog_sales = 'PRODUCT_CATALOG_SALES'
+        reach = 'REACH'
+        store_visits = 'STORE_VISITS'
         video_views = 'VIDEO_VIEWS'
         website_conversions = 'WEBSITE_CONVERSIONS'
 

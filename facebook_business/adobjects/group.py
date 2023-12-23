@@ -1,22 +1,8 @@
-# Copyright 2014 Facebook, Inc.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
 
-# You are hereby granted a non-exclusive, worldwide, royalty-free license to
-# use, copy, modify, and distribute this software in source code or binary
-# form for use in connection with the web services and APIs provided by
-# Facebook.
-
-# As with any software that integrates with the Facebook platform, your use
-# of this software is subject to the Facebook Developer Principles and
-# Policies [http://developers.facebook.com/policy/]. This copyright notice
-# shall be included in all copies or substantial portions of the software.
-
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-# DEALINGS IN THE SOFTWARE.
+# This source code is licensed under the license found in the
+# LICENSE file in the root directory of this source tree.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
 from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
@@ -48,6 +34,7 @@ class Group(
         email = 'email'
         icon = 'icon'
         id = 'id'
+        install = 'install'
         link = 'link'
         member_count = 'member_count'
         member_request_count = 'member_request_count'
@@ -72,42 +59,17 @@ class Group(
 
     class Purpose:
         casual = 'CASUAL'
-        close_friends = 'CLOSE_FRIENDS'
-        club = 'CLUB'
-        couple = 'COUPLE'
         coworkers = 'COWORKERS'
         custom = 'CUSTOM'
-        deals = 'DEALS'
-        ephemeral = 'EPHEMERAL'
-        event_planning = 'EVENT_PLANNING'
-        family = 'FAMILY'
-        fitness = 'FITNESS'
         for_sale = 'FOR_SALE'
         for_work = 'FOR_WORK'
-        fraternity = 'FRATERNITY'
         game = 'GAME'
         health_support = 'HEALTH_SUPPORT'
-        high_school_forum = 'HIGH_SCHOOL_FORUM'
         jobs = 'JOBS'
         learning = 'LEARNING'
-        mentorship = 'MENTORSHIP'
-        neighbors = 'NEIGHBORS'
         none = 'NONE'
-        oculus = 'OCULUS'
         parenting = 'PARENTING'
-        parents = 'PARENTS'
-        project = 'PROJECT'
-        real_world = 'REAL_WORLD'
-        real_world_at_work = 'REAL_WORLD_AT_WORK'
-        school_class = 'SCHOOL_CLASS'
-        sorority = 'SORORITY'
-        sports = 'SPORTS'
         streamer = 'STREAMER'
-        study_group = 'STUDY_GROUP'
-        support = 'SUPPORT'
-        teammates = 'TEAMMATES'
-        theme = 'THEME'
-        travel_planning = 'TRAVEL_PLANNING'
         work_announcement = 'WORK_ANNOUNCEMENT'
         work_demo_group = 'WORK_DEMO_GROUP'
         work_discussion = 'WORK_DISCUSSION'
@@ -115,54 +77,29 @@ class Group(
         work_feedback = 'WORK_FEEDBACK'
         work_for_sale = 'WORK_FOR_SALE'
         work_garden = 'WORK_GARDEN'
+        work_integrity = 'WORK_INTEGRITY'
         work_learning = 'WORK_LEARNING'
         work_mentorship = 'WORK_MENTORSHIP'
         work_multi_company = 'WORK_MULTI_COMPANY'
         work_recruiting = 'WORK_RECRUITING'
-        work_resume_review = 'WORK_RESUME_REVIEW'
         work_social = 'WORK_SOCIAL'
+        work_stages = 'WORK_STAGES'
         work_team = 'WORK_TEAM'
         work_teamwork = 'WORK_TEAMWORK'
-        work_vc_call = 'WORK_VC_CALL'
 
     class GroupType:
         casual = 'CASUAL'
-        close_friends = 'CLOSE_FRIENDS'
-        club = 'CLUB'
-        couple = 'COUPLE'
         coworkers = 'COWORKERS'
         custom = 'CUSTOM'
-        deals = 'DEALS'
-        ephemeral = 'EPHEMERAL'
-        event_planning = 'EVENT_PLANNING'
-        family = 'FAMILY'
-        fitness = 'FITNESS'
         for_sale = 'FOR_SALE'
         for_work = 'FOR_WORK'
-        fraternity = 'FRATERNITY'
         game = 'GAME'
         health_support = 'HEALTH_SUPPORT'
-        high_school_forum = 'HIGH_SCHOOL_FORUM'
         jobs = 'JOBS'
         learning = 'LEARNING'
-        mentorship = 'MENTORSHIP'
-        neighbors = 'NEIGHBORS'
         none = 'NONE'
-        oculus = 'OCULUS'
         parenting = 'PARENTING'
-        parents = 'PARENTS'
-        project = 'PROJECT'
-        real_world = 'REAL_WORLD'
-        real_world_at_work = 'REAL_WORLD_AT_WORK'
-        school_class = 'SCHOOL_CLASS'
-        sorority = 'SORORITY'
-        sports = 'SPORTS'
         streamer = 'STREAMER'
-        study_group = 'STUDY_GROUP'
-        support = 'SUPPORT'
-        teammates = 'TEAMMATES'
-        theme = 'THEME'
-        travel_planning = 'TRAVEL_PLANNING'
         work_announcement = 'WORK_ANNOUNCEMENT'
         work_demo_group = 'WORK_DEMO_GROUP'
         work_discussion = 'WORK_DISCUSSION'
@@ -170,15 +107,15 @@ class Group(
         work_feedback = 'WORK_FEEDBACK'
         work_for_sale = 'WORK_FOR_SALE'
         work_garden = 'WORK_GARDEN'
+        work_integrity = 'WORK_INTEGRITY'
         work_learning = 'WORK_LEARNING'
         work_mentorship = 'WORK_MENTORSHIP'
         work_multi_company = 'WORK_MULTI_COMPANY'
         work_recruiting = 'WORK_RECRUITING'
-        work_resume_review = 'WORK_RESUME_REVIEW'
         work_social = 'WORK_SOCIAL'
+        work_stages = 'WORK_STAGES'
         work_team = 'WORK_TEAM'
         work_teamwork = 'WORK_TEAMWORK'
-        work_vc_call = 'WORK_VC_CALL'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -222,13 +159,13 @@ class Group(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'archive': 'bool',
             'cover': 'string',
             'cover_url': 'string',
             'description': 'string',
             'focus_x': 'float',
             'focus_y': 'float',
             'group_icon': 'string',
+            'is_official_group': 'bool',
             'join_setting': 'join_setting_enum',
             'name': 'string',
             'no_feed_story': 'bool',
@@ -374,6 +311,7 @@ class Group(
             'name': 'string',
             'place': 'Object',
             'privacy': 'string',
+            'session_id': 'string',
             'tags': 'list<int>',
             'visible': 'string',
         }
@@ -521,7 +459,6 @@ class Group(
             'backdated_time_granularity': 'backdated_time_granularity_enum',
             'call_to_action': 'Object',
             'caption': 'string',
-            'checkin_entry_point': 'checkin_entry_point_enum',
             'child_attachments': 'list<Object>',
             'client_mutation_id': 'string',
             'composer_entry_picker': 'string',
@@ -595,7 +532,6 @@ class Group(
             'ref': 'list<string>',
             'referenceable_image_ids': 'list<string>',
             'referral_id': 'string',
-            'sales_promo_id': 'unsigned int',
             'scheduled_publish_time': 'datetime',
             'source': 'string',
             'sponsor_id': 'string',
@@ -620,7 +556,6 @@ class Group(
         }
         enums = {
             'backdated_time_granularity_enum': Post.BackdatedTimeGranularity.__dict__.values(),
-            'checkin_entry_point_enum': Post.CheckinEntryPoint.__dict__.values(),
             'formatting_enum': Post.Formatting.__dict__.values(),
             'place_attachment_setting_enum': Post.PlaceAttachmentSetting.__dict__.values(),
             'post_surfaces_blacklist_enum': Post.PostSurfacesBlacklist.__dict__.values(),
@@ -717,11 +652,11 @@ class Group(
         param_types = {
             'admin': 'int',
             'description': 'string',
-            'group_icon_id': 'Object',
+            'group_icon_id': 'string',
             'group_type': 'group_type_enum',
             'join_setting': 'join_setting_enum',
             'name': 'string',
-            'parent_id': 'Object',
+            'parent_id': 'string',
             'post_permissions': 'post_permissions_enum',
             'post_requires_admin_approval': 'bool',
             'privacy': 'string',
@@ -741,44 +676,6 @@ class Group(
             target_class=Group,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=Group, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_important_post(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'button_type': 'button_type_enum',
-            'expiration_time': 'datetime',
-            'post_id': 'string',
-        }
-        enums = {
-            'button_type_enum': [
-                'DISMISS',
-                'DONE',
-                'MARK_AS_READ',
-            ],
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/important_posts',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -837,13 +734,12 @@ class Group(
             'description': 'string',
             'enable_backup_ingest': 'bool',
             'encoding_settings': 'string',
+            'event_params': 'Object',
             'fisheye_video_cropped': 'bool',
             'front_z_rotation': 'float',
             'is_audio_only': 'bool',
             'is_spherical': 'bool',
-            'live_encoders': 'list<string>',
             'original_fov': 'unsigned int',
-            'planned_start_time': 'int',
             'privacy': 'string',
             'projection': 'projection_enum',
             'published': 'bool',
@@ -1009,7 +905,6 @@ class Group(
             'ios_bundle_id': 'string',
             'is_explicit_location': 'bool',
             'is_explicit_place': 'bool',
-            'is_visual_search': 'bool',
             'manual_privacy': 'bool',
             'message': 'string',
             'name': 'string',
@@ -1092,69 +987,6 @@ class Group(
             target_class=ProfilePictureSource,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=ProfilePictureSource, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def delete_pinned_posts(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'post_id': 'string',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='DELETE',
-            endpoint='/pinned_posts',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_pinned_post(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.post import Post
-        param_types = {
-            'post_ids': 'list<string>',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/pinned_posts',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=Post,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=Post, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1256,10 +1088,10 @@ class Group(
             'original_fov': 'unsigned int',
             'original_projection_type': 'original_projection_type_enum',
             'publish_event_id': 'unsigned int',
+            'published': 'bool',
             'react_mode_metadata': 'string',
             'referenced_sticker_id': 'string',
             'replace_video_id': 'string',
-            'sales_promo_id': 'unsigned int',
             'scheduled_publish_time': 'unsigned int',
             'slideshow_spec': 'map',
             'source': 'string',
@@ -1321,6 +1153,7 @@ class Group(
         'email': 'string',
         'icon': 'string',
         'id': 'string',
+        'install': 'Object',
         'link': 'string',
         'member_count': 'unsigned int',
         'member_request_count': 'unsigned int',

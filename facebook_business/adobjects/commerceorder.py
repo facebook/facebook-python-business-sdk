@@ -1,22 +1,8 @@
-# Copyright 2014 Facebook, Inc.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
 
-# You are hereby granted a non-exclusive, worldwide, royalty-free license to
-# use, copy, modify, and distribute this software in source code or binary
-# form for use in connection with the web services and APIs provided by
-# Facebook.
-
-# As with any software that integrates with the Facebook platform, your use
-# of this software is subject to the Facebook Developer Principles and
-# Policies [http://developers.facebook.com/policy/]. This copyright notice
-# shall be included in all copies or substantial portions of the software.
-
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-# DEALINGS IN THE SOFTWARE.
+# This source code is licensed under the license found in the
+# LICENSE file in the root directory of this source tree.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
 from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
@@ -55,18 +41,6 @@ class CommerceOrder(
         ship_by_date = 'ship_by_date'
         shipping_address = 'shipping_address'
 
-    class ReasonCode:
-        buyers_remorse = 'BUYERS_REMORSE'
-        damaged_goods = 'DAMAGED_GOODS'
-        not_as_described = 'NOT_AS_DESCRIBED'
-        quality_issue = 'QUALITY_ISSUE'
-        refund_compromised = 'REFUND_COMPROMISED'
-        refund_for_return = 'REFUND_FOR_RETURN'
-        refund_reason_other = 'REFUND_REASON_OTHER'
-        refund_sfi_fake = 'REFUND_SFI_FAKE'
-        refund_sfi_real = 'REFUND_SFI_REAL'
-        wrong_item = 'WRONG_ITEM'
-
     class Filters:
         has_cancellations = 'HAS_CANCELLATIONS'
         has_fulfillments = 'HAS_FULFILLMENTS'
@@ -80,6 +54,19 @@ class CommerceOrder(
         created = 'CREATED'
         fb_processing = 'FB_PROCESSING'
         in_progress = 'IN_PROGRESS'
+
+    class ReasonCode:
+        buyers_remorse = 'BUYERS_REMORSE'
+        damaged_goods = 'DAMAGED_GOODS'
+        facebook_initiated = 'FACEBOOK_INITIATED'
+        not_as_described = 'NOT_AS_DESCRIBED'
+        quality_issue = 'QUALITY_ISSUE'
+        refund_compromised = 'REFUND_COMPROMISED'
+        refund_for_return = 'REFUND_FOR_RETURN'
+        refund_reason_other = 'REFUND_REASON_OTHER'
+        refund_sfi_fake = 'REFUND_SFI_FAKE'
+        refund_sfi_real = 'REFUND_SFI_REAL'
+        wrong_item = 'WRONG_ITEM'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -190,6 +177,38 @@ class CommerceOrder(
             node_id=self['id'],
             method='POST',
             endpoint='/cancellations',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=CommerceOrder,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=CommerceOrder, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_fulfill_order(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'idempotency_key': 'string',
+            'items': 'list<map>',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/fulfill_order',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
             target_class=CommerceOrder,
@@ -435,6 +454,40 @@ class CommerceOrder(
             self.assure_call()
             return request.execute()
 
+    def create_return(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'items': 'list<map>',
+            'merchant_return_id': 'string',
+            'return_message': 'string',
+            'update': 'map',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/returns',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=CommerceOrder,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=CommerceOrder, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_shipments(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -478,6 +531,7 @@ class CommerceOrder(
             'merchant_order_reference': 'string',
             'shipment_origin_postal_code': 'string',
             'shipping_tax_details': 'map',
+            'should_use_default_fulfillment_location': 'bool',
             'tracking_info': 'map',
         }
         enums = {
@@ -509,8 +563,10 @@ class CommerceOrder(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'external_shipment_id': 'string',
             'fulfillment_id': 'string',
             'idempotency_key': 'string',
+            'shipment_id': 'string',
             'tracking_info': 'map',
         }
         enums = {
@@ -555,9 +611,9 @@ class CommerceOrder(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['ReasonCode'] = CommerceOrder.ReasonCode.__dict__.values()
         field_enum_info['Filters'] = CommerceOrder.Filters.__dict__.values()
         field_enum_info['State'] = CommerceOrder.State.__dict__.values()
+        field_enum_info['ReasonCode'] = CommerceOrder.ReasonCode.__dict__.values()
         return field_enum_info
 
 

@@ -1,4 +1,5 @@
-# Copyright 2014 Facebook, Inc.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
 
 # You are hereby granted a non-exclusive, worldwide, royalty-free license to
 # use, copy, modify, and distribute this software in source code or binary
@@ -35,7 +36,8 @@ pixel_id = 'ADS_PIXEL_ID>'
 FacebookAdsApi.init(access_token=access_token)
 
 user_data = UserData(
-    email='joe@eg.com',
+    emails=['joe@eg.com'],
+    phones=['12345678901', '14251234567'],
     # It is recommended to send Client IP and User Agent for Conversions API Events.
     client_ip_address=request.META.get('REMOTE_ADDR'),
     client_user_agent=request.headers['User-Agent'],

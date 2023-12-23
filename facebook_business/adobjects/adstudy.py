@@ -1,22 +1,8 @@
-# Copyright 2014 Facebook, Inc.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
 
-# You are hereby granted a non-exclusive, worldwide, royalty-free license to
-# use, copy, modify, and distribute this software in source code or binary
-# form for use in connection with the web services and APIs provided by
-# Facebook.
-
-# As with any software that integrates with the Facebook platform, your use
-# of this software is subject to the Facebook Developer Principles and
-# Policies [http://developers.facebook.com/policy/]. This copyright notice
-# shall be included in all copies or substantial portions of the software.
-
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-# DEALINGS IN THE SOFTWARE.
+# This source code is licensed under the license found in the
+# LICENSE file in the root directory of this source tree.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
 from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
@@ -43,22 +29,23 @@ class AdStudy(
     class Field(AbstractObject.Field):
         business = 'business'
         canceled_time = 'canceled_time'
+        client_business = 'client_business'
         cooldown_start_time = 'cooldown_start_time'
         created_by = 'created_by'
         created_time = 'created_time'
-        datasets_information = 'datasets_information'
         description = 'description'
         end_time = 'end_time'
         id = 'id'
+        measurement_contact = 'measurement_contact'
         name = 'name'
         observation_end_time = 'observation_end_time'
         results_first_available_date = 'results_first_available_date'
+        sales_contact = 'sales_contact'
         start_time = 'start_time'
         type = 'type'
         updated_by = 'updated_by'
         updated_time = 'updated_time'
         cells = 'cells'
-        client_business = 'client_business'
         confidence_level = 'confidence_level'
         objectives = 'objectives'
         viewers = 'viewers'
@@ -67,7 +54,6 @@ class AdStudy(
         continuous_lift_config = 'CONTINUOUS_LIFT_CONFIG'
         geo_lift = 'GEO_LIFT'
         lift = 'LIFT'
-        private_lift = 'PRIVATE_LIFT'
         split_test = 'SPLIT_TEST'
 
     # @deprecated get_endpoint function is deprecated
@@ -214,6 +200,41 @@ class AdStudy(
             self.assure_call()
             return request.execute()
 
+    def create_check_point(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'checkpoint_data': 'string',
+            'checkpoint_name': 'string',
+            'component': 'string',
+            'instance_id': 'string',
+            'run_id': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/checkpoint',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdStudy,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdStudy, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_instances(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -252,6 +273,7 @@ class AdStudy(
         from facebook_business.adobjects.privateliftstudyinstance import PrivateLiftStudyInstance
         param_types = {
             'breakdown_key': 'map',
+            'run_id': 'string',
         }
         enums = {
         }
@@ -311,22 +333,23 @@ class AdStudy(
     _field_types = {
         'business': 'Business',
         'canceled_time': 'datetime',
+        'client_business': 'Business',
         'cooldown_start_time': 'datetime',
         'created_by': 'User',
         'created_time': 'datetime',
-        'datasets_information': 'list<string>',
         'description': 'string',
         'end_time': 'datetime',
         'id': 'string',
+        'measurement_contact': 'User',
         'name': 'string',
         'observation_end_time': 'datetime',
         'results_first_available_date': 'string',
+        'sales_contact': 'User',
         'start_time': 'datetime',
         'type': 'string',
         'updated_by': 'User',
         'updated_time': 'datetime',
         'cells': 'list<Object>',
-        'client_business': 'string',
         'confidence_level': 'float',
         'objectives': 'list<Object>',
         'viewers': 'list<int>',

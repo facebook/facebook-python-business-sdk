@@ -1,22 +1,8 @@
-# Copyright 2014 Facebook, Inc.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
 
-# You are hereby granted a non-exclusive, worldwide, royalty-free license to
-# use, copy, modify, and distribute this software in source code or binary
-# form for use in connection with the web services and APIs provided by
-# Facebook.
-
-# As with any software that integrates with the Facebook platform, your use
-# of this software is subject to the Facebook Developer Principles and
-# Policies [http://developers.facebook.com/policy/]. This copyright notice
-# shall be included in all copies or substantial portions of the software.
-
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-# DEALINGS IN THE SOFTWARE.
+# This source code is licensed under the license found in the
+# LICENSE file in the root directory of this source tree.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
 from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
@@ -42,11 +28,11 @@ class OmegaCustomerTrx(
 
     class Field(AbstractObject.Field):
         ad_account_ids = 'ad_account_ids'
+        advertiser_name = 'advertiser_name'
         amount = 'amount'
         amount_due = 'amount_due'
         billed_amount_details = 'billed_amount_details'
         billing_period = 'billing_period'
-        campaign = 'campaign'
         cdn_download_uri = 'cdn_download_uri'
         currency = 'currency'
         download_uri = 'download_uri'
@@ -101,7 +87,6 @@ class OmegaCustomerTrx(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.invoicecampaignnew import InvoiceCampaignNew
         param_types = {
         }
         enums = {
@@ -112,9 +97,9 @@ class OmegaCustomerTrx(
             endpoint='/campaigns',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=InvoiceCampaignNew,
+            target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=InvoiceCampaignNew, api=self._api),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -130,11 +115,11 @@ class OmegaCustomerTrx(
 
     _field_types = {
         'ad_account_ids': 'list<string>',
+        'advertiser_name': 'string',
         'amount': 'string',
         'amount_due': 'CurrencyAmount',
-        'billed_amount_details': 'BilledAmountDetails',
+        'billed_amount_details': 'Object',
         'billing_period': 'string',
-        'campaign': 'AtlasCampaign',
         'cdn_download_uri': 'string',
         'currency': 'string',
         'download_uri': 'string',

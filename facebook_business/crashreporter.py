@@ -1,3 +1,9 @@
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
+
+# This source code is licensed under the license found in the
+# LICENSE file in the root directory of this source tree.
+
 import sys
 import traceback
 import inspect
@@ -28,7 +34,7 @@ class CrashReporter(object):
 
     @classmethod
     def enable(cls):
-        if cls.reporter_instance == None:
+        if cls.reporter_instance is None:
             api = FacebookAdsApi.get_default_api()
             cls.reporter_instance = cls(api._session.app_id, sys.excepthook)
             sys.excepthook = cls.reporter_instance.__exception_handler
@@ -44,7 +50,7 @@ class CrashReporter(object):
 
     @classmethod
     def enableLogging(cls):
-        if cls.logger == None:
+        if cls.logger is None:
             logging.basicConfig()
             cls.logger = logging.getLogger(__name__)
             cls.logger.setLevel(logging.INFO)

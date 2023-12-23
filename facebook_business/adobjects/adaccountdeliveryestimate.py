@@ -1,22 +1,8 @@
-# Copyright 2014 Facebook, Inc.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
 
-# You are hereby granted a non-exclusive, worldwide, royalty-free license to
-# use, copy, modify, and distribute this software in source code or binary
-# form for use in connection with the web services and APIs provided by
-# Facebook.
-
-# As with any software that integrates with the Facebook platform, your use
-# of this software is subject to the Facebook Developer Principles and
-# Policies [http://developers.facebook.com/policy/]. This copyright notice
-# shall be included in all copies or substantial portions of the software.
-
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-# DEALINGS IN THE SOFTWARE.
+# This source code is licensed under the license found in the
+# LICENSE file in the root directory of this source tree.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
 
@@ -40,43 +26,46 @@ class AdAccountDeliveryEstimate(
     class Field(AbstractObject.Field):
         daily_outcomes_curve = 'daily_outcomes_curve'
         estimate_dau = 'estimate_dau'
-        estimate_mau = 'estimate_mau'
+        estimate_mau_lower_bound = 'estimate_mau_lower_bound'
+        estimate_mau_upper_bound = 'estimate_mau_upper_bound'
         estimate_ready = 'estimate_ready'
+        targeting_optimization_types = 'targeting_optimization_types'
 
     class OptimizationGoal:
         ad_recall_lift = 'AD_RECALL_LIFT'
-        app_downloads = 'APP_DOWNLOADS'
         app_installs = 'APP_INSTALLS'
-        brand_awareness = 'BRAND_AWARENESS'
-        clicks = 'CLICKS'
+        app_installs_and_offsite_conversions = 'APP_INSTALLS_AND_OFFSITE_CONVERSIONS'
+        conversations = 'CONVERSATIONS'
         derived_events = 'DERIVED_EVENTS'
         engaged_users = 'ENGAGED_USERS'
         event_responses = 'EVENT_RESPONSES'
         impressions = 'IMPRESSIONS'
+        in_app_value = 'IN_APP_VALUE'
         landing_page_views = 'LANDING_PAGE_VIEWS'
         lead_generation = 'LEAD_GENERATION'
         link_clicks = 'LINK_CLICKS'
+        messaging_appointment_conversion = 'MESSAGING_APPOINTMENT_CONVERSION'
+        messaging_purchase_conversion = 'MESSAGING_PURCHASE_CONVERSION'
         none = 'NONE'
-        offer_claims = 'OFFER_CLAIMS'
         offsite_conversions = 'OFFSITE_CONVERSIONS'
-        page_engagement = 'PAGE_ENGAGEMENT'
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
         quality_call = 'QUALITY_CALL'
         quality_lead = 'QUALITY_LEAD'
         reach = 'REACH'
-        replies = 'REPLIES'
-        social_impressions = 'SOCIAL_IMPRESSIONS'
+        reminders_set = 'REMINDERS_SET'
+        subscribers = 'SUBSCRIBERS'
         thruplay = 'THRUPLAY'
-        two_second_continuous_video_views = 'TWO_SECOND_CONTINUOUS_VIDEO_VIEWS'
         value = 'VALUE'
         visit_instagram_profile = 'VISIT_INSTAGRAM_PROFILE'
 
     _field_types = {
         'daily_outcomes_curve': 'list<OutcomePredictionPoint>',
         'estimate_dau': 'int',
-        'estimate_mau': 'int',
+        'estimate_mau_lower_bound': 'int',
+        'estimate_mau_upper_bound': 'int',
         'estimate_ready': 'bool',
+        'targeting_optimization_types': 'list<map<string, int>>',
     }
     @classmethod
     def _get_field_enum_info(cls):

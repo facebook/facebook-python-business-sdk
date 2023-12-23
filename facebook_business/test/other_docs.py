@@ -25,6 +25,7 @@ How to run:
     python -m facebook_business.test.other_docs
 '''
 
+
 import os
 import sys
 import json
@@ -43,10 +44,8 @@ class InsightsDocsTestCase(DocsTestCase):
     pass
 
 if __name__ == '__main__':
-    handle = open(DocsDataStore.get('filename'), 'w')
-    handle.write('')
-    handle.close()
-
+    with open(DocsDataStore.get('filename'), 'w') as handle:
+        handle.write('')
     try:
         config_file = open('./config.json')
     except IOError:

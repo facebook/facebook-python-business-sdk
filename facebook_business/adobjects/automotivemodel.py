@@ -1,22 +1,8 @@
-# Copyright 2014 Facebook, Inc.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
 
-# You are hereby granted a non-exclusive, worldwide, royalty-free license to
-# use, copy, modify, and distribute this software in source code or binary
-# form for use in connection with the web services and APIs provided by
-# Facebook.
-
-# As with any software that integrates with the Facebook platform, your use
-# of this software is subject to the Facebook Developer Principles and
-# Policies [http://developers.facebook.com/policy/]. This copyright notice
-# shall be included in all copies or substantial portions of the software.
-
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-# DEALINGS IN THE SOFTWARE.
+# This source code is licensed under the license found in the
+# LICENSE file in the root directory of this source tree.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
 from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
@@ -67,7 +53,9 @@ class AutomotiveModel(
         title = 'title'
         transmission = 'transmission'
         trim = 'trim'
+        unit_price = 'unit_price'
         url = 'url'
+        visibility = 'visibility'
         year = 'year'
 
     class ImageFetchStatus:
@@ -78,39 +66,9 @@ class AutomotiveModel(
         outdated = 'OUTDATED'
         partial_fetch = 'PARTIAL_FETCH'
 
-    class BodyStyle:
-        convertible = 'CONVERTIBLE'
-        coupe = 'COUPE'
-        crossover = 'CROSSOVER'
-        estate = 'ESTATE'
-        grandtourer = 'GRANDTOURER'
-        hatchback = 'HATCHBACK'
-        minibus = 'MINIBUS'
-        minivan = 'MINIVAN'
-        mpv = 'MPV'
-        none = 'NONE'
-        other = 'OTHER'
-        pickup = 'PICKUP'
-        roadster = 'ROADSTER'
-        saloon = 'SALOON'
-        sedan = 'SEDAN'
-        sportscar = 'SPORTSCAR'
-        supercar = 'SUPERCAR'
-        supermini = 'SUPERMINI'
-        suv = 'SUV'
-        truck = 'TRUCK'
-        van = 'VAN'
-        wagon = 'WAGON'
-
-    # @deprecated get_endpoint function is deprecated
-    @classmethod
-    def get_endpoint(cls):
-        return 'automotive_models'
-
-    # @deprecated api_create is being deprecated
-    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.adobjects.productcatalog import ProductCatalog
-        return ProductCatalog(api=self._api, fbid=parent_id).create_automotive_model(fields, params, batch, success, failure, pending)
+    class Visibility:
+        published = 'PUBLISHED'
+        staging = 'STAGING'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -172,10 +130,42 @@ class AutomotiveModel(
             self.assure_call()
             return request.execute()
 
+    def get_channels_to_integrity_status(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.catalogitemchannelstointegritystatus import CatalogItemChannelsToIntegrityStatus
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/channels_to_integrity_status',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=CatalogItemChannelsToIntegrityStatus,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=CatalogItemChannelsToIntegrityStatus, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_videos_metadata(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.dynamicvideometadata import DynamicVideoMetadata
         param_types = {
         }
         enums = {
@@ -186,9 +176,9 @@ class AutomotiveModel(
             endpoint='/videos_metadata',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=DynamicVideoMetadata,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=DynamicVideoMetadata, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -229,14 +219,16 @@ class AutomotiveModel(
         'title': 'string',
         'transmission': 'string',
         'trim': 'string',
+        'unit_price': 'Object',
         'url': 'string',
-        'year': 'unsigned int',
+        'visibility': 'Visibility',
+        'year': 'int',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['ImageFetchStatus'] = AutomotiveModel.ImageFetchStatus.__dict__.values()
-        field_enum_info['BodyStyle'] = AutomotiveModel.BodyStyle.__dict__.values()
+        field_enum_info['Visibility'] = AutomotiveModel.Visibility.__dict__.values()
         return field_enum_info
 
 

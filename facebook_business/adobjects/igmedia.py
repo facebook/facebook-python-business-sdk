@@ -1,22 +1,8 @@
-# Copyright 2014 Facebook, Inc.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
 
-# You are hereby granted a non-exclusive, worldwide, royalty-free license to
-# use, copy, modify, and distribute this software in source code or binary
-# form for use in connection with the web services and APIs provided by
-# Facebook.
-
-# As with any software that integrates with the Facebook platform, your use
-# of this software is subject to the Facebook Developer Principles and
-# Policies [http://developers.facebook.com/policy/]. This copyright notice
-# shall be included in all copies or substantial portions of the software.
-
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-# DEALINGS IN THE SOFTWARE.
+# This source code is licensed under the license found in the
+# LICENSE file in the root directory of this source tree.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
 from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
@@ -43,9 +29,11 @@ class IGMedia(
     class Field(AbstractObject.Field):
         caption = 'caption'
         comments_count = 'comments_count'
+        copyright_check_information = 'copyright_check_information'
         id = 'id'
         ig_id = 'ig_id'
         is_comment_enabled = 'is_comment_enabled'
+        is_shared_to_feed = 'is_shared_to_feed'
         like_count = 'like_count'
         media_product_type = 'media_product_type'
         media_type = 'media_type'
@@ -56,7 +44,6 @@ class IGMedia(
         thumbnail_url = 'thumbnail_url'
         timestamp = 'timestamp'
         username = 'username'
-        video_title = 'video_title'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -149,6 +136,37 @@ class IGMedia(
             self.assure_call()
             return request.execute()
 
+    def get_collaborators(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.shadowigmediacollaborators import ShadowIGMediaCollaborators
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/collaborators',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ShadowIGMediaCollaborators,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ShadowIGMediaCollaborators, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_comments(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -220,10 +238,12 @@ class IGMedia(
         if is_async:
           return self.get_insights_async(fields, params, batch, success, failure, pending)
         param_types = {
+            'breakdown': 'list<breakdown_enum>',
             'metric': 'list<metric_enum>',
             'period': 'list<period_enum>',
         }
         enums = {
+            'breakdown_enum': InstagramInsightsResult.Breakdown.__dict__.values(),
             'metric_enum': InstagramInsightsResult.Metric.__dict__.values(),
             'period_enum': InstagramInsightsResult.Period.__dict__.values(),
         }
@@ -250,12 +270,110 @@ class IGMedia(
             self.assure_call()
             return request.execute()
 
+    def delete_product_tags(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'child_index': 'unsigned int',
+            'deleted_tags': 'list<map>',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='DELETE',
+            endpoint='/product_tags',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_product_tags(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.shadowigmediaproducttags import ShadowIGMediaProductTags
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/product_tags',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ShadowIGMediaProductTags,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ShadowIGMediaProductTags, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_product_tag(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.shadowigmediaproducttags import ShadowIGMediaProductTags
+        param_types = {
+            'child_index': 'unsigned int',
+            'updated_tags': 'list<map>',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/product_tags',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ShadowIGMediaProductTags,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ShadowIGMediaProductTags, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     _field_types = {
         'caption': 'string',
         'comments_count': 'int',
+        'copyright_check_information': 'IGVideoCopyrightCheckMatchesInformation',
         'id': 'string',
         'ig_id': 'string',
         'is_comment_enabled': 'bool',
+        'is_shared_to_feed': 'bool',
         'like_count': 'int',
         'media_product_type': 'string',
         'media_type': 'string',
@@ -266,7 +384,6 @@ class IGMedia(
         'thumbnail_url': 'string',
         'timestamp': 'datetime',
         'username': 'string',
-        'video_title': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

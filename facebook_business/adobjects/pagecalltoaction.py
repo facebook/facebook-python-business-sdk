@@ -1,22 +1,8 @@
-# Copyright 2014 Facebook, Inc.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
 
-# You are hereby granted a non-exclusive, worldwide, royalty-free license to
-# use, copy, modify, and distribute this software in source code or binary
-# form for use in connection with the web services and APIs provided by
-# Facebook.
-
-# As with any software that integrates with the Facebook platform, your use
-# of this software is subject to the Facebook Developer Principles and
-# Policies [http://developers.facebook.com/policy/]. This copyright notice
-# shall be included in all copies or substantial portions of the software.
-
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-# DEALINGS IN THE SOFTWARE.
+# This source code is licensed under the license found in the
+# LICENSE file in the root directory of this source tree.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
 from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
@@ -68,6 +54,7 @@ class PageCallToAction(
         facebook_app = 'FACEBOOK_APP'
         follow = 'FOLLOW'
         marketplace_inventory_page = 'MARKETPLACE_INVENTORY_PAGE'
+        menu_on_facebook = 'MENU_ON_FACEBOOK'
         messenger = 'MESSENGER'
         mini_shop = 'MINI_SHOP'
         mobile_center = 'MOBILE_CENTER'
@@ -83,6 +70,7 @@ class PageCallToAction(
         facebook_app = 'FACEBOOK_APP'
         follow = 'FOLLOW'
         marketplace_inventory_page = 'MARKETPLACE_INVENTORY_PAGE'
+        menu_on_facebook = 'MENU_ON_FACEBOOK'
         messenger = 'MESSENGER'
         mini_shop = 'MINI_SHOP'
         none = 'NONE'
@@ -121,6 +109,7 @@ class PageCallToAction(
         shop_on_facebook = 'SHOP_ON_FACEBOOK'
         sign_up = 'SIGN_UP'
         view_inventory = 'VIEW_INVENTORY'
+        view_menu = 'VIEW_MENU'
         view_shop = 'VIEW_SHOP'
         visit_group = 'VISIT_GROUP'
         watch_now = 'WATCH_NOW'
@@ -203,14 +192,12 @@ class PageCallToAction(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'android_app_id': 'int',
-            'android_deeplink': 'string',
             'android_destination_type': 'android_destination_type_enum',
             'android_package_name': 'string',
             'android_url': 'string',
             'email_address': 'string',
             'intl_number_with_plus': 'string',
             'iphone_app_id': 'int',
-            'iphone_deeplink': 'string',
             'iphone_destination_type': 'iphone_destination_type_enum',
             'iphone_url': 'string',
             'type': 'type_enum',
