@@ -101,8 +101,12 @@ class TypeChecker:
             if not isinstance(value, dict):
                 return False
             sub_types = self.get_type_from_collection(value_type, 'map')
-            sub_type_key = sub_types[0]
-            sub_type_value = sub_types[1]
+            if len(sub_types) == 2:
+                sub_type_key = sub_types[0]
+                sub_type_value = sub_types[1]
+            else:
+                sub_type_key = 'string'
+                sub_type_value = sub_types[0]
             return all(self.is_type(sub_type_key, k) and
                 self.is_type(sub_type_value, v) for k, v in value.items())
 

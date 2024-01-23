@@ -23,7 +23,6 @@ class AppData(object):
     param_types = {
         'application_tracking_enabled': 'bool',
         'advertiser_tracking_enabled': 'bool',
-        'app_user_id': 'str',
         'campaign_ids': 'str',
         'consider_views': 'bool',
         'extinfo': 'ExtendedDeviceInfo',
@@ -40,7 +39,6 @@ class AppData(object):
         self,
         application_tracking_enabled=None,
         advertiser_tracking_enabled=None,
-        app_user_id=None,
         campaign_ids=None,
         consider_views=None,
         extinfo=None,
@@ -57,7 +55,6 @@ class AppData(object):
         """AppData which contains app data and device information for events happening from an app"""
         self._application_tracking_enabled = None
         self._advertiser_tracking_enabled = None
-        self._app_user_id  = None
         self._campaign_ids = None
         self._consider_views = None
         self._extinfo = None
@@ -71,8 +68,6 @@ class AppData(object):
 
         if application_tracking_enabled is not None:
             self.application_tracking_enabled = application_tracking_enabled
-        if app_user_id is not None:
-            self.app_user_id = app_user_id
         if campaign_ids is not None:
             self.campaign_ids = campaign_ids
         if consider_views is not None:
@@ -109,14 +104,6 @@ class AppData(object):
     @advertiser_tracking_enabled.setter
     def advertiser_tracking_enabled(self, advertiser_tracking_enabled):
         self._advertiser_tracking_enabled = advertiser_tracking_enabled
-
-    @property
-    def app_user_id(self):
-        return self._app_user_id
-
-    @app_user_id.setter
-    def app_user_id(self, app_user_id):
-        self._app_user_id = app_user_id
 
     @property
     def campaign_ids(self):
@@ -199,9 +186,25 @@ class AppData(object):
         self._windows_attribution_id = windows_attribution_id
 
     def normalize(self):
-        extended_device_info_array = []
+        normalized_payload = {
+            'application_tracking_enabled': self.application_tracking_enabled,
+            'advertiser_tracking_enabled': self.advertiser_tracking_enabled,
+            'campaign_ids': self.campaign_ids,
+            'consider_views': self.consider_views,
+            'include_dwell_data': self.include_dwell_data,
+            'include_video_data': self.include_video_data,
+            'install_referrer': self.install_referrer,
+            'installer_package': self.installer_package,
+            'receipt_data': self.receipt_data,
+            'url_schemes': self.url_schemes,
+            'windows_attribution_id': self.windows_attribution_id
+        }
+        if self.extinfo is not None:
+            normalized_payload['extinfo'] = self.extinfo.normalize()
 
-        return extended_device_info_array
+        normalized_payload = {k: v for k, v in normalized_payload.items() if v is not None}
+        return normalized_payload
+
 
     def to_dict(self):
         """Returns the model properties as a dict"""
@@ -224,7 +227,7 @@ class AppData(object):
                 ))
             else:
                 result[attr] = value
-        if issubclass(Event, dict):
+        if issubclass(AppData, dict):
             for key, value in self.items():
                 result[key] = value
 
@@ -240,7 +243,7 @@ class AppData(object):
 
     def __eq__(self, other):
         """Returns true if both objects are equal"""
-        if not isinstance(other, Event):
+        if not isinstance(other, AppData):
             return False
 
         return self.__dict__ == other.__dict__
