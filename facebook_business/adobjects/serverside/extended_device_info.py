@@ -297,7 +297,7 @@ class ExtendedDeviceInfo(object):
                 ))
             else:
                 result[attr] = value
-        if issubclass(Event, dict):
+        if issubclass(ExtendedDeviceInfo, dict):
             for key, value in self.items():
                 result[key] = value
 

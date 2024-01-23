@@ -24,6 +24,7 @@ import six
 from facebook_business.adobjects.serverside.action_source import ActionSource
 from facebook_business.adobjects.serverside.custom_data import CustomData
 from facebook_business.adobjects.serverside.user_data import UserData
+from facebook_business.adobjects.serverside.app_data import AppData
 
 
 class Event(object):
@@ -35,6 +36,7 @@ class Event(object):
         'event_id': 'str',
         'user_data': 'UserData',
         'custom_data': 'CustomData',
+        'app_data': 'AppData',
         'data_processing_options': 'list[str]',
         'data_processing_options_country': 'int',
         'data_processing_options_state': 'int',
@@ -44,9 +46,9 @@ class Event(object):
 
     def __init__(self, event_name = None, event_time = None, event_source_url = None,
                  opt_out = None, event_id = None, user_data = None, custom_data = None,
-                 data_processing_options = None, data_processing_options_country = None,
+                 app_data = None, data_processing_options = None, data_processing_options_country = None,
                  data_processing_options_state = None, action_source = None, advanced_measurement_table = None):
-        # type: (str, int, str, bool, str, UserData, CustomData, list[str], int, int, ActionSource, str) -> None
+        # type: (str, int, str, bool, str, UserData, CustomData, AppData, list[str], int, int, ActionSource, str) -> None
 
         """Conversions API Event"""
         self._event_name = None
@@ -56,6 +58,7 @@ class Event(object):
         self._event_id = None
         self._user_data = None
         self._custom_data = None
+        self._app_data = None
         self._data_processing_options = None
         self._data_processing_options_country = None
         self._data_processing_options_state = None
@@ -73,6 +76,8 @@ class Event(object):
             self.user_data = user_data
         if custom_data is not None:
             self.custom_data = custom_data
+        if app_data is not None:
+            self.app_data = app_data
         if data_processing_options is not None:
             self.data_processing_options = data_processing_options
         if data_processing_options_country is not None:
@@ -266,6 +271,27 @@ class Event(object):
         self._custom_data = custom_data
 
     @property
+    def app_data(self):
+        """Gets the app_data of this Event.
+
+        :return: The app_data of this Event.
+        :rtype: AppData
+        """
+        return self._app_data
+
+    @app_data.setter
+    def app_data(self, app_data):
+        """Sets the app_data of this Event.
+
+        :param app_data: The app_data of this Event.
+        :type: AppData
+        """
+        if not isinstance(app_data, AppData):
+            raise TypeError('Event.app_data must be of type AppData')
+
+        self._app_data = app_data
+
+    @property
     def data_processing_options(self):
         """Gets the data_processing_options of this Event.
 
@@ -389,6 +415,9 @@ class Event(object):
 
         if self.custom_data is not None:
             normalized_payload['custom_data'] = self.custom_data.normalize()
+
+        if self.app_data is not None:
+            normalized_payload['app_data'] = self.app_data.normalize()
 
         if self.action_source is not None:
             self.validate_action_source(self.action_source)
