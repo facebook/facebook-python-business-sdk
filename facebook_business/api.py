@@ -835,7 +835,9 @@ class Cursor(object):
         if (
             'paging' in response and
             'cursors' in response['paging'] and
-            'after' in response['paging']['cursors']
+            'after' in response['paging']['cursors'] and
+            # 'after' will always exist even if no more pages are available
+            'next' in response['paging']
         ):
             self.params['after'] = response['paging']['cursors']['after']
         else:
