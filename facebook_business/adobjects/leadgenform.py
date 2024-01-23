@@ -276,7 +276,7 @@ class LeadgenForm(
         'questions': 'list<LeadGenQuestion>',
         'status': 'string',
         'thank_you_page': 'LeadGenThankYouPage',
-        'tracking_parameters': 'list<map<string, string>>',
+        'tracking_parameters': 'list<KeyValue>',
     }
     @classmethod
     def _get_field_enum_info(cls):
