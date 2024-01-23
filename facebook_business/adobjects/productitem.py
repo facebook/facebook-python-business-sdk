@@ -438,6 +438,7 @@ class ProductItem(
         invalid_images = 'INVALID_IMAGES'
         invalid_monetizer_return_policy = 'INVALID_MONETIZER_RETURN_POLICY'
         invalid_pre_order_params = 'INVALID_PRE_ORDER_PARAMS'
+        invalid_shelter_page_id = 'INVALID_SHELTER_PAGE_ID'
         invalid_shipping_profile_params = 'INVALID_SHIPPING_PROFILE_PARAMS'
         invalid_subscription_disable_params = 'INVALID_SUBSCRIPTION_DISABLE_PARAMS'
         invalid_subscription_enable_params = 'INVALID_SUBSCRIPTION_ENABLE_PARAMS'
@@ -505,6 +506,8 @@ class ProductItem(
         video_fetch_failed_link_broken = 'VIDEO_FETCH_FAILED_LINK_BROKEN'
         video_fetch_failed_timed_out = 'VIDEO_FETCH_FAILED_TIMED_OUT'
         video_not_downloadable = 'VIDEO_NOT_DOWNLOADABLE'
+        whatsapp_disabled_by_user = 'WHATSAPP_DISABLED_BY_USER'
+        whatsapp_policy_violation = 'WHATSAPP_POLICY_VIOLATION'
 
     class MarkedForProductLaunch:
         value_default = 'default'

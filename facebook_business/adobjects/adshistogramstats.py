@@ -54,7 +54,11 @@ class AdsHistogramStats(
         interactive_component_sticker_id = 'interactive_component_sticker_id'
         interactive_component_sticker_response = 'interactive_component_sticker_response'
         skan_click = 'skan_click'
+        skan_click_second_postback = 'skan_click_second_postback'
+        skan_click_third_postback = 'skan_click_third_postback'
         skan_view = 'skan_view'
+        skan_view_second_postback = 'skan_view_second_postback'
+        skan_view_third_postback = 'skan_view_third_postback'
         value = 'value'
 
     _field_types = {
@@ -88,7 +92,11 @@ class AdsHistogramStats(
         'interactive_component_sticker_id': 'string',
         'interactive_component_sticker_response': 'string',
         'skan_click': 'list<int>',
+        'skan_click_second_postback': 'list<int>',
+        'skan_click_third_postback': 'list<int>',
         'skan_view': 'list<int>',
+        'skan_view_second_postback': 'list<int>',
+        'skan_view_third_postback': 'list<int>',
         'value': 'list<int>',
     }
     @classmethod

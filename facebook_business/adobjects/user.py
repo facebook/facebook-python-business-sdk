@@ -960,37 +960,6 @@ class User(
             self.assure_call()
             return request.execute()
 
-    def get_fbdl_runs(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.whitehatfbdlrun import WhitehatFBDLRun
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/fbdl_runs',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=WhitehatFBDLRun,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=WhitehatFBDLRun, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def get_feed(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -1271,44 +1240,6 @@ class User(
             target_class=FundraiserPersonToCharity,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=FundraiserPersonToCharity, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_game_item(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.gameitem import GameItem
-        param_types = {
-            'action': 'action_enum',
-            'app_id': 'string',
-            'drop_table_id': 'string',
-            'ext_id': 'string',
-            'item_id': 'string',
-            'quantity': 'unsigned int',
-        }
-        enums = {
-            'action_enum': GameItem.Action.__dict__.values(),
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/game_items',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=GameItem,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=GameItem, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1967,14 +1898,12 @@ class User(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.profilepicturesource import ProfilePictureSource
         param_types = {
-            'breaking_change': 'breaking_change_enum',
             'height': 'int',
             'redirect': 'bool',
             'type': 'type_enum',
             'width': 'int',
         }
         enums = {
-            'breaking_change_enum': ProfilePictureSource.BreakingChange.__dict__.values(),
             'type_enum': ProfilePictureSource.Type.__dict__.values(),
         }
         request = FacebookRequest(

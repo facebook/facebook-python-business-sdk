@@ -14,28 +14,20 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class InstantArticlesStats(
+class CanvasPreview(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(InstantArticlesStats, self).__init__()
-        self._isInstantArticlesStats = True
+        super(CanvasPreview, self).__init__()
+        self._isCanvasPreview = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        error = 'error'
-        metadata = 'metadata'
-        metric = 'metric'
-        totals = 'totals'
-        x_axis_breakdown = 'x_axis_breakdown'
+        body = 'body'
 
     _field_types = {
-        'error': 'string',
-        'metadata': 'list<map<string, Object>>',
-        'metric': 'Object',
-        'totals': 'list<map<string, Object>>',
-        'x_axis_breakdown': 'list<list<map<string, Object>>>',
+        'body': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

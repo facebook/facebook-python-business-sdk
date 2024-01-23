@@ -72,6 +72,7 @@ class Business(
         luxury = 'LUXURY'
         marketing = 'MARKETING'
         non_profit = 'NON_PROFIT'
+        not_set = 'NOT_SET'
         organizations_and_associations = 'ORGANIZATIONS_AND_ASSOCIATIONS'
         other = 'OTHER'
         professional_services = 'PROFESSIONAL_SERVICES'
@@ -2423,6 +2424,7 @@ class Business(
                 'LUXURY',
                 'MARKETING',
                 'NON_PROFIT',
+                'NOT_SET',
                 'ORGANIZATIONS_AND_ASSOCIATIONS',
                 'OTHER',
                 'PROFESSIONAL_SERVICES',
@@ -3433,14 +3435,12 @@ class Business(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.profilepicturesource import ProfilePictureSource
         param_types = {
-            'breaking_change': 'breaking_change_enum',
             'height': 'int',
             'redirect': 'bool',
             'type': 'type_enum',
             'width': 'int',
         }
         enums = {
-            'breaking_change_enum': ProfilePictureSource.BreakingChange.__dict__.values(),
             'type_enum': ProfilePictureSource.Type.__dict__.values(),
         }
         request = FacebookRequest(

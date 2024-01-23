@@ -212,6 +212,7 @@ class AdsInsights(
         image_asset = 'image_asset'
         impression_device = 'impression_device'
         is_conversion_id_modeled = 'is_conversion_id_modeled'
+        landing_destination = 'landing_destination'
         link_url_asset = 'link_url_asset'
         marketing_messages_btn_name = 'marketing_messages_btn_name'
         mdsa_landing_destination = 'mdsa_landing_destination'

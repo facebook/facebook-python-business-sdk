@@ -29,6 +29,7 @@ class AdCreativeBrandedContentAds(
         instagram_boost_post_access_token = 'instagram_boost_post_access_token'
         is_mca_internal = 'is_mca_internal'
         partners = 'partners'
+        promoted_page_id = 'promoted_page_id'
         ui_version = 'ui_version'
 
     _field_types = {
@@ -37,6 +38,7 @@ class AdCreativeBrandedContentAds(
         'instagram_boost_post_access_token': 'string',
         'is_mca_internal': 'bool',
         'partners': 'list<AdCreativeBrandedContentAdsPartners>',
+        'promoted_page_id': 'string',
         'ui_version': 'int',
     }
     @classmethod

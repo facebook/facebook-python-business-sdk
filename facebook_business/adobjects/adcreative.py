@@ -206,6 +206,7 @@ class AdCreative(
     class AuthorizationCategory:
         none = 'NONE'
         political = 'POLITICAL'
+        political_with_digitally_created_media = 'POLITICAL_WITH_DIGITALLY_CREATED_MEDIA'
 
     class CategorizationCriteria:
         brand = 'brand'

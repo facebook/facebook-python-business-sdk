@@ -45,8 +45,10 @@ class AdPromotedObject(
         place_page_set_id = 'place_page_set_id'
         product_catalog_id = 'product_catalog_id'
         product_item_id = 'product_item_id'
+        product_set = 'product_set'
         product_set_id = 'product_set_id'
         retention_days = 'retention_days'
+        whatsapp_phone_number = 'whatsapp_phone_number'
 
     class CustomEventType:
         achievement_unlocked = 'ACHIEVEMENT_UNLOCKED'
@@ -101,8 +103,10 @@ class AdPromotedObject(
         'place_page_set_id': 'string',
         'product_catalog_id': 'string',
         'product_item_id': 'string',
+        'product_set': 'ProductSet',
         'product_set_id': 'string',
         'retention_days': 'string',
+        'whatsapp_phone_number': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

@@ -376,6 +376,7 @@ class AdsPixel(
             'namespace_id': 'string',
             'partner_agent': 'string',
             'platforms': 'list<map>',
+            'progress': 'Object',
             'test_event_code': 'string',
             'trace': 'unsigned int',
             'upload_id': 'string',

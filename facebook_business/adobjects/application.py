@@ -1505,6 +1505,7 @@ class Application(
             'click_attr_window': 'unsigned int',
             'custom_events': 'list<Object>',
             'decline_reason': 'string',
+            'engagement_type': 'string',
             'event': 'string',
             'event_reported_time': 'unsigned int',
             'fb_ad_id': 'unsigned int',

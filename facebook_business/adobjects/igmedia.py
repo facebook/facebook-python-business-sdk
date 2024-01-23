@@ -50,6 +50,10 @@ class IGMedia(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'primary_fb_page_id': 'string',
+            'primary_ig_user_id': 'string',
+            'secondary_fb_page_id': 'string',
+            'secondary_ig_user_id': 'string',
         }
         enums = {
         }

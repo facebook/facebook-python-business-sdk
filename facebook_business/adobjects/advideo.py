@@ -172,6 +172,7 @@ class AdVideo(
         contained_post_audio_broadcast = 'CONTAINED_POST_AUDIO_BROADCAST'
         contained_post_copyright_reference_broadcast = 'CONTAINED_POST_COPYRIGHT_REFERENCE_BROADCAST'
         copyright_reference_broadcast = 'COPYRIGHT_REFERENCE_BROADCAST'
+        copyright_reference_ig_xpost_video = 'COPYRIGHT_REFERENCE_IG_XPOST_VIDEO'
         copyright_reference_video = 'COPYRIGHT_REFERENCE_VIDEO'
         creation_ml_precreation = 'CREATION_ML_PRECREATION'
         dco_ad_asset_feed = 'DCO_AD_ASSET_FEED'
@@ -1206,7 +1207,7 @@ class AdVideo(
         'scheduled_publish_time': 'datetime',
         'source': 'string',
         'spherical': 'bool',
-        'status': 'Object',
+        'status': 'VideoStatus',
         'title': 'string',
         'universal_video_id': 'string',
         'updated_time': 'datetime',
