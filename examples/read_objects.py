@@ -22,6 +22,7 @@
 Prints account permissions and campaign statistics.
 """
 
+
 from facebook_business import FacebookSession
 from facebook_business import FacebookAdsApi
 from facebook_business.adobjects.campaign import Campaign as AdCampaign
@@ -35,9 +36,8 @@ pp = pprint.PrettyPrinter(indent=4)
 this_dir = os.path.dirname(__file__)
 config_filename = os.path.join(this_dir, 'config.json')
 
-config_file = open(config_filename)
-config = json.load(config_file)
-config_file.close()
+with open(config_filename) as config_file:
+    config = json.load(config_file)
 
 ### Setup session and api objects
 session = FacebookSession(

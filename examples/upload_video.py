@@ -22,6 +22,7 @@
 Upload a video to adaccount
 """
 
+
 import sys
 import os
 
@@ -34,9 +35,8 @@ from facebook_business.adobjects.advideo import AdVideo
 
 config_filename = os.path.join(sdk_path, './config.json')
 
-config_file = open(config_filename)
-config = json.load(config_file)
-config_file.close()
+with open(config_filename) as config_file:
+    config = json.load(config_file)
 
 ### Setup session and api objects
 session = FacebookSession(

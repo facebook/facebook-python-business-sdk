@@ -1,22 +1,8 @@
-# Copyright 2014 Facebook, Inc.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
 
-# You are hereby granted a non-exclusive, worldwide, royalty-free license to
-# use, copy, modify, and distribute this software in source code or binary
-# form for use in connection with the web services and APIs provided by
-# Facebook.
-
-# As with any software that integrates with the Facebook platform, your use
-# of this software is subject to the Facebook Developer Principles and
-# Policies [http://developers.facebook.com/policy/]. This copyright notice
-# shall be included in all copies or substantial portions of the software.
-
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-# DEALINGS IN THE SOFTWARE.
+# This source code is licensed under the license found in the
+# LICENSE file in the root directory of this source tree.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
 from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
@@ -59,6 +45,7 @@ class ProductCatalog(
         owner_business = 'owner_business'
         product_count = 'product_count'
         store_catalog_settings = 'store_catalog_settings'
+        user_access_expire_time = 'user_access_expire_time'
         vertical = 'vertical'
         catalog_segment_filter = 'catalog_segment_filter'
         catalog_segment_product_set_id = 'catalog_segment_product_set_id'
@@ -89,11 +76,13 @@ class ProductCatalog(
         advertiser = 'ADVERTISER'
 
     class PermittedTasks:
+        aa_analyze = 'AA_ANALYZE'
         advertise = 'ADVERTISE'
         manage = 'MANAGE'
         manage_ar = 'MANAGE_AR'
 
     class Tasks:
+        aa_analyze = 'AA_ANALYZE'
         advertise = 'ADVERTISE'
         manage = 'MANAGE'
         manage_ar = 'MANAGE_AR'
@@ -351,38 +340,6 @@ class ProductCatalog(
             self.assure_call()
             return request.execute()
 
-    def get_ar_effects_batch_status(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.areffectsbatchstatus import AREffectsBatchStatus
-        param_types = {
-            'handle': 'string',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/ar_effects_batch_status',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AREffectsBatchStatus,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AREffectsBatchStatus, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def delete_assigned_users(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -520,6 +477,7 @@ class ProductCatalog(
             'allow_upsert': 'bool',
             'fbe_external_business_id': 'string',
             'requests': 'list<map>',
+            'version': 'unsigned int',
         }
         enums = {
         }
@@ -1303,6 +1261,7 @@ class ProductCatalog(
             'item_sub_type': 'item_sub_type_enum',
             'item_type': 'string',
             'requests': 'map',
+            'version': 'unsigned int',
         }
         enums = {
             'item_sub_type_enum': ProductCatalog.ItemSubType.__dict__.values(),
@@ -1337,6 +1296,7 @@ class ProductCatalog(
             'allow_upsert': 'bool',
             'item_type': 'string',
             'requests': 'map',
+            'version': 'unsigned int',
         }
         enums = {
         }
@@ -1349,84 +1309,6 @@ class ProductCatalog(
             target_class=ProductCatalog,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=ProductCatalog, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def get_media_titles(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.mediatitle import MediaTitle
-        param_types = {
-            'bulk_pagination': 'bool',
-            'filter': 'Object',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/media_titles',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=MediaTitle,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=MediaTitle, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_media_title(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.mediatitle import MediaTitle
-        param_types = {
-            'applinks': 'Object',
-            'content_category': 'content_category_enum',
-            'currency': 'string',
-            'description': 'string',
-            'fb_page_id': 'string',
-            'genres': 'list<string>',
-            'images': 'list<Object>',
-            'kg_fb_id': 'string',
-            'media_title_id': 'string',
-            'price': 'unsigned int',
-            'title': 'string',
-            'title_display_name': 'string',
-            'url': 'string',
-        }
-        enums = {
-            'content_category_enum': MediaTitle.ContentCategory.__dict__.values(),
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/media_titles',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=MediaTitle,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=MediaTitle, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2070,6 +1952,7 @@ class ProductCatalog(
         'owner_business': 'Business',
         'product_count': 'int',
         'store_catalog_settings': 'StoreCatalogSettings',
+        'user_access_expire_time': 'datetime',
         'vertical': 'string',
         'catalog_segment_filter': 'Object',
         'catalog_segment_product_set_id': 'string',

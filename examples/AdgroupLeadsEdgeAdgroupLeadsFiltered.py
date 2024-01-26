@@ -32,7 +32,7 @@ FacebookAdsApi.init(access_token=access_token)
 fields = [
 ]
 params = {
-  'filtering': [{'field':'time_created','operator':'GREATER_THAN','value':1677627440}],
+  'filtering': [{'field':'time_created','operator':'GREATER_THAN','value':1681144509}],
 }
 print Ad(id).get_leads(
   fields=fields,

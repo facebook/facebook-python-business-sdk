@@ -1,22 +1,8 @@
-# Copyright 2014 Facebook, Inc.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
 
-# You are hereby granted a non-exclusive, worldwide, royalty-free license to
-# use, copy, modify, and distribute this software in source code or binary
-# form for use in connection with the web services and APIs provided by
-# Facebook.
-
-# As with any software that integrates with the Facebook platform, your use
-# of this software is subject to the Facebook Developer Principles and
-# Policies [http://developers.facebook.com/policy/]. This copyright notice
-# shall be included in all copies or substantial portions of the software.
-
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-# DEALINGS IN THE SOFTWARE.
+# This source code is licensed under the license found in the
+# LICENSE file in the root directory of this source tree.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
 from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
@@ -43,7 +29,6 @@ class CommerceMerchantSettings(
     class Field(AbstractObject.Field):
         braintree_merchant_id = 'braintree_merchant_id'
         checkout_message = 'checkout_message'
-        commerce_store = 'commerce_store'
         contact_email = 'contact_email'
         cta = 'cta'
         disable_checkout_urls = 'disable_checkout_urls'
@@ -627,7 +612,6 @@ class CommerceMerchantSettings(
     _field_types = {
         'braintree_merchant_id': 'string',
         'checkout_message': 'string',
-        'commerce_store': 'Object',
         'contact_email': 'string',
         'cta': 'string',
         'disable_checkout_urls': 'bool',
@@ -644,12 +628,12 @@ class CommerceMerchantSettings(
         'merchant_status': 'string',
         'onsite_commerce_merchant': 'Object',
         'payment_provider': 'string',
-        'privacy_url_by_locale': 'map<string, string>',
+        'privacy_url_by_locale': 'list<map<string, string>>',
         'review_rejection_messages': 'list<string>',
         'review_rejection_reasons': 'list<string>',
         'supported_card_types': 'list<string>',
         'terms': 'string',
-        'terms_url_by_locale': 'map<string, string>',
+        'terms_url_by_locale': 'list<map<string, string>>',
         'whatsapp_channel': 'Object',
     }
     @classmethod

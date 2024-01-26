@@ -1,22 +1,8 @@
-# Copyright 2014 Facebook, Inc.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
 
-# You are hereby granted a non-exclusive, worldwide, royalty-free license to
-# use, copy, modify, and distribute this software in source code or binary
-# form for use in connection with the web services and APIs provided by
-# Facebook.
-
-# As with any software that integrates with the Facebook platform, your use
-# of this software is subject to the Facebook Developer Principles and
-# Policies [http://developers.facebook.com/policy/]. This copyright notice
-# shall be included in all copies or substantial portions of the software.
-
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-# DEALINGS IN THE SOFTWARE.
+# This source code is licensed under the license found in the
+# LICENSE file in the root directory of this source tree.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
 from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
@@ -46,6 +32,7 @@ class VehicleOffer(
         amount_price = 'amount_price'
         amount_qualifier = 'amount_qualifier'
         applinks = 'applinks'
+        availability = 'availability'
         body_style = 'body_style'
         cashback_currency = 'cashback_currency'
         cashback_price = 'cashback_price'
@@ -55,11 +42,17 @@ class VehicleOffer(
         downpayment_currency = 'downpayment_currency'
         downpayment_price = 'downpayment_price'
         downpayment_qualifier = 'downpayment_qualifier'
+        drivetrain = 'drivetrain'
         end_date = 'end_date'
         end_time = 'end_time'
+        exterior_color = 'exterior_color'
+        fuel_type = 'fuel_type'
+        generation = 'generation'
         id = 'id'
         image_fetch_status = 'image_fetch_status'
         images = 'images'
+        interior_color = 'interior_color'
+        interior_upholstery = 'interior_upholstery'
         make = 'make'
         model = 'model'
         offer_description = 'offer_description'
@@ -72,6 +65,7 @@ class VehicleOffer(
         term_length = 'term_length'
         term_qualifier = 'term_qualifier'
         title = 'title'
+        transmission = 'transmission'
         trim = 'trim'
         unit_price = 'unit_price'
         url = 'url'
@@ -186,6 +180,7 @@ class VehicleOffer(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.dynamicvideometadata import DynamicVideoMetadata
         param_types = {
         }
         enums = {
@@ -196,9 +191,9 @@ class VehicleOffer(
             endpoint='/videos_metadata',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=DynamicVideoMetadata,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=DynamicVideoMetadata, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -218,6 +213,7 @@ class VehicleOffer(
         'amount_price': 'string',
         'amount_qualifier': 'string',
         'applinks': 'CatalogItemAppLinks',
+        'availability': 'string',
         'body_style': 'string',
         'cashback_currency': 'string',
         'cashback_price': 'string',
@@ -227,11 +223,17 @@ class VehicleOffer(
         'downpayment_currency': 'string',
         'downpayment_price': 'string',
         'downpayment_qualifier': 'string',
+        'drivetrain': 'string',
         'end_date': 'string',
         'end_time': 'int',
+        'exterior_color': 'string',
+        'fuel_type': 'string',
+        'generation': 'string',
         'id': 'string',
         'image_fetch_status': 'ImageFetchStatus',
         'images': 'list<string>',
+        'interior_color': 'string',
+        'interior_upholstery': 'string',
         'make': 'string',
         'model': 'string',
         'offer_description': 'string',
@@ -244,6 +246,7 @@ class VehicleOffer(
         'term_length': 'unsigned int',
         'term_qualifier': 'string',
         'title': 'string',
+        'transmission': 'string',
         'trim': 'string',
         'unit_price': 'Object',
         'url': 'string',

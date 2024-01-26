@@ -1,22 +1,8 @@
-# Copyright 2014 Facebook, Inc.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
 
-# You are hereby granted a non-exclusive, worldwide, royalty-free license to
-# use, copy, modify, and distribute this software in source code or binary
-# form for use in connection with the web services and APIs provided by
-# Facebook.
-
-# As with any software that integrates with the Facebook platform, your use
-# of this software is subject to the Facebook Developer Principles and
-# Policies [http://developers.facebook.com/policy/]. This copyright notice
-# shall be included in all copies or substantial portions of the software.
-
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-# DEALINGS IN THE SOFTWARE.
+# This source code is licensed under the license found in the
+# LICENSE file in the root directory of this source tree.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
 from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
@@ -43,7 +29,9 @@ class User(
     class Field(AbstractObject.Field):
         about = 'about'
         age_range = 'age_range'
+        avatar_2d_profile_picture = 'avatar_2d_profile_picture'
         birthday = 'birthday'
+        community = 'community'
         cover = 'cover'
         currency = 'currency'
         education = 'education'
@@ -59,6 +47,7 @@ class User(
         install_type = 'install_type'
         installed = 'installed'
         is_guest_user = 'is_guest_user'
+        is_work_account = 'is_work_account'
         languages = 'languages'
         last_name = 'last_name'
         link = 'link'
@@ -240,9 +229,9 @@ class User(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'business_app': 'int',
-            'is_permanent_token': 'bool',
             'page_id': 'string',
             'scope': 'list<Permission>',
+            'set_token_expires_in_60_days': 'bool',
         }
         enums = {
         }
@@ -305,7 +294,6 @@ class User(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.page import Page
         param_types = {
             'about': 'string',
             'address': 'string',
@@ -332,9 +320,9 @@ class User(
             endpoint='/accounts',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=Page,
+            target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=Page, api=self._api),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -708,6 +696,7 @@ class User(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.avatar import Avatar
         param_types = {
         }
         enums = {
@@ -718,9 +707,9 @@ class User(
             endpoint='/avatars',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=Avatar,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=Avatar, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -877,10 +866,12 @@ class User(
         from facebook_business.adobjects.unifiedthread import UnifiedThread
         param_types = {
             'folder': 'string',
+            'platform': 'platform_enum',
             'tags': 'list<string>',
             'user_id': 'string',
         }
         enums = {
+            'platform_enum': UnifiedThread.Platform.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -1028,7 +1019,6 @@ class User(
             'backdated_time_granularity': 'backdated_time_granularity_enum',
             'call_to_action': 'Object',
             'caption': 'string',
-            'checkin_entry_point': 'checkin_entry_point_enum',
             'child_attachments': 'list<Object>',
             'client_mutation_id': 'string',
             'composer_entry_picker': 'string',
@@ -1126,7 +1116,6 @@ class User(
         }
         enums = {
             'backdated_time_granularity_enum': Post.BackdatedTimeGranularity.__dict__.values(),
-            'checkin_entry_point_enum': Post.CheckinEntryPoint.__dict__.values(),
             'formatting_enum': Post.Formatting.__dict__.values(),
             'place_attachment_setting_enum': Post.PlaceAttachmentSetting.__dict__.values(),
             'post_surfaces_blacklist_enum': Post.PostSurfacesBlacklist.__dict__.values(),
@@ -1251,44 +1240,6 @@ class User(
             target_class=FundraiserPersonToCharity,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=FundraiserPersonToCharity, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_game_item(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.gameitem import GameItem
-        param_types = {
-            'action': 'action_enum',
-            'app_id': 'string',
-            'drop_table_id': 'string',
-            'ext_id': 'string',
-            'item_id': 'string',
-            'quantity': 'unsigned int',
-        }
-        enums = {
-            'action_enum': GameItem.Action.__dict__.values(),
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/game_items',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=GameItem,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=GameItem, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1947,14 +1898,12 @@ class User(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.profilepicturesource import ProfilePictureSource
         param_types = {
-            'breaking_change': 'breaking_change_enum',
             'height': 'int',
             'redirect': 'bool',
             'type': 'type_enum',
             'width': 'int',
         }
         enums = {
-            'breaking_change_enum': ProfilePictureSource.BreakingChange.__dict__.values(),
             'type_enum': ProfilePictureSource.Type.__dict__.values(),
         }
         request = FacebookRequest(
@@ -2229,7 +2178,9 @@ class User(
     _field_types = {
         'about': 'string',
         'age_range': 'AgeRange',
+        'avatar_2d_profile_picture': 'AvatarProfilePicture',
         'birthday': 'string',
+        'community': 'Group',
         'cover': 'UserCoverPhoto',
         'currency': 'Currency',
         'education': 'list<Object>',
@@ -2245,6 +2196,7 @@ class User(
         'install_type': 'string',
         'installed': 'bool',
         'is_guest_user': 'bool',
+        'is_work_account': 'bool',
         'languages': 'list<Experience>',
         'last_name': 'string',
         'link': 'string',
@@ -2261,7 +2213,7 @@ class User(
         'profile_pic': 'string',
         'quotes': 'string',
         'relationship_status': 'string',
-        'shared_login_upgrade_required_by': 'Object',
+        'shared_login_upgrade_required_by': 'datetime',
         'short_name': 'string',
         'significant_other': 'User',
         'sports': 'list<Experience>',

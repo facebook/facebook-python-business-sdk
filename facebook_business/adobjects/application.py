@@ -1,22 +1,8 @@
-# Copyright 2014 Facebook, Inc.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
 
-# You are hereby granted a non-exclusive, worldwide, royalty-free license to
-# use, copy, modify, and distribute this software in source code or binary
-# form for use in connection with the web services and APIs provided by
-# Facebook.
-
-# As with any software that integrates with the Facebook platform, your use
-# of this software is subject to the Facebook Developer Principles and
-# Policies [http://developers.facebook.com/policy/]. This copyright notice
-# shall be included in all copies or substantial portions of the software.
-
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-# DEALINGS IN THE SOFTWARE.
+# This source code is licensed under the license found in the
+# LICENSE file in the root directory of this source tree.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
 from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
@@ -66,6 +52,8 @@ class Application(
         auto_event_mapping_android = 'auto_event_mapping_android'
         auto_event_mapping_ios = 'auto_event_mapping_ios'
         auto_event_setup_enabled = 'auto_event_setup_enabled'
+        auto_log_app_events_default = 'auto_log_app_events_default'
+        auto_log_app_events_enabled = 'auto_log_app_events_enabled'
         business = 'business'
         canvas_fluid_height = 'canvas_fluid_height'
         canvas_fluid_width = 'canvas_fluid_width'
@@ -118,6 +106,7 @@ class Application(
         privacy_policy_url = 'privacy_policy_url'
         profile_section_url = 'profile_section_url'
         property_id = 'property_id'
+        protected_mode_rules = 'protected_mode_rules'
         real_time_mode_devices = 'real_time_mode_devices'
         restrictions = 'restrictions'
         restrictive_data_filter_params = 'restrictive_data_filter_params'
@@ -190,6 +179,7 @@ class Application(
         eymt = 'EYMT'
 
     class LoggingSource:
+        detection = 'DETECTION'
         messenger_bot = 'MESSENGER_BOT'
 
     class LoggingTarget:
@@ -449,6 +439,7 @@ class Application(
             'url_schemes': 'list<string>',
             'user_id': 'string',
             'user_id_type': 'user_id_type_enum',
+            'vendor_id': 'string',
             'windows_attribution_id': 'string',
         }
         enums = {
@@ -800,8 +791,10 @@ class Application(
         param_types = {
             'app_id': 'int',
             'is_aem_ready': 'bool',
-            'is_aem_v2_ready': 'bool',
+            'is_app_aem_install_ready': 'bool',
+            'is_app_aem_ready': 'bool',
             'is_skan_ready': 'bool',
+            'message': 'string',
         }
         enums = {
         }
@@ -1379,6 +1372,37 @@ class Application(
             self.assure_call()
             return request.execute()
 
+    def get_iap_purchases(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'order_id': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/iap_purchases',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_insights_push_schedule(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -1439,6 +1463,36 @@ class Application(
             self.assure_call()
             return request.execute()
 
+    def get_linked_dataset(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/linked_dataset',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def create_mmp_auditing(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -1451,6 +1505,7 @@ class Application(
             'click_attr_window': 'unsigned int',
             'custom_events': 'list<Object>',
             'decline_reason': 'string',
+            'engagement_type': 'string',
             'event': 'string',
             'event_reported_time': 'unsigned int',
             'fb_ad_id': 'unsigned int',
@@ -1598,6 +1653,37 @@ class Application(
             node_id=self['id'],
             method='GET',
             endpoint='/object_types',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=NullNode,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=NullNode, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_objects(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.nullnode import NullNode
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/objects',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
             target_class=NullNode,
@@ -1830,6 +1916,36 @@ class Application(
             node_id=self['id'],
             method='GET',
             endpoint='/roles',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_server_domain_infos(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/server_domain_infos',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
@@ -2102,6 +2218,8 @@ class Application(
         'auto_event_mapping_android': 'list<Object>',
         'auto_event_mapping_ios': 'list<Object>',
         'auto_event_setup_enabled': 'bool',
+        'auto_log_app_events_default': 'bool',
+        'auto_log_app_events_enabled': 'bool',
         'business': 'Business',
         'canvas_fluid_height': 'bool',
         'canvas_fluid_width': 'unsigned int',
@@ -2154,6 +2272,7 @@ class Application(
         'privacy_policy_url': 'string',
         'profile_section_url': 'string',
         'property_id': 'string',
+        'protected_mode_rules': 'Object',
         'real_time_mode_devices': 'list<string>',
         'restrictions': 'Object',
         'restrictive_data_filter_params': 'string',

@@ -1,22 +1,8 @@
-# Copyright 2014 Facebook, Inc.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
 
-# You are hereby granted a non-exclusive, worldwide, royalty-free license to
-# use, copy, modify, and distribute this software in source code or binary
-# form for use in connection with the web services and APIs provided by
-# Facebook.
-
-# As with any software that integrates with the Facebook platform, your use
-# of this software is subject to the Facebook Developer Principles and
-# Policies [http://developers.facebook.com/policy/]. This copyright notice
-# shall be included in all copies or substantial portions of the software.
-
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-# DEALINGS IN THE SOFTWARE.
+# This source code is licensed under the license found in the
+# LICENSE file in the root directory of this source tree.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
 from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
@@ -46,7 +32,6 @@ class ProductItem(
         additional_variant_attributes = 'additional_variant_attributes'
         age_group = 'age_group'
         applinks = 'applinks'
-        ar_data = 'ar_data'
         availability = 'availability'
         brand = 'brand'
         capability_to_review_status = 'capability_to_review_status'
@@ -97,6 +82,7 @@ class ProductItem(
         product_catalog = 'product_catalog'
         product_feed = 'product_feed'
         product_group = 'product_group'
+        product_local_info = 'product_local_info'
         product_type = 'product_type'
         quantity_to_sell_on_facebook = 'quantity_to_sell_on_facebook'
         retailer_id = 'retailer_id'
@@ -111,7 +97,9 @@ class ProductItem(
         short_description = 'short_description'
         size = 'size'
         start_date = 'start_date'
+        tags = 'tags'
         url = 'url'
+        video_fetch_status = 'video_fetch_status'
         visibility = 'visibility'
         wa_compliance_category = 'wa_compliance_category'
         additional_uploaded_image_ids = 'additional_uploaded_image_ids'
@@ -152,6 +140,7 @@ class ProductItem(
         available_for_order = 'available for order'
         discontinued = 'discontinued'
         in_stock = 'in stock'
+        mark_as_sold = 'mark_as_sold'
         out_of_stock = 'out of stock'
         pending = 'pending'
         preorder = 'preorder'
@@ -190,6 +179,14 @@ class ProductItem(
         kg = 'kg'
         lb = 'lb'
         oz = 'oz'
+
+    class VideoFetchStatus:
+        direct_upload = 'DIRECT_UPLOAD'
+        fetched = 'FETCHED'
+        fetch_failed = 'FETCH_FAILED'
+        no_status = 'NO_STATUS'
+        outdated = 'OUTDATED'
+        partial_fetch = 'PARTIAL_FETCH'
 
     class Visibility:
         published = 'published'
@@ -413,10 +410,20 @@ class ProductItem(
         available = 'AVAILABLE'
         bad_quality_image = 'BAD_QUALITY_IMAGE'
         cannot_edit_subscription_products = 'CANNOT_EDIT_SUBSCRIPTION_PRODUCTS'
+        checkout_disabled_by_user = 'CHECKOUT_DISABLED_BY_USER'
+        commerce_account_not_legally_compliant = 'COMMERCE_ACCOUNT_NOT_LEGALLY_COMPLIANT'
         crawled_availability_mismatch = 'CRAWLED_AVAILABILITY_MISMATCH'
+        da_disabled_by_user = 'DA_DISABLED_BY_USER'
+        da_policy_violation = 'DA_POLICY_VIOLATION'
         digital_goods_not_available_for_checkout = 'DIGITAL_GOODS_NOT_AVAILABLE_FOR_CHECKOUT'
         duplicate_images = 'DUPLICATE_IMAGES'
         duplicate_title_and_description = 'DUPLICATE_TITLE_AND_DESCRIPTION'
+        empty_availability = 'EMPTY_AVAILABILITY'
+        empty_condition = 'EMPTY_CONDITION'
+        empty_description = 'EMPTY_DESCRIPTION'
+        empty_product_url = 'EMPTY_PRODUCT_URL'
+        empty_seller_description = 'EMPTY_SELLER_DESCRIPTION'
+        external_merchant_id_mismatch = 'EXTERNAL_MERCHANT_ID_MISMATCH'
         generic_invalid_field = 'GENERIC_INVALID_FIELD'
         hidden_until_product_launch = 'HIDDEN_UNTIL_PRODUCT_LAUNCH'
         image_fetch_failed = 'IMAGE_FETCH_FAILED'
@@ -431,6 +438,7 @@ class ProductItem(
         invalid_images = 'INVALID_IMAGES'
         invalid_monetizer_return_policy = 'INVALID_MONETIZER_RETURN_POLICY'
         invalid_pre_order_params = 'INVALID_PRE_ORDER_PARAMS'
+        invalid_shelter_page_id = 'INVALID_SHELTER_PAGE_ID'
         invalid_shipping_profile_params = 'INVALID_SHIPPING_PROFILE_PARAMS'
         invalid_subscription_disable_params = 'INVALID_SUBSCRIPTION_DISABLE_PARAMS'
         invalid_subscription_enable_params = 'INVALID_SUBSCRIPTION_ENABLE_PARAMS'
@@ -439,8 +447,11 @@ class ProductItem(
         in_another_product_launch = 'IN_ANOTHER_PRODUCT_LAUNCH'
         item_group_not_specified = 'ITEM_GROUP_NOT_SPECIFIED'
         item_not_shippable_for_sca_shop = 'ITEM_NOT_SHIPPABLE_FOR_SCA_SHOP'
+        item_override_empty_availability = 'ITEM_OVERRIDE_EMPTY_AVAILABILITY'
+        item_override_empty_price = 'ITEM_OVERRIDE_EMPTY_PRICE'
         item_override_not_visible = 'ITEM_OVERRIDE_NOT_VISIBLE'
         item_stale_out_of_stock = 'ITEM_STALE_OUT_OF_STOCK'
+        marketplace_disabled_by_user = 'MARKETPLACE_DISABLED_BY_USER'
         mini_shops_disabled_by_user = 'MINI_SHOPS_DISABLED_BY_USER'
         missing_checkout = 'MISSING_CHECKOUT'
         missing_checkout_currency = 'MISSING_CHECKOUT_CURRENCY'
@@ -452,9 +463,11 @@ class ProductItem(
         missing_tax_category = 'MISSING_TAX_CATEGORY'
         negative_community_feedback = 'NEGATIVE_COMMUNITY_FEEDBACK'
         not_enough_images = 'NOT_ENOUGH_IMAGES'
+        not_enough_unique_products = 'NOT_ENOUGH_UNIQUE_PRODUCTS'
         part_of_product_launch = 'PART_OF_PRODUCT_LAUNCH'
         product_expired = 'PRODUCT_EXPIRED'
         product_item_hidden_from_all_shops = 'PRODUCT_ITEM_HIDDEN_FROM_ALL_SHOPS'
+        product_item_invalid_partner_tokens = 'PRODUCT_ITEM_INVALID_PARTNER_TOKENS'
         product_item_not_included_in_any_shop = 'PRODUCT_ITEM_NOT_INCLUDED_IN_ANY_SHOP'
         product_item_not_visible = 'PRODUCT_ITEM_NOT_VISIBLE'
         product_not_approved = 'PRODUCT_NOT_APPROVED'
@@ -464,6 +477,7 @@ class ProductItem(
         property_price_currency_not_supported = 'PROPERTY_PRICE_CURRENCY_NOT_SUPPORTED'
         property_price_too_high = 'PROPERTY_PRICE_TOO_HIGH'
         property_price_too_low = 'PROPERTY_PRICE_TOO_LOW'
+        property_unit_price_currency_mismatch_item_price_currency = 'PROPERTY_UNIT_PRICE_CURRENCY_MISMATCH_ITEM_PRICE_CURRENCY'
         property_value_contains_html_tags = 'PROPERTY_VALUE_CONTAINS_HTML_TAGS'
         property_value_description_contains_off_platform_link = 'PROPERTY_VALUE_DESCRIPTION_CONTAINS_OFF_PLATFORM_LINK'
         property_value_format = 'PROPERTY_VALUE_FORMAT'
@@ -472,16 +486,28 @@ class ProductItem(
         property_value_non_positive = 'PROPERTY_VALUE_NON_POSITIVE'
         property_value_string_exceeds_length = 'PROPERTY_VALUE_STRING_EXCEEDS_LENGTH'
         property_value_string_too_short = 'PROPERTY_VALUE_STRING_TOO_SHORT'
+        property_value_uppercase = 'PROPERTY_VALUE_UPPERCASE'
         property_value_uppercase_warning = 'PROPERTY_VALUE_UPPERCASE_WARNING'
         quality_duplicated_description = 'QUALITY_DUPLICATED_DESCRIPTION'
         quality_item_link_broken = 'QUALITY_ITEM_LINK_BROKEN'
         quality_item_link_redirecting = 'QUALITY_ITEM_LINK_REDIRECTING'
         retailer_id_not_provided = 'RETAILER_ID_NOT_PROVIDED'
+        shopify_invalid_retailer_id = 'SHOPIFY_INVALID_RETAILER_ID'
         shopify_item_missing_shipping_profile = 'SHOPIFY_ITEM_MISSING_SHIPPING_PROFILE'
+        shops_policy_violation = 'SHOPS_POLICY_VIOLATION'
         subscription_info_not_enabled_for_feed = 'SUBSCRIPTION_INFO_NOT_ENABLED_FOR_FEED'
         tax_category_not_supported_in_uk = 'TAX_CATEGORY_NOT_SUPPORTED_IN_UK'
         unsupported_product_category = 'UNSUPPORTED_PRODUCT_CATEGORY'
         variant_attribute_issue = 'VARIANT_ATTRIBUTE_ISSUE'
+        video_fetch_failed = 'VIDEO_FETCH_FAILED'
+        video_fetch_failed_bad_gateway = 'VIDEO_FETCH_FAILED_BAD_GATEWAY'
+        video_fetch_failed_file_size_exceeded = 'VIDEO_FETCH_FAILED_FILE_SIZE_EXCEEDED'
+        video_fetch_failed_forbidden = 'VIDEO_FETCH_FAILED_FORBIDDEN'
+        video_fetch_failed_link_broken = 'VIDEO_FETCH_FAILED_LINK_BROKEN'
+        video_fetch_failed_timed_out = 'VIDEO_FETCH_FAILED_TIMED_OUT'
+        video_not_downloadable = 'VIDEO_NOT_DOWNLOADABLE'
+        whatsapp_disabled_by_user = 'WHATSAPP_DISABLED_BY_USER'
+        whatsapp_policy_violation = 'WHATSAPP_POLICY_VIOLATION'
 
     class MarkedForProductLaunch:
         value_default = 'default'
@@ -995,23 +1021,53 @@ class ProductItem(
             self.assure_call()
             return request.execute()
 
+    def get_videos_metadata(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.dynamicvideometadata import DynamicVideoMetadata
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/videos_metadata',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=DynamicVideoMetadata,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=DynamicVideoMetadata, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     _field_types = {
-        'additional_image_cdn_urls': 'list<map<string, string>>',
+        'additional_image_cdn_urls': 'list<list<map<string, string>>>',
         'additional_image_urls': 'list<string>',
-        'additional_variant_attributes': 'map<string, string>',
+        'additional_variant_attributes': 'list<map<string, string>>',
         'age_group': 'AgeGroup',
         'applinks': 'CatalogItemAppLinks',
-        'ar_data': 'ProductItemARData',
         'availability': 'Availability',
         'brand': 'string',
-        'capability_to_review_status': 'map<Object, Object>',
+        'capability_to_review_status': 'list<map<Object, Object>>',
         'category': 'string',
         'category_specific_fields': 'CatalogSubVerticalList',
         'color': 'string',
         'commerce_insights': 'ProductItemCommerceInsights',
         'condition': 'Condition',
         'currency': 'string',
-        'custom_data': 'map<string, string>',
+        'custom_data': 'list<map<string, string>>',
         'custom_label_0': 'string',
         'custom_label_1': 'string',
         'custom_label_2': 'string',
@@ -1029,7 +1085,7 @@ class ProductItem(
         'gender': 'Gender',
         'gtin': 'string',
         'id': 'string',
-        'image_cdn_urls': 'map<string, string>',
+        'image_cdn_urls': 'list<map<string, string>>',
         'image_fetch_status': 'ImageFetchStatus',
         'image_url': 'string',
         'images': 'list<string>',
@@ -1052,6 +1108,7 @@ class ProductItem(
         'product_catalog': 'ProductCatalog',
         'product_feed': 'ProductFeed',
         'product_group': 'ProductGroup',
+        'product_local_info': 'ProductItemLocalInfo',
         'product_type': 'string',
         'quantity_to_sell_on_facebook': 'int',
         'retailer_id': 'string',
@@ -1066,7 +1123,9 @@ class ProductItem(
         'short_description': 'string',
         'size': 'string',
         'start_date': 'string',
+        'tags': 'list<string>',
         'url': 'string',
+        'video_fetch_status': 'VideoFetchStatus',
         'visibility': 'Visibility',
         'wa_compliance_category': 'string',
         'additional_uploaded_image_ids': 'list<string>',
@@ -1104,6 +1163,7 @@ class ProductItem(
         field_enum_info['ImageFetchStatus'] = ProductItem.ImageFetchStatus.__dict__.values()
         field_enum_info['ReviewStatus'] = ProductItem.ReviewStatus.__dict__.values()
         field_enum_info['ShippingWeightUnit'] = ProductItem.ShippingWeightUnit.__dict__.values()
+        field_enum_info['VideoFetchStatus'] = ProductItem.VideoFetchStatus.__dict__.values()
         field_enum_info['Visibility'] = ProductItem.Visibility.__dict__.values()
         field_enum_info['CommerceTaxCategory'] = ProductItem.CommerceTaxCategory.__dict__.values()
         field_enum_info['ErrorPriority'] = ProductItem.ErrorPriority.__dict__.values()

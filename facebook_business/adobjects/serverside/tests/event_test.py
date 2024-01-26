@@ -59,11 +59,9 @@ class EventTest(TestCase):
         app_data = AppData(
             application_tracking_enabled = True,
             advertiser_tracking_enabled = True,
-            app_user_id = '999999',
-            campaign_ids = ['100001', '100002'],
+            campaign_ids = "100001,100002",
             consider_views = True,
-            device_token = 'xyz',
-            extinfo = ext_device_info.normalize(),
+            extinfo = ext_device_info,
             include_dwell_data = True,
             include_video_data = True,
             install_referrer = 'xyz',
@@ -88,6 +86,7 @@ class EventTest(TestCase):
             data_processing_options_country=data_processing_options_country,
             data_processing_options_state=data_processing_options_state,
             action_source=action_source,
+            app_data=app_data,
         )
         expected_params = {
             'event_name': event_name,
@@ -101,8 +100,8 @@ class EventTest(TestCase):
             'data_processing_options_country': data_processing_options_country,
             'data_processing_options_state': data_processing_options_state,
             'action_source': action_source.value,
+            'app_data': app_data.normalize(),
         }
-
         self.assertEqual(event.normalize(), expected_params)
 
     def test_action_source_validation(self):

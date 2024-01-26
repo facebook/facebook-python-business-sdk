@@ -30,9 +30,8 @@ config_filename = os.path.join(this_dir, os.pardir, os.pardir, 'config.json')
 import sys
 sys.path.insert(1, os.path.join(this_dir, os.pardir, os.pardir))
 
-config_file = open(config_filename)
-config = json.load(config_file)
-config_file.close()
+with open(config_filename) as config_file:
+    config = json.load(config_file)
 
 from facebook_business.api import FacebookAdsApi
 from facebook_business.adobjects.productcatalog import ProductCatalog

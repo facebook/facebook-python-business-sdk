@@ -22,12 +22,13 @@
 Integration test runner for the Python Facebook Business SDK.
 
 Note: 
-    New integration test should follow the file name convention using integration_ as preffix,
+    New integration test should follow the file name convention using integration_ as prefix,
     for example, integration_adset.py.
 
 How to run:
     python -m facebook_business.test.integration_test_runner
 '''
+
 import os, subprocess
 
 DIRECTORY = os.path.dirname(os.path.abspath(__file__))
@@ -40,15 +41,15 @@ UTILS = "utils"
 RUNNER = "runner"
 CONSTANT = "constant"
 
-integration_tests = []
-for filename in os.listdir(DIRECTORY):
-    if filename.endswith(".py") \
-        and filename.startswith("integration_") \
-        and UTILS not in filename \
-        and RUNNER not in filename \
-        and CONSTANT not in filename:
-            integration_tests.append(filename.split(".")[0])
-
+integration_tests = [
+    filename.split(".")[0]
+    for filename in os.listdir(DIRECTORY)
+    if filename.endswith(".py")
+    and filename.startswith("integration_")
+    and UTILS not in filename
+    and RUNNER not in filename
+    and CONSTANT not in filename
+]
 
 failed = False
 for test in integration_tests:

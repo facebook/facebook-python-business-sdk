@@ -1,22 +1,8 @@
-# Copyright 2014 Facebook, Inc.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
 
-# You are hereby granted a non-exclusive, worldwide, royalty-free license to
-# use, copy, modify, and distribute this software in source code or binary
-# form for use in connection with the web services and APIs provided by
-# Facebook.
-
-# As with any software that integrates with the Facebook platform, your use
-# of this software is subject to the Facebook Developer Principles and
-# Policies [http://developers.facebook.com/policy/]. This copyright notice
-# shall be included in all copies or substantial portions of the software.
-
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-# DEALINGS IN THE SOFTWARE.
+# This source code is licensed under the license found in the
+# LICENSE file in the root directory of this source tree.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
 from facebook_business.adobjects.helpers.adsinsightsmixin import AdsInsightsMixin
@@ -45,12 +31,10 @@ class AdsInsights(
         account_name = 'account_name'
         action_values = 'action_values'
         actions = 'actions'
-        ad_bid_value = 'ad_bid_value'
         ad_click_actions = 'ad_click_actions'
         ad_id = 'ad_id'
         ad_impression_actions = 'ad_impression_actions'
         ad_name = 'ad_name'
-        adset_bid_value = 'adset_bid_value'
         adset_end = 'adset_end'
         adset_id = 'adset_id'
         adset_name = 'adset_name'
@@ -71,6 +55,7 @@ class AdsInsights(
         catalog_segment_value_omni_purchase_roas = 'catalog_segment_value_omni_purchase_roas'
         catalog_segment_value_website_purchase_roas = 'catalog_segment_value_website_purchase_roas'
         clicks = 'clicks'
+        conversion_lead_rate = 'conversion_lead_rate'
         conversion_rate_ranking = 'conversion_rate_ranking'
         conversion_values = 'conversion_values'
         conversions = 'conversions'
@@ -81,6 +66,7 @@ class AdsInsights(
         cost_per_action_type = 'cost_per_action_type'
         cost_per_ad_click = 'cost_per_ad_click'
         cost_per_conversion = 'cost_per_conversion'
+        cost_per_conversion_lead = 'cost_per_conversion_lead'
         cost_per_dda_countby_convs = 'cost_per_dda_countby_convs'
         cost_per_estimated_ad_recallers = 'cost_per_estimated_ad_recallers'
         cost_per_inline_link_click = 'cost_per_inline_link_click'
@@ -97,6 +83,7 @@ class AdsInsights(
         cpm = 'cpm'
         cpp = 'cpp'
         created_time = 'created_time'
+        creative_media_type = 'creative_media_type'
         ctr = 'ctr'
         date_start = 'date_start'
         date_stop = 'date_stop'
@@ -117,12 +104,16 @@ class AdsInsights(
         inline_link_click_ctr = 'inline_link_click_ctr'
         inline_link_clicks = 'inline_link_clicks'
         inline_post_engagement = 'inline_post_engagement'
+        instagram_upcoming_event_reminders_set = 'instagram_upcoming_event_reminders_set'
         instant_experience_clicks_to_open = 'instant_experience_clicks_to_open'
         instant_experience_clicks_to_start = 'instant_experience_clicks_to_start'
         instant_experience_outbound_clicks = 'instant_experience_outbound_clicks'
         interactive_component_tap = 'interactive_component_tap'
         labels = 'labels'
         location = 'location'
+        marketing_messages_cost_per_delivered = 'marketing_messages_cost_per_delivered'
+        marketing_messages_cost_per_link_btn_click = 'marketing_messages_cost_per_link_btn_click'
+        marketing_messages_spend = 'marketing_messages_spend'
         mobile_app_purchase_roas = 'mobile_app_purchase_roas'
         objective = 'objective'
         optimization_goal = 'optimization_goal'
@@ -132,14 +123,12 @@ class AdsInsights(
         purchase_roas = 'purchase_roas'
         qualifying_question_qualify_answer_rate = 'qualifying_question_qualify_answer_rate'
         quality_ranking = 'quality_ranking'
-        quality_score_ectr = 'quality_score_ectr'
-        quality_score_ecvr = 'quality_score_ecvr'
-        quality_score_organic = 'quality_score_organic'
         reach = 'reach'
         social_spend = 'social_spend'
         spend = 'spend'
         total_postbacks = 'total_postbacks'
         total_postbacks_detailed = 'total_postbacks_detailed'
+        total_postbacks_detailed_v4 = 'total_postbacks_detailed_v4'
         unique_actions = 'unique_actions'
         unique_clicks = 'unique_clicks'
         unique_conversions = 'unique_conversions'
@@ -174,6 +163,7 @@ class AdsInsights(
 
     class ActionAttributionWindows:
         value_1d_click = '1d_click'
+        value_1d_ev = '1d_ev'
         value_1d_view = '1d_view'
         value_28d_click = '28d_click'
         value_28d_view = '28d_view'
@@ -195,6 +185,7 @@ class AdsInsights(
         action_type = 'action_type'
         action_video_sound = 'action_video_sound'
         action_video_type = 'action_video_type'
+        standard_event_content_type = 'standard_event_content_type'
 
     class ActionReportTime:
         conversion = 'conversion'
@@ -207,26 +198,42 @@ class AdsInsights(
         app_id = 'app_id'
         body_asset = 'body_asset'
         call_to_action_asset = 'call_to_action_asset'
+        coarse_conversion_value = 'coarse_conversion_value'
         country = 'country'
         description_asset = 'description_asset'
         device_platform = 'device_platform'
         dma = 'dma'
+        fidelity_type = 'fidelity_type'
         frequency_value = 'frequency_value'
         gender = 'gender'
         hourly_stats_aggregated_by_advertiser_time_zone = 'hourly_stats_aggregated_by_advertiser_time_zone'
         hourly_stats_aggregated_by_audience_time_zone = 'hourly_stats_aggregated_by_audience_time_zone'
+        hsid = 'hsid'
         image_asset = 'image_asset'
         impression_device = 'impression_device'
         is_conversion_id_modeled = 'is_conversion_id_modeled'
+        landing_destination = 'landing_destination'
         link_url_asset = 'link_url_asset'
+        marketing_messages_btn_name = 'marketing_messages_btn_name'
+        mdsa_landing_destination = 'mdsa_landing_destination'
+        media_asset_url = 'media_asset_url'
+        media_creator = 'media_creator'
+        media_destination_url = 'media_destination_url'
+        media_format = 'media_format'
+        media_origin_url = 'media_origin_url'
+        media_text_content = 'media_text_content'
         mmm = 'mmm'
         place_page_id = 'place_page_id'
         platform_position = 'platform_position'
+        postback_sequence_index = 'postback_sequence_index'
         product_id = 'product_id'
         publisher_platform = 'publisher_platform'
+        redownload = 'redownload'
         region = 'region'
         skan_campaign_id = 'skan_campaign_id'
         skan_conversion_id = 'skan_conversion_id'
+        skan_version = 'skan_version'
+        standard_event_content_type = 'standard_event_content_type'
         title_asset = 'title_asset'
         video_asset = 'video_asset'
 
@@ -269,6 +276,7 @@ class AdsInsights(
         action_type = 'action_type'
         action_video_sound = 'action_video_sound'
         action_video_type = 'action_video_type'
+        standard_event_content_type = 'standard_event_content_type'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
@@ -281,12 +289,10 @@ class AdsInsights(
         'account_name': 'string',
         'action_values': 'list<AdsActionStats>',
         'actions': 'list<AdsActionStats>',
-        'ad_bid_value': 'string',
         'ad_click_actions': 'list<AdsActionStats>',
         'ad_id': 'string',
         'ad_impression_actions': 'list<AdsActionStats>',
         'ad_name': 'string',
-        'adset_bid_value': 'string',
         'adset_end': 'string',
         'adset_id': 'string',
         'adset_name': 'string',
@@ -307,6 +313,7 @@ class AdsInsights(
         'catalog_segment_value_omni_purchase_roas': 'list<AdsActionStats>',
         'catalog_segment_value_website_purchase_roas': 'list<AdsActionStats>',
         'clicks': 'string',
+        'conversion_lead_rate': 'string',
         'conversion_rate_ranking': 'string',
         'conversion_values': 'list<AdsActionStats>',
         'conversions': 'list<AdsActionStats>',
@@ -317,6 +324,7 @@ class AdsInsights(
         'cost_per_action_type': 'list<AdsActionStats>',
         'cost_per_ad_click': 'list<AdsActionStats>',
         'cost_per_conversion': 'list<AdsActionStats>',
+        'cost_per_conversion_lead': 'string',
         'cost_per_dda_countby_convs': 'string',
         'cost_per_estimated_ad_recallers': 'string',
         'cost_per_inline_link_click': 'string',
@@ -333,6 +341,7 @@ class AdsInsights(
         'cpm': 'string',
         'cpp': 'string',
         'created_time': 'string',
+        'creative_media_type': 'string',
         'ctr': 'string',
         'date_start': 'string',
         'date_stop': 'string',
@@ -353,12 +362,16 @@ class AdsInsights(
         'inline_link_click_ctr': 'string',
         'inline_link_clicks': 'string',
         'inline_post_engagement': 'string',
+        'instagram_upcoming_event_reminders_set': 'string',
         'instant_experience_clicks_to_open': 'string',
         'instant_experience_clicks_to_start': 'string',
         'instant_experience_outbound_clicks': 'list<AdsActionStats>',
         'interactive_component_tap': 'list<AdsActionStats>',
         'labels': 'string',
         'location': 'string',
+        'marketing_messages_cost_per_delivered': 'string',
+        'marketing_messages_cost_per_link_btn_click': 'string',
+        'marketing_messages_spend': 'string',
         'mobile_app_purchase_roas': 'list<AdsActionStats>',
         'objective': 'string',
         'optimization_goal': 'string',
@@ -368,14 +381,12 @@ class AdsInsights(
         'purchase_roas': 'list<AdsActionStats>',
         'qualifying_question_qualify_answer_rate': 'string',
         'quality_ranking': 'string',
-        'quality_score_ectr': 'string',
-        'quality_score_ecvr': 'string',
-        'quality_score_organic': 'string',
         'reach': 'string',
         'social_spend': 'string',
         'spend': 'string',
         'total_postbacks': 'string',
         'total_postbacks_detailed': 'list<AdsActionStats>',
+        'total_postbacks_detailed_v4': 'list<AdsActionStats>',
         'unique_actions': 'list<AdsActionStats>',
         'unique_clicks': 'string',
         'unique_conversions': 'list<AdsActionStats>',
@@ -398,10 +409,10 @@ class AdsInsights(
         'video_p75_watched_actions': 'list<AdsActionStats>',
         'video_p95_watched_actions': 'list<AdsActionStats>',
         'video_play_actions': 'list<AdsActionStats>',
-        'video_play_curve_actions': 'list<Object>',
-        'video_play_retention_0_to_15s_actions': 'list<Object>',
-        'video_play_retention_20_to_60s_actions': 'list<Object>',
-        'video_play_retention_graph_actions': 'list<Object>',
+        'video_play_curve_actions': 'list<AdsHistogramStats>',
+        'video_play_retention_0_to_15s_actions': 'list<AdsHistogramStats>',
+        'video_play_retention_20_to_60s_actions': 'list<AdsHistogramStats>',
+        'video_play_retention_graph_actions': 'list<AdsHistogramStats>',
         'video_thruplay_watched_actions': 'list<AdsActionStats>',
         'video_time_watched_actions': 'list<AdsActionStats>',
         'website_ctr': 'list<AdsActionStats>',

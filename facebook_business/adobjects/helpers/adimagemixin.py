@@ -1,22 +1,8 @@
-# Copyright 2014 Facebook, Inc.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
 
-# You are hereby granted a non-exclusive, worldwide, royalty-free license to
-# use, copy, modify, and distribute this software in source code or binary
-# form for use in connection with the web services and APIs provided by
-# Facebook.
-
-# As with any software that integrates with the Facebook platform, your use
-# of this software is subject to the Facebook Developer Principles and
-# Policies [http://developers.facebook.com/policy/]. This copyright notice
-# shall be included in all copies or substantial portions of the software.
-
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-# DEALINGS IN THE SOFTWARE.
+# This source code is licensed under the license found in the
+# LICENSE file in the root directory of this source tree.
 
 from facebook_business.adobjects.adaccount import AdAccount
 from facebook_business.api import FacebookAdsApi
@@ -27,14 +13,12 @@ class AdImageMixin:
     @classmethod
     def remote_create_from_zip(cls, filename, parent_id, api=None):
         api = api or FacebookAdsApi.get_default_api()
-        open_file = open(filename, 'rb')
-        response = api.call(
-            'POST',
-            (parent_id, cls.get_endpoint()),
-            files={filename: open_file},
-        )
-        open_file.close()
-
+        with open(filename, 'rb') as open_file:
+            response = api.call(
+                'POST',
+                (parent_id, cls.get_endpoint()),
+                files={filename: open_file},
+            )
         data = response.json()
 
         objs = []
@@ -87,23 +71,23 @@ class AdImageMixin:
             }
         """
 
-        if 'images' in data:
-            _, data = data['images'].popitem()
-
-            for key in map(str, data):
-                self._data[key] = data[key]
-
-                # clear history due to the update
-                self._changes.pop(key, None)
-
-            self._data[self.Field.id] = '%s:%s' % (
-                self.get_parent_id_assured()[4:],
-                self[self.Field.hash],
-            )
-
-            return self
-        else:
+        if 'images' not in data:
             return AbstractCrudObject._set_data(self, data)
+
+        _, data = data['images'].popitem()
+
+        for key in map(str, data):
+            self._data[key] = data[key]
+
+            # clear history due to the update
+            self._changes.pop(key, None)
+
+        self._data[self.Field.id] = '%s:%s' % (
+            self.get_parent_id_assured()[4:],
+            self[self.Field.hash],
+        )
+
+        return self
 
     def remote_create(
         self,

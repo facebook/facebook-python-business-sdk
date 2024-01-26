@@ -1,22 +1,8 @@
-# Copyright 2014 Facebook, Inc.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
 
-# You are hereby granted a non-exclusive, worldwide, royalty-free license to
-# use, copy, modify, and distribute this software in source code or binary
-# form for use in connection with the web services and APIs provided by
-# Facebook.
-
-# As with any software that integrates with the Facebook platform, your use
-# of this software is subject to the Facebook Developer Principles and
-# Policies [http://developers.facebook.com/policy/]. This copyright notice
-# shall be included in all copies or substantial portions of the software.
-
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-# DEALINGS IN THE SOFTWARE.
+# This source code is licensed under the license found in the
+# LICENSE file in the root directory of this source tree.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
 from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
@@ -325,6 +311,7 @@ class Group(
             'name': 'string',
             'place': 'Object',
             'privacy': 'string',
+            'session_id': 'string',
             'tags': 'list<int>',
             'visible': 'string',
         }
@@ -339,67 +326,6 @@ class Group(
             target_class=Album,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=Album, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def get_attachment_surfaces(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/attachment_surfaces',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_attachment_surface(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'title': 'map',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/attachment_surfaces',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -533,7 +459,6 @@ class Group(
             'backdated_time_granularity': 'backdated_time_granularity_enum',
             'call_to_action': 'Object',
             'caption': 'string',
-            'checkin_entry_point': 'checkin_entry_point_enum',
             'child_attachments': 'list<Object>',
             'client_mutation_id': 'string',
             'composer_entry_picker': 'string',
@@ -631,7 +556,6 @@ class Group(
         }
         enums = {
             'backdated_time_granularity_enum': Post.BackdatedTimeGranularity.__dict__.values(),
-            'checkin_entry_point_enum': Post.CheckinEntryPoint.__dict__.values(),
             'formatting_enum': Post.Formatting.__dict__.values(),
             'place_attachment_setting_enum': Post.PlaceAttachmentSetting.__dict__.values(),
             'post_surfaces_blacklist_enum': Post.PostSurfacesBlacklist.__dict__.values(),
@@ -728,11 +652,11 @@ class Group(
         param_types = {
             'admin': 'int',
             'description': 'string',
-            'group_icon_id': 'Object',
+            'group_icon_id': 'string',
             'group_type': 'group_type_enum',
             'join_setting': 'join_setting_enum',
             'name': 'string',
-            'parent_id': 'Object',
+            'parent_id': 'string',
             'post_permissions': 'post_permissions_enum',
             'post_requires_admin_approval': 'bool',
             'privacy': 'string',
@@ -1044,14 +968,12 @@ class Group(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.profilepicturesource import ProfilePictureSource
         param_types = {
-            'breaking_change': 'breaking_change_enum',
             'height': 'int',
             'redirect': 'bool',
             'type': 'type_enum',
             'width': 'int',
         }
         enums = {
-            'breaking_change_enum': ProfilePictureSource.BreakingChange.__dict__.values(),
             'type_enum': ProfilePictureSource.Type.__dict__.values(),
         }
         request = FacebookRequest(
@@ -1063,44 +985,6 @@ class Group(
             target_class=ProfilePictureSource,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=ProfilePictureSource, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_shift_setting(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'external_id': 'string',
-            'shift_feature_setting': 'shift_feature_setting_enum',
-        }
-        enums = {
-            'shift_feature_setting_enum': [
-                'ALL_FEATURES_OFF',
-                'ALL_FEATURES_ON',
-                'SHIFT_COVER_ONLY_ON',
-                'SHIFT_VIEWER_ONLY_ON',
-            ],
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/shift_settings',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

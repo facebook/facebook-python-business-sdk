@@ -33,9 +33,8 @@ import json
 
 this_dir = os.path.dirname(__file__)
 config_filename = os.path.join(this_dir, 'config.json')
-config_file = open(config_filename)
-config = json.load(config_file)
-config_file.close()
+with open(config_filename) as config_file:
+    config = json.load(config_file)
 
 api = FacebookAdsApi.init(access_token=config['access_token'])
 account_id = config['act_id']

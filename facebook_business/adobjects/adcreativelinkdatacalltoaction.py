@@ -1,22 +1,8 @@
-# Copyright 2014 Facebook, Inc.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
 
-# You are hereby granted a non-exclusive, worldwide, royalty-free license to
-# use, copy, modify, and distribute this software in source code or binary
-# form for use in connection with the web services and APIs provided by
-# Facebook.
-
-# As with any software that integrates with the Facebook platform, your use
-# of this software is subject to the Facebook Developer Principles and
-# Policies [http://developers.facebook.com/policy/]. This copyright notice
-# shall be included in all copies or substantial portions of the software.
-
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-# DEALINGS IN THE SOFTWARE.
+# This source code is licensed under the license found in the
+# LICENSE file in the root directory of this source tree.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
 
@@ -45,6 +31,7 @@ class AdCreativeLinkDataCallToAction(
         add_to_cart = 'ADD_TO_CART'
         apply_now = 'APPLY_NOW'
         audio_call = 'AUDIO_CALL'
+        book_now = 'BOOK_NOW'
         book_travel = 'BOOK_TRAVEL'
         buy = 'BUY'
         buy_now = 'BUY_NOW'
@@ -52,6 +39,7 @@ class AdCreativeLinkDataCallToAction(
         call = 'CALL'
         call_me = 'CALL_ME'
         call_now = 'CALL_NOW'
+        confirm = 'CONFIRM'
         contact = 'CONTACT'
         contact_us = 'CONTACT_US'
         donate = 'DONATE'
@@ -66,9 +54,11 @@ class AdCreativeLinkDataCallToAction(
         get_directions = 'GET_DIRECTIONS'
         get_offer = 'GET_OFFER'
         get_offer_view = 'GET_OFFER_VIEW'
+        get_promotions = 'GET_PROMOTIONS'
         get_quote = 'GET_QUOTE'
         get_showtimes = 'GET_SHOWTIMES'
         get_started = 'GET_STARTED'
+        inquire_now = 'INQUIRE_NOW'
         install_app = 'INSTALL_APP'
         install_mobile_app = 'INSTALL_MOBILE_APP'
         learn_more = 'LEARN_MORE'
@@ -77,7 +67,6 @@ class AdCreativeLinkDataCallToAction(
         listen_now = 'LISTEN_NOW'
         message_page = 'MESSAGE_PAGE'
         mobile_download = 'MOBILE_DOWNLOAD'
-        moments = 'MOMENTS'
         no_button = 'NO_BUTTON'
         open_instant_app = 'OPEN_INSTANT_APP'
         open_link = 'OPEN_LINK'

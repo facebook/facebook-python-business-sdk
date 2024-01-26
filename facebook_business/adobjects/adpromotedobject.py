@@ -1,22 +1,8 @@
-# Copyright 2014 Facebook, Inc.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
 
-# You are hereby granted a non-exclusive, worldwide, royalty-free license to
-# use, copy, modify, and distribute this software in source code or binary
-# form for use in connection with the web services and APIs provided by
-# Facebook.
-
-# As with any software that integrates with the Facebook platform, your use
-# of this software is subject to the Facebook Developer Principles and
-# Policies [http://developers.facebook.com/policy/]. This copyright notice
-# shall be included in all copies or substantial portions of the software.
-
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-# DEALINGS IN THE SOFTWARE.
+# This source code is licensed under the license found in the
+# LICENSE file in the root directory of this source tree.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
 
@@ -39,6 +25,7 @@ class AdPromotedObject(
 
     class Field(AbstractObject.Field):
         application_id = 'application_id'
+        conversion_goal_id = 'conversion_goal_id'
         custom_conversion_id = 'custom_conversion_id'
         custom_event_str = 'custom_event_str'
         custom_event_type = 'custom_event_type'
@@ -48,22 +35,27 @@ class AdPromotedObject(
         object_store_url = 'object_store_url'
         offer_id = 'offer_id'
         offline_conversion_data_set_id = 'offline_conversion_data_set_id'
+        offsite_conversion_event_id = 'offsite_conversion_event_id'
         omnichannel_object = 'omnichannel_object'
         page_id = 'page_id'
         pixel_aggregation_rule = 'pixel_aggregation_rule'
         pixel_id = 'pixel_id'
         pixel_rule = 'pixel_rule'
+        place_page_set = 'place_page_set'
         place_page_set_id = 'place_page_set_id'
         product_catalog_id = 'product_catalog_id'
         product_item_id = 'product_item_id'
+        product_set = 'product_set'
         product_set_id = 'product_set_id'
         retention_days = 'retention_days'
+        whatsapp_phone_number = 'whatsapp_phone_number'
 
     class CustomEventType:
         achievement_unlocked = 'ACHIEVEMENT_UNLOCKED'
         add_payment_info = 'ADD_PAYMENT_INFO'
         add_to_cart = 'ADD_TO_CART'
         add_to_wishlist = 'ADD_TO_WISHLIST'
+        ad_impression = 'AD_IMPRESSION'
         complete_registration = 'COMPLETE_REGISTRATION'
         contact = 'CONTACT'
         content_view = 'CONTENT_VIEW'
@@ -91,6 +83,7 @@ class AdPromotedObject(
 
     _field_types = {
         'application_id': 'string',
+        'conversion_goal_id': 'string',
         'custom_conversion_id': 'string',
         'custom_event_str': 'string',
         'custom_event_type': 'CustomEventType',
@@ -100,16 +93,20 @@ class AdPromotedObject(
         'object_store_url': 'string',
         'offer_id': 'string',
         'offline_conversion_data_set_id': 'string',
+        'offsite_conversion_event_id': 'string',
         'omnichannel_object': 'Object',
         'page_id': 'string',
         'pixel_aggregation_rule': 'string',
         'pixel_id': 'string',
         'pixel_rule': 'string',
+        'place_page_set': 'AdPlacePageSet',
         'place_page_set_id': 'string',
         'product_catalog_id': 'string',
         'product_item_id': 'string',
+        'product_set': 'ProductSet',
         'product_set_id': 'string',
         'retention_days': 'string',
+        'whatsapp_phone_number': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

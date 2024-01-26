@@ -33,7 +33,7 @@ fields = [
 ]
 params = {
   'name': 'My campaign',
-  'objective': 'LINK_CLICKS',
+  'objective': 'OUTCOME_TRAFFIC',
   'status': 'PAUSED',
   'special_ad_categories': [],
 }

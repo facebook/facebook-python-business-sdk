@@ -1,22 +1,8 @@
-# Copyright 2014 Facebook, Inc.
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
 
-# You are hereby granted a non-exclusive, worldwide, royalty-free license to
-# use, copy, modify, and distribute this software in source code or binary
-# form for use in connection with the web services and APIs provided by
-# Facebook.
-
-# As with any software that integrates with the Facebook platform, your use
-# of this software is subject to the Facebook Developer Principles and
-# Policies [http://developers.facebook.com/policy/]. This copyright notice
-# shall be included in all copies or substantial portions of the software.
-
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-# DEALINGS IN THE SOFTWARE.
+# This source code is licensed under the license found in the
+# LICENSE file in the root directory of this source tree.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
 from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
@@ -100,7 +86,9 @@ class CustomAudience(
         partner_reference_key = 'partner_reference_key'
         prefill = 'prefill'
         product_set_id = 'product_set_id'
+        use_in_campaigns = 'use_in_campaigns'
         video_group_ids = 'video_group_ids'
+        whats_app_business_phone_number_id = 'whats_app_business_phone_number_id'
 
     class ClaimObjective:
         automotive_model = 'AUTOMOTIVE_MODEL'
@@ -135,6 +123,7 @@ class CustomAudience(
     class Subtype:
         app = 'APP'
         bag_of_accounts = 'BAG_OF_ACCOUNTS'
+        bidding = 'BIDDING'
         claim = 'CLAIM'
         custom = 'CUSTOM'
         engagement = 'ENGAGEMENT'
@@ -144,8 +133,10 @@ class CustomAudience(
         measurement = 'MEASUREMENT'
         offline_conversion = 'OFFLINE_CONVERSION'
         partner = 'PARTNER'
+        primary = 'PRIMARY'
         regulated_categories_audience = 'REGULATED_CATEGORIES_AUDIENCE'
         study_rule_audience = 'STUDY_RULE_AUDIENCE'
+        subscriber_segment = 'SUBSCRIBER_SEGMENT'
         video = 'VIDEO'
         website = 'WEBSITE'
 
@@ -251,6 +242,7 @@ class CustomAudience(
             'rule': 'string',
             'rule_aggregation': 'string',
             'tags': 'list<string>',
+            'use_in_campaigns': 'bool',
         }
         enums = {
             'claim_objective_enum': CustomAudience.ClaimObjective.__dict__.values(),
@@ -396,6 +388,71 @@ class CustomAudience(
             target_class=Ad,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=Ad, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_salts(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.customaudiencesalts import CustomAudienceSalts
+        param_types = {
+            'params': 'list<string>',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/salts',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=CustomAudienceSalts,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=CustomAudienceSalts, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_salt(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'salt': 'string',
+            'valid_from': 'datetime',
+            'valid_to': 'datetime',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/salts',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=CustomAudience,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=CustomAudience, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -629,7 +686,9 @@ class CustomAudience(
         'partner_reference_key': 'string',
         'prefill': 'bool',
         'product_set_id': 'string',
+        'use_in_campaigns': 'bool',
         'video_group_ids': 'list<string>',
+        'whats_app_business_phone_number_id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):
