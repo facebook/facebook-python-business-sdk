@@ -14,24 +14,24 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdCreativeSourcingSpec(
+class TargetingAutomation(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(AdCreativeSourcingSpec, self).__init__()
-        self._isAdCreativeSourcingSpec = True
+        super(TargetingAutomation, self).__init__()
+        self._isTargetingAutomation = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        associated_product_set_id = 'associated_product_set_id'
-        promotion_metadata_spec = 'promotion_metadata_spec'
-        site_links_spec = 'site_links_spec'
+        advantage_audience = 'advantage_audience'
+        shared_audiences = 'shared_audiences'
+        value_expression = 'value_expression'
 
     _field_types = {
-        'associated_product_set_id': 'string',
-        'promotion_metadata_spec': 'list<AdCreativePromotionMetadataSpec>',
-        'site_links_spec': 'list<AdCreativeSiteLinksSpec>',
+        'advantage_audience': 'unsigned int',
+        'shared_audiences': 'unsigned int',
+        'value_expression': 'unsigned int',
     }
     @classmethod
     def _get_field_enum_info(cls):

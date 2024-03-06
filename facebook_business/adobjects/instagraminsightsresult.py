@@ -42,11 +42,6 @@ class InstagramInsightsResult(
         surface_type = 'surface_type'
 
     class Metric:
-        carousel_album_engagement = 'carousel_album_engagement'
-        carousel_album_impressions = 'carousel_album_impressions'
-        carousel_album_reach = 'carousel_album_reach'
-        carousel_album_saved = 'carousel_album_saved'
-        carousel_album_video_views = 'carousel_album_video_views'
         clips_replays_count = 'clips_replays_count'
         comments = 'comments'
         engagement = 'engagement'

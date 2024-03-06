@@ -88,6 +88,7 @@ class CustomAudienceDataSource(
         web_pixel_combination_events = 'WEB_PIXEL_COMBINATION_EVENTS'
         web_pixel_hits = 'WEB_PIXEL_HITS'
         web_pixel_hits_custom_audience_users = 'WEB_PIXEL_HITS_CUSTOM_AUDIENCE_USERS'
+        whatsapp_subscriber_pool = 'WHATSAPP_SUBSCRIBER_POOL'
 
     class Type:
         contact_importer = 'CONTACT_IMPORTER'

@@ -53,9 +53,9 @@ class Group(
         none = 'NONE'
 
     class PostPermissions:
-        value_0 = '0'
-        value_1 = '1'
-        value_2 = '2'
+        admin_only = 'ADMIN_ONLY'
+        anyone = 'ANYONE'
+        none = 'NONE'
 
     class Purpose:
         casual = 'CASUAL'

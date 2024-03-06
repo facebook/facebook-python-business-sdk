@@ -27,6 +27,7 @@ class Shop(
         super(Shop, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        commerce_merchant_settings = 'commerce_merchant_settings'
         fb_sales_channel = 'fb_sales_channel'
         id = 'id'
         ig_sales_channel = 'ig_sales_channel'
@@ -65,6 +66,7 @@ class Shop(
             return request.execute()
 
     _field_types = {
+        'commerce_merchant_settings': 'CommerceMerchantSettings',
         'fb_sales_channel': 'Object',
         'id': 'string',
         'ig_sales_channel': 'Object',

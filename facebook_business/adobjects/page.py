@@ -34,6 +34,7 @@ class Page(
         app_id = 'app_id'
         artists_we_like = 'artists_we_like'
         attire = 'attire'
+        available_promo_offer_ids = 'available_promo_offer_ids'
         awards = 'awards'
         band_interests = 'band_interests'
         band_members = 'band_members'
@@ -82,7 +83,6 @@ class Page(
         has_lead_access = 'has_lead_access'
         has_transitioned_to_new_page_experience = 'has_transitioned_to_new_page_experience'
         has_whatsapp_business_number = 'has_whatsapp_business_number'
-        has_whatsapp_enterprise_number_using_cloud_api = 'has_whatsapp_enterprise_number_using_cloud_api'
         has_whatsapp_number = 'has_whatsapp_number'
         hometown = 'hometown'
         hours = 'hours'
@@ -126,7 +126,6 @@ class Page(
         offer_eligible = 'offer_eligible'
         overall_star_rating = 'overall_star_rating'
         owner_business = 'owner_business'
-        page_about_story = 'page_about_story'
         page_token = 'page_token'
         parent_page = 'parent_page'
         parking = 'parking'
@@ -470,6 +469,7 @@ class Page(
         message_context = 'message_context'
         message_deliveries = 'message_deliveries'
         message_echoes = 'message_echoes'
+        message_edits = 'message_edits'
         message_mention = 'message_mention'
         message_reactions = 'message_reactions'
         message_reads = 'message_reads'
@@ -5048,6 +5048,7 @@ class Page(
         'app_id': 'string',
         'artists_we_like': 'string',
         'attire': 'string',
+        'available_promo_offer_ids': 'list<map<string, list<map<string, string>>>>',
         'awards': 'string',
         'band_interests': 'string',
         'band_members': 'string',
@@ -5096,7 +5097,6 @@ class Page(
         'has_lead_access': 'HasLeadAccess',
         'has_transitioned_to_new_page_experience': 'bool',
         'has_whatsapp_business_number': 'bool',
-        'has_whatsapp_enterprise_number_using_cloud_api': 'bool',
         'has_whatsapp_number': 'bool',
         'hometown': 'string',
         'hours': 'map<string, string>',
@@ -5140,7 +5140,6 @@ class Page(
         'offer_eligible': 'bool',
         'overall_star_rating': 'float',
         'owner_business': 'Business',
-        'page_about_story': 'PageAboutStory',
         'page_token': 'string',
         'parent_page': 'Page',
         'parking': 'PageParking',

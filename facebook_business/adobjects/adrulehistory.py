@@ -41,6 +41,7 @@ class AdRuleHistory(
         enable_advantage_plus_creative = 'ENABLE_ADVANTAGE_PLUS_CREATIVE'
         enable_advantage_plus_placements = 'ENABLE_ADVANTAGE_PLUS_PLACEMENTS'
         enable_autoflow = 'ENABLE_AUTOFLOW'
+        enable_gen_uncrop = 'ENABLE_GEN_UNCROP'
         enable_semantic_based_audience_expansion = 'ENABLE_SEMANTIC_BASED_AUDIENCE_EXPANSION'
         endpoint_pinged = 'ENDPOINT_PINGED'
         error = 'ERROR'

@@ -185,6 +185,8 @@ class AdsInsights(
         action_type = 'action_type'
         action_video_sound = 'action_video_sound'
         action_video_type = 'action_video_type'
+        conversion_destination = 'conversion_destination'
+        signal_source_bucket = 'signal_source_bucket'
         standard_event_content_type = 'standard_event_content_type'
 
     class ActionReportTime:
@@ -199,6 +201,7 @@ class AdsInsights(
         body_asset = 'body_asset'
         call_to_action_asset = 'call_to_action_asset'
         coarse_conversion_value = 'coarse_conversion_value'
+        conversion_destination = 'conversion_destination'
         country = 'country'
         description_asset = 'description_asset'
         device_platform = 'device_platform'
@@ -250,7 +253,7 @@ class AdsInsights(
         last_week_mon_sun = 'last_week_mon_sun'
         last_week_sun_sat = 'last_week_sun_sat'
         last_year = 'last_year'
-        maximum = 'maximum'
+        lifetime = 'lifetime'
         this_month = 'this_month'
         this_quarter = 'this_quarter'
         this_week_mon_today = 'this_week_mon_today'
@@ -276,6 +279,8 @@ class AdsInsights(
         action_type = 'action_type'
         action_video_sound = 'action_video_sound'
         action_video_type = 'action_video_type'
+        conversion_destination = 'conversion_destination'
+        signal_source_bucket = 'signal_source_bucket'
         standard_event_content_type = 'standard_event_content_type'
 
     # @deprecated get_endpoint function is deprecated
