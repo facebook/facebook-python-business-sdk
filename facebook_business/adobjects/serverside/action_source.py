@@ -61,6 +61,11 @@ class ActionSource(Enum):
     SYSTEM_GENERATED = 'system_generated'
 
     """
+    Conversion happened through a business messaging channel, such as WhatsApp or Instagram Direct.
+    """
+    BUSINESS_MESSAGING = 'business_messaging'
+
+    """
     Conversion happened in a way that is not listed.
     """
     OTHER = 'other'

@@ -55,6 +55,8 @@ class UserData(object):
         'doby': 'str',
         'madid': 'str',
         'anon_id': 'str',
+        'ctwa_clid': 'ctwa_clid',
+        'page_id': 'page_id',
     }
 
     def __init__(
@@ -96,8 +98,10 @@ class UserData(object):
         external_ids=None,
         madid=None,
         anon_id=None,
+        ctwa_clid=None,
+        page_id=None,
     ):
-        # type: (str, str, Gender, str, str, str, str, str, str, str, str, str, str, str, str, str, str, str, str, str, str, str, str, str, list[str], list[str], list[Gender], list[str], list[str], list[str], list[str], list[str], list[str], list[str], list[str], str, str) -> None
+        # type: (str, str, Gender, str, str, str, str, str, str, str, str, str, str, str, str, str, str, str, str, str, str, str, str, str, list[str], list[str], list[Gender], list[str], list[str], list[str], list[str], list[str], list[str], list[str], list[str], str, str, str, str) -> None
 
         """UserData is a set of identifiers Facebook can use for targeted attribution"""
         self._emails = None
@@ -126,6 +130,8 @@ class UserData(object):
         self._doby = None
         self._madid = None
         self._anon_id = None
+        self._ctwa_clid = None
+        self._page_id = None
 
         if email is not None and emails is not None:
             raise ValueError(UserData.multi_value_constructor_err.format('email', 'emails'))
@@ -225,6 +231,10 @@ class UserData(object):
             self.madid = madid
         if anon_id is not None:
             self.anon_id = anon_id
+        if ctwa_clid is not None:
+            self.ctwa_clid = ctwa_clid
+        if page_id is not None:
+            self.page_id = page_id
 
     @property
     def email(self):
@@ -1079,6 +1089,22 @@ class UserData(object):
     def anon_id(self, anon_id):
         self._anon_id = anon_id
 
+    @property
+    def ctwa_clid(self):
+        return self._ctwa_clid
+
+    @ctwa_clid.setter
+    def ctwa_clid(self, ctwa_clid):
+        self._ctwa_clid = ctwa_clid
+
+    @property
+    def page_id(self):
+        return self._page_id
+
+    @page_id.setter
+    def page_id(self, page_id):
+        self._page_id = page_id
+
     def normalize(self):
         normalized_payload = {'em': self.__normalize_list('em', self.emails),
                               'ph': self.__normalize_list('ph', self.phones),
@@ -1105,6 +1131,8 @@ class UserData(object):
                               'doby': Normalize.normalize_field('doby', self.doby),
                               'madid': self.madid,
                               'anon_id': self.anon_id,
+                              'ctwa_clid': self.ctwa_clid,
+                              'page_id': self.page_id,
                               }
         if self.genders:
             normalized_payload['ge'] = self.__normalize_list('ge', list(map(lambda g: g.value, self.genders)))
