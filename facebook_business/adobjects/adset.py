@@ -106,6 +106,7 @@ class AdSet(
         cost_cap = 'COST_CAP'
         lowest_cost_without_cap = 'LOWEST_COST_WITHOUT_CAP'
         lowest_cost_with_bid_cap = 'LOWEST_COST_WITH_BID_CAP'
+        lowest_cost_with_min_roas = 'LOWEST_COST_WITH_MIN_ROAS'
 
     class BillingEvent:
         app_installs = 'APP_INSTALLS'
@@ -148,6 +149,7 @@ class AdSet(
         landing_page_views = 'LANDING_PAGE_VIEWS'
         lead_generation = 'LEAD_GENERATION'
         link_clicks = 'LINK_CLICKS'
+        meaningful_call_attempt = 'MEANINGFUL_CALL_ATTEMPT'
         messaging_appointment_conversion = 'MESSAGING_APPOINTMENT_CONVERSION'
         messaging_purchase_conversion = 'MESSAGING_PURCHASE_CONVERSION'
         none = 'NONE'
@@ -170,26 +172,26 @@ class AdSet(
         paused = 'PAUSED'
 
     class DatePreset:
-        data_maximum = 'data_maximum'
-        last_14d = 'last_14d'
-        last_28d = 'last_28d'
-        last_30d = 'last_30d'
-        last_3d = 'last_3d'
-        last_7d = 'last_7d'
-        last_90d = 'last_90d'
-        last_month = 'last_month'
-        last_quarter = 'last_quarter'
-        last_week_mon_sun = 'last_week_mon_sun'
-        last_week_sun_sat = 'last_week_sun_sat'
-        last_year = 'last_year'
-        maximum = 'maximum'
-        this_month = 'this_month'
-        this_quarter = 'this_quarter'
-        this_week_mon_today = 'this_week_mon_today'
-        this_week_sun_today = 'this_week_sun_today'
-        this_year = 'this_year'
-        today = 'today'
-        yesterday = 'yesterday'
+        data_maximum = 'DATA_MAXIMUM'
+        last_14d = 'LAST_14D'
+        last_28d = 'LAST_28D'
+        last_30d = 'LAST_30D'
+        last_3d = 'LAST_3D'
+        last_7d = 'LAST_7D'
+        last_90d = 'LAST_90D'
+        last_month = 'LAST_MONTH'
+        last_quarter = 'LAST_QUARTER'
+        last_week_mon_sun = 'LAST_WEEK_MON_SUN'
+        last_week_sun_sat = 'LAST_WEEK_SUN_SAT'
+        last_year = 'LAST_YEAR'
+        lifetime = 'LIFETIME'
+        this_month = 'THIS_MONTH'
+        this_quarter = 'THIS_QUARTER'
+        this_week_mon_today = 'THIS_WEEK_MON_TODAY'
+        this_week_sun_today = 'THIS_WEEK_SUN_TODAY'
+        this_year = 'THIS_YEAR'
+        today = 'TODAY'
+        yesterday = 'YESTERDAY'
 
     class DestinationType:
         app = 'APP'
@@ -307,7 +309,7 @@ class AdSet(
                 'last_week_mon_sun',
                 'last_week_sun_sat',
                 'last_year',
-                'maximum',
+                'lifetime',
                 'this_month',
                 'this_quarter',
                 'this_week_mon_today',

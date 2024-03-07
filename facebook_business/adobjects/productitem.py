@@ -119,9 +119,6 @@ class ProductItem(
         iphone_app_store_id = 'iphone_app_store_id'
         iphone_url = 'iphone_url'
         launch_date = 'launch_date'
-        offer_price_amount = 'offer_price_amount'
-        offer_price_end_date = 'offer_price_end_date'
-        offer_price_start_date = 'offer_price_start_date'
         return_policy_days = 'return_policy_days'
         windows_phone_app_id = 'windows_phone_app_id'
         windows_phone_app_name = 'windows_phone_app_name'
@@ -405,10 +402,12 @@ class ProductItem(
         medium = 'MEDIUM'
 
     class ErrorType:
+        address_blocklisted_in_market = 'ADDRESS_BLOCKLISTED_IN_MARKET'
         ar_deleted_due_to_update = 'AR_DELETED_DUE_TO_UPDATE'
         ar_policy_violated = 'AR_POLICY_VIOLATED'
         available = 'AVAILABLE'
         bad_quality_image = 'BAD_QUALITY_IMAGE'
+        biz_msg_ai_agent_disabled_by_user = 'BIZ_MSG_AI_AGENT_DISABLED_BY_USER'
         cannot_edit_subscription_products = 'CANNOT_EDIT_SUBSCRIPTION_PRODUCTS'
         checkout_disabled_by_user = 'CHECKOUT_DISABLED_BY_USER'
         commerce_account_not_legally_compliant = 'COMMERCE_ACCOUNT_NOT_LEGALLY_COMPLIANT'
@@ -421,8 +420,10 @@ class ProductItem(
         empty_availability = 'EMPTY_AVAILABILITY'
         empty_condition = 'EMPTY_CONDITION'
         empty_description = 'EMPTY_DESCRIPTION'
+        empty_image_url = 'EMPTY_IMAGE_URL'
         empty_product_url = 'EMPTY_PRODUCT_URL'
         empty_seller_description = 'EMPTY_SELLER_DESCRIPTION'
+        empty_title = 'EMPTY_TITLE'
         external_merchant_id_mismatch = 'EXTERNAL_MERCHANT_ID_MISMATCH'
         generic_invalid_field = 'GENERIC_INVALID_FIELD'
         hidden_until_product_launch = 'HIDDEN_UNTIL_PRODUCT_LAUNCH'
@@ -435,14 +436,28 @@ class ProductItem(
         image_resolution_low = 'IMAGE_RESOLUTION_LOW'
         inactive_shopify_product = 'INACTIVE_SHOPIFY_PRODUCT'
         invalid_commerce_tax_category = 'INVALID_COMMERCE_TAX_CATEGORY'
+        invalid_consolidated_locality_information = 'INVALID_CONSOLIDATED_LOCALITY_INFORMATION'
+        invalid_dealer_communication_parameters = 'INVALID_DEALER_COMMUNICATION_PARAMETERS'
+        invalid_dma_codes = 'INVALID_DMA_CODES'
+        invalid_fb_page_id = 'INVALID_FB_PAGE_ID'
         invalid_images = 'INVALID_IMAGES'
         invalid_monetizer_return_policy = 'INVALID_MONETIZER_RETURN_POLICY'
+        invalid_offer_disclaimer_url = 'INVALID_OFFER_DISCLAIMER_URL'
+        invalid_offer_end_date = 'INVALID_OFFER_END_DATE'
         invalid_pre_order_params = 'INVALID_PRE_ORDER_PARAMS'
+        invalid_range_for_area_size = 'INVALID_RANGE_FOR_AREA_SIZE'
+        invalid_range_for_built_up_area_size = 'INVALID_RANGE_FOR_BUILT_UP_AREA_SIZE'
+        invalid_range_for_num_of_baths = 'INVALID_RANGE_FOR_NUM_OF_BATHS'
+        invalid_range_for_num_of_beds = 'INVALID_RANGE_FOR_NUM_OF_BEDS'
+        invalid_range_for_num_of_rooms = 'INVALID_RANGE_FOR_NUM_OF_ROOMS'
+        invalid_range_for_parking_spaces = 'INVALID_RANGE_FOR_PARKING_SPACES'
         invalid_shelter_page_id = 'INVALID_SHELTER_PAGE_ID'
         invalid_shipping_profile_params = 'INVALID_SHIPPING_PROFILE_PARAMS'
         invalid_subscription_disable_params = 'INVALID_SUBSCRIPTION_DISABLE_PARAMS'
         invalid_subscription_enable_params = 'INVALID_SUBSCRIPTION_ENABLE_PARAMS'
         invalid_subscription_params = 'INVALID_SUBSCRIPTION_PARAMS'
+        invalid_vehicle_state = 'INVALID_VEHICLE_STATE'
+        invalid_virtual_tour_url_domain = 'INVALID_VIRTUAL_TOUR_URL_DOMAIN'
         inventory_zero_availability_in_stock = 'INVENTORY_ZERO_AVAILABILITY_IN_STOCK'
         in_another_product_launch = 'IN_ANOTHER_PRODUCT_LAUNCH'
         item_group_not_specified = 'ITEM_GROUP_NOT_SPECIFIED'
@@ -462,8 +477,10 @@ class ProductItem(
         missing_size = 'MISSING_SIZE'
         missing_tax_category = 'MISSING_TAX_CATEGORY'
         negative_community_feedback = 'NEGATIVE_COMMUNITY_FEEDBACK'
+        negative_price = 'NEGATIVE_PRICE'
         not_enough_images = 'NOT_ENOUGH_IMAGES'
         not_enough_unique_products = 'NOT_ENOUGH_UNIQUE_PRODUCTS'
+        overlay_disclaimer_exceeded_max_length = 'OVERLAY_DISCLAIMER_EXCEEDED_MAX_LENGTH'
         part_of_product_launch = 'PART_OF_PRODUCT_LAUNCH'
         product_expired = 'PRODUCT_EXPIRED'
         product_item_hidden_from_all_shops = 'PRODUCT_ITEM_HIDDEN_FROM_ALL_SHOPS'
@@ -903,9 +920,6 @@ class ProductItem(
             'material': 'string',
             'mobile_link': 'string',
             'name': 'string',
-            'offer_price_amount': 'unsigned int',
-            'offer_price_end_date': 'datetime',
-            'offer_price_start_date': 'datetime',
             'ordering_index': 'unsigned int',
             'origin_country': 'origin_country_enum',
             'pattern': 'string',
@@ -1145,9 +1159,6 @@ class ProductItem(
         'iphone_app_store_id': 'unsigned int',
         'iphone_url': 'string',
         'launch_date': 'string',
-        'offer_price_amount': 'unsigned int',
-        'offer_price_end_date': 'datetime',
-        'offer_price_start_date': 'datetime',
         'return_policy_days': 'unsigned int',
         'windows_phone_app_id': 'string',
         'windows_phone_app_name': 'string',

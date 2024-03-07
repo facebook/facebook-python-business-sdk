@@ -79,6 +79,7 @@ class Campaign(
         cost_cap = 'COST_CAP'
         lowest_cost_without_cap = 'LOWEST_COST_WITHOUT_CAP'
         lowest_cost_with_bid_cap = 'LOWEST_COST_WITH_BID_CAP'
+        lowest_cost_with_min_roas = 'LOWEST_COST_WITH_MIN_ROAS'
 
     class ConfiguredStatus:
         active = 'ACTIVE'
@@ -113,7 +114,7 @@ class Campaign(
         last_week_mon_sun = 'last_week_mon_sun'
         last_week_sun_sat = 'last_week_sun_sat'
         last_year = 'last_year'
-        maximum = 'maximum'
+        lifetime = 'lifetime'
         this_month = 'this_month'
         this_quarter = 'this_quarter'
         this_week_mon_today = 'this_week_mon_today'
@@ -495,7 +496,7 @@ class Campaign(
                 'last_week_mon_sun',
                 'last_week_sun_sat',
                 'last_year',
-                'maximum',
+                'lifetime',
                 'this_month',
                 'this_quarter',
                 'this_week_mon_today',

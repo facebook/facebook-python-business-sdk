@@ -44,6 +44,7 @@ class AdAccountDeliveryEstimate(
         landing_page_views = 'LANDING_PAGE_VIEWS'
         lead_generation = 'LEAD_GENERATION'
         link_clicks = 'LINK_CLICKS'
+        meaningful_call_attempt = 'MEANINGFUL_CALL_ATTEMPT'
         messaging_appointment_conversion = 'MESSAGING_APPOINTMENT_CONVERSION'
         messaging_purchase_conversion = 'MESSAGING_PURCHASE_CONVERSION'
         none = 'NONE'

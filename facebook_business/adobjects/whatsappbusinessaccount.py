@@ -36,6 +36,7 @@ class WhatsAppBusinessAccount(
         health_status = 'health_status'
         id = 'id'
         is_enabled_for_insights = 'is_enabled_for_insights'
+        linked_commerce_account = 'linked_commerce_account'
         message_template_namespace = 'message_template_namespace'
         name = 'name'
         on_behalf_of_business_info = 'on_behalf_of_business_info'
@@ -604,6 +605,8 @@ class WhatsAppBusinessAccount(
             'components': 'list<map>',
             'cta_url_link_tracking_opted_out': 'bool',
             'language': 'string',
+            'library_template_button_inputs': 'list<map>',
+            'library_template_name': 'string',
             'message_send_ttl_seconds': 'unsigned int',
             'name': 'string',
             'sub_category': 'sub_category_enum',
@@ -1069,6 +1072,7 @@ class WhatsAppBusinessAccount(
         'health_status': 'WhatsAppBusinessHealthStatusForMessageSend',
         'id': 'string',
         'is_enabled_for_insights': 'bool',
+        'linked_commerce_account': 'CommerceMerchantSettings',
         'message_template_namespace': 'string',
         'name': 'string',
         'on_behalf_of_business_info': 'Object',

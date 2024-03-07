@@ -31,7 +31,6 @@ FacebookAdsApi.init(access_token=access_token)
 fields = [
 ]
 params = {
-  'hotel_catalog_settings': {'pull_config_id':'<pullConfigID>'},
 }
 print ProductCatalog(id).update(
   fields=fields,

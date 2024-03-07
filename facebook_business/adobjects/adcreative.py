@@ -133,6 +133,7 @@ class AdCreative(
         inquire_now = 'INQUIRE_NOW'
         install_app = 'INSTALL_APP'
         install_mobile_app = 'INSTALL_MOBILE_APP'
+        join_channel = 'JOIN_CHANNEL'
         learn_more = 'LEARN_MORE'
         like_page = 'LIKE_PAGE'
         listen_music = 'LISTEN_MUSIC'

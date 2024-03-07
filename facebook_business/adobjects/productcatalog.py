@@ -41,12 +41,14 @@ class ProductCatalog(
         feed_count = 'feed_count'
         id = 'id'
         is_catalog_segment = 'is_catalog_segment'
+        is_local_catalog = 'is_local_catalog'
         name = 'name'
         owner_business = 'owner_business'
         product_count = 'product_count'
         store_catalog_settings = 'store_catalog_settings'
         user_access_expire_time = 'user_access_expire_time'
         vertical = 'vertical'
+        additional_vertical_option = 'additional_vertical_option'
         catalog_segment_filter = 'catalog_segment_filter'
         catalog_segment_product_set_id = 'catalog_segment_product_set_id'
         destination_catalog_settings = 'destination_catalog_settings'
@@ -54,12 +56,17 @@ class ProductCatalog(
         parent_catalog_id = 'parent_catalog_id'
         partner_integration = 'partner_integration'
 
+    class AdditionalVerticalOption:
+        local_da_catalog = 'LOCAL_DA_CATALOG'
+        local_products = 'LOCAL_PRODUCTS'
+
     class Vertical:
         adoptable_pets = 'adoptable_pets'
         bookable = 'bookable'
         commerce = 'commerce'
         destinations = 'destinations'
         flights = 'flights'
+        generic = 'generic'
         home_listings = 'home_listings'
         hotels = 'hotels'
         jobs = 'jobs'
@@ -209,6 +216,7 @@ class ProductCatalog(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'additional_vertical_option': 'additional_vertical_option_enum',
             'da_display_settings': 'Object',
             'default_image_url': 'string',
             'destination_catalog_settings': 'map',
@@ -219,6 +227,7 @@ class ProductCatalog(
             'store_catalog_settings': 'map',
         }
         enums = {
+            'additional_vertical_option_enum': ProductCatalog.AdditionalVerticalOption.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -1743,9 +1752,6 @@ class ProductCatalog(
             'material': 'string',
             'mobile_link': 'string',
             'name': 'string',
-            'offer_price_amount': 'unsigned int',
-            'offer_price_end_date': 'datetime',
-            'offer_price_start_date': 'datetime',
             'ordering_index': 'unsigned int',
             'origin_country': 'origin_country_enum',
             'pattern': 'string',
@@ -1948,12 +1954,14 @@ class ProductCatalog(
         'feed_count': 'int',
         'id': 'string',
         'is_catalog_segment': 'bool',
+        'is_local_catalog': 'bool',
         'name': 'string',
         'owner_business': 'Business',
         'product_count': 'int',
         'store_catalog_settings': 'StoreCatalogSettings',
         'user_access_expire_time': 'datetime',
         'vertical': 'string',
+        'additional_vertical_option': 'AdditionalVerticalOption',
         'catalog_segment_filter': 'Object',
         'catalog_segment_product_set_id': 'string',
         'destination_catalog_settings': 'map',
@@ -1964,6 +1972,7 @@ class ProductCatalog(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['AdditionalVerticalOption'] = ProductCatalog.AdditionalVerticalOption.__dict__.values()
         field_enum_info['Vertical'] = ProductCatalog.Vertical.__dict__.values()
         field_enum_info['PermittedRoles'] = ProductCatalog.PermittedRoles.__dict__.values()
         field_enum_info['PermittedTasks'] = ProductCatalog.PermittedTasks.__dict__.values()

@@ -27,6 +27,7 @@ class Targeting(
         adgroup_id = 'adgroup_id'
         age_max = 'age_max'
         age_min = 'age_min'
+        age_range = 'age_range'
         alternate_auto_targeting_option = 'alternate_auto_targeting_option'
         app_install_state = 'app_install_state'
         audience_network_positions = 'audience_network_positions'
@@ -104,6 +105,7 @@ class Targeting(
         regions = 'regions'
         relationship_statuses = 'relationship_statuses'
         site_category = 'site_category'
+        targeting_automation = 'targeting_automation'
         targeting_optimization = 'targeting_optimization'
         targeting_relaxation_types = 'targeting_relaxation_types'
         user_adclusters = 'user_adclusters'
@@ -127,6 +129,7 @@ class Targeting(
         'adgroup_id': 'string',
         'age_max': 'unsigned int',
         'age_min': 'unsigned int',
+        'age_range': 'list<unsigned int>',
         'alternate_auto_targeting_option': 'string',
         'app_install_state': 'string',
         'audience_network_positions': 'list<string>',
@@ -204,6 +207,7 @@ class Targeting(
         'regions': 'list<IDName>',
         'relationship_statuses': 'list<unsigned int>',
         'site_category': 'list<string>',
+        'targeting_automation': 'TargetingAutomation',
         'targeting_optimization': 'string',
         'targeting_relaxation_types': 'TargetingRelaxation',
         'user_adclusters': 'list<IDName>',

@@ -382,6 +382,7 @@ class CommerceOrder(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'adjustment_amount': 'map',
             'deductions': 'list<map>',
             'idempotency_key': 'string',
             'items': 'list<map>',
