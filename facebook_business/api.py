@@ -659,6 +659,7 @@ class FacebookRequest:
                 api=self._api,
                 node_id=self._node_id,
                 endpoint=self._endpoint,
+                object_parser=self._response_parser,
             )
             cursor.load_next_page()
             return cursor
