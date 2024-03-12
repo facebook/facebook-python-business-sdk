@@ -45,6 +45,7 @@ class ObjectParser:
             return self._custom_parse_method(response, self._api)
 
         from .ad import Ad
+        from .adpreview import AdPreview
         from .adset import AdSet
         from .campaign import Campaign
 
@@ -58,6 +59,7 @@ class ObjectParser:
             ('campaigns', Campaign),
             ('adsets', AdSet),
             ('ads', Ad),
+            ('previews', AdPreview),
         )
         for subfield, _class in subfields:
             if subfield not in data:
