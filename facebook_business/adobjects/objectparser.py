@@ -9,6 +9,7 @@ from facebook_business.exceptions import (
 )
 from facebook_business.adobjects.abstractobject import AbstractObject
 
+
 class ObjectParser:
     """
     Parser for API response
@@ -39,30 +40,48 @@ class ObjectParser:
         self._custom_parse_method = custom_parse_method
         self._api = api
 
-    def parse_single(self, response):
+    def parse_single(self, response, override_target_class=None):
         if self._custom_parse_method is not None:
             return self._custom_parse_method(response, self._api)
+
+        from .ad import Ad
+        from .adpreview import AdPreview
+        from .adset import AdSet
+        from .campaign import Campaign
 
         data = response
         if 'data' in response and isinstance(response['data'], dict):
             data = response['data']
         elif 'images' in response and not isinstance(data['images'], list):
             _, data = data['images'].popitem()
-        if 'campaigns' in data:
-            _, data = data['campaigns'].popitem()
-        elif 'adsets' in data:
-            _, data = data['adsets'].popitem()
-        elif 'ads' in data:
-            _, data = data['ads'].popitem()
+
+        subfields = (
+            ('campaigns', Campaign),
+            ('adsets', AdSet),
+            ('ads', Ad),
+            ('previews', AdPreview),
+        )
+        for subfield, _class in subfields:
+            if subfield not in data:
+                continue
+
+            data[subfield] = [
+                self.parse_single(
+                    item, override_target_class=_class
+                ) for item in data[subfield]['data']
+            ]
+
         if 'success' in data:
             del data['success']
+
+        target_class = override_target_class or self._target_class
 
         if self._reuse_object is not None:
             self._reuse_object._set_data(data)
             return self._reuse_object
         elif self._target_class is not None:
             return AbstractObject.create_object(self._api, data,
-                                                self._target_class)
+                                                target_class)
         else:
             raise FacebookBadObjectError(
                 'Must specify either target class calling object' +
