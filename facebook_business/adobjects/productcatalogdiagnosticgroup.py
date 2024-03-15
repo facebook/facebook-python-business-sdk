@@ -37,11 +37,20 @@ class ProductCatalogDiagnosticGroup(
         type = 'type'
 
     class AffectedChannels:
-        business_inbox_in_messenger = 'business_inbox_in_messenger'
+        b2c_marketplace = 'b2c_marketplace'
+        c2c_marketplace = 'c2c_marketplace'
+        da = 'da'
+        daily_deals = 'daily_deals'
+        daily_deals_legacy = 'daily_deals_legacy'
+        ig_product_tagging = 'ig_product_tagging'
+        marketplace = 'marketplace'
+        marketplace_ads_deprecated = 'marketplace_ads_deprecated'
+        marketplace_shops = 'marketplace_shops'
+        mini_shops = 'mini_shops'
+        offline_conversions = 'offline_conversions'
         shops = 'shops'
-        test_capability = 'test_capability'
         universal_checkout = 'universal_checkout'
-        us_marketplace = 'us_marketplace'
+        whatsapp = 'whatsapp'
 
     class AffectedEntity:
         product_catalog = 'product_catalog'
