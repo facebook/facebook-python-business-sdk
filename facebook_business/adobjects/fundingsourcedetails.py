@@ -28,12 +28,14 @@ class FundingSourceDetails(
 
     class Field(AbstractObject.Field):
         coupon = 'coupon'
+        coupons = 'coupons'
         display_string = 'display_string'
         id = 'id'
         type = 'type'
 
     _field_types = {
         'coupon': 'FundingSourceDetailsCoupon',
+        'coupons': 'list<FundingSourceDetailsCoupon>',
         'display_string': 'string',
         'id': 'string',
         'type': 'int',

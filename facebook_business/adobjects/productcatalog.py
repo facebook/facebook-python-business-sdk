@@ -62,7 +62,6 @@ class ProductCatalog(
 
     class Vertical:
         adoptable_pets = 'adoptable_pets'
-        bookable = 'bookable'
         commerce = 'commerce'
         destinations = 'destinations'
         flights = 'flights'
@@ -74,7 +73,6 @@ class ProductCatalog(
         local_service_businesses = 'local_service_businesses'
         offer_items = 'offer_items'
         offline_commerce = 'offline_commerce'
-        ticketed_experiences = 'ticketed_experiences'
         transactable_items = 'transactable_items'
         vehicles = 'vehicles'
 

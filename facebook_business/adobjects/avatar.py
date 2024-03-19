@@ -66,6 +66,7 @@ class Avatar(
         param_types = {
             'client_name': 'string',
             'client_version': 'string',
+            'config_id': 'string',
             'force_generate': 'bool',
             'platform': 'string',
             'profile': 'string',

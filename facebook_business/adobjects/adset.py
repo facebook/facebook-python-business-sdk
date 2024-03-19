@@ -184,7 +184,7 @@ class AdSet(
         last_week_mon_sun = 'LAST_WEEK_MON_SUN'
         last_week_sun_sat = 'LAST_WEEK_SUN_SAT'
         last_year = 'LAST_YEAR'
-        lifetime = 'LIFETIME'
+        maximum = 'MAXIMUM'
         this_month = 'THIS_MONTH'
         this_quarter = 'THIS_QUARTER'
         this_week_mon_today = 'THIS_WEEK_MON_TODAY'
@@ -321,7 +321,7 @@ class AdSet(
                 'last_week_mon_sun',
                 'last_week_sun_sat',
                 'last_year',
-                'lifetime',
+                'maximum',
                 'this_month',
                 'this_quarter',
                 'this_week_mon_today',

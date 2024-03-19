@@ -114,6 +114,7 @@ class AdsInsights(
         marketing_messages_cost_per_delivered = 'marketing_messages_cost_per_delivered'
         marketing_messages_cost_per_link_btn_click = 'marketing_messages_cost_per_link_btn_click'
         marketing_messages_spend = 'marketing_messages_spend'
+        marketing_messages_website_purchase_values = 'marketing_messages_website_purchase_values'
         mobile_app_purchase_roas = 'mobile_app_purchase_roas'
         objective = 'objective'
         optimization_goal = 'optimization_goal'
@@ -167,8 +168,12 @@ class AdsInsights(
         value_1d_view = '1d_view'
         value_28d_click = '28d_click'
         value_28d_view = '28d_view'
+        value_28d_view_all_conversions = '28d_view_all_conversions'
+        value_28d_view_first_conversion = '28d_view_first_conversion'
         value_7d_click = '7d_click'
         value_7d_view = '7d_view'
+        value_7d_view_all_conversions = '7d_view_all_conversions'
+        value_7d_view_first_conversion = '7d_view_first_conversion'
         dda = 'dda'
         value_default = 'default'
         skan_click = 'skan_click'
@@ -186,6 +191,8 @@ class AdsInsights(
         action_video_sound = 'action_video_sound'
         action_video_type = 'action_video_type'
         conversion_destination = 'conversion_destination'
+        matched_persona_id = 'matched_persona_id'
+        matched_persona_name = 'matched_persona_name'
         signal_source_bucket = 'signal_source_bucket'
         standard_event_content_type = 'standard_event_content_type'
 
@@ -253,7 +260,7 @@ class AdsInsights(
         last_week_mon_sun = 'last_week_mon_sun'
         last_week_sun_sat = 'last_week_sun_sat'
         last_year = 'last_year'
-        lifetime = 'lifetime'
+        maximum = 'maximum'
         this_month = 'this_month'
         this_quarter = 'this_quarter'
         this_week_mon_today = 'this_week_mon_today'
@@ -280,6 +287,8 @@ class AdsInsights(
         action_video_sound = 'action_video_sound'
         action_video_type = 'action_video_type'
         conversion_destination = 'conversion_destination'
+        matched_persona_id = 'matched_persona_id'
+        matched_persona_name = 'matched_persona_name'
         signal_source_bucket = 'signal_source_bucket'
         standard_event_content_type = 'standard_event_content_type'
 
@@ -377,6 +386,7 @@ class AdsInsights(
         'marketing_messages_cost_per_delivered': 'string',
         'marketing_messages_cost_per_link_btn_click': 'string',
         'marketing_messages_spend': 'string',
+        'marketing_messages_website_purchase_values': 'string',
         'mobile_app_purchase_roas': 'list<AdsActionStats>',
         'objective': 'string',
         'optimization_goal': 'string',

@@ -32,6 +32,7 @@ class AdgroupPlacementSpecificReviewFeedback(
         bsg = 'bsg'
         city_community = 'city_community'
         commerce = 'commerce'
+        compromise = 'compromise'
         daily_deals = 'daily_deals'
         daily_deals_legacy = 'daily_deals_legacy'
         dpa = 'dpa'
@@ -70,6 +71,7 @@ class AdgroupPlacementSpecificReviewFeedback(
         'bsg': 'map<string, string>',
         'city_community': 'map<string, string>',
         'commerce': 'map<string, string>',
+        'compromise': 'map<string, string>',
         'daily_deals': 'map<string, string>',
         'daily_deals_legacy': 'map<string, string>',
         'dpa': 'map<string, string>',

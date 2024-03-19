@@ -53,7 +53,6 @@ class CatalogSubVerticalList(
         local_service_business_item = 'local_service_business_item'
         local_service_business_restaurant = 'local_service_business_restaurant'
         loyalty_offer = 'loyalty_offer'
-        meetup_space = 'meetup_space'
         nursery = 'nursery'
         printers_and_scanners = 'printers_and_scanners'
         printers_scanners_and_fax_machines = 'printers_scanners_and_fax_machines'
@@ -109,7 +108,6 @@ class CatalogSubVerticalList(
         'local_service_business_item': 'Object',
         'local_service_business_restaurant': 'Object',
         'loyalty_offer': 'Object',
-        'meetup_space': 'Object',
         'nursery': 'Object',
         'printers_and_scanners': 'Object',
         'printers_scanners_and_fax_machines': 'Object',

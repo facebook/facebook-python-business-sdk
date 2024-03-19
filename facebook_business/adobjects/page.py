@@ -42,6 +42,7 @@ class Page(
         bio = 'bio'
         birthday = 'birthday'
         booking_agent = 'booking_agent'
+        breaking_news_usage = 'breaking_news_usage'
         built = 'built'
         business = 'business'
         can_checkin = 'can_checkin'
@@ -435,6 +436,7 @@ class Page(
         awards = 'awards'
         bio = 'bio'
         birthday = 'birthday'
+        calls = 'calls'
         category = 'category'
         checkins = 'checkins'
         company_overview = 'company_overview'
@@ -499,6 +501,7 @@ class Page(
         page_upcoming_change = 'page_upcoming_change'
         parking = 'parking'
         payment_options = 'payment_options'
+        payment_request_update = 'payment_request_update'
         personal_info = 'personal_info'
         personal_interests = 'personal_interests'
         phone = 'phone'
@@ -516,6 +519,12 @@ class Page(
         video_text_question_responses = 'video_text_question_responses'
         videos = 'videos'
         website = 'website'
+
+    class Action:
+        spam = 'SPAM'
+
+    class ActionType:
+        report_thread = 'REPORT_THREAD'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
@@ -2091,6 +2100,8 @@ class Page(
             'audience_exp': 'bool',
             'backdated_time': 'datetime',
             'backdated_time_granularity': 'backdated_time_granularity_enum',
+            'breaking_news': 'bool',
+            'breaking_news_expiration': 'unsigned int',
             'call_to_action': 'Object',
             'caption': 'string',
             'child_attachments': 'list<Object>',
@@ -2116,7 +2127,6 @@ class Page(
             'formatting': 'formatting_enum',
             'fun_fact_prompt_id': 'unsigned int',
             'fun_fact_toastee_id': 'unsigned int',
-            'has_nickname': 'bool',
             'height': 'unsigned int',
             'holiday_card': 'string',
             'home_checkin_city_id': 'Object',
@@ -4371,6 +4381,41 @@ class Page(
             self.assure_call()
             return request.execute()
 
+    def create_thread_action(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'action': 'action_enum',
+            'action_type': 'action_type_enum',
+            'user_id': 'map',
+        }
+        enums = {
+            'action_enum': Page.Action.__dict__.values(),
+            'action_type_enum': Page.ActionType.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/thread_action',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Page,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Page, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_thread_owner(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -4814,7 +4859,6 @@ class Page(
             'fun_fact_toastee_id': 'unsigned int',
             'guide': 'list<list<unsigned int>>',
             'guide_enabled': 'bool',
-            'has_nickname': 'bool',
             'holiday_card': 'string',
             'initial_heading': 'unsigned int',
             'initial_pitch': 'unsigned int',
@@ -5056,6 +5100,7 @@ class Page(
         'bio': 'string',
         'birthday': 'string',
         'booking_agent': 'string',
+        'breaking_news_usage': 'Object',
         'built': 'string',
         'business': 'Object',
         'can_checkin': 'bool',
@@ -5221,6 +5266,8 @@ class Page(
         field_enum_info['Model'] = Page.Model.__dict__.values()
         field_enum_info['DeveloperAction'] = Page.DeveloperAction.__dict__.values()
         field_enum_info['SubscribedFields'] = Page.SubscribedFields.__dict__.values()
+        field_enum_info['Action'] = Page.Action.__dict__.values()
+        field_enum_info['ActionType'] = Page.ActionType.__dict__.values()
         return field_enum_info
 
 

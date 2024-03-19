@@ -100,7 +100,6 @@ class AdVideo(
         fun_fact_toastee_id = 'fun_fact_toastee_id'
         guide = 'guide'
         guide_enabled = 'guide_enabled'
-        has_nickname = 'has_nickname'
         holiday_card = 'holiday_card'
         initial_heading = 'initial_heading'
         initial_pitch = 'initial_pitch'
@@ -246,6 +245,7 @@ class AdVideo(
         music_clip_in_audio_digest = 'MUSIC_CLIP_IN_AUDIO_DIGEST'
         music_clip_in_comment = 'MUSIC_CLIP_IN_COMMENT'
         music_clip_in_lightweight_status = 'MUSIC_CLIP_IN_LIGHTWEIGHT_STATUS'
+        music_clip_in_msgr_note = 'MUSIC_CLIP_IN_MSGR_NOTE'
         music_clip_in_poll_option = 'MUSIC_CLIP_IN_POLL_OPTION'
         music_clip_on_dating_profile = 'MUSIC_CLIP_ON_DATING_PROFILE'
         neo_async_game_video = 'NEO_ASYNC_GAME_VIDEO'
@@ -1240,7 +1240,6 @@ class AdVideo(
         'fun_fact_toastee_id': 'unsigned int',
         'guide': 'list<list<unsigned int>>',
         'guide_enabled': 'bool',
-        'has_nickname': 'bool',
         'holiday_card': 'string',
         'initial_heading': 'unsigned int',
         'initial_pitch': 'unsigned int',

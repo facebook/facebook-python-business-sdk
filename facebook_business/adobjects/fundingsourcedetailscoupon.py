@@ -25,12 +25,14 @@ class FundingSourceDetailsCoupon(
 
     class Field(AbstractObject.Field):
         amount = 'amount'
+        campaign_ids = 'campaign_ids'
         currency = 'currency'
         display_amount = 'display_amount'
         expiration = 'expiration'
 
     _field_types = {
         'amount': 'int',
+        'campaign_ids': 'list<int>',
         'currency': 'string',
         'display_amount': 'string',
         'expiration': 'datetime',

@@ -48,7 +48,7 @@ class InsightsResult(
         last_week_mon_sun = 'last_week_mon_sun'
         last_week_sun_sat = 'last_week_sun_sat'
         last_year = 'last_year'
-        lifetime = 'lifetime'
+        maximum = 'maximum'
         this_month = 'this_month'
         this_quarter = 'this_quarter'
         this_week_mon_today = 'this_week_mon_today'
@@ -72,7 +72,7 @@ class InsightsResult(
         'name': 'string',
         'period': 'string',
         'title': 'string',
-        'values': 'list<Object>',
+        'values': 'list<InsightsValue>',
     }
     @classmethod
     def _get_field_enum_info(cls):
