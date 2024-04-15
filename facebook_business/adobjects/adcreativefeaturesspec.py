@@ -25,8 +25,11 @@ class AdCreativeFeaturesSpec(
 
     class Field(AbstractObject.Field):
         advantage_plus_creative = 'advantage_plus_creative'
+        app_highlights = 'app_highlights'
         audio = 'audio'
         carousel_to_video = 'carousel_to_video'
+        catalog_feed_tag = 'catalog_feed_tag'
+        customize_product_recommendation = 'customize_product_recommendation'
         cv_transformation = 'cv_transformation'
         description_automation = 'description_automation'
         dha_optimization = 'dha_optimization'
@@ -45,6 +48,7 @@ class AdCreativeFeaturesSpec(
         product_metadata_automation = 'product_metadata_automation'
         product_tags = 'product_tags'
         profile_card = 'profile_card'
+        site_extensions = 'site_extensions'
         standard_enhancements = 'standard_enhancements'
         standard_enhancements_catalog = 'standard_enhancements_catalog'
         text_generation = 'text_generation'
@@ -54,8 +58,11 @@ class AdCreativeFeaturesSpec(
 
     _field_types = {
         'advantage_plus_creative': 'AdCreativeFeatureDetails',
+        'app_highlights': 'AdCreativeFeatureDetails',
         'audio': 'AdCreativeFeatureDetails',
         'carousel_to_video': 'AdCreativeFeatureDetails',
+        'catalog_feed_tag': 'AdCreativeFeatureDetails',
+        'customize_product_recommendation': 'AdCreativeFeatureDetails',
         'cv_transformation': 'AdCreativeFeatureDetails',
         'description_automation': 'AdCreativeFeatureDetails',
         'dha_optimization': 'AdCreativeFeatureDetails',
@@ -74,6 +81,7 @@ class AdCreativeFeaturesSpec(
         'product_metadata_automation': 'AdCreativeFeatureDetails',
         'product_tags': 'AdCreativeFeatureDetails',
         'profile_card': 'AdCreativeFeatureDetails',
+        'site_extensions': 'AdCreativeFeatureDetails',
         'standard_enhancements': 'AdCreativeFeatureDetails',
         'standard_enhancements_catalog': 'AdCreativeFeatureDetails',
         'text_generation': 'AdCreativeFeatureDetails',

@@ -40,6 +40,7 @@ class Destination(
         price = 'price'
         price_change = 'price_change'
         sanitized_images = 'sanitized_images'
+        tags = 'tags'
         types = 'types'
         unit_price = 'unit_price'
         url = 'url'
@@ -193,6 +194,7 @@ class Destination(
         'price': 'string',
         'price_change': 'string',
         'sanitized_images': 'list<string>',
+        'tags': 'list<string>',
         'types': 'list<string>',
         'unit_price': 'Object',
         'url': 'string',

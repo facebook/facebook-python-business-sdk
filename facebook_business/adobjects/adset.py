@@ -79,6 +79,7 @@ class AdSet(
         promoted_object = 'promoted_object'
         recommendations = 'recommendations'
         recurring_budget_semantics = 'recurring_budget_semantics'
+        regional_regulation_identities = 'regional_regulation_identities'
         review_feedback = 'review_feedback'
         rf_prediction_id = 'rf_prediction_id'
         source_adset = 'source_adset'
@@ -1057,6 +1058,7 @@ class AdSet(
         'promoted_object': 'AdPromotedObject',
         'recommendations': 'list<AdRecommendation>',
         'recurring_budget_semantics': 'bool',
+        'regional_regulation_identities': 'Object',
         'review_feedback': 'string',
         'rf_prediction_id': 'string',
         'source_adset': 'AdSet',

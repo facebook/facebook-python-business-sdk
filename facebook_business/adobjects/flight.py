@@ -43,6 +43,7 @@ class Flight(
         origin_city = 'origin_city'
         price = 'price'
         sanitized_images = 'sanitized_images'
+        tags = 'tags'
         unit_price = 'unit_price'
         url = 'url'
         visibility = 'visibility'
@@ -237,6 +238,7 @@ class Flight(
         'origin_city': 'string',
         'price': 'string',
         'sanitized_images': 'list<string>',
+        'tags': 'list<string>',
         'unit_price': 'Object',
         'url': 'string',
         'visibility': 'Visibility',

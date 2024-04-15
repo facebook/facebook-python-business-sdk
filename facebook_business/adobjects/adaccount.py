@@ -40,6 +40,7 @@ class AdAccount(
         amount_spent = 'amount_spent'
         attribution_spec = 'attribution_spec'
         balance = 'balance'
+        brand_safety_content_filter_levels = 'brand_safety_content_filter_levels'
         business = 'business'
         business_city = 'business_city'
         business_country_code = 'business_country_code'
@@ -187,6 +188,7 @@ class AdAccount(
         automotive_model = 'AUTOMOTIVE_MODEL'
         destination = 'DESTINATION'
         flight = 'FLIGHT'
+        generic = 'GENERIC'
         home_listing = 'HOME_LISTING'
         hotel = 'HOTEL'
         job = 'JOB'
@@ -205,6 +207,7 @@ class AdAccount(
         claim = 'CLAIM'
         custom = 'CUSTOM'
         engagement = 'ENGAGEMENT'
+        exclusion = 'EXCLUSION'
         fox = 'FOX'
         lookalike = 'LOOKALIKE'
         managed = 'MANAGED'
@@ -2154,6 +2157,36 @@ class AdAccount(
             self.assure_call()
             return request.execute()
 
+    def get_audience_funnel(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/audience_funnel',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def create_block_list_draft(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -2492,6 +2525,36 @@ class AdAccount(
             node_id=self['id'],
             method='GET',
             endpoint='/conversion_goals',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_cpa_guidance(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/cpa_guidance',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
@@ -3818,6 +3881,8 @@ class AdAccount(
             'allow_only_fat_head_interests': 'bool',
             'app_store': 'app_store_enum',
             'countries': 'list<string>',
+            'is_account_level_brand_safety_exclusion': 'bool',
+            'is_account_level_employer_exclusion': 'bool',
             'is_exclusion': 'bool',
             'limit_type': 'limit_type_enum',
             'objective': 'objective_enum',
@@ -4104,6 +4169,36 @@ class AdAccount(
             self.assure_call()
             return request.execute()
 
+    def get_value_adjustment_rule_collections(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/value_adjustment_rule_collections',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_value_adjustment_rules(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -4144,6 +4239,7 @@ class AdAccount(
         'amount_spent': 'string',
         'attribution_spec': 'list<AttributionSpec>',
         'balance': 'string',
+        'brand_safety_content_filter_levels': 'list<string>',
         'business': 'Business',
         'business_city': 'string',
         'business_country_code': 'string',

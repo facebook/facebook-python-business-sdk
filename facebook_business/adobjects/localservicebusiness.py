@@ -61,6 +61,7 @@ class LocalServiceBusiness(
         retailer_category = 'retailer_category'
         sanitized_images = 'sanitized_images'
         size = 'size'
+        tags = 'tags'
         title = 'title'
         unit_price = 'unit_price'
         url = 'url'
@@ -194,6 +195,7 @@ class LocalServiceBusiness(
         'retailer_category': 'string',
         'sanitized_images': 'list<string>',
         'size': 'string',
+        'tags': 'list<string>',
         'title': 'string',
         'unit_price': 'Object',
         'url': 'string',

@@ -35,18 +35,31 @@ class WhatsAppBusinessPartnerClientVerificationSubmission(
         update_time = 'update_time'
         verification_status = 'verification_status'
 
+    class RejectionReasons:
+        address_not_matching = 'ADDRESS_NOT_MATCHING'
+        legal_name_not_matching = 'LEGAL_NAME_NOT_MATCHING'
+        none = 'NONE'
+        website_not_matching = 'WEBSITE_NOT_MATCHING'
+
+    class VerificationStatus:
+        approved = 'APPROVED'
+        failed = 'FAILED'
+        pending = 'PENDING'
+
     _field_types = {
         'client_business_id': 'string',
         'id': 'string',
-        'rejection_reasons': 'list<string>',
+        'rejection_reasons': 'list<RejectionReasons>',
         'submitted_info': 'Object',
         'submitted_time': 'datetime',
         'update_time': 'datetime',
-        'verification_status': 'string',
+        'verification_status': 'VerificationStatus',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['RejectionReasons'] = WhatsAppBusinessPartnerClientVerificationSubmission.RejectionReasons.__dict__.values()
+        field_enum_info['VerificationStatus'] = WhatsAppBusinessPartnerClientVerificationSubmission.VerificationStatus.__dict__.values()
         return field_enum_info
 
 

@@ -426,6 +426,7 @@ class ProductItem(
         empty_title = 'EMPTY_TITLE'
         external_merchant_id_mismatch = 'EXTERNAL_MERCHANT_ID_MISMATCH'
         generic_invalid_field = 'GENERIC_INVALID_FIELD'
+        groups_disabled_by_user = 'GROUPS_DISABLED_BY_USER'
         hidden_until_product_launch = 'HIDDEN_UNTIL_PRODUCT_LAUNCH'
         image_fetch_failed = 'IMAGE_FETCH_FAILED'
         image_fetch_failed_bad_gateway = 'IMAGE_FETCH_FAILED_BAD_GATEWAY'
