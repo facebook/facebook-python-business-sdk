@@ -32,7 +32,7 @@ fields = [
 ]
 params = {
 }
-print Lead(id).get(
+print Lead(id).api_get(
   fields=fields,
   params=params,
 )
