@@ -420,6 +420,7 @@ class Event(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.eventtickettier import EventTicketTier
         param_types = {
         }
         enums = {
@@ -430,9 +431,9 @@ class Event(
             endpoint='/ticket_tiers',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=EventTicketTier,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=EventTicketTier, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -503,10 +504,10 @@ class Event(
         'owner': 'Object',
         'parent_group': 'Group',
         'place': 'Place',
-        'registration_setting': 'Object',
+        'registration_setting': 'EventRegistrationSetting',
         'scheduled_publish_time': 'string',
         'start_time': 'string',
-        'ticket_setting': 'Object',
+        'ticket_setting': 'EventTicketSetting',
         'ticket_uri': 'string',
         'ticket_uri_start_sales_time': 'string',
         'ticketing_privacy_uri': 'string',

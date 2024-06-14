@@ -51,6 +51,10 @@ class Comment(
         private_reply_conversation = 'private_reply_conversation'
         user_likes = 'user_likes'
 
+    class Order:
+        chronological = 'chronological'
+        reverse_chronological = 'reverse_chronological'
+
     class CommentPrivacyValue:
         declined_by_admin_assistant = 'DECLINED_BY_ADMIN_ASSISTANT'
         default_privacy = 'DEFAULT_PRIVACY'
@@ -71,10 +75,6 @@ class Comment(
     class LiveFilter:
         filter_low_quality = 'filter_low_quality'
         no_filter = 'no_filter'
-
-    class Order:
-        chronological = 'chronological'
-        reverse_chronological = 'reverse_chronological'
 
     def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -410,10 +410,10 @@ class Comment(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['Order'] = Comment.Order.__dict__.values()
         field_enum_info['CommentPrivacyValue'] = Comment.CommentPrivacyValue.__dict__.values()
         field_enum_info['Filter'] = Comment.Filter.__dict__.values()
         field_enum_info['LiveFilter'] = Comment.LiveFilter.__dict__.values()
-        field_enum_info['Order'] = Comment.Order.__dict__.values()
         return field_enum_info
 
 

@@ -36,13 +36,13 @@ class AdCreativePromotionMetadataSpec(
         start_date = 'start_date'
 
     _field_types = {
-        'end_date': 'datetime',
+        'end_date': 'int',
         'id': 'string',
         'promotion_source': 'string',
         'promotion_type': 'string',
         'promotion_value': 'float',
         'required_code': 'string',
-        'start_date': 'datetime',
+        'start_date': 'int',
     }
     @classmethod
     def _get_field_enum_info(cls):

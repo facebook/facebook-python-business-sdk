@@ -34,6 +34,7 @@ class AudioCopyright(
         isrc = 'isrc'
         match_rule = 'match_rule'
         ownership_countries = 'ownership_countries'
+        ownership_details = 'ownership_details'
         reference_file_status = 'reference_file_status'
         ridge_monitoring_status = 'ridge_monitoring_status'
         tags = 'tags'
@@ -75,6 +76,7 @@ class AudioCopyright(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.mediacopyrightupdaterecord import MediaCopyrightUpdateRecord
         param_types = {
         }
         enums = {
@@ -85,9 +87,9 @@ class AudioCopyright(
             endpoint='/update_records',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=MediaCopyrightUpdateRecord,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=MediaCopyrightUpdateRecord, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -109,6 +111,7 @@ class AudioCopyright(
         'isrc': 'string',
         'match_rule': 'VideoCopyrightRule',
         'ownership_countries': 'list<string>',
+        'ownership_details': 'list<map<string, Object>>',
         'reference_file_status': 'string',
         'ridge_monitoring_status': 'string',
         'tags': 'list<string>',

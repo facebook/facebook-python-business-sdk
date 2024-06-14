@@ -187,6 +187,30 @@ class Application(
         app_and_page = 'APP_AND_PAGE'
         page = 'PAGE'
 
+    class OwnerPermissions:
+        develop = 'DEVELOP'
+        manage = 'MANAGE'
+        manage_extensions = 'MANAGE_EXTENSIONS'
+        manage_phone = 'MANAGE_PHONE'
+        manage_phone_assets = 'MANAGE_PHONE_ASSETS'
+        manage_templates = 'MANAGE_TEMPLATES'
+        messaging = 'MESSAGING'
+        view_cost = 'VIEW_COST'
+        view_phone_assets = 'VIEW_PHONE_ASSETS'
+        view_templates = 'VIEW_TEMPLATES'
+
+    class PartnerPermissions:
+        develop = 'DEVELOP'
+        manage = 'MANAGE'
+        manage_extensions = 'MANAGE_EXTENSIONS'
+        manage_phone = 'MANAGE_PHONE'
+        manage_phone_assets = 'MANAGE_PHONE_ASSETS'
+        manage_templates = 'MANAGE_TEMPLATES'
+        messaging = 'MESSAGING'
+        view_cost = 'VIEW_COST'
+        view_phone_assets = 'VIEW_PHONE_ASSETS'
+        view_templates = 'VIEW_TEMPLATES'
+
     # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
@@ -1339,19 +1363,19 @@ class Application(
             self.assure_call()
             return request.execute()
 
-    def get_iap_purchases(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def create_domain_report(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'order_id': 'string',
+            'tracking_domains': 'list<string>',
         }
         enums = {
         }
         request = FacebookRequest(
             node_id=self['id'],
-            method='GET',
-            endpoint='/iap_purchases',
+            method='POST',
+            endpoint='/domain_reports',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
@@ -1370,18 +1394,19 @@ class Application(
             self.assure_call()
             return request.execute()
 
-    def get_insights_push_schedule(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def get_iap_purchases(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'order_id': 'string',
         }
         enums = {
         }
         request = FacebookRequest(
             node_id=self['id'],
             method='GET',
-            endpoint='/insights_push_schedule',
+            endpoint='/iap_purchases',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
@@ -1434,6 +1459,7 @@ class Application(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.adsdataset import AdsDataset
         param_types = {
         }
         enums = {
@@ -1444,9 +1470,9 @@ class Application(
             endpoint='/linked_dataset',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=AdsDataset,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=AdsDataset, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2159,6 +2185,77 @@ class Application(
             self.assure_call()
             return request.execute()
 
+    def create_whats_app_business_solution(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'owner_permissions': 'list<owner_permissions_enum>',
+            'partner_app_id': 'string',
+            'partner_permissions': 'list<partner_permissions_enum>',
+            'solution_name': 'string',
+        }
+        enums = {
+            'owner_permissions_enum': Application.OwnerPermissions.__dict__.values(),
+            'partner_permissions_enum': Application.PartnerPermissions.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/whatsapp_business_solution',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Application,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Application, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_whats_app_business_solutions(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'role': 'role_enum',
+        }
+        enums = {
+            'role_enum': [
+                'OWNER',
+                'PARTNER',
+            ],
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/whatsapp_business_solutions',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     _field_types = {
         'aam_rules': 'string',
         'an_ad_space_limit': 'unsigned int',
@@ -2277,6 +2374,8 @@ class Application(
         field_enum_info['PostMethod'] = Application.PostMethod.__dict__.values()
         field_enum_info['LoggingSource'] = Application.LoggingSource.__dict__.values()
         field_enum_info['LoggingTarget'] = Application.LoggingTarget.__dict__.values()
+        field_enum_info['OwnerPermissions'] = Application.OwnerPermissions.__dict__.values()
+        field_enum_info['PartnerPermissions'] = Application.PartnerPermissions.__dict__.values()
         return field_enum_info
 
 

@@ -47,6 +47,7 @@ class Ad(
         conversion_specs = 'conversion_specs'
         created_time = 'created_time'
         creative = 'creative'
+        creative_asset_groups_spec = 'creative_asset_groups_spec'
         demolink_hash = 'demolink_hash'
         display_sequence = 'display_sequence'
         effective_status = 'effective_status'
@@ -253,6 +254,7 @@ class Ad(
             'bid_amount': 'int',
             'conversion_domain': 'string',
             'creative': 'AdCreative',
+            'creative_asset_groups_spec': 'Object',
             'display_sequence': 'unsigned int',
             'draft_adgroup_id': 'string',
             'engagement_audience': 'bool',
@@ -710,6 +712,7 @@ class Ad(
         'conversion_specs': 'list<ConversionActionQuery>',
         'created_time': 'datetime',
         'creative': 'AdCreative',
+        'creative_asset_groups_spec': 'AdCreativeAssetGroupsSpec',
         'demolink_hash': 'string',
         'display_sequence': 'int',
         'effective_status': 'EffectiveStatus',

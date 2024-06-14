@@ -32,6 +32,11 @@ class AdAccountBusinessConstraints(
         placement_controls = 'placement_controls'
         status = 'status'
 
+    class Status:
+        active = 'ACTIVE'
+        application_in_progress = 'APPLICATION_IN_PROGRESS'
+        with_campaign_error = 'WITH_CAMPAIGN_ERROR'
+
     # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
@@ -46,11 +51,12 @@ class AdAccountBusinessConstraints(
         'audience_controls': 'Object',
         'campaigns_with_error': 'list<string>',
         'placement_controls': 'Object',
-        'status': 'string',
+        'status': 'Status',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['Status'] = AdAccountBusinessConstraints.Status.__dict__.values()
         return field_enum_info
 
 

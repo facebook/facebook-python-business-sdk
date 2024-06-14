@@ -73,7 +73,6 @@ class AdVideo(
         universal_video_id = 'universal_video_id'
         updated_time = 'updated_time'
         views = 'views'
-        adaptive_type = 'adaptive_type'
         animated_effect_id = 'animated_effect_id'
         application_id = 'application_id'
         asked_fun_fact_prompt_id = 'asked_fun_fact_prompt_id'
@@ -118,7 +117,6 @@ class AdVideo(
         original_fov = 'original_fov'
         original_projection_type = 'original_projection_type'
         publish_event_id = 'publish_event_id'
-        react_mode_metadata = 'react_mode_metadata'
         referenced_sticker_id = 'referenced_sticker_id'
         replace_video_id = 'replace_video_id'
         slideshow_spec = 'slideshow_spec'
@@ -158,6 +156,7 @@ class AdVideo(
         app_rereview_screencast = 'APP_REREVIEW_SCREENCAST'
         app_review_screencast = 'APP_REVIEW_SCREENCAST'
         asset_manager = 'ASSET_MANAGER'
+        atlas_video = 'ATLAS_VIDEO'
         audio_brief = 'AUDIO_BRIEF'
         audio_broadcast = 'AUDIO_BROADCAST'
         audio_comment = 'AUDIO_COMMENT'
@@ -296,7 +295,6 @@ class AdVideo(
         soundbites_video = 'SOUNDBITES_VIDEO'
         sound_platform_stream = 'SOUND_PLATFORM_STREAM'
         srt_attachment = 'SRT_ATTACHMENT'
-        stages_broadcast = 'STAGES_BROADCAST'
         stories_video = 'STORIES_VIDEO'
         stories_wearable = 'STORIES_WEARABLE'
         storyline = 'STORYLINE'
@@ -308,7 +306,6 @@ class AdVideo(
         temporary_unlisted = 'TEMPORARY_UNLISTED'
         temp_multimedia_post = 'TEMP_MULTIMEDIA_POST'
         unlisted = 'UNLISTED'
-        unlisted_hack_tv = 'UNLISTED_HACK_TV'
         unlisted_horizon = 'UNLISTED_HORIZON'
         unlisted_oculus = 'UNLISTED_OCULUS'
         video_comment = 'VIDEO_COMMENT'
@@ -747,7 +744,7 @@ class AdVideo(
             self.assure_call()
             return request.execute()
 
-    def get_crosspost_shared_pages(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def get_crosspost_share_d_pages(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
@@ -1008,6 +1005,7 @@ class AdVideo(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.taggablesubject import TaggableSubject
         param_types = {
         }
         enums = {
@@ -1018,9 +1016,9 @@ class AdVideo(
             endpoint='/tags',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=TaggableSubject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=TaggableSubject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1169,7 +1167,7 @@ class AdVideo(
     _field_types = {
         'ad_breaks': 'list<int>',
         'admin_creator': 'User',
-        'audio_isrc': 'Object',
+        'audio_isrc': 'AudioIsrc',
         'backdated_time': 'datetime',
         'backdated_time_granularity': 'string',
         'content_category': 'string',
@@ -1213,7 +1211,6 @@ class AdVideo(
         'universal_video_id': 'string',
         'updated_time': 'datetime',
         'views': 'unsigned int',
-        'adaptive_type': 'string',
         'animated_effect_id': 'unsigned int',
         'application_id': 'string',
         'asked_fun_fact_prompt_id': 'unsigned int',
@@ -1258,7 +1255,6 @@ class AdVideo(
         'original_fov': 'unsigned int',
         'original_projection_type': 'OriginalProjectionType',
         'publish_event_id': 'unsigned int',
-        'react_mode_metadata': 'string',
         'referenced_sticker_id': 'string',
         'replace_video_id': 'string',
         'slideshow_spec': 'map',

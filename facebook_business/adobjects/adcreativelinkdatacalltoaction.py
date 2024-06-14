@@ -106,6 +106,7 @@ class AdCreativeLinkDataCallToAction(
         use_mobile_app = 'USE_MOBILE_APP'
         video_annotation = 'VIDEO_ANNOTATION'
         video_call = 'VIDEO_CALL'
+        view_product = 'VIEW_PRODUCT'
         visit_pages_feed = 'VISIT_PAGES_FEED'
         watch_more = 'WATCH_MORE'
         watch_video = 'WATCH_VIDEO'

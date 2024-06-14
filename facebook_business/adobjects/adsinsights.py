@@ -35,6 +35,7 @@ class AdsInsights(
         ad_id = 'ad_id'
         ad_impression_actions = 'ad_impression_actions'
         ad_name = 'ad_name'
+        adjusted_offline_purchase = 'adjusted_offline_purchase'
         adset_end = 'adset_end'
         adset_id = 'adset_id'
         adset_name = 'adset_name'
@@ -55,7 +56,6 @@ class AdsInsights(
         catalog_segment_value_omni_purchase_roas = 'catalog_segment_value_omni_purchase_roas'
         catalog_segment_value_website_purchase_roas = 'catalog_segment_value_website_purchase_roas'
         clicks = 'clicks'
-        conversion_lead_rate = 'conversion_lead_rate'
         conversion_rate_ranking = 'conversion_rate_ranking'
         conversion_values = 'conversion_values'
         conversions = 'conversions'
@@ -66,7 +66,6 @@ class AdsInsights(
         cost_per_action_type = 'cost_per_action_type'
         cost_per_ad_click = 'cost_per_ad_click'
         cost_per_conversion = 'cost_per_conversion'
-        cost_per_conversion_lead = 'cost_per_conversion_lead'
         cost_per_dda_countby_convs = 'cost_per_dda_countby_convs'
         cost_per_estimated_ad_recallers = 'cost_per_estimated_ad_recallers'
         cost_per_inline_link_click = 'cost_per_inline_link_click'
@@ -117,6 +116,7 @@ class AdsInsights(
         marketing_messages_website_purchase_values = 'marketing_messages_website_purchase_values'
         mobile_app_purchase_roas = 'mobile_app_purchase_roas'
         objective = 'objective'
+        onsite_conversion_messaging_detected_purchase_deduped = 'onsite_conversion_messaging_detected_purchase_deduped'
         optimization_goal = 'optimization_goal'
         outbound_clicks = 'outbound_clicks'
         outbound_clicks_ctr = 'outbound_clicks_ctr'
@@ -125,6 +125,7 @@ class AdsInsights(
         qualifying_question_qualify_answer_rate = 'qualifying_question_qualify_answer_rate'
         quality_ranking = 'quality_ranking'
         reach = 'reach'
+        shops_assisted_purchases = 'shops_assisted_purchases'
         social_spend = 'social_spend'
         spend = 'spend'
         total_postbacks = 'total_postbacks'
@@ -240,11 +241,14 @@ class AdsInsights(
         publisher_platform = 'publisher_platform'
         redownload = 'redownload'
         region = 'region'
+        signal_source_bucket = 'signal_source_bucket'
         skan_campaign_id = 'skan_campaign_id'
         skan_conversion_id = 'skan_conversion_id'
         skan_version = 'skan_version'
         standard_event_content_type = 'standard_event_content_type'
         title_asset = 'title_asset'
+        user_persona_id = 'user_persona_id'
+        user_persona_name = 'user_persona_name'
         video_asset = 'video_asset'
 
     class DatePreset:
@@ -307,6 +311,7 @@ class AdsInsights(
         'ad_id': 'string',
         'ad_impression_actions': 'list<AdsActionStats>',
         'ad_name': 'string',
+        'adjusted_offline_purchase': 'list<Object>',
         'adset_end': 'string',
         'adset_id': 'string',
         'adset_name': 'string',
@@ -327,7 +332,6 @@ class AdsInsights(
         'catalog_segment_value_omni_purchase_roas': 'list<AdsActionStats>',
         'catalog_segment_value_website_purchase_roas': 'list<AdsActionStats>',
         'clicks': 'string',
-        'conversion_lead_rate': 'string',
         'conversion_rate_ranking': 'string',
         'conversion_values': 'list<AdsActionStats>',
         'conversions': 'list<AdsActionStats>',
@@ -338,7 +342,6 @@ class AdsInsights(
         'cost_per_action_type': 'list<AdsActionStats>',
         'cost_per_ad_click': 'list<AdsActionStats>',
         'cost_per_conversion': 'list<AdsActionStats>',
-        'cost_per_conversion_lead': 'string',
         'cost_per_dda_countby_convs': 'string',
         'cost_per_estimated_ad_recallers': 'string',
         'cost_per_inline_link_click': 'string',
@@ -389,6 +392,7 @@ class AdsInsights(
         'marketing_messages_website_purchase_values': 'string',
         'mobile_app_purchase_roas': 'list<AdsActionStats>',
         'objective': 'string',
+        'onsite_conversion_messaging_detected_purchase_deduped': 'list<AdsActionStats>',
         'optimization_goal': 'string',
         'outbound_clicks': 'list<AdsActionStats>',
         'outbound_clicks_ctr': 'list<AdsActionStats>',
@@ -397,6 +401,7 @@ class AdsInsights(
         'qualifying_question_qualify_answer_rate': 'string',
         'quality_ranking': 'string',
         'reach': 'string',
+        'shops_assisted_purchases': 'string',
         'social_spend': 'string',
         'spend': 'string',
         'total_postbacks': 'string',

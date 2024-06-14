@@ -28,12 +28,14 @@ class BrandedContentShadowIGMediaID(
 
     class Field(AbstractObject.Field):
         eligibility_errors = 'eligibility_errors'
+        has_permission_for_partnership_ad = 'has_permission_for_partnership_ad'
         id = 'id'
         owner_id = 'owner_id'
         permalink = 'permalink'
 
     _field_types = {
         'eligibility_errors': 'list<string>',
+        'has_permission_for_partnership_ad': 'bool',
         'id': 'string',
         'owner_id': 'string',
         'permalink': 'string',

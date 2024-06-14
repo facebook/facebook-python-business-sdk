@@ -46,6 +46,7 @@ class CustomConversion(
         pixel = 'pixel'
         retention_days = 'retention_days'
         rule = 'rule'
+        action_source_type = 'action_source_type'
         advanced_rule = 'advanced_rule'
         event_source_id = 'event_source_id'
         custom_conversion_id = 'custom_conversion_id'
@@ -71,6 +72,17 @@ class CustomConversion(
         start_trial = 'START_TRIAL'
         submit_application = 'SUBMIT_APPLICATION'
         subscribe = 'SUBSCRIBE'
+
+    class ActionSourceType:
+        app = 'app'
+        business_messaging = 'business_messaging'
+        chat = 'chat'
+        email = 'email'
+        other = 'other'
+        phone_call = 'phone_call'
+        physical_store = 'physical_store'
+        system_generated = 'system_generated'
+        website = 'website'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
@@ -230,6 +242,7 @@ class CustomConversion(
         'pixel': 'AdsPixel',
         'retention_days': 'unsigned int',
         'rule': 'string',
+        'action_source_type': 'ActionSourceType',
         'advanced_rule': 'string',
         'event_source_id': 'string',
         'custom_conversion_id': 'string',
@@ -238,6 +251,7 @@ class CustomConversion(
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['CustomEventType'] = CustomConversion.CustomEventType.__dict__.values()
+        field_enum_info['ActionSourceType'] = CustomConversion.ActionSourceType.__dict__.values()
         return field_enum_info
 
 

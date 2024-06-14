@@ -79,6 +79,7 @@ class AdSet(
         promoted_object = 'promoted_object'
         recommendations = 'recommendations'
         recurring_budget_semantics = 'recurring_budget_semantics'
+        regional_regulated_categories = 'regional_regulated_categories'
         regional_regulation_identities = 'regional_regulation_identities'
         review_feedback = 'review_feedback'
         rf_prediction_id = 'rf_prediction_id'
@@ -157,6 +158,7 @@ class AdSet(
         offsite_conversions = 'OFFSITE_CONVERSIONS'
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
+        profile_visit = 'PROFILE_VISIT'
         quality_call = 'QUALITY_CALL'
         quality_lead = 'QUALITY_LEAD'
         reach = 'REACH'
@@ -199,6 +201,7 @@ class AdSet(
         applinks_automatic = 'APPLINKS_AUTOMATIC'
         facebook = 'FACEBOOK'
         instagram_direct = 'INSTAGRAM_DIRECT'
+        instagram_profile = 'INSTAGRAM_PROFILE'
         messaging_instagram_direct_messenger = 'MESSAGING_INSTAGRAM_DIRECT_MESSENGER'
         messaging_instagram_direct_messenger_whatsapp = 'MESSAGING_INSTAGRAM_DIRECT_MESSENGER_WHATSAPP'
         messaging_instagram_direct_whatsapp = 'MESSAGING_INSTAGRAM_DIRECT_WHATSAPP'
@@ -210,7 +213,6 @@ class AdSet(
         on_post = 'ON_POST'
         on_video = 'ON_VIDEO'
         shop_automatic = 'SHOP_AUTOMATIC'
-        undefined = 'UNDEFINED'
         website = 'WEBSITE'
         whatsapp = 'WHATSAPP'
 
@@ -240,6 +242,10 @@ class AdSet(
         travel_intent_no_destination_intent = 'TRAVEL_INTENT_NO_DESTINATION_INTENT'
         trip_consideration = 'TRIP_CONSIDERATION'
         video_sound_on = 'VIDEO_SOUND_ON'
+
+    class RegionalRegulatedCategories:
+        value_0 = '0'
+        value_1 = '1'
 
     class TuneForCategory:
         credit = 'CREDIT'
@@ -394,6 +400,8 @@ class AdSet(
             'pacing_type': 'list<string>',
             'promoted_object': 'Object',
             'rb_prediction_id': 'string',
+            'regional_regulated_categories': 'list<regional_regulated_categories_enum>',
+            'regional_regulation_identities': 'map',
             'rf_prediction_id': 'string',
             'start_time': 'datetime',
             'status': 'status_enum',
@@ -413,6 +421,7 @@ class AdSet(
             'multi_optimization_goal_weight_enum': AdSet.MultiOptimizationGoalWeight.__dict__.values(),
             'optimization_goal_enum': AdSet.OptimizationGoal.__dict__.values(),
             'optimization_sub_event_enum': AdSet.OptimizationSubEvent.__dict__.values(),
+            'regional_regulated_categories_enum': AdSet.RegionalRegulatedCategories.__dict__.values(),
             'status_enum': AdSet.Status.__dict__.values(),
             'tune_for_category_enum': AdSet.TuneForCategory.__dict__.values(),
         }
@@ -1058,7 +1067,8 @@ class AdSet(
         'promoted_object': 'AdPromotedObject',
         'recommendations': 'list<AdRecommendation>',
         'recurring_budget_semantics': 'bool',
-        'regional_regulation_identities': 'Object',
+        'regional_regulated_categories': 'list<string>',
+        'regional_regulation_identities': 'RegionalRegulationIdentities',
         'review_feedback': 'string',
         'rf_prediction_id': 'string',
         'source_adset': 'AdSet',
@@ -1097,6 +1107,7 @@ class AdSet(
         field_enum_info['FullFunnelExplorationMode'] = AdSet.FullFunnelExplorationMode.__dict__.values()
         field_enum_info['MultiOptimizationGoalWeight'] = AdSet.MultiOptimizationGoalWeight.__dict__.values()
         field_enum_info['OptimizationSubEvent'] = AdSet.OptimizationSubEvent.__dict__.values()
+        field_enum_info['RegionalRegulatedCategories'] = AdSet.RegionalRegulatedCategories.__dict__.values()
         field_enum_info['TuneForCategory'] = AdSet.TuneForCategory.__dict__.values()
         field_enum_info['Operator'] = AdSet.Operator.__dict__.values()
         field_enum_info['StatusOption'] = AdSet.StatusOption.__dict__.values()

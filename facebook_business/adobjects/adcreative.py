@@ -44,6 +44,7 @@ class AdCreative(
         categorization_criteria = 'categorization_criteria'
         category_media_source = 'category_media_source'
         collaborative_ads_lsb_image_bank_id = 'collaborative_ads_lsb_image_bank_id'
+        contextual_multi_ads = 'contextual_multi_ads'
         creative_sourcing_spec = 'creative_sourcing_spec'
         degrees_of_freedom_spec = 'degrees_of_freedom_spec'
         destination_set_id = 'destination_set_id'
@@ -69,7 +70,6 @@ class AdCreative(
         link_destination_display_url = 'link_destination_display_url'
         link_og_id = 'link_og_id'
         link_url = 'link_url'
-        messenger_sponsored_message = 'messenger_sponsored_message'
         name = 'name'
         object_id = 'object_id'
         object_store_url = 'object_store_url'
@@ -78,6 +78,7 @@ class AdCreative(
         object_type = 'object_type'
         object_url = 'object_url'
         omnichannel_link_spec = 'omnichannel_link_spec'
+        page_welcome_message = 'page_welcome_message'
         photo_album_source_object_story_id = 'photo_album_source_object_story_id'
         place_page_set_id = 'place_page_set_id'
         platform_customizations = 'platform_customizations'
@@ -178,6 +179,7 @@ class AdCreative(
         use_mobile_app = 'USE_MOBILE_APP'
         video_annotation = 'VIDEO_ANNOTATION'
         video_call = 'VIDEO_CALL'
+        view_product = 'VIEW_PRODUCT'
         visit_pages_feed = 'VISIT_PAGES_FEED'
         watch_more = 'WATCH_MORE'
         watch_video = 'WATCH_VIDEO'
@@ -473,6 +475,7 @@ class AdCreative(
         'categorization_criteria': 'string',
         'category_media_source': 'string',
         'collaborative_ads_lsb_image_bank_id': 'string',
+        'contextual_multi_ads': 'AdCreativeContextualMultiAds',
         'creative_sourcing_spec': 'AdCreativeSourcingSpec',
         'degrees_of_freedom_spec': 'AdCreativeDegreesOfFreedomSpec',
         'destination_set_id': 'string',
@@ -498,7 +501,6 @@ class AdCreative(
         'link_destination_display_url': 'string',
         'link_og_id': 'string',
         'link_url': 'string',
-        'messenger_sponsored_message': 'string',
         'name': 'string',
         'object_id': 'string',
         'object_store_url': 'string',
@@ -507,6 +509,7 @@ class AdCreative(
         'object_type': 'ObjectType',
         'object_url': 'string',
         'omnichannel_link_spec': 'AdCreativeOmnichannelLinkSpec',
+        'page_welcome_message': 'string',
         'photo_album_source_object_story_id': 'string',
         'place_page_set_id': 'string',
         'platform_customizations': 'AdCreativePlatformCustomization',

@@ -203,7 +203,7 @@ class Group(
             self.assure_call()
             return request.execute()
 
-    def delete_admins(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def delete_ad_m_ins(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
@@ -234,7 +234,7 @@ class Group(
             self.assure_call()
             return request.execute()
 
-    def create_admin(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def create_ad_m_in(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
@@ -444,7 +444,6 @@ class Group(
         from facebook_business.adobjects.post import Post
         param_types = {
             'actions': 'Object',
-            'adaptive_type': 'string',
             'album_id': 'string',
             'android_key_hash': 'string',
             'animated_effect_id': 'unsigned int',
@@ -529,7 +528,6 @@ class Group(
             'publish_event_id': 'unsigned int',
             'published': 'bool',
             'quote': 'string',
-            'react_mode_metadata': 'string',
             'ref': 'list<string>',
             'referenceable_image_ids': 'list<string>',
             'referral_id': 'string',
@@ -1037,7 +1035,6 @@ class Group(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.advideo import AdVideo
         param_types = {
-            'adaptive_type': 'string',
             'animated_effect_id': 'unsigned int',
             'application_id': 'string',
             'asked_fun_fact_prompt_id': 'unsigned int',
@@ -1086,7 +1083,6 @@ class Group(
             'original_projection_type': 'original_projection_type_enum',
             'publish_event_id': 'unsigned int',
             'published': 'bool',
-            'react_mode_metadata': 'string',
             'referenced_sticker_id': 'string',
             'replace_video_id': 'string',
             'scheduled_publish_time': 'unsigned int',

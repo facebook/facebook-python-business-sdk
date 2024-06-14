@@ -27,7 +27,6 @@ class OpenBridgeConfiguration(
         super(OpenBridgeConfiguration, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        access_key = 'access_key'
         active = 'active'
         endpoint = 'endpoint'
         fallback_domain = 'fallback_domain'
@@ -35,6 +34,7 @@ class OpenBridgeConfiguration(
         host_business_id = 'host_business_id'
         host_external_id = 'host_external_id'
         id = 'id'
+        instance_id = 'instance_id'
         pixel_id = 'pixel_id'
 
     # @deprecated get_endpoint function is deprecated
@@ -112,13 +112,13 @@ class OpenBridgeConfiguration(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
-            'access_key': 'string',
             'active': 'bool',
             'endpoint': 'string',
             'fallback_domain': 'string',
             'fallback_domain_enabled': 'bool',
             'host_business_id': 'unsigned int',
             'host_external_id': 'string',
+            'instance_id': 'string',
         }
         enums = {
         }
@@ -145,7 +145,6 @@ class OpenBridgeConfiguration(
             return request.execute()
 
     _field_types = {
-        'access_key': 'string',
         'active': 'bool',
         'endpoint': 'string',
         'fallback_domain': 'string',
@@ -153,6 +152,7 @@ class OpenBridgeConfiguration(
         'host_business_id': 'string',
         'host_external_id': 'string',
         'id': 'string',
+        'instance_id': 'string',
         'pixel_id': 'string',
     }
     @classmethod

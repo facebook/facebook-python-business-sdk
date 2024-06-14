@@ -403,17 +403,23 @@ class ProductItem(
 
     class ErrorType:
         address_blocklisted_in_market = 'ADDRESS_BLOCKLISTED_IN_MARKET'
+        aggregated_localization_issues = 'AGGREGATED_LOCALIZATION_ISSUES'
+        app_has_no_aem_setup = 'APP_HAS_NO_AEM_SETUP'
         ar_deleted_due_to_update = 'AR_DELETED_DUE_TO_UPDATE'
         ar_policy_violated = 'AR_POLICY_VIOLATED'
         available = 'AVAILABLE'
         bad_quality_image = 'BAD_QUALITY_IMAGE'
+        big_catalog_with_all_items_in_stock = 'BIG_CATALOG_WITH_ALL_ITEMS_IN_STOCK'
         biz_msg_ai_agent_disabled_by_user = 'BIZ_MSG_AI_AGENT_DISABLED_BY_USER'
         cannot_edit_subscription_products = 'CANNOT_EDIT_SUBSCRIPTION_PRODUCTS'
+        catalog_not_connected_to_event_source = 'CATALOG_NOT_CONNECTED_TO_EVENT_SOURCE'
         checkout_disabled_by_user = 'CHECKOUT_DISABLED_BY_USER'
+        commerce_account_legal_address_invalid = 'COMMERCE_ACCOUNT_LEGAL_ADDRESS_INVALID'
         commerce_account_not_legally_compliant = 'COMMERCE_ACCOUNT_NOT_LEGALLY_COMPLIANT'
         crawled_availability_mismatch = 'CRAWLED_AVAILABILITY_MISMATCH'
         da_disabled_by_user = 'DA_DISABLED_BY_USER'
         da_policy_violation = 'DA_POLICY_VIOLATION'
+        deleted_item = 'DELETED_ITEM'
         digital_goods_not_available_for_checkout = 'DIGITAL_GOODS_NOT_AVAILABLE_FOR_CHECKOUT'
         duplicate_images = 'DUPLICATE_IMAGES'
         duplicate_title_and_description = 'DUPLICATE_TITLE_AND_DESCRIPTION'
@@ -421,6 +427,7 @@ class ProductItem(
         empty_condition = 'EMPTY_CONDITION'
         empty_description = 'EMPTY_DESCRIPTION'
         empty_image_url = 'EMPTY_IMAGE_URL'
+        empty_price = 'EMPTY_PRICE'
         empty_product_url = 'EMPTY_PRODUCT_URL'
         empty_seller_description = 'EMPTY_SELLER_DESCRIPTION'
         empty_title = 'EMPTY_TITLE'
@@ -428,6 +435,7 @@ class ProductItem(
         generic_invalid_field = 'GENERIC_INVALID_FIELD'
         groups_disabled_by_user = 'GROUPS_DISABLED_BY_USER'
         hidden_until_product_launch = 'HIDDEN_UNTIL_PRODUCT_LAUNCH'
+        illegal_product_category = 'ILLEGAL_PRODUCT_CATEGORY'
         image_fetch_failed = 'IMAGE_FETCH_FAILED'
         image_fetch_failed_bad_gateway = 'IMAGE_FETCH_FAILED_BAD_GATEWAY'
         image_fetch_failed_file_size_exceeded = 'IMAGE_FETCH_FAILED_FILE_SIZE_EXCEEDED'
@@ -438,6 +446,7 @@ class ProductItem(
         inactive_shopify_product = 'INACTIVE_SHOPIFY_PRODUCT'
         invalid_commerce_tax_category = 'INVALID_COMMERCE_TAX_CATEGORY'
         invalid_consolidated_locality_information = 'INVALID_CONSOLIDATED_LOCALITY_INFORMATION'
+        invalid_content_id = 'INVALID_CONTENT_ID'
         invalid_dealer_communication_parameters = 'INVALID_DEALER_COMMUNICATION_PARAMETERS'
         invalid_dma_codes = 'INVALID_DMA_CODES'
         invalid_fb_page_id = 'INVALID_FB_PAGE_ID'
@@ -466,6 +475,7 @@ class ProductItem(
         item_override_empty_availability = 'ITEM_OVERRIDE_EMPTY_AVAILABILITY'
         item_override_empty_price = 'ITEM_OVERRIDE_EMPTY_PRICE'
         item_override_not_visible = 'ITEM_OVERRIDE_NOT_VISIBLE'
+        item_price_not_positive = 'ITEM_PRICE_NOT_POSITIVE'
         item_stale_out_of_stock = 'ITEM_STALE_OUT_OF_STOCK'
         marketplace_disabled_by_user = 'MARKETPLACE_DISABLED_BY_USER'
         mini_shops_disabled_by_user = 'MINI_SHOPS_DISABLED_BY_USER'
@@ -473,6 +483,7 @@ class ProductItem(
         missing_checkout_currency = 'MISSING_CHECKOUT_CURRENCY'
         missing_color = 'MISSING_COLOR'
         missing_country_override_in_shipping_profile = 'MISSING_COUNTRY_OVERRIDE_IN_SHIPPING_PROFILE'
+        missing_event = 'MISSING_EVENT'
         missing_india_compliance_fields = 'MISSING_INDIA_COMPLIANCE_FIELDS'
         missing_shipping_profile = 'MISSING_SHIPPING_PROFILE'
         missing_size = 'MISSING_SIZE'
@@ -481,8 +492,11 @@ class ProductItem(
         negative_price = 'NEGATIVE_PRICE'
         not_enough_images = 'NOT_ENOUGH_IMAGES'
         not_enough_unique_products = 'NOT_ENOUGH_UNIQUE_PRODUCTS'
+        no_content_id = 'NO_CONTENT_ID'
         overlay_disclaimer_exceeded_max_length = 'OVERLAY_DISCLAIMER_EXCEEDED_MAX_LENGTH'
         part_of_product_launch = 'PART_OF_PRODUCT_LAUNCH'
+        passing_multiple_content_ids = 'PASSING_MULTIPLE_CONTENT_IDS'
+        product_dominant_currency_mismatch = 'PRODUCT_DOMINANT_CURRENCY_MISMATCH'
         product_expired = 'PRODUCT_EXPIRED'
         product_item_hidden_from_all_shops = 'PRODUCT_ITEM_HIDDEN_FROM_ALL_SHOPS'
         product_item_invalid_partner_tokens = 'PRODUCT_ITEM_INVALID_PARTNER_TOKENS'
@@ -506,6 +520,8 @@ class ProductItem(
         property_value_string_too_short = 'PROPERTY_VALUE_STRING_TOO_SHORT'
         property_value_uppercase = 'PROPERTY_VALUE_UPPERCASE'
         property_value_uppercase_warning = 'PROPERTY_VALUE_UPPERCASE_WARNING'
+        purchase_rate_below_addtocart = 'PURCHASE_RATE_BELOW_ADDTOCART'
+        purchase_rate_below_viewcontent = 'PURCHASE_RATE_BELOW_VIEWCONTENT'
         quality_duplicated_description = 'QUALITY_DUPLICATED_DESCRIPTION'
         quality_item_link_broken = 'QUALITY_ITEM_LINK_BROKEN'
         quality_item_link_redirecting = 'QUALITY_ITEM_LINK_REDIRECTING'
@@ -515,6 +531,8 @@ class ProductItem(
         shops_policy_violation = 'SHOPS_POLICY_VIOLATION'
         subscription_info_not_enabled_for_feed = 'SUBSCRIPTION_INFO_NOT_ENABLED_FOR_FEED'
         tax_category_not_supported_in_uk = 'TAX_CATEGORY_NOT_SUPPORTED_IN_UK'
+        unique_product_identifier_missing = 'UNIQUE_PRODUCT_IDENTIFIER_MISSING'
+        unmatched_events = 'UNMATCHED_EVENTS'
         unsupported_product_category = 'UNSUPPORTED_PRODUCT_CATEGORY'
         variant_attribute_issue = 'VARIANT_ATTRIBUTE_ISSUE'
         video_fetch_failed = 'VIDEO_FETCH_FAILED'
@@ -1106,7 +1124,7 @@ class ProductItem(
         'images': 'list<string>',
         'importer_address': 'ProductItemImporterAddress',
         'importer_name': 'string',
-        'invalidation_errors': 'list<Object>',
+        'invalidation_errors': 'list<ProductItemInvalidationError>',
         'inventory': 'int',
         'manufacturer_info': 'string',
         'manufacturer_part_number': 'string',

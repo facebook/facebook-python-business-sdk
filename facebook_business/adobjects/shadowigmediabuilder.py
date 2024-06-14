@@ -31,6 +31,7 @@ class ShadowIGMediaBuilder(
         id = 'id'
         status = 'status'
         status_code = 'status_code'
+        video_status = 'video_status'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -67,6 +68,7 @@ class ShadowIGMediaBuilder(
         'id': 'string',
         'status': 'string',
         'status_code': 'string',
+        'video_status': 'IGResumableVideoUploadStatus',
     }
     @classmethod
     def _get_field_enum_info(cls):

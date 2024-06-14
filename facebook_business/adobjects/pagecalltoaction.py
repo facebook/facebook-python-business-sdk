@@ -85,6 +85,7 @@ class PageCallToAction(
         buy_tickets = 'BUY_TICKETS'
         call_now = 'CALL_NOW'
         charity_donate = 'CHARITY_DONATE'
+        check_in = 'CHECK_IN'
         contact_us = 'CONTACT_US'
         donate_now = 'DONATE_NOW'
         email = 'EMAIL'
