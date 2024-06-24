@@ -61,13 +61,6 @@ class FacebookResponse(object):
         """Returns the response body."""
         return self._body
 
-    def json(self):
-        """Returns the response body -- in json if possible."""
-        try:
-            return json.loads(self._body)
-        except (TypeError, ValueError):
-            return self._body
-
     def headers(self):
         """Return the response headers."""
         return self._headers
@@ -83,9 +76,12 @@ class FacebookResponse(object):
     def is_success(self):
         """Returns boolean indicating if the call was successful."""
 
-        json_body = self.json()
+        try:
+            json_body = json.loads(self._body)
+        except (TypeError, ValueError):
+            return False
 
-        if isinstance(json_body, collections_abc.Mapping) and 'error' in json_body:
+        elif isinstance(json_body, collections_abc.Mapping) and 'error' in json_body:
             # Is a dictionary, has error in it
             return False
         elif bool(json_body):
