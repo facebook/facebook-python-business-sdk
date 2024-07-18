@@ -26,6 +26,8 @@ from facebook_business.adobjects.serverside.custom_data import CustomData
 from facebook_business.adobjects.serverside.user_data import UserData
 from facebook_business.adobjects.serverside.app_data import AppData
 from facebook_business.adobjects.serverside.messaging_channel import MessagingChannel
+from facebook_business.adobjects.serverside.original_event_data import OriginalEventData
+from facebook_business.adobjects.serverside.attribution_data import AttributionData
 
 
 class Event(object):
@@ -44,13 +46,16 @@ class Event(object):
         'action_source': 'ActionSource',
         'advanced_measurement_table': 'str',
         'messaging_channel': 'MessagingChannel',
+        'original_event_data': 'OriginalEventData',
+        'attribution_data': 'AttributionData',
     }
 
     def __init__(self, event_name = None, event_time = None, event_source_url = None,
                  opt_out = None, event_id = None, user_data = None, custom_data = None,
                  app_data = None, data_processing_options = None, data_processing_options_country = None,
-                 data_processing_options_state = None, action_source = None, advanced_measurement_table = None, messaging_channel = None):
-        # type: (str, int, str, bool, str, UserData, CustomData, AppData, list[str], int, int, ActionSource, str) -> None
+                 data_processing_options_state = None, action_source = None, advanced_measurement_table = None, messaging_channel = None,
+                 original_event_data = None, attribution_data = None):
+        # type: (str, int, str, bool, str, UserData, CustomData, AppData, list[str], int, int, ActionSource, str, MessagingChannel, OriginalEventData, AttributionData) -> None
 
         """Conversions API Event"""
         self._event_name = None
@@ -69,6 +74,8 @@ class Event(object):
         self.event_name = event_name
         self.event_time = event_time
         self._messaging_channel = None
+        self._original_event_data = None
+        self._attribution_data = None
         if event_source_url is not None:
             self.event_source_url = event_source_url
         if opt_out is not None:
@@ -93,6 +100,10 @@ class Event(object):
             self.advanced_measurement_table = advanced_measurement_table
         if messaging_channel is not None:
             self.messaging_channel = messaging_channel
+        if original_event_data is not None:
+            self.original_event_data = original_event_data
+        if attribution_data is not None:
+            self.attribution_data = attribution_data
 
     @property
     def event_name(self):
@@ -429,6 +440,50 @@ class Event(object):
         """
         self._messaging_channel = messaging_channel
 
+    @property
+    def original_event_data(self):
+        """Gets the original_event_data.
+
+        Return the original_event_data of the event.
+
+        :return: The original_event_data.
+        :rtype: OriginalEventData
+        """
+        return self._original_event_data
+
+    @original_event_data.setter
+    def original_event_data(self, original_event_data):
+        """Sets the original_event_data.
+
+        Allow you to specify the original_event_data of the event.
+
+        :param original_event_data: The original_event_data.
+        :type: OriginalEventData
+        """
+        self._original_event_data = original_event_data
+    
+    @property
+    def attribution_data(self):
+        """Gets the attribution_data.
+
+        Return the attribution_data of the event.
+
+        :return: The attribution_data.
+        :rtype: AttributionData
+        """
+        return self._attribution_data
+
+    @attribution_data.setter
+    def attribution_data(self, attribution_data):
+        """Sets the attribution_data.
+
+        Allow you to specify the attribution_data of the event.
+
+        :param attribution_data: The attribution_data.
+        :type: AttributionData
+        """
+        self._attribution_data = attribution_data
+
     def normalize(self):
         normalized_payload = {'event_name': self.event_name, 'event_time': self.event_time,
                               'event_source_url': self.event_source_url, 'opt_out': self.opt_out,
@@ -453,6 +508,13 @@ class Event(object):
         if self.messaging_channel is not None:
             self.validate_messaging_channel(self.messaging_channel)
             normalized_payload['messaging_channel'] = self.messaging_channel.value
+        
+        if self.original_event_data is not None:
+            normalized_payload['original_event_data'] = self.original_event_data.normalize()
+
+        if self.attribution_data is not None:
+            normalized_payload['attribution_data'] = self.attribution_data.normalize()
+
 
         normalized_payload = {k: v for k, v in normalized_payload.items() if v is not None}
         return normalized_payload
