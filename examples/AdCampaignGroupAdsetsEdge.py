@@ -27,7 +27,7 @@ access_token = '<ACCESS_TOKEN>'
 app_secret = '<APP_SECRET>'
 app_id = '<APP_ID>'
 id = '<AD_CAMPAIGN_ID>'
-FacebookAdsApi.init(access_token=access_token)
+FacebookAdsApi.init(access_token=access_token, app_secret=app_secret, app_id=app_id)
 
 fields = [
   'name',
@@ -36,9 +36,9 @@ fields = [
   'daily_budget',
   'lifetime_budget',
 ]
-params = {
-}
-print Campaign(id).get_ad_sets(
-  fields=fields,
-  params=params,
-)
+
+campaign = Campaign(id)
+ad_sets = campaign.get_ad_sets(fields=fields)
+
+for ad_set in ad_sets:
+    print(ad_set)
