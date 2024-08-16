@@ -29,6 +29,7 @@ class CommerceOrder(
     class Field(AbstractObject.Field):
         buyer_details = 'buyer_details'
         channel = 'channel'
+        contains_bopis_items = 'contains_bopis_items'
         created = 'created'
         estimated_payment_details = 'estimated_payment_details'
         id = 'id'
@@ -105,7 +106,6 @@ class CommerceOrder(
         param_types = {
             'idempotency_key': 'string',
             'merchant_order_reference': 'string',
-            'return_error_response': 'bool',
         }
         enums = {
         }
@@ -161,7 +161,7 @@ class CommerceOrder(
             self.assure_call()
             return request.execute()
 
-    def create_cancellation(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def create_can_cell_a_t_i_on(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
@@ -317,7 +317,7 @@ class CommerceOrder(
             self.assure_call()
             return request.execute()
 
-    def get_promotions(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def get_promo_t_i_ons(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
@@ -632,6 +632,7 @@ class CommerceOrder(
     _field_types = {
         'buyer_details': 'Object',
         'channel': 'string',
+        'contains_bopis_items': 'bool',
         'created': 'string',
         'estimated_payment_details': 'Object',
         'id': 'string',

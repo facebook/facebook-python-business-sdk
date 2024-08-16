@@ -44,8 +44,6 @@ class InstagramInsightsResult(
     class Metric:
         clips_replays_count = 'clips_replays_count'
         comments = 'comments'
-        engagement = 'engagement'
-        exits = 'exits'
         follows = 'follows'
         ig_reels_aggregated_all_plays_count = 'ig_reels_aggregated_all_plays_count'
         ig_reels_avg_watch_time = 'ig_reels_avg_watch_time'
@@ -60,8 +58,6 @@ class InstagramInsightsResult(
         replies = 'replies'
         saved = 'saved'
         shares = 'shares'
-        taps_back = 'taps_back'
-        taps_forward = 'taps_forward'
         total_interactions = 'total_interactions'
         video_views = 'video_views'
 

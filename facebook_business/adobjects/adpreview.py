@@ -38,6 +38,7 @@ class AdPreview(
         desktop_feed_standard = 'DESKTOP_FEED_STANDARD'
         facebook_profile_feed_desktop = 'FACEBOOK_PROFILE_FEED_DESKTOP'
         facebook_profile_feed_mobile = 'FACEBOOK_PROFILE_FEED_MOBILE'
+        facebook_profile_reels_mobile = 'FACEBOOK_PROFILE_REELS_MOBILE'
         facebook_reels_banner = 'FACEBOOK_REELS_BANNER'
         facebook_reels_banner_desktop = 'FACEBOOK_REELS_BANNER_DESKTOP'
         facebook_reels_mobile = 'FACEBOOK_REELS_MOBILE'

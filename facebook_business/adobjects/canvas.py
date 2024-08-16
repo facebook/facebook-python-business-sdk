@@ -205,7 +205,7 @@ class Canvas(
         'name': 'string',
         'owner': 'Page',
         'property_list': 'list<string>',
-        'source_template': 'Object',
+        'source_template': 'CanvasTemplate',
         'store_url': 'string',
         'style_list': 'list<string>',
         'tags': 'list<string>',

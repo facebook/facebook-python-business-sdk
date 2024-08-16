@@ -25,7 +25,9 @@ class AdCreativeBrandedContentAds(
 
     class Field(AbstractObject.Field):
         ad_format = 'ad_format'
+        content_search_input = 'content_search_input'
         creator_ad_permission_type = 'creator_ad_permission_type'
+        facebook_boost_post_access_token = 'facebook_boost_post_access_token'
         instagram_boost_post_access_token = 'instagram_boost_post_access_token'
         is_mca_internal = 'is_mca_internal'
         partners = 'partners'
@@ -34,7 +36,9 @@ class AdCreativeBrandedContentAds(
 
     _field_types = {
         'ad_format': 'int',
+        'content_search_input': 'string',
         'creator_ad_permission_type': 'string',
+        'facebook_boost_post_access_token': 'string',
         'instagram_boost_post_access_token': 'string',
         'is_mca_internal': 'bool',
         'partners': 'list<AdCreativeBrandedContentAdsPartners>',

@@ -31,6 +31,7 @@ class AdRecommendation(
         message = 'message'
         recommendation_data = 'recommendation_data'
         title = 'title'
+        value = 'value'
 
     class Confidence:
         high = 'HIGH'
@@ -50,6 +51,7 @@ class AdRecommendation(
         'message': 'string',
         'recommendation_data': 'AdRecommendationData',
         'title': 'string',
+        'value': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

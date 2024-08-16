@@ -46,6 +46,7 @@ class AdAssetFeedSpec(
         reasons_to_shop = 'reasons_to_shop'
         shops_bundle = 'shops_bundle'
         titles = 'titles'
+        upcoming_events = 'upcoming_events'
         videos = 'videos'
 
     class CallToActionTypes:
@@ -127,6 +128,7 @@ class AdAssetFeedSpec(
         use_mobile_app = 'USE_MOBILE_APP'
         video_annotation = 'VIDEO_ANNOTATION'
         video_call = 'VIDEO_CALL'
+        view_product = 'VIEW_PRODUCT'
         visit_pages_feed = 'VISIT_PAGES_FEED'
         watch_more = 'WATCH_MORE'
         watch_video = 'WATCH_VIDEO'
@@ -156,6 +158,7 @@ class AdAssetFeedSpec(
         'reasons_to_shop': 'bool',
         'shops_bundle': 'bool',
         'titles': 'list<AdAssetFeedSpecTitle>',
+        'upcoming_events': 'list<Object>',
         'videos': 'list<AdAssetFeedSpecVideo>',
     }
     @classmethod

@@ -227,7 +227,7 @@ class ExtendedCreditInvoiceGroup(
         'auto_enroll': 'bool',
         'bill_to_address': 'CRMAddress',
         'customer_po_number': 'string',
-        'email': 'Object',
+        'email': 'ExtendedCreditEmail',
         'emails': 'list<string>',
         'id': 'string',
         'liable_address': 'CRMAddress',

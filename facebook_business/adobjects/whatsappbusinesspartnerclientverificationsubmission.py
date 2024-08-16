@@ -45,6 +45,7 @@ class WhatsAppBusinessPartnerClientVerificationSubmission(
         approved = 'APPROVED'
         failed = 'FAILED'
         pending = 'PENDING'
+        revoked = 'REVOKED'
 
     _field_types = {
         'client_business_id': 'string',

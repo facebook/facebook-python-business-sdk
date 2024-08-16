@@ -23,9 +23,11 @@ from unittest import TestCase
 from facebook_business import FacebookAdsApi
 from facebook_business.adobjects.serverside.action_source import ActionSource
 from facebook_business.adobjects.serverside.app_data import AppData
+from facebook_business.adobjects.serverside.attribution_data import AttributionData
 from facebook_business.adobjects.serverside.custom_data import CustomData
 from facebook_business.adobjects.serverside.event import Event
 from facebook_business.adobjects.serverside.extended_device_info import ExtendedDeviceInfo
+from facebook_business.adobjects.serverside.original_event_data import OriginalEventData
 from facebook_business.adobjects.serverside.user_data import UserData
 
 
@@ -38,6 +40,8 @@ class EventTest(TestCase):
         event_id = 'event_id-3'
         user_data = UserData(email='eg@test.com')
         custom_data = CustomData(order_id=123)
+        attribution_data = AttributionData(scope='click', attribution_share=0.5)
+        original_event_data = OriginalEventData(event_name='event-name-1', event_time=123456)
         ext_device_info = ExtendedDeviceInfo(
             ext_info_version = '1.2',
             app_package_name = 'bizSDK',
@@ -87,6 +91,8 @@ class EventTest(TestCase):
             data_processing_options_state=data_processing_options_state,
             action_source=action_source,
             app_data=app_data,
+            original_event_data=original_event_data,
+            attribution_data=attribution_data,
         )
         expected_params = {
             'event_name': event_name,
@@ -101,6 +107,8 @@ class EventTest(TestCase):
             'data_processing_options_state': data_processing_options_state,
             'action_source': action_source.value,
             'app_data': app_data.normalize(),
+            'original_event_data': original_event_data.normalize(),
+            'attribution_data': attribution_data.normalize(),
         }
         self.assertEqual(event.normalize(), expected_params)
 

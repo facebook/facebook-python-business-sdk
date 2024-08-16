@@ -69,7 +69,6 @@ class ProductCatalog(
         home_listings = 'home_listings'
         hotels = 'hotels'
         jobs = 'jobs'
-        local_delivery_shipping_profiles = 'local_delivery_shipping_profiles'
         local_service_businesses = 'local_service_businesses'
         offer_items = 'offer_items'
         offline_commerce = 'offline_commerce'
@@ -319,6 +318,7 @@ class ProductCatalog(
             'business': 'string',
             'permitted_roles': 'list<permitted_roles_enum>',
             'permitted_tasks': 'list<permitted_tasks_enum>',
+            'skip_default_utms': 'bool',
             'utm_settings': 'map',
         }
         enums = {
@@ -516,7 +516,7 @@ class ProductCatalog(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.storecatalogsettings import StoreCatalogSettings
         param_types = {
-            'page': 'int',
+            'page': 'string',
         }
         enums = {
         }
@@ -643,41 +643,11 @@ class ProductCatalog(
             self.assure_call()
             return request.execute()
 
-    def get_collaborative_ads_event_stats(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.catalogsegmentallmatchcountlaser import CatalogSegmentAllMatchCountLaser
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/collaborative_ads_event_stats',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=CatalogSegmentAllMatchCountLaser,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=CatalogSegmentAllMatchCountLaser, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def get_collaborative_ads_lsb_image_bank(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.cpaslsbimagebank import CPASLsbImageBank
         param_types = {
         }
         enums = {
@@ -688,9 +658,9 @@ class ProductCatalog(
             endpoint='/collaborative_ads_lsb_image_bank',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=CPASLsbImageBank,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=CPASLsbImageBank, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -739,6 +709,7 @@ class ProductCatalog(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.cpaslsbimagebank import CPASLsbImageBank
         param_types = {
             'ad_group_id': 'unsigned int',
             'agency_business_id': 'unsigned int',
@@ -752,9 +723,42 @@ class ProductCatalog(
             endpoint='/cpas_lsb_image_bank',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=CPASLsbImageBank,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=CPASLsbImageBank, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_creator_asset_creatives(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.creatorassetcreative import CreatorAssetCreative
+        param_types = {
+            'moderation_status': 'moderation_status_enum',
+        }
+        enums = {
+            'moderation_status_enum': CreatorAssetCreative.ModerationStatus.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/creator_asset_creatives',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=CreatorAssetCreative,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=CreatorAssetCreative, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

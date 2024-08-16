@@ -25,12 +25,26 @@ class AdsHistogramStats(
 
     class Field(AbstractObject.Field):
         field_1d_click = '1d_click'
+        field_1d_click_all_conversions = '1d_click_all_conversions'
+        field_1d_click_first_conversion = '1d_click_first_conversion'
         field_1d_ev = '1d_ev'
+        field_1d_ev_all_conversions = '1d_ev_all_conversions'
+        field_1d_ev_first_conversion = '1d_ev_first_conversion'
         field_1d_view = '1d_view'
+        field_1d_view_all_conversions = '1d_view_all_conversions'
+        field_1d_view_first_conversion = '1d_view_first_conversion'
         field_28d_click = '28d_click'
+        field_28d_click_all_conversions = '28d_click_all_conversions'
+        field_28d_click_first_conversion = '28d_click_first_conversion'
         field_28d_view = '28d_view'
+        field_28d_view_all_conversions = '28d_view_all_conversions'
+        field_28d_view_first_conversion = '28d_view_first_conversion'
         field_7d_click = '7d_click'
+        field_7d_click_all_conversions = '7d_click_all_conversions'
+        field_7d_click_first_conversion = '7d_click_first_conversion'
         field_7d_view = '7d_view'
+        field_7d_view_all_conversions = '7d_view_all_conversions'
+        field_7d_view_first_conversion = '7d_view_first_conversion'
         action_brand = 'action_brand'
         action_canvas_component_id = 'action_canvas_component_id'
         action_canvas_component_name = 'action_canvas_component_name'
@@ -63,12 +77,26 @@ class AdsHistogramStats(
 
     _field_types = {
         '1d_click': 'list<int>',
+        '1d_click_all_conversions': 'list<int>',
+        '1d_click_first_conversion': 'list<int>',
         '1d_ev': 'list<int>',
+        '1d_ev_all_conversions': 'list<int>',
+        '1d_ev_first_conversion': 'list<int>',
         '1d_view': 'list<int>',
+        '1d_view_all_conversions': 'list<int>',
+        '1d_view_first_conversion': 'list<int>',
         '28d_click': 'list<int>',
+        '28d_click_all_conversions': 'list<int>',
+        '28d_click_first_conversion': 'list<int>',
         '28d_view': 'list<int>',
+        '28d_view_all_conversions': 'list<int>',
+        '28d_view_first_conversion': 'list<int>',
         '7d_click': 'list<int>',
+        '7d_click_all_conversions': 'list<int>',
+        '7d_click_first_conversion': 'list<int>',
         '7d_view': 'list<int>',
+        '7d_view_all_conversions': 'list<int>',
+        '7d_view_first_conversion': 'list<int>',
         'action_brand': 'string',
         'action_canvas_component_id': 'string',
         'action_canvas_component_name': 'string',

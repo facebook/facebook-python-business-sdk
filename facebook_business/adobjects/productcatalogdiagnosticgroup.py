@@ -54,6 +54,7 @@ class ProductCatalogDiagnosticGroup(
 
     class AffectedEntity:
         product_catalog = 'product_catalog'
+        product_event = 'product_event'
         product_item = 'product_item'
         product_set = 'product_set'
 
@@ -72,6 +73,7 @@ class ProductCatalogDiagnosticGroup(
         category = 'CATEGORY'
         checkout = 'CHECKOUT'
         da_visibility_issues = 'DA_VISIBILITY_ISSUES'
+        event_source_issues = 'EVENT_SOURCE_ISSUES'
         image_quality = 'IMAGE_QUALITY'
         low_quality_title_and_description = 'LOW_QUALITY_TITLE_AND_DESCRIPTION'
         policy_violation = 'POLICY_VIOLATION'
@@ -79,6 +81,7 @@ class ProductCatalogDiagnosticGroup(
 
     class AffectedEntities:
         product_catalog = 'product_catalog'
+        product_event = 'product_event'
         product_item = 'product_item'
         product_set = 'product_set'
 
@@ -93,6 +96,7 @@ class ProductCatalogDiagnosticGroup(
         category = 'CATEGORY'
         checkout = 'CHECKOUT'
         da_visibility_issues = 'DA_VISIBILITY_ISSUES'
+        event_source_issues = 'EVENT_SOURCE_ISSUES'
         image_quality = 'IMAGE_QUALITY'
         low_quality_title_and_description = 'LOW_QUALITY_TITLE_AND_DESCRIPTION'
         policy_violation = 'POLICY_VIOLATION'

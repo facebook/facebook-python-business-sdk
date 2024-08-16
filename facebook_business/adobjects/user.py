@@ -597,6 +597,37 @@ class User(
             self.assure_call()
             return request.execute()
 
+    def get_assigned_applications(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.application import Application
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/assigned_applications',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Application,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Application, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_assigned_business_asset_groups(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -830,11 +861,12 @@ class User(
             'survey_business_type': 'survey_business_type_enum',
             'survey_num_assets': 'unsigned int',
             'survey_num_people': 'unsigned int',
-            'timezone_id': 'unsigned int',
+            'timezone_id': 'timezone_id_enum',
             'vertical': 'vertical_enum',
         }
         enums = {
             'survey_business_type_enum': Business.SurveyBusinessType.__dict__.values(),
+            'timezone_id_enum': Business.TimezoneId.__dict__.values(),
             'vertical_enum': Business.Vertical.__dict__.values(),
         }
         request = FacebookRequest(
@@ -1004,7 +1036,6 @@ class User(
         from facebook_business.adobjects.post import Post
         param_types = {
             'actions': 'Object',
-            'adaptive_type': 'string',
             'album_id': 'string',
             'android_key_hash': 'string',
             'animated_effect_id': 'unsigned int',
@@ -1089,7 +1120,6 @@ class User(
             'publish_event_id': 'unsigned int',
             'published': 'bool',
             'quote': 'string',
-            'react_mode_metadata': 'string',
             'ref': 'list<string>',
             'referenceable_image_ids': 'list<string>',
             'referral_id': 'string',
@@ -1241,42 +1271,6 @@ class User(
             target_class=FundraiserPersonToCharity,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=FundraiserPersonToCharity, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_game_time(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'action': 'action_enum',
-        }
-        enums = {
-            'action_enum': [
-                'END',
-                'HEARTBEAT',
-                'START',
-            ],
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/game_times',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2067,7 +2061,6 @@ class User(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.advideo import AdVideo
         param_types = {
-            'adaptive_type': 'string',
             'animated_effect_id': 'unsigned int',
             'application_id': 'string',
             'asked_fun_fact_prompt_id': 'unsigned int',
@@ -2118,7 +2111,6 @@ class User(
             'original_projection_type': 'original_projection_type_enum',
             'privacy': 'string',
             'publish_event_id': 'unsigned int',
-            'react_mode_metadata': 'string',
             'referenced_sticker_id': 'string',
             'replace_video_id': 'string',
             'slideshow_spec': 'map',
@@ -2182,7 +2174,7 @@ class User(
         'community': 'Group',
         'cover': 'UserCoverPhoto',
         'currency': 'Currency',
-        'education': 'list<Object>',
+        'education': 'list<EducationExperience>',
         'email': 'string',
         'favorite_athletes': 'list<Experience>',
         'favorite_teams': 'list<Experience>',
