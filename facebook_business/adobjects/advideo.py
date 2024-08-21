@@ -744,7 +744,7 @@ class AdVideo(
             self.assure_call()
             return request.execute()
 
-    def get_crosspost_share_d_pages(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def get_crosspost_shared_pages(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
