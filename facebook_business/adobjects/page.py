@@ -2887,7 +2887,7 @@ class Page(
             self.assure_call()
             return request.execute()
 
-    def create_message_attach_m_ent(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def create_message_attachment(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
@@ -3060,7 +3060,7 @@ class Page(
             self.assure_call()
             return request.execute()
 
-    def get_messenger_lead_for_ms(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def get_messenger_lead_forms(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
@@ -3091,7 +3091,7 @@ class Page(
             self.assure_call()
             return request.execute()
 
-    def create_messenger_lead_for_m(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def create_messenger_lead_form(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
@@ -4092,7 +4092,7 @@ class Page(
             self.assure_call()
             return request.execute()
 
-    def get_schedule_d_posts(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def get_scheduled_posts(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
