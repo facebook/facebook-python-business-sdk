@@ -24,6 +24,7 @@ class LeadGenFormPreviewDetails(
         self._api = api
 
     class Field(AbstractObject.Field):
+        call_business_text = 'call_business_text'
         call_to_action_title = 'call_to_action_title'
         contact_information_text = 'contact_information_text'
         creatives_overview_default_text = 'creatives_overview_default_text'
@@ -48,17 +49,21 @@ class LeadGenFormPreviewDetails(
         optional_question_text = 'optional_question_text'
         personal_info_text = 'personal_info_text'
         phone_number_inline_context_text = 'phone_number_inline_context_text'
+        privacy_policy_link_text = 'privacy_policy_link_text'
         privacy_policy_title_section_title_text = 'privacy_policy_title_section_title_text'
         privacy_setting_description = 'privacy_setting_description'
         products_section_headers = 'products_section_headers'
         qualified_thank_you_card_transparency_info_text = 'qualified_thank_you_card_transparency_info_text'
+        redeem_promo_code_text = 'redeem_promo_code_text'
         review_your_info_text = 'review_your_info_text'
         secure_sharing_text = 'secure_sharing_text'
         slide_to_submit_text = 'slide_to_submit_text'
         social_proof_section_headers = 'social_proof_section_headers'
         submit_button_text = 'submit_button_text'
+        view_file_text = 'view_file_text'
 
     _field_types = {
+        'call_business_text': 'string',
         'call_to_action_title': 'string',
         'contact_information_text': 'string',
         'creatives_overview_default_text': 'string',
@@ -83,15 +88,18 @@ class LeadGenFormPreviewDetails(
         'optional_question_text': 'string',
         'personal_info_text': 'string',
         'phone_number_inline_context_text': 'string',
+        'privacy_policy_link_text': 'string',
         'privacy_policy_title_section_title_text': 'string',
         'privacy_setting_description': 'string',
         'products_section_headers': 'list<map<string, string>>',
         'qualified_thank_you_card_transparency_info_text': 'string',
+        'redeem_promo_code_text': 'string',
         'review_your_info_text': 'string',
         'secure_sharing_text': 'string',
         'slide_to_submit_text': 'string',
         'social_proof_section_headers': 'list<map<string, string>>',
         'submit_button_text': 'string',
+        'view_file_text': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

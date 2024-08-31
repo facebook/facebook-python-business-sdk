@@ -33,6 +33,7 @@ class CatalogItemRejectionReasons(
         test_capability = 'test_capability'
         universal_checkout = 'universal_checkout'
         us_marketplace = 'us_marketplace'
+        whatsapp_marketing_message = 'whatsapp_marketing_message'
 
     _field_types = {
         'capability': 'Capability',

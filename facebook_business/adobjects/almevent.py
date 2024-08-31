@@ -18,24 +18,27 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class CTXPartnerAppWelcomeMessageFlow(
+class ALMEvent(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isCTXPartnerAppWelcomeMessageFlow = True
-        super(CTXPartnerAppWelcomeMessageFlow, self).__init__(fbid, parent_id, api)
+        self._isALMEvent = True
+        super(ALMEvent, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        compatible_platforms = 'compatible_platforms'
-        eligible_platforms = 'eligible_platforms'
+        ad_account_ids = 'ad_account_ids'
+        campaign_ids = 'campaign_ids'
+        channel = 'channel'
+        event = 'event'
+        event_time = 'event_time'
+        guidance = 'guidance'
+        guidance_detail = 'guidance_detail'
         id = 'id'
-        is_ig_only_flow = 'is_ig_only_flow'
-        is_used_in_ad = 'is_used_in_ad'
-        last_update_time = 'last_update_time'
-        name = 'name'
-        welcome_message_flow = 'welcome_message_flow'
-        welcome_message_sequence = 'welcome_message_sequence'
+        parent_advertiser_ids = 'parent_advertiser_ids'
+        reseller_business_id = 'reseller_business_id'
+        sub_channel = 'sub_channel'
+        user_id = 'user_id'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -51,7 +54,7 @@ class CTXPartnerAppWelcomeMessageFlow(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=CTXPartnerAppWelcomeMessageFlow,
+            target_class=ALMEvent,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -68,15 +71,18 @@ class CTXPartnerAppWelcomeMessageFlow(
             return request.execute()
 
     _field_types = {
-        'compatible_platforms': 'list<string>',
-        'eligible_platforms': 'list<string>',
+        'ad_account_ids': 'list<string>',
+        'campaign_ids': 'list<string>',
+        'channel': 'string',
+        'event': 'string',
+        'event_time': 'datetime',
+        'guidance': 'string',
+        'guidance_detail': 'string',
         'id': 'string',
-        'is_ig_only_flow': 'bool',
-        'is_used_in_ad': 'bool',
-        'last_update_time': 'datetime',
-        'name': 'string',
-        'welcome_message_flow': 'string',
-        'welcome_message_sequence': 'string',
+        'parent_advertiser_ids': 'list<string>',
+        'reseller_business_id': 'string',
+        'sub_channel': 'string',
+        'user_id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

@@ -27,12 +27,14 @@ class MessagingAppsInfo(
         super(MessagingAppsInfo, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        ctd_support_only_for_ig_app = 'ctd_support_only_for_ig_app'
         has_instagram_messaging_permission = 'has_instagram_messaging_permission'
         has_messenger_messaging_permission = 'has_messenger_messaging_permission'
         id = 'id'
         name = 'name'
 
     _field_types = {
+        'ctd_support_only_for_ig_app': 'bool',
         'has_instagram_messaging_permission': 'bool',
         'has_messenger_messaging_permission': 'bool',
         'id': 'string',

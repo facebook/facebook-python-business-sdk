@@ -14,22 +14,24 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class ProductCatalogMicrodataStatsPixelInfo(
+class AdCampaignConversionValueExpressionSpec(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(ProductCatalogMicrodataStatsPixelInfo, self).__init__()
-        self._isProductCatalogMicrodataStatsPixelInfo = True
+        super(AdCampaignConversionValueExpressionSpec, self).__init__()
+        self._isAdCampaignConversionValueExpressionSpec = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        is_already_connected = 'is_already_connected'
-        pixel_id = 'pixel_id'
+        adjustment_sign = 'adjustment_sign'
+        adjustment_weight = 'adjustment_weight'
+        destination_type = 'destination_type'
 
     _field_types = {
-        'is_already_connected': 'bool',
-        'pixel_id': 'string',
+        'adjustment_sign': 'string',
+        'adjustment_weight': 'unsigned int',
+        'destination_type': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

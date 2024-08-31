@@ -32,6 +32,7 @@ class AdCreativeLinkDataCallToActionValue(
         link = 'link'
         link_caption = 'link_caption'
         link_format = 'link_format'
+        object_store_urls = 'object_store_urls'
         page = 'page'
         product_link = 'product_link'
         whatsapp_number = 'whatsapp_number'
@@ -45,6 +46,7 @@ class AdCreativeLinkDataCallToActionValue(
         'link': 'string',
         'link_caption': 'string',
         'link_format': 'string',
+        'object_store_urls': 'list<string>',
         'page': 'string',
         'product_link': 'string',
         'whatsapp_number': 'string',

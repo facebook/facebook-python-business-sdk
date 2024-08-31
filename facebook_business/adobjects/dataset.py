@@ -18,27 +18,21 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class InstantArticleCTA(
+class Dataset(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isInstantArticleCTA = True
-        super(InstantArticleCTA, self).__init__(fbid, parent_id, api)
+        self._isDataset = True
+        super(Dataset, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
         id = 'id'
-        is_enabled = 'is_enabled'
-        publisher_defined_value = 'publisher_defined_value'
-        type = 'type'
-        update_time = 'update_time'
+        name = 'name'
 
     _field_types = {
         'id': 'string',
-        'is_enabled': 'bool',
-        'publisher_defined_value': 'float',
-        'type': 'string',
-        'update_time': 'datetime',
+        'name': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

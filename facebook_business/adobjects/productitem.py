@@ -34,6 +34,8 @@ class ProductItem(
         applinks = 'applinks'
         availability = 'availability'
         brand = 'brand'
+        bundle_items = 'bundle_items'
+        bundle_retailer_ids = 'bundle_retailer_ids'
         capability_to_review_status = 'capability_to_review_status'
         category = 'category'
         category_specific_fields = 'category_specific_fields'
@@ -67,6 +69,7 @@ class ProductItem(
         importer_name = 'importer_name'
         invalidation_errors = 'invalidation_errors'
         inventory = 'inventory'
+        is_bundle_hero = 'is_bundle_hero'
         manufacturer_info = 'manufacturer_info'
         manufacturer_part_number = 'manufacturer_part_number'
         marked_for_product_launch = 'marked_for_product_launch'
@@ -102,7 +105,6 @@ class ProductItem(
         video_fetch_status = 'video_fetch_status'
         visibility = 'visibility'
         wa_compliance_category = 'wa_compliance_category'
-        additional_uploaded_image_ids = 'additional_uploaded_image_ids'
         android_app_name = 'android_app_name'
         android_class = 'android_class'
         android_package = 'android_package'
@@ -119,6 +121,11 @@ class ProductItem(
         iphone_app_store_id = 'iphone_app_store_id'
         iphone_url = 'iphone_url'
         launch_date = 'launch_date'
+        product_priority_0 = 'product_priority_0'
+        product_priority_1 = 'product_priority_1'
+        product_priority_2 = 'product_priority_2'
+        product_priority_3 = 'product_priority_3'
+        product_priority_4 = 'product_priority_4'
         return_policy_days = 'return_policy_days'
         windows_phone_app_id = 'windows_phone_app_id'
         windows_phone_app_name = 'windows_phone_app_name'
@@ -411,6 +418,7 @@ class ProductItem(
         bad_quality_image = 'BAD_QUALITY_IMAGE'
         big_catalog_with_all_items_in_stock = 'BIG_CATALOG_WITH_ALL_ITEMS_IN_STOCK'
         biz_msg_ai_agent_disabled_by_user = 'BIZ_MSG_AI_AGENT_DISABLED_BY_USER'
+        biz_msg_gen_ai_policy_violated = 'BIZ_MSG_GEN_AI_POLICY_VIOLATED'
         cannot_edit_subscription_products = 'CANNOT_EDIT_SUBSCRIPTION_PRODUCTS'
         catalog_not_connected_to_event_source = 'CATALOG_NOT_CONNECTED_TO_EVENT_SOURCE'
         checkout_disabled_by_user = 'CHECKOUT_DISABLED_BY_USER'
@@ -543,6 +551,8 @@ class ProductItem(
         video_fetch_failed_timed_out = 'VIDEO_FETCH_FAILED_TIMED_OUT'
         video_not_downloadable = 'VIDEO_NOT_DOWNLOADABLE'
         whatsapp_disabled_by_user = 'WHATSAPP_DISABLED_BY_USER'
+        whatsapp_marketing_message_disabled_by_user = 'WHATSAPP_MARKETING_MESSAGE_DISABLED_BY_USER'
+        whatsapp_marketing_message_policy_violation = 'WHATSAPP_MARKETING_MESSAGE_POLICY_VIOLATION'
         whatsapp_policy_violation = 'WHATSAPP_POLICY_VIOLATION'
 
     class MarkedForProductLaunch:
@@ -888,7 +898,6 @@ class ProductItem(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'additional_image_urls': 'list<string>',
-            'additional_uploaded_image_ids': 'list<string>',
             'additional_variant_attributes': 'map',
             'android_app_name': 'string',
             'android_class': 'string',
@@ -943,6 +952,11 @@ class ProductItem(
             'origin_country': 'origin_country_enum',
             'pattern': 'string',
             'price': 'unsigned int',
+            'product_priority_0': 'float',
+            'product_priority_1': 'float',
+            'product_priority_2': 'float',
+            'product_priority_3': 'float',
+            'product_priority_4': 'float',
             'product_type': 'string',
             'quantity_to_sell_on_facebook': 'unsigned int',
             'retailer_id': 'string',
@@ -1010,6 +1024,40 @@ class ProductItem(
             target_class=CatalogItemChannelsToIntegrityStatus,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=CatalogItemChannelsToIntegrityStatus, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_override_details(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.overridedetails import OverrideDetails
+        param_types = {
+            'keys': 'list<string>',
+            'type': 'type_enum',
+        }
+        enums = {
+            'type_enum': OverrideDetails.Type.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/override_details',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=OverrideDetails,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=OverrideDetails, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1093,6 +1141,8 @@ class ProductItem(
         'applinks': 'CatalogItemAppLinks',
         'availability': 'Availability',
         'brand': 'string',
+        'bundle_items': 'list<string>',
+        'bundle_retailer_ids': 'list<string>',
         'capability_to_review_status': 'list<map<Object, Object>>',
         'category': 'string',
         'category_specific_fields': 'CatalogSubVerticalList',
@@ -1126,6 +1176,7 @@ class ProductItem(
         'importer_name': 'string',
         'invalidation_errors': 'list<ProductItemInvalidationError>',
         'inventory': 'int',
+        'is_bundle_hero': 'bool',
         'manufacturer_info': 'string',
         'manufacturer_part_number': 'string',
         'marked_for_product_launch': 'string',
@@ -1161,7 +1212,6 @@ class ProductItem(
         'video_fetch_status': 'VideoFetchStatus',
         'visibility': 'Visibility',
         'wa_compliance_category': 'string',
-        'additional_uploaded_image_ids': 'list<string>',
         'android_app_name': 'string',
         'android_class': 'string',
         'android_package': 'string',
@@ -1178,6 +1228,11 @@ class ProductItem(
         'iphone_app_store_id': 'unsigned int',
         'iphone_url': 'string',
         'launch_date': 'string',
+        'product_priority_0': 'float',
+        'product_priority_1': 'float',
+        'product_priority_2': 'float',
+        'product_priority_3': 'float',
+        'product_priority_4': 'float',
         'return_policy_days': 'unsigned int',
         'windows_phone_app_id': 'string',
         'windows_phone_app_name': 'string',

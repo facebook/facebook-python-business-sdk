@@ -34,6 +34,7 @@ class AdRuleExecutionSpec(
     class ExecutionType:
         add_interest_relaxation = 'ADD_INTEREST_RELAXATION'
         add_questionnaire_interests = 'ADD_QUESTIONNAIRE_INTERESTS'
+        ad_recommendation_apply = 'AD_RECOMMENDATION_APPLY'
         audience_consolidation = 'AUDIENCE_CONSOLIDATION'
         audience_consolidation_ask_first = 'AUDIENCE_CONSOLIDATION_ASK_FIRST'
         change_bid = 'CHANGE_BID'

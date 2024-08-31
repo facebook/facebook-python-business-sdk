@@ -62,6 +62,7 @@ class Campaign(
         smart_promotion_type = 'smart_promotion_type'
         source_campaign = 'source_campaign'
         source_campaign_id = 'source_campaign_id'
+        source_recommendation_type = 'source_recommendation_type'
         special_ad_categories = 'special_ad_categories'
         special_ad_category = 'special_ad_category'
         special_ad_category_country = 'special_ad_category_country'
@@ -1024,6 +1025,7 @@ class Campaign(
         'smart_promotion_type': 'string',
         'source_campaign': 'Campaign',
         'source_campaign_id': 'string',
+        'source_recommendation_type': 'string',
         'special_ad_categories': 'list<string>',
         'special_ad_category': 'string',
         'special_ad_category_country': 'list<string>',

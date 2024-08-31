@@ -26,6 +26,7 @@ class AdCreativeLinkDataImageLayerSpec(
     class Field(AbstractObject.Field):
         blending_mode = 'blending_mode'
         content = 'content'
+        frame_auto_show_enroll_status = 'frame_auto_show_enroll_status'
         frame_image_hash = 'frame_image_hash'
         frame_source = 'frame_source'
         image_source = 'image_source'
@@ -86,6 +87,7 @@ class AdCreativeLinkDataImageLayerSpec(
     _field_types = {
         'blending_mode': 'BlendingMode',
         'content': 'Object',
+        'frame_auto_show_enroll_status': 'string',
         'frame_image_hash': 'string',
         'frame_source': 'FrameSource',
         'image_source': 'ImageSource',

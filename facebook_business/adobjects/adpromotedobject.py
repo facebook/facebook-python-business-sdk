@@ -25,6 +25,7 @@ class AdPromotedObject(
 
     class Field(AbstractObject.Field):
         application_id = 'application_id'
+        boosted_product_set_id = 'boosted_product_set_id'
         conversion_goal_id = 'conversion_goal_id'
         custom_conversion_id = 'custom_conversion_id'
         custom_event_str = 'custom_event_str'
@@ -83,6 +84,7 @@ class AdPromotedObject(
 
     _field_types = {
         'application_id': 'string',
+        'boosted_product_set_id': 'string',
         'conversion_goal_id': 'string',
         'custom_conversion_id': 'string',
         'custom_event_str': 'string',

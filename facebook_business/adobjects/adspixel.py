@@ -92,6 +92,7 @@ class AdsPixel(
     class PermittedTasks:
         advertise = 'ADVERTISE'
         analyze = 'ANALYZE'
+        edit = 'EDIT'
         upload = 'UPLOAD'
 
     class Tasks:

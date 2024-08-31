@@ -35,6 +35,7 @@ class BusinessRoleRequest(
         finance_role = 'finance_role'
         id = 'id'
         invite_link = 'invite_link'
+        invited_user_type = 'invited_user_type'
         ip_role = 'ip_role'
         owner = 'owner'
         role = 'role'
@@ -160,6 +161,7 @@ class BusinessRoleRequest(
         'finance_role': 'string',
         'id': 'string',
         'invite_link': 'string',
+        'invited_user_type': 'list<string>',
         'ip_role': 'string',
         'owner': 'Business',
         'role': 'string',

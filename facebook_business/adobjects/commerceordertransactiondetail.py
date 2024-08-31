@@ -27,10 +27,15 @@ class CommerceOrderTransactionDetail(
         super(CommerceOrderTransactionDetail, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        merchant_order_id = 'merchant_order_id'
         net_payment_amount = 'net_payment_amount'
+        order_created = 'order_created'
         order_details = 'order_details'
+        order_id = 'order_id'
         payout_reference_id = 'payout_reference_id'
+        postal_code = 'postal_code'
         processing_fee = 'processing_fee'
+        state = 'state'
         tax_rate = 'tax_rate'
         transaction_date = 'transaction_date'
         transaction_type = 'transaction_type'
@@ -98,10 +103,15 @@ class CommerceOrderTransactionDetail(
             return request.execute()
 
     _field_types = {
+        'merchant_order_id': 'string',
         'net_payment_amount': 'Object',
+        'order_created': 'string',
         'order_details': 'CommerceOrder',
+        'order_id': 'string',
         'payout_reference_id': 'string',
+        'postal_code': 'string',
         'processing_fee': 'Object',
+        'state': 'string',
         'tax_rate': 'string',
         'transaction_date': 'string',
         'transaction_type': 'string',

@@ -29,8 +29,29 @@ class IGUpcomingEvent(
     class Field(AbstractObject.Field):
         end_time = 'end_time'
         id = 'id'
+        notification_subtypes = 'notification_subtypes'
+        notification_target_time = 'notification_target_time'
         start_time = 'start_time'
         title = 'title'
+
+    class NotificationSubtypes:
+        after_event_1day = 'AFTER_EVENT_1DAY'
+        after_event_2day = 'AFTER_EVENT_2DAY'
+        after_event_3day = 'AFTER_EVENT_3DAY'
+        after_event_4day = 'AFTER_EVENT_4DAY'
+        after_event_5day = 'AFTER_EVENT_5DAY'
+        after_event_6day = 'AFTER_EVENT_6DAY'
+        after_event_7day = 'AFTER_EVENT_7DAY'
+        before_event_15min = 'BEFORE_EVENT_15MIN'
+        before_event_1day = 'BEFORE_EVENT_1DAY'
+        before_event_1hour = 'BEFORE_EVENT_1HOUR'
+        before_event_2day = 'BEFORE_EVENT_2DAY'
+        event_start = 'EVENT_START'
+        rescheduled = 'RESCHEDULED'
+
+    class NotificationTargetTime:
+        event_end = 'EVENT_END'
+        event_start = 'EVENT_START'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -68,10 +89,14 @@ class IGUpcomingEvent(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'end_time': 'datetime',
+            'notification_subtypes': 'list<notification_subtypes_enum>',
+            'notification_target_time': 'notification_target_time_enum',
             'start_time': 'datetime',
             'title': 'string',
         }
         enums = {
+            'notification_subtypes_enum': IGUpcomingEvent.NotificationSubtypes.__dict__.values(),
+            'notification_target_time_enum': IGUpcomingEvent.NotificationTargetTime.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -98,12 +123,16 @@ class IGUpcomingEvent(
     _field_types = {
         'end_time': 'datetime',
         'id': 'string',
+        'notification_subtypes': 'list<string>',
+        'notification_target_time': 'string',
         'start_time': 'datetime',
         'title': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['NotificationSubtypes'] = IGUpcomingEvent.NotificationSubtypes.__dict__.values()
+        field_enum_info['NotificationTargetTime'] = IGUpcomingEvent.NotificationTargetTime.__dict__.values()
         return field_enum_info
 
 

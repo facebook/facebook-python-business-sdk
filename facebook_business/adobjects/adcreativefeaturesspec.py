@@ -25,6 +25,7 @@ class AdCreativeFeaturesSpec(
 
     class Field(AbstractObject.Field):
         adapt_to_placement = 'adapt_to_placement'
+        add_text_overlay = 'add_text_overlay'
         ads_with_benefits = 'ads_with_benefits'
         advantage_plus_creative = 'advantage_plus_creative'
         app_highlights = 'app_highlights'
@@ -35,6 +36,7 @@ class AdCreativeFeaturesSpec(
         cv_transformation = 'cv_transformation'
         description_automation = 'description_automation'
         dha_optimization = 'dha_optimization'
+        enhance_cta = 'enhance_cta'
         feed_caption_optimization = 'feed_caption_optimization'
         ig_glados_feed = 'ig_glados_feed'
         image_auto_crop = 'image_auto_crop'
@@ -45,6 +47,7 @@ class AdCreativeFeaturesSpec(
         image_touchups = 'image_touchups'
         image_uncrop = 'image_uncrop'
         inline_comment = 'inline_comment'
+        local_store_extension = 'local_store_extension'
         media_liquidity_animated_image = 'media_liquidity_animated_image'
         media_order = 'media_order'
         media_type_automation = 'media_type_automation'
@@ -63,6 +66,7 @@ class AdCreativeFeaturesSpec(
 
     _field_types = {
         'adapt_to_placement': 'AdCreativeFeatureDetails',
+        'add_text_overlay': 'AdCreativeFeatureDetails',
         'ads_with_benefits': 'AdCreativeFeatureDetails',
         'advantage_plus_creative': 'AdCreativeFeatureDetails',
         'app_highlights': 'AdCreativeFeatureDetails',
@@ -73,6 +77,7 @@ class AdCreativeFeaturesSpec(
         'cv_transformation': 'AdCreativeFeatureDetails',
         'description_automation': 'AdCreativeFeatureDetails',
         'dha_optimization': 'AdCreativeFeatureDetails',
+        'enhance_cta': 'AdCreativeFeatureDetails',
         'feed_caption_optimization': 'AdCreativeFeatureDetails',
         'ig_glados_feed': 'AdCreativeFeatureDetails',
         'image_auto_crop': 'AdCreativeFeatureDetails',
@@ -83,6 +88,7 @@ class AdCreativeFeaturesSpec(
         'image_touchups': 'AdCreativeFeatureDetails',
         'image_uncrop': 'AdCreativeFeatureDetails',
         'inline_comment': 'AdCreativeFeatureDetails',
+        'local_store_extension': 'AdCreativeFeatureDetails',
         'media_liquidity_animated_image': 'AdCreativeFeatureDetails',
         'media_order': 'AdCreativeFeatureDetails',
         'media_type_automation': 'AdCreativeFeatureDetails',

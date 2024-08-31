@@ -14,28 +14,34 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class ProductFeedMissingFeedItemReplacement(
+class OverrideDetails(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(ProductFeedMissingFeedItemReplacement, self).__init__()
-        self._isProductFeedMissingFeedItemReplacement = True
+        super(OverrideDetails, self).__init__()
+        self._isOverrideDetails = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        home_listing = 'home_listing'
-        product_item = 'product_item'
-        vehicle = 'vehicle'
+        key = 'key'
+        type = 'type'
+        values = 'values'
+
+    class Type:
+        country = 'COUNTRY'
+        language = 'LANGUAGE'
+        language_and_country = 'LANGUAGE_AND_COUNTRY'
 
     _field_types = {
-        'home_listing': 'Object',
-        'product_item': 'Object',
-        'vehicle': 'Object',
+        'key': 'string',
+        'type': 'string',
+        'values': 'Object',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['Type'] = OverrideDetails.Type.__dict__.values()
         return field_enum_info
 
 

@@ -44,6 +44,7 @@ class AdAccountUserSettings(
         export_deleted_items_with_delivery = 'export_deleted_items_with_delivery'
         export_summary_row = 'export_summary_row'
         has_seen_groups_column_flexing_experience = 'has_seen_groups_column_flexing_experience'
+        has_seen_instagram_column_flexing_experience = 'has_seen_instagram_column_flexing_experience'
         has_seen_leads_column_flexing_experience = 'has_seen_leads_column_flexing_experience'
         has_seen_shops_ads_metrics_onboarding_tour = 'has_seen_shops_ads_metrics_onboarding_tour'
         has_seen_shops_column_flexing_experience = 'has_seen_shops_column_flexing_experience'
@@ -153,6 +154,7 @@ class AdAccountUserSettings(
         'export_deleted_items_with_delivery': 'bool',
         'export_summary_row': 'bool',
         'has_seen_groups_column_flexing_experience': 'bool',
+        'has_seen_instagram_column_flexing_experience': 'bool',
         'has_seen_leads_column_flexing_experience': 'bool',
         'has_seen_shops_ads_metrics_onboarding_tour': 'bool',
         'has_seen_shops_column_flexing_experience': 'bool',

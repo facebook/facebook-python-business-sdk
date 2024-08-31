@@ -18,13 +18,13 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class BCPCreatorIgUser(
+class IGUserExportForCAM(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isBCPCreatorIgUser = True
-        super(BCPCreatorIgUser, self).__init__(fbid, parent_id, api)
+        self._isIGUserExportForCAM = True
+        super(IGUserExportForCAM, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
         email = 'email'
@@ -48,7 +48,7 @@ class BCPCreatorIgUser(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=BCPCreatorIgUser,
+            target_class=IGUserExportForCAM,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )

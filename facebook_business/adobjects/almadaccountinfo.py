@@ -18,18 +18,23 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class UserSetReportingRoot(
+class ALMAdAccountInfo(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isUserSetReportingRoot = True
-        super(UserSetReportingRoot, self).__init__(fbid, parent_id, api)
+        self._isALMAdAccountInfo = True
+        super(ALMAdAccountInfo, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        creation_time = 'creation_time'
+        ad_account_id = 'ad_account_id'
         id = 'id'
-        last_modified_time = 'last_modified_time'
+        managed_by = 'managed_by'
+        parent_advertiser_id = 'parent_advertiser_id'
+        sub_vertical = 'sub_vertical'
+        tag = 'tag'
+        user_ids = 'user_ids'
+        vertical = 'vertical'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -45,7 +50,7 @@ class UserSetReportingRoot(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=UserSetReportingRoot,
+            target_class=ALMAdAccountInfo,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -62,9 +67,14 @@ class UserSetReportingRoot(
             return request.execute()
 
     _field_types = {
-        'creation_time': 'datetime',
+        'ad_account_id': 'string',
         'id': 'string',
-        'last_modified_time': 'datetime',
+        'managed_by': 'string',
+        'parent_advertiser_id': 'string',
+        'sub_vertical': 'string',
+        'tag': 'list<string>',
+        'user_ids': 'list<string>',
+        'vertical': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

@@ -32,8 +32,6 @@ class CatalogSmartPixelSettings(
         catalog = 'catalog'
         cbb_custom_override_filters = 'cbb_custom_override_filters'
         cbb_default_filter = 'cbb_default_filter'
-        cbb_default_filter_crawl_params = 'cbb_default_filter_crawl_params'
-        cbb_override_type_field_mapping = 'cbb_override_type_field_mapping'
         defaults = 'defaults'
         filters = 'filters'
         id = 'id'
@@ -44,7 +42,6 @@ class CatalogSmartPixelSettings(
         microdata_format_precedence = 'microdata_format_precedence'
         pixel = 'pixel'
         property_filter = 'property_filter'
-        retention_time_sec = 'retention_time_sec'
         trusted_domains = 'trusted_domains'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
@@ -83,8 +80,6 @@ class CatalogSmartPixelSettings(
         'catalog': 'ProductCatalog',
         'cbb_custom_override_filters': 'list<Object>',
         'cbb_default_filter': 'list<map<string, list<string>>>',
-        'cbb_default_filter_crawl_params': 'string',
-        'cbb_override_type_field_mapping': 'list<map<string, list<string>>>',
         'defaults': 'list<map<string, string>>',
         'filters': 'list<map<string, list<string>>>',
         'id': 'string',
@@ -95,7 +90,6 @@ class CatalogSmartPixelSettings(
         'microdata_format_precedence': 'list<string>',
         'pixel': 'AdsPixel',
         'property_filter': 'list<string>',
-        'retention_time_sec': 'int',
         'trusted_domains': 'list<string>',
     }
     @classmethod

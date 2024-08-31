@@ -37,6 +37,8 @@ class WhatsAppBusinessPartnerClientVerificationSubmission(
 
     class RejectionReasons:
         address_not_matching = 'ADDRESS_NOT_MATCHING'
+        business_not_eligible = 'BUSINESS_NOT_ELIGIBLE'
+        legal_name_not_found_in_documents = 'LEGAL_NAME_NOT_FOUND_IN_DOCUMENTS'
         legal_name_not_matching = 'LEGAL_NAME_NOT_MATCHING'
         none = 'NONE'
         website_not_matching = 'WEBSITE_NOT_MATCHING'

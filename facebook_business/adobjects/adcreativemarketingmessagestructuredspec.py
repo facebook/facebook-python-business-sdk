@@ -27,6 +27,7 @@ class AdCreativeMarketingMessageStructuredSpec(
         buttons = 'buttons'
         footer = 'footer'
         greeting = 'greeting'
+        is_optimized_text = 'is_optimized_text'
         language = 'language'
         referenced_adgroup_id = 'referenced_adgroup_id'
         whats_app_business_phone_number_id = 'whats_app_business_phone_number_id'
@@ -35,6 +36,7 @@ class AdCreativeMarketingMessageStructuredSpec(
         'buttons': 'list<Object>',
         'footer': 'string',
         'greeting': 'string',
+        'is_optimized_text': 'bool',
         'language': 'string',
         'referenced_adgroup_id': 'string',
         'whats_app_business_phone_number_id': 'string',

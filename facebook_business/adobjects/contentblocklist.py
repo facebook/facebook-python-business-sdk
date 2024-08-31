@@ -18,40 +18,18 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class LocationBasedItem(
+class ContentBlockList(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isLocationBasedItem = True
-        super(LocationBasedItem, self).__init__(fbid, parent_id, api)
+        self._isContentBlockList = True
+        super(ContentBlockList, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        applinks = 'applinks'
-        category_specific_fields = 'category_specific_fields'
-        currency = 'currency'
-        description = 'description'
+        business = 'business'
         id = 'id'
-        image_fetch_status = 'image_fetch_status'
-        images = 'images'
-        location_based_item_id = 'location_based_item_id'
         name = 'name'
-        price = 'price'
-        sanitized_images = 'sanitized_images'
-        url = 'url'
-        visibility = 'visibility'
-
-    class ImageFetchStatus:
-        direct_upload = 'DIRECT_UPLOAD'
-        fetched = 'FETCHED'
-        fetch_failed = 'FETCH_FAILED'
-        no_status = 'NO_STATUS'
-        outdated = 'OUTDATED'
-        partial_fetch = 'PARTIAL_FETCH'
-
-    class Visibility:
-        published = 'PUBLISHED'
-        staging = 'STAGING'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -67,7 +45,7 @@ class LocationBasedItem(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=LocationBasedItem,
+            target_class=ContentBlockList,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -83,11 +61,11 @@ class LocationBasedItem(
             self.assure_call()
             return request.execute()
 
-    def get_channels_to_integrity_status(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def get_applied_ad_accounts(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.catalogitemchannelstointegritystatus import CatalogItemChannelsToIntegrityStatus
+        from facebook_business.adobjects.adaccount import AdAccount
         param_types = {
         }
         enums = {
@@ -95,12 +73,73 @@ class LocationBasedItem(
         request = FacebookRequest(
             node_id=self['id'],
             method='GET',
-            endpoint='/channels_to_integrity_status',
+            endpoint='/applied_ad_accounts',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=CatalogItemChannelsToIntegrityStatus,
+            target_class=AdAccount,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=CatalogItemChannelsToIntegrityStatus, api=self._api),
+            response_parser=ObjectParser(target_class=AdAccount, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_facebook_content(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/facebook_content',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_instagram_content(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.igmedia import IGMedia
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/instagram_content',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=IGMedia,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=IGMedia, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -115,25 +154,13 @@ class LocationBasedItem(
             return request.execute()
 
     _field_types = {
-        'applinks': 'CatalogItemAppLinks',
-        'category_specific_fields': 'CatalogSubVerticalList',
-        'currency': 'string',
-        'description': 'string',
+        'business': 'Business',
         'id': 'string',
-        'image_fetch_status': 'ImageFetchStatus',
-        'images': 'list<string>',
-        'location_based_item_id': 'string',
         'name': 'string',
-        'price': 'string',
-        'sanitized_images': 'list<string>',
-        'url': 'string',
-        'visibility': 'Visibility',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['ImageFetchStatus'] = LocationBasedItem.ImageFetchStatus.__dict__.values()
-        field_enum_info['Visibility'] = LocationBasedItem.Visibility.__dict__.values()
         return field_enum_info
 
 

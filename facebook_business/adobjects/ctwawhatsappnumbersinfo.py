@@ -28,6 +28,7 @@ class CTWAWhatsAppNumbersInfo(
         formatted_whatsapp_number = 'formatted_whatsapp_number'
         is_business_number = 'is_business_number'
         page_whatsapp_number_id = 'page_whatsapp_number_id'
+        waba_id = 'waba_id'
         whatsapp_number = 'whatsapp_number'
         whatsapp_smb_device = 'whatsapp_smb_device'
 
@@ -36,6 +37,7 @@ class CTWAWhatsAppNumbersInfo(
         'formatted_whatsapp_number': 'string',
         'is_business_number': 'bool',
         'page_whatsapp_number_id': 'string',
+        'waba_id': 'string',
         'whatsapp_number': 'string',
         'whatsapp_smb_device': 'string',
     }

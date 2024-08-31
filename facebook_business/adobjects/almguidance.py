@@ -14,28 +14,26 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdCreativeSiteLinksSpec(
+class ALMGuidance(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(AdCreativeSiteLinksSpec, self).__init__()
-        self._isAdCreativeSiteLinksSpec = True
+        super(ALMGuidance, self).__init__()
+        self._isALMGuidance = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        site_link_image_hash = 'site_link_image_hash'
-        site_link_image_url = 'site_link_image_url'
-        site_link_recommendation_type = 'site_link_recommendation_type'
-        site_link_title = 'site_link_title'
-        site_link_url = 'site_link_url'
+        ad_account_id = 'ad_account_id'
+        guidances = 'guidances'
+        parent_advertiser_id = 'parent_advertiser_id'
+        parent_advertiser_name = 'parent_advertiser_name'
 
     _field_types = {
-        'site_link_image_hash': 'string',
-        'site_link_image_url': 'string',
-        'site_link_recommendation_type': 'string',
-        'site_link_title': 'string',
-        'site_link_url': 'string',
+        'ad_account_id': 'string',
+        'guidances': 'list<Object>',
+        'parent_advertiser_id': 'string',
+        'parent_advertiser_name': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

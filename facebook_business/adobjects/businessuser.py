@@ -41,6 +41,11 @@ class BusinessUser(
         role = 'role'
         title = 'title'
         two_fac_status = 'two_fac_status'
+        invited_user_type = 'invited_user_type'
+
+    class InvitedUserType:
+        fb = 'FB'
+        mwa = 'MWA'
 
     class Role:
         admin = 'ADMIN'
@@ -309,10 +314,12 @@ class BusinessUser(
         'role': 'string',
         'title': 'string',
         'two_fac_status': 'string',
+        'invited_user_type': 'list<InvitedUserType>',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['InvitedUserType'] = BusinessUser.InvitedUserType.__dict__.values()
         field_enum_info['Role'] = BusinessUser.Role.__dict__.values()
         return field_enum_info
 

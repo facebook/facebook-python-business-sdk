@@ -29,6 +29,7 @@ class AdsUserSettings(
     class Field(AbstractObject.Field):
         a_plus_c_survey_seen = 'a_plus_c_survey_seen'
         adgroup_name_template = 'adgroup_name_template'
+        ads_cs_catalog_opt_out_timestamp = 'ads_cs_catalog_opt_out_timestamp'
         ads_tool_visits = 'ads_tool_visits'
         aplusc_carousel_cda_opt_in_status = 'aplusc_carousel_cda_opt_in_status'
         aplusc_carousel_inline_comment_opt_in_status = 'aplusc_carousel_inline_comment_opt_in_status'
@@ -37,6 +38,7 @@ class AdsUserSettings(
         autoflow_lite_opt_in_status = 'autoflow_lite_opt_in_status'
         autoflow_lite_should_opt_in = 'autoflow_lite_should_opt_in'
         blended_ads_creation_defaulting_opt_in_status = 'blended_ads_creation_defaulting_opt_in_status'
+        blended_ads_creation_defaulting_opt_out_campaign_group_ids = 'blended_ads_creation_defaulting_opt_out_campaign_group_ids'
         bookmarked_pages = 'bookmarked_pages'
         campaign_group_name_template = 'campaign_group_name_template'
         campaign_name_template = 'campaign_name_template'
@@ -53,7 +55,6 @@ class AdsUserSettings(
         is_se_removal_guidance_dismissed = 'is_se_removal_guidance_dismissed'
         last_used_post_format = 'last_used_post_format'
         last_visited_time = 'last_visited_time'
-        multi_ads_settings = 'multi_ads_settings'
         music_on_reels_opt_in = 'music_on_reels_opt_in'
         muted_cbo_midflight_education_messages = 'muted_cbo_midflight_education_messages'
         onsite_destination_optimization_opt_in = 'onsite_destination_optimization_opt_in'
@@ -79,6 +80,7 @@ class AdsUserSettings(
         syd_campaign_trends_metric = 'syd_campaign_trends_metric'
         total_coupon_syd_dismissals = 'total_coupon_syd_dismissals'
         total_coupon_upsell_dismissals = 'total_coupon_upsell_dismissals'
+        url_prefill_removal_timestamp = 'url_prefill_removal_timestamp'
         use_pe_create_flow = 'use_pe_create_flow'
         use_stepper_primary_entry = 'use_stepper_primary_entry'
         user = 'user'
@@ -116,6 +118,7 @@ class AdsUserSettings(
     _field_types = {
         'a_plus_c_survey_seen': 'bool',
         'adgroup_name_template': 'Object',
+        'ads_cs_catalog_opt_out_timestamp': 'list<map<string, int>>',
         'ads_tool_visits': 'list<Object>',
         'aplusc_carousel_cda_opt_in_status': 'string',
         'aplusc_carousel_inline_comment_opt_in_status': 'string',
@@ -124,6 +127,7 @@ class AdsUserSettings(
         'autoflow_lite_opt_in_status': 'string',
         'autoflow_lite_should_opt_in': 'bool',
         'blended_ads_creation_defaulting_opt_in_status': 'string',
+        'blended_ads_creation_defaulting_opt_out_campaign_group_ids': 'list<int>',
         'bookmarked_pages': 'list<Page>',
         'campaign_group_name_template': 'Object',
         'campaign_name_template': 'Object',
@@ -140,7 +144,6 @@ class AdsUserSettings(
         'is_se_removal_guidance_dismissed': 'bool',
         'last_used_post_format': 'string',
         'last_visited_time': 'datetime',
-        'multi_ads_settings': 'list<map<string, string>>',
         'music_on_reels_opt_in': 'list<map<string, string>>',
         'muted_cbo_midflight_education_messages': 'list<string>',
         'onsite_destination_optimization_opt_in': 'string',
@@ -166,6 +169,7 @@ class AdsUserSettings(
         'syd_campaign_trends_metric': 'string',
         'total_coupon_syd_dismissals': 'int',
         'total_coupon_upsell_dismissals': 'int',
+        'url_prefill_removal_timestamp': 'int',
         'use_pe_create_flow': 'bool',
         'use_stepper_primary_entry': 'bool',
         'user': 'User',

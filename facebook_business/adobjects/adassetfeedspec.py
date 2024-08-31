@@ -30,6 +30,7 @@ class AdAssetFeedSpec(
         asset_customization_rules = 'asset_customization_rules'
         autotranslate = 'autotranslate'
         bodies = 'bodies'
+        call_ads_configuration = 'call_ads_configuration'
         call_to_action_types = 'call_to_action_types'
         call_to_actions = 'call_to_actions'
         captions = 'captions'
@@ -128,6 +129,7 @@ class AdAssetFeedSpec(
         use_mobile_app = 'USE_MOBILE_APP'
         video_annotation = 'VIDEO_ANNOTATION'
         video_call = 'VIDEO_CALL'
+        view_channel = 'VIEW_CHANNEL'
         view_product = 'VIEW_PRODUCT'
         visit_pages_feed = 'VISIT_PAGES_FEED'
         watch_more = 'WATCH_MORE'
@@ -142,6 +144,7 @@ class AdAssetFeedSpec(
         'asset_customization_rules': 'list<AdAssetFeedSpecAssetCustomizationRule>',
         'autotranslate': 'list<string>',
         'bodies': 'list<AdAssetFeedSpecBody>',
+        'call_ads_configuration': 'Object',
         'call_to_action_types': 'list<CallToActionTypes>',
         'call_to_actions': 'list<AdAssetFeedSpecCallToAction>',
         'captions': 'list<AdAssetFeedSpecCaption>',

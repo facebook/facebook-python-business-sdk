@@ -263,6 +263,7 @@ class User(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.page import Page
         param_types = {
+            'ad_id': 'string',
             'is_place': 'bool',
             'is_promotable': 'bool',
         }
@@ -1038,7 +1039,6 @@ class User(
             'actions': 'Object',
             'album_id': 'string',
             'android_key_hash': 'string',
-            'animated_effect_id': 'unsigned int',
             'application_id': 'string',
             'asked_fun_fact_prompt_id': 'unsigned int',
             'asset3d_id': 'unsigned int',
@@ -2061,7 +2061,6 @@ class User(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.advideo import AdVideo
         param_types = {
-            'animated_effect_id': 'unsigned int',
             'application_id': 'string',
             'asked_fun_fact_prompt_id': 'unsigned int',
             'audio_story_wave_animation_handle': 'string',

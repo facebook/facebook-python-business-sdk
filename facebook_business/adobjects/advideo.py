@@ -73,7 +73,6 @@ class AdVideo(
         universal_video_id = 'universal_video_id'
         updated_time = 'updated_time'
         views = 'views'
-        animated_effect_id = 'animated_effect_id'
         application_id = 'application_id'
         asked_fun_fact_prompt_id = 'asked_fun_fact_prompt_id'
         audio_story_wave_animation_handle = 'audio_story_wave_animation_handle'
@@ -172,6 +171,7 @@ class AdVideo(
         copyright_reference_ig_xpost_video = 'COPYRIGHT_REFERENCE_IG_XPOST_VIDEO'
         copyright_reference_video = 'COPYRIGHT_REFERENCE_VIDEO'
         creation_ml_precreation = 'CREATION_ML_PRECREATION'
+        creator_storefront_personalized_video = 'CREATOR_STOREFRONT_PERSONALIZED_VIDEO'
         datagenix_video = 'DATAGENIX_VIDEO'
         dco_ad_asset_feed = 'DCO_AD_ASSET_FEED'
         dco_autogen_video = 'DCO_AUTOGEN_VIDEO'
@@ -255,6 +255,7 @@ class AdVideo(
         oculus_creator_portal = 'OCULUS_CREATOR_PORTAL'
         oculus_venues_broadcast = 'OCULUS_VENUES_BROADCAST'
         offers_video = 'OFFERS_VIDEO'
+        originality_self_advocacy = 'ORIGINALITY_SELF_ADVOCACY'
         pages_cover_video = 'PAGES_COVER_VIDEO'
         page_review_screencast = 'PAGE_REVIEW_SCREENCAST'
         page_slideshow_video = 'PAGE_SLIDESHOW_VIDEO'
@@ -1032,39 +1033,6 @@ class AdVideo(
             self.assure_call()
             return request.execute()
 
-    def create_tag(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'tag_uid': 'int',
-            'uid': 'int',
-            'vid': 'string',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/tags',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AdVideo,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdVideo, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def get_thumbnails(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -1211,7 +1179,6 @@ class AdVideo(
         'universal_video_id': 'string',
         'updated_time': 'datetime',
         'views': 'unsigned int',
-        'animated_effect_id': 'unsigned int',
         'application_id': 'string',
         'asked_fun_fact_prompt_id': 'unsigned int',
         'audio_story_wave_animation_handle': 'string',

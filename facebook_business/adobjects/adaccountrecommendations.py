@@ -5,6 +5,10 @@
 # LICENSE file in the root directory of this source tree.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
+from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
+from facebook_business.adobjects.objectparser import ObjectParser
+from facebook_business.api import FacebookRequest
+from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -15,19 +19,30 @@ pull request for this class.
 """
 
 class AdAccountRecommendations(
-    AbstractObject,
+    AbstractCrudObject,
 ):
 
-    def __init__(self, api=None):
-        super(AdAccountRecommendations, self).__init__()
+    def __init__(self, fbid=None, parent_id=None, api=None):
         self._isAdAccountRecommendations = True
-        self._api = api
+        super(AdAccountRecommendations, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
         recommendations = 'recommendations'
+        recommendation_signature = 'recommendation_signature'
+
+    # @deprecated get_endpoint function is deprecated
+    @classmethod
+    def get_endpoint(cls):
+        return 'recommendations'
+
+    # @deprecated api_create is being deprecated
+    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.adobjects.adaccount import AdAccount
+        return AdAccount(api=self._api, fbid=parent_id).create_recommendation(fields, params, batch, success, failure, pending)
 
     _field_types = {
         'recommendations': 'list<Object>',
+        'recommendation_signature': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

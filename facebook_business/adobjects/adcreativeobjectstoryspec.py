@@ -30,6 +30,7 @@ class AdCreativeObjectStorySpec(
         photo_data = 'photo_data'
         template_data = 'template_data'
         text_data = 'text_data'
+        threads_actor_id = 'threads_actor_id'
         video_data = 'video_data'
 
     _field_types = {
@@ -39,6 +40,7 @@ class AdCreativeObjectStorySpec(
         'photo_data': 'AdCreativePhotoData',
         'template_data': 'AdCreativeLinkData',
         'text_data': 'AdCreativeTextData',
+        'threads_actor_id': 'string',
         'video_data': 'AdCreativeVideoData',
     }
     @classmethod

@@ -32,7 +32,6 @@ class AdCreativeLinkDataMoment(
 
     class Type:
         fb_live_shopping = 'FB_LIVE_SHOPPING'
-        ig_drops = 'IG_DROPS'
         ig_live_shopping = 'IG_LIVE_SHOPPING'
 
     _field_types = {

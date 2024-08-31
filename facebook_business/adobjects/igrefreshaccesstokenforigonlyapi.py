@@ -29,6 +29,7 @@ class IGRefreshAccessTokenForIGOnlyAPI(
     class Field(AbstractObject.Field):
         access_token = 'access_token'
         expires_in = 'expires_in'
+        permissions = 'permissions'
         token_type = 'token_type'
         id = 'id'
 
@@ -67,6 +68,7 @@ class IGRefreshAccessTokenForIGOnlyAPI(
     _field_types = {
         'access_token': 'string',
         'expires_in': 'int',
+        'permissions': 'string',
         'token_type': 'string',
         'id': 'string',
     }

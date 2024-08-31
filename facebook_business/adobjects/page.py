@@ -381,6 +381,7 @@ class Page(
         message_tag = 'MESSAGE_TAG'
         response = 'RESPONSE'
         update = 'UPDATE'
+        utility = 'UTILITY'
 
     class NotificationType:
         no_push = 'NO_PUSH'
@@ -437,6 +438,7 @@ class Page(
         awards = 'awards'
         bio = 'bio'
         birthday = 'birthday'
+        call_permission_reply = 'call_permission_reply'
         calls = 'calls'
         category = 'category'
         checkins = 'checkins'
@@ -487,6 +489,7 @@ class Page(
         messaging_game_plays = 'messaging_game_plays'
         messaging_handovers = 'messaging_handovers'
         messaging_in_thread_lead_form_submit = 'messaging_in_thread_lead_form_submit'
+        messaging_integrity = 'messaging_integrity'
         messaging_optins = 'messaging_optins'
         messaging_optouts = 'messaging_optouts'
         messaging_payments = 'messaging_payments'
@@ -1913,11 +1916,11 @@ class Page(
             self.assure_call()
             return request.execute()
 
-    def get_data_set(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def get_dataset(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.adspixel import AdsPixel
+        from facebook_business.adobjects.dataset import Dataset
         param_types = {
         }
         enums = {
@@ -1928,9 +1931,9 @@ class Page(
             endpoint='/dataset',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AdsPixel,
+            target_class=Dataset,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdsPixel, api=self._api),
+            response_parser=ObjectParser(target_class=Dataset, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1944,12 +1947,13 @@ class Page(
             self.assure_call()
             return request.execute()
 
-    def create_data_set(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def create_dataset(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.adspixel import AdsPixel
+        from facebook_business.adobjects.dataset import Dataset
         param_types = {
+            'dataset_name': 'string',
         }
         enums = {
         }
@@ -1959,9 +1963,9 @@ class Page(
             endpoint='/dataset',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AdsPixel,
+            target_class=Dataset,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdsPixel, api=self._api),
+            response_parser=ObjectParser(target_class=Dataset, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2120,7 +2124,6 @@ class Page(
             'actions': 'Object',
             'album_id': 'string',
             'android_key_hash': 'string',
-            'animated_effect_id': 'unsigned int',
             'application_id': 'string',
             'asked_fun_fact_prompt_id': 'unsigned int',
             'asset3d_id': 'unsigned int',
@@ -2276,39 +2279,6 @@ class Page(
             target_class=Page,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=Page, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def get_groups(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.group import Group
-        param_types = {
-            'admin_only': 'bool',
-            'parent': 'string',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/groups',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=Group,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=Group, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -3460,7 +3430,7 @@ class Page(
         param_types = {
             'metadata': 'string',
             'recipient': 'Object',
-            'target_app_id': 'int',
+            'target_app_id': 'string',
         }
         enums = {
         }
@@ -4913,7 +4883,6 @@ class Page(
         from facebook_business.adobjects.advideo import AdVideo
         param_types = {
             'ad_breaks': 'list',
-            'animated_effect_id': 'unsigned int',
             'application_id': 'string',
             'asked_fun_fact_prompt_id': 'unsigned int',
             'audio_story_wave_animation_handle': 'string',
@@ -5149,6 +5118,7 @@ class Page(
             'eligible_platforms_enum': [
                 'INSTAGRAM',
                 'MESSENGER',
+                'WHATSAPP',
             ],
         }
         request = FacebookRequest(

@@ -38,6 +38,16 @@ class ThirdPartyPartnerViewabilityRequest(
         status = 'status'
         total_file_count = 'total_file_count'
 
+    class Metric:
+        display_event = 'DISPLAY_EVENT'
+        impression = 'IMPRESSION'
+        video_event = 'VIDEO_EVENT'
+
+    class Platform:
+        audience_network = 'AUDIENCE_NETWORK'
+        facebook = 'FACEBOOK'
+        instagram = 'INSTAGRAM'
+
     class Status:
         created = 'CREATED'
         failure = 'FAILURE'
@@ -80,16 +90,18 @@ class ThirdPartyPartnerViewabilityRequest(
         'description': 'string',
         'hour': 'datetime',
         'id': 'string',
-        'metric': 'string',
+        'metric': 'Metric',
         'modified_time': 'datetime',
         'owner_instance_id': 'string',
-        'platform': 'string',
+        'platform': 'Platform',
         'status': 'Status',
         'total_file_count': 'unsigned int',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['Metric'] = ThirdPartyPartnerViewabilityRequest.Metric.__dict__.values()
+        field_enum_info['Platform'] = ThirdPartyPartnerViewabilityRequest.Platform.__dict__.values()
         field_enum_info['Status'] = ThirdPartyPartnerViewabilityRequest.Status.__dict__.values()
         return field_enum_info
 

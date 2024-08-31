@@ -35,7 +35,6 @@ class AdsInsights(
         ad_id = 'ad_id'
         ad_impression_actions = 'ad_impression_actions'
         ad_name = 'ad_name'
-        adjusted_offline_purchase = 'adjusted_offline_purchase'
         adset_end = 'adset_end'
         adset_id = 'adset_id'
         adset_name = 'adset_name'
@@ -109,6 +108,9 @@ class AdsInsights(
         instant_experience_outbound_clicks = 'instant_experience_outbound_clicks'
         interactive_component_tap = 'interactive_component_tap'
         labels = 'labels'
+        landing_page_view_actions_per_link_click = 'landing_page_view_actions_per_link_click'
+        landing_page_view_per_purchase_rate = 'landing_page_view_per_purchase_rate'
+        link_clicks_per_results = 'link_clicks_per_results'
         location = 'location'
         marketing_messages_cost_per_delivered = 'marketing_messages_cost_per_delivered'
         marketing_messages_cost_per_link_btn_click = 'marketing_messages_cost_per_link_btn_click'
@@ -122,6 +124,7 @@ class AdsInsights(
         outbound_clicks_ctr = 'outbound_clicks_ctr'
         place_page_name = 'place_page_name'
         purchase_roas = 'purchase_roas'
+        purchases_per_link_click = 'purchases_per_link_click'
         qualifying_question_qualify_answer_rate = 'qualifying_question_qualify_answer_rate'
         quality_ranking = 'quality_ranking'
         reach = 'reach'
@@ -223,6 +226,7 @@ class AdsInsights(
         image_asset = 'image_asset'
         impression_device = 'impression_device'
         is_conversion_id_modeled = 'is_conversion_id_modeled'
+        is_rendered_as_delayed_skip_ad = 'is_rendered_as_delayed_skip_ad'
         landing_destination = 'landing_destination'
         link_url_asset = 'link_url_asset'
         marketing_messages_btn_name = 'marketing_messages_btn_name'
@@ -311,7 +315,6 @@ class AdsInsights(
         'ad_id': 'string',
         'ad_impression_actions': 'list<AdsActionStats>',
         'ad_name': 'string',
-        'adjusted_offline_purchase': 'list<Object>',
         'adset_end': 'string',
         'adset_id': 'string',
         'adset_name': 'string',
@@ -385,6 +388,9 @@ class AdsInsights(
         'instant_experience_outbound_clicks': 'list<AdsActionStats>',
         'interactive_component_tap': 'list<AdsActionStats>',
         'labels': 'string',
+        'landing_page_view_actions_per_link_click': 'list<AdsActionStats>',
+        'landing_page_view_per_purchase_rate': 'list<AdsActionStats>',
+        'link_clicks_per_results': 'list<AdsActionStats>',
         'location': 'string',
         'marketing_messages_cost_per_delivered': 'string',
         'marketing_messages_cost_per_link_btn_click': 'string',
@@ -398,6 +404,7 @@ class AdsInsights(
         'outbound_clicks_ctr': 'list<AdsActionStats>',
         'place_page_name': 'string',
         'purchase_roas': 'list<AdsActionStats>',
+        'purchases_per_link_click': 'list<AdsActionStats>',
         'qualifying_question_qualify_answer_rate': 'string',
         'quality_ranking': 'string',
         'reach': 'string',

@@ -38,6 +38,7 @@ class CommerceOrder(
         last_updated = 'last_updated'
         merchant_order_id = 'merchant_order_id'
         order_status = 'order_status'
+        pre_order_details = 'pre_order_details'
         selected_shipping_option = 'selected_shipping_option'
         ship_by_date = 'ship_by_date'
         shipping_address = 'shipping_address'
@@ -161,7 +162,7 @@ class CommerceOrder(
             self.assure_call()
             return request.execute()
 
-    def create_can_cell_a_t_i_on(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def create_cancellation(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
@@ -641,6 +642,7 @@ class CommerceOrder(
         'last_updated': 'string',
         'merchant_order_id': 'string',
         'order_status': 'Object',
+        'pre_order_details': 'Object',
         'selected_shipping_option': 'Object',
         'ship_by_date': 'string',
         'shipping_address': 'Object',

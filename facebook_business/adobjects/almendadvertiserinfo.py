@@ -18,24 +18,20 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class CTXPartnerAppWelcomeMessageFlow(
+class ALMEndAdvertiserInfo(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isCTXPartnerAppWelcomeMessageFlow = True
-        super(CTXPartnerAppWelcomeMessageFlow, self).__init__(fbid, parent_id, api)
+        self._isALMEndAdvertiserInfo = True
+        super(ALMEndAdvertiserInfo, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        compatible_platforms = 'compatible_platforms'
-        eligible_platforms = 'eligible_platforms'
+        estimated_ad_budget = 'estimated_ad_budget'
         id = 'id'
-        is_ig_only_flow = 'is_ig_only_flow'
-        is_used_in_ad = 'is_used_in_ad'
-        last_update_time = 'last_update_time'
-        name = 'name'
-        welcome_message_flow = 'welcome_message_flow'
-        welcome_message_sequence = 'welcome_message_sequence'
+        parent_advertiser_id = 'parent_advertiser_id'
+        parent_advertiser_name = 'parent_advertiser_name'
+        tag = 'tag'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -51,7 +47,7 @@ class CTXPartnerAppWelcomeMessageFlow(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=CTXPartnerAppWelcomeMessageFlow,
+            target_class=ALMEndAdvertiserInfo,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -68,15 +64,11 @@ class CTXPartnerAppWelcomeMessageFlow(
             return request.execute()
 
     _field_types = {
-        'compatible_platforms': 'list<string>',
-        'eligible_platforms': 'list<string>',
+        'estimated_ad_budget': 'int',
         'id': 'string',
-        'is_ig_only_flow': 'bool',
-        'is_used_in_ad': 'bool',
-        'last_update_time': 'datetime',
-        'name': 'string',
-        'welcome_message_flow': 'string',
-        'welcome_message_sequence': 'string',
+        'parent_advertiser_id': 'string',
+        'parent_advertiser_name': 'string',
+        'tag': 'list<string>',
     }
     @classmethod
     def _get_field_enum_info(cls):

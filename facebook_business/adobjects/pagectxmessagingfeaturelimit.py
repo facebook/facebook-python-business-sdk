@@ -14,28 +14,24 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdCreativeSiteLinksSpec(
+class PageCTXMessagingFeatureLimit(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(AdCreativeSiteLinksSpec, self).__init__()
-        self._isAdCreativeSiteLinksSpec = True
+        super(PageCTXMessagingFeatureLimit, self).__init__()
+        self._isPageCTXMessagingFeatureLimit = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        site_link_image_hash = 'site_link_image_hash'
-        site_link_image_url = 'site_link_image_url'
-        site_link_recommendation_type = 'site_link_recommendation_type'
-        site_link_title = 'site_link_title'
-        site_link_url = 'site_link_url'
+        messaging_feature_limit_duration = 'messaging_feature_limit_duration'
+        messaging_feature_limit_type = 'messaging_feature_limit_type'
+        messaging_violation_type = 'messaging_violation_type'
 
     _field_types = {
-        'site_link_image_hash': 'string',
-        'site_link_image_url': 'string',
-        'site_link_recommendation_type': 'string',
-        'site_link_title': 'string',
-        'site_link_url': 'string',
+        'messaging_feature_limit_duration': 'int',
+        'messaging_feature_limit_type': 'string',
+        'messaging_violation_type': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

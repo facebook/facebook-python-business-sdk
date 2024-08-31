@@ -929,6 +929,40 @@ class Business(
             self.assure_call()
             return request.execute()
 
+    def get_ad_account_infos(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.almadaccountinfo import ALMAdAccountInfo
+        param_types = {
+            'ad_account_id': 'string',
+            'parent_advertiser_id': 'string',
+            'user_id': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/ad_account_infos',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ALMAdAccountInfo,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ALMAdAccountInfo, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def delete_ad_accounts(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -942,6 +976,37 @@ class Business(
             node_id=self['id'],
             method='DELETE',
             endpoint='/ad_accounts',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_ad_review_request(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'ad_account_ids': 'list<string>',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/ad_review_requests',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
@@ -1518,6 +1583,37 @@ class Business(
             self.assure_call()
             return request.execute()
 
+    def create_bm_review_request(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'business_manager_ids': 'list<string>',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/bm_review_requests',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_business_asset_groups(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -1626,9 +1722,11 @@ class Business(
         from facebook_business.adobjects.businessuser import BusinessUser
         param_types = {
             'email': 'string',
+            'invited_user_type': 'list<invited_user_type_enum>',
             'role': 'role_enum',
         }
         enums = {
+            'invited_user_type_enum': BusinessUser.InvitedUserType.__dict__.values(),
             'role_enum': BusinessUser.Role.__dict__.values(),
         }
         request = FacebookRequest(
@@ -4509,7 +4607,7 @@ class Business(
             self.assure_call()
             return request.execute()
 
-    def get_self_certified_whatsapp_business_submissions(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def get_self_certified_whats_app_business_submissions(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
@@ -4781,7 +4879,6 @@ class Business(
         from facebook_business.adobjects.advideo import AdVideo
         param_types = {
             'ad_placements_validation_only': 'bool',
-            'animated_effect_id': 'unsigned int',
             'application_id': 'string',
             'asked_fun_fact_prompt_id': 'unsigned int',
             'audio_story_wave_animation_handle': 'string',

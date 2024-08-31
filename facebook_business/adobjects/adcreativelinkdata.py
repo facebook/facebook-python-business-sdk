@@ -54,6 +54,7 @@ class AdCreativeLinkData(
         picture = 'picture'
         post_click_configuration = 'post_click_configuration'
         preferred_image_tags = 'preferred_image_tags'
+        preferred_video_tags = 'preferred_video_tags'
         retailer_item_ids = 'retailer_item_ids'
         show_multiple_images = 'show_multiple_images'
         static_fallback_spec = 'static_fallback_spec'
@@ -98,6 +99,7 @@ class AdCreativeLinkData(
         'picture': 'string',
         'post_click_configuration': 'AdCreativePostClickConfiguration',
         'preferred_image_tags': 'list<string>',
+        'preferred_video_tags': 'list<string>',
         'retailer_item_ids': 'list<string>',
         'show_multiple_images': 'bool',
         'static_fallback_spec': 'AdCreativeStaticFallbackSpec',

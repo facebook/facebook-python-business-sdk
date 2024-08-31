@@ -24,10 +24,14 @@ class AdjacentContentDeliveryReport(
         self._api = api
 
     class Field(AbstractObject.Field):
+        ad_id = 'ad_id'
         content = 'content'
+        impression_id = 'impression_id'
 
     _field_types = {
+        'ad_id': 'string',
         'content': 'list<Object>',
+        'impression_id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

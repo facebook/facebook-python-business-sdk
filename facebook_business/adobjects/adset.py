@@ -42,6 +42,7 @@ class AdSet(
         bid_info = 'bid_info'
         bid_strategy = 'bid_strategy'
         billing_event = 'billing_event'
+        brand_safety_config = 'brand_safety_config'
         budget_remaining = 'budget_remaining'
         campaign = 'campaign'
         campaign_active_time = 'campaign_active_time'
@@ -200,8 +201,10 @@ class AdSet(
         app = 'APP'
         applinks_automatic = 'APPLINKS_AUTOMATIC'
         facebook = 'FACEBOOK'
+        facebook_page = 'FACEBOOK_PAGE'
         instagram_direct = 'INSTAGRAM_DIRECT'
         instagram_profile = 'INSTAGRAM_PROFILE'
+        instagram_profile_and_facebook_page = 'INSTAGRAM_PROFILE_AND_FACEBOOK_PAGE'
         messaging_instagram_direct_messenger = 'MESSAGING_INSTAGRAM_DIRECT_MESSENGER'
         messaging_instagram_direct_messenger_whatsapp = 'MESSAGING_INSTAGRAM_DIRECT_MESSENGER_WHATSAPP'
         messaging_instagram_direct_whatsapp = 'MESSAGING_INSTAGRAM_DIRECT_WHATSAPP'
@@ -987,6 +990,46 @@ class AdSet(
             self.assure_call()
             return request.execute()
 
+    def get_message_delivery_estimate(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.messagedeliveryestimate import MessageDeliveryEstimate
+        param_types = {
+            'bid_amount': 'unsigned int',
+            'lifetime_budget': 'unsigned int',
+            'lifetime_in_days': 'unsigned int',
+            'optimization_goal': 'optimization_goal_enum',
+            'pacing_type': 'pacing_type_enum',
+            'promoted_object': 'Object',
+            'targeting_spec': 'Targeting',
+        }
+        enums = {
+            'optimization_goal_enum': MessageDeliveryEstimate.OptimizationGoal.__dict__.values(),
+            'pacing_type_enum': MessageDeliveryEstimate.PacingType.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/message_delivery_estimate',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=MessageDeliveryEstimate,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=MessageDeliveryEstimate, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_targeting_sentence_lines(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -1030,6 +1073,7 @@ class AdSet(
         'bid_info': 'map<string, unsigned int>',
         'bid_strategy': 'BidStrategy',
         'billing_event': 'BillingEvent',
+        'brand_safety_config': 'BrandSafetyCampaignConfig',
         'budget_remaining': 'string',
         'campaign': 'Campaign',
         'campaign_active_time': 'string',

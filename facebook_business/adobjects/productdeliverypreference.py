@@ -18,17 +18,19 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class VidwallaBroadcast(
+class ProductDeliveryPreference(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isVidwallaBroadcast = True
-        super(VidwallaBroadcast, self).__init__(fbid, parent_id, api)
+        self._isProductDeliveryPreference = True
+        super(ProductDeliveryPreference, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        ad_object_id = 'ad_object_id'
         id = 'id'
-        overlay_url = 'overlay_url'
+        product_priority = 'product_priority'
+        product_priority_category = 'product_priority_category'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -44,7 +46,7 @@ class VidwallaBroadcast(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=VidwallaBroadcast,
+            target_class=ProductDeliveryPreference,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -61,8 +63,10 @@ class VidwallaBroadcast(
             return request.execute()
 
     _field_types = {
+        'ad_object_id': 'string',
         'id': 'string',
-        'overlay_url': 'string',
+        'product_priority': 'string',
+        'product_priority_category': 'list<string>',
     }
     @classmethod
     def _get_field_enum_info(cls):

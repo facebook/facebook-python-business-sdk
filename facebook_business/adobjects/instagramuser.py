@@ -234,10 +234,14 @@ class InstagramUser(
         from facebook_business.adobjects.igupcomingevent import IGUpcomingEvent
         param_types = {
             'end_time': 'datetime',
+            'notification_subtypes': 'list<notification_subtypes_enum>',
+            'notification_target_time': 'notification_target_time_enum',
             'start_time': 'datetime',
             'title': 'string',
         }
         enums = {
+            'notification_subtypes_enum': IGUpcomingEvent.NotificationSubtypes.__dict__.values(),
+            'notification_target_time_enum': IGUpcomingEvent.NotificationTargetTime.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],

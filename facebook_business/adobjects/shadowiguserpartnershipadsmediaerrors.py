@@ -14,20 +14,26 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class ProductCatalogExampleFeed(
+class ShadowIGUserPartnershipAdsMediaErrors(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(ProductCatalogExampleFeed, self).__init__()
-        self._isProductCatalogExampleFeed = True
+        super(ShadowIGUserPartnershipAdsMediaErrors, self).__init__()
+        self._isShadowIGUserPartnershipAdsMediaErrors = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        example_feed = 'example_feed'
+        ad_code = 'ad_code'
+        error_codes = 'error_codes'
+        errors = 'errors'
+        permalink = 'permalink'
 
     _field_types = {
-        'example_feed': 'string',
+        'ad_code': 'string',
+        'error_codes': 'string',
+        'errors': 'list<string>',
+        'permalink': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):
