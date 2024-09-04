@@ -70,4 +70,5 @@ setup(
     long_description=PACKAGE_LONG_DESCRIPTION,
     install_requires=PACKAGE_INSTALL_REQUIRES,
     long_description_content_type="text/markdown",
+    python_requires='>=3.7',
 )
