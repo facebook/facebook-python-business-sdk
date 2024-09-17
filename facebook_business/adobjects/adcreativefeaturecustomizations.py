@@ -24,24 +24,10 @@ class AdCreativeFeatureCustomizations(
         self._api = api
 
     class Field(AbstractObject.Field):
-        background_color = 'background_color'
-        catalog_feed_tag_name = 'catalog_feed_tag_name'
-        font_name = 'font_name'
-        product_recommendation_type = 'product_recommendation_type'
-        product_versioning_fallback_strategy = 'product_versioning_fallback_strategy'
         showcase_card_display = 'showcase_card_display'
-        text_style = 'text_style'
-        video_crop_style = 'video_crop_style'
 
     _field_types = {
-        'background_color': 'string',
-        'catalog_feed_tag_name': 'string',
-        'font_name': 'string',
-        'product_recommendation_type': 'string',
-        'product_versioning_fallback_strategy': 'string',
         'showcase_card_display': 'string',
-        'text_style': 'string',
-        'video_crop_style': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

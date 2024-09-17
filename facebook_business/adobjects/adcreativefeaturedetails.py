@@ -24,9 +24,11 @@ class AdCreativeFeatureDetails(
         self._api = api
 
     class Field(AbstractObject.Field):
+        customizations = 'customizations'
         enroll_status = 'enroll_status'
 
     _field_types = {
+        'customizations': 'AdCreativeFeatureCustomizations',
         'enroll_status': 'string',
     }
     @classmethod
