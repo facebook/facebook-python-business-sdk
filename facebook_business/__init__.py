@@ -7,5 +7,5 @@
 from facebook_business.session import FacebookSession
 from facebook_business.api import FacebookAdsApi
 
-__version__ = '20.0.2'
+__version__ = '20.0.3'
 __all__ = ['session', 'api']
