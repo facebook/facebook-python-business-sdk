@@ -54,7 +54,15 @@ with open(readme_filename) as f:
     PACKAGE_LONG_DESCRIPTION = f.read()
 
 with open(requirements_filename) as f:
-    PACKAGE_INSTALL_REQUIRES = [line[:-1] for line in f]
+    PACKAGE_INSTALL_REQUIRES = []
+    DEPENDENCY_LINKS = []
+    
+    for line in f:
+        line = line.strip()  
+        if line.lower().startswith(('http://', 'https://')):
+            DEPENDENCY_LINKS.append(line)
+        else:
+            PACKAGE_INSTALL_REQUIRES.append(line)
 
 setup(
     name=PACKAGE_NAME,
@@ -70,4 +78,5 @@ setup(
     long_description=PACKAGE_LONG_DESCRIPTION,
     install_requires=PACKAGE_INSTALL_REQUIRES,
     long_description_content_type="text/markdown",
+    dependency_links=DEPENDENCY_LINKS,
 )
