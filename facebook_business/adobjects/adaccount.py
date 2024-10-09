@@ -225,6 +225,7 @@ class AdAccount(
         lookalike = 'LOOKALIKE'
         managed = 'MANAGED'
         measurement = 'MEASUREMENT'
+        messenger_subscriber_list = 'MESSENGER_SUBSCRIBER_LIST'
         offline_conversion = 'OFFLINE_CONVERSION'
         partner = 'PARTNER'
         primary = 'PRIMARY'
@@ -1420,6 +1421,8 @@ class AdAccount(
             'lifetime_min_spend_target': 'unsigned int',
             'lifetime_spend_cap': 'unsigned int',
             'line_number': 'unsigned int',
+            'max_budget_spend_percentage': 'unsigned int',
+            'min_budget_spend_percentage': 'unsigned int',
             'multi_optimization_goal_weight': 'multi_optimization_goal_weight_enum',
             'name': 'string',
             'optimization_goal': 'optimization_goal_enum',
@@ -1709,11 +1712,10 @@ class AdAccount(
             'formatting': 'formatting_enum',
             'fov': 'unsigned int',
             'front_z_rotation': 'float',
-            'fun_fact_prompt_id': 'unsigned int',
+            'fun_fact_prompt_id': 'string',
             'fun_fact_toastee_id': 'unsigned int',
             'guide': 'list<list<unsigned int>>',
             'guide_enabled': 'bool',
-            'holiday_card': 'string',
             'initial_heading': 'unsigned int',
             'initial_pitch': 'unsigned int',
             'instant_game_entry_point_data': 'string',
@@ -1722,7 +1724,6 @@ class AdAccount(
             'is_voice_clip': 'bool',
             'location_source_id': 'string',
             'name': 'string',
-            'offer_like_post_id': 'unsigned int',
             'og_action_type_id': 'string',
             'og_icon_id': 'string',
             'og_object_id': 'string',
@@ -2683,11 +2684,13 @@ class AdAccount(
             'event_source_group': 'string',
             'event_sources': 'list<map>',
             'exclusions': 'list<Object>',
+            'facebook_page_id': 'string',
             'inclusions': 'list<Object>',
             'is_snapshot': 'bool',
             'is_value_based': 'bool',
             'list_of_accounts': 'list<unsigned int>',
             'lookalike_spec': 'string',
+            'marketing_message_channels': 'Object',
             'name': 'string',
             'opt_out_link': 'string',
             'origin_audience_id': 'string',
@@ -2701,7 +2704,9 @@ class AdAccount(
             'rev_share_policy_id': 'unsigned int',
             'rule': 'string',
             'rule_aggregation': 'string',
+            'subscription_info': 'list<subscription_info_enum>',
             'subtype': 'subtype_enum',
+            'use_for_products': 'list<use_for_products_enum>',
             'use_in_campaigns': 'bool',
             'video_group_ids': 'list<string>',
             'whats_app_business_phone_number_id': 'string',
@@ -2710,7 +2715,9 @@ class AdAccount(
             'claim_objective_enum': CustomAudience.ClaimObjective.__dict__.values(),
             'content_type_enum': CustomAudience.ContentType.__dict__.values(),
             'customer_file_source_enum': CustomAudience.CustomerFileSource.__dict__.values(),
+            'subscription_info_enum': CustomAudience.SubscriptionInfo.__dict__.values(),
             'subtype_enum': CustomAudience.Subtype.__dict__.values(),
+            'use_for_products_enum': CustomAudience.UseForProducts.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -4258,37 +4265,6 @@ class AdAccount(
             self.assure_call()
             return request.execute()
 
-    def get_value_adjustment_rule_collections(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.adsvalueadjustmentrulecollection import AdsValueAdjustmentRuleCollection
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/value_adjustment_rule_collections',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AdsValueAdjustmentRuleCollection,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdsValueAdjustmentRuleCollection, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def get_value_adjustment_rules(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -4307,6 +4283,70 @@ class AdAccount(
             target_class=AdsValueAdjustmentRule,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=AdsValueAdjustmentRule, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_value_rule_set(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.adsvalueadjustmentrulecollection import AdsValueAdjustmentRuleCollection
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/value_rule_set',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdsValueAdjustmentRuleCollection,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdsValueAdjustmentRuleCollection, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_video_ads(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.advideo import AdVideo
+        param_types = {
+            'since': 'datetime',
+            'until': 'datetime',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/video_ads',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdVideo,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdVideo, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

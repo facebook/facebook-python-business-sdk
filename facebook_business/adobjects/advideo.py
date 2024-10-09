@@ -98,7 +98,6 @@ class AdVideo(
         fun_fact_toastee_id = 'fun_fact_toastee_id'
         guide = 'guide'
         guide_enabled = 'guide_enabled'
-        holiday_card = 'holiday_card'
         initial_heading = 'initial_heading'
         initial_pitch = 'initial_pitch'
         instant_game_entry_point_data = 'instant_game_entry_point_data'
@@ -107,7 +106,6 @@ class AdVideo(
         is_voice_clip = 'is_voice_clip'
         location_source_id = 'location_source_id'
         name = 'name'
-        offer_like_post_id = 'offer_like_post_id'
         og_action_type_id = 'og_action_type_id'
         og_icon_id = 'og_icon_id'
         og_object_id = 'og_object_id'
@@ -491,7 +489,7 @@ class AdVideo(
             'call_to_action': 'Object',
             'content_category': 'content_category_enum',
             'content_tags': 'list<string>',
-            'custom_labels': 'list<string>',
+            'custom_labels': 'string',
             'description': 'string',
             'direct_share_status': 'unsigned int',
             'embeddable': 'bool',
@@ -1200,11 +1198,10 @@ class AdVideo(
         'formatting': 'Formatting',
         'fov': 'unsigned int',
         'front_z_rotation': 'float',
-        'fun_fact_prompt_id': 'unsigned int',
+        'fun_fact_prompt_id': 'string',
         'fun_fact_toastee_id': 'unsigned int',
         'guide': 'list<list<unsigned int>>',
         'guide_enabled': 'bool',
-        'holiday_card': 'string',
         'initial_heading': 'unsigned int',
         'initial_pitch': 'unsigned int',
         'instant_game_entry_point_data': 'string',
@@ -1213,7 +1210,6 @@ class AdVideo(
         'is_voice_clip': 'bool',
         'location_source_id': 'string',
         'name': 'string',
-        'offer_like_post_id': 'unsigned int',
         'og_action_type_id': 'string',
         'og_icon_id': 'string',
         'og_object_id': 'string',

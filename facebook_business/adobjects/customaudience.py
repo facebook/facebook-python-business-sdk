@@ -79,13 +79,17 @@ class CustomAudience(
         event_source_group = 'event_source_group'
         event_sources = 'event_sources'
         exclusions = 'exclusions'
+        facebook_page_id = 'facebook_page_id'
         inclusions = 'inclusions'
         list_of_accounts = 'list_of_accounts'
+        marketing_message_channels = 'marketing_message_channels'
         origin_audience_id = 'origin_audience_id'
         parent_audience_id = 'parent_audience_id'
         partner_reference_key = 'partner_reference_key'
         prefill = 'prefill'
         product_set_id = 'product_set_id'
+        subscription_info = 'subscription_info'
+        use_for_products = 'use_for_products'
         use_in_campaigns = 'use_in_campaigns'
         video_group_ids = 'video_group_ids'
         whats_app_business_phone_number_id = 'whats_app_business_phone_number_id'
@@ -120,6 +124,10 @@ class CustomAudience(
         partner_provided_only = 'PARTNER_PROVIDED_ONLY'
         user_provided_only = 'USER_PROVIDED_ONLY'
 
+    class SubscriptionInfo:
+        messenger = 'MESSENGER'
+        whatsapp = 'WHATSAPP'
+
     class Subtype:
         app = 'APP'
         bag_of_accounts = 'BAG_OF_ACCOUNTS'
@@ -132,6 +140,7 @@ class CustomAudience(
         lookalike = 'LOOKALIKE'
         managed = 'MANAGED'
         measurement = 'MEASUREMENT'
+        messenger_subscriber_list = 'MESSENGER_SUBSCRIBER_LIST'
         offline_conversion = 'OFFLINE_CONVERSION'
         partner = 'PARTNER'
         primary = 'PRIMARY'
@@ -140,6 +149,10 @@ class CustomAudience(
         subscriber_segment = 'SUBSCRIBER_SEGMENT'
         video = 'VIDEO'
         website = 'WEBSITE'
+
+    class UseForProducts:
+        ads = 'ADS'
+        marketing_messages = 'MARKETING_MESSAGES'
 
     class ActionSource:
         physical_store = 'PHYSICAL_STORE'
@@ -680,13 +693,17 @@ class CustomAudience(
         'event_source_group': 'string',
         'event_sources': 'list<map>',
         'exclusions': 'list<Object>',
+        'facebook_page_id': 'string',
         'inclusions': 'list<Object>',
         'list_of_accounts': 'list<unsigned int>',
+        'marketing_message_channels': 'Object',
         'origin_audience_id': 'string',
         'parent_audience_id': 'unsigned int',
         'partner_reference_key': 'string',
         'prefill': 'bool',
         'product_set_id': 'string',
+        'subscription_info': 'list<SubscriptionInfo>',
+        'use_for_products': 'list<UseForProducts>',
         'use_in_campaigns': 'bool',
         'video_group_ids': 'list<string>',
         'whats_app_business_phone_number_id': 'string',
@@ -697,7 +714,9 @@ class CustomAudience(
         field_enum_info['ClaimObjective'] = CustomAudience.ClaimObjective.__dict__.values()
         field_enum_info['ContentType'] = CustomAudience.ContentType.__dict__.values()
         field_enum_info['CustomerFileSource'] = CustomAudience.CustomerFileSource.__dict__.values()
+        field_enum_info['SubscriptionInfo'] = CustomAudience.SubscriptionInfo.__dict__.values()
         field_enum_info['Subtype'] = CustomAudience.Subtype.__dict__.values()
+        field_enum_info['UseForProducts'] = CustomAudience.UseForProducts.__dict__.values()
         field_enum_info['ActionSource'] = CustomAudience.ActionSource.__dict__.values()
         return field_enum_info
 

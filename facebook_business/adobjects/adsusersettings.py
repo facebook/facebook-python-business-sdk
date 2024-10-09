@@ -28,6 +28,7 @@ class AdsUserSettings(
 
     class Field(AbstractObject.Field):
         a_plus_c_survey_seen = 'a_plus_c_survey_seen'
+        add_overlays_opt_in_status = 'add_overlays_opt_in_status'
         adgroup_name_template = 'adgroup_name_template'
         ads_cs_catalog_opt_out_timestamp = 'ads_cs_catalog_opt_out_timestamp'
         ads_tool_visits = 'ads_tool_visits'
@@ -49,6 +50,7 @@ class AdsUserSettings(
         focus_mode_default = 'focus_mode_default'
         gen_ai_alpha_test_status = 'gen_ai_alpha_test_status'
         id = 'id'
+        image_background_generation_opt_in_status = 'image_background_generation_opt_in_status'
         image_expansion_opt_in_status = 'image_expansion_opt_in_status'
         is_ads_ai_consented = 'is_ads_ai_consented'
         is_cbo_default_on = 'is_cbo_default_on'
@@ -117,6 +119,7 @@ class AdsUserSettings(
 
     _field_types = {
         'a_plus_c_survey_seen': 'bool',
+        'add_overlays_opt_in_status': 'string',
         'adgroup_name_template': 'Object',
         'ads_cs_catalog_opt_out_timestamp': 'list<map<string, int>>',
         'ads_tool_visits': 'list<Object>',
@@ -138,6 +141,7 @@ class AdsUserSettings(
         'focus_mode_default': 'string',
         'gen_ai_alpha_test_status': 'int',
         'id': 'string',
+        'image_background_generation_opt_in_status': 'string',
         'image_expansion_opt_in_status': 'string',
         'is_ads_ai_consented': 'bool',
         'is_cbo_default_on': 'bool',

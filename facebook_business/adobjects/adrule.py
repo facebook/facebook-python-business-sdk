@@ -30,6 +30,7 @@ class AdRule(
         account_id = 'account_id'
         created_by = 'created_by'
         created_time = 'created_time'
+        disable_error_code = 'disable_error_code'
         evaluation_spec = 'evaluation_spec'
         execution_spec = 'execution_spec'
         id = 'id'
@@ -281,6 +282,7 @@ class AdRule(
         'account_id': 'string',
         'created_by': 'User',
         'created_time': 'datetime',
+        'disable_error_code': 'int',
         'evaluation_spec': 'AdRuleEvaluationSpec',
         'execution_spec': 'AdRuleExecutionSpec',
         'id': 'string',

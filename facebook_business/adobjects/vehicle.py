@@ -59,6 +59,11 @@ class Vehicle(
         previous_currency = 'previous_currency'
         previous_price = 'previous_price'
         price = 'price'
+        product_priority_0 = 'product_priority_0'
+        product_priority_1 = 'product_priority_1'
+        product_priority_2 = 'product_priority_2'
+        product_priority_3 = 'product_priority_3'
+        product_priority_4 = 'product_priority_4'
         sale_currency = 'sale_currency'
         sale_price = 'sale_price'
         sanitized_images = 'sanitized_images'
@@ -404,6 +409,11 @@ class Vehicle(
         'previous_currency': 'string',
         'previous_price': 'string',
         'price': 'string',
+        'product_priority_0': 'float',
+        'product_priority_1': 'float',
+        'product_priority_2': 'float',
+        'product_priority_3': 'float',
+        'product_priority_4': 'float',
         'sale_currency': 'string',
         'sale_price': 'string',
         'sanitized_images': 'list<string>',

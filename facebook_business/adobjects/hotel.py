@@ -44,6 +44,11 @@ class Hotel(
         margin_level = 'margin_level'
         name = 'name'
         phone = 'phone'
+        product_priority_0 = 'product_priority_0'
+        product_priority_1 = 'product_priority_1'
+        product_priority_2 = 'product_priority_2'
+        product_priority_3 = 'product_priority_3'
+        product_priority_4 = 'product_priority_4'
         sale_price = 'sale_price'
         sanitized_images = 'sanitized_images'
         star_rating = 'star_rating'
@@ -322,6 +327,11 @@ class Hotel(
         'margin_level': 'unsigned int',
         'name': 'string',
         'phone': 'string',
+        'product_priority_0': 'float',
+        'product_priority_1': 'float',
+        'product_priority_2': 'float',
+        'product_priority_3': 'float',
+        'product_priority_4': 'float',
         'sale_price': 'string',
         'sanitized_images': 'list<string>',
         'star_rating': 'float',

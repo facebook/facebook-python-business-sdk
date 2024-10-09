@@ -149,6 +149,13 @@ class ProductItem(
         pending = 'pending'
         preorder = 'preorder'
 
+    class CapabilityToReviewStatus:
+        approved = 'APPROVED'
+        no_review = 'NO_REVIEW'
+        outdated = 'OUTDATED'
+        pending = 'PENDING'
+        rejected = 'REJECTED'
+
     class Condition:
         cpo = 'cpo'
         new = 'new'
@@ -474,6 +481,7 @@ class ProductItem(
         invalid_subscription_disable_params = 'INVALID_SUBSCRIPTION_DISABLE_PARAMS'
         invalid_subscription_enable_params = 'INVALID_SUBSCRIPTION_ENABLE_PARAMS'
         invalid_subscription_params = 'INVALID_SUBSCRIPTION_PARAMS'
+        invalid_tax_extension_state = 'INVALID_TAX_EXTENSION_STATE'
         invalid_vehicle_state = 'INVALID_VEHICLE_STATE'
         invalid_virtual_tour_url_domain = 'INVALID_VIRTUAL_TOUR_URL_DOMAIN'
         inventory_zero_availability_in_stock = 'INVENTORY_ZERO_AVAILABILITY_IN_STOCK'
@@ -1143,7 +1151,7 @@ class ProductItem(
         'brand': 'string',
         'bundle_items': 'list<string>',
         'bundle_retailer_ids': 'list<string>',
-        'capability_to_review_status': 'list<map<Object, Object>>',
+        'capability_to_review_status': 'list<map<string, ProductItem_capability_to_review_status>>',
         'category': 'string',
         'category_specific_fields': 'CatalogSubVerticalList',
         'color': 'string',
@@ -1243,6 +1251,7 @@ class ProductItem(
         field_enum_info = {}
         field_enum_info['AgeGroup'] = ProductItem.AgeGroup.__dict__.values()
         field_enum_info['Availability'] = ProductItem.Availability.__dict__.values()
+        field_enum_info['CapabilityToReviewStatus'] = ProductItem.CapabilityToReviewStatus.__dict__.values()
         field_enum_info['Condition'] = ProductItem.Condition.__dict__.values()
         field_enum_info['Gender'] = ProductItem.Gender.__dict__.values()
         field_enum_info['ImageFetchStatus'] = ProductItem.ImageFetchStatus.__dict__.values()

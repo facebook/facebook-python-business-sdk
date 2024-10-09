@@ -44,6 +44,7 @@ class AdsInsights(
         auction_bid = 'auction_bid'
         auction_competitiveness = 'auction_competitiveness'
         auction_max_competitor_bid = 'auction_max_competitor_bid'
+        average_purchases_conversion_value = 'average_purchases_conversion_value'
         buying_type = 'buying_type'
         campaign_id = 'campaign_id'
         campaign_name = 'campaign_name'
@@ -108,9 +109,6 @@ class AdsInsights(
         instant_experience_outbound_clicks = 'instant_experience_outbound_clicks'
         interactive_component_tap = 'interactive_component_tap'
         labels = 'labels'
-        landing_page_view_actions_per_link_click = 'landing_page_view_actions_per_link_click'
-        landing_page_view_per_purchase_rate = 'landing_page_view_per_purchase_rate'
-        link_clicks_per_results = 'link_clicks_per_results'
         location = 'location'
         marketing_messages_cost_per_delivered = 'marketing_messages_cost_per_delivered'
         marketing_messages_cost_per_link_btn_click = 'marketing_messages_cost_per_link_btn_click'
@@ -124,7 +122,6 @@ class AdsInsights(
         outbound_clicks_ctr = 'outbound_clicks_ctr'
         place_page_name = 'place_page_name'
         purchase_roas = 'purchase_roas'
-        purchases_per_link_click = 'purchases_per_link_click'
         qualifying_question_qualify_answer_rate = 'qualifying_question_qualify_answer_rate'
         quality_ranking = 'quality_ranking'
         reach = 'reach'
@@ -210,6 +207,7 @@ class AdsInsights(
         age = 'age'
         app_id = 'app_id'
         body_asset = 'body_asset'
+        breakdown_reporting_ad_id = 'breakdown_reporting_ad_id'
         call_to_action_asset = 'call_to_action_asset'
         coarse_conversion_value = 'coarse_conversion_value'
         conversion_destination = 'conversion_destination'
@@ -237,6 +235,7 @@ class AdsInsights(
         media_format = 'media_format'
         media_origin_url = 'media_origin_url'
         media_text_content = 'media_text_content'
+        media_type = 'media_type'
         mmm = 'mmm'
         place_page_id = 'place_page_id'
         platform_position = 'platform_position'
@@ -324,6 +323,7 @@ class AdsInsights(
         'auction_bid': 'string',
         'auction_competitiveness': 'string',
         'auction_max_competitor_bid': 'string',
+        'average_purchases_conversion_value': 'list<AdsActionStats>',
         'buying_type': 'string',
         'campaign_id': 'string',
         'campaign_name': 'string',
@@ -388,9 +388,6 @@ class AdsInsights(
         'instant_experience_outbound_clicks': 'list<AdsActionStats>',
         'interactive_component_tap': 'list<AdsActionStats>',
         'labels': 'string',
-        'landing_page_view_actions_per_link_click': 'list<AdsActionStats>',
-        'landing_page_view_per_purchase_rate': 'list<AdsActionStats>',
-        'link_clicks_per_results': 'list<AdsActionStats>',
         'location': 'string',
         'marketing_messages_cost_per_delivered': 'string',
         'marketing_messages_cost_per_link_btn_click': 'string',
@@ -404,7 +401,6 @@ class AdsInsights(
         'outbound_clicks_ctr': 'list<AdsActionStats>',
         'place_page_name': 'string',
         'purchase_roas': 'list<AdsActionStats>',
-        'purchases_per_link_click': 'list<AdsActionStats>',
         'qualifying_question_qualify_answer_rate': 'string',
         'quality_ranking': 'string',
         'reach': 'string',

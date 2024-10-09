@@ -30,6 +30,7 @@ class ALMAdAccountInfo(
         ad_account_id = 'ad_account_id'
         id = 'id'
         managed_by = 'managed_by'
+        owned_by = 'owned_by'
         parent_advertiser_id = 'parent_advertiser_id'
         sub_vertical = 'sub_vertical'
         tag = 'tag'
@@ -70,6 +71,7 @@ class ALMAdAccountInfo(
         'ad_account_id': 'string',
         'id': 'string',
         'managed_by': 'string',
+        'owned_by': 'string',
         'parent_advertiser_id': 'string',
         'sub_vertical': 'string',
         'tag': 'list<string>',

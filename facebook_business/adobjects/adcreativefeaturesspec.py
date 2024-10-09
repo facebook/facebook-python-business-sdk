@@ -36,9 +36,17 @@ class AdCreativeFeaturesSpec(
         cv_transformation = 'cv_transformation'
         description_automation = 'description_automation'
         dha_optimization = 'dha_optimization'
+        dynamic_partner_content = 'dynamic_partner_content'
         enhance_cta = 'enhance_cta'
+        fb_feed_tag = 'fb_feed_tag'
+        fb_reels_tag = 'fb_reels_tag'
+        fb_story_tag = 'fb_story_tag'
         feed_caption_optimization = 'feed_caption_optimization'
+        ig_feed_tag = 'ig_feed_tag'
         ig_glados_feed = 'ig_glados_feed'
+        ig_reels_tag = 'ig_reels_tag'
+        ig_stream_tag = 'ig_stream_tag'
+        image_animation = 'image_animation'
         image_auto_crop = 'image_auto_crop'
         image_background_gen = 'image_background_gen'
         image_brightness_and_contrast = 'image_brightness_and_contrast'
@@ -51,6 +59,7 @@ class AdCreativeFeaturesSpec(
         media_liquidity_animated_image = 'media_liquidity_animated_image'
         media_order = 'media_order'
         media_type_automation = 'media_type_automation'
+        pac_relaxation = 'pac_relaxation'
         product_extensions = 'product_extensions'
         product_metadata_automation = 'product_metadata_automation'
         product_tags = 'product_tags'
@@ -63,6 +72,7 @@ class AdCreativeFeaturesSpec(
         video_auto_crop = 'video_auto_crop'
         video_filtering = 'video_filtering'
         video_highlight = 'video_highlight'
+        video_uncrop = 'video_uncrop'
 
     _field_types = {
         'adapt_to_placement': 'AdCreativeFeatureDetails',
@@ -77,9 +87,17 @@ class AdCreativeFeaturesSpec(
         'cv_transformation': 'AdCreativeFeatureDetails',
         'description_automation': 'AdCreativeFeatureDetails',
         'dha_optimization': 'AdCreativeFeatureDetails',
+        'dynamic_partner_content': 'AdCreativeFeatureDetails',
         'enhance_cta': 'AdCreativeFeatureDetails',
+        'fb_feed_tag': 'AdCreativeFeatureDetails',
+        'fb_reels_tag': 'AdCreativeFeatureDetails',
+        'fb_story_tag': 'AdCreativeFeatureDetails',
         'feed_caption_optimization': 'AdCreativeFeatureDetails',
+        'ig_feed_tag': 'AdCreativeFeatureDetails',
         'ig_glados_feed': 'AdCreativeFeatureDetails',
+        'ig_reels_tag': 'AdCreativeFeatureDetails',
+        'ig_stream_tag': 'AdCreativeFeatureDetails',
+        'image_animation': 'AdCreativeFeatureDetails',
         'image_auto_crop': 'AdCreativeFeatureDetails',
         'image_background_gen': 'AdCreativeFeatureDetails',
         'image_brightness_and_contrast': 'AdCreativeFeatureDetails',
@@ -92,6 +110,7 @@ class AdCreativeFeaturesSpec(
         'media_liquidity_animated_image': 'AdCreativeFeatureDetails',
         'media_order': 'AdCreativeFeatureDetails',
         'media_type_automation': 'AdCreativeFeatureDetails',
+        'pac_relaxation': 'AdCreativeFeatureDetails',
         'product_extensions': 'AdCreativeFeatureDetails',
         'product_metadata_automation': 'AdCreativeFeatureDetails',
         'product_tags': 'AdCreativeFeatureDetails',
@@ -104,6 +123,7 @@ class AdCreativeFeaturesSpec(
         'video_auto_crop': 'AdCreativeFeatureDetails',
         'video_filtering': 'AdCreativeFeatureDetails',
         'video_highlight': 'AdCreativeFeatureDetails',
+        'video_uncrop': 'AdCreativeFeatureDetails',
     }
     @classmethod
     def _get_field_enum_info(cls):

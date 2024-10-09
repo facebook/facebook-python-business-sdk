@@ -14,28 +14,22 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdCreativeBrandedContentAdsPartners(
+class AdCreativeProductData(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(AdCreativeBrandedContentAdsPartners, self).__init__()
-        self._isAdCreativeBrandedContentAdsPartners = True
+        super(AdCreativeProductData, self).__init__()
+        self._isAdCreativeProductData = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        fb_page_id = 'fb_page_id'
-        has_create_ads_access = 'has_create_ads_access'
-        identity_type = 'identity_type'
-        ig_asset_id = 'ig_asset_id'
-        ig_user_id = 'ig_user_id'
+        product_id = 'product_id'
+        product_source = 'product_source'
 
     _field_types = {
-        'fb_page_id': 'string',
-        'has_create_ads_access': 'bool',
-        'identity_type': 'string',
-        'ig_asset_id': 'string',
-        'ig_user_id': 'string',
+        'product_id': 'string',
+        'product_source': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

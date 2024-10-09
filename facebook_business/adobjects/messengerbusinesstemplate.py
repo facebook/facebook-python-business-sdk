@@ -18,18 +18,26 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class DogNotificationSettings(
+class MessengerBusinessTemplate(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isDogNotificationSettings = True
-        super(DogNotificationSettings, self).__init__(fbid, parent_id, api)
+        self._isMessengerBusinessTemplate = True
+        super(MessengerBusinessTemplate, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        dog_check_key = 'dog_check_key'
+        category = 'category'
+        components = 'components'
+        creation_time = 'creation_time'
         id = 'id'
-        subscription_status_per_channel = 'subscription_status_per_channel'
+        language = 'language'
+        language_count = 'language_count'
+        last_updated_time = 'last_updated_time'
+        library_template_name = 'library_template_name'
+        name = 'name'
+        rejected_reason = 'rejected_reason'
+        status = 'status'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -45,7 +53,7 @@ class DogNotificationSettings(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=DogNotificationSettings,
+            target_class=MessengerBusinessTemplate,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -62,9 +70,17 @@ class DogNotificationSettings(
             return request.execute()
 
     _field_types = {
-        'dog_check_key': 'string',
+        'category': 'string',
+        'components': 'list<Object>',
+        'creation_time': 'int',
         'id': 'string',
-        'subscription_status_per_channel': 'list<map<string, string>>',
+        'language': 'string',
+        'language_count': 'int',
+        'last_updated_time': 'datetime',
+        'library_template_name': 'string',
+        'name': 'string',
+        'rejected_reason': 'string',
+        'status': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

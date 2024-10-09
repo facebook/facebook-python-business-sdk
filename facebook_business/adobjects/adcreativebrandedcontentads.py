@@ -30,6 +30,8 @@ class AdCreativeBrandedContentAds(
         facebook_boost_post_access_token = 'facebook_boost_post_access_token'
         instagram_boost_post_access_token = 'instagram_boost_post_access_token'
         is_mca_internal = 'is_mca_internal'
+        parent_source_facebook_post_id = 'parent_source_facebook_post_id'
+        parent_source_instagram_media_id = 'parent_source_instagram_media_id'
         partners = 'partners'
         product_set_partner_selection_status = 'product_set_partner_selection_status'
         promoted_page_id = 'promoted_page_id'
@@ -43,6 +45,8 @@ class AdCreativeBrandedContentAds(
         'facebook_boost_post_access_token': 'string',
         'instagram_boost_post_access_token': 'string',
         'is_mca_internal': 'bool',
+        'parent_source_facebook_post_id': 'string',
+        'parent_source_instagram_media_id': 'string',
         'partners': 'list<AdCreativeBrandedContentAdsPartners>',
         'product_set_partner_selection_status': 'string',
         'promoted_page_id': 'string',

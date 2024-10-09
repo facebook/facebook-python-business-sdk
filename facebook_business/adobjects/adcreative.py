@@ -70,6 +70,7 @@ class AdCreative(
         link_destination_display_url = 'link_destination_display_url'
         link_og_id = 'link_og_id'
         link_url = 'link_url'
+        messenger_sponsored_message = 'messenger_sponsored_message'
         name = 'name'
         object_id = 'object_id'
         object_store_url = 'object_store_url'
@@ -502,6 +503,7 @@ class AdCreative(
         'link_destination_display_url': 'string',
         'link_og_id': 'string',
         'link_url': 'string',
+        'messenger_sponsored_message': 'string',
         'name': 'string',
         'object_id': 'string',
         'object_store_url': 'string',

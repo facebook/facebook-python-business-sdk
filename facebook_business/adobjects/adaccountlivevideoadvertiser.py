@@ -14,30 +14,24 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class ExternalEventSourceDAStatsResult(
+class AdAccountLiveVideoAdvertiser(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(ExternalEventSourceDAStatsResult, self).__init__()
-        self._isExternalEventSourceDAStatsResult = True
+        super(AdAccountLiveVideoAdvertiser, self).__init__()
+        self._isAdAccountLiveVideoAdvertiser = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        count_content_ids = 'count_content_ids'
-        count_content_ids_match_any_catalog = 'count_content_ids_match_any_catalog'
-        count_fires = 'count_fires'
-        count_fires_match_any_catalog = 'count_fires_match_any_catalog'
-        date = 'date'
-        percentage_missed_users = 'percentage_missed_users'
+        is_lva_toggle_on = 'is_lva_toggle_on'
+        lva_default_budget = 'lva_default_budget'
+        should_show_lva_toggle = 'should_show_lva_toggle'
 
     _field_types = {
-        'count_content_ids': 'unsigned int',
-        'count_content_ids_match_any_catalog': 'unsigned int',
-        'count_fires': 'unsigned int',
-        'count_fires_match_any_catalog': 'unsigned int',
-        'date': 'string',
-        'percentage_missed_users': 'float',
+        'is_lva_toggle_on': 'bool',
+        'lva_default_budget': 'int',
+        'should_show_lva_toggle': 'bool',
     }
     @classmethod
     def _get_field_enum_info(cls):

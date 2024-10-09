@@ -75,6 +75,7 @@ class WhatsAppBusinessAccount(
         order_status = 'ORDER_STATUS'
 
     class ProviderName:
+        billdesk = 'BILLDESK'
         payu = 'PAYU'
         razorpay = 'RAZORPAY'
         upi_vpa = 'UPI_VPA'
@@ -279,6 +280,66 @@ class WhatsAppBusinessAccount(
             node_id=self['id'],
             method='GET',
             endpoint='/audiences',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_call_analytics(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'country_codes': 'list<string>',
+            'dimensions': 'list<dimensions_enum>',
+            'directions': 'list<directions_enum>',
+            'end': 'unsigned int',
+            'granularity': 'granularity_enum',
+            'metric_types': 'list<metric_types_enum>',
+            'phone_numbers': 'list<string>',
+            'start': 'unsigned int',
+        }
+        enums = {
+            'dimensions_enum': [
+                'COUNTRY',
+                'DIRECTION',
+                'PHONE',
+                'UNKNOWN',
+            ],
+            'directions_enum': [
+                'BUSINESS_INITIATED',
+                'UNKNOWN',
+                'USER_INITIATED',
+            ],
+            'granularity_enum': [
+                'DAILY',
+                'HALF_HOUR',
+                'MONTHLY',
+            ],
+            'metric_types_enum': [
+                'AVERAGE_DURATION',
+                'COST',
+                'COUNT',
+                'UNKNOWN',
+            ],
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/call_analytics',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
@@ -746,6 +807,7 @@ class WhatsAppBusinessAccount(
             'cta_url_link_tracking_opted_out': 'bool',
             'display_format': 'display_format_enum',
             'language': 'string',
+            'library_template_body_inputs': 'map',
             'library_template_button_inputs': 'list<map>',
             'library_template_name': 'string',
             'message_send_ttl_seconds': 'unsigned int',

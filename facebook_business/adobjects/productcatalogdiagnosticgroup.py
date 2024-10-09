@@ -36,22 +36,6 @@ class ProductCatalogDiagnosticGroup(
         title = 'title'
         type = 'type'
 
-    class AffectedChannels:
-        b2c_marketplace = 'b2c_marketplace'
-        c2c_marketplace = 'c2c_marketplace'
-        da = 'da'
-        daily_deals = 'daily_deals'
-        daily_deals_legacy = 'daily_deals_legacy'
-        ig_product_tagging = 'ig_product_tagging'
-        marketplace = 'marketplace'
-        marketplace_ads_deprecated = 'marketplace_ads_deprecated'
-        marketplace_shops = 'marketplace_shops'
-        mini_shops = 'mini_shops'
-        offline_conversions = 'offline_conversions'
-        shops = 'shops'
-        universal_checkout = 'universal_checkout'
-        whatsapp = 'whatsapp'
-
     class AffectedEntity:
         product_catalog = 'product_catalog'
         product_event = 'product_event'
@@ -79,6 +63,22 @@ class ProductCatalogDiagnosticGroup(
         policy_violation = 'POLICY_VIOLATION'
         shops_visibility_issues = 'SHOPS_VISIBILITY_ISSUES'
 
+    class AffectedChannels:
+        b2c_marketplace = 'b2c_marketplace'
+        c2c_marketplace = 'c2c_marketplace'
+        da = 'da'
+        daily_deals = 'daily_deals'
+        daily_deals_legacy = 'daily_deals_legacy'
+        ig_product_tagging = 'ig_product_tagging'
+        marketplace = 'marketplace'
+        marketplace_ads_deprecated = 'marketplace_ads_deprecated'
+        marketplace_shops = 'marketplace_shops'
+        mini_shops = 'mini_shops'
+        offline_conversions = 'offline_conversions'
+        shops = 'shops'
+        universal_checkout = 'universal_checkout'
+        whatsapp = 'whatsapp'
+
     class AffectedEntities:
         product_catalog = 'product_catalog'
         product_event = 'product_event'
@@ -103,7 +103,7 @@ class ProductCatalogDiagnosticGroup(
         shops_visibility_issues = 'SHOPS_VISIBILITY_ISSUES'
 
     _field_types = {
-        'affected_channels': 'list<AffectedChannels>',
+        'affected_channels': 'list<string>',
         'affected_entity': 'AffectedEntity',
         'affected_features': 'list<AffectedFeatures>',
         'diagnostics': 'list<Object>',
@@ -118,11 +118,11 @@ class ProductCatalogDiagnosticGroup(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['AffectedChannels'] = ProductCatalogDiagnosticGroup.AffectedChannels.__dict__.values()
         field_enum_info['AffectedEntity'] = ProductCatalogDiagnosticGroup.AffectedEntity.__dict__.values()
         field_enum_info['AffectedFeatures'] = ProductCatalogDiagnosticGroup.AffectedFeatures.__dict__.values()
         field_enum_info['Severity'] = ProductCatalogDiagnosticGroup.Severity.__dict__.values()
         field_enum_info['Type'] = ProductCatalogDiagnosticGroup.Type.__dict__.values()
+        field_enum_info['AffectedChannels'] = ProductCatalogDiagnosticGroup.AffectedChannels.__dict__.values()
         field_enum_info['AffectedEntities'] = ProductCatalogDiagnosticGroup.AffectedEntities.__dict__.values()
         field_enum_info['Severities'] = ProductCatalogDiagnosticGroup.Severities.__dict__.values()
         field_enum_info['Types'] = ProductCatalogDiagnosticGroup.Types.__dict__.values()

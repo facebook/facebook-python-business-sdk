@@ -28,9 +28,10 @@ class AdCreativeObjectStorySpec(
         link_data = 'link_data'
         page_id = 'page_id'
         photo_data = 'photo_data'
+        product_data = 'product_data'
         template_data = 'template_data'
         text_data = 'text_data'
-        threads_actor_id = 'threads_actor_id'
+        threads_user_id = 'threads_user_id'
         video_data = 'video_data'
 
     _field_types = {
@@ -38,9 +39,10 @@ class AdCreativeObjectStorySpec(
         'link_data': 'AdCreativeLinkData',
         'page_id': 'string',
         'photo_data': 'AdCreativePhotoData',
+        'product_data': 'list<AdCreativeProductData>',
         'template_data': 'AdCreativeLinkData',
         'text_data': 'AdCreativeTextData',
-        'threads_actor_id': 'string',
+        'threads_user_id': 'string',
         'video_data': 'AdCreativeVideoData',
     }
     @classmethod

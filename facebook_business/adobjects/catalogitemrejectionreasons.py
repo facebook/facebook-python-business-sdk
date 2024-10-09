@@ -27,22 +27,13 @@ class CatalogItemRejectionReasons(
         capability = 'capability'
         rejection_information = 'rejection_information'
 
-    class Capability:
-        business_inbox_in_messenger = 'business_inbox_in_messenger'
-        shops = 'shops'
-        test_capability = 'test_capability'
-        universal_checkout = 'universal_checkout'
-        us_marketplace = 'us_marketplace'
-        whatsapp_marketing_message = 'whatsapp_marketing_message'
-
     _field_types = {
-        'capability': 'Capability',
+        'capability': 'string',
         'rejection_information': 'list<Object>',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['Capability'] = CatalogItemRejectionReasons.Capability.__dict__.values()
         return field_enum_info
 
 

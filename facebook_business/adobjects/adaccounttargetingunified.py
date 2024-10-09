@@ -82,6 +82,7 @@ class AdAccountTargetingUnified(
     class RegulatedCategories:
         credit = 'CREDIT'
         employment = 'EMPLOYMENT'
+        financial_products_services = 'FINANCIAL_PRODUCTS_SERVICES'
         housing = 'HOUSING'
         issues_elections_politics = 'ISSUES_ELECTIONS_POLITICS'
         none = 'NONE'

@@ -296,49 +296,6 @@ class Group(
             self.assure_call()
             return request.execute()
 
-    def create_album(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.album import Album
-        param_types = {
-            'contributors': 'list<int>',
-            'description': 'string',
-            'is_default': 'bool',
-            'location': 'string',
-            'make_shared_album': 'bool',
-            'message': 'string',
-            'name': 'string',
-            'place': 'Object',
-            'privacy': 'string',
-            'session_id': 'string',
-            'tags': 'list<int>',
-            'visible': 'string',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/albums',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=Album,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=Album, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def get_docs(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -448,7 +405,7 @@ class Group(
             'android_key_hash': 'string',
             'application_id': 'string',
             'asked_fun_fact_prompt_id': 'unsigned int',
-            'asset3d_id': 'unsigned int',
+            'asset3d_id': 'string',
             'associated_id': 'string',
             'attach_place_suggestion': 'bool',
             'attached_media': 'list<Object>',
@@ -479,10 +436,9 @@ class Group(
             'expanded_width': 'unsigned int',
             'feed_targeting': 'Object',
             'formatting': 'formatting_enum',
-            'fun_fact_prompt_id': 'unsigned int',
+            'fun_fact_prompt_id': 'string',
             'fun_fact_toastee_id': 'unsigned int',
             'height': 'unsigned int',
-            'holiday_card': 'string',
             'home_checkin_city_id': 'Object',
             'image_crops': 'map',
             'implicit_with_tags': 'list<int>',
@@ -503,7 +459,6 @@ class Group(
             'name': 'string',
             'nectar_module': 'string',
             'object_attachment': 'string',
-            'offer_like_post_id': 'unsigned int',
             'og_action_type_id': 'string',
             'og_hide_object_attachment': 'bool',
             'og_icon_id': 'string',
@@ -1057,11 +1012,10 @@ class Group(
             'formatting': 'formatting_enum',
             'fov': 'unsigned int',
             'front_z_rotation': 'float',
-            'fun_fact_prompt_id': 'unsigned int',
+            'fun_fact_prompt_id': 'string',
             'fun_fact_toastee_id': 'unsigned int',
             'guide': 'list<list<unsigned int>>',
             'guide_enabled': 'bool',
-            'holiday_card': 'string',
             'initial_heading': 'unsigned int',
             'initial_pitch': 'unsigned int',
             'instant_game_entry_point_data': 'string',
@@ -1071,7 +1025,6 @@ class Group(
             'is_voice_clip': 'bool',
             'location_source_id': 'string',
             'manual_privacy': 'bool',
-            'offer_like_post_id': 'unsigned int',
             'og_action_type_id': 'string',
             'og_icon_id': 'string',
             'og_object_id': 'string',

@@ -35,6 +35,46 @@ class InsightsResult(
         title = 'title'
         values = 'values'
 
+    class Breakdown:
+        action_type = 'action_type'
+        follow_type = 'follow_type'
+        story_navigation_action_type = 'story_navigation_action_type'
+        surface_type = 'surface_type'
+
+    class Metric:
+        clips_replays_count = 'clips_replays_count'
+        comments = 'comments'
+        follows = 'follows'
+        ig_reels_aggregated_all_plays_count = 'ig_reels_aggregated_all_plays_count'
+        ig_reels_avg_watch_time = 'ig_reels_avg_watch_time'
+        ig_reels_video_view_total_time = 'ig_reels_video_view_total_time'
+        impressions = 'impressions'
+        likes = 'likes'
+        navigation = 'navigation'
+        peak_concurrent_viewers = 'peak_concurrent_viewers'
+        plays = 'plays'
+        profile_activity = 'profile_activity'
+        profile_visits = 'profile_visits'
+        quotes = 'quotes'
+        reach = 'reach'
+        replies = 'replies'
+        reposts = 'reposts'
+        saved = 'saved'
+        shares = 'shares'
+        thread_replies = 'thread_replies'
+        thread_shares = 'thread_shares'
+        total_interactions = 'total_interactions'
+        video_views = 'video_views'
+        views = 'views'
+
+    class Period:
+        day = 'day'
+        days_28 = 'days_28'
+        lifetime = 'lifetime'
+        month = 'month'
+        total_over_range = 'total_over_range'
+        week = 'week'
+
     class DatePreset:
         data_maximum = 'data_maximum'
         last_14d = 'last_14d'
@@ -57,23 +97,6 @@ class InsightsResult(
         today = 'today'
         yesterday = 'yesterday'
 
-    class Period:
-        day = 'day'
-        days_28 = 'days_28'
-        lifetime = 'lifetime'
-        month = 'month'
-        total_over_range = 'total_over_range'
-        week = 'week'
-
-    class Metric:
-        pages_fb_story_replies = 'PAGES_FB_STORY_REPLIES'
-        pages_fb_story_shares = 'PAGES_FB_STORY_SHARES'
-        pages_fb_story_sticker_interactions = 'PAGES_FB_STORY_STICKER_INTERACTIONS'
-        pages_fb_story_thread_lightweight_reactions = 'PAGES_FB_STORY_THREAD_LIGHTWEIGHT_REACTIONS'
-        page_story_impressions_by_story_id = 'PAGE_STORY_IMPRESSIONS_BY_STORY_ID'
-        page_story_impressions_by_story_id_unique = 'PAGE_STORY_IMPRESSIONS_BY_STORY_ID_UNIQUE'
-        story_interaction = 'STORY_INTERACTION'
-
     _field_types = {
         'description': 'string',
         'description_from_api_doc': 'string',
@@ -86,9 +109,10 @@ class InsightsResult(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['DatePreset'] = InsightsResult.DatePreset.__dict__.values()
-        field_enum_info['Period'] = InsightsResult.Period.__dict__.values()
+        field_enum_info['Breakdown'] = InsightsResult.Breakdown.__dict__.values()
         field_enum_info['Metric'] = InsightsResult.Metric.__dict__.values()
+        field_enum_info['Period'] = InsightsResult.Period.__dict__.values()
+        field_enum_info['DatePreset'] = InsightsResult.DatePreset.__dict__.values()
         return field_enum_info
 
 

@@ -18,25 +18,23 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class PanelAPIReport(
+class AdsQuickViews(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isPanelAPIReport = True
-        super(PanelAPIReport, self).__init__(fbid, parent_id, api)
+        self._isAdsQuickViews = True
+        super(AdsQuickViews, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        checksum = 'checksum'
-        download_url = 'download_url'
-        end_date = 'end_date'
-        export_file_type = 'export_file_type'
+        attribution_windows = 'attribution_windows'
+        breakdowns = 'breakdowns'
+        column_fields = 'column_fields'
+        description = 'description'
         id = 'id'
-        index = 'index'
         name = 'name'
-        number_of_chunks = 'number_of_chunks'
-        start_date = 'start_date'
-        upload_date = 'upload_date'
+        permission = 'permission'
+        sort = 'sort'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -52,7 +50,7 @@ class PanelAPIReport(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=PanelAPIReport,
+            target_class=AdsQuickViews,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -69,16 +67,14 @@ class PanelAPIReport(
             return request.execute()
 
     _field_types = {
-        'checksum': 'string',
-        'download_url': 'string',
-        'end_date': 'datetime',
-        'export_file_type': 'string',
+        'attribution_windows': 'list<string>',
+        'breakdowns': 'list<string>',
+        'column_fields': 'list<string>',
+        'description': 'string',
         'id': 'string',
-        'index': 'int',
         'name': 'string',
-        'number_of_chunks': 'int',
-        'start_date': 'datetime',
-        'upload_date': 'datetime',
+        'permission': 'string',
+        'sort': 'list<Object>',
     }
     @classmethod
     def _get_field_enum_info(cls):

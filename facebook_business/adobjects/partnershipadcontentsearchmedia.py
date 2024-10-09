@@ -24,13 +24,19 @@ class PartnershipAdContentSearchMedia(
         self._api = api
 
     class Field(AbstractObject.Field):
+        ig_ad_code_sponsor_count = 'ig_ad_code_sponsor_count'
+        ig_ad_code_sponsors = 'ig_ad_code_sponsors'
         ig_media = 'ig_media'
         ig_media_has_product_tags = 'ig_media_has_product_tags'
+        is_ad_code_eligible_for_boosting_by_two_sponsors = 'is_ad_code_eligible_for_boosting_by_two_sponsors'
         is_ad_code_entry = 'is_ad_code_entry'
 
     _field_types = {
+        'ig_ad_code_sponsor_count': 'int',
+        'ig_ad_code_sponsors': 'list<FBPageAndInstagramAccount>',
         'ig_media': 'IGMedia',
         'ig_media_has_product_tags': 'bool',
+        'is_ad_code_eligible_for_boosting_by_two_sponsors': 'bool',
         'is_ad_code_entry': 'bool',
     }
     @classmethod

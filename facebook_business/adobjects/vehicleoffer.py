@@ -59,6 +59,11 @@ class VehicleOffer(
         offer_disclaimer = 'offer_disclaimer'
         offer_type = 'offer_type'
         price = 'price'
+        product_priority_0 = 'product_priority_0'
+        product_priority_1 = 'product_priority_1'
+        product_priority_2 = 'product_priority_2'
+        product_priority_3 = 'product_priority_3'
+        product_priority_4 = 'product_priority_4'
         sanitized_images = 'sanitized_images'
         start_date = 'start_date'
         start_time = 'start_time'
@@ -244,6 +249,11 @@ class VehicleOffer(
         'offer_disclaimer': 'string',
         'offer_type': 'string',
         'price': 'string',
+        'product_priority_0': 'float',
+        'product_priority_1': 'float',
+        'product_priority_2': 'float',
+        'product_priority_3': 'float',
+        'product_priority_4': 'float',
         'sanitized_images': 'list<string>',
         'start_date': 'string',
         'start_time': 'int',

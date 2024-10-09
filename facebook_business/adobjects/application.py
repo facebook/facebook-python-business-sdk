@@ -178,15 +178,6 @@ class Application(
         codeless = 'CODELESS'
         eymt = 'EYMT'
 
-    class LoggingSource:
-        detection = 'DETECTION'
-        messenger_bot = 'MESSENGER_BOT'
-
-    class LoggingTarget:
-        app = 'APP'
-        app_and_page = 'APP_AND_PAGE'
-        page = 'PAGE'
-
     class OwnerPermissions:
         develop = 'DEVELOP'
         manage = 'MANAGE'
@@ -448,6 +439,7 @@ class Application(
             'data_processing_options_state': 'unsigned int',
             'device_token': 'string',
             'event': 'event_enum',
+            'event_id': 'string',
             'extinfo': 'Object',
             'include_dwell_data': 'bool',
             'include_video_data': 'bool',
@@ -1486,6 +1478,37 @@ class Application(
             self.assure_call()
             return request.execute()
 
+    def get_message_templates(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'template_id': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/message_templates',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def create_mmp_auditing(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -1714,45 +1737,6 @@ class Application(
             target_class=AbstractCrudObject,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_page_activity(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'advertiser_tracking_enabled': 'bool',
-            'application_tracking_enabled': 'bool',
-            'custom_events': 'list<Object>',
-            'logging_source': 'logging_source_enum',
-            'logging_target': 'logging_target_enum',
-            'page_id': 'unsigned int',
-            'page_scoped_user_id': 'unsigned int',
-        }
-        enums = {
-            'logging_source_enum': Application.LoggingSource.__dict__.values(),
-            'logging_target_enum': Application.LoggingTarget.__dict__.values(),
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/page_activities',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=Application,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=Application, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2402,8 +2386,6 @@ class Application(
         field_enum_info['RequestType'] = Application.RequestType.__dict__.values()
         field_enum_info['MutationMethod'] = Application.MutationMethod.__dict__.values()
         field_enum_info['PostMethod'] = Application.PostMethod.__dict__.values()
-        field_enum_info['LoggingSource'] = Application.LoggingSource.__dict__.values()
-        field_enum_info['LoggingTarget'] = Application.LoggingTarget.__dict__.values()
         field_enum_info['OwnerPermissions'] = Application.OwnerPermissions.__dict__.values()
         field_enum_info['PartnerPermissions'] = Application.PartnerPermissions.__dict__.values()
         return field_enum_info

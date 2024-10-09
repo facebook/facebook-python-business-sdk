@@ -32,6 +32,7 @@ class AdPromotedObject(
         custom_event_type = 'custom_event_type'
         event_id = 'event_id'
         fundraiser_campaign_id = 'fundraiser_campaign_id'
+        lead_ads_form_event_source_type = 'lead_ads_form_event_source_type'
         mcme_conversion_id = 'mcme_conversion_id'
         object_store_url = 'object_store_url'
         offer_id = 'offer_id'
@@ -49,6 +50,8 @@ class AdPromotedObject(
         product_set = 'product_set'
         product_set_id = 'product_set_id'
         retention_days = 'retention_days'
+        value_semantic_type = 'value_semantic_type'
+        variation = 'variation'
         whatsapp_phone_number = 'whatsapp_phone_number'
 
     class CustomEventType:
@@ -91,6 +94,7 @@ class AdPromotedObject(
         'custom_event_type': 'CustomEventType',
         'event_id': 'string',
         'fundraiser_campaign_id': 'string',
+        'lead_ads_form_event_source_type': 'string',
         'mcme_conversion_id': 'string',
         'object_store_url': 'string',
         'offer_id': 'string',
@@ -108,6 +112,8 @@ class AdPromotedObject(
         'product_set': 'ProductSet',
         'product_set_id': 'string',
         'retention_days': 'string',
+        'value_semantic_type': 'string',
+        'variation': 'string',
         'whatsapp_phone_number': 'string',
     }
     @classmethod

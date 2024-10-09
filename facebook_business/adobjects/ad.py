@@ -57,6 +57,7 @@ class Ad(
         issues_info = 'issues_info'
         last_updated_by_app_id = 'last_updated_by_app_id'
         name = 'name'
+        placement = 'placement'
         preview_shareable_link = 'preview_shareable_link'
         priority = 'priority'
         recommendations = 'recommendations'
@@ -722,6 +723,7 @@ class Ad(
         'issues_info': 'list<AdgroupIssuesInfo>',
         'last_updated_by_app_id': 'string',
         'name': 'string',
+        'placement': 'Placement',
         'preview_shareable_link': 'string',
         'priority': 'unsigned int',
         'recommendations': 'list<AdRecommendation>',

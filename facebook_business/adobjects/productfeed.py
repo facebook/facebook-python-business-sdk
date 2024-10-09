@@ -81,6 +81,7 @@ class ProductFeed(
 
     class FeedType:
         automotive_model = 'AUTOMOTIVE_MODEL'
+        collection = 'COLLECTION'
         destination = 'DESTINATION'
         flight = 'FLIGHT'
         home_listing = 'HOME_LISTING'

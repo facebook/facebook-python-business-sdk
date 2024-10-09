@@ -27,7 +27,6 @@ class SavedMessageResponse(
         super(SavedMessageResponse, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        category = 'category'
         id = 'id'
         image = 'image'
         is_enabled = 'is_enabled'
@@ -65,7 +64,6 @@ class SavedMessageResponse(
             return request.execute()
 
     _field_types = {
-        'category': 'string',
         'id': 'string',
         'image': 'string',
         'is_enabled': 'bool',
