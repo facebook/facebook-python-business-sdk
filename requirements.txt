@@ -3,5 +3,3 @@ six >= 1.7.3
 curlify >= 2.1.0
 pycountry >= 19.8.18
 aiohttp; python_version >= '3.5.3'
-https://capi-automation.s3.us-east-2.amazonaws.com/public/python/capi_param_builder/dist/capi_param_builder-0.1.0.dev0-py3-none-any.whl
-capi_param_builder >= 0.1.0-dev0
