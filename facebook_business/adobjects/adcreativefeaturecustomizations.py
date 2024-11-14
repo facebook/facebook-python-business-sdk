@@ -14,6 +14,7 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
+
 class AdCreativeFeatureCustomizations(
     AbstractObject,
 ):
@@ -24,14 +25,15 @@ class AdCreativeFeatureCustomizations(
         self._api = api
 
     class Field(AbstractObject.Field):
-        showcase_card_display = 'showcase_card_display'
+        image_crop_style = "image_crop_style"
+        showcase_card_display = "showcase_card_display"
 
     _field_types = {
-        'showcase_card_display': 'string',
+        "image_crop_style": "string",
+        "showcase_card_display": "string",
     }
+
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         return field_enum_info
-
-
