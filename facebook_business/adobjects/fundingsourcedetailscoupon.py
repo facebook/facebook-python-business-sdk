@@ -32,6 +32,7 @@ class FundingSourceDetailsCoupon(
         expiration = 'expiration'
         original_amount = 'original_amount'
         original_display_amount = 'original_display_amount'
+        start_date = 'start_date'
 
     _field_types = {
         'amount': 'int',
@@ -42,6 +43,7 @@ class FundingSourceDetailsCoupon(
         'expiration': 'datetime',
         'original_amount': 'int',
         'original_display_amount': 'string',
+        'start_date': 'datetime',
     }
     @classmethod
     def _get_field_enum_info(cls):

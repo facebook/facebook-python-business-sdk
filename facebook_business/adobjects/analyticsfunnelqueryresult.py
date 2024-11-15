@@ -24,14 +24,10 @@ class AnalyticsFunnelQueryResult(
         self._api = api
 
     class Field(AbstractObject.Field):
-        data = 'data'
-        error = 'error'
         query_id = 'query_id'
         status = 'status'
 
     _field_types = {
-        'data': 'Object',
-        'error': 'Object',
         'query_id': 'string',
         'status': 'string',
     }

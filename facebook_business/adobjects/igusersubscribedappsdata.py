@@ -14,24 +14,22 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdNetworkAnalyticsAsyncQueryExport(
+class IGUserSubscribedAppsData(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(AdNetworkAnalyticsAsyncQueryExport, self).__init__()
-        self._isAdNetworkAnalyticsAsyncQueryExport = True
+        super(IGUserSubscribedAppsData, self).__init__()
+        self._isIGUserSubscribedAppsData = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        export_link = 'export_link'
-        query_id = 'query_id'
-        status = 'status'
+        app_id = 'app_id'
+        subscribed_fields = 'subscribed_fields'
 
     _field_types = {
-        'export_link': 'string',
-        'query_id': 'string',
-        'status': 'string',
+        'app_id': 'string',
+        'subscribed_fields': 'list<string>',
     }
     @classmethod
     def _get_field_enum_info(cls):

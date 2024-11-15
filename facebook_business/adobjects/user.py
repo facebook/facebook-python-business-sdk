@@ -44,6 +44,7 @@ class User(
         id = 'id'
         id_for_avatars = 'id_for_avatars'
         inspirational_people = 'inspirational_people'
+        instagram_user_self_asset = 'instagram_user_self_asset'
         install_type = 'install_type'
         installed = 'installed'
         is_guest_user = 'is_guest_user'
@@ -64,6 +65,7 @@ class User(
         profile_pic = 'profile_pic'
         quotes = 'quotes'
         relationship_status = 'relationship_status'
+        religion = 'religion'
         shared_login_upgrade_required_by = 'shared_login_upgrade_required_by'
         short_name = 'short_name'
         significant_other = 'significant_other'
@@ -1132,7 +1134,6 @@ class User(
             'text_format_metadata': 'string',
             'text_format_preset_id': 'string',
             'text_only_place': 'string',
-            'throwback_camera_roll_media': 'string',
             'thumbnail': 'file',
             'time_since_original_post': 'unsigned int',
             'title': 'string',
@@ -2116,7 +2117,6 @@ class User(
             'start_offset': 'unsigned int',
             'swap_mode': 'swap_mode_enum',
             'text_format_metadata': 'string',
-            'throwback_camera_roll_media': 'string',
             'thumb': 'file',
             'time_since_original_post': 'unsigned int',
             'title': 'string',
@@ -2179,6 +2179,7 @@ class User(
         'id': 'string',
         'id_for_avatars': 'string',
         'inspirational_people': 'list<Experience>',
+        'instagram_user_self_asset': 'InstagramUser',
         'install_type': 'string',
         'installed': 'bool',
         'is_guest_user': 'bool',
@@ -2199,6 +2200,7 @@ class User(
         'profile_pic': 'string',
         'quotes': 'string',
         'relationship_status': 'string',
+        'religion': 'string',
         'shared_login_upgrade_required_by': 'datetime',
         'short_name': 'string',
         'significant_other': 'User',

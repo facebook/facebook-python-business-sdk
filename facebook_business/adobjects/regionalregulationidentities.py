@@ -24,10 +24,14 @@ class RegionalRegulationIdentities(
         self._api = api
 
     class Field(AbstractObject.Field):
+        australia_finserv_beneficiary = 'australia_finserv_beneficiary'
+        australia_finserv_payer = 'australia_finserv_payer'
         taiwan_finserv_beneficiary = 'taiwan_finserv_beneficiary'
         taiwan_finserv_payer = 'taiwan_finserv_payer'
 
     _field_types = {
+        'australia_finserv_beneficiary': 'string',
+        'australia_finserv_payer': 'string',
         'taiwan_finserv_beneficiary': 'string',
         'taiwan_finserv_payer': 'string',
     }

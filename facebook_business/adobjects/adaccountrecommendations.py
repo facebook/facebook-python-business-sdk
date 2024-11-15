@@ -28,7 +28,12 @@ class AdAccountRecommendations(
 
     class Field(AbstractObject.Field):
         recommendations = 'recommendations'
+        asc_fragmentation_parameters = 'asc_fragmentation_parameters'
+        autoflow_parameters = 'autoflow_parameters'
+        fragmentation_parameters = 'fragmentation_parameters'
+        music_parameters = 'music_parameters'
         recommendation_signature = 'recommendation_signature'
+        scale_good_campaign_parameters = 'scale_good_campaign_parameters'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
@@ -42,7 +47,12 @@ class AdAccountRecommendations(
 
     _field_types = {
         'recommendations': 'list<Object>',
+        'asc_fragmentation_parameters': 'map',
+        'autoflow_parameters': 'map',
+        'fragmentation_parameters': 'map',
+        'music_parameters': 'map',
         'recommendation_signature': 'string',
+        'scale_good_campaign_parameters': 'map',
     }
     @classmethod
     def _get_field_enum_info(cls):

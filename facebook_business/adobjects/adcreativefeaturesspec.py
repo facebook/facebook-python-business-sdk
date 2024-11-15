@@ -59,6 +59,7 @@ class AdCreativeFeaturesSpec(
         media_liquidity_animated_image = 'media_liquidity_animated_image'
         media_order = 'media_order'
         media_type_automation = 'media_type_automation'
+        multi_photo_to_video = 'multi_photo_to_video'
         pac_relaxation = 'pac_relaxation'
         product_extensions = 'product_extensions'
         product_metadata_automation = 'product_metadata_automation'
@@ -110,6 +111,7 @@ class AdCreativeFeaturesSpec(
         'media_liquidity_animated_image': 'AdCreativeFeatureDetails',
         'media_order': 'AdCreativeFeatureDetails',
         'media_type_automation': 'AdCreativeFeatureDetails',
+        'multi_photo_to_video': 'AdCreativeFeatureDetails',
         'pac_relaxation': 'AdCreativeFeatureDetails',
         'product_extensions': 'AdCreativeFeatureDetails',
         'product_metadata_automation': 'AdCreativeFeatureDetails',

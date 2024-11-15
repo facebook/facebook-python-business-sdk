@@ -73,6 +73,7 @@ class AdMonetizationProperty(
             'metrics': 'list<metrics_enum>',
             'ordering_column': 'ordering_column_enum',
             'ordering_type': 'ordering_type_enum',
+            'should_include_until': 'bool',
             'since': 'datetime',
             'until': 'datetime',
         }

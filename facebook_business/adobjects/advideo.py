@@ -121,7 +121,6 @@ class AdVideo(
         start_offset = 'start_offset'
         swap_mode = 'swap_mode'
         text_format_metadata = 'text_format_metadata'
-        throwback_camera_roll_media = 'throwback_camera_roll_media'
         thumb = 'thumb'
         time_since_original_post = 'time_since_original_post'
         transcode_setting_properties = 'transcode_setting_properties'
@@ -1225,7 +1224,6 @@ class AdVideo(
         'start_offset': 'unsigned int',
         'swap_mode': 'SwapMode',
         'text_format_metadata': 'string',
-        'throwback_camera_roll_media': 'string',
         'thumb': 'file',
         'time_since_original_post': 'unsigned int',
         'transcode_setting_properties': 'string',

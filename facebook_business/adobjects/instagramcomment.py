@@ -30,6 +30,7 @@ class InstagramComment(
         comment_type = 'comment_type'
         created_at = 'created_at'
         id = 'id'
+        ig_comment_id = 'ig_comment_id'
         instagram_comment_id = 'instagram_comment_id'
         instagram_user = 'instagram_user'
         mentioned_instagram_users = 'mentioned_instagram_users'
@@ -195,6 +196,7 @@ class InstagramComment(
         'comment_type': 'string',
         'created_at': 'datetime',
         'id': 'string',
+        'ig_comment_id': 'string',
         'instagram_comment_id': 'string',
         'instagram_user': 'InstagramUser',
         'mentioned_instagram_users': 'list<InstagramUser>',

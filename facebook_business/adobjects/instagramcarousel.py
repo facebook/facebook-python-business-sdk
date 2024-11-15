@@ -32,6 +32,7 @@ class InstagramCarousel(
         content_type = 'content_type'
         display_url = 'display_url'
         id = 'id'
+        ig_media_id = 'ig_media_id'
         like_count = 'like_count'
         owner_instagram_user = 'owner_instagram_user'
         permalink = 'permalink'
@@ -138,6 +139,7 @@ class InstagramCarousel(
         'content_type': 'int',
         'display_url': 'string',
         'id': 'string',
+        'ig_media_id': 'string',
         'like_count': 'int',
         'owner_instagram_user': 'InstagramUser',
         'permalink': 'string',

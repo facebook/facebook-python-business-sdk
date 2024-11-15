@@ -95,6 +95,7 @@ class ReachFrequencyPrediction(
         optimization_goal = 'optimization_goal'
         optimization_goal_name = 'optimization_goal_name'
         pause_periods = 'pause_periods'
+        percent_reach_at_target_frequency = 'percent_reach_at_target_frequency'
         placement_breakdown = 'placement_breakdown'
         placement_breakdown_map = 'placement_breakdown_map'
         plan_name = 'plan_name'
@@ -272,6 +273,7 @@ class ReachFrequencyPrediction(
         'optimization_goal': 'unsigned int',
         'optimization_goal_name': 'string',
         'pause_periods': 'list<Object>',
+        'percent_reach_at_target_frequency': 'int',
         'placement_breakdown': 'ReachFrequencyEstimatesPlacementBreakdown',
         'placement_breakdown_map': 'list<map<unsigned int, ReachFrequencyEstimatesPlacementBreakdown>>',
         'plan_name': 'string',

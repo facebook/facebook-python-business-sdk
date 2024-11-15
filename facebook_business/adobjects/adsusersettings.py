@@ -46,6 +46,7 @@ class AdsUserSettings(
         carousel_to_video_opt_in_status = 'carousel_to_video_opt_in_status'
         connected_sources_catalog_opt_in_status = 'connected_sources_catalog_opt_in_status'
         default_creation_mode = 'default_creation_mode'
+        enhance_cta_text_extraction_opt_in_status = 'enhance_cta_text_extraction_opt_in_status'
         export_format_default = 'export_format_default'
         focus_mode_default = 'focus_mode_default'
         gen_ai_alpha_test_status = 'gen_ai_alpha_test_status'
@@ -80,6 +81,8 @@ class AdsUserSettings(
         static_ad_product_extensions_opt_in = 'static_ad_product_extensions_opt_in'
         sticky_setting_after_default_on = 'sticky_setting_after_default_on'
         syd_campaign_trends_metric = 'syd_campaign_trends_metric'
+        text_optimizations_text_extraction_opt_in_status = 'text_optimizations_text_extraction_opt_in_status'
+        text_variations_sticky_opt_in_status = 'text_variations_sticky_opt_in_status'
         total_coupon_syd_dismissals = 'total_coupon_syd_dismissals'
         total_coupon_upsell_dismissals = 'total_coupon_upsell_dismissals'
         url_prefill_removal_timestamp = 'url_prefill_removal_timestamp'
@@ -137,6 +140,7 @@ class AdsUserSettings(
         'carousel_to_video_opt_in_status': 'string',
         'connected_sources_catalog_opt_in_status': 'string',
         'default_creation_mode': 'string',
+        'enhance_cta_text_extraction_opt_in_status': 'string',
         'export_format_default': 'string',
         'focus_mode_default': 'string',
         'gen_ai_alpha_test_status': 'int',
@@ -171,6 +175,8 @@ class AdsUserSettings(
         'static_ad_product_extensions_opt_in': 'string',
         'sticky_setting_after_default_on': 'string',
         'syd_campaign_trends_metric': 'string',
+        'text_optimizations_text_extraction_opt_in_status': 'string',
+        'text_variations_sticky_opt_in_status': 'string',
         'total_coupon_syd_dismissals': 'int',
         'total_coupon_upsell_dismissals': 'int',
         'url_prefill_removal_timestamp': 'int',

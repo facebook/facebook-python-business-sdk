@@ -25,9 +25,11 @@ class MessengerCallSettings(
 
     class Field(AbstractObject.Field):
         audio_enabled = 'audio_enabled'
+        icon_enabled = 'icon_enabled'
 
     _field_types = {
         'audio_enabled': 'bool',
+        'icon_enabled': 'bool',
     }
     @classmethod
     def _get_field_enum_info(cls):

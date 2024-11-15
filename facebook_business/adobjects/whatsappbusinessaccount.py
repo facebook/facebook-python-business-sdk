@@ -50,6 +50,18 @@ class WhatsAppBusinessAccount(
         status = 'status'
         timezone_id = 'timezone_id'
 
+    class BusinessVerificationStatus:
+        expired = 'expired'
+        failed = 'failed'
+        ineligible = 'ineligible'
+        not_verified = 'not_verified'
+        pending = 'pending'
+        pending_need_more_info = 'pending_need_more_info'
+        pending_submission = 'pending_submission'
+        rejected = 'rejected'
+        revoked = 'revoked'
+        verified = 'verified'
+
     class Tasks:
         develop = 'DEVELOP'
         manage = 'MANAGE'
@@ -69,6 +81,10 @@ class WhatsAppBusinessAccount(
 
     class DisplayFormat:
         order_details = 'ORDER_DETAILS'
+
+    class ParameterFormat:
+        named = 'NAMED'
+        positional = 'POSITIONAL'
 
     class SubCategory:
         order_details = 'ORDER_DETAILS'
@@ -379,11 +395,9 @@ class WhatsAppBusinessAccount(
                 'AUTHENTICATION',
                 'AUTHENTICATION_INTERNATIONAL',
                 'MARKETING',
-                'MARKETING_OPTIMIZED_DELIVERY',
+                'MARKETING_LITE',
                 'SERVICE',
-                'UNKNOWN',
                 'UTILITY',
-                'UTILITY_FIXED_TEMPLATE',
             ],
             'conversation_directions_enum': [
                 'BUSINESS_INITIATED',
@@ -812,11 +826,13 @@ class WhatsAppBusinessAccount(
             'library_template_name': 'string',
             'message_send_ttl_seconds': 'unsigned int',
             'name': 'string',
+            'parameter_format': 'parameter_format_enum',
             'sub_category': 'sub_category_enum',
         }
         enums = {
             'category_enum': WhatsAppBusinessAccount.Category.__dict__.values(),
             'display_format_enum': WhatsAppBusinessAccount.DisplayFormat.__dict__.values(),
+            'parameter_format_enum': WhatsAppBusinessAccount.ParameterFormat.__dict__.values(),
             'sub_category_enum': WhatsAppBusinessAccount.SubCategory.__dict__.values(),
         }
         request = FacebookRequest(
@@ -1563,7 +1579,7 @@ class WhatsAppBusinessAccount(
         'account_review_status': 'string',
         'analytics': 'Object',
         'auth_international_rate_eligibility': 'Object',
-        'business_verification_status': 'string',
+        'business_verification_status': 'BusinessVerificationStatus',
         'country': 'string',
         'creation_time': 'int',
         'currency': 'string',
@@ -1586,9 +1602,11 @@ class WhatsAppBusinessAccount(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['BusinessVerificationStatus'] = WhatsAppBusinessAccount.BusinessVerificationStatus.__dict__.values()
         field_enum_info['Tasks'] = WhatsAppBusinessAccount.Tasks.__dict__.values()
         field_enum_info['Category'] = WhatsAppBusinessAccount.Category.__dict__.values()
         field_enum_info['DisplayFormat'] = WhatsAppBusinessAccount.DisplayFormat.__dict__.values()
+        field_enum_info['ParameterFormat'] = WhatsAppBusinessAccount.ParameterFormat.__dict__.values()
         field_enum_info['SubCategory'] = WhatsAppBusinessAccount.SubCategory.__dict__.values()
         field_enum_info['ProviderName'] = WhatsAppBusinessAccount.ProviderName.__dict__.values()
         return field_enum_info
