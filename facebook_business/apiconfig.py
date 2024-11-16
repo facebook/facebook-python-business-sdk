@@ -6,6 +6,6 @@
 
 ads_api_config = {
   'API_VERSION': 'v21.0',
-  'SDK_VERSION': 'v21.0.4',
+  'SDK_VERSION': 'v21.0.5',
   'STRICT_MODE': False
 }
