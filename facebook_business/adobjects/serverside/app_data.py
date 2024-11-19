@@ -68,6 +68,8 @@ class AppData(object):
 
         if application_tracking_enabled is not None:
             self.application_tracking_enabled = application_tracking_enabled
+        if advertiser_tracking_enabled is not None:
+            self.advertiser_tracking_enabled = advertiser_tracking_enabled
         if campaign_ids is not None:
             self.campaign_ids = campaign_ids
         if consider_views is not None:
