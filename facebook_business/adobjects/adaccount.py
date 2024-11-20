@@ -60,6 +60,7 @@ class AdAccount(
         end_advertiser = 'end_advertiser'
         end_advertiser_name = 'end_advertiser_name'
         existing_customers = 'existing_customers'
+        expired_funding_source_details = 'expired_funding_source_details'
         extended_credit_invoice_group = 'extended_credit_invoice_group'
         failed_delivery_checks = 'failed_delivery_checks'
         fb_entity = 'fb_entity'
@@ -667,6 +668,7 @@ class AdAccount(
         from facebook_business.adobjects.adcreative import AdCreative
         param_types = {
             'actor_id': 'unsigned int',
+            'ad_disclaimer_spec': 'map',
             'adlabels': 'list<Object>',
             'applink_treatment': 'applink_treatment_enum',
             'asset_feed_spec': 'Object',
@@ -679,6 +681,7 @@ class AdAccount(
             'categorization_criteria': 'categorization_criteria_enum',
             'category_media_source': 'category_media_source_enum',
             'contextual_multi_ads': 'map',
+            'creative_sourcing_spec': 'map',
             'degrees_of_freedom_spec': 'map',
             'destination_set_id': 'string',
             'dynamic_ad_voice': 'dynamic_ad_voice_enum',
@@ -1741,7 +1744,6 @@ class AdAccount(
             'start_offset': 'unsigned int',
             'swap_mode': 'swap_mode_enum',
             'text_format_metadata': 'string',
-            'throwback_camera_roll_media': 'string',
             'thumb': 'file',
             'time_since_original_post': 'unsigned int',
             'title': 'string',
@@ -3772,7 +3774,12 @@ class AdAccount(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.adaccountrecommendations import AdAccountRecommendations
         param_types = {
+            'asc_fragmentation_parameters': 'map',
+            'autoflow_parameters': 'map',
+            'fragmentation_parameters': 'map',
+            'music_parameters': 'map',
             'recommendation_signature': 'string',
+            'scale_good_campaign_parameters': 'map',
         }
         enums = {
         }
@@ -4390,6 +4397,7 @@ class AdAccount(
         'end_advertiser': 'string',
         'end_advertiser_name': 'string',
         'existing_customers': 'list<string>',
+        'expired_funding_source_details': 'FundingSourceDetails',
         'extended_credit_invoice_group': 'ExtendedCreditInvoiceGroup',
         'failed_delivery_checks': 'list<DeliveryCheck>',
         'fb_entity': 'unsigned int',

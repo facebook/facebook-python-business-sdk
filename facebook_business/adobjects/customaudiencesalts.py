@@ -26,10 +26,14 @@ class CustomAudienceSalts(
     class Field(AbstractObject.Field):
         app_id = 'app_id'
         public_key = 'public_key'
+        salts = 'salts'
+        user_id = 'user_id'
 
     _field_types = {
         'app_id': 'int',
         'public_key': 'string',
+        'salts': 'list<Object>',
+        'user_id': 'int',
     }
     @classmethod
     def _get_field_enum_info(cls):

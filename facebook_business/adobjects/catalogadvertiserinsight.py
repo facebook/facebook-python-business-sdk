@@ -14,26 +14,22 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AnalyticsCohortQueryResult(
+class CatalogAdvertiserInsight(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(AnalyticsCohortQueryResult, self).__init__()
-        self._isAnalyticsCohortQueryResult = True
+        super(CatalogAdvertiserInsight, self).__init__()
+        self._isCatalogAdvertiserInsight = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        data = 'data'
-        error = 'error'
-        query_id = 'query_id'
-        status = 'status'
+        category = 'category'
+        country = 'country'
 
     _field_types = {
-        'data': 'Object',
-        'error': 'Object',
-        'query_id': 'string',
-        'status': 'string',
+        'category': 'string',
+        'country': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

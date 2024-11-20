@@ -24,9 +24,11 @@ class AdCreativeFeatureCustomizations(
         self._api = api
 
     class Field(AbstractObject.Field):
+        image_crop_style = 'image_crop_style'
         showcase_card_display = 'showcase_card_display'
 
     _field_types = {
+        'image_crop_style': 'string',
         'showcase_card_display': 'string',
     }
     @classmethod

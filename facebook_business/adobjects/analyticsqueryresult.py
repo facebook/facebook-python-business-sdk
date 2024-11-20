@@ -24,16 +24,10 @@ class AnalyticsQueryResult(
         self._api = api
 
     class Field(AbstractObject.Field):
-        columns = 'columns'
-        datapoints = 'datapoints'
-        error = 'error'
         query_id = 'query_id'
         status = 'status'
 
     _field_types = {
-        'columns': 'Object',
-        'datapoints': 'list<Object>',
-        'error': 'Object',
         'query_id': 'string',
         'status': 'string',
     }

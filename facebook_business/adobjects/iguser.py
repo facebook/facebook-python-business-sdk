@@ -33,6 +33,7 @@ class IGUser(
         follows_count = 'follows_count'
         id = 'id'
         ig_id = 'ig_id'
+        legacy_instagram_user_id = 'legacy_instagram_user_id'
         media_count = 'media_count'
         mentioned_comment = 'mentioned_comment'
         mentioned_media = 'mentioned_media'
@@ -841,6 +842,55 @@ class IGUser(
             self.assure_call()
             return request.execute()
 
+    def create_upcoming_event(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'end_time': 'datetime',
+            'notification_subtypes': 'list<notification_subtypes_enum>',
+            'start_time': 'datetime',
+            'title': 'string',
+        }
+        enums = {
+            'notification_subtypes_enum': [
+                'AFTER_EVENT_1DAY',
+                'AFTER_EVENT_2DAY',
+                'AFTER_EVENT_3DAY',
+                'AFTER_EVENT_4DAY',
+                'AFTER_EVENT_5DAY',
+                'AFTER_EVENT_6DAY',
+                'AFTER_EVENT_7DAY',
+                'BEFORE_EVENT_15MIN',
+                'BEFORE_EVENT_1DAY',
+                'BEFORE_EVENT_1HOUR',
+                'BEFORE_EVENT_2DAY',
+                'EVENT_START',
+                'RESCHEDULED',
+            ],
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/upcoming_events',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     _field_types = {
         'biography': 'string',
         'business_discovery': 'IGUser',
@@ -848,6 +898,7 @@ class IGUser(
         'follows_count': 'int',
         'id': 'string',
         'ig_id': 'int',
+        'legacy_instagram_user_id': 'string',
         'media_count': 'int',
         'mentioned_comment': 'IGComment',
         'mentioned_media': 'IGMedia',

@@ -31,6 +31,7 @@ class InstagramUser(
         followed_by_count = 'followed_by_count'
         has_profile_picture = 'has_profile_picture'
         id = 'id'
+        ig_user_id = 'ig_user_id'
         is_private = 'is_private'
         is_published = 'is_published'
         media_count = 'media_count'
@@ -270,6 +271,7 @@ class InstagramUser(
         'followed_by_count': 'int',
         'has_profile_picture': 'bool',
         'id': 'string',
+        'ig_user_id': 'string',
         'is_private': 'bool',
         'is_published': 'bool',
         'media_count': 'int',

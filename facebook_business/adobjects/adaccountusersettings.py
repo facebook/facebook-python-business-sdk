@@ -72,6 +72,7 @@ class AdAccountUserSettings(
         should_default_instagram_profile_card_optimization = 'should_default_instagram_profile_card_optimization'
         should_default_text_swapping_optimization = 'should_default_text_swapping_optimization'
         should_logout_of_3p_sourcing = 'should_logout_of_3p_sourcing'
+        should_show_shops_ads_metrics_onboarding_tour = 'should_show_shops_ads_metrics_onboarding_tour'
         show_archived_data = 'show_archived_data'
         show_text_variation_nux_tooltip = 'show_text_variation_nux_tooltip'
         syd_campaign_trends_activemetric = 'syd_campaign_trends_activemetric'
@@ -182,6 +183,7 @@ class AdAccountUserSettings(
         'should_default_instagram_profile_card_optimization': 'bool',
         'should_default_text_swapping_optimization': 'bool',
         'should_logout_of_3p_sourcing': 'bool',
+        'should_show_shops_ads_metrics_onboarding_tour': 'bool',
         'show_archived_data': 'bool',
         'show_text_variation_nux_tooltip': 'bool',
         'syd_campaign_trends_activemetric': 'string',

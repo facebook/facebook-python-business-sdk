@@ -30,6 +30,7 @@ class IGComment(
         field_from = 'from'
         hidden = 'hidden'
         id = 'id'
+        legacy_instagram_comment_id = 'legacy_instagram_comment_id'
         like_count = 'like_count'
         media = 'media'
         parent_id = 'parent_id'
@@ -194,6 +195,7 @@ class IGComment(
         'from': 'IGCommentFromUser',
         'hidden': 'bool',
         'id': 'string',
+        'legacy_instagram_comment_id': 'string',
         'like_count': 'int',
         'media': 'IGMedia',
         'parent_id': 'string',

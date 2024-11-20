@@ -90,6 +90,7 @@ class Event(
 
     class OnlineEventFormat:
         fb_live = 'fb_live'
+        horizon_world = 'horizon_world'
         messenger_room = 'messenger_room'
         none = 'none'
         other = 'other'

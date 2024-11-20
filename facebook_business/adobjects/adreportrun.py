@@ -31,12 +31,14 @@ class AdReportRun(
     class Field(AbstractObject.Field):
         account_id = 'account_id'
         async_percent_completion = 'async_percent_completion'
+        async_report_url = 'async_report_url'
         async_status = 'async_status'
         date_start = 'date_start'
         date_stop = 'date_stop'
         emails = 'emails'
         friendly_name = 'friendly_name'
         id = 'id'
+        is_async_export = 'is_async_export'
         is_bookmarked = 'is_bookmarked'
         is_running = 'is_running'
         schedule_id = 'schedule_id'
@@ -141,12 +143,14 @@ class AdReportRun(
     _field_types = {
         'account_id': 'string',
         'async_percent_completion': 'unsigned int',
+        'async_report_url': 'string',
         'async_status': 'string',
         'date_start': 'string',
         'date_stop': 'string',
         'emails': 'list<string>',
         'friendly_name': 'string',
         'id': 'string',
+        'is_async_export': 'int',
         'is_bookmarked': 'bool',
         'is_running': 'bool',
         'schedule_id': 'string',

@@ -31,6 +31,7 @@ class AdCreative(
     class Field(AbstractObject.Field):
         account_id = 'account_id'
         actor_id = 'actor_id'
+        ad_disclaimer_spec = 'ad_disclaimer_spec'
         adlabels = 'adlabels'
         applink_treatment = 'applink_treatment'
         asset_feed_spec = 'asset_feed_spec'
@@ -85,6 +86,7 @@ class AdCreative(
         platform_customizations = 'platform_customizations'
         playable_asset_id = 'playable_asset_id'
         portrait_customizations = 'portrait_customizations'
+        product_data = 'product_data'
         product_set_id = 'product_set_id'
         recommender_settings = 'recommender_settings'
         source_instagram_media_id = 'source_instagram_media_id'
@@ -464,6 +466,7 @@ class AdCreative(
     _field_types = {
         'account_id': 'string',
         'actor_id': 'string',
+        'ad_disclaimer_spec': 'AdCreativeAdDisclaimer',
         'adlabels': 'list<AdLabel>',
         'applink_treatment': 'string',
         'asset_feed_spec': 'AdAssetFeedSpec',
@@ -518,6 +521,7 @@ class AdCreative(
         'platform_customizations': 'AdCreativePlatformCustomization',
         'playable_asset_id': 'string',
         'portrait_customizations': 'AdCreativePortraitCustomizations',
+        'product_data': 'list<AdCreativeProductData>',
         'product_set_id': 'string',
         'recommender_settings': 'AdCreativeRecommenderSettings',
         'source_instagram_media_id': 'string',

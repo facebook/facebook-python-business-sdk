@@ -279,6 +279,7 @@ class ExtendedCredit(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.extendedcreditallocationconfig import ExtendedCreditAllocationConfig
         param_types = {
             'waba_currency': 'string',
             'waba_id': 'string',
@@ -291,9 +292,9 @@ class ExtendedCredit(
             endpoint='/whatsapp_credit_sharing_and_attach',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
+            target_class=ExtendedCreditAllocationConfig,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            response_parser=ObjectParser(target_class=ExtendedCreditAllocationConfig, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

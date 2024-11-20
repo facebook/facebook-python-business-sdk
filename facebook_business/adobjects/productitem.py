@@ -102,6 +102,7 @@ class ProductItem(
         start_date = 'start_date'
         tags = 'tags'
         url = 'url'
+        vendor_id = 'vendor_id'
         video_fetch_status = 'video_fetch_status'
         visibility = 'visibility'
         wa_compliance_category = 'wa_compliance_category'
@@ -494,6 +495,13 @@ class ProductItem(
         item_price_not_positive = 'ITEM_PRICE_NOT_POSITIVE'
         item_stale_out_of_stock = 'ITEM_STALE_OUT_OF_STOCK'
         marketplace_disabled_by_user = 'MARKETPLACE_DISABLED_BY_USER'
+        marketplace_partner_listing_limit_exceeded = 'MARKETPLACE_PARTNER_LISTING_LIMIT_EXCEEDED'
+        marketplace_partner_not_local_item = 'MARKETPLACE_PARTNER_NOT_LOCAL_ITEM'
+        marketplace_partner_not_shipped_item = 'MARKETPLACE_PARTNER_NOT_SHIPPED_ITEM'
+        marketplace_partner_policy_violation = 'MARKETPLACE_PARTNER_POLICY_VIOLATION'
+        marketplace_partner_rule_listing_limit_exceeded = 'MARKETPLACE_PARTNER_RULE_LISTING_LIMIT_EXCEEDED'
+        marketplace_partner_seller_banned = 'MARKETPLACE_PARTNER_SELLER_BANNED'
+        marketplace_partner_seller_not_valid = 'MARKETPLACE_PARTNER_SELLER_NOT_VALID'
         mini_shops_disabled_by_user = 'MINI_SHOPS_DISABLED_BY_USER'
         missing_checkout = 'MISSING_CHECKOUT'
         missing_checkout_currency = 'MISSING_CHECKOUT_CURRENCY'
@@ -1217,6 +1225,7 @@ class ProductItem(
         'start_date': 'string',
         'tags': 'list<string>',
         'url': 'string',
+        'vendor_id': 'string',
         'video_fetch_status': 'VideoFetchStatus',
         'visibility': 'Visibility',
         'wa_compliance_category': 'string',

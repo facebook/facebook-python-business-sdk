@@ -31,6 +31,12 @@ class Destination(
         applinks = 'applinks'
         category_specific_fields = 'category_specific_fields'
         currency = 'currency'
+        custom_label_0 = 'custom_label_0'
+        custom_label_1 = 'custom_label_1'
+        custom_label_2 = 'custom_label_2'
+        custom_number_0 = 'custom_number_0'
+        custom_number_1 = 'custom_number_1'
+        custom_number_2 = 'custom_number_2'
         description = 'description'
         destination_id = 'destination_id'
         id = 'id'
@@ -189,6 +195,12 @@ class Destination(
         'applinks': 'CatalogItemAppLinks',
         'category_specific_fields': 'CatalogSubVerticalList',
         'currency': 'string',
+        'custom_label_0': 'string',
+        'custom_label_1': 'string',
+        'custom_label_2': 'string',
+        'custom_number_0': 'unsigned int',
+        'custom_number_1': 'unsigned int',
+        'custom_number_2': 'unsigned int',
         'description': 'string',
         'destination_id': 'string',
         'id': 'string',

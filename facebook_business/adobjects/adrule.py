@@ -62,6 +62,7 @@ class AdRule(
         am_syd_resolution_flow = 'AM_SYD_RESOLUTION_FLOW'
         am_syd_resolution_flow_modal = 'AM_SYD_RESOLUTION_FLOW_MODAL'
         am_table_delivery_column_popover = 'AM_TABLE_DELIVERY_COLUMN_POPOVER'
+        am_table_more_rules_dropdown = 'AM_TABLE_MORE_RULES_DROPDOWN'
         am_table_toggle_popover = 'AM_TABLE_TOGGLE_POPOVER'
         am_toolbar_create_rule_dropdown = 'AM_TOOLBAR_CREATE_RULE_DROPDOWN'
         pe_campaign_structure_menu = 'PE_CAMPAIGN_STRUCTURE_MENU'

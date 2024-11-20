@@ -33,6 +33,7 @@ class InstagramMedia(
         display_url = 'display_url'
         filter_name = 'filter_name'
         id = 'id'
+        ig_media_id = 'ig_media_id'
         latitude = 'latitude'
         like_count = 'like_count'
         location = 'location'
@@ -144,6 +145,7 @@ class InstagramMedia(
         'display_url': 'string',
         'filter_name': 'string',
         'id': 'string',
+        'ig_media_id': 'string',
         'latitude': 'float',
         'like_count': 'int',
         'location': 'Location',

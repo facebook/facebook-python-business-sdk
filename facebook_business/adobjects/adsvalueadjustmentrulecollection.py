@@ -28,6 +28,7 @@ class AdsValueAdjustmentRuleCollection(
 
     class Field(AbstractObject.Field):
         id = 'id'
+        is_default_setting = 'is_default_setting'
         name = 'name'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
@@ -92,6 +93,7 @@ class AdsValueAdjustmentRuleCollection(
 
     _field_types = {
         'id': 'string',
+        'is_default_setting': 'bool',
         'name': 'string',
     }
     @classmethod

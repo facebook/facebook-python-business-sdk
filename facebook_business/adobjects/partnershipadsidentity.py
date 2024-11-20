@@ -24,10 +24,12 @@ class PartnershipAdsIdentity(
         self._api = api
 
     class Field(AbstractObject.Field):
+        is_saved = 'is_saved'
         post_types = 'post_types'
         secondary_identities = 'secondary_identities'
 
     _field_types = {
+        'is_saved': 'bool',
         'post_types': 'list<string>',
         'secondary_identities': 'list<Object>',
     }

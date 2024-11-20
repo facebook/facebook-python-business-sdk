@@ -52,6 +52,18 @@ class Business(
         vertical = 'vertical'
         vertical_id = 'vertical_id'
 
+    class VerificationStatus:
+        expired = 'expired'
+        failed = 'failed'
+        ineligible = 'ineligible'
+        not_verified = 'not_verified'
+        pending = 'pending'
+        pending_need_more_info = 'pending_need_more_info'
+        pending_submission = 'pending_submission'
+        rejected = 'rejected'
+        revoked = 'revoked'
+        verified = 'verified'
+
     class TwoFactorType:
         admin_required = 'admin_required'
         all_required = 'all_required'
@@ -624,6 +636,37 @@ class Business(
         profile_plus_revenue = 'PROFILE_PLUS_REVENUE'
         read_page_mailboxes = 'READ_PAGE_MAILBOXES'
         view_monetization_insights = 'VIEW_MONETIZATION_INSIGHTS'
+
+    class BusinessVertical:
+        adult_products_and_services = 'ADULT_PRODUCTS_AND_SERVICES'
+        alcohol_and_tobacco = 'ALCOHOL_AND_TOBACCO'
+        automotive_dealers = 'AUTOMOTIVE_DEALERS'
+        body_parts_fluids = 'BODY_PARTS_FLUIDS'
+        business_and_utility = 'BUSINESS_AND_UTILITY'
+        content_and_apps = 'CONTENT_AND_APPS'
+        creators_and_celebrities = 'CREATORS_AND_CELEBRITIES'
+        dating = 'DATING'
+        drugs = 'DRUGS'
+        endangered_species = 'ENDANGERED_SPECIES'
+        firearms = 'FIREARMS'
+        fraudulent_misleading_offensive = 'FRAUDULENT_MISLEADING_OFFENSIVE'
+        gambling = 'GAMBLING'
+        grocery_and_convenience_store = 'GROCERY_AND_CONVENIENCE_STORE'
+        hazardous_goods_and_materials = 'HAZARDOUS_GOODS_AND_MATERIALS'
+        home = 'HOME'
+        home_and_auto_manufacturing = 'HOME_AND_AUTO_MANUFACTURING'
+        lifestyle = 'LIFESTYLE'
+        live_non_endangered_species = 'LIVE_NON_ENDANGERED_SPECIES'
+        loans_debt_collection_bail_bonds = 'LOANS_DEBT_COLLECTION_BAIL_BONDS'
+        local_events = 'LOCAL_EVENTS'
+        medical_healthcare = 'MEDICAL_HEALTHCARE'
+        multilevel_marketing = 'MULTILEVEL_MARKETING'
+        non_profit_and_religious_orgs = 'NON_PROFIT_AND_RELIGIOUS_ORGS'
+        professional = 'PROFESSIONAL'
+        real_virtual_fake_currency = 'REAL_VIRTUAL_FAKE_CURRENCY'
+        restaurants = 'RESTAURANTS'
+        retail = 'RETAIL'
+        transportation_and_accommodation = 'TRANSPORTATION_AND_ACCOMMODATION'
 
     class SubverticalV2:
         accounting_and_tax = 'ACCOUNTING_AND_TAX'
@@ -1220,6 +1263,7 @@ class Business(
             'metrics': 'list<metrics_enum>',
             'ordering_column': 'ordering_column_enum',
             'ordering_type': 'ordering_type_enum',
+            'should_include_until': 'bool',
             'since': 'datetime',
             'until': 'datetime',
         }
@@ -3598,12 +3642,19 @@ class Business(
         from facebook_business.adobjects.openbridgeconfiguration import OpenBridgeConfiguration
         param_types = {
             'active': 'bool',
+            'cloud_provider': 'string',
+            'cloud_region': 'string',
+            'destination_id': 'string',
             'endpoint': 'string',
             'fallback_domain': 'string',
             'fallback_domain_enabled': 'bool',
+            'first_party_domain': 'string',
             'host_business_id': 'unsigned int',
             'host_external_id': 'string',
             'instance_id': 'string',
+            'instance_version': 'string',
+            'is_sgw_instance': 'bool',
+            'partner_name': 'string',
             'pixel_id': 'unsigned int',
         }
         enums = {
@@ -4639,6 +4690,46 @@ class Business(
             self.assure_call()
             return request.execute()
 
+    def create_self_certify_whats_app_business(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'average_monthly_revenue_spend_with_partner': 'map',
+            'business_documents': 'list<file>',
+            'business_vertical': 'business_vertical_enum',
+            'end_business_address': 'map',
+            'end_business_id': 'string',
+            'end_business_legal_name': 'string',
+            'end_business_trade_names': 'list<string>',
+            'end_business_website': 'string',
+            'num_billing_cycles_with_partner': 'unsigned int',
+        }
+        enums = {
+            'business_vertical_enum': Business.BusinessVertical.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/self_certify_whatsapp_business',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Business,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Business, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def create_setup_managed_partner_ad_account(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -4932,7 +5023,6 @@ class Business(
             'start_offset': 'unsigned int',
             'swap_mode': 'swap_mode_enum',
             'text_format_metadata': 'string',
-            'throwback_camera_roll_media': 'string',
             'thumb': 'file',
             'time_since_original_post': 'unsigned int',
             'title': 'string',
@@ -4999,19 +5089,21 @@ class Business(
         'updated_by': 'Object',
         'updated_time': 'datetime',
         'user_access_expire_time': 'datetime',
-        'verification_status': 'string',
+        'verification_status': 'VerificationStatus',
         'vertical': 'string',
         'vertical_id': 'unsigned int',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['VerificationStatus'] = Business.VerificationStatus.__dict__.values()
         field_enum_info['TwoFactorType'] = Business.TwoFactorType.__dict__.values()
         field_enum_info['Vertical'] = Business.Vertical.__dict__.values()
         field_enum_info['PermittedTasks'] = Business.PermittedTasks.__dict__.values()
         field_enum_info['SurveyBusinessType'] = Business.SurveyBusinessType.__dict__.values()
         field_enum_info['TimezoneId'] = Business.TimezoneId.__dict__.values()
         field_enum_info['PagePermittedTasks'] = Business.PagePermittedTasks.__dict__.values()
+        field_enum_info['BusinessVertical'] = Business.BusinessVertical.__dict__.values()
         field_enum_info['SubverticalV2'] = Business.SubverticalV2.__dict__.values()
         field_enum_info['VerticalV2'] = Business.VerticalV2.__dict__.values()
         field_enum_info['ActionSource'] = Business.ActionSource.__dict__.values()

@@ -70,6 +70,7 @@ class Application(
         deauth_callback_url = 'deauth_callback_url'
         default_share_mode = 'default_share_mode'
         description = 'description'
+        enigma_config = 'enigma_config'
         financial_id = 'financial_id'
         gdpv4_chrome_custom_tabs_enabled = 'gdpv4_chrome_custom_tabs_enabled'
         gdpv4_enabled = 'gdpv4_enabled'
@@ -255,7 +256,6 @@ class Application(
             'app_type': 'bool',
             'auth_dialog_headline': 'string',
             'auth_dialog_perms_explanation': 'string',
-            'auth_referral_default_activity_privacy': 'string',
             'auth_referral_enabled': 'bool',
             'auth_referral_extended_perms': 'list<string>',
             'auth_referral_friend_perms': 'list<string>',
@@ -566,6 +566,7 @@ class Application(
             'metrics': 'list<metrics_enum>',
             'ordering_column': 'ordering_column_enum',
             'ordering_type': 'ordering_type_enum',
+            'should_include_until': 'bool',
             'since': 'datetime',
             'until': 'datetime',
         }
@@ -2314,6 +2315,7 @@ class Application(
         'deauth_callback_url': 'string',
         'default_share_mode': 'string',
         'description': 'string',
+        'enigma_config': 'Object',
         'financial_id': 'string',
         'gdpv4_chrome_custom_tabs_enabled': 'bool',
         'gdpv4_enabled': 'bool',

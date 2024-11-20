@@ -24,13 +24,11 @@ class AdNetworkAnalyticsAsyncQueryExport(
         self._api = api
 
     class Field(AbstractObject.Field):
-        error = 'error'
         export_link = 'export_link'
         query_id = 'query_id'
         status = 'status'
 
     _field_types = {
-        'error': 'Object',
         'export_link': 'string',
         'query_id': 'string',
         'status': 'string',

@@ -35,6 +35,7 @@ class IGMedia(
         ig_id = 'ig_id'
         is_comment_enabled = 'is_comment_enabled'
         is_shared_to_feed = 'is_shared_to_feed'
+        legacy_instagram_media_id = 'legacy_instagram_media_id'
         like_count = 'like_count'
         media_product_type = 'media_product_type'
         media_type = 'media_type'
@@ -505,6 +506,7 @@ class IGMedia(
         'ig_id': 'string',
         'is_comment_enabled': 'bool',
         'is_shared_to_feed': 'bool',
+        'legacy_instagram_media_id': 'string',
         'like_count': 'int',
         'media_product_type': 'string',
         'media_type': 'string',

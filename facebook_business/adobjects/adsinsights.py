@@ -112,6 +112,12 @@ class AdsInsights(
         location = 'location'
         marketing_messages_cost_per_delivered = 'marketing_messages_cost_per_delivered'
         marketing_messages_cost_per_link_btn_click = 'marketing_messages_cost_per_link_btn_click'
+        marketing_messages_delivery_rate = 'marketing_messages_delivery_rate'
+        marketing_messages_link_btn_click_rate = 'marketing_messages_link_btn_click_rate'
+        marketing_messages_media_view_rate = 'marketing_messages_media_view_rate'
+        marketing_messages_phone_call_btn_click_rate = 'marketing_messages_phone_call_btn_click_rate'
+        marketing_messages_quick_reply_btn_click_rate = 'marketing_messages_quick_reply_btn_click_rate'
+        marketing_messages_read_rate = 'marketing_messages_read_rate'
         marketing_messages_spend = 'marketing_messages_spend'
         marketing_messages_website_purchase_values = 'marketing_messages_website_purchase_values'
         mobile_app_purchase_roas = 'mobile_app_purchase_roas'
@@ -248,6 +254,11 @@ class AdsInsights(
         skan_campaign_id = 'skan_campaign_id'
         skan_conversion_id = 'skan_conversion_id'
         skan_version = 'skan_version'
+        sot_attribution_model_type = 'sot_attribution_model_type'
+        sot_attribution_window = 'sot_attribution_window'
+        sot_channel = 'sot_channel'
+        sot_event_type = 'sot_event_type'
+        sot_source = 'sot_source'
         standard_event_content_type = 'standard_event_content_type'
         title_asset = 'title_asset'
         user_persona_id = 'user_persona_id'
@@ -391,6 +402,12 @@ class AdsInsights(
         'location': 'string',
         'marketing_messages_cost_per_delivered': 'string',
         'marketing_messages_cost_per_link_btn_click': 'string',
+        'marketing_messages_delivery_rate': 'string',
+        'marketing_messages_link_btn_click_rate': 'string',
+        'marketing_messages_media_view_rate': 'string',
+        'marketing_messages_phone_call_btn_click_rate': 'string',
+        'marketing_messages_quick_reply_btn_click_rate': 'string',
+        'marketing_messages_read_rate': 'string',
         'marketing_messages_spend': 'string',
         'marketing_messages_website_purchase_values': 'string',
         'mobile_app_purchase_roas': 'list<AdsActionStats>',

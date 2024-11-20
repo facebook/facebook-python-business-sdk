@@ -28,6 +28,7 @@ class CatalogWebsiteOnboardingSettings(
 
     class Field(AbstractObject.Field):
         id = 'id'
+        quality_band = 'quality_band'
         status = 'status'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
@@ -62,6 +63,7 @@ class CatalogWebsiteOnboardingSettings(
 
     _field_types = {
         'id': 'string',
+        'quality_band': 'string',
         'status': 'string',
     }
     @classmethod
