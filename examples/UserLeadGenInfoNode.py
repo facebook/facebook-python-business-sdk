@@ -17,7 +17,7 @@ fields = [
 ]
 params = {
 }
-print Lead(id).get(
+print(Lead(id).get(
   fields=fields,
   params=params,
-)
+))
