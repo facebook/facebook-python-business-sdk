@@ -65,7 +65,7 @@ class CustomData(object):
         item_number=None,
         custom_properties={},
     ):
-        # type: (float, str, str, str, content_ids, List[str], List[Content], str, str, float, int, str, str, DeliveryCategory ,str, dict) -> None
+        # type: (float, str, str, str, List[str], List[Content], str, str, float, int, str, str, DeliveryCategory ,str, dict) -> None
 
         self._value = None
         self._currency = None
