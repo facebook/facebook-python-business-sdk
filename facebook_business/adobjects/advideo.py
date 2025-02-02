@@ -1295,7 +1295,7 @@ class AdVideo(
         self._set_data(response)
         return response
 
-    def waitUntilEncodingReady(self, interval=30, timeout=600):
+    def waitUntilEncodingReady(self, interval=30, timeout=600, appsecret_proof=None):
         from facebook_business.video_uploader import VideoEncodingStatusChecker
         from facebook_business.exceptions import FacebookError
 
@@ -1308,4 +1308,5 @@ class AdVideo(
             self['id'],
             interval,
             timeout,
+            appsecret_proof,
         )
