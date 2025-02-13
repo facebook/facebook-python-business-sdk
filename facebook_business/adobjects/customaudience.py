@@ -44,6 +44,7 @@ class CustomAudience(
         household_audience = 'household_audience'
         id = 'id'
         included_custom_audiences = 'included_custom_audiences'
+        is_eligible_for_sac_campaigns = 'is_eligible_for_sac_campaigns'
         is_household = 'is_household'
         is_snapshot = 'is_snapshot'
         is_value_based = 'is_value_based'
@@ -146,7 +147,6 @@ class CustomAudience(
         primary = 'PRIMARY'
         regulated_categories_audience = 'REGULATED_CATEGORIES_AUDIENCE'
         study_rule_audience = 'STUDY_RULE_AUDIENCE'
-        subscriber_segment = 'SUBSCRIBER_SEGMENT'
         video = 'VIDEO'
         website = 'WEBSITE'
 
@@ -204,6 +204,8 @@ class CustomAudience(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'ad_account_id': 'string',
+            'special_ad_categories': 'list<string>',
+            'special_ad_category_countries': 'list<string>',
             'target_countries': 'list<string>',
         }
         enums = {
@@ -658,6 +660,7 @@ class CustomAudience(
         'household_audience': 'int',
         'id': 'string',
         'included_custom_audiences': 'list<CustomAudience>',
+        'is_eligible_for_sac_campaigns': 'bool',
         'is_household': 'bool',
         'is_snapshot': 'bool',
         'is_value_based': 'bool',

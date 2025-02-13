@@ -232,7 +232,6 @@ class AdAccount(
         primary = 'PRIMARY'
         regulated_categories_audience = 'REGULATED_CATEGORIES_AUDIENCE'
         study_rule_audience = 'STUDY_RULE_AUDIENCE'
-        subscriber_segment = 'SUBSCRIBER_SEGMENT'
         video = 'VIDEO'
         website = 'WEBSITE'
 
@@ -691,7 +690,6 @@ class AdAccount(
             'image_file': 'string',
             'image_hash': 'string',
             'image_url': 'string',
-            'instagram_actor_id': 'string',
             'instagram_branded_content': 'map',
             'instagram_permalink_url': 'string',
             'instagram_user_id': 'string',
@@ -713,6 +711,7 @@ class AdAccount(
             'portrait_customizations': 'map',
             'product_set_id': 'string',
             'recommender_settings': 'map',
+            'regional_regulation_disclaimer_spec': 'map',
             'source_instagram_media_id': 'string',
             'template_url': 'string',
             'template_url_spec': 'string',
@@ -1419,6 +1418,7 @@ class AdAccount(
             'frequency_control_specs': 'list<Object>',
             'full_funnel_exploration_mode': 'full_funnel_exploration_mode_enum',
             'is_dynamic_creative': 'bool',
+            'is_sac_cfca_terms_certified': 'bool',
             'lifetime_budget': 'unsigned int',
             'lifetime_imps': 'unsigned int',
             'lifetime_min_spend_target': 'unsigned int',
@@ -3933,6 +3933,41 @@ class AdAccount(
             self.assure_call()
             return request.execute()
 
+    def get_suggested_product_tags(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.adaccountsuggestedtag import AdAccountSuggestedTag
+        param_types = {
+            'image_hash': 'string',
+            'instagram_actor_id': 'string',
+            'is_shops_ad': 'bool',
+            'page_id': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/suggested_product_tags',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdAccountSuggestedTag,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdAccountSuggestedTag, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_targeting_browse(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -4348,6 +4383,45 @@ class AdAccount(
         request = FacebookRequest(
             node_id=self['id'],
             method='GET',
+            endpoint='/video_ads',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdVideo,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdVideo, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_video_ad(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.advideo import AdVideo
+        param_types = {
+            'description': 'string',
+            'privacy': 'string',
+            'title': 'string',
+            'upload_phase': 'upload_phase_enum',
+            'video_id': 'string',
+            'video_state': 'video_state_enum',
+        }
+        enums = {
+            'upload_phase_enum': AdVideo.UploadPhase.__dict__.values(),
+            'video_state_enum': AdVideo.VideoState.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
             endpoint='/video_ads',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),

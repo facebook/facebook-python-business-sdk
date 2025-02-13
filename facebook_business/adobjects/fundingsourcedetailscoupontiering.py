@@ -14,28 +14,22 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class MarketingMessageTargeting(
+class FundingSourceDetailsCouponTiering(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(MarketingMessageTargeting, self).__init__()
-        self._isMarketingMessageTargeting = True
+        super(FundingSourceDetailsCouponTiering, self).__init__()
+        self._isFundingSourceDetailsCouponTiering = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        automation_type = 'automation_type'
-        delay_send_time_second = 'delay_send_time_second'
-        delay_send_time_unit = 'delay_send_time_unit'
-        subscriber_lists = 'subscriber_lists'
-        targeting_rules = 'targeting_rules'
+        coupon_tiering_new = 'coupon_tiering_new'
+        coupon_tiering_reactivation = 'coupon_tiering_reactivation'
 
     _field_types = {
-        'automation_type': 'string',
-        'delay_send_time_second': 'unsigned int',
-        'delay_send_time_unit': 'string',
-        'subscriber_lists': 'list<RawCustomAudience>',
-        'targeting_rules': 'list<Object>',
+        'coupon_tiering_new': 'Object',
+        'coupon_tiering_reactivation': 'Object',
     }
     @classmethod
     def _get_field_enum_info(cls):

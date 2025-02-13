@@ -52,7 +52,6 @@ class AdCreative(
         dynamic_ad_voice = 'dynamic_ad_voice'
         effective_authorization_category = 'effective_authorization_category'
         effective_instagram_media_id = 'effective_instagram_media_id'
-        effective_instagram_story_id = 'effective_instagram_story_id'
         effective_object_story_id = 'effective_object_story_id'
         enable_direct_install = 'enable_direct_install'
         enable_launch_instant_app = 'enable_launch_instant_app'
@@ -61,10 +60,8 @@ class AdCreative(
         image_crops = 'image_crops'
         image_hash = 'image_hash'
         image_url = 'image_url'
-        instagram_actor_id = 'instagram_actor_id'
         instagram_branded_content = 'instagram_branded_content'
         instagram_permalink_url = 'instagram_permalink_url'
-        instagram_story_id = 'instagram_story_id'
         instagram_user_id = 'instagram_user_id'
         interactive_components_spec = 'interactive_components_spec'
         link_deep_link_url = 'link_deep_link_url'
@@ -89,6 +86,7 @@ class AdCreative(
         product_data = 'product_data'
         product_set_id = 'product_set_id'
         recommender_settings = 'recommender_settings'
+        regional_regulation_disclaimer_spec = 'regional_regulation_disclaimer_spec'
         source_instagram_media_id = 'source_instagram_media_id'
         status = 'status'
         template_url = 'template_url'
@@ -134,6 +132,7 @@ class AdCreative(
         follow_user = 'FOLLOW_USER'
         get_a_quote = 'GET_A_QUOTE'
         get_directions = 'GET_DIRECTIONS'
+        get_in_touch = 'GET_IN_TOUCH'
         get_offer = 'GET_OFFER'
         get_offer_view = 'GET_OFFER_VIEW'
         get_promotions = 'GET_PROMOTIONS'
@@ -185,6 +184,7 @@ class AdCreative(
         view_channel = 'VIEW_CHANNEL'
         view_product = 'VIEW_PRODUCT'
         visit_pages_feed = 'VISIT_PAGES_FEED'
+        watch_live_video = 'WATCH_LIVE_VIDEO'
         watch_more = 'WATCH_MORE'
         watch_video = 'WATCH_VIDEO'
         whatsapp_message = 'WHATSAPP_MESSAGE'
@@ -487,7 +487,6 @@ class AdCreative(
         'dynamic_ad_voice': 'string',
         'effective_authorization_category': 'string',
         'effective_instagram_media_id': 'string',
-        'effective_instagram_story_id': 'string',
         'effective_object_story_id': 'string',
         'enable_direct_install': 'bool',
         'enable_launch_instant_app': 'bool',
@@ -496,10 +495,8 @@ class AdCreative(
         'image_crops': 'AdsImageCrops',
         'image_hash': 'string',
         'image_url': 'string',
-        'instagram_actor_id': 'string',
         'instagram_branded_content': 'AdCreativeInstagramBrandedContent',
         'instagram_permalink_url': 'string',
-        'instagram_story_id': 'string',
         'instagram_user_id': 'string',
         'interactive_components_spec': 'AdCreativeInteractiveComponentsSpec',
         'link_deep_link_url': 'string',
@@ -524,6 +521,7 @@ class AdCreative(
         'product_data': 'list<AdCreativeProductData>',
         'product_set_id': 'string',
         'recommender_settings': 'AdCreativeRecommenderSettings',
+        'regional_regulation_disclaimer_spec': 'AdCreativeRegionalRegulationDisclaimer',
         'source_instagram_media_id': 'string',
         'status': 'Status',
         'template_url': 'string',

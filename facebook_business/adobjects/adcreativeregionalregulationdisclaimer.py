@@ -24,9 +24,14 @@ class AdCreativeRegionalRegulationDisclaimer(
         self._api = api
 
     class Field(AbstractObject.Field):
-        pass
+        australia_finserv = 'australia_finserv'
+        taiwan_finserv = 'taiwan_finserv'
+        taiwan_universal = 'taiwan_universal'
 
     _field_types = {
+        'australia_finserv': 'Object',
+        'taiwan_finserv': 'Object',
+        'taiwan_universal': 'Object',
     }
     @classmethod
     def _get_field_enum_info(cls):

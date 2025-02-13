@@ -25,6 +25,7 @@ class InsightsValue(
 
     class Field(AbstractObject.Field):
         campaign_id = 'campaign_id'
+        earning_source = 'earning_source'
         end_time = 'end_time'
         engagement_source = 'engagement_source'
         message_type = 'message_type'
@@ -37,6 +38,7 @@ class InsightsValue(
 
     _field_types = {
         'campaign_id': 'string',
+        'earning_source': 'string',
         'end_time': 'datetime',
         'engagement_source': 'string',
         'message_type': 'string',

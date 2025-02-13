@@ -34,6 +34,7 @@ class AdsQuickViews(
         id = 'id'
         name = 'name'
         permission = 'permission'
+        quick_view_type = 'quick_view_type'
         sort = 'sort'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
@@ -74,6 +75,7 @@ class AdsQuickViews(
         'id': 'string',
         'name': 'string',
         'permission': 'string',
+        'quick_view_type': 'string',
         'sort': 'list<Object>',
     }
     @classmethod

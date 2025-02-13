@@ -57,6 +57,7 @@ class LeadGenFormPreviewDetails(
         products_section_headers = 'products_section_headers'
         qualified_thank_you_card_transparency_info_text = 'qualified_thank_you_card_transparency_info_text'
         redeem_promo_code_text = 'redeem_promo_code_text'
+        return_to_facebook_text = 'return_to_facebook_text'
         review_your_info_text = 'review_your_info_text'
         secure_sharing_text = 'secure_sharing_text'
         slide_to_submit_text = 'slide_to_submit_text'
@@ -98,6 +99,7 @@ class LeadGenFormPreviewDetails(
         'products_section_headers': 'list<map<string, string>>',
         'qualified_thank_you_card_transparency_info_text': 'string',
         'redeem_promo_code_text': 'string',
+        'return_to_facebook_text': 'string',
         'review_your_info_text': 'string',
         'secure_sharing_text': 'string',
         'slide_to_submit_text': 'string',

@@ -24,7 +24,7 @@ class AdCreativeObjectStorySpec(
         self._api = api
 
     class Field(AbstractObject.Field):
-        instagram_actor_id = 'instagram_actor_id'
+        instagram_user_id = 'instagram_user_id'
         link_data = 'link_data'
         page_id = 'page_id'
         photo_data = 'photo_data'
@@ -35,7 +35,7 @@ class AdCreativeObjectStorySpec(
         video_data = 'video_data'
 
     _field_types = {
-        'instagram_actor_id': 'string',
+        'instagram_user_id': 'string',
         'link_data': 'AdCreativeLinkData',
         'page_id': 'string',
         'photo_data': 'AdCreativePhotoData',

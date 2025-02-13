@@ -14,24 +14,20 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class InstagramVideoMetadata(
+class AdsEligibility(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(InstagramVideoMetadata, self).__init__()
-        self._isInstagramVideoMetadata = True
+        super(AdsEligibility, self).__init__()
+        self._isAdsEligibility = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        duration = 'duration'
-        height = 'height'
-        width = 'width'
+        live_shopping = 'live_shopping'
 
     _field_types = {
-        'duration': 'float',
-        'height': 'float',
-        'width': 'float',
+        'live_shopping': 'Object',
     }
     @classmethod
     def _get_field_enum_info(cls):

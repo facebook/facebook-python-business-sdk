@@ -33,8 +33,11 @@ class ThirdPartyPartnerLiftRequest(
         description = 'description'
         holdout_size = 'holdout_size'
         id = 'id'
+        legacy_ads_data_partner_id = 'legacy_ads_data_partner_id'
+        legacy_ads_data_partner_name = 'legacy_ads_data_partner_name'
         modified_time = 'modified_time'
         owner_instance_id = 'owner_instance_id'
+        partner_household_graph_dataset_id = 'partner_household_graph_dataset_id'
         region = 'region'
         status = 'status'
         study_cells = 'study_cells'
@@ -85,8 +88,11 @@ class ThirdPartyPartnerLiftRequest(
         'description': 'string',
         'holdout_size': 'float',
         'id': 'string',
+        'legacy_ads_data_partner_id': 'string',
+        'legacy_ads_data_partner_name': 'string',
         'modified_time': 'datetime',
         'owner_instance_id': 'string',
+        'partner_household_graph_dataset_id': 'string',
         'region': 'string',
         'status': 'Status',
         'study_cells': 'list<string>',

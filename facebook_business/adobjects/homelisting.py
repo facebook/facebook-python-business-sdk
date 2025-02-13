@@ -42,6 +42,16 @@ class HomeListing(
         category_specific_fields = 'category_specific_fields'
         co_2_emission_rating_eu = 'co_2_emission_rating_eu'
         currency = 'currency'
+        custom_label_0 = 'custom_label_0'
+        custom_label_1 = 'custom_label_1'
+        custom_label_2 = 'custom_label_2'
+        custom_label_3 = 'custom_label_3'
+        custom_label_4 = 'custom_label_4'
+        custom_number_0 = 'custom_number_0'
+        custom_number_1 = 'custom_number_1'
+        custom_number_2 = 'custom_number_2'
+        custom_number_3 = 'custom_number_3'
+        custom_number_4 = 'custom_number_4'
         days_on_market = 'days_on_market'
         description = 'description'
         energy_rating_eu = 'energy_rating_eu'
@@ -312,6 +322,16 @@ class HomeListing(
         'category_specific_fields': 'CatalogSubVerticalList',
         'co_2_emission_rating_eu': 'Object',
         'currency': 'string',
+        'custom_label_0': 'string',
+        'custom_label_1': 'string',
+        'custom_label_2': 'string',
+        'custom_label_3': 'string',
+        'custom_label_4': 'string',
+        'custom_number_0': 'unsigned int',
+        'custom_number_1': 'unsigned int',
+        'custom_number_2': 'unsigned int',
+        'custom_number_3': 'unsigned int',
+        'custom_number_4': 'unsigned int',
         'days_on_market': 'unsigned int',
         'description': 'string',
         'energy_rating_eu': 'Object',

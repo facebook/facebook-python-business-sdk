@@ -243,6 +243,16 @@ class Page(
         vegetarian = 'Vegetarian'
         vietnamese = 'Vietnamese'
 
+    class GenAiProvenanceType:
+        c2pa = 'C2PA'
+        c2pa_metadata_edited = 'C2PA_METADATA_EDITED'
+        explicit = 'EXPLICIT'
+        explicit_imagine = 'EXPLICIT_IMAGINE'
+        explicit_imagine_me = 'EXPLICIT_IMAGINE_ME'
+        invisible_watermark = 'INVISIBLE_WATERMARK'
+        iptc = 'IPTC'
+        iptc_metadata_edited = 'IPTC_METADATA_EDITED'
+
     class PickupOptions:
         curbside = 'CURBSIDE'
         in_store = 'IN_STORE'
@@ -441,6 +451,7 @@ class Page(
         live_videos = 'live_videos'
         local_delivery = 'local_delivery'
         location = 'location'
+        marketing_message_delivery_failed = 'marketing_message_delivery_failed'
         mcom_invoice_change = 'mcom_invoice_change'
         members = 'members'
         mention = 'mention'
@@ -452,6 +463,7 @@ class Page(
         message_mention = 'message_mention'
         message_reactions = 'message_reactions'
         message_reads = 'message_reads'
+        message_template_status_update = 'message_template_status_update'
         messages = 'messages'
         messaging_account_linking = 'messaging_account_linking'
         messaging_appointments = 'messaging_appointments'
@@ -497,12 +509,6 @@ class Page(
         video_text_question_responses = 'video_text_question_responses'
         videos = 'videos'
         website = 'website'
-
-    class Action:
-        spam = 'SPAM'
-
-    class ActionType:
-        report_thread = 'REPORT_THREAD'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
@@ -565,6 +571,7 @@ class Page(
             'focus_x': 'float',
             'focus_y': 'float',
             'food_styles': 'list<food_styles_enum>',
+            'gen_ai_provenance_type': 'gen_ai_provenance_type_enum',
             'general_info': 'string',
             'general_manager': 'string',
             'genre': 'string',
@@ -604,6 +611,7 @@ class Page(
         enums = {
             'attire_enum': Page.Attire.__dict__.values(),
             'food_styles_enum': Page.FoodStyles.__dict__.values(),
+            'gen_ai_provenance_type_enum': Page.GenAiProvenanceType.__dict__.values(),
             'pickup_options_enum': Page.PickupOptions.__dict__.values(),
             'temporary_status_enum': Page.TemporaryStatus.__dict__.values(),
         }
@@ -2926,7 +2934,6 @@ class Page(
         param_types = {
             'category': 'category_enum',
             'components': 'list<map>',
-            'example': 'map',
             'language': 'string',
             'library_template_button_inputs': 'list<map>',
             'library_template_name': 'string',
@@ -3728,6 +3735,7 @@ class Page(
             'place': 'Object',
             'privacy': 'string',
             'profile_id': 'int',
+            'provenance_info': 'map',
             'proxied_app_id': 'string',
             'published': 'bool',
             'qn': 'string',
@@ -3956,37 +3964,6 @@ class Page(
             target_class=PagePost,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=PagePost, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def get_ratings(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.recommendation import Recommendation
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/ratings',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=Recommendation,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=Recommendation, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -4489,41 +4466,6 @@ class Page(
             node_id=self['id'],
             method='POST',
             endpoint='/take_thread_control',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=Page,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=Page, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_thread_action(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'action': 'action_enum',
-            'action_type': 'action_type_enum',
-            'user_id': 'map',
-        }
-        enums = {
-            'action_enum': Page.Action.__dict__.values(),
-            'action_type_enum': Page.ActionType.__dict__.values(),
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/thread_action',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
             target_class=Page,
@@ -5363,6 +5305,7 @@ class Page(
         field_enum_info = {}
         field_enum_info['Attire'] = Page.Attire.__dict__.values()
         field_enum_info['FoodStyles'] = Page.FoodStyles.__dict__.values()
+        field_enum_info['GenAiProvenanceType'] = Page.GenAiProvenanceType.__dict__.values()
         field_enum_info['PickupOptions'] = Page.PickupOptions.__dict__.values()
         field_enum_info['TemporaryStatus'] = Page.TemporaryStatus.__dict__.values()
         field_enum_info['PermittedTasks'] = Page.PermittedTasks.__dict__.values()
@@ -5383,8 +5326,6 @@ class Page(
         field_enum_info['Model'] = Page.Model.__dict__.values()
         field_enum_info['DeveloperAction'] = Page.DeveloperAction.__dict__.values()
         field_enum_info['SubscribedFields'] = Page.SubscribedFields.__dict__.values()
-        field_enum_info['Action'] = Page.Action.__dict__.values()
-        field_enum_info['ActionType'] = Page.ActionType.__dict__.values()
         return field_enum_info
 
 

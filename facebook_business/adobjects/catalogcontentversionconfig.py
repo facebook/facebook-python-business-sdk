@@ -18,21 +18,18 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class PrivateComputationEnvironment(
+class CatalogContentVersionConfig(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isPrivateComputationEnvironment = True
-        super(PrivateComputationEnvironment, self).__init__(fbid, parent_id, api)
+        self._isCatalogContentVersionConfig = True
+        super(CatalogContentVersionConfig, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        publisher_account_id = 'publisher_account_id'
-        publisher_pce_deployment_status = 'publisher_pce_deployment_status'
-        publisher_pce_id = 'publisher_pce_id'
-        publisher_region = 'publisher_region'
-        publisher_vpc_id = 'publisher_vpc_id'
         id = 'id'
+        name = 'name'
+        version = 'version'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -48,7 +45,7 @@ class PrivateComputationEnvironment(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=PrivateComputationEnvironment,
+            target_class=CatalogContentVersionConfig,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -65,12 +62,9 @@ class PrivateComputationEnvironment(
             return request.execute()
 
     _field_types = {
-        'publisher_account_id': 'string',
-        'publisher_pce_deployment_status': 'int',
-        'publisher_pce_id': 'string',
-        'publisher_region': 'string',
-        'publisher_vpc_id': 'string',
         'id': 'string',
+        'name': 'string',
+        'version': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

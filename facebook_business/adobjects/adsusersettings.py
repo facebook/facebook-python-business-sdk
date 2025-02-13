@@ -34,7 +34,9 @@ class AdsUserSettings(
         ads_tool_visits = 'ads_tool_visits'
         aplusc_carousel_cda_opt_in_status = 'aplusc_carousel_cda_opt_in_status'
         aplusc_carousel_inline_comment_opt_in_status = 'aplusc_carousel_inline_comment_opt_in_status'
+        aplusc_enhance_cta_opt_in_status = 'aplusc_enhance_cta_opt_in_status'
         aplusc_epa_opt_in_status = 'aplusc_epa_opt_in_status'
+        aplusc_local_store_extension_opt_in_status = 'aplusc_local_store_extension_opt_in_status'
         aplusc_opt_out_friction = 'aplusc_opt_out_friction'
         autoflow_lite_opt_in_status = 'autoflow_lite_opt_in_status'
         autoflow_lite_should_opt_in = 'autoflow_lite_should_opt_in'
@@ -46,6 +48,7 @@ class AdsUserSettings(
         carousel_to_video_opt_in_status = 'carousel_to_video_opt_in_status'
         connected_sources_catalog_opt_in_status = 'connected_sources_catalog_opt_in_status'
         default_creation_mode = 'default_creation_mode'
+        dynamic_partnership_ads_opt_in_status = 'dynamic_partnership_ads_opt_in_status'
         enhance_cta_text_extraction_opt_in_status = 'enhance_cta_text_extraction_opt_in_status'
         export_format_default = 'export_format_default'
         focus_mode_default = 'focus_mode_default'
@@ -128,7 +131,9 @@ class AdsUserSettings(
         'ads_tool_visits': 'list<Object>',
         'aplusc_carousel_cda_opt_in_status': 'string',
         'aplusc_carousel_inline_comment_opt_in_status': 'string',
+        'aplusc_enhance_cta_opt_in_status': 'string',
         'aplusc_epa_opt_in_status': 'string',
+        'aplusc_local_store_extension_opt_in_status': 'string',
         'aplusc_opt_out_friction': 'list<string>',
         'autoflow_lite_opt_in_status': 'string',
         'autoflow_lite_should_opt_in': 'bool',
@@ -140,6 +145,7 @@ class AdsUserSettings(
         'carousel_to_video_opt_in_status': 'string',
         'connected_sources_catalog_opt_in_status': 'string',
         'default_creation_mode': 'string',
+        'dynamic_partnership_ads_opt_in_status': 'string',
         'enhance_cta_text_extraction_opt_in_status': 'string',
         'export_format_default': 'string',
         'focus_mode_default': 'string',

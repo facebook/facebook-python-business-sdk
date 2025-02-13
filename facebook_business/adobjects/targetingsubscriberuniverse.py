@@ -14,22 +14,22 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class ParentCatalogReport(
+class TargetingSubscriberUniverse(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(ParentCatalogReport, self).__init__()
-        self._isParentCatalogReport = True
+        super(TargetingSubscriberUniverse, self).__init__()
+        self._isTargetingSubscriberUniverse = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        purchase_conversion_value = 'purchase_conversion_value'
-        purchases = 'purchases'
+        messenger_subscriber_source = 'messenger_subscriber_source'
+        whatsapp_subscriber_source = 'whatsapp_subscriber_source'
 
     _field_types = {
-        'purchase_conversion_value': 'float',
-        'purchases': 'int',
+        'messenger_subscriber_source': 'IDName',
+        'whatsapp_subscriber_source': 'IDName',
     }
     @classmethod
     def _get_field_enum_info(cls):

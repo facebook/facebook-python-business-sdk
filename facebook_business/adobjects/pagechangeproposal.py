@@ -29,17 +29,13 @@ class PageChangeProposal(
     class Field(AbstractObject.Field):
         acceptance_status = 'acceptance_status'
         category = 'category'
-        current_value = 'current_value'
         id = 'id'
-        proposed_value = 'proposed_value'
         upcoming_change_info = 'upcoming_change_info'
 
     _field_types = {
         'acceptance_status': 'string',
         'category': 'string',
-        'current_value': 'string',
         'id': 'string',
-        'proposed_value': 'string',
         'upcoming_change_info': 'PageUpcomingChange',
     }
     @classmethod

@@ -29,6 +29,8 @@ class AdAccountUserSettings(
     class Field(AbstractObject.Field):
         acf_should_opt_out_video_adjustments = 'acf_should_opt_out_video_adjustments'
         aco_sticky_settings = 'aco_sticky_settings'
+        actions_quick_view_created = 'actions_quick_view_created'
+        active_ads_quick_view_created = 'active_ads_quick_view_created'
         ad_account = 'ad_account'
         ad_object_export_format = 'ad_object_export_format'
         auto_review_video_caption = 'auto_review_video_caption'
@@ -43,6 +45,7 @@ class AdAccountUserSettings(
         draft_mode_enabled = 'draft_mode_enabled'
         export_deleted_items_with_delivery = 'export_deleted_items_with_delivery'
         export_summary_row = 'export_summary_row'
+        had_delivery_quick_view_created = 'had_delivery_quick_view_created'
         has_seen_groups_column_flexing_experience = 'has_seen_groups_column_flexing_experience'
         has_seen_instagram_column_flexing_experience = 'has_seen_instagram_column_flexing_experience'
         has_seen_leads_column_flexing_experience = 'has_seen_leads_column_flexing_experience'
@@ -140,6 +143,8 @@ class AdAccountUserSettings(
     _field_types = {
         'acf_should_opt_out_video_adjustments': 'bool',
         'aco_sticky_settings': 'list<map<string, string>>',
+        'actions_quick_view_created': 'bool',
+        'active_ads_quick_view_created': 'bool',
         'ad_account': 'AdAccount',
         'ad_object_export_format': 'string',
         'auto_review_video_caption': 'bool',
@@ -154,6 +159,7 @@ class AdAccountUserSettings(
         'draft_mode_enabled': 'bool',
         'export_deleted_items_with_delivery': 'bool',
         'export_summary_row': 'bool',
+        'had_delivery_quick_view_created': 'bool',
         'has_seen_groups_column_flexing_experience': 'bool',
         'has_seen_instagram_column_flexing_experience': 'bool',
         'has_seen_leads_column_flexing_experience': 'bool',
