@@ -58,7 +58,6 @@ class AdSetTestCase(IntegrationTestCase):
                 '"' + str(FieldName.DATE_FORMAT) + '":"' + str(TestValue.DATE_FORMAT) + '",'
                 '"' + str(FieldName.DAILY_MIN_SPEND_TARGET) + '": "' + str(TestValue.DAILY_MIN_SPEND_TARGET) + '",'
                 '"' + str(FieldName.EFFECTIVE_STATUS) + '":"' + str(TestValue.EFFECTIVE_STATUS) + '",'
-                '"' + str(FieldName.INSTAGRAM_ACTOR_ID) + '":"' + str(TestValue.INSTAGRAM_ACTOR_ID) + '",'
                 '"' + str(FieldName.ISSUES_INFO) + '": ' + str(TestValue.ISSUES_INFO) + ','
                 '"' + str(FieldName.OPTIMIZATION_GOAL) + '":"' + str(TestValue.OPTIMIZATION_GOAL) + '",'
                 '"' + str(FieldName.PACING_TYPE) + '":"' + str(TestValue.PACING_TYPE) + '",'
@@ -84,7 +83,6 @@ class AdSetTestCase(IntegrationTestCase):
                 FieldName.DATE_FORMAT,
                 FieldName.DAILY_MIN_SPEND_TARGET,
                 FieldName.EFFECTIVE_STATUS,
-                FieldName.INSTAGRAM_ACTOR_ID,
                 FieldName.ISSUES_INFO,
                 FieldName.OPTIMIZATION_GOAL,
                 FieldName.PACING_TYPE,
@@ -114,7 +112,6 @@ class AdSetTestCase(IntegrationTestCase):
             self.assertEqual(ad_set[FieldName.DATE_FORMAT], TestValue.DATE_FORMAT)
             self.assertEqual(ad_set[FieldName.DAILY_MIN_SPEND_TARGET], TestValue.DAILY_MIN_SPEND_TARGET)
             self.assertEqual(ad_set[FieldName.EFFECTIVE_STATUS], TestValue.EFFECTIVE_STATUS)
-            self.assertEqual(ad_set[FieldName.INSTAGRAM_ACTOR_ID], TestValue.INSTAGRAM_ACTOR_ID)
             self.assertEqual(ad_set[FieldName.ISSUES_INFO], [json.loads(TestValue.ISSUES_INFO)])
             self.assertEqual(ad_set[FieldName.OPTIMIZATION_GOAL], TestValue.OPTIMIZATION_GOAL)
             self.assertEqual(ad_set[FieldName.PACING_TYPE], [TestValue.PACING_TYPE])
