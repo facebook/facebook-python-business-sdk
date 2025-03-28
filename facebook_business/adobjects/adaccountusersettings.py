@@ -36,6 +36,7 @@ class AdAccountUserSettings(
         auto_review_video_caption = 'auto_review_video_caption'
         campaign_overview_columns = 'campaign_overview_columns'
         column_suggestion_status = 'column_suggestion_status'
+        conditional_formatting_rules = 'conditional_formatting_rules'
         default_account_overview_agegender_metrics = 'default_account_overview_agegender_metrics'
         default_account_overview_location_metrics = 'default_account_overview_location_metrics'
         default_account_overview_metrics = 'default_account_overview_metrics'
@@ -54,6 +55,8 @@ class AdAccountUserSettings(
         hidden_optimization_tips = 'hidden_optimization_tips'
         id = 'id'
         is_3p_auth_setting_set = 'is_3p_auth_setting_set'
+        is_ads_manager_footer_row_preference_set = 'is_ads_manager_footer_row_preference_set'
+        is_ads_manager_footer_row_shown = 'is_ads_manager_footer_row_shown'
         is_text_variation_nux_close = 'is_text_variation_nux_close'
         last_used_columns = 'last_used_columns'
         last_used_pe_filters = 'last_used_pe_filters'
@@ -150,6 +153,7 @@ class AdAccountUserSettings(
         'auto_review_video_caption': 'bool',
         'campaign_overview_columns': 'list<string>',
         'column_suggestion_status': 'string',
+        'conditional_formatting_rules': 'list<string>',
         'default_account_overview_agegender_metrics': 'list<string>',
         'default_account_overview_location_metrics': 'list<string>',
         'default_account_overview_metrics': 'list<string>',
@@ -168,6 +172,8 @@ class AdAccountUserSettings(
         'hidden_optimization_tips': 'list<map<string, bool>>',
         'id': 'string',
         'is_3p_auth_setting_set': 'bool',
+        'is_ads_manager_footer_row_preference_set': 'bool',
+        'is_ads_manager_footer_row_shown': 'bool',
         'is_text_variation_nux_close': 'bool',
         'last_used_columns': 'Object',
         'last_used_pe_filters': 'list<Object>',

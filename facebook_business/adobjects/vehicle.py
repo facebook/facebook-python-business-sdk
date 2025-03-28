@@ -77,6 +77,7 @@ class Vehicle(
         sale_price = 'sale_price'
         sanitized_images = 'sanitized_images'
         state_of_vehicle = 'state_of_vehicle'
+        tags = 'tags'
         title = 'title'
         transmission = 'transmission'
         trim = 'trim'
@@ -436,6 +437,7 @@ class Vehicle(
         'sale_price': 'string',
         'sanitized_images': 'list<string>',
         'state_of_vehicle': 'string',
+        'tags': 'list<string>',
         'title': 'string',
         'transmission': 'string',
         'trim': 'string',

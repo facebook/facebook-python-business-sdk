@@ -31,7 +31,6 @@ class AdCreativeObjectStorySpec(
         product_data = 'product_data'
         template_data = 'template_data'
         text_data = 'text_data'
-        threads_user_id = 'threads_user_id'
         video_data = 'video_data'
 
     _field_types = {
@@ -42,7 +41,6 @@ class AdCreativeObjectStorySpec(
         'product_data': 'list<AdCreativeProductData>',
         'template_data': 'AdCreativeLinkData',
         'text_data': 'AdCreativeTextData',
-        'threads_user_id': 'string',
         'video_data': 'AdCreativeVideoData',
     }
     @classmethod

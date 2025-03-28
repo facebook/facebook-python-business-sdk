@@ -63,6 +63,8 @@ class AdsInsights(
         conversions = 'conversions'
         converted_product_quantity = 'converted_product_quantity'
         converted_product_value = 'converted_product_value'
+        converted_promoted_product_quantity = 'converted_promoted_product_quantity'
+        converted_promoted_product_value = 'converted_promoted_product_value'
         cost_per_15_sec_video_view = 'cost_per_15_sec_video_view'
         cost_per_2_sec_continuous_video_view = 'cost_per_2_sec_continuous_video_view'
         cost_per_action_type = 'cost_per_action_type'
@@ -117,13 +119,22 @@ class AdsInsights(
         location = 'location'
         marketing_messages_cost_per_delivered = 'marketing_messages_cost_per_delivered'
         marketing_messages_cost_per_link_btn_click = 'marketing_messages_cost_per_link_btn_click'
+        marketing_messages_delivered = 'marketing_messages_delivered'
         marketing_messages_delivery_rate = 'marketing_messages_delivery_rate'
+        marketing_messages_link_btn_click = 'marketing_messages_link_btn_click'
         marketing_messages_link_btn_click_rate = 'marketing_messages_link_btn_click_rate'
         marketing_messages_media_view_rate = 'marketing_messages_media_view_rate'
         marketing_messages_phone_call_btn_click_rate = 'marketing_messages_phone_call_btn_click_rate'
+        marketing_messages_quick_reply_btn_click = 'marketing_messages_quick_reply_btn_click'
         marketing_messages_quick_reply_btn_click_rate = 'marketing_messages_quick_reply_btn_click_rate'
+        marketing_messages_read = 'marketing_messages_read'
         marketing_messages_read_rate = 'marketing_messages_read_rate'
+        marketing_messages_sent = 'marketing_messages_sent'
         marketing_messages_spend = 'marketing_messages_spend'
+        marketing_messages_spend_currency = 'marketing_messages_spend_currency'
+        marketing_messages_website_add_to_cart = 'marketing_messages_website_add_to_cart'
+        marketing_messages_website_initiate_checkout = 'marketing_messages_website_initiate_checkout'
+        marketing_messages_website_purchase = 'marketing_messages_website_purchase'
         marketing_messages_website_purchase_values = 'marketing_messages_website_purchase_values'
         mobile_app_purchase_roas = 'mobile_app_purchase_roas'
         objective = 'objective'
@@ -192,7 +203,11 @@ class AdsInsights(
         dda = 'dda'
         value_default = 'default'
         skan_click = 'skan_click'
+        skan_click_second_postback = 'skan_click_second_postback'
+        skan_click_third_postback = 'skan_click_third_postback'
         skan_view = 'skan_view'
+        skan_view_second_postback = 'skan_view_second_postback'
+        skan_view_third_postback = 'skan_view_third_postback'
 
     class ActionBreakdowns:
         action_canvas_component_name = 'action_canvas_component_name'
@@ -363,6 +378,8 @@ class AdsInsights(
         'conversions': 'list<AdsActionStats>',
         'converted_product_quantity': 'list<AdsActionStats>',
         'converted_product_value': 'list<AdsActionStats>',
+        'converted_promoted_product_quantity': 'list<AdsActionStats>',
+        'converted_promoted_product_value': 'list<AdsActionStats>',
         'cost_per_15_sec_video_view': 'list<AdsActionStats>',
         'cost_per_2_sec_continuous_video_view': 'list<AdsActionStats>',
         'cost_per_action_type': 'list<AdsActionStats>',
@@ -417,13 +434,22 @@ class AdsInsights(
         'location': 'string',
         'marketing_messages_cost_per_delivered': 'string',
         'marketing_messages_cost_per_link_btn_click': 'string',
+        'marketing_messages_delivered': 'string',
         'marketing_messages_delivery_rate': 'string',
+        'marketing_messages_link_btn_click': 'string',
         'marketing_messages_link_btn_click_rate': 'string',
         'marketing_messages_media_view_rate': 'string',
         'marketing_messages_phone_call_btn_click_rate': 'string',
+        'marketing_messages_quick_reply_btn_click': 'string',
         'marketing_messages_quick_reply_btn_click_rate': 'string',
+        'marketing_messages_read': 'string',
         'marketing_messages_read_rate': 'string',
+        'marketing_messages_sent': 'string',
         'marketing_messages_spend': 'string',
+        'marketing_messages_spend_currency': 'string',
+        'marketing_messages_website_add_to_cart': 'string',
+        'marketing_messages_website_initiate_checkout': 'string',
+        'marketing_messages_website_purchase': 'string',
         'marketing_messages_website_purchase_values': 'string',
         'mobile_app_purchase_roas': 'list<AdsActionStats>',
         'objective': 'string',

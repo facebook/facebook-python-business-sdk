@@ -86,6 +86,7 @@ class ProductItem(
         product_feed = 'product_feed'
         product_group = 'product_group'
         product_local_info = 'product_local_info'
+        product_relationship = 'product_relationship'
         product_type = 'product_type'
         quantity_to_sell_on_facebook = 'quantity_to_sell_on_facebook'
         retailer_id = 'retailer_id'
@@ -495,6 +496,7 @@ class ProductItem(
         item_price_not_positive = 'ITEM_PRICE_NOT_POSITIVE'
         item_stale_out_of_stock = 'ITEM_STALE_OUT_OF_STOCK'
         marketplace_disabled_by_user = 'MARKETPLACE_DISABLED_BY_USER'
+        marketplace_partner_auction_no_bid_close_time = 'MARKETPLACE_PARTNER_AUCTION_NO_BID_CLOSE_TIME'
         marketplace_partner_listing_limit_exceeded = 'MARKETPLACE_PARTNER_LISTING_LIMIT_EXCEEDED'
         marketplace_partner_not_local_item = 'MARKETPLACE_PARTNER_NOT_LOCAL_ITEM'
         marketplace_partner_not_shipped_item = 'MARKETPLACE_PARTNER_NOT_SHIPPED_ITEM'
@@ -1209,6 +1211,7 @@ class ProductItem(
         'product_feed': 'ProductFeed',
         'product_group': 'ProductGroup',
         'product_local_info': 'ProductItemLocalInfo',
+        'product_relationship': 'string',
         'product_type': 'string',
         'quantity_to_sell_on_facebook': 'int',
         'retailer_id': 'string',

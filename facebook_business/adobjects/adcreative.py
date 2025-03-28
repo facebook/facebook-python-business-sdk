@@ -41,6 +41,7 @@ class AdCreative(
         branded_content = 'branded_content'
         branded_content_sponsor_page_id = 'branded_content_sponsor_page_id'
         bundle_folder_id = 'bundle_folder_id'
+        call_to_action = 'call_to_action'
         call_to_action_type = 'call_to_action_type'
         categorization_criteria = 'categorization_criteria'
         category_media_source = 'category_media_source'
@@ -97,7 +98,6 @@ class AdCreative(
         url_tags = 'url_tags'
         use_page_actor_override = 'use_page_actor_override'
         video_id = 'video_id'
-        call_to_action = 'call_to_action'
         image_file = 'image_file'
         is_dco_internal = 'is_dco_internal'
 
@@ -181,6 +181,7 @@ class AdCreative(
         use_mobile_app = 'USE_MOBILE_APP'
         video_annotation = 'VIDEO_ANNOTATION'
         video_call = 'VIDEO_CALL'
+        view_cart = 'VIEW_CART'
         view_channel = 'VIEW_CHANNEL'
         view_product = 'VIEW_PRODUCT'
         visit_pages_feed = 'VISIT_PAGES_FEED'
@@ -476,6 +477,7 @@ class AdCreative(
         'branded_content': 'AdCreativeBrandedContentAds',
         'branded_content_sponsor_page_id': 'string',
         'bundle_folder_id': 'string',
+        'call_to_action': 'AdCreativeLinkDataCallToAction',
         'call_to_action_type': 'CallToActionType',
         'categorization_criteria': 'string',
         'category_media_source': 'string',
@@ -532,7 +534,6 @@ class AdCreative(
         'url_tags': 'string',
         'use_page_actor_override': 'bool',
         'video_id': 'string',
-        'call_to_action': 'Object',
         'image_file': 'string',
         'is_dco_internal': 'bool',
     }

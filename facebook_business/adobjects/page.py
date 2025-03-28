@@ -269,6 +269,7 @@ class Page(
         analyze = 'ANALYZE'
         cashier_role = 'CASHIER_ROLE'
         create_content = 'CREATE_CONTENT'
+        global_structure_management = 'GLOBAL_STRUCTURE_MANAGEMENT'
         manage = 'MANAGE'
         manage_jobs = 'MANAGE_JOBS'
         manage_leads = 'MANAGE_LEADS'
@@ -296,6 +297,7 @@ class Page(
         analyze = 'ANALYZE'
         cashier_role = 'CASHIER_ROLE'
         create_content = 'CREATE_CONTENT'
+        global_structure_management = 'GLOBAL_STRUCTURE_MANAGEMENT'
         manage = 'MANAGE'
         manage_jobs = 'MANAGE_JOBS'
         manage_leads = 'MANAGE_LEADS'
@@ -387,6 +389,13 @@ class Page(
     class Platform:
         instagram = 'INSTAGRAM'
         messenger = 'MESSENGER'
+
+    class Actions:
+        ban_user = 'BAN_USER'
+        block_user = 'BLOCK_USER'
+        move_to_spam = 'MOVE_TO_SPAM'
+        unban_user = 'UNBAN_USER'
+        unblock_user = 'UNBLOCK_USER'
 
     class Model:
         arabic = 'ARABIC'
@@ -3299,6 +3308,39 @@ class Page(
             self.assure_call()
             return request.execute()
 
+    def create_moderate_conversation(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'actions': 'list<actions_enum>',
+            'user_ids': 'list<map>',
+        }
+        enums = {
+            'actions_enum': Page.Actions.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/moderate_conversations',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Page,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Page, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def create_nlp_config(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -3510,39 +3552,6 @@ class Page(
             node_id=self['id'],
             method='POST',
             endpoint='/pass_thread_control',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=Page,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=Page, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_pass_thread_metadatum(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'metadata': 'string',
-            'recipient': 'Object',
-            'target_app_id': 'int',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/pass_thread_metadata',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
             target_class=Page,
@@ -4248,6 +4257,37 @@ class Page(
             target_class=CommerceMerchantSettingsSetupStatus,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=CommerceMerchantSettingsSetupStatus, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_store_locations(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.storelocation import StoreLocation
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/store_locations',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=StoreLocation,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=StoreLocation, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -5323,6 +5363,7 @@ class Page(
         field_enum_info['SenderAction'] = Page.SenderAction.__dict__.values()
         field_enum_info['SuggestionAction'] = Page.SuggestionAction.__dict__.values()
         field_enum_info['Platform'] = Page.Platform.__dict__.values()
+        field_enum_info['Actions'] = Page.Actions.__dict__.values()
         field_enum_info['Model'] = Page.Model.__dict__.values()
         field_enum_info['DeveloperAction'] = Page.DeveloperAction.__dict__.values()
         field_enum_info['SubscribedFields'] = Page.SubscribedFields.__dict__.values()

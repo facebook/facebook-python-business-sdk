@@ -14,22 +14,26 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdsPixelCAPISetupQuality(
+class AdAccountSpendCapChangeHistory(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(AdsPixelCAPISetupQuality, self).__init__()
-        self._isAdsPixelCAPISetupQuality = True
+        super(AdAccountSpendCapChangeHistory, self).__init__()
+        self._isAdAccountSpendCapChangeHistory = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        event_match_quality = 'event_match_quality'
-        event_name = 'event_name'
+        action = 'action'
+        spend_cap = 'spend_cap'
+        time_start = 'time_start'
+        time_stop = 'time_stop'
 
     _field_types = {
-        'event_match_quality': 'Object',
-        'event_name': 'string',
+        'action': 'string',
+        'spend_cap': 'int',
+        'time_start': 'string',
+        'time_stop': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

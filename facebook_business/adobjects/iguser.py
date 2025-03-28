@@ -278,6 +278,7 @@ class IGUser(
             'ad_code': 'string',
             'creator_username': 'string',
             'only_fetch_allowlisted': 'bool',
+            'only_fetch_recommended_content': 'bool',
             'permalinks': 'list<string>',
         }
         enums = {
@@ -432,6 +433,37 @@ class IGUser(
             self.assure_call()
             return request.execute()
 
+    def get_connected_threads_user(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.threadsuser import ThreadsUser
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/connected_threads_user',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ThreadsUser,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ThreadsUser, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_content_publishing_limit(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -560,6 +592,68 @@ class IGUser(
             api_type='EDGE',
             response_parser=ObjectParser(target_class=InstagramInsightsResult, api=self._api),
             include_summary=False,
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_instagram_backed_threads_user(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.threadsuser import ThreadsUser
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/instagram_backed_threads_user',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ThreadsUser,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ThreadsUser, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_instagram_backed_threads_user(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.threadsuser import ThreadsUser
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/instagram_backed_threads_user',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ThreadsUser,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ThreadsUser, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

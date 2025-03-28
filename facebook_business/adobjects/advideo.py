@@ -168,6 +168,7 @@ class AdVideo(
         copyright_reference_ig_xpost_video = 'COPYRIGHT_REFERENCE_IG_XPOST_VIDEO'
         copyright_reference_video = 'COPYRIGHT_REFERENCE_VIDEO'
         creation_ml_precreation = 'CREATION_ML_PRECREATION'
+        creator_fan_challenge = 'CREATOR_FAN_CHALLENGE'
         creator_storefront_personalized_video = 'CREATOR_STOREFRONT_PERSONALIZED_VIDEO'
         datagenix_video = 'DATAGENIX_VIDEO'
         dco_ad_asset_feed = 'DCO_AD_ASSET_FEED'
@@ -215,8 +216,6 @@ class AdVideo(
         instant_application_preview = 'INSTANT_APPLICATION_PREVIEW'
         instant_article = 'INSTANT_ARTICLE'
         issue_module = 'ISSUE_MODULE'
-        jobs_careers = 'JOBS_CAREERS'
-        jobs_visual_intro_entry = 'JOBS_VISUAL_INTRO_ENTRY'
         learn = 'LEARN'
         legacy = 'LEGACY'
         legacy_contained_post_broadcast = 'LEGACY_CONTAINED_POST_BROADCAST'
@@ -228,7 +227,6 @@ class AdVideo(
         look_now_deprecated = 'LOOK_NOW_DEPRECATED'
         marketplace_listing_video = 'MARKETPLACE_LISTING_VIDEO'
         marketplace_pre_recorded_video = 'MARKETPLACE_PRE_RECORDED_VIDEO'
-        messenger_watch_together = 'MESSENGER_WATCH_TOGETHER'
         moments_video = 'MOMENTS_VIDEO'
         music_clip = 'MUSIC_CLIP'
         music_clip_in_comment = 'MUSIC_CLIP_IN_COMMENT'
@@ -239,11 +237,9 @@ class AdVideo(
         neo_async_game_video = 'NEO_ASYNC_GAME_VIDEO'
         new_contained_post_broadcast = 'NEW_CONTAINED_POST_BROADCAST'
         no_story = 'NO_STORY'
-        no_story_with_entpost = 'NO_STORY_WITH_ENTPOST'
         npe_collab_copyright_check = 'NPE_COLLAB_COPYRIGHT_CHECK'
         oculus_creator_portal = 'OCULUS_CREATOR_PORTAL'
         oculus_venues_broadcast = 'OCULUS_VENUES_BROADCAST'
-        offers_video = 'OFFERS_VIDEO'
         originality_self_advocacy = 'ORIGINALITY_SELF_ADVOCACY'
         pages_cover_video = 'PAGES_COVER_VIDEO'
         page_review_screencast = 'PAGE_REVIEW_SCREENCAST'
@@ -277,7 +273,6 @@ class AdVideo(
         quick_promotion = 'QUICK_PROMOTION'
         replace_video = 'REPLACE_VIDEO'
         sales_client_interaction = 'SALES_CLIENT_INTERACTION'
-        say_thanks_deprecated = 'SAY_THANKS_DEPRECATED'
         showreel_native_dummy_video = 'SHOWREEL_NATIVE_DUMMY_VIDEO'
         slideshow_animoto = 'SLIDESHOW_ANIMOTO'
         slideshow_shakr = 'SLIDESHOW_SHAKR'
@@ -295,6 +290,7 @@ class AdVideo(
         tarot_digest = 'TAROT_DIGEST'
         temporary_unlisted = 'TEMPORARY_UNLISTED'
         temp_multimedia_post = 'TEMP_MULTIMEDIA_POST'
+        temp_video_copyright_scan = 'TEMP_VIDEO_COPYRIGHT_SCAN'
         unlisted = 'UNLISTED'
         unlisted_horizon = 'UNLISTED_HORIZON'
         unlisted_oculus = 'UNLISTED_OCULUS'
@@ -587,7 +583,7 @@ class AdVideo(
             self.assure_call()
             return request.execute()
 
-    def create_caption(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def create_cap_t_i_on(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')

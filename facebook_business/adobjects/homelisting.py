@@ -79,6 +79,7 @@ class HomeListing(
         price = 'price'
         property_type = 'property_type'
         sanitized_images = 'sanitized_images'
+        tags = 'tags'
         unit_price = 'unit_price'
         url = 'url'
         visibility = 'visibility'
@@ -359,6 +360,7 @@ class HomeListing(
         'price': 'string',
         'property_type': 'string',
         'sanitized_images': 'list<string>',
+        'tags': 'list<string>',
         'unit_price': 'Object',
         'url': 'string',
         'visibility': 'Visibility',

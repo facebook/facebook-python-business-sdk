@@ -26,6 +26,10 @@ class RegionalRegulationIdentities(
     class Field(AbstractObject.Field):
         australia_finserv_beneficiary = 'australia_finserv_beneficiary'
         australia_finserv_payer = 'australia_finserv_payer'
+        india_finserv_beneficiary = 'india_finserv_beneficiary'
+        india_finserv_payer = 'india_finserv_payer'
+        singapore_universal_beneficiary = 'singapore_universal_beneficiary'
+        singapore_universal_payer = 'singapore_universal_payer'
         taiwan_finserv_beneficiary = 'taiwan_finserv_beneficiary'
         taiwan_finserv_payer = 'taiwan_finserv_payer'
         taiwan_universal_beneficiary = 'taiwan_universal_beneficiary'
@@ -34,6 +38,10 @@ class RegionalRegulationIdentities(
     _field_types = {
         'australia_finserv_beneficiary': 'string',
         'australia_finserv_payer': 'string',
+        'india_finserv_beneficiary': 'string',
+        'india_finserv_payer': 'string',
+        'singapore_universal_beneficiary': 'string',
+        'singapore_universal_payer': 'string',
         'taiwan_finserv_beneficiary': 'string',
         'taiwan_finserv_payer': 'string',
         'taiwan_universal_beneficiary': 'string',

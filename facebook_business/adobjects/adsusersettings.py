@@ -38,6 +38,7 @@ class AdsUserSettings(
         aplusc_epa_opt_in_status = 'aplusc_epa_opt_in_status'
         aplusc_local_store_extension_opt_in_status = 'aplusc_local_store_extension_opt_in_status'
         aplusc_opt_out_friction = 'aplusc_opt_out_friction'
+        aplusc_videofilter_opt_in_status = 'aplusc_videofilter_opt_in_status'
         autoflow_lite_opt_in_status = 'autoflow_lite_opt_in_status'
         autoflow_lite_should_opt_in = 'autoflow_lite_should_opt_in'
         blended_ads_creation_defaulting_opt_in_status = 'blended_ads_creation_defaulting_opt_in_status'
@@ -67,6 +68,8 @@ class AdsUserSettings(
         open_tabs = 'open_tabs'
         previously_seen_recommendations = 'previously_seen_recommendations'
         product_extensions_opt_in = 'product_extensions_opt_in'
+        sa_off_conv_loc_seen = 'sa_off_conv_loc_seen'
+        saon_migr_l1_seen_status = 'saon_migr_l1_seen_status'
         selected_ad_account = 'selected_ad_account'
         selected_comparison_timerange = 'selected_comparison_timerange'
         selected_metric_cic = 'selected_metric_cic'
@@ -135,6 +138,7 @@ class AdsUserSettings(
         'aplusc_epa_opt_in_status': 'string',
         'aplusc_local_store_extension_opt_in_status': 'string',
         'aplusc_opt_out_friction': 'list<string>',
+        'aplusc_videofilter_opt_in_status': 'string',
         'autoflow_lite_opt_in_status': 'string',
         'autoflow_lite_should_opt_in': 'bool',
         'blended_ads_creation_defaulting_opt_in_status': 'string',
@@ -164,6 +168,8 @@ class AdsUserSettings(
         'open_tabs': 'list<string>',
         'previously_seen_recommendations': 'list<string>',
         'product_extensions_opt_in': 'string',
+        'sa_off_conv_loc_seen': 'string',
+        'saon_migr_l1_seen_status': 'string',
         'selected_ad_account': 'AdAccount',
         'selected_comparison_timerange': 'Object',
         'selected_metric_cic': 'string',

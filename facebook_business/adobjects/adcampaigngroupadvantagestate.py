@@ -14,28 +14,26 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdCreativeRegionalRegulationDisclaimer(
+class AdCampaignGroupAdvantageState(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(AdCreativeRegionalRegulationDisclaimer, self).__init__()
-        self._isAdCreativeRegionalRegulationDisclaimer = True
+        super(AdCampaignGroupAdvantageState, self).__init__()
+        self._isAdCampaignGroupAdvantageState = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        australia_finserv = 'australia_finserv'
-        india_finserv = 'india_finserv'
-        singapore_universal = 'singapore_universal'
-        taiwan_finserv = 'taiwan_finserv'
-        taiwan_universal = 'taiwan_universal'
+        advantage_audience_state = 'advantage_audience_state'
+        advantage_budget_state = 'advantage_budget_state'
+        advantage_placement_state = 'advantage_placement_state'
+        advantage_state = 'advantage_state'
 
     _field_types = {
-        'australia_finserv': 'Object',
-        'india_finserv': 'Object',
-        'singapore_universal': 'Object',
-        'taiwan_finserv': 'Object',
-        'taiwan_universal': 'Object',
+        'advantage_audience_state': 'string',
+        'advantage_budget_state': 'string',
+        'advantage_placement_state': 'string',
+        'advantage_state': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

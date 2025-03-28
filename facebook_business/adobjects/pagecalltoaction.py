@@ -87,6 +87,7 @@ class PageCallToAction(
         charity_donate = 'CHARITY_DONATE'
         check_in = 'CHECK_IN'
         contact_us = 'CONTACT_US'
+        creator_storefront = 'CREATOR_STOREFRONT'
         donate_now = 'DONATE_NOW'
         email = 'EMAIL'
         follow_page = 'FOLLOW_PAGE'

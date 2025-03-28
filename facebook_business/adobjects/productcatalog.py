@@ -49,6 +49,7 @@ class ProductCatalog(
         user_access_expire_time = 'user_access_expire_time'
         vertical = 'vertical'
         additional_vertical_option = 'additional_vertical_option'
+        business_metadata = 'business_metadata'
         catalog_segment_filter = 'catalog_segment_filter'
         catalog_segment_product_set_id = 'catalog_segment_product_set_id'
         destination_catalog_settings = 'destination_catalog_settings'
@@ -2064,6 +2065,7 @@ class ProductCatalog(
         'user_access_expire_time': 'datetime',
         'vertical': 'string',
         'additional_vertical_option': 'AdditionalVerticalOption',
+        'business_metadata': 'map',
         'catalog_segment_filter': 'Object',
         'catalog_segment_product_set_id': 'string',
         'destination_catalog_settings': 'map',

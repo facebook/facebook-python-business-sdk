@@ -18,24 +18,23 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class InstagramComment(
+class StoreLocation(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isInstagramComment = True
-        super(InstagramComment, self).__init__(fbid, parent_id, api)
+        self._isStoreLocation = True
+        super(StoreLocation, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        comment_type = 'comment_type'
-        created_at = 'created_at'
+        full_address = 'full_address'
+        hours = 'hours'
         id = 'id'
-        ig_comment_id = 'ig_comment_id'
-        instagram_comment_id = 'instagram_comment_id'
-        instagram_user = 'instagram_user'
-        mentioned_instagram_users = 'mentioned_instagram_users'
-        message = 'message'
-        username = 'username'
+        phone_number = 'phone_number'
+        pickup_options = 'pickup_options'
+        price_range = 'price_range'
+        store_code = 'store_code'
+        zip_code = 'zip_code'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -51,39 +50,7 @@ class InstagramComment(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=InstagramComment,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'ad_id': 'string',
-            'hide': 'bool',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=InstagramComment,
+            target_class=StoreLocation,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -100,15 +67,14 @@ class InstagramComment(
             return request.execute()
 
     _field_types = {
-        'comment_type': 'string',
-        'created_at': 'datetime',
+        'full_address': 'string',
+        'hours': 'Object',
         'id': 'string',
-        'ig_comment_id': 'string',
-        'instagram_comment_id': 'string',
-        'instagram_user': 'InstagramUser',
-        'mentioned_instagram_users': 'list<InstagramUser>',
-        'message': 'string',
-        'username': 'string',
+        'phone_number': 'string',
+        'pickup_options': 'list<string>',
+        'price_range': 'string',
+        'store_code': 'string',
+        'zip_code': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

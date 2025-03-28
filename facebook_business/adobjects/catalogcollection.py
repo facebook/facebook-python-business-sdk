@@ -14,28 +14,24 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdCreativeRegionalRegulationDisclaimer(
+class CatalogCollection(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(AdCreativeRegionalRegulationDisclaimer, self).__init__()
-        self._isAdCreativeRegionalRegulationDisclaimer = True
+        super(CatalogCollection, self).__init__()
+        self._isCatalogCollection = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        australia_finserv = 'australia_finserv'
-        india_finserv = 'india_finserv'
-        singapore_universal = 'singapore_universal'
-        taiwan_finserv = 'taiwan_finserv'
-        taiwan_universal = 'taiwan_universal'
+        description = 'description'
+        title = 'title'
+        url = 'url'
 
     _field_types = {
-        'australia_finserv': 'Object',
-        'india_finserv': 'Object',
-        'singapore_universal': 'Object',
-        'taiwan_finserv': 'Object',
-        'taiwan_universal': 'Object',
+        'description': 'string',
+        'title': 'string',
+        'url': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

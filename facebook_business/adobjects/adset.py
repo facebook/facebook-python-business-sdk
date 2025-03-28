@@ -64,6 +64,7 @@ class AdSet(
         full_funnel_exploration_mode = 'full_funnel_exploration_mode'
         id = 'id'
         instagram_user_id = 'instagram_user_id'
+        is_ba_skip_delayed_eligible = 'is_ba_skip_delayed_eligible'
         is_budget_schedule_enabled = 'is_budget_schedule_enabled'
         is_dynamic_creative = 'is_dynamic_creative'
         issues_info = 'issues_info'
@@ -143,6 +144,7 @@ class AdSet(
         with_issues = 'WITH_ISSUES'
 
     class OptimizationGoal:
+        advertiser_siloed_value = 'ADVERTISER_SILOED_VALUE'
         ad_recall_lift = 'AD_RECALL_LIFT'
         app_installs = 'APP_INSTALLS'
         app_installs_and_offsite_conversions = 'APP_INSTALLS_AND_OFFSITE_CONVERSIONS'
@@ -162,6 +164,7 @@ class AdSet(
         offsite_conversions = 'OFFSITE_CONVERSIONS'
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
+        profile_and_page_engagement = 'PROFILE_AND_PAGE_ENGAGEMENT'
         profile_visit = 'PROFILE_VISIT'
         quality_call = 'QUALITY_CALL'
         quality_lead = 'QUALITY_LEAD'
@@ -255,6 +258,7 @@ class AdSet(
         value_2 = '2'
         value_3 = '3'
         value_4 = '4'
+        value_5 = '5'
 
     class TuneForCategory:
         credit = 'CREDIT'
@@ -399,6 +403,7 @@ class AdSet(
             'execution_options': 'list<execution_options_enum>',
             'existing_customer_budget_percentage': 'unsigned int',
             'full_funnel_exploration_mode': 'full_funnel_exploration_mode_enum',
+            'is_ba_skip_delayed_eligible': 'bool',
             'is_sac_cfca_terms_certified': 'bool',
             'lifetime_budget': 'unsigned int',
             'lifetime_imps': 'unsigned int',
@@ -1105,6 +1110,7 @@ class AdSet(
         'full_funnel_exploration_mode': 'string',
         'id': 'string',
         'instagram_user_id': 'string',
+        'is_ba_skip_delayed_eligible': 'bool',
         'is_budget_schedule_enabled': 'bool',
         'is_dynamic_creative': 'bool',
         'issues_info': 'list<AdCampaignIssuesInfo>',

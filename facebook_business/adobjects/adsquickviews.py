@@ -33,6 +33,7 @@ class AdsQuickViews(
         description = 'description'
         id = 'id'
         name = 'name'
+        owner = 'owner'
         permission = 'permission'
         quick_view_type = 'quick_view_type'
         sort = 'sort'
@@ -74,6 +75,7 @@ class AdsQuickViews(
         'description': 'string',
         'id': 'string',
         'name': 'string',
+        'owner': 'Profile',
         'permission': 'string',
         'quick_view_type': 'string',
         'sort': 'list<Object>',

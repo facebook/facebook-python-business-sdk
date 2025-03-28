@@ -32,6 +32,7 @@ class BrandedContentShadowIGMediaID(
         id = 'id'
         owner_id = 'owner_id'
         permalink = 'permalink'
+        recommended_campaign_objectives = 'recommended_campaign_objectives'
 
     _field_types = {
         'eligibility_errors': 'list<string>',
@@ -39,6 +40,7 @@ class BrandedContentShadowIGMediaID(
         'id': 'string',
         'owner_id': 'string',
         'permalink': 'string',
+        'recommended_campaign_objectives': 'list<string>',
     }
     @classmethod
     def _get_field_enum_info(cls):
