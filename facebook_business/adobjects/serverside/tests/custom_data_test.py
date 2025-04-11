@@ -33,6 +33,7 @@ class CustomDataTest(TestCase):
 
         expected = {
             'value': 0.5,
+            'net_revenue': 0.23,
             'currency': 'usd',
             'content_name': 'content-content1',
             'content_category': 'content-category2',
@@ -57,6 +58,7 @@ class CustomDataTest(TestCase):
         }
         custom_data = CustomData(
             value=expected['value'],
+            net_revenue=expected['net_revenue'],
             currency=expected['currency'],
             content_name=expected['content_name'],
             content_category=expected['content_category'],
