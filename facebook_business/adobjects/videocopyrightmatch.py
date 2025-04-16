@@ -34,6 +34,7 @@ class VideoCopyrightMatch(
         match_status = 'match_status'
         notes = 'notes'
         permalink = 'permalink'
+        ugc_content_format = 'ugc_content_format'
 
     class Action:
         block = 'BLOCK'
@@ -95,6 +96,7 @@ class VideoCopyrightMatch(
         'match_status': 'string',
         'notes': 'string',
         'permalink': 'string',
+        'ugc_content_format': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

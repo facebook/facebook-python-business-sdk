@@ -21,19 +21,21 @@
 from unittest import TestCase
 
 from facebook_business.adobjects.serverside.attribution_data import AttributionData
+from facebook_business.adobjects.serverside.attribution_model import AttributionModel
 
 
 class AttributionDataTest(TestCase):
     def test_normalize(self):
         expected = {
-            scope: 'click',
-            visit_time: 12345,
-            ad_id: '123',
-            adset_id: '234',
-            campaign_id: '456',
-            attr_window: 7,
-            attribution_share: 0.5,
-            attribution_model: 'last_click',
+            'scope': 'click',
+            'visit_time': 12345,
+            'ad_id': '123',
+            'adset_id': '234',
+            'campaign_id': '456',
+            'attr_window': 7,
+            'attribution_share': 0.5,
+            'attribution_model': AttributionModel.LAST_CLICK,
+            'attribution_value': 10.5,
         }
         attribution_data = AttributionData(
             scope=expected['scope'],
@@ -44,6 +46,7 @@ class AttributionDataTest(TestCase):
             attr_window=expected['attr_window'],
             attribution_share=expected['attribution_share'],
             attribution_model=expected['attribution_model'],
+            attribution_value=expected['attribution_value'],
         )
 
         self.assertEqual(attribution_data.normalize(), expected)

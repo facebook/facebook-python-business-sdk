@@ -14,22 +14,22 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class ParentCatalogReport(
+class CTXDefaultOptimizationConfig(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(ParentCatalogReport, self).__init__()
-        self._isParentCatalogReport = True
+        super(CTXDefaultOptimizationConfig, self).__init__()
+        self._isCTXDefaultOptimizationConfig = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        purchase_conversion_value = 'purchase_conversion_value'
-        purchases = 'purchases'
+        objective = 'objective'
+        optimization_goal = 'optimization_goal'
 
     _field_types = {
-        'purchase_conversion_value': 'float',
-        'purchases': 'int',
+        'objective': 'string',
+        'optimization_goal': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

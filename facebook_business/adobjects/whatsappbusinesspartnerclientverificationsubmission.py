@@ -46,6 +46,7 @@ class WhatsAppBusinessPartnerClientVerificationSubmission(
 
     class VerificationStatus:
         approved = 'APPROVED'
+        discarded = 'DISCARDED'
         failed = 'FAILED'
         pending = 'PENDING'
         revoked = 'REVOKED'

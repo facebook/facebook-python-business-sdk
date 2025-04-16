@@ -100,6 +100,7 @@ class Event(
         community = 'community'
         friends = 'friends'
         group = 'group'
+        messenger_community = 'messenger_community'
         private = 'private'
         public = 'public'
         work_company = 'work_company'

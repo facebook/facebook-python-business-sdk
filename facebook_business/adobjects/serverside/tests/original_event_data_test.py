@@ -28,10 +28,14 @@ class OriginalEventDataTest(TestCase):
         expected = {
             'event_name': 'event-name-1',
             'event_time': 123456,
+            'order_id': 'order-id-1',
+            'event_id': 'event-id-1',
         }
         original_event_data = OriginalEventData(
             event_name=expected['event_name'],
             event_time=expected['event_time'],
+            order_id=expected['order_id'],
+            event_id=expected['event_id'],
         )
 
         self.assertEqual(original_event_data.normalize(), expected)

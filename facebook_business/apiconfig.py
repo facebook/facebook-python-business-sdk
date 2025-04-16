@@ -8,9 +8,9 @@ from urllib3 import Retry
 
 
 ads_api_config = {
-  'API_VERSION': 'v21.0',
-  'SDK_VERSION': 'v21.0.5',
-  'STRICT_MODE': False,
+  'API_VERSION': 'v22.0',
+  'SDK_VERSION': 'v22.0.4',
+  'STRICT_MODE': False
 
   # Whether to enable a retry strategy on any API calls being made. When set
   # to True, a default strategy is used, which is also configurable in this
@@ -27,7 +27,6 @@ ads_api_config = {
       http_client.GATEWAY_TIMEOUT,
     ],
   }
-
 }
 
 

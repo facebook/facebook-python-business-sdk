@@ -35,6 +35,15 @@ class Vehicle(
         condition = 'condition'
         currency = 'currency'
         custom_label_0 = 'custom_label_0'
+        custom_label_1 = 'custom_label_1'
+        custom_label_2 = 'custom_label_2'
+        custom_label_3 = 'custom_label_3'
+        custom_label_4 = 'custom_label_4'
+        custom_number_0 = 'custom_number_0'
+        custom_number_1 = 'custom_number_1'
+        custom_number_2 = 'custom_number_2'
+        custom_number_3 = 'custom_number_3'
+        custom_number_4 = 'custom_number_4'
         date_first_on_lot = 'date_first_on_lot'
         dealer_communication_channel = 'dealer_communication_channel'
         dealer_email = 'dealer_email'
@@ -68,6 +77,7 @@ class Vehicle(
         sale_price = 'sale_price'
         sanitized_images = 'sanitized_images'
         state_of_vehicle = 'state_of_vehicle'
+        tags = 'tags'
         title = 'title'
         transmission = 'transmission'
         trim = 'trim'
@@ -385,6 +395,15 @@ class Vehicle(
         'condition': 'string',
         'currency': 'string',
         'custom_label_0': 'string',
+        'custom_label_1': 'string',
+        'custom_label_2': 'string',
+        'custom_label_3': 'string',
+        'custom_label_4': 'string',
+        'custom_number_0': 'unsigned int',
+        'custom_number_1': 'unsigned int',
+        'custom_number_2': 'unsigned int',
+        'custom_number_3': 'unsigned int',
+        'custom_number_4': 'unsigned int',
         'date_first_on_lot': 'string',
         'dealer_communication_channel': 'string',
         'dealer_email': 'string',
@@ -418,6 +437,7 @@ class Vehicle(
         'sale_price': 'string',
         'sanitized_images': 'list<string>',
         'state_of_vehicle': 'string',
+        'tags': 'list<string>',
         'title': 'string',
         'transmission': 'string',
         'trim': 'string',

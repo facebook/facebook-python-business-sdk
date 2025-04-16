@@ -425,6 +425,8 @@ class Application(
             'app_user_id': 'string',
             'application_tracking_enabled': 'bool',
             'attribution': 'string',
+            'attribution_referrer': 'string',
+            'attribution_sources': 'list<map>',
             'auto_publish': 'bool',
             'bundle_id': 'string',
             'bundle_short_version': 'string',
@@ -441,13 +443,18 @@ class Application(
             'event': 'event_enum',
             'event_id': 'string',
             'extinfo': 'Object',
+            'google_install_referrer': 'string',
             'include_dwell_data': 'bool',
             'include_video_data': 'bool',
+            'install_id': 'string',
             'install_referrer': 'string',
             'install_timestamp': 'unsigned int',
             'installer_package': 'string',
+            'is_fb': 'bool',
             'limited_data_use': 'bool',
+            'meta_install_referrer': 'string',
             'migration_bundle': 'string',
+            'operational_parameters': 'list<map>',
             'page_id': 'unsigned int',
             'page_scoped_user_id': 'unsigned int',
             'receipt_data': 'string',
@@ -1517,18 +1524,27 @@ class Application(
         param_types = {
             'advertiser_id': 'string',
             'attribution': 'string',
+            'attribution_method': 'string',
             'attribution_model': 'string',
+            'attribution_referrer': 'string',
             'auditing_token': 'string',
             'click_attr_window': 'unsigned int',
             'custom_events': 'list<Object>',
             'decline_reason': 'string',
+            'device_os': 'string',
             'engagement_type': 'string',
             'event': 'string',
+            'event_id': 'string',
             'event_reported_time': 'unsigned int',
             'fb_ad_id': 'unsigned int',
+            'fb_adgroup_id': 'unsigned int',
             'fb_click_time': 'unsigned int',
             'fb_view_time': 'unsigned int',
+            'google_install_referrer': 'string',
+            'inactivity_window_hours': 'unsigned int',
+            'install_id': 'string',
             'is_fb': 'bool',
+            'meta_install_referrer': 'string',
             'used_install_referrer': 'bool',
             'view_attr_window': 'unsigned int',
         }
@@ -1738,37 +1754,6 @@ class Application(
             target_class=AbstractCrudObject,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_payment_currency(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'currency_url': 'string',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/payment_currencies',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=Application,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=Application, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

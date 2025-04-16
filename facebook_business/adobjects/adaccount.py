@@ -71,6 +71,7 @@ class AdAccount(
         id = 'id'
         io_number = 'io_number'
         is_attribution_spec_system_default = 'is_attribution_spec_system_default'
+        is_ba_skip_delayed_eligible = 'is_ba_skip_delayed_eligible'
         is_direct_deals_enabled = 'is_direct_deals_enabled'
         is_in_3ds_authorization_enabled_market = 'is_in_3ds_authorization_enabled_market'
         is_notifications_enabled = 'is_notifications_enabled'
@@ -232,7 +233,6 @@ class AdAccount(
         primary = 'PRIMARY'
         regulated_categories_audience = 'REGULATED_CATEGORIES_AUDIENCE'
         study_rule_audience = 'STUDY_RULE_AUDIENCE'
-        subscriber_segment = 'SUBSCRIBER_SEGMENT'
         video = 'VIDEO'
         website = 'WEBSITE'
 
@@ -289,6 +289,7 @@ class AdAccount(
             'default_dsa_payor': 'string',
             'end_advertiser': 'string',
             'existing_customers': 'list<string>',
+            'is_ba_skip_delayed_eligible': 'bool',
             'is_notifications_enabled': 'bool',
             'media_agency': 'string',
             'name': 'string',
@@ -691,7 +692,6 @@ class AdAccount(
             'image_file': 'string',
             'image_hash': 'string',
             'image_url': 'string',
-            'instagram_actor_id': 'string',
             'instagram_branded_content': 'map',
             'instagram_permalink_url': 'string',
             'instagram_user_id': 'string',
@@ -713,6 +713,7 @@ class AdAccount(
             'portrait_customizations': 'map',
             'product_set_id': 'string',
             'recommender_settings': 'map',
+            'regional_regulation_disclaimer_spec': 'map',
             'source_instagram_media_id': 'string',
             'template_url': 'string',
             'template_url_spec': 'string',
@@ -1418,7 +1419,9 @@ class AdAccount(
             'existing_customer_budget_percentage': 'unsigned int',
             'frequency_control_specs': 'list<Object>',
             'full_funnel_exploration_mode': 'full_funnel_exploration_mode_enum',
+            'is_ba_skip_delayed_eligible': 'bool',
             'is_dynamic_creative': 'bool',
+            'is_sac_cfca_terms_certified': 'bool',
             'lifetime_budget': 'unsigned int',
             'lifetime_imps': 'unsigned int',
             'lifetime_min_spend_target': 'unsigned int',
@@ -3380,6 +3383,37 @@ class AdAccount(
             self.assure_call()
             return request.execute()
 
+    def get_mcme_conversions(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.adsmcmeconversion import AdsMcmeConversion
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/mcmeconversions',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdsMcmeConversion,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdsMcmeConversion, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_minimum_budgets(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -3933,6 +3967,41 @@ class AdAccount(
             self.assure_call()
             return request.execute()
 
+    def get_suggested_product_tags(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.adaccountsuggestedtag import AdAccountSuggestedTag
+        param_types = {
+            'image_hash': 'string',
+            'instagram_actor_id': 'string',
+            'is_shops_ad': 'bool',
+            'page_id': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/suggested_product_tags',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdAccountSuggestedTag,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdAccountSuggestedTag, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_targeting_browse(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -4309,12 +4378,49 @@ class AdAccount(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.adsvalueadjustmentrulecollection import AdsValueAdjustmentRuleCollection
         param_types = {
+            'product_type': 'product_type_enum',
         }
         enums = {
+            'product_type_enum': AdsValueAdjustmentRuleCollection.ProductType.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
             method='GET',
+            endpoint='/value_rule_set',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdsValueAdjustmentRuleCollection,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdsValueAdjustmentRuleCollection, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_value_rule_set(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.adsvalueadjustmentrulecollection import AdsValueAdjustmentRuleCollection
+        param_types = {
+            'name': 'string',
+            'product_type': 'product_type_enum',
+            'rules': 'list<map>',
+        }
+        enums = {
+            'product_type_enum': AdsValueAdjustmentRuleCollection.ProductType.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
             endpoint='/value_rule_set',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
@@ -4348,6 +4454,45 @@ class AdAccount(
         request = FacebookRequest(
             node_id=self['id'],
             method='GET',
+            endpoint='/video_ads',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdVideo,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdVideo, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_video_ad(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.advideo import AdVideo
+        param_types = {
+            'description': 'string',
+            'privacy': 'string',
+            'title': 'string',
+            'upload_phase': 'upload_phase_enum',
+            'video_id': 'string',
+            'video_state': 'video_state_enum',
+        }
+        enums = {
+            'upload_phase_enum': AdVideo.UploadPhase.__dict__.values(),
+            'video_state_enum': AdVideo.VideoState.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
             endpoint='/video_ads',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
@@ -4408,6 +4553,7 @@ class AdAccount(
         'id': 'string',
         'io_number': 'string',
         'is_attribution_spec_system_default': 'bool',
+        'is_ba_skip_delayed_eligible': 'bool',
         'is_direct_deals_enabled': 'bool',
         'is_in_3ds_authorization_enabled_market': 'bool',
         'is_notifications_enabled': 'bool',

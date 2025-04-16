@@ -34,6 +34,7 @@ class CopyrightReferenceContainer(
         id = 'id'
         iswc = 'iswc'
         metadata = 'metadata'
+        playable_video_uri = 'playable_video_uri'
         published_time = 'published_time'
         thumbnail_url = 'thumbnail_url'
         title = 'title'
@@ -48,6 +49,7 @@ class CopyrightReferenceContainer(
         'id': 'string',
         'iswc': 'string',
         'metadata': 'Object',
+        'playable_video_uri': 'string',
         'published_time': 'datetime',
         'thumbnail_url': 'string',
         'title': 'string',

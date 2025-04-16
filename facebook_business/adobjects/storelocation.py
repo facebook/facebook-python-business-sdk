@@ -18,26 +18,23 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class VideoMetricsReport(
+class StoreLocation(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isVideoMetricsReport = True
-        super(VideoMetricsReport, self).__init__(fbid, parent_id, api)
+        self._isStoreLocation = True
+        super(StoreLocation, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        checksum = 'checksum'
-        chunks = 'chunks'
-        end_date = 'end_date'
+        full_address = 'full_address'
+        hours = 'hours'
         id = 'id'
-        index = 'index'
-        name = 'name'
-        platform = 'platform'
-        start_date = 'start_date'
-        type = 'type'
-        upload_date = 'upload_date'
-        url = 'url'
+        phone_number = 'phone_number'
+        pickup_options = 'pickup_options'
+        price_range = 'price_range'
+        store_code = 'store_code'
+        zip_code = 'zip_code'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -53,7 +50,7 @@ class VideoMetricsReport(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=VideoMetricsReport,
+            target_class=StoreLocation,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -70,17 +67,14 @@ class VideoMetricsReport(
             return request.execute()
 
     _field_types = {
-        'checksum': 'string',
-        'chunks': 'int',
-        'end_date': 'datetime',
+        'full_address': 'string',
+        'hours': 'Object',
         'id': 'string',
-        'index': 'int',
-        'name': 'string',
-        'platform': 'string',
-        'start_date': 'datetime',
-        'type': 'string',
-        'upload_date': 'datetime',
-        'url': 'string',
+        'phone_number': 'string',
+        'pickup_options': 'list<string>',
+        'price_range': 'string',
+        'store_code': 'string',
+        'zip_code': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

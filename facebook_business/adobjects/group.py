@@ -871,6 +871,7 @@ class Group(
             'place': 'Object',
             'privacy': 'string',
             'profile_id': 'int',
+            'provenance_info': 'map',
             'proxied_app_id': 'string',
             'published': 'bool',
             'qn': 'string',

@@ -31,8 +31,10 @@ class IGUser(
         business_discovery = 'business_discovery'
         followers_count = 'followers_count'
         follows_count = 'follows_count'
+        has_profile_pic = 'has_profile_pic'
         id = 'id'
         ig_id = 'ig_id'
+        is_published = 'is_published'
         legacy_instagram_user_id = 'legacy_instagram_user_id'
         media_count = 'media_count'
         mentioned_comment = 'mentioned_comment'
@@ -63,6 +65,101 @@ class IGUser(
             target_class=IGUser,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_agencies(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.business import Business
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/agencies',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Business,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Business, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_authorized_ad_accounts(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.adaccount import AdAccount
+        param_types = {
+            'business': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/authorized_adaccounts',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdAccount,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdAccount, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_authorized_ad_account(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'account_id': 'string',
+            'business': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/authorized_adaccounts',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=IGUser,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=IGUser, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -181,6 +278,7 @@ class IGUser(
             'ad_code': 'string',
             'creator_username': 'string',
             'only_fetch_allowlisted': 'bool',
+            'only_fetch_recommended_content': 'bool',
             'permalinks': 'list<string>',
         }
         enums = {
@@ -335,6 +433,37 @@ class IGUser(
             self.assure_call()
             return request.execute()
 
+    def get_connected_threads_user(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.threadsuser import ThreadsUser
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/connected_threads_user',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ThreadsUser,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ThreadsUser, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_content_publishing_limit(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -476,6 +605,68 @@ class IGUser(
             self.assure_call()
             return request.execute()
 
+    def get_instagram_backed_threads_user(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.threadsuser import ThreadsUser
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/instagram_backed_threads_user',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ThreadsUser,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ThreadsUser, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_instagram_backed_threads_user(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.threadsuser import ThreadsUser
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/instagram_backed_threads_user',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ThreadsUser,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ThreadsUser, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_live_media(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -548,6 +739,7 @@ class IGUser(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.igmedia import IGMedia
         param_types = {
+            'alt_text': 'string',
             'audio_name': 'string',
             'caption': 'string',
             'children': 'list<string>',
@@ -842,6 +1034,37 @@ class IGUser(
             self.assure_call()
             return request.execute()
 
+    def get_upcoming_events(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.igupcomingevent import IGUpcomingEvent
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/upcoming_events',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=IGUpcomingEvent,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=IGUpcomingEvent, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def create_upcoming_event(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -896,8 +1119,10 @@ class IGUser(
         'business_discovery': 'IGUser',
         'followers_count': 'int',
         'follows_count': 'int',
+        'has_profile_pic': 'bool',
         'id': 'string',
         'ig_id': 'int',
+        'is_published': 'bool',
         'legacy_instagram_user_id': 'string',
         'media_count': 'int',
         'mentioned_comment': 'IGComment',

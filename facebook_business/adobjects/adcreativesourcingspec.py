@@ -25,6 +25,7 @@ class AdCreativeSourcingSpec(
 
     class Field(AbstractObject.Field):
         associated_product_set_id = 'associated_product_set_id'
+        brand = 'brand'
         enable_social_feedback_preservation = 'enable_social_feedback_preservation'
         promotion_metadata_spec = 'promotion_metadata_spec'
         site_links_spec = 'site_links_spec'
@@ -32,6 +33,7 @@ class AdCreativeSourcingSpec(
 
     _field_types = {
         'associated_product_set_id': 'string',
+        'brand': 'Object',
         'enable_social_feedback_preservation': 'bool',
         'promotion_metadata_spec': 'list<AdCreativePromotionMetadataSpec>',
         'site_links_spec': 'list<AdCreativeSiteLinksSpec>',

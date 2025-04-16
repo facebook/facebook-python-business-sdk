@@ -29,11 +29,14 @@ class AdAccountUserSettings(
     class Field(AbstractObject.Field):
         acf_should_opt_out_video_adjustments = 'acf_should_opt_out_video_adjustments'
         aco_sticky_settings = 'aco_sticky_settings'
+        actions_quick_view_created = 'actions_quick_view_created'
+        active_ads_quick_view_created = 'active_ads_quick_view_created'
         ad_account = 'ad_account'
         ad_object_export_format = 'ad_object_export_format'
         auto_review_video_caption = 'auto_review_video_caption'
         campaign_overview_columns = 'campaign_overview_columns'
         column_suggestion_status = 'column_suggestion_status'
+        conditional_formatting_rules = 'conditional_formatting_rules'
         default_account_overview_agegender_metrics = 'default_account_overview_agegender_metrics'
         default_account_overview_location_metrics = 'default_account_overview_location_metrics'
         default_account_overview_metrics = 'default_account_overview_metrics'
@@ -43,6 +46,7 @@ class AdAccountUserSettings(
         draft_mode_enabled = 'draft_mode_enabled'
         export_deleted_items_with_delivery = 'export_deleted_items_with_delivery'
         export_summary_row = 'export_summary_row'
+        had_delivery_quick_view_created = 'had_delivery_quick_view_created'
         has_seen_groups_column_flexing_experience = 'has_seen_groups_column_flexing_experience'
         has_seen_instagram_column_flexing_experience = 'has_seen_instagram_column_flexing_experience'
         has_seen_leads_column_flexing_experience = 'has_seen_leads_column_flexing_experience'
@@ -51,6 +55,8 @@ class AdAccountUserSettings(
         hidden_optimization_tips = 'hidden_optimization_tips'
         id = 'id'
         is_3p_auth_setting_set = 'is_3p_auth_setting_set'
+        is_ads_manager_footer_row_preference_set = 'is_ads_manager_footer_row_preference_set'
+        is_ads_manager_footer_row_shown = 'is_ads_manager_footer_row_shown'
         is_text_variation_nux_close = 'is_text_variation_nux_close'
         last_used_columns = 'last_used_columns'
         last_used_pe_filters = 'last_used_pe_filters'
@@ -140,11 +146,14 @@ class AdAccountUserSettings(
     _field_types = {
         'acf_should_opt_out_video_adjustments': 'bool',
         'aco_sticky_settings': 'list<map<string, string>>',
+        'actions_quick_view_created': 'bool',
+        'active_ads_quick_view_created': 'bool',
         'ad_account': 'AdAccount',
         'ad_object_export_format': 'string',
         'auto_review_video_caption': 'bool',
         'campaign_overview_columns': 'list<string>',
         'column_suggestion_status': 'string',
+        'conditional_formatting_rules': 'list<string>',
         'default_account_overview_agegender_metrics': 'list<string>',
         'default_account_overview_location_metrics': 'list<string>',
         'default_account_overview_metrics': 'list<string>',
@@ -154,6 +163,7 @@ class AdAccountUserSettings(
         'draft_mode_enabled': 'bool',
         'export_deleted_items_with_delivery': 'bool',
         'export_summary_row': 'bool',
+        'had_delivery_quick_view_created': 'bool',
         'has_seen_groups_column_flexing_experience': 'bool',
         'has_seen_instagram_column_flexing_experience': 'bool',
         'has_seen_leads_column_flexing_experience': 'bool',
@@ -162,6 +172,8 @@ class AdAccountUserSettings(
         'hidden_optimization_tips': 'list<map<string, bool>>',
         'id': 'string',
         'is_3p_auth_setting_set': 'bool',
+        'is_ads_manager_footer_row_preference_set': 'bool',
+        'is_ads_manager_footer_row_shown': 'bool',
         'is_text_variation_nux_close': 'bool',
         'last_used_columns': 'Object',
         'last_used_pe_filters': 'list<Object>',

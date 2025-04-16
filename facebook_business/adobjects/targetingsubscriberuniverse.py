@@ -14,22 +14,24 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class InstagramBoostableMediaForAccessToken(
+class TargetingSubscriberUniverse(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(InstagramBoostableMediaForAccessToken, self).__init__()
-        self._isInstagramBoostableMediaForAccessToken = True
+        super(TargetingSubscriberUniverse, self).__init__()
+        self._isTargetingSubscriberUniverse = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        has_product_tags = 'has_product_tags'
-        media = 'media'
+        messenger_subscriber_source = 'messenger_subscriber_source'
+        whatsapp_subscriber_pool = 'whatsapp_subscriber_pool'
+        whatsapp_subscriber_source = 'whatsapp_subscriber_source'
 
     _field_types = {
-        'has_product_tags': 'bool',
-        'media': 'IGMedia',
+        'messenger_subscriber_source': 'IDName',
+        'whatsapp_subscriber_pool': 'IDName',
+        'whatsapp_subscriber_source': 'IDName',
     }
     @classmethod
     def _get_field_enum_info(cls):

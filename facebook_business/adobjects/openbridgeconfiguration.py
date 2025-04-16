@@ -33,10 +33,8 @@ class OpenBridgeConfiguration(
         destination_id = 'destination_id'
         endpoint = 'endpoint'
         fallback_domain = 'fallback_domain'
-        fallback_domain_enabled = 'fallback_domain_enabled'
         first_party_domain = 'first_party_domain'
         host_business_id = 'host_business_id'
-        host_external_id = 'host_external_id'
         id = 'id'
         instance_id = 'instance_id'
         instance_version = 'instance_version'
@@ -125,10 +123,8 @@ class OpenBridgeConfiguration(
             'destination_id': 'string',
             'endpoint': 'string',
             'fallback_domain': 'string',
-            'fallback_domain_enabled': 'bool',
             'first_party_domain': 'string',
             'host_business_id': 'unsigned int',
-            'host_external_id': 'string',
             'instance_id': 'string',
             'instance_version': 'string',
             'is_sgw_instance': 'bool',
@@ -165,10 +161,8 @@ class OpenBridgeConfiguration(
         'destination_id': 'string',
         'endpoint': 'string',
         'fallback_domain': 'string',
-        'fallback_domain_enabled': 'bool',
         'first_party_domain': 'string',
         'host_business_id': 'string',
-        'host_external_id': 'string',
         'id': 'string',
         'instance_id': 'string',
         'instance_version': 'string',

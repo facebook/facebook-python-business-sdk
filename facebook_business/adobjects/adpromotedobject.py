@@ -32,7 +32,10 @@ class AdPromotedObject(
         custom_event_type = 'custom_event_type'
         event_id = 'event_id'
         fundraiser_campaign_id = 'fundraiser_campaign_id'
+        lead_ads_custom_event_str = 'lead_ads_custom_event_str'
+        lead_ads_custom_event_type = 'lead_ads_custom_event_type'
         lead_ads_form_event_source_type = 'lead_ads_form_event_source_type'
+        lead_ads_offsite_conversion_type = 'lead_ads_offsite_conversion_type'
         mcme_conversion_id = 'mcme_conversion_id'
         object_store_url = 'object_store_url'
         offer_id = 'offer_id'
@@ -85,6 +88,37 @@ class AdPromotedObject(
         subscribe = 'SUBSCRIBE'
         tutorial_completion = 'TUTORIAL_COMPLETION'
 
+    class LeadAdsCustomEventType:
+        achievement_unlocked = 'ACHIEVEMENT_UNLOCKED'
+        add_payment_info = 'ADD_PAYMENT_INFO'
+        add_to_cart = 'ADD_TO_CART'
+        add_to_wishlist = 'ADD_TO_WISHLIST'
+        ad_impression = 'AD_IMPRESSION'
+        complete_registration = 'COMPLETE_REGISTRATION'
+        contact = 'CONTACT'
+        content_view = 'CONTENT_VIEW'
+        customize_product = 'CUSTOMIZE_PRODUCT'
+        d2_retention = 'D2_RETENTION'
+        d7_retention = 'D7_RETENTION'
+        donate = 'DONATE'
+        find_location = 'FIND_LOCATION'
+        initiated_checkout = 'INITIATED_CHECKOUT'
+        lead = 'LEAD'
+        level_achieved = 'LEVEL_ACHIEVED'
+        listing_interaction = 'LISTING_INTERACTION'
+        messaging_conversation_started_7d = 'MESSAGING_CONVERSATION_STARTED_7D'
+        other = 'OTHER'
+        purchase = 'PURCHASE'
+        rate = 'RATE'
+        schedule = 'SCHEDULE'
+        search = 'SEARCH'
+        service_booking_request = 'SERVICE_BOOKING_REQUEST'
+        spent_credits = 'SPENT_CREDITS'
+        start_trial = 'START_TRIAL'
+        submit_application = 'SUBMIT_APPLICATION'
+        subscribe = 'SUBSCRIBE'
+        tutorial_completion = 'TUTORIAL_COMPLETION'
+
     _field_types = {
         'application_id': 'string',
         'boosted_product_set_id': 'string',
@@ -94,7 +128,10 @@ class AdPromotedObject(
         'custom_event_type': 'CustomEventType',
         'event_id': 'string',
         'fundraiser_campaign_id': 'string',
+        'lead_ads_custom_event_str': 'string',
+        'lead_ads_custom_event_type': 'LeadAdsCustomEventType',
         'lead_ads_form_event_source_type': 'string',
+        'lead_ads_offsite_conversion_type': 'string',
         'mcme_conversion_id': 'string',
         'object_store_url': 'string',
         'offer_id': 'string',
@@ -120,6 +157,7 @@ class AdPromotedObject(
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['CustomEventType'] = AdPromotedObject.CustomEventType.__dict__.values()
+        field_enum_info['LeadAdsCustomEventType'] = AdPromotedObject.LeadAdsCustomEventType.__dict__.values()
         return field_enum_info
 
 

@@ -44,6 +44,7 @@ class InsightsResult(
     class Metric:
         clips_replays_count = 'clips_replays_count'
         comments = 'comments'
+        content_views = 'content_views'
         follows = 'follows'
         ig_reels_aggregated_all_plays_count = 'ig_reels_aggregated_all_plays_count'
         ig_reels_avg_watch_time = 'ig_reels_avg_watch_time'
@@ -63,6 +64,7 @@ class InsightsResult(
         shares = 'shares'
         thread_replies = 'thread_replies'
         thread_shares = 'thread_shares'
+        threads_views = 'threads_views'
         total_interactions = 'total_interactions'
         video_views = 'video_views'
         views = 'views'
@@ -97,6 +99,19 @@ class InsightsResult(
         today = 'today'
         yesterday = 'yesterday'
 
+    class MetricType:
+        value_default = 'default'
+        time_series = 'time_series'
+        total_value = 'total_value'
+
+    class Timeframe:
+        last_14_days = 'last_14_days'
+        last_30_days = 'last_30_days'
+        last_90_days = 'last_90_days'
+        prev_month = 'prev_month'
+        this_month = 'this_month'
+        this_week = 'this_week'
+
     _field_types = {
         'description': 'string',
         'description_from_api_doc': 'string',
@@ -113,6 +128,8 @@ class InsightsResult(
         field_enum_info['Metric'] = InsightsResult.Metric.__dict__.values()
         field_enum_info['Period'] = InsightsResult.Period.__dict__.values()
         field_enum_info['DatePreset'] = InsightsResult.DatePreset.__dict__.values()
+        field_enum_info['MetricType'] = InsightsResult.MetricType.__dict__.values()
+        field_enum_info['Timeframe'] = InsightsResult.Timeframe.__dict__.values()
         return field_enum_info
 
 

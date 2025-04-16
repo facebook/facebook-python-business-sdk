@@ -31,6 +31,7 @@ class CustomData(object):
     """
     param_types = {
         'value': 'float',
+        'net_revenue': 'float',
         'currency': 'str',
         'content_name': 'str',
         'content_category': 'str',
@@ -50,6 +51,7 @@ class CustomData(object):
     def __init__(
         self,
         value=None,
+        net_revenue=None,
         currency=None,
         content_name=None,
         content_category=None,
@@ -65,9 +67,10 @@ class CustomData(object):
         item_number=None,
         custom_properties={},
     ):
-        # type: (float, str, str, str, List[str], List[Content], str, str, float, int, str, str, DeliveryCategory ,str, dict) -> None
+        # type: (float, float, str, str, str, list[str], list[Content], str, str, float, int, str, str, DeliveryCategory ,str, dict) -> None
 
         self._value = None
+        self._net_revenue = None
         self._currency = None
         self._content_name = None
         self._content_category = None
@@ -84,6 +87,8 @@ class CustomData(object):
         self._custom_properties = None
         if value is not None:
             self.value = value
+        if net_revenue is not None:
+            self.net_revenue = net_revenue
         if currency is not None:
             self.currency = currency
         if content_name is not None:
@@ -136,6 +141,30 @@ class CustomData(object):
         if not isinstance(value, (float, int)):
             raise TypeError('CustomData.value must be a float or int. TypeError on value: %s' % value)
         self._value = value
+
+    @property
+    def net_revenue(self):
+        """Gets the net_revenue.
+
+        A numeric net revenue associated with this event.
+
+        :return: The net_revenue.
+        :rtype: float or int
+        """
+        return self._net_revenue
+
+    @net_revenue.setter
+    def net_revenue(self, net_revenue):
+        """Sets the net_revenue.
+
+        A numeric net revenue associated with this event.
+
+        :param net_revenue: The net_revenue.
+        :type: float or int
+        """
+        if not isinstance(net_revenue, (float, int)):
+            raise TypeError('CustomData.net_revenue must be a float or int. TypeError on value: %s' % net_revenue)
+        self._net_revenue = net_revenue
 
     @property
     def currency(self):
@@ -475,6 +504,7 @@ class CustomData(object):
     def normalize(self):
         normalized_payload = {
             'value': self.value,
+            'net_revenue': self.net_revenue,
             'currency': Normalize.normalize_field_skip_hashing('currency', self.currency),
             'content_name': self.content_name,
             'content_category': self.content_category,

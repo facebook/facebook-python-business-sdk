@@ -25,10 +25,12 @@ class InsightsValue(
 
     class Field(AbstractObject.Field):
         campaign_id = 'campaign_id'
+        earning_source = 'earning_source'
         end_time = 'end_time'
         engagement_source = 'engagement_source'
         message_type = 'message_type'
         messaging_channel = 'messaging_channel'
+        monetization_tool = 'monetization_tool'
         recurring_notifications_entry_point = 'recurring_notifications_entry_point'
         recurring_notifications_frequency = 'recurring_notifications_frequency'
         recurring_notifications_topic = 'recurring_notifications_topic'
@@ -37,10 +39,12 @@ class InsightsValue(
 
     _field_types = {
         'campaign_id': 'string',
+        'earning_source': 'string',
         'end_time': 'datetime',
         'engagement_source': 'string',
         'message_type': 'string',
         'messaging_channel': 'string',
+        'monetization_tool': 'string',
         'recurring_notifications_entry_point': 'string',
         'recurring_notifications_frequency': 'string',
         'recurring_notifications_topic': 'string',

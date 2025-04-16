@@ -29,6 +29,7 @@ class AdRuleExecutionSpec(
     class Field(AbstractObject.Field):
         execution_options = 'execution_options'
         execution_type = 'execution_type'
+        is_once_off = 'is_once_off'
         id = 'id'
 
     class ExecutionType:
@@ -85,6 +86,7 @@ class AdRuleExecutionSpec(
     _field_types = {
         'execution_options': 'list<AdRuleExecutionOptions>',
         'execution_type': 'ExecutionType',
+        'is_once_off': 'bool',
         'id': 'string',
     }
     @classmethod

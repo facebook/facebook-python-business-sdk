@@ -18,18 +18,22 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class Domain(
+class AdsMcmeConversion(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isDomain = True
-        super(Domain, self).__init__(fbid, parent_id, api)
+        self._isAdsMcmeConversion = True
+        super(AdsMcmeConversion, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        creation_time = 'creation_time'
+        description = 'description'
         id = 'id'
+        is_archived = 'is_archived'
+        mcme_conversion_type = 'mcme_conversion_type'
         name = 'name'
-        url = 'url'
+        omnichannel_object_id = 'omnichannel_object_id'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -45,7 +49,7 @@ class Domain(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=Domain,
+            target_class=AdsMcmeConversion,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -62,9 +66,13 @@ class Domain(
             return request.execute()
 
     _field_types = {
+        'creation_time': 'datetime',
+        'description': 'string',
         'id': 'string',
+        'is_archived': 'bool',
+        'mcme_conversion_type': 'string',
         'name': 'string',
-        'url': 'string',
+        'omnichannel_object_id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

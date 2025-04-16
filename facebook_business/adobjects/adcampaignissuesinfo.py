@@ -29,6 +29,7 @@ class AdCampaignIssuesInfo(
         error_summary = 'error_summary'
         error_type = 'error_type'
         level = 'level'
+        mid = 'mid'
 
     _field_types = {
         'error_code': 'int',
@@ -36,6 +37,7 @@ class AdCampaignIssuesInfo(
         'error_summary': 'string',
         'error_type': 'string',
         'level': 'string',
+        'mid': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

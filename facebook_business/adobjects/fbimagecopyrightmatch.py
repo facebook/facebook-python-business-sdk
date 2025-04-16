@@ -32,6 +32,7 @@ class FBImageCopyrightMatch(
         audit_log = 'audit_log'
         available_ui_actions = 'available_ui_actions'
         expiration_days = 'expiration_days'
+        generic_match_data = 'generic_match_data'
         id = 'id'
         is_business_page_match = 'is_business_page_match'
         last_modified_time = 'last_modified_time'
@@ -77,6 +78,7 @@ class FBImageCopyrightMatch(
         'audit_log': 'list<Object>',
         'available_ui_actions': 'list<string>',
         'expiration_days': 'int',
+        'generic_match_data': 'list<Object>',
         'id': 'string',
         'is_business_page_match': 'bool',
         'last_modified_time': 'datetime',

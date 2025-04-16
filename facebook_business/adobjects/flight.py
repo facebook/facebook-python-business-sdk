@@ -30,6 +30,16 @@ class Flight(
         applinks = 'applinks'
         category_specific_fields = 'category_specific_fields'
         currency = 'currency'
+        custom_label_0 = 'custom_label_0'
+        custom_label_1 = 'custom_label_1'
+        custom_label_2 = 'custom_label_2'
+        custom_label_3 = 'custom_label_3'
+        custom_label_4 = 'custom_label_4'
+        custom_number_0 = 'custom_number_0'
+        custom_number_1 = 'custom_number_1'
+        custom_number_2 = 'custom_number_2'
+        custom_number_3 = 'custom_number_3'
+        custom_number_4 = 'custom_number_4'
         description = 'description'
         destination_airport = 'destination_airport'
         destination_city = 'destination_city'
@@ -42,6 +52,11 @@ class Flight(
         origin_airport = 'origin_airport'
         origin_city = 'origin_city'
         price = 'price'
+        product_priority_0 = 'product_priority_0'
+        product_priority_1 = 'product_priority_1'
+        product_priority_2 = 'product_priority_2'
+        product_priority_3 = 'product_priority_3'
+        product_priority_4 = 'product_priority_4'
         sanitized_images = 'sanitized_images'
         tags = 'tags'
         unit_price = 'unit_price'
@@ -229,6 +244,16 @@ class Flight(
         'applinks': 'CatalogItemAppLinks',
         'category_specific_fields': 'CatalogSubVerticalList',
         'currency': 'string',
+        'custom_label_0': 'string',
+        'custom_label_1': 'string',
+        'custom_label_2': 'string',
+        'custom_label_3': 'string',
+        'custom_label_4': 'string',
+        'custom_number_0': 'unsigned int',
+        'custom_number_1': 'unsigned int',
+        'custom_number_2': 'unsigned int',
+        'custom_number_3': 'unsigned int',
+        'custom_number_4': 'unsigned int',
         'description': 'string',
         'destination_airport': 'string',
         'destination_city': 'string',
@@ -241,6 +266,11 @@ class Flight(
         'origin_airport': 'string',
         'origin_city': 'string',
         'price': 'string',
+        'product_priority_0': 'float',
+        'product_priority_1': 'float',
+        'product_priority_2': 'float',
+        'product_priority_3': 'float',
+        'product_priority_4': 'float',
         'sanitized_images': 'list<string>',
         'tags': 'list<string>',
         'unit_price': 'Object',

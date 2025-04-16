@@ -63,7 +63,8 @@ class AdSet(
         frequency_control_specs = 'frequency_control_specs'
         full_funnel_exploration_mode = 'full_funnel_exploration_mode'
         id = 'id'
-        instagram_actor_id = 'instagram_actor_id'
+        instagram_user_id = 'instagram_user_id'
+        is_ba_skip_delayed_eligible = 'is_ba_skip_delayed_eligible'
         is_budget_schedule_enabled = 'is_budget_schedule_enabled'
         is_dynamic_creative = 'is_dynamic_creative'
         issues_info = 'issues_info'
@@ -100,6 +101,7 @@ class AdSet(
         daily_imps = 'daily_imps'
         date_format = 'date_format'
         execution_options = 'execution_options'
+        is_sac_cfca_terms_certified = 'is_sac_cfca_terms_certified'
         line_number = 'line_number'
         rb_prediction_id = 'rb_prediction_id'
         time_start = 'time_start'
@@ -142,6 +144,7 @@ class AdSet(
         with_issues = 'WITH_ISSUES'
 
     class OptimizationGoal:
+        advertiser_siloed_value = 'ADVERTISER_SILOED_VALUE'
         ad_recall_lift = 'AD_RECALL_LIFT'
         app_installs = 'APP_INSTALLS'
         app_installs_and_offsite_conversions = 'APP_INSTALLS_AND_OFFSITE_CONVERSIONS'
@@ -161,6 +164,7 @@ class AdSet(
         offsite_conversions = 'OFFSITE_CONVERSIONS'
         page_likes = 'PAGE_LIKES'
         post_engagement = 'POST_ENGAGEMENT'
+        profile_and_page_engagement = 'PROFILE_AND_PAGE_ENGAGEMENT'
         profile_visit = 'PROFILE_VISIT'
         quality_call = 'QUALITY_CALL'
         quality_lead = 'QUALITY_LEAD'
@@ -253,6 +257,8 @@ class AdSet(
         value_1 = '1'
         value_2 = '2'
         value_3 = '3'
+        value_4 = '4'
+        value_5 = '5'
 
     class TuneForCategory:
         credit = 'CREDIT'
@@ -397,6 +403,8 @@ class AdSet(
             'execution_options': 'list<execution_options_enum>',
             'existing_customer_budget_percentage': 'unsigned int',
             'full_funnel_exploration_mode': 'full_funnel_exploration_mode_enum',
+            'is_ba_skip_delayed_eligible': 'bool',
+            'is_sac_cfca_terms_certified': 'bool',
             'lifetime_budget': 'unsigned int',
             'lifetime_imps': 'unsigned int',
             'lifetime_min_spend_target': 'unsigned int',
@@ -1101,7 +1109,8 @@ class AdSet(
         'frequency_control_specs': 'list<AdCampaignFrequencyControlSpecs>',
         'full_funnel_exploration_mode': 'string',
         'id': 'string',
-        'instagram_actor_id': 'string',
+        'instagram_user_id': 'string',
+        'is_ba_skip_delayed_eligible': 'bool',
         'is_budget_schedule_enabled': 'bool',
         'is_dynamic_creative': 'bool',
         'issues_info': 'list<AdCampaignIssuesInfo>',
@@ -1138,6 +1147,7 @@ class AdSet(
         'daily_imps': 'unsigned int',
         'date_format': 'string',
         'execution_options': 'list<ExecutionOptions>',
+        'is_sac_cfca_terms_certified': 'bool',
         'line_number': 'unsigned int',
         'rb_prediction_id': 'string',
         'time_start': 'datetime',

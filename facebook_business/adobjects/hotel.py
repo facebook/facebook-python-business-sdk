@@ -33,6 +33,16 @@ class Hotel(
         category = 'category'
         category_specific_fields = 'category_specific_fields'
         currency = 'currency'
+        custom_label_0 = 'custom_label_0'
+        custom_label_1 = 'custom_label_1'
+        custom_label_2 = 'custom_label_2'
+        custom_label_3 = 'custom_label_3'
+        custom_label_4 = 'custom_label_4'
+        custom_number_0 = 'custom_number_0'
+        custom_number_1 = 'custom_number_1'
+        custom_number_2 = 'custom_number_2'
+        custom_number_3 = 'custom_number_3'
+        custom_number_4 = 'custom_number_4'
         description = 'description'
         guest_ratings = 'guest_ratings'
         hotel_id = 'hotel_id'
@@ -316,6 +326,16 @@ class Hotel(
         'category': 'string',
         'category_specific_fields': 'CatalogSubVerticalList',
         'currency': 'string',
+        'custom_label_0': 'string',
+        'custom_label_1': 'string',
+        'custom_label_2': 'string',
+        'custom_label_3': 'string',
+        'custom_label_4': 'string',
+        'custom_number_0': 'int',
+        'custom_number_1': 'int',
+        'custom_number_2': 'int',
+        'custom_number_3': 'int',
+        'custom_number_4': 'int',
         'description': 'string',
         'guest_ratings': 'string',
         'hotel_id': 'string',

@@ -38,6 +38,16 @@ class VehicleOffer(
         cashback_price = 'cashback_price'
         category_specific_fields = 'category_specific_fields'
         currency = 'currency'
+        custom_label_0 = 'custom_label_0'
+        custom_label_1 = 'custom_label_1'
+        custom_label_2 = 'custom_label_2'
+        custom_label_3 = 'custom_label_3'
+        custom_label_4 = 'custom_label_4'
+        custom_number_0 = 'custom_number_0'
+        custom_number_1 = 'custom_number_1'
+        custom_number_2 = 'custom_number_2'
+        custom_number_3 = 'custom_number_3'
+        custom_number_4 = 'custom_number_4'
         dma_codes = 'dma_codes'
         downpayment_currency = 'downpayment_currency'
         downpayment_price = 'downpayment_price'
@@ -67,6 +77,7 @@ class VehicleOffer(
         sanitized_images = 'sanitized_images'
         start_date = 'start_date'
         start_time = 'start_time'
+        tags = 'tags'
         term_length = 'term_length'
         term_qualifier = 'term_qualifier'
         title = 'title'
@@ -228,6 +239,16 @@ class VehicleOffer(
         'cashback_price': 'string',
         'category_specific_fields': 'CatalogSubVerticalList',
         'currency': 'string',
+        'custom_label_0': 'string',
+        'custom_label_1': 'string',
+        'custom_label_2': 'string',
+        'custom_label_3': 'string',
+        'custom_label_4': 'string',
+        'custom_number_0': 'unsigned int',
+        'custom_number_1': 'unsigned int',
+        'custom_number_2': 'unsigned int',
+        'custom_number_3': 'unsigned int',
+        'custom_number_4': 'unsigned int',
         'dma_codes': 'list<string>',
         'downpayment_currency': 'string',
         'downpayment_price': 'string',
@@ -257,6 +278,7 @@ class VehicleOffer(
         'sanitized_images': 'list<string>',
         'start_date': 'string',
         'start_time': 'int',
+        'tags': 'list<string>',
         'term_length': 'unsigned int',
         'term_qualifier': 'string',
         'title': 'string',

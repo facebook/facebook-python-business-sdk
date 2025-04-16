@@ -14,28 +14,26 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class MarketingMessageTargeting(
+class AdCampaignGroupAdvantageState(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(MarketingMessageTargeting, self).__init__()
-        self._isMarketingMessageTargeting = True
+        super(AdCampaignGroupAdvantageState, self).__init__()
+        self._isAdCampaignGroupAdvantageState = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        automation_type = 'automation_type'
-        delay_send_time_second = 'delay_send_time_second'
-        delay_send_time_unit = 'delay_send_time_unit'
-        subscriber_lists = 'subscriber_lists'
-        targeting_rules = 'targeting_rules'
+        advantage_audience_state = 'advantage_audience_state'
+        advantage_budget_state = 'advantage_budget_state'
+        advantage_placement_state = 'advantage_placement_state'
+        advantage_state = 'advantage_state'
 
     _field_types = {
-        'automation_type': 'string',
-        'delay_send_time_second': 'unsigned int',
-        'delay_send_time_unit': 'string',
-        'subscriber_lists': 'list<RawCustomAudience>',
-        'targeting_rules': 'list<Object>',
+        'advantage_audience_state': 'string',
+        'advantage_budget_state': 'string',
+        'advantage_placement_state': 'string',
+        'advantage_state': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

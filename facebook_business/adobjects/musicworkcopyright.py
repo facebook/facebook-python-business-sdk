@@ -33,7 +33,9 @@ class MusicWorkCopyright(
         displayed_fb_matches_count = 'displayed_fb_matches_count'
         displayed_ig_matches_count = 'displayed_ig_matches_count'
         displayed_matches_count = 'displayed_matches_count'
+        has_rev_share_eligible_isrcs = 'has_rev_share_eligible_isrcs'
         id = 'id'
+        is_linking_required_to_monetize_for_manual_claim = 'is_linking_required_to_monetize_for_manual_claim'
         match_rule = 'match_rule'
         status = 'status'
         tags = 'tags'
@@ -76,7 +78,9 @@ class MusicWorkCopyright(
         'displayed_fb_matches_count': 'int',
         'displayed_ig_matches_count': 'int',
         'displayed_matches_count': 'int',
+        'has_rev_share_eligible_isrcs': 'bool',
         'id': 'string',
+        'is_linking_required_to_monetize_for_manual_claim': 'bool',
         'match_rule': 'VideoCopyrightRule',
         'status': 'string',
         'tags': 'list<string>',
