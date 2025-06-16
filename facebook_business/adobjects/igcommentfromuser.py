@@ -28,10 +28,12 @@ class IGCommentFromUser(
 
     class Field(AbstractObject.Field):
         id = 'id'
+        self_ig_scoped_id = 'self_ig_scoped_id'
         username = 'username'
 
     _field_types = {
         'id': 'string',
+        'self_ig_scoped_id': 'string',
         'username': 'string',
     }
     @classmethod

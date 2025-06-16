@@ -27,6 +27,7 @@ class CommerceMerchantSettings(
         super(CommerceMerchantSettings, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        checkout_config = 'checkout_config'
         checkout_message = 'checkout_message'
         contact_email = 'contact_email'
         cta = 'cta'
@@ -34,10 +35,13 @@ class CommerceMerchantSettings(
         facebook_channel = 'facebook_channel'
         id = 'id'
         instagram_channel = 'instagram_channel'
+        korea_ftc_listing = 'korea_ftc_listing'
         merchant_page = 'merchant_page'
         merchant_status = 'merchant_status'
         onsite_commerce_merchant = 'onsite_commerce_merchant'
         payment_provider = 'payment_provider'
+        privacy_policy_localized = 'privacy_policy_localized'
+        return_policy_localized = 'return_policy_localized'
         review_rejection_messages = 'review_rejection_messages'
         review_rejection_reasons = 'review_rejection_reasons'
         terms = 'terms'
@@ -501,6 +505,7 @@ class CommerceMerchantSettings(
             return request.execute()
 
     _field_types = {
+        'checkout_config': 'string',
         'checkout_message': 'string',
         'contact_email': 'string',
         'cta': 'string',
@@ -508,10 +513,13 @@ class CommerceMerchantSettings(
         'facebook_channel': 'Object',
         'id': 'string',
         'instagram_channel': 'Object',
+        'korea_ftc_listing': 'string',
         'merchant_page': 'Profile',
         'merchant_status': 'string',
         'onsite_commerce_merchant': 'Object',
         'payment_provider': 'string',
+        'privacy_policy_localized': 'string',
+        'return_policy_localized': 'string',
         'review_rejection_messages': 'list<string>',
         'review_rejection_reasons': 'list<string>',
         'terms': 'string',

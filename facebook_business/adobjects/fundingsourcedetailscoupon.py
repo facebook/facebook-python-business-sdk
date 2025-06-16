@@ -26,6 +26,8 @@ class FundingSourceDetailsCoupon(
     class Field(AbstractObject.Field):
         amount = 'amount'
         campaign_ids = 'campaign_ids'
+        child_ad_account_id = 'child_ad_account_id'
+        child_bm_id = 'child_bm_id'
         coupon_id = 'coupon_id'
         coupon_tiering = 'coupon_tiering'
         currency = 'currency'
@@ -34,10 +36,13 @@ class FundingSourceDetailsCoupon(
         original_amount = 'original_amount'
         original_display_amount = 'original_display_amount'
         start_date = 'start_date'
+        vendor_id = 'vendor_id'
 
     _field_types = {
         'amount': 'int',
         'campaign_ids': 'list<int>',
+        'child_ad_account_id': 'string',
+        'child_bm_id': 'string',
         'coupon_id': 'string',
         'coupon_tiering': 'FundingSourceDetailsCouponTiering',
         'currency': 'string',
@@ -46,6 +51,7 @@ class FundingSourceDetailsCoupon(
         'original_amount': 'int',
         'original_display_amount': 'string',
         'start_date': 'datetime',
+        'vendor_id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

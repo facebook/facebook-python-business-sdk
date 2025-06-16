@@ -26,12 +26,14 @@ class ALMGuidance(
     class Field(AbstractObject.Field):
         ad_account_id = 'ad_account_id'
         guidances = 'guidances'
+        opportunity_score = 'opportunity_score'
         parent_advertiser_id = 'parent_advertiser_id'
         parent_advertiser_name = 'parent_advertiser_name'
 
     _field_types = {
         'ad_account_id': 'string',
         'guidances': 'list<Object>',
+        'opportunity_score': 'float',
         'parent_advertiser_id': 'string',
         'parent_advertiser_name': 'string',
     }

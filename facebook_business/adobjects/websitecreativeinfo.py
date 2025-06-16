@@ -18,17 +18,18 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdsValueAdjustmentRule(
+class WebsiteCreativeInfo(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isAdsValueAdjustmentRule = True
-        super(AdsValueAdjustmentRule, self).__init__(fbid, parent_id, api)
+        self._isWebsiteCreativeInfo = True
+        super(WebsiteCreativeInfo, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        base_value = 'base_value'
         id = 'id'
+        image_urls = 'image_urls'
+        link_url = 'link_url'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -44,7 +45,7 @@ class AdsValueAdjustmentRule(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AdsValueAdjustmentRule,
+            target_class=WebsiteCreativeInfo,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -60,39 +61,10 @@ class AdsValueAdjustmentRule(
             self.assure_call()
             return request.execute()
 
-    def get_criterias(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/criterias',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     _field_types = {
-        'base_value': 'int',
         'id': 'string',
+        'image_urls': 'list<string>',
+        'link_url': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

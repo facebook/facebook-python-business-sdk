@@ -24,12 +24,20 @@ class CreativeMulticellTestConfig(
         self._api = api
 
     class Field(AbstractObject.Field):
+        budget_percentage = 'budget_percentage'
+        configured_cell_count = 'configured_cell_count'
         daily_budget = 'daily_budget'
+        entry_source = 'entry_source'
         lifetime_budget = 'lifetime_budget'
+        use_existing_daily_budget = 'use_existing_daily_budget'
 
     _field_types = {
+        'budget_percentage': 'int',
+        'configured_cell_count': 'int',
         'daily_budget': 'int',
+        'entry_source': 'string',
         'lifetime_budget': 'int',
+        'use_existing_daily_budget': 'bool',
     }
     @classmethod
     def _get_field_enum_info(cls):

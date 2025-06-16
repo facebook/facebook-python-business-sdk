@@ -55,6 +55,8 @@ class Event(
         registration_setting = 'registration_setting'
         scheduled_publish_time = 'scheduled_publish_time'
         start_time = 'start_time'
+        sub_categories = 'sub_categories'
+        ticket_selling_status = 'ticket_selling_status'
         ticket_setting = 'ticket_setting'
         ticket_uri = 'ticket_uri'
         ticket_uri_start_sales_time = 'ticket_uri_start_sales_time'
@@ -90,6 +92,7 @@ class Event(
 
     class OnlineEventFormat:
         fb_live = 'fb_live'
+        horizon_event = 'horizon_event'
         horizon_world = 'horizon_world'
         messenger_room = 'messenger_room'
         none = 'none'
@@ -509,6 +512,8 @@ class Event(
         'registration_setting': 'EventRegistrationSetting',
         'scheduled_publish_time': 'string',
         'start_time': 'string',
+        'sub_categories': 'list<string>',
+        'ticket_selling_status': 'string',
         'ticket_setting': 'EventTicketSetting',
         'ticket_uri': 'string',
         'ticket_uri_start_sales_time': 'string',

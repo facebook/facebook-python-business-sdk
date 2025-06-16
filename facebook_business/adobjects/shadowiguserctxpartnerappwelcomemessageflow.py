@@ -18,27 +18,33 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class BespokePartnerGuidanceLaser(
+class ShadowIGUserCTXPartnerAppWelcomeMessageFlow(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isBespokePartnerGuidanceLaser = True
-        super(BespokePartnerGuidanceLaser, self).__init__(fbid, parent_id, api)
+        self._isShadowIGUserCTXPartnerAppWelcomeMessageFlow = True
+        super(ShadowIGUserCTXPartnerAppWelcomeMessageFlow, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        business = 'business'
-        campaign_group = 'campaign_group'
-        cpa_improvement = 'cpa_improvement'
-        guidance_type = 'guidance_type'
+        compatible_platforms = 'compatible_platforms'
+        eligible_platforms = 'eligible_platforms'
         id = 'id'
+        is_ig_only_flow = 'is_ig_only_flow'
+        is_used_in_ad = 'is_used_in_ad'
+        last_update_time = 'last_update_time'
+        name = 'name'
+        welcome_message_flow = 'welcome_message_flow'
 
     _field_types = {
-        'business': 'Business',
-        'campaign_group': 'Campaign',
-        'cpa_improvement': 'float',
-        'guidance_type': 'string',
+        'compatible_platforms': 'list<string>',
+        'eligible_platforms': 'list<string>',
         'id': 'string',
+        'is_ig_only_flow': 'bool',
+        'is_used_in_ad': 'bool',
+        'last_update_time': 'datetime',
+        'name': 'string',
+        'welcome_message_flow': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

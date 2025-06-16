@@ -29,6 +29,7 @@ class ThirdPartyPartnerViewabilityRequest(
     class Field(AbstractObject.Field):
         created_time = 'created_time'
         description = 'description'
+        ds = 'ds'
         hour = 'hour'
         id = 'id'
         metric = 'metric'
@@ -88,6 +89,7 @@ class ThirdPartyPartnerViewabilityRequest(
     _field_types = {
         'created_time': 'datetime',
         'description': 'string',
+        'ds': 'string',
         'hour': 'datetime',
         'id': 'string',
         'metric': 'Metric',

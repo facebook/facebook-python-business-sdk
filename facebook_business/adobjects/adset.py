@@ -51,6 +51,7 @@ class AdSet(
         configured_status = 'configured_status'
         created_time = 'created_time'
         creative_sequence = 'creative_sequence'
+        creative_sequence_repetition_pattern = 'creative_sequence_repetition_pattern'
         daily_budget = 'daily_budget'
         daily_min_spend_target = 'daily_min_spend_target'
         daily_spend_cap = 'daily_spend_cap'
@@ -67,6 +68,7 @@ class AdSet(
         is_ba_skip_delayed_eligible = 'is_ba_skip_delayed_eligible'
         is_budget_schedule_enabled = 'is_budget_schedule_enabled'
         is_dynamic_creative = 'is_dynamic_creative'
+        is_incremental_attribution_enabled = 'is_incremental_attribution_enabled'
         issues_info = 'issues_info'
         learning_stage_info = 'learning_stage_info'
         lifetime_budget = 'lifetime_budget'
@@ -97,6 +99,8 @@ class AdSet(
         time_based_ad_rotation_intervals = 'time_based_ad_rotation_intervals'
         updated_time = 'updated_time'
         use_new_app_click = 'use_new_app_click'
+        budget_source = 'budget_source'
+        budget_split_set_id = 'budget_split_set_id'
         campaign_spec = 'campaign_spec'
         daily_imps = 'daily_imps'
         date_format = 'date_format'
@@ -181,6 +185,14 @@ class AdSet(
         deleted = 'DELETED'
         paused = 'PAUSED'
 
+    class BudgetSource:
+        none = 'NONE'
+        rmn = 'RMN'
+
+    class CreativeSequenceRepetitionPattern:
+        full_sequence = 'FULL_SEQUENCE'
+        last_ad = 'LAST_AD'
+
     class DatePreset:
         data_maximum = 'DATA_MAXIMUM'
         last_14d = 'LAST_14D'
@@ -207,8 +219,11 @@ class AdSet(
         app = 'APP'
         applinks_automatic = 'APPLINKS_AUTOMATIC'
         facebook = 'FACEBOOK'
+        facebook_live = 'FACEBOOK_LIVE'
         facebook_page = 'FACEBOOK_PAGE'
+        imagine = 'IMAGINE'
         instagram_direct = 'INSTAGRAM_DIRECT'
+        instagram_live = 'INSTAGRAM_LIVE'
         instagram_profile = 'INSTAGRAM_PROFILE'
         instagram_profile_and_facebook_page = 'INSTAGRAM_PROFILE_AND_FACEBOOK_PAGE'
         messaging_instagram_direct_messenger = 'MESSAGING_INSTAGRAM_DIRECT_MESSENGER'
@@ -259,6 +274,7 @@ class AdSet(
         value_3 = '3'
         value_4 = '4'
         value_5 = '5'
+        value_6 = '6'
 
     class TuneForCategory:
         credit = 'CREDIT'
@@ -391,6 +407,7 @@ class AdSet(
             'campaign_attribution': 'Object',
             'campaign_spec': 'Object',
             'creative_sequence': 'list<string>',
+            'creative_sequence_repetition_pattern': 'creative_sequence_repetition_pattern_enum',
             'daily_budget': 'unsigned int',
             'daily_imps': 'unsigned int',
             'daily_min_spend_target': 'unsigned int',
@@ -404,6 +421,7 @@ class AdSet(
             'existing_customer_budget_percentage': 'unsigned int',
             'full_funnel_exploration_mode': 'full_funnel_exploration_mode_enum',
             'is_ba_skip_delayed_eligible': 'bool',
+            'is_incremental_attribution_enabled': 'bool',
             'is_sac_cfca_terms_certified': 'bool',
             'lifetime_budget': 'unsigned int',
             'lifetime_imps': 'unsigned int',
@@ -433,6 +451,7 @@ class AdSet(
         enums = {
             'bid_strategy_enum': AdSet.BidStrategy.__dict__.values(),
             'billing_event_enum': AdSet.BillingEvent.__dict__.values(),
+            'creative_sequence_repetition_pattern_enum': AdSet.CreativeSequenceRepetitionPattern.__dict__.values(),
             'destination_type_enum': AdSet.DestinationType.__dict__.values(),
             'execution_options_enum': AdSet.ExecutionOptions.__dict__.values(),
             'full_funnel_exploration_mode_enum': AdSet.FullFunnelExplorationMode.__dict__.values(),
@@ -898,6 +917,7 @@ class AdSet(
             'fields': 'list<string>',
             'filtering': 'list<Object>',
             'level': 'level_enum',
+            'limit': 'int',
             'product_id_limit': 'int',
             'sort': 'list<string>',
             'summary': 'list<string>',
@@ -959,6 +979,7 @@ class AdSet(
             'fields': 'list<string>',
             'filtering': 'list<Object>',
             'level': 'level_enum',
+            'limit': 'int',
             'product_id_limit': 'int',
             'sort': 'list<string>',
             'summary': 'list<string>',
@@ -1012,6 +1033,8 @@ class AdSet(
         from facebook_business.adobjects.messagedeliveryestimate import MessageDeliveryEstimate
         param_types = {
             'bid_amount': 'unsigned int',
+            'daily_budget': 'unsigned int',
+            'is_direct_send_campaign': 'bool',
             'lifetime_budget': 'unsigned int',
             'lifetime_in_days': 'unsigned int',
             'optimization_goal': 'optimization_goal_enum',
@@ -1097,6 +1120,7 @@ class AdSet(
         'configured_status': 'ConfiguredStatus',
         'created_time': 'datetime',
         'creative_sequence': 'list<string>',
+        'creative_sequence_repetition_pattern': 'string',
         'daily_budget': 'string',
         'daily_min_spend_target': 'string',
         'daily_spend_cap': 'string',
@@ -1113,6 +1137,7 @@ class AdSet(
         'is_ba_skip_delayed_eligible': 'bool',
         'is_budget_schedule_enabled': 'bool',
         'is_dynamic_creative': 'bool',
+        'is_incremental_attribution_enabled': 'bool',
         'issues_info': 'list<AdCampaignIssuesInfo>',
         'learning_stage_info': 'AdCampaignLearningStageInfo',
         'lifetime_budget': 'string',
@@ -1143,6 +1168,8 @@ class AdSet(
         'time_based_ad_rotation_intervals': 'list<unsigned int>',
         'updated_time': 'datetime',
         'use_new_app_click': 'bool',
+        'budget_source': 'BudgetSource',
+        'budget_split_set_id': 'string',
         'campaign_spec': 'Object',
         'daily_imps': 'unsigned int',
         'date_format': 'string',
@@ -1164,6 +1191,8 @@ class AdSet(
         field_enum_info['EffectiveStatus'] = AdSet.EffectiveStatus.__dict__.values()
         field_enum_info['OptimizationGoal'] = AdSet.OptimizationGoal.__dict__.values()
         field_enum_info['Status'] = AdSet.Status.__dict__.values()
+        field_enum_info['BudgetSource'] = AdSet.BudgetSource.__dict__.values()
+        field_enum_info['CreativeSequenceRepetitionPattern'] = AdSet.CreativeSequenceRepetitionPattern.__dict__.values()
         field_enum_info['DatePreset'] = AdSet.DatePreset.__dict__.values()
         field_enum_info['DestinationType'] = AdSet.DestinationType.__dict__.values()
         field_enum_info['ExecutionOptions'] = AdSet.ExecutionOptions.__dict__.values()

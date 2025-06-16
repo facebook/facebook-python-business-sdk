@@ -40,10 +40,28 @@ class BusinessRoleRequest(
         owner = 'owner'
         role = 'role'
         status = 'status'
+        tasks = 'tasks'
         updated_by = 'updated_by'
         updated_time = 'updated_time'
 
     class Role:
+        admin = 'ADMIN'
+        ads_rights_reviewer = 'ADS_RIGHTS_REVIEWER'
+        value_default = 'DEFAULT'
+        developer = 'DEVELOPER'
+        employee = 'EMPLOYEE'
+        finance_analyst = 'FINANCE_ANALYST'
+        finance_edit = 'FINANCE_EDIT'
+        finance_editor = 'FINANCE_EDITOR'
+        finance_view = 'FINANCE_VIEW'
+        manage = 'MANAGE'
+        partner_center_admin = 'PARTNER_CENTER_ADMIN'
+        partner_center_analyst = 'PARTNER_CENTER_ANALYST'
+        partner_center_education = 'PARTNER_CENTER_EDUCATION'
+        partner_center_marketing = 'PARTNER_CENTER_MARKETING'
+        partner_center_operations = 'PARTNER_CENTER_OPERATIONS'
+
+    class Tasks:
         admin = 'ADMIN'
         ads_rights_reviewer = 'ADS_RIGHTS_REVIEWER'
         value_default = 'DEFAULT'
@@ -126,9 +144,11 @@ class BusinessRoleRequest(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'role': 'role_enum',
+            'tasks': 'list<tasks_enum>',
         }
         enums = {
             'role_enum': BusinessRoleRequest.Role.__dict__.values(),
+            'tasks_enum': BusinessRoleRequest.Tasks.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -166,6 +186,7 @@ class BusinessRoleRequest(
         'owner': 'Business',
         'role': 'string',
         'status': 'string',
+        'tasks': 'list<string>',
         'updated_by': 'Object',
         'updated_time': 'datetime',
     }
@@ -173,6 +194,7 @@ class BusinessRoleRequest(
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['Role'] = BusinessRoleRequest.Role.__dict__.values()
+        field_enum_info['Tasks'] = BusinessRoleRequest.Tasks.__dict__.values()
         return field_enum_info
 
 

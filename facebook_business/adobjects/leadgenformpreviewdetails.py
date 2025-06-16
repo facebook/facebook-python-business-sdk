@@ -68,6 +68,8 @@ class LeadGenFormPreviewDetails(
         social_proof_section_headers = 'social_proof_section_headers'
         submit_button_text = 'submit_button_text'
         view_file_text = 'view_file_text'
+        whats_app_opt_in_body = 'whats_app_opt_in_body'
+        whats_app_opt_in_title = 'whats_app_opt_in_title'
 
     _field_types = {
         'call_business_text': 'string',
@@ -114,6 +116,8 @@ class LeadGenFormPreviewDetails(
         'social_proof_section_headers': 'list<map<string, string>>',
         'submit_button_text': 'string',
         'view_file_text': 'string',
+        'whats_app_opt_in_body': 'string',
+        'whats_app_opt_in_title': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

@@ -104,6 +104,7 @@ class AdVideo(
         instant_game_entry_point_data = 'instant_game_entry_point_data'
         is_boost_intended = 'is_boost_intended'
         is_group_linking_post = 'is_group_linking_post'
+        is_partnership_ad = 'is_partnership_ad'
         is_voice_clip = 'is_voice_clip'
         location_source_id = 'location_source_id'
         name = 'name'
@@ -114,6 +115,7 @@ class AdVideo(
         og_suggestion_mechanism = 'og_suggestion_mechanism'
         original_fov = 'original_fov'
         original_projection_type = 'original_projection_type'
+        partnership_ad_ad_code = 'partnership_ad_ad_code'
         publish_event_id = 'publish_event_id'
         referenced_sticker_id = 'referenced_sticker_id'
         replace_video_id = 'replace_video_id'
@@ -142,13 +144,11 @@ class AdVideo(
         filepath = 'filepath'
 
     class ContainerType:
-        aco_autoextracted_video = 'ACO_AUTOEXTRACTED_VIDEO'
         aco_video_variation = 'ACO_VIDEO_VARIATION'
         ads_ai_generated = 'ADS_AI_GENERATED'
         ad_break_preview = 'AD_BREAK_PREVIEW'
         ad_derivative = 'AD_DERIVATIVE'
         ad_library_watermark = 'AD_LIBRARY_WATERMARK'
-        age_up = 'AGE_UP'
         album_multimedia_post = 'ALBUM_MULTIMEDIA_POST'
         aloha_superframe = 'ALOHA_SUPERFRAME'
         app_rereview_screencast = 'APP_REREVIEW_SCREENCAST'
@@ -159,7 +159,6 @@ class AdVideo(
         audio_comment = 'AUDIO_COMMENT'
         broadcast = 'BROADCAST'
         canvas = 'CANVAS'
-        cfc_video = 'CFC_VIDEO'
         cms_media_manager = 'CMS_MEDIA_MANAGER'
         contained_post_attachment = 'CONTAINED_POST_ATTACHMENT'
         contained_post_audio_broadcast = 'CONTAINED_POST_AUDIO_BROADCAST'
@@ -177,9 +176,7 @@ class AdVideo(
         dim_sum = 'DIM_SUM'
         directed_post_attachment = 'DIRECTED_POST_ATTACHMENT'
         direct_inbox = 'DIRECT_INBOX'
-        direct_inbox_reaction = 'DIRECT_INBOX_REACTION'
         drops_shopping_event_page = 'DROPS_SHOPPING_EVENT_PAGE'
-        dynamic_item_display_bundle = 'DYNAMIC_ITEM_DISPLAY_BUNDLE'
         dynamic_item_video = 'DYNAMIC_ITEM_VIDEO'
         dynamic_template_video = 'DYNAMIC_TEMPLATE_VIDEO'
         event_cover_video = 'EVENT_COVER_VIDEO'
@@ -192,7 +189,6 @@ class AdVideo(
         fb_shorts_group_post = 'FB_SHORTS_GROUP_POST'
         fb_shorts_linked_product = 'FB_SHORTS_LINKED_PRODUCT'
         fb_shorts_pmv_post = 'FB_SHORTS_PMV_POST'
-        fb_shorts_pmv_post_no_newsfeed_nor_timeline = 'FB_SHORTS_PMV_POST_NO_NEWSFEED_NOR_TIMELINE'
         fb_shorts_post = 'FB_SHORTS_POST'
         fb_shorts_remix_post = 'FB_SHORTS_REMIX_POST'
         fundraiser_cover_video = 'FUNDRAISER_COVER_VIDEO'
@@ -207,6 +203,7 @@ class AdVideo(
         group_post = 'GROUP_POST'
         heuristic_cluster_video = 'HEURISTIC_CLUSTER_VIDEO'
         highlight_clip_video = 'HIGHLIGHT_CLIP_VIDEO'
+        horizon_worlds_tv = 'HORIZON_WORLDS_TV'
         huddle_broadcast = 'HUDDLE_BROADCAST'
         ig_reels_xpv = 'IG_REELS_XPV'
         ig_stories_reader = 'IG_STORIES_READER'
@@ -237,7 +234,6 @@ class AdVideo(
         neo_async_game_video = 'NEO_ASYNC_GAME_VIDEO'
         new_contained_post_broadcast = 'NEW_CONTAINED_POST_BROADCAST'
         no_story = 'NO_STORY'
-        npe_collab_copyright_check = 'NPE_COLLAB_COPYRIGHT_CHECK'
         oculus_creator_portal = 'OCULUS_CREATOR_PORTAL'
         oculus_venues_broadcast = 'OCULUS_VENUES_BROADCAST'
         originality_self_advocacy = 'ORIGINALITY_SELF_ADVOCACY'
@@ -247,8 +243,6 @@ class AdVideo(
         paid_content_preview = 'PAID_CONTENT_PREVIEW'
         paid_content_video = 'PAID_CONTENT_VIDEO'
         paid_content_video__post = 'PAID_CONTENT_VIDEO__POST'
-        paper_document_audio = 'PAPER_DOCUMENT_AUDIO'
-        paper_document_video = 'PAPER_DOCUMENT_VIDEO'
         pixelcloud = 'PIXELCLOUD'
         podcast_highlight = 'PODCAST_HIGHLIGHT'
         podcast_ml_preview = 'PODCAST_ML_PREVIEW'
@@ -277,11 +271,9 @@ class AdVideo(
         slideshow_animoto = 'SLIDESHOW_ANIMOTO'
         slideshow_shakr = 'SLIDESHOW_SHAKR'
         slideshow_variation_video = 'SLIDESHOW_VARIATION_VIDEO'
-        soundbites_video = 'SOUNDBITES_VIDEO'
         sound_platform_stream = 'SOUND_PLATFORM_STREAM'
         srt_attachment = 'SRT_ATTACHMENT'
         stories_video = 'STORIES_VIDEO'
-        stories_wearable = 'STORIES_WEARABLE'
         storyline = 'STORYLINE'
         storyline_with_external_music = 'STORYLINE_WITH_EXTERNAL_MUSIC'
         story_archive_video = 'STORY_ARCHIVE_VIDEO'
@@ -289,10 +281,8 @@ class AdVideo(
         stream_highlights_video = 'STREAM_HIGHLIGHTS_VIDEO'
         tarot_digest = 'TAROT_DIGEST'
         temporary_unlisted = 'TEMPORARY_UNLISTED'
-        temp_multimedia_post = 'TEMP_MULTIMEDIA_POST'
         temp_video_copyright_scan = 'TEMP_VIDEO_COPYRIGHT_SCAN'
         unlisted = 'UNLISTED'
-        unlisted_horizon = 'UNLISTED_HORIZON'
         unlisted_oculus = 'UNLISTED_OCULUS'
         video_comment = 'VIDEO_COMMENT'
         video_composition_variation = 'VIDEO_COMPOSITION_VARIATION'
@@ -1225,6 +1215,7 @@ class AdVideo(
         'instant_game_entry_point_data': 'string',
         'is_boost_intended': 'bool',
         'is_group_linking_post': 'bool',
+        'is_partnership_ad': 'bool',
         'is_voice_clip': 'bool',
         'location_source_id': 'string',
         'name': 'string',
@@ -1235,6 +1226,7 @@ class AdVideo(
         'og_suggestion_mechanism': 'string',
         'original_fov': 'unsigned int',
         'original_projection_type': 'OriginalProjectionType',
+        'partnership_ad_ad_code': 'string',
         'publish_event_id': 'unsigned int',
         'referenced_sticker_id': 'string',
         'replace_video_id': 'string',

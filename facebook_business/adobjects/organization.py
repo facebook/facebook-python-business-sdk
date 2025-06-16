@@ -27,10 +27,8 @@ class Organization(
         super(Organization, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        hq_country = 'hq_country'
         id = 'id'
         legal_entity_name = 'legal_entity_name'
-        master_bm_id = 'master_bm_id'
         owner_business = 'owner_business'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
@@ -64,10 +62,8 @@ class Organization(
             return request.execute()
 
     _field_types = {
-        'hq_country': 'string',
         'id': 'string',
         'legal_entity_name': 'string',
-        'master_bm_id': 'string',
         'owner_business': 'Business',
     }
     @classmethod

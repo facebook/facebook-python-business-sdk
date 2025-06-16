@@ -31,6 +31,7 @@ class User(
         age_range = 'age_range'
         avatar_2d_profile_picture = 'avatar_2d_profile_picture'
         birthday = 'birthday'
+        client_business_id = 'client_business_id'
         community = 'community'
         cover = 'cover'
         currency = 'currency'
@@ -44,7 +45,6 @@ class User(
         id = 'id'
         id_for_avatars = 'id_for_avatars'
         inspirational_people = 'inspirational_people'
-        instagram_user_self_asset = 'instagram_user_self_asset'
         install_type = 'install_type'
         installed = 'installed'
         is_guest_user = 'is_guest_user'
@@ -1878,6 +1878,7 @@ class User(
             'proxied_app_id': 'string',
             'published': 'bool',
             'qn': 'string',
+            'scheduled_publish_time': 'unsigned int',
             'spherical_metadata': 'map',
             'sponsor_id': 'string',
             'sponsor_relationship': 'unsigned int',
@@ -2126,6 +2127,7 @@ class User(
             'is_boost_intended': 'bool',
             'is_explicit_share': 'bool',
             'is_group_linking_post': 'bool',
+            'is_partnership_ad': 'bool',
             'is_voice_clip': 'bool',
             'location_source_id': 'string',
             'manual_privacy': 'bool',
@@ -2137,6 +2139,7 @@ class User(
             'og_suggestion_mechanism': 'string',
             'original_fov': 'unsigned int',
             'original_projection_type': 'original_projection_type_enum',
+            'partnership_ad_ad_code': 'string',
             'privacy': 'string',
             'publish_event_id': 'unsigned int',
             'referenced_sticker_id': 'string',
@@ -2198,6 +2201,7 @@ class User(
         'age_range': 'AgeRange',
         'avatar_2d_profile_picture': 'AvatarProfilePicture',
         'birthday': 'string',
+        'client_business_id': 'string',
         'community': 'Group',
         'cover': 'UserCoverPhoto',
         'currency': 'Currency',
@@ -2211,7 +2215,6 @@ class User(
         'id': 'string',
         'id_for_avatars': 'string',
         'inspirational_people': 'list<Experience>',
-        'instagram_user_self_asset': 'InstagramUser',
         'install_type': 'string',
         'installed': 'bool',
         'is_guest_user': 'bool',

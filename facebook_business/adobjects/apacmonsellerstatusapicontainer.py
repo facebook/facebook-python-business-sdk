@@ -14,24 +14,19 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdAccountSuggestedTag(
+class ApacMonSellerStatusAPIContainer(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(AdAccountSuggestedTag, self).__init__()
-        self._isAdAccountSuggestedTag = True
+        super(ApacMonSellerStatusAPIContainer, self).__init__()
+        self._isApacMonSellerStatusAPIContainer = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        product_id = 'product_id'
-        x = 'x'
-        y = 'y'
+        pass
 
     _field_types = {
-        'product_id': 'int',
-        'x': 'float',
-        'y': 'float',
     }
     @classmethod
     def _get_field_enum_info(cls):

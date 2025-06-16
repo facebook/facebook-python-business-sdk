@@ -31,9 +31,12 @@ class ChinaBusinessOnboardingVettingRequest(
         ad_account_limit = 'ad_account_limit'
         ad_account_number = 'ad_account_number'
         ad_accounts_info = 'ad_accounts_info'
+        advertiser_business_id = 'advertiser_business_id'
+        advertiser_business_name = 'advertiser_business_name'
         business_manager_id = 'business_manager_id'
         business_registration = 'business_registration'
         business_registration_id = 'business_registration_id'
+        business_verification_status = 'business_verification_status'
         chinese_address = 'chinese_address'
         chinese_legal_entity_name = 'chinese_legal_entity_name'
         city = 'city'
@@ -105,9 +108,12 @@ class ChinaBusinessOnboardingVettingRequest(
         'ad_account_limit': 'int',
         'ad_account_number': 'string',
         'ad_accounts_info': 'list<Object>',
+        'advertiser_business_id': 'string',
+        'advertiser_business_name': 'string',
         'business_manager_id': 'string',
         'business_registration': 'string',
         'business_registration_id': 'string',
+        'business_verification_status': 'string',
         'chinese_address': 'string',
         'chinese_legal_entity_name': 'string',
         'city': 'string',

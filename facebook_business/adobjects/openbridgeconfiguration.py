@@ -39,8 +39,12 @@ class OpenBridgeConfiguration(
         instance_id = 'instance_id'
         instance_version = 'instance_version'
         is_sgw_instance = 'is_sgw_instance'
+        is_sgw_pixel_from_meta_pixel = 'is_sgw_pixel_from_meta_pixel'
         partner_name = 'partner_name'
         pixel_id = 'pixel_id'
+        sgw_account_id = 'sgw_account_id'
+        sgw_instance_url = 'sgw_instance_url'
+        sgw_pixel_id = 'sgw_pixel_id'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
@@ -128,7 +132,11 @@ class OpenBridgeConfiguration(
             'instance_id': 'string',
             'instance_version': 'string',
             'is_sgw_instance': 'bool',
+            'is_sgw_pixel_from_meta_pixel': 'bool',
             'partner_name': 'string',
+            'sgw_account_id': 'string',
+            'sgw_instance_url': 'string',
+            'sgw_pixel_id': 'unsigned int',
         }
         enums = {
         }
@@ -167,8 +175,12 @@ class OpenBridgeConfiguration(
         'instance_id': 'string',
         'instance_version': 'string',
         'is_sgw_instance': 'bool',
+        'is_sgw_pixel_from_meta_pixel': 'bool',
         'partner_name': 'string',
         'pixel_id': 'string',
+        'sgw_account_id': 'string',
+        'sgw_instance_url': 'string',
+        'sgw_pixel_id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

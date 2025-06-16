@@ -43,6 +43,7 @@ class AdAsyncRequestSet(
         success_count = 'success_count'
         total_count = 'total_count'
         updated_time = 'updated_time'
+        creative_spec = 'creative_spec'
         ad_specs = 'ad_specs'
 
     class NotificationMode:
@@ -52,12 +53,12 @@ class AdAsyncRequestSet(
     # @deprecated get_endpoint function is deprecated
     @classmethod
     def get_endpoint(cls):
-        return 'asyncadrequestsets'
+        return 'asyncadcreatives'
 
     # @deprecated api_create is being deprecated
     def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.adobjects.adaccount import AdAccount
-        return AdAccount(api=self._api, fbid=parent_id).create_async_ad_request_set(fields, params, batch, success, failure, pending)
+        return AdAccount(api=self._api, fbid=parent_id).create_async_ad_creative(fields, params, batch, success, failure, pending)
 
     def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -203,6 +204,7 @@ class AdAsyncRequestSet(
         'success_count': 'int',
         'total_count': 'unsigned int',
         'updated_time': 'datetime',
+        'creative_spec': 'AdCreative',
         'ad_specs': 'list<map>',
     }
     @classmethod

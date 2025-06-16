@@ -27,10 +27,16 @@ class IGUserExportForCAM(
         super(IGUserExportForCAM, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        age_bucket = 'age_bucket'
+        biography = 'biography'
+        country = 'country'
         email = 'email'
+        gender = 'gender'
         id = 'id'
+        is_account_verified = 'is_account_verified'
         is_paid_partnership_messages_enabled = 'is_paid_partnership_messages_enabled'
         messaging_id = 'messaging_id'
+        onboarded_status = 'onboarded_status'
         portfolio_url = 'portfolio_url'
         username = 'username'
 
@@ -64,11 +70,140 @@ class IGUserExportForCAM(
             self.assure_call()
             return request.execute()
 
+    def get_branded_content_media(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/branded_content_media',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_insights(self, fields=None, params=None, is_async=False, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        if is_async:
+          return self.get_insights_async(fields, params, batch, success, failure, pending)
+        param_types = {
+            'breakdown': 'breakdown_enum',
+            'metrics': 'list<metrics_enum>',
+            'period': 'period_enum',
+            'time_range': 'time_range_enum',
+        }
+        enums = {
+            'breakdown_enum': [
+                'AGE',
+                'FOLLOW_TYPE',
+                'GENDER',
+                'MEDIA_TYPE',
+                'TOP_CITIES',
+                'TOP_COUNTRIES',
+            ],
+            'metrics_enum': [
+                'CREATOR_ENGAGED_ACCOUNTS',
+                'CREATOR_REACH',
+                'REELS_HOOK_RATE',
+                'REELS_INTERACTION_RATE',
+                'TOTAL_FOLLOWERS',
+            ],
+            'period_enum': [
+                'DAY',
+                'OVERALL',
+            ],
+            'time_range_enum': [
+                'LAST_14_DAYS',
+                'LAST_90_DAYS',
+                'LIFETIME',
+                'THIS_MONTH',
+                'THIS_WEEK',
+            ],
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/insights',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+            include_summary=False,
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_recent_media(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/recent_media',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     _field_types = {
+        'age_bucket': 'string',
+        'biography': 'string',
+        'country': 'string',
         'email': 'string',
+        'gender': 'string',
         'id': 'string',
+        'is_account_verified': 'bool',
         'is_paid_partnership_messages_enabled': 'bool',
         'messaging_id': 'string',
+        'onboarded_status': 'bool',
         'portfolio_url': 'string',
         'username': 'string',
     }

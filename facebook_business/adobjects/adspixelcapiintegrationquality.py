@@ -24,12 +24,22 @@ class AdsPixelCAPIIntegrationQuality(
         self._api = api
 
     class Field(AbstractObject.Field):
+        acr = 'acr'
+        data_freshness = 'data_freshness'
+        dedupe_key_feedback = 'dedupe_key_feedback'
+        event_coverage = 'event_coverage'
         event_match_quality = 'event_match_quality'
         event_name = 'event_name'
+        event_potential_aly_acr_increase = 'event_potential_aly_acr_increase'
 
     _field_types = {
+        'acr': 'Object',
+        'data_freshness': 'Object',
+        'dedupe_key_feedback': 'list<Object>',
+        'event_coverage': 'Object',
         'event_match_quality': 'Object',
         'event_name': 'string',
+        'event_potential_aly_acr_increase': 'Object',
     }
     @classmethod
     def _get_field_enum_info(cls):

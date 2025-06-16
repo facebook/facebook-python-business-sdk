@@ -198,7 +198,7 @@ class WhatsAppBusinessPreVerifiedPhoneNumber(
             return request.execute()
 
     _field_types = {
-        'code_verification_status': 'string',
+        'code_verification_status': 'CodeVerificationStatus',
         'code_verification_time': 'datetime',
         'id': 'string',
         'owner_business': 'Business',

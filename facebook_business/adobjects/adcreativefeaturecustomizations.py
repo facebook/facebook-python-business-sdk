@@ -28,6 +28,7 @@ class AdCreativeFeatureCustomizations(
         catalog_feed_tag_name = 'catalog_feed_tag_name'
         font_name = 'font_name'
         image_crop_style = 'image_crop_style'
+        pe_carousel = 'pe_carousel'
         showcase_card_display = 'showcase_card_display'
         text_extraction = 'text_extraction'
         text_style = 'text_style'
@@ -37,6 +38,7 @@ class AdCreativeFeatureCustomizations(
         'catalog_feed_tag_name': 'string',
         'font_name': 'string',
         'image_crop_style': 'string',
+        'pe_carousel': 'Object',
         'showcase_card_display': 'string',
         'text_extraction': 'Object',
         'text_style': 'string',

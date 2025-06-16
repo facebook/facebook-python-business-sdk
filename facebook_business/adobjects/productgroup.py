@@ -178,6 +178,7 @@ class ProductGroup(
         param_types = {
             'additional_image_urls': 'list<string>',
             'additional_variant_attributes': 'map',
+            'age_group': 'age_group_enum',
             'android_app_name': 'string',
             'android_class': 'string',
             'android_package': 'string',
@@ -248,6 +249,7 @@ class ProductGroup(
             'windows_phone_url': 'string',
         }
         enums = {
+            'age_group_enum': ProductItem.AgeGroup.__dict__.values(),
             'availability_enum': ProductItem.Availability.__dict__.values(),
             'commerce_tax_category_enum': ProductItem.CommerceTaxCategory.__dict__.values(),
             'condition_enum': ProductItem.Condition.__dict__.values(),

@@ -44,6 +44,7 @@ class AdsNamingTemplate(
         campaign_group = 'CAMPAIGN_GROUP'
         opportunities = 'OPPORTUNITIES'
         privacy_info_center = 'PRIVACY_INFO_CENTER'
+        product = 'PRODUCT'
         topline = 'TOPLINE'
         unique_adcreative = 'UNIQUE_ADCREATIVE'
 

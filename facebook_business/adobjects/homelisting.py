@@ -79,6 +79,8 @@ class HomeListing(
         price = 'price'
         property_type = 'property_type'
         sanitized_images = 'sanitized_images'
+        securitydeposit_currency = 'securitydeposit_currency'
+        securitydeposit_price = 'securitydeposit_price'
         tags = 'tags'
         unit_price = 'unit_price'
         url = 'url'
@@ -360,6 +362,8 @@ class HomeListing(
         'price': 'string',
         'property_type': 'string',
         'sanitized_images': 'list<string>',
+        'securitydeposit_currency': 'string',
+        'securitydeposit_price': 'string',
         'tags': 'list<string>',
         'unit_price': 'Object',
         'url': 'string',

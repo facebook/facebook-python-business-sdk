@@ -25,10 +25,14 @@ class MessengerCallSettings(
 
     class Field(AbstractObject.Field):
         audio_enabled = 'audio_enabled'
+        call_hours = 'call_hours'
+        call_routing = 'call_routing'
         icon_enabled = 'icon_enabled'
 
     _field_types = {
         'audio_enabled': 'bool',
+        'call_hours': 'Object',
+        'call_routing': 'string',
         'icon_enabled': 'bool',
     }
     @classmethod

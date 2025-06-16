@@ -33,6 +33,7 @@ class LeadGenThankYouPage(
         button_type = 'button_type'
         country_code = 'country_code'
         enable_messenger = 'enable_messenger'
+        gated_file = 'gated_file'
         id = 'id'
         lead_gen_use_case = 'lead_gen_use_case'
         status = 'status'
@@ -46,6 +47,7 @@ class LeadGenThankYouPage(
         'button_type': 'string',
         'country_code': 'string',
         'enable_messenger': 'bool',
+        'gated_file': 'LeadGenThankYouPageGatedFile',
         'id': 'string',
         'lead_gen_use_case': 'string',
         'status': 'string',

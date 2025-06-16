@@ -39,6 +39,7 @@ class AdsUserSettings(
         aplusc_local_store_extension_opt_in_status = 'aplusc_local_store_extension_opt_in_status'
         aplusc_opt_out_friction = 'aplusc_opt_out_friction'
         aplusc_videofilter_opt_in_status = 'aplusc_videofilter_opt_in_status'
+        aplusc_videouncrop_opt_in_status = 'aplusc_videouncrop_opt_in_status'
         autoflow_lite_opt_in_status = 'autoflow_lite_opt_in_status'
         autoflow_lite_should_opt_in = 'autoflow_lite_should_opt_in'
         blended_ads_creation_defaulting_opt_in_status = 'blended_ads_creation_defaulting_opt_in_status'
@@ -48,6 +49,8 @@ class AdsUserSettings(
         campaign_name_template = 'campaign_name_template'
         carousel_to_video_opt_in_status = 'carousel_to_video_opt_in_status'
         connected_sources_catalog_opt_in_status = 'connected_sources_catalog_opt_in_status'
+        da_add_overlays_opt_in_status = 'da_add_overlays_opt_in_status'
+        da_hide_price_opt_in_status = 'da_hide_price_opt_in_status'
         default_creation_mode = 'default_creation_mode'
         dynamic_partnership_ads_opt_in_status = 'dynamic_partnership_ads_opt_in_status'
         enhance_cta_text_extraction_opt_in_status = 'enhance_cta_text_extraction_opt_in_status'
@@ -56,19 +59,25 @@ class AdsUserSettings(
         gen_ai_alpha_test_status = 'gen_ai_alpha_test_status'
         id = 'id'
         image_background_generation_opt_in_status = 'image_background_generation_opt_in_status'
+        image_brightness_and_contrast_opt_in_status = 'image_brightness_and_contrast_opt_in_status'
         image_expansion_opt_in_status = 'image_expansion_opt_in_status'
         is_ads_ai_consented = 'is_ads_ai_consented'
         is_cbo_default_on = 'is_cbo_default_on'
         is_se_removal_guidance_dismissed = 'is_se_removal_guidance_dismissed'
         last_used_post_format = 'last_used_post_format'
         last_visited_time = 'last_visited_time'
+        metadata_brand_kit_opt_in_status = 'metadata_brand_kit_opt_in_status'
         music_on_reels_opt_in = 'music_on_reels_opt_in'
         muted_cbo_midflight_education_messages = 'muted_cbo_midflight_education_messages'
         onsite_destination_optimization_opt_in = 'onsite_destination_optimization_opt_in'
         open_tabs = 'open_tabs'
+        pac_relaxation_opt_in_status = 'pac_relaxation_opt_in_status'
+        placement_group_square_opt_in_status = 'placement_group_square_opt_in_status'
+        placement_group_vertical_opt_in_status = 'placement_group_vertical_opt_in_status'
         previously_seen_recommendations = 'previously_seen_recommendations'
         product_extensions_opt_in = 'product_extensions_opt_in'
         sa_off_conv_loc_seen = 'sa_off_conv_loc_seen'
+        saoff_published_l2_conv_loc_seen = 'saoff_published_l2_conv_loc_seen'
         saon_migr_l1_seen_status = 'saon_migr_l1_seen_status'
         selected_ad_account = 'selected_ad_account'
         selected_comparison_timerange = 'selected_comparison_timerange'
@@ -88,6 +97,7 @@ class AdsUserSettings(
         sticky_setting_after_default_on = 'sticky_setting_after_default_on'
         syd_campaign_trends_metric = 'syd_campaign_trends_metric'
         text_optimizations_text_extraction_opt_in_status = 'text_optimizations_text_extraction_opt_in_status'
+        text_translation_opt_in_status = 'text_translation_opt_in_status'
         text_variations_sticky_opt_in_status = 'text_variations_sticky_opt_in_status'
         total_coupon_syd_dismissals = 'total_coupon_syd_dismissals'
         total_coupon_upsell_dismissals = 'total_coupon_upsell_dismissals'
@@ -139,6 +149,7 @@ class AdsUserSettings(
         'aplusc_local_store_extension_opt_in_status': 'string',
         'aplusc_opt_out_friction': 'list<string>',
         'aplusc_videofilter_opt_in_status': 'string',
+        'aplusc_videouncrop_opt_in_status': 'string',
         'autoflow_lite_opt_in_status': 'string',
         'autoflow_lite_should_opt_in': 'bool',
         'blended_ads_creation_defaulting_opt_in_status': 'string',
@@ -148,6 +159,8 @@ class AdsUserSettings(
         'campaign_name_template': 'Object',
         'carousel_to_video_opt_in_status': 'string',
         'connected_sources_catalog_opt_in_status': 'string',
+        'da_add_overlays_opt_in_status': 'string',
+        'da_hide_price_opt_in_status': 'string',
         'default_creation_mode': 'string',
         'dynamic_partnership_ads_opt_in_status': 'string',
         'enhance_cta_text_extraction_opt_in_status': 'string',
@@ -156,19 +169,25 @@ class AdsUserSettings(
         'gen_ai_alpha_test_status': 'int',
         'id': 'string',
         'image_background_generation_opt_in_status': 'string',
+        'image_brightness_and_contrast_opt_in_status': 'string',
         'image_expansion_opt_in_status': 'string',
         'is_ads_ai_consented': 'bool',
         'is_cbo_default_on': 'bool',
         'is_se_removal_guidance_dismissed': 'bool',
         'last_used_post_format': 'string',
         'last_visited_time': 'datetime',
+        'metadata_brand_kit_opt_in_status': 'string',
         'music_on_reels_opt_in': 'list<map<string, string>>',
         'muted_cbo_midflight_education_messages': 'list<string>',
         'onsite_destination_optimization_opt_in': 'string',
         'open_tabs': 'list<string>',
+        'pac_relaxation_opt_in_status': 'string',
+        'placement_group_square_opt_in_status': 'string',
+        'placement_group_vertical_opt_in_status': 'string',
         'previously_seen_recommendations': 'list<string>',
         'product_extensions_opt_in': 'string',
         'sa_off_conv_loc_seen': 'string',
+        'saoff_published_l2_conv_loc_seen': 'string',
         'saon_migr_l1_seen_status': 'string',
         'selected_ad_account': 'AdAccount',
         'selected_comparison_timerange': 'Object',
@@ -188,6 +207,7 @@ class AdsUserSettings(
         'sticky_setting_after_default_on': 'string',
         'syd_campaign_trends_metric': 'string',
         'text_optimizations_text_extraction_opt_in_status': 'string',
+        'text_translation_opt_in_status': 'string',
         'text_variations_sticky_opt_in_status': 'string',
         'total_coupon_syd_dismissals': 'int',
         'total_coupon_upsell_dismissals': 'int',

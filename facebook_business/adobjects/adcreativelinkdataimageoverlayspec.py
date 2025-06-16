@@ -36,6 +36,7 @@ class AdCreativeLinkDataImageOverlaySpec(
     class CustomTextType:
         free_shipping = 'free_shipping'
         popular = 'popular'
+        sale = 'sale'
 
     class OverlayTemplate:
         circle_with_text = 'circle_with_text'

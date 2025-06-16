@@ -249,6 +249,7 @@ class Page(
         explicit = 'EXPLICIT'
         explicit_imagine = 'EXPLICIT_IMAGINE'
         explicit_imagine_me = 'EXPLICIT_IMAGINE_ME'
+        explicit_restyle = 'EXPLICIT_RESTYLE'
         invisible_watermark = 'INVISIBLE_WATERMARK'
         iptc = 'IPTC'
         iptc_metadata_edited = 'IPTC_METADATA_EDITED'
@@ -1248,6 +1249,7 @@ class Page(
             'action_enum': [
                 'ACCEPT',
                 'CONNECT',
+                'MEDIA_UPDATE',
                 'REJECT',
                 'TERMINATE',
             ],
@@ -2414,7 +2416,7 @@ class Page(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.instagramuser import InstagramUser
+        from facebook_business.adobjects.iguser import IGUser
         param_types = {
         }
         enums = {
@@ -2425,9 +2427,9 @@ class Page(
             endpoint='/instagram_accounts',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=InstagramUser,
+            target_class=IGUser,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=InstagramUser, api=self._api),
+            response_parser=ObjectParser(target_class=IGUser, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2984,6 +2986,7 @@ class Page(
             'payload': 'string',
             'persona_id': 'string',
             'recipient': 'Object',
+            'reply_to': 'string',
             'sender_action': 'sender_action_enum',
             'suggestion_action': 'suggestion_action_enum',
             'tag': 'Object',
@@ -3085,6 +3088,8 @@ class Page(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'audio_enabled': 'bool',
+            'call_hours': 'map',
+            'call_routing': 'map',
             'icon_enabled': 'bool',
         }
         enums = {
@@ -3200,11 +3205,9 @@ class Page(
                 'GREETING',
                 'HOME_URL',
                 'ICE_BREAKERS',
-                'PAYMENT_SETTINGS',
                 'PERSISTENT_MENU',
                 'PLATFORM',
                 'SUBJECT_TO_NEW_EU_PRIVACY_RULES',
-                'TARGET_AUDIENCE',
                 'TITLE',
                 'WHITELISTED_DOMAINS',
             ],
@@ -3276,10 +3279,8 @@ class Page(
             'get_started': 'Object',
             'greeting': 'list<Object>',
             'ice_breakers': 'list<map>',
-            'payment_settings': 'Object',
             'persistent_menu': 'list<Object>',
             'platform': 'platform_enum',
-            'target_audience': 'Object',
             'title': 'list<Object>',
             'whitelisted_domains': 'list<string>',
         }
@@ -3447,7 +3448,7 @@ class Page(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.instagramuser import InstagramUser
+        from facebook_business.adobjects.iguser import IGUser
         param_types = {
         }
         enums = {
@@ -3458,9 +3459,9 @@ class Page(
             endpoint='/page_backed_instagram_accounts',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=InstagramUser,
+            target_class=IGUser,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=InstagramUser, api=self._api),
+            response_parser=ObjectParser(target_class=IGUser, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -3478,7 +3479,7 @@ class Page(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.instagramuser import InstagramUser
+        from facebook_business.adobjects.iguser import IGUser
         param_types = {
         }
         enums = {
@@ -3489,9 +3490,9 @@ class Page(
             endpoint='/page_backed_instagram_accounts',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=InstagramUser,
+            target_class=IGUser,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=InstagramUser, api=self._api),
+            response_parser=ObjectParser(target_class=IGUser, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -4971,6 +4972,7 @@ class Page(
             'is_boost_intended': 'bool',
             'is_explicit_share': 'bool',
             'is_group_linking_post': 'bool',
+            'is_partnership_ad': 'bool',
             'is_voice_clip': 'bool',
             'location_source_id': 'string',
             'manual_privacy': 'bool',
@@ -4983,6 +4985,7 @@ class Page(
             'og_suggestion_mechanism': 'string',
             'original_fov': 'unsigned int',
             'original_projection_type': 'original_projection_type_enum',
+            'partnership_ad_ad_code': 'string',
             'publish_event_id': 'unsigned int',
             'published': 'bool',
             'reference_only': 'bool',

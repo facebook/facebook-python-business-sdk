@@ -42,6 +42,7 @@ class AdRuleHistory(
         convert_asc_cp_single_instance = 'CONVERT_ASC_CP_SINGLE_INSTANCE'
         email = 'EMAIL'
         enable_advantage_campaign_budget = 'ENABLE_ADVANTAGE_CAMPAIGN_BUDGET'
+        enable_advantage_plus_audience = 'ENABLE_ADVANTAGE_PLUS_AUDIENCE'
         enable_advantage_plus_creative = 'ENABLE_ADVANTAGE_PLUS_CREATIVE'
         enable_advantage_plus_placements = 'ENABLE_ADVANTAGE_PLUS_PLACEMENTS'
         enable_autoflow = 'ENABLE_AUTOFLOW'

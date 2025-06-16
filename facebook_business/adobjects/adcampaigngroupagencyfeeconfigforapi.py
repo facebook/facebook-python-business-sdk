@@ -14,30 +14,24 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class ShadowIGMediaBoostedInsightsResult(
+class AdCampaignGroupAgencyFeeConfigForApi(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(ShadowIGMediaBoostedInsightsResult, self).__init__()
-        self._isShadowIGMediaBoostedInsightsResult = True
+        super(AdCampaignGroupAgencyFeeConfigForApi, self).__init__()
+        self._isAdCampaignGroupAgencyFeeConfigForApi = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        description = 'description'
-        name = 'name'
-        organic_media_id = 'organic_media_id'
-        source_type = 'source_type'
-        title = 'title'
-        values = 'values'
+        agency_fee_pct = 'agency_fee_pct'
+        is_agency_fee_disabled = 'is_agency_fee_disabled'
+        is_default_agency_fee = 'is_default_agency_fee'
 
     _field_types = {
-        'description': 'string',
-        'name': 'string',
-        'organic_media_id': 'string',
-        'source_type': 'string',
-        'title': 'string',
-        'values': 'list<Object>',
+        'agency_fee_pct': 'float',
+        'is_agency_fee_disabled': 'bool',
+        'is_default_agency_fee': 'bool',
     }
     @classmethod
     def _get_field_enum_info(cls):

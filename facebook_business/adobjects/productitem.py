@@ -59,6 +59,8 @@ class ProductItem(
         expiration_date = 'expiration_date'
         fb_product_category = 'fb_product_category'
         gender = 'gender'
+        generated_background_images = 'generated_background_images'
+        generated_background_images_ad_usage = 'generated_background_images_ad_usage'
         gtin = 'gtin'
         id = 'id'
         image_cdn_urls = 'image_cdn_urls'
@@ -105,6 +107,7 @@ class ProductItem(
         url = 'url'
         vendor_id = 'vendor_id'
         video_fetch_status = 'video_fetch_status'
+        videos = 'videos'
         visibility = 'visibility'
         wa_compliance_category = 'wa_compliance_category'
         android_app_name = 'android_app_name'
@@ -435,6 +438,7 @@ class ProductItem(
         commerce_account_not_legally_compliant = 'COMMERCE_ACCOUNT_NOT_LEGALLY_COMPLIANT'
         crawled_availability_mismatch = 'CRAWLED_AVAILABILITY_MISMATCH'
         da_disabled_by_user = 'DA_DISABLED_BY_USER'
+        da_policy_unfit_for_audience = 'DA_POLICY_UNFIT_FOR_AUDIENCE'
         da_policy_violation = 'DA_POLICY_VIOLATION'
         deleted_item = 'DELETED_ITEM'
         digital_goods_not_available_for_checkout = 'DIGITAL_GOODS_NOT_AVAILABLE_FOR_CHECKOUT'
@@ -497,7 +501,11 @@ class ProductItem(
         item_stale_out_of_stock = 'ITEM_STALE_OUT_OF_STOCK'
         marketplace_disabled_by_user = 'MARKETPLACE_DISABLED_BY_USER'
         marketplace_partner_auction_no_bid_close_time = 'MARKETPLACE_PARTNER_AUCTION_NO_BID_CLOSE_TIME'
+        marketplace_partner_currency_not_valid = 'MARKETPLACE_PARTNER_CURRENCY_NOT_VALID'
+        marketplace_partner_listing_country_not_match_catalog = 'MARKETPLACE_PARTNER_LISTING_COUNTRY_NOT_MATCH_CATALOG'
         marketplace_partner_listing_limit_exceeded = 'MARKETPLACE_PARTNER_LISTING_LIMIT_EXCEEDED'
+        marketplace_partner_missing_latlong = 'MARKETPLACE_PARTNER_MISSING_LATLONG'
+        marketplace_partner_missing_shipping_cost = 'MARKETPLACE_PARTNER_MISSING_SHIPPING_COST'
         marketplace_partner_not_local_item = 'MARKETPLACE_PARTNER_NOT_LOCAL_ITEM'
         marketplace_partner_not_shipped_item = 'MARKETPLACE_PARTNER_NOT_SHIPPED_ITEM'
         marketplace_partner_policy_violation = 'MARKETPLACE_PARTNER_POLICY_VIOLATION'
@@ -917,6 +925,7 @@ class ProductItem(
         param_types = {
             'additional_image_urls': 'list<string>',
             'additional_variant_attributes': 'map',
+            'age_group': 'age_group_enum',
             'android_app_name': 'string',
             'android_class': 'string',
             'android_package': 'string',
@@ -993,6 +1002,7 @@ class ProductItem(
             'windows_phone_url': 'string',
         }
         enums = {
+            'age_group_enum': ProductItem.AgeGroup.__dict__.values(),
             'availability_enum': ProductItem.Availability.__dict__.values(),
             'commerce_tax_category_enum': ProductItem.CommerceTaxCategory.__dict__.values(),
             'condition_enum': ProductItem.Condition.__dict__.values(),
@@ -1184,6 +1194,8 @@ class ProductItem(
         'expiration_date': 'string',
         'fb_product_category': 'string',
         'gender': 'Gender',
+        'generated_background_images': 'list<AIGeneratedProductImage>',
+        'generated_background_images_ad_usage': 'bool',
         'gtin': 'string',
         'id': 'string',
         'image_cdn_urls': 'list<map<string, string>>',
@@ -1230,6 +1242,7 @@ class ProductItem(
         'url': 'string',
         'vendor_id': 'string',
         'video_fetch_status': 'VideoFetchStatus',
+        'videos': 'list<ProductItemVideoData>',
         'visibility': 'Visibility',
         'wa_compliance_category': 'string',
         'android_app_name': 'string',

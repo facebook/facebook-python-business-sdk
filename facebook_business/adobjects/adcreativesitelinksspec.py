@@ -24,6 +24,9 @@ class AdCreativeSiteLinksSpec(
         self._api = api
 
     class Field(AbstractObject.Field):
+        is_site_link_sticky = 'is_site_link_sticky'
+        site_link_hash = 'site_link_hash'
+        site_link_id = 'site_link_id'
         site_link_image_hash = 'site_link_image_hash'
         site_link_image_url = 'site_link_image_url'
         site_link_recommendation_type = 'site_link_recommendation_type'
@@ -31,6 +34,9 @@ class AdCreativeSiteLinksSpec(
         site_link_url = 'site_link_url'
 
     _field_types = {
+        'is_site_link_sticky': 'bool',
+        'site_link_hash': 'string',
+        'site_link_id': 'string',
         'site_link_image_hash': 'string',
         'site_link_image_url': 'string',
         'site_link_recommendation_type': 'string',

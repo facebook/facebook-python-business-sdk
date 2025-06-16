@@ -30,6 +30,8 @@ class Vehicle(
         address = 'address'
         applinks = 'applinks'
         availability = 'availability'
+        availability_circle_radius = 'availability_circle_radius'
+        availability_circle_radius_unit = 'availability_circle_radius_unit'
         body_style = 'body_style'
         category_specific_fields = 'category_specific_fields'
         condition = 'condition'
@@ -107,6 +109,7 @@ class Vehicle(
         available = 'AVAILABLE'
         not_available = 'NOT_AVAILABLE'
         pending = 'PENDING'
+        unknown = 'UNKNOWN'
 
     class BodyStyle:
         convertible = 'CONVERTIBLE'
@@ -390,6 +393,8 @@ class Vehicle(
         'address': 'Object',
         'applinks': 'CatalogItemAppLinks',
         'availability': 'string',
+        'availability_circle_radius': 'float',
+        'availability_circle_radius_unit': 'string',
         'body_style': 'string',
         'category_specific_fields': 'CatalogSubVerticalList',
         'condition': 'string',

@@ -32,6 +32,7 @@ class AdAssetTargetRuleTargeting(
         geo_locations = 'geo_locations'
         instagram_positions = 'instagram_positions'
         publisher_platforms = 'publisher_platforms'
+        threads_positions = 'threads_positions'
 
     class DevicePlatforms:
         desktop = 'desktop'
@@ -46,6 +47,7 @@ class AdAssetTargetRuleTargeting(
         'geo_locations': 'TargetingGeoLocation',
         'instagram_positions': 'list<string>',
         'publisher_platforms': 'list<string>',
+        'threads_positions': 'list<string>',
     }
     @classmethod
     def _get_field_enum_info(cls):

@@ -27,12 +27,14 @@ class AdAssetOnsiteDestinations(
         auto_optimization = 'auto_optimization'
         details_page_product_id = 'details_page_product_id'
         shop_collection_product_set_id = 'shop_collection_product_set_id'
+        source = 'source'
         storefront_shop_id = 'storefront_shop_id'
 
     _field_types = {
         'auto_optimization': 'string',
         'details_page_product_id': 'string',
         'shop_collection_product_set_id': 'string',
+        'source': 'string',
         'storefront_shop_id': 'string',
     }
     @classmethod

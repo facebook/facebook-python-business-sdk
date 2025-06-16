@@ -69,7 +69,6 @@ class ProductCatalog(
         generic = 'generic'
         home_listings = 'home_listings'
         hotels = 'hotels'
-        jobs = 'jobs'
         local_service_businesses = 'local_service_businesses'
         offer_items = 'offer_items'
         offline_commerce = 'offline_commerce'
@@ -122,6 +121,12 @@ class ProductCatalog(
         tvs_and_monitors = 'TVS_AND_MONITORS'
         video_game_consoles_and_video_games = 'VIDEO_GAME_CONSOLES_AND_VIDEO_GAMES'
         watches = 'WATCHES'
+
+    class EventName:
+        add_to_cart = 'ADD_TO_CART'
+        purchase = 'PURCHASE'
+        test = 'TEST'
+        view_item = 'VIEW_ITEM'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
@@ -643,6 +648,38 @@ class ProductCatalog(
             self.assure_call()
             return request.execute()
 
+    def get_check_marketplace_partner_sellers_status(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.productcatalogcheckmarketplacepartnersellersstatus import ProductCatalogCheckMarketplacePartnerSellersStatus
+        param_types = {
+            'session_id': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/check_marketplace_partner_sellers_status',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ProductCatalogCheckMarketplacePartnerSellersStatus,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ProductCatalogCheckMarketplacePartnerSellersStatus, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_collaborative_ads_lsb_image_bank(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -1038,6 +1075,39 @@ class ProductCatalog(
             self.assure_call()
             return request.execute()
 
+    def create_geolocated_items_batch(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'allow_upsert': 'bool',
+            'item_type': 'string',
+            'requests': 'map',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/geolocated_items_batch',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ProductCatalog,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ProductCatalog, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_home_listings(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -1346,6 +1416,42 @@ class ProductCatalog(
             node_id=self['id'],
             method='POST',
             endpoint='/marketplace_partner_sellers_details',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ProductCatalog,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ProductCatalog, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_market_place_partner_signal(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'event_name': 'event_name_enum',
+            'event_source_url': 'string',
+            'event_time': 'datetime',
+            'order_data': 'map',
+            'user_data': 'map',
+        }
+        enums = {
+            'event_name_enum': ProductCatalog.EventName.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/marketplace_partner_signals',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
             target_class=ProductCatalog,
@@ -1735,6 +1841,7 @@ class ProductCatalog(
         param_types = {
             'additional_image_urls': 'list<string>',
             'additional_variant_attributes': 'map',
+            'age_group': 'age_group_enum',
             'android_app_name': 'string',
             'android_class': 'string',
             'android_package': 'string',
@@ -1812,6 +1919,7 @@ class ProductCatalog(
             'windows_phone_url': 'string',
         }
         enums = {
+            'age_group_enum': ProductItem.AgeGroup.__dict__.values(),
             'availability_enum': ProductItem.Availability.__dict__.values(),
             'commerce_tax_category_enum': ProductItem.CommerceTaxCategory.__dict__.values(),
             'condition_enum': ProductItem.Condition.__dict__.values(),
@@ -1830,6 +1938,37 @@ class ProductCatalog(
             target_class=ProductItem,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=ProductItem, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_update_generated_image_config(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'data': 'list<Object>',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/update_generated_image_config',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ProductCatalog,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ProductCatalog, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2083,6 +2222,7 @@ class ProductCatalog(
         field_enum_info['Tasks'] = ProductCatalog.Tasks.__dict__.values()
         field_enum_info['Standard'] = ProductCatalog.Standard.__dict__.values()
         field_enum_info['ItemSubType'] = ProductCatalog.ItemSubType.__dict__.values()
+        field_enum_info['EventName'] = ProductCatalog.EventName.__dict__.values()
         return field_enum_info
 
 

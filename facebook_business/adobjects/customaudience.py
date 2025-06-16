@@ -112,7 +112,6 @@ class CustomAudience(
         generic = 'GENERIC'
         home_listing = 'HOME_LISTING'
         hotel = 'HOTEL'
-        job = 'JOB'
         local_service_business = 'LOCAL_SERVICE_BUSINESS'
         media_title = 'MEDIA_TITLE'
         offline_product = 'OFFLINE_PRODUCT'
@@ -426,6 +425,7 @@ class CustomAudience(
             'calculated_date': 'string',
             'processed_date': 'string',
             'value_aggregation_duration': 'unsigned int',
+            'value_country': 'string',
             'value_currency': 'string',
             'value_version': 'unsigned int',
         }

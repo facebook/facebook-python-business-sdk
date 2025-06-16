@@ -165,38 +165,6 @@ class InstagramUser(
             self.assure_call()
             return request.execute()
 
-    def create_authorized_ad_account(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'account_id': 'string',
-            'business': 'string',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/authorized_adaccounts',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=InstagramUser,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=InstagramUser, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def get_upcoming_events(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -209,44 +177,6 @@ class InstagramUser(
         request = FacebookRequest(
             node_id=self['id'],
             method='GET',
-            endpoint='/upcoming_events',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=IGUpcomingEvent,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=IGUpcomingEvent, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_upcoming_event(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.igupcomingevent import IGUpcomingEvent
-        param_types = {
-            'end_time': 'datetime',
-            'notification_subtypes': 'list<notification_subtypes_enum>',
-            'notification_target_time': 'notification_target_time_enum',
-            'start_time': 'datetime',
-            'title': 'string',
-        }
-        enums = {
-            'notification_subtypes_enum': IGUpcomingEvent.NotificationSubtypes.__dict__.values(),
-            'notification_target_time_enum': IGUpcomingEvent.NotificationTargetTime.__dict__.values(),
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
             endpoint='/upcoming_events',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),

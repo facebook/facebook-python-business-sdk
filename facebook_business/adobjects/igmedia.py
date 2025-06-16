@@ -27,6 +27,7 @@ class IGMedia(
         super(IGMedia, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        alt_text = 'alt_text'
         boost_eligibility_info = 'boost_eligibility_info'
         caption = 'caption'
         comments_count = 'comments_count'
@@ -46,6 +47,7 @@ class IGMedia(
         thumbnail_url = 'thumbnail_url'
         timestamp = 'timestamp'
         username = 'username'
+        view_count = 'view_count'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -53,6 +55,7 @@ class IGMedia(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'ad_account_id': 'unsigned int',
+            'boostable_media_callsite': 'boostable_media_callsite_enum',
             'business_id': 'string',
             'primary_fb_page_id': 'string',
             'primary_ig_user_id': 'string',
@@ -60,6 +63,9 @@ class IGMedia(
             'secondary_ig_user_id': 'string',
         }
         enums = {
+            'boostable_media_callsite_enum': [
+                'ADS_MANAGER_L1_EDITOR_DYNAMIC_ADS_WITH_EXISTING_POST',
+            ],
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -307,6 +313,7 @@ class IGMedia(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.igcomment import IGComment
         param_types = {
+            'ad_id': 'string',
             'message': 'string',
         }
         enums = {
@@ -498,6 +505,7 @@ class IGMedia(
             return request.execute()
 
     _field_types = {
+        'alt_text': 'string',
         'boost_eligibility_info': 'IGMediaBoostEligibilityInfo',
         'caption': 'string',
         'comments_count': 'int',
@@ -517,6 +525,7 @@ class IGMedia(
         'thumbnail_url': 'string',
         'timestamp': 'datetime',
         'username': 'string',
+        'view_count': 'int',
     }
     @classmethod
     def _get_field_enum_info(cls):

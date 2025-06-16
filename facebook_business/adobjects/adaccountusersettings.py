@@ -33,6 +33,7 @@ class AdAccountUserSettings(
         active_ads_quick_view_created = 'active_ads_quick_view_created'
         ad_account = 'ad_account'
         ad_object_export_format = 'ad_object_export_format'
+        ads_manager_footer_row_toast_impressions = 'ads_manager_footer_row_toast_impressions'
         auto_review_video_caption = 'auto_review_video_caption'
         campaign_overview_columns = 'campaign_overview_columns'
         column_suggestion_status = 'column_suggestion_status'
@@ -53,6 +54,7 @@ class AdAccountUserSettings(
         has_seen_shops_ads_metrics_onboarding_tour = 'has_seen_shops_ads_metrics_onboarding_tour'
         has_seen_shops_column_flexing_experience = 'has_seen_shops_column_flexing_experience'
         hidden_optimization_tips = 'hidden_optimization_tips'
+        high_performing_quick_view_created = 'high_performing_quick_view_created'
         id = 'id'
         is_3p_auth_setting_set = 'is_3p_auth_setting_set'
         is_ads_manager_footer_row_preference_set = 'is_ads_manager_footer_row_preference_set'
@@ -87,6 +89,8 @@ class AdAccountUserSettings(
         syd_campaign_trends_objective = 'syd_campaign_trends_objective'
         syd_campaign_trends_time_range = 'syd_campaign_trends_time_range'
         syd_landing_page_opt_in_status = 'syd_landing_page_opt_in_status'
+        text_gen_persona_opt_in_type = 'text_gen_persona_opt_in_type'
+        text_variations_opt_in_out_ts = 'text_variations_opt_in_out_ts'
         text_variations_opt_in_type = 'text_variations_opt_in_type'
         user = 'user'
 
@@ -150,6 +154,7 @@ class AdAccountUserSettings(
         'active_ads_quick_view_created': 'bool',
         'ad_account': 'AdAccount',
         'ad_object_export_format': 'string',
+        'ads_manager_footer_row_toast_impressions': 'int',
         'auto_review_video_caption': 'bool',
         'campaign_overview_columns': 'list<string>',
         'column_suggestion_status': 'string',
@@ -170,6 +175,7 @@ class AdAccountUserSettings(
         'has_seen_shops_ads_metrics_onboarding_tour': 'bool',
         'has_seen_shops_column_flexing_experience': 'bool',
         'hidden_optimization_tips': 'list<map<string, bool>>',
+        'high_performing_quick_view_created': 'bool',
         'id': 'string',
         'is_3p_auth_setting_set': 'bool',
         'is_ads_manager_footer_row_preference_set': 'bool',
@@ -204,6 +210,8 @@ class AdAccountUserSettings(
         'syd_campaign_trends_objective': 'SydCampaignTrendsObjective',
         'syd_campaign_trends_time_range': 'string',
         'syd_landing_page_opt_in_status': 'string',
+        'text_gen_persona_opt_in_type': 'string',
+        'text_variations_opt_in_out_ts': 'datetime',
         'text_variations_opt_in_type': 'string',
         'user': 'User',
     }

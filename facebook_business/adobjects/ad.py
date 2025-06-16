@@ -429,6 +429,7 @@ class Ad(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'adset_id': 'string',
+            'creative_parameters': 'AdCreative',
             'rename_options': 'Object',
             'status_option': 'status_option_enum',
         }
@@ -477,6 +478,7 @@ class Ad(
             'fields': 'list<string>',
             'filtering': 'list<Object>',
             'level': 'level_enum',
+            'limit': 'int',
             'product_id_limit': 'int',
             'sort': 'list<string>',
             'summary': 'list<string>',
@@ -538,6 +540,7 @@ class Ad(
             'fields': 'list<string>',
             'filtering': 'list<Object>',
             'level': 'level_enum',
+            'limit': 'int',
             'product_id_limit': 'int',
             'sort': 'list<string>',
             'summary': 'list<string>',

@@ -39,6 +39,7 @@ class BusinessUser(
         name = 'name'
         pending_email = 'pending_email'
         role = 'role'
+        tasks = 'tasks'
         title = 'title'
         two_fac_status = 'two_fac_status'
         invited_user_type = 'invited_user_type'
@@ -48,6 +49,23 @@ class BusinessUser(
         mwa = 'MWA'
 
     class Role:
+        admin = 'ADMIN'
+        ads_rights_reviewer = 'ADS_RIGHTS_REVIEWER'
+        value_default = 'DEFAULT'
+        developer = 'DEVELOPER'
+        employee = 'EMPLOYEE'
+        finance_analyst = 'FINANCE_ANALYST'
+        finance_edit = 'FINANCE_EDIT'
+        finance_editor = 'FINANCE_EDITOR'
+        finance_view = 'FINANCE_VIEW'
+        manage = 'MANAGE'
+        partner_center_admin = 'PARTNER_CENTER_ADMIN'
+        partner_center_analyst = 'PARTNER_CENTER_ANALYST'
+        partner_center_education = 'PARTNER_CENTER_EDUCATION'
+        partner_center_marketing = 'PARTNER_CENTER_MARKETING'
+        partner_center_operations = 'PARTNER_CENTER_OPERATIONS'
+
+    class Tasks:
         admin = 'ADMIN'
         ads_rights_reviewer = 'ADS_RIGHTS_REVIEWER'
         value_default = 'DEFAULT'
@@ -146,10 +164,12 @@ class BusinessUser(
             'pending_email': 'string',
             'role': 'role_enum',
             'skip_verification_email': 'bool',
+            'tasks': 'list<tasks_enum>',
             'title': 'string',
         }
         enums = {
             'role_enum': BusinessUser.Role.__dict__.values(),
+            'tasks_enum': BusinessUser.Tasks.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -312,6 +332,7 @@ class BusinessUser(
         'name': 'string',
         'pending_email': 'string',
         'role': 'string',
+        'tasks': 'list<string>',
         'title': 'string',
         'two_fac_status': 'string',
         'invited_user_type': 'list<InvitedUserType>',
@@ -321,6 +342,7 @@ class BusinessUser(
         field_enum_info = {}
         field_enum_info['InvitedUserType'] = BusinessUser.InvitedUserType.__dict__.values()
         field_enum_info['Role'] = BusinessUser.Role.__dict__.values()
+        field_enum_info['Tasks'] = BusinessUser.Tasks.__dict__.values()
         return field_enum_info
 
 

@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+## v23.0.0
+
+
 ### Added
 - Added classes for tech providers
 -- CRUD operations for ThirdPartyAccountManager
@@ -133,3 +136,4 @@ All notable changes to this project will be documented in this file.
 ### Deprecated
 - `parent_id` in `AbstractCrudObject`.
 - Function `remote_create`, `remote_read`, `remote_update` and `remote_delete` for `AbstractCrudObject`. Check out our [recommended way](https://github.com/facebook/facebook-python-business-sdk#exploring-the-graph) to make API call with python SDK.
+

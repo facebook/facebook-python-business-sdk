@@ -18,22 +18,18 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class SplitTestConfig(
+class InstagramBusinessAsset(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isSplitTestConfig = True
-        super(SplitTestConfig, self).__init__(fbid, parent_id, api)
+        self._isInstagramBusinessAsset = True
+        super(InstagramBusinessAsset, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        budget = 'budget'
-        early_winner_declaration_enabled = 'early_winner_declaration_enabled'
-        end_time = 'end_time'
-        splits = 'splits'
-        start_time = 'start_time'
-        test_variable = 'test_variable'
         id = 'id'
+        ig_user_id = 'ig_user_id'
+        ig_username = 'ig_username'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -49,7 +45,7 @@ class SplitTestConfig(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=SplitTestConfig,
+            target_class=InstagramBusinessAsset,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -66,13 +62,9 @@ class SplitTestConfig(
             return request.execute()
 
     _field_types = {
-        'budget': 'int',
-        'early_winner_declaration_enabled': 'bool',
-        'end_time': 'datetime',
-        'splits': 'list<int>',
-        'start_time': 'datetime',
-        'test_variable': 'string',
         'id': 'string',
+        'ig_user_id': 'string',
+        'ig_username': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

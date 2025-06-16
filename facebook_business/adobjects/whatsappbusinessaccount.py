@@ -37,6 +37,7 @@ class WhatsAppBusinessAccount(
         health_status = 'health_status'
         id = 'id'
         is_enabled_for_insights = 'is_enabled_for_insights'
+        is_shared_with_partners = 'is_shared_with_partners'
         linked_commerce_account = 'linked_commerce_account'
         marketing_messages_lite_api_status = 'marketing_messages_lite_api_status'
         message_template_namespace = 'message_template_namespace'
@@ -334,6 +335,7 @@ class WhatsAppBusinessAccount(
                 'COUNTRY',
                 'DIRECTION',
                 'PHONE',
+                'TIER',
                 'UNKNOWN',
             ],
             'directions_enum': [
@@ -792,6 +794,7 @@ class WhatsAppBusinessAccount(
             'category': 'category_enum',
             'components': 'list<map>',
             'cta_url_link_tracking_opted_out': 'bool',
+            'degrees_of_freedom_spec': 'map',
             'display_format': 'display_format_enum',
             'language': 'string',
             'library_template_body_inputs': 'map',
@@ -1103,6 +1106,7 @@ class WhatsAppBusinessAccount(
             'pricing_categories': 'list<pricing_categories_enum>',
             'pricing_types': 'list<pricing_types_enum>',
             'start': 'unsigned int',
+            'tiers': 'list<string>',
         }
         enums = {
             'dimensions_enum': [
@@ -1110,6 +1114,7 @@ class WhatsAppBusinessAccount(
                 'PHONE',
                 'PRICING_CATEGORY',
                 'PRICING_TYPE',
+                'TIER',
             ],
             'granularity_enum': [
                 'DAILY',
@@ -1123,6 +1128,9 @@ class WhatsAppBusinessAccount(
             'pricing_categories_enum': [
                 'AUTHENTICATION',
                 'AUTHENTICATION_INTERNATIONAL',
+                'GROUP_MARKETING',
+                'GROUP_SERVICE',
+                'GROUP_UTILITY',
                 'MARKETING',
                 'MARKETING_LITE',
                 'SERVICE',
@@ -1737,6 +1745,7 @@ class WhatsAppBusinessAccount(
         'health_status': 'WhatsAppBusinessHealthStatusForMessageSend',
         'id': 'string',
         'is_enabled_for_insights': 'bool',
+        'is_shared_with_partners': 'bool',
         'linked_commerce_account': 'CommerceMerchantSettings',
         'marketing_messages_lite_api_status': 'string',
         'message_template_namespace': 'string',

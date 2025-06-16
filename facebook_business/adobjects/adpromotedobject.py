@@ -52,9 +52,11 @@ class AdPromotedObject(
         product_item_id = 'product_item_id'
         product_set = 'product_set'
         product_set_id = 'product_set_id'
+        product_set_optimization = 'product_set_optimization'
         retention_days = 'retention_days'
         value_semantic_type = 'value_semantic_type'
         variation = 'variation'
+        whats_app_business_phone_number_id = 'whats_app_business_phone_number_id'
         whatsapp_phone_number = 'whatsapp_phone_number'
 
     class CustomEventType:
@@ -148,9 +150,11 @@ class AdPromotedObject(
         'product_item_id': 'string',
         'product_set': 'ProductSet',
         'product_set_id': 'string',
+        'product_set_optimization': 'string',
         'retention_days': 'string',
         'value_semantic_type': 'string',
         'variation': 'string',
+        'whats_app_business_phone_number_id': 'string',
         'whatsapp_phone_number': 'string',
     }
     @classmethod

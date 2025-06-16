@@ -88,6 +88,7 @@ class AdCreative(
         product_set_id = 'product_set_id'
         recommender_settings = 'recommender_settings'
         regional_regulation_disclaimer_spec = 'regional_regulation_disclaimer_spec'
+        source_facebook_post_id = 'source_facebook_post_id'
         source_instagram_media_id = 'source_instagram_media_id'
         status = 'status'
         template_url = 'template_url'
@@ -183,6 +184,7 @@ class AdCreative(
         video_call = 'VIDEO_CALL'
         view_cart = 'VIEW_CART'
         view_channel = 'VIEW_CHANNEL'
+        view_in_cart = 'VIEW_IN_CART'
         view_product = 'VIEW_PRODUCT'
         visit_pages_feed = 'VISIT_PAGES_FEED'
         watch_live_video = 'WATCH_LIVE_VIDEO'
@@ -524,6 +526,7 @@ class AdCreative(
         'product_set_id': 'string',
         'recommender_settings': 'AdCreativeRecommenderSettings',
         'regional_regulation_disclaimer_spec': 'AdCreativeRegionalRegulationDisclaimer',
+        'source_facebook_post_id': 'string',
         'source_instagram_media_id': 'string',
         'status': 'Status',
         'template_url': 'string',

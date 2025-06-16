@@ -36,6 +36,7 @@ class AdReportRun(
         date_start = 'date_start'
         date_stop = 'date_stop'
         emails = 'emails'
+        error_code = 'error_code'
         friendly_name = 'friendly_name'
         id = 'id'
         is_async_export = 'is_async_export'
@@ -56,6 +57,7 @@ class AdReportRun(
         fields = 'fields'
         filtering = 'filtering'
         level = 'level'
+        limit = 'limit'
         product_id_limit = 'product_id_limit'
         sort = 'sort'
         summary = 'summary'
@@ -148,6 +150,7 @@ class AdReportRun(
         'date_start': 'string',
         'date_stop': 'string',
         'emails': 'list<string>',
+        'error_code': 'unsigned int',
         'friendly_name': 'string',
         'id': 'string',
         'is_async_export': 'int',
@@ -168,6 +171,7 @@ class AdReportRun(
         'fields': 'list<string>',
         'filtering': 'list<Object>',
         'level': 'Level',
+        'limit': 'int',
         'product_id_limit': 'int',
         'sort': 'list<string>',
         'summary': 'list<string>',

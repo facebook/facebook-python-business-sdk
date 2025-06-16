@@ -40,7 +40,6 @@ class CatalogSubVerticalList(
         computers_and_tablets = 'computers_and_tablets'
         computers_laptops_and_tablets = 'computers_laptops_and_tablets'
         diapering_and_potty_training = 'diapering_and_potty_training'
-        digital_product_offer = 'digital_product_offer'
         electronic_accessories_and_cables = 'electronic_accessories_and_cables'
         electronics_accessories = 'electronics_accessories'
         furniture = 'furniture'
@@ -95,7 +94,6 @@ class CatalogSubVerticalList(
         'computers_and_tablets': 'Object',
         'computers_laptops_and_tablets': 'Object',
         'diapering_and_potty_training': 'Object',
-        'digital_product_offer': 'Object',
         'electronic_accessories_and_cables': 'Object',
         'electronics_accessories': 'Object',
         'furniture': 'Object',

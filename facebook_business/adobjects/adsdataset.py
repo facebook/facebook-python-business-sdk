@@ -80,6 +80,10 @@ class AdsDataset(
         usage = 'usage'
         valid_entries = 'valid_entries'
 
+    class SortBy:
+        last_fired_time = 'LAST_FIRED_TIME'
+        name = 'NAME'
+
     _field_types = {
         'can_proxy': 'bool',
         'collection_rate': 'float',
@@ -137,6 +141,7 @@ class AdsDataset(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['SortBy'] = AdsDataset.SortBy.__dict__.values()
         return field_enum_info
 
 

@@ -24,15 +24,19 @@ class ContentDeliveryReport(
         self._api = api
 
     class Field(AbstractObject.Field):
+        content_id = 'content_id'
         content_name = 'content_name'
         content_url = 'content_url'
+        creator_id = 'creator_id'
         creator_name = 'creator_name'
         creator_url = 'creator_url'
         estimated_impressions = 'estimated_impressions'
 
     _field_types = {
+        'content_id': 'string',
         'content_name': 'string',
         'content_url': 'string',
+        'creator_id': 'string',
         'creator_name': 'string',
         'creator_url': 'string',
         'estimated_impressions': 'unsigned int',
