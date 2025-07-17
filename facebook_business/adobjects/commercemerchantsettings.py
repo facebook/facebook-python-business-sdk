@@ -38,12 +38,14 @@ class CommerceMerchantSettings(
         korea_ftc_listing = 'korea_ftc_listing'
         merchant_page = 'merchant_page'
         merchant_status = 'merchant_status'
+        offsite_iab_checkout_enabled_countries = 'offsite_iab_checkout_enabled_countries'
         onsite_commerce_merchant = 'onsite_commerce_merchant'
         payment_provider = 'payment_provider'
         privacy_policy_localized = 'privacy_policy_localized'
         return_policy_localized = 'return_policy_localized'
         review_rejection_messages = 'review_rejection_messages'
         review_rejection_reasons = 'review_rejection_reasons'
+        shops_ads_setup = 'shops_ads_setup'
         terms = 'terms'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
@@ -516,12 +518,14 @@ class CommerceMerchantSettings(
         'korea_ftc_listing': 'string',
         'merchant_page': 'Profile',
         'merchant_status': 'string',
+        'offsite_iab_checkout_enabled_countries': 'list<string>',
         'onsite_commerce_merchant': 'Object',
         'payment_provider': 'string',
         'privacy_policy_localized': 'string',
         'return_policy_localized': 'string',
         'review_rejection_messages': 'list<string>',
         'review_rejection_reasons': 'list<string>',
+        'shops_ads_setup': 'Object',
         'terms': 'string',
     }
     @classmethod

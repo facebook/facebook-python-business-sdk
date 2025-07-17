@@ -47,6 +47,10 @@ class OmegaCustomerTrx(
         payment_term = 'payment_term'
         type = 'type'
 
+    class ProductTypes:
+        facebook = 'FACEBOOK'
+        whatsapp = 'WHATSAPP'
+
     class Type:
         cm = 'CM'
         dm = 'DM'
@@ -137,6 +141,7 @@ class OmegaCustomerTrx(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['ProductTypes'] = OmegaCustomerTrx.ProductTypes.__dict__.values()
         field_enum_info['Type'] = OmegaCustomerTrx.Type.__dict__.values()
         return field_enum_info
 

@@ -135,6 +135,7 @@ class AdsInsights(
         landing_page_view_actions_per_link_click = 'landing_page_view_actions_per_link_click'
         landing_page_view_per_link_click = 'landing_page_view_per_link_click'
         landing_page_view_per_purchase_rate = 'landing_page_view_per_purchase_rate'
+        link_clicks_per_results = 'link_clicks_per_results'
         location = 'location'
         marketing_messages_click_rate_benchmark = 'marketing_messages_click_rate_benchmark'
         marketing_messages_cost_per_delivered = 'marketing_messages_cost_per_delivered'
@@ -178,6 +179,7 @@ class AdsInsights(
         product_group_retailer_id = 'product_group_retailer_id'
         product_name = 'product_name'
         product_retailer_id = 'product_retailer_id'
+        product_views = 'product_views'
         purchase_per_landing_page_view = 'purchase_per_landing_page_view'
         purchase_roas = 'purchase_roas'
         purchases_per_link_click = 'purchases_per_link_click'
@@ -190,6 +192,7 @@ class AdsInsights(
         shops_assisted_purchases = 'shops_assisted_purchases'
         social_spend = 'social_spend'
         spend = 'spend'
+        total_card_view = 'total_card_view'
         total_postbacks = 'total_postbacks'
         total_postbacks_detailed = 'total_postbacks_detailed'
         total_postbacks_detailed_v4 = 'total_postbacks_detailed_v4'
@@ -497,6 +500,7 @@ class AdsInsights(
         'landing_page_view_actions_per_link_click': 'string',
         'landing_page_view_per_link_click': 'string',
         'landing_page_view_per_purchase_rate': 'string',
+        'link_clicks_per_results': 'list<Object>',
         'location': 'string',
         'marketing_messages_click_rate_benchmark': 'string',
         'marketing_messages_cost_per_delivered': 'string',
@@ -540,6 +544,7 @@ class AdsInsights(
         'product_group_retailer_id': 'string',
         'product_name': 'string',
         'product_retailer_id': 'string',
+        'product_views': 'string',
         'purchase_per_landing_page_view': 'string',
         'purchase_roas': 'list<AdsActionStats>',
         'purchases_per_link_click': 'string',
@@ -552,6 +557,7 @@ class AdsInsights(
         'shops_assisted_purchases': 'string',
         'social_spend': 'string',
         'spend': 'string',
+        'total_card_view': 'string',
         'total_postbacks': 'string',
         'total_postbacks_detailed': 'list<AdsActionStats>',
         'total_postbacks_detailed_v4': 'list<AdsActionStats>',

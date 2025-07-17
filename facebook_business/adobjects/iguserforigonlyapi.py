@@ -689,11 +689,11 @@ class IGUserForIGOnlyAPI(
                 'messaging_referral',
                 'messaging_seen',
                 'onboarding_welcome_message_series',
+                'share_to_story',
                 'standby',
                 'story_insights',
                 'story_poll_response',
                 'story_reactions',
-                'story_share',
             ],
         }
         request = FacebookRequest(

@@ -50,6 +50,7 @@ class AdCreative(
         creative_sourcing_spec = 'creative_sourcing_spec'
         degrees_of_freedom_spec = 'degrees_of_freedom_spec'
         destination_set_id = 'destination_set_id'
+        destination_spec = 'destination_spec'
         dynamic_ad_voice = 'dynamic_ad_voice'
         effective_authorization_category = 'effective_authorization_category'
         effective_instagram_media_id = 'effective_instagram_media_id'
@@ -57,6 +58,7 @@ class AdCreative(
         enable_direct_install = 'enable_direct_install'
         enable_launch_instant_app = 'enable_launch_instant_app'
         facebook_branded_content = 'facebook_branded_content'
+        format_transformation_spec = 'format_transformation_spec'
         id = 'id'
         image_crops = 'image_crops'
         image_hash = 'image_hash'
@@ -488,6 +490,7 @@ class AdCreative(
         'creative_sourcing_spec': 'AdCreativeSourcingSpec',
         'degrees_of_freedom_spec': 'AdCreativeDegreesOfFreedomSpec',
         'destination_set_id': 'string',
+        'destination_spec': 'AdCreativeDestinationSpec',
         'dynamic_ad_voice': 'string',
         'effective_authorization_category': 'string',
         'effective_instagram_media_id': 'string',
@@ -495,6 +498,7 @@ class AdCreative(
         'enable_direct_install': 'bool',
         'enable_launch_instant_app': 'bool',
         'facebook_branded_content': 'AdCreativeFacebookBrandedContent',
+        'format_transformation_spec': 'AdCreativeFormatTransformationSpec',
         'id': 'string',
         'image_crops': 'AdsImageCrops',
         'image_hash': 'string',

@@ -36,6 +36,7 @@ class ProductItem(
         brand = 'brand'
         bundle_items = 'bundle_items'
         bundle_retailer_ids = 'bundle_retailer_ids'
+        capabilities_disabled_by_user = 'capabilities_disabled_by_user'
         capability_to_review_status = 'capability_to_review_status'
         category = 'category'
         category_specific_fields = 'category_specific_fields'
@@ -587,6 +588,7 @@ class ProductItem(
         not_marked = 'not_marked'
 
     class OriginCountry:
+        ac = 'AC'
         ad = 'AD'
         ae = 'AE'
         af = 'AF'
@@ -1171,6 +1173,7 @@ class ProductItem(
         'brand': 'string',
         'bundle_items': 'list<string>',
         'bundle_retailer_ids': 'list<string>',
+        'capabilities_disabled_by_user': 'list<string>',
         'capability_to_review_status': 'list<map<string, ProductItem_capability_to_review_status>>',
         'category': 'string',
         'category_specific_fields': 'CatalogSubVerticalList',

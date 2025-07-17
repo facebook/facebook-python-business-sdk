@@ -36,6 +36,7 @@ class AdSet(
         adset_schedule = 'adset_schedule'
         asset_feed_id = 'asset_feed_id'
         attribution_spec = 'attribution_spec'
+        automatic_manual_state = 'automatic_manual_state'
         bid_adjustments = 'bid_adjustments'
         bid_amount = 'bid_amount'
         bid_constraints = 'bid_constraints'
@@ -152,6 +153,7 @@ class AdSet(
         ad_recall_lift = 'AD_RECALL_LIFT'
         app_installs = 'APP_INSTALLS'
         app_installs_and_offsite_conversions = 'APP_INSTALLS_AND_OFFSITE_CONVERSIONS'
+        automatic_objective = 'AUTOMATIC_OBJECTIVE'
         conversations = 'CONVERSATIONS'
         derived_events = 'DERIVED_EVENTS'
         engaged_users = 'ENGAGED_USERS'
@@ -184,6 +186,11 @@ class AdSet(
         archived = 'ARCHIVED'
         deleted = 'DELETED'
         paused = 'PAUSED'
+
+    class AutomaticManualState:
+        automatic = 'AUTOMATIC'
+        manual = 'MANUAL'
+        unset = 'UNSET'
 
     class BudgetSource:
         none = 'NONE'
@@ -275,6 +282,7 @@ class AdSet(
         value_4 = '4'
         value_5 = '5'
         value_6 = '6'
+        value_7 = '7'
 
     class TuneForCategory:
         credit = 'CREDIT'
@@ -399,6 +407,7 @@ class AdSet(
             'adlabels': 'list<Object>',
             'adset_schedule': 'list<Object>',
             'attribution_spec': 'list<map>',
+            'automatic_manual_state': 'automatic_manual_state_enum',
             'bid_adjustments': 'Object',
             'bid_amount': 'int',
             'bid_constraints': 'map<string, Object>',
@@ -449,6 +458,7 @@ class AdSet(
             'tune_for_category': 'tune_for_category_enum',
         }
         enums = {
+            'automatic_manual_state_enum': AdSet.AutomaticManualState.__dict__.values(),
             'bid_strategy_enum': AdSet.BidStrategy.__dict__.values(),
             'billing_event_enum': AdSet.BillingEvent.__dict__.values(),
             'creative_sequence_repetition_pattern_enum': AdSet.CreativeSequenceRepetitionPattern.__dict__.values(),
@@ -1105,6 +1115,7 @@ class AdSet(
         'adset_schedule': 'list<DayPart>',
         'asset_feed_id': 'string',
         'attribution_spec': 'list<AttributionSpec>',
+        'automatic_manual_state': 'string',
         'bid_adjustments': 'AdBidAdjustments',
         'bid_amount': 'unsigned int',
         'bid_constraints': 'AdCampaignBidConstraint',
@@ -1191,6 +1202,7 @@ class AdSet(
         field_enum_info['EffectiveStatus'] = AdSet.EffectiveStatus.__dict__.values()
         field_enum_info['OptimizationGoal'] = AdSet.OptimizationGoal.__dict__.values()
         field_enum_info['Status'] = AdSet.Status.__dict__.values()
+        field_enum_info['AutomaticManualState'] = AdSet.AutomaticManualState.__dict__.values()
         field_enum_info['BudgetSource'] = AdSet.BudgetSource.__dict__.values()
         field_enum_info['CreativeSequenceRepetitionPattern'] = AdSet.CreativeSequenceRepetitionPattern.__dict__.values()
         field_enum_info['DatePreset'] = AdSet.DatePreset.__dict__.values()

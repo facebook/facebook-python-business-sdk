@@ -31,6 +31,7 @@ class AdCreativeSourcingSpec(
         promotion_metadata_spec = 'promotion_metadata_spec'
         site_links_spec = 'site_links_spec'
         source_url = 'source_url'
+        website_summary_spec = 'website_summary_spec'
 
     _field_types = {
         'associated_product_set_id': 'string',
@@ -40,6 +41,7 @@ class AdCreativeSourcingSpec(
         'promotion_metadata_spec': 'list<AdCreativePromotionMetadataSpec>',
         'site_links_spec': 'list<AdCreativeSiteLinksSpec>',
         'source_url': 'string',
+        'website_summary_spec': 'Object',
     }
     @classmethod
     def _get_field_enum_info(cls):

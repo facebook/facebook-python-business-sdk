@@ -135,6 +135,7 @@ class ReachFrequencyPrediction(
         rf_prediction_id_to_release = 'rf_prediction_id_to_release'
         rf_prediction_id_to_share = 'rf_prediction_id_to_share'
         stop_time = 'stop_time'
+        trending_topics_spec = 'trending_topics_spec'
 
     class Action:
         cancel = 'cancel'
@@ -313,6 +314,7 @@ class ReachFrequencyPrediction(
         'rf_prediction_id_to_release': 'string',
         'rf_prediction_id_to_share': 'string',
         'stop_time': 'unsigned int',
+        'trending_topics_spec': 'map',
     }
     @classmethod
     def _get_field_enum_info(cls):

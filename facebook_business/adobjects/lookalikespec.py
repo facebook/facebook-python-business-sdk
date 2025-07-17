@@ -25,7 +25,9 @@ class LookalikeSpec(
 
     class Field(AbstractObject.Field):
         country = 'country'
+        is_created_by_recommended_dfca = 'is_created_by_recommended_dfca'
         is_financial_service = 'is_financial_service'
+        is_parent_lal = 'is_parent_lal'
         origin = 'origin'
         origin_event_name = 'origin_event_name'
         origin_event_source_name = 'origin_event_source_name'
@@ -39,7 +41,9 @@ class LookalikeSpec(
 
     _field_types = {
         'country': 'string',
+        'is_created_by_recommended_dfca': 'bool',
         'is_financial_service': 'bool',
+        'is_parent_lal': 'bool',
         'origin': 'list<Object>',
         'origin_event_name': 'string',
         'origin_event_source_name': 'string',

@@ -53,6 +53,7 @@ class AdAccountUserSettings(
         has_seen_leads_column_flexing_experience = 'has_seen_leads_column_flexing_experience'
         has_seen_shops_ads_metrics_onboarding_tour = 'has_seen_shops_ads_metrics_onboarding_tour'
         has_seen_shops_column_flexing_experience = 'has_seen_shops_column_flexing_experience'
+        has_used_quick_views_panel = 'has_used_quick_views_panel'
         hidden_optimization_tips = 'hidden_optimization_tips'
         high_performing_quick_view_created = 'high_performing_quick_view_created'
         id = 'id'
@@ -68,6 +69,7 @@ class AdAccountUserSettings(
         rb_export_format = 'rb_export_format'
         rb_export_raw_data = 'rb_export_raw_data'
         rb_export_summary_row = 'rb_export_summary_row'
+        recently_used_quick_views = 'recently_used_quick_views'
         saip_advertiser_setup_optimisation_guidance_overall_state = 'saip_advertiser_setup_optimisation_guidance_overall_state'
         saip_advertiser_setup_optimisation_guidance_state = 'saip_advertiser_setup_optimisation_guidance_state'
         shops_ads_metrics_onboarding_tour_close_count = 'shops_ads_metrics_onboarding_tour_close_count'
@@ -174,6 +176,7 @@ class AdAccountUserSettings(
         'has_seen_leads_column_flexing_experience': 'bool',
         'has_seen_shops_ads_metrics_onboarding_tour': 'bool',
         'has_seen_shops_column_flexing_experience': 'bool',
+        'has_used_quick_views_panel': 'bool',
         'hidden_optimization_tips': 'list<map<string, bool>>',
         'high_performing_quick_view_created': 'bool',
         'id': 'string',
@@ -189,6 +192,7 @@ class AdAccountUserSettings(
         'rb_export_format': 'string',
         'rb_export_raw_data': 'bool',
         'rb_export_summary_row': 'bool',
+        'recently_used_quick_views': 'list<string>',
         'saip_advertiser_setup_optimisation_guidance_overall_state': 'string',
         'saip_advertiser_setup_optimisation_guidance_state': 'list<map<string, string>>',
         'shops_ads_metrics_onboarding_tour_close_count': 'int',

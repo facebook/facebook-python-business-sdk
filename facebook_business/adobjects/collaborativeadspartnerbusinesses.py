@@ -26,10 +26,12 @@ class CollaborativeAdsPartnerBusinesses(
     class Field(AbstractObject.Field):
         collaborative_ads_partner_businesses_info = 'collaborative_ads_partner_businesses_info'
         dedicated_partner_business_info = 'dedicated_partner_business_info'
+        dedicated_partners_business_info = 'dedicated_partners_business_info'
 
     _field_types = {
         'collaborative_ads_partner_businesses_info': 'list<Business>',
         'dedicated_partner_business_info': 'Business',
+        'dedicated_partners_business_info': 'list<Business>',
     }
     @classmethod
     def _get_field_enum_info(cls):

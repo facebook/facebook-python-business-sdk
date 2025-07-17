@@ -44,6 +44,7 @@ class ImageCopyright(
         update_time = 'update_time'
 
     class GeoOwnership:
+        ac = 'AC'
         ad = 'AD'
         ae = 'AE'
         af = 'AF'

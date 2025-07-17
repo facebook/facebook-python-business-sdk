@@ -34,6 +34,7 @@ class Robot(
         init_pos = 'init_pos'
         last_pos = 'last_pos'
         meetup_link_hash = 'meetup_link_hash'
+        robot_notes = 'robot_notes'
         suite = 'suite'
         target_map_image_uri = 'target_map_image_uri'
         target_os_image_uri = 'target_os_image_uri'
@@ -78,6 +79,7 @@ class Robot(
         'init_pos': 'list<map<string, float>>',
         'last_pos': 'list<map<string, float>>',
         'meetup_link_hash': 'string',
+        'robot_notes': 'string',
         'suite': 'string',
         'target_map_image_uri': 'string',
         'target_os_image_uri': 'string',

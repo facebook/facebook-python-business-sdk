@@ -113,6 +113,7 @@ class Business(
         profile_plus_create_content = 'PROFILE_PLUS_CREATE_CONTENT'
         profile_plus_facebook_access = 'PROFILE_PLUS_FACEBOOK_ACCESS'
         profile_plus_full_control = 'PROFILE_PLUS_FULL_CONTROL'
+        profile_plus_global_structure_management = 'PROFILE_PLUS_GLOBAL_STRUCTURE_MANAGEMENT'
         profile_plus_manage = 'PROFILE_PLUS_MANAGE'
         profile_plus_manage_leads = 'PROFILE_PLUS_MANAGE_LEADS'
         profile_plus_messaging = 'PROFILE_PLUS_MESSAGING'
@@ -630,6 +631,7 @@ class Business(
         profile_plus_create_content = 'PROFILE_PLUS_CREATE_CONTENT'
         profile_plus_facebook_access = 'PROFILE_PLUS_FACEBOOK_ACCESS'
         profile_plus_full_control = 'PROFILE_PLUS_FULL_CONTROL'
+        profile_plus_global_structure_management = 'PROFILE_PLUS_GLOBAL_STRUCTURE_MANAGEMENT'
         profile_plus_manage = 'PROFILE_PLUS_MANAGE'
         profile_plus_manage_leads = 'PROFILE_PLUS_MANAGE_LEADS'
         profile_plus_messaging = 'PROFILE_PLUS_MESSAGING'
@@ -1766,15 +1768,21 @@ class Business(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.omegacustomertrx import OmegaCustomerTrx
         param_types = {
+            'account_ids': 'list<unsigned int>',
+            'advertiser_name': 'string',
+            'billing_period_end': 'string',
+            'billing_period_start': 'string',
             'end_date': 'string',
             'invoice_id': 'string',
             'issue_end_date': 'string',
             'issue_start_date': 'string',
+            'product_types': 'list<product_types_enum>',
             'root_id': 'unsigned int',
             'start_date': 'string',
             'type': 'type_enum',
         }
         enums = {
+            'product_types_enum': OmegaCustomerTrx.ProductTypes.__dict__.values(),
             'type_enum': OmegaCustomerTrx.Type.__dict__.values(),
         }
         request = FacebookRequest(
@@ -2012,6 +2020,37 @@ class Business(
             target_class=Business,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=Business, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_client_instagram_assets(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.instagrambusinessasset import InstagramBusinessAsset
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/client_instagram_assets',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=InstagramBusinessAsset,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=InstagramBusinessAsset, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -3494,6 +3533,37 @@ class Business(
             target_class=IGUser,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=IGUser, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_owned_instagram_assets(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.instagrambusinessasset import InstagramBusinessAsset
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/owned_instagram_assets',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=InstagramBusinessAsset,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=InstagramBusinessAsset, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

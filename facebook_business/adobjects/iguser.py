@@ -496,6 +496,55 @@ class IGUser(
             self.assure_call()
             return request.execute()
 
+    def get_creator_market_place_creators(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.iguserexportforcam import IGUserExportForCAM
+        param_types = {
+            'creator_age_bucket': 'list<Object>',
+            'creator_countries': 'list<creator_countries_enum>',
+            'creator_gender': 'list<creator_gender_enum>',
+            'creator_interests': 'list<Object>',
+            'creator_max_engaged_accounts': 'unsigned int',
+            'creator_max_followers': 'unsigned int',
+            'creator_min_engaged_accounts': 'unsigned int',
+            'creator_min_followers': 'unsigned int',
+            'major_audience_age_bucket': 'list<Object>',
+            'major_audience_countries': 'list<major_audience_countries_enum>',
+            'major_audience_gender': 'list<major_audience_gender_enum>',
+            'query': 'string',
+            'reels_interaction_rate': 'Object',
+            'similar_to_creators': 'list<string>',
+        }
+        enums = {
+            'creator_countries_enum': IGUserExportForCAM.CreatorCountries.__dict__.values(),
+            'creator_gender_enum': IGUserExportForCAM.CreatorGender.__dict__.values(),
+            'major_audience_countries_enum': IGUserExportForCAM.MajorAudienceCountries.__dict__.values(),
+            'major_audience_gender_enum': IGUserExportForCAM.MajorAudienceGender.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/creator_marketplace_creators',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=IGUserExportForCAM,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=IGUserExportForCAM, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_dataset(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -617,6 +666,37 @@ class IGUser(
         request = FacebookRequest(
             node_id=self['id'],
             method='GET',
+            endpoint='/instagram_backed_threads_user',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ThreadsUser,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ThreadsUser, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_instagram_backed_threads_user(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.threadsuser import ThreadsUser
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
             endpoint='/instagram_backed_threads_user',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
