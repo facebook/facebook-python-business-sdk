@@ -166,6 +166,7 @@ class Campaign(
         online_gambling_and_gaming = 'ONLINE_GAMBLING_AND_GAMING'
 
     class SpecialAdCategoryCountry:
+        ac = 'AC'
         ad = 'AD'
         ae = 'AE'
         af = 'AF'

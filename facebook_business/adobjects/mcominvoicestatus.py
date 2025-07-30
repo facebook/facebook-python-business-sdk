@@ -34,8 +34,11 @@ class McomInvoiceStatus(
         payout_amount = 'payout_amount'
         slip_verification_error = 'slip_verification_error'
         slip_verification_status = 'slip_verification_status'
+        sof_transfer_id = 'sof_transfer_id'
+        sof_transfer_timestamp = 'sof_transfer_timestamp'
         transaction_fee = 'transaction_fee'
         transfer_slip = 'transfer_slip'
+        transfer_slip_qr_code = 'transfer_slip_qr_code'
 
     _field_types = {
         'bank_account_number': 'string',
@@ -48,8 +51,11 @@ class McomInvoiceStatus(
         'payout_amount': 'Object',
         'slip_verification_error': 'string',
         'slip_verification_status': 'string',
+        'sof_transfer_id': 'string',
+        'sof_transfer_timestamp': 'int',
         'transaction_fee': 'Object',
         'transfer_slip': 'string',
+        'transfer_slip_qr_code': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

@@ -34,6 +34,7 @@ class ALMEvent(
         event_time = 'event_time'
         guidance = 'guidance'
         guidance_detail = 'guidance_detail'
+        guidance_type = 'guidance_type'
         id = 'id'
         parent_advertiser_ids = 'parent_advertiser_ids'
         reseller_business_id = 'reseller_business_id'
@@ -78,6 +79,7 @@ class ALMEvent(
         'event_time': 'datetime',
         'guidance': 'string',
         'guidance_detail': 'string',
+        'guidance_type': 'string',
         'id': 'string',
         'parent_advertiser_ids': 'list<string>',
         'reseller_business_id': 'string',

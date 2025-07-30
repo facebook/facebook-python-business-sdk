@@ -27,6 +27,7 @@ class DeliveryWindow(
         super(DeliveryWindow, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        ac = 'ac'
         ad = 'ad'
         ae = 'ae'
         af = 'af'
@@ -281,6 +282,7 @@ class DeliveryWindow(
         zw = 'zw'
 
     _field_types = {
+        'ac': 'int',
         'ad': 'int',
         'ae': 'int',
         'af': 'int',

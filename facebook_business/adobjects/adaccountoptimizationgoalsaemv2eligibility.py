@@ -32,6 +32,7 @@ class AdAccountOptimizationGoalsAEMv2Eligibility(
         ad_recall_lift = 'AD_RECALL_LIFT'
         app_installs = 'APP_INSTALLS'
         app_installs_and_offsite_conversions = 'APP_INSTALLS_AND_OFFSITE_CONVERSIONS'
+        automatic_objective = 'AUTOMATIC_OBJECTIVE'
         conversations = 'CONVERSATIONS'
         derived_events = 'DERIVED_EVENTS'
         engaged_users = 'ENGAGED_USERS'

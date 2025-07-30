@@ -29,6 +29,7 @@ class UserPageOneTimeOptInTokenSettings(
     class Field(AbstractObject.Field):
         creation_timestamp = 'creation_timestamp'
         next_eligible_time = 'next_eligible_time'
+        next_eligible_time_for_paid_messaging = 'next_eligible_time_for_paid_messaging'
         notification_messages_frequency = 'notification_messages_frequency'
         notification_messages_reoptin = 'notification_messages_reoptin'
         notification_messages_timezone = 'notification_messages_timezone'
@@ -72,6 +73,7 @@ class UserPageOneTimeOptInTokenSettings(
     _field_types = {
         'creation_timestamp': 'int',
         'next_eligible_time': 'int',
+        'next_eligible_time_for_paid_messaging': 'int',
         'notification_messages_frequency': 'string',
         'notification_messages_reoptin': 'string',
         'notification_messages_timezone': 'string',

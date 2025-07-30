@@ -14,20 +14,20 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class ApacMonSellerStatusAPIContainer(
+class ABTestPostTestActions(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(ApacMonSellerStatusAPIContainer, self).__init__()
-        self._isApacMonSellerStatusAPIContainer = True
+        super(ABTestPostTestActions, self).__init__()
+        self._isABTestPostTestActions = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        structured_messaging_commerce = 'structured_messaging_commerce'
+        auto_change_budget_to_winner = 'auto_change_budget_to_winner'
 
     _field_types = {
-        'structured_messaging_commerce': 'Object',
+        'auto_change_budget_to_winner': 'int',
     }
     @classmethod
     def _get_field_enum_info(cls):

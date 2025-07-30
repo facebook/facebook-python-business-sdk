@@ -27,6 +27,7 @@ class ImageReferenceMatch(
         super(ImageReferenceMatch, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        conflict_status = 'conflict_status'
         conflicting_countries = 'conflicting_countries'
         country_resolution_history = 'country_resolution_history'
         creation_time = 'creation_time'
@@ -76,6 +77,7 @@ class ImageReferenceMatch(
             return request.execute()
 
     _field_types = {
+        'conflict_status': 'string',
         'conflicting_countries': 'list<string>',
         'country_resolution_history': 'list<map<string, list<Object>>>',
         'creation_time': 'datetime',

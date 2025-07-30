@@ -57,7 +57,9 @@ class AdPreview(
         instagram_profile_feed = 'INSTAGRAM_PROFILE_FEED'
         instagram_profile_reels = 'INSTAGRAM_PROFILE_REELS'
         instagram_reels = 'INSTAGRAM_REELS'
+        instagram_reels_instream = 'INSTAGRAM_REELS_INSTREAM'
         instagram_reels_overlay = 'INSTAGRAM_REELS_OVERLAY'
+        instagram_reels_web = 'INSTAGRAM_REELS_WEB'
         instagram_search_chain = 'INSTAGRAM_SEARCH_CHAIN'
         instagram_search_grid = 'INSTAGRAM_SEARCH_GRID'
         instagram_standard = 'INSTAGRAM_STANDARD'
@@ -102,6 +104,7 @@ class AdPreview(
         product_metadata_automation = 'product_metadata_automation'
         profile_card = 'profile_card'
         standard_enhancements_catalog = 'standard_enhancements_catalog'
+        text_overlay_translation = 'text_overlay_translation'
         video_to_image = 'video_to_image'
 
     class RenderType:

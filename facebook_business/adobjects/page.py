@@ -284,6 +284,7 @@ class Page(
         profile_plus_create_content = 'PROFILE_PLUS_CREATE_CONTENT'
         profile_plus_facebook_access = 'PROFILE_PLUS_FACEBOOK_ACCESS'
         profile_plus_full_control = 'PROFILE_PLUS_FULL_CONTROL'
+        profile_plus_global_structure_management = 'PROFILE_PLUS_GLOBAL_STRUCTURE_MANAGEMENT'
         profile_plus_manage = 'PROFILE_PLUS_MANAGE'
         profile_plus_manage_leads = 'PROFILE_PLUS_MANAGE_LEADS'
         profile_plus_messaging = 'PROFILE_PLUS_MESSAGING'
@@ -312,6 +313,7 @@ class Page(
         profile_plus_create_content = 'PROFILE_PLUS_CREATE_CONTENT'
         profile_plus_facebook_access = 'PROFILE_PLUS_FACEBOOK_ACCESS'
         profile_plus_full_control = 'PROFILE_PLUS_FULL_CONTROL'
+        profile_plus_global_structure_management = 'PROFILE_PLUS_GLOBAL_STRUCTURE_MANAGEMENT'
         profile_plus_manage = 'PROFILE_PLUS_MANAGE'
         profile_plus_manage_leads = 'PROFILE_PLUS_MANAGE_LEADS'
         profile_plus_messaging = 'PROFILE_PLUS_MESSAGING'
@@ -1241,9 +1243,12 @@ class Page(
         param_types = {
             'action': 'action_enum',
             'call_id': 'string',
+            'from_version': 'unsigned int',
             'platform': 'platform_enum',
             'session': 'map',
             'to': 'string',
+            'to_version': 'unsigned int',
+            'tracks': 'list<map>',
         }
         enums = {
             'action_enum': [
@@ -2488,6 +2493,7 @@ class Page(
             'follow_up_action_url': 'string',
             'is_for_canvas': 'bool',
             'is_optimized_for_quality': 'bool',
+            'is_phone_sms_verify_enabled': 'bool',
             'locale': 'locale_enum',
             'name': 'string',
             'privacy_policy': 'Object',
@@ -2986,7 +2992,7 @@ class Page(
             'payload': 'string',
             'persona_id': 'string',
             'recipient': 'Object',
-            'reply_to': 'string',
+            'reply_to': 'Object',
             'sender_action': 'sender_action_enum',
             'suggestion_action': 'suggestion_action_enum',
             'tag': 'Object',

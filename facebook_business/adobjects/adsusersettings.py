@@ -93,6 +93,7 @@ class AdsUserSettings(
         should_not_show_cbo_campaign_toggle_off_confirmation_message = 'should_not_show_cbo_campaign_toggle_off_confirmation_message'
         should_not_show_publish_message_on_editor_close = 'should_not_show_publish_message_on_editor_close'
         show_original_videos_opt_in = 'show_original_videos_opt_in'
+        show_summary_opt_in_status = 'show_summary_opt_in_status'
         static_ad_product_extensions_opt_in = 'static_ad_product_extensions_opt_in'
         sticky_setting_after_default_on = 'sticky_setting_after_default_on'
         syd_campaign_trends_metric = 'syd_campaign_trends_metric'
@@ -203,6 +204,7 @@ class AdsUserSettings(
         'should_not_show_cbo_campaign_toggle_off_confirmation_message': 'bool',
         'should_not_show_publish_message_on_editor_close': 'bool',
         'show_original_videos_opt_in': 'string',
+        'show_summary_opt_in_status': 'string',
         'static_ad_product_extensions_opt_in': 'string',
         'sticky_setting_after_default_on': 'string',
         'syd_campaign_trends_metric': 'string',

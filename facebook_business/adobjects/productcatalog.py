@@ -75,6 +75,10 @@ class ProductCatalog(
         transactable_items = 'transactable_items'
         vehicles = 'vehicles'
 
+    class EnabledCollabTerms:
+        enforce_create_new_ad_account = 'ENFORCE_CREATE_NEW_AD_ACCOUNT'
+        enforce_share_ad_performance_access = 'ENFORCE_SHARE_AD_PERFORMANCE_ACCESS'
+
     class PermittedRoles:
         admin = 'ADMIN'
         advertiser = 'ADVERTISER'
@@ -321,12 +325,14 @@ class ProductCatalog(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'business': 'string',
+            'enabled_collab_terms': 'list<enabled_collab_terms_enum>',
             'permitted_roles': 'list<permitted_roles_enum>',
             'permitted_tasks': 'list<permitted_tasks_enum>',
             'skip_defaults': 'bool',
             'utm_settings': 'map',
         }
         enums = {
+            'enabled_collab_terms_enum': ProductCatalog.EnabledCollabTerms.__dict__.values(),
             'permitted_roles_enum': ProductCatalog.PermittedRoles.__dict__.values(),
             'permitted_tasks_enum': ProductCatalog.PermittedTasks.__dict__.values(),
         }
@@ -2217,6 +2223,7 @@ class ProductCatalog(
         field_enum_info = {}
         field_enum_info['AdditionalVerticalOption'] = ProductCatalog.AdditionalVerticalOption.__dict__.values()
         field_enum_info['Vertical'] = ProductCatalog.Vertical.__dict__.values()
+        field_enum_info['EnabledCollabTerms'] = ProductCatalog.EnabledCollabTerms.__dict__.values()
         field_enum_info['PermittedRoles'] = ProductCatalog.PermittedRoles.__dict__.values()
         field_enum_info['PermittedTasks'] = ProductCatalog.PermittedTasks.__dict__.values()
         field_enum_info['Tasks'] = ProductCatalog.Tasks.__dict__.values()

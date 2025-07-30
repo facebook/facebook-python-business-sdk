@@ -89,6 +89,7 @@ class AdAccountTargetingUnified(
         online_gambling_and_gaming = 'ONLINE_GAMBLING_AND_GAMING'
 
     class RegulatedCountries:
+        ac = 'AC'
         ad = 'AD'
         ae = 'AE'
         af = 'AF'

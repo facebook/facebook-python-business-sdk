@@ -684,9 +684,11 @@ class AdAccount(
             'creative_sourcing_spec': 'map',
             'degrees_of_freedom_spec': 'map',
             'destination_set_id': 'string',
+            'destination_spec': 'map',
             'dynamic_ad_voice': 'dynamic_ad_voice_enum',
             'enable_launch_instant_app': 'bool',
             'facebook_branded_content': 'map',
+            'format_transformation_spec': 'list<map>',
             'image_crops': 'map',
             'image_file': 'string',
             'image_hash': 'string',
@@ -1396,6 +1398,7 @@ class AdAccount(
             'adlabels': 'list<Object>',
             'adset_schedule': 'list<Object>',
             'attribution_spec': 'list<map>',
+            'automatic_manual_state': 'automatic_manual_state_enum',
             'bid_adjustments': 'Object',
             'bid_amount': 'int',
             'bid_constraints': 'map<string, Object>',
@@ -1454,6 +1457,7 @@ class AdAccount(
             'tune_for_category': 'tune_for_category_enum',
         }
         enums = {
+            'automatic_manual_state_enum': AdSet.AutomaticManualState.__dict__.values(),
             'bid_strategy_enum': AdSet.BidStrategy.__dict__.values(),
             'billing_event_enum': AdSet.BillingEvent.__dict__.values(),
             'budget_source_enum': AdSet.BudgetSource.__dict__.values(),
@@ -3724,6 +3728,7 @@ class AdAccount(
             'target_frequency': 'unsigned int',
             'target_frequency_reset_period': 'unsigned int',
             'target_spec': 'Targeting',
+            'trending_topics_spec': 'map',
             'video_view_length_constraint': 'unsigned int',
         }
         enums = {

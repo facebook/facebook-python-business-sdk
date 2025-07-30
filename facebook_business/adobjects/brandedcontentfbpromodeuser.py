@@ -14,20 +14,28 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class ApacMonSellerStatusAPIContainer(
+class BrandedContentFBPromodeUser(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(ApacMonSellerStatusAPIContainer, self).__init__()
-        self._isApacMonSellerStatusAPIContainer = True
+        super(BrandedContentFBPromodeUser, self).__init__()
+        self._isBrandedContentFBPromodeUser = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        structured_messaging_commerce = 'structured_messaging_commerce'
+        delegate_page_for_ads_only_id = 'delegate_page_for_ads_only_id'
+        is_iabp = 'is_iabp'
+        is_managed = 'is_managed'
+        name = 'name'
+        profile_picture_url = 'profile_picture_url'
 
     _field_types = {
-        'structured_messaging_commerce': 'Object',
+        'delegate_page_for_ads_only_id': 'string',
+        'is_iabp': 'bool',
+        'is_managed': 'bool',
+        'name': 'string',
+        'profile_picture_url': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

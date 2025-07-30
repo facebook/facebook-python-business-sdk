@@ -75,12 +75,14 @@ class AdCreativeFeaturesSpec(
         standard_enhancements_catalog = 'standard_enhancements_catalog'
         text_generation = 'text_generation'
         text_optimizations = 'text_optimizations'
+        text_overlay_translation = 'text_overlay_translation'
         text_translation = 'text_translation'
         video_auto_crop = 'video_auto_crop'
         video_filtering = 'video_filtering'
         video_highlight = 'video_highlight'
         video_to_image = 'video_to_image'
         video_uncrop = 'video_uncrop'
+        wa_mm_text_truncation_length = 'wa_mm_text_truncation_length'
 
     _field_types = {
         'adapt_to_placement': 'AdCreativeFeatureDetails',
@@ -134,12 +136,14 @@ class AdCreativeFeaturesSpec(
         'standard_enhancements_catalog': 'AdCreativeFeatureDetails',
         'text_generation': 'AdCreativeFeatureDetails',
         'text_optimizations': 'AdCreativeFeatureDetails',
+        'text_overlay_translation': 'AdCreativeFeatureDetails',
         'text_translation': 'AdCreativeFeatureDetails',
         'video_auto_crop': 'AdCreativeFeatureDetails',
         'video_filtering': 'AdCreativeFeatureDetails',
         'video_highlight': 'AdCreativeFeatureDetails',
         'video_to_image': 'AdCreativeFeatureDetails',
         'video_uncrop': 'AdCreativeFeatureDetails',
+        'wa_mm_text_truncation_length': 'AdCreativeFeatureDetails',
     }
     @classmethod
     def _get_field_enum_info(cls):

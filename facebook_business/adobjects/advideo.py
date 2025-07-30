@@ -169,6 +169,7 @@ class AdVideo(
         creation_ml_precreation = 'CREATION_ML_PRECREATION'
         creator_fan_challenge = 'CREATOR_FAN_CHALLENGE'
         creator_storefront_personalized_video = 'CREATOR_STOREFRONT_PERSONALIZED_VIDEO'
+        creator_storefront_promotional_video = 'CREATOR_STOREFRONT_PROMOTIONAL_VIDEO'
         datagenix_video = 'DATAGENIX_VIDEO'
         dco_ad_asset_feed = 'DCO_AD_ASSET_FEED'
         dco_autogen_video = 'DCO_AUTOGEN_VIDEO'
