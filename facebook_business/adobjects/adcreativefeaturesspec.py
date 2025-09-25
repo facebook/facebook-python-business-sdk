@@ -33,6 +33,7 @@ class AdCreativeFeaturesSpec(
         biz_ai = 'biz_ai'
         carousel_to_video = 'carousel_to_video'
         catalog_feed_tag = 'catalog_feed_tag'
+        creative_stickers = 'creative_stickers'
         customize_product_recommendation = 'customize_product_recommendation'
         cv_transformation = 'cv_transformation'
         description_automation = 'description_automation'
@@ -69,6 +70,9 @@ class AdCreativeFeaturesSpec(
         product_tags = 'product_tags'
         profile_card = 'profile_card'
         profile_extension = 'profile_extension'
+        replace_media_text = 'replace_media_text'
+        reveal_details_over_time = 'reveal_details_over_time'
+        show_destination_blurbs = 'show_destination_blurbs'
         show_summary = 'show_summary'
         site_extensions = 'site_extensions'
         standard_enhancements = 'standard_enhancements'
@@ -80,8 +84,10 @@ class AdCreativeFeaturesSpec(
         video_auto_crop = 'video_auto_crop'
         video_filtering = 'video_filtering'
         video_highlight = 'video_highlight'
+        video_highlights = 'video_highlights'
         video_to_image = 'video_to_image'
         video_uncrop = 'video_uncrop'
+        wa_mm_image_filtering = 'wa_mm_image_filtering'
         wa_mm_text_truncation_length = 'wa_mm_text_truncation_length'
 
     _field_types = {
@@ -94,6 +100,7 @@ class AdCreativeFeaturesSpec(
         'biz_ai': 'AdCreativeFeatureDetails',
         'carousel_to_video': 'AdCreativeFeatureDetails',
         'catalog_feed_tag': 'AdCreativeFeatureDetails',
+        'creative_stickers': 'AdCreativeFeatureDetails',
         'customize_product_recommendation': 'AdCreativeFeatureDetails',
         'cv_transformation': 'AdCreativeFeatureDetails',
         'description_automation': 'AdCreativeFeatureDetails',
@@ -130,6 +137,9 @@ class AdCreativeFeaturesSpec(
         'product_tags': 'AdCreativeFeatureDetails',
         'profile_card': 'AdCreativeFeatureDetails',
         'profile_extension': 'AdCreativeFeatureDetails',
+        'replace_media_text': 'AdCreativeFeatureDetails',
+        'reveal_details_over_time': 'AdCreativeFeatureDetails',
+        'show_destination_blurbs': 'AdCreativeFeatureDetails',
         'show_summary': 'AdCreativeFeatureDetails',
         'site_extensions': 'AdCreativeFeatureDetails',
         'standard_enhancements': 'AdCreativeFeatureDetails',
@@ -141,8 +151,10 @@ class AdCreativeFeaturesSpec(
         'video_auto_crop': 'AdCreativeFeatureDetails',
         'video_filtering': 'AdCreativeFeatureDetails',
         'video_highlight': 'AdCreativeFeatureDetails',
+        'video_highlights': 'AdCreativeFeatureDetails',
         'video_to_image': 'AdCreativeFeatureDetails',
         'video_uncrop': 'AdCreativeFeatureDetails',
+        'wa_mm_image_filtering': 'AdCreativeFeatureDetails',
         'wa_mm_text_truncation_length': 'AdCreativeFeatureDetails',
     }
     @classmethod

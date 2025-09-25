@@ -49,7 +49,10 @@ class Campaign(
         effective_status = 'effective_status'
         has_secondary_skadnetwork_reporting = 'has_secondary_skadnetwork_reporting'
         id = 'id'
+        is_adset_budget_sharing_enabled = 'is_adset_budget_sharing_enabled'
         is_budget_schedule_enabled = 'is_budget_schedule_enabled'
+        is_direct_send_campaign = 'is_direct_send_campaign'
+        is_message_campaign = 'is_message_campaign'
         is_skadnetwork_attribution = 'is_skadnetwork_attribution'
         issues_info = 'issues_info'
         last_budget_toggling_time = 'last_budget_toggling_time'
@@ -74,6 +77,7 @@ class Campaign(
         topline_id = 'topline_id'
         updated_time = 'updated_time'
         adbatch = 'adbatch'
+        budget_schedule_specs = 'budget_schedule_specs'
         execution_options = 'execution_options'
         iterative_split_test_configs = 'iterative_split_test_configs'
 
@@ -543,11 +547,17 @@ class Campaign(
             'adset_budgets': 'list<map>',
             'bid_strategy': 'bid_strategy_enum',
             'budget_rebalance_flag': 'bool',
+            'budget_schedule_specs': 'list<Object>',
             'daily_budget': 'unsigned int',
             'execution_options': 'list<execution_options_enum>',
+            'is_adset_budget_sharing_enabled': 'bool',
+            'is_budget_schedule_enabled': 'bool',
+            'is_direct_send_campaign': 'bool',
+            'is_message_campaign': 'bool',
             'is_skadnetwork_attribution': 'bool',
             'iterative_split_test_configs': 'list<Object>',
             'lifetime_budget': 'unsigned int',
+            'migrate_to_advantage_plus': 'bool',
             'name': 'string',
             'objective': 'objective_enum',
             'pacing_type': 'list<string>',
@@ -762,6 +772,39 @@ class Campaign(
             self.assure_call()
             return request.execute()
 
+    def get_budget_schedules(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.highdemandperiod import HighDemandPeriod
+        param_types = {
+            'time_start': 'datetime',
+            'time_stop': 'datetime',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/budget_schedules',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=HighDemandPeriod,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=HighDemandPeriod, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def create_budget_schedule(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -841,6 +884,8 @@ class Campaign(
         param_types = {
             'deep_copy': 'bool',
             'end_time': 'datetime',
+            'migrate_to_advantage_plus': 'bool',
+            'parameter_overrides': 'Object',
             'rename_options': 'Object',
             'start_time': 'datetime',
             'status_option': 'status_option_enum',
@@ -889,6 +934,7 @@ class Campaign(
             'export_name': 'string',
             'fields': 'list<string>',
             'filtering': 'list<Object>',
+            'graph_cache': 'bool',
             'level': 'level_enum',
             'limit': 'int',
             'product_id_limit': 'int',
@@ -951,6 +997,7 @@ class Campaign(
             'export_name': 'string',
             'fields': 'list<string>',
             'filtering': 'list<Object>',
+            'graph_cache': 'bool',
             'level': 'level_enum',
             'limit': 'int',
             'product_id_limit': 'int',
@@ -1018,7 +1065,10 @@ class Campaign(
         'effective_status': 'EffectiveStatus',
         'has_secondary_skadnetwork_reporting': 'bool',
         'id': 'string',
+        'is_adset_budget_sharing_enabled': 'bool',
         'is_budget_schedule_enabled': 'bool',
+        'is_direct_send_campaign': 'bool',
+        'is_message_campaign': 'bool',
         'is_skadnetwork_attribution': 'bool',
         'issues_info': 'list<AdCampaignIssuesInfo>',
         'last_budget_toggling_time': 'datetime',
@@ -1043,6 +1093,7 @@ class Campaign(
         'topline_id': 'string',
         'updated_time': 'datetime',
         'adbatch': 'list<Object>',
+        'budget_schedule_specs': 'list<Object>',
         'execution_options': 'list<ExecutionOptions>',
         'iterative_split_test_configs': 'list<Object>',
     }

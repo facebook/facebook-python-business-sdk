@@ -14,28 +14,24 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class MessengerCallSettings(
+class ProductCatalogCheckMarketplacePartnerDealsStatus(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(MessengerCallSettings, self).__init__()
-        self._isMessengerCallSettings = True
+        super(ProductCatalogCheckMarketplacePartnerDealsStatus, self).__init__()
+        self._isProductCatalogCheckMarketplacePartnerDealsStatus = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        audio_enabled = 'audio_enabled'
-        call_hours = 'call_hours'
-        call_routing = 'call_routing'
-        icon_enabled = 'icon_enabled'
-        video = 'video'
+        errors = 'errors'
+        session_id = 'session_id'
+        status = 'status'
 
     _field_types = {
-        'audio_enabled': 'bool',
-        'call_hours': 'Object',
-        'call_routing': 'string',
-        'icon_enabled': 'bool',
-        'video': 'string',
+        'errors': 'list<Object>',
+        'session_id': 'string',
+        'status': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

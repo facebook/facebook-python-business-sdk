@@ -24,12 +24,15 @@ class AdCreativeLinkDataChildAttachment(
         self._api = api
 
     class Field(AbstractObject.Field):
+        android_url = 'android_url'
         call_to_action = 'call_to_action'
         caption = 'caption'
         description = 'description'
         image_crops = 'image_crops'
         image_hash = 'image_hash'
+        ios_url = 'ios_url'
         link = 'link'
+        marketing_message_buttons = 'marketing_message_buttons'
         name = 'name'
         picture = 'picture'
         place_data = 'place_data'
@@ -37,12 +40,15 @@ class AdCreativeLinkDataChildAttachment(
         video_id = 'video_id'
 
     _field_types = {
+        'android_url': 'string',
         'call_to_action': 'AdCreativeLinkDataCallToAction',
         'caption': 'string',
         'description': 'string',
         'image_crops': 'AdsImageCrops',
         'image_hash': 'string',
+        'ios_url': 'string',
         'link': 'string',
+        'marketing_message_buttons': 'list<Object>',
         'name': 'string',
         'picture': 'string',
         'place_data': 'AdCreativePlaceData',

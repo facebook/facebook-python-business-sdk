@@ -25,18 +25,22 @@ class AdAssetFeedSpecLinkURL(
 
     class Field(AbstractObject.Field):
         adlabels = 'adlabels'
+        android_url = 'android_url'
         carousel_see_more_url = 'carousel_see_more_url'
         deeplink_url = 'deeplink_url'
         display_url = 'display_url'
+        ios_url = 'ios_url'
         object_store_urls = 'object_store_urls'
         url_tags = 'url_tags'
         website_url = 'website_url'
 
     _field_types = {
         'adlabels': 'list<AdAssetFeedSpecAssetLabel>',
+        'android_url': 'string',
         'carousel_see_more_url': 'string',
         'deeplink_url': 'string',
         'display_url': 'string',
+        'ios_url': 'string',
         'object_store_urls': 'list<string>',
         'url_tags': 'string',
         'website_url': 'string',

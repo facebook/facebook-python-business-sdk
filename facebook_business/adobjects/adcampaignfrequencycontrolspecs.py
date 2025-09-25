@@ -27,11 +27,13 @@ class AdCampaignFrequencyControlSpecs(
         event = 'event'
         interval_days = 'interval_days'
         max_frequency = 'max_frequency'
+        type = 'type'
 
     _field_types = {
         'event': 'string',
         'interval_days': 'unsigned int',
         'max_frequency': 'unsigned int',
+        'type': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

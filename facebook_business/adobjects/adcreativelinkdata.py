@@ -45,6 +45,7 @@ class AdCreativeLinkData(
         image_hash = 'image_hash'
         image_layer_specs = 'image_layer_specs'
         image_overlay_spec = 'image_overlay_spec'
+        is_local_expansion = 'is_local_expansion'
         link = 'link'
         message = 'message'
         multi_share_end_card = 'multi_share_end_card'
@@ -91,6 +92,7 @@ class AdCreativeLinkData(
         'image_hash': 'string',
         'image_layer_specs': 'list<AdCreativeLinkDataImageLayerSpec>',
         'image_overlay_spec': 'AdCreativeLinkDataImageOverlaySpec',
+        'is_local_expansion': 'bool',
         'link': 'string',
         'message': 'string',
         'multi_share_end_card': 'bool',

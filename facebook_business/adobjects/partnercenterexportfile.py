@@ -18,17 +18,18 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class FavoriteCatalog(
+class PartnerCenterExportFile(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isFavoriteCatalog = True
-        super(FavoriteCatalog, self).__init__(fbid, parent_id, api)
+        self._isPartnerCenterExportFile = True
+        super(PartnerCenterExportFile, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        catalog = 'catalog'
         id = 'id'
+        report_ds = 'report_ds'
+        url = 'url'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -44,7 +45,7 @@ class FavoriteCatalog(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=FavoriteCatalog,
+            target_class=PartnerCenterExportFile,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -61,8 +62,9 @@ class FavoriteCatalog(
             return request.execute()
 
     _field_types = {
-        'catalog': 'ProductCatalog',
         'id': 'string',
+        'report_ds': 'string',
+        'url': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

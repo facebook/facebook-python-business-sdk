@@ -14,20 +14,24 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class FBLiteToNTTransitions(
+class TrendingTopicsSpec(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(FBLiteToNTTransitions, self).__init__()
-        self._isFBLiteToNTTransitions = True
+        super(TrendingTopicsSpec, self).__init__()
+        self._isTrendingTopicsSpec = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        transition = 'transition'
+        is_all_trending = 'is_all_trending'
+        is_special_budget_alloc = 'is_special_budget_alloc'
+        trending_topics = 'trending_topics'
 
     _field_types = {
-        'transition': 'Object',
+        'is_all_trending': 'bool',
+        'is_special_budget_alloc': 'bool',
+        'trending_topics': 'list<string>',
     }
     @classmethod
     def _get_field_enum_info(cls):

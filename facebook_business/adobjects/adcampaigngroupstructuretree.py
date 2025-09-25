@@ -30,13 +30,13 @@ class AdCampaignGroupStructureTree(
         children = 'children'
         id = 'id'
         name = 'name'
-        time_updated = 'time_updated'
+        status = 'status'
 
     _field_types = {
         'children': 'list<AdCampaignGroupStructureTree>',
         'id': 'string',
         'name': 'string',
-        'time_updated': 'int',
+        'status': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

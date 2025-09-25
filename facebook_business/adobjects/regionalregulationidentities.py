@@ -34,6 +34,8 @@ class RegionalRegulationIdentities(
         taiwan_finserv_payer = 'taiwan_finserv_payer'
         taiwan_universal_beneficiary = 'taiwan_universal_beneficiary'
         taiwan_universal_payer = 'taiwan_universal_payer'
+        universal_beneficiary = 'universal_beneficiary'
+        universal_payer = 'universal_payer'
 
     _field_types = {
         'australia_finserv_beneficiary': 'string',
@@ -46,6 +48,8 @@ class RegionalRegulationIdentities(
         'taiwan_finserv_payer': 'string',
         'taiwan_universal_beneficiary': 'string',
         'taiwan_universal_payer': 'string',
+        'universal_beneficiary': 'string',
+        'universal_payer': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

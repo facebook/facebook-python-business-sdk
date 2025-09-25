@@ -28,6 +28,7 @@ class UserPageOneTimeOptInTokenSettings(
 
     class Field(AbstractObject.Field):
         creation_timestamp = 'creation_timestamp'
+        custom_audience_ids = 'custom_audience_ids'
         next_eligible_time = 'next_eligible_time'
         next_eligible_time_for_paid_messaging = 'next_eligible_time_for_paid_messaging'
         notification_messages_frequency = 'notification_messages_frequency'
@@ -72,6 +73,7 @@ class UserPageOneTimeOptInTokenSettings(
 
     _field_types = {
         'creation_timestamp': 'int',
+        'custom_audience_ids': 'list<string>',
         'next_eligible_time': 'int',
         'next_eligible_time_for_paid_messaging': 'int',
         'notification_messages_frequency': 'string',

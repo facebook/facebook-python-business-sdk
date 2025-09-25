@@ -38,6 +38,8 @@ class Canvas(
         element_payload = 'element_payload'
         elements = 'elements'
         fb_body_elements = 'fb_body_elements'
+        hero_asset_facebook_post_id = 'hero_asset_facebook_post_id'
+        hero_asset_instagram_media_id = 'hero_asset_instagram_media_id'
         id = 'id'
         is_hidden = 'is_hidden'
         is_published = 'is_published'
@@ -93,6 +95,8 @@ class Canvas(
             'background_color': 'string',
             'body_element_ids': 'list<string>',
             'enable_swipe_to_open': 'bool',
+            'hero_asset_facebook_post_id': 'string',
+            'hero_asset_instagram_media_id': 'string',
             'is_hidden': 'bool',
             'is_published': 'bool',
             'name': 'string',
@@ -153,7 +157,7 @@ class Canvas(
             self.assure_call()
             return request.execute()
 
-    def get_pre_views(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def get_previews(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
@@ -197,6 +201,8 @@ class Canvas(
         'element_payload': 'string',
         'elements': 'list<RichMediaElement>',
         'fb_body_elements': 'list<Object>',
+        'hero_asset_facebook_post_id': 'string',
+        'hero_asset_instagram_media_id': 'string',
         'id': 'string',
         'is_hidden': 'bool',
         'is_published': 'bool',

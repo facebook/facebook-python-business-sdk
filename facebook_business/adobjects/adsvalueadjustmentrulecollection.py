@@ -29,6 +29,7 @@ class AdsValueAdjustmentRuleCollection(
     class Field(AbstractObject.Field):
         id = 'id'
         is_default_setting = 'is_default_setting'
+        last_attach_time = 'last_attach_time'
         name = 'name'
         product_type = 'product_type'
         status = 'status'
@@ -127,7 +128,7 @@ class AdsValueAdjustmentRuleCollection(
         request = FacebookRequest(
             node_id=self['id'],
             method='POST',
-            endpoint='/delete_rule_set',
+            endpoint='/deleteruleset',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
             target_class=AdsValueAdjustmentRuleCollection,
@@ -179,6 +180,7 @@ class AdsValueAdjustmentRuleCollection(
     _field_types = {
         'id': 'string',
         'is_default_setting': 'bool',
+        'last_attach_time': 'datetime',
         'name': 'string',
         'product_type': 'string',
         'status': 'string',

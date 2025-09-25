@@ -34,6 +34,7 @@ class AdAssetCustomizationRuleCustomizationSpec(
         locales = 'locales'
         messenger_positions = 'messenger_positions'
         publisher_platforms = 'publisher_platforms'
+        threads_positions = 'threads_positions'
 
     class DevicePlatforms:
         desktop = 'desktop'
@@ -50,6 +51,7 @@ class AdAssetCustomizationRuleCustomizationSpec(
         'locales': 'list<unsigned int>',
         'messenger_positions': 'list<string>',
         'publisher_platforms': 'list<string>',
+        'threads_positions': 'list<string>',
     }
     @classmethod
     def _get_field_enum_info(cls):

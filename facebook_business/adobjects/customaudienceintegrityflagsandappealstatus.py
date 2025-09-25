@@ -25,14 +25,18 @@ class CustomAudienceIntegrityFlagsAndAppealStatus(
 
     class Field(AbstractObject.Field):
         closeout_time = 'closeout_time'
+        days_until_enforcement = 'days_until_enforcement'
         flagged_fields = 'flagged_fields'
+        is_enforcement_rolled_out = 'is_enforcement_rolled_out'
         latest_appeal_requestor = 'latest_appeal_requestor'
         latest_appeal_time = 'latest_appeal_time'
         restriction_status = 'restriction_status'
 
     _field_types = {
         'closeout_time': 'unsigned int',
+        'days_until_enforcement': 'unsigned int',
         'flagged_fields': 'list<string>',
+        'is_enforcement_rolled_out': 'bool',
         'latest_appeal_requestor': 'string',
         'latest_appeal_time': 'unsigned int',
         'restriction_status': 'string',

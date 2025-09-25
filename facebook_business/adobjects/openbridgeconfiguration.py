@@ -28,6 +28,7 @@ class OpenBridgeConfiguration(
 
     class Field(AbstractObject.Field):
         active = 'active'
+        browser_agent = 'browser_agent'
         cloud_provider = 'cloud_provider'
         cloud_region = 'cloud_region'
         destination_id = 'destination_id'
@@ -164,6 +165,7 @@ class OpenBridgeConfiguration(
 
     _field_types = {
         'active': 'bool',
+        'browser_agent': 'list<string>',
         'cloud_provider': 'string',
         'cloud_region': 'string',
         'destination_id': 'string',

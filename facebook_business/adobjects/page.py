@@ -54,6 +54,7 @@ class Page(
         connected_instagram_account = 'connected_instagram_account'
         connected_page_backed_instagram_account = 'connected_page_backed_instagram_account'
         contact_address = 'contact_address'
+        copyright_attribution_insights = 'copyright_attribution_insights'
         copyright_whitelisted_ig_partners = 'copyright_whitelisted_ig_partners'
         country_page_likes = 'country_page_likes'
         cover = 'cover'
@@ -247,6 +248,7 @@ class Page(
         c2pa = 'C2PA'
         c2pa_metadata_edited = 'C2PA_METADATA_EDITED'
         explicit = 'EXPLICIT'
+        explicit_animate = 'EXPLICIT_ANIMATE'
         explicit_imagine = 'EXPLICIT_IMAGINE'
         explicit_imagine_me = 'EXPLICIT_IMAGINE_ME'
         explicit_restyle = 'EXPLICIT_RESTYLE'
@@ -363,6 +365,12 @@ class Page(
         scheduled = 'SCHEDULED'
         scheduled_recurring = 'SCHEDULED_RECURRING'
 
+    class RecommendationAction:
+        accept_closed = 'ACCEPT_CLOSED'
+        accept_new = 'ACCEPT_NEW'
+        reject_closed = 'REJECT_CLOSED'
+        reject_new = 'REJECT_NEW'
+
     class Category:
         utility = 'UTILITY'
 
@@ -434,10 +442,13 @@ class Page(
         awards = 'awards'
         bio = 'bio'
         birthday = 'birthday'
+        business_integrity = 'business_integrity'
         call_permission_reply = 'call_permission_reply'
+        call_settings_update = 'call_settings_update'
         calls = 'calls'
         category = 'category'
         checkins = 'checkins'
+        comment_poll_response = 'comment_poll_response'
         company_overview = 'company_overview'
         conversations = 'conversations'
         culinary_team = 'culinary_team'
@@ -446,6 +457,7 @@ class Page(
         email = 'email'
         feature_access_list = 'feature_access_list'
         feed = 'feed'
+        follow = 'follow'
         founded = 'founded'
         general_info = 'general_info'
         general_manager = 'general_manager'
@@ -464,6 +476,8 @@ class Page(
         local_delivery = 'local_delivery'
         location = 'location'
         marketing_message_delivery_failed = 'marketing_message_delivery_failed'
+        marketing_message_echoes = 'marketing_message_echoes'
+        marketing_messages_subscriber_upload_status = 'marketing_messages_subscriber_upload_status'
         mcom_invoice_change = 'mcom_invoice_change'
         members = 'members'
         mention = 'mention'
@@ -517,6 +531,8 @@ class Page(
         response_feedback = 'response_feedback'
         send_cart = 'send_cart'
         standby = 'standby'
+        story_poll_response = 'story_poll_response'
+        story_share = 'story_share'
         user_action = 'user_action'
         video_text_question_responses = 'video_text_question_responses'
         videos = 'videos'
@@ -738,6 +754,38 @@ class Page(
             target_class=Page,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=Page, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_ads_eligibility(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.adseligibility import AdsEligibility
+        param_types = {
+            'ads_account_id': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/ads_eligibility',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdsEligibility,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdsEligibility, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1173,6 +1221,37 @@ class Page(
             self.assure_call()
             return request.execute()
 
+    def create_business_messaging_feature_status(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'features': 'list<map>',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/business_messaging_feature_status',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Page,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Page, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_business_projects(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -1324,6 +1403,7 @@ class Page(
         param_types = {
             'canvas_button': 'Object',
             'canvas_carousel': 'Object',
+            'canvas_existing_post': 'Object',
             'canvas_footer': 'Object',
             'canvas_header': 'Object',
             'canvas_lead_form': 'Object',
@@ -1401,6 +1481,8 @@ class Page(
             'background_color': 'string',
             'body_element_ids': 'list<string>',
             'enable_swipe_to_open': 'bool',
+            'hero_asset_facebook_post_id': 'string',
+            'hero_asset_instagram_media_id': 'string',
             'is_hidden': 'bool',
             'is_published': 'bool',
             'name': 'string',
@@ -1603,6 +1685,7 @@ class Page(
         from facebook_business.adobjects.unifiedthread import UnifiedThread
         param_types = {
             'folder': 'string',
+            'is_owner': 'bool',
             'platform': 'platform_enum',
             'tags': 'list<string>',
             'user_id': 'string',
@@ -2499,6 +2582,7 @@ class Page(
             'privacy_policy': 'Object',
             'question_page_custom_headline': 'string',
             'questions': 'list<Object>',
+            'should_enforce_work_email': 'bool',
             'thank_you_page': 'Object',
             'tracking_parameters': 'map',
             'upload_gated_file': 'file',
@@ -2735,15 +2819,20 @@ class Page(
             'pickup_options': 'list<pickup_options_enum>',
             'place_topics': 'list<string>',
             'price_range': 'string',
+            'recommendation_action': 'recommendation_action_enum',
+            'recommendation_ds': 'string',
+            'recommendation_store_id': 'unsigned int',
             'store_code': 'string',
             'store_location_descriptor': 'string',
             'store_name': 'string',
             'store_number': 'unsigned int',
             'temporary_status': 'temporary_status_enum',
+            'type': 'string',
             'website': 'string',
         }
         enums = {
             'pickup_options_enum': Page.PickupOptions.__dict__.values(),
+            'recommendation_action_enum': Page.RecommendationAction.__dict__.values(),
             'temporary_status_enum': Page.TemporaryStatus.__dict__.values(),
         }
         request = FacebookRequest(
@@ -3097,6 +3186,7 @@ class Page(
             'call_hours': 'map',
             'call_routing': 'map',
             'icon_enabled': 'bool',
+            'video': 'map',
         }
         enums = {
         }
@@ -3392,6 +3482,7 @@ class Page(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.userpageonetimeoptintokensettings import UserPageOneTimeOptInTokenSettings
         param_types = {
+            'custom_audience_ids': 'list<string>',
         }
         enums = {
         }
@@ -3993,6 +4084,37 @@ class Page(
             self.assure_call()
             return request.execute()
 
+    def get_ratings(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.recommendation import Recommendation
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/ratings',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=Recommendation,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=Recommendation, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def create_release_thread_control(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -4570,6 +4692,7 @@ class Page(
         from facebook_business.adobjects.unifiedthread import UnifiedThread
         param_types = {
             'folder': 'string',
+            'is_owner': 'bool',
             'platform': 'platform_enum',
             'tags': 'list<string>',
             'user_id': 'string',
@@ -5224,6 +5347,7 @@ class Page(
         'connected_instagram_account': 'IGUser',
         'connected_page_backed_instagram_account': 'IGUser',
         'contact_address': 'MailingAddress',
+        'copyright_attribution_insights': 'CopyrightAttributionInsights',
         'copyright_whitelisted_ig_partners': 'list<string>',
         'country_page_likes': 'unsigned int',
         'cover': 'CoverPhoto',
@@ -5366,6 +5490,7 @@ class Page(
         field_enum_info['PostingToRedspace'] = Page.PostingToRedspace.__dict__.values()
         field_enum_info['TargetSurface'] = Page.TargetSurface.__dict__.values()
         field_enum_info['UnpublishedContentType'] = Page.UnpublishedContentType.__dict__.values()
+        field_enum_info['RecommendationAction'] = Page.RecommendationAction.__dict__.values()
         field_enum_info['Category'] = Page.Category.__dict__.values()
         field_enum_info['MessagingType'] = Page.MessagingType.__dict__.values()
         field_enum_info['NotificationType'] = Page.NotificationType.__dict__.values()

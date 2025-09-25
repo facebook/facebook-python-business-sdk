@@ -26,6 +26,7 @@ class AdAccountLiveVideoAdvertiser(
     class Field(AbstractObject.Field):
         is_lva_toggle_on = 'is_lva_toggle_on'
         lva_default_budget = 'lva_default_budget'
+        lva_default_duration_s = 'lva_default_duration_s'
         should_default_current_live = 'should_default_current_live'
         should_default_scheduled_live = 'should_default_scheduled_live'
         should_show_lva_toggle = 'should_show_lva_toggle'
@@ -33,6 +34,7 @@ class AdAccountLiveVideoAdvertiser(
     _field_types = {
         'is_lva_toggle_on': 'bool',
         'lva_default_budget': 'int',
+        'lva_default_duration_s': 'int',
         'should_default_current_live': 'bool',
         'should_default_scheduled_live': 'bool',
         'should_show_lva_toggle': 'bool',

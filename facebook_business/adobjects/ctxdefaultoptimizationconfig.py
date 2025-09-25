@@ -24,11 +24,13 @@ class CTXDefaultOptimizationConfig(
         self._api = api
 
     class Field(AbstractObject.Field):
+        defaulting_source = 'defaulting_source'
         destination_type = 'destination_type'
         objective = 'objective'
         optimization_goal = 'optimization_goal'
 
     _field_types = {
+        'defaulting_source': 'string',
         'destination_type': 'string',
         'objective': 'string',
         'optimization_goal': 'string',

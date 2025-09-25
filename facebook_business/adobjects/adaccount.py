@@ -85,6 +85,7 @@ class AdAccount(
         min_daily_budget = 'min_daily_budget'
         name = 'name'
         offsite_pixels_tos_accepted = 'offsite_pixels_tos_accepted'
+        opportunity_score = 'opportunity_score'
         owner = 'owner'
         owner_business = 'owner_business'
         partner = 'partner'
@@ -700,6 +701,7 @@ class AdAccount(
             'is_dco_internal': 'bool',
             'link_og_id': 'string',
             'link_url': 'string',
+            'media_sourcing_spec': 'map',
             'name': 'string',
             'object_id': 'unsigned int',
             'object_story_id': 'string',
@@ -1404,6 +1406,7 @@ class AdAccount(
             'bid_constraints': 'map<string, Object>',
             'bid_strategy': 'bid_strategy_enum',
             'billing_event': 'billing_event_enum',
+            'budget_schedule_specs': 'list<Object>',
             'budget_source': 'budget_source_enum',
             'budget_split_set_id': 'string',
             'campaign_attribution': 'Object',
@@ -1425,6 +1428,7 @@ class AdAccount(
             'frequency_control_specs': 'list<Object>',
             'full_funnel_exploration_mode': 'full_funnel_exploration_mode_enum',
             'is_ba_skip_delayed_eligible': 'bool',
+            'is_budget_schedule_enabled': 'bool',
             'is_dynamic_creative': 'bool',
             'is_incremental_attribution_enabled': 'bool',
             'is_sac_cfca_terms_certified': 'bool',
@@ -1454,7 +1458,10 @@ class AdAccount(
             'time_start': 'datetime',
             'time_stop': 'datetime',
             'topline_id': 'string',
+            'trending_topics_spec': 'map',
             'tune_for_category': 'tune_for_category_enum',
+            'value_rule_set_id': 'string',
+            'value_rules_applied': 'bool',
         }
         enums = {
             'automatic_manual_state_enum': AdSet.AutomaticManualState.__dict__.values(),
@@ -2503,9 +2510,14 @@ class AdAccount(
         param_types = {
             'adlabels': 'list<Object>',
             'bid_strategy': 'bid_strategy_enum',
+            'budget_schedule_specs': 'list<Object>',
             'buying_type': 'string',
             'daily_budget': 'unsigned int',
             'execution_options': 'list<execution_options_enum>',
+            'is_adset_budget_sharing_enabled': 'bool',
+            'is_budget_schedule_enabled': 'bool',
+            'is_direct_send_campaign': 'bool',
+            'is_message_campaign': 'bool',
             'is_skadnetwork_attribution': 'bool',
             'iterative_split_test_configs': 'list<Object>',
             'lifetime_budget': 'unsigned int',
@@ -3042,6 +3054,7 @@ class AdAccount(
             'end_date': 'datetime',
             'height': 'unsigned int',
             'locale': 'string',
+            'message': 'Object',
             'place_page_id': 'int',
             'post': 'Object',
             'product_item_ids': 'list<string>',
@@ -3126,6 +3139,7 @@ class AdAccount(
             'export_name': 'string',
             'fields': 'list<string>',
             'filtering': 'list<Object>',
+            'graph_cache': 'bool',
             'level': 'level_enum',
             'limit': 'int',
             'product_id_limit': 'int',
@@ -3188,6 +3202,7 @@ class AdAccount(
             'export_name': 'string',
             'fields': 'list<string>',
             'filtering': 'list<Object>',
+            'graph_cache': 'bool',
             'level': 'level_enum',
             'limit': 'int',
             'product_id_limit': 'int',
@@ -3312,9 +3327,11 @@ class AdAccount(
             'is_skadnetwork_search': 'bool',
             'only_apps_with_permission': 'bool',
             'query_term': 'string',
+            'stores_to_filter': 'list<stores_to_filter_enum>',
         }
         enums = {
             'app_store_enum': AdAccountMatchedSearchApplicationsEdgeData.AppStore.__dict__.values(),
+            'stores_to_filter_enum': AdAccountMatchedSearchApplicationsEdgeData.StoresToFilter.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -3387,6 +3404,116 @@ class AdAccount(
             target_class=AdsMcmeConversion,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=AdsMcmeConversion, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_message_campaign(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'bid_amount': 'unsigned int',
+            'daily_budget': 'unsigned int',
+            'lifetime_budget': 'unsigned int',
+            'name': 'string',
+            'page_id': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/message_campaign',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_message_delivery_estimate(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.messagedeliveryestimate import MessageDeliveryEstimate
+        param_types = {
+            'bid_amount': 'unsigned int',
+            'daily_budget': 'unsigned int',
+            'is_direct_send_campaign': 'bool',
+            'lifetime_budget': 'unsigned int',
+            'lifetime_in_days': 'unsigned int',
+            'optimization_goal': 'optimization_goal_enum',
+            'pacing_type': 'pacing_type_enum',
+            'promoted_object': 'Object',
+            'targeting_spec': 'Targeting',
+        }
+        enums = {
+            'optimization_goal_enum': MessageDeliveryEstimate.OptimizationGoal.__dict__.values(),
+            'pacing_type_enum': MessageDeliveryEstimate.PacingType.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/message_delivery_estimate',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=MessageDeliveryEstimate,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=MessageDeliveryEstimate, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_message(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'message': 'Object',
+            'message_id': 'unsigned int',
+            'messenger_delivery_data': 'map',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/messages',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -4490,6 +4617,7 @@ class AdAccount(
         'min_daily_budget': 'unsigned int',
         'name': 'string',
         'offsite_pixels_tos_accepted': 'bool',
+        'opportunity_score': 'float',
         'owner': 'string',
         'owner_business': 'Business',
         'partner': 'string',

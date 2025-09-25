@@ -24,6 +24,7 @@ class LeadGenFormPreviewDetails(
         self._api = api
 
     class Field(AbstractObject.Field):
+        book_on_website_text = 'book_on_website_text'
         call_business_text = 'call_business_text'
         call_to_action_title = 'call_to_action_title'
         chat_on_messenger_text = 'chat_on_messenger_text'
@@ -72,6 +73,7 @@ class LeadGenFormPreviewDetails(
         whats_app_opt_in_title = 'whats_app_opt_in_title'
 
     _field_types = {
+        'book_on_website_text': 'string',
         'call_business_text': 'string',
         'call_to_action_title': 'string',
         'chat_on_messenger_text': 'string',

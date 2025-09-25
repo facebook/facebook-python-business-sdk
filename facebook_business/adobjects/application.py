@@ -448,7 +448,7 @@ class Application(
             'include_video_data': 'bool',
             'install_id': 'string',
             'install_referrer': 'string',
-            'install_timestamp': 'unsigned int',
+            'install_timestamp': 'float',
             'installer_package': 'string',
             'is_fb': 'bool',
             'limited_data_use': 'bool',

@@ -41,6 +41,7 @@ class CustomAudience(
         description = 'description'
         excluded_custom_audiences = 'excluded_custom_audiences'
         external_event_source = 'external_event_source'
+        fields_violating_integrity_policy = 'fields_violating_integrity_policy'
         household_audience = 'household_audience'
         id = 'id'
         included_custom_audiences = 'included_custom_audiences'
@@ -693,6 +694,7 @@ class CustomAudience(
         'description': 'string',
         'excluded_custom_audiences': 'list<CustomAudience>',
         'external_event_source': 'AdsPixel',
+        'fields_violating_integrity_policy': 'list<string>',
         'household_audience': 'int',
         'id': 'string',
         'included_custom_audiences': 'list<CustomAudience>',

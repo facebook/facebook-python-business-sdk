@@ -368,6 +368,7 @@ class AdAccountTargetingUnified(
         custom_audiences = 'custom_audiences'
         device_platforms = 'device_platforms'
         direct_install_devices = 'direct_install_devices'
+        dt_consolidation_state = 'dt_consolidation_state'
         dynamic_audience_ids = 'dynamic_audience_ids'
         education_majors = 'education_majors'
         education_schools = 'education_schools'

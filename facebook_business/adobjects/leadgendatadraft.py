@@ -39,6 +39,7 @@ class LeadGenDataDraft(
         page = 'page'
         question_page_custom_headline = 'question_page_custom_headline'
         questions = 'questions'
+        should_enforce_work_email = 'should_enforce_work_email'
         status = 'status'
         thank_you_page = 'thank_you_page'
         tracking_parameters = 'tracking_parameters'
@@ -86,6 +87,7 @@ class LeadGenDataDraft(
         'page': 'Page',
         'question_page_custom_headline': 'string',
         'questions': 'list<LeadGenDraftQuestion>',
+        'should_enforce_work_email': 'bool',
         'status': 'string',
         'thank_you_page': 'Object',
         'tracking_parameters': 'list<map<string, string>>',

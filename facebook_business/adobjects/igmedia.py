@@ -47,6 +47,7 @@ class IGMedia(
         thumbnail_url = 'thumbnail_url'
         timestamp = 'timestamp'
         username = 'username'
+        video_title = 'video_title'
         view_count = 'view_count'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
@@ -65,6 +66,7 @@ class IGMedia(
         enums = {
             'boostable_media_callsite_enum': [
                 'ADS_MANAGER_L1_EDITOR_DYNAMIC_ADS_WITH_EXISTING_POST',
+                'PA_HUB_CATALOG_INGESTION_CREATOR_ASSET',
             ],
         }
         request = FacebookRequest(
@@ -525,6 +527,7 @@ class IGMedia(
         'thumbnail_url': 'string',
         'timestamp': 'datetime',
         'username': 'string',
+        'video_title': 'string',
         'view_count': 'int',
     }
     @classmethod

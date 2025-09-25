@@ -31,9 +31,13 @@ class AdsUserSettings(
         add_overlays_opt_in_status = 'add_overlays_opt_in_status'
         adgroup_name_template = 'adgroup_name_template'
         ads_cs_catalog_opt_out_timestamp = 'ads_cs_catalog_opt_out_timestamp'
+        ads_cs_sitelinks_opt_in_status = 'ads_cs_sitelinks_opt_in_status'
+        ads_cs_sitelinks_opt_out_timestamp = 'ads_cs_sitelinks_opt_out_timestamp'
         ads_tool_visits = 'ads_tool_visits'
+        aplusc_ai_agent_opt_in_status = 'aplusc_ai_agent_opt_in_status'
         aplusc_carousel_cda_opt_in_status = 'aplusc_carousel_cda_opt_in_status'
         aplusc_carousel_inline_comment_opt_in_status = 'aplusc_carousel_inline_comment_opt_in_status'
+        aplusc_da_opt_in_status = 'aplusc_da_opt_in_status'
         aplusc_enhance_cta_opt_in_status = 'aplusc_enhance_cta_opt_in_status'
         aplusc_epa_opt_in_status = 'aplusc_epa_opt_in_status'
         aplusc_local_store_extension_opt_in_status = 'aplusc_local_store_extension_opt_in_status'
@@ -49,6 +53,8 @@ class AdsUserSettings(
         campaign_name_template = 'campaign_name_template'
         carousel_to_video_opt_in_status = 'carousel_to_video_opt_in_status'
         connected_sources_catalog_opt_in_status = 'connected_sources_catalog_opt_in_status'
+        create_cta_sticker_opt_in_status = 'create_cta_sticker_opt_in_status'
+        creative_flex_opt_in_status = 'creative_flex_opt_in_status'
         da_add_overlays_opt_in_status = 'da_add_overlays_opt_in_status'
         da_hide_price_opt_in_status = 'da_hide_price_opt_in_status'
         default_creation_mode = 'default_creation_mode'
@@ -57,15 +63,18 @@ class AdsUserSettings(
         export_format_default = 'export_format_default'
         focus_mode_default = 'focus_mode_default'
         gen_ai_alpha_test_status = 'gen_ai_alpha_test_status'
+        gen_ai_auto_select_opt_in_status = 'gen_ai_auto_select_opt_in_status'
         id = 'id'
         image_background_generation_opt_in_status = 'image_background_generation_opt_in_status'
         image_brightness_and_contrast_opt_in_status = 'image_brightness_and_contrast_opt_in_status'
         image_expansion_opt_in_status = 'image_expansion_opt_in_status'
+        image_templates_text_extraction_opt_in_status = 'image_templates_text_extraction_opt_in_status'
         is_ads_ai_consented = 'is_ads_ai_consented'
         is_cbo_default_on = 'is_cbo_default_on'
         is_se_removal_guidance_dismissed = 'is_se_removal_guidance_dismissed'
         last_used_post_format = 'last_used_post_format'
         last_visited_time = 'last_visited_time'
+        metadata_brand_kit_last_opt_out_timestamp = 'metadata_brand_kit_last_opt_out_timestamp'
         metadata_brand_kit_opt_in_status = 'metadata_brand_kit_opt_in_status'
         music_on_reels_opt_in = 'music_on_reels_opt_in'
         muted_cbo_midflight_education_messages = 'muted_cbo_midflight_education_messages'
@@ -76,6 +85,8 @@ class AdsUserSettings(
         placement_group_vertical_opt_in_status = 'placement_group_vertical_opt_in_status'
         previously_seen_recommendations = 'previously_seen_recommendations'
         product_extensions_opt_in = 'product_extensions_opt_in'
+        reactive_control_settings = 'reactive_control_settings'
+        replace_media_text_opt_in_status = 'replace_media_text_opt_in_status'
         sa_off_conv_loc_seen = 'sa_off_conv_loc_seen'
         saoff_published_l2_conv_loc_seen = 'saoff_published_l2_conv_loc_seen'
         saon_migr_l1_seen_status = 'saon_migr_l1_seen_status'
@@ -106,6 +117,9 @@ class AdsUserSettings(
         use_pe_create_flow = 'use_pe_create_flow'
         use_stepper_primary_entry = 'use_stepper_primary_entry'
         user = 'user'
+        website_media_opt_in_status = 'website_media_opt_in_status'
+        website_reviews_data_opt_in_status = 'website_reviews_data_opt_in_status'
+        website_selling_points_data_opt_in_status = 'website_selling_points_data_opt_in_status'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -142,9 +156,13 @@ class AdsUserSettings(
         'add_overlays_opt_in_status': 'string',
         'adgroup_name_template': 'Object',
         'ads_cs_catalog_opt_out_timestamp': 'list<map<string, int>>',
+        'ads_cs_sitelinks_opt_in_status': 'string',
+        'ads_cs_sitelinks_opt_out_timestamp': 'list<map<string, int>>',
         'ads_tool_visits': 'list<Object>',
+        'aplusc_ai_agent_opt_in_status': 'string',
         'aplusc_carousel_cda_opt_in_status': 'string',
         'aplusc_carousel_inline_comment_opt_in_status': 'string',
+        'aplusc_da_opt_in_status': 'string',
         'aplusc_enhance_cta_opt_in_status': 'string',
         'aplusc_epa_opt_in_status': 'string',
         'aplusc_local_store_extension_opt_in_status': 'string',
@@ -160,6 +178,8 @@ class AdsUserSettings(
         'campaign_name_template': 'Object',
         'carousel_to_video_opt_in_status': 'string',
         'connected_sources_catalog_opt_in_status': 'string',
+        'create_cta_sticker_opt_in_status': 'string',
+        'creative_flex_opt_in_status': 'string',
         'da_add_overlays_opt_in_status': 'string',
         'da_hide_price_opt_in_status': 'string',
         'default_creation_mode': 'string',
@@ -168,15 +188,18 @@ class AdsUserSettings(
         'export_format_default': 'string',
         'focus_mode_default': 'string',
         'gen_ai_alpha_test_status': 'int',
+        'gen_ai_auto_select_opt_in_status': 'string',
         'id': 'string',
         'image_background_generation_opt_in_status': 'string',
         'image_brightness_and_contrast_opt_in_status': 'string',
         'image_expansion_opt_in_status': 'string',
+        'image_templates_text_extraction_opt_in_status': 'string',
         'is_ads_ai_consented': 'bool',
         'is_cbo_default_on': 'bool',
         'is_se_removal_guidance_dismissed': 'bool',
         'last_used_post_format': 'string',
         'last_visited_time': 'datetime',
+        'metadata_brand_kit_last_opt_out_timestamp': 'int',
         'metadata_brand_kit_opt_in_status': 'string',
         'music_on_reels_opt_in': 'list<map<string, string>>',
         'muted_cbo_midflight_education_messages': 'list<string>',
@@ -187,6 +210,8 @@ class AdsUserSettings(
         'placement_group_vertical_opt_in_status': 'string',
         'previously_seen_recommendations': 'list<string>',
         'product_extensions_opt_in': 'string',
+        'reactive_control_settings': 'list<Object>',
+        'replace_media_text_opt_in_status': 'string',
         'sa_off_conv_loc_seen': 'string',
         'saoff_published_l2_conv_loc_seen': 'string',
         'saon_migr_l1_seen_status': 'string',
@@ -217,6 +242,9 @@ class AdsUserSettings(
         'use_pe_create_flow': 'bool',
         'use_stepper_primary_entry': 'bool',
         'user': 'User',
+        'website_media_opt_in_status': 'string',
+        'website_reviews_data_opt_in_status': 'string',
+        'website_selling_points_data_opt_in_status': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

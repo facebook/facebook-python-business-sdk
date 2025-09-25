@@ -61,6 +61,34 @@ class AdAccountMatchedSearchApplicationsEdgeData(
         windows_store = 'WINDOWS_STORE'
         xiaomi = 'XIAOMI'
 
+    class StoresToFilter:
+        amazon_app_store = 'AMAZON_APP_STORE'
+        apk_mirror = 'APK_MIRROR'
+        apk_monk = 'APK_MONK'
+        apk_pure = 'APK_PURE'
+        aptoide_a1_store = 'APTOIDE_A1_STORE'
+        bemobi_mobile_store = 'BEMOBI_MOBILE_STORE'
+        digital_turbine_store = 'DIGITAL_TURBINE_STORE'
+        does_not_exist = 'DOES_NOT_EXIST'
+        fb_android_store = 'FB_ANDROID_STORE'
+        fb_canvas = 'FB_CANVAS'
+        fb_gameroom = 'FB_GAMEROOM'
+        galaxy_store = 'GALAXY_STORE'
+        google_play = 'GOOGLE_PLAY'
+        instant_game = 'INSTANT_GAME'
+        itunes = 'ITUNES'
+        itunes_ipad = 'ITUNES_IPAD'
+        neon_android_store = 'NEON_ANDROID_STORE'
+        none = 'NONE'
+        oculus_app_store = 'OCULUS_APP_STORE'
+        oppo = 'OPPO'
+        roku_store = 'ROKU_STORE'
+        uptodown = 'UPTODOWN'
+        vivo = 'VIVO'
+        windows_10_store = 'WINDOWS_10_STORE'
+        windows_store = 'WINDOWS_STORE'
+        xiaomi = 'XIAOMI'
+
     _field_types = {
         'app_id': 'string',
         'are_app_events_unavailable': 'bool',
@@ -75,6 +103,7 @@ class AdAccountMatchedSearchApplicationsEdgeData(
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['AppStore'] = AdAccountMatchedSearchApplicationsEdgeData.AppStore.__dict__.values()
+        field_enum_info['StoresToFilter'] = AdAccountMatchedSearchApplicationsEdgeData.StoresToFilter.__dict__.values()
         return field_enum_info
 
 

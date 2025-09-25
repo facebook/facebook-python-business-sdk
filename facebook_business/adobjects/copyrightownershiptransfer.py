@@ -27,6 +27,7 @@ class CopyrightOwnershipTransfer(
         super(CopyrightOwnershipTransfer, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        assets = 'assets'
         id = 'id'
         receiving_rights_holder = 'receiving_rights_holder'
         sending_rights_holder = 'sending_rights_holder'
@@ -65,6 +66,7 @@ class CopyrightOwnershipTransfer(
             return request.execute()
 
     _field_types = {
+        'assets': 'list<Object>',
         'id': 'string',
         'receiving_rights_holder': 'Profile',
         'sending_rights_holder': 'Profile',

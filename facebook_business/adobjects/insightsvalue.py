@@ -28,6 +28,8 @@ class InsightsValue(
         earning_source = 'earning_source'
         end_time = 'end_time'
         engagement_source = 'engagement_source'
+        is_from_ads = 'is_from_ads'
+        is_from_followers = 'is_from_followers'
         message_type = 'message_type'
         messaging_channel = 'messaging_channel'
         monetization_tool = 'monetization_tool'
@@ -42,6 +44,8 @@ class InsightsValue(
         'earning_source': 'string',
         'end_time': 'datetime',
         'engagement_source': 'string',
+        'is_from_ads': 'string',
+        'is_from_followers': 'string',
         'message_type': 'string',
         'messaging_channel': 'string',
         'monetization_tool': 'string',

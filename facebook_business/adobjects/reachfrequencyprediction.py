@@ -117,6 +117,7 @@ class ReachFrequencyPrediction(
         timezone_id = 'timezone_id'
         timezone_name = 'timezone_name'
         topline_id = 'topline_id'
+        trending_topics_spec = 'trending_topics_spec'
         video_view_length_constraint = 'video_view_length_constraint'
         viewtag = 'viewtag'
         action = 'action'
@@ -135,7 +136,6 @@ class ReachFrequencyPrediction(
         rf_prediction_id_to_release = 'rf_prediction_id_to_release'
         rf_prediction_id_to_share = 'rf_prediction_id_to_share'
         stop_time = 'stop_time'
-        trending_topics_spec = 'trending_topics_spec'
 
     class Action:
         cancel = 'cancel'
@@ -296,6 +296,7 @@ class ReachFrequencyPrediction(
         'timezone_id': 'unsigned int',
         'timezone_name': 'string',
         'topline_id': 'unsigned int',
+        'trending_topics_spec': 'TrendingTopicsSpec',
         'video_view_length_constraint': 'unsigned int',
         'viewtag': 'string',
         'action': 'Action',
@@ -314,7 +315,6 @@ class ReachFrequencyPrediction(
         'rf_prediction_id_to_release': 'string',
         'rf_prediction_id_to_share': 'string',
         'stop_time': 'unsigned int',
-        'trending_topics_spec': 'map',
     }
     @classmethod
     def _get_field_enum_info(cls):

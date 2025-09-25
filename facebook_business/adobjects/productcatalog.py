@@ -654,6 +654,38 @@ class ProductCatalog(
             self.assure_call()
             return request.execute()
 
+    def get_check_marketplace_partner_deals_status(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.productcatalogcheckmarketplacepartnerdealsstatus import ProductCatalogCheckMarketplacePartnerDealsStatus
+        param_types = {
+            'session_id': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/check_marketplace_partner_deals_status',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ProductCatalogCheckMarketplacePartnerDealsStatus,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ProductCatalogCheckMarketplacePartnerDealsStatus, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_check_marketplace_partner_sellers_status(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -1409,6 +1441,37 @@ class ProductCatalog(
             self.assure_call()
             return request.execute()
 
+    def create_market_place_partner_deals_detail(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'requests': 'map',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/marketplace_partner_deals_details',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ProductCatalog,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ProductCatalog, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def create_market_place_partner_sellers_detail(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -1891,6 +1954,7 @@ class ProductCatalog(
             'iphone_app_store_id': 'unsigned int',
             'iphone_url': 'string',
             'launch_date': 'string',
+            'live_special_price': 'string',
             'manufacturer_info': 'string',
             'manufacturer_part_number': 'string',
             'marked_for_product_launch': 'marked_for_product_launch_enum',
@@ -1911,6 +1975,7 @@ class ProductCatalog(
             'retailer_id': 'string',
             'retailer_product_group_id': 'string',
             'return_policy_days': 'unsigned int',
+            'rich_text_description': 'string',
             'sale_price': 'unsigned int',
             'sale_price_end_date': 'datetime',
             'sale_price_start_date': 'datetime',

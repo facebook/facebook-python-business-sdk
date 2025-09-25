@@ -34,6 +34,10 @@ class BrandedContentShadowIGMediaID(
         permalink = 'permalink'
         recommended_campaign_objectives = 'recommended_campaign_objectives'
 
+    class MediaRelationship:
+        is_tagged = 'IS_TAGGED'
+        owned = 'OWNED'
+
     _field_types = {
         'eligibility_errors': 'list<string>',
         'has_permission_for_partnership_ad': 'bool',
@@ -45,6 +49,7 @@ class BrandedContentShadowIGMediaID(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['MediaRelationship'] = BrandedContentShadowIGMediaID.MediaRelationship.__dict__.values()
         return field_enum_info
 
 

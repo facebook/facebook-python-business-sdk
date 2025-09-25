@@ -14,28 +14,24 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class MessengerCallSettings(
+class CTXDFOObjectiveDefaults(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(MessengerCallSettings, self).__init__()
-        self._isMessengerCallSettings = True
+        super(CTXDFOObjectiveDefaults, self).__init__()
+        self._isCTXDFOObjectiveDefaults = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        audio_enabled = 'audio_enabled'
-        call_hours = 'call_hours'
-        call_routing = 'call_routing'
-        icon_enabled = 'icon_enabled'
-        video = 'video'
+        objective = 'objective'
+        optimization_goal = 'optimization_goal'
+        page_id = 'page_id'
 
     _field_types = {
-        'audio_enabled': 'bool',
-        'call_hours': 'Object',
-        'call_routing': 'string',
-        'icon_enabled': 'bool',
-        'video': 'string',
+        'objective': 'string',
+        'optimization_goal': 'string',
+        'page_id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

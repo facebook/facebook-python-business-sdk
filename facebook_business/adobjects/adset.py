@@ -83,6 +83,7 @@ class AdSet(
         optimization_goal = 'optimization_goal'
         optimization_sub_event = 'optimization_sub_event'
         pacing_type = 'pacing_type'
+        placement_soft_opt_out = 'placement_soft_opt_out'
         promoted_object = 'promoted_object'
         recommendations = 'recommendations'
         recurring_budget_semantics = 'recurring_budget_semantics'
@@ -98,8 +99,12 @@ class AdSet(
         targeting_optimization_types = 'targeting_optimization_types'
         time_based_ad_rotation_id_blocks = 'time_based_ad_rotation_id_blocks'
         time_based_ad_rotation_intervals = 'time_based_ad_rotation_intervals'
+        trending_topics_spec = 'trending_topics_spec'
         updated_time = 'updated_time'
         use_new_app_click = 'use_new_app_click'
+        value_rule_set_id = 'value_rule_set_id'
+        value_rules_applied = 'value_rules_applied'
+        budget_schedule_specs = 'budget_schedule_specs'
         budget_source = 'budget_source'
         budget_split_set_id = 'budget_split_set_id'
         campaign_spec = 'campaign_spec'
@@ -264,6 +269,7 @@ class AdSet(
 
     class OptimizationSubEvent:
         none = 'NONE'
+        post_interaction = 'POST_INTERACTION'
         travel_intent = 'TRAVEL_INTENT'
         travel_intent_bucket_01 = 'TRAVEL_INTENT_BUCKET_01'
         travel_intent_bucket_02 = 'TRAVEL_INTENT_BUCKET_02'
@@ -283,6 +289,10 @@ class AdSet(
         value_5 = '5'
         value_6 = '6'
         value_7 = '7'
+        value_8 = '8'
+        value_9 = '9'
+        value_10 = '10'
+        value_11 = '11'
 
     class TuneForCategory:
         credit = 'CREDIT'
@@ -413,6 +423,7 @@ class AdSet(
             'bid_constraints': 'map<string, Object>',
             'bid_strategy': 'bid_strategy_enum',
             'billing_event': 'billing_event_enum',
+            'budget_schedule_specs': 'list<Object>',
             'campaign_attribution': 'Object',
             'campaign_spec': 'Object',
             'creative_sequence': 'list<string>',
@@ -430,6 +441,7 @@ class AdSet(
             'existing_customer_budget_percentage': 'unsigned int',
             'full_funnel_exploration_mode': 'full_funnel_exploration_mode_enum',
             'is_ba_skip_delayed_eligible': 'bool',
+            'is_budget_schedule_enabled': 'bool',
             'is_incremental_attribution_enabled': 'bool',
             'is_sac_cfca_terms_certified': 'bool',
             'lifetime_budget': 'unsigned int',
@@ -455,7 +467,10 @@ class AdSet(
             'time_based_ad_rotation_intervals': 'list<unsigned int>',
             'time_start': 'datetime',
             'time_stop': 'datetime',
+            'trending_topics_spec': 'map',
             'tune_for_category': 'tune_for_category_enum',
+            'value_rule_set_id': 'string',
+            'value_rules_applied': 'bool',
         }
         enums = {
             'automatic_manual_state_enum': AdSet.AutomaticManualState.__dict__.values(),
@@ -762,6 +777,39 @@ class AdSet(
             self.assure_call()
             return request.execute()
 
+    def get_budget_schedules(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.highdemandperiod import HighDemandPeriod
+        param_types = {
+            'time_start': 'datetime',
+            'time_stop': 'datetime',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/budget_schedules',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=HighDemandPeriod,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=HighDemandPeriod, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def create_budget_schedule(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -926,6 +974,7 @@ class AdSet(
             'export_name': 'string',
             'fields': 'list<string>',
             'filtering': 'list<Object>',
+            'graph_cache': 'bool',
             'level': 'level_enum',
             'limit': 'int',
             'product_id_limit': 'int',
@@ -988,6 +1037,7 @@ class AdSet(
             'export_name': 'string',
             'fields': 'list<string>',
             'filtering': 'list<Object>',
+            'graph_cache': 'bool',
             'level': 'level_enum',
             'limit': 'int',
             'product_id_limit': 'int',
@@ -1162,6 +1212,7 @@ class AdSet(
         'optimization_goal': 'OptimizationGoal',
         'optimization_sub_event': 'string',
         'pacing_type': 'list<string>',
+        'placement_soft_opt_out': 'Placement',
         'promoted_object': 'AdPromotedObject',
         'recommendations': 'list<AdRecommendation>',
         'recurring_budget_semantics': 'bool',
@@ -1177,8 +1228,12 @@ class AdSet(
         'targeting_optimization_types': 'list<map<string, int>>',
         'time_based_ad_rotation_id_blocks': 'list<list<int>>',
         'time_based_ad_rotation_intervals': 'list<unsigned int>',
+        'trending_topics_spec': 'TrendingTopicsSpec',
         'updated_time': 'datetime',
         'use_new_app_click': 'bool',
+        'value_rule_set_id': 'string',
+        'value_rules_applied': 'bool',
+        'budget_schedule_specs': 'list<Object>',
         'budget_source': 'BudgetSource',
         'budget_split_set_id': 'string',
         'campaign_spec': 'Object',

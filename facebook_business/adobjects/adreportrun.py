@@ -56,6 +56,7 @@ class AdReportRun(
         export_name = 'export_name'
         fields = 'fields'
         filtering = 'filtering'
+        graph_cache = 'graph_cache'
         level = 'level'
         limit = 'limit'
         product_id_limit = 'product_id_limit'
@@ -170,6 +171,7 @@ class AdReportRun(
         'export_name': 'string',
         'fields': 'list<string>',
         'filtering': 'list<Object>',
+        'graph_cache': 'bool',
         'level': 'Level',
         'limit': 'int',
         'product_id_limit': 'int',

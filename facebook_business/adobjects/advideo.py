@@ -67,6 +67,7 @@ class AdVideo(
         privacy = 'privacy'
         published = 'published'
         scheduled_publish_time = 'scheduled_publish_time'
+        season = 'season'
         source = 'source'
         spherical = 'spherical'
         status = 'status'
@@ -177,6 +178,7 @@ class AdVideo(
         dim_sum = 'DIM_SUM'
         directed_post_attachment = 'DIRECTED_POST_ATTACHMENT'
         direct_inbox = 'DIRECT_INBOX'
+        double_prod_experiment = 'DOUBLE_PROD_EXPERIMENT'
         drops_shopping_event_page = 'DROPS_SHOPPING_EVENT_PAGE'
         dynamic_item_video = 'DYNAMIC_ITEM_VIDEO'
         dynamic_template_video = 'DYNAMIC_TEMPLATE_VIDEO'
@@ -229,6 +231,7 @@ class AdVideo(
         music_clip = 'MUSIC_CLIP'
         music_clip_in_comment = 'MUSIC_CLIP_IN_COMMENT'
         music_clip_in_lightweight_status = 'MUSIC_CLIP_IN_LIGHTWEIGHT_STATUS'
+        music_clip_in_maple_post = 'MUSIC_CLIP_IN_MAPLE_POST'
         music_clip_in_msgr_note = 'MUSIC_CLIP_IN_MSGR_NOTE'
         music_clip_in_poll_option = 'MUSIC_CLIP_IN_POLL_OPTION'
         music_clip_on_dating_profile = 'MUSIC_CLIP_ON_DATING_PROFILE'
@@ -1179,6 +1182,7 @@ class AdVideo(
         'privacy': 'Privacy',
         'published': 'bool',
         'scheduled_publish_time': 'datetime',
+        'season': 'VideoList',
         'source': 'string',
         'spherical': 'bool',
         'status': 'VideoStatus',

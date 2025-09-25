@@ -24,9 +24,11 @@ class AdCreativeBrandedContentAds(
         self._api = api
 
     class Field(AbstractObject.Field):
+        acting_business_id = 'acting_business_id'
         ad_format = 'ad_format'
         content_search_input = 'content_search_input'
         creator_ad_permission_type = 'creator_ad_permission_type'
+        deliver_dynamic_partner_content = 'deliver_dynamic_partner_content'
         facebook_boost_post_access_token = 'facebook_boost_post_access_token'
         instagram_boost_post_access_token = 'instagram_boost_post_access_token'
         is_mca_internal = 'is_mca_internal'
@@ -40,9 +42,11 @@ class AdCreativeBrandedContentAds(
         ui_version = 'ui_version'
 
     _field_types = {
+        'acting_business_id': 'string',
         'ad_format': 'int',
         'content_search_input': 'string',
         'creator_ad_permission_type': 'string',
+        'deliver_dynamic_partner_content': 'bool',
         'facebook_boost_post_access_token': 'string',
         'instagram_boost_post_access_token': 'string',
         'is_mca_internal': 'bool',

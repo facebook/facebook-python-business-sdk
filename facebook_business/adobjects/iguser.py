@@ -277,11 +277,13 @@ class IGUser(
         param_types = {
             'ad_code': 'string',
             'creator_username': 'string',
+            'media_relationship': 'list<media_relationship_enum>',
             'only_fetch_allowlisted': 'bool',
             'only_fetch_recommended_content': 'bool',
             'permalinks': 'list<string>',
         }
         enums = {
+            'media_relationship_enum': BrandedContentShadowIGMediaID.MediaRelationship.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -433,6 +435,37 @@ class IGUser(
             self.assure_call()
             return request.execute()
 
+    def get_collaboration_invites(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.shadowigusercollaborationinvites import ShadowIGUserCollaborationInvites
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/collaboration_invites',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ShadowIGUserCollaborationInvites,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ShadowIGUserCollaborationInvites, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_connected_threads_user(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -515,7 +548,9 @@ class IGUser(
             'major_audience_gender': 'list<major_audience_gender_enum>',
             'query': 'string',
             'reels_interaction_rate': 'Object',
+            'show_onboarded_creators_only': 'bool',
             'similar_to_creators': 'list<string>',
+            'username': 'string',
         }
         enums = {
             'creator_countries_enum': IGUserExportForCAM.CreatorCountries.__dict__.values(),

@@ -26,10 +26,12 @@ class AdCreativeAssetGroupsSpec(
     class Field(AbstractObject.Field):
         groups = 'groups'
         origin = 'origin'
+        origins = 'origins'
 
     _field_types = {
         'groups': 'list<Object>',
         'origin': 'string',
+        'origins': 'list<string>',
     }
     @classmethod
     def _get_field_enum_info(cls):

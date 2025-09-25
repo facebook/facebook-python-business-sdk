@@ -34,6 +34,7 @@ class VideoCopyrightMatch(
         match_status = 'match_status'
         notes = 'notes'
         permalink = 'permalink'
+        policy_eval_modify_reasons = 'policy_eval_modify_reasons'
         ugc_content_format = 'ugc_content_format'
 
     class Action:
@@ -96,6 +97,7 @@ class VideoCopyrightMatch(
         'match_status': 'string',
         'notes': 'string',
         'permalink': 'string',
+        'policy_eval_modify_reasons': 'list<Object>',
         'ugc_content_format': 'string',
     }
     @classmethod

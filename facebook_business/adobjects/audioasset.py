@@ -31,6 +31,7 @@ class AudioAsset(
         all_ddex_main_artists = 'all_ddex_main_artists'
         audio_cluster_id = 'audio_cluster_id'
         cover_image_source = 'cover_image_source'
+        description = 'description'
         display_artist = 'display_artist'
         download_hd_url = 'download_hd_url'
         download_sd_url = 'download_sd_url'
@@ -82,6 +83,7 @@ class AudioAsset(
         'all_ddex_main_artists': 'string',
         'audio_cluster_id': 'string',
         'cover_image_source': 'string',
+        'description': 'string',
         'display_artist': 'string',
         'download_hd_url': 'string',
         'download_sd_url': 'string',

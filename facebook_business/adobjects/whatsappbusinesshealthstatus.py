@@ -28,6 +28,7 @@ class WhatsAppBusinessHealthStatus(
 
     class Field(AbstractObject.Field):
         additional_info = 'additional_info'
+        can_receive_call_sip = 'can_receive_call_sip'
         can_send_message = 'can_send_message'
         entity_type = 'entity_type'
         errors = 'errors'
@@ -35,6 +36,7 @@ class WhatsAppBusinessHealthStatus(
 
     _field_types = {
         'additional_info': 'list<string>',
+        'can_receive_call_sip': 'string',
         'can_send_message': 'string',
         'entity_type': 'string',
         'errors': 'list<Object>',

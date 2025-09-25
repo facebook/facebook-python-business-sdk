@@ -26,12 +26,18 @@ class AdCampaignLearningStageInfo(
     class Field(AbstractObject.Field):
         attribution_windows = 'attribution_windows'
         conversions = 'conversions'
+        dynamic_lp_conversions_threshold = 'dynamic_lp_conversions_threshold'
+        dynamic_lp_days_threshold = 'dynamic_lp_days_threshold'
+        dynamic_lp_status = 'dynamic_lp_status'
         last_sig_edit_ts = 'last_sig_edit_ts'
         status = 'status'
 
     _field_types = {
         'attribution_windows': 'list<string>',
         'conversions': 'unsigned int',
+        'dynamic_lp_conversions_threshold': 'unsigned int',
+        'dynamic_lp_days_threshold': 'unsigned int',
+        'dynamic_lp_status': 'string',
         'last_sig_edit_ts': 'int',
         'status': 'string',
     }

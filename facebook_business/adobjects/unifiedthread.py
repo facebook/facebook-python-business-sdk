@@ -31,6 +31,7 @@ class UnifiedThread(
         folder = 'folder'
         former_participants = 'former_participants'
         id = 'id'
+        is_owner = 'is_owner'
         is_subscribed = 'is_subscribed'
         link = 'link'
         linked_group = 'linked_group'
@@ -118,6 +119,7 @@ class UnifiedThread(
         'folder': 'string',
         'former_participants': 'Object',
         'id': 'string',
+        'is_owner': 'bool',
         'is_subscribed': 'bool',
         'link': 'string',
         'linked_group': 'Group',

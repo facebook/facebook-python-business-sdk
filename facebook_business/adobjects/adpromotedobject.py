@@ -31,6 +31,7 @@ class AdPromotedObject(
         custom_event_str = 'custom_event_str'
         custom_event_type = 'custom_event_type'
         dataset_split_id = 'dataset_split_id'
+        dataset_split_ids = 'dataset_split_ids'
         event_id = 'event_id'
         full_funnel_objective = 'full_funnel_objective'
         fundraiser_campaign_id = 'fundraiser_campaign_id'
@@ -38,7 +39,9 @@ class AdPromotedObject(
         lead_ads_custom_event_type = 'lead_ads_custom_event_type'
         lead_ads_form_event_source_type = 'lead_ads_form_event_source_type'
         lead_ads_offsite_conversion_type = 'lead_ads_offsite_conversion_type'
+        lead_ads_selected_pixel_id = 'lead_ads_selected_pixel_id'
         mcme_conversion_id = 'mcme_conversion_id'
+        multi_event_product = 'multi_event_product'
         object_store_url = 'object_store_url'
         object_store_urls = 'object_store_urls'
         offer_id = 'offer_id'
@@ -46,6 +49,8 @@ class AdPromotedObject(
         offsite_conversion_event_id = 'offsite_conversion_event_id'
         omnichannel_object = 'omnichannel_object'
         page_id = 'page_id'
+        passback_application_id = 'passback_application_id'
+        passback_pixel_id = 'passback_pixel_id'
         pixel_aggregation_rule = 'pixel_aggregation_rule'
         pixel_id = 'pixel_id'
         pixel_rule = 'pixel_rule'
@@ -155,6 +160,7 @@ class AdPromotedObject(
         'custom_event_str': 'string',
         'custom_event_type': 'CustomEventType',
         'dataset_split_id': 'string',
+        'dataset_split_ids': 'list<string>',
         'event_id': 'string',
         'full_funnel_objective': 'FullFunnelObjective',
         'fundraiser_campaign_id': 'string',
@@ -162,7 +168,9 @@ class AdPromotedObject(
         'lead_ads_custom_event_type': 'LeadAdsCustomEventType',
         'lead_ads_form_event_source_type': 'string',
         'lead_ads_offsite_conversion_type': 'string',
+        'lead_ads_selected_pixel_id': 'string',
         'mcme_conversion_id': 'string',
+        'multi_event_product': 'string',
         'object_store_url': 'string',
         'object_store_urls': 'list<string>',
         'offer_id': 'string',
@@ -170,6 +178,8 @@ class AdPromotedObject(
         'offsite_conversion_event_id': 'string',
         'omnichannel_object': 'Object',
         'page_id': 'string',
+        'passback_application_id': 'string',
+        'passback_pixel_id': 'string',
         'pixel_aggregation_rule': 'string',
         'pixel_id': 'string',
         'pixel_rule': 'string',

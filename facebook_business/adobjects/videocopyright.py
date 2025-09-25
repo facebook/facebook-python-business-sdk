@@ -28,8 +28,10 @@ class VideoCopyright(
 
     class Field(AbstractObject.Field):
         content_category = 'content_category'
+        content_protect_protection_disabled_reason = 'content_protect_protection_disabled_reason'
         copyright_content_id = 'copyright_content_id'
         creator = 'creator'
+        disable_protection_by_content_protect_status = 'disable_protection_by_content_protect_status'
         excluded_ownership_segments = 'excluded_ownership_segments'
         id = 'id'
         in_conflict = 'in_conflict'
@@ -160,8 +162,10 @@ class VideoCopyright(
 
     _field_types = {
         'content_category': 'string',
+        'content_protect_protection_disabled_reason': 'string',
         'copyright_content_id': 'string',
         'creator': 'User',
+        'disable_protection_by_content_protect_status': 'bool',
         'excluded_ownership_segments': 'list<VideoCopyrightSegment>',
         'id': 'string',
         'in_conflict': 'bool',

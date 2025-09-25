@@ -31,7 +31,6 @@ class Shop(
         fb_sales_channel = 'fb_sales_channel'
         id = 'id'
         ig_sales_channel = 'ig_sales_channel'
-        is_onsite_enabled = 'is_onsite_enabled'
         shop_status = 'shop_status'
         workspace = 'workspace'
 
@@ -70,7 +69,6 @@ class Shop(
         'fb_sales_channel': 'Object',
         'id': 'string',
         'ig_sales_channel': 'Object',
-        'is_onsite_enabled': 'bool',
         'shop_status': 'string',
         'workspace': 'Object',
     }

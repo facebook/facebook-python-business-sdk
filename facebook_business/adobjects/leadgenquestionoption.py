@@ -25,10 +25,12 @@ class LeadGenQuestionOption(
 
     class Field(AbstractObject.Field):
         key = 'key'
+        photo = 'photo'
         value = 'value'
 
     _field_types = {
         'key': 'string',
+        'photo': 'Photo',
         'value': 'string',
     }
     @classmethod

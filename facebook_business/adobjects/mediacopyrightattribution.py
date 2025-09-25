@@ -40,7 +40,6 @@ class MediaCopyrightAttribution(
         is_enabled = 'is_enabled'
         link_title = 'link_title'
         match_count = 'match_count'
-        owner = 'owner'
         status = 'status'
         title = 'title'
 
@@ -88,7 +87,6 @@ class MediaCopyrightAttribution(
         'is_enabled': 'bool',
         'link_title': 'string',
         'match_count': 'int',
-        'owner': 'Page',
         'status': 'string',
         'title': 'string',
     }

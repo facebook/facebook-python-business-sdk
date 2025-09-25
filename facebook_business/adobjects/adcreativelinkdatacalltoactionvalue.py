@@ -24,10 +24,14 @@ class AdCreativeLinkDataCallToActionValue(
         self._api = api
 
     class Field(AbstractObject.Field):
+        android_url = 'android_url'
         app_destination = 'app_destination'
         app_link = 'app_link'
         application = 'application'
         event_id = 'event_id'
+        ios_url = 'ios_url'
+        land_on_whatsapp_catalog = 'land_on_whatsapp_catalog'
+        land_on_whatsapp_profile = 'land_on_whatsapp_profile'
         lead_gen_form_id = 'lead_gen_form_id'
         link = 'link'
         link_caption = 'link_caption'
@@ -38,10 +42,14 @@ class AdCreativeLinkDataCallToActionValue(
         whatsapp_number = 'whatsapp_number'
 
     _field_types = {
+        'android_url': 'string',
         'app_destination': 'string',
         'app_link': 'string',
         'application': 'string',
         'event_id': 'string',
+        'ios_url': 'string',
+        'land_on_whatsapp_catalog': 'int',
+        'land_on_whatsapp_profile': 'int',
         'lead_gen_form_id': 'string',
         'link': 'string',
         'link_caption': 'string',
