@@ -34,9 +34,12 @@ class AttributionData(object):
         'attribution_model': 'AttributionModel',
         'attr_window': 'int',
         'attribution_value': 'float',
+        'attribution_source': 'str', 
+        'touchpoint_type': 'str', 
+        'touchpoint_ts': 'int',
     }
 
-    def __init__(self, scope = None, visit_time = None, ad_id = None, adset_id = None, campaign_id = None, attribution_share = None, attribution_model = None, attr_window = None, attribution_value = None):
+    def __init__(self, scope = None, visit_time = None, ad_id = None, adset_id = None, campaign_id = None, attribution_share = None, attribution_model = None, attr_window = None, attribution_value = None, attribution_source = None, touchpoint_type = None, touchpoint_ts = None):
         # type: (str, int, str, str, str, float, AttributionModel, int, float) -> None
 
         """Conversions API Attribution Data"""
@@ -49,6 +52,9 @@ class AttributionData(object):
         self._attribution_model = None
         self._attr_window = None
         self._attribution_value = None
+        self._attribution_source = None
+        self._touchpoint_type = None
+        self._touchpoint_ts = None
 
         if scope is not None:
             self.scope = scope
@@ -68,6 +74,12 @@ class AttributionData(object):
             self.attr_window = attr_window
         if attribution_value is not None:
             self.attribution_value = attribution_value
+        if attribution_source is not None:
+            self.attribution_source = attribution_source
+        if touchpoint_type is not None:
+            self.touchpoint_type = touchpoint_type
+        if touchpoint_ts is not None:
+            self.touchpoint_ts = touchpoint_ts
 
     @property
     def scope(self):
@@ -270,6 +282,72 @@ class AttributionData(object):
         """
         self._attribution_value = attribution_value
 
+    @property
+    def attribution_source(self):
+        """Gets the attribution_source of Attribution Data.
+
+        The attribution source To differentiate the source of the data, e.g. whether this is from AMM or Custom Attribution or any other sources.
+
+        :return: The attribution_source of Attribution Data.
+        :rtype: float
+        """
+        return self._attribution_source
+
+    @attribution_source.setter
+    def attribution_source(self, attribution_source):
+        """Sets the attribution_source of Attribution Data.
+
+        The attribution source To differentiate the source of the data, e.g. whether this is from AMM or Custom Attribution or any other sources.
+
+        :param attribution_source: The attribution_source of Attribution Data.
+        :type: float
+        """
+        self._attribution_source = attribution_source
+
+    @property
+    def touchpoint_type(self):
+        """Gets the touchpoint_type of Attribution Data.
+
+        The engagement type that caused the original credited conversion.
+
+        :return: The touchpoint_type of Attribution Data.
+        :rtype: float
+        """
+        return self._touchpoint_type
+
+    @touchpoint_type.setter
+    def touchpoint_type(self, touchpoint_type):
+        """Sets the touchpoint_type of Attribution Data.
+
+        The engagement type that caused the original credited conversion.
+
+        :param touchpoint_type: The touchpoint_type of Attribution Data.
+        :type: float
+        """
+        self._touchpoint_type = touchpoint_type
+
+    @property
+    def touchpoint_ts(self):
+        """Gets the touchpoint_ts of Attribution Data.
+
+        The time when the touchpoint event occurred with the ad that the install was credited to.
+
+        :return: The touchpoint_ts of Attribution Data.
+        :rtype: float
+        """
+        return self._touchpoint_ts
+
+    @touchpoint_ts.setter
+    def touchpoint_ts(self, touchpoint_ts):
+        """Sets the touchpoint_ts of Attribution Data.
+
+        The time when the touchpoint event occurred with the ad that the install was credited to.
+
+        :param touchpoint_ts: The touchpoint_ts of Attribution Data.
+        :type: float
+        """
+        self._touchpoint_ts = touchpoint_ts
+
 
     def normalize(self):
         normalized_payload = {
@@ -282,6 +360,9 @@ class AttributionData(object):
             'attribution_model': self.attribution_model,
             'attr_window': self.attr_window,
             'attribution_value': self.attribution_value,
+            'attribution_source': self.attribution_source,
+            'touchpoint_type': self.touchpoint_type,
+            'touchpoint_ts': self.touchpoint_ts,
         }
         normalized_payload = {k: v for k, v in normalized_payload.items() if v is not None}
         return normalized_payload

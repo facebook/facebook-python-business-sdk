@@ -36,6 +36,9 @@ class AttributionDataTest(TestCase):
             'attribution_share': 0.5,
             'attribution_model': AttributionModel.LAST_CLICK,
             'attribution_value': 10.5,
+            'attribution_source': 'amm',
+            'touchpoint_type': 'onsite_click',
+            'touchpoint_ts': 12345,
         }
         attribution_data = AttributionData(
             scope=expected['scope'],
@@ -47,6 +50,9 @@ class AttributionDataTest(TestCase):
             attribution_share=expected['attribution_share'],
             attribution_model=expected['attribution_model'],
             attribution_value=expected['attribution_value'],
+            attribution_source=expected['attribution_source'],
+            touchpoint_type=expected['touchpoint_type'],
+            touchpoint_ts=expected['touchpoint_ts'],
         )
 
         self.assertEqual(attribution_data.normalize(), expected)
