@@ -37,6 +37,7 @@ class AdsQuickViews(
         permission = 'permission'
         quick_view_type = 'quick_view_type'
         sort = 'sort'
+        time_stamp_last_used_by_owner = 'time_stamp_last_used_by_owner'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -79,6 +80,7 @@ class AdsQuickViews(
         'permission': 'string',
         'quick_view_type': 'string',
         'sort': 'list<Object>',
+        'time_stamp_last_used_by_owner': 'datetime',
     }
     @classmethod
     def _get_field_enum_info(cls):

@@ -24,6 +24,7 @@ class AdPromotedObject(
         self._api = api
 
     class Field(AbstractObject.Field):
+        anchor_event_config = 'anchor_event_config'
         application_id = 'application_id'
         boosted_product_set_id = 'boosted_product_set_id'
         conversion_goal_id = 'conversion_goal_id'
@@ -153,6 +154,7 @@ class AdPromotedObject(
         tutorial_completion = 'TUTORIAL_COMPLETION'
 
     _field_types = {
+        'anchor_event_config': 'string',
         'application_id': 'string',
         'boosted_product_set_id': 'string',
         'conversion_goal_id': 'string',

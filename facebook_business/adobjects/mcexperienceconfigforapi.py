@@ -26,11 +26,13 @@ class MCExperienceConfigForApi(
     class Field(AbstractObject.Field):
         is_campaign_enabled = 'is_campaign_enabled'
         is_terms_signed = 'is_terms_signed'
+        is_user_manually_toggle_mc_off = 'is_user_manually_toggle_mc_off'
         merchant_type = 'merchant_type'
 
     _field_types = {
         'is_campaign_enabled': 'bool',
         'is_terms_signed': 'bool',
+        'is_user_manually_toggle_mc_off': 'bool',
         'merchant_type': 'string',
     }
     @classmethod

@@ -102,6 +102,7 @@ class AdCreative(
         url_tags = 'url_tags'
         use_page_actor_override = 'use_page_actor_override'
         video_id = 'video_id'
+        execution_options = 'execution_options'
         image_file = 'image_file'
         is_dco_internal = 'is_dco_internal'
 
@@ -250,6 +251,9 @@ class AdCreative(
     class DynamicAdVoice:
         dynamic = 'DYNAMIC'
         story_owner = 'STORY_OWNER'
+
+    class ExecutionOptions:
+        validate_only = 'validate_only'
 
     class Operator:
         all = 'ALL'
@@ -551,6 +555,7 @@ class AdCreative(
         'url_tags': 'string',
         'use_page_actor_override': 'bool',
         'video_id': 'string',
+        'execution_options': 'list<ExecutionOptions>',
         'image_file': 'string',
         'is_dco_internal': 'bool',
     }
@@ -565,6 +570,7 @@ class AdCreative(
         field_enum_info['CategorizationCriteria'] = AdCreative.CategorizationCriteria.__dict__.values()
         field_enum_info['CategoryMediaSource'] = AdCreative.CategoryMediaSource.__dict__.values()
         field_enum_info['DynamicAdVoice'] = AdCreative.DynamicAdVoice.__dict__.values()
+        field_enum_info['ExecutionOptions'] = AdCreative.ExecutionOptions.__dict__.values()
         field_enum_info['Operator'] = AdCreative.Operator.__dict__.values()
         return field_enum_info
 

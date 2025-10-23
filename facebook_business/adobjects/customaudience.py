@@ -82,6 +82,7 @@ class CustomAudience(
         event_sources = 'event_sources'
         exclusions = 'exclusions'
         facebook_page_id = 'facebook_page_id'
+        inclusionoperator = 'inclusionOperator'
         inclusions = 'inclusions'
         list_of_accounts = 'list_of_accounts'
         marketing_message_channels = 'marketing_message_channels'
@@ -247,6 +248,7 @@ class CustomAudience(
             'event_source_group': 'string',
             'event_sources': 'list<map>',
             'exclusions': 'list<Object>',
+            'inclusionOperator': 'string',
             'inclusions': 'list<Object>',
             'lookalike_spec': 'string',
             'name': 'string',
@@ -735,6 +737,7 @@ class CustomAudience(
         'event_sources': 'list<map>',
         'exclusions': 'list<Object>',
         'facebook_page_id': 'string',
+        'inclusionOperator': 'string',
         'inclusions': 'list<Object>',
         'list_of_accounts': 'list<unsigned int>',
         'marketing_message_channels': 'Object',

@@ -28,6 +28,7 @@ class AdCreativeLinkDataChildAttachment(
         call_to_action = 'call_to_action'
         caption = 'caption'
         description = 'description'
+        ig_media_id = 'ig_media_id'
         image_crops = 'image_crops'
         image_hash = 'image_hash'
         ios_url = 'ios_url'
@@ -44,6 +45,7 @@ class AdCreativeLinkDataChildAttachment(
         'call_to_action': 'AdCreativeLinkDataCallToAction',
         'caption': 'string',
         'description': 'string',
+        'ig_media_id': 'string',
         'image_crops': 'AdsImageCrops',
         'image_hash': 'string',
         'ios_url': 'string',

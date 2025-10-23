@@ -52,6 +52,7 @@ class ProductFeed(
         primary_feed_ids = 'primary_feed_ids'
         rules = 'rules'
         selected_override_fields = 'selected_override_fields'
+        use_case = 'use_case'
 
     class Delimiter:
         autodetect = 'AUTODETECT'
@@ -133,6 +134,9 @@ class ProductFeed(
         local = 'LOCAL'
         smart_pixel_language_or_country = 'SMART_PIXEL_LANGUAGE_OR_COUNTRY'
         version = 'VERSION'
+
+    class UseCase:
+        creator_asset = 'CREATOR_ASSET'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
@@ -800,6 +804,7 @@ class ProductFeed(
         'primary_feed_ids': 'list<string>',
         'rules': 'list<string>',
         'selected_override_fields': 'list<string>',
+        'use_case': 'UseCase',
     }
     @classmethod
     def _get_field_enum_info(cls):
@@ -811,6 +816,7 @@ class ProductFeed(
         field_enum_info['FeedType'] = ProductFeed.FeedType.__dict__.values()
         field_enum_info['ItemSubType'] = ProductFeed.ItemSubType.__dict__.values()
         field_enum_info['OverrideType'] = ProductFeed.OverrideType.__dict__.values()
+        field_enum_info['UseCase'] = ProductFeed.UseCase.__dict__.values()
         return field_enum_info
 
 

@@ -32,6 +32,8 @@ class IGMedia(
         caption = 'caption'
         comments_count = 'comments_count'
         copyright_check_information = 'copyright_check_information'
+        has_poll = 'has_poll'
+        has_slider = 'has_slider'
         id = 'id'
         ig_id = 'ig_id'
         is_comment_enabled = 'is_comment_enabled'
@@ -49,6 +51,36 @@ class IGMedia(
         username = 'username'
         video_title = 'video_title'
         view_count = 'view_count'
+
+    def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='DELETE',
+            endpoint='/',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -512,6 +544,8 @@ class IGMedia(
         'caption': 'string',
         'comments_count': 'int',
         'copyright_check_information': 'IGVideoCopyrightCheckMatchesInformation',
+        'has_poll': 'bool',
+        'has_slider': 'bool',
         'id': 'string',
         'ig_id': 'string',
         'is_comment_enabled': 'bool',

@@ -24,6 +24,7 @@ class AdCreativeFeatureCustomizations(
         self._api = api
 
     class Field(AbstractObject.Field):
+        aspect_ratio_config = 'aspect_ratio_config'
         background_color = 'background_color'
         catalog_feed_tag_name = 'catalog_feed_tag_name'
         font_name = 'font_name'
@@ -34,6 +35,7 @@ class AdCreativeFeatureCustomizations(
         text_style = 'text_style'
 
     _field_types = {
+        'aspect_ratio_config': 'Object',
         'background_color': 'string',
         'catalog_feed_tag_name': 'string',
         'font_name': 'string',

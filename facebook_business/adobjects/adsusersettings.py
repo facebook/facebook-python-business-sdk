@@ -31,8 +31,11 @@ class AdsUserSettings(
         add_overlays_opt_in_status = 'add_overlays_opt_in_status'
         adgroup_name_template = 'adgroup_name_template'
         ads_cs_catalog_opt_out_timestamp = 'ads_cs_catalog_opt_out_timestamp'
+        ads_cs_dynamic_se_opt_in_status = 'ads_cs_dynamic_se_opt_in_status'
+        ads_cs_dynamic_se_opt_out_timestamp = 'ads_cs_dynamic_se_opt_out_timestamp'
         ads_cs_sitelinks_opt_in_status = 'ads_cs_sitelinks_opt_in_status'
         ads_cs_sitelinks_opt_out_timestamp = 'ads_cs_sitelinks_opt_out_timestamp'
+        ads_destination_optimization_opt_out_timestamp = 'ads_destination_optimization_opt_out_timestamp'
         ads_tool_visits = 'ads_tool_visits'
         aplusc_ai_agent_opt_in_status = 'aplusc_ai_agent_opt_in_status'
         aplusc_carousel_cda_opt_in_status = 'aplusc_carousel_cda_opt_in_status'
@@ -56,7 +59,9 @@ class AdsUserSettings(
         create_cta_sticker_opt_in_status = 'create_cta_sticker_opt_in_status'
         creative_flex_opt_in_status = 'creative_flex_opt_in_status'
         da_add_overlays_opt_in_status = 'da_add_overlays_opt_in_status'
+        da_creative_flex_opt_in_status = 'da_creative_flex_opt_in_status'
         da_hide_price_opt_in_status = 'da_hide_price_opt_in_status'
+        da_manual_media_nux_impressions = 'da_manual_media_nux_impressions'
         default_creation_mode = 'default_creation_mode'
         dynamic_partnership_ads_opt_in_status = 'dynamic_partnership_ads_opt_in_status'
         enhance_cta_text_extraction_opt_in_status = 'enhance_cta_text_extraction_opt_in_status'
@@ -156,8 +161,11 @@ class AdsUserSettings(
         'add_overlays_opt_in_status': 'string',
         'adgroup_name_template': 'Object',
         'ads_cs_catalog_opt_out_timestamp': 'list<map<string, int>>',
+        'ads_cs_dynamic_se_opt_in_status': 'string',
+        'ads_cs_dynamic_se_opt_out_timestamp': 'list<map<string, int>>',
         'ads_cs_sitelinks_opt_in_status': 'string',
         'ads_cs_sitelinks_opt_out_timestamp': 'list<map<string, int>>',
+        'ads_destination_optimization_opt_out_timestamp': 'list<map<string, int>>',
         'ads_tool_visits': 'list<Object>',
         'aplusc_ai_agent_opt_in_status': 'string',
         'aplusc_carousel_cda_opt_in_status': 'string',
@@ -181,7 +189,9 @@ class AdsUserSettings(
         'create_cta_sticker_opt_in_status': 'string',
         'creative_flex_opt_in_status': 'string',
         'da_add_overlays_opt_in_status': 'string',
+        'da_creative_flex_opt_in_status': 'string',
         'da_hide_price_opt_in_status': 'string',
+        'da_manual_media_nux_impressions': 'int',
         'default_creation_mode': 'string',
         'dynamic_partnership_ads_opt_in_status': 'string',
         'enhance_cta_text_extraction_opt_in_status': 'string',

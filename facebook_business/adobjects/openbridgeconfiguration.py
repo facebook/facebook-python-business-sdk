@@ -28,11 +28,14 @@ class OpenBridgeConfiguration(
 
     class Field(AbstractObject.Field):
         active = 'active'
+        blocked_event_types = 'blocked_event_types'
+        blocked_websites = 'blocked_websites'
         browser_agent = 'browser_agent'
         cloud_provider = 'cloud_provider'
         cloud_region = 'cloud_region'
         destination_id = 'destination_id'
         endpoint = 'endpoint'
+        event_enrichment_state = 'event_enrichment_state'
         fallback_domain = 'fallback_domain'
         first_party_domain = 'first_party_domain'
         host_business_id = 'host_business_id'
@@ -46,6 +49,11 @@ class OpenBridgeConfiguration(
         sgw_account_id = 'sgw_account_id'
         sgw_instance_url = 'sgw_instance_url'
         sgw_pixel_id = 'sgw_pixel_id'
+
+    class EventEnrichmentState:
+        no = 'NO'
+        not_initialized = 'NOT_INITIALIZED'
+        yes = 'YES'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
@@ -123,10 +131,13 @@ class OpenBridgeConfiguration(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'active': 'bool',
+            'blocked_event_types': 'list<string>',
+            'blocked_websites': 'list<string>',
             'cloud_provider': 'string',
             'cloud_region': 'string',
             'destination_id': 'string',
             'endpoint': 'string',
+            'event_enrichment_state': 'event_enrichment_state_enum',
             'fallback_domain': 'string',
             'first_party_domain': 'string',
             'host_business_id': 'unsigned int',
@@ -140,6 +151,7 @@ class OpenBridgeConfiguration(
             'sgw_pixel_id': 'unsigned int',
         }
         enums = {
+            'event_enrichment_state_enum': OpenBridgeConfiguration.EventEnrichmentState.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -165,11 +177,14 @@ class OpenBridgeConfiguration(
 
     _field_types = {
         'active': 'bool',
+        'blocked_event_types': 'list<string>',
+        'blocked_websites': 'list<string>',
         'browser_agent': 'list<string>',
         'cloud_provider': 'string',
         'cloud_region': 'string',
         'destination_id': 'string',
         'endpoint': 'string',
+        'event_enrichment_state': 'string',
         'fallback_domain': 'string',
         'first_party_domain': 'string',
         'host_business_id': 'string',
@@ -187,6 +202,7 @@ class OpenBridgeConfiguration(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['EventEnrichmentState'] = OpenBridgeConfiguration.EventEnrichmentState.__dict__.values()
         return field_enum_info
 
 

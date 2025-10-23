@@ -52,6 +52,7 @@ class Business(
         verification_status = 'verification_status'
         vertical = 'vertical'
         vertical_id = 'vertical_id'
+        whatsapp_business_manager_messaging_limit = 'whatsapp_business_manager_messaging_limit'
 
     class VerificationStatus:
         expired = 'expired'
@@ -64,6 +65,14 @@ class Business(
         rejected = 'rejected'
         revoked = 'revoked'
         verified = 'verified'
+
+    class WhatsappBusinessManagerMessagingLimit:
+        tier_100k = 'TIER_100K'
+        tier_10k = 'TIER_10K'
+        tier_250 = 'TIER_250'
+        tier_2k = 'TIER_2K'
+        tier_unlimited = 'TIER_UNLIMITED'
+        untiered = 'UNTIERED'
 
     class TwoFactorType:
         admin_required = 'admin_required'
@@ -1803,21 +1812,15 @@ class Business(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.omegacustomertrx import OmegaCustomerTrx
         param_types = {
-            'account_ids': 'list<unsigned int>',
-            'advertiser_name': 'string',
-            'billing_period_end': 'string',
-            'billing_period_start': 'string',
             'end_date': 'string',
             'invoice_id': 'string',
             'issue_end_date': 'string',
             'issue_start_date': 'string',
-            'product_types': 'list<product_types_enum>',
             'root_id': 'unsigned int',
             'start_date': 'string',
             'type': 'type_enum',
         }
         enums = {
-            'product_types_enum': OmegaCustomerTrx.ProductTypes.__dict__.values(),
             'type_enum': OmegaCustomerTrx.Type.__dict__.values(),
         }
         request = FacebookRequest(
@@ -3276,10 +3279,13 @@ class Business(
         from facebook_business.adobjects.openbridgeconfiguration import OpenBridgeConfiguration
         param_types = {
             'active': 'bool',
+            'blocked_event_types': 'list<string>',
+            'blocked_websites': 'list<string>',
             'cloud_provider': 'string',
             'cloud_region': 'string',
             'destination_id': 'string',
             'endpoint': 'string',
+            'event_enrichment_state': 'event_enrichment_state_enum',
             'fallback_domain': 'string',
             'first_party_domain': 'string',
             'host_business_id': 'unsigned int',
@@ -3294,6 +3300,7 @@ class Business(
             'sgw_pixel_id': 'unsigned int',
         }
         enums = {
+            'event_enrichment_state_enum': OpenBridgeConfiguration.EventEnrichmentState.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -3907,7 +3914,7 @@ class Business(
             self.assure_call()
             return request.execute()
 
-    def create_partner_premium_option(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def create_partner_premium_opt_i_on(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
@@ -4793,11 +4800,13 @@ class Business(
         'verification_status': 'VerificationStatus',
         'vertical': 'string',
         'vertical_id': 'unsigned int',
+        'whatsapp_business_manager_messaging_limit': 'WhatsappBusinessManagerMessagingLimit',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
         field_enum_info['VerificationStatus'] = Business.VerificationStatus.__dict__.values()
+        field_enum_info['WhatsappBusinessManagerMessagingLimit'] = Business.WhatsappBusinessManagerMessagingLimit.__dict__.values()
         field_enum_info['TwoFactorType'] = Business.TwoFactorType.__dict__.values()
         field_enum_info['Vertical'] = Business.Vertical.__dict__.values()
         field_enum_info['PermittedTasks'] = Business.PermittedTasks.__dict__.values()

@@ -128,7 +128,7 @@ class AdsValueAdjustmentRuleCollection(
         request = FacebookRequest(
             node_id=self['id'],
             method='POST',
-            endpoint='/deleteruleset',
+            endpoint='/delete_rule_set',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
             target_class=AdsValueAdjustmentRuleCollection,

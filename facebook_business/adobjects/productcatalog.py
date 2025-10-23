@@ -1664,6 +1664,7 @@ class ProductCatalog(
             'schedule': 'string',
             'selected_override_fields': 'list<string>',
             'update_schedule': 'string',
+            'use_case': 'use_case_enum',
         }
         enums = {
             'delimiter_enum': ProductFeed.Delimiter.__dict__.values(),
@@ -1673,6 +1674,7 @@ class ProductCatalog(
             'item_sub_type_enum': ProductFeed.ItemSubType.__dict__.values(),
             'override_type_enum': ProductFeed.OverrideType.__dict__.values(),
             'quoted_fields_mode_enum': ProductFeed.QuotedFieldsMode.__dict__.values(),
+            'use_case_enum': ProductFeed.UseCase.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -1911,6 +1913,7 @@ class ProductCatalog(
             'additional_image_urls': 'list<string>',
             'additional_variant_attributes': 'map',
             'age_group': 'age_group_enum',
+            'allow_upsert': 'bool',
             'android_app_name': 'string',
             'android_class': 'string',
             'android_package': 'string',

@@ -18,31 +18,21 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AudioRelease(
+class ShadowIGScheduledMedia(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isAudioRelease = True
-        super(AudioRelease, self).__init__(fbid, parent_id, api)
+        self._isShadowIGScheduledMedia = True
+        super(ShadowIGScheduledMedia, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        album_title = 'album_title'
-        asset_availability_status = 'asset_availability_status'
-        audio_availability_status = 'audio_availability_status'
-        audio_release_image_uri = 'audio_release_image_uri'
-        created_time = 'created_time'
-        displayed_artist = 'displayed_artist'
-        ean = 'ean'
-        genre = 'genre'
-        grid = 'grid'
+        caption = 'caption'
         id = 'id'
-        isrc = 'isrc'
-        label_name = 'label_name'
-        original_release_date = 'original_release_date'
-        parental_warning_type = 'parental_warning_type'
-        proprietary_id = 'proprietary_id'
-        upc = 'upc'
+        media_type = 'media_type'
+        media_url = 'media_url'
+        publish_timestamp = 'publish_timestamp'
+        thumbnail_url = 'thumbnail_url'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -58,7 +48,7 @@ class AudioRelease(
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AudioRelease,
+            target_class=ShadowIGScheduledMedia,
             api_type='NODE',
             response_parser=ObjectParser(reuse_object=self),
         )
@@ -75,22 +65,12 @@ class AudioRelease(
             return request.execute()
 
     _field_types = {
-        'album_title': 'string',
-        'asset_availability_status': 'list<map<int, Object>>',
-        'audio_availability_status': 'string',
-        'audio_release_image_uri': 'string',
-        'created_time': 'datetime',
-        'displayed_artist': 'string',
-        'ean': 'string',
-        'genre': 'string',
-        'grid': 'string',
+        'caption': 'string',
         'id': 'string',
-        'isrc': 'string',
-        'label_name': 'string',
-        'original_release_date': 'datetime',
-        'parental_warning_type': 'string',
-        'proprietary_id': 'string',
-        'upc': 'string',
+        'media_type': 'string',
+        'media_url': 'string',
+        'publish_timestamp': 'int',
+        'thumbnail_url': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

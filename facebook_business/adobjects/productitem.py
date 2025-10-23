@@ -114,6 +114,7 @@ class ProductItem(
         videos = 'videos'
         visibility = 'visibility'
         wa_compliance_category = 'wa_compliance_category'
+        allow_upsert = 'allow_upsert'
         android_app_name = 'android_app_name'
         android_class = 'android_class'
         android_package = 'android_package'
@@ -584,6 +585,7 @@ class ProductItem(
         video_fetch_failed_forbidden = 'VIDEO_FETCH_FAILED_FORBIDDEN'
         video_fetch_failed_link_broken = 'VIDEO_FETCH_FAILED_LINK_BROKEN'
         video_fetch_failed_timed_out = 'VIDEO_FETCH_FAILED_TIMED_OUT'
+        video_issue_generic = 'VIDEO_ISSUE_GENERIC'
         video_not_downloadable = 'VIDEO_NOT_DOWNLOADABLE'
         whatsapp_disabled_by_user = 'WHATSAPP_DISABLED_BY_USER'
         whatsapp_marketing_message_disabled_by_user = 'WHATSAPP_MARKETING_MESSAGE_DISABLED_BY_USER'
@@ -1261,6 +1263,7 @@ class ProductItem(
         'videos': 'list<ProductItemVideoData>',
         'visibility': 'Visibility',
         'wa_compliance_category': 'string',
+        'allow_upsert': 'bool',
         'android_app_name': 'string',
         'android_class': 'string',
         'android_package': 'string',

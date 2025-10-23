@@ -27,6 +27,7 @@ class AdCreativeMediaSourcingSpec(
         bodies = 'bodies'
         descriptions = 'descriptions'
         images = 'images'
+        push_metadata_ids = 'push_metadata_ids'
         related_media = 'related_media'
         titles = 'titles'
         videos = 'videos'
@@ -35,6 +36,7 @@ class AdCreativeMediaSourcingSpec(
         'bodies': 'list<Object>',
         'descriptions': 'list<Object>',
         'images': 'list<Object>',
+        'push_metadata_ids': 'list<unsigned int>',
         'related_media': 'Object',
         'titles': 'list<Object>',
         'videos': 'list<Object>',

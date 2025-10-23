@@ -111,7 +111,6 @@ class AdPreview(
         profile_card = 'profile_card'
         standard_enhancements_catalog = 'standard_enhancements_catalog'
         text_overlay_translation = 'text_overlay_translation'
-        video_to_image = 'video_to_image'
 
     class RenderType:
         fallback = 'FALLBACK'

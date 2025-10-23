@@ -14,22 +14,19 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdCreativeDestinationSpec(
+class ShadowIGUserThreadOwner(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(AdCreativeDestinationSpec, self).__init__()
-        self._isAdCreativeDestinationSpec = True
+        super(ShadowIGUserThreadOwner, self).__init__()
+        self._isShadowIGUserThreadOwner = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        destination_type = 'destination_type'
-        website = 'website'
+        pass
 
     _field_types = {
-        'destination_type': 'string',
-        'website': 'Object',
     }
     @classmethod
     def _get_field_enum_info(cls):

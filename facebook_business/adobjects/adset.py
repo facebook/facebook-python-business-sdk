@@ -34,6 +34,7 @@ class AdSet(
         account_id = 'account_id'
         adlabels = 'adlabels'
         adset_schedule = 'adset_schedule'
+        anchor_event_attribution_window_days = 'anchor_event_attribution_window_days'
         asset_feed_id = 'asset_feed_id'
         attribution_spec = 'attribution_spec'
         automatic_manual_state = 'automatic_manual_state'
@@ -293,6 +294,7 @@ class AdSet(
         value_9 = '9'
         value_10 = '10'
         value_11 = '11'
+        value_12 = '12'
 
     class TuneForCategory:
         credit = 'CREDIT'
@@ -455,6 +457,7 @@ class AdSet(
             'optimization_goal': 'optimization_goal_enum',
             'optimization_sub_event': 'optimization_sub_event_enum',
             'pacing_type': 'list<string>',
+            'placement_soft_opt_out': 'Object',
             'promoted_object': 'Object',
             'rb_prediction_id': 'string',
             'regional_regulated_categories': 'list<regional_regulated_categories_enum>',
@@ -1163,6 +1166,7 @@ class AdSet(
         'account_id': 'string',
         'adlabels': 'list<AdLabel>',
         'adset_schedule': 'list<DayPart>',
+        'anchor_event_attribution_window_days': 'int',
         'asset_feed_id': 'string',
         'attribution_spec': 'list<AttributionSpec>',
         'automatic_manual_state': 'string',
@@ -1212,7 +1216,7 @@ class AdSet(
         'optimization_goal': 'OptimizationGoal',
         'optimization_sub_event': 'string',
         'pacing_type': 'list<string>',
-        'placement_soft_opt_out': 'Placement',
+        'placement_soft_opt_out': 'PlacementSoftOptOut',
         'promoted_object': 'AdPromotedObject',
         'recommendations': 'list<AdRecommendation>',
         'recurring_budget_semantics': 'bool',

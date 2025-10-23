@@ -40,6 +40,7 @@ class AdsInsights(
         adset_name = 'adset_name'
         adset_start = 'adset_start'
         age_targeting = 'age_targeting'
+        anchor_events_performance_indicator = 'anchor_events_performance_indicator'
         attribution_setting = 'attribution_setting'
         auction_bid = 'auction_bid'
         auction_competitiveness = 'auction_competitiveness'
@@ -323,6 +324,7 @@ class AdsInsights(
         product_custom_label_3_breakdown = 'product_custom_label_3_breakdown'
         product_custom_label_4_breakdown = 'product_custom_label_4_breakdown'
         product_group_content_id_breakdown = 'product_group_content_id_breakdown'
+        product_group_id = 'product_group_id'
         product_id = 'product_id'
         product_set_id_breakdown = 'product_set_id_breakdown'
         publisher_platform = 'publisher_platform'
@@ -411,6 +413,7 @@ class AdsInsights(
         'adset_name': 'string',
         'adset_start': 'string',
         'age_targeting': 'string',
+        'anchor_events_performance_indicator': 'string',
         'attribution_setting': 'string',
         'auction_bid': 'string',
         'auction_competitiveness': 'string',

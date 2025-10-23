@@ -34,6 +34,7 @@ class AdAccountMatchedSearchApplicationsEdgeData(
         url = 'url'
 
     class AppStore:
+        all_app_stores_for_android_and_ios = 'ALL_APP_STORES_FOR_ANDROID_AND_IOS'
         amazon_app_store = 'AMAZON_APP_STORE'
         apk_mirror = 'APK_MIRROR'
         apk_monk = 'APK_MONK'
@@ -62,6 +63,7 @@ class AdAccountMatchedSearchApplicationsEdgeData(
         xiaomi = 'XIAOMI'
 
     class StoresToFilter:
+        all_app_stores_for_android_and_ios = 'ALL_APP_STORES_FOR_ANDROID_AND_IOS'
         amazon_app_store = 'AMAZON_APP_STORE'
         apk_mirror = 'APK_MIRROR'
         apk_monk = 'APK_MONK'

@@ -29,6 +29,7 @@ class AdAccountLiveVideoAdvertiser(
         lva_default_duration_s = 'lva_default_duration_s'
         should_default_current_live = 'should_default_current_live'
         should_default_scheduled_live = 'should_default_scheduled_live'
+        should_default_toggle_on_from_model = 'should_default_toggle_on_from_model'
         should_show_lva_toggle = 'should_show_lva_toggle'
 
     _field_types = {
@@ -37,6 +38,7 @@ class AdAccountLiveVideoAdvertiser(
         'lva_default_duration_s': 'int',
         'should_default_current_live': 'bool',
         'should_default_scheduled_live': 'bool',
+        'should_default_toggle_on_from_model': 'bool',
         'should_show_lva_toggle': 'bool',
     }
     @classmethod

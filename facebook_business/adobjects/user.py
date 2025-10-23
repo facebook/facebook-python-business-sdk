@@ -899,7 +899,6 @@ class User(
         from facebook_business.adobjects.unifiedthread import UnifiedThread
         param_types = {
             'folder': 'string',
-            'is_owner': 'bool',
             'platform': 'platform_enum',
             'tags': 'list<string>',
             'user_id': 'string',

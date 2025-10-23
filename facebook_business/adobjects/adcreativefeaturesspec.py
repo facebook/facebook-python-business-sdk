@@ -44,6 +44,7 @@ class AdCreativeFeaturesSpec(
         fb_reels_tag = 'fb_reels_tag'
         fb_story_tag = 'fb_story_tag'
         feed_caption_optimization = 'feed_caption_optimization'
+        generate_cta = 'generate_cta'
         hide_price = 'hide_price'
         ig_feed_tag = 'ig_feed_tag'
         ig_glados_feed = 'ig_glados_feed'
@@ -77,10 +78,13 @@ class AdCreativeFeaturesSpec(
         site_extensions = 'site_extensions'
         standard_enhancements = 'standard_enhancements'
         standard_enhancements_catalog = 'standard_enhancements_catalog'
+        text_extraction_for_headline = 'text_extraction_for_headline'
+        text_extraction_for_tap_target = 'text_extraction_for_tap_target'
         text_generation = 'text_generation'
         text_optimizations = 'text_optimizations'
         text_overlay_translation = 'text_overlay_translation'
         text_translation = 'text_translation'
+        translate_voiceover = 'translate_voiceover'
         video_auto_crop = 'video_auto_crop'
         video_filtering = 'video_filtering'
         video_highlight = 'video_highlight'
@@ -111,6 +115,7 @@ class AdCreativeFeaturesSpec(
         'fb_reels_tag': 'AdCreativeFeatureDetails',
         'fb_story_tag': 'AdCreativeFeatureDetails',
         'feed_caption_optimization': 'AdCreativeFeatureDetails',
+        'generate_cta': 'AdCreativeFeatureDetails',
         'hide_price': 'AdCreativeFeatureDetails',
         'ig_feed_tag': 'AdCreativeFeatureDetails',
         'ig_glados_feed': 'AdCreativeFeatureDetails',
@@ -144,10 +149,13 @@ class AdCreativeFeaturesSpec(
         'site_extensions': 'AdCreativeFeatureDetails',
         'standard_enhancements': 'AdCreativeFeatureDetails',
         'standard_enhancements_catalog': 'AdCreativeFeatureDetails',
+        'text_extraction_for_headline': 'AdCreativeFeatureDetails',
+        'text_extraction_for_tap_target': 'AdCreativeFeatureDetails',
         'text_generation': 'AdCreativeFeatureDetails',
         'text_optimizations': 'AdCreativeFeatureDetails',
         'text_overlay_translation': 'AdCreativeFeatureDetails',
         'text_translation': 'AdCreativeFeatureDetails',
+        'translate_voiceover': 'AdCreativeFeatureDetails',
         'video_auto_crop': 'AdCreativeFeatureDetails',
         'video_filtering': 'AdCreativeFeatureDetails',
         'video_highlight': 'AdCreativeFeatureDetails',
