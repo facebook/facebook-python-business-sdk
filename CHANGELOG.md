@@ -4,9 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+## v24.0.1
+### Added
+- Add additional AMM fields: attribution_method, decline_reason, auditing_token, linkage_key
+- Add attribution_setting field with inactivity_window_hours and reattribution_window_hours to AttributionData
+
 ## v24.0.0
-
-
 ### Added
 - Add AMM fields to attribution data
 

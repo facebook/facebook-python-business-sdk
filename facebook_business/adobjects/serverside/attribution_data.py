@@ -22,6 +22,9 @@ import pprint
 import six
 
 from facebook_business.adobjects.serverside.attribution_model import AttributionModel
+from facebook_business.adobjects.serverside.attribution_method import AttributionMethod
+from facebook_business.adobjects.serverside.decline_reason import DeclineReason
+from facebook_business.adobjects.serverside.attribution_setting import AttributionSetting
 
 class AttributionData(object):
     param_types = {
@@ -37,10 +40,14 @@ class AttributionData(object):
         'attribution_source': 'str', 
         'touchpoint_type': 'str', 
         'touchpoint_ts': 'int',
+        'attribution_method': 'AttributionMethod',
+        'decline_reason': 'DeclineReason',
+        'auditing_token': 'str',
+        'linkage_key': 'str',
+        'attribution_setting': 'AttributionSetting',
     }
 
-    def __init__(self, scope = None, visit_time = None, ad_id = None, adset_id = None, campaign_id = None, attribution_share = None, attribution_model = None, attr_window = None, attribution_value = None, attribution_source = None, touchpoint_type = None, touchpoint_ts = None):
-        # type: (str, int, str, str, str, float, AttributionModel, int, float) -> None
+    def __init__(self, scope = None, visit_time = None, ad_id = None, adset_id = None, campaign_id = None, attribution_share = None, attribution_model = None, attr_window = None, attribution_value = None, attribution_source = None, touchpoint_type = None, touchpoint_ts = None, attribution_method = None, decline_reason = None, auditing_token = None, linkage_key = None, attribution_setting = None):
 
         """Conversions API Attribution Data"""
         self._scope = None
@@ -55,6 +62,11 @@ class AttributionData(object):
         self._attribution_source = None
         self._touchpoint_type = None
         self._touchpoint_ts = None
+        self._attribution_method = None
+        self._decline_reason = None
+        self._auditing_token = None
+        self._linkage_key = None
+        self._attribution_setting = None
 
         if scope is not None:
             self.scope = scope
@@ -80,6 +92,16 @@ class AttributionData(object):
             self.touchpoint_type = touchpoint_type
         if touchpoint_ts is not None:
             self.touchpoint_ts = touchpoint_ts
+        if attribution_method is not None:
+            self.attribution_method = attribution_method
+        if decline_reason is not None:
+            self.decline_reason = decline_reason
+        if auditing_token is not None:
+            self.auditing_token = auditing_token
+        if linkage_key is not None:
+            self.linkage_key = linkage_key
+        if attribution_setting is not None:
+            self.attribution_setting = attribution_setting
 
     @property
     def scope(self):
@@ -348,6 +370,125 @@ class AttributionData(object):
         """
         self._touchpoint_ts = touchpoint_ts
 
+    @property
+    def attribution_method(self):
+        """Gets the attribution_method of Attribution Data.
+
+        The attribution method used to attribute the event.
+
+        :return: The attribution_method of Attribution Data.
+        :rtype: AttributionMethod
+        """
+        return self._attribution_method
+
+    @attribution_method.setter
+    def attribution_method(self, attribution_method):
+        """Sets the attribution_method of Attribution Data.
+
+        The attribution method used to attribute the event.
+
+        :param attribution_method: The attribution_method of Attribution Data.
+        :type: AttributionMethod
+        """
+        if attribution_method is not None and not isinstance(attribution_method, AttributionMethod):
+            raise TypeError('AttributionData.attribution_method must be a AttributionMethod')
+        
+        self._attribution_method = attribution_method
+
+    @property
+    def decline_reason(self):
+        """Gets the decline_reason of Attribution Data.
+
+        The decline reason for the attribution.
+
+        :return: The decline_reason of Attribution Data.
+        :rtype: DeclineReason
+        """
+        return self._decline_reason
+
+    @decline_reason.setter
+    def decline_reason(self, decline_reason):
+        """Sets the decline_reason of Attribution Data.
+
+        The decline reason for the attribution.
+
+        :param decline_reason: The decline_reason of Attribution Data.
+        :type: DeclineReason
+        """
+        if decline_reason is not None and not isinstance(decline_reason, DeclineReason):
+            raise TypeError('AttributionData.decline_reason must be a DeclineReason')
+        
+        self._decline_reason = decline_reason
+
+    @property
+    def auditing_token(self):
+        """Gets the auditing_token of Attribution Data.
+
+        The auditing token for the attribution.
+
+        :return: The auditing_token of Attribution Data.
+        :rtype: str
+        """
+        return self._auditing_token
+
+    @auditing_token.setter
+    def auditing_token(self, auditing_token):
+        """Sets the auditing_token of Attribution Data.
+
+        The auditing token for the attribution.
+
+        :param auditing_token: The auditing_token of Attribution Data.
+        :type: str
+        """
+        self._auditing_token = auditing_token
+
+    @property
+    def linkage_key(self):
+        """Gets the linkage_key of Attribution Data.
+
+        The linkage key for the attribution.
+
+        :return: The linkage_key of Attribution Data.
+        :rtype: str
+        """
+        return self._linkage_key
+
+    @linkage_key.setter
+    def linkage_key(self, linkage_key):
+        """Sets the linkage_key of Attribution Data.
+
+        The linkage key for the attribution.
+
+        :param linkage_key: The linkage_key of Attribution Data.
+        :type: str
+        """
+        self._linkage_key = linkage_key
+
+    @property
+    def attribution_setting(self):
+        """Gets the attribution_setting of Attribution Data.
+
+        Attribution settings including inactivity and reattribution windows.
+
+        :return: The attribution_setting of Attribution Data.
+        :rtype: AttributionSetting
+        """
+        return self._attribution_setting
+
+    @attribution_setting.setter
+    def attribution_setting(self, attribution_setting):
+        """Sets the attribution_setting of Attribution Data.
+
+        Attribution settings including inactivity and reattribution windows.
+
+        :param attribution_setting: The attribution_setting of Attribution Data.
+        :type: AttributionSetting
+        """
+        if attribution_setting is not None and not isinstance(attribution_setting, AttributionSetting):
+            raise TypeError('AttributionData.attribution_setting must be an AttributionSetting')
+        
+        self._attribution_setting = attribution_setting
+
 
     def normalize(self):
         normalized_payload = {
@@ -363,6 +504,11 @@ class AttributionData(object):
             'attribution_source': self.attribution_source,
             'touchpoint_type': self.touchpoint_type,
             'touchpoint_ts': self.touchpoint_ts,
+            'attribution_method': self.attribution_method,
+            'decline_reason': self.decline_reason,
+            'auditing_token': self.auditing_token,
+            'linkage_key': self.linkage_key,
+            'attribution_setting': self.attribution_setting.normalize() if self.attribution_setting else None,
         }
         normalized_payload = {k: v for k, v in normalized_payload.items() if v is not None}
         return normalized_payload
