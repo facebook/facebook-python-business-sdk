@@ -661,7 +661,10 @@ class FacebookRequest:
                 endpoint=self._endpoint,
                 object_parser=self._response_parser,
             )
-            cursor.load_next_page()
+            while True:
+                status = cursor.load_next_page()
+                if status == False:
+                    break
             return cursor
         if self._fields:
             params['fields'] = ','.join(self._fields)
@@ -855,7 +858,7 @@ class Cursor(object):
         if self._include_summary and 'summary' in response:
             self._summary = response['summary']
 
-        self._queue = self.build_objects_from_response(response)
+        self._queue.extend(self.build_objects_from_response(response))
         return len(self._queue) > 0
 
     def get_one(self):
