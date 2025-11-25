@@ -318,7 +318,11 @@ class FacebookAdsApi(object):
             )
         if self._enable_debug_logger:
             import curlify
-            print(curlify.to_curl(response.request))
+            import copy
+            request = copy.deepcopy(response.request)
+            request.headers['Accept'] = 'application/json'
+            del request.headers['Accept-Encoding']
+            print(curlify.to_curl(request))
         fb_response = FacebookResponse(
             body=response.text,
             headers=response.headers,
