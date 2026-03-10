@@ -1003,6 +1003,7 @@ class Group(
             'content_category': 'content_category_enum',
             'creative_tools': 'string',
             'description': 'string',
+            'edit_description_spec': 'map',
             'embeddable': 'bool',
             'end_offset': 'unsigned int',
             'fbuploader_video_file_chunk': 'string',

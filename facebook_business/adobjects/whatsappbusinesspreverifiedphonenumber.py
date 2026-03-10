@@ -140,6 +140,7 @@ class WhatsAppBusinessPreVerifiedPhoneNumber(
         }
         enums = {
             'code_method_enum': [
+                'IVR',
                 'SMS',
                 'VOICE',
             ],

@@ -36,10 +36,15 @@ class MessengerBusinessTemplate(
         last_updated_time = 'last_updated_time'
         library_template_name = 'library_template_name'
         name = 'name'
+        parameter_format = 'parameter_format'
         rejected_reason = 'rejected_reason'
         rejection_reasons = 'rejection_reasons'
         specific_rejection_reasons = 'specific_rejection_reasons'
         status = 'status'
+
+    class ParameterFormat:
+        named = 'NAMED'
+        positional = 'POSITIONAL'
 
     class Status:
         approved = 'APPROVED'
@@ -89,8 +94,10 @@ class MessengerBusinessTemplate(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'components': 'list<map>',
+            'parameter_format': 'parameter_format_enum',
         }
         enums = {
+            'parameter_format_enum': MessengerBusinessTemplate.ParameterFormat.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -124,6 +131,7 @@ class MessengerBusinessTemplate(
         'last_updated_time': 'datetime',
         'library_template_name': 'string',
         'name': 'string',
+        'parameter_format': 'string',
         'rejected_reason': 'string',
         'rejection_reasons': 'Object',
         'specific_rejection_reasons': 'Object',
@@ -132,6 +140,7 @@ class MessengerBusinessTemplate(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['ParameterFormat'] = MessengerBusinessTemplate.ParameterFormat.__dict__.values()
         field_enum_info['Status'] = MessengerBusinessTemplate.Status.__dict__.values()
         return field_enum_info
 

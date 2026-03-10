@@ -31,7 +31,6 @@ class Hotel(
         applinks = 'applinks'
         brand = 'brand'
         category = 'category'
-        category_specific_fields = 'category_specific_fields'
         currency = 'currency'
         custom_label_0 = 'custom_label_0'
         custom_label_1 = 'custom_label_1'
@@ -324,7 +323,6 @@ class Hotel(
         'applinks': 'CatalogItemAppLinks',
         'brand': 'string',
         'category': 'string',
-        'category_specific_fields': 'CatalogSubVerticalList',
         'currency': 'string',
         'custom_label_0': 'string',
         'custom_label_1': 'string',

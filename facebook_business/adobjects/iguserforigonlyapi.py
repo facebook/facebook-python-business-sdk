@@ -423,15 +423,20 @@ class IGUserForIGOnlyAPI(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'folder': 'folder_enum',
             'message': 'Object',
             'messaging_type': 'messaging_type_enum',
             'payload': 'string',
             'recipient': 'Object',
+            'reply_to': 'Object',
             'sender_action': 'sender_action_enum',
             'tag': 'Object',
             'thread_control': 'Object',
         }
         enums = {
+            'folder_enum': [
+                'PARTNERSHIP',
+            ],
             'messaging_type_enum': [
                 'MESSAGE_TAG',
                 'RESPONSE',
@@ -481,7 +486,6 @@ class IGUserForIGOnlyAPI(
                 'COMMANDS',
                 'DESCRIPTION',
                 'GET_STARTED',
-                'GREETING',
                 'HOME_URL',
                 'ICE_BREAKERS',
                 'PERSISTENT_MENU',

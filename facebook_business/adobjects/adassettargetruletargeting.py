@@ -33,6 +33,7 @@ class AdAssetTargetRuleTargeting(
         instagram_positions = 'instagram_positions'
         publisher_platforms = 'publisher_platforms'
         threads_positions = 'threads_positions'
+        whatsapp_positions = 'whatsapp_positions'
 
     class DevicePlatforms:
         desktop = 'desktop'
@@ -48,6 +49,7 @@ class AdAssetTargetRuleTargeting(
         'instagram_positions': 'list<string>',
         'publisher_platforms': 'list<string>',
         'threads_positions': 'list<string>',
+        'whatsapp_positions': 'list<string>',
     }
     @classmethod
     def _get_field_enum_info(cls):

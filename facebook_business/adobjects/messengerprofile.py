@@ -27,7 +27,6 @@ class MessengerProfile(
         account_linking_url = 'account_linking_url'
         commands = 'commands'
         get_started = 'get_started'
-        greeting = 'greeting'
         ice_breakers = 'ice_breakers'
         persistent_menu = 'persistent_menu'
         subject_to_new_eu_privacy_rules = 'subject_to_new_eu_privacy_rules'
@@ -37,7 +36,6 @@ class MessengerProfile(
         'account_linking_url': 'string',
         'commands': 'list<Object>',
         'get_started': 'Object',
-        'greeting': 'list<Object>',
         'ice_breakers': 'list<Object>',
         'persistent_menu': 'list<Object>',
         'subject_to_new_eu_privacy_rules': 'bool',

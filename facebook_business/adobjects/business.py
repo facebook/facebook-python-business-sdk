@@ -621,6 +621,118 @@ class Business(
         value_478 = '478'
         value_479 = '479'
         value_480 = '480'
+        value_481 = '481'
+        value_482 = '482'
+        value_483 = '483'
+        value_484 = '484'
+        value_485 = '485'
+        value_486 = '486'
+        value_487 = '487'
+        value_488 = '488'
+        value_489 = '489'
+        value_490 = '490'
+        value_491 = '491'
+        value_492 = '492'
+        value_493 = '493'
+        value_494 = '494'
+        value_495 = '495'
+        value_496 = '496'
+        value_497 = '497'
+        value_498 = '498'
+        value_499 = '499'
+        value_500 = '500'
+        value_501 = '501'
+        value_502 = '502'
+        value_503 = '503'
+        value_504 = '504'
+        value_505 = '505'
+        value_506 = '506'
+        value_507 = '507'
+        value_508 = '508'
+        value_509 = '509'
+        value_510 = '510'
+        value_511 = '511'
+        value_512 = '512'
+        value_513 = '513'
+        value_514 = '514'
+        value_515 = '515'
+        value_516 = '516'
+        value_517 = '517'
+        value_518 = '518'
+        value_519 = '519'
+        value_520 = '520'
+        value_521 = '521'
+        value_522 = '522'
+        value_523 = '523'
+        value_524 = '524'
+        value_525 = '525'
+        value_526 = '526'
+        value_527 = '527'
+        value_528 = '528'
+        value_529 = '529'
+        value_530 = '530'
+        value_531 = '531'
+        value_532 = '532'
+        value_533 = '533'
+        value_534 = '534'
+        value_535 = '535'
+        value_536 = '536'
+        value_537 = '537'
+        value_538 = '538'
+        value_539 = '539'
+        value_540 = '540'
+        value_541 = '541'
+        value_542 = '542'
+        value_543 = '543'
+        value_544 = '544'
+        value_545 = '545'
+        value_546 = '546'
+        value_547 = '547'
+        value_548 = '548'
+        value_549 = '549'
+        value_550 = '550'
+        value_551 = '551'
+        value_552 = '552'
+        value_553 = '553'
+        value_554 = '554'
+        value_555 = '555'
+        value_556 = '556'
+        value_557 = '557'
+        value_558 = '558'
+        value_559 = '559'
+        value_560 = '560'
+        value_561 = '561'
+        value_562 = '562'
+        value_563 = '563'
+        value_564 = '564'
+        value_565 = '565'
+        value_566 = '566'
+        value_567 = '567'
+        value_568 = '568'
+        value_569 = '569'
+        value_570 = '570'
+        value_571 = '571'
+        value_572 = '572'
+        value_573 = '573'
+        value_574 = '574'
+        value_575 = '575'
+        value_576 = '576'
+        value_577 = '577'
+        value_578 = '578'
+        value_579 = '579'
+        value_580 = '580'
+        value_581 = '581'
+        value_582 = '582'
+        value_583 = '583'
+        value_584 = '584'
+        value_585 = '585'
+        value_586 = '586'
+        value_587 = '587'
+        value_588 = '588'
+        value_589 = '589'
+        value_590 = '590'
+        value_591 = '591'
+        value_592 = '592'
 
     class PagePermittedTasks:
         advertise = 'ADVERTISE'
@@ -1157,6 +1269,7 @@ class Business(
             'client_business': 'string',
             'confidence_level': 'float',
             'cooldown_start_time': 'int',
+            'creative_test_config': 'map',
             'description': 'string',
             'end_time': 'int',
             'name': 'string',
@@ -2383,46 +2496,6 @@ class Business(
             self.assure_call()
             return request.execute()
 
-    def create_collaborative_ads_collaboration_request(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.cpascollaborationrequest import CPASCollaborationRequest
-        param_types = {
-            'brands': 'list<string>',
-            'contact_email': 'string',
-            'contact_first_name': 'string',
-            'contact_last_name': 'string',
-            'phone_number': 'string',
-            'receiver_business': 'string',
-            'requester_agency_or_brand': 'requester_agency_or_brand_enum',
-            'sender_client_business': 'string',
-        }
-        enums = {
-            'requester_agency_or_brand_enum': CPASCollaborationRequest.RequesterAgencyOrBrand.__dict__.values(),
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/collaborative_ads_collaboration_requests',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=CPASCollaborationRequest,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=CPASCollaborationRequest, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def get_collaborative_ads_suggested_partners(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -3281,13 +3354,15 @@ class Business(
             'active': 'bool',
             'blocked_event_types': 'list<string>',
             'blocked_websites': 'list<string>',
+            'capi_publishing_state': 'capi_publishing_state_enum',
             'cloud_provider': 'string',
             'cloud_region': 'string',
             'destination_id': 'string',
             'endpoint': 'string',
+            'event_enrichment_advertiser_state': 'event_enrichment_advertiser_state_enum',
+            'event_enrichment_meta_state': 'event_enrichment_meta_state_enum',
             'event_enrichment_state': 'event_enrichment_state_enum',
             'fallback_domain': 'string',
-            'first_party_domain': 'string',
             'host_business_id': 'unsigned int',
             'instance_id': 'string',
             'instance_version': 'string',
@@ -3300,6 +3375,9 @@ class Business(
             'sgw_pixel_id': 'unsigned int',
         }
         enums = {
+            'capi_publishing_state_enum': OpenBridgeConfiguration.CapiPublishingState.__dict__.values(),
+            'event_enrichment_advertiser_state_enum': OpenBridgeConfiguration.EventEnrichmentAdvertiserState.__dict__.values(),
+            'event_enrichment_meta_state_enum': OpenBridgeConfiguration.EventEnrichmentMetaState.__dict__.values(),
             'event_enrichment_state_enum': OpenBridgeConfiguration.EventEnrichmentState.__dict__.values(),
         }
         request = FacebookRequest(
@@ -3330,6 +3408,7 @@ class Business(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.adaccount import AdAccount
         param_types = {
+            'include_shared_ad_accounts': 'bool',
             'search_query': 'string',
         }
         enums = {
@@ -4691,6 +4770,7 @@ class Business(
             'creative_folder_id': 'string',
             'creative_tools': 'string',
             'description': 'string',
+            'edit_description_spec': 'map',
             'embeddable': 'bool',
             'end_offset': 'unsigned int',
             'fbuploader_video_file_chunk': 'string',

@@ -38,21 +38,6 @@ class CPASCollaborationRequest(
         sender_client_business = 'sender_client_business'
         status = 'status'
 
-    class RequesterAgencyOrBrand:
-        agency = 'AGENCY'
-        brand = 'BRAND'
-        merchant = 'MERCHANT'
-
-    # @deprecated get_endpoint function is deprecated
-    @classmethod
-    def get_endpoint(cls):
-        return 'collaborative_ads_collaboration_requests'
-
-    # @deprecated api_create is being deprecated
-    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.adobjects.business import Business
-        return Business(api=self._api, fbid=parent_id).create_collaborative_ads_collaboration_request(fields, params, batch, success, failure, pending)
-
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -98,7 +83,6 @@ class CPASCollaborationRequest(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['RequesterAgencyOrBrand'] = CPASCollaborationRequest.RequesterAgencyOrBrand.__dict__.values()
         return field_enum_info
 
 

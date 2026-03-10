@@ -24,7 +24,6 @@ class AdPromotedObject(
         self._api = api
 
     class Field(AbstractObject.Field):
-        anchor_event_config = 'anchor_event_config'
         application_id = 'application_id'
         boosted_product_set_id = 'boosted_product_set_id'
         conversion_goal_id = 'conversion_goal_id'
@@ -41,6 +40,7 @@ class AdPromotedObject(
         lead_ads_form_event_source_type = 'lead_ads_form_event_source_type'
         lead_ads_offsite_conversion_type = 'lead_ads_offsite_conversion_type'
         lead_ads_selected_pixel_id = 'lead_ads_selected_pixel_id'
+        live_video_destination = 'live_video_destination'
         mcme_conversion_id = 'mcme_conversion_id'
         multi_event_product = 'multi_event_product'
         object_store_url = 'object_store_url'
@@ -63,6 +63,8 @@ class AdPromotedObject(
         product_set_id = 'product_set_id'
         product_set_optimization = 'product_set_optimization'
         retention_days = 'retention_days'
+        smart_pse_enabled = 'smart_pse_enabled'
+        smart_pse_setting = 'smart_pse_setting'
         value_semantic_type = 'value_semantic_type'
         variation = 'variation'
         whats_app_business_phone_number_id = 'whats_app_business_phone_number_id'
@@ -154,7 +156,6 @@ class AdPromotedObject(
         tutorial_completion = 'TUTORIAL_COMPLETION'
 
     _field_types = {
-        'anchor_event_config': 'string',
         'application_id': 'string',
         'boosted_product_set_id': 'string',
         'conversion_goal_id': 'string',
@@ -171,6 +172,7 @@ class AdPromotedObject(
         'lead_ads_form_event_source_type': 'string',
         'lead_ads_offsite_conversion_type': 'string',
         'lead_ads_selected_pixel_id': 'string',
+        'live_video_destination': 'string',
         'mcme_conversion_id': 'string',
         'multi_event_product': 'string',
         'object_store_url': 'string',
@@ -193,6 +195,8 @@ class AdPromotedObject(
         'product_set_id': 'string',
         'product_set_optimization': 'string',
         'retention_days': 'string',
+        'smart_pse_enabled': 'bool',
+        'smart_pse_setting': 'string',
         'value_semantic_type': 'string',
         'variation': 'string',
         'whats_app_business_phone_number_id': 'string',

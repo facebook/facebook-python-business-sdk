@@ -24,10 +24,12 @@ class TargetingProductAudienceSubSpec(
         self._api = api
 
     class Field(AbstractObject.Field):
+        min_retention_seconds = 'min_retention_seconds'
         retention_seconds = 'retention_seconds'
         rule = 'rule'
 
     _field_types = {
+        'min_retention_seconds': 'string',
         'retention_seconds': 'string',
         'rule': 'string',
     }

@@ -32,7 +32,6 @@ class LocalServiceBusiness(
         availability = 'availability'
         brand = 'brand'
         category = 'category'
-        category_specific_fields = 'category_specific_fields'
         condition = 'condition'
         cuisine_type = 'cuisine_type'
         currency = 'currency'
@@ -200,7 +199,6 @@ class LocalServiceBusiness(
         'availability': 'Availability',
         'brand': 'string',
         'category': 'string',
-        'category_specific_fields': 'CatalogSubVerticalList',
         'condition': 'Condition',
         'cuisine_type': 'string',
         'currency': 'string',

@@ -31,6 +31,7 @@ class CatalogItemOverride(
         local_info = 'local_info'
         override_type = 'override_type'
         override_value = 'override_value'
+        upload_expected_method = 'upload_expected_method'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -67,6 +68,7 @@ class CatalogItemOverride(
         'local_info': 'ProductItemLocalInfo',
         'override_type': 'string',
         'override_value': 'string',
+        'upload_expected_method': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

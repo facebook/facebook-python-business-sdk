@@ -18,24 +18,22 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class InstagramThread(
+class CatalogGenericFeeds(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isInstagramThread = True
-        super(InstagramThread, self).__init__(fbid, parent_id, api)
+        self._isCatalogGenericFeeds = True
+        super(CatalogGenericFeeds, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        folder = 'folder'
         id = 'id'
-        participants = 'participants'
-        updated_time = 'updated_time'
 
-    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def genget(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.cataloggenericfeedsget import CatalogGenericFeedsGet
         param_types = {
         }
         enums = {
@@ -43,12 +41,12 @@ class InstagramThread(
         request = FacebookRequest(
             node_id=self['id'],
             method='GET',
-            endpoint='/',
+            endpoint='/uploads',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=InstagramThread,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
+            target_class=CatalogGenericFeedsGet,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=CatalogGenericFeedsGet, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -63,10 +61,7 @@ class InstagramThread(
             return request.execute()
 
     _field_types = {
-        'folder': 'string',
         'id': 'string',
-        'participants': 'Object',
-        'updated_time': 'datetime',
     }
     @classmethod
     def _get_field_enum_info(cls):

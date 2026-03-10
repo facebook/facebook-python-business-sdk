@@ -28,7 +28,6 @@ class CommerceMerchantSettings(
 
     class Field(AbstractObject.Field):
         checkout_config = 'checkout_config'
-        checkout_message = 'checkout_message'
         contact_email = 'contact_email'
         cta = 'cta'
         display_name = 'display_name'
@@ -41,9 +40,12 @@ class CommerceMerchantSettings(
         offsite_iab_checkout_enabled_countries = 'offsite_iab_checkout_enabled_countries'
         payment_provider = 'payment_provider'
         privacy_policy_localized = 'privacy_policy_localized'
-        return_policy_localized = 'return_policy_localized'
         shops_ads_setup = 'shops_ads_setup'
         terms = 'terms'
+
+    class MerchantStatus:
+        enabled = 'ENABLED'
+        externally_disabled = 'EXTERNALLY_DISABLED'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -56,6 +58,41 @@ class CommerceMerchantSettings(
         request = FacebookRequest(
             node_id=self['id'],
             method='GET',
+            endpoint='/',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=CommerceMerchantSettings,
+            api_type='NODE',
+            response_parser=ObjectParser(reuse_object=self),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def api_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'checkout_config': 'map',
+            'korea_ftc_listing': 'string',
+            'merchant_status': 'merchant_status_enum',
+            'privacy_policy_localized': 'map',
+        }
+        enums = {
+            'merchant_status_enum': CommerceMerchantSettings.MerchantStatus.__dict__.values(),
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
@@ -444,7 +481,6 @@ class CommerceMerchantSettings(
 
     _field_types = {
         'checkout_config': 'string',
-        'checkout_message': 'string',
         'contact_email': 'string',
         'cta': 'string',
         'display_name': 'string',
@@ -457,13 +493,13 @@ class CommerceMerchantSettings(
         'offsite_iab_checkout_enabled_countries': 'list<string>',
         'payment_provider': 'string',
         'privacy_policy_localized': 'string',
-        'return_policy_localized': 'string',
         'shops_ads_setup': 'Object',
         'terms': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['MerchantStatus'] = CommerceMerchantSettings.MerchantStatus.__dict__.values()
         return field_enum_info
 
 

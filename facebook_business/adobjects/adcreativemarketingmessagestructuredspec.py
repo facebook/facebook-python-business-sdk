@@ -24,20 +24,28 @@ class AdCreativeMarketingMessageStructuredSpec(
         self._api = api
 
     class Field(AbstractObject.Field):
+        asset_customization = 'asset_customization'
+        autoreply = 'autoreply'
         buttons = 'buttons'
+        conversation_template_id = 'conversation_template_id'
         footer = 'footer'
         greeting = 'greeting'
         is_optimized_text = 'is_optimized_text'
         language = 'language'
+        offer = 'offer'
         referenced_adgroup_id = 'referenced_adgroup_id'
         whats_app_business_phone_number_id = 'whats_app_business_phone_number_id'
 
     _field_types = {
+        'asset_customization': 'Object',
+        'autoreply': 'Object',
         'buttons': 'list<Object>',
+        'conversation_template_id': 'string',
         'footer': 'string',
         'greeting': 'string',
         'is_optimized_text': 'bool',
         'language': 'string',
+        'offer': 'Object',
         'referenced_adgroup_id': 'string',
         'whats_app_business_phone_number_id': 'string',
     }

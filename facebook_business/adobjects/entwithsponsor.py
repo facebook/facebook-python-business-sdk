@@ -28,6 +28,7 @@ class EntWithSponsor(
 
     class Field(AbstractObject.Field):
         id = 'id'
+        is_branded_content = 'is_branded_content'
         owner_linked_instagram_user_v1_id = 'owner_linked_instagram_user_v1_id'
         owner_picture = 'owner_picture'
         post_id = 'post_id'
@@ -35,6 +36,7 @@ class EntWithSponsor(
 
     _field_types = {
         'id': 'string',
+        'is_branded_content': 'bool',
         'owner_linked_instagram_user_v1_id': 'string',
         'owner_picture': 'string',
         'post_id': 'string',

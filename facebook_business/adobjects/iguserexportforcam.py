@@ -40,6 +40,7 @@ class IGUserExportForCAM(
         onboarded_status = 'onboarded_status'
         past_brand_partnership_partners = 'past_brand_partnership_partners'
         portfolio_url = 'portfolio_url'
+        profile_picture_url = 'profile_picture_url'
         username = 'username'
 
     class CreatorCountries:
@@ -562,36 +563,6 @@ class IGUserExportForCAM(
         male = 'male'
         unknown = 'unknown'
 
-    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=IGUserExportForCAM,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def get_branded_content_media(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -685,6 +656,36 @@ class IGUserExportForCAM(
             self.assure_call()
             return request.execute()
 
+    def get_past_partnership_ads_media(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/past_partnership_ads_media',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_recent_media(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -729,6 +730,7 @@ class IGUserExportForCAM(
         'onboarded_status': 'bool',
         'past_brand_partnership_partners': 'list<string>',
         'portfolio_url': 'string',
+        'profile_picture_url': 'string',
         'username': 'string',
     }
     @classmethod

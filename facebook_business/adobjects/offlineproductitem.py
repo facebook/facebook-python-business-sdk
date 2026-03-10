@@ -30,7 +30,6 @@ class OfflineProductItem(
         applinks = 'applinks'
         brand = 'brand'
         category = 'category'
-        category_specific_fields = 'category_specific_fields'
         currency = 'currency'
         description = 'description'
         id = 'id'
@@ -155,7 +154,6 @@ class OfflineProductItem(
         'applinks': 'CatalogItemAppLinks',
         'brand': 'string',
         'category': 'string',
-        'category_specific_fields': 'CatalogSubVerticalList',
         'currency': 'string',
         'description': 'string',
         'id': 'string',

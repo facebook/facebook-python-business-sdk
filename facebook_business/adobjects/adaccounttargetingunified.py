@@ -36,6 +36,7 @@ class AdAccountTargetingUnified(
         info = 'info'
         info_title = 'info_title'
         is_recommendation = 'is_recommendation'
+        is_youth_ads_age_gated = 'is_youth_ads_age_gated'
         key = 'key'
         link = 'link'
         name = 'name'
@@ -494,6 +495,7 @@ class AdAccountTargetingUnified(
         fb_gameroom = 'fb_gameroom'
         galaxy_store = 'galaxy_store'
         google_play = 'google_play'
+        horizon_world = 'horizon_world'
         instant_game = 'instant_game'
         itunes = 'itunes'
         itunes_ipad = 'itunes_ipad'
@@ -547,6 +549,7 @@ class AdAccountTargetingUnified(
         'info': 'string',
         'info_title': 'string',
         'is_recommendation': 'bool',
+        'is_youth_ads_age_gated': 'bool',
         'key': 'string',
         'link': 'string',
         'name': 'string',

@@ -52,6 +52,8 @@ class AdSet(
         campaign_id = 'campaign_id'
         configured_status = 'configured_status'
         created_time = 'created_time'
+        creative_diversity_label = 'creative_diversity_label'
+        creative_diversity_score = 'creative_diversity_score'
         creative_sequence = 'creative_sequence'
         creative_sequence_repetition_pattern = 'creative_sequence_repetition_pattern'
         daily_budget = 'daily_budget'
@@ -162,6 +164,7 @@ class AdSet(
         automatic_objective = 'AUTOMATIC_OBJECTIVE'
         conversations = 'CONVERSATIONS'
         derived_events = 'DERIVED_EVENTS'
+        engaged_page_views = 'ENGAGED_PAGE_VIEWS'
         engaged_users = 'ENGAGED_USERS'
         event_responses = 'EVENT_RESPONSES'
         impressions = 'IMPRESSIONS'
@@ -295,6 +298,8 @@ class AdSet(
         value_10 = '10'
         value_11 = '11'
         value_12 = '12'
+        value_13 = '13'
+        value_14 = '14'
 
     class TuneForCategory:
         credit = 'CREDIT'
@@ -441,6 +446,7 @@ class AdSet(
             'end_time': 'datetime',
             'execution_options': 'list<execution_options_enum>',
             'existing_customer_budget_percentage': 'unsigned int',
+            'frequency_control_specs': 'list<Object>',
             'full_funnel_exploration_mode': 'full_funnel_exploration_mode_enum',
             'is_ba_skip_delayed_eligible': 'bool',
             'is_budget_schedule_enabled': 'bool',
@@ -1184,6 +1190,8 @@ class AdSet(
         'campaign_id': 'string',
         'configured_status': 'ConfiguredStatus',
         'created_time': 'datetime',
+        'creative_diversity_label': 'list<string>',
+        'creative_diversity_score': 'list<string>',
         'creative_sequence': 'list<string>',
         'creative_sequence_repetition_pattern': 'string',
         'daily_budget': 'string',

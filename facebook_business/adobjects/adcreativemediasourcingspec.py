@@ -36,7 +36,7 @@ class AdCreativeMediaSourcingSpec(
         'bodies': 'list<Object>',
         'descriptions': 'list<Object>',
         'images': 'list<Object>',
-        'push_metadata_ids': 'list<unsigned int>',
+        'push_metadata_ids': 'list<string>',
         'related_media': 'Object',
         'titles': 'list<Object>',
         'videos': 'list<Object>',

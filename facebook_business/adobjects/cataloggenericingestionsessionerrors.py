@@ -18,36 +18,36 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class ProductSetUsage(
+class CatalogGenericIngestionSessionErrors(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isProductSetUsage = True
-        super(ProductSetUsage, self).__init__(fbid, parent_id, api)
+        self._isCatalogGenericIngestionSessionErrors = True
+        super(CatalogGenericIngestionSessionErrors, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
         id = 'id'
-        product_set = 'product_set'
-        usage_type = 'usage_type'
 
-    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def genget(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.cataloggenericingestionsessionerrorsget import CatalogGenericIngestionSessionErrorsGet
         param_types = {
+            'error_priority': 'string',
         }
         enums = {
         }
         request = FacebookRequest(
             node_id=self['id'],
             method='GET',
-            endpoint='/',
+            endpoint='/errors',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=ProductSetUsage,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
+            target_class=CatalogGenericIngestionSessionErrorsGet,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=CatalogGenericIngestionSessionErrorsGet, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -63,8 +63,6 @@ class ProductSetUsage(
 
     _field_types = {
         'id': 'string',
-        'product_set': 'ProductSet',
-        'usage_type': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

@@ -30,6 +30,7 @@ class IGMediaForIGOnlyAPI(
         alt_text = 'alt_text'
         caption = 'caption'
         comments_count = 'comments_count'
+        current_live_viewer_count = 'current_live_viewer_count'
         id = 'id'
         is_comment_enabled = 'is_comment_enabled'
         is_shared_to_feed = 'is_shared_to_feed'
@@ -241,6 +242,7 @@ class IGMediaForIGOnlyAPI(
         'alt_text': 'string',
         'caption': 'string',
         'comments_count': 'int',
+        'current_live_viewer_count': 'int',
         'id': 'string',
         'is_comment_enabled': 'bool',
         'is_shared_to_feed': 'bool',

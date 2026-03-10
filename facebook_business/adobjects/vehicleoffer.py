@@ -36,7 +36,7 @@ class VehicleOffer(
         body_style = 'body_style'
         cashback_currency = 'cashback_currency'
         cashback_price = 'cashback_price'
-        category_specific_fields = 'category_specific_fields'
+        comscore_market_codes = 'comscore_market_codes'
         currency = 'currency'
         custom_label_0 = 'custom_label_0'
         custom_label_1 = 'custom_label_1'
@@ -237,7 +237,7 @@ class VehicleOffer(
         'body_style': 'string',
         'cashback_currency': 'string',
         'cashback_price': 'string',
-        'category_specific_fields': 'CatalogSubVerticalList',
+        'comscore_market_codes': 'list<string>',
         'currency': 'string',
         'custom_label_0': 'string',
         'custom_label_1': 'string',

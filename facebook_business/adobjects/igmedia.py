@@ -32,6 +32,7 @@ class IGMedia(
         caption = 'caption'
         comments_count = 'comments_count'
         copyright_check_information = 'copyright_check_information'
+        current_live_viewer_count = 'current_live_viewer_count'
         has_poll = 'has_poll'
         has_slider = 'has_slider'
         id = 'id'
@@ -544,6 +545,7 @@ class IGMedia(
         'caption': 'string',
         'comments_count': 'int',
         'copyright_check_information': 'IGVideoCopyrightCheckMatchesInformation',
+        'current_live_viewer_count': 'int',
         'has_poll': 'bool',
         'has_slider': 'bool',
         'id': 'string',

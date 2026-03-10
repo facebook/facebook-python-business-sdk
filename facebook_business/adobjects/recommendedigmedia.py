@@ -25,9 +25,11 @@ class RecommendedIGMedia(
 
     class Field(AbstractObject.Field):
         intent_score = 'intent_score'
+        media = 'media'
 
     _field_types = {
         'intent_score': 'float',
+        'media': 'IGMedia',
     }
     @classmethod
     def _get_field_enum_info(cls):

@@ -24,11 +24,13 @@ class TargetingSubscriberUniverse(
         self._api = api
 
     class Field(AbstractObject.Field):
+        messenger_subscriber_pool = 'messenger_subscriber_pool'
         messenger_subscriber_source = 'messenger_subscriber_source'
         whatsapp_subscriber_pool = 'whatsapp_subscriber_pool'
         whatsapp_subscriber_source = 'whatsapp_subscriber_source'
 
     _field_types = {
+        'messenger_subscriber_pool': 'IDName',
         'messenger_subscriber_source': 'IDName',
         'whatsapp_subscriber_pool': 'IDName',
         'whatsapp_subscriber_source': 'IDName',

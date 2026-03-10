@@ -14,28 +14,22 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class MerchantCompliance(
+class CreativeFatiguePredictionPLE(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(MerchantCompliance, self).__init__()
-        self._isMerchantCompliance = True
+        super(CreativeFatiguePredictionPLE, self).__init__()
+        self._isCreativeFatiguePredictionPLE = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        active_campaigns = 'active_campaigns'
-        compliance_status = 'compliance_status'
-        count_down_start_time = 'count_down_start_time'
-        purchase = 'purchase'
-        purchase_conversion_value = 'purchase_conversion_value'
+        cpr_lift_estimation = 'cpr_lift_estimation'
+        should_display = 'should_display'
 
     _field_types = {
-        'active_campaigns': 'int',
-        'compliance_status': 'string',
-        'count_down_start_time': 'int',
-        'purchase': 'int',
-        'purchase_conversion_value': 'float',
+        'cpr_lift_estimation': 'float',
+        'should_display': 'bool',
     }
     @classmethod
     def _get_field_enum_info(cls):

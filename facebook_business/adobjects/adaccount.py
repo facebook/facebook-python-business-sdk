@@ -80,10 +80,12 @@ class AdAccount(
         is_tax_id_required = 'is_tax_id_required'
         liable_address = 'liable_address'
         line_numbers = 'line_numbers'
+        marketing_messages_settings = 'marketing_messages_settings'
         media_agency = 'media_agency'
         min_campaign_group_spend_cap = 'min_campaign_group_spend_cap'
         min_daily_budget = 'min_daily_budget'
         name = 'name'
+        offsite_clo_signal_status = 'offsite_clo_signal_status'
         offsite_pixels_tos_accepted = 'offsite_pixels_tos_accepted'
         opportunity_score = 'opportunity_score'
         owner = 'owner'
@@ -185,6 +187,7 @@ class AdAccount(
         facebook_standard = 'FACEBOOK_STANDARD'
         facebook_strict = 'FACEBOOK_STRICT'
         feed_dnm = 'FEED_DNM'
+        feed_nested_dnm = 'FEED_NESTED_DNM'
         feed_relaxed = 'FEED_RELAXED'
         feed_standard = 'FEED_STANDARD'
         feed_strict = 'FEED_STRICT'
@@ -702,6 +705,7 @@ class AdAccount(
             'is_dco_internal': 'bool',
             'link_og_id': 'string',
             'link_url': 'string',
+            'marketing_message_structured_spec': 'map',
             'media_sourcing_spec': 'map',
             'name': 'string',
             'object_id': 'unsigned int',
@@ -716,8 +720,10 @@ class AdAccount(
             'playable_asset_id': 'string',
             'portrait_customizations': 'map',
             'product_set_id': 'string',
+            'product_suggestion_settings': 'map',
             'recommender_settings': 'map',
             'regional_regulation_disclaimer_spec': 'map',
+            'source_facebook_post_id': 'string',
             'source_instagram_media_id': 'string',
             'template_url': 'string',
             'template_url_spec': 'string',
@@ -796,6 +802,7 @@ class AdAccount(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'hash': 'string',
+            'image_id': 'string',
         }
         enums = {
         }
@@ -1728,6 +1735,7 @@ class AdAccount(
             'content_category': 'content_category_enum',
             'creative_tools': 'string',
             'description': 'string',
+            'edit_description_spec': 'map',
             'embeddable': 'bool',
             'end_offset': 'unsigned int',
             'fbuploader_video_file_chunk': 'string',
@@ -2775,6 +2783,7 @@ class AdAccount(
             'rule_aggregation': 'string',
             'subscription_info': 'list<subscription_info_enum>',
             'subtype': 'subtype_enum',
+            'usage_restriction': 'usage_restriction_enum',
             'use_for_products': 'list<use_for_products_enum>',
             'use_in_campaigns': 'bool',
             'video_group_ids': 'list<string>',
@@ -2786,6 +2795,7 @@ class AdAccount(
             'customer_file_source_enum': CustomAudience.CustomerFileSource.__dict__.values(),
             'subscription_info_enum': CustomAudience.SubscriptionInfo.__dict__.values(),
             'subtype_enum': CustomAudience.Subtype.__dict__.values(),
+            'usage_restriction_enum': CustomAudience.UsageRestriction.__dict__.values(),
             'use_for_products_enum': CustomAudience.UseForProducts.__dict__.values(),
         }
         request = FacebookRequest(
@@ -3929,6 +3939,7 @@ class AdAccount(
         param_types = {
             'asc_fragmentation_parameters': 'map',
             'autoflow_parameters': 'map',
+            'extra_data': 'map',
             'fragmentation_parameters': 'map',
             'music_parameters': 'map',
             'recommendation_signature': 'string',
@@ -4495,6 +4506,37 @@ class AdAccount(
             self.assure_call()
             return request.execute()
 
+    def create_value_rule_set_translation(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'source': 'Object',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/value_rule_set_translation',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_video_ads(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -4617,10 +4659,12 @@ class AdAccount(
         'is_tax_id_required': 'bool',
         'liable_address': 'CRMAddress',
         'line_numbers': 'list<int>',
+        'marketing_messages_settings': 'AdAccountMarketingMessagesSettings',
         'media_agency': 'string',
         'min_campaign_group_spend_cap': 'string',
         'min_daily_budget': 'unsigned int',
         'name': 'string',
+        'offsite_clo_signal_status': 'int',
         'offsite_pixels_tos_accepted': 'bool',
         'opportunity_score': 'float',
         'owner': 'string',

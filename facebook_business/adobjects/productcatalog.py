@@ -126,8 +126,13 @@ class ProductCatalog(
         video_game_consoles_and_video_games = 'VIDEO_GAME_CONSOLES_AND_VIDEO_GAMES'
         watches = 'WATCHES'
 
+    class ConversionType:
+        attributed = 'ATTRIBUTED'
+        in_session = 'IN_SESSION'
+
     class EventName:
         add_to_cart = 'ADD_TO_CART'
+        offer_submitted = 'OFFER_SUBMITTED'
         purchase = 'PURCHASE'
         test = 'TEST'
         view_item = 'VIEW_ITEM'
@@ -1508,13 +1513,17 @@ class ProductCatalog(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'conversion_type': 'conversion_type_enum',
+            'event_id': 'string',
             'event_name': 'event_name_enum',
             'event_source_url': 'string',
             'event_time': 'datetime',
+            'offer_data': 'map',
             'order_data': 'map',
             'user_data': 'map',
         }
         enums = {
+            'conversion_type_enum': ProductCatalog.ConversionType.__dict__.values(),
             'event_name_enum': ProductCatalog.EventName.__dict__.values(),
         }
         request = FacebookRequest(
@@ -1526,6 +1535,69 @@ class ProductCatalog(
             target_class=ProductCatalog,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=ProductCatalog, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_media_title(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'additional_image_urls': 'list<string>',
+            'android_app_name': 'string',
+            'android_class': 'string',
+            'android_package': 'string',
+            'android_url': 'string',
+            'awards': 'list<string>',
+            'cast': 'list<string>',
+            'category': 'string',
+            'currency': 'string',
+            'description': 'string',
+            'director': 'list<string>',
+            'fb_product_category': 'string',
+            'genre': 'list<string>',
+            'image_url': 'string',
+            'ios_app_name': 'string',
+            'ios_app_store_id': 'unsigned int',
+            'ios_url': 'string',
+            'ipad_app_name': 'string',
+            'ipad_app_store_id': 'unsigned int',
+            'ipad_url': 'string',
+            'iphone_app_name': 'string',
+            'iphone_app_store_id': 'unsigned int',
+            'iphone_url': 'string',
+            'media_category': 'string',
+            'name': 'string',
+            'price': 'unsigned int',
+            'rating': 'string',
+            'release_date': 'string',
+            'retailer_id': 'string',
+            'url': 'string',
+            'windows_phone_app_id': 'string',
+            'windows_phone_app_name': 'string',
+            'windows_phone_url': 'string',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/media_titles',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2297,6 +2369,7 @@ class ProductCatalog(
         field_enum_info['Tasks'] = ProductCatalog.Tasks.__dict__.values()
         field_enum_info['Standard'] = ProductCatalog.Standard.__dict__.values()
         field_enum_info['ItemSubType'] = ProductCatalog.ItemSubType.__dict__.values()
+        field_enum_info['ConversionType'] = ProductCatalog.ConversionType.__dict__.values()
         field_enum_info['EventName'] = ProductCatalog.EventName.__dict__.values()
         return field_enum_info
 

@@ -36,6 +36,8 @@ class AdCreativeSiteLinksSpec(
         site_link_title = 'site_link_title'
         site_link_url = 'site_link_url'
         site_link_url_anchor = 'site_link_url_anchor'
+        site_link_url_recommender_type = 'site_link_url_recommender_type'
+        site_link_website_data_source = 'site_link_website_data_source'
 
     _field_types = {
         'is_site_link_sticky': 'bool',
@@ -50,6 +52,8 @@ class AdCreativeSiteLinksSpec(
         'site_link_title': 'string',
         'site_link_url': 'string',
         'site_link_url_anchor': 'string',
+        'site_link_url_recommender_type': 'string',
+        'site_link_website_data_source': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

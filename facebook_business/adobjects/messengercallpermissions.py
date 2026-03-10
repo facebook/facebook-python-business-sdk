@@ -25,9 +25,11 @@ class MessengerCallPermissions(
 
     class Field(AbstractObject.Field):
         actions = 'actions'
+        permission = 'permission'
 
     _field_types = {
         'actions': 'list<Object>',
+        'permission': 'Object',
     }
     @classmethod
     def _get_field_enum_info(cls):

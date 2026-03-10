@@ -133,6 +133,7 @@ class AdActivity(
         update_campaign_run_status = 'update_campaign_run_status'
         update_campaign_schedule = 'update_campaign_schedule'
         update_campaign_value_adjustment_rule = 'update_campaign_value_adjustment_rule'
+        update_campaign_value_adjustment_rule_attachment = 'update_campaign_value_adjustment_rule_attachment'
         update_delivery_type_cross_level_shift = 'update_delivery_type_cross_level_shift'
 
     class Category:

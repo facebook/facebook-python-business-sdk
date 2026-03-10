@@ -30,6 +30,7 @@ class AdAccountRecommendations(
         recommendations = 'recommendations'
         asc_fragmentation_parameters = 'asc_fragmentation_parameters'
         autoflow_parameters = 'autoflow_parameters'
+        extra_data = 'extra_data'
         fragmentation_parameters = 'fragmentation_parameters'
         music_parameters = 'music_parameters'
         recommendation_signature = 'recommendation_signature'
@@ -49,6 +50,7 @@ class AdAccountRecommendations(
         'recommendations': 'list<Object>',
         'asc_fragmentation_parameters': 'map',
         'autoflow_parameters': 'map',
+        'extra_data': 'map',
         'fragmentation_parameters': 'map',
         'music_parameters': 'map',
         'recommendation_signature': 'string',

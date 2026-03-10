@@ -18,36 +18,35 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class PageBroadcast(
+class CatalogSubscribedApps(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isPageBroadcast = True
-        super(PageBroadcast, self).__init__(fbid, parent_id, api)
+        self._isCatalogSubscribedApps = True
+        super(CatalogSubscribedApps, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
         id = 'id'
-        scheduled_time = 'scheduled_time'
-        status = 'status'
 
-    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def gendelete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.catalogsubscribedappsdelete import CatalogSubscribedAppsDelete
         param_types = {
         }
         enums = {
         }
         request = FacebookRequest(
             node_id=self['id'],
-            method='GET',
-            endpoint='/',
+            method='DELETE',
+            endpoint='/subscribed_apps',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=PageBroadcast,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
+            target_class=CatalogSubscribedAppsDelete,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=CatalogSubscribedAppsDelete, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -63,8 +62,6 @@ class PageBroadcast(
 
     _field_types = {
         'id': 'string',
-        'scheduled_time': 'string',
-        'status': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

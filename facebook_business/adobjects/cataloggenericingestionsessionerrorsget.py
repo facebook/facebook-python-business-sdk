@@ -14,24 +14,20 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class ProductDaEventSamplesBatch(
+class CatalogGenericIngestionSessionErrorsGet(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(ProductDaEventSamplesBatch, self).__init__()
-        self._isProductDaEventSamplesBatch = True
+        super(CatalogGenericIngestionSessionErrorsGet, self).__init__()
+        self._isCatalogGenericIngestionSessionErrorsGet = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        samples = 'samples'
-        time_start = 'time_start'
-        time_stop = 'time_stop'
+        data = 'data'
 
     _field_types = {
-        'samples': 'list<Object>',
-        'time_start': 'unsigned int',
-        'time_stop': 'unsigned int',
+        'data': 'list<object>',
     }
     @classmethod
     def _get_field_enum_info(cls):

@@ -39,7 +39,12 @@ class AdsInsights(
         adset_id = 'adset_id'
         adset_name = 'adset_name'
         adset_start = 'adset_start'
+        advanced_actions_28d_view = 'advanced_actions_28d_view'
+        advanced_reach_1d_lookback = 'advanced_reach_1d_lookback'
+        advanced_reach_28d_lookback = 'advanced_reach_28d_lookback'
+        advanced_reach_7d_lookback = 'advanced_reach_7d_lookback'
         age_targeting = 'age_targeting'
+        anchor_event_attribution_setting = 'anchor_event_attribution_setting'
         anchor_events_performance_indicator = 'anchor_events_performance_indicator'
         attribution_setting = 'attribution_setting'
         auction_bid = 'auction_bid'
@@ -127,6 +132,7 @@ class AdsInsights(
         inline_link_click_ctr = 'inline_link_click_ctr'
         inline_link_clicks = 'inline_link_clicks'
         inline_post_engagement = 'inline_post_engagement'
+        instagram_profile_visits = 'instagram_profile_visits'
         instagram_upcoming_event_reminders_set = 'instagram_upcoming_event_reminders_set'
         instant_experience_clicks_to_open = 'instant_experience_clicks_to_open'
         instant_experience_clicks_to_start = 'instant_experience_clicks_to_start'
@@ -160,6 +166,7 @@ class AdsInsights(
         marketing_messages_website_purchase = 'marketing_messages_website_purchase'
         marketing_messages_website_purchase_values = 'marketing_messages_website_purchase_values'
         mobile_app_purchase_roas = 'mobile_app_purchase_roas'
+        multi_event_conversion_attribution_setting = 'multi_event_conversion_attribution_setting'
         objective = 'objective'
         objective_result_rate = 'objective_result_rate'
         objective_results = 'objective_results'
@@ -253,6 +260,7 @@ class AdsInsights(
         action_video_sound = 'action_video_sound'
         action_video_type = 'action_video_type'
         conversion_destination = 'conversion_destination'
+        is_business_ai_assisted = 'is_business_ai_assisted'
         matched_persona_id = 'matched_persona_id'
         matched_persona_name = 'matched_persona_name'
         signal_source_bucket = 'signal_source_bucket'
@@ -324,11 +332,10 @@ class AdsInsights(
         product_custom_label_3_breakdown = 'product_custom_label_3_breakdown'
         product_custom_label_4_breakdown = 'product_custom_label_4_breakdown'
         product_group_content_id_breakdown = 'product_group_content_id_breakdown'
-        product_group_id = 'product_group_id'
         product_id = 'product_id'
-        product_set_id_breakdown = 'product_set_id_breakdown'
         publisher_platform = 'publisher_platform'
         redownload = 'redownload'
+        reels_trending_topic = 'reels_trending_topic'
         region = 'region'
         rta_ugc_topic = 'rta_ugc_topic'
         rule_set_id = 'rule_set_id'
@@ -388,6 +395,7 @@ class AdsInsights(
         action_video_sound = 'action_video_sound'
         action_video_type = 'action_video_type'
         conversion_destination = 'conversion_destination'
+        is_business_ai_assisted = 'is_business_ai_assisted'
         matched_persona_id = 'matched_persona_id'
         matched_persona_name = 'matched_persona_name'
         signal_source_bucket = 'signal_source_bucket'
@@ -412,7 +420,12 @@ class AdsInsights(
         'adset_id': 'string',
         'adset_name': 'string',
         'adset_start': 'string',
+        'advanced_actions_28d_view': 'list<AdsActionStats>',
+        'advanced_reach_1d_lookback': 'string',
+        'advanced_reach_28d_lookback': 'string',
+        'advanced_reach_7d_lookback': 'string',
         'age_targeting': 'string',
+        'anchor_event_attribution_setting': 'string',
         'anchor_events_performance_indicator': 'string',
         'attribution_setting': 'string',
         'auction_bid': 'string',
@@ -500,6 +513,7 @@ class AdsInsights(
         'inline_link_click_ctr': 'string',
         'inline_link_clicks': 'string',
         'inline_post_engagement': 'string',
+        'instagram_profile_visits': 'string',
         'instagram_upcoming_event_reminders_set': 'string',
         'instant_experience_clicks_to_open': 'string',
         'instant_experience_clicks_to_start': 'string',
@@ -533,6 +547,7 @@ class AdsInsights(
         'marketing_messages_website_purchase': 'string',
         'marketing_messages_website_purchase_values': 'string',
         'mobile_app_purchase_roas': 'list<AdsActionStats>',
+        'multi_event_conversion_attribution_setting': 'string',
         'objective': 'string',
         'objective_result_rate': 'list<Object>',
         'objective_results': 'list<Object>',

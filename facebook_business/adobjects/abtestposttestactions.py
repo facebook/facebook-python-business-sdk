@@ -25,9 +25,11 @@ class ABTestPostTestActions(
 
     class Field(AbstractObject.Field):
         auto_change_budget_to_winner = 'auto_change_budget_to_winner'
+        winner_budget = 'winner_budget'
 
     _field_types = {
         'auto_change_budget_to_winner': 'int',
+        'winner_budget': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

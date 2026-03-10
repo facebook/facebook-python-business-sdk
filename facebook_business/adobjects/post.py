@@ -51,6 +51,7 @@ class Post(
         id = 'id'
         instagram_eligibility = 'instagram_eligibility'
         is_app_share = 'is_app_share'
+        is_eligible_for_dark_post = 'is_eligible_for_dark_post'
         is_eligible_for_promotion = 'is_eligible_for_promotion'
         is_expired = 'is_expired'
         is_hidden = 'is_hidden'
@@ -126,6 +127,7 @@ class Post(
         draft = 'DRAFT'
         inline_created = 'INLINE_CREATED'
         published = 'PUBLISHED'
+        publish_pending = 'PUBLISH_PENDING'
         reviewable_branded_content = 'REVIEWABLE_BRANDED_CONTENT'
         scheduled = 'SCHEDULED'
         scheduled_recurring = 'SCHEDULED_RECURRING'
@@ -663,6 +665,7 @@ class Post(
         'id': 'string',
         'instagram_eligibility': 'string',
         'is_app_share': 'bool',
+        'is_eligible_for_dark_post': 'bool',
         'is_eligible_for_promotion': 'bool',
         'is_expired': 'bool',
         'is_hidden': 'bool',

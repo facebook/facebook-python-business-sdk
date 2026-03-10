@@ -32,7 +32,6 @@ class PlaceTopic(
         icon_url = 'icon_url'
         id = 'id'
         name = 'name'
-        parent_ids = 'parent_ids'
         plural_name = 'plural_name'
         top_subtopic_names = 'top_subtopic_names'
 
@@ -79,7 +78,6 @@ class PlaceTopic(
         'icon_url': 'string',
         'id': 'string',
         'name': 'string',
-        'parent_ids': 'list<string>',
         'plural_name': 'string',
         'top_subtopic_names': 'list<string>',
     }

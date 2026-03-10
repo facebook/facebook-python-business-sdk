@@ -29,7 +29,6 @@ class Destination(
     class Field(AbstractObject.Field):
         address = 'address'
         applinks = 'applinks'
-        category_specific_fields = 'category_specific_fields'
         currency = 'currency'
         custom_label_0 = 'custom_label_0'
         custom_label_1 = 'custom_label_1'
@@ -197,7 +196,6 @@ class Destination(
     _field_types = {
         'address': 'string',
         'applinks': 'CatalogItemAppLinks',
-        'category_specific_fields': 'CatalogSubVerticalList',
         'currency': 'string',
         'custom_label_0': 'string',
         'custom_label_1': 'string',

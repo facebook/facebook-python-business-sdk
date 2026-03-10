@@ -25,12 +25,14 @@ class TargetingAutomation(
 
     class Field(AbstractObject.Field):
         advantage_audience = 'advantage_audience'
+        creative_audience_pairing = 'creative_audience_pairing'
         individual_setting = 'individual_setting'
         shared_audiences = 'shared_audiences'
         value_expression = 'value_expression'
 
     _field_types = {
         'advantage_audience': 'unsigned int',
+        'creative_audience_pairing': 'unsigned int',
         'individual_setting': 'Object',
         'shared_audiences': 'unsigned int',
         'value_expression': 'unsigned int',

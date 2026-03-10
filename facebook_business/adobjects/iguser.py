@@ -210,6 +210,7 @@ class IGUser(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.igbcadspermission import IGBCAdsPermission
         param_types = {
+            'creator_username': 'string',
         }
         enums = {
         }
@@ -402,6 +403,37 @@ class IGUser(
             self.assure_call()
             return request.execute()
 
+    def create_business_messaging_feature_status(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'features': 'list<map>',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/business_messaging_feature_status',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=IGUser,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=IGUser, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_catalog_product_search(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -486,6 +518,37 @@ class IGUser(
             target_class=ShadowIGUserCollaborationInvites,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=ShadowIGUserCollaborationInvites, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def get_collaborative_media(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.shadowigusercollaborativemedia import ShadowIGUserCollaborativeMedia
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/collaborative_media',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=ShadowIGUserCollaborativeMedia,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=ShadowIGUserCollaborativeMedia, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -585,6 +648,7 @@ class IGUser(
             'show_onboarded_creators_only': 'bool',
             'similar_to_creators': 'list<string>',
             'username': 'string',
+            'usernames': 'list<string>',
         }
         enums = {
             'creator_countries_enum': IGUserExportForCAM.CreatorCountries.__dict__.values(),
@@ -946,6 +1010,43 @@ class IGUser(
             node_id=self['id'],
             method='POST',
             endpoint='/mentions',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_moderate_conversation(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'actions': 'list<actions_enum>',
+            'user_ids': 'list<map>',
+        }
+        enums = {
+            'actions_enum': [
+                'BLOCK_USER',
+                'MOVE_TO_SPAM',
+                'UNBLOCK_USER',
+            ],
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/moderate_conversations',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,

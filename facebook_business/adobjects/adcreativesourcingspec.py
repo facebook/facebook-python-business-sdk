@@ -24,6 +24,7 @@ class AdCreativeSourcingSpec(
         self._api = api
 
     class Field(AbstractObject.Field):
+        ad_extensions_relevancy_spec = 'ad_extensions_relevancy_spec'
         associated_product_set_id = 'associated_product_set_id'
         brand = 'brand'
         destination_screenshot_spec = 'destination_screenshot_spec'
@@ -31,6 +32,7 @@ class AdCreativeSourcingSpec(
         enable_social_feedback_preservation = 'enable_social_feedback_preservation'
         intent = 'intent'
         pca_spec = 'pca_spec'
+        product_media_metadata_spec = 'product_media_metadata_spec'
         promotion_metadata_spec = 'promotion_metadata_spec'
         site_links_data_consented = 'site_links_data_consented'
         site_links_spec = 'site_links_spec'
@@ -39,6 +41,7 @@ class AdCreativeSourcingSpec(
         website_summary_spec = 'website_summary_spec'
 
     _field_types = {
+        'ad_extensions_relevancy_spec': 'Object',
         'associated_product_set_id': 'string',
         'brand': 'Object',
         'destination_screenshot_spec': 'Object',
@@ -46,6 +49,7 @@ class AdCreativeSourcingSpec(
         'enable_social_feedback_preservation': 'bool',
         'intent': 'Object',
         'pca_spec': 'Object',
+        'product_media_metadata_spec': 'Object',
         'promotion_metadata_spec': 'list<AdCreativePromotionMetadataSpec>',
         'site_links_data_consented': 'Object',
         'site_links_spec': 'list<AdCreativeSiteLinksSpec>',

@@ -26,6 +26,7 @@ class AdCreativeBrandedContentAds(
     class Field(AbstractObject.Field):
         acting_business_id = 'acting_business_id'
         ad_format = 'ad_format'
+        automated_adgroup_creation = 'automated_adgroup_creation'
         content_search_input = 'content_search_input'
         creator_ad_permission_type = 'creator_ad_permission_type'
         deliver_dynamic_partner_content = 'deliver_dynamic_partner_content'
@@ -44,6 +45,7 @@ class AdCreativeBrandedContentAds(
     _field_types = {
         'acting_business_id': 'string',
         'ad_format': 'int',
+        'automated_adgroup_creation': 'bool',
         'content_search_input': 'string',
         'creator_ad_permission_type': 'string',
         'deliver_dynamic_partner_content': 'bool',

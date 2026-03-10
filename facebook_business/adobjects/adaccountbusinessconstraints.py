@@ -29,6 +29,7 @@ class AdAccountBusinessConstraints(
     class Field(AbstractObject.Field):
         audience_controls = 'audience_controls'
         campaigns_with_error = 'campaigns_with_error'
+        is_age_restriction_enabled = 'is_age_restriction_enabled'
         placement_controls = 'placement_controls'
         status = 'status'
 
@@ -50,6 +51,7 @@ class AdAccountBusinessConstraints(
     _field_types = {
         'audience_controls': 'Object',
         'campaigns_with_error': 'list<string>',
+        'is_age_restriction_enabled': 'bool',
         'placement_controls': 'Object',
         'status': 'Status',
     }

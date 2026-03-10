@@ -71,6 +71,7 @@ class AdCreative(
         link_destination_display_url = 'link_destination_display_url'
         link_og_id = 'link_og_id'
         link_url = 'link_url'
+        marketing_message_structured_spec = 'marketing_message_structured_spec'
         media_sourcing_spec = 'media_sourcing_spec'
         messenger_sponsored_message = 'messenger_sponsored_message'
         name = 'name'
@@ -89,6 +90,7 @@ class AdCreative(
         portrait_customizations = 'portrait_customizations'
         product_data = 'product_data'
         product_set_id = 'product_set_id'
+        product_suggestion_settings = 'product_suggestion_settings'
         recommender_settings = 'recommender_settings'
         regional_regulation_disclaimer_spec = 'regional_regulation_disclaimer_spec'
         source_facebook_post_id = 'source_facebook_post_id'
@@ -110,7 +112,9 @@ class AdCreative(
         add_to_cart = 'ADD_TO_CART'
         apply_now = 'APPLY_NOW'
         ask_about_services = 'ASK_ABOUT_SERVICES'
+        ask_a_question = 'ASK_A_QUESTION'
         ask_for_more_info = 'ASK_FOR_MORE_INFO'
+        ask_us = 'ASK_US'
         audio_call = 'AUDIO_CALL'
         book_a_consultation = 'BOOK_A_CONSULTATION'
         book_now = 'BOOK_NOW'
@@ -123,6 +127,7 @@ class AdCreative(
         call = 'CALL'
         call_me = 'CALL_ME'
         call_now = 'CALL_NOW'
+        chat_now = 'CHAT_NOW'
         chat_with_us = 'CHAT_WITH_US'
         confirm = 'CONFIRM'
         contact = 'CONTACT'
@@ -182,6 +187,7 @@ class AdCreative(
         shop_with_ai = 'SHOP_WITH_AI'
         sign_up = 'SIGN_UP'
         sotto_subscribe = 'SOTTO_SUBSCRIBE'
+        start_a_chat = 'START_A_CHAT'
         start_order = 'START_ORDER'
         subscribe = 'SUBSCRIBE'
         swipe_up_product = 'SWIPE_UP_PRODUCT'
@@ -524,6 +530,7 @@ class AdCreative(
         'link_destination_display_url': 'string',
         'link_og_id': 'string',
         'link_url': 'string',
+        'marketing_message_structured_spec': 'AdCreativeMarketingMessageStructuredSpec',
         'media_sourcing_spec': 'AdCreativeMediaSourcingSpec',
         'messenger_sponsored_message': 'string',
         'name': 'string',
@@ -542,6 +549,7 @@ class AdCreative(
         'portrait_customizations': 'AdCreativePortraitCustomizations',
         'product_data': 'list<AdCreativeProductData>',
         'product_set_id': 'string',
+        'product_suggestion_settings': 'AdCreativeProductSuggestionSettings',
         'recommender_settings': 'AdCreativeRecommenderSettings',
         'regional_regulation_disclaimer_spec': 'AdCreativeRegionalRegulationDisclaimer',
         'source_facebook_post_id': 'string',

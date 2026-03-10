@@ -49,6 +49,7 @@ class PagePost(
         id = 'id'
         instagram_eligibility = 'instagram_eligibility'
         is_app_share = 'is_app_share'
+        is_eligible_for_dark_post = 'is_eligible_for_dark_post'
         is_eligible_for_promotion = 'is_eligible_for_promotion'
         is_expired = 'is_expired'
         is_hidden = 'is_hidden'
@@ -657,6 +658,7 @@ class PagePost(
         'id': 'string',
         'instagram_eligibility': 'string',
         'is_app_share': 'bool',
+        'is_eligible_for_dark_post': 'bool',
         'is_eligible_for_promotion': 'bool',
         'is_expired': 'bool',
         'is_hidden': 'bool',

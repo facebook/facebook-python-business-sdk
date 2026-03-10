@@ -61,7 +61,6 @@ class AdAccountUserSettings(
         is_3p_auth_setting_set = 'is_3p_auth_setting_set'
         is_ads_manager_footer_row_preference_set = 'is_ads_manager_footer_row_preference_set'
         is_ads_manager_footer_row_shown = 'is_ads_manager_footer_row_shown'
-        is_text_variation_nux_close = 'is_text_variation_nux_close'
         last_used_columns = 'last_used_columns'
         last_used_pe_filters = 'last_used_pe_filters'
         last_used_website_urls = 'last_used_website_urls'
@@ -85,7 +84,6 @@ class AdAccountUserSettings(
         should_logout_of_3p_sourcing = 'should_logout_of_3p_sourcing'
         should_show_shops_ads_metrics_onboarding_tour = 'should_show_shops_ads_metrics_onboarding_tour'
         show_archived_data = 'show_archived_data'
-        show_text_variation_nux_tooltip = 'show_text_variation_nux_tooltip'
         syd_campaign_trends_activemetric = 'syd_campaign_trends_activemetric'
         syd_campaign_trends_attribution = 'syd_campaign_trends_attribution'
         syd_campaign_trends_metrics = 'syd_campaign_trends_metrics'
@@ -190,7 +188,6 @@ class AdAccountUserSettings(
         'is_3p_auth_setting_set': 'bool',
         'is_ads_manager_footer_row_preference_set': 'bool',
         'is_ads_manager_footer_row_shown': 'bool',
-        'is_text_variation_nux_close': 'bool',
         'last_used_columns': 'Object',
         'last_used_pe_filters': 'list<Object>',
         'last_used_website_urls': 'list<string>',
@@ -214,7 +211,6 @@ class AdAccountUserSettings(
         'should_logout_of_3p_sourcing': 'bool',
         'should_show_shops_ads_metrics_onboarding_tour': 'bool',
         'show_archived_data': 'bool',
-        'show_text_variation_nux_tooltip': 'bool',
         'syd_campaign_trends_activemetric': 'string',
         'syd_campaign_trends_attribution': 'string',
         'syd_campaign_trends_metrics': 'list<string>',

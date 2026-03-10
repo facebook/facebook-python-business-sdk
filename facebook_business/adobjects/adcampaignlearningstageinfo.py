@@ -30,6 +30,8 @@ class AdCampaignLearningStageInfo(
         dynamic_lp_days_threshold = 'dynamic_lp_days_threshold'
         dynamic_lp_status = 'dynamic_lp_status'
         last_sig_edit_ts = 'last_sig_edit_ts'
+        recommended_budget_prediction = 'recommended_budget_prediction'
+        sigedit_removal = 'sigedit_removal'
         status = 'status'
 
     _field_types = {
@@ -39,6 +41,8 @@ class AdCampaignLearningStageInfo(
         'dynamic_lp_days_threshold': 'unsigned int',
         'dynamic_lp_status': 'string',
         'last_sig_edit_ts': 'int',
+        'recommended_budget_prediction': 'Object',
+        'sigedit_removal': 'bool',
         'status': 'string',
     }
     @classmethod

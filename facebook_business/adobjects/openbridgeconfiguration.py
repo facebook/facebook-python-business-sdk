@@ -35,9 +35,10 @@ class OpenBridgeConfiguration(
         cloud_region = 'cloud_region'
         destination_id = 'destination_id'
         endpoint = 'endpoint'
+        event_enrichment_advertiser_state = 'event_enrichment_advertiser_state'
+        event_enrichment_meta_state = 'event_enrichment_meta_state'
         event_enrichment_state = 'event_enrichment_state'
         fallback_domain = 'fallback_domain'
-        first_party_domain = 'first_party_domain'
         host_business_id = 'host_business_id'
         id = 'id'
         instance_id = 'instance_id'
@@ -49,6 +50,22 @@ class OpenBridgeConfiguration(
         sgw_account_id = 'sgw_account_id'
         sgw_instance_url = 'sgw_instance_url'
         sgw_pixel_id = 'sgw_pixel_id'
+        capi_publishing_state = 'capi_publishing_state'
+
+    class CapiPublishingState:
+        disabled = 'DISABLED'
+        enabled = 'ENABLED'
+        not_initialized = 'NOT_INITIALIZED'
+
+    class EventEnrichmentAdvertiserState:
+        disabled = 'DISABLED'
+        enabled = 'ENABLED'
+        not_initialized = 'NOT_INITIALIZED'
+
+    class EventEnrichmentMetaState:
+        allowed = 'ALLOWED'
+        blocked = 'BLOCKED'
+        not_initialized = 'NOT_INITIALIZED'
 
     class EventEnrichmentState:
         no = 'NO'
@@ -133,13 +150,15 @@ class OpenBridgeConfiguration(
             'active': 'bool',
             'blocked_event_types': 'list<string>',
             'blocked_websites': 'list<string>',
+            'capi_publishing_state': 'capi_publishing_state_enum',
             'cloud_provider': 'string',
             'cloud_region': 'string',
             'destination_id': 'string',
             'endpoint': 'string',
+            'event_enrichment_advertiser_state': 'event_enrichment_advertiser_state_enum',
+            'event_enrichment_meta_state': 'event_enrichment_meta_state_enum',
             'event_enrichment_state': 'event_enrichment_state_enum',
             'fallback_domain': 'string',
-            'first_party_domain': 'string',
             'host_business_id': 'unsigned int',
             'instance_id': 'string',
             'instance_version': 'string',
@@ -151,6 +170,9 @@ class OpenBridgeConfiguration(
             'sgw_pixel_id': 'unsigned int',
         }
         enums = {
+            'capi_publishing_state_enum': OpenBridgeConfiguration.CapiPublishingState.__dict__.values(),
+            'event_enrichment_advertiser_state_enum': OpenBridgeConfiguration.EventEnrichmentAdvertiserState.__dict__.values(),
+            'event_enrichment_meta_state_enum': OpenBridgeConfiguration.EventEnrichmentMetaState.__dict__.values(),
             'event_enrichment_state_enum': OpenBridgeConfiguration.EventEnrichmentState.__dict__.values(),
         }
         request = FacebookRequest(
@@ -184,9 +206,10 @@ class OpenBridgeConfiguration(
         'cloud_region': 'string',
         'destination_id': 'string',
         'endpoint': 'string',
+        'event_enrichment_advertiser_state': 'string',
+        'event_enrichment_meta_state': 'string',
         'event_enrichment_state': 'string',
         'fallback_domain': 'string',
-        'first_party_domain': 'string',
         'host_business_id': 'string',
         'id': 'string',
         'instance_id': 'string',
@@ -198,10 +221,14 @@ class OpenBridgeConfiguration(
         'sgw_account_id': 'string',
         'sgw_instance_url': 'string',
         'sgw_pixel_id': 'string',
+        'capi_publishing_state': 'CapiPublishingState',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['CapiPublishingState'] = OpenBridgeConfiguration.CapiPublishingState.__dict__.values()
+        field_enum_info['EventEnrichmentAdvertiserState'] = OpenBridgeConfiguration.EventEnrichmentAdvertiserState.__dict__.values()
+        field_enum_info['EventEnrichmentMetaState'] = OpenBridgeConfiguration.EventEnrichmentMetaState.__dict__.values()
         field_enum_info['EventEnrichmentState'] = OpenBridgeConfiguration.EventEnrichmentState.__dict__.values()
         return field_enum_info
 

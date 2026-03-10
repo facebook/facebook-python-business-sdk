@@ -47,6 +47,7 @@ class AdsUserSettings(
         aplusc_opt_out_friction = 'aplusc_opt_out_friction'
         aplusc_videofilter_opt_in_status = 'aplusc_videofilter_opt_in_status'
         aplusc_videouncrop_opt_in_status = 'aplusc_videouncrop_opt_in_status'
+        app_details_data_opt_in_status = 'app_details_data_opt_in_status'
         autoflow_lite_opt_in_status = 'autoflow_lite_opt_in_status'
         autoflow_lite_should_opt_in = 'autoflow_lite_should_opt_in'
         blended_ads_creation_defaulting_opt_in_status = 'blended_ads_creation_defaulting_opt_in_status'
@@ -58,6 +59,7 @@ class AdsUserSettings(
         connected_sources_catalog_opt_in_status = 'connected_sources_catalog_opt_in_status'
         create_cta_sticker_opt_in_status = 'create_cta_sticker_opt_in_status'
         creative_flex_opt_in_status = 'creative_flex_opt_in_status'
+        da_adapt_images_opt_in_status = 'da_adapt_images_opt_in_status'
         da_add_overlays_opt_in_status = 'da_add_overlays_opt_in_status'
         da_creative_flex_opt_in_status = 'da_creative_flex_opt_in_status'
         da_hide_price_opt_in_status = 'da_hide_price_opt_in_status'
@@ -66,6 +68,7 @@ class AdsUserSettings(
         dynamic_partnership_ads_opt_in_status = 'dynamic_partnership_ads_opt_in_status'
         enhance_cta_text_extraction_opt_in_status = 'enhance_cta_text_extraction_opt_in_status'
         export_format_default = 'export_format_default'
+        feedback_surveys = 'feedback_surveys'
         focus_mode_default = 'focus_mode_default'
         gen_ai_alpha_test_status = 'gen_ai_alpha_test_status'
         gen_ai_auto_select_opt_in_status = 'gen_ai_auto_select_opt_in_status'
@@ -81,6 +84,7 @@ class AdsUserSettings(
         last_visited_time = 'last_visited_time'
         metadata_brand_kit_last_opt_out_timestamp = 'metadata_brand_kit_last_opt_out_timestamp'
         metadata_brand_kit_opt_in_status = 'metadata_brand_kit_opt_in_status'
+        multi_media_opt_out_status = 'multi_media_opt_out_status'
         music_on_reels_opt_in = 'music_on_reels_opt_in'
         muted_cbo_midflight_education_messages = 'muted_cbo_midflight_education_messages'
         onsite_destination_optimization_opt_in = 'onsite_destination_optimization_opt_in'
@@ -122,6 +126,7 @@ class AdsUserSettings(
         use_pe_create_flow = 'use_pe_create_flow'
         use_stepper_primary_entry = 'use_stepper_primary_entry'
         user = 'user'
+        video_to_image_opt_in_status = 'video_to_image_opt_in_status'
         website_media_opt_in_status = 'website_media_opt_in_status'
         website_reviews_data_opt_in_status = 'website_reviews_data_opt_in_status'
         website_selling_points_data_opt_in_status = 'website_selling_points_data_opt_in_status'
@@ -177,6 +182,7 @@ class AdsUserSettings(
         'aplusc_opt_out_friction': 'list<string>',
         'aplusc_videofilter_opt_in_status': 'string',
         'aplusc_videouncrop_opt_in_status': 'string',
+        'app_details_data_opt_in_status': 'string',
         'autoflow_lite_opt_in_status': 'string',
         'autoflow_lite_should_opt_in': 'bool',
         'blended_ads_creation_defaulting_opt_in_status': 'string',
@@ -188,6 +194,7 @@ class AdsUserSettings(
         'connected_sources_catalog_opt_in_status': 'string',
         'create_cta_sticker_opt_in_status': 'string',
         'creative_flex_opt_in_status': 'string',
+        'da_adapt_images_opt_in_status': 'string',
         'da_add_overlays_opt_in_status': 'string',
         'da_creative_flex_opt_in_status': 'string',
         'da_hide_price_opt_in_status': 'string',
@@ -196,6 +203,7 @@ class AdsUserSettings(
         'dynamic_partnership_ads_opt_in_status': 'string',
         'enhance_cta_text_extraction_opt_in_status': 'string',
         'export_format_default': 'string',
+        'feedback_surveys': 'list<string>',
         'focus_mode_default': 'string',
         'gen_ai_alpha_test_status': 'int',
         'gen_ai_auto_select_opt_in_status': 'string',
@@ -211,6 +219,7 @@ class AdsUserSettings(
         'last_visited_time': 'datetime',
         'metadata_brand_kit_last_opt_out_timestamp': 'int',
         'metadata_brand_kit_opt_in_status': 'string',
+        'multi_media_opt_out_status': 'string',
         'music_on_reels_opt_in': 'list<map<string, string>>',
         'muted_cbo_midflight_education_messages': 'list<string>',
         'onsite_destination_optimization_opt_in': 'string',
@@ -252,6 +261,7 @@ class AdsUserSettings(
         'use_pe_create_flow': 'bool',
         'use_stepper_primary_entry': 'bool',
         'user': 'User',
+        'video_to_image_opt_in_status': 'string',
         'website_media_opt_in_status': 'string',
         'website_reviews_data_opt_in_status': 'string',
         'website_selling_points_data_opt_in_status': 'string',

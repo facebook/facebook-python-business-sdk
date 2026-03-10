@@ -56,6 +56,8 @@ class PagePostExperiment(
         reels_plays = 'REELS_PLAYS'
         shares = 'SHARES'
         video_views_60s = 'VIDEO_VIEWS_60S'
+        viewers = 'VIEWERS'
+        views = 'VIEWS'
 
     def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils

@@ -710,6 +710,7 @@ class AdsPixel(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.adspixelstatsresult import AdsPixelStatsResult
         param_types = {
+            'agent': 'string',
             'aggregation': 'aggregation_enum',
             'end_time': 'datetime',
             'event': 'string',

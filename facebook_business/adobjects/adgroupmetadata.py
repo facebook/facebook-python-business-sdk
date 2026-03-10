@@ -30,6 +30,7 @@ class AdgroupMetadata(
         adgroup_media_source = 'adgroup_media_source'
         carousel_style = 'carousel_style'
         carousel_with_static_card_style = 'carousel_with_static_card_style'
+        is_pca_unified_format_ad = 'is_pca_unified_format_ad'
 
     _field_types = {
         'ad_standard_enhancements_edit_source': 'int',
@@ -38,6 +39,7 @@ class AdgroupMetadata(
         'adgroup_media_source': 'string',
         'carousel_style': 'string',
         'carousel_with_static_card_style': 'string',
+        'is_pca_unified_format_ad': 'bool',
     }
     @classmethod
     def _get_field_enum_info(cls):

@@ -25,10 +25,12 @@ class AdCreativeDestinationSpec(
 
     class Field(AbstractObject.Field):
         destination_type = 'destination_type'
+        native_commerce_experience = 'native_commerce_experience'
         website = 'website'
 
     _field_types = {
         'destination_type': 'string',
+        'native_commerce_experience': 'Object',
         'website': 'Object',
     }
     @classmethod

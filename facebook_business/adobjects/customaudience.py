@@ -51,6 +51,7 @@ class CustomAudience(
         is_value_based = 'is_value_based'
         lookalike_audience_ids = 'lookalike_audience_ids'
         lookalike_spec = 'lookalike_spec'
+        messenger_marketing_messages_page = 'messenger_marketing_messages_page'
         name = 'name'
         operation_status = 'operation_status'
         opt_out_link = 'opt_out_link'
@@ -92,6 +93,7 @@ class CustomAudience(
         prefill = 'prefill'
         product_set_id = 'product_set_id'
         subscription_info = 'subscription_info'
+        usage_restriction = 'usage_restriction'
         use_for_products = 'use_for_products'
         use_in_campaigns = 'use_in_campaigns'
         video_group_ids = 'video_group_ids'
@@ -150,6 +152,10 @@ class CustomAudience(
         study_rule_audience = 'STUDY_RULE_AUDIENCE'
         video = 'VIDEO'
         website = 'WEBSITE'
+
+    class UsageRestriction:
+        exclusion_only = 'EXCLUSION_ONLY'
+        none = 'NONE'
 
     class UseForProducts:
         ads = 'ADS'
@@ -260,12 +266,14 @@ class CustomAudience(
             'rule': 'string',
             'rule_aggregation': 'string',
             'tags': 'list<string>',
+            'use_for_products': 'list<use_for_products_enum>',
             'use_in_campaigns': 'bool',
         }
         enums = {
             'claim_objective_enum': CustomAudience.ClaimObjective.__dict__.values(),
             'content_type_enum': CustomAudience.ContentType.__dict__.values(),
             'customer_file_source_enum': CustomAudience.CustomerFileSource.__dict__.values(),
+            'use_for_products_enum': CustomAudience.UseForProducts.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -706,6 +714,7 @@ class CustomAudience(
         'is_value_based': 'bool',
         'lookalike_audience_ids': 'list<string>',
         'lookalike_spec': 'LookalikeSpec',
+        'messenger_marketing_messages_page': 'Page',
         'name': 'string',
         'operation_status': 'CustomAudienceStatus',
         'opt_out_link': 'string',
@@ -747,6 +756,7 @@ class CustomAudience(
         'prefill': 'bool',
         'product_set_id': 'string',
         'subscription_info': 'list<SubscriptionInfo>',
+        'usage_restriction': 'UsageRestriction',
         'use_for_products': 'list<UseForProducts>',
         'use_in_campaigns': 'bool',
         'video_group_ids': 'list<string>',
@@ -760,6 +770,7 @@ class CustomAudience(
         field_enum_info['CustomerFileSource'] = CustomAudience.CustomerFileSource.__dict__.values()
         field_enum_info['SubscriptionInfo'] = CustomAudience.SubscriptionInfo.__dict__.values()
         field_enum_info['Subtype'] = CustomAudience.Subtype.__dict__.values()
+        field_enum_info['UsageRestriction'] = CustomAudience.UsageRestriction.__dict__.values()
         field_enum_info['UseForProducts'] = CustomAudience.UseForProducts.__dict__.values()
         field_enum_info['ActionSource'] = CustomAudience.ActionSource.__dict__.values()
         return field_enum_info

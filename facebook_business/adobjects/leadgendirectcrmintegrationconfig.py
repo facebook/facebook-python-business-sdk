@@ -30,6 +30,7 @@ class LeadGenDirectCRMIntegrationConfig(
         auth_id = 'auth_id'
         creation_time = 'creation_time'
         id = 'id'
+        lead_filter_settings = 'lead_filter_settings'
         lead_gen_data = 'lead_gen_data'
         matched_fields = 'matched_fields'
         matched_fields_labels = 'matched_fields_labels'
@@ -70,6 +71,7 @@ class LeadGenDirectCRMIntegrationConfig(
         'auth_id': 'string',
         'creation_time': 'datetime',
         'id': 'string',
+        'lead_filter_settings': 'list<map<string, string>>',
         'lead_gen_data': 'LeadgenForm',
         'matched_fields': 'list<map<string, string>>',
         'matched_fields_labels': 'list<map<string, string>>',

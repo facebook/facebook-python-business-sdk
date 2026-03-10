@@ -29,6 +29,7 @@ class ConversionActionQuery(
         conversion_id = 'conversion_id'
         creative = 'creative'
         dataset = 'dataset'
+        dataset_split = 'dataset_split'
         event = 'event'
         field_event_creator = 'event.creator'
         event_type = 'event_type'
@@ -57,6 +58,7 @@ class ConversionActionQuery(
         'conversion_id': 'list<string>',
         'creative': 'list<Object>',
         'dataset': 'list<string>',
+        'dataset_split': 'list<string>',
         'event': 'list<string>',
         'event.creator': 'list<string>',
         'event_type': 'list<string>',

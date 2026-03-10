@@ -29,7 +29,6 @@ class TransactableItem(
     class Field(AbstractObject.Field):
         action_title = 'action_title'
         applinks = 'applinks'
-        category_specific_fields = 'category_specific_fields'
         currency = 'currency'
         description = 'description'
         duration_time = 'duration_time'
@@ -158,7 +157,6 @@ class TransactableItem(
     _field_types = {
         'action_title': 'string',
         'applinks': 'CatalogItemAppLinks',
-        'category_specific_fields': 'CatalogSubVerticalList',
         'currency': 'string',
         'description': 'string',
         'duration_time': 'unsigned int',

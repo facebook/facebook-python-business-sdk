@@ -32,6 +32,10 @@ class AdsQuickViews(
         column_fields = 'column_fields'
         description = 'description'
         id = 'id'
+        is_attribution_windows_disabled = 'is_attribution_windows_disabled'
+        is_breakdowns_disabled = 'is_breakdowns_disabled'
+        is_columns_and_sort_disabled = 'is_columns_and_sort_disabled'
+        is_filters_disabled = 'is_filters_disabled'
         name = 'name'
         owner = 'owner'
         permission = 'permission'
@@ -75,6 +79,10 @@ class AdsQuickViews(
         'column_fields': 'list<string>',
         'description': 'string',
         'id': 'string',
+        'is_attribution_windows_disabled': 'bool',
+        'is_breakdowns_disabled': 'bool',
+        'is_columns_and_sort_disabled': 'bool',
+        'is_filters_disabled': 'bool',
         'name': 'string',
         'owner': 'Profile',
         'permission': 'string',

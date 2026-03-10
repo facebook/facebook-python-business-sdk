@@ -67,7 +67,6 @@ class AdVideo(
         privacy = 'privacy'
         published = 'published'
         scheduled_publish_time = 'scheduled_publish_time'
-        season = 'season'
         source = 'source'
         spherical = 'spherical'
         status = 'status'
@@ -88,6 +87,7 @@ class AdVideo(
         composer_type = 'composer_type'
         container_type = 'container_type'
         creative_tools = 'creative_tools'
+        edit_description_spec = 'edit_description_spec'
         end_offset = 'end_offset'
         fbuploader_video_file_chunk = 'fbuploader_video_file_chunk'
         file_size = 'file_size'
@@ -150,6 +150,7 @@ class AdVideo(
         ad_break_preview = 'AD_BREAK_PREVIEW'
         ad_derivative = 'AD_DERIVATIVE'
         ad_library_watermark = 'AD_LIBRARY_WATERMARK'
+        ai_interactive_embodiment = 'AI_INTERACTIVE_EMBODIMENT'
         album_multimedia_post = 'ALBUM_MULTIMEDIA_POST'
         aloha_superframe = 'ALOHA_SUPERFRAME'
         app_rereview_screencast = 'APP_REREVIEW_SCREENCAST'
@@ -187,6 +188,7 @@ class AdVideo(
         facecast_dvr = 'FACECAST_DVR'
         fb_avatar_animated_satp = 'FB_AVATAR_ANIMATED_SATP'
         fb_collectible_video = 'FB_COLLECTIBLE_VIDEO'
+        fb_quicksnap_video = 'FB_QUICKSNAP_VIDEO'
         fb_shorts = 'FB_SHORTS'
         fb_shorts_content_remixable = 'FB_SHORTS_CONTENT_REMIXABLE'
         fb_shorts_group_post = 'FB_SHORTS_GROUP_POST'
@@ -228,6 +230,7 @@ class AdVideo(
         moments_video = 'MOMENTS_VIDEO'
         music_clip = 'MUSIC_CLIP'
         music_clip_in_comment = 'MUSIC_CLIP_IN_COMMENT'
+        music_clip_in_fb_msgr_status = 'MUSIC_CLIP_IN_FB_MSGR_STATUS'
         music_clip_in_lightweight_status = 'MUSIC_CLIP_IN_LIGHTWEIGHT_STATUS'
         music_clip_in_maple_post = 'MUSIC_CLIP_IN_MAPLE_POST'
         music_clip_in_msgr_note = 'MUSIC_CLIP_IN_MSGR_NOTE'
@@ -247,7 +250,6 @@ class AdVideo(
         paid_content_video__post = 'PAID_CONTENT_VIDEO__POST'
         pixelcloud = 'PIXELCLOUD'
         podcast_highlight = 'PODCAST_HIGHLIGHT'
-        podcast_ml_preview = 'PODCAST_ML_PREVIEW'
         podcast_ml_preview_no_newsfeed_story = 'PODCAST_ML_PREVIEW_NO_NEWSFEED_STORY'
         podcast_rss = 'PODCAST_RSS'
         podcast_rss_ephemeral = 'PODCAST_RSS_EPHEMERAL'
@@ -264,10 +266,8 @@ class AdVideo(
         profile_cover_video = 'PROFILE_COVER_VIDEO'
         profile_intro_card = 'PROFILE_INTRO_CARD'
         profile_video = 'PROFILE_VIDEO'
-        proton = 'PROTON'
         quick_clip_workplace_post = 'QUICK_CLIP_WORKPLACE_POST'
         quick_promotion = 'QUICK_PROMOTION'
-        replace_video = 'REPLACE_VIDEO'
         showreel_native_dummy_video = 'SHOWREEL_NATIVE_DUMMY_VIDEO'
         slideshow_animoto = 'SLIDESHOW_ANIMOTO'
         slideshow_shakr = 'SLIDESHOW_SHAKR'
@@ -332,6 +332,7 @@ class AdVideo(
         draft = 'DRAFT'
         inline_created = 'INLINE_CREATED'
         published = 'PUBLISHED'
+        publish_pending = 'PUBLISH_PENDING'
         reviewable_branded_content = 'REVIEWABLE_BRANDED_CONTENT'
         scheduled = 'SCHEDULED'
         scheduled_recurring = 'SCHEDULED_RECURRING'
@@ -1179,7 +1180,6 @@ class AdVideo(
         'privacy': 'Privacy',
         'published': 'bool',
         'scheduled_publish_time': 'datetime',
-        'season': 'VideoList',
         'source': 'string',
         'spherical': 'bool',
         'status': 'VideoStatus',
@@ -1200,6 +1200,7 @@ class AdVideo(
         'composer_type': 'string',
         'container_type': 'ContainerType',
         'creative_tools': 'string',
+        'edit_description_spec': 'map',
         'end_offset': 'unsigned int',
         'fbuploader_video_file_chunk': 'string',
         'file_size': 'unsigned int',
