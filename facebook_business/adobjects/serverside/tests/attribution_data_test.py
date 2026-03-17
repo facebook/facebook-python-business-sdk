@@ -50,6 +50,7 @@ class AttributionDataTest(TestCase):
             'decline_reason': DeclineReason.LOOKBACK,
             'auditing_token': 'test_token_123',
             'linkage_key': 'test_key_456',
+            'touchpoint_id': 'tp_test_touchpoint_id_123',
             'attribution_setting': {
                 'inactivity_window_hours': 24,
                 'reattribution_window_hours': 48,
@@ -72,6 +73,7 @@ class AttributionDataTest(TestCase):
             decline_reason=expected['decline_reason'],
             auditing_token=expected['auditing_token'],
             linkage_key=expected['linkage_key'],
+            touchpoint_id=expected['touchpoint_id'],
             attribution_setting=attribution_setting,
         )
 

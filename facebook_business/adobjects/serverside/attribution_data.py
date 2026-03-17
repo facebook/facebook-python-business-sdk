@@ -44,10 +44,11 @@ class AttributionData(object):
         'decline_reason': 'DeclineReason',
         'auditing_token': 'str',
         'linkage_key': 'str',
+        'touchpoint_id': 'str',
         'attribution_setting': 'AttributionSetting',
     }
 
-    def __init__(self, scope = None, visit_time = None, ad_id = None, adset_id = None, campaign_id = None, attribution_share = None, attribution_model = None, attr_window = None, attribution_value = None, attribution_source = None, touchpoint_type = None, touchpoint_ts = None, attribution_method = None, decline_reason = None, auditing_token = None, linkage_key = None, attribution_setting = None):
+    def __init__(self, scope = None, visit_time = None, ad_id = None, adset_id = None, campaign_id = None, attribution_share = None, attribution_model = None, attr_window = None, attribution_value = None, attribution_source = None, touchpoint_type = None, touchpoint_ts = None, attribution_method = None, decline_reason = None, auditing_token = None, linkage_key = None, touchpoint_id = None, attribution_setting = None):
 
         """Conversions API Attribution Data"""
         self._scope = None
@@ -66,6 +67,7 @@ class AttributionData(object):
         self._decline_reason = None
         self._auditing_token = None
         self._linkage_key = None
+        self._touchpoint_id = None
         self._attribution_setting = None
 
         if scope is not None:
@@ -100,6 +102,8 @@ class AttributionData(object):
             self.auditing_token = auditing_token
         if linkage_key is not None:
             self.linkage_key = linkage_key
+        if touchpoint_id is not None:
+            self.touchpoint_id = touchpoint_id
         if attribution_setting is not None:
             self.attribution_setting = attribution_setting
 
@@ -465,6 +469,28 @@ class AttributionData(object):
         self._linkage_key = linkage_key
 
     @property
+    def touchpoint_id(self):
+        """Gets the touchpoint_id of Attribution Data.
+
+        Unique identifier for touchpoint events shared by Meta with advertisers.
+
+        :return: The touchpoint_id of Attribution Data.
+        :rtype: str
+        """
+        return self._touchpoint_id
+
+    @touchpoint_id.setter
+    def touchpoint_id(self, touchpoint_id):
+        """Sets the touchpoint_id of Attribution Data.
+
+        Unique identifier for touchpoint events shared by Meta with advertisers.
+
+        :param touchpoint_id: The touchpoint_id of Attribution Data.
+        :type: str
+        """
+        self._touchpoint_id = touchpoint_id
+
+    @property
     def attribution_setting(self):
         """Gets the attribution_setting of Attribution Data.
 
@@ -508,6 +534,7 @@ class AttributionData(object):
             'decline_reason': self.decline_reason,
             'auditing_token': self.auditing_token,
             'linkage_key': self.linkage_key,
+            'touchpoint_id': self.touchpoint_id,
             'attribution_setting': self.attribution_setting.normalize() if self.attribution_setting else None,
         }
         normalized_payload = {k: v for k, v in normalized_payload.items() if v is not None}
