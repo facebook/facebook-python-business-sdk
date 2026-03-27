@@ -31,6 +31,7 @@ class OpenBridgeConfiguration(
         blocked_event_types = 'blocked_event_types'
         blocked_websites = 'blocked_websites'
         browser_agent = 'browser_agent'
+        capi_publishing_state = 'capi_publishing_state'
         cloud_provider = 'cloud_provider'
         cloud_region = 'cloud_region'
         destination_id = 'destination_id'
@@ -50,7 +51,6 @@ class OpenBridgeConfiguration(
         sgw_account_id = 'sgw_account_id'
         sgw_instance_url = 'sgw_instance_url'
         sgw_pixel_id = 'sgw_pixel_id'
-        capi_publishing_state = 'capi_publishing_state'
 
     class CapiPublishingState:
         disabled = 'DISABLED'
@@ -202,6 +202,7 @@ class OpenBridgeConfiguration(
         'blocked_event_types': 'list<string>',
         'blocked_websites': 'list<string>',
         'browser_agent': 'list<string>',
+        'capi_publishing_state': 'string',
         'cloud_provider': 'string',
         'cloud_region': 'string',
         'destination_id': 'string',
@@ -221,7 +222,6 @@ class OpenBridgeConfiguration(
         'sgw_account_id': 'string',
         'sgw_instance_url': 'string',
         'sgw_pixel_id': 'string',
-        'capi_publishing_state': 'CapiPublishingState',
     }
     @classmethod
     def _get_field_enum_info(cls):

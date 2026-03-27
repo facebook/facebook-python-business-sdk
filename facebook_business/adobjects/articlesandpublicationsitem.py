@@ -18,41 +18,35 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class ProductFeedMediaTitles(
+class ArticlesAndPublicationsItem(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isProductFeedMediaTitles = True
-        super(ProductFeedMediaTitles, self).__init__(fbid, parent_id, api)
+        self._isArticlesAndPublicationsItem = True
+        super(ArticlesAndPublicationsItem, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
         id = 'id'
 
-    def genget(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def gendelete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.productfeedmediatitlesget import ProductFeedMediaTitlesGet
+        from facebook_business.adobjects.articlesandpublicationsitemdelete import ArticlesAndPublicationsItemDelete
         param_types = {
-            'after': 'string',
-            'before': 'string',
-            'display_format': 'display_format_enum',
-            'limit': 'int',
-            'summary': 'bool',
         }
         enums = {
-            'display_format_enum': ProductFeedMediaTitlesGet.DisplayFormat.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
-            method='GET',
-            endpoint='/media_titles',
+            method='DELETE',
+            endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=ProductFeedMediaTitlesGet,
+            target_class=ArticlesAndPublicationsItemDelete,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ProductFeedMediaTitlesGet, api=self._api),
+            response_parser=ObjectParser(target_class=ArticlesAndPublicationsItemDelete, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

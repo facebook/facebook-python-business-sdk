@@ -5,6 +5,10 @@
 # LICENSE file in the root directory of this source tree.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
+from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
+from facebook_business.adobjects.objectparser import ObjectParser
+from facebook_business.api import FacebookRequest
+from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -14,19 +18,19 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class ProductCatalogUserActions(
-    AbstractObject,
+class ProductCatalogAppsAndSoftwarePost(
+    AbstractCrudObject,
 ):
 
-    def __init__(self, api=None):
-        super(ProductCatalogUserActions, self).__init__()
-        self._isProductCatalogUserActions = True
-        self._api = api
+    def __init__(self, fbid=None, parent_id=None, api=None):
+        self._isProductCatalogAppsAndSoftwarePost = True
+        super(ProductCatalogAppsAndSoftwarePost, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        pass
+        id = 'id'
 
     _field_types = {
+        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

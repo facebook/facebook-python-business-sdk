@@ -36,6 +36,7 @@ class AdSet(
         adset_schedule = 'adset_schedule'
         anchor_event_attribution_window_days = 'anchor_event_attribution_window_days'
         asset_feed_id = 'asset_feed_id'
+        attribution_count_type = 'attribution_count_type'
         attribution_spec = 'attribution_spec'
         automatic_manual_state = 'automatic_manual_state'
         bid_adjustments = 'bid_adjustments'
@@ -79,8 +80,10 @@ class AdSet(
         lifetime_imps = 'lifetime_imps'
         lifetime_min_spend_target = 'lifetime_min_spend_target'
         lifetime_spend_cap = 'lifetime_spend_cap'
+        low_creative_reach = 'low_creative_reach'
         max_budget_spend_percentage = 'max_budget_spend_percentage'
         min_budget_spend_percentage = 'min_budget_spend_percentage'
+        multi_event_conversion_attribution_window_seconds = 'multi_event_conversion_attribution_window_seconds'
         multi_optimization_goal_weight = 'multi_optimization_goal_weight'
         name = 'name'
         optimization_goal = 'optimization_goal'
@@ -96,6 +99,7 @@ class AdSet(
         rf_prediction_id = 'rf_prediction_id'
         source_adset = 'source_adset'
         source_adset_id = 'source_adset_id'
+        special_ad_categories = 'special_ad_categories'
         start_time = 'start_time'
         status = 'status'
         targeting = 'targeting'
@@ -458,6 +462,7 @@ class AdSet(
             'lifetime_spend_cap': 'unsigned int',
             'max_budget_spend_percentage': 'unsigned int',
             'min_budget_spend_percentage': 'unsigned int',
+            'multi_event_conversion_attribution_window_seconds': 'unsigned int',
             'multi_optimization_goal_weight': 'multi_optimization_goal_weight_enum',
             'name': 'string',
             'optimization_goal': 'optimization_goal_enum',
@@ -1174,6 +1179,7 @@ class AdSet(
         'adset_schedule': 'list<DayPart>',
         'anchor_event_attribution_window_days': 'int',
         'asset_feed_id': 'string',
+        'attribution_count_type': 'string',
         'attribution_spec': 'list<AttributionSpec>',
         'automatic_manual_state': 'string',
         'bid_adjustments': 'AdBidAdjustments',
@@ -1217,8 +1223,10 @@ class AdSet(
         'lifetime_imps': 'int',
         'lifetime_min_spend_target': 'string',
         'lifetime_spend_cap': 'string',
+        'low_creative_reach': 'list<string>',
         'max_budget_spend_percentage': 'string',
         'min_budget_spend_percentage': 'string',
+        'multi_event_conversion_attribution_window_seconds': 'int',
         'multi_optimization_goal_weight': 'string',
         'name': 'string',
         'optimization_goal': 'OptimizationGoal',
@@ -1234,6 +1242,7 @@ class AdSet(
         'rf_prediction_id': 'string',
         'source_adset': 'AdSet',
         'source_adset_id': 'string',
+        'special_ad_categories': 'list<string>',
         'start_time': 'datetime',
         'status': 'Status',
         'targeting': 'Targeting',

@@ -14,23 +14,34 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class ProductCatalogUserActions(
+class ProductSetAppsAndSoftwareGet(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(ProductCatalogUserActions, self).__init__()
-        self._isProductCatalogUserActions = True
+        super(ProductSetAppsAndSoftwareGet, self).__init__()
+        self._isProductSetAppsAndSoftwareGet = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        pass
+        data = 'data'
+        paging = 'paging'
+        summary = 'summary'
+
+    class DisplayFormat:
+        carousel_ad = 'CAROUSEL_AD'
+        shops_pdp = 'SHOPS_PDP'
+        single_ad = 'SINGLE_AD'
 
     _field_types = {
+        'data': 'list<object>',
+        'paging': 'object',
+        'summary': 'object',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['DisplayFormat'] = ProductSetAppsAndSoftwareGet.DisplayFormat.__dict__.values()
         return field_enum_info
 
 

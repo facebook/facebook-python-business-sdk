@@ -350,6 +350,7 @@ class AdAccountTargetingUnified(
         age_range = 'age_range'
         alternate_auto_targeting_option = 'alternate_auto_targeting_option'
         app_install_state = 'app_install_state'
+        audience_concepts = 'audience_concepts'
         audience_network_positions = 'audience_network_positions'
         behaviors = 'behaviors'
         brand_safety_content_filter_levels = 'brand_safety_content_filter_levels'

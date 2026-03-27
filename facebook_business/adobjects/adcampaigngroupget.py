@@ -48,18 +48,6 @@ class AdCampaignGroupGet(
         stop_time = 'stop_time'
         updated_time = 'updated_time'
 
-    class SpecialAdCategories:
-        credit = 'CREDIT'
-        education = 'EDUCATION'
-        elections_politics = 'ELECTIONS_POLITICS'
-        employment = 'EMPLOYMENT'
-        financial_products_services = 'FINANCIAL_PRODUCTS_SERVICES'
-        housing = 'HOUSING'
-        issues_elections_politics = 'ISSUES_ELECTIONS_POLITICS'
-        none = 'NONE'
-        online_gambling_and_gaming = 'ONLINE_GAMBLING_AND_GAMING'
-        social_issues = 'SOCIAL_ISSUES'
-
     _field_types = {
         'account_id': 'string',
         'advantage_state_info': 'object',
@@ -75,7 +63,7 @@ class AdCampaignGroupGet(
         'name': 'string',
         'objective': 'string',
         'promoted_object': 'object',
-        'special_ad_categories': 'list<SpecialAdCategories>',
+        'special_ad_categories': 'list<string>',
         'spend_cap': 'string',
         'start_time': 'string',
         'status': 'string',
@@ -85,7 +73,6 @@ class AdCampaignGroupGet(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['SpecialAdCategories'] = AdCampaignGroupGet.SpecialAdCategories.__dict__.values()
         return field_enum_info
 
 

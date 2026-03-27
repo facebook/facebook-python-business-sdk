@@ -27,7 +27,13 @@ class AdCreativeFeatureCustomizations(
         aspect_ratio_config = 'aspect_ratio_config'
         background_color = 'background_color'
         catalog_feed_tag_name = 'catalog_feed_tag_name'
+        fb_feed_tag_name = 'fb_feed_tag_name'
+        fb_reels_tag_name = 'fb_reels_tag_name'
+        fb_story_tag_name = 'fb_story_tag_name'
         font_name = 'font_name'
+        ig_feed_tag_name = 'ig_feed_tag_name'
+        ig_reels_tag_name = 'ig_reels_tag_name'
+        ig_stream_tag_name = 'ig_stream_tag_name'
         image_crop_style = 'image_crop_style'
         pe_carousel = 'pe_carousel'
         showcase_card_display = 'showcase_card_display'
@@ -38,7 +44,13 @@ class AdCreativeFeatureCustomizations(
         'aspect_ratio_config': 'Object',
         'background_color': 'string',
         'catalog_feed_tag_name': 'string',
+        'fb_feed_tag_name': 'string',
+        'fb_reels_tag_name': 'string',
+        'fb_story_tag_name': 'string',
         'font_name': 'string',
+        'ig_feed_tag_name': 'string',
+        'ig_reels_tag_name': 'string',
+        'ig_stream_tag_name': 'string',
         'image_crop_style': 'string',
         'pe_carousel': 'Object',
         'showcase_card_display': 'string',

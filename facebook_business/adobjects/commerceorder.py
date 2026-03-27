@@ -57,19 +57,6 @@ class CommerceOrder(
         fb_processing = 'FB_PROCESSING'
         in_progress = 'IN_PROGRESS'
 
-    class ReasonCode:
-        buyers_remorse = 'BUYERS_REMORSE'
-        damaged_goods = 'DAMAGED_GOODS'
-        facebook_initiated = 'FACEBOOK_INITIATED'
-        not_as_described = 'NOT_AS_DESCRIBED'
-        quality_issue = 'QUALITY_ISSUE'
-        refund_compromised = 'REFUND_COMPROMISED'
-        refund_for_return = 'REFUND_FOR_RETURN'
-        refund_reason_other = 'REFUND_REASON_OTHER'
-        refund_sfi_fake = 'REFUND_SFI_FAKE'
-        refund_sfi_real = 'REFUND_SFI_REAL'
-        wrong_item = 'WRONG_ITEM'
-
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -100,38 +87,6 @@ class CommerceOrder(
             self.assure_call()
             return request.execute()
 
-    def create_acknowledge_order(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'idempotency_key': 'string',
-            'merchant_order_reference': 'string',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/acknowledge_order',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=CommerceOrder,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=CommerceOrder, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def get_cancellations(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -149,72 +104,6 @@ class CommerceOrder(
             target_class=AbstractCrudObject,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_cancellation(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'cancel_reason': 'map',
-            'idempotency_key': 'string',
-            'items': 'list<map>',
-            'restock_items': 'bool',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/cancellations',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=CommerceOrder,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=CommerceOrder, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_item_update(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'items': 'list<map>',
-            'merchant_order_reference': 'string',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/item_updates',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=CommerceOrder,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=CommerceOrder, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -378,45 +267,6 @@ class CommerceOrder(
             self.assure_call()
             return request.execute()
 
-    def create_refund(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'adjustment_amount': 'map',
-            'deductions': 'list<map>',
-            'idempotency_key': 'string',
-            'items': 'list<map>',
-            'reason_code': 'reason_code_enum',
-            'reason_text': 'string',
-            'return_id': 'string',
-            'shipping': 'map',
-        }
-        enums = {
-            'reason_code_enum': CommerceOrder.ReasonCode.__dict__.values(),
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/refunds',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=CommerceOrder,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=CommerceOrder, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def get_returns(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -443,40 +293,6 @@ class CommerceOrder(
             target_class=AbstractCrudObject,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def create_return(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'items': 'list<map>',
-            'merchant_return_id': 'string',
-            'return_message': 'string',
-            'update': 'map',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/returns',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=CommerceOrder,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=CommerceOrder, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -560,41 +376,6 @@ class CommerceOrder(
             self.assure_call()
             return request.execute()
 
-    def create_update_shipment(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'external_shipment_id': 'string',
-            'fulfillment_id': 'string',
-            'idempotency_key': 'string',
-            'shipment_id': 'string',
-            'tracking_info': 'map',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/update_shipment',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=CommerceOrder,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=CommerceOrder, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     _field_types = {
         'buyer_details': 'Object',
         'channel': 'string',
@@ -617,7 +398,6 @@ class CommerceOrder(
         field_enum_info = {}
         field_enum_info['Filters'] = CommerceOrder.Filters.__dict__.values()
         field_enum_info['State'] = CommerceOrder.State.__dict__.values()
-        field_enum_info['ReasonCode'] = CommerceOrder.ReasonCode.__dict__.values()
         return field_enum_info
 
 

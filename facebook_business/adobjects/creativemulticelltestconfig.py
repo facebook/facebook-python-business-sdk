@@ -28,6 +28,7 @@ class CreativeMulticellTestConfig(
         configured_cell_count = 'configured_cell_count'
         daily_budget = 'daily_budget'
         entry_source = 'entry_source'
+        lead_gen_forms = 'lead_gen_forms'
         lifetime_budget = 'lifetime_budget'
         use_existing_daily_budget = 'use_existing_daily_budget'
 
@@ -36,6 +37,7 @@ class CreativeMulticellTestConfig(
         'configured_cell_count': 'int',
         'daily_budget': 'int',
         'entry_source': 'string',
+        'lead_gen_forms': 'string',
         'lifetime_budget': 'int',
         'use_existing_daily_budget': 'bool',
     }

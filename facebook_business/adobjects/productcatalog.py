@@ -63,6 +63,8 @@ class ProductCatalog(
 
     class Vertical:
         adoptable_pets = 'adoptable_pets'
+        apps_and_software = 'apps_and_software'
+        articles_and_publications = 'articles_and_publications'
         commerce = 'commerce'
         destinations = 'destinations'
         flights = 'flights'
@@ -70,8 +72,10 @@ class ProductCatalog(
         home_listings = 'home_listings'
         hotels = 'hotels'
         local_service_businesses = 'local_service_businesses'
+        media_titles = 'media_titles'
         offer_items = 'offer_items'
         offline_commerce = 'offline_commerce'
+        professional_services = 'professional_services'
         transactable_items = 'transactable_items'
         vehicles = 'vehicles'
 
@@ -134,6 +138,7 @@ class ProductCatalog(
         add_to_cart = 'ADD_TO_CART'
         offer_submitted = 'OFFER_SUBMITTED'
         purchase = 'PURCHASE'
+        purchase_via_offer = 'PURCHASE_VIA_OFFER'
         test = 'TEST'
         view_item = 'VIEW_ITEM'
 

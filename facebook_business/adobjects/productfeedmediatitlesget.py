@@ -26,14 +26,22 @@ class ProductFeedMediaTitlesGet(
     class Field(AbstractObject.Field):
         data = 'data'
         paging = 'paging'
+        summary = 'summary'
+
+    class DisplayFormat:
+        carousel_ad = 'CAROUSEL_AD'
+        shops_pdp = 'SHOPS_PDP'
+        single_ad = 'SINGLE_AD'
 
     _field_types = {
         'data': 'list<object>',
         'paging': 'object',
+        'summary': 'object',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['DisplayFormat'] = ProductFeedMediaTitlesGet.DisplayFormat.__dict__.values()
         return field_enum_info
 
 

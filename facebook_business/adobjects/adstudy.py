@@ -47,7 +47,6 @@ class AdStudy(
         updated_time = 'updated_time'
         cells = 'cells'
         confidence_level = 'confidence_level'
-        creative_test_config = 'creative_test_config'
         objectives = 'objectives'
         viewers = 'viewers'
 
@@ -140,7 +139,6 @@ class AdStudy(
             'client_business': 'string',
             'confidence_level': 'float',
             'cooldown_start_time': 'int',
-            'creative_test_config': 'map',
             'description': 'string',
             'end_time': 'int',
             'name': 'string',
@@ -357,7 +355,6 @@ class AdStudy(
         'updated_time': 'datetime',
         'cells': 'list<Object>',
         'confidence_level': 'float',
-        'creative_test_config': 'map',
         'objectives': 'list<Object>',
         'viewers': 'list<int>',
     }

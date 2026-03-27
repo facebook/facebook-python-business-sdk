@@ -30,15 +30,19 @@ class ProductItem(
         additional_image_cdn_urls = 'additional_image_cdn_urls'
         additional_image_urls = 'additional_image_urls'
         additional_variant_attributes = 'additional_variant_attributes'
+        affiliate_seller_rating = 'affiliate_seller_rating'
+        affiliate_seller_rating_count = 'affiliate_seller_rating_count'
         age_group = 'age_group'
         applinks = 'applinks'
         availability = 'availability'
+        base_commission_rate = 'base_commission_rate'
         brand = 'brand'
         bundle_items = 'bundle_items'
         bundle_retailer_ids = 'bundle_retailer_ids'
         capabilities_disabled_by_user = 'capabilities_disabled_by_user'
         capability_to_review_status = 'capability_to_review_status'
         category = 'category'
+        category_ranking = 'category_ranking'
         category_specific_fields = 'category_specific_fields'
         color = 'color'
         commerce_insights = 'commerce_insights'
@@ -82,6 +86,7 @@ class ProductItem(
         name = 'name'
         ordering_index = 'ordering_index'
         origin_country = 'origin_country'
+        overall_ranking = 'overall_ranking'
         parent_product_id = 'parent_product_id'
         pattern = 'pattern'
         post_conversion_signal_based_enforcement_appeal_eligibility = 'post_conversion_signal_based_enforcement_appeal_eligibility'
@@ -1186,15 +1191,19 @@ class ProductItem(
         'additional_image_cdn_urls': 'list<list<map<string, string>>>',
         'additional_image_urls': 'list<string>',
         'additional_variant_attributes': 'list<map<string, string>>',
+        'affiliate_seller_rating': 'float',
+        'affiliate_seller_rating_count': 'int',
         'age_group': 'AgeGroup',
         'applinks': 'CatalogItemAppLinks',
         'availability': 'Availability',
+        'base_commission_rate': 'int',
         'brand': 'string',
         'bundle_items': 'list<string>',
         'bundle_retailer_ids': 'list<string>',
         'capabilities_disabled_by_user': 'list<string>',
         'capability_to_review_status': 'list<map<string, ProductItem_capability_to_review_status>>',
         'category': 'string',
+        'category_ranking': 'int',
         'category_specific_fields': 'CatalogSubVerticalList',
         'color': 'string',
         'commerce_insights': 'ProductItemCommerceInsights',
@@ -1238,6 +1247,7 @@ class ProductItem(
         'name': 'string',
         'ordering_index': 'int',
         'origin_country': 'string',
+        'overall_ranking': 'int',
         'parent_product_id': 'string',
         'pattern': 'string',
         'post_conversion_signal_based_enforcement_appeal_eligibility': 'bool',

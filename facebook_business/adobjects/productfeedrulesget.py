@@ -14,24 +14,22 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdjacentContentDeliveryReport(
+class ProductFeedRulesGet(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(AdjacentContentDeliveryReport, self).__init__()
-        self._isAdjacentContentDeliveryReport = True
+        super(ProductFeedRulesGet, self).__init__()
+        self._isProductFeedRulesGet = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        ad_id = 'ad_id'
-        content = 'content'
-        impression_id = 'impression_id'
+        data = 'data'
+        paging = 'paging'
 
     _field_types = {
-        'ad_id': 'string',
-        'content': 'list<Object>',
-        'impression_id': 'string',
+        'data': 'list<object>',
+        'paging': 'object',
     }
     @classmethod
     def _get_field_enum_info(cls):

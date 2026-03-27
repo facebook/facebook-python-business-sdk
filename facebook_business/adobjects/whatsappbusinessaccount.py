@@ -34,6 +34,7 @@ class WhatsAppBusinessAccount(
         country = 'country'
         creation_time = 'creation_time'
         currency = 'currency'
+        disable_marketing_messages_on_cloud_api = 'disable_marketing_messages_on_cloud_api'
         health_status = 'health_status'
         id = 'id'
         is_enabled_for_insights = 'is_enabled_for_insights'
@@ -155,6 +156,7 @@ class WhatsAppBusinessAccount(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'degrees_of_freedom_spec': 'map',
+            'disable_marketing_messages_on_cloud_api': 'bool',
             'is_enabled_for_insights': 'bool',
             'template_auto_archival_enabled': 'bool',
         }
@@ -2011,6 +2013,7 @@ class WhatsAppBusinessAccount(
         'country': 'string',
         'creation_time': 'int',
         'currency': 'string',
+        'disable_marketing_messages_on_cloud_api': 'bool',
         'health_status': 'WhatsAppBusinessHealthStatusForMessageSend',
         'id': 'string',
         'is_enabled_for_insights': 'bool',

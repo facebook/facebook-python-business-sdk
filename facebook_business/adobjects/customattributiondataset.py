@@ -14,19 +14,22 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class ProductCatalogUserActions(
+class CustomAttributionDataset(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(ProductCatalogUserActions, self).__init__()
-        self._isProductCatalogUserActions = True
+        super(CustomAttributionDataset, self).__init__()
+        self._isCustomAttributionDataset = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        pass
+        app = 'app'
+        pixel = 'pixel'
 
     _field_types = {
+        'app': 'list<Object>',
+        'pixel': 'list<Object>',
     }
     @classmethod
     def _get_field_enum_info(cls):

@@ -25,11 +25,19 @@ class PageCTXBudgetSimilarAdvertiserBudgetRecommendation(
 
     class Field(AbstractObject.Field):
         budget = 'budget'
+        budget_new_model = 'budget_new_model'
+        budget_without_threshold = 'budget_without_threshold'
         reported_conversion = 'reported_conversion'
+        reported_conversions_new_model = 'reported_conversions_new_model'
+        reported_conversions_without_threshold = 'reported_conversions_without_threshold'
 
     _field_types = {
         'budget': 'string',
+        'budget_new_model': 'string',
+        'budget_without_threshold': 'string',
         'reported_conversion': 'string',
+        'reported_conversions_new_model': 'string',
+        'reported_conversions_without_threshold': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

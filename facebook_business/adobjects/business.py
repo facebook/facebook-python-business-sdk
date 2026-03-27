@@ -1269,7 +1269,6 @@ class Business(
             'client_business': 'string',
             'confidence_level': 'float',
             'cooldown_start_time': 'int',
-            'creative_test_config': 'map',
             'description': 'string',
             'end_time': 'int',
             'name': 'string',

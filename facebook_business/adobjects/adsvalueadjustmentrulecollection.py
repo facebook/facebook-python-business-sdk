@@ -43,6 +43,7 @@ class AdsValueAdjustmentRuleCollection(
     class Status:
         active = 'ACTIVE'
         deleted = 'DELETED'
+        draft = 'DRAFT'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod

@@ -24,6 +24,7 @@ class AdCreativeSiteLinksSpec(
         self._api = api
 
     class Field(AbstractObject.Field):
+        is_defaulting_eligible = 'is_defaulting_eligible'
         is_site_link_sticky = 'is_site_link_sticky'
         site_link_classification = 'site_link_classification'
         site_link_extra_metadata = 'site_link_extra_metadata'
@@ -40,6 +41,7 @@ class AdCreativeSiteLinksSpec(
         site_link_website_data_source = 'site_link_website_data_source'
 
     _field_types = {
+        'is_defaulting_eligible': 'bool',
         'is_site_link_sticky': 'bool',
         'site_link_classification': 'string',
         'site_link_extra_metadata': 'string',
