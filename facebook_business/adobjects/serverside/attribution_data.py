@@ -47,9 +47,10 @@ class AttributionData(object):
         'touchpoint_id': 'str',
         'attribution_setting': 'AttributionSetting',
         'total_credit': 'float',
+        'partner_client_id': 'str',
     }
 
-    def __init__(self, scope = None, visit_time = None, ad_id = None, adset_id = None, campaign_id = None, attribution_share = None, attribution_model = None, attr_window = None, attribution_value = None, attribution_source = None, touchpoint_type = None, touchpoint_ts = None, attribution_method = None, decline_reason = None, auditing_token = None, linkage_key = None, touchpoint_id = None, attribution_setting = None, total_credit = None):
+    def __init__(self, scope = None, visit_time = None, ad_id = None, adset_id = None, campaign_id = None, attribution_share = None, attribution_model = None, attr_window = None, attribution_value = None, attribution_source = None, touchpoint_type = None, touchpoint_ts = None, attribution_method = None, decline_reason = None, auditing_token = None, linkage_key = None, touchpoint_id = None, attribution_setting = None, total_credit = None, partner_client_id = None):
 
         """Conversions API Attribution Data"""
         self._scope = None
@@ -71,6 +72,7 @@ class AttributionData(object):
         self._touchpoint_id = None
         self._attribution_setting = None
         self._total_credit = None
+        self._partner_client_id = None
 
         if scope is not None:
             self.scope = scope
@@ -110,6 +112,8 @@ class AttributionData(object):
             self.attribution_setting = attribution_setting
         if total_credit is not None:
             self.total_credit = total_credit
+        if partner_client_id is not None:
+            self.partner_client_id = partner_client_id
 
     @property
     def scope(self):
@@ -541,6 +545,28 @@ class AttributionData(object):
         """
         self._total_credit = total_credit
 
+    @property
+    def partner_client_id(self):
+        """Gets the partner_client_id of Attribution Data.
+
+        Partner workspace/dashboard identifier for dedup across shared pixels.
+
+        :return: The partner_client_id of Attribution Data.
+        :rtype: str
+        """
+        return self._partner_client_id
+
+    @partner_client_id.setter
+    def partner_client_id(self, partner_client_id):
+        """Sets the partner_client_id of Attribution Data.
+
+        Partner workspace/dashboard identifier for dedup across shared pixels.
+
+        :param partner_client_id: The partner_client_id of Attribution Data.
+        :type: str
+        """
+        self._partner_client_id = partner_client_id
+
 
     def normalize(self):
         normalized_payload = {
@@ -563,6 +589,7 @@ class AttributionData(object):
             'touchpoint_id': self.touchpoint_id,
             'attribution_setting': self.attribution_setting.normalize() if self.attribution_setting else None,
             'total_credit': self.total_credit,
+            'partner_client_id': self.partner_client_id,
         }
         normalized_payload = {k: v for k, v in normalized_payload.items() if v is not None}
         return normalized_payload

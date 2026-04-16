@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+## v25.0.3
+### Added
+- Add partner_client_id field to AttributionData
+
 ## v25.0.2
 ### Added
 - Add total_credit field to AttributionData
