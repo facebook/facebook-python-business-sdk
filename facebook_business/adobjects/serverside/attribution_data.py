@@ -46,9 +46,10 @@ class AttributionData(object):
         'linkage_key': 'str',
         'touchpoint_id': 'str',
         'attribution_setting': 'AttributionSetting',
+        'total_credit': 'float',
     }
 
-    def __init__(self, scope = None, visit_time = None, ad_id = None, adset_id = None, campaign_id = None, attribution_share = None, attribution_model = None, attr_window = None, attribution_value = None, attribution_source = None, touchpoint_type = None, touchpoint_ts = None, attribution_method = None, decline_reason = None, auditing_token = None, linkage_key = None, touchpoint_id = None, attribution_setting = None):
+    def __init__(self, scope = None, visit_time = None, ad_id = None, adset_id = None, campaign_id = None, attribution_share = None, attribution_model = None, attr_window = None, attribution_value = None, attribution_source = None, touchpoint_type = None, touchpoint_ts = None, attribution_method = None, decline_reason = None, auditing_token = None, linkage_key = None, touchpoint_id = None, attribution_setting = None, total_credit = None):
 
         """Conversions API Attribution Data"""
         self._scope = None
@@ -69,6 +70,7 @@ class AttributionData(object):
         self._linkage_key = None
         self._touchpoint_id = None
         self._attribution_setting = None
+        self._total_credit = None
 
         if scope is not None:
             self.scope = scope
@@ -106,6 +108,8 @@ class AttributionData(object):
             self.touchpoint_id = touchpoint_id
         if attribution_setting is not None:
             self.attribution_setting = attribution_setting
+        if total_credit is not None:
+            self.total_credit = total_credit
 
     @property
     def scope(self):
@@ -515,6 +519,28 @@ class AttributionData(object):
         
         self._attribution_setting = attribution_setting
 
+    @property
+    def total_credit(self):
+        """Gets the total_credit of Attribution Data.
+
+        Total credit attributed to all publishers for this conversion, including Meta's share.
+
+        :return: The total_credit of Attribution Data.
+        :rtype: float
+        """
+        return self._total_credit
+
+    @total_credit.setter
+    def total_credit(self, total_credit):
+        """Sets the total_credit of Attribution Data.
+
+        Total credit attributed to all publishers for this conversion, including Meta's share.
+
+        :param total_credit: The total_credit of Attribution Data.
+        :type: float
+        """
+        self._total_credit = total_credit
+
 
     def normalize(self):
         normalized_payload = {
@@ -536,6 +562,7 @@ class AttributionData(object):
             'linkage_key': self.linkage_key,
             'touchpoint_id': self.touchpoint_id,
             'attribution_setting': self.attribution_setting.normalize() if self.attribution_setting else None,
+            'total_credit': self.total_credit,
         }
         normalized_payload = {k: v for k, v in normalized_payload.items() if v is not None}
         return normalized_payload
