@@ -12,7 +12,7 @@ from facebook_business.adobjects.serverside.preference import Preference
 from facebook_business.adobjects.serverside.user_data import UserData
 
 
-def _mock_param_builder(fbc=None, fbp=None, event_source_url=None):
+def _mock_param_builder(fbc=None, fbp=None, event_source_url=None, referrer_url=None):
     """Builds a MagicMock that quacks like a ParamBuilder with the given
     extracted values. process_request_from_context is a no-op. Defaults
     every getter to None so unrelated tests do not see MagicMock-fabricated
@@ -22,6 +22,7 @@ def _mock_param_builder(fbc=None, fbp=None, event_source_url=None):
     pb.get_fbc.return_value = fbc
     pb.get_fbp.return_value = fbp
     pb.get_event_source_url.return_value = event_source_url
+    pb.get_referrer_url.return_value = referrer_url
     return pb
 
 
@@ -149,7 +150,9 @@ class EventRequestContextTest(TestCase):
 
     def test_preference_all_false_suppresses_every_auto_field(self):
         pb = _mock_param_builder(
-            fbc='XX', fbp='YY', event_source_url='https://shop.example.com/cart')
+            fbc='XX', fbp='YY',
+            event_source_url='https://shop.example.com/cart',
+            referrer_url='https://referrer.example.com/')
         pref = Preference(False, False, False, False, False)
         with patch(PB_PATH, return_value=pb):
             event = Event(event_name='PageView', event_time=1700000031)
@@ -160,6 +163,7 @@ class EventRequestContextTest(TestCase):
         self.assertNotIn('fbc', ud)
         self.assertNotIn('fbp', ud)
         self.assertIsNone(payload.get('event_source_url'))
+        self.assertIsNone(payload.get('referrer_url'))
 
     # ---------------------------------------------------------------------
     # Deferring extraction to normalize() makes call order between
@@ -216,6 +220,44 @@ class EventRequestContextTest(TestCase):
         self.assertEqual(
             event.normalize()['event_source_url'], 'https://from-caller/')
 
+    # ---------------------------------------------------------------------
+    # referrer_url auto-population from ParamBuilder.get_referrer_url
+    # ---------------------------------------------------------------------
+
+    def test_normalize_auto_populates_referrer_url(self):
+        pb = _mock_param_builder(referrer_url='https://google.com/search?q=foo')
+        with patch(PB_PATH, return_value=pb):
+            event = Event(event_name='PageView', event_time=1700000070)
+            event.set_request_context({})
+
+        payload = event.normalize()
+        self.assertEqual(payload['referrer_url'], 'https://google.com/search?q=foo')
+
+    def test_caller_supplied_referrer_url_takes_precedence_over_builder(self):
+        pb = _mock_param_builder(referrer_url='https://builder.example.com/')
+        with patch(PB_PATH, return_value=pb):
+            event = Event(
+                event_name='Lead',
+                event_time=1700000071,
+                referrer_url='https://caller.example.com/',
+            )
+            event.set_request_context({})
+
+        self.assertEqual(
+            event.normalize()['referrer_url'], 'https://caller.example.com/')
+
+    def test_preference_referrer_url_false_gates_referrer_url(self):
+        pb = _mock_param_builder(
+            fbc='WITHFBC', referrer_url='https://builder.example.com/')
+        pref = Preference(True, True, True, False, True)
+        with patch(PB_PATH, return_value=pb):
+            event = Event(event_name='PageView', event_time=1700000072)
+            event.set_request_context({}, pref)
+
+        payload = event.normalize()
+        self.assertEqual(payload['user_data']['fbc'], 'WITHFBC')
+        self.assertIsNone(payload.get('referrer_url'))
+
     def test_preference_event_source_url_false_gates_event_source_url(self):
         pb = _mock_param_builder(
             fbc='WITHFBC', event_source_url='https://from-builder/')
@@ -259,6 +301,7 @@ class RealParamBuilderIntegrationTest(TestCase):
         self.assertTrue(callable(getattr(pb, 'get_fbc', None)))
         self.assertTrue(callable(getattr(pb, 'get_fbp', None)))
         self.assertTrue(callable(getattr(pb, 'get_event_source_url', None)))
+        self.assertTrue(callable(getattr(pb, 'get_referrer_url', None)))
 
     def test_set_request_context_then_normalize_populates_fbp(self):
         # Real ParamBuilder, real request-shaped dict, no mocking.

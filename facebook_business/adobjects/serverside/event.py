@@ -50,14 +50,15 @@ class Event(object):
         'messaging_channel': 'MessagingChannel',
         'original_event_data': 'OriginalEventData',
         'attribution_data': 'AttributionData',
+        'referrer_url': 'str',
     }
 
     def __init__(self, event_name = None, event_time = None, event_source_url = None,
                  opt_out = None, event_id = None, user_data = None, custom_data = None,
                  app_data = None, data_processing_options = None, data_processing_options_country = None,
                  data_processing_options_state = None, action_source = None, advanced_measurement_table = None, messaging_channel = None,
-                 original_event_data = None, attribution_data = None):
-        # type: (str, int, str, bool, str, UserData, CustomData, AppData, list[str], int, int, ActionSource, str, MessagingChannel, OriginalEventData, AttributionData) -> None
+                 original_event_data = None, attribution_data = None, referrer_url = None):
+        # type: (str, int, str, bool, str, UserData, CustomData, AppData, list[str], int, int, ActionSource, str, MessagingChannel, OriginalEventData, AttributionData, str) -> None
 
         """Conversions API Event"""
         self._event_name = None
@@ -78,6 +79,7 @@ class Event(object):
         self._messaging_channel = None
         self._original_event_data = None
         self._attribution_data = None
+        self._referrer_url = None
         self._context = None
         self._preference = None
         self._param_builder = None
@@ -109,6 +111,8 @@ class Event(object):
             self.original_event_data = original_event_data
         if attribution_data is not None:
             self.attribution_data = attribution_data
+        if referrer_url is not None:
+            self.referrer_url = referrer_url
 
     @property
     def event_name(self):
@@ -186,6 +190,29 @@ class Event(object):
         """
 
         self._event_source_url = event_source_url
+
+    @property
+    def referrer_url(self):
+        """Gets the referrer_url of this Event.
+
+        The referrer URL of the browser request that triggered the event.
+
+        :return: The referrer_url of this Event.
+        :rtype: str
+        """
+        return self._referrer_url
+
+    @referrer_url.setter
+    def referrer_url(self, referrer_url):
+        """Sets the referrer_url of this Event.
+
+        The referrer URL of the browser request that triggered the event.
+
+        :param referrer_url: The referrer_url of this Event.
+        :type: str
+        """
+
+        self._referrer_url = referrer_url
 
     @property
     def opt_out(self):
@@ -539,6 +566,12 @@ class Event(object):
                 and builder_event_source_url):
             self.event_source_url = builder_event_source_url
 
+        builder_referrer_url = self._param_builder.get_referrer_url()
+        if (self._preference.is_referrer_url_allowed
+                and not self._referrer_url
+                and builder_referrer_url):
+            self.referrer_url = builder_referrer_url
+
     def get_request_context(self):
         """Gets the request context object.
 
@@ -562,7 +595,8 @@ class Event(object):
                               'event_id': self.event_id, 'data_processing_options': self.data_processing_options,
                               'data_processing_options_country' : self.data_processing_options_country,
                               'data_processing_options_state': self.data_processing_options_state,
-                              'advanced_measurement_table': self.advanced_measurement_table }
+                              'advanced_measurement_table': self.advanced_measurement_table,
+                              'referrer_url': self.referrer_url }
 
         if self.user_data is not None:
             normalized_payload['user_data'] = self.user_data.normalize()
