@@ -19,20 +19,24 @@ class Preference(object):
         'is_fbp_allowed': 'bool',
         'is_client_ip_address_allowed': 'bool',
         'is_referrer_url_allowed': 'bool',
+        'is_event_source_url_allowed': 'bool',
     }
 
     def __init__(self, is_fbc_allowed=True, is_fbp_allowed=True,
-                 is_client_ip_address_allowed=True, is_referrer_url_allowed=True):
-        # type: (bool, bool, bool, bool) -> None
+                 is_client_ip_address_allowed=True, is_referrer_url_allowed=True,
+                 is_event_source_url_allowed=True):
+        # type: (bool, bool, bool, bool, bool) -> None
 
         self._is_fbc_allowed = True
         self._is_fbp_allowed = True
         self._is_client_ip_address_allowed = True
         self._is_referrer_url_allowed = True
+        self._is_event_source_url_allowed = True
         self.is_fbc_allowed = is_fbc_allowed
         self.is_fbp_allowed = is_fbp_allowed
         self.is_client_ip_address_allowed = is_client_ip_address_allowed
         self.is_referrer_url_allowed = is_referrer_url_allowed
+        self.is_event_source_url_allowed = is_event_source_url_allowed
 
     @property
     def is_fbc_allowed(self):
@@ -113,6 +117,26 @@ class Preference(object):
         if not isinstance(is_referrer_url_allowed, bool):
             raise TypeError('Preference.is_referrer_url_allowed must be a bool')
         self._is_referrer_url_allowed = is_referrer_url_allowed
+
+    @property
+    def is_event_source_url_allowed(self):
+        """Gets whether event_source_url is allowed to be set from the request context.
+
+        :return: Whether event_source_url is allowed.
+        :rtype: bool
+        """
+        return self._is_event_source_url_allowed
+
+    @is_event_source_url_allowed.setter
+    def is_event_source_url_allowed(self, is_event_source_url_allowed):
+        """Sets whether event_source_url is allowed to be set from the request context.
+
+        :param is_event_source_url_allowed: Whether event_source_url is allowed.
+        :type: bool
+        """
+        if not isinstance(is_event_source_url_allowed, bool):
+            raise TypeError('Preference.is_event_source_url_allowed must be a bool')
+        self._is_event_source_url_allowed = is_event_source_url_allowed
 
     def to_dict(self):
         """Returns the model properties as a dict"""
