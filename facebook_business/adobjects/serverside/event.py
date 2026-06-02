@@ -492,10 +492,11 @@ class Event(object):
     def set_request_context(self, context, preference=None):
         """Sets the request context and optional preference for automatic data extraction.
 
-        This triggers CAPI ParamBuilder to extract parameters like fbc, fbp,
-        client_ip_address, and referrer_url from the context object and automatically
-        set them on the event. The preference object controls which data are allowed
-        to be set. If no preference is provided, all fields default to true.
+        Stores the context and constructs a CAPI ParamBuilder; extraction of
+        parameters (fbc, fbp, ...) into UserData is deferred until normalize()
+        runs at send time, so call order with user_data assignment does not
+        matter. The preference object controls which data are allowed to be
+        auto-set. If no preference is provided, all fields default to true.
 
         :param context: The context object (e.g. HTTP request object).
         :param preference: Optional Preference object to control auto-extraction.
@@ -509,6 +510,16 @@ class Event(object):
         self._preference = preference if preference is not None else Preference()
         self._param_builder = ParamBuilder()
         self._param_builder.process_request_from_context(context)
+        return self
+
+    def _apply_param_builder_defaults(self):
+        """Fills empty UserData fields from the ParamBuilder-extracted values,
+        gated by Preference. No-op when set_request_context was never called.
+        Idempotent: only fills fields that are currently empty, so the user's
+        explicit UserData values always take precedence regardless of call order.
+        """
+        if self._param_builder is None or self._preference is None:
+            return
 
         user_data = self._user_data if self._user_data is not None else UserData()
 
@@ -521,8 +532,6 @@ class Event(object):
             user_data.fbp = builder_fbp
 
         self._user_data = user_data
-
-        return self
 
     def get_request_context(self):
         """Gets the request context object.
@@ -540,6 +549,8 @@ class Event(object):
         return self._preference
 
     def normalize(self):
+        self._apply_param_builder_defaults()
+
         normalized_payload = {'event_name': self.event_name, 'event_time': self.event_time,
                               'event_source_url': self.event_source_url, 'opt_out': self.opt_out,
                               'event_id': self.event_id, 'data_processing_options': self.data_processing_options,
