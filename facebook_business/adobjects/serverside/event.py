@@ -509,6 +509,19 @@ class Event(object):
         self._preference = preference if preference is not None else Preference()
         self._param_builder = ParamBuilder()
         self._param_builder.process_request_from_context(context)
+
+        user_data = self._user_data if self._user_data is not None else UserData()
+
+        builder_fbc = self._param_builder.get_fbc()
+        if self._preference.is_fbc_allowed and not user_data.fbc and builder_fbc:
+            user_data.fbc = builder_fbc
+
+        builder_fbp = self._param_builder.get_fbp()
+        if self._preference.is_fbp_allowed and not user_data.fbp and builder_fbp:
+            user_data.fbp = builder_fbp
+
+        self._user_data = user_data
+
         return self
 
     def get_request_context(self):
