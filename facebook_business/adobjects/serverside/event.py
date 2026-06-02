@@ -513,10 +513,10 @@ class Event(object):
         return self
 
     def _apply_param_builder_defaults(self):
-        """Fills empty UserData fields from the ParamBuilder-extracted values,
-        gated by Preference. No-op when set_request_context was never called.
-        Idempotent: only fills fields that are currently empty, so the user's
-        explicit UserData values always take precedence regardless of call order.
+        """Fills empty UserData and Event fields from the ParamBuilder-extracted
+        values, gated by Preference. No-op when set_request_context was never
+        called. Idempotent: only fills fields that are currently empty, so the
+        caller's explicit values always take precedence regardless of call order.
         """
         if self._param_builder is None or self._preference is None:
             return
@@ -532,6 +532,12 @@ class Event(object):
             user_data.fbp = builder_fbp
 
         self._user_data = user_data
+
+        builder_event_source_url = self._param_builder.get_event_source_url()
+        if (self._preference.is_event_source_url_allowed
+                and not self._event_source_url
+                and builder_event_source_url):
+            self.event_source_url = builder_event_source_url
 
     def get_request_context(self):
         """Gets the request context object.
