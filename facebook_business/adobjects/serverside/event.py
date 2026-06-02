@@ -29,6 +29,7 @@ from facebook_business.adobjects.serverside.messaging_channel import MessagingCh
 from facebook_business.adobjects.serverside.original_event_data import OriginalEventData
 from facebook_business.adobjects.serverside.attribution_data import AttributionData
 from facebook_business.adobjects.serverside.preference import Preference
+from capi_param_builder import ParamBuilder
 
 
 class Event(object):
@@ -79,6 +80,7 @@ class Event(object):
         self._attribution_data = None
         self._context = None
         self._preference = None
+        self._param_builder = None
         if event_source_url is not None:
             self.event_source_url = event_source_url
         if opt_out is not None:
@@ -505,6 +507,8 @@ class Event(object):
 
         self._context = context
         self._preference = preference if preference is not None else Preference()
+        self._param_builder = ParamBuilder()
+        self._param_builder.process_request_from_context(context)
         return self
 
     def get_request_context(self):
