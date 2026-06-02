@@ -28,6 +28,7 @@ from facebook_business.adobjects.serverside.app_data import AppData
 from facebook_business.adobjects.serverside.messaging_channel import MessagingChannel
 from facebook_business.adobjects.serverside.original_event_data import OriginalEventData
 from facebook_business.adobjects.serverside.attribution_data import AttributionData
+from facebook_business.adobjects.serverside.preference import Preference
 
 
 class Event(object):
@@ -76,6 +77,8 @@ class Event(object):
         self._messaging_channel = None
         self._original_event_data = None
         self._attribution_data = None
+        self._context = None
+        self._preference = None
         if event_source_url is not None:
             self.event_source_url = event_source_url
         if opt_out is not None:
@@ -483,6 +486,41 @@ class Event(object):
         :type: AttributionData
         """
         self._attribution_data = attribution_data
+
+    def set_request_context(self, context, preference=None):
+        """Sets the request context and optional preference for automatic data extraction.
+
+        This triggers CAPI ParamBuilder to extract parameters like fbc, fbp,
+        client_ip_address, and referrer_url from the context object and automatically
+        set them on the event. The preference object controls which data are allowed
+        to be set. If no preference is provided, all fields default to true.
+
+        :param context: The context object (e.g. HTTP request object).
+        :param preference: Optional Preference object to control auto-extraction.
+        :type preference: Preference
+        :return: self
+        """
+        if preference is not None and not isinstance(preference, Preference):
+            raise TypeError('Event.preference must be of type Preference')
+
+        self._context = context
+        self._preference = preference if preference is not None else Preference()
+        return self
+
+    def get_request_context(self):
+        """Gets the request context object.
+
+        :return: The request context.
+        """
+        return self._context
+
+    def get_preference(self):
+        """Gets the Preference object.
+
+        :return: The Preference object.
+        :rtype: Preference
+        """
+        return self._preference
 
     def normalize(self):
         normalized_payload = {'event_name': self.event_name, 'event_time': self.event_time,
