@@ -303,22 +303,68 @@ class RealParamBuilderIntegrationTest(TestCase):
         self.assertTrue(callable(getattr(pb, 'get_event_source_url', None)))
         self.assertTrue(callable(getattr(pb, 'get_referrer_url', None)))
 
+    # WSGI environ-style context — the shape RequestContextAdaptor actually
+    # reads (HTTP_HOST / HTTP_COOKIE / HTTP_REFERER / REQUEST_URI). A nested
+    # {'headers': {...}} dict is silently ignored by the adaptor, in which case
+    # the builder fabricates a fresh fbp instead of extracting the cookie — so
+    # these tests use the flat shape and assert on the supplied cookie value.
+    # The builder appends an appendix token to every value, hence startswith().
+    @staticmethod
+    def _wsgi_ctx():
+        return {
+            'HTTP_HOST': 'shop.example.com',
+            'HTTP_COOKIE':
+                '_fbc=fb.1.1700000000000.AbCdEf12345; '
+                '_fbp=fb.1.1700000000000.987654321',
+            'HTTP_REFERER': 'https://google.com/search?q=foo',
+            'REQUEST_URI': '/cart',
+            'wsgi.url_scheme': 'https',
+        }
+
     def test_set_request_context_then_normalize_populates_fbp(self):
-        # Real ParamBuilder, real request-shaped dict, no mocking.
-        # The builder regenerates `fbp` from the cookie, so we assert the
-        # output is a non-empty `fb.*` value rather than echoing the input.
+        # Real ParamBuilder, real WSGI-shaped context, no mocking. The _fbp
+        # cookie is extracted by the upstream package and lands on UserData.
         event = (
             Event(event_name='PageView', event_time=1700000000)
-            .set_request_context({
-                'headers': {
-                    'host': 'shop.example.com',
-                    'cookie': '_fbp=fb.1.1700000000000.987654321',
-                },
-                'url': '/',
-            })
+            .set_request_context(self._wsgi_ctx())
         )
-        payload = event.normalize()
-        fbp = payload.get('user_data', {}).get('fbp')
+        fbp = event.normalize().get('user_data', {}).get('fbp')
         self.assertIsNotNone(fbp, 'fbp should be auto-populated by ParamBuilder')
-        self.assertTrue(fbp.startswith('fb.'),
-                        'fbp should follow the fb.* shape, got: ' + repr(fbp))
+        self.assertTrue(
+            fbp.startswith('fb.1.1700000000000.987654321'),
+            'fbp should be extracted from the _fbp cookie, got: ' + repr(fbp))
+
+    def test_real_builder_auto_populates_fbc_from_cookie(self):
+        payload = (Event(event_name='PageView', event_time=1700000010)
+                   .set_request_context(self._wsgi_ctx()).normalize())
+        fbc = payload['user_data']['fbc']
+        self.assertTrue(fbc.startswith('fb.1.1700000000000.AbCdEf12345'),
+                        'fbc not extracted from cookie: ' + repr(fbc))
+
+    def test_real_builder_auto_populates_event_source_url(self):
+        payload = (Event(event_name='PageView', event_time=1700000060)
+                   .set_request_context(self._wsgi_ctx()).normalize())
+        esu = payload['event_source_url']
+        self.assertTrue(esu.startswith('https://shop.example.com/cart'),
+                        'event_source_url not built from host+uri: ' + repr(esu))
+
+    def test_real_builder_auto_populates_referrer_url(self):
+        payload = (Event(event_name='PageView', event_time=1700000070)
+                   .set_request_context(self._wsgi_ctx()).normalize())
+        ref = payload['referrer_url']
+        self.assertTrue(ref.startswith('https://google.com/search?q=foo'),
+                        'referrer_url not extracted from referer: ' + repr(ref))
+
+    def test_real_builder_caller_value_takes_precedence(self):
+        payload = (Event(event_name='Lead', event_time=1700000020,
+                         user_data=UserData(fbc='CALLER_FBC'))
+                   .set_request_context(self._wsgi_ctx()).normalize())
+        self.assertEqual(payload['user_data']['fbc'], 'CALLER_FBC')
+
+    def test_real_builder_preference_gates_fbp_but_keeps_fbc(self):
+        pref = Preference(True, False, True, True, True)  # fbp disallowed
+        payload = (Event(event_name='PageView', event_time=1700000030)
+                   .set_request_context(self._wsgi_ctx(), pref).normalize())
+        self.assertTrue(payload['user_data']['fbc']
+                        .startswith('fb.1.1700000000000.AbCdEf12345'))
+        self.assertNotIn('fbp', payload['user_data'])
