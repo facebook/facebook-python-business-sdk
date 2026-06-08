@@ -31,6 +31,7 @@ class CopyrightAudioAsset(
         audio_library_policy = 'audio_library_policy'
         creation_time = 'creation_time'
         id = 'id'
+        reference_file_isrcs = 'reference_file_isrcs'
         reference_files = 'reference_files'
         title = 'title'
         update_time = 'update_time'
@@ -40,6 +41,7 @@ class CopyrightAudioAsset(
         'audio_library_policy': 'list<map<string, list<map<string, Object>>>>',
         'creation_time': 'datetime',
         'id': 'string',
+        'reference_file_isrcs': 'list<string>',
         'reference_files': 'list<Object>',
         'title': 'string',
         'update_time': 'datetime',

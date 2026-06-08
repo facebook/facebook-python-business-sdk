@@ -282,13 +282,16 @@ class IGUserForIGOnlyAPI(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'alt_text': 'string',
+            'audio_configuration': 'string',
             'audio_name': 'string',
+            'branded_content_sponsor_ids': 'list<unsigned int>',
             'caption': 'string',
             'children': 'list<string>',
             'collaborators': 'list<string>',
             'cover_url': 'string',
             'image_url': 'string',
             'is_carousel_item': 'bool',
+            'is_paid_partnership': 'bool',
             'location_id': 'string',
             'media_type': 'string',
             'product_tags': 'list<map>',
@@ -678,6 +681,7 @@ class IGUserForIGOnlyAPI(
         }
         enums = {
             'subscribed_fields_enum': [
+                'agent_messages',
                 'comment_poll_response',
                 'comments',
                 'creator_marketplace_invited_creator_onboarding',

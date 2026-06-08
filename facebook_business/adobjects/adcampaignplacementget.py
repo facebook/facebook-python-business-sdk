@@ -36,10 +36,12 @@ class AdCampaignPlacementGet(
 
     class EffectiveAudienceNetworkPositions:
         classic = 'CLASSIC'
+        ctv_instream_video = 'CTV_INSTREAM_VIDEO'
         instream_video = 'INSTREAM_VIDEO'
         rewarded_video = 'REWARDED_VIDEO'
 
     class EffectiveDevicePlatforms:
+        connected_tv = 'CONNECTED_TV'
         desktop = 'DESKTOP'
         mobile = 'MOBILE'
 

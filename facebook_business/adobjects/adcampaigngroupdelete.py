@@ -14,13 +14,13 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class ProductCatalogMediaTitleDelete(
+class AdCampaignGroupDelete(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(ProductCatalogMediaTitleDelete, self).__init__()
-        self._isProductCatalogMediaTitleDelete = True
+        super(AdCampaignGroupDelete, self).__init__()
+        self._isAdCampaignGroupDelete = True
         self._api = api
 
     class Field(AbstractObject.Field):

@@ -41,14 +41,21 @@ class IGMedia(
         is_shared_to_feed = 'is_shared_to_feed'
         legacy_instagram_media_id = 'legacy_instagram_media_id'
         like_count = 'like_count'
+        media_audio_type = 'media_audio_type'
         media_product_type = 'media_product_type'
         media_type = 'media_type'
         media_url = 'media_url'
         owner = 'owner'
         permalink = 'permalink'
+        reposts_count = 'reposts_count'
+        saved_count = 'saved_count'
+        shares_count = 'shares_count'
         shortcode = 'shortcode'
         thumbnail_url = 'thumbnail_url'
         timestamp = 'timestamp'
+        total_comments_count = 'total_comments_count'
+        total_like_count = 'total_like_count'
+        total_views_count = 'total_views_count'
         username = 'username'
         video_title = 'video_title'
         view_count = 'view_count'
@@ -554,14 +561,21 @@ class IGMedia(
         'is_shared_to_feed': 'bool',
         'legacy_instagram_media_id': 'string',
         'like_count': 'int',
+        'media_audio_type': 'string',
         'media_product_type': 'string',
         'media_type': 'string',
         'media_url': 'string',
         'owner': 'IGUser',
         'permalink': 'string',
+        'reposts_count': 'int',
+        'saved_count': 'int',
+        'shares_count': 'int',
         'shortcode': 'string',
         'thumbnail_url': 'string',
         'timestamp': 'datetime',
+        'total_comments_count': 'int',
+        'total_like_count': 'int',
+        'total_views_count': 'int',
         'username': 'string',
         'video_title': 'string',
         'view_count': 'int',

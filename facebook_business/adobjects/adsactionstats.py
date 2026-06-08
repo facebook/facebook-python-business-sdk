@@ -66,6 +66,7 @@ class AdsActionStats(
         action_video_asset_id = 'action_video_asset_id'
         action_video_sound = 'action_video_sound'
         action_video_type = 'action_video_type'
+        custom = 'custom'
         dda = 'dda'
         incrementality = 'incrementality'
         incrementality_all_conversions = 'incrementality_all_conversions'
@@ -125,6 +126,7 @@ class AdsActionStats(
         'action_video_asset_id': 'string',
         'action_video_sound': 'string',
         'action_video_type': 'string',
+        'custom': 'string',
         'dda': 'string',
         'incrementality': 'string',
         'incrementality_all_conversions': 'string',

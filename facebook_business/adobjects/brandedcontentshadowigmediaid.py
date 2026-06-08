@@ -30,6 +30,7 @@ class BrandedContentShadowIGMediaID(
         eligibility_errors = 'eligibility_errors'
         has_permission_for_partnership_ad = 'has_permission_for_partnership_ad'
         id = 'id'
+        is_creator_allowlisted = 'is_creator_allowlisted'
         linked_products = 'linked_products'
         owner_id = 'owner_id'
         permalink = 'permalink'
@@ -44,6 +45,7 @@ class BrandedContentShadowIGMediaID(
         'eligibility_errors': 'list<string>',
         'has_permission_for_partnership_ad': 'bool',
         'id': 'string',
+        'is_creator_allowlisted': 'bool',
         'linked_products': 'list<ProductItem>',
         'owner_id': 'string',
         'permalink': 'string',

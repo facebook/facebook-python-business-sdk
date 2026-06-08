@@ -24,15 +24,15 @@ class TargetingSubscriberUniverse(
         self._api = api
 
     class Field(AbstractObject.Field):
+        messaging_customer_base_for_whatsapp = 'messaging_customer_base_for_whatsapp'
         messenger_subscriber_pool = 'messenger_subscriber_pool'
         messenger_subscriber_source = 'messenger_subscriber_source'
-        whatsapp_subscriber_pool = 'whatsapp_subscriber_pool'
         whatsapp_subscriber_source = 'whatsapp_subscriber_source'
 
     _field_types = {
+        'messaging_customer_base_for_whatsapp': 'IDName',
         'messenger_subscriber_pool': 'IDName',
         'messenger_subscriber_source': 'IDName',
-        'whatsapp_subscriber_pool': 'IDName',
         'whatsapp_subscriber_source': 'IDName',
     }
     @classmethod

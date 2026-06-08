@@ -42,19 +42,17 @@ class InstagramInsightsResult(
         surface_type = 'surface_type'
 
     class Metric:
-        clips_replays_count = 'clips_replays_count'
         comments = 'comments'
         content_views = 'content_views'
         crossposted_views = 'crossposted_views'
         facebook_views = 'facebook_views'
         follows = 'follows'
-        ig_reels_aggregated_all_plays_count = 'ig_reels_aggregated_all_plays_count'
         ig_reels_avg_watch_time = 'ig_reels_avg_watch_time'
         ig_reels_video_view_total_time = 'ig_reels_video_view_total_time'
         impressions = 'impressions'
         likes = 'likes'
+        link_clicks = 'link_clicks'
         navigation = 'navigation'
-        plays = 'plays'
         profile_activity = 'profile_activity'
         profile_visits = 'profile_visits'
         reach = 'reach'
@@ -67,7 +65,6 @@ class InstagramInsightsResult(
         total_interactions = 'total_interactions'
         total_likes = 'total_likes'
         total_views = 'total_views'
-        video_views = 'video_views'
         views = 'views'
 
     class Period:

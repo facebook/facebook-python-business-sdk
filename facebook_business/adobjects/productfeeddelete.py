@@ -14,24 +14,20 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class ProductSetArticlesAndPublicationsGet(
+class ProductFeedDelete(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(ProductSetArticlesAndPublicationsGet, self).__init__()
-        self._isProductSetArticlesAndPublicationsGet = True
+        super(ProductFeedDelete, self).__init__()
+        self._isProductFeedDelete = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        data = 'data'
-        paging = 'paging'
-        summary = 'summary'
+        success = 'success'
 
     _field_types = {
-        'data': 'list<object>',
-        'paging': 'object',
-        'summary': 'object',
+        'success': 'bool',
     }
     @classmethod
     def _get_field_enum_info(cls):

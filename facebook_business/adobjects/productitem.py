@@ -84,6 +84,8 @@ class ProductItem(
         material = 'material'
         mobile_link = 'mobile_link'
         name = 'name'
+        offer_disclaimer = 'offer_disclaimer'
+        offer_disclaimer_url = 'offer_disclaimer_url'
         ordering_index = 'ordering_index'
         origin_country = 'origin_country'
         overall_ranking = 'overall_ranking'
@@ -159,6 +161,7 @@ class ProductItem(
         available_for_order = 'available for order'
         discontinued = 'discontinued'
         in_stock = 'in stock'
+        mark_as_expired = 'mark_as_expired'
         mark_as_sold = 'mark_as_sold'
         out_of_stock = 'out of stock'
         pending = 'pending'
@@ -519,6 +522,7 @@ class ProductItem(
         item_price_not_positive = 'ITEM_PRICE_NOT_POSITIVE'
         item_stale_out_of_stock = 'ITEM_STALE_OUT_OF_STOCK'
         marketplace_disabled_by_user = 'MARKETPLACE_DISABLED_BY_USER'
+        marketplace_not_shipped_item = 'MARKETPLACE_NOT_SHIPPED_ITEM'
         marketplace_partner_auction_no_bid_close_time = 'MARKETPLACE_PARTNER_AUCTION_NO_BID_CLOSE_TIME'
         marketplace_partner_currency_not_valid = 'MARKETPLACE_PARTNER_CURRENCY_NOT_VALID'
         marketplace_partner_distribution_disabled = 'MARKETPLACE_PARTNER_DISTRIBUTION_DISABLED'
@@ -532,6 +536,10 @@ class ProductItem(
         marketplace_partner_rule_listing_limit_exceeded = 'MARKETPLACE_PARTNER_RULE_LISTING_LIMIT_EXCEEDED'
         marketplace_partner_seller_banned = 'MARKETPLACE_PARTNER_SELLER_BANNED'
         marketplace_partner_seller_not_valid = 'MARKETPLACE_PARTNER_SELLER_NOT_VALID'
+        marketplace_shipped_item_expired = 'MARKETPLACE_SHIPPED_ITEM_EXPIRED'
+        marketplace_shipped_item_not_available = 'MARKETPLACE_SHIPPED_ITEM_NOT_AVAILABLE'
+        marketplace_shipped_seller_feature_banned = 'MARKETPLACE_SHIPPED_SELLER_FEATURE_BANNED'
+        marketplace_shipped_seller_not_fully_onboarded = 'MARKETPLACE_SHIPPED_SELLER_NOT_FULLY_ONBOARDED'
         mini_shops_disabled_by_user = 'MINI_SHOPS_DISABLED_BY_USER'
         missing_checkout = 'MISSING_CHECKOUT'
         missing_checkout_currency = 'MISSING_CHECKOUT_CURRENCY'
@@ -582,6 +590,7 @@ class ProductItem(
         retailer_id_not_provided = 'RETAILER_ID_NOT_PROVIDED'
         retailer_id_used_by_group = 'RETAILER_ID_USED_BY_GROUP'
         shopify_invalid_retailer_id = 'SHOPIFY_INVALID_RETAILER_ID'
+        shopify_item_missing_delivery_profile_zero_inventory = 'SHOPIFY_ITEM_MISSING_DELIVERY_PROFILE_ZERO_INVENTORY'
         shopify_item_missing_shipping_profile = 'SHOPIFY_ITEM_MISSING_SHIPPING_PROFILE'
         shops_policy_violation = 'SHOPS_POLICY_VIOLATION'
         subscription_info_not_enabled_for_feed = 'SUBSCRIPTION_INFO_NOT_ENABLED_FOR_FEED'
@@ -596,6 +605,8 @@ class ProductItem(
         video_fetch_failed_file_size_exceeded = 'VIDEO_FETCH_FAILED_FILE_SIZE_EXCEEDED'
         video_fetch_failed_forbidden = 'VIDEO_FETCH_FAILED_FORBIDDEN'
         video_fetch_failed_link_broken = 'VIDEO_FETCH_FAILED_LINK_BROKEN'
+        video_fetch_failed_rate_limited = 'VIDEO_FETCH_FAILED_RATE_LIMITED'
+        video_fetch_failed_server_error = 'VIDEO_FETCH_FAILED_SERVER_ERROR'
         video_fetch_failed_timed_out = 'VIDEO_FETCH_FAILED_TIMED_OUT'
         video_issue_generic = 'VIDEO_ISSUE_GENERIC'
         video_not_downloadable = 'VIDEO_NOT_DOWNLOADABLE'
@@ -1245,6 +1256,8 @@ class ProductItem(
         'material': 'string',
         'mobile_link': 'string',
         'name': 'string',
+        'offer_disclaimer': 'string',
+        'offer_disclaimer_url': 'string',
         'ordering_index': 'int',
         'origin_country': 'string',
         'overall_ranking': 'int',

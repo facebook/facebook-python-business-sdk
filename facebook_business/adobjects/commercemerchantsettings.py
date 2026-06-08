@@ -29,7 +29,6 @@ class CommerceMerchantSettings(
     class Field(AbstractObject.Field):
         checkout_config = 'checkout_config'
         contact_email = 'contact_email'
-        cta = 'cta'
         display_name = 'display_name'
         facebook_channel = 'facebook_channel'
         id = 'id'
@@ -169,40 +168,6 @@ class CommerceMerchantSettings(
             target_class=CommercePayout,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=CommercePayout, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def get_commerce_transactions(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.commerceordertransactiondetail import CommerceOrderTransactionDetail
-        param_types = {
-            'end_time': 'datetime',
-            'payout_reference_id': 'string',
-            'start_time': 'datetime',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/commerce_transactions',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=CommerceOrderTransactionDetail,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=CommerceOrderTransactionDetail, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -450,7 +415,6 @@ class CommerceMerchantSettings(
     _field_types = {
         'checkout_config': 'string',
         'contact_email': 'string',
-        'cta': 'string',
         'display_name': 'string',
         'facebook_channel': 'Object',
         'id': 'string',

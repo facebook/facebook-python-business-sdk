@@ -49,6 +49,7 @@ class Targeting(
         education_schools = 'education_schools'
         education_statuses = 'education_statuses'
         effective_audience_network_positions = 'effective_audience_network_positions'
+        effective_brand_safety_content_filter_levels = 'effective_brand_safety_content_filter_levels'
         effective_device_platforms = 'effective_device_platforms'
         effective_facebook_positions = 'effective_facebook_positions'
         effective_instagram_positions = 'effective_instagram_positions'
@@ -108,6 +109,7 @@ class Targeting(
         regions = 'regions'
         relationship_statuses = 'relationship_statuses'
         site_category = 'site_category'
+        subscriber_universe = 'subscriber_universe'
         targeting_automation = 'targeting_automation'
         targeting_optimization = 'targeting_optimization'
         targeting_relaxation_types = 'targeting_relaxation_types'
@@ -124,10 +126,12 @@ class Targeting(
         zips = 'zips'
 
     class DevicePlatforms:
+        connected_tv = 'connected_tv'
         desktop = 'desktop'
         mobile = 'mobile'
 
     class EffectiveDevicePlatforms:
+        connected_tv = 'connected_tv'
         desktop = 'desktop'
         mobile = 'mobile'
 
@@ -157,6 +161,7 @@ class Targeting(
         'education_schools': 'list<IDName>',
         'education_statuses': 'list<unsigned int>',
         'effective_audience_network_positions': 'list<string>',
+        'effective_brand_safety_content_filter_levels': 'list<string>',
         'effective_device_platforms': 'list<EffectiveDevicePlatforms>',
         'effective_facebook_positions': 'list<string>',
         'effective_instagram_positions': 'list<string>',
@@ -216,6 +221,7 @@ class Targeting(
         'regions': 'list<IDName>',
         'relationship_statuses': 'list<unsigned int>',
         'site_category': 'list<string>',
+        'subscriber_universe': 'TargetingSubscriberUniverse',
         'targeting_automation': 'TargetingAutomation',
         'targeting_optimization': 'string',
         'targeting_relaxation_types': 'TargetingRelaxation',

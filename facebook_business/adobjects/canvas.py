@@ -36,7 +36,6 @@ class Canvas(
         collection_thumbnails = 'collection_thumbnails'
         dynamic_setting = 'dynamic_setting'
         element_payload = 'element_payload'
-        elements = 'elements'
         fb_body_elements = 'fb_body_elements'
         hero_asset_facebook_post_id = 'hero_asset_facebook_post_id'
         hero_asset_instagram_media_id = 'hero_asset_instagram_media_id'
@@ -199,7 +198,6 @@ class Canvas(
         'collection_thumbnails': 'list<CanvasCollectionThumbnail>',
         'dynamic_setting': 'CanvasDynamicSetting',
         'element_payload': 'string',
-        'elements': 'list<RichMediaElement>',
         'fb_body_elements': 'list<Object>',
         'hero_asset_facebook_post_id': 'string',
         'hero_asset_instagram_media_id': 'string',

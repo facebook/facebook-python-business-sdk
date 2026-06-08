@@ -38,10 +38,11 @@ class ProductCatalogDataSources(
             'after': 'string',
             'before': 'string',
             'fields': 'string',
-            'ingestion_source_type': 'string',
+            'ingestion_source_type': 'ingestion_source_type_enum',
             'limit': 'int',
         }
         enums = {
+            'ingestion_source_type_enum': ProductCatalogDataSourcesGet.IngestionSourceType.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],

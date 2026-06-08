@@ -14,20 +14,24 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class CatalogGenericFeedsGet(
+class AdCreativeAppExperienceSpec(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(CatalogGenericFeedsGet, self).__init__()
-        self._isCatalogGenericFeedsGet = True
+        super(AdCreativeAppExperienceSpec, self).__init__()
+        self._isAdCreativeAppExperienceSpec = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        data = 'data'
+        reveal_details = 'reveal_details'
+        show_spotlights = 'show_spotlights'
+        website_summary = 'website_summary'
 
     _field_types = {
-        'data': 'list<object>',
+        'reveal_details': 'Object',
+        'show_spotlights': 'Object',
+        'website_summary': 'Object',
     }
     @classmethod
     def _get_field_enum_info(cls):

@@ -28,6 +28,7 @@ class IGUserExportForCAM(
 
     class Field(AbstractObject.Field):
         age_bucket = 'age_bucket'
+        badges = 'badges'
         biography = 'biography'
         country = 'country'
         email = 'email'
@@ -35,6 +36,7 @@ class IGUserExportForCAM(
         has_brand_partnership_experience = 'has_brand_partnership_experience'
         id = 'id'
         is_account_verified = 'is_account_verified'
+        is_creator_following_brand = 'is_creator_following_brand'
         is_paid_partnership_messages_enabled = 'is_paid_partnership_messages_enabled'
         messaging_id = 'messaging_id'
         onboarded_status = 'onboarded_status'
@@ -563,6 +565,13 @@ class IGUserExportForCAM(
         male = 'male'
         unknown = 'unknown'
 
+    class RecommendationType:
+        high_ad_performance = 'high_ad_performance'
+        most_ads_experience = 'most_ads_experience'
+        most_relevant_for_me = 'most_relevant_for_me'
+        similar_audience = 'similar_audience'
+        similar_brands = 'similar_brands'
+
     def get_branded_content_media(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -718,6 +727,7 @@ class IGUserExportForCAM(
 
     _field_types = {
         'age_bucket': 'string',
+        'badges': 'list<string>',
         'biography': 'string',
         'country': 'string',
         'email': 'string',
@@ -725,6 +735,7 @@ class IGUserExportForCAM(
         'has_brand_partnership_experience': 'bool',
         'id': 'string',
         'is_account_verified': 'bool',
+        'is_creator_following_brand': 'bool',
         'is_paid_partnership_messages_enabled': 'bool',
         'messaging_id': 'string',
         'onboarded_status': 'bool',
@@ -740,6 +751,7 @@ class IGUserExportForCAM(
         field_enum_info['CreatorGender'] = IGUserExportForCAM.CreatorGender.__dict__.values()
         field_enum_info['MajorAudienceCountries'] = IGUserExportForCAM.MajorAudienceCountries.__dict__.values()
         field_enum_info['MajorAudienceGender'] = IGUserExportForCAM.MajorAudienceGender.__dict__.values()
+        field_enum_info['RecommendationType'] = IGUserExportForCAM.RecommendationType.__dict__.values()
         return field_enum_info
 
 

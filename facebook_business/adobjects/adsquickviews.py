@@ -31,11 +31,13 @@ class AdsQuickViews(
         breakdowns = 'breakdowns'
         column_fields = 'column_fields'
         description = 'description'
+        grouping = 'grouping'
         id = 'id'
         is_attribution_windows_disabled = 'is_attribution_windows_disabled'
         is_breakdowns_disabled = 'is_breakdowns_disabled'
         is_columns_and_sort_disabled = 'is_columns_and_sort_disabled'
         is_filters_disabled = 'is_filters_disabled'
+        is_grouping_disabled = 'is_grouping_disabled'
         name = 'name'
         owner = 'owner'
         permission = 'permission'
@@ -78,11 +80,13 @@ class AdsQuickViews(
         'breakdowns': 'list<string>',
         'column_fields': 'list<string>',
         'description': 'string',
+        'grouping': 'string',
         'id': 'string',
         'is_attribution_windows_disabled': 'bool',
         'is_breakdowns_disabled': 'bool',
         'is_columns_and_sort_disabled': 'bool',
         'is_filters_disabled': 'bool',
+        'is_grouping_disabled': 'bool',
         'name': 'string',
         'owner': 'Profile',
         'permission': 'string',

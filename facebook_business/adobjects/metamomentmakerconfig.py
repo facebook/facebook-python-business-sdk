@@ -14,19 +14,20 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class CatalogSubscribedAppsDelete(
+class MetaMomentMakerConfig(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(CatalogSubscribedAppsDelete, self).__init__()
-        self._isCatalogSubscribedAppsDelete = True
+        super(MetaMomentMakerConfig, self).__init__()
+        self._isMetaMomentMakerConfig = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        pass
+        saturation_mode = 'saturation_mode'
 
     _field_types = {
+        'saturation_mode': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

@@ -14,24 +14,20 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class ProductCatalogImageSettingsInternal(
+class AdCampaignDelete(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(ProductCatalogImageSettingsInternal, self).__init__()
-        self._isProductCatalogImageSettingsInternal = True
+        super(AdCampaignDelete, self).__init__()
+        self._isAdCampaignDelete = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        carousel_ad = 'carousel_ad'
-        shops_pdp = 'shops_pdp'
-        single_ad = 'single_ad'
+        success = 'success'
 
     _field_types = {
-        'carousel_ad': 'ProductCatalogImageSettingsOperation',
-        'shops_pdp': 'ProductCatalogImageSettingsOperation',
-        'single_ad': 'ProductCatalogImageSettingsOperation',
+        'success': 'bool',
     }
     @classmethod
     def _get_field_enum_info(cls):

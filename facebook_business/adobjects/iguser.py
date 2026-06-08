@@ -29,6 +29,7 @@ class IGUser(
     class Field(AbstractObject.Field):
         biography = 'biography'
         business_discovery = 'business_discovery'
+        collaborative_media_search = 'collaborative_media_search'
         followers_count = 'followers_count'
         follows_count = 'follows_count'
         has_profile_pic = 'has_profile_pic'
@@ -641,12 +642,17 @@ class IGUser(
             'creator_max_followers': 'unsigned int',
             'creator_min_engaged_accounts': 'unsigned int',
             'creator_min_followers': 'unsigned int',
+            'creator_states': 'list<string>',
+            'custom_audience_id': 'string',
             'has_public_contact_email': 'bool',
+            'is_paid_partnership_messages_enabled': 'bool',
             'major_audience_age_bucket': 'list<Object>',
             'major_audience_countries': 'list<major_audience_countries_enum>',
             'major_audience_device_type': 'list<Object>',
             'major_audience_gender': 'list<major_audience_gender_enum>',
+            'major_audience_states': 'list<string>',
             'query': 'string',
+            'recommendation_type': 'recommendation_type_enum',
             'reels_interaction_rate': 'Object',
             'show_onboarded_creators_only': 'bool',
             'similar_to_creators': 'list<string>',
@@ -658,6 +664,7 @@ class IGUser(
             'creator_gender_enum': IGUserExportForCAM.CreatorGender.__dict__.values(),
             'major_audience_countries_enum': IGUserExportForCAM.MajorAudienceCountries.__dict__.values(),
             'major_audience_gender_enum': IGUserExportForCAM.MajorAudienceGender.__dict__.values(),
+            'recommendation_type_enum': IGUserExportForCAM.RecommendationType.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -925,13 +932,16 @@ class IGUser(
         from facebook_business.adobjects.igmedia import IGMedia
         param_types = {
             'alt_text': 'string',
+            'audio_configuration': 'string',
             'audio_name': 'string',
+            'branded_content_sponsor_ids': 'list<unsigned int>',
             'caption': 'string',
             'children': 'list<string>',
             'collaborators': 'list<string>',
             'cover_url': 'string',
             'image_url': 'string',
             'is_carousel_item': 'bool',
+            'is_paid_partnership': 'bool',
             'location_id': 'string',
             'media_type': 'string',
             'product_tags': 'list<map>',
@@ -1404,6 +1414,7 @@ class IGUser(
     _field_types = {
         'biography': 'string',
         'business_discovery': 'IGUser',
+        'collaborative_media_search': 'ShadowIGUserCollaborativeMedia',
         'followers_count': 'int',
         'follows_count': 'int',
         'has_profile_pic': 'bool',

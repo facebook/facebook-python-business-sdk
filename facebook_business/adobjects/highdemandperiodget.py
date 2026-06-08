@@ -18,19 +18,33 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class ProductCatalogMediaTitlesPost(
+class HighDemandPeriodGet(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isProductCatalogMediaTitlesPost = True
-        super(ProductCatalogMediaTitlesPost, self).__init__(fbid, parent_id, api)
+        self._isHighDemandPeriodGet = True
+        super(HighDemandPeriodGet, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        ad_object_id = 'ad_object_id'
+        budget_value = 'budget_value'
+        budget_value_type = 'budget_value_type'
         id = 'id'
+        recurrence_type = 'recurrence_type'
+        time_end = 'time_end'
+        time_start = 'time_start'
+        weekly_schedule = 'weekly_schedule'
 
     _field_types = {
+        'ad_object_id': 'string',
+        'budget_value': 'int',
+        'budget_value_type': 'string',
         'id': 'string',
+        'recurrence_type': 'string',
+        'time_end': 'string',
+        'time_start': 'string',
+        'weekly_schedule': 'list<object>',
     }
     @classmethod
     def _get_field_enum_info(cls):

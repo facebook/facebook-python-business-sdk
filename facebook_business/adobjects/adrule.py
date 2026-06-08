@@ -51,6 +51,7 @@ class AdRule(
         am_activity_history_table = 'AM_ACTIVITY_HISTORY_TABLE'
         am_ad_object_name_card = 'AM_AD_OBJECT_NAME_CARD'
         am_amfe_l3_recommendation = 'AM_AMFE_L3_RECOMMENDATION'
+        am_auto2_internal = 'AM_AUTO2_INTERNAL'
         am_autoflow_guidance_card = 'AM_AUTOFLOW_GUIDANCE_CARD'
         am_auto_apply_widget = 'AM_AUTO_APPLY_WIDGET'
         am_editor_card = 'AM_EDITOR_CARD'

@@ -34,6 +34,7 @@ class VideoCopyrightRule(
         id = 'id'
         is_in_migration = 'is_in_migration'
         name = 'name'
+        validity_status = 'validity_status'
 
     class Source:
         match_settings_dialog = 'MATCH_SETTINGS_DIALOG'
@@ -78,6 +79,7 @@ class VideoCopyrightRule(
         'id': 'string',
         'is_in_migration': 'bool',
         'name': 'string',
+        'validity_status': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

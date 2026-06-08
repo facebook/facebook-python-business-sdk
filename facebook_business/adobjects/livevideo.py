@@ -72,6 +72,7 @@ class LiveVideo(
     class StereoscopicMode:
         left_right = 'LEFT_RIGHT'
         mono = 'MONO'
+        multi_view = 'MULTI_VIEW'
         top_bottom = 'TOP_BOTTOM'
 
     class StreamType:

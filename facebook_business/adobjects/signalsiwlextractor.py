@@ -29,6 +29,7 @@ class SignalsIWLExtractor(
     class Field(AbstractObject.Field):
         domain_uri = 'domain_uri'
         event_type = 'event_type'
+        extractor_config = 'extractor_config'
         extractor_type = 'extractor_type'
         id = 'id'
 
@@ -65,6 +66,7 @@ class SignalsIWLExtractor(
     _field_types = {
         'domain_uri': 'string',
         'event_type': 'string',
+        'extractor_config': 'Object',
         'extractor_type': 'string',
         'id': 'string',
     }

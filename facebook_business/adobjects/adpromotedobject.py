@@ -27,6 +27,7 @@ class AdPromotedObject(
         application_id = 'application_id'
         boosted_product_set_id = 'boosted_product_set_id'
         conversion_goal_id = 'conversion_goal_id'
+        custom_attribution_source_ids = 'custom_attribution_source_ids'
         custom_conversion_id = 'custom_conversion_id'
         custom_event_str = 'custom_event_str'
         custom_event_type = 'custom_event_type'
@@ -35,10 +36,14 @@ class AdPromotedObject(
         event_id = 'event_id'
         full_funnel_objective = 'full_funnel_objective'
         fundraiser_campaign_id = 'fundraiser_campaign_id'
+        instagram_actor_id = 'instagram_actor_id'
+        job_listing_id = 'job_listing_id'
         lead_ads_custom_event_str = 'lead_ads_custom_event_str'
         lead_ads_custom_event_type = 'lead_ads_custom_event_type'
+        lead_ads_follow_up_event = 'lead_ads_follow_up_event'
         lead_ads_form_event_source_type = 'lead_ads_form_event_source_type'
         lead_ads_offsite_conversion_type = 'lead_ads_offsite_conversion_type'
+        lead_ads_quality_volume_setting = 'lead_ads_quality_volume_setting'
         lead_ads_selected_pixel_id = 'lead_ads_selected_pixel_id'
         live_video_destination = 'live_video_destination'
         mcme_conversion_id = 'mcme_conversion_id'
@@ -159,6 +164,7 @@ class AdPromotedObject(
         'application_id': 'string',
         'boosted_product_set_id': 'string',
         'conversion_goal_id': 'string',
+        'custom_attribution_source_ids': 'list<string>',
         'custom_conversion_id': 'string',
         'custom_event_str': 'string',
         'custom_event_type': 'CustomEventType',
@@ -167,14 +173,18 @@ class AdPromotedObject(
         'event_id': 'string',
         'full_funnel_objective': 'FullFunnelObjective',
         'fundraiser_campaign_id': 'string',
+        'instagram_actor_id': 'string',
+        'job_listing_id': 'string',
         'lead_ads_custom_event_str': 'string',
         'lead_ads_custom_event_type': 'LeadAdsCustomEventType',
+        'lead_ads_follow_up_event': 'string',
         'lead_ads_form_event_source_type': 'string',
         'lead_ads_offsite_conversion_type': 'string',
+        'lead_ads_quality_volume_setting': 'string',
         'lead_ads_selected_pixel_id': 'string',
         'live_video_destination': 'string',
         'mcme_conversion_id': 'string',
-        'multi_event_product': 'string',
+        'multi_event_product': 'int',
         'object_store_url': 'string',
         'object_store_urls': 'list<string>',
         'offer_id': 'string',

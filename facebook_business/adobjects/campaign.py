@@ -47,12 +47,15 @@ class Campaign(
         created_time = 'created_time'
         daily_budget = 'daily_budget'
         effective_status = 'effective_status'
+        frequency_control_specs = 'frequency_control_specs'
         has_secondary_skadnetwork_reporting = 'has_secondary_skadnetwork_reporting'
         id = 'id'
         is_adset_budget_sharing_enabled = 'is_adset_budget_sharing_enabled'
         is_budget_schedule_enabled = 'is_budget_schedule_enabled'
         is_direct_send_campaign = 'is_direct_send_campaign'
         is_message_campaign = 'is_message_campaign'
+        is_meta_moment_maker_enabled = 'is_meta_moment_maker_enabled'
+        is_reels_trending_ads_enabled = 'is_reels_trending_ads_enabled'
         is_skadnetwork_attribution = 'is_skadnetwork_attribution'
         issues_info = 'issues_info'
         last_budget_toggling_time = 'last_budget_toggling_time'
@@ -550,10 +553,13 @@ class Campaign(
             'budget_schedule_specs': 'list<Object>',
             'daily_budget': 'unsigned int',
             'execution_options': 'list<execution_options_enum>',
+            'frequency_control_specs': 'list<Object>',
             'is_adset_budget_sharing_enabled': 'bool',
             'is_budget_schedule_enabled': 'bool',
             'is_direct_send_campaign': 'bool',
             'is_message_campaign': 'bool',
+            'is_meta_moment_maker_enabled': 'bool',
+            'is_reels_trending_ads_enabled': 'bool',
             'is_skadnetwork_attribution': 'bool',
             'iterative_split_test_configs': 'list<Object>',
             'lifetime_budget': 'unsigned int',
@@ -1063,12 +1069,15 @@ class Campaign(
         'created_time': 'datetime',
         'daily_budget': 'string',
         'effective_status': 'EffectiveStatus',
+        'frequency_control_specs': 'list<AdCampaignFrequencyControlSpecs>',
         'has_secondary_skadnetwork_reporting': 'bool',
         'id': 'string',
         'is_adset_budget_sharing_enabled': 'bool',
         'is_budget_schedule_enabled': 'bool',
         'is_direct_send_campaign': 'bool',
         'is_message_campaign': 'bool',
+        'is_meta_moment_maker_enabled': 'bool',
+        'is_reels_trending_ads_enabled': 'bool',
         'is_skadnetwork_attribution': 'bool',
         'issues_info': 'list<AdCampaignIssuesInfo>',
         'last_budget_toggling_time': 'datetime',

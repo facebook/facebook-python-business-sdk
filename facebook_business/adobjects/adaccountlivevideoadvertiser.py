@@ -24,6 +24,7 @@ class AdAccountLiveVideoAdvertiser(
         self._api = api
 
     class Field(AbstractObject.Field):
+        ig_lva_default_duration_s = 'ig_lva_default_duration_s'
         is_lva_toggle_on = 'is_lva_toggle_on'
         lva_default_budget = 'lva_default_budget'
         lva_default_duration_s = 'lva_default_duration_s'
@@ -33,6 +34,7 @@ class AdAccountLiveVideoAdvertiser(
         should_show_lva_toggle = 'should_show_lva_toggle'
 
     _field_types = {
+        'ig_lva_default_duration_s': 'int',
         'is_lva_toggle_on': 'bool',
         'lva_default_budget': 'int',
         'lva_default_duration_s': 'int',

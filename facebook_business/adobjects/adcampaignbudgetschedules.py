@@ -18,35 +18,35 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class ProductCatalogMediaTitle(
+class AdCampaignBudgetSchedules(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isProductCatalogMediaTitle = True
-        super(ProductCatalogMediaTitle, self).__init__(fbid, parent_id, api)
+        self._isAdCampaignBudgetSchedules = True
+        super(AdCampaignBudgetSchedules, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
         id = 'id'
 
-    def gendelete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def genpost(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.productcatalogmediatitledelete import ProductCatalogMediaTitleDelete
+        from facebook_business.adobjects.adcampaignbudgetschedulespost import AdCampaignBudgetSchedulesPost
         param_types = {
         }
         enums = {
         }
         request = FacebookRequest(
             node_id=self['id'],
-            method='DELETE',
-            endpoint='/',
+            method='POST',
+            endpoint='/budget_schedules',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=ProductCatalogMediaTitleDelete,
+            target_class=AdCampaignBudgetSchedulesPost,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ProductCatalogMediaTitleDelete, api=self._api),
+            response_parser=ObjectParser(target_class=AdCampaignBudgetSchedulesPost, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

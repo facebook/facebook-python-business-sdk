@@ -18,19 +18,31 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class ProductCatalogAppsAndSoftwarePost(
+class ProductGroupGet(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isProductCatalogAppsAndSoftwarePost = True
-        super(ProductCatalogAppsAndSoftwarePost, self).__init__(fbid, parent_id, api)
+        self._isProductGroupGet = True
+        super(ProductGroupGet, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
         id = 'id'
+        mini_shops_product_sets_count = 'mini_shops_product_sets_count'
+        product_catalog = 'product_catalog'
+        products = 'products'
+        representative_item_id = 'representative_item_id'
+        retailer_id = 'retailer_id'
+        variants = 'variants'
 
     _field_types = {
-        'id': 'string',
+        'id': 'int',
+        'mini_shops_product_sets_count': 'int',
+        'product_catalog': 'object',
+        'products': 'object',
+        'representative_item_id': 'string',
+        'retailer_id': 'string',
+        'variants': 'list<object>',
     }
     @classmethod
     def _get_field_enum_info(cls):

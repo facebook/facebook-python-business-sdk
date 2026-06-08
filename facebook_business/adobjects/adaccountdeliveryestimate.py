@@ -49,6 +49,7 @@ class AdAccountDeliveryEstimate(
         link_clicks = 'LINK_CLICKS'
         meaningful_call_attempt = 'MEANINGFUL_CALL_ATTEMPT'
         messaging_appointment_conversion = 'MESSAGING_APPOINTMENT_CONVERSION'
+        messaging_deep_conversation_and_follow = 'MESSAGING_DEEP_CONVERSATION_AND_FOLLOW'
         messaging_purchase_conversion = 'MESSAGING_PURCHASE_CONVERSION'
         none = 'NONE'
         offsite_conversions = 'OFFSITE_CONVERSIONS'

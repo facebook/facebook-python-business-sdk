@@ -35,9 +35,6 @@ class ProductFeedRules(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.productfeedrulesget import ProductFeedRulesGet
         param_types = {
-            'after': 'string',
-            'before': 'string',
-            'limit': 'int',
         }
         enums = {
         }

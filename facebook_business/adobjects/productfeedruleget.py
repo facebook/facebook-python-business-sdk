@@ -41,8 +41,8 @@ class ProductFeedRuleGet(
 
     _field_types = {
         'attribute': 'string',
-        'id': 'string',
-        'params': 'map<string, string>',
+        'id': 'int',
+        'params': 'list<object>',
         'rule_type': 'RuleType',
     }
     @classmethod

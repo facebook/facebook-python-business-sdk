@@ -14,24 +14,32 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class CatalogGenericIngestionSessionErrorsGet(
+class ProductCatalogCheckBatchRequestStatusGet(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(CatalogGenericIngestionSessionErrorsGet, self).__init__()
-        self._isCatalogGenericIngestionSessionErrorsGet = True
+        super(ProductCatalogCheckBatchRequestStatusGet, self).__init__()
+        self._isProductCatalogCheckBatchRequestStatusGet = True
         self._api = api
 
     class Field(AbstractObject.Field):
         data = 'data'
+        paging = 'paging'
+
+    class ErrorPriority:
+        high = 'HIGH'
+        low = 'LOW'
+        medium = 'MEDIUM'
 
     _field_types = {
         'data': 'list<object>',
+        'paging': 'object',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['ErrorPriority'] = ProductCatalogCheckBatchRequestStatusGet.ErrorPriority.__dict__.values()
         return field_enum_info
 
 

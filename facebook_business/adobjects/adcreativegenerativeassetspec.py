@@ -24,9 +24,10 @@ class AdCreativeGenerativeAssetSpec(
         self._api = api
 
     class Field(AbstractObject.Field):
-        pass
+        transparency_metadata = 'transparency_metadata'
 
     _field_types = {
+        'transparency_metadata': 'Object',
     }
     @classmethod
     def _get_field_enum_info(cls):

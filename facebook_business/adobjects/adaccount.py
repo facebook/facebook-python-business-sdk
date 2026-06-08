@@ -88,6 +88,7 @@ class AdAccount(
         offsite_clo_signal_status = 'offsite_clo_signal_status'
         offsite_pixels_tos_accepted = 'offsite_pixels_tos_accepted'
         opportunity_score = 'opportunity_score'
+        opportunity_score_weight = 'opportunity_score_weight'
         owner = 'owner'
         owner_business = 'owner_business'
         partner = 'partner'
@@ -695,6 +696,7 @@ class AdAccount(
             'existing_post_title': 'string',
             'facebook_branded_content': 'map',
             'format_transformation_spec': 'list<map>',
+            'generative_asset_spec': 'map',
             'image_crops': 'map',
             'image_file': 'string',
             'image_hash': 'string',
@@ -732,6 +734,7 @@ class AdAccount(
             'title': 'string',
             'url_tags': 'string',
             'use_page_actor_override': 'bool',
+            'wamo_whatsapp_identity_spec': 'map',
         }
         enums = {
             'applink_treatment_enum': AdCreative.ApplinkTreatment.__dict__.values(),
@@ -1192,6 +1195,7 @@ class AdAccount(
             'conversion_domain': 'string',
             'creative': 'AdCreative',
             'creative_asset_groups_spec': 'Object',
+            'creative_automation_spec': 'Object',
             'date_format': 'string',
             'display_sequence': 'unsigned int',
             'draft_adgroup_id': 'string',
@@ -1409,6 +1413,7 @@ class AdAccount(
         param_types = {
             'adlabels': 'list<Object>',
             'adset_schedule': 'list<Object>',
+            'attribution_count_type': 'attribution_count_type_enum',
             'attribution_spec': 'list<map>',
             'automatic_manual_state': 'automatic_manual_state_enum',
             'bid_adjustments': 'Object',
@@ -1422,6 +1427,7 @@ class AdAccount(
             'campaign_attribution': 'Object',
             'campaign_id': 'string',
             'campaign_spec': 'Object',
+            'cost_bidding_mode': 'cost_bidding_mode_enum',
             'creative_sequence': 'list<string>',
             'creative_sequence_repetition_pattern': 'creative_sequence_repetition_pattern_enum',
             'daily_budget': 'unsigned int',
@@ -1439,6 +1445,7 @@ class AdAccount(
             'full_funnel_exploration_mode': 'full_funnel_exploration_mode_enum',
             'is_ba_skip_delayed_eligible': 'bool',
             'is_budget_schedule_enabled': 'bool',
+            'is_dc_follow_optimized': 'bool',
             'is_dynamic_creative': 'bool',
             'is_incremental_attribution_enabled': 'bool',
             'is_sac_cfca_terms_certified': 'bool',
@@ -1447,7 +1454,9 @@ class AdAccount(
             'lifetime_min_spend_target': 'unsigned int',
             'lifetime_spend_cap': 'unsigned int',
             'line_number': 'unsigned int',
+            'live_video_ad_campaign_config': 'Object',
             'max_budget_spend_percentage': 'unsigned int',
+            'meta_moment_maker_spec': 'map',
             'min_budget_spend_percentage': 'unsigned int',
             'multi_event_conversion_attribution_window_seconds': 'unsigned int',
             'multi_optimization_goal_weight': 'multi_optimization_goal_weight_enum',
@@ -1460,6 +1469,7 @@ class AdAccount(
             'rb_prediction_id': 'string',
             'regional_regulated_categories': 'list<regional_regulated_categories_enum>',
             'regional_regulation_identities': 'map',
+            'relative_value': 'float',
             'rf_prediction_id': 'string',
             'source_adset_id': 'string',
             'start_time': 'datetime',
@@ -1476,10 +1486,12 @@ class AdAccount(
             'value_rules_applied': 'bool',
         }
         enums = {
+            'attribution_count_type_enum': AdSet.AttributionCountType.__dict__.values(),
             'automatic_manual_state_enum': AdSet.AutomaticManualState.__dict__.values(),
             'bid_strategy_enum': AdSet.BidStrategy.__dict__.values(),
             'billing_event_enum': AdSet.BillingEvent.__dict__.values(),
             'budget_source_enum': AdSet.BudgetSource.__dict__.values(),
+            'cost_bidding_mode_enum': AdSet.CostBiddingMode.__dict__.values(),
             'creative_sequence_repetition_pattern_enum': AdSet.CreativeSequenceRepetitionPattern.__dict__.values(),
             'destination_type_enum': AdSet.DestinationType.__dict__.values(),
             'execution_options_enum': AdSet.ExecutionOptions.__dict__.values(),
@@ -1771,6 +1783,7 @@ class AdAccount(
             'publish_event_id': 'unsigned int',
             'referenced_sticker_id': 'string',
             'replace_video_id': 'string',
+            'selected_audio_spec': 'map',
             'slideshow_spec': 'map',
             'source': 'file',
             'source_instagram_media_id': 'string',
@@ -2527,10 +2540,13 @@ class AdAccount(
             'buying_type': 'string',
             'daily_budget': 'unsigned int',
             'execution_options': 'list<execution_options_enum>',
+            'frequency_control_specs': 'list<Object>',
             'is_adset_budget_sharing_enabled': 'bool',
             'is_budget_schedule_enabled': 'bool',
             'is_direct_send_campaign': 'bool',
             'is_message_campaign': 'bool',
+            'is_meta_moment_maker_enabled': 'bool',
+            'is_reels_trending_ads_enabled': 'bool',
             'is_skadnetwork_attribution': 'bool',
             'iterative_split_test_configs': 'list<Object>',
             'lifetime_budget': 'unsigned int',
@@ -2751,6 +2767,7 @@ class AdAccount(
         param_types = {
             'allowed_domains': 'list<string>',
             'associated_audience_id': 'unsigned int',
+            'audience_labels': 'list<audience_labels_enum>',
             'claim_objective': 'claim_objective_enum',
             'content_type': 'content_type_enum',
             'countries': 'string',
@@ -2792,6 +2809,7 @@ class AdAccount(
             'whats_app_business_phone_number_id': 'string',
         }
         enums = {
+            'audience_labels_enum': CustomAudience.AudienceLabels.__dict__.values(),
             'claim_objective_enum': CustomAudience.ClaimObjective.__dict__.values(),
             'content_type_enum': CustomAudience.ContentType.__dict__.values(),
             'customer_file_source_enum': CustomAudience.CustomerFileSource.__dict__.values(),
@@ -3440,9 +3458,12 @@ class AdAccount(
         param_types = {
             'bid_amount': 'unsigned int',
             'daily_budget': 'unsigned int',
+            'end_time': 'unsigned int',
             'lifetime_budget': 'unsigned int',
             'name': 'string',
             'page_id': 'string',
+            'pixel_id': 'unsigned int',
+            'start_time': 'unsigned int',
         }
         enums = {
         }
@@ -3515,9 +3536,11 @@ class AdAccount(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'custom_audience_id': 'string',
             'message': 'Object',
             'message_id': 'unsigned int',
             'messenger_delivery_data': 'map',
+            'min_conversation_gap_seconds': 'unsigned int',
         }
         enums = {
         }
@@ -3857,6 +3880,7 @@ class AdAccount(
             'is_higher_average_frequency': 'bool',
             'is_reach_and_frequency_io_buying': 'bool',
             'is_reserved_buying': 'bool',
+            'meta_moment_maker_spec': 'map',
             'num_curve_points': 'unsigned int',
             'objective': 'string',
             'optimization_goal': 'string',
@@ -4479,11 +4503,13 @@ class AdAccount(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.adsvalueadjustmentrulecollection import AdsValueAdjustmentRuleCollection
         param_types = {
+            'entry_point': 'entry_point_enum',
             'name': 'string',
             'product_type': 'product_type_enum',
             'rules': 'list<map>',
         }
         enums = {
+            'entry_point_enum': AdsValueAdjustmentRuleCollection.EntryPoint.__dict__.values(),
             'product_type_enum': AdsValueAdjustmentRuleCollection.ProductType.__dict__.values(),
         }
         request = FacebookRequest(
@@ -4669,6 +4695,7 @@ class AdAccount(
         'offsite_clo_signal_status': 'int',
         'offsite_pixels_tos_accepted': 'bool',
         'opportunity_score': 'float',
+        'opportunity_score_weight': 'int',
         'owner': 'string',
         'owner_business': 'Business',
         'partner': 'string',

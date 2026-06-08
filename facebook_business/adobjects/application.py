@@ -153,6 +153,7 @@ class Application(
 
     class AnPlatforms:
         android = 'ANDROID'
+        ctv = 'CTV'
         desktop = 'DESKTOP'
         galaxy = 'GALAXY'
         instant_articles = 'INSTANT_ARTICLES'
@@ -420,6 +421,7 @@ class Application(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'add_to_messaging_customer_base_for_whatsapp': 'string',
             'advertiser_id': 'string',
             'advertiser_tracking_enabled': 'bool',
             'anon_id': 'string',
@@ -433,6 +435,7 @@ class Application(
             'bundle_short_version': 'string',
             'bundle_version': 'string',
             'campaign_ids': 'string',
+            'circuit_breaker_timeout_ms': 'unsigned int',
             'click_id': 'string',
             'consider_views': 'bool',
             'custom_events': 'list<Object>',
@@ -451,6 +454,7 @@ class Application(
             'install_referrer': 'string',
             'install_timestamp': 'float',
             'installer_package': 'string',
+            'is_circuit_breaker_active': 'bool',
             'is_fb': 'bool',
             'limited_data_use': 'bool',
             'meta_install_referrer': 'string',
@@ -2060,6 +2064,7 @@ class Application(
         param_types = {
             'callback_url': 'string',
             'fields': 'list<string>',
+            'include_client_certificate': 'bool',
             'include_values': 'bool',
             'object': 'string',
             'verify_token': 'string',

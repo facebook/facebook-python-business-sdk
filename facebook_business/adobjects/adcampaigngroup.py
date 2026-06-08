@@ -29,25 +29,24 @@ class AdCampaignGroup(
     class Field(AbstractObject.Field):
         id = 'id'
 
-    def genget(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def gendelete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.adcampaigngroupget import AdCampaignGroupGet
+        from facebook_business.adobjects.adcampaigngroupdelete import AdCampaignGroupDelete
         param_types = {
-            'fields': 'string',
         }
         enums = {
         }
         request = FacebookRequest(
             node_id=self['id'],
-            method='GET',
+            method='DELETE',
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AdCampaignGroupGet,
+            target_class=AdCampaignGroupDelete,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdCampaignGroupGet, api=self._api),
+            response_parser=ObjectParser(target_class=AdCampaignGroupDelete, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

@@ -70,6 +70,7 @@ class Group(
         none = 'NONE'
         parenting = 'PARENTING'
         streamer = 'STREAMER'
+        work_agent_to_agent = 'WORK_AGENT_TO_AGENT'
         work_announcement = 'WORK_ANNOUNCEMENT'
         work_demo_group = 'WORK_DEMO_GROUP'
         work_discussion = 'WORK_DISCUSSION'
@@ -100,6 +101,7 @@ class Group(
         none = 'NONE'
         parenting = 'PARENTING'
         streamer = 'STREAMER'
+        work_agent_to_agent = 'WORK_AGENT_TO_AGENT'
         work_announcement = 'WORK_ANNOUNCEMENT'
         work_demo_group = 'WORK_DEMO_GROUP'
         work_discussion = 'WORK_DISCUSSION'
@@ -1040,6 +1042,7 @@ class Group(
             'referenced_sticker_id': 'string',
             'replace_video_id': 'string',
             'scheduled_publish_time': 'unsigned int',
+            'selected_audio_spec': 'map',
             'slideshow_spec': 'map',
             'source': 'string',
             'source_instagram_media_id': 'string',

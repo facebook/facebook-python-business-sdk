@@ -26,10 +26,12 @@ class ProductFeedRulesGet(
     class Field(AbstractObject.Field):
         data = 'data'
         paging = 'paging'
+        summary = 'summary'
 
     _field_types = {
         'data': 'list<object>',
         'paging': 'object',
+        'summary': 'object',
     }
     @classmethod
     def _get_field_enum_info(cls):

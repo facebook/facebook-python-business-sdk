@@ -30,14 +30,19 @@ class Robot(
         bringup_vars = 'bringup_vars'
         configurations = 'configurations'
         data_center = 'data_center'
+        fw_image = 'fw_image'
         id = 'id'
         init_pos = 'init_pos'
         last_pos = 'last_pos'
         meetup_link_hash = 'meetup_link_hash'
+        release_image = 'release_image'
         robot_notes = 'robot_notes'
         suite = 'suite'
+        target_fw_image = 'target_fw_image'
+        target_fw_image_uri = 'target_fw_image_uri'
         target_map_image_uri = 'target_map_image_uri'
         target_os_image_uri = 'target_os_image_uri'
+        target_release_image = 'target_release_image'
         target_sw_image_uri = 'target_sw_image_uri'
         user = 'user'
 
@@ -75,14 +80,19 @@ class Robot(
         'bringup_vars': 'list<map<string, string>>',
         'configurations': 'list<map<string, string>>',
         'data_center': 'string',
+        'fw_image': 'string',
         'id': 'string',
         'init_pos': 'list<map<string, float>>',
         'last_pos': 'list<map<string, float>>',
         'meetup_link_hash': 'string',
+        'release_image': 'string',
         'robot_notes': 'string',
         'suite': 'string',
+        'target_fw_image': 'string',
+        'target_fw_image_uri': 'string',
         'target_map_image_uri': 'string',
         'target_os_image_uri': 'string',
+        'target_release_image': 'string',
         'target_sw_image_uri': 'string',
         'user': 'User',
     }

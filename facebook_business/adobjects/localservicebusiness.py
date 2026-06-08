@@ -71,6 +71,7 @@ class LocalServiceBusiness(
         available_for_order = 'AVAILABLE_FOR_ORDER'
         discontinued = 'DISCONTINUED'
         in_stock = 'IN_STOCK'
+        mark_as_expired = 'MARK_AS_EXPIRED'
         mark_as_sold = 'MARK_AS_SOLD'
         out_of_stock = 'OUT_OF_STOCK'
         pending = 'PENDING'

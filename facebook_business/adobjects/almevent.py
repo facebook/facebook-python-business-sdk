@@ -38,6 +38,7 @@ class ALMEvent(
         id = 'id'
         parent_advertiser_ids = 'parent_advertiser_ids'
         reseller_business_id = 'reseller_business_id'
+        solution_id = 'solution_id'
         sub_channel = 'sub_channel'
         user_id = 'user_id'
 
@@ -83,6 +84,7 @@ class ALMEvent(
         'id': 'string',
         'parent_advertiser_ids': 'list<string>',
         'reseller_business_id': 'string',
+        'solution_id': 'string',
         'sub_channel': 'string',
         'user_id': 'string',
     }

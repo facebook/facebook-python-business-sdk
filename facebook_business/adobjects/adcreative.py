@@ -60,6 +60,7 @@ class AdCreative(
         existing_post_title = 'existing_post_title'
         facebook_branded_content = 'facebook_branded_content'
         format_transformation_spec = 'format_transformation_spec'
+        generative_asset_spec = 'generative_asset_spec'
         id = 'id'
         image_crops = 'image_crops'
         image_hash = 'image_hash'
@@ -105,6 +106,7 @@ class AdCreative(
         url_tags = 'url_tags'
         use_page_actor_override = 'use_page_actor_override'
         video_id = 'video_id'
+        wamo_whatsapp_identity_spec = 'wamo_whatsapp_identity_spec'
         execution_options = 'execution_options'
         image_file = 'image_file'
         is_dco_internal = 'is_dco_internal'
@@ -157,6 +159,7 @@ class AdCreative(
         install_app = 'INSTALL_APP'
         install_mobile_app = 'INSTALL_MOBILE_APP'
         join_channel = 'JOIN_CHANNEL'
+        join_live_video = 'JOIN_LIVE_VIDEO'
         learn_more = 'LEARN_MORE'
         like_page = 'LIKE_PAGE'
         listen_music = 'LISTEN_MUSIC'
@@ -520,6 +523,7 @@ class AdCreative(
         'existing_post_title': 'string',
         'facebook_branded_content': 'AdCreativeFacebookBrandedContent',
         'format_transformation_spec': 'list<AdCreativeFormatTransformationSpec>',
+        'generative_asset_spec': 'AdCreativeGenerativeAssetSpec',
         'id': 'string',
         'image_crops': 'AdsImageCrops',
         'image_hash': 'string',
@@ -565,6 +569,7 @@ class AdCreative(
         'url_tags': 'string',
         'use_page_actor_override': 'bool',
         'video_id': 'string',
+        'wamo_whatsapp_identity_spec': 'AdCreativeWAMOWhatsAppIdentitySpec',
         'execution_options': 'list<ExecutionOptions>',
         'image_file': 'string',
         'is_dco_internal': 'bool',

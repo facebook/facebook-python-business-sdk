@@ -26,7 +26,6 @@ class LeadGenFormPreviewDetails(
     class Field(AbstractObject.Field):
         book_on_website_text = 'book_on_website_text'
         call_business_text = 'call_business_text'
-        call_to_action_title = 'call_to_action_title'
         chat_on_messenger_text = 'chat_on_messenger_text'
         chat_on_whatsapp_text = 'chat_on_whatsapp_text'
         contact_information_text = 'contact_information_text'
@@ -77,7 +76,6 @@ class LeadGenFormPreviewDetails(
     _field_types = {
         'book_on_website_text': 'string',
         'call_business_text': 'string',
-        'call_to_action_title': 'string',
         'chat_on_messenger_text': 'string',
         'chat_on_whatsapp_text': 'string',
         'contact_information_text': 'string',

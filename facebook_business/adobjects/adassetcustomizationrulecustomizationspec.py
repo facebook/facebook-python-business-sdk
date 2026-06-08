@@ -37,6 +37,7 @@ class AdAssetCustomizationRuleCustomizationSpec(
         threads_positions = 'threads_positions'
 
     class DevicePlatforms:
+        connected_tv = 'connected_tv'
         desktop = 'desktop'
         mobile = 'mobile'
 

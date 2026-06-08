@@ -27,6 +27,11 @@ class ProductCatalogDataSourcesGet(
         data = 'data'
         paging = 'paging'
 
+    class IngestionSourceType:
+        all = 'ALL'
+        primary = 'PRIMARY'
+        supplementary = 'SUPPLEMENTARY'
+
     _field_types = {
         'data': 'list<object>',
         'paging': 'object',
@@ -34,6 +39,7 @@ class ProductCatalogDataSourcesGet(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['IngestionSourceType'] = ProductCatalogDataSourcesGet.IngestionSourceType.__dict__.values()
         return field_enum_info
 
 

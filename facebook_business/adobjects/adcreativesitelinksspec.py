@@ -33,6 +33,7 @@ class AdCreativeSiteLinksSpec(
         site_link_image_hash = 'site_link_image_hash'
         site_link_image_url = 'site_link_image_url'
         site_link_language = 'site_link_language'
+        site_link_original_url = 'site_link_original_url'
         site_link_recommendation_type = 'site_link_recommendation_type'
         site_link_title = 'site_link_title'
         site_link_url = 'site_link_url'
@@ -50,6 +51,7 @@ class AdCreativeSiteLinksSpec(
         'site_link_image_hash': 'string',
         'site_link_image_url': 'string',
         'site_link_language': 'string',
+        'site_link_original_url': 'string',
         'site_link_recommendation_type': 'string',
         'site_link_title': 'string',
         'site_link_url': 'string',

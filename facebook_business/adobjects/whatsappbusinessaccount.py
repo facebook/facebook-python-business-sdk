@@ -40,6 +40,7 @@ class WhatsAppBusinessAccount(
         is_enabled_for_insights = 'is_enabled_for_insights'
         is_shared_with_partners = 'is_shared_with_partners'
         linked_commerce_account = 'linked_commerce_account'
+        marketing_messages_ad_account = 'marketing_messages_ad_account'
         marketing_messages_lite_api_status = 'marketing_messages_lite_api_status'
         marketing_messages_onboarding_status = 'marketing_messages_onboarding_status'
         message_template_namespace = 'message_template_namespace'
@@ -73,6 +74,7 @@ class WhatsAppBusinessAccount(
         tier_10k = 'TIER_10K'
         tier_250 = 'TIER_250'
         tier_2k = 'TIER_2K'
+        tier_50 = 'TIER_50'
         tier_unlimited = 'TIER_UNLIMITED'
         untiered = 'UNTIERED'
 
@@ -107,6 +109,7 @@ class WhatsAppBusinessAccount(
     class SendType:
         campaign = 'CAMPAIGN'
         direct = 'DIRECT'
+        trigger = 'TRIGGER'
 
     class SubCategory:
         order_details = 'ORDER_DETAILS'
@@ -155,6 +158,7 @@ class WhatsAppBusinessAccount(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'creative_optimizations_enrollment': 'map',
             'degrees_of_freedom_spec': 'map',
             'disable_marketing_messages_on_cloud_api': 'bool',
             'is_enabled_for_insights': 'bool',
@@ -975,13 +979,16 @@ class WhatsAppBusinessAccount(
             'cta_url_link_tracking_opted_out': 'bool',
             'degrees_of_freedom_spec': 'map',
             'display_format': 'display_format_enum',
+            'is_primary_device_delivery_only': 'bool',
             'language': 'string',
             'library_template_body_inputs': 'map',
             'library_template_button_inputs': 'list<map>',
             'library_template_name': 'string',
             'message_send_ttl_seconds': 'unsigned int',
             'name': 'string',
+            'optimization_spec': 'map',
             'parameter_format': 'parameter_format_enum',
+            'product_set_id': 'string',
             'send_type': 'send_type_enum',
             'sub_category': 'sub_category_enum',
         }
@@ -1475,37 +1482,6 @@ class WhatsAppBusinessAccount(
             self.assure_call()
             return request.execute()
 
-    def create_set_obo_mobility_intent(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'solution_id': 'string',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/set_obo_mobility_intent',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def create_set_solution_migration_intent(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -1667,7 +1643,7 @@ class WhatsAppBusinessAccount(
         param_types = {
             'end': 'datetime',
             'granularity': 'granularity_enum',
-            'metric_types': 'list<metric_types_enum>',
+            'metric_types': 'list<string>',
             'product_type': 'product_type_enum',
             'start': 'datetime',
             'template_ids': 'list<string>',
@@ -1677,24 +1653,8 @@ class WhatsAppBusinessAccount(
             'granularity_enum': [
                 'DAILY',
             ],
-            'metric_types_enum': [
-                'APP_ACTIVATIONS',
-                'APP_ADD_TO_CART',
-                'APP_CHECKOUTS_INITIATED',
-                'APP_PURCHASES',
-                'APP_PURCHASES_CONVERSION_VALUE',
-                'CLICKED',
-                'COST',
-                'DELIVERED',
-                'READ',
-                'REPLIED',
-                'SENT',
-                'WEBSITE_ADD_TO_CART',
-                'WEBSITE_CHECKOUTS_INITIATED',
-                'WEBSITE_PURCHASES',
-                'WEBSITE_PURCHASES_CONVERSION_VALUE',
-            ],
             'product_type_enum': [
+                'CAMPAIGN_INSIGHTS',
                 'CLOUD_API',
                 'MARKETING_MESSAGES_LITE_API',
             ],
@@ -1728,7 +1688,7 @@ class WhatsAppBusinessAccount(
         param_types = {
             'end': 'datetime',
             'granularity': 'granularity_enum',
-            'metric_types': 'list<metric_types_enum>',
+            'metric_types': 'list<string>',
             'start': 'datetime',
             'template_group_ids': 'list<string>',
             'use_waba_timezone': 'bool',
@@ -1736,23 +1696,6 @@ class WhatsAppBusinessAccount(
         enums = {
             'granularity_enum': [
                 'DAILY',
-            ],
-            'metric_types_enum': [
-                'APP_ACTIVATIONS',
-                'APP_ADD_TO_CART',
-                'APP_CHECKOUTS_INITIATED',
-                'APP_PURCHASES',
-                'APP_PURCHASES_CONVERSION_VALUE',
-                'CLICKED',
-                'COST',
-                'DELIVERED',
-                'READ',
-                'REPLIED',
-                'SENT',
-                'WEBSITE_ADD_TO_CART',
-                'WEBSITE_CHECKOUTS_INITIATED',
-                'WEBSITE_PURCHASES',
-                'WEBSITE_PURCHASES_CONVERSION_VALUE',
             ],
         }
         request = FacebookRequest(
@@ -1822,38 +1765,6 @@ class WhatsAppBusinessAccount(
             node_id=self['id'],
             method='POST',
             endpoint='/template_groups',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AbstractCrudObject,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def get_template_performance_metrics(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'name': 'string',
-            'template_id': 'string',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/template_performance_metrics',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
             target_class=AbstractCrudObject,
@@ -2019,6 +1930,7 @@ class WhatsAppBusinessAccount(
         'is_enabled_for_insights': 'bool',
         'is_shared_with_partners': 'bool',
         'linked_commerce_account': 'CommerceMerchantSettings',
+        'marketing_messages_ad_account': 'Object',
         'marketing_messages_lite_api_status': 'string',
         'marketing_messages_onboarding_status': 'string',
         'message_template_namespace': 'string',

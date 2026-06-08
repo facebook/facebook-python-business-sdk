@@ -33,7 +33,15 @@ class AdsValueAdjustmentRuleCollection(
         name = 'name'
         product_type = 'product_type'
         status = 'status'
+        entry_point = 'entry_point'
         rules = 'rules'
+
+    class EntryPoint:
+        advertising_settings = 'ADVERTISING_SETTINGS'
+        l2_conversion_location = 'L2_CONVERSION_LOCATION'
+        l2_global = 'L2_GLOBAL'
+        l2_nca_goal = 'L2_NCA_GOAL'
+        l2_placement = 'L2_PLACEMENT'
 
     class ProductType:
         audience = 'AUDIENCE'
@@ -90,11 +98,13 @@ class AdsValueAdjustmentRuleCollection(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'entry_point': 'entry_point_enum',
             'is_default_setting': 'bool',
             'name': 'string',
             'rules': 'list<map>',
         }
         enums = {
+            'entry_point_enum': AdsValueAdjustmentRuleCollection.EntryPoint.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -123,8 +133,10 @@ class AdsValueAdjustmentRuleCollection(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'status': 'status_enum',
         }
         enums = {
+            'status_enum': AdsValueAdjustmentRuleCollection.Status.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -185,11 +197,13 @@ class AdsValueAdjustmentRuleCollection(
         'name': 'string',
         'product_type': 'string',
         'status': 'string',
+        'entry_point': 'EntryPoint',
         'rules': 'list<map>',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['EntryPoint'] = AdsValueAdjustmentRuleCollection.EntryPoint.__dict__.values()
         field_enum_info['ProductType'] = AdsValueAdjustmentRuleCollection.ProductType.__dict__.values()
         field_enum_info['Status'] = AdsValueAdjustmentRuleCollection.Status.__dict__.values()
         return field_enum_info

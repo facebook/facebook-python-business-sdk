@@ -25,9 +25,11 @@ class AdCreativeWAMOWhatsAppIdentitySpec(
 
     class Field(AbstractObject.Field):
         wamo_whatsapp_identity_id = 'wamo_whatsapp_identity_id'
+        whatsapp_phone_number = 'whatsapp_phone_number'
 
     _field_types = {
         'wamo_whatsapp_identity_id': 'string',
+        'whatsapp_phone_number': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

@@ -53,7 +53,7 @@ class ProductFeedUploadGet(
         user_initiated_server_fetch = 'USER_INITIATED_SERVER_FETCH'
 
     _field_types = {
-        'end_time': 'string',
+        'end_time': 'mixed',
         'error_count': 'int',
         'error_report': 'object',
         'errors': 'object',
@@ -65,7 +65,7 @@ class ProductFeedUploadGet(
         'num_invalid_items': 'int',
         'num_persisted_items': 'int',
         'progresses': 'object',
-        'start_time': 'string',
+        'start_time': 'mixed',
         'upload_complete': 'bool',
         'url': 'string',
         'warning_count': 'int',

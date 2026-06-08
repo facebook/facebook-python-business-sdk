@@ -129,6 +129,7 @@ class Page(
         offer_eligible = 'offer_eligible'
         overall_star_rating = 'overall_star_rating'
         owner_business = 'owner_business'
+        page_backed_threads_account_id = 'page_backed_threads_account_id'
         page_token = 'page_token'
         parent_page = 'parent_page'
         parking = 'parking'
@@ -250,9 +251,12 @@ class Page(
         c2pa_metadata_edited = 'C2PA_METADATA_EDITED'
         explicit = 'EXPLICIT'
         explicit_animate = 'EXPLICIT_ANIMATE'
+        explicit_drop_in = 'EXPLICIT_DROP_IN'
+        explicit_face_swap = 'EXPLICIT_FACE_SWAP'
         explicit_imagine = 'EXPLICIT_IMAGINE'
         explicit_imagine_me = 'EXPLICIT_IMAGINE_ME'
         explicit_restyle = 'EXPLICIT_RESTYLE'
+        explicit_wardrobe = 'EXPLICIT_WARDROBE'
         invisible_watermark = 'INVISIBLE_WATERMARK'
         iptc = 'IPTC'
         iptc_metadata_edited = 'IPTC_METADATA_EDITED'
@@ -285,6 +289,8 @@ class Page(
         profile_plus_advertise = 'PROFILE_PLUS_ADVERTISE'
         profile_plus_analyze = 'PROFILE_PLUS_ANALYZE'
         profile_plus_create_content = 'PROFILE_PLUS_CREATE_CONTENT'
+        profile_plus_creative_management = 'PROFILE_PLUS_CREATIVE_MANAGEMENT'
+        profile_plus_creator_management = 'PROFILE_PLUS_CREATOR_MANAGEMENT'
         profile_plus_facebook_access = 'PROFILE_PLUS_FACEBOOK_ACCESS'
         profile_plus_full_control = 'PROFILE_PLUS_FULL_CONTROL'
         profile_plus_global_structure_management = 'PROFILE_PLUS_GLOBAL_STRUCTURE_MANAGEMENT'
@@ -314,6 +320,8 @@ class Page(
         profile_plus_advertise = 'PROFILE_PLUS_ADVERTISE'
         profile_plus_analyze = 'PROFILE_PLUS_ANALYZE'
         profile_plus_create_content = 'PROFILE_PLUS_CREATE_CONTENT'
+        profile_plus_creative_management = 'PROFILE_PLUS_CREATIVE_MANAGEMENT'
+        profile_plus_creator_management = 'PROFILE_PLUS_CREATOR_MANAGEMENT'
         profile_plus_facebook_access = 'PROFILE_PLUS_FACEBOOK_ACCESS'
         profile_plus_full_control = 'PROFILE_PLUS_FULL_CONTROL'
         profile_plus_global_structure_management = 'PROFILE_PLUS_GLOBAL_STRUCTURE_MANAGEMENT'
@@ -447,6 +455,8 @@ class Page(
 
     class SubscribedFields:
         affiliation = 'affiliation'
+        agent_messages = 'agent_messages'
+        agent_questions = 'agent_questions'
         attire = 'attire'
         awards = 'awards'
         bio = 'bio'
@@ -598,6 +608,7 @@ class Page(
             'attire': 'attire_enum',
             'begin_crossposting_handshake': 'list<map>',
             'bio': 'string',
+            'caption': 'string',
             'category_list': 'list<string>',
             'company_overview': 'string',
             'contact_address': 'Object',
@@ -3531,8 +3542,14 @@ class Page(
         param_types = {
             'custom_audience_ids': 'list<string>',
             'do_not_return_duplicates': 'bool',
+            'has_received_marketing_message': 'bool',
+            'opt_in_source': 'list<opt_in_source_enum>',
+            'since': 'datetime',
+            'subscriber_tag_ids': 'list<string>',
+            'until': 'datetime',
         }
         enums = {
+            'opt_in_source_enum': UserPageOneTimeOptInTokenSettings.OptInSource.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -3638,6 +3655,36 @@ class Page(
             target_class=IGUser,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=IGUser, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
+    def create_page_backed_threads_account(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/page_backed_threads_accounts',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -4290,6 +4337,44 @@ class Page(
             self.assure_call()
             return request.execute()
 
+    def create_scheduled_live_video(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        param_types = {
+            'end_time': 'unsigned int',
+            'start_time': 'unsigned int',
+            'state': 'state_enum',
+            'video': 'string',
+        }
+        enums = {
+            'state_enum': [
+                'DRAFT',
+                'PUBLISHED',
+            ],
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='POST',
+            endpoint='/scheduled_live_video',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AbstractCrudObject,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
+
     def get_scheduled_posts(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -4308,39 +4393,6 @@ class Page(
             target_class=PagePost,
             api_type='EDGE',
             response_parser=ObjectParser(target_class=PagePost, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
-    def get_secondary_receivers(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.application import Application
-        param_types = {
-            'platform': 'platform_enum',
-        }
-        enums = {
-            'platform_enum': Application.Platform.__dict__.values(),
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='GET',
-            endpoint='/secondary_receivers',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=Application,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=Application, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -5232,6 +5284,7 @@ class Page(
             'replace_video_id': 'string',
             'scheduled_publish_time': 'unsigned int',
             'secret': 'bool',
+            'selected_audio_spec': 'map',
             'slideshow_spec': 'map',
             'social_actions': 'bool',
             'source': 'string',
@@ -5532,6 +5585,7 @@ class Page(
         'offer_eligible': 'bool',
         'overall_star_rating': 'float',
         'owner_business': 'Business',
+        'page_backed_threads_account_id': 'string',
         'page_token': 'string',
         'parent_page': 'Page',
         'parking': 'PageParking',

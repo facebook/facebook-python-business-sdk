@@ -61,6 +61,7 @@ class CustomAudienceDataSource(
         lookalike_platform = 'LOOKALIKE_PLATFORM'
         mail_chimp_email_hashes = 'MAIL_CHIMP_EMAIL_HASHES'
         marketplace_listings = 'MARKETPLACE_LISTINGS'
+        message_campaign = 'MESSAGE_CAMPAIGN'
         messenger_onsite_subscription = 'MESSENGER_ONSITE_SUBSCRIPTION'
         mobile_advertiser_ids = 'MOBILE_ADVERTISER_IDS'
         mobile_app_combination_events = 'MOBILE_APP_COMBINATION_EVENTS'

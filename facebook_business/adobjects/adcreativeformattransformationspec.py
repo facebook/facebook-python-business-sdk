@@ -24,10 +24,12 @@ class AdCreativeFormatTransformationSpec(
         self._api = api
 
     class Field(AbstractObject.Field):
+        customizations = 'customizations'
         data_source = 'data_source'
         format = 'format'
 
     _field_types = {
+        'customizations': 'list<Object>',
         'data_source': 'list<string>',
         'format': 'string',
     }

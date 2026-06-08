@@ -32,6 +32,7 @@ class CustomAudience(
         account_id = 'account_id'
         approximate_count_lower_bound = 'approximate_count_lower_bound'
         approximate_count_upper_bound = 'approximate_count_upper_bound'
+        audience_labels = 'audience_labels'
         customer_file_source = 'customer_file_source'
         data_source = 'data_source'
         data_source_types = 'data_source_types'
@@ -98,6 +99,27 @@ class CustomAudience(
         use_in_campaigns = 'use_in_campaigns'
         video_group_ids = 'video_group_ids'
         whats_app_business_phone_number_id = 'whats_app_business_phone_number_id'
+
+    class AudienceLabels:
+        app_installers = 'APP_INSTALLERS'
+        app_users = 'APP_USERS'
+        at_risk = 'AT_RISK'
+        cart_abandoners = 'CART_ABANDONERS'
+        customer_leads = 'CUSTOMER_LEADS'
+        disengaged = 'DISENGAGED'
+        disqualified_leads = 'DISQUALIFIED_LEADS'
+        engaged_users = 'ENGAGED_USERS'
+        high_value_customers = 'HIGH_VALUE_CUSTOMERS'
+        low_value_customers = 'LOW_VALUE_CUSTOMERS'
+        other_1 = 'OTHER_1'
+        other_2 = 'OTHER_2'
+        other_3 = 'OTHER_3'
+        personas = 'PERSONAS'
+        qualified_leads = 'QUALIFIED_LEADS'
+        recent_purchasers = 'RECENT_PURCHASERS'
+        restricted_users = 'RESTRICTED_USERS'
+        trial_users = 'TRIAL_USERS'
+        unwanted_customers = 'UNWANTED_CUSTOMERS'
 
     class ClaimObjective:
         automotive_model = 'AUTOMOTIVE_MODEL'
@@ -245,6 +267,7 @@ class CustomAudience(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'allowed_domains': 'list<string>',
+            'audience_labels': 'list<audience_labels_enum>',
             'claim_objective': 'claim_objective_enum',
             'content_type': 'content_type_enum',
             'countries': 'string',
@@ -270,6 +293,7 @@ class CustomAudience(
             'use_in_campaigns': 'bool',
         }
         enums = {
+            'audience_labels_enum': CustomAudience.AudienceLabels.__dict__.values(),
             'claim_objective_enum': CustomAudience.ClaimObjective.__dict__.values(),
             'content_type_enum': CustomAudience.ContentType.__dict__.values(),
             'customer_file_source_enum': CustomAudience.CustomerFileSource.__dict__.values(),
@@ -695,6 +719,7 @@ class CustomAudience(
         'account_id': 'string',
         'approximate_count_lower_bound': 'int',
         'approximate_count_upper_bound': 'int',
+        'audience_labels': 'list<string>',
         'customer_file_source': 'string',
         'data_source': 'CustomAudienceDataSource',
         'data_source_types': 'string',
@@ -765,6 +790,7 @@ class CustomAudience(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['AudienceLabels'] = CustomAudience.AudienceLabels.__dict__.values()
         field_enum_info['ClaimObjective'] = CustomAudience.ClaimObjective.__dict__.values()
         field_enum_info['ContentType'] = CustomAudience.ContentType.__dict__.values()
         field_enum_info['CustomerFileSource'] = CustomAudience.CustomerFileSource.__dict__.values()

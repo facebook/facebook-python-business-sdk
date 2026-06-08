@@ -27,20 +27,24 @@ class EntWithSponsor(
         super(EntWithSponsor, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        has_audio_swapped_fb_copy = 'has_audio_swapped_fb_copy'
         id = 'id'
         is_branded_content = 'is_branded_content'
         owner_linked_instagram_user_v1_id = 'owner_linked_instagram_user_v1_id'
         owner_picture = 'owner_picture'
         post_id = 'post_id'
         post_info = 'post_info'
+        promotable_id = 'promotable_id'
 
     _field_types = {
+        'has_audio_swapped_fb_copy': 'bool',
         'id': 'string',
         'is_branded_content': 'bool',
         'owner_linked_instagram_user_v1_id': 'string',
         'owner_picture': 'string',
         'post_id': 'string',
         'post_info': 'Post',
+        'promotable_id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

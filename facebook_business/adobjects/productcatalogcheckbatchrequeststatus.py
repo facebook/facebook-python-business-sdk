@@ -18,13 +18,13 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class CatalogGenericFeeds(
+class ProductCatalogCheckBatchRequestStatus(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isCatalogGenericFeeds = True
-        super(CatalogGenericFeeds, self).__init__(fbid, parent_id, api)
+        self._isProductCatalogCheckBatchRequestStatus = True
+        super(ProductCatalogCheckBatchRequestStatus, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
         id = 'id'
@@ -33,20 +33,28 @@ class CatalogGenericFeeds(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.cataloggenericfeedsget import CatalogGenericFeedsGet
+        from facebook_business.adobjects.productcatalogcheckbatchrequeststatusget import ProductCatalogCheckBatchRequestStatusGet
         param_types = {
+            'after': 'string',
+            'before': 'string',
+            'error_priority': 'error_priority_enum',
+            'fields': 'string',
+            'handle': 'string',
+            'limit': 'int',
+            'load_ids_of_invalid_requests': 'bool',
         }
         enums = {
+            'error_priority_enum': ProductCatalogCheckBatchRequestStatusGet.ErrorPriority.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
             method='GET',
-            endpoint='/uploads',
+            endpoint='/check_batch_request_status',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=CatalogGenericFeedsGet,
+            target_class=ProductCatalogCheckBatchRequestStatusGet,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=CatalogGenericFeedsGet, api=self._api),
+            response_parser=ObjectParser(target_class=ProductCatalogCheckBatchRequestStatusGet, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

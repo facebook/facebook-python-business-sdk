@@ -88,6 +88,7 @@ class ReachFrequencyPrediction(
         is_io = 'is_io'
         is_reserved_buying = 'is_reserved_buying'
         is_trp = 'is_trp'
+        meta_moment_maker_spec = 'meta_moment_maker_spec'
         name = 'name'
         objective = 'objective'
         objective_name = 'objective_name'
@@ -267,6 +268,7 @@ class ReachFrequencyPrediction(
         'is_io': 'bool',
         'is_reserved_buying': 'unsigned int',
         'is_trp': 'bool',
+        'meta_moment_maker_spec': 'MetaMomentMakerConfig',
         'name': 'string',
         'objective': 'unsigned int',
         'objective_name': 'string',

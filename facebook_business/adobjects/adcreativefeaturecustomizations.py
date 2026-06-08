@@ -36,6 +36,7 @@ class AdCreativeFeatureCustomizations(
         ig_stream_tag_name = 'ig_stream_tag_name'
         image_crop_style = 'image_crop_style'
         pe_carousel = 'pe_carousel'
+        recomposition_type = 'recomposition_type'
         showcase_card_display = 'showcase_card_display'
         text_extraction = 'text_extraction'
         text_style = 'text_style'
@@ -53,6 +54,7 @@ class AdCreativeFeatureCustomizations(
         'ig_stream_tag_name': 'string',
         'image_crop_style': 'string',
         'pe_carousel': 'Object',
+        'recomposition_type': 'Object',
         'showcase_card_display': 'string',
         'text_extraction': 'Object',
         'text_style': 'string',

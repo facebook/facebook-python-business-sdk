@@ -26,10 +26,12 @@ class AdCreativeBizAI(
     class Field(AbstractObject.Field):
         capabilities = 'capabilities'
         pills = 'pills'
+        pills_mbs_version = 'pills_mbs_version'
 
     _field_types = {
         'capabilities': 'Object',
         'pills': 'list<Object>',
+        'pills_mbs_version': 'int',
     }
     @classmethod
     def _get_field_enum_info(cls):

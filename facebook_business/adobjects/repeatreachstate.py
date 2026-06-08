@@ -14,19 +14,26 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class ProductCatalogUserActions(
+class RepeatReachState(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(ProductCatalogUserActions, self).__init__()
-        self._isProductCatalogUserActions = True
+        super(RepeatReachState, self).__init__()
+        self._isRepeatReachState = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        pass
+        current_saturation_level = 'current_saturation_level'
+        forecasted_saturation_level = 'forecasted_saturation_level'
+        high_saturation_threshold = 'high_saturation_threshold'
+        should_display_cpr = 'should_display_cpr'
 
     _field_types = {
+        'current_saturation_level': 'float',
+        'forecasted_saturation_level': 'float',
+        'high_saturation_threshold': 'float',
+        'should_display_cpr': 'bool',
     }
     @classmethod
     def _get_field_enum_info(cls):

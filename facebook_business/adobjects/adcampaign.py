@@ -18,48 +18,35 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AsyncSession(
+class AdCampaign(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isAsyncSession = True
-        super(AsyncSession, self).__init__(fbid, parent_id, api)
+        self._isAdCampaign = True
+        super(AdCampaign, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        app = 'app'
-        complete_time = 'complete_time'
-        error_code = 'error_code'
-        exception = 'exception'
         id = 'id'
-        method = 'method'
-        name = 'name'
-        page = 'page'
-        percent_completed = 'percent_completed'
-        platform_version = 'platform_version'
-        result = 'result'
-        start_time = 'start_time'
-        status = 'status'
-        uri = 'uri'
-        user = 'user'
 
-    def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def gendelete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.adcampaigndelete import AdCampaignDelete
         param_types = {
         }
         enums = {
         }
         request = FacebookRequest(
             node_id=self['id'],
-            method='GET',
+            method='DELETE',
             endpoint='/',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AsyncSession,
-            api_type='NODE',
-            response_parser=ObjectParser(reuse_object=self),
+            target_class=AdCampaignDelete,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdCampaignDelete, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -74,21 +61,7 @@ class AsyncSession(
             return request.execute()
 
     _field_types = {
-        'app': 'Application',
-        'complete_time': 'datetime',
-        'error_code': 'int',
-        'exception': 'string',
         'id': 'string',
-        'method': 'string',
-        'name': 'string',
-        'page': 'Page',
-        'percent_completed': 'int',
-        'platform_version': 'string',
-        'result': 'string',
-        'start_time': 'datetime',
-        'status': 'string',
-        'uri': 'string',
-        'user': 'User',
     }
     @classmethod
     def _get_field_enum_info(cls):

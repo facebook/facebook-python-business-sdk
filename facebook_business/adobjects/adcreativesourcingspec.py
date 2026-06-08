@@ -31,6 +31,7 @@ class AdCreativeSourcingSpec(
         duplication_source = 'duplication_source'
         dynamic_site_links_spec = 'dynamic_site_links_spec'
         enable_social_feedback_preservation = 'enable_social_feedback_preservation'
+        featured_offering_spec = 'featured_offering_spec'
         intent = 'intent'
         pca_spec = 'pca_spec'
         product_media_metadata_spec = 'product_media_metadata_spec'
@@ -49,6 +50,7 @@ class AdCreativeSourcingSpec(
         'duplication_source': 'string',
         'dynamic_site_links_spec': 'Object',
         'enable_social_feedback_preservation': 'bool',
+        'featured_offering_spec': 'Object',
         'intent': 'Object',
         'pca_spec': 'Object',
         'product_media_metadata_spec': 'Object',

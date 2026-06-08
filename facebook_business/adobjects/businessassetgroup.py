@@ -62,6 +62,8 @@ class BusinessAssetGroup(
         profile_plus_advertise = 'PROFILE_PLUS_ADVERTISE'
         profile_plus_analyze = 'PROFILE_PLUS_ANALYZE'
         profile_plus_create_content = 'PROFILE_PLUS_CREATE_CONTENT'
+        profile_plus_creative_management = 'PROFILE_PLUS_CREATIVE_MANAGEMENT'
+        profile_plus_creator_management = 'PROFILE_PLUS_CREATOR_MANAGEMENT'
         profile_plus_facebook_access = 'PROFILE_PLUS_FACEBOOK_ACCESS'
         profile_plus_full_control = 'PROFILE_PLUS_FULL_CONTROL'
         profile_plus_global_structure_management = 'PROFILE_PLUS_GLOBAL_STRUCTURE_MANAGEMENT'

@@ -29,10 +29,12 @@ class UserIDForApp(
     class Field(AbstractObject.Field):
         app = 'app'
         id = 'id'
+        instant_game_player_id = 'instant_game_player_id'
 
     _field_types = {
         'app': 'Application',
         'id': 'string',
+        'instant_game_player_id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

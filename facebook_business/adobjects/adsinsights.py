@@ -62,6 +62,14 @@ class AdsInsights(
         catalog_segment_value_omni_purchase_roas = 'catalog_segment_value_omni_purchase_roas'
         catalog_segment_value_website_purchase_roas = 'catalog_segment_value_website_purchase_roas'
         clicks = 'clicks'
+        configurable_attribution_action = 'configurable_attribution_action'
+        configurable_attribution_actionvalue = 'configurable_attribution_actionvalue'
+        configurable_audience_overlap_reach = 'configurable_audience_overlap_reach'
+        configurable_reachbyfrequency_action = 'configurable_reachbyfrequency_action'
+        configurable_reachbyfrequency_converters_count = 'configurable_reachbyfrequency_converters_count'
+        configurable_reachbyfrequency_impressions_cost = 'configurable_reachbyfrequency_impressions_cost'
+        configurable_reachbyfrequency_impressions_count = 'configurable_reachbyfrequency_impressions_count'
+        configurable_reachbyfrequency_reach = 'configurable_reachbyfrequency_reach'
         conversion_lead_rate = 'conversion_lead_rate'
         conversion_leads = 'conversion_leads'
         conversion_rate_ranking = 'conversion_rate_ranking'
@@ -89,6 +97,7 @@ class AdsInsights(
         converted_promoted_product_website_pixel_purchase_value = 'converted_promoted_product_website_pixel_purchase_value'
         cost_per_15_sec_video_view = 'cost_per_15_sec_video_view'
         cost_per_2_sec_continuous_video_view = 'cost_per_2_sec_continuous_video_view'
+        cost_per_6_sec_video_view = 'cost_per_6_sec_video_view'
         cost_per_action_type = 'cost_per_action_type'
         cost_per_ad_click = 'cost_per_ad_click'
         cost_per_conversion = 'cost_per_conversion'
@@ -97,6 +106,7 @@ class AdsInsights(
         cost_per_estimated_ad_recallers = 'cost_per_estimated_ad_recallers'
         cost_per_inline_link_click = 'cost_per_inline_link_click'
         cost_per_inline_post_engagement = 'cost_per_inline_post_engagement'
+        cost_per_message_delivered = 'cost_per_message_delivered'
         cost_per_objective_result = 'cost_per_objective_result'
         cost_per_one_thousand_ad_impression = 'cost_per_one_thousand_ad_impression'
         cost_per_outbound_click = 'cost_per_outbound_click'
@@ -111,6 +121,9 @@ class AdsInsights(
         cpm = 'cpm'
         cpp = 'cpp'
         created_time = 'created_time'
+        creative_diversity_data = 'creative_diversity_data'
+        creative_diversity_label = 'creative_diversity_label'
+        creative_diversity_score = 'creative_diversity_score'
         creative_media_type = 'creative_media_type'
         ctr = 'ctr'
         date_start = 'date_start'
@@ -165,12 +178,15 @@ class AdsInsights(
         marketing_messages_website_initiate_checkout = 'marketing_messages_website_initiate_checkout'
         marketing_messages_website_purchase = 'marketing_messages_website_purchase'
         marketing_messages_website_purchase_values = 'marketing_messages_website_purchase_values'
+        messages_delivered = 'messages_delivered'
+        messages_delivered_ctr = 'messages_delivered_ctr'
         mobile_app_purchase_roas = 'mobile_app_purchase_roas'
         multi_event_conversion_attribution_setting = 'multi_event_conversion_attribution_setting'
         objective = 'objective'
         objective_result_rate = 'objective_result_rate'
         objective_results = 'objective_results'
         onsite_conversion_messaging_detected_purchase_deduped = 'onsite_conversion_messaging_detected_purchase_deduped'
+        opportunity_score_l4 = 'opportunity_score_l4'
         optimization_goal = 'optimization_goal'
         outbound_clicks = 'outbound_clicks'
         outbound_clicks_ctr = 'outbound_clicks_ctr'
@@ -184,9 +200,11 @@ class AdsInsights(
         qualifying_question_qualify_answer_rate = 'qualifying_question_qualify_answer_rate'
         quality_ranking = 'quality_ranking'
         reach = 'reach'
+        read_rate = 'read_rate'
         result_rate = 'result_rate'
         result_values_performance_indicator = 'result_values_performance_indicator'
         results = 'results'
+        shop_clicks = 'shop_clicks'
         shops_assisted_purchases = 'shops_assisted_purchases'
         social_spend = 'social_spend'
         spend = 'spend'
@@ -208,6 +226,7 @@ class AdsInsights(
         updated_time = 'updated_time'
         video_15_sec_watched_actions = 'video_15_sec_watched_actions'
         video_30_sec_watched_actions = 'video_30_sec_watched_actions'
+        video_6_sec_watched_actions = 'video_6_sec_watched_actions'
         video_avg_time_watched_actions = 'video_avg_time_watched_actions'
         video_continuous_2_sec_watched_actions = 'video_continuous_2_sec_watched_actions'
         video_p100_watched_actions = 'video_p100_watched_actions'
@@ -295,6 +314,7 @@ class AdsInsights(
         description_asset = 'description_asset'
         device_platform = 'device_platform'
         dma = 'dma'
+        existing_post_id = 'existing_post_id'
         fidelity_type = 'fidelity_type'
         flexible_format_asset_type = 'flexible_format_asset_type'
         frequency_value = 'frequency_value'
@@ -306,6 +326,10 @@ class AdsInsights(
         image_asset = 'image_asset'
         impression_device = 'impression_device'
         impression_view_time_advertiser_hour_v2 = 'impression_view_time_advertiser_hour_v2'
+        instagram_ads_follow_type = 'instagram_ads_follow_type'
+        instagram_ads_instagram_media_product_type = 'instagram_ads_instagram_media_product_type'
+        instagram_ads_time_since_creation_bucket = 'instagram_ads_time_since_creation_bucket'
+        internal_campaign_id = 'internal_campaign_id'
         is_auto_advance = 'is_auto_advance'
         is_conversion_id_modeled = 'is_conversion_id_modeled'
         is_rendered_as_delayed_skip_ad = 'is_rendered_as_delayed_skip_ad'
@@ -321,6 +345,8 @@ class AdsInsights(
         media_text_content = 'media_text_content'
         media_type = 'media_type'
         mmm = 'mmm'
+        overlap_segment = 'overlap_segment'
+        pa_creator_ig_handle = 'pa_creator_ig_handle'
         place_page_id = 'place_page_id'
         platform_position = 'platform_position'
         postback_sequence_index = 'postback_sequence_index'
@@ -354,6 +380,7 @@ class AdsInsights(
         user_persona_id = 'user_persona_id'
         user_persona_name = 'user_persona_name'
         video_asset = 'video_asset'
+        zip = 'zip'
 
     class DatePreset:
         data_maximum = 'data_maximum'
@@ -443,6 +470,14 @@ class AdsInsights(
         'catalog_segment_value_omni_purchase_roas': 'list<AdsActionStats>',
         'catalog_segment_value_website_purchase_roas': 'list<AdsActionStats>',
         'clicks': 'string',
+        'configurable_attribution_action': 'list<AdsActionStats>',
+        'configurable_attribution_actionvalue': 'list<AdsActionStats>',
+        'configurable_audience_overlap_reach': 'list<AdsActionStats>',
+        'configurable_reachbyfrequency_action': 'list<AdsActionStats>',
+        'configurable_reachbyfrequency_converters_count': 'string',
+        'configurable_reachbyfrequency_impressions_cost': 'string',
+        'configurable_reachbyfrequency_impressions_count': 'string',
+        'configurable_reachbyfrequency_reach': 'string',
         'conversion_lead_rate': 'list<AdsActionStats>',
         'conversion_leads': 'list<AdsActionStats>',
         'conversion_rate_ranking': 'string',
@@ -470,6 +505,7 @@ class AdsInsights(
         'converted_promoted_product_website_pixel_purchase_value': 'list<AdsActionStats>',
         'cost_per_15_sec_video_view': 'list<AdsActionStats>',
         'cost_per_2_sec_continuous_video_view': 'list<AdsActionStats>',
+        'cost_per_6_sec_video_view': 'list<AdsActionStats>',
         'cost_per_action_type': 'list<AdsActionStats>',
         'cost_per_ad_click': 'list<AdsActionStats>',
         'cost_per_conversion': 'list<AdsActionStats>',
@@ -478,6 +514,7 @@ class AdsInsights(
         'cost_per_estimated_ad_recallers': 'string',
         'cost_per_inline_link_click': 'string',
         'cost_per_inline_post_engagement': 'string',
+        'cost_per_message_delivered': 'string',
         'cost_per_objective_result': 'list<Object>',
         'cost_per_one_thousand_ad_impression': 'list<AdsActionStats>',
         'cost_per_outbound_click': 'list<AdsActionStats>',
@@ -492,6 +529,9 @@ class AdsInsights(
         'cpm': 'string',
         'cpp': 'string',
         'created_time': 'string',
+        'creative_diversity_data': 'list<Object>',
+        'creative_diversity_label': 'string',
+        'creative_diversity_score': 'string',
         'creative_media_type': 'string',
         'ctr': 'string',
         'date_start': 'string',
@@ -546,12 +586,15 @@ class AdsInsights(
         'marketing_messages_website_initiate_checkout': 'string',
         'marketing_messages_website_purchase': 'string',
         'marketing_messages_website_purchase_values': 'string',
+        'messages_delivered': 'string',
+        'messages_delivered_ctr': 'string',
         'mobile_app_purchase_roas': 'list<AdsActionStats>',
         'multi_event_conversion_attribution_setting': 'string',
         'objective': 'string',
         'objective_result_rate': 'list<Object>',
         'objective_results': 'list<Object>',
         'onsite_conversion_messaging_detected_purchase_deduped': 'list<AdsActionStats>',
+        'opportunity_score_l4': 'string',
         'optimization_goal': 'string',
         'outbound_clicks': 'list<AdsActionStats>',
         'outbound_clicks_ctr': 'list<AdsActionStats>',
@@ -565,9 +608,11 @@ class AdsInsights(
         'qualifying_question_qualify_answer_rate': 'string',
         'quality_ranking': 'string',
         'reach': 'string',
+        'read_rate': 'string',
         'result_rate': 'list<Object>',
         'result_values_performance_indicator': 'string',
         'results': 'list<Object>',
+        'shop_clicks': 'string',
         'shops_assisted_purchases': 'string',
         'social_spend': 'string',
         'spend': 'string',
@@ -589,6 +634,7 @@ class AdsInsights(
         'updated_time': 'string',
         'video_15_sec_watched_actions': 'list<AdsActionStats>',
         'video_30_sec_watched_actions': 'list<AdsActionStats>',
+        'video_6_sec_watched_actions': 'list<AdsActionStats>',
         'video_avg_time_watched_actions': 'list<AdsActionStats>',
         'video_continuous_2_sec_watched_actions': 'list<AdsActionStats>',
         'video_p100_watched_actions': 'list<AdsActionStats>',

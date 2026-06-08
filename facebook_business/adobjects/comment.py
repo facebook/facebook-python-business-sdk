@@ -257,6 +257,7 @@ class Comment(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'attribution_id_v2': 'string',
             'feedback_source': 'string',
             'nectar_module': 'string',
             'tracking': 'string',
@@ -321,6 +322,7 @@ class Comment(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'attribution_id_v2': 'string',
             'feedback_source': 'string',
             'nectar_module': 'string',
             'tracking': 'string',

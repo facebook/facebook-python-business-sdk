@@ -5,6 +5,10 @@
 # LICENSE file in the root directory of this source tree.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
+from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
+from facebook_business.adobjects.objectparser import ObjectParser
+from facebook_business.api import FacebookRequest
+from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -14,34 +18,23 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class ProductFeedAppsAndSoftwareGet(
-    AbstractObject,
+class AdCampaignBudgetSchedulesPost(
+    AbstractCrudObject,
 ):
 
-    def __init__(self, api=None):
-        super(ProductFeedAppsAndSoftwareGet, self).__init__()
-        self._isProductFeedAppsAndSoftwareGet = True
-        self._api = api
+    def __init__(self, fbid=None, parent_id=None, api=None):
+        self._isAdCampaignBudgetSchedulesPost = True
+        super(AdCampaignBudgetSchedulesPost, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        data = 'data'
-        paging = 'paging'
-        summary = 'summary'
-
-    class DisplayFormat:
-        carousel_ad = 'CAROUSEL_AD'
-        shops_pdp = 'SHOPS_PDP'
-        single_ad = 'SINGLE_AD'
+        id = 'id'
 
     _field_types = {
-        'data': 'list<object>',
-        'paging': 'object',
-        'summary': 'object',
+        'id': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
-        field_enum_info['DisplayFormat'] = ProductFeedAppsAndSoftwareGet.DisplayFormat.__dict__.values()
         return field_enum_info
 
 

@@ -27,16 +27,33 @@ class CPASCollaborationRequest(
         super(CPASCollaborationRequest, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        ad_account_id = 'ad_account_id'
+        ad_account_name = 'ad_account_name'
         brands = 'brands'
+        catalog_segment = 'catalog_segment'
         contact_email = 'contact_email'
         contact_first_name = 'contact_first_name'
         contact_last_name = 'contact_last_name'
+        creation_time = 'creation_time'
         id = 'id'
         phone_number = 'phone_number'
         receiver_business = 'receiver_business'
         requester_agency_or_brand = 'requester_agency_or_brand'
+        seller_id = 'seller_id'
+        sender_business = 'sender_business'
         sender_client_business = 'sender_client_business'
+        shop_url = 'shop_url'
+        source = 'source'
         status = 'status'
+
+    class RequestRole:
+        receiver = 'RECEIVER'
+        sender = 'SENDER'
+
+    class Source:
+        external = 'EXTERNAL'
+        internal = 'INTERNAL'
+        self_serve = 'SELF_SERVE'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -69,20 +86,30 @@ class CPASCollaborationRequest(
             return request.execute()
 
     _field_types = {
+        'ad_account_id': 'string',
+        'ad_account_name': 'string',
         'brands': 'list<string>',
+        'catalog_segment': 'ProductCatalog',
         'contact_email': 'string',
         'contact_first_name': 'string',
         'contact_last_name': 'string',
+        'creation_time': 'datetime',
         'id': 'string',
         'phone_number': 'string',
         'receiver_business': 'Business',
         'requester_agency_or_brand': 'string',
+        'seller_id': 'string',
+        'sender_business': 'Business',
         'sender_client_business': 'Business',
+        'shop_url': 'string',
+        'source': 'string',
         'status': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['RequestRole'] = CPASCollaborationRequest.RequestRole.__dict__.values()
+        field_enum_info['Source'] = CPASCollaborationRequest.Source.__dict__.values()
         return field_enum_info
 
 

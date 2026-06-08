@@ -66,7 +66,9 @@ class AdVideo(
         premiere_living_room_status = 'premiere_living_room_status'
         privacy = 'privacy'
         published = 'published'
+        replace_audio_status = 'replace_audio_status'
         scheduled_publish_time = 'scheduled_publish_time'
+        selected_audio_spec = 'selected_audio_spec'
         source = 'source'
         spherical = 'spherical'
         status = 'status'
@@ -783,37 +785,6 @@ class AdVideo(
             self.assure_call()
             return request.execute()
 
-    def create_gaming_clip_create(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.utils import api_utils
-        if batch is None and (success is not None or failure is not None):
-          api_utils.warning('`success` and `failure` callback only work for batch call.')
-        param_types = {
-            'duration_seconds': 'float',
-        }
-        enums = {
-        }
-        request = FacebookRequest(
-            node_id=self['id'],
-            method='POST',
-            endpoint='/gaming_clip_create',
-            api=self._api,
-            param_checker=TypeChecker(param_types, enums),
-            target_class=AdVideo,
-            api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdVideo, api=self._api),
-        )
-        request.add_params(params)
-        request.add_fields(fields)
-
-        if batch is not None:
-            request.add_to_batch(batch, success=success, failure=failure)
-            return request
-        elif pending:
-            return request
-        else:
-            self.assure_call()
-            return request.execute()
-
     def get_likes(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
@@ -850,6 +821,7 @@ class AdVideo(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'attribution_id_v2': 'string',
             'feedback_source': 'string',
             'nectar_module': 'string',
             'notify': 'bool',
@@ -1179,7 +1151,9 @@ class AdVideo(
         'premiere_living_room_status': 'string',
         'privacy': 'Privacy',
         'published': 'bool',
+        'replace_audio_status': 'string',
         'scheduled_publish_time': 'datetime',
+        'selected_audio_spec': 'Object',
         'source': 'string',
         'spherical': 'bool',
         'status': 'VideoStatus',

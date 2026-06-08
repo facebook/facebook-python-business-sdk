@@ -44,10 +44,12 @@ class Placement(
         whatsapp_positions = 'whatsapp_positions'
 
     class DevicePlatforms:
+        connected_tv = 'connected_tv'
         desktop = 'desktop'
         mobile = 'mobile'
 
     class EffectiveDevicePlatforms:
+        connected_tv = 'connected_tv'
         desktop = 'desktop'
         mobile = 'mobile'
 

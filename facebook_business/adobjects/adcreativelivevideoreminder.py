@@ -14,24 +14,22 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class RichMediaElement(
+class AdCreativeLiveVideoReminder(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(RichMediaElement, self).__init__()
-        self._isRichMediaElement = True
+        super(AdCreativeLiveVideoReminder, self).__init__()
+        self._isAdCreativeLiveVideoReminder = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        element = 'element'
-        element_type = 'element_type'
-        name = 'name'
+        enroll_status = 'enroll_status'
+        start_time = 'start_time'
 
     _field_types = {
-        'element': 'Object',
-        'element_type': 'string',
-        'name': 'string',
+        'enroll_status': 'string',
+        'start_time': 'datetime',
     }
     @classmethod
     def _get_field_enum_info(cls):

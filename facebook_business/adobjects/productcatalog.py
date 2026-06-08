@@ -45,6 +45,7 @@ class ProductCatalog(
         name = 'name'
         owner_business = 'owner_business'
         product_count = 'product_count'
+        show_assign_permissions = 'show_assign_permissions'
         store_catalog_settings = 'store_catalog_settings'
         user_access_expire_time = 'user_access_expire_time'
         vertical = 'vertical'
@@ -75,7 +76,7 @@ class ProductCatalog(
         media_titles = 'media_titles'
         offer_items = 'offer_items'
         offline_commerce = 'offline_commerce'
-        professional_services = 'professional_services'
+        services = 'services'
         transactable_items = 'transactable_items'
         vehicles = 'vehicles'
 
@@ -2351,6 +2352,7 @@ class ProductCatalog(
         'name': 'string',
         'owner_business': 'Business',
         'product_count': 'int',
+        'show_assign_permissions': 'bool',
         'store_catalog_settings': 'StoreCatalogSettings',
         'user_access_expire_time': 'datetime',
         'vertical': 'string',

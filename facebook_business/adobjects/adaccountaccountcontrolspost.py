@@ -18,21 +18,25 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class ProductCatalogGet(
+class AdAccountAccountControlsPost(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isProductCatalogGet = True
-        super(ProductCatalogGet, self).__init__(fbid, parent_id, api)
+        self._isAdAccountAccountControlsPost = True
+        super(AdAccountAccountControlsPost, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
+        error_code = 'error_code'
+        error_message = 'error_message'
         id = 'id'
-        name = 'name'
+        success = 'success'
 
     _field_types = {
+        'error_code': 'int',
+        'error_message': 'string',
         'id': 'string',
-        'name': 'string',
+        'success': 'bool',
     }
     @classmethod
     def _get_field_enum_info(cls):
