@@ -408,6 +408,65 @@ count individually towards rate limiting.
 See ``facebook_business.exceptions`` for a list of exceptions which may be thrown by
 the SDK.
 
+## Conversions API
+
+The Business SDK includes a server-side client for the [Conversions API](https://developers.facebook.com/docs/marketing-api/conversions-api), used to send web, app, and offline events to Meta directly from your server.
+
+```python
+import time
+from facebook_business.adobjects.serverside.action_source import ActionSource
+from facebook_business.adobjects.serverside.custom_data import CustomData
+from facebook_business.adobjects.serverside.event import Event
+from facebook_business.adobjects.serverside.event_request import EventRequest
+from facebook_business.adobjects.serverside.user_data import UserData
+from facebook_business.api import FacebookAdsApi
+
+FacebookAdsApi.init(access_token='<ACCESS_TOKEN>')
+
+user_data = UserData(
+    email='joe@eg.com',
+    client_ip_address=request.META.get('REMOTE_ADDR'),
+    client_user_agent=request.headers['User-Agent'],
+)
+custom_data = CustomData(currency='usd', value=123.45)
+event = Event(
+    event_name='Purchase',
+    event_time=int(time.time()),
+    user_data=user_data,
+    custom_data=custom_data,
+    event_source_url='http://jaspers-market.com/product/123',
+    action_source=ActionSource.WEBSITE,
+)
+response = EventRequest(pixel_id='<PIXEL_ID>', events=[event]).execute()
+print(response)
+```
+
+For advanced features — asynchronous requests, concurrent batching, and a custom HTTP service — see [Meta Business SDK Features for Conversions API](https://developers.facebook.com/documentation/ads-commerce/conversions-api/guides/business-sdk-features/).
+
+### Conversions API Parameter Builder integration
+
+The SDK bundles the [Conversions API Parameter Builder](https://github.com/facebook/capi-param-builder) ([Python README](https://github.com/facebook/capi-param-builder/blob/main/python/README.md)) so it can auto-fill key event parameters straight from the incoming HTTP request. Call `set_request_context()` on an event and pass the incoming request — see [Framework support](https://github.com/facebook/capi-param-builder/blob/main/python/README.md#framework-support) for exactly what to pass for your framework (e.g. a WSGI request such as Django `request` / Flask `request`, an ASGI scope, or a raw environ dict). At send time the SDK runs the Parameter Builder and fills in any of these fields you left empty:
+
+- `user_data.fbc`, `user_data.fbp`
+- `event_source_url`, `referrer_url`
+
+```python
+from facebook_business.adobjects.serverside.preference import Preference
+
+event = Event(
+    event_name='Purchase',
+    event_time=int(time.time()),
+    user_data=UserData(email='joe@eg.com'),
+    action_source=ActionSource.WEBSITE,
+).set_request_context(request)
+
+# Optional: gate which fields may be auto-filled (all default True).
+# Order: fbc, fbp, client_ip_address, referrer_url, event_source_url.
+#   .set_request_context(request, Preference(True, True, True, True, False))
+```
+
+Auto-fill is **gated** by the optional `Preference` allowlist, **non-destructive** (a value you set yourself is never overwritten), and **order-independent**. Note that in Python, `client_ip_address` is not auto-derived yet — keep setting it (and `client_user_agent`) yourself.
+
 ## Tests
 
 ### Unit tests
