@@ -85,12 +85,13 @@ class FacebookResponse(object):
 
         json_body = self.json()
 
-        if isinstance(json_body, collections_abc.Mapping) and 'error' in json_body:
-            # Is a dictionary, has error in it
-            return False
-        elif bool(json_body):
-            # Has body and no error
+        if bool(json_body) and isinstance(json_body, collections_abc.Mapping):
+            # Is a dictionary
+            if 'error' in json_body:
+                # Has 'error' as a key
+                return False
             if 'success' in json_body:
+                # Has 'success' as a key
                 return json_body['success']
             # API can return a success 200 when service unavailable occurs
             return 'Service Unavailable' not in json_body
