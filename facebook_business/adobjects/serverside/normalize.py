@@ -78,15 +78,15 @@ class Normalize(object):
 
         elif field == "country":
             # Remove any non-alpha characters from the data
-            normalized_data = isocode_included_chars.sub("", normalized_data)
+            normalized_data = isocode_included_chars.sub("", normalized_data).upper()
             if not Normalize.is_valid_country_code(normalized_data):
-                raise TypeError("Invalid format for country:'" + data + "'.Please follow ISO 2-letter ISO 3166-1 standard for representing country. eg: us")
+                raise TypeError("Invalid format for country:'" + data + "'.Please follow ISO 2-letter ISO 3166-1 standard for representing country. eg: US")
 
         elif field == "currency":
              # Remove any non-alpha characters from the data
-            normalized_data = isocode_included_chars.sub("", normalized_data)
+            normalized_data = isocode_included_chars.sub("", normalized_data).upper()
             if len(normalized_data) != 3:
-                raise TypeError("Invalid format for currency:'" + data + "'.Please follow ISO 3-letter ISO 4217 standard for representing currency. Eg: usd")
+                raise TypeError("Invalid format for currency:'" + data + "'.Please follow ISO 3-letter ISO 4217 standard for representing currency. Eg: USD")
 
         elif field == "ph":
             # Remove spaces and parenthesis within phone number
