@@ -24,8 +24,6 @@ class AdCampaignDeliveryEstimate(
         self._api = api
 
     class Field(AbstractObject.Field):
-        daily_outcomes_curve = 'daily_outcomes_curve'
-        estimate_dau = 'estimate_dau'
         estimate_mau_lower_bound = 'estimate_mau_lower_bound'
         estimate_mau_upper_bound = 'estimate_mau_upper_bound'
         estimate_ready = 'estimate_ready'
@@ -67,8 +65,6 @@ class AdCampaignDeliveryEstimate(
         visit_instagram_profile = 'VISIT_INSTAGRAM_PROFILE'
 
     _field_types = {
-        'daily_outcomes_curve': 'list<OutcomePredictionPoint>',
-        'estimate_dau': 'int',
         'estimate_mau_lower_bound': 'int',
         'estimate_mau_upper_bound': 'int',
         'estimate_ready': 'bool',

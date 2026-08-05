@@ -569,6 +569,8 @@ class IGUserExportForCAM(
         unknown = 'unknown'
 
     class Platform:
+        any = 'any'
+        both = 'both'
         facebook = 'facebook'
         instagram = 'instagram'
 
@@ -643,6 +645,8 @@ class IGUserExportForCAM(
                 'OVERALL',
             ],
             'platform_enum': [
+                'ANY',
+                'BOTH',
                 'FACEBOOK',
                 'INSTAGRAM',
             ],

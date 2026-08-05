@@ -105,6 +105,7 @@ class AdVideo(
         initial_heading = 'initial_heading'
         initial_pitch = 'initial_pitch'
         instant_game_entry_point_data = 'instant_game_entry_point_data'
+        is_ai_generated = 'is_ai_generated'
         is_boost_intended = 'is_boost_intended'
         is_group_linking_post = 'is_group_linking_post'
         is_partnership_ad = 'is_partnership_ad'
@@ -1190,6 +1191,7 @@ class AdVideo(
         'initial_heading': 'unsigned int',
         'initial_pitch': 'unsigned int',
         'instant_game_entry_point_data': 'string',
+        'is_ai_generated': 'bool',
         'is_boost_intended': 'bool',
         'is_group_linking_post': 'bool',
         'is_partnership_ad': 'bool',

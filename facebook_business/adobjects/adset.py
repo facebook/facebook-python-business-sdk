@@ -35,6 +35,7 @@ class AdSet(
         ad_set_goal = 'ad_set_goal'
         adlabels = 'adlabels'
         adset_schedule = 'adset_schedule'
+        anchor_event_attribution_window_days = 'anchor_event_attribution_window_days'
         asset_feed_id = 'asset_feed_id'
         attribution_count_type = 'attribution_count_type'
         attribution_spec = 'attribution_spec'
@@ -1212,6 +1213,7 @@ class AdSet(
         'ad_set_goal': 'AdCampaignGoal',
         'adlabels': 'list<AdLabel>',
         'adset_schedule': 'list<DayPart>',
+        'anchor_event_attribution_window_days': 'int',
         'asset_feed_id': 'string',
         'attribution_count_type': 'string',
         'attribution_spec': 'list<AttributionSpec>',

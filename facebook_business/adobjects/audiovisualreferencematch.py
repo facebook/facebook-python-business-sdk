@@ -44,13 +44,13 @@ class AudioVisualReferenceMatch(
         match_state = 'match_state'
         matched_overlap_percentage = 'matched_overlap_percentage'
         matched_owner_match_duration_in_sec = 'matched_owner_match_duration_in_sec'
-        matched_reference_owner = 'matched_reference_owner'
+        matched_reference_owner_v2 = 'matched_reference_owner_v2'
         modification_history = 'modification_history'
         num_matches_on_matched_side = 'num_matches_on_matched_side'
         num_matches_on_ref_side = 'num_matches_on_ref_side'
         ref_owner_match_duration_in_sec = 'ref_owner_match_duration_in_sec'
         reference_overlap_percentage = 'reference_overlap_percentage'
-        reference_owner = 'reference_owner'
+        reference_owner_v2 = 'reference_owner_v2'
         rejection_form_data_entries_with_translations = 'rejection_form_data_entries_with_translations'
         resolution_details = 'resolution_details'
         resolution_reason = 'resolution_reason'
@@ -78,13 +78,13 @@ class AudioVisualReferenceMatch(
         'match_state': 'string',
         'matched_overlap_percentage': 'float',
         'matched_owner_match_duration_in_sec': 'float',
-        'matched_reference_owner': 'Profile',
+        'matched_reference_owner_v2': 'Object',
         'modification_history': 'list<Object>',
         'num_matches_on_matched_side': 'unsigned int',
         'num_matches_on_ref_side': 'unsigned int',
         'ref_owner_match_duration_in_sec': 'float',
         'reference_overlap_percentage': 'float',
-        'reference_owner': 'Profile',
+        'reference_owner_v2': 'Object',
         'rejection_form_data_entries_with_translations': 'list<Object>',
         'resolution_details': 'string',
         'resolution_reason': 'string',

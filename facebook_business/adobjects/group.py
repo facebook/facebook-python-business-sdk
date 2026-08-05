@@ -240,6 +240,7 @@ class Group(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.user import User
         param_types = {
             'uid': 'int',
         }
@@ -251,9 +252,9 @@ class Group(
             endpoint='/admins',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=Group,
+            target_class=User,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=Group, api=self._api),
+            response_parser=ObjectParser(target_class=User, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -770,6 +771,7 @@ class Group(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.user import User
         param_types = {
             'email': 'string',
             'from': 'int',
@@ -785,9 +787,9 @@ class Group(
             endpoint='/members',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=Group,
+            target_class=User,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=Group, api=self._api),
+            response_parser=ObjectParser(target_class=User, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -1023,6 +1025,7 @@ class Group(
             'initial_heading': 'unsigned int',
             'initial_pitch': 'unsigned int',
             'instant_game_entry_point_data': 'string',
+            'is_ai_generated': 'bool',
             'is_boost_intended': 'bool',
             'is_explicit_share': 'bool',
             'is_group_linking_post': 'bool',

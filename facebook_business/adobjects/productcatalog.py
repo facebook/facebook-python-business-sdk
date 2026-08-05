@@ -100,9 +100,6 @@ class ProductCatalog(
         manage = 'MANAGE'
         manage_ar = 'MANAGE_AR'
 
-    class Standard:
-        google = 'google'
-
     class ItemSubType:
         appliances = 'APPLIANCES'
         baby_feeding = 'BABY_FEEDING'
@@ -142,6 +139,9 @@ class ProductCatalog(
         purchase_via_offer = 'PURCHASE_VIA_OFFER'
         test = 'TEST'
         view_item = 'VIEW_ITEM'
+
+    class Standard:
+        google = 'google'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
@@ -1272,6 +1272,7 @@ class ProductCatalog(
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.productcataloghotelroomsbatch import ProductCatalogHotelRoomsBatch
         param_types = {
             'file': 'file',
             'password': 'string',
@@ -1281,7 +1282,7 @@ class ProductCatalog(
             'username': 'string',
         }
         enums = {
-            'standard_enum': ProductCatalog.Standard.__dict__.values(),
+            'standard_enum': ProductCatalogHotelRoomsBatch.Standard.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -1289,9 +1290,9 @@ class ProductCatalog(
             endpoint='/hotel_rooms_batch',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=ProductCatalog,
+            target_class=ProductCatalogHotelRoomsBatch,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ProductCatalog, api=self._api),
+            response_parser=ObjectParser(target_class=ProductCatalogHotelRoomsBatch, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)
@@ -2374,10 +2375,10 @@ class ProductCatalog(
         field_enum_info['PermittedRoles'] = ProductCatalog.PermittedRoles.__dict__.values()
         field_enum_info['PermittedTasks'] = ProductCatalog.PermittedTasks.__dict__.values()
         field_enum_info['Tasks'] = ProductCatalog.Tasks.__dict__.values()
-        field_enum_info['Standard'] = ProductCatalog.Standard.__dict__.values()
         field_enum_info['ItemSubType'] = ProductCatalog.ItemSubType.__dict__.values()
         field_enum_info['ConversionType'] = ProductCatalog.ConversionType.__dict__.values()
         field_enum_info['EventName'] = ProductCatalog.EventName.__dict__.values()
+        field_enum_info['Standard'] = ProductCatalog.Standard.__dict__.values()
         return field_enum_info
 
 

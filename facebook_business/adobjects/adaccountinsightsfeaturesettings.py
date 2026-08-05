@@ -18,22 +18,56 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class AdAccountFeaturePreferences(
+class AdAccountInsightsFeatureSettings(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isAdAccountFeaturePreferences = True
-        super(AdAccountFeaturePreferences, self).__init__(fbid, parent_id, api)
+        self._isAdAccountInsightsFeatureSettings = True
+        super(AdAccountInsightsFeatureSettings, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
         id = 'id'
+
+    def genlistfeatures(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+        from facebook_business.utils import api_utils
+        if batch is None and (success is not None or failure is not None):
+          api_utils.warning('`success` and `failure` callback only work for batch call.')
+        from facebook_business.adobjects.adaccountinsightsfeaturesettingslistfeatures import AdAccountInsightsFeatureSettingsListFeatures
+        param_types = {
+            'after': 'string',
+            'before': 'string',
+            'limit': 'int',
+        }
+        enums = {
+        }
+        request = FacebookRequest(
+            node_id=self['id'],
+            method='GET',
+            endpoint='/insights/feature-settings/list-features',
+            api=self._api,
+            param_checker=TypeChecker(param_types, enums),
+            target_class=AdAccountInsightsFeatureSettingsListFeatures,
+            api_type='EDGE',
+            response_parser=ObjectParser(target_class=AdAccountInsightsFeatureSettingsListFeatures, api=self._api),
+        )
+        request.add_params(params)
+        request.add_fields(fields)
+
+        if batch is not None:
+            request.add_to_batch(batch, success=success, failure=failure)
+            return request
+        elif pending:
+            return request
+        else:
+            self.assure_call()
+            return request.execute()
 
     def genpost(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.adaccountfeaturepreferencespost import AdAccountFeaturePreferencesPost
+        from facebook_business.adobjects.adaccountinsightsfeaturesettingspost import AdAccountInsightsFeatureSettingsPost
         param_types = {
         }
         enums = {
@@ -41,12 +75,12 @@ class AdAccountFeaturePreferences(
         request = FacebookRequest(
             node_id=self['id'],
             method='POST',
-            endpoint='/feature_preferences',
+            endpoint='/insights/feature-settings',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=AdAccountFeaturePreferencesPost,
+            target_class=AdAccountInsightsFeatureSettingsPost,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=AdAccountFeaturePreferencesPost, api=self._api),
+            response_parser=ObjectParser(target_class=AdAccountInsightsFeatureSettingsPost, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

@@ -38,10 +38,10 @@ class ImageReferenceMatch(
         id = 'id'
         match_state = 'match_state'
         matched_reference_copyright = 'matched_reference_copyright'
-        matched_reference_owner = 'matched_reference_owner'
+        matched_reference_owner_rh_owner = 'matched_reference_owner_rh_owner'
         modification_history = 'modification_history'
         reference_copyright = 'reference_copyright'
-        reference_owner = 'reference_owner'
+        reference_owner_rh_owner = 'reference_owner_rh_owner'
         rejection_form_data_entries_with_translations = 'rejection_form_data_entries_with_translations'
         resolution_reason = 'resolution_reason'
         update_time = 'update_time'
@@ -88,10 +88,10 @@ class ImageReferenceMatch(
         'id': 'string',
         'match_state': 'string',
         'matched_reference_copyright': 'ImageCopyright',
-        'matched_reference_owner': 'Profile',
+        'matched_reference_owner_rh_owner': 'Object',
         'modification_history': 'list<Object>',
         'reference_copyright': 'ImageCopyright',
-        'reference_owner': 'Profile',
+        'reference_owner_rh_owner': 'Object',
         'rejection_form_data_entries_with_translations': 'list<Object>',
         'resolution_reason': 'string',
         'update_time': 'datetime',

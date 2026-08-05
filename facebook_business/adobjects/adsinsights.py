@@ -147,6 +147,7 @@ class AdsInsights(
         inline_link_click_ctr = 'inline_link_click_ctr'
         inline_link_clicks = 'inline_link_clicks'
         inline_post_engagement = 'inline_post_engagement'
+        instagram_profile_follow = 'instagram_profile_follow'
         instagram_profile_visits = 'instagram_profile_visits'
         instagram_upcoming_event_reminders_set = 'instagram_upcoming_event_reminders_set'
         instant_experience_clicks_to_open = 'instant_experience_clicks_to_open'
@@ -176,10 +177,6 @@ class AdsInsights(
         marketing_messages_sent = 'marketing_messages_sent'
         marketing_messages_spend = 'marketing_messages_spend'
         marketing_messages_spend_currency = 'marketing_messages_spend_currency'
-        marketing_messages_website_add_to_cart = 'marketing_messages_website_add_to_cart'
-        marketing_messages_website_initiate_checkout = 'marketing_messages_website_initiate_checkout'
-        marketing_messages_website_purchase = 'marketing_messages_website_purchase'
-        marketing_messages_website_purchase_values = 'marketing_messages_website_purchase_values'
         messages_delivered = 'messages_delivered'
         messages_delivered_ctr = 'messages_delivered_ctr'
         mobile_app_purchase_roas = 'mobile_app_purchase_roas'
@@ -193,6 +190,8 @@ class AdsInsights(
         outbound_clicks = 'outbound_clicks'
         outbound_clicks_ctr = 'outbound_clicks_ctr'
         place_page_name = 'place_page_name'
+        playable_average_game_length = 'playable_average_game_length'
+        playable_game_start_rate = 'playable_game_start_rate'
         product_group_retailer_id = 'product_group_retailer_id'
         product_retailer_id = 'product_retailer_id'
         product_views = 'product_views'
@@ -563,6 +562,7 @@ class AdsInsights(
         'inline_link_click_ctr': 'string',
         'inline_link_clicks': 'string',
         'inline_post_engagement': 'string',
+        'instagram_profile_follow': 'string',
         'instagram_profile_visits': 'string',
         'instagram_upcoming_event_reminders_set': 'string',
         'instant_experience_clicks_to_open': 'string',
@@ -592,10 +592,6 @@ class AdsInsights(
         'marketing_messages_sent': 'string',
         'marketing_messages_spend': 'string',
         'marketing_messages_spend_currency': 'string',
-        'marketing_messages_website_add_to_cart': 'string',
-        'marketing_messages_website_initiate_checkout': 'string',
-        'marketing_messages_website_purchase': 'string',
-        'marketing_messages_website_purchase_values': 'string',
         'messages_delivered': 'string',
         'messages_delivered_ctr': 'string',
         'mobile_app_purchase_roas': 'list<AdsActionStats>',
@@ -609,6 +605,8 @@ class AdsInsights(
         'outbound_clicks': 'list<AdsActionStats>',
         'outbound_clicks_ctr': 'list<AdsActionStats>',
         'place_page_name': 'string',
+        'playable_average_game_length': 'string',
+        'playable_game_start_rate': 'string',
         'product_group_retailer_id': 'string',
         'product_retailer_id': 'string',
         'product_views': 'string',

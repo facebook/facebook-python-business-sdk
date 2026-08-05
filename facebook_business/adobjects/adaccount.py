@@ -190,6 +190,7 @@ class AdAccount(
         feed_dnm = 'FEED_DNM'
         feed_nested_dnm = 'FEED_NESTED_DNM'
         feed_relaxed = 'FEED_RELAXED'
+        feed_select = 'FEED_SELECT'
         feed_standard = 'FEED_STANDARD'
         feed_strict = 'FEED_STRICT'
         uninitialized = 'UNINITIALIZED'
@@ -367,6 +368,7 @@ class AdAccount(
         param_types = {
             'audience_controls': 'Object',
             'placement_controls': 'Object',
+            'placement_controls_per_objective': 'Object',
         }
         enums = {
         }
@@ -1196,6 +1198,7 @@ class AdAccount(
             'creative': 'AdCreative',
             'creative_asset_groups_spec': 'Object',
             'creative_automation_spec': 'Object',
+            'dataset_split_specs': 'list<map>',
             'date_format': 'string',
             'display_sequence': 'unsigned int',
             'draft_adgroup_id': 'string',
@@ -1769,6 +1772,7 @@ class AdAccount(
             'initial_heading': 'unsigned int',
             'initial_pitch': 'unsigned int',
             'instant_game_entry_point_data': 'string',
+            'is_ai_generated': 'bool',
             'is_boost_intended': 'bool',
             'is_group_linking_post': 'bool',
             'is_partnership_ad': 'bool',
@@ -4608,6 +4612,7 @@ class AdAccount(
         from facebook_business.adobjects.advideo import AdVideo
         param_types = {
             'description': 'string',
+            'is_ai_generated': 'bool',
             'privacy': 'string',
             'title': 'string',
             'upload_phase': 'upload_phase_enum',

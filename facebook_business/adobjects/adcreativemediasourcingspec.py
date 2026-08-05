@@ -26,6 +26,7 @@ class AdCreativeMediaSourcingSpec(
     class Field(AbstractObject.Field):
         bodies = 'bodies'
         descriptions = 'descriptions'
+        destinations = 'destinations'
         images = 'images'
         push_metadata_ids = 'push_metadata_ids'
         related_media = 'related_media'
@@ -35,6 +36,7 @@ class AdCreativeMediaSourcingSpec(
     _field_types = {
         'bodies': 'list<Object>',
         'descriptions': 'list<Object>',
+        'destinations': 'list<Object>',
         'images': 'list<Object>',
         'push_metadata_ids': 'list<string>',
         'related_media': 'Object',

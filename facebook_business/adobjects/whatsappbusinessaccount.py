@@ -979,7 +979,6 @@ class WhatsAppBusinessAccount(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'allow_category_change': 'bool',
-            'bid_spec': 'map',
             'category': 'category_enum',
             'components': 'list<map>',
             'creative_sourcing_spec': 'map',
@@ -998,6 +997,7 @@ class WhatsAppBusinessAccount(
             'parameter_format': 'parameter_format_enum',
             'product_set_id': 'string',
             'send_type': 'send_type_enum',
+            'source_template_id': 'unsigned int',
             'sub_category': 'sub_category_enum',
         }
         enums = {

@@ -72,6 +72,7 @@ class Ad(
         updated_time = 'updated_time'
         adset_spec = 'adset_spec'
         audience_id = 'audience_id'
+        dataset_split_specs = 'dataset_split_specs'
         date_format = 'date_format'
         draft_adgroup_id = 'draft_adgroup_id'
         execution_options = 'execution_options'
@@ -746,6 +747,7 @@ class Ad(
         'updated_time': 'datetime',
         'adset_spec': 'AdSet',
         'audience_id': 'string',
+        'dataset_split_specs': 'list<map>',
         'date_format': 'string',
         'draft_adgroup_id': 'string',
         'execution_options': 'list<ExecutionOptions>',

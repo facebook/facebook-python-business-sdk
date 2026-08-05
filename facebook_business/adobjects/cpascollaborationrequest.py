@@ -54,6 +54,7 @@ class CPASCollaborationRequest(
         external = 'EXTERNAL'
         internal = 'INTERNAL'
         self_serve = 'SELF_SERVE'
+        self_serve_contact_form = 'SELF_SERVE_CONTACT_FORM'
 
     def api_get(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils

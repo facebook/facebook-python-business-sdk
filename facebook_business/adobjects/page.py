@@ -250,16 +250,29 @@ class Page(
         c2pa = 'C2PA'
         c2pa_metadata_edited = 'C2PA_METADATA_EDITED'
         explicit = 'EXPLICIT'
+        explicit_ai_cut = 'EXPLICIT_AI_CUT'
+        explicit_ai_edit = 'EXPLICIT_AI_EDIT'
+        explicit_ai_edit_presets_sheet = 'EXPLICIT_AI_EDIT_PRESETS_SHEET'
+        explicit_ai_expander = 'EXPLICIT_AI_EXPANDER'
+        explicit_ai_rewrite_with_meta_ai_intent = 'EXPLICIT_AI_REWRITE_WITH_META_AI_INTENT'
+        explicit_ai_transition = 'EXPLICIT_AI_TRANSITION'
+        explicit_ai_v2v_restyle = 'EXPLICIT_AI_V2V_RESTYLE'
         explicit_animate = 'EXPLICIT_ANIMATE'
+        explicit_clipgen = 'EXPLICIT_CLIPGEN'
+        explicit_cutout = 'EXPLICIT_CUTOUT'
         explicit_drop_in = 'EXPLICIT_DROP_IN'
         explicit_face_swap = 'EXPLICIT_FACE_SWAP'
         explicit_imagine = 'EXPLICIT_IMAGINE'
         explicit_imagine_me = 'EXPLICIT_IMAGINE_ME'
+        explicit_magic_cut = 'EXPLICIT_MAGIC_CUT'
         explicit_restyle = 'EXPLICIT_RESTYLE'
+        explicit_restyle_effects_merge = 'EXPLICIT_RESTYLE_EFFECTS_MERGE'
+        explicit_subject_effect = 'EXPLICIT_SUBJECT_EFFECT'
         explicit_wardrobe = 'EXPLICIT_WARDROBE'
         invisible_watermark = 'INVISIBLE_WATERMARK'
         iptc = 'IPTC'
         iptc_metadata_edited = 'IPTC_METADATA_EDITED'
+        none = 'NONE'
 
     class PickupOptions:
         curbside = 'CURBSIDE'
@@ -5101,6 +5114,7 @@ class Page(
         param_types = {
             'description': 'string',
             'feed_targeting': 'Object',
+            'is_ai_generated': 'bool',
             'place': 'string',
             'scheduled_publish_time': 'datetime',
             'targeting': 'Object',
@@ -5142,6 +5156,7 @@ class Page(
         param_types = {
             'description': 'string',
             'feed_targeting': 'Object',
+            'is_ai_generated': 'bool',
             'place': 'string',
             'scheduled_publish_time': 'datetime',
             'targeting': 'Object',
@@ -5262,6 +5277,7 @@ class Page(
             'initial_heading': 'unsigned int',
             'initial_pitch': 'unsigned int',
             'instant_game_entry_point_data': 'string',
+            'is_ai_generated': 'bool',
             'is_boost_intended': 'bool',
             'is_explicit_share': 'bool',
             'is_group_linking_post': 'bool',

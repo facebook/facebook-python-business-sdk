@@ -25,9 +25,15 @@ class BrandSafetyCampaignConfig(
 
     class Field(AbstractObject.Field):
         comment_moderation_filter = 'comment_moderation_filter'
+        fb_comment_moderation_filter = 'fb_comment_moderation_filter'
+        ig_comment_moderation_filter = 'ig_comment_moderation_filter'
+        threads_comment_moderation_filter = 'threads_comment_moderation_filter'
 
     _field_types = {
         'comment_moderation_filter': 'string',
+        'fb_comment_moderation_filter': 'string',
+        'ig_comment_moderation_filter': 'string',
+        'threads_comment_moderation_filter': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):
