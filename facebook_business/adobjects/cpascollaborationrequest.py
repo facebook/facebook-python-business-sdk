@@ -31,6 +31,7 @@ class CPASCollaborationRequest(
         ad_account_name = 'ad_account_name'
         brands = 'brands'
         catalog_segment = 'catalog_segment'
+        collaborative_ads_share_settings = 'collaborative_ads_share_settings'
         contact_email = 'contact_email'
         contact_first_name = 'contact_first_name'
         contact_last_name = 'contact_last_name'
@@ -91,6 +92,7 @@ class CPASCollaborationRequest(
         'ad_account_name': 'string',
         'brands': 'list<string>',
         'catalog_segment': 'ProductCatalog',
+        'collaborative_ads_share_settings': 'CollaborativeAdsShareSettings',
         'contact_email': 'string',
         'contact_first_name': 'string',
         'contact_last_name': 'string',

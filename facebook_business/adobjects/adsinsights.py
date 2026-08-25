@@ -180,6 +180,7 @@ class AdsInsights(
         messages_delivered = 'messages_delivered'
         messages_delivered_ctr = 'messages_delivered_ctr'
         mobile_app_purchase_roas = 'mobile_app_purchase_roas'
+        msa_seller_budget = 'msa_seller_budget'
         multi_event_conversion_attribution_setting = 'multi_event_conversion_attribution_setting'
         objective = 'objective'
         objective_result_rate = 'objective_result_rate'
@@ -205,6 +206,7 @@ class AdsInsights(
         result_rate = 'result_rate'
         result_values_performance_indicator = 'result_values_performance_indicator'
         results = 'results'
+        shop_clicks = 'shop_clicks'
         shops_assisted_purchases = 'shops_assisted_purchases'
         social_spend = 'social_spend'
         spend = 'spend'
@@ -302,6 +304,8 @@ class AdsInsights(
         ad_extension_domain = 'ad_extension_domain'
         ad_extension_url = 'ad_extension_url'
         ad_format_asset = 'ad_format_asset'
+        affiliate_click_region = 'affiliate_click_region'
+        affiliate_link_url = 'affiliate_link_url'
         age = 'age'
         app_id = 'app_id'
         body_asset = 'body_asset'
@@ -352,9 +356,11 @@ class AdsInsights(
         media_text_content = 'media_text_content'
         media_type = 'media_type'
         mmm = 'mmm'
+        msa_seller_name = 'msa_seller_name'
         overlap_segment = 'overlap_segment'
         pa_creator_ig_handle = 'pa_creator_ig_handle'
         place_page_id = 'place_page_id'
+        placement_path = 'placement_path'
         platform_position = 'platform_position'
         postback_sequence_index = 'postback_sequence_index'
         product_brand_breakdown = 'product_brand_breakdown'
@@ -595,6 +601,7 @@ class AdsInsights(
         'messages_delivered': 'string',
         'messages_delivered_ctr': 'string',
         'mobile_app_purchase_roas': 'list<AdsActionStats>',
+        'msa_seller_budget': 'int',
         'multi_event_conversion_attribution_setting': 'string',
         'objective': 'string',
         'objective_result_rate': 'list<Object>',
@@ -620,6 +627,7 @@ class AdsInsights(
         'result_rate': 'list<Object>',
         'result_values_performance_indicator': 'string',
         'results': 'list<Object>',
+        'shop_clicks': 'string',
         'shops_assisted_purchases': 'string',
         'social_spend': 'string',
         'spend': 'string',

@@ -652,6 +652,7 @@ class IGUser(
             'major_audience_device_type': 'list<Object>',
             'major_audience_gender': 'list<major_audience_gender_enum>',
             'major_audience_states': 'list<string>',
+            'page_name': 'string',
             'platform': 'platform_enum',
             'query': 'string',
             'recommendation_type': 'recommendation_type_enum',

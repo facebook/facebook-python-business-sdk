@@ -41,6 +41,7 @@ class ReachFrequencyPrediction(
         campaign_id = 'campaign_id'
         campaign_time_start = 'campaign_time_start'
         campaign_time_stop = 'campaign_time_stop'
+        cpm = 'cpm'
         currency = 'currency'
         curve_budget_reach = 'curve_budget_reach'
         curve_reach = 'curve_reach'
@@ -221,6 +222,7 @@ class ReachFrequencyPrediction(
         'campaign_id': 'string',
         'campaign_time_start': 'datetime',
         'campaign_time_stop': 'datetime',
+        'cpm': 'int',
         'currency': 'string',
         'curve_budget_reach': 'ReachFrequencyEstimatesCurve',
         'curve_reach': 'list<unsigned int>',

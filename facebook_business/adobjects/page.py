@@ -273,6 +273,7 @@ class Page(
         iptc = 'IPTC'
         iptc_metadata_edited = 'IPTC_METADATA_EDITED'
         none = 'NONE'
+        paigm_classifier = 'PAIGM_CLASSIFIER'
 
     class PickupOptions:
         curbside = 'CURBSIDE'
@@ -3923,6 +3924,7 @@ class Page(
             'backdated_time': 'datetime',
             'backdated_time_granularity': 'backdated_time_granularity_enum',
             'caption': 'string',
+            'composer_entry_point': 'string',
             'composer_session_id': 'string',
             'direct_share_status': 'unsigned int',
             'feed_targeting': 'Object',

@@ -5,6 +5,10 @@
 # LICENSE file in the root directory of this source tree.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
+from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
+from facebook_business.adobjects.objectparser import ObjectParser
+from facebook_business.api import FacebookRequest
+from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -14,24 +18,19 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class PageAboutStoryComposedBlockInlineStyle(
-    AbstractObject,
+class ProductCatalogArticlesAndPublicationsPost(
+    AbstractCrudObject,
 ):
 
-    def __init__(self, api=None):
-        super(PageAboutStoryComposedBlockInlineStyle, self).__init__()
-        self._isPageAboutStoryComposedBlockInlineStyle = True
-        self._api = api
+    def __init__(self, fbid=None, parent_id=None, api=None):
+        self._isProductCatalogArticlesAndPublicationsPost = True
+        super(ProductCatalogArticlesAndPublicationsPost, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        length = 'length'
-        offset = 'offset'
-        style = 'style'
+        id = 'id'
 
     _field_types = {
-        'length': 'int',
-        'offset': 'int',
-        'style': 'string',
+        'id': 'int',
     }
     @classmethod
     def _get_field_enum_info(cls):

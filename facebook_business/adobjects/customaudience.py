@@ -174,6 +174,7 @@ class CustomAudience(
     class UsageRestriction:
         exclusion_only = 'EXCLUSION_ONLY'
         none = 'NONE'
+        no_derivatives = 'NO_DERIVATIVES'
 
     class UseForProducts:
         ads = 'ADS'

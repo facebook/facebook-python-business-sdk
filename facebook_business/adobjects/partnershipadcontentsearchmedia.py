@@ -26,6 +26,7 @@ class PartnershipAdContentSearchMedia(
     class Field(AbstractObject.Field):
         fb_ad_code_sponsor_count = 'fb_ad_code_sponsor_count'
         fb_ad_code_sponsors = 'fb_ad_code_sponsors'
+        fb_affiliate_shortened_url = 'fb_affiliate_shortened_url'
         ig_ad_code_sponsor_count = 'ig_ad_code_sponsor_count'
         ig_ad_code_sponsors = 'ig_ad_code_sponsors'
         ig_media = 'ig_media'
@@ -36,6 +37,7 @@ class PartnershipAdContentSearchMedia(
     _field_types = {
         'fb_ad_code_sponsor_count': 'int',
         'fb_ad_code_sponsors': 'list<FBPageAndInstagramAccount>',
+        'fb_affiliate_shortened_url': 'string',
         'ig_ad_code_sponsor_count': 'int',
         'ig_ad_code_sponsors': 'list<FBPageAndInstagramAccount>',
         'ig_media': 'IGMedia',

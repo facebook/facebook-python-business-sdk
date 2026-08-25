@@ -84,6 +84,7 @@ class ProductItem(
         material = 'material'
         mobile_link = 'mobile_link'
         name = 'name'
+        native_commerce = 'native_commerce'
         offer_disclaimer = 'offer_disclaimer'
         offer_disclaimer_url = 'offer_disclaimer_url'
         ordering_index = 'ordering_index'
@@ -94,6 +95,7 @@ class ProductItem(
         post_conversion_signal_based_enforcement_appeal_eligibility = 'post_conversion_signal_based_enforcement_appeal_eligibility'
         price = 'price'
         product_catalog = 'product_catalog'
+        product_disclosures = 'product_disclosures'
         product_feed = 'product_feed'
         product_group = 'product_group'
         product_local_info = 'product_local_info'
@@ -1257,6 +1259,7 @@ class ProductItem(
         'material': 'string',
         'mobile_link': 'string',
         'name': 'string',
+        'native_commerce': 'bool',
         'offer_disclaimer': 'string',
         'offer_disclaimer_url': 'string',
         'ordering_index': 'int',
@@ -1267,6 +1270,7 @@ class ProductItem(
         'post_conversion_signal_based_enforcement_appeal_eligibility': 'bool',
         'price': 'string',
         'product_catalog': 'ProductCatalog',
+        'product_disclosures': 'list<ProductItemProductDisclosure>',
         'product_feed': 'ProductFeed',
         'product_group': 'ProductGroup',
         'product_local_info': 'ProductItemLocalInfo',

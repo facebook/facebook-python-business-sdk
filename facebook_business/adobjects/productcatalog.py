@@ -2320,9 +2320,9 @@ class ProductCatalog(
             endpoint='/version_items_batch',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=ProductCatalog,
+            target_class=AbstractCrudObject,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ProductCatalog, api=self._api),
+            response_parser=ObjectParser(target_class=AbstractCrudObject, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

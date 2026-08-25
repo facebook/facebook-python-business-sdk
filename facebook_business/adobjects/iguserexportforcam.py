@@ -30,6 +30,7 @@ class IGUserExportForCAM(
         age_bucket = 'age_bucket'
         badges = 'badges'
         biography = 'biography'
+        category = 'category'
         country = 'country'
         email = 'email'
         gender = 'gender'
@@ -576,6 +577,7 @@ class IGUserExportForCAM(
 
     class RecommendationType:
         high_ad_performance = 'high_ad_performance'
+        interested_in_collaboration = 'interested_in_collaboration'
         most_ads_experience = 'most_ads_experience'
         most_relevant_for_me = 'most_relevant_for_me'
         similar_audience = 'similar_audience'
@@ -745,6 +747,7 @@ class IGUserExportForCAM(
         'age_bucket': 'string',
         'badges': 'list<string>',
         'biography': 'string',
+        'category': 'string',
         'country': 'string',
         'email': 'string',
         'gender': 'string',

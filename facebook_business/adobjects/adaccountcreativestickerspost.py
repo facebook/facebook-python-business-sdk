@@ -5,6 +5,10 @@
 # LICENSE file in the root directory of this source tree.
 
 from facebook_business.adobjects.abstractobject import AbstractObject
+from facebook_business.adobjects.abstractcrudobject import AbstractCrudObject
+from facebook_business.adobjects.objectparser import ObjectParser
+from facebook_business.api import FacebookRequest
+from facebook_business.typechecker import TypeChecker
 
 """
 This class is auto-generated.
@@ -14,28 +18,23 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class PageAboutStoryComposedBlock(
-    AbstractObject,
+class AdAccountCreativeStickersPost(
+    AbstractCrudObject,
 ):
 
-    def __init__(self, api=None):
-        super(PageAboutStoryComposedBlock, self).__init__()
-        self._isPageAboutStoryComposedBlock = True
-        self._api = api
+    def __init__(self, fbid=None, parent_id=None, api=None):
+        self._isAdAccountCreativeStickersPost = True
+        super(AdAccountCreativeStickersPost, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
-        depth = 'depth'
-        entity_ranges = 'entity_ranges'
-        inline_style_ranges = 'inline_style_ranges'
-        text = 'text'
-        type = 'type'
+        id = 'id'
+        status = 'status'
+        success = 'success'
 
     _field_types = {
-        'depth': 'int',
-        'entity_ranges': 'list<PageAboutStoryComposedBlockEntityRanges>',
-        'inline_style_ranges': 'list<PageAboutStoryComposedBlockInlineStyle>',
-        'text': 'string',
-        'type': 'string',
+        'id': 'string',
+        'status': 'string',
+        'success': 'bool',
     }
     @classmethod
     def _get_field_enum_info(cls):

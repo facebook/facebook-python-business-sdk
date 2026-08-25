@@ -141,6 +141,7 @@ class ProductFeed(
 
     class UseCase:
         creator_asset = 'CREATOR_ASSET'
+        open_catalog_ucp = 'OPEN_CATALOG_UCP'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod

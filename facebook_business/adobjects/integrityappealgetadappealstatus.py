@@ -14,24 +14,22 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class PageAboutStoryComposedBlockEntityRanges(
+class IntegrityAppealGetAdAppealStatus(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(PageAboutStoryComposedBlockEntityRanges, self).__init__()
-        self._isPageAboutStoryComposedBlockEntityRanges = True
+        super(IntegrityAppealGetAdAppealStatus, self).__init__()
+        self._isIntegrityAppealGetAdAppealStatus = True
         self._api = api
 
     class Field(AbstractObject.Field):
-        key = 'key'
-        length = 'length'
-        offset = 'offset'
+        ad_id = 'ad_id'
+        appeal_status = 'appeal_status'
 
     _field_types = {
-        'key': 'string',
-        'length': 'int',
-        'offset': 'int',
+        'ad_id': 'int',
+        'appeal_status': 'string',
     }
     @classmethod
     def _get_field_enum_info(cls):

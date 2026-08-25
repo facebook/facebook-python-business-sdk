@@ -105,6 +105,7 @@ class AdCreativeFeaturesSpec(
         video_to_image = 'video_to_image'
         video_uncrop = 'video_uncrop'
         video_uncrop_9x16_to_9x18 = 'video_uncrop_9x16_to_9x18'
+        video_voiceover = 'video_voiceover'
         wa_mm_image_filtering = 'wa_mm_image_filtering'
         wa_mm_text_truncation_length = 'wa_mm_text_truncation_length'
 
@@ -190,6 +191,7 @@ class AdCreativeFeaturesSpec(
         'video_to_image': 'AdCreativeFeatureDetails',
         'video_uncrop': 'AdCreativeFeatureDetails',
         'video_uncrop_9x16_to_9x18': 'AdCreativeFeatureDetails',
+        'video_voiceover': 'AdCreativeFeatureDetails',
         'wa_mm_image_filtering': 'AdCreativeFeatureDetails',
         'wa_mm_text_truncation_length': 'AdCreativeFeatureDetails',
     }

@@ -119,20 +119,6 @@ class AdSet(
         use_new_app_click = 'use_new_app_click'
         value_rule_set_id = 'value_rule_set_id'
         value_rules_applied = 'value_rules_applied'
-        budget_schedule_specs = 'budget_schedule_specs'
-        budget_source = 'budget_source'
-        budget_split_set_id = 'budget_split_set_id'
-        campaign_spec = 'campaign_spec'
-        daily_imps = 'daily_imps'
-        date_format = 'date_format'
-        execution_options = 'execution_options'
-        is_sac_cfca_terms_certified = 'is_sac_cfca_terms_certified'
-        line_number = 'line_number'
-        rb_prediction_id = 'rb_prediction_id'
-        time_start = 'time_start'
-        time_stop = 'time_stop'
-        topline_id = 'topline_id'
-        tune_for_category = 'tune_for_category'
 
     class BidStrategy:
         cost_cap = 'COST_CAP'
@@ -209,28 +195,6 @@ class AdSet(
         deleted = 'DELETED'
         paused = 'PAUSED'
 
-    class AttributionCountType:
-        all_conversions = 'ALL_CONVERSIONS'
-        first_conversion = 'FIRST_CONVERSION'
-
-    class AutomaticManualState:
-        automatic = 'AUTOMATIC'
-        manual = 'MANUAL'
-        unset = 'UNSET'
-
-    class BudgetSource:
-        none = 'NONE'
-        rmn = 'RMN'
-
-    class CostBiddingMode:
-        balanced = 'BALANCED'
-        cost_focused = 'COST_FOCUSED'
-        volume_focused = 'VOLUME_FOCUSED'
-
-    class CreativeSequenceRepetitionPattern:
-        full_sequence = 'FULL_SEQUENCE'
-        last_ad = 'LAST_AD'
-
     class DatePreset:
         data_maximum = 'DATA_MAXIMUM'
         last_14d = 'LAST_14D'
@@ -252,6 +216,24 @@ class AdSet(
         this_year = 'THIS_YEAR'
         today = 'TODAY'
         yesterday = 'YESTERDAY'
+
+    class Operator:
+        all = 'ALL'
+        any = 'ANY'
+
+    class AutomaticManualState:
+        automatic = 'AUTOMATIC'
+        manual = 'MANUAL'
+        unset = 'UNSET'
+
+    class CostBiddingMode:
+        balanced = 'BALANCED'
+        cost_focused = 'COST_FOCUSED'
+        volume_focused = 'VOLUME_FOCUSED'
+
+    class CreativeSequenceRepetitionPattern:
+        full_sequence = 'FULL_SEQUENCE'
+        last_ad = 'LAST_AD'
 
     class DestinationType:
         app = 'APP'
@@ -330,6 +312,7 @@ class AdSet(
         value_20 = '20'
         value_21 = '21'
         value_22 = '22'
+        value_24 = '24'
 
     class TuneForCategory:
         credit = 'CREDIT'
@@ -340,10 +323,6 @@ class AdSet(
         none = 'NONE'
         online_gambling_and_gaming = 'ONLINE_GAMBLING_AND_GAMING'
 
-    class Operator:
-        all = 'ALL'
-        any = 'ANY'
-
     class StatusOption:
         active = 'ACTIVE'
         inherited_from_source = 'INHERITED_FROM_SOURCE'
@@ -353,11 +332,6 @@ class AdSet(
     @classmethod
     def get_endpoint(cls):
         return 'adsets'
-
-    # @deprecated api_create is being deprecated
-    def api_create(self, parent_id, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
-        from facebook_business.adobjects.adaccount import AdAccount
-        return AdAccount(api=self._api, fbid=parent_id).create_ad_set(fields, params, batch, success, failure, pending)
 
     def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -1297,20 +1271,6 @@ class AdSet(
         'use_new_app_click': 'bool',
         'value_rule_set_id': 'string',
         'value_rules_applied': 'bool',
-        'budget_schedule_specs': 'list<Object>',
-        'budget_source': 'BudgetSource',
-        'budget_split_set_id': 'string',
-        'campaign_spec': 'Object',
-        'daily_imps': 'unsigned int',
-        'date_format': 'string',
-        'execution_options': 'list<ExecutionOptions>',
-        'is_sac_cfca_terms_certified': 'bool',
-        'line_number': 'unsigned int',
-        'rb_prediction_id': 'string',
-        'time_start': 'datetime',
-        'time_stop': 'datetime',
-        'topline_id': 'string',
-        'tune_for_category': 'TuneForCategory',
     }
     @classmethod
     def _get_field_enum_info(cls):
@@ -1321,12 +1281,11 @@ class AdSet(
         field_enum_info['EffectiveStatus'] = AdSet.EffectiveStatus.__dict__.values()
         field_enum_info['OptimizationGoal'] = AdSet.OptimizationGoal.__dict__.values()
         field_enum_info['Status'] = AdSet.Status.__dict__.values()
-        field_enum_info['AttributionCountType'] = AdSet.AttributionCountType.__dict__.values()
+        field_enum_info['DatePreset'] = AdSet.DatePreset.__dict__.values()
+        field_enum_info['Operator'] = AdSet.Operator.__dict__.values()
         field_enum_info['AutomaticManualState'] = AdSet.AutomaticManualState.__dict__.values()
-        field_enum_info['BudgetSource'] = AdSet.BudgetSource.__dict__.values()
         field_enum_info['CostBiddingMode'] = AdSet.CostBiddingMode.__dict__.values()
         field_enum_info['CreativeSequenceRepetitionPattern'] = AdSet.CreativeSequenceRepetitionPattern.__dict__.values()
-        field_enum_info['DatePreset'] = AdSet.DatePreset.__dict__.values()
         field_enum_info['DestinationType'] = AdSet.DestinationType.__dict__.values()
         field_enum_info['ExecutionOptions'] = AdSet.ExecutionOptions.__dict__.values()
         field_enum_info['FullFunnelExplorationMode'] = AdSet.FullFunnelExplorationMode.__dict__.values()
@@ -1334,7 +1293,6 @@ class AdSet(
         field_enum_info['OptimizationSubEvent'] = AdSet.OptimizationSubEvent.__dict__.values()
         field_enum_info['RegionalRegulatedCategories'] = AdSet.RegionalRegulatedCategories.__dict__.values()
         field_enum_info['TuneForCategory'] = AdSet.TuneForCategory.__dict__.values()
-        field_enum_info['Operator'] = AdSet.Operator.__dict__.values()
         field_enum_info['StatusOption'] = AdSet.StatusOption.__dict__.values()
         return field_enum_info
 

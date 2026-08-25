@@ -191,6 +191,7 @@ class AdVideo(
         facecast_dvr = 'FACECAST_DVR'
         fb_avatar_animated_satp = 'FB_AVATAR_ANIMATED_SATP'
         fb_collectible_video = 'FB_COLLECTIBLE_VIDEO'
+        fb_msgr_status_media_element = 'FB_MSGR_STATUS_MEDIA_ELEMENT'
         fb_quicksnap_video = 'FB_QUICKSNAP_VIDEO'
         fb_shorts = 'FB_SHORTS'
         fb_shorts_content_remixable = 'FB_SHORTS_CONTENT_REMIXABLE'

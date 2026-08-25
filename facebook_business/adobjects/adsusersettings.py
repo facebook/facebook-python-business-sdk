@@ -57,6 +57,9 @@ class AdsUserSettings(
         campaign_group_name_template = 'campaign_group_name_template'
         campaign_name_template = 'campaign_name_template'
         carousel_to_video_opt_in_status = 'carousel_to_video_opt_in_status'
+        catalog_templates_survey_impr = 'catalog_templates_survey_impr'
+        catalog_templates_survey_last_impr_ts = 'catalog_templates_survey_last_impr_ts'
+        catalog_templates_survey_resp_ts = 'catalog_templates_survey_resp_ts'
         connected_sources_catalog_opt_in_status = 'connected_sources_catalog_opt_in_status'
         create_cta_sticker_opt_in_status = 'create_cta_sticker_opt_in_status'
         creative_flex_opt_in_status = 'creative_flex_opt_in_status'
@@ -204,6 +207,9 @@ class AdsUserSettings(
         'campaign_group_name_template': 'Object',
         'campaign_name_template': 'Object',
         'carousel_to_video_opt_in_status': 'string',
+        'catalog_templates_survey_impr': 'int',
+        'catalog_templates_survey_last_impr_ts': 'datetime',
+        'catalog_templates_survey_resp_ts': 'datetime',
         'connected_sources_catalog_opt_in_status': 'string',
         'create_cta_sticker_opt_in_status': 'string',
         'creative_flex_opt_in_status': 'string',
