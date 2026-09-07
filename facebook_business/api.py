@@ -187,9 +187,10 @@ class FacebookAdsApi(object):
         timeout=None,
         debug=False,
         crash_log=True,
+        retry_strategy=None,
     ):
         session = FacebookSession(app_id, app_secret, access_token, proxies,
-                                  timeout)
+                                  timeout, retry_strategy=retry_strategy)
         api = cls(session, api_version, enable_debug_logger=debug)
         cls.set_default_api(api)
 
