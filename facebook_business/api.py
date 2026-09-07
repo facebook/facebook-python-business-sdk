@@ -28,8 +28,8 @@ try:
   # Since python 3
   from six.moves import collections_abc
 except ImportError:
-  # Won't work after python 3.8
-  import collections as collections_abc
+  # Fixes the issue for python 3.11
+  import collections.abc as collections_abc
 
 from facebook_business.adobjects.objectparser import ObjectParser
 from facebook_business.typechecker import TypeChecker
