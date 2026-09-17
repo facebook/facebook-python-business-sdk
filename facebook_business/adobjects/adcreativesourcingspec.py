@@ -37,6 +37,7 @@ class AdCreativeSourcingSpec(
         pca_spec = 'pca_spec'
         product_media_metadata_spec = 'product_media_metadata_spec'
         promotion_metadata_spec = 'promotion_metadata_spec'
+        selected_video_id = 'selected_video_id'
         site_links_data_consented = 'site_links_data_consented'
         site_links_spec = 'site_links_spec'
         source_url = 'source_url'
@@ -57,6 +58,7 @@ class AdCreativeSourcingSpec(
         'pca_spec': 'Object',
         'product_media_metadata_spec': 'Object',
         'promotion_metadata_spec': 'list<AdCreativePromotionMetadataSpec>',
+        'selected_video_id': 'string',
         'site_links_data_consented': 'Object',
         'site_links_spec': 'list<AdCreativeSiteLinksSpec>',
         'source_url': 'string',

@@ -29,41 +29,25 @@ class ProductCatalogProductSets(
     class Field(AbstractObject.Field):
         id = 'id'
 
-    def genget(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
+    def genpost(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
-        from facebook_business.adobjects.productcatalogproductsetsget import ProductCatalogProductSetsGet
+        from facebook_business.adobjects.productcatalogproductsetspost import ProductCatalogProductSetsPost
         param_types = {
-            'ad_url': 'string',
-            'after': 'string',
-            'ancestor_id': 'int',
-            'before': 'string',
             'fields': 'string',
-            'filtering': 'string',
-            'has_children': 'bool',
-            'integrated_checkout_eligibility': 'integrated_checkout_eligibility_enum',
-            'integrated_checkout_partner': 'integrated_checkout_partner_enum',
-            'limit': 'int',
-            'parent_id': 'string',
-            'product_set_usages': 'string',
-            'retailer_id': 'string',
-            'sort': 'string',
-            'summary': 'string',
         }
         enums = {
-            'integrated_checkout_eligibility_enum': ProductCatalogProductSetsGet.IntegratedCheckoutEligibility.__dict__.values(),
-            'integrated_checkout_partner_enum': ProductCatalogProductSetsGet.IntegratedCheckoutPartner.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
-            method='GET',
+            method='POST',
             endpoint='/product_sets',
             api=self._api,
             param_checker=TypeChecker(param_types, enums),
-            target_class=ProductCatalogProductSetsGet,
+            target_class=ProductCatalogProductSetsPost,
             api_type='EDGE',
-            response_parser=ObjectParser(target_class=ProductCatalogProductSetsGet, api=self._api),
+            response_parser=ObjectParser(target_class=ProductCatalogProductSetsPost, api=self._api),
         )
         request.add_params(params)
         request.add_fields(fields)

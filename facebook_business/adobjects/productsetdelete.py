@@ -14,13 +14,13 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class ProductItemPost(
+class ProductSetDelete(
     AbstractObject,
 ):
 
     def __init__(self, api=None):
-        super(ProductItemPost, self).__init__()
-        self._isProductItemPost = True
+        super(ProductSetDelete, self).__init__()
+        self._isProductSetDelete = True
         self._api = api
 
     class Field(AbstractObject.Field):

@@ -33,6 +33,7 @@ class Placement(
         effective_messenger_positions = 'effective_messenger_positions'
         effective_oculus_positions = 'effective_oculus_positions'
         effective_publisher_platforms = 'effective_publisher_platforms'
+        effective_streaming_services_positions = 'effective_streaming_services_positions'
         effective_threads_positions = 'effective_threads_positions'
         effective_whatsapp_positions = 'effective_whatsapp_positions'
         facebook_positions = 'facebook_positions'
@@ -40,6 +41,7 @@ class Placement(
         messenger_positions = 'messenger_positions'
         oculus_positions = 'oculus_positions'
         publisher_platforms = 'publisher_platforms'
+        streaming_services_positions = 'streaming_services_positions'
         threads_positions = 'threads_positions'
         whatsapp_positions = 'whatsapp_positions'
 
@@ -63,6 +65,7 @@ class Placement(
         'effective_messenger_positions': 'list<string>',
         'effective_oculus_positions': 'list<string>',
         'effective_publisher_platforms': 'list<string>',
+        'effective_streaming_services_positions': 'list<string>',
         'effective_threads_positions': 'list<string>',
         'effective_whatsapp_positions': 'list<string>',
         'facebook_positions': 'list<string>',
@@ -70,6 +73,7 @@ class Placement(
         'messenger_positions': 'list<string>',
         'oculus_positions': 'list<string>',
         'publisher_platforms': 'list<string>',
+        'streaming_services_positions': 'list<string>',
         'threads_positions': 'list<string>',
         'whatsapp_positions': 'list<string>',
     }

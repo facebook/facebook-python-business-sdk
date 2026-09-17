@@ -33,9 +33,14 @@ class AdAccountGet(
         account_status = 'account_status'
         active_billing_date_preference = 'active_billing_date_preference'
         activities = 'activities'
+        ad_account_creation_request = 'ad_account_creation_request'
         ad_account_promotable_objects = 'ad_account_promotable_objects'
         ad_column_sizes = 'ad_column_sizes'
         ad_limits_insights = 'ad_limits_insights'
+        ad_place_page_sets = 'ad_place_page_sets'
+        ad_quick_views = 'ad_quick_views'
+        ad_report_builder_reports = 'ad_report_builder_reports'
+        ad_studies = 'ad_studies'
         adcreatives = 'adcreatives'
         addrafts = 'addrafts'
         adimages = 'adimages'
@@ -44,6 +49,7 @@ class AdAccountGet(
         adrules_history = 'adrules_history'
         adrules_library = 'adrules_library'
         ads = 'ads'
+        ads_creation_saved_state = 'ads_creation_saved_state'
         ads_paused = 'ads_paused'
         ads_volume = 'ads_volume'
         adsets = 'adsets'
@@ -71,7 +77,9 @@ class AdAccountGet(
         asset_feed_spec_from_instagram_media = 'asset_feed_spec_from_instagram_media'
         asset_score = 'asset_score'
         assigned_partners = 'assigned_partners'
+        assigned_users = 'assigned_users'
         attr_window_deprecation_group = 'attr_window_deprecation_group'
+        audiencesharing_recipientaccounts = 'audiencesharing_recipientaccounts'
         auth_flow_for_trust_tier_state = 'auth_flow_for_trust_tier_state'
         authorized_country_for_political_ads = 'authorized_country_for_political_ads'
         automatic_creative_optimization_test_framework_enrolled = 'automatic_creative_optimization_test_framework_enrolled'
@@ -110,6 +118,7 @@ class AdAccountGet(
         cpas_campaign_group_default_budget = 'cpas_campaign_group_default_budget'
         created_time = 'created_time'
         creation_packages = 'creation_packages'
+        creative_text_suggestions = 'creative_text_suggestions'
         ctwa_smb_enforcing_days_left = 'ctwa_smb_enforcing_days_left'
         ctx_advertiser_sabr_lifetime_duration_recommendation = 'ctx_advertiser_sabr_lifetime_duration_recommendation'
         ctx_dfo_objective_defaults = 'ctx_dfo_objective_defaults'
@@ -120,6 +129,7 @@ class AdAccountGet(
         current_unpaid_unrepaid_invoice = 'current_unpaid_unrepaid_invoice'
         custom_audience_info = 'custom_audience_info'
         customaudiences = 'customaudiences'
+        customaudiencestos = 'customaudiencestos'
         customconversions = 'customconversions'
         customer_po_number = 'customer_po_number'
         daily_spend_limit = 'daily_spend_limit'
@@ -157,7 +167,9 @@ class AdAccountGet(
         has_value_rule_set = 'has_value_rule_set'
         id = 'id'
         if_viewer_has_permission_to_advertise = 'if_viewer_has_permission_to_advertise'
+        impacting_ad_studies = 'impacting_ad_studies'
         incremental_conversion_optimization_ad_studies = 'incremental_conversion_optimization_ad_studies'
+        insights = 'insights'
         instagram_accounts = 'instagram_accounts'
         invoicing_emails = 'invoicing_emails'
         ios_fourteen_campaign_limits = 'ios_fourteen_campaign_limits'
@@ -189,6 +201,8 @@ class AdAccountGet(
         is_prepay_account = 'is_prepay_account'
         is_retail_media_network = 'is_retail_media_network'
         is_shopless_awpt_eligible = 'is_shopless_awpt_eligible'
+        is_simplified_creation_only_111_eligible = 'is_simplified_creation_only_111_eligible'
+        is_simplified_creation_segment_eligible = 'is_simplified_creation_segment_eligible'
         is_tax_id_required = 'is_tax_id_required'
         is_tier_0 = 'is_tier_0'
         is_tier_0_full = 'is_tier_0_full'
@@ -205,6 +219,10 @@ class AdAccountGet(
         last_used_time = 'last_used_time'
         liable_address = 'liable_address'
         liable_addresses = 'liable_addresses'
+        liable_to_org = 'liable_to_org'
+        light_adsets = 'light_adsets'
+        light_campaigns = 'light_campaigns'
+        lightads = 'lightads'
         live_video_advertiser_details = 'live_video_advertiser_details'
         marketing_message_enablement_status = 'marketing_message_enablement_status'
         marketing_messages_settings = 'marketing_messages_settings'
@@ -221,7 +239,9 @@ class AdAccountGet(
         modeled_reporting_type = 'modeled_reporting_type'
         moo_default_conversion_bid = 'moo_default_conversion_bid'
         name = 'name'
+        naming_templates = 'naming_templates'
         next_bill_date = 'next_bill_date'
+        offline_conversion_data_sets = 'offline_conversion_data_sets'
         offsite_pixels_tos_accepted = 'offsite_pixels_tos_accepted'
         onbehalf_requests = 'onbehalf_requests'
         opportunity_score = 'opportunity_score'
@@ -234,6 +254,7 @@ class AdAccountGet(
         payment_options = 'payment_options'
         pending_billing_date_preference = 'pending_billing_date_preference'
         prepay_account_balance = 'prepay_account_balance'
+        promote_pages = 'promote_pages'
         promotion_metadata = 'promotion_metadata'
         promotion_metadata_live_crawl = 'promotion_metadata_live_crawl'
         publisher_block_lists = 'publisher_block_lists'
@@ -251,6 +272,7 @@ class AdAccountGet(
         site_links_live_crawl = 'site_links_live_crawl'
         sold_to_address = 'sold_to_address'
         sold_to_addresses = 'sold_to_addresses'
+        sold_to_org = 'sold_to_org'
         spend_cap = 'spend_cap'
         spend_cap_history = 'spend_cap_history'
         spendlimits = 'spendlimits'
@@ -276,8 +298,10 @@ class AdAccountGet(
         user_settings = 'user_settings'
         user_tasks = 'user_tasks'
         user_tos_accepted = 'user_tos_accepted'
+        userpermissions = 'userpermissions'
         users = 'users'
         value_rule_set = 'value_rule_set'
+        video_ads = 'video_ads'
         viewable_business = 'viewable_business'
         viewable_businesses = 'viewable_businesses'
 
@@ -607,13 +631,18 @@ class AdAccountGet(
     _field_types = {
         'account_controls': 'object',
         'account_currency_ratio_to_usd': 'float',
-        'account_id': 'string',
+        'account_id': 'int',
         'account_status': 'int',
         'active_billing_date_preference': 'object',
         'activities': 'object',
+        'ad_account_creation_request': 'object',
         'ad_account_promotable_objects': 'object',
         'ad_column_sizes': 'object',
         'ad_limits_insights': 'object',
+        'ad_place_page_sets': 'object',
+        'ad_quick_views': 'object',
+        'ad_report_builder_reports': 'object',
+        'ad_studies': 'object',
         'adcreatives': 'object',
         'addrafts': 'object',
         'adimages': 'object',
@@ -622,6 +651,7 @@ class AdAccountGet(
         'adrules_history': 'object',
         'adrules_library': 'object',
         'ads': 'object',
+        'ads_creation_saved_state': 'object',
         'ads_paused': 'bool',
         'ads_volume': 'object',
         'adsets': 'object',
@@ -649,7 +679,9 @@ class AdAccountGet(
         'asset_feed_spec_from_instagram_media': 'object',
         'asset_score': 'float',
         'assigned_partners': 'object',
+        'assigned_users': 'object',
         'attr_window_deprecation_group': 'string',
+        'audiencesharing_recipientaccounts': 'object',
         'auth_flow_for_trust_tier_state': 'AuthFlowForTrustTierState',
         'authorized_country_for_political_ads': 'AuthorizedCountryForPoliticalAds',
         'automatic_creative_optimization_test_framework_enrolled': 'bool',
@@ -688,6 +720,7 @@ class AdAccountGet(
         'cpas_campaign_group_default_budget': 'int',
         'created_time': 'mixed',
         'creation_packages': 'object',
+        'creative_text_suggestions': 'object',
         'ctwa_smb_enforcing_days_left': 'int',
         'ctx_advertiser_sabr_lifetime_duration_recommendation': 'int',
         'ctx_dfo_objective_defaults': 'object',
@@ -698,6 +731,7 @@ class AdAccountGet(
         'current_unpaid_unrepaid_invoice': 'object',
         'custom_audience_info': 'object',
         'customaudiences': 'object',
+        'customaudiencestos': 'object',
         'customconversions': 'object',
         'customer_po_number': 'string',
         'daily_spend_limit': 'object',
@@ -735,7 +769,9 @@ class AdAccountGet(
         'has_value_rule_set': 'bool',
         'id': 'string',
         'if_viewer_has_permission_to_advertise': 'bool',
+        'impacting_ad_studies': 'object',
         'incremental_conversion_optimization_ad_studies': 'list<object>',
+        'insights': 'object',
         'instagram_accounts': 'object',
         'invoicing_emails': 'object',
         'ios_fourteen_campaign_limits': 'object',
@@ -767,6 +803,8 @@ class AdAccountGet(
         'is_prepay_account': 'bool',
         'is_retail_media_network': 'bool',
         'is_shopless_awpt_eligible': 'bool',
+        'is_simplified_creation_only_111_eligible': 'bool',
+        'is_simplified_creation_segment_eligible': 'bool',
         'is_tax_id_required': 'bool',
         'is_tier_0': 'bool',
         'is_tier_0_full': 'bool',
@@ -783,6 +821,10 @@ class AdAccountGet(
         'last_used_time': 'int',
         'liable_address': 'object',
         'liable_addresses': 'object',
+        'liable_to_org': 'object',
+        'light_adsets': 'object',
+        'light_campaigns': 'object',
+        'lightads': 'object',
         'live_video_advertiser_details': 'object',
         'marketing_message_enablement_status': 'MarketingMessageEnablementStatus',
         'marketing_messages_settings': 'object',
@@ -799,12 +841,14 @@ class AdAccountGet(
         'modeled_reporting_type': 'ModeledReportingType',
         'moo_default_conversion_bid': 'int',
         'name': 'string',
-        'next_bill_date': 'int',
+        'naming_templates': 'object',
+        'next_bill_date': 'mixed',
+        'offline_conversion_data_sets': 'object',
         'offsite_pixels_tos_accepted': 'bool',
         'onbehalf_requests': 'object',
         'opportunity_score': 'float',
         'opportunity_score_weight': 'int',
-        'owner': 'string',
+        'owner': 'int',
         'owner_business': 'object',
         'page_authorized_country_for_political_ads': 'list<object>',
         'pages_in_authorizations': 'list<object>',
@@ -812,6 +856,7 @@ class AdAccountGet(
         'payment_options': 'object',
         'pending_billing_date_preference': 'object',
         'prepay_account_balance': 'object',
+        'promote_pages': 'object',
         'promotion_metadata': 'list<object>',
         'promotion_metadata_live_crawl': 'list<object>',
         'publisher_block_lists': 'object',
@@ -829,6 +874,7 @@ class AdAccountGet(
         'site_links_live_crawl': 'list<object>',
         'sold_to_address': 'object',
         'sold_to_addresses': 'object',
+        'sold_to_org': 'object',
         'spend_cap': 'string',
         'spend_cap_history': 'list<object>',
         'spendlimits': 'object',
@@ -854,8 +900,10 @@ class AdAccountGet(
         'user_settings': 'object',
         'user_tasks': 'list<string>',
         'user_tos_accepted': 'map<int, int>',
+        'userpermissions': 'object',
         'users': 'object',
         'value_rule_set': 'object',
+        'video_ads': 'object',
         'viewable_business': 'object',
         'viewable_businesses': 'list<object>',
     }

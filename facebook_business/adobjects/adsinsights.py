@@ -65,6 +65,14 @@ class AdsInsights(
         configurable_attribution_action = 'configurable_attribution_action'
         configurable_attribution_actionvalue = 'configurable_attribution_actionvalue'
         configurable_audience_overlap_reach = 'configurable_audience_overlap_reach'
+        configurable_audience_overlap_with_conv_action = 'configurable_audience_overlap_with_conv_action'
+        configurable_audience_overlap_with_conv_converters = 'configurable_audience_overlap_with_conv_converters'
+        configurable_audience_overlap_with_conv_exposure_cost = 'configurable_audience_overlap_with_conv_exposure_cost'
+        configurable_audience_overlap_with_conv_exposure_impressions = 'configurable_audience_overlap_with_conv_exposure_impressions'
+        configurable_audience_overlap_with_conv_exposure_reach = 'configurable_audience_overlap_with_conv_exposure_reach'
+        configurable_placement_ptc_conversions = 'configurable_placement_ptc_conversions'
+        configurable_placement_ptc_converters = 'configurable_placement_ptc_converters'
+        configurable_placement_ptc_reach = 'configurable_placement_ptc_reach'
         configurable_reachbyfrequency_action = 'configurable_reachbyfrequency_action'
         configurable_reachbyfrequency_converters_count = 'configurable_reachbyfrequency_converters_count'
         configurable_reachbyfrequency_impressions_cost = 'configurable_reachbyfrequency_impressions_cost'
@@ -317,6 +325,8 @@ class AdsInsights(
         conversion_destination = 'conversion_destination'
         country = 'country'
         creative_automation_asset_id = 'creative_automation_asset_id'
+        creative_fingerprint_details = 'creative_fingerprint_details'
+        creative_media_type_breakdown = 'creative_media_type_breakdown'
         creative_relaxation_asset_type = 'creative_relaxation_asset_type'
         crm_advertiser_l12_territory_ids = 'crm_advertiser_l12_territory_ids'
         crm_advertiser_subvertical_id = 'crm_advertiser_subvertical_id'
@@ -486,6 +496,14 @@ class AdsInsights(
         'configurable_attribution_action': 'list<AdsActionStats>',
         'configurable_attribution_actionvalue': 'list<AdsActionStats>',
         'configurable_audience_overlap_reach': 'list<AdsActionStats>',
+        'configurable_audience_overlap_with_conv_action': 'string',
+        'configurable_audience_overlap_with_conv_converters': 'string',
+        'configurable_audience_overlap_with_conv_exposure_cost': 'string',
+        'configurable_audience_overlap_with_conv_exposure_impressions': 'string',
+        'configurable_audience_overlap_with_conv_exposure_reach': 'string',
+        'configurable_placement_ptc_conversions': 'string',
+        'configurable_placement_ptc_converters': 'string',
+        'configurable_placement_ptc_reach': 'string',
         'configurable_reachbyfrequency_action': 'list<AdsActionStats>',
         'configurable_reachbyfrequency_converters_count': 'string',
         'configurable_reachbyfrequency_impressions_cost': 'string',

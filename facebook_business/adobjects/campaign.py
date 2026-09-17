@@ -34,6 +34,7 @@ class Campaign(
         account_id = 'account_id'
         adlabels = 'adlabels'
         advantage_state_info = 'advantage_state_info'
+        bid_constraints = 'bid_constraints'
         bid_strategy = 'bid_strategy'
         boosted_object_id = 'boosted_object_id'
         brand_lift_studies = 'brand_lift_studies'
@@ -1056,6 +1057,7 @@ class Campaign(
         'account_id': 'string',
         'adlabels': 'list<AdLabel>',
         'advantage_state_info': 'AdCampaignGroupAdvantageState',
+        'bid_constraints': 'AdCampaignGroupBidConstraints',
         'bid_strategy': 'BidStrategy',
         'boosted_object_id': 'string',
         'brand_lift_studies': 'list<AdStudy>',

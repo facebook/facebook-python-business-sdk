@@ -30,6 +30,7 @@ class AdLimitsEnforcementData(
         ad_volume_on_scope = 'ad_volume_on_scope'
         is_admin = 'is_admin'
         page_name = 'page_name'
+        show_page_limit_removed_notice = 'show_page_limit_removed_notice'
 
     _field_types = {
         'ad_limit_on_page': 'int',
@@ -38,6 +39,7 @@ class AdLimitsEnforcementData(
         'ad_volume_on_scope': 'int',
         'is_admin': 'bool',
         'page_name': 'string',
+        'show_page_limit_removed_notice': 'bool',
     }
     @classmethod
     def _get_field_enum_info(cls):

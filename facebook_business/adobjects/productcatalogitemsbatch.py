@@ -35,8 +35,16 @@ class ProductCatalogItemsBatch(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.productcatalogitemsbatchpost import ProductCatalogItemsBatchPost
         param_types = {
+            'allow_upsert': 'bool',
+            'item_sub_type': 'item_sub_type_enum',
+            'item_type': 'string',
+            'request_origin': 'request_origin_enum',
+            'requests': 'string',
+            'version': 'int',
         }
         enums = {
+            'item_sub_type_enum': ProductCatalogItemsBatchPost.ItemSubType.__dict__.values(),
+            'request_origin_enum': ProductCatalogItemsBatchPost.RequestOrigin.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],

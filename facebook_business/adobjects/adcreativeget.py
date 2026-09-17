@@ -56,6 +56,7 @@ class AdCreativeGet(
         existing_post_title = 'existing_post_title'
         facebook_branded_content = 'facebook_branded_content'
         format_transformation_spec = 'format_transformation_spec'
+        generative_asset_spec = 'generative_asset_spec'
         id = 'id'
         image_crops = 'image_crops'
         image_hash = 'image_hash'
@@ -243,6 +244,7 @@ class AdCreativeGet(
         send_updates = 'SEND_UPDATES'
         share = 'SHARE'
         shop_now = 'SHOP_NOW'
+        shop_on_retailer = 'SHOP_ON_RETAILER'
         shop_with_ai = 'SHOP_WITH_AI'
         sign_up = 'SIGN_UP'
         sotto_subscribe = 'SOTTO_SUBSCRIBE'
@@ -360,6 +362,7 @@ class AdCreativeGet(
         'existing_post_title': 'string',
         'facebook_branded_content': 'object',
         'format_transformation_spec': 'list<object>',
+        'generative_asset_spec': 'object',
         'id': 'int',
         'image_crops': 'object',
         'image_hash': 'string',

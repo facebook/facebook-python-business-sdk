@@ -37,6 +37,7 @@ class IGUserExportForCAM(
         has_brand_partnership_experience = 'has_brand_partnership_experience'
         id = 'id'
         is_account_verified = 'is_account_verified'
+        is_brand_following_creator = 'is_brand_following_creator'
         is_creator_following_brand = 'is_creator_following_brand'
         is_paid_partnership_messages_enabled = 'is_paid_partnership_messages_enabled'
         messaging_id = 'messaging_id'
@@ -588,8 +589,15 @@ class IGUserExportForCAM(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'platform': 'list<platform_enum>',
         }
         enums = {
+            'platform_enum': [
+                'ANY',
+                'BOTH',
+                'FACEBOOK',
+                'INSTAGRAM',
+            ],
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -636,11 +644,13 @@ class IGUserExportForCAM(
                 'TOP_COUNTRIES',
             ],
             'metrics_enum': [
+                'ACCOUNT_INTERACTIONS',
                 'CREATOR_ENGAGED_ACCOUNTS',
                 'CREATOR_REACH',
                 'REELS_HOOK_RATE',
                 'REELS_INTERACTION_RATE',
                 'TOTAL_FOLLOWERS',
+                'TOTAL_VIEWS',
             ],
             'period_enum': [
                 'DAY',
@@ -688,8 +698,15 @@ class IGUserExportForCAM(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'platform': 'list<platform_enum>',
         }
         enums = {
+            'platform_enum': [
+                'ANY',
+                'BOTH',
+                'FACEBOOK',
+                'INSTAGRAM',
+            ],
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -718,8 +735,15 @@ class IGUserExportForCAM(
         if batch is None and (success is not None or failure is not None):
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
+            'platform': 'list<platform_enum>',
         }
         enums = {
+            'platform_enum': [
+                'ANY',
+                'BOTH',
+                'FACEBOOK',
+                'INSTAGRAM',
+            ],
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -754,6 +778,7 @@ class IGUserExportForCAM(
         'has_brand_partnership_experience': 'bool',
         'id': 'string',
         'is_account_verified': 'bool',
+        'is_brand_following_creator': 'bool',
         'is_creator_following_brand': 'bool',
         'is_paid_partnership_messages_enabled': 'bool',
         'messaging_id': 'string',

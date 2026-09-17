@@ -30,6 +30,7 @@ class ShadowIGMediaProductTags(
         name = 'name'
         price_string = 'price_string'
         product_id = 'product_id'
+        product_url = 'product_url'
         review_status = 'review_status'
         stripped_price_string = 'stripped_price_string'
         stripped_sale_price_string = 'stripped_sale_price_string'
@@ -43,6 +44,7 @@ class ShadowIGMediaProductTags(
         'name': 'string',
         'price_string': 'string',
         'product_id': 'int',
+        'product_url': 'string',
         'review_status': 'string',
         'stripped_price_string': 'string',
         'stripped_sale_price_string': 'string',

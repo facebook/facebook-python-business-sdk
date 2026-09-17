@@ -106,6 +106,7 @@ class AdsUserSettings(
         placement_group_vertical_opt_in_status = 'placement_group_vertical_opt_in_status'
         previously_seen_recommendations = 'previously_seen_recommendations'
         product_extensions_opt_in = 'product_extensions_opt_in'
+        push_model_opt_in_status = 'push_model_opt_in_status'
         reactive_control_settings = 'reactive_control_settings'
         replace_media_text_opt_in_status = 'replace_media_text_opt_in_status'
         sa_off_conv_loc_seen = 'sa_off_conv_loc_seen'
@@ -256,6 +257,7 @@ class AdsUserSettings(
         'placement_group_vertical_opt_in_status': 'string',
         'previously_seen_recommendations': 'list<string>',
         'product_extensions_opt_in': 'string',
+        'push_model_opt_in_status': 'string',
         'reactive_control_settings': 'list<Object>',
         'replace_media_text_opt_in_status': 'string',
         'sa_off_conv_loc_seen': 'string',

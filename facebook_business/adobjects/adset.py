@@ -53,7 +53,6 @@ class AdSet(
         campaign_attribution = 'campaign_attribution'
         campaign_id = 'campaign_id'
         configured_status = 'configured_status'
-        cost_bidding_mode = 'cost_bidding_mode'
         created_time = 'created_time'
         creative_diversity_label = 'creative_diversity_label'
         creative_diversity_score = 'creative_diversity_score'
@@ -226,11 +225,6 @@ class AdSet(
         manual = 'MANUAL'
         unset = 'UNSET'
 
-    class CostBiddingMode:
-        balanced = 'BALANCED'
-        cost_focused = 'COST_FOCUSED'
-        volume_focused = 'VOLUME_FOCUSED'
-
     class CreativeSequenceRepetitionPattern:
         full_sequence = 'FULL_SEQUENCE'
         last_ad = 'LAST_AD'
@@ -313,6 +307,7 @@ class AdSet(
         value_21 = '21'
         value_22 = '22'
         value_24 = '24'
+        value_25 = '25'
 
     class TuneForCategory:
         credit = 'CREDIT'
@@ -439,7 +434,6 @@ class AdSet(
             'budget_schedule_specs': 'list<Object>',
             'campaign_attribution': 'Object',
             'campaign_spec': 'Object',
-            'cost_bidding_mode': 'cost_bidding_mode_enum',
             'creative_sequence': 'list<string>',
             'creative_sequence_repetition_pattern': 'creative_sequence_repetition_pattern_enum',
             'daily_budget': 'unsigned int',
@@ -498,7 +492,6 @@ class AdSet(
             'automatic_manual_state_enum': AdSet.AutomaticManualState.__dict__.values(),
             'bid_strategy_enum': AdSet.BidStrategy.__dict__.values(),
             'billing_event_enum': AdSet.BillingEvent.__dict__.values(),
-            'cost_bidding_mode_enum': AdSet.CostBiddingMode.__dict__.values(),
             'creative_sequence_repetition_pattern_enum': AdSet.CreativeSequenceRepetitionPattern.__dict__.values(),
             'destination_type_enum': AdSet.DestinationType.__dict__.values(),
             'execution_options_enum': AdSet.ExecutionOptions.__dict__.values(),
@@ -1205,7 +1198,6 @@ class AdSet(
         'campaign_attribution': 'string',
         'campaign_id': 'string',
         'configured_status': 'ConfiguredStatus',
-        'cost_bidding_mode': 'string',
         'created_time': 'datetime',
         'creative_diversity_label': 'list<string>',
         'creative_diversity_score': 'list<string>',
@@ -1284,7 +1276,6 @@ class AdSet(
         field_enum_info['DatePreset'] = AdSet.DatePreset.__dict__.values()
         field_enum_info['Operator'] = AdSet.Operator.__dict__.values()
         field_enum_info['AutomaticManualState'] = AdSet.AutomaticManualState.__dict__.values()
-        field_enum_info['CostBiddingMode'] = AdSet.CostBiddingMode.__dict__.values()
         field_enum_info['CreativeSequenceRepetitionPattern'] = AdSet.CreativeSequenceRepetitionPattern.__dict__.values()
         field_enum_info['DestinationType'] = AdSet.DestinationType.__dict__.values()
         field_enum_info['ExecutionOptions'] = AdSet.ExecutionOptions.__dict__.values()

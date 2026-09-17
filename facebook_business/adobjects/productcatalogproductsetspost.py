@@ -18,19 +18,20 @@ github and we'll fix in our codegen framework. We'll not be able to accept
 pull request for this class.
 """
 
-class ProductSetPost(
+class ProductCatalogProductSetsPost(
     AbstractCrudObject,
 ):
 
     def __init__(self, fbid=None, parent_id=None, api=None):
-        self._isProductSetPost = True
-        super(ProductSetPost, self).__init__(fbid, parent_id, api)
+        self._isProductCatalogProductSetsPost = True
+        super(ProductCatalogProductSetsPost, self).__init__(fbid, parent_id, api)
 
     class Field(AbstractObject.Field):
         filter = 'filter'
         id = 'id'
         name = 'name'
         parent_id = 'parent_id'
+        product_catalog = 'product_catalog'
         product_count = 'product_count'
         retailer_id = 'retailer_id'
 
@@ -39,6 +40,7 @@ class ProductSetPost(
         'id': 'int',
         'name': 'string',
         'parent_id': 'int',
+        'product_catalog': 'object',
         'product_count': 'int',
         'retailer_id': 'string',
     }

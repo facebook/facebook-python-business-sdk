@@ -74,6 +74,7 @@ class AdRule(
         rules_management_page_rule_group = 'RULES_MANAGEMENT_PAGE_RULE_GROUP'
         rules_management_page_rule_name = 'RULES_MANAGEMENT_PAGE_RULE_NAME'
         rules_management_page_top_nav = 'RULES_MANAGEMENT_PAGE_TOP_NAV'
+        rules_recommended_rules_dialog = 'RULES_RECOMMENDED_RULES_DIALOG'
         rules_view_active_rules_dialog = 'RULES_VIEW_ACTIVE_RULES_DIALOG'
         rule_creation_success_dialog = 'RULE_CREATION_SUCCESS_DIALOG'
         rule_syd_redirect = 'RULE_SYD_REDIRECT'

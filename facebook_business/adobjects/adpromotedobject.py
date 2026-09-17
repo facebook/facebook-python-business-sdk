@@ -24,6 +24,7 @@ class AdPromotedObject(
         self._api = api
 
     class Field(AbstractObject.Field):
+        ads_signal_source_type = 'ads_signal_source_type'
         application_id = 'application_id'
         boosted_product_set_id = 'boosted_product_set_id'
         conversion_goal_id = 'conversion_goal_id'
@@ -162,6 +163,7 @@ class AdPromotedObject(
         tutorial_completion = 'TUTORIAL_COMPLETION'
 
     _field_types = {
+        'ads_signal_source_type': 'string',
         'application_id': 'string',
         'boosted_product_set_id': 'string',
         'conversion_goal_id': 'string',

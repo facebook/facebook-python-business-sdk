@@ -48,6 +48,7 @@ class Ad(
         created_time = 'created_time'
         creative = 'creative'
         creative_asset_groups_spec = 'creative_asset_groups_spec'
+        creative_audience_pairing_persona = 'creative_audience_pairing_persona'
         creative_automation_spec = 'creative_automation_spec'
         demolink_hash = 'demolink_hash'
         display_sequence = 'display_sequence'
@@ -259,6 +260,7 @@ class Ad(
             'conversion_domain': 'string',
             'creative': 'AdCreative',
             'creative_asset_groups_spec': 'Object',
+            'creative_audience_pairing_persona': 'map',
             'creative_automation_spec': 'Object',
             'display_sequence': 'unsigned int',
             'draft_adgroup_id': 'string',
@@ -723,6 +725,7 @@ class Ad(
         'created_time': 'datetime',
         'creative': 'AdCreative',
         'creative_asset_groups_spec': 'AdCreativeAssetGroupsSpec',
+        'creative_audience_pairing_persona': 'CreativeAudiencePairingPersona',
         'creative_automation_spec': 'AdCreativeAutomationSpec',
         'demolink_hash': 'string',
         'display_sequence': 'int',

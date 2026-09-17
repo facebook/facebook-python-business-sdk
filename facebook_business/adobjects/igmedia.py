@@ -38,11 +38,20 @@ class IGMedia(
         has_slider = 'has_slider'
         id = 'id'
         ig_id = 'ig_id'
+        ingest_first_video_received_time = 'ingest_first_video_received_time'
+        ingest_is_ready_to_start = 'ingest_is_ready_to_start'
+        ingest_key = 'ingest_key'
+        ingest_last_heartbeat_time = 'ingest_last_heartbeat_time'
+        ingest_state = 'ingest_state'
+        ingest_url = 'ingest_url'
+        ingest_video_height = 'ingest_video_height'
+        ingest_video_width = 'ingest_video_width'
         is_ai_generated = 'is_ai_generated'
         is_comment_enabled = 'is_comment_enabled'
         is_shared_to_feed = 'is_shared_to_feed'
         legacy_instagram_media_id = 'legacy_instagram_media_id'
         like_count = 'like_count'
+        live_status = 'live_status'
         media_audio_type = 'media_audio_type'
         media_product_type = 'media_product_type'
         media_type = 'media_type'
@@ -61,6 +70,10 @@ class IGMedia(
         username = 'username'
         video_title = 'video_title'
         view_count = 'view_count'
+
+    class Status:
+        ended = 'ENDED'
+        started = 'STARTED'
 
     def api_delete(self, fields=None, params=None, batch=None, success=None, failure=None, pending=False):
         from facebook_business.utils import api_utils
@@ -139,8 +152,10 @@ class IGMedia(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         param_types = {
             'comment_enabled': 'bool',
+            'status': 'status_enum',
         }
         enums = {
+            'status_enum': IGMedia.Status.__dict__.values(),
         }
         request = FacebookRequest(
             node_id=self['id'],
@@ -560,11 +575,20 @@ class IGMedia(
         'has_slider': 'bool',
         'id': 'string',
         'ig_id': 'string',
+        'ingest_first_video_received_time': 'int',
+        'ingest_is_ready_to_start': 'bool',
+        'ingest_key': 'string',
+        'ingest_last_heartbeat_time': 'int',
+        'ingest_state': 'string',
+        'ingest_url': 'string',
+        'ingest_video_height': 'int',
+        'ingest_video_width': 'int',
         'is_ai_generated': 'bool',
         'is_comment_enabled': 'bool',
         'is_shared_to_feed': 'bool',
         'legacy_instagram_media_id': 'string',
         'like_count': 'int',
+        'live_status': 'string',
         'media_audio_type': 'string',
         'media_product_type': 'string',
         'media_type': 'string',
@@ -587,6 +611,7 @@ class IGMedia(
     @classmethod
     def _get_field_enum_info(cls):
         field_enum_info = {}
+        field_enum_info['Status'] = IGMedia.Status.__dict__.values()
         return field_enum_info
 
 

@@ -210,6 +210,7 @@ class AdVideo(
         goodwill_video_share = 'GOODWILL_VIDEO_SHARE'
         goodwill_video_token_required = 'GOODWILL_VIDEO_TOKEN_REQUIRED'
         group_post = 'GROUP_POST'
+        group_post_reel = 'GROUP_POST_REEL'
         heuristic_cluster_video = 'HEURISTIC_CLUSTER_VIDEO'
         highlight_clip_video = 'HIGHLIGHT_CLIP_VIDEO'
         horizon_worlds_tv = 'HORIZON_WORLDS_TV'

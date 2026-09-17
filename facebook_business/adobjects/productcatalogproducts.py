@@ -35,6 +35,7 @@ class ProductCatalogProducts(
           api_utils.warning('`success` and `failure` callback only work for batch call.')
         from facebook_business.adobjects.productcatalogproductspost import ProductCatalogProductsPost
         param_types = {
+            'fields': 'string',
         }
         enums = {
         }

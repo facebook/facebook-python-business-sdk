@@ -105,6 +105,7 @@ class ReachFrequencyPrediction(
         plan_type = 'plan_type'
         prediction_mode = 'prediction_mode'
         prediction_progress = 'prediction_progress'
+        product_type = 'product_type'
         reference_id = 'reference_id'
         reservation_status = 'reservation_status'
         start_time = 'start_time'
@@ -168,6 +169,12 @@ class ReachFrequencyPrediction(
         regular_tv_movies = 'REGULAR_TV_MOVIES'
         spanish = 'SPANISH'
         sports = 'SPORTS'
+
+    class ProductType:
+        ads_burst = 'ADS_BURST'
+        ads_super_burst = 'ADS_SUPER_BURST'
+        reels_trending_ads = 'REELS_TRENDING_ADS'
+        standard = 'STANDARD'
 
     # @deprecated get_endpoint function is deprecated
     @classmethod
@@ -286,6 +293,7 @@ class ReachFrequencyPrediction(
         'plan_type': 'string',
         'prediction_mode': 'unsigned int',
         'prediction_progress': 'unsigned int',
+        'product_type': 'string',
         'reference_id': 'string',
         'reservation_status': 'unsigned int',
         'start_time': 'datetime',
@@ -326,6 +334,7 @@ class ReachFrequencyPrediction(
         field_enum_info['Action'] = ReachFrequencyPrediction.Action.__dict__.values()
         field_enum_info['BuyingType'] = ReachFrequencyPrediction.BuyingType.__dict__.values()
         field_enum_info['InstreamPackages'] = ReachFrequencyPrediction.InstreamPackages.__dict__.values()
+        field_enum_info['ProductType'] = ReachFrequencyPrediction.ProductType.__dict__.values()
         return field_enum_info
 
 

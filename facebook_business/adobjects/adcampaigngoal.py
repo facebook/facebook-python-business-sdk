@@ -30,6 +30,8 @@ class AdCampaignGoal(
         engaged_audiences_inclusions = 'engaged_audiences_inclusions'
         existing_customers_audience_label_exclusions = 'existing_customers_audience_label_exclusions'
         existing_customers_audience_label_inclusions = 'existing_customers_audience_label_inclusions'
+        existing_customers_auto_exclusion_retention_days = 'existing_customers_auto_exclusion_retention_days'
+        existing_customers_exclusion_auto_selection_state = 'existing_customers_exclusion_auto_selection_state'
         existing_customers_exclusions = 'existing_customers_exclusions'
         existing_customers_inclusions = 'existing_customers_inclusions'
         is_ca_expansion_enabled = 'is_ca_expansion_enabled'
@@ -44,6 +46,8 @@ class AdCampaignGoal(
         'engaged_audiences_inclusions': 'list<string>',
         'existing_customers_audience_label_exclusions': 'list<string>',
         'existing_customers_audience_label_inclusions': 'list<string>',
+        'existing_customers_auto_exclusion_retention_days': 'int',
+        'existing_customers_exclusion_auto_selection_state': 'int',
         'existing_customers_exclusions': 'list<string>',
         'existing_customers_inclusions': 'list<string>',
         'is_ca_expansion_enabled': 'bool',

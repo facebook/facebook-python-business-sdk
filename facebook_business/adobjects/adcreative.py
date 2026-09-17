@@ -110,6 +110,7 @@ class AdCreative(
         execution_options = 'execution_options'
         image_file = 'image_file'
         is_dco_internal = 'is_dco_internal'
+        media_optimization_spec = 'media_optimization_spec'
 
     class CallToActionType:
         add_to_cart = 'ADD_TO_CART'
@@ -573,6 +574,7 @@ class AdCreative(
         'execution_options': 'list<ExecutionOptions>',
         'image_file': 'string',
         'is_dco_internal': 'bool',
+        'media_optimization_spec': 'map',
     }
     @classmethod
     def _get_field_enum_info(cls):

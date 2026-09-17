@@ -106,6 +106,7 @@ class AdCampaignPlacementGet(
         instagram = 'INSTAGRAM'
         messenger = 'MESSENGER'
         oculus = 'OCULUS'
+        streaming_services = 'STREAMING_SERVICES'
         threads = 'THREADS'
         whatsapp = 'WHATSAPP'
 
