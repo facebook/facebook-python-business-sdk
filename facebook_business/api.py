@@ -769,7 +769,27 @@ class Cursor(object):
         return str(self._queue)
 
     def __len__(self):
+        # NOTE: This reflects only the number of objects currently buffered
+        # in the loaded page(s), NOT the total number of objects matching
+        # the query. The Graph API paginates results (default page size 25,
+        # max 100), so len(cursor) called right after a query will silently
+        # under-report the real total. Use total() (only works when the
+        # edge returns summary.total_count) or count_all() below for an
+        # accurate count.
         return len(self._queue)
+
+    def count_all(self):
+        """Fully paginates through all remaining results and returns the
+        true total count of objects matched by this query.
+
+        Unlike len(cursor), this is accurate regardless of page size,
+        because it walks every page via load_next_page() before counting.
+        Use this instead of len(cursor) whenever you need a reliable count.
+        """
+        total = len(self._queue)
+        while self.load_next_page():
+            total += len(self._queue)
+        return total
 
     def __iter__(self):
         return self
